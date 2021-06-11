@@ -215,3 +215,235 @@ input:focus {
     box-shadow: 0px 3px 21px 0 rgba(0, 0, 0, 0.07);
 }
 
+.Rectangle {
+    width: 1920px;
+    height: 233px;
+    margin: 0 0 121px;
+    padding: 23px 22px 139px 26px;
+    background-color: #2149b9;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .Shape{
+    margin-right: 10px;
+  }
+
+  .Shape2{
+        width: 24px;
+        height: 24px;
+  }
+
+  .exp{
+      display: flex;
+      width: 560px;
+      height: 85px;
+      margin: 7px 573px 0px 498px;
+      font-family: Inter;
+      font-size: 60px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #ffffff;
+      /* background-color: red; */
+    }
+
+  
+
+  .XDC {
+      flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    width: 48px;
+    height: 22px;
+    font-size: 22px;
+    margin: 1px 40px 98px 7px;
+    font-family: Inter;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    background-color: #2149b9;
+  }
+
+  .Network-explorer {
+  
+    margin: 5px 40px 3px 25px;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    color: #ffffff;
+    display: inline-block;
+    position: absolute;
+    
+  
+    
+  }
+  
+  .Network-explorer:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    color: #ffffff;
+  }
+  
+  .Network-explorer:active {
+   color:#21a1e9
+  }
+  
+  .Network-explorer:hover:after {
+    transform: scaleX(1);
+    transform-origin: center;
+    color: #21a1e9;
+  
+  }
+
+
+  .Token {
+  
+    margin: 5px 40px 3px 160px;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    color: #ffffff;
+    display: inline-block;
+    position: absolute;
+    
+  
+    
+  }
+  
+  .Token:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    color: #ffffff;
+  }
+  
+  .Token:active {
+   color:#21a1e9
+  }
+  
+  .Token:hover:after {
+    transform: scaleX(1);
+    transform-origin: center;
+    color: #21a1e9;
+  
+  }
+
+  /* .Network-Explorer {
+  
+    width: 134px;
+    height: 19px;
+    margin: 4px 34px 3px;
+    margin-left: 54px;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    color: #ffffff;
+    display: inline-block;
+    position: absolute;
+    
+}
+  
+  .Network-Explorer:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    font-size: 13px;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    color:#ffffff;
+  }
+  
+  .Network-Explorer:active {
+   color:#ffffff
+  }
+  
+  .Network-Explorer:hover:after {
+    transform: scaleX(1);
+    transform-origin: center;
+    color: #ffffff;
+  
+  }
+
+  .Token {
+  
+    width: 55px;
+    height: 19px;
+    margin: 4px 188px 3px,54px;
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    color: #ffffff;
+    display: inline-block;
+    position: absolute;
+    
+}
+  
+  .Token:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+    color:#ffffff;
+  }
+  
+  .Token:active {
+   color:#ffffff
+  }
+  
+  .Token:hover:after {
+    transform: scaleX(1);
+    transform-origin: center;
+    color: #ffffff;
+  
+  }
+
+  */
