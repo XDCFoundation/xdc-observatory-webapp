@@ -10,13 +10,16 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import CloseIcon from '@material-ui/icons/Close';
+import marketDatatable from '../explorer/marketDatatable';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { transparent } from 'material-ui/styles/colors';
+import { white } from 'material-ui/styles/colors';
+import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         backgroundColor: '#2149b9',
-        height: '334px',
+        height: '354px',
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -82,7 +85,14 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginRight: 0,
     },
+    divider: {
+        Color: 'red',
+        width: '100%'
+      },
+    
 }));
+
+
 
 export default function Navbar() {
     const classes = useStyles();
@@ -96,6 +106,9 @@ export default function Navbar() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+
+
 
     return (
         <div className={classes.root}>
@@ -130,22 +143,53 @@ export default function Navbar() {
                     >
                         <MenuIcon />
                     </IconButton>
-
-
-
                 </Toolbar>
+                <img className="Shape3" src={require("../../../src/assets/images/Networkexplorer.png")}></img>
                 <div className="exp">Network Explorer</div>
+
+                {/* Search bar */}
+
+                <div className="centerbox">
+
+                    <p className="description"></p>
+                    <div className="main-form-container">
+                        <form method="post">
+
+                            <input type="text" className="main-input main-name" name="NAME" placeholder="Search for an address a transaction or a block number" />
+
+                            <select className="select" >
+                                <option selected>All Fiters</option>
+                                <option >Dummy</option>
+                                <option >Dummy</option>
+                                <option >Dummy</option>
+                                <option >Dummy</option>
+                            </select>
+
+                        </form>
+                    </div>
+                </div>
+
+
+                {/* <button type="button" id="main-submit-mobile">Search</button> */}
+
+                {/* Search bar */}
+                {/* <marketDatatable/> */}
+                
             </AppBar>
+           
             <main
                 className={clsx(classes.content, {
                     [classes.contentShift]: open,
                 })}
             >
                 <div />
-                <Typography >
-                   
-                </Typography>
+
+                {/* ............................. */}
+               
+         {/* ............................. */}       
             </main>
+
+
             <Drawer
                 className={classes.drawer}
                 variant="persistent"
@@ -155,23 +199,67 @@ export default function Navbar() {
                     paper: classes.drawerPaper,
                 }}
             >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+               <div style={{display: 'flex', flexDirection: 'row'}}>
+               <p style={{color: '#4666c4',fontSize: 13,fontFamily: 'Inter', marginLeft: 20, marginTop: '20px'}}>Browse</p>
+               <div style={{marginLeft: 120}} className={classes.drawerHeader}>
+                    <IconButton style={{color: 'white'}} onClick={handleDrawerClose}>
+                        {theme.direction === 'rtl' ? <CloseIcon/> : <CloseIcon />}
                     </IconButton>
                 </div>
-                <Divider />
-                <List style={{ color: 'white' }}>
-                    {['Accounts', 'Contracts', 'Tools', 'XinFin APIs', 'Nodes'].map((text, index) => (
-                        <ListItem button key={text}>
+                   </div>
+               
+              
+              
+                  <List className="side-box" >
+                    <ul className="inside-side-box">
+                        <p>Accounts</p>
+                    </ul>
+                  
+                  </List> 
+                  <List>
+                  <Divider />
+                    <ul>
+                        <select className="side-box1" >
+                            <option selected>Contracts</option>
+                            <option >Contract</option>
+                            <option >Verify Contract</option>
 
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
+                        </select>
 
+                    </ul>
+                    <Divider  />
+                    <ul>
+                        <select className="side-box2" >
+                            <option selected>Tools</option>
+                            <option >Dummy</option>
+                        </select>
+                    </ul>
+                    <Divider  />
+                    </List>
+                    <List className="side-box" >
+                    <ul className="inside-side-box">
+                        <p>XinFin APIs</p>
+                    </ul>
+                    <Divider/>
+                    <ul style={{marginTop: 10, marginLeft: -20}}>
+                        <p>Nodes</p>
+                    </ul>
+                  <Divider/>
+                  </List> 
+                 
+                
+                  
             </Drawer>
+
+
+
         </div>
     );
 }
+
+
+
+
+
+
+
