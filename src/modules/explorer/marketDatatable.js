@@ -4,10 +4,9 @@ import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 import '../../assets/styles/custom.css';
 
 
-
 const MarketDataChange = [
     { "key": "Market Cap", "value": "$82.69 B", "change": -10.47 },
-    { "key": "Fully Diluted Market Cap", "value": "$261.69 B", "change": -10.47 },
+    { "key": "Fully Diluted Market Cap", "value": "$261.69 B", "change": 10.47 },
     { "key": "Volume (24hr)", "value": "$5.28 B", "change": -13.69 }]
 const MarketDataNoChange = [
     { "key": "Circulating Supply", "value": "12.27B XDC" },
@@ -15,12 +14,12 @@ const MarketDataNoChange = [
     { "key": "Total Supply", "value": "37,666,937,873" }
 ]
 
-export default function StickyHeadTable() {
+export default function marketDatatable() {
 
     return (
-        <div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
            
-            <div  style={{backgroundColor: '#fffff', top: '50%', width: '60%', height: 100}} className="centerbox">
+            <div  className="centerbox-1">
 
                 <p  style={{backgroundColor: 'red'}} ></p>
                 <div  className="main-form-container">
