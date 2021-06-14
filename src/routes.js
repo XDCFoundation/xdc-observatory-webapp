@@ -8,7 +8,7 @@ import { Login, SignUp } from "./modules";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
 import navigationBar from "./modules/explorer/navigationBar"
-import marketDatatable from "./modules/explorer/marketDatatable"
+
 
 
 
@@ -24,7 +24,6 @@ class Routes extends BaseComponent {
             <MuiThemeProvider muiTheme={getMuiTheme()}>
                 <Router history={history}>
                     <Switch>
-                        <Route exact path={'/md'} component={marketDatatable} />
                         <Route exact path={'/'} component={navigationBar} />
                         <Redirect exact from='*' to="/" />
                     </Switch>
