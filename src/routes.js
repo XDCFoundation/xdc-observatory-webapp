@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 // import { Login, SignUp } from "./modules";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
-import BlockChainClass from './modules/explorer'
+import BlockChainClass from './modules/explorer/'
 
 class Routes extends BaseComponent {
 
@@ -22,7 +22,7 @@ class Routes extends BaseComponent {
                 <Switch>
                     {/* <Route exact path={'/'} component={Login} />
                         <Route exact path={'/sign-up'} component={SignUp} /> */}
-                    <Route exact path={'/'} component={BlockChainClass} />
+                    {<Route exact path={'/'} component={BlockChainClass} />}
                     <Redirect exact from='*' to="/" />
                 </Switch>
             </Router>
