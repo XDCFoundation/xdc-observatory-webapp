@@ -48,13 +48,14 @@ function Tab() {
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-        
+          <img src={gphPic} alt="graph of last 14 days transactions" />
+
         </div>
 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-       
+          <img src={gphPic} alt="graph of last 14 days transactions" />
         </div>
       </div>
       <div className="dates">
