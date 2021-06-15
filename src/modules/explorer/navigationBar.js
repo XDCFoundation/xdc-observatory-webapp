@@ -250,7 +250,8 @@ export default function Navbar() {
 
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
                                     style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                    className="main-input" name="NAME" placeholder="Search for an address a transaction or a block number" />
+                                    className="main-input" placeholder="Search for an address a transaction or a block number" />
+                                    {/* name="NAME" */}
 
                                 <select className="select" >
                                     <option selected>All Filters</option>
