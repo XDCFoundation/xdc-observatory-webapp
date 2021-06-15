@@ -379,3 +379,79 @@ button {
 .last_value{
     display: flex;
 }
+
+/* LAtest BLock*/
+
+.latestblock{
+  width: 430px;
+  height: 440px;
+ 
+ 
+  border-radius: 12px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+
+}
+.latest{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px;
+}
+.latest h1{
+  width: 40%;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.69px;
+  color: #2a2a2a;
+}
+.latest button{
+  width: 70px;
+  height: 20px;
+  background-color:#fff;
+
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9;
+}
+.data{
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px;
+}
+.data_heading{
+    display: flex;
+    justify-content: space-between;
+}
+.data_heading p{
+    font-weight: 800;
+    font-size: 12px;
+    width: 40%;
+    height: 10px;
+}
+
+.block_main{
+    justify-content: space-between;
+    display: flex;
+    width: 900px;
+    margin: 0 auto;
+}
+.latestTranscation{
+     width: 430px;
+  height: 440px;
+  
+ 
+  border-radius: 12px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+}
