@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 // import { Row } from 'simple-flexbox'
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
@@ -116,7 +117,7 @@ margin-top:3px
 `;
 const Line = styled.hr`
   backgroundcolor: #e3e7eb;
-  width: 440px;
+  width: 478px;
   position: absolute;
   top: 55%;
   left: 1%;
@@ -135,8 +136,31 @@ const LeftTopSecMain = styled.div`
   text-align: center;
 `;
 export default function BlockChainDataComponent() {
+  const [postTransaction, setPostTransaction] = useState([]);
+  const [postAccounts, setPostAccount] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalTransactions"
+      )
+      .then((res) => {
+        setPostTransaction(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalAccounts"
+      )
+      .then((res2) => {
+        setPostAccount(res2.data);
+      });
+  }, []);
+
+
   let changePrice = -8.156;
-  let changeAccounts = 352;
+  let changeAccounts = 14;
   return (
     <MainContainer>
       <LeftContainer>
@@ -149,7 +173,7 @@ export default function BlockChainDataComponent() {
             <LeftTopSec>$0.054024</LeftTopSec>
             <div
               className={
-                changePrice > 0 ? "data_value_green" : "data_value_red"
+                changePrice > 0 ? "data_value_green last_value_main" : "data_value_red"
               }
             >
               <div className="value_changePrice">
@@ -162,7 +186,7 @@ export default function BlockChainDataComponent() {
                     <BsFillCaretDownFill size={10} />
                   </div>
                 )}
-                {changePrice}
+                &nbsp;{changePrice}%
               </div>
             </div>
           </LeftTopSecMain>
@@ -189,7 +213,7 @@ export default function BlockChainDataComponent() {
               <TitleIcon src={transactionLogo} />
               <ValueName>
                 <Title>Transactions</Title>
-                <TitleValue>148,875,836</TitleValue>
+                <TitleValue>{postTransaction.responseData}</TitleValue>
               </ValueName>
             </Value>
             <Value>
@@ -211,7 +235,7 @@ export default function BlockChainDataComponent() {
               <ValueName>
                 <Title>Accounts</Title>
                 <div className="last_value">
-                  <TitleValue>24,273</TitleValue>
+                  <TitleValue>{postAccounts.responseData}</TitleValue>
                   <div
                     className={
                       changeAccounts > 0
