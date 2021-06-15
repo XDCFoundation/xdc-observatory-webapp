@@ -283,7 +283,7 @@ export default function Navbar() {
 
                 {/* <button type="button" id="main-submit-mobile">Search</button>
 
-                {/* ------------ Search bar ----------------- */}
+                {/* ------------ Search bar ----------------- */}                             
 
 
                 <div>

@@ -272,14 +272,14 @@ input:focus {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: normal;
+    letter-spacing: 0.62px;
     color: #ffffff;
   }
 
   .Network-explorer {
   
+    padding-bottom: 3px;
     margin: 3px 40px 3px 25px;
-    font-family: Inter;
     font-size: 12px;
     font-weight: 500;
     font-stretch: normal;
@@ -299,7 +299,7 @@ input:focus {
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height: 2px;
+    height: 1px;
     bottom: 0;
     left: 0;
     background-color: #ffffff;
@@ -322,6 +322,7 @@ input:focus {
 
   .Token {
   
+    padding-bottom: 3px;
     margin: 3px 40px 3px 160px;
     font-size: 12px;
     font-weight: 500;
@@ -342,7 +343,7 @@ input:focus {
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height: 2px;
+    height: 1px;
     bottom: 0;
     left: 0;
     background-color: #ffffff;
@@ -377,8 +378,7 @@ p {
 
 .centerbox {
    
-   
-  height: 65px;
+    height: 65px;
  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -432,15 +432,15 @@ p {
 
 
 .select{
-    width: 120px;
+    width: 130px;
   height: 40px;
+  padding-left: 10px;
   margin-top: -5px;
   outline-color: #ffffff;
-  font-family: Inter;
   border-color: transparent;
   border-left-color: #9fa9ba;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -452,7 +452,6 @@ p {
   
     height: 36px;
    margin-left: -10px;
-    font-family: Inter;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -474,7 +473,6 @@ p {
     margin-bottom: 10px;
     background-color: #102e84;
     border-color: transparent;
-    font-family: Inter;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -491,7 +489,6 @@ p {
     margin-bottom: 10px;
     background-color: #102e84;
     border-color: transparent;
-    font-family: Inter;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -530,7 +527,6 @@ p {
  }
 
  .XDCPriceDropText {
-    font-family: Inter;
     margin-left: -13px;
     font-size: 12px;
     font-weight: normal;
