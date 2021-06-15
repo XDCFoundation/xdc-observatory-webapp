@@ -286,9 +286,9 @@ export default function Navbar() {
                 {/* ------------ Search bar ----------------- */}                             
 
 
-                <div>
+                {/* <div>
                     <MarketTable />
-                </div>
+                </div> */}
 
 
             </main>

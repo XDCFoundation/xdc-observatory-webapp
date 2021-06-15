@@ -289,10 +289,7 @@ input:focus {
     color: #ffffff;
     display: inline-block;
     position: absolute;
-    
-  
-    
-  }
+}
   
   .Network-explorer:after {
     content: '';
@@ -389,7 +386,7 @@ p {
 
     background-color: #ffffff;
     margin-top: 50px;
-    width: 913px;
+    width: 950px;
     height: 105px;
    border-radius: 12px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
@@ -434,7 +431,7 @@ p {
 .select{
     width: 130px;
   height: 40px;
-  padding-left: 10px;
+  padding-left: 8px;
   margin-top: -5px;
   outline-color: #ffffff;
   border-color: transparent;
