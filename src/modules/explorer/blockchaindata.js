@@ -138,26 +138,40 @@ const LeftTopSecMain = styled.div`
 export default function BlockChainDataComponent() {
   const [postTransaction, setPostTransaction] = useState([]);
   const [postAccounts, setPostAccount] = useState([]);
+
+  /* FETCHING GET TOTAL TRANSACTIONS API*/
+
   useEffect(() => {
-    axios
-      .get(
+    async function fetchData() {
+      const res = await axios.get(
         "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalTransactions"
-      )
-      .then((res) => {
-        setPostTransaction(res.data);
-      });
+      );
+      setPostTransaction(res.data);
+      console.log(res.data);
+    }
+
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
   }, []);
+
+  /* FETCHING GET TOTAL ACCOUNTS API*/
 
   useEffect(() => {
-    axios
-      .get(
+    async function fetchData2() {
+      const res2 = await axios.get(
         "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalAccounts"
-      )
-      .then((res2) => {
-        setPostAccount(res2.data);
-      });
-  }, []);
+      );
+      setPostAccount(res2.data);
+      console.log(res2.data);
+    }
 
+    const intervalId = setInterval(() => {
+      fetchData2();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
 
   let changePrice = -8.156;
   let changeAccounts = 14;
@@ -173,7 +187,9 @@ export default function BlockChainDataComponent() {
             <LeftTopSec>$0.054024</LeftTopSec>
             <div
               className={
-                changePrice > 0 ? "data_value_green last_value_main" : "data_value_red"
+                changePrice > 0
+                  ? "data_value_green last_value_main"
+                  : "data_value_red"
               }
             >
               <div className="value_changePrice">
@@ -190,7 +206,6 @@ export default function BlockChainDataComponent() {
               </div>
             </div>
           </LeftTopSecMain>
-
           <Line></Line>
         </LeftFirst>
         <LeftSec>
@@ -213,7 +228,7 @@ export default function BlockChainDataComponent() {
               <TitleIcon src={transactionLogo} />
               <ValueName>
                 <Title>Transactions</Title>
-                <TitleValue>{postTransaction.responseData}</TitleValue>
+                <TitleValue> {postTransaction.responseData}</TitleValue>
               </ValueName>
             </Value>
             <Value>
