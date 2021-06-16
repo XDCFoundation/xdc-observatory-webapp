@@ -724,6 +724,11 @@ button {
    
 }
 
+.max-div {
+    height: max-content;
+    width: max-content;
+}
+
 .active-tabs::before {
   content: "";
   display: block;
