@@ -6,11 +6,11 @@
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.4",
+    "@nivo/core": "^0.70.1",
     "@nivo/line": "^0.70.1",
     "aws-sdk": "^2.481.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.1.3",
-    "cors": "^2.8.5",
     "env-cmd": "^8.0.2",
     "history": "^4.9.0",
     "material-ui": "^0.20.2",
@@ -36,9 +36,11 @@
     "universal-cookie": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd .env react-scripts start",
+    "development": "PORT=80 env-cmd .env.development npm run build",
+    "production": "PORT=80 env-cmd .env.production npm run build",
+    "test": "PORT=80 env-cmd .env.test npm run build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
