@@ -43,7 +43,7 @@ function LatestBlocks() {
     return () => clearInterval(intervalId);
   }, []);
 
-  function shorten(b, amountL = 12, amountR = 3, stars = 3) {
+  function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
       b.length
@@ -64,7 +64,7 @@ function LatestBlocks() {
           </div>
           <div className="data_value">
             {postHeight.map((z) => {
-              const ti = moment(z.timestamp).fromNow();
+              const ti = moment.unix(z.timestamp).fromNow();
               return (
                 <div className="value_main_main">
                   <div className="main_vaa">
@@ -89,19 +89,18 @@ function LatestBlocks() {
               <p>Hash</p>
               <p>Amount</p>
             </div>
-
             <div className="age">
               <p>Age</p>
             </div>
           </div>
           <div className="data_value">
             {postTransactions.map((e) => {
-              const age = moment(e.timestamp).fromNow();
+              const age = moment.unix(e.timestamp).fromNow();
               return (
                 <div className="value_main_main">
                   <div className="value_main main_val">
                     <button className="bttn">{shorten(e.hash)}</button>
-                    <p>{e.gas}</p>
+                    <p>{e.value} XDC</p>
                     <p>{age}</p>
                     <button className="details">Details</button>
                   </div>
