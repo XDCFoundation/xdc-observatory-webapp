@@ -138,6 +138,8 @@ const LeftTopSecMain = styled.div`
 export default function BlockChainDataComponent() {
   const [postTransaction, setPostTransaction] = useState([]);
   const [postAccounts, setPostAccount] = useState([]);
+  const [postSomeDays, setPostSomeDays] = useState([]);
+  const [postPrice, setPostPrice] = useState([]);
 
   /* FETCHING GET TOTAL TRANSACTIONS API*/
 
@@ -173,8 +175,50 @@ export default function BlockChainDataComponent() {
     return () => clearInterval(intervalId);
   }, []);
 
-  let changePrice = -8.156;
-  let changeAccounts = 14;
+  /* FETCHING GET SOME DAYS ACCOUNTS API*/
+
+  useEffect(() => {
+    async function fetchData3() {
+      const res3 = await axios.get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getSomeDaysAccounts/14"
+      );
+      setPostSomeDays(res3.data.responseData.length);
+      console.log(res3.data.responseData.length);
+    }
+
+    const intervalId = setInterval(() => {
+      fetchData3();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
+
+  /* FETCHING GET COIN MARKET CAP API*/
+
+  useEffect(() => {
+    async function fetchData4() {
+      const res4 = await axios.get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getCoinMarketCap/USD"
+      );
+      res4.data.responseData = res4.data.responseData.sort((a, b) => {
+        return a.lastUpdated - b.lastUpdated;
+      });
+      setPostPrice(res4.data.responseData[1]);
+    }
+    const intervalId = setInterval(() => {
+      fetchData4();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
+
+  var changePrice = postPrice.pricePercentChangePerHour;
+  var changeDecimal = parseFloat(changePrice).toFixed(2);
+
+  var changeXdc = postPrice.price;
+  var changeDecimals = parseFloat(changeXdc).toFixed(6);
+
+  console.log("heyyyyy", changePrice);
+  let changeAccounts = postSomeDays;
+
   return (
     <MainContainer>
       <LeftContainer>
@@ -184,7 +228,7 @@ export default function BlockChainDataComponent() {
             <LeftTitle>XDC</LeftTitle>
           </LeftTop>
           <LeftTopSecMain>
-            <LeftTopSec>$0.054024</LeftTopSec>
+            <LeftTopSec>${changeDecimals}</LeftTopSec>
             <div
               className={
                 changePrice > 0
@@ -202,7 +246,7 @@ export default function BlockChainDataComponent() {
                     <BsFillCaretDownFill size={10} />
                   </div>
                 )}
-                &nbsp;{changePrice}%
+                &nbsp;{changeDecimal}%
               </div>
             </div>
           </LeftTopSecMain>
