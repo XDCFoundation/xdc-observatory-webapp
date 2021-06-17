@@ -14,8 +14,8 @@ import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 
 const MainContainer = styled.div`
-  width: 875px;
-  height: 198px;
+  width: 950px;
+  height: 200px;
   margin: 0 auto;
   margin-top: 76px;
   padding-top:20px;
