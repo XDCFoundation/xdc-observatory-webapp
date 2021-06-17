@@ -289,10 +289,7 @@ input:focus {
     color: #ffffff;
     display: inline-block;
     position: absolute;
-    
-  
-    
-  }
+}
   
   .Network-explorer:after {
     content: '';
@@ -389,7 +386,7 @@ p {
 
     background-color: #ffffff;
     margin-top: 50px;
-    width: 913px;
+    width: 950px;
     height: 105px;
    border-radius: 12px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
@@ -404,7 +401,7 @@ p {
     background: #fff;
     outline-color: #ffffff;
      height: 50px;
-    width: 400px;
+    width: 420px;
     color: #9fa8b1;
     border: 1px solid #cccccc;
     border-color: transparent;
@@ -427,6 +424,13 @@ p {
 .main-form-container {
     height:50px;
     position: relative;
+    width: 750px
+    
+}
+
+.main-form-container-2 {
+    height:50px;
+    position: relative;
     
 }
 
@@ -434,7 +438,7 @@ p {
 .select{
     width: 130px;
   height: 40px;
-  padding-left: 10px;
+  padding-left: 8px;
   margin-top: -5px;
   outline-color: #ffffff;
   border-color: transparent;
@@ -537,12 +541,14 @@ p {
     text-align: center;
     color: #f60202;
  }
+
   
 @media (max-width: 767px){
     .centerbox{
         display: none;
     }
-    .main-input{
+ }
+  /* .main-input{
         display: none;
     }
 
@@ -625,7 +631,7 @@ p {
         background-color: #ffffff;
     }
     
-}
+} */
 /* Tab for graph in the blockChain data dashboard */
 
 
@@ -743,11 +749,10 @@ button {
 
 .data_value_red{
     color: red;
-    /* transform: rotate(180deg); */
 }
 .data_value_green{
     color: #02c227;
-    background: #1DA1F2
+   margin-left: 5px;
 }
 .arrow_up{
     color: #02c227;
@@ -793,6 +798,7 @@ button {
     margin-left: 4px;
     margin-top: -1.5px;
 }
+
 .last_value{
     display: flex;
 }

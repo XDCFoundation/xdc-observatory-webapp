@@ -2,6 +2,9 @@ import { useState } from "react";
 import React from "react";
 import "../../assets/styles/custom.css";
 import gphPic from "../../images/graph.png";
+import Graphbar from './graphbar';
+import Accountsgraphbar from './accountsgraphbar';
+import Gasgraphbar from './gasgraphbar';
 
 function Tab() {
   const [toggleState, setToggleState] = useState(1);
@@ -33,7 +36,7 @@ function Tab() {
             Gas Price
           </button>
         </div>
-        <div className="days">
+        <div className="days">             
           <p>14 Days</p>
         </div>
       </div>
@@ -42,25 +45,25 @@ function Tab() {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          <img src={gphPic} alt="graph of last 14 days transactions" />
+          <Graphbar/>
+
         </div>
 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          <img src={gphPic} alt="graph of last 14 days accounts" />
+              <Accountsgraphbar/>
+
         </div>
 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          <img src={gphPic} alt="graph of last 14 days gas price" />
+              <Gasgraphbar/>
+
         </div>
       </div>
-      <div className="dates">
-        <p>1 May</p>
-        <p>14 May</p>
-      </div>
+    
     </div>
   );
 }

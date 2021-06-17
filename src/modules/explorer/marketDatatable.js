@@ -22,7 +22,7 @@ export default function marketDatatable() {
             <div  className="centerbox-1">
 
                 <p  style={{backgroundColor: 'red'}} ></p>
-                <div  className="main-form-container">
+                <div  className="main-form-container-2">
                 <Grid  >
 
       <Grid container>
