@@ -4,11 +4,10 @@ import { Redirect, Switch } from "react-router";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { connect } from "react-redux";
-// import { Login, SignUp } from "./modules";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
-import BlockChainClass from './modules/explorer';
 
+import BlockChainClass from './modules/explorer/';
 
 class Routes extends BaseComponent {
 
@@ -20,14 +19,15 @@ class Routes extends BaseComponent {
         return (
 
             <MuiThemeProvider muiTheme={getMuiTheme()}>
-            <Router history={history}>
-            <Switch>
-            <Route exact path={'/'} component={BlockChainClass} />
-        <Redirect exact from='*' to="/" />
-            </Switch>
-            </Router>
-                </MuiThemeProvider>
-    );
+                <Router history={history}>
+
+                    <Switch>
+                        <Route exact path={'/'} component={BlockChainClass} />
+                        <Redirect exact from='*' to="/" />
+                    </Switch>
+                </Router>
+            </MuiThemeProvider>
+        );
     }
 }
 
