@@ -10,7 +10,6 @@ import BaseComponent from "./modules/baseComponent";
 import BlockChainClass from './modules/explorer';
 
 
-
 class Routes extends BaseComponent {
 
     componentDidMount() {

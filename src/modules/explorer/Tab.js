@@ -36,7 +36,7 @@ function Tab() {
             Gas Price
           </button>
         </div>
-        <div className="days">
+        <div className="days">             
           <p>14 Days</p>
         </div>
       </div>
@@ -45,30 +45,21 @@ function Tab() {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-
-          {/* ............ */}
           <Graphbar/>
-           {/* ............ */}
 
         </div>
 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-
-          {/* ............ */}
               <Accountsgraphbar/>
-           {/* ............ */}
 
         </div>
 
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-
-         {/* ............ */}
               <Gasgraphbar/>
-           {/* ............ */}
 
         </div>
       </div>

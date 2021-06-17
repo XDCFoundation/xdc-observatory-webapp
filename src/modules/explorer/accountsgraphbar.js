@@ -1,52 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ResponsiveAreaBump } from "@nivo/bump";
 import { ResponsiveLine } from '@nivo/line';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import '../../assets/styles/custom.css';
+import moment from "moment";
 
-const data = 
-[
-    {
-        "id": "japan",
-        "color": "hsl(291, 70%, 50%)",
-        "data": [
-          {
-            "x": "plane",
-            "y": 178
-          },
-          {
-            "x": "helicopter",
-            "y": 207
-          },
-          {
-            "x": "boat",
-            "y": 34
-          },
-          {
-            "x": "train",
-            "y": 295
-          },
-          {
-            "x": "subway",
-            "y": 10
-          },
-          {
-            "x": "bus",
-            "y": 94
-          },
-          
-        ]
-      },
-  ]
 
-const MyResponsiveLine = ({ data /* see data tab */ }) => (
+
+const MyResponsiveLine = ({ data  }) => (
   <ResponsiveLine
   data={data}
-  
+
+  // margin={{right: 40,left: 50, bottom: 45}}
+ 
   xScale={{ type: 'point' }}
   yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
   yFormat=" >-.2f"
-  curve="cardinal"
+  curve="basis"
   axisTop={null}
   axisRight={null}
   axisBottom={{
@@ -54,7 +24,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'transportation',
+      legend: 'Date',
       legendOffset: 36,
       legendPosition: 'middle'
   }}
@@ -63,7 +33,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'count',
+      legend: 'Accounts',
       legendOffset: -40,
       legendPosition: 'middle'
   }}
@@ -84,7 +54,7 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => (
           direction: 'column',
           justify: false,
           translateX: 100,
-          translateY: 0,
+          translateY: 100,
           itemsSpacing: 0,
           itemDirection: 'left-to-right',
           itemWidth: 80,
@@ -104,10 +74,66 @@ const MyResponsiveLine = ({ data /* see data tab */ }) => (
           ]
       }
   ]}
+
 />
 )
 
 export default function App() {
+
+  const[data, setData]=useState([])
+
+  useEffect(() => {
+    fetch("https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getSomeDaysAccounts/14")
+      .then(res => res.json())
+      .then((result) => {
+        var arr = [{
+          id: "Accounts",
+          color: "hsl(248, 70%, 50%)",
+          data: []
+        }]
+                                    
+        var resultData = []
+        result.responseData.map(items => {
+          if (resultData.length > 0) {
+            if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"))) {
+              resultData.push({
+                x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
+                y: 1
+              })
+            }
+          }
+          else {
+            resultData.push({
+              x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
+              y: 1
+            })
+          }
+
+        })
+
+        function checkDuplicate(id) {
+          for (let index = 0; index < resultData.length; index++) {
+            if (id === resultData[index].x) {
+              resultData[index].y += 1
+              return false; 
+            }
+          }
+          return true;
+        }
+        
+        console.log(resultData)
+        arr[0].data=resultData
+        setData(arr)
+
+      })
+
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
+
+  
+
   return (
     <div style={{ height: 122, width: 370}}>
       <MyResponsiveLine data={data} />
