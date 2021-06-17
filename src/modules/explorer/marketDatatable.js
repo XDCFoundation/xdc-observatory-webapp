@@ -18,45 +18,45 @@ export default function marketDatatable() {
 
     return (
         <div style={{display: 'flex', justifyContent: 'center'}}>
-           
+
             <div  className="centerbox-1">
 
                 <p  style={{backgroundColor: 'red'}} ></p>
                 <div  className="main-form-container-2">
-                <Grid  >
+                    <Grid  >
 
-      <Grid container>
-        {MarketDataChange.map(({ key, value, change }) => {
-          return (
-            <Grid  align="center" md={2}>
-              <Grid className="TableHeaders">{key}</Grid>
-              <Grid style={{marginTop: 7}} className="TableTexts">{value}</Grid>
-              {
-                change < 0 ?
-                  <span className="XDCPriceDropText" style={{ color: "red" }}><img style={{width: '8px',height: '6px',margin: '6px 4px 5px 0'}} src={require("../../../src/assets/images/down-red.png")}></img> &nbsp;{change}%</span>
-                  :
-                  <span className="XDCPriceDropText" style={{ color: "green" }}><img style={{width: '8px',height: '6px',margin: '6px 4px 5px 0'}} src={require("../../../src/assets/images/up-green.png")}></img> &nbsp;{change}%</span>
-              }
-            </Grid>
-          )
-        })}
- 
-        {MarketDataNoChange.map(({ key, value }) => {
-          return (
-            <Grid  align="center" md={2}>
-              <Box >
-                <Grid className="TableHeaders">{key}</Grid>
-                <Grid style={{marginTop: 7}} className="TableTexts">{value}</Grid>
-              </Box>
-            </Grid>
-          )
-        })}
+                        <Grid container>
+                            {MarketDataChange.map(({ key, value, change }) => {
+                                return (
+                                    <Grid  align="center" md={2}>
+                                        <Grid className="TableHeaders">{key}</Grid>
+                                        <Grid style={{marginTop: 7}} className="TableTexts">{value}</Grid>
+                                        {
+                                            change < 0 ?
+                                                <span className="XDCPriceDropText" style={{ color: "red" }}><img style={{width: '8px',height: '6px',margin: '6px 4px 5px 0'}} src={require("../../../src/assets/images/down-red.png")}></img> &nbsp;{change}%</span>
+                                                :
+                                                <span className="XDCPriceDropText" style={{ color: "green" }}><img style={{width: '8px',height: '6px',margin: '6px 4px 5px 0'}} src={require("../../../src/assets/images/up-green.png")}></img> &nbsp;{change}%</span>
+                                        }
+                                    </Grid>
+                                )
+                            })}
 
-      </Grid>
-    </Grid>
+                            {MarketDataNoChange.map(({ key, value }) => {
+                                return (
+                                    <Grid  align="center" md={2}>
+                                        <Box >
+                                            <Grid className="TableHeaders">{key}</Grid>
+                                            <Grid style={{marginTop: 7}} className="TableTexts">{value}</Grid>
+                                        </Box>
+                                    </Grid>
+                                )
+                            })}
+
+                        </Grid>
+                    </Grid>
                 </div>
             </div>
-           
+
 
 
         </div>

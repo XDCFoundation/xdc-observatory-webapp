@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 // import { Row } from 'simple-flexbox'
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
@@ -116,7 +117,7 @@ margin-top:3px
 `;
 const Line = styled.hr`
   backgroundcolor: #e3e7eb;
-  width: 440px;
+  width: 478px;
   position: absolute;
   top: 55%;
   left: 1%;
@@ -135,8 +136,89 @@ const LeftTopSecMain = styled.div`
   text-align: center;
 `;
 export default function BlockChainDataComponent() {
-  let changePrice = -8.156;
-  let changeAccounts = 352;
+  const [postTransaction, setPostTransaction] = useState([]);
+  const [postAccounts, setPostAccount] = useState([]);
+  const [postSomeDays, setPostSomeDays] = useState([]);
+  const [postPrice, setPostPrice] = useState([]);
+
+  /* FETCHING GET TOTAL TRANSACTIONS API*/
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await axios.get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalTransactions"
+      );
+      setPostTransaction(res.data);
+      console.log(res.data);
+    }
+
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
+
+  /* FETCHING GET TOTAL ACCOUNTS API*/
+
+  useEffect(() => {
+    async function fetchData2() {
+      const res2 = await axios.get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalAccounts"
+      );
+      setPostAccount(res2.data);
+      console.log(res2.data);
+    }
+
+    const intervalId = setInterval(() => {
+      fetchData2();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
+
+  /* FETCHING GET SOME DAYS ACCOUNTS API*/
+
+  useEffect(() => {
+    async function fetchData3() {
+      const res3 = await axios.get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getSomeDaysAccounts/14"
+      );
+      setPostSomeDays(res3.data.responseData.length);
+      console.log(res3.data.responseData.length);
+    }
+
+    const intervalId = setInterval(() => {
+      fetchData3();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
+
+  /* FETCHING GET COIN MARKET CAP API*/
+
+  useEffect(() => {
+    async function fetchData4() {
+      const res4 = await axios.get(
+        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getCoinMarketCap/USD"
+      );
+      res4.data.responseData = res4.data.responseData.sort((a, b) => {
+        return a.lastUpdated - b.lastUpdated;
+      });
+      setPostPrice(res4.data.responseData[1]);
+    }
+    const intervalId = setInterval(() => {
+      fetchData4();
+    }, 1000 * 0.5); // in milliseconds
+    return () => clearInterval(intervalId);
+  }, []);
+
+  var changePrice = postPrice.pricePercentChangePerHour;
+  var changeDecimal = parseFloat(changePrice).toFixed(2);
+
+  var changeXdc = postPrice.price;
+  var changeDecimals = parseFloat(changeXdc).toFixed(6);
+
+  console.log("heyyyyy", changePrice);
+  let changeAccounts = postSomeDays;
+
   return (
     <MainContainer>
       <LeftContainer>
@@ -146,10 +228,12 @@ export default function BlockChainDataComponent() {
             <LeftTitle>XDC</LeftTitle>
           </LeftTop>
           <LeftTopSecMain>
-            <LeftTopSec>$0.054024</LeftTopSec>
+            <LeftTopSec>${changeDecimals}</LeftTopSec>
             <div
               className={
-                changePrice > 0 ? "data_value_green" : "data_value_red"
+                changePrice > 0
+                  ? "data_value_green last_value_main"
+                  : "data_value_red"
               }
             >
               <div className="value_changePrice">
@@ -162,11 +246,10 @@ export default function BlockChainDataComponent() {
                     <BsFillCaretDownFill size={10} />
                   </div>
                 )}
-                {changePrice}
+                &nbsp;{changeDecimal}%
               </div>
             </div>
           </LeftTopSecMain>
-
           <Line></Line>
         </LeftFirst>
         <LeftSec>
@@ -189,7 +272,7 @@ export default function BlockChainDataComponent() {
               <TitleIcon src={transactionLogo} />
               <ValueName>
                 <Title>Transactions</Title>
-                <TitleValue>148,875,836</TitleValue>
+                <TitleValue> {postTransaction.responseData}</TitleValue>
               </ValueName>
             </Value>
             <Value>
@@ -211,7 +294,7 @@ export default function BlockChainDataComponent() {
               <ValueName>
                 <Title>Accounts</Title>
                 <div className="last_value">
-                  <TitleValue>24,273</TitleValue>
+                  <TitleValue>{postAccounts.responseData}</TitleValue>
                   <div
                     className={
                       changeAccounts > 0
