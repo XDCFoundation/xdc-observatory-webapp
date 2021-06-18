@@ -1,9 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 
+label {
+  font-family: "Inter" !important;
+}
+
+label {
+  font-family: "Inter" !important;
+}
 
 .footer_base {
     width: 100% !important ;
+    height: 373px;
     background: linear-gradient(to bottom, #2149b9, #3e71ff);
-    margin: 91px 0 0;
+    margin: 40px 0 0;
   padding: 3%
   }
 
@@ -13,9 +22,18 @@
     padding-right: 150px;
 }
 
+.footer-line {
+  margin-top: 80px;
+  padding-left: 240px;
+  background: transparent;
+  padding-right: 240px;
+}
+
+
 .twitter {
-    margin-left: 20%;
-    border-radius: 12px;
+  width: 100% !important;
+  max-height: 20px;
+  border-radius: 12px;
   background-color: #ffffff
 }
 
@@ -41,14 +59,14 @@ ul {
 .copyright {
     align-self: left;
     font-family: Inter;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  color: #ffffff;
-  opacity: 0.8;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.5px;
+    color: #81b4ff;
+    opacity: 0.8;
 }
 
 .Nmode {
@@ -64,21 +82,8 @@ hr {
     opacity: 0.8;
 }
 
-.Tabletop {
-    margin-left: 20%;
-    font-family: Inter;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  color: #ffffff;
-  opacity: 0.8;
-}
-
 .USD {
-    font-family: Inter;
+
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -99,7 +104,7 @@ hr {
 
 
 .headers {
-    font-family: Inter;
+   
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -109,64 +114,76 @@ hr {
   color: #ffffff;
 }
 
-.xdc-icon {
-    margin: 19px 0px 0px 15px;
+/* .xdc-icon {
+  margin: 60px 30px 0px 7px;
   font-family: Roboto;
-  font-size: 24px;
+  font-size: 17px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.92px;
-  color: #ffffff;
-}
+  color: #ffffff
+} */
 
 .select-icon {
     width: 15px;
 }
 
-.xdc-desc {
-    margin: 22px 29px 19px 1px;
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.29;
-  letter-spacing: 0.54px;
-  color: #81b4ff;
-}
+
+
+
 .inline {
     display: inline;
 }
 
+.Table-Header {
+ margin-top: -15px; 
+font-size: 10px;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: 0.54px;
+color: #ffffff;
+opacity: 0.8;
+}
 
+.Table-Comp {
+  margin-left: -40px;
+}
 
 a {
-    font-family: Inter;
-  font-size: 12px;
+  font-family: Inter;
+  font-size: 10.5px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.29;
+  line-height: 2;
   letter-spacing: 0.54px;
   color: #81b4ff;
+
 }
 
 
 a:hover{
-    font-size: 13px;
+    font-size: 10.5px;
     color: white;
+}
+
+.a-style{
+  margin-left: -6px;
 }
 
 .select-xdc {
     height: 32px;
     width: 90px;
-  margin: 19px 13px 189.7px 1px;
-  border-radius: 4px;
-  background-color: #2149b9;
-  color:white ;
-  padding-left: 15px;
+    margin: 19px 13px 19.7px 1px;
+    margin-left: -40px;
+    padding: 7px 7px 6px 9px;
+    border-radius: 4px;
+    background-color: #2149b9;
+  
 }
 
 .title-icon {
@@ -175,4 +192,54 @@ a:hover{
   margin: 0 8px 15px 1px;
   padding: 9px 10px 10px;
   border: solid 2px #ffffff;
+}
+
+.Shape-footer{
+    margin-left: -40px;
+}
+
+
+.Top-Header {
+  margin-top: -15px; 
+ font-size: 10px;
+ font-weight: normal;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: normal;
+ letter-spacing: 0.54px;
+ color: #ffffff;
+
+ }
+
+ .XDC-Header {
+  margin-top: -23px; 
+  margin-left: -6px;
+ font-size: 18px;
+ font-weight: normal;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: normal;
+ letter-spacing: 0.54px;
+ color: #ffffff;
+ }
+
+.xdc-desc {
+  margin-left: -40px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: 0.54px;
+  color: #81b4ff;
+  /* margin-left: -20px;
+ font-family: Inter;
+ font-size: 12px;
+ font-weight: normal;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: 1.29;
+ letter-spacing: 0.54px;
+ color: #81b4ff; */
 }

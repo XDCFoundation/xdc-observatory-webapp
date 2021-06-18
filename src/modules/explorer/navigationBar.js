@@ -19,7 +19,11 @@ import MailIcon from '@material-ui/icons/Mail';
 import { transparent } from 'material-ui/styles/colors';
 import { white } from 'material-ui/styles/colors';
 import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
-import MarketTable from './marketDatatable'
+import { Route, Switch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Tokendetails from './tokendetails';
+
+
 
 const drawerWidth = 240;
 
@@ -96,8 +100,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export default function Navbar() {
+
     const classes = useStyles();
     const theme = useTheme();
 
@@ -184,7 +188,9 @@ export default function Navbar() {
 
 
     return (
+
         <div className={classes.root}>
+
             <CssBaseline />
             <AppBar elevation={0}
                 className={clsx(classes.appBar)}
@@ -200,7 +206,9 @@ export default function Navbar() {
                             <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
                         </div>
                         <div >
-                            <p className="Token" id="Token" >Tokens</p>
+                            <NavLink to='/tokendetails'>
+                                <p className="Token" id="Token" >Tokens</p>
+                            </NavLink>
                         </div>
 
 
@@ -251,7 +259,7 @@ export default function Navbar() {
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
                                     style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
                                     className="main-input" placeholder="Search for an address a transaction or a block number" />
-                                    {/* name="NAME" */}
+                                {/* name="NAME" */}
 
                                 <select className="select" >
                                     <option selected>All Filters</option>
@@ -284,12 +292,7 @@ export default function Navbar() {
 
                 {/* <button type="button" id="main-submit-mobile">Search</button>
 
-                {/* ------------ Search bar ----------------- */}                             
-
-
-                {/* <div>
-                    <MarketTable />
-                </div> */}
+                {/* ------------ Search bar ----------------- */}
 
 
             </main>
@@ -297,9 +300,4 @@ export default function Navbar() {
         </div>
     );
 }
-
-
-
-
-
 
