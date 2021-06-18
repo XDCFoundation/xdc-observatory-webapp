@@ -67,6 +67,7 @@ function LatestBlocks() {
           <div className="data_value">
             {postHeight.map((z) => {
               const ti = moment.unix(z.timestamp).fromNow();
+
               return (
                 <div className="value_main_main">
                   <div className="main_vaa">
