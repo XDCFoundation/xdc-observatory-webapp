@@ -115,8 +115,8 @@ margin-top:3px
   letter-spacing: 0.9px;
   color: #252525;
 `;
-const Line = styled.hr`
-  backgroundcolor: #e3e7eb;
+const Line1 = styled.hr`
+  backgroundcolor: #fff;
   width: 478px;
   position: absolute;
   top: 55%;
@@ -250,7 +250,7 @@ export default function BlockChainDataComponent() {
               </div>
             </div>
           </LeftTopSecMain>
-          <Line></Line>
+          <Line1></Line1>
         </LeftFirst>
         <LeftSec>
           <ValueMain>
