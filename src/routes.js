@@ -6,8 +6,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { connect } from "react-redux";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
-
 import BlockChainClass from './modules/explorer/';
+import TokenDetails from './modules/explorer/tokendetails';
+
 
 class Routes extends BaseComponent {
 
@@ -23,9 +24,11 @@ class Routes extends BaseComponent {
 
                     <Switch>
                         <Route exact path={'/'} component={BlockChainClass} />
+                        <Route exact path={'/tokendetails'} component={TokenDetails} />
                         <Redirect exact from='*' to="/" />
-                    </Switch>
-                </Router>
+                   </Switch>
+                  
+                 </Router>
             </MuiThemeProvider>
         );
     }
