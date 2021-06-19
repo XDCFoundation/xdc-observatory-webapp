@@ -216,7 +216,6 @@ export default function BlockChainDataComponent() {
   var changeXdc = postPrice.price;
   var changeDecimals = parseFloat(changeXdc).toFixed(6);
 
-  console.log("heyyyyy", changePrice);
   let changeAccounts = postSomeDays;
 
   return (
