@@ -16,12 +16,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { transparent } from 'material-ui/styles/colors';
-import { white } from 'material-ui/styles/colors';
-import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import Tokendetails from './tokendetails';
+import '../../assets/styles/custom.css';
 
 
 
@@ -182,7 +179,7 @@ export default function Navbar() {
         </div>
     );
 
-     
+
     const list = ["Accounts", "Contract", "Tools", "Xinfin Apis", "Nodes", "Tokens"]
     const [filter, setFilter] = useState("")
 
@@ -213,64 +210,31 @@ export default function Navbar() {
 
 
                     </Typography>
-                    <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
-
-                    <React.Fragment key={'right'}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="end"
-                            onClick={toggleDrawer('right', true)}
-
-                        >
-                            <MenuIcon />
-                        </IconButton>
-
-                        <Drawer className={classes.drawer} anchor={'right'} open={state['right']} >
-                            {lists('right')}
-                        </Drawer>
-                    </React.Fragment>
-
-                </Toolbar>
-
-
-
-
-            </AppBar>
-            <main
-                className={clsx(classes.content)}
-            >
-
-
-
-                <div className="exp-parent">
-                    <img className="Shape3" src={require("../../../src/assets/images/Networkexplorer.png")}></img>
-                    <div className="exp">Network Explorer</div>
-                </div>
-                {/* ------------ Search bar ----------------- */}
-
-                <div className="centerbox-parent">
-                    <div className="centerbox">
+                    <div className="centerbox-td">
 
                         <p className="description"></p>
-                        <div className="main-form-container">
+                        <div className="main-form-container-td">
                             <form method="post">
 
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                    style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                    className="main-input" placeholder="Search for an address a transaction or a block number" />
+                                    style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                    className="main-input-td"  src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
                                 {/* name="NAME" */}
+                              
 
-                                <select className="select" >
-                                    <option selected>All Filters</option>
+                                <select className="select-td">
+                                    <option selected>Filters</option>
                                     <option >Dummy</option>
                                     <option >Dummy</option>
                                     <option >Dummy</option>
                                     <option >Dummy</option>
                                 </select>
-                            </form>
-
-                            <ul style={{ color: 'black' }}>
+                                
+                            </div>
+                              <ul style={{ color: 'black'}}>
+                                  {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+                                  <li>
                                 {list.map((name) => {
 
                                     if (filter.length !== 0) {
@@ -283,21 +247,40 @@ export default function Navbar() {
                                 })
 
                                 }
-
+                                </li>
                             </ul>
+                               
+                            </form>
 
+                           
                         </div>
                     </div>
-                </div>
-
-                {/* <button type="button" id="main-submit-mobile">Search</button>
-
-                {/* ------------ Search bar ----------------- */}
 
 
-            </main>
+                <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
 
-        </div>
+                <React.Fragment key={'right'}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="end"
+                        onClick={toggleDrawer('right', true)}
+
+                    >
+                        <MenuIcon />
+                    </IconButton>
+
+                    <Drawer className={classes.drawer} anchor={'right'} open={state['right']} >
+                        {lists('right')}
+                    </Drawer>
+                </React.Fragment>
+
+                </Toolbar>
+          </AppBar>
+
+                                               
+
+        </div >
     );
 }
 
