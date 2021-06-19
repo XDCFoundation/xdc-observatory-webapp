@@ -94,22 +94,20 @@ export default function FooterComponent() {
 <hr style={{marginRight: '20px'}}></hr>
     </div>
    
-    <div  className={"twitter"}>
+    <div className={"twitter"}>
         <a  class="twitter-timeline" data-lang="en" data-height="200" data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw">Tweets by</a>
     </div>
 </Grid>
 
 </Grid>
-
+                                                                     
             <div  className="footer-line">
                         <hr></hr>
                         <span  className={"copyright"}>© 2021 XinFin. All Rights Reserved.</span>
                     </div>
-           
-           
-
-        </div>
-
+                                             
+         </div>
+                            
     )
 
 }
