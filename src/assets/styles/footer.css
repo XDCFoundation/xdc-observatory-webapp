@@ -1,46 +1,42 @@
-
-
 .footer_base {
-    width: 100% !important ;
-    background: linear-gradient(to bottom, #2149b9, #3e71ff);
-    margin: 91px 0 0;
-  padding: 3%
-  }
+  width: 100% !important ;
+  background: linear-gradient(to bottom, #2149b9, #3e71ff);
+  margin: 91px 0 0;
+  padding: 3%;
+}
 
 .footer {
-    padding-left: 200px;
-    background: transparent;
-    padding-right: 150px;
+  padding-left: 200px;
+  background: transparent;
+  padding-right: 150px;
 }
 
 .twitter {
-    margin-left: 20%;
-    border-radius: 12px;
-  background-color: #ffffff
+  margin-left: 20%;
+  border-radius: 12px;
+  background-color: #ffffff;
 }
 
 .footer-items {
-    background: transparent;
+  background: transparent;
 }
 
 .dropdown {
-    width: max-content;
+  width: max-content;
 }
 
 .dropdown:hover {
-    color: blue;
+  color: blue;
 }
 
-
-
 ul {
-    list-style-type:none;
-    float: left;
+  list-style-type: none;
+  float: left;
 }
 
 .copyright {
-    align-self: left;
-    font-family: Inter;
+  align-self: left;
+  font-family: Inter;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -52,21 +48,21 @@ ul {
 }
 
 .Nmode {
-    width: 33px;
+  width: 33px;
   padding: 8px 8px 7px;
   border-radius: 4px;
-  background-color: #2149b9
+  background-color: #2149b9;
 }
 
-hr { 
+/* hr { 
     height: 0.1px;
     border: solid 0.1px #81b4ff;
     opacity: 0.8;
-}
+} */
 
 .Tabletop {
-    margin-left: 20%;
-    font-family: Inter;
+  margin-left: 20%;
+  font-family: Inter;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -78,7 +74,7 @@ hr {
 }
 
 .USD {
-    font-family: Inter;
+  font-family: Inter;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -90,16 +86,15 @@ hr {
 }
 
 .USD:hover {
-    color: blue;
+  color: blue;
 }
 .xdc-logo {
-    width: 16%;
-    margin-top: -10px;
+  width: 16%;
+  margin-top: -10px;
 }
 
-
 .headers {
-    font-family: Inter;
+  font-family: Inter;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -110,7 +105,7 @@ hr {
 }
 
 .xdc-icon {
-    margin: 19px 0px 0px 15px;
+  margin: 19px 0px 0px 15px;
   font-family: Roboto;
   font-size: 24px;
   font-weight: 500;
@@ -122,11 +117,11 @@ hr {
 }
 
 .select-icon {
-    width: 15px;
+  width: 15px;
 }
 
 .xdc-desc {
-    margin: 22px 29px 19px 1px;
+  margin: 22px 29px 19px 1px;
   font-family: Inter;
   font-size: 14px;
   font-weight: normal;
@@ -137,13 +132,11 @@ hr {
   color: #81b4ff;
 }
 .inline {
-    display: inline;
+  display: inline;
 }
 
-
-
 a {
-    font-family: Inter;
+  font-family: Inter;
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
@@ -153,24 +146,23 @@ a {
   color: #81b4ff;
 }
 
-
-a:hover{
-    font-size: 13px;
-    color: white;
+a:hover {
+  font-size: 13px;
+  color: white;
 }
 
 .select-xdc {
-    height: 32px;
-    width: 90px;
+  height: 32px;
+  width: 90px;
   margin: 19px 13px 189.7px 1px;
   border-radius: 4px;
   background-color: #2149b9;
-  color:white ;
+  color: white;
   padding-left: 15px;
 }
 
 .title-icon {
-    width: 30px;
+  width: 30px;
   height: 30px;
   margin: 0 8px 15px 1px;
   padding: 9px 10px 10px;

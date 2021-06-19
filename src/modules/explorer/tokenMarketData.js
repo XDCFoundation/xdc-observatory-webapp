@@ -1,0 +1,161 @@
+import React, { useState, useEffect } from "react";
+import "../../assets/styles/custom.css";
+import axios from "axios";
+import { BsFillCaretDownFill } from "react-icons/bs";
+import { BsFillCaretUpFill } from "react-icons/bs";
+
+
+let convertToInternationalCurrencySystem = function givenCurrency(num) {
+    if (num > 999 && num < 1000000) {
+        return (num / 1000).toFixed(2) + " K"; // convert to K for number from > 1000 < 1 million
+    } else if (num > 1000000 && num < 100000000) {
+        return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
+    } else if (num > 100000000) {
+        return (num / 100000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
+    } else if (num < 900) {
+        return num; // if value < 1000, nothing to do
+    }
+};
+
+let percentageChange = function differenceBtwNumbers(a, b) {
+    return ((a - b) * 100) / b;
+};
+
+
+export default function TokenMarketDataTable() {
+    // const [postLatestMarket, setLatestMarket] = useState([]);
+    // const [postPreviousMarket, setPreviousMarket] = useState([]);
+    // useEffect(() => {
+    //     async function fetchData4() {
+    //         const res = await axios.get(
+    //             "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getCoinMarketCap/USD"
+    //         );
+    //         res.data.responseData = res.data.responseData.sort((a, b) => {
+    //             return a.lastUpdated - b.lastUpdated;
+    //         });
+    //         setLatestMarket(res.data.responseData[1]);
+    //         setPreviousMarket(res.data.responseData[0]);
+    //     }
+
+    //     const intervalId = setInterval(() => {
+    //         fetchData4();
+    //     }, 1000 * 0.5); // in milliseconds
+    //     return () => clearInterval(intervalId);
+    // }, []);
+
+    /* Calculating marketCap change percentege */
+    // let LatestMarketCap = postLatestMarket.marketCap
+    // let PreviousMarketCap = postPreviousMarket.marketCap
+    let MarketCapchange = percentageChange(2055, 2255).toFixed(2);
+
+    /* Calculating marketCap change percentege */
+    // let Latestfdmc = postLatestMarket.fullyDilutedMarketCap
+    // let Previousfdmc = postPreviousMarket.fullyDilutedMarketCap
+    let FullyDilutedMarketCapchange = percentageChange(200442570, 305578852).toFixed(2);
+
+    /* Calculating marketCap change percentege */
+    // let LatestVolume = postLatestMarket.volume
+    // let PreviousVolume = postPreviousMarket.volume
+    let Volumechange = percentageChange(600, 670).toFixed(2);
+
+
+    let MarketCapValue = convertToInternationalCurrencySystem(5824785458) //marketCap
+    let FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(5888300556) //Fully Diluted Market Cap
+    let volumeValue = convertToInternationalCurrencySystem(15258335585) //volume(24hr)
+    let circulatingSupplyValue = convertToInternationalCurrencySystem(2554856348); //circulatingSupply
+    let volumeMarketcap = 0.25887954; //volumeMarketCap
+    let vmc = parseFloat(volumeMarketcap).toFixed(6);
+
+    var totalSupplyValue = 25425328688//totalSupply
+    totalSupplyValue = totalSupplyValue.toLocaleString();
+
+    return (
+
+        <div className="main_mid">
+            <div className="cont1">
+                <p>Market Cap</p>
+                <p>${MarketCapValue}</p>
+                <div
+                    className={
+                        MarketCapchange >= 0
+                            ? "data_value_green"
+                            : "data_value_red"
+                    }
+                >
+                    <div className="varMarket">
+                        {MarketCapchange >= 0 ? (
+                            <div className="arrow_up">
+                                <BsFillCaretUpFill size={10} />
+                            </div>
+                        ) : (
+                            <div className="arrow_down">
+                                <BsFillCaretDownFill size={10} />
+                            </div>
+                        )}
+                        &nbsp;{MarketCapchange}%
+                    </div>
+                </div>
+            </div>
+            <div className="cont1">
+                <p>Fully Diluted Market Cap</p>
+                <p>${FullyDilutedMarketCapValue}</p>
+                <div
+                    className={
+                        FullyDilutedMarketCapchange >= 0
+                            ? "data_value_green"
+                            : "data_value_red"
+                    }
+                >
+                    <div className="varMarket">
+                        {FullyDilutedMarketCapchange >= 0 ? (
+                            <div className="arrow_up">
+                                <BsFillCaretUpFill size={10} />
+                            </div>
+                        ) : (
+                            <div className="arrow_down">
+                                <BsFillCaretDownFill size={10} />
+                            </div>
+                        )}
+                        &nbsp;{FullyDilutedMarketCapchange}%
+                    </div>
+                </div>
+            </div>
+            <div className="cont1">
+                <p>Volume (24hr)</p>
+                <p>${volumeValue}</p>
+                <div
+                    className={
+                        Volumechange >= 0
+                            ? "data_value_green"
+                            : "data_value_red"
+                    }
+                >
+                    <div className="varMarket">
+                        {Volumechange >= 0 ? (
+                            <div className="arrow_up">
+                                <BsFillCaretUpFill size={10} />
+                            </div>
+                        ) : (
+                            <div className="arrow_down">
+                                <BsFillCaretDownFill size={10} />
+                            </div>
+                        )}
+                        &nbsp;{Volumechange}%
+                    </div>
+                </div>
+            </div>
+            <div className="cont1">
+                <p>Circulating Supply</p>
+                <p>{circulatingSupplyValue} UDC</p>
+            </div>
+            <div className="cont1">
+                <p>Volume/Market Cap</p>
+                <p>{vmc}</p>
+            </div>
+            <div className="cont1">
+                <p>Total Supply</p>
+                <p>{totalSupplyValue}</p>
+            </div>
+        </div>
+    );
+}
