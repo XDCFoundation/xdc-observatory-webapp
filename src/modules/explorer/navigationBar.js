@@ -21,7 +21,7 @@ import { white } from 'material-ui/styles/colors';
 import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 import MarketTable from './marketDatatable'
 import { NavLink } from 'react-router-dom';
-import TokenDataComponent from './tokenDataDashboard'
+import TokenDataComponent from '../tokenComponent/tokenDataDashboard'
 
 const drawerWidth = 240;
 
