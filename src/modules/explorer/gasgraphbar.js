@@ -6,16 +6,16 @@ import moment from "moment";
 
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
-  data={data}
-  
-  margin={{top: 10}}
-  xScale={{ type: 'point' }}
-  yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-  yFormat=" >-.2f"
-  curve="basis"
-  axisTop={null}
-  axisRight={null}
-  axisBottom={{
+    data={data}
+
+    margin={{ top: 10 }}
+    xScale={{ type: 'point' }}
+    yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+    yFormat=" >-.2f"
+    curve="basis"
+    axisTop={null}
+    axisRight={null}
+    axisBottom={{
       orient: 'bottom',
       tickSize: 5,
       tickPadding: 5,
@@ -23,8 +23,8 @@ const MyResponsiveLine = ({ data }) => (
       legend: 'transportation',
       legendOffset: 36,
       legendPosition: 'middle'
-  }}
-  axisLeft={{
+    }}
+    axisLeft={{
       orient: 'left',
       tickSize: 5,
       tickPadding: 5,
@@ -32,45 +32,45 @@ const MyResponsiveLine = ({ data }) => (
       legend: 'count',
       legendOffset: -40,
       legendPosition: 'middle'
-  }}
-  enableGridX={false}
-  enableGridY={false}
-  enablePoints={false}
-  pointSize={10}
-  pointColor={{ theme: 'background' }}
-  pointBorderWidth={2}
-  pointBorderColor={{ from: 'serieColor' }}
-  pointLabelYOffset={-12}
-  enableArea={true}
-  enableCrosshair={false}
-  useMesh={true}
-  legends={[
+    }}
+    enableGridX={false}
+    enableGridY={false}
+    enablePoints={false}
+    pointSize={10}
+    pointColor={{ theme: 'background' }}
+    pointBorderWidth={2}
+    pointBorderColor={{ from: 'serieColor' }}
+    pointLabelYOffset={-12}
+    enableArea={true}
+    enableCrosshair={false}
+    useMesh={true}
+    legends={[
       {
-          anchor: 'bottom-right',
-          direction: 'column',
-          justify: false,
-          translateX: 100,
-          translateY: 0,
-          itemsSpacing: 0,
-          itemDirection: 'left-to-right',
-          itemWidth: 80,
-          itemHeight: 20, 
-          itemOpacity: 0.75,
-          symbolSize: 12,
-          symbolShape: 'circle',
-          symbolBorderColor: 'rgba(0, 0, 0, .5)',
-          effects: [
-              {
-                  on: 'hover',
-                  style: {
-                      itemBackground: 'rgba(0, 0, 0, .03)',
-                      itemOpacity: 1
-              }
+        anchor: 'bottom-right',
+        direction: 'column',
+        justify: false,
+        translateX: 100,
+        translateY: 0,
+        itemsSpacing: 0,
+        itemDirection: 'left-to-right',
+        itemWidth: 80,
+        itemHeight: 20,
+        itemOpacity: 0.75,
+        symbolSize: 12,
+        symbolShape: 'circle',
+        symbolBorderColor: 'rgba(0, 0, 0, .5)',
+        effects: [
+          {
+            on: 'hover',
+            style: {
+              itemBackground: 'rgba(0, 0, 0, .03)',
+              itemOpacity: 1
             }
-          ]
+          }
+        ]
       }
-  ]}
-/>
+    ]}
+  />
 )
 
 export default function App() {
@@ -89,11 +89,11 @@ export default function App() {
         }]
 
         var resultData = []
-       
+
         result.responseData.map(items => {
-          
+
           if (resultData.length > 0) {
-            if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"),items.gasPrice)) {
+            if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"), items.gasPrice)) {
               resultData.push({
                 x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
                 y: parseInt(items.gasPrice)
@@ -109,18 +109,18 @@ export default function App() {
 
         })
 
-        function checkDuplicate(id,gasPrice) {
+        function checkDuplicate(id, gasPrice) {
           for (let index = 0; index < resultData.length; index++) {
             if (id === resultData[index].x) {
               resultData[index].y += parseInt(gasPrice)
-              return false; 
+              return false;
             }
           }
           return true;
         }
-    
+
         console.log(resultData)
-        arr[0].data=resultData
+        arr[0].data = resultData
         setData(arr)
 
       })
@@ -129,12 +129,11 @@ export default function App() {
         console.log(err);
       })
   }, [])
-  
+
   return (
-    <div style={{ height: 120, width: 370}}>
+    <div style={{ height: 120, width: 370 }}>
       <MyResponsiveLine data={data} />
     </div>
   );
 }
-               
-                                                                             
+

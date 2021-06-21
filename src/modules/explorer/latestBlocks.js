@@ -1,48 +1,41 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import axios from "axios";
+
+import { BlockService, TransactionService } from '../../services'
+import Utils from '../../utility'
 const moment = require("moment");
 
 function LatestBlocks() {
-  const [postHeight, setPostHeight] = useState([]);
-  const [postTransactions, setpostTransactions] = useState([]);
 
   /* FETCHING LATEST BLOCKS API*/
-  useEffect(() => {
-    async function fetchLatestBlocks() {
-      axios
-        .get(
-          "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getLatestBlocks"
-        )
-        .then((res) => {
-          setPostHeight(res.data.responseData);
-          console.log(res.data.responseData);
-        });
-    }
-    fetchLatestBlocks();
-    // const intervalId = setInterval(() => {
-    //   fetchLatestBlocks();
-    // }, 1000 * 30);
-    // return () => clearInterval(intervalId);
+  const [postHeight, setPostHeight] = useState([]);
+
+  useEffect(async () => {
+    let [error, latestBlocks] = await Utils.parseResponse(BlockService.getLatestBlock())
+    if (error || !latestBlocks)
+      return
+    setPostHeight(latestBlocks);
+    const interval = setInterval(async () => {
+      let [error, latestBlocks] = await Utils.parseResponse(BlockService.getLatestBlock())
+      setPostHeight
+        (latestBlocks);
+    }, 30000)
   }, []);
 
-  /* FETCHING LATEST TRANSACTIONS API*/
-  useEffect(() => {
-    async function fetchLatestTransactions() {
-      axios
-        .get(
-          "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getLatestTransactions"
-        )
-        .then((res2) => {
-          setpostTransactions(res2.data.responseData);
-          console.log(res2.data.responseData);
-        });
-    }
-    fetchLatestTransactions();
-    // const intervalId = setInterval(() => {
-    //   fetchLatestTransactions();
-    // }, 1000 * 30); // in milliseconds
-    // return () => clearInterval(intervalId);
+
+  // /* FETCHING LATEST TRANSACTIONS API*/
+  const [postTransactions, setlatestTransactions] = useState([]);
+  useEffect(async () => {
+    let [error, latestTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction())
+    if (error || !latestTransactions)
+      return
+    setlatestTransactions(latestTransactions);
+    const interval = setInterval(async () => {
+      let [error, latestTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction())
+      setlatestTransactions
+        (latestTransactions);
+    }, 5000)
   }, []);
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {

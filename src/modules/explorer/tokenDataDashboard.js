@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import logo from "../../images/XDC-Icon.svg";
-import blockHeightImg from "../../images/Block Height.svg";
-import priceLogo from "../../images/Gas Price.svg";
-import transactionLogo from "../../images/Transaction.svg";
-import maxLogo from "../../images/Current Max_TPS.svg";
-import difficultyLogo from "../../images/Difficulty.svg";
-import accountLogo from "../../images/Accounts.svg";
-import Tab from "./Tab";
+import logo from "../../assets/images/usdc.png";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
+import { FaFacebookF } from "react-icons/fa";
+import { FiMail } from "react-icons/fi";
+import { FaRedditSquare } from "react-icons/fa";
+import { AiOutlineTwitter } from "react-icons/ai";
 import Gasgraphbar from "./gasgraphbar";
+import HolderGraphBar from "./holderGraph";
 
 const MainContainer = styled.div`
   width: 950px;
@@ -100,10 +98,10 @@ const LeftTop = styled.div`
   justify-content: center;
 `;
 const IconLogo = styled.img`
-  width:65%;
-  height:65%
+  width: 32px;
+  height: 30px;
   margin-right: 12px;
-  margin-left:5px;
+  margin-left: 5px;
 `;
 const LeftTitle = styled.div`
 margin-top:5px
@@ -179,11 +177,6 @@ const Line2 = styled.hr`
   top: 20%;
   left: 0%;
 `;
-// const RightTopSecMain = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   text-align: center;
-// `;
 const RightTopSec = styled.div`
   width: 50px;
   height: 18px;
@@ -199,14 +192,14 @@ const RightTopSec = styled.div`
   padding-top: 1px;
 `;
 
-const RightSec = styled.div`
-  flex: 0.9;
-  padding-left: 2px;
-  margin-bottom: 2px;
-`;
 const GraphContainer = styled.div`
-  width:100%
-  flex:0.8;
+  width: 100%;
+  flex: 0.8;
+  padding-left: 0px;
+`;
+
+const Icons = styled.div`
+  padding-top: 1px;
 `;
 
 export default function TokenDataComponent() {
@@ -315,7 +308,57 @@ export default function TokenDataComponent() {
               <ValueName>
                 <Title>Social Media</Title>
 
-                <TitleValue>24,276</TitleValue>
+                <Icons>
+                  <FiMail
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <FaRedditSquare
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <FaFacebookF
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                </Icons>
               </ValueName>
             </Value>
           </ValueMain>
@@ -329,7 +372,7 @@ export default function TokenDataComponent() {
           <Line2></Line2>
         </RightTop>
         <GraphContainer>
-          <Gasgraphbar />
+          <HolderGraphBar />
         </GraphContainer>
       </RightContainer>
     </MainContainer>

@@ -3,6 +3,8 @@ import "../../assets/styles/custom.css";
 import axios from "axios";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
+import { AccountService, CoinMarketService, TransactionService } from '../../services'
+import Utils from '../../utility'
 
 
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
@@ -25,22 +27,23 @@ let percentageChange = function relDiff(a, b) {
 export default function MarketDatatable() {
   const [postLatestMarket, setLatestMarket] = useState([]);
   const [postPreviousMarket, setPreviousMarket] = useState([]);
-  useEffect(() => {
-    async function fetchData4() {
-      const res = await axios.get(
-        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getCoinMarketCap/USD"
-      );
-      res.data.responseData = res.data.responseData.sort((a, b) => {
-        return a.lastUpdated - b.lastUpdated;
-      });
-      setLatestMarket(res.data.responseData[1]);
-      setPreviousMarket(res.data.responseData[0]);
-    }
 
-    const intervalId = setInterval(() => {
-      fetchData4();
-    }, 1000 * 0.5); // in milliseconds
-    return () => clearInterval(intervalId);
+  useEffect(async () => {
+    let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+
+    if (error || !totalcoinMarketData)
+      return
+    totalcoinMarketData = totalcoinMarketData.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setLatestMarket(totalcoinMarketData[1]);
+    setPreviousMarket(totalcoinMarketData[0]);
+    const interval = setInterval(async () => {
+      let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+      setLatestMarket(totalcoinMarketData[1]);
+      setPreviousMarket(totalcoinMarketData[0]);
+      console.log(totalcoinMarketData[1], "HIIIIIII")
+    }, 45000)
   }, []);
 
   /* Calculating marketCap change percentege */

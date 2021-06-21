@@ -13,7 +13,8 @@ import accountLogo from "../../images/Accounts.svg";
 import Tab from "./Tab";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
-
+import { AccountService, CoinMarketService, TransactionService } from '../../services'
+import Utils from '../../utility'
 const MainContainer = styled.div`
   width: 950px;
   height: 200px;
@@ -136,87 +137,73 @@ const LeftTopSecMain = styled.div`
   text-align: center;
 `;
 export default function BlockChainDataComponent() {
-  const [postTransaction, setPostTransaction] = useState([]);
-  const [postAccounts, setPostAccount] = useState([]);
-  const [postSomeDays, setPostSomeDays] = useState([]);
-  const [postPrice, setPostPrice] = useState([]);
+  const [totalTransaction, setTotalTransaction] = useState([]);
+  const [totalAccount, setTotalAccount] = useState([]);
+  const [someDayAccount, setSomeDaysAccounts] = useState([]);
+  const [coinMarketPrice, setcoinMarketPrice] = useState([]);
 
   /* FETCHING GET TOTAL TRANSACTIONS API*/
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await axios.get(
-        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalTransactions"
-      );
-      setPostTransaction(res.data);
-      console.log(res.data);
-    }
-
-    const intervalId = setInterval(() => {
-      fetchData();
-    }, 1000 * 0.5); // in milliseconds
-    return () => clearInterval(intervalId);
+  useEffect(async () => {
+    let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
+    if (error || !totalTransactions)
+      return
+    setTotalTransaction(totalTransactions);
+    const interval = setInterval(async () => {
+      let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
+      setTotalTransaction(totalTransactions);
+    }, 5000)
   }, []);
+
 
   /* FETCHING GET TOTAL ACCOUNTS API*/
 
-  useEffect(() => {
-    async function fetchData2() {
-      const res2 = await axios.get(
-        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getTotalAccounts"
-      );
-      setPostAccount(res2.data);
-      console.log(res2.data);
-    }
-
-    const intervalId = setInterval(() => {
-      fetchData2();
-    }, 1000 * 0.5); // in milliseconds
-    return () => clearInterval(intervalId);
+  useEffect(async () => {
+    let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+    if (error || !totalAccounts)
+      return
+    setTotalAccount(totalAccounts);
+    const interval = setInterval(async () => {
+      let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+      setTotalAccount(totalAccounts);
+    }, 5000)
   }, []);
 
-  /* FETCHING GET SOME DAYS ACCOUNTS API*/
+  // /* FETCHING GET SOME DAYS ACCOUNTS API*/
 
-  useEffect(() => {
-    async function fetchData3() {
-      const res3 = await axios.get(
-        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getSomeDaysAccounts/14"
-      );
-      setPostSomeDays(res3.data.responseData.length);
-      console.log(res3.data.responseData.length);
-    }
+  useEffect(async () => {
+    let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
+    if (error || !someDaysAccount)
+      return
+    setSomeDaysAccounts(someDaysAccount.length);
+    const interval = setInterval(async () => {
+      let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
+      setSomeDaysAccounts(someDaysAccount.length);
+    }, 5000)
+  }, []);
+  // /* FETCHING GET COIN MARKET CAP API*/
 
-    const intervalId = setInterval(() => {
-      fetchData3();
-    }, 1000 * 0.5); // in milliseconds
-    return () => clearInterval(intervalId);
+  useEffect(async () => {
+    let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+    if (error || !totalcoinMarketPrice)
+      return
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setcoinMarketPrice(totalcoinMarketPrice[1]);
+    const interval = setInterval(async () => {
+      let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+      setcoinMarketPrice(totalcoinMarketPrice[1]);
+    }, 5000)
   }, []);
 
-  /* FETCHING GET COIN MARKET CAP API*/
-
-  useEffect(() => {
-    async function fetchData4() {
-      const res4 = await axios.get(
-        "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getCoinMarketCap/USD"
-      );
-      res4.data.responseData = res4.data.responseData.sort((a, b) => {
-        return a.lastUpdated - b.lastUpdated;
-      });
-      setPostPrice(res4.data.responseData[1]);
-    }
-    const intervalId = setInterval(() => {
-      fetchData4();
-    }, 1000 * 0.5); // in milliseconds
-    return () => clearInterval(intervalId);
-  }, []);
-
-  var changePrice = postPrice.pricePercentChangePerHour;
+  var changePrice = coinMarketPrice.pricePercentChangePerHour;
   var changeDecimal = parseFloat(changePrice).toFixed(2);
 
-  var changeXdc = postPrice.price;
+  var changeXdc = coinMarketPrice.price;
   var changeDecimals = parseFloat(changeXdc).toFixed(6);
 
-  let changeAccounts = postSomeDays;
+  let changeAccounts = someDayAccount;
 
   return (
     <MainContainer>
@@ -271,7 +258,7 @@ export default function BlockChainDataComponent() {
               <TitleIcon src={transactionLogo} />
               <ValueName>
                 <Title>Transactions</Title>
-                <TitleValue> {postTransaction.responseData}</TitleValue>
+                <TitleValue> {totalTransaction}</TitleValue>
               </ValueName>
             </Value>
             <Value>
@@ -293,7 +280,7 @@ export default function BlockChainDataComponent() {
               <ValueName>
                 <Title>Accounts</Title>
                 <div className="last_value">
-                  <TitleValue>{postAccounts.responseData}</TitleValue>
+                  <TitleValue>{totalAccount}</TitleValue>
                   <div
                     className={
                       changeAccounts > 0

@@ -8,17 +8,18 @@ import MarketTable from "./marketDatatable";
 import TokenDataComponent from './tokenDataDashboard';
 import TokenMarketDataTable from './tokenMarketData';
 
+
 export default class BlockChainClass extends BaseComponent {
     render() {
         return (
             <div>
-                {/* <NavigationBar/> */}
-                {/* <BlockChainDataComponent/>
-                <MarketTable/>
+                <NavigationBar />
+                <BlockChainDataComponent />
+                <MarketTable />
                 <LatestBlocksComponent />
-                <FooterComponent/> */}
-                <TokenDataComponent />
-                <TokenMarketDataTable />
+                <FooterComponent />
+                {/* <TokenDataComponent />
+                <TokenMarketDataTable /> */}
             </div>
         )
     }
