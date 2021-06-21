@@ -20,6 +20,8 @@ import { transparent } from 'material-ui/styles/colors';
 import { white } from 'material-ui/styles/colors';
 import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 import MarketTable from './marketDatatable'
+import { NavLink } from 'react-router-dom';
+import TokenDataComponent from './tokenDataDashboard'
 
 const drawerWidth = 240;
 
@@ -200,6 +202,7 @@ export default function Navbar() {
                             <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
                         </div>
                         <div >
+                            <NavLink to='/TokenDataComponent'></NavLink>
                             <p className="Token" id="Token" >Tokens</p>
                         </div>
 
@@ -251,7 +254,7 @@ export default function Navbar() {
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
                                     style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
                                     className="main-input" placeholder="Search for an address a transaction or a block number" />
-                                    {/* name="NAME" */}
+                                {/* name="NAME" */}
 
                                 <select className="select" >
                                     <option selected>All Filters</option>
@@ -284,7 +287,7 @@ export default function Navbar() {
 
                 {/* <button type="button" id="main-submit-mobile">Search</button>
 
-                {/* ------------ Search bar ----------------- */}                             
+                {/* ------------ Search bar ----------------- */}
 
 
                 {/* <div>
