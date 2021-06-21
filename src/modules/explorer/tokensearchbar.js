@@ -19,6 +19,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { Route, Switch } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import '../../assets/styles/custom.css';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 
@@ -215,8 +216,10 @@ export default function Navbar() {
                         <p className="description"></p>
                         <div className="main-form-container-td">
                             <form method="post">
-
+                            <div>
+                          
                             <div style={{display: 'flex', flexDirection: 'row'}}>
+                           < img style={{width: 20, height: 20, marginTop: -17, marginRight: 5}} src={require('../../assets/images/Search.png')}/>
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
                                     style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
                                     className="main-input-td"  src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
@@ -230,7 +233,7 @@ export default function Navbar() {
                                     <option >Dummy</option>
                                     <option >Dummy</option>
                                 </select>
-                                
+                               </div> 
                             </div>
                               <ul style={{ color: 'black'}}>
                                   {/* if needed above marginTop: '20px', marginLeft: '-45px' */}

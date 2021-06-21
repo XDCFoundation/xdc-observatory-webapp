@@ -8,6 +8,7 @@ import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
 import BlockChainClass from './modules/explorer/';
 import TokenDetails from './modules/explorer/tokendetails';
+import TransactionDetails from './modules/explorer/transactiondetails';
 
 
 class Routes extends BaseComponent {
@@ -25,6 +26,7 @@ class Routes extends BaseComponent {
                     <Switch>
                         <Route exact path={'/'} component={BlockChainClass} />
                         <Route exact path={'/tokendetails'} component={TokenDetails} />
+                        <Route exact path={'/transactiondetails'} component={TransactionDetails} />
                         <Redirect exact from='*' to="/" />
                    </Switch>
                   
