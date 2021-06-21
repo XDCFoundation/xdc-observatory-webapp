@@ -9,8 +9,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { FaRedditSquare } from "react-icons/fa";
 import { AiOutlineTwitter } from "react-icons/ai";
-import Gasgraphbar from "./gasgraphbar";
-import HolderGraphBar from "./holderGraph";
+import Gasgraphbar from "../explorer/gasGraphBar";
+import HolderGraphBar from "../explorer/holderGraph";
 
 const MainContainer = styled.div`
   width: 950px;

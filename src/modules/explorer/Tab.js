@@ -1,9 +1,9 @@
-import {useState} from "react";
+import { useState } from "react";
 import React from "react";
 import "../../assets/styles/custom.css";
-import Graphbar from './graphbar';
-import Accountsgraphbar from './accountsgraphbar';
-import Gasgraphbar from './gasgraphbar';
+import Graphbar from './graphBar';
+import Accountsgraphbar from './accountsGraphBar';
+import Gasgraphbar from './gasGraphBar';
 
 function Tab() {
     const [toggleState, setToggleState] = useState(1);
@@ -42,16 +42,16 @@ function Tab() {
 
             <div className="content-tabs">
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
-                    <Graphbar/>
+                    <Graphbar />
 
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
-                    <Accountsgraphbar/>
+                    <Accountsgraphbar />
                 </div>
 
                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                    <Gasgraphbar/>
+                    <Gasgraphbar />
 
                 </div>
             </div>

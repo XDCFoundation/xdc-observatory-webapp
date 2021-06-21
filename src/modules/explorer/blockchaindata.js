@@ -10,7 +10,7 @@ import transactionLogo from "../../images/Transaction.svg";
 import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
-import Tab from "./Tab";
+import Tab from "./tab";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { AccountService, CoinMarketService, TransactionService } from '../../services'
