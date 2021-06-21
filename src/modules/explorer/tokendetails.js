@@ -13,8 +13,13 @@ import TextField from '@material-ui/core/TextField';
 import Tokensearchbar from './tokensearchbar';
 import '../../assets/styles/custom.css';
 import FooterComponent from './footerComponent';
-import { borderColor } from '@material-ui/system';
+import { borderColor, height } from '@material-ui/system';
 import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { ChevronLeft, Directions } from '@material-ui/icons';
 
 
 const columns = [
@@ -91,7 +96,31 @@ const rows = [
     { S: 3, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'DAI', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
     { S: 4, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'Tether', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
     { S: 5, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'PAXOS', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
-
+    { S: 6, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'EURG', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 2, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'USDC', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 3, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'DAI', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 4, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'Tether', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 5, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'PAXOS', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 6, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'EURG', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 2, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'USDC', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 3, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'DAI', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 4, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'Tether', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 5, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'PAXOS', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 6, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'EURG', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 2, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'USDC', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 3, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'DAI', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 4, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'Tether', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 5, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'PAXOS', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 6, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'EURG', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 2, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'USDC', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 3, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'DAI', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 4, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'Tether', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 5, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'PAXOS', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 6, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'EURG', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 2, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'USDC', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 3, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'DAI', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 4, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'Tether', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
+    { S: 5, src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7", Token: 'PAXOS', Type: 'XRC 20', Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Holder: '5,75,203', Status: 'Verified' },
 ];
 
 const useStyles = makeStyles({
@@ -108,7 +137,7 @@ const useStyles = makeStyles({
         borderTopColor: 'white',
         backgroundColor: 'white',
         borderBottomColor: 'white',
-        background: '#fff',  
+        background: '#fff',
         padding: '0 20px',
     },
 
@@ -124,8 +153,21 @@ export default function StickyHeadTable() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+    const handleChangePage = (action) => {
+
+        if (action == 'next') {
+            if (rows.length / rowsPerPage != page + 1) {
+                setPage(page + 1)
+
+            }
+        } else {
+            if (0 != page) {
+                setPage(page - 1)
+
+                
+            }
+        }
+
     };
 
     const handleChangeRowsPerPage = (event) => {
@@ -141,18 +183,21 @@ export default function StickyHeadTable() {
 
             <div >
 
-                
+
                 <div >
                     <form method="post">
-                   
-                        <div className="searchelement-div">
-                        <p className="searchelement-token">Tokens</p>
-                            <input
-                                style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                className="searchelement-input" src={require("../../images/Search.png")} placeholder="Search Tokens" />
-                            {/* name="NAME" */}
 
-                          
+                        <div className="searchelement-div">
+                            <p className="searchelement-token">Tokens</p>
+                            <div className="searchelement-input" >
+                                <img style={{ width: 22, height: 22, marginRight: 5 }} src={require('../../assets/images/Search.png')} />
+
+                                <input
+                                    style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1', outlineColor: '#e3e7eb', borderWidth: 0 }} type="text"
+                                    placeholder="Search Tokens" />
+                                {/* name="NAME" */}
+                            </div>
+
                         </div>
 
 
@@ -188,7 +233,11 @@ export default function StickyHeadTable() {
                                         <TableCell style={{ width: '1px' }} id="td"> <img style={{ width: 25, height: 25, borderRadius: '10px' }} src={row.src} /></TableCell>
                                         <TableCell id="td" style={{ width: '110px' }} >{row.Token}</TableCell>
                                         <TableCell id="td" style={{ width: '130px' }} >{row.Type}</TableCell>
-                                        <TableCell id="td"> <a style={{ fontSize: 12, color: '#2149b9' }} href="#text-as" > {row.Contract}</a>   </TableCell>
+                                        <TableCell>
+                                            <NavLink to="/transactiondetails">
+                                                <a style={{ fontSize: 12, color: '#2149b9' }} href="#text-as" > {row.Contract}</a>
+                                            </NavLink>
+                                        </TableCell>
                                         <TableCell id="td" style={{ width: '120px' }} >{row.Holder}</TableCell>
                                         <TableCell id="td">{row.Status}</TableCell>
 
@@ -203,8 +252,8 @@ export default function StickyHeadTable() {
 
             </Paper>
 
-            <TablePagination
-                style={{ display: 'flex', justifyContent: 'center'}}
+            {/* <TablePagination
+                style={{ display: 'flex', justifyContent: 'space-between' }}
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 component="div"
                 count={rows.length}
@@ -213,12 +262,46 @@ export default function StickyHeadTable() {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
 
+            /> */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
 
-            />
+                <div style={{display: 'flex', flexDirection: 'row' ,marginLeft: '270px', marginTop: '50px'}}>
+                    Show
+                    <select className="selectbox" onChange={handleChangeRowsPerPage}>
+                        <option selected>50</option>
+                        <option >25</option>
+                        <option >15</option>
+                        <option >10</option>
+                        <option >5</option>
+                    </select>
+                    Records
+                </div>
 
-        <FooterComponent/>
+                <div style={{ display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
 
-        </div>
+                    <div className="firstbox" onClick={() => setPage(0)}>
+                        <p className="first" >First</p>
+                    </div>
+                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
+                        <p className="path"> <ChevronLeftIcon /> </p>
+                    </div>
+                    <div className="pagebox">
+                        <p className="Page-1-of-5">Page {page+1} of {parseInt(rows.length / rowsPerPage)}</p>
+                    </div>
+                    <div className="nextbox" >
+                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /> </p>
+                    </div>
+                    <div className="lastbox" onClick={() => setPage((rows.length / rowsPerPage)-1) }>
+                        <p className="last">Last</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <FooterComponent />
+
+        </div >
 
     );
 }

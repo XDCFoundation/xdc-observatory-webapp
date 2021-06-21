@@ -21,7 +21,7 @@ import { white } from 'material-ui/styles/colors';
 import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import Tokendetails from './tokendetails';
+
 
 
 
