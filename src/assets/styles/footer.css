@@ -207,6 +207,7 @@ a:hover{
 
 .Top-Header {
   margin-top: -15px; 
+  margin-left: -13px;
  font-size: 10px;
  font-weight: normal;
  font-stretch: normal;
@@ -230,7 +231,7 @@ a:hover{
  }
 
 .xdc-desc {
-  margin-left: -40px;
+  margin-left: -49px;
   font-family: Inter;
   font-size: 12px;
   font-weight: normal;

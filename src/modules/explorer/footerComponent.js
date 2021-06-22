@@ -95,7 +95,7 @@ export default function FooterComponent() {
     </div>
    
     <div className={"twitter"}>
-        <a  class="twitter-timeline" data-lang="en" data-height="200" data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw">Tweets by</a>
+        <a  class="twitter-timeline" data-lang="en" data-height="230"  data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw">Tweets by</a>
     </div>
 </Grid>
 

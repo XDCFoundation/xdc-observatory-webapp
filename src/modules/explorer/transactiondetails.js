@@ -20,36 +20,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Tooltip from '@material-ui/core/Tooltip';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { a } from '@react-spring/web';
-import { blue } from '@material-ui/core/colors';
 
 
 
-const columns = [
-
-    {
-        id: 'src',
-        label: '',
-        align: 'left',
-        backgroundColor: 'white',
-
-    },
-
-];
-
-function createData(src) {
-    return { src };
-}
-
-const rows = [
-
-    { src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7" },
-    { src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7" },
-    { src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7" },
-    { src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7" },
-    { src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7" },
-
-];
 
 const useStyles = makeStyles((theme) => ({
     rootui: {
@@ -77,21 +50,21 @@ export default function StickyHeadTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
+    
    
-
-    const longText = `
-    Aliquam eget finibus ante, non facilisis lectus. Sed vitae dignissim est, vel aliquam tellus.
-    Praesent non nunc mollis, fermentum neque at, semper arcu.
-    Nullam eget est sed sem iaculis gravida eget vitae jus  `;
+ const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
+ const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
+ const timestamp = ` The date and time at which a transaction is mined. `;
+ const from = ` The sending party of the transaction(could be from a contact address)  `;
+ const to = ` The receiving party of the transaction(could be from a contact address) `;
+ const value = ` The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction `;
+ const txnfee = ` The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction `;
+ const gasprovided = `Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit. `;
+ const gasprice = ` Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block `;
+ const gasused = ` The exact unit of gas that was used for the transactions. `;
+ const nounced = ` Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address. `;
+ const input = `Additional information that is required for the transaction `;
+ const privatenote = ` Private notes `;
 
     return (
         <div>
@@ -105,14 +78,14 @@ export default function StickyHeadTable() {
             <div  className="transaction-box">
           
                 <div className="transaction-box-inside">
-                    <Tooltip title={longText}>
+                    <Tooltip title={hashid}>
                     <img className="transaction-box-image" src={require("../../../src/assets/images/questionmark.png")} />
                     </Tooltip>
                     <p className="transaction-box-text"> Hash ID </p>
                     <p className="transaction-box-text-1">xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60</p>
                    <p style={{marginTop: '17px'}}>
                        <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'}>
-                       <button> <i class="fa fa-clone" aria-hidden="true"></i>  </button>
+                       <button  style={{color: 'blue', backgroundColor: 'white', fontSize: 14}}> <i class="fa fa-clone" aria-hidden="true"></i>  </button>
                        </CopyToClipboard>
                          </p>
                 </div>
@@ -122,8 +95,8 @@ export default function StickyHeadTable() {
 
             <br />
             <Paper className={classes.rootui} >
-                <TableContainer className="transaction-box-below" id="transactionbox-table">
-                    <Table stickyHeader aria-label="sticky table">
+                <Table className="transaction-box-below" id="transactionbox-table">
+                
 
                         <TableBody >
                      
@@ -131,7 +104,7 @@ export default function StickyHeadTable() {
                       
                                 <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={blocknumber}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -148,7 +121,7 @@ export default function StickyHeadTable() {
                                 
                                  <TableCell style={{ width: '1px', paddingTop: '12px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={timestamp}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -163,7 +136,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={from}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -173,7 +146,7 @@ export default function StickyHeadTable() {
                                      <TableCell style={{fontFamily: 'Inter', fontStyle: 'normal', fontSize: 12, fontWeight: 'normal',lineHeight: 'normal',letterSpacing: '0.58px', color: '#3a3a3a'}} id="td" >
                                      <a style={{color: 'blue', fontSize: 12}}> xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60 </a>
                                         <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'} >
-                                            <button><i class="fa fa-clone" aria-hidden="true"></i></button>
+                                            <button  style={{color: 'blue', backgroundColor: 'white',fontSize: 14}}><i class="fa fa-clone" aria-hidden="true"></i></button>
                                         </CopyToClipboard>
                                      </TableCell>
                              </TableRow>
@@ -181,7 +154,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={to}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -191,7 +164,7 @@ export default function StickyHeadTable() {
                                      <TableCell style={{fontFamily: 'Inter', fontStyle: 'normal', fontSize: 12, fontWeight: 'normal',lineHeight: 'normal',letterSpacing: '0.58px', color: '#3a3a3a'}} id="td" >
                                      <a style={{color: 'blue', fontSize: 12}} > xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60 </a>
                                         <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'} >
-                                            <button><i class="fa fa-clone" aria-hidden="true"></i></button>
+                                            <button style={{color: 'blue', backgroundColor: 'white',fontSize: 14}}><i class="fa fa-clone" aria-hidden="true"></i></button>
                                         </CopyToClipboard>
                                      </TableCell>
                              </TableRow>
@@ -199,7 +172,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={value}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -214,7 +187,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={txnfee}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -229,7 +202,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={gasprovided}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -244,7 +217,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={gasprice}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -259,7 +232,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={gasused}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -274,7 +247,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={nounced}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -289,7 +262,7 @@ export default function StickyHeadTable() {
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
                                     
-                                     <Tooltip title={longText}>
+                                     <Tooltip title={input}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -303,8 +276,8 @@ export default function StickyHeadTable() {
 
                              <TableRow >
                                  <TableCell style={{ width: '1px'}} id="td"  >
-                                    
-                                     <Tooltip title={longText}>
+                                       
+                                     <Tooltip title={privatenote}>
                                      <img style={{ width: 13, height: 13 }} src={require("../../../src/assets/images/questionmark.png")} />
                                      </Tooltip>
                                       </TableCell>
@@ -321,23 +294,11 @@ export default function StickyHeadTable() {
                         </TableBody>
                      
                     </Table>
-                </TableContainer>
-            
-
+              
+                   
+                             
             </Paper>
-
-            {/* <TablePagination
-                style={{ display: 'flex', justifyContent: 'center'}}
-                rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-
-
-            /> */}
+             
 
         </div >
 
