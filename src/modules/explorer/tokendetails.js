@@ -151,22 +151,27 @@ const useStyles = makeStyles({
 export default function StickyHeadTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
     const handleChangePage = (action) => {
 
-        if (action == 'next') {
-            if (rows.length / rowsPerPage != page + 1) {
+       if (action == 'next') {
+            if (Math.ceil(rows.length / rowsPerPage) != page + 1) {
                 setPage(page + 1)
-
+                
             }
+           
         } else {
             if (0 != page) {
                 setPage(page - 1)
-
-                
             }
         }
+        if(action== 'next'){
+            if(Math.ceil(rows.length / rowsPerPage) < page+1)
+            setPage(Math.ceil(rows.length / rowsPerPage))
+        }
+
+     
 
     };
 
@@ -286,12 +291,12 @@ export default function StickyHeadTable() {
                         <p className="path"> <ChevronLeftIcon /> </p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {page+1} of {parseInt(rows.length / rowsPerPage)}</p>
+                        <p className="Page-1-of-5">Page {page+1} of {Math.ceil(rows.length / rowsPerPage)}</p>
                     </div>
                     <div className="nextbox" >
                         <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /> </p>
                     </div>
-                    <div className="lastbox" onClick={() => setPage((rows.length / rowsPerPage)-1) }>
+                    <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage)-1) }>
                         <p className="last">Last</p>
                     </div>
                 </div>
