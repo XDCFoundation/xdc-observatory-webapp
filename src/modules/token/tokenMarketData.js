@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "../../assets/styles/custom.css";
-import axios from "axios";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
+import {BsFillCaretDownFill} from "react-icons/bs";
+import {BsFillCaretUpFill} from "react-icons/bs";
 
 
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
@@ -85,11 +84,11 @@ export default function TokenMarketDataTable() {
                     <div className="varMarket">
                         {MarketCapchange >= 0 ? (
                             <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
+                                <BsFillCaretUpFill size={10}/>
                             </div>
                         ) : (
                             <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
+                                <BsFillCaretDownFill size={10}/>
                             </div>
                         )}
                         &nbsp;{MarketCapchange}%
@@ -109,11 +108,11 @@ export default function TokenMarketDataTable() {
                     <div className="varMarket">
                         {FullyDilutedMarketCapchange >= 0 ? (
                             <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
+                                <BsFillCaretUpFill size={10}/>
                             </div>
                         ) : (
                             <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
+                                <BsFillCaretDownFill size={10}/>
                             </div>
                         )}
                         &nbsp;{FullyDilutedMarketCapchange}%
@@ -133,11 +132,11 @@ export default function TokenMarketDataTable() {
                     <div className="varMarket">
                         {Volumechange >= 0 ? (
                             <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
+                                <BsFillCaretUpFill size={10}/>
                             </div>
                         ) : (
                             <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
+                                <BsFillCaretDownFill size={10}/>
                             </div>
                         )}
                         &nbsp;{Volumechange}%
