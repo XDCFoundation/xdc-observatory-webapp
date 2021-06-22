@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
-import axios from "axios";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { AccountService, CoinMarketService, TransactionService } from '../../services'
