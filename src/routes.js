@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {history} from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
 
-import BlockChainClass from './modules/explorer/';
+import BlockChainClass from './modules/explorer';
 
 class Routes extends BaseComponent {
 

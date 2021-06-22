@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import logo from "../../assets/images/usdc.png";
@@ -9,7 +8,6 @@ import { FaFacebookF } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { FaRedditSquare } from "react-icons/fa";
 import { AiOutlineTwitter } from "react-icons/ai";
-import Gasgraphbar from "../explorer/gasGraphBar";
 import HolderGraphBar from "../explorer/holderGraph";
 
 const MainContainer = styled.div`
