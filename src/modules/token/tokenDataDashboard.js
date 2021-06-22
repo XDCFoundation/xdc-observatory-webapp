@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import logo from "../../images/usdc.svg";
+import logo from "../../assets/images/usdc.png";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+import { FiMail } from "react-icons/fi";
 import { FaRedditSquare } from "react-icons/fa";
 import { AiOutlineTwitter } from "react-icons/ai";
-import { FaFileAlt } from "react-icons/fa";
-import Gasgraphbar from "../explorer/gasGraphBar";
 import HolderGraphBar from "../explorer/holderGraph";
-import TokenMarketDataTable from "../token/tokenMarketData";
 
 const MainContainer = styled.div`
   width: 950px;
@@ -201,7 +198,6 @@ const GraphContainer = styled.div`
 
 const Icons = styled.div`
   padding-top: 1px;
-  
 `;
 
 export default function TokenDataComponent() {
@@ -212,160 +208,171 @@ export default function TokenDataComponent() {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
   return (
-    <>
-      <MainContainer>
-        <LeftContainer>
-          <LeftFirst>
-            <LeftTop>
-              <IconLogo src={logo} />
-              <LeftTitle>USDC</LeftTitle>
-            </LeftTop>
-            <LeftTopSecMain>
-              <LeftTopSec>$0.061780</LeftTopSec>
-              <div
-                className={
-                  changePrice > 0
-                    ? "data_value_green last_value_main"
-                    : "data_value_red"
-                }
-              >
-                <div className="value_changePrice">
-                  {changePrice > 0 ? (
-                    <div className="arrow_up">
-                      <BsFillCaretUpFill size={10} />
-                    </div>
-                  ) : (
-                    <div className="arrow_down">
-                      <BsFillCaretDownFill size={10} />
-                    </div>
-                  )}
-                  &nbsp;{changePrice}%
-                </div>
+    <MainContainer>
+      <LeftContainer>
+        <LeftFirst>
+          <LeftTop>
+            <IconLogo src={logo} />
+            <LeftTitle>USDC</LeftTitle>
+          </LeftTop>
+          <LeftTopSecMain>
+            <LeftTopSec>$0.061780</LeftTopSec>
+            <div
+              className={
+                changePrice > 0
+                  ? "data_value_green last_value_main"
+                  : "data_value_red"
+              }
+            >
+              <div className="value_changePrice">
+                {changePrice > 0 ? (
+                  <div className="arrow_up">
+                    <BsFillCaretUpFill size={10} />
+                  </div>
+                ) : (
+                  <div className="arrow_down">
+                    <BsFillCaretDownFill size={10} />
+                  </div>
+                )}
+                &nbsp;{changePrice}%
               </div>
-            </LeftTopSecMain>
-            <Line1></Line1>
-          </LeftFirst>
-          <LeftSec>
-            <ValueMain>
-              <Value>
-                {/* <TitleIcon src={blockHeightImg} /> */}
-                <ValueName>
-                  <Title>Holders</Title>
+            </div>
+          </LeftTopSecMain>
+          <Line1></Line1>
+        </LeftFirst>
+        <LeftSec>
+          <ValueMain>
+            <Value>
+              {/* <TitleIcon src={blockHeightImg} /> */}
+              <ValueName>
+                <Title>Holders</Title>
+                <div className="last_value">
+                  <TitleValue>4521</TitleValue>
                   <div className="last_value">
-                    <TitleValue>4521</TitleValue>
-                    <div className="last_value">
-                      <div
-                        className={
-                          changeHolders > 0
-                            ? "data_value_green last_value_main"
-                            : "data_value_red"
-                        }
-                      >
-                        <div className="value_p">
-                          {changeHolders > 0 ? (
-                            <div className="arrow_up">
-                              <BsFillCaretUpFill size={10} />
-                            </div>
-                          ) : (
-                            <div className="arrow_down">
-                              <BsFillCaretDownFill size={10} />
-                            </div>
-                          )}
-                          {changeHolders}
-                        </div>
+                    <div
+                      className={
+                        changeHolders > 0
+                          ? "data_value_green last_value_main"
+                          : "data_value_red"
+                      }
+                    >
+                      <div className="value_p">
+                        {changeHolders > 0 ? (
+                          <div className="arrow_up">
+                            <BsFillCaretUpFill size={10} />
+                          </div>
+                        ) : (
+                          <div className="arrow_down">
+                            <BsFillCaretDownFill size={10} />
+                          </div>
+                        )}
+                        {changeHolders}
                       </div>
                     </div>
                   </div>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={priceLogo} /> */}
-                <ValueName>
-                  <Title>Transfer</Title>
-                  <TitleValue>685632</TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={transactionLogo} /> */}
-                <ValueName>
-                  <Title>Contract</Title>
-                  <ContractButton> {shorten(contract)}</ContractButton>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={difficultyLogo} /> */}
-                <ValueName>
-                  <Title>Decimal</Title>
-                  <TitleValue>8</TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={maxLogo} /> */}
-                <ValueName>
-                  <Title>Website</Title>
-                  <ContractButton>www.usdc.com</ContractButton>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={accountLogo} /> */}
-                <ValueName>
-                  <Title>Social Media</Title>
+                </div>
+              </ValueName>
+            </Value>
+            <Value>
+              {/* <TitleIcon src={priceLogo} /> */}
+              <ValueName>
+                <Title>Transfer</Title>
+                <TitleValue>685632</TitleValue>
+              </ValueName>
+            </Value>
+            <Value>
+              {/* <TitleIcon src={transactionLogo} /> */}
+              <ValueName>
+                <Title>Contract</Title>
+                <ContractButton> {shorten(contract)}</ContractButton>
+              </ValueName>
+            </Value>
+            <Value>
+              {/* <TitleIcon src={difficultyLogo} /> */}
+              <ValueName>
+                <Title>Decimal</Title>
+                <TitleValue>8</TitleValue>
+              </ValueName>
+            </Value>
+            <Value>
+              {/* <TitleIcon src={maxLogo} /> */}
+              <ValueName>
+                <Title>Website</Title>
+                <ContractButton>www.usdc.com</ContractButton>
+              </ValueName>
+            </Value>
+            <Value>
+              {/* <TitleIcon src={accountLogo} /> */}
+              <ValueName>
+                <Title>Social Media</Title>
 
-                  <Icons>
-                    <MdEmail
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "5px",
-                      }}
-                    />
-                    <FaRedditSquare
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "5px",
-                      }}
-                    />
-                    <FaFacebookF
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "5px",
-                      }}
-                    />
-                    <AiOutlineTwitter
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "5px",
-                      }}
-                    />
-                    <FaFileAlt
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "3px",
-                      }}
-                    />
-                  </Icons>
-                </ValueName>
-              </Value>
-            </ValueMain>
-          </LeftSec>
-        </LeftContainer>
+                <Icons>
+                  <FiMail
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <FaRedditSquare
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <FaFacebookF
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <AiOutlineTwitter
+                    style={{
+                      color: "#a09e9e",
+                      cursor: "pointer",
+                      marginRight: "4px",
+                    }}
+                  />
+                </Icons>
+              </ValueName>
+            </Value>
+          </ValueMain>
+        </LeftSec>
+      </LeftContainer>
 
-        <RightContainer>
-          <RightTop>
-            <RightTitle>Holders</RightTitle>
-            <RightTopSec>14 Days</RightTopSec>
-            <Line2></Line2>
-          </RightTop>
-          <GraphContainer>
-            <HolderGraphBar />
-          </GraphContainer>
-        </RightContainer>
-      </MainContainer>
-      <TokenMarketDataTable />
-    </>
+      <RightContainer>
+        <RightTop>
+          <RightTitle>Holders</RightTitle>
+          <RightTopSec>14 Days</RightTopSec>
+          <Line2></Line2>
+        </RightTop>
+        <GraphContainer>
+          <HolderGraphBar />
+        </GraphContainer>
+      </RightContainer>
+    </MainContainer>
   );
 }

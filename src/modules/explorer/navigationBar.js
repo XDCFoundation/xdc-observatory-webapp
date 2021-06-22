@@ -11,17 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { transparent } from 'material-ui/styles/colors';
-import { white } from 'material-ui/styles/colors';
-import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
-import MarketTable from './marketDatatable'
 import { NavLink } from 'react-router-dom';
-import TokenDataComponent from '../token/tokenDataDashboard'
+
 
 const drawerWidth = 240;
 
@@ -98,7 +89,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export default function Navbar() {
     const classes = useStyles();
     const theme = useTheme();
@@ -109,7 +99,6 @@ export default function Navbar() {
         bottom: false,
         right: false,
     });
-
 
 
     const toggleDrawer = (anchor, open) => (event) => {
@@ -130,7 +119,13 @@ export default function Navbar() {
         >
 
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <p style={{ color: '#4666c4', fontSize: 13, fontFamily: 'Inter', marginLeft: 20, marginTop: '20px' }}>Browse</p>
+                <p style={{
+                    color: '#4666c4',
+                    fontSize: 13,
+                    fontFamily: 'Inter',
+                    marginLeft: 20,
+                    marginTop: '20px'
+                }}>Browse</p>
                 <div style={{ marginLeft: 120 }} className={classes.drawerHeader}>
                     <IconButton style={{ color: 'white' }} onClick={toggleDrawer(anchor, false)}>
                         {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
@@ -139,8 +134,7 @@ export default function Navbar() {
             </div>
 
 
-
-            <List className="side-box" >
+            <List className="side-box">
                 <ul className="inside-side-box">
                     <p>Accounts</p>
                 </ul>
@@ -149,24 +143,24 @@ export default function Navbar() {
             <List>
                 <Divider />
                 <ul>
-                    <select className="side-box1" >
+                    <select className="side-box1">
                         <option selected>Contracts</option>
-                        <option >Contract</option>
-                        <option >Verify Contract</option>
+                        <option>Contract</option>
+                        <option>Verify Contract</option>
 
                     </select>
 
                 </ul>
                 <Divider />
                 <ul>
-                    <select className="side-box2" >
+                    <select className="side-box2">
                         <option selected>Tools</option>
-                        <option >Dummy</option>
+                        <option>Dummy</option>
                     </select>
                 </ul>
                 <Divider />
             </List>
-            <List className="side-box" >
+            <List className="side-box">
                 <ul className="inside-side-box">
                     <p>XinFin APIs</p>
                 </ul>
@@ -194,17 +188,16 @@ export default function Navbar() {
                 <Toolbar>
 
 
-                    <Typography className="Header" >
+                    <Typography className="Header">
                         <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         <p className="XDC"> XDC </p>
 
                         <div>
-                            <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
+                            <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
                         </div>
-                        <div >
-                            <NavLink to='/TokenDataComponent'>
-                                <p className="Token" id="Token" >Tokens</p>
-                            </NavLink>
+                        <div>
+                            <NavLink to='/TokenDataComponent'></NavLink>
+                            <p className="Token" id="Token">Tokens</p>
                         </div>
 
                     </Typography>
@@ -221,14 +214,12 @@ export default function Navbar() {
                             <MenuIcon />
                         </IconButton>
 
-                        <Drawer className={classes.drawer} anchor={'right'} open={state['right']} >
+                        <Drawer className={classes.drawer} anchor={'right'} open={state['right']}>
                             {lists('right')}
                         </Drawer>
                     </React.Fragment>
 
                 </Toolbar>
-
-
 
 
             </AppBar>
@@ -252,15 +243,16 @@ export default function Navbar() {
 
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
                                     style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                    className="main-input" placeholder="Search for an address a transaction or a block number" />
+                                    className="main-input"
+                                    placeholder="Search for an address a transaction or a block number" />
                                 {/* name="NAME" */}
 
-                                <select className="select" >
+                                <select className="select">
                                     <option selected>All Filters</option>
-                                    <option >Dummy</option>
-                                    <option >Dummy</option>
-                                    <option >Dummy</option>
-                                    <option >Dummy</option>
+                                    <option>Dummy</option>
+                                    <option>Dummy</option>
+                                    <option>Dummy</option>
+                                    <option>Dummy</option>
                                 </select>
                             </form>
 
@@ -270,8 +262,7 @@ export default function Navbar() {
                                     if (filter.length !== 0) {
                                         if (name.toLowerCase().startsWith(filter.toLowerCase()))
                                             return <li>{name}</li>
-                                    }
-                                    else {
+                                    } else {
                                         return null
                                     }
                                 })

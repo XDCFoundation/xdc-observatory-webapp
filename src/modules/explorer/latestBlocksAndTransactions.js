@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
-import axios from "axios";
-
 import { BlockService, TransactionService } from '../../services'
 import Utils from '../../utility'
 const moment = require("moment");
@@ -44,6 +42,7 @@ function LatestBlocks() {
       b.length
     )}`;
   }
+
   return (
     <div className="block_main">
       <div className="latestblock">
