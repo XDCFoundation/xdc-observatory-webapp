@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-// import { Row } from 'simple-flexbox'
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import logo from "../../images/XDC-Icon.svg";
