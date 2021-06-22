@@ -2,11 +2,11 @@ import BaseComponent from "../baseComponent";
 import React from "react"
 import BlockChainDataComponent from "./blockChainData";
 import FooterComponent from "../common/footerComponent";
-import LatestBlocksComponent from './latestBlocks';
+import LatestBlocksComponent from './latestBlocksAndTransactions';
 import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
-import TokenDataComponent from '../tokenComponent/tokenDataDashboard';
-import TokenMarketDataTable from '../tokenComponent/tokenMarketData';
+import TokenDataComponent from '../token/tokenDataDashboard';
+import TokenMarketDataTable from '../token/tokenMarketData';
 
 
 export default class BlockChainClass extends BaseComponent {

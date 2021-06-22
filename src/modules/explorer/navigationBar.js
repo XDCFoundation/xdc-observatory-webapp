@@ -21,7 +21,7 @@ import { white } from 'material-ui/styles/colors';
 import { Grid, Box, redarrow, greenarrow } from '@material-ui/core';
 import MarketTable from './marketDatatable'
 import { NavLink } from 'react-router-dom';
-import TokenDataComponent from '../tokenComponent/tokenDataDashboard'
+import TokenDataComponent from '../token/tokenDataDashboard'
 
 const drawerWidth = 240;
 
@@ -202,10 +202,10 @@ export default function Navbar() {
                             <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
                         </div>
                         <div >
-                            <NavLink to='/TokenDataComponent'></NavLink>
-                            <p className="Token" id="Token" >Tokens</p>
+                            <NavLink to='/TokenDataComponent'>
+                                <p className="Token" id="Token" >Tokens</p>
+                            </NavLink>
                         </div>
-
 
                     </Typography>
                     <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
@@ -235,7 +235,6 @@ export default function Navbar() {
             <main
                 className={clsx(classes.content)}
             >
-
 
 
                 <div className="exp-parent">

@@ -24,7 +24,7 @@ function LatestBlocks() {
   }, []);
 
 
-  // /* FETCHING LATEST TRANSACTIONS API*/
+  /* FETCHING LATEST TRANSACTIONS API*/
   const [postTransactions, setlatestTransactions] = useState([]);
   useEffect(async () => {
     let [error, latestTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction())
