@@ -41,7 +41,6 @@ export default function MarketDatatable() {
       let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
       setLatestMarket(totalcoinMarketData[1]);
       setPreviousMarket(totalcoinMarketData[0]);
-      console.log(totalcoinMarketData[1], "HIIIIIII")
     }, 45000)
   }, []);
 

@@ -196,8 +196,9 @@ export default function Navbar() {
                             <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
                         </div>
                         <div>
-                            <NavLink to='/TokenDataComponent'></NavLink>
-                            <p className="Token" id="Token">Tokens</p>
+                            <NavLink to='/TokenDataComponent'>
+                                <p className="Token" id="Token">Tokens</p>
+                            </NavLink>
                         </div>
 
                     </Typography>
