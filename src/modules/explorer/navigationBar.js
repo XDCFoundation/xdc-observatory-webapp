@@ -183,7 +183,7 @@ export default function Navbar() {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar elevation={0}
-                className={clsx(classes.appBar)}
+                    className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
@@ -196,9 +196,9 @@ export default function Navbar() {
                             <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
                         </div>
                         <div>
-                            <NavLink to='/TokenDataComponent'>
+                            <a href='/token-details'>
                                 <p className="Token" id="Token">Tokens</p>
-                            </NavLink>
+                            </a>
                         </div>
 
                     </Typography>
@@ -243,9 +243,9 @@ export default function Navbar() {
                             <form method="post">
 
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                    style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                    className="main-input"
-                                    placeholder="Search for an address a transaction or a block number" />
+                                       style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                       className="main-input"
+                                       placeholder="Search for an address a transaction or a block number" />
                                 {/* name="NAME" */}
 
                                 <select className="select">

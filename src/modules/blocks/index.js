@@ -2,9 +2,9 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import BlocksComponent from "./blocksComponent"
 import Utils from '../../utility'
-import { AccountService, CoinMarketService, BlockService, TransactionService } from '../../services'
-
-
+import {AccountService, CoinMarketService, BlockService, TransactionService} from '../../services'
+import TokenSearchComponent from "../explorer/tokensearchbar";
+import FooterComponent from "../common/footerComponent";
 
 export default class LatestBlocksList extends BaseComponent {
     constructor(props) {
@@ -20,12 +20,14 @@ export default class LatestBlocksList extends BaseComponent {
 
         }
     }
+
     componentDidMount() {
 
         this.getListOfBlocks()
         this.getTotalNumberOfBlocks()
         // this.setGetListOfTransactionsInterval()
     }
+
     // async setGetListOfTransactionsInterval() {
     //     setInterval(() => {
     //         this.getListOfTransactions()
@@ -40,50 +42,54 @@ export default class LatestBlocksList extends BaseComponent {
         let [error, listOfBlocks] = await Utils.parseResponse(BlockService.getLatestBlock(urlPath, {}))
         if (error || !listOfBlocks)
             return
-        this.setState({ blocksList: listOfBlocks })
+        this.setState({blocksList: listOfBlocks})
 
 
     }
+
     async getTotalNumberOfBlocks() {
         let [error, totalB] = await Utils.parseResponse(BlockService.getTotalBlocks())
         console.log(totalB, "datatata")
         if (error || !totalB)
             return
-        this.setState({ totalblocks: totalB })
+        this.setState({totalblocks: totalB})
 
     }
+
     _handleChange = (event) => {
-        this.setState({ amount: event.target.value })
+        this.setState({amount: event.target.value})
         this.getListOfBlocks(this.state.from, event.target.value)
     }
 
 
     _FirstPage = (event) => {
-        this.setState({ from: 0 })
+        this.setState({from: 0})
         this.getListOfBlocks(0, this.state.amount)
     }
     _LastPage = (event) => {
         let from = this.state.totalblocks - this.state.amount
-        this.setState({ from })
+        this.setState({from})
         this.getListOfBlocks(from, this.state.amount)
     }
     _NextPage = async (event) => {
         if (this.state.amount + this.state.from < this.state.totalblocks) {
             let from = this.state.amount + this.state.from
-            this.setState({ from })
+            this.setState({from})
             this.getListOfBlocks(from, this.state.amount)
         }
     }
     _PrevPage = (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
-            this.setState({ from })
+            this.setState({from})
             this.getListOfBlocks(from, this.state.amount)
         }
     }
+
     create_data(hash, amount, age, block, from, to, txnfee) {
-        return { hash, amount, age, block, from, to, txnfee }
+        return {hash, amount, age, block, from, to, txnfee}
     }
+
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
@@ -99,18 +105,25 @@ export default class LatestBlocksList extends BaseComponent {
         }
         return `#${item}-#{type}`
     }
+
     render() {
-        return (<BlocksComponent
-            create_data={this.create_data}
-            state={this.state}
-            shorten={this.shorten}
-            create_url={this.create_url}
-            _PrevPage={this._PrevPage}
-            _NextPage={this._NextPage}
-            _LastPage={this._LastPage}
-            _FirstPage={this._FirstPage}
-            _handleChange={this._handleChange}
-        />)
+        return (
+            <div>
+                <TokenSearchComponent/>
+                <BlocksComponent
+                    create_data={this.create_data}
+                    state={this.state}
+                    shorten={this.shorten}
+                    create_url={this.create_url}
+                    _PrevPage={this._PrevPage}
+                    _NextPage={this._NextPage}
+                    _LastPage={this._LastPage}
+                    _FirstPage={this._FirstPage}
+                    _handleChange={this._handleChange}
+                />
+                <FooterComponent/>
+            </div>
+        )
 
     }
 }

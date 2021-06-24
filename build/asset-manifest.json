@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.189560a6.chunk.css",
-    "main.js": "/static/js/main.e5164385.chunk.js",
-    "main.js.map": "/static/js/main.e5164385.chunk.js.map",
+    "main.css": "/static/css/main.4d3f31f2.chunk.css",
+    "main.js": "/static/js/main.709914f9.chunk.js",
+    "main.js.map": "/static/js/main.709914f9.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.547ccad9.js",
     "runtime~main.js.map": "/static/js/runtime~main.547ccad9.js.map",
-    "static/css/2.a5f06b7f.chunk.css": "/static/css/2.a5f06b7f.chunk.css",
-    "static/js/2.51dcae3e.chunk.js": "/static/js/2.51dcae3e.chunk.js",
-    "static/js/2.51dcae3e.chunk.js.map": "/static/js/2.51dcae3e.chunk.js.map",
+    "static/css/2.2984e407.chunk.css": "/static/css/2.2984e407.chunk.css",
+    "static/js/2.001d9603.chunk.js": "/static/js/2.001d9603.chunk.js",
+    "static/js/2.001d9603.chunk.js.map": "/static/js/2.001d9603.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.aab4e08e0c0cf1936e3deb72aa84249e.js": "/precache-manifest.aab4e08e0c0cf1936e3deb72aa84249e.js",
+    "precache-manifest.5e9e54dab9b43a7f5cba35369fe6485f.js": "/precache-manifest.5e9e54dab9b43a7f5cba35369fe6485f.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.a5f06b7f.chunk.css.map": "/static/css/2.a5f06b7f.chunk.css.map",
-    "static/css/main.189560a6.chunk.css.map": "/static/css/main.189560a6.chunk.css.map",
+    "static/css/2.2984e407.chunk.css.map": "/static/css/2.2984e407.chunk.css.map",
+    "static/css/main.4d3f31f2.chunk.css.map": "/static/css/main.4d3f31f2.chunk.css.map",
     "static/media/Accounts.svg": "/static/media/Accounts.4cdf742c.svg",
     "static/media/Block Height.svg": "/static/media/Block Height.c639c6a5.svg",
     "static/media/Current Max_TPS.svg": "/static/media/Current Max_TPS.15801967.svg",
@@ -20,6 +20,7 @@
     "static/media/Gas Price.svg": "/static/media/Gas Price.92c0d4da.svg",
     "static/media/Transaction.svg": "/static/media/Transaction.0697a905.svg",
     "static/media/XDC-Icon.svg": "/static/media/XDC-Icon.5d3f7e75.svg",
-    "static/media/nightmode.svg": "/static/media/nightmode.64516664.svg"
+    "static/media/nightmode.svg": "/static/media/nightmode.64516664.svg",
+    "static/media/usdc.png": "/static/media/usdc.c76b33ca.png"
   }
 }

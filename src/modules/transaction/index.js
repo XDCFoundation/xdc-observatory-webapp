@@ -2,8 +2,9 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import TransactionComponent from "./transactionComponent"
 import Utils from '../../utility'
-import { AccountService, CoinMarketService, BlockService, TransactionService } from '../../services'
-
+import {AccountService, CoinMarketService, BlockService, TransactionService} from '../../services'
+import TokenSearchComponent from "../explorer/tokensearchbar";
+import FooterComponent from "../common/footerComponent";
 
 
 export default class LatestTransactionList extends BaseComponent {
@@ -20,12 +21,14 @@ export default class LatestTransactionList extends BaseComponent {
             // total:""
         }
     }
+
     componentDidMount() {
         // this.getListOfBlocks()
         this.getListOfTransactions()
         this.getTotalTransaction()
         this.setGetListOfTransactionsInterval()
     }
+
     async setGetListOfTransactionsInterval() {
         setInterval(() => {
             this.getListOfTransactions()
@@ -52,26 +55,28 @@ export default class LatestTransactionList extends BaseComponent {
         let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
         if (error || !listOfTransactions)
             return
-        this.setState({ transactionList: listOfTransactions })
+        this.setState({transactionList: listOfTransactions})
 
         // const interval = setInterval(async () => {
         //     let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
         //     this.setState({ transactionList: listOfTransactions })
         // }, 45000)
     }
+
     async getTotalTransaction() {
         let [error, total] = await Utils.parseResponse(TransactionService.getTotalTransaction())
         console.log(total, "datatata")
         if (error || !total)
             return
-        this.setState({ totalTransaction: total })
+        this.setState({totalTransaction: total})
         // const interval = setInterval(async () => {
         //     let [error, total] = await Utils.parseResponse(TransactionService.getTotalTransaction())
         //     this.setState({ totalTransaction: total })
         // }, 45000)
     }
+
     _handleChange = (event) => {
-        this.setState({ amount: event.target.value })
+        this.setState({amount: event.target.value})
         this.getListOfTransactions(this.state.from, event.target.value)
     }
 
@@ -81,31 +86,33 @@ export default class LatestTransactionList extends BaseComponent {
     // }
 
     _FirstPage = (event) => {
-        this.setState({ from: 0 })
+        this.setState({from: 0})
         this.getListOfTransactions(0, this.state.amount)
     }
     _LastPage = (event) => {
         let from = this.state.totalTransaction - this.state.amount
-        this.setState({ from })
+        this.setState({from})
         this.getListOfTransactions(from, this.state.amount)
     }
     _NextPage = async (event) => {
         if (this.state.amount + this.state.from < this.state.totalTransaction) {
             let from = this.state.amount + this.state.from
-            this.setState({ from })
+            this.setState({from})
             this.getListOfTransactions(from, this.state.amount)
         }
     }
     _PrevPage = (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
-            this.setState({ from })
+            this.setState({from})
             this.getListOfTransactions(from, this.state.amount)
         }
     }
+
     create_data(hash, amount, age, block, from, to, txnfee) {
-        return { hash, amount, age, block, from, to, txnfee }
+        return {hash, amount, age, block, from, to, txnfee}
     }
+
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
@@ -121,18 +128,24 @@ export default class LatestTransactionList extends BaseComponent {
         }
         return `#${item}-#{type}`
     }
+
     render() {
-        return (<TransactionComponent
-            create_data={this.create_data}
-            state={this.state}
-            shorten={this.shorten}
-            create_url={this.create_url}
-            _PrevPage={this._PrevPage}
-            _NextPage={this._NextPage}
-            _LastPage={this._LastPage}
-            _FirstPage={this._FirstPage}
-            _handleChange={this._handleChange}
-        />)
+        return (
+            <div>
+                <TokenSearchComponent/>
+                <TransactionComponent
+                    create_data={this.create_data}
+                    state={this.state}
+                    shorten={this.shorten}
+                    create_url={this.create_url}
+                    _PrevPage={this._PrevPage}
+                    _NextPage={this._NextPage}
+                    _LastPage={this._LastPage}
+                    _FirstPage={this._FirstPage}
+                    _handleChange={this._handleChange}
+                />
+                <FooterComponent/>
+            </div>)
 
     }
 }
