@@ -7,9 +7,12 @@ import { connect } from "react-redux";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
 import TokenDataComponent from "./modules/token/tokenDataDashboard";
-import BlockChainClass from './modules/explorer/';
 import LatestTransactionList from './modules/transaction';
 import LatestBlocksList from './modules/blocks';
+import BlockChainClass from './modules/explorer/';
+import TokenDetails from './modules/explorer/tokendetails';
+import TransactionDetails from './modules/explorer/transactiondetails';
+
 
 class Routes extends BaseComponent {
 
@@ -24,12 +27,15 @@ class Routes extends BaseComponent {
                 <Router history={history}>
                     <Switch>
                         <Route exact path={'/'} component={BlockChainClass} />
-                        <Route path={'/TokenDataComponent'} component={TokenDataComponent} />
+                        <Route path={'/token-data'} component={TokenDataComponent} />
                         <Route path={'/view-all-transaction'} component={LatestTransactionList} />
                         <Route path={'/view-all-blocks'} component={LatestBlocksList} />
+                        <Route exact path={'/token-details'} component={TokenDetails} />
+                        <Route exact path={'/transaction-details'} component={TransactionDetails} />
                         <Redirect exact from='*' to="/" />
-                    </Switch>
-                </Router>
+                   </Switch>
+                  
+                 </Router>
             </MuiThemeProvider>
         );
     }

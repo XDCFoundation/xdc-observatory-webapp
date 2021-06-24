@@ -11,7 +11,16 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import { Route, Switch } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import '../../assets/styles/custom.css';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 
 const drawerWidth = 240;
@@ -90,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Navbar() {
+
     const classes = useStyles();
     const theme = useTheme();
 
@@ -99,6 +109,7 @@ export default function Navbar() {
         bottom: false,
         right: false,
     });
+
 
 
     const toggleDrawer = (anchor, open) => (event) => {
@@ -119,13 +130,7 @@ export default function Navbar() {
         >
 
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <p style={{
-                    color: '#4666c4',
-                    fontSize: 13,
-                    fontFamily: 'Inter',
-                    marginLeft: 20,
-                    marginTop: '20px'
-                }}>Browse</p>
+                <p style={{ color: '#4666c4', fontSize: 13, fontFamily: 'Inter', marginLeft: 20, marginTop: '20px' }}>Browse</p>
                 <div style={{ marginLeft: 120 }} className={classes.drawerHeader}>
                     <IconButton style={{ color: 'white' }} onClick={toggleDrawer(anchor, false)}>
                         {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
@@ -134,7 +139,8 @@ export default function Navbar() {
             </div>
 
 
-            <List className="side-box">
+
+            <List className="side-box" >
                 <ul className="inside-side-box">
                     <p>Accounts</p>
                 </ul>
@@ -143,24 +149,24 @@ export default function Navbar() {
             <List>
                 <Divider />
                 <ul>
-                    <select className="side-box1">
+                    <select className="side-box1" >
                         <option selected>Contracts</option>
-                        <option>Contract</option>
-                        <option>Verify Contract</option>
+                        <option >Contract</option>
+                        <option >Verify Contract</option>
 
                     </select>
 
                 </ul>
                 <Divider />
                 <ul>
-                    <select className="side-box2">
+                    <select className="side-box2" >
                         <option selected>Tools</option>
-                        <option>Dummy</option>
+                        <option >Dummy</option>
                     </select>
                 </ul>
                 <Divider />
             </List>
-            <List className="side-box">
+            <List className="side-box" >
                 <ul className="inside-side-box">
                     <p>XinFin APIs</p>
                 </ul>
@@ -180,120 +186,104 @@ export default function Navbar() {
 
 
     return (
+
         <div className={classes.root}>
+
             <CssBaseline />
             <AppBar elevation={0}
-                    className={clsx(classes.appBar)}
+                className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
 
-                    <Typography className="Header">
+                    <Typography className="Header" >
                         <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         <p className="XDC"> XDC </p>
 
                         <div>
-                            <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
+                            <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
                         </div>
-                        <div>
-                            <a href='/token-details'>
-                                <p className="Token" id="Token">Tokens</p>
-                            </a>
+                        <div >
+                            <NavLink to='/token-details'>
+                                <p className="Token" id="Token" >Tokens</p>
+                            </NavLink>
                         </div>
+
 
                     </Typography>
-                    <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
-
-                    <React.Fragment key={'right'}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            edge="end"
-                            onClick={toggleDrawer('right', true)}
-
-                        >
-                            <MenuIcon />
-                        </IconButton>
-
-                        <Drawer className={classes.drawer} anchor={'right'} open={state['right']}>
-                            {lists('right')}
-                        </Drawer>
-                    </React.Fragment>
-
-                </Toolbar>
-
-
-            </AppBar>
-            <main
-                className={clsx(classes.content)}
-            >
-
-
-                <div className="exp-parent">
-                    <img className="Shape3" src={require("../../../src/assets/images/Networkexplorer.png")}></img>
-                    <div className="exp">Network Explorer</div>
-                </div>
-                {/* ------------ Search bar ----------------- */}
-
-                <div className="centerbox-parent">
-                    <div className="centerbox">
+                    <div className="centerbox-td">
 
                         <p className="description"></p>
-                        <div className="main-form-container">
+                        <div className="main-form-container-td">
                             <form method="post">
-
+                            <div>
+                          
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                           < img style={{width: 20, height: 20, marginTop: -17, marginRight: 5}} src={require('../../assets/images/Search.png')}/>
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                       style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                       className="main-input"
-                                       placeholder="Search for an address a transaction or a block number" />
+                                    style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                    className="main-input-td"  src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
                                 {/* name="NAME" */}
+                              
 
-                                <select className="select">
-                                    <option selected>All Filters</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
+                                <select className="select-td">
+                                    <option selected>Filters</option>
+                                    <option >Dummy</option>
+                                    <option >Dummy</option>
+                                    <option >Dummy</option>
+                                    <option >Dummy</option>
                                 </select>
-                            </form>
-
-                            <ul style={{ color: 'black' }}>
+                               </div> 
+                            </div>
+                              <ul style={{ color: 'black'}}>
+                                  {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+                                  <li>
                                 {list.map((name) => {
 
                                     if (filter.length !== 0) {
                                         if (name.toLowerCase().startsWith(filter.toLowerCase()))
                                             return <li>{name}</li>
-                                    } else {
+                                    }
+                                    else {
                                         return null
                                     }
                                 })
 
                                 }
-
+                                </li>
                             </ul>
+                               
+                            </form>
 
+                           
                         </div>
                     </div>
-                </div>
-
-                {/* <button type="button" id="main-submit-mobile">Search</button>
-
-                {/* ------------ Search bar ----------------- */}
 
 
-                {/* <div>
-                    <MarketTable />
-                </div> */}
+                <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
 
+                <React.Fragment key={'right'}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="end"
+                        onClick={toggleDrawer('right', true)}
 
-            </main>
+                    >
+                        <MenuIcon />
+                    </IconButton>
 
-        </div>
+                    <Drawer className={classes.drawer} anchor={'right'} open={state['right']} >
+                        {lists('right')}
+                    </Drawer>
+                </React.Fragment>
+
+                </Toolbar>
+          </AppBar>
+
+                                               
+
+        </div >
     );
 }
-
-
-
-
-
 
