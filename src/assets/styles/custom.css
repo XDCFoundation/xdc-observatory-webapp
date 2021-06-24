@@ -955,7 +955,7 @@ button {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.54px;
-  color: #2149b9;
+  color: #2149b9 !important;
 }
 
 .data {
@@ -1110,7 +1110,6 @@ button {
   text-align: center;
   align-items: center;
   font-size: 11px;
-
   font-weight: 600;
 }
 
@@ -1121,7 +1120,8 @@ button {
 }
 
 .main_vaa p:first-child {
-  padding-left: 15px;
+  padding-left: 12px;
+  font-size: 11px;
 }
 
 .main_vaa p {
@@ -1169,12 +1169,10 @@ button {
 .cont1 {
   display: flex;
   margin-top: 12px;
-  /* justify-content: center; */
   flex-direction: column;
   text-align: center;
   padding: 8px 2px;
   width: 100%;
-  /* align-items: center; */
 }
 .cont1 p {
   margin: 2px;
@@ -1217,4 +1215,26 @@ button {
   font-family: "Inter" !important;
   font-weight: 600;
   padding-left: 2.5px;
+}
+.nav_button {
+  background-color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+}
+.nav_button:hover {
+  color: #000000;
+  list-style: none;
+  text-decoration: none;
+  font-size: 14px;
+}
+.age1 {
+  font-weight: 900;
+  font-size: 2px;
+  padding-left: 12px;
 }
