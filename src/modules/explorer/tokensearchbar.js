@@ -213,13 +213,13 @@ export default function Navbar() {
                     </Typography>
                     <div className="centerbox-td">
 
-                        <p className="description"></p>
+                        {/* <p className="description"></p> */}
                         <div className="main-form-container-td">
                             <form method="post">
                             <div>
                           
                             <div style={{display: 'flex', flexDirection: 'row'}}>
-                           < img style={{width: 20, height: 20, marginTop: -17, marginRight: 5}} src={require('../../assets/images/Search.png')}/>
+                           < img style={{width: 20, height: 20, marginRight: 5}} src={require('../../assets/images/Search.png')}/>
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
                                     style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
                                     className="main-input-td"  src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />

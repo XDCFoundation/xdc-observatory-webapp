@@ -439,6 +439,7 @@ p {
     border-radius: 12px;
     background: #fff;
     border: none;
+    
 
 }
 
@@ -447,10 +448,9 @@ p {
 .transaction-box-inside{
     display: flex;
     flex-direction: row;
-    width: 950px;
-  height: 54px;
-margin-top: 15px;
-margin-left: 50px;
+     height: 54px;
+     /* width: 66.5%; */
+  margin-top: 15px;
   border-radius: 10px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -465,8 +465,6 @@ margin-left: 50px;
 }
 
 .transaction-box-text{
-    width: 60px;
-    height: 19px;
     margin: 18px 90px 0 24px;
     font-family: Inter;
     font-size: 12px;
@@ -479,9 +477,9 @@ margin-left: 50px;
 }
 
 .transaction-box-text-1{
-
-  margin: 18px 0px 0 -40px;
-  flex-grow: 0.9;
+  word-wrap: break-word;
+  width: 80%;
+  /* flex-grow: 0.9; */
   font-family: Inter;
   font-size: 13px;
   font-weight: normal;
@@ -552,8 +550,8 @@ margin-left: 50px;
 .centerbox-td {
     width: 427px;
     height: 32px;
-    margin: 0 25px 0 785px;
     padding: 8px 10.3px 0 12px;
+    margin-right: 10px;
     border-radius: 7px;
     background-color: #ffffff;
 }
@@ -591,7 +589,7 @@ margin-left: 50px;
 }
 
 .main-input {
-  margin: -8px 190px 16px 0px;
+  margin: 0px 190px 16px 0px;
   background: #fff;
   outline-color: #ffffff;
   height: 50px;
@@ -619,10 +617,9 @@ margin-left: 50px;
 }
 
 .firstbox{
-    width: 50px;
-    height: 35px;
+   height: 35px;
     margin: 39px 6px 46px 68px;
-    padding: 9px 6px 9px 7px;
+    padding: 6px 6px 9px 7px;
     border-radius: 4px;
     border: solid 1px #e5e8f0;
     background-color: #ffffff;
@@ -725,10 +722,9 @@ margin-left: 50px;
 }
 
 .lastbox{
-    width: 50px;
     height: 35px;
     margin: 39px 0px 46px 6px;
-    padding: 9px 6px 9px 7px;
+    padding: 6px 6px 9px 7px;
     border-radius: 4px;
     border: solid 1px #e5e8f0;
     background-color: #ffffff;
@@ -756,8 +752,9 @@ margin-left: 50px;
 
 .main-input-td {
 
-   margin-top: -19px;
+   
     outline-color: #ffffff;
+    margin-top: -3px;
     height: 22px;
     width: 330px;
     color: #9fa8b1;
@@ -813,9 +810,9 @@ margin-left: 50px;
 }
 
 .select-td {
-    width: 60px;
-    margin-top: -19px;
-    margin-left: -4px;
+    width: 65px;
+    margin-top: -3px;
+    margin-left: -7px;
     outline-color: #ffffff;
     border-color: transparent;
     border-left-color: #9fa9ba;
@@ -1230,27 +1227,27 @@ body {
 .container-table {
 
     border-radius: 12px;
-    width: 95%;
+
     background: #fff;
     border: none;
     padding: 0 20px;
 }
 
 #container-table table{
-    /* height: 120px;
+    /* height: 60px;
     border-radius: 12px;
     border: 1px solid black;
     border-collapse: collapse;
     background-color: #ffffff; */
 
     border-collapse: collapse;
-    width: 100%;
     border-bottom: transparent;
 
  }
 
 
 #container-table th{
+
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -1259,9 +1256,10 @@ body {
 
 #container-table td{
     padding: 12px;
+    /* padding-left: 20px; */
     text-align: left;
     border-bottom: 1px solid #ddd;
-    margin: 19px 49px 1.8px 69px;
+    /* margin: 19px 0px 1.8px 69px; */
     font-family: 'Inter' !important;
     font-size: 12px;
     font-weight: normal;
@@ -1274,7 +1272,8 @@ body {
 }
 
 .input-area{
-    padding: 11px 614px 63px 11px;
+      width:  100%;
+      height: 93px;
       border-radius: 4px;
       outline: transparent;
     border: solid 1px #9fa9ba;
@@ -1283,7 +1282,8 @@ body {
   }
 
 .input-area-2{
-    padding: 8px 612px 9px 18px;
+  width:  100%;
+  height: 34px;
     border-radius: 4px;
     outline: transparent;
     border: solid 1px #9fa9ba;

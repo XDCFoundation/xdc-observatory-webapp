@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 
 
 
+
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -134,10 +135,14 @@ function LatestBlocks() {
                 return (
                   <div className="value_main_main">
                     <div className="value_main main_val">
+                      <NavLink to="/transaction-details">
                       <button className="bttn">{shorten(e.hash)}</button>
+                      </NavLink>
                       <p>{e.value} XDC</p>
                       <p>{age}</p>
+                      <NavLink to="/transaction-details">
                       <button className="details">Details</button>
+                      </NavLink>
                     </div>
                   </div>
                 );

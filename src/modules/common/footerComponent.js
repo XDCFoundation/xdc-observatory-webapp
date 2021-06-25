@@ -26,7 +26,7 @@ export default function FooterComponent() {
         <p className="XDC-Header">XDC</p>
     </div>
     <p className="xdc-desc">
-        XinFinScan is a Block Explorer<br></br> and Analytics Platform for<br></br> XDC, a decentralized smart contracts platform.
+        XinFinScan is a Block Explorer and Analytics Platform for XDC, a decentralized smart contracts platform.
     </p>
     <div>
          <Select id="currency" className={"inline select-xdc"} defaultValue="INR">

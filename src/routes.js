@@ -14,6 +14,7 @@ import TokenDetails from './modules/explorer/tokendetails';
 import TransactionDetails from './modules/explorer/transactiondetails';
 
 
+
 class Routes extends BaseComponent {
 
     componentDidMount() {

@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -92,6 +92,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
     const classes = useStyles();
     const theme = useTheme();
+
+    const history = useHistory();
 
     const [state, setState] = React.useState({
         top: false,
@@ -193,13 +195,15 @@ export default function Navbar() {
                         <p className="XDC"> XDC </p>
 
                         <div>
+                        <a href='/'>
                             <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
+                            </a>
                         </div>
                         <div>
                             <a href='/token-details'>
-                                <p className="Token" id="Token">Tokens</p>
-                            </a>
-                        </div>
+                                <div  className="Token" id="Token">Tokens</div>
+                         </a>
+                        </div> 
 
                     </Typography>
                     <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
