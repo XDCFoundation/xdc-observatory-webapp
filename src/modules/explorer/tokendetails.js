@@ -15,7 +15,7 @@ import '../../assets/styles/custom.css';
 import FooterComponent from '../common/footerComponent';
 import { borderColor, height } from '@material-ui/system';
 import Button from '@material-ui/core/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -127,13 +127,13 @@ const useStyles = makeStyles({
     rootui: {
         borderRadius: '17px',
         marginLeft: '18%',
-        height: 1000,
+        
         width: '65%',
         backgroundColor: 'white'
     },
 
     container: {
-        height: 1001,
+    
         borderTopColor: 'white',
         backgroundColor: 'white',
         borderBottomColor: 'white',
@@ -148,10 +148,14 @@ const useStyles = makeStyles({
 
 });
 
+
+
 export default function StickyHeadTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(50);
+
+    const history = useHistory()
 
     const handleChangePage = (action) => {
 
@@ -232,22 +236,24 @@ export default function StickyHeadTable() {
                         <TableBody>
                             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}  >
-
-                                        <TableCell style={{ width: '1px' }} id="td" >{row.S}</TableCell>
+                                   
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => history.push('/token-data')}  >
+                                      
+                                        <TableCell style={{ width: '1px' }} id="td" >
+                                        {row.S}
+                                        </TableCell>
                                         <TableCell style={{ width: '1px' }} id="td"> <img style={{ width: 25, height: 25, borderRadius: '10px' }} src={row.src} /></TableCell>
                                         <TableCell id="td" style={{ width: '110px' }} >{row.Token}</TableCell>
                                         <TableCell id="td" style={{ width: '130px' }} >{row.Type}</TableCell>
                                         <TableCell>
-                                            <NavLink to="/transaction-details">
                                                 <a style={{ fontSize: 12, color: '#2149b9' }} href="#text-as" > {row.Contract}</a>
-                                            </NavLink>
                                         </TableCell>
                                         <TableCell id="td" style={{ width: '120px' }} >{row.Holder}</TableCell>
                                         <TableCell id="td">{row.Status}</TableCell>
-
+                                 
 
                                     </TableRow>
+                                   
                                 );
                             })}
                         </TableBody>
@@ -285,7 +291,7 @@ export default function StickyHeadTable() {
                 <div style={{ display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
 
                     <div className="firstbox" onClick={() => setPage(0)}>
-                        <p className="first" >First</p>
+                        <button style={{backgroundColor: 'white'}} className="first" >First</button>
                     </div>
                     <div className="previousbox" onClick={() => handleChangePage("prev")}>
                         <p className="path"> <ChevronLeftIcon /> </p>
@@ -297,7 +303,7 @@ export default function StickyHeadTable() {
                         <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /> </p>
                     </div>
                     <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage)-1) }>
-                        <p className="last">Last</p>
+                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
                     </div>
                 </div>
 
