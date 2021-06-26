@@ -21,7 +21,14 @@ import { NavLink } from 'react-router-dom';
 import '../../assets/styles/custom.css';
 import SearchIcon from '@material-ui/icons/Search';
 
+import { history } from "../../managers/history"
 
+
+function _clicked() {
+    console.log("Click function")
+    history.push('/')
+
+}
 
 const drawerWidth = 240;
 
@@ -201,12 +208,15 @@ export default function Navbar() {
                         <p className="XDC"> XDC </p>
 
                         <div>
-                            <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
+                            <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network Explorer</NavLink>
+
+                            {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
+
                         </div>
-                        <div >
-                            <NavLink to='/token-details'>
-                                <p className="Token" id="Token" >Tokens</p>
-                            </NavLink>
+                        <div>
+                            <NavLink exact activeClassName="active-t" to={'/token-details'} className="Token" >Tokens</NavLink>
+
+
                         </div>
 
 
@@ -216,72 +226,72 @@ export default function Navbar() {
                         <p className="description"></p>
                         <div className="main-form-container-td">
                             <form method="post">
-                            <div>
-                          
-                            <div style={{display: 'flex', flexDirection: 'row'}}>
-                           < img style={{width: 20, height: 20, marginTop: -17, marginRight: 5}} src={require('../../assets/images/Search.png')}/>
-                                <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                    style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                    className="main-input-td"  src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
-                                {/* name="NAME" */}
-                              
+                                <div>
 
-                                <select className="select-td">
-                                    <option selected>Filters</option>
-                                    <option >Dummy</option>
-                                    <option >Dummy</option>
-                                    <option >Dummy</option>
-                                    <option >Dummy</option>
-                                </select>
-                               </div> 
-                            </div>
-                              <ul style={{ color: 'black'}}>
-                                  {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-                                  <li>
-                                {list.map((name) => {
+                                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        < img style={{ width: 20, height: 20, marginTop: -17, marginRight: 5 }} src={require('../../assets/images/Search.png')} />
+                                        <input value={filter} onChange={(e) => setFilter(e.target.value)}
+                                            style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                            className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
+                                        {/* name="NAME" */}
 
-                                    if (filter.length !== 0) {
-                                        if (name.toLowerCase().startsWith(filter.toLowerCase()))
-                                            return <li>{name}</li>
-                                    }
-                                    else {
-                                        return null
-                                    }
-                                })
 
-                                }
-                                </li>
-                            </ul>
-                               
+                                        <select className="select-td">
+                                            <option selected>Filters</option>
+                                            <option >Dummy</option>
+                                            <option >Dummy</option>
+                                            <option >Dummy</option>
+                                            <option >Dummy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <ul style={{ color: 'black' }}>
+                                    {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+                                    <li>
+                                        {list.map((name) => {
+
+                                            if (filter.length !== 0) {
+                                                if (name.toLowerCase().startsWith(filter.toLowerCase()))
+                                                    return <li>{name}</li>
+                                            }
+                                            else {
+                                                return null
+                                            }
+                                        })
+
+                                        }
+                                    </li>
+                                </ul>
+
                             </form>
 
-                           
+
                         </div>
                     </div>
 
 
-                <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
+                    <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
 
-                <React.Fragment key={'right'}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="end"
-                        onClick={toggleDrawer('right', true)}
+                    <React.Fragment key={'right'}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={toggleDrawer('right', true)}
 
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                        >
+                            <MenuIcon />
+                        </IconButton>
 
-                    <Drawer className={classes.drawer} anchor={'right'} open={state['right']} >
-                        {lists('right')}
-                    </Drawer>
-                </React.Fragment>
+                        <Drawer className={classes.drawer} anchor={'right'} open={state['right']} >
+                            {lists('right')}
+                        </Drawer>
+                    </React.Fragment>
 
                 </Toolbar>
-          </AppBar>
+            </AppBar>
 
-                                               
+
 
         </div >
     );

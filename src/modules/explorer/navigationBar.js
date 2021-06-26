@@ -12,8 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { NavLink } from 'react-router-dom';
+import { history } from "../../managers/history"
+import Scroll from 'react-scroll';
 
 
+var scroll = Scroll.animateScroll;
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -183,22 +186,26 @@ export default function Navbar() {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar elevation={0}
-                    className={clsx(classes.appBar)}
+                className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
 
                     <Typography className="Header">
-                        <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
-                        <p className="XDC"> XDC </p>
+
+                        <img className="Shape" onClick={() => scroll.scrollTo(375)} src={require("../../../src/assets/images/XDC-Icon.png")}></img>
+                        <p className="XDC" > XDC </p>
 
                         <div>
-                            <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
+                            <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network Explorer</NavLink>
+
+                            {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
+
                         </div>
                         <div>
-                            <a href='/token-details'>
-                                <p className="Token" id="Token">Tokens</p>
-                            </a>
+                            <NavLink exact activeClassName="active-t" to={'/tokens'} className="Token" >Tokens</NavLink>
+
+
                         </div>
 
                     </Typography>
@@ -231,7 +238,7 @@ export default function Navbar() {
 
                 <div className="exp-parent">
                     <img className="Shape3" src={require("../../../src/assets/images/Networkexplorer.png")}></img>
-                    <div className="exp">Network Explorer</div>
+                    <div className="exp" >Network Explorer</div>
                 </div>
                 {/* ------------ Search bar ----------------- */}
 
@@ -243,9 +250,9 @@ export default function Navbar() {
                             <form method="post">
 
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                       style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                       className="main-input"
-                                       placeholder="Search for an address a transaction or a block number" />
+                                    style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                    className="main-input"
+                                    placeholder="Search for an address a transaction or a block number" />
                                 {/* name="NAME" */}
 
                                 <select className="select">

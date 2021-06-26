@@ -7,6 +7,7 @@ import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
 import TokenDataComponent from "../token/tokenDataDashboard";
 import TokenMarketDataTable from "../token/tokenMarketData";
+import { Route, Switch } from 'react-router-dom';
 import { history } from "../../managers/history";
 
 
