@@ -9,9 +9,11 @@ import BaseComponent from "./modules/baseComponent";
 import TokenDataComponent from "./modules/token/tokenDataDashboard";
 import LatestTransactionList from './modules/transaction';
 import LatestBlocksList from './modules/blocks';
-import BlockChainClass from './modules/explorer/';
+import BlockChainClass from './modules/explorer';
 import TokenDetails from './modules/explorer/tokendetails';
+import BlockChainDataComponent from './modules/explorer/blockchainData';
 import TransactionDetails from './modules/explorer/transactiondetails';
+import BlockDetailsData from './modules/explorer/blockDetails'
 
 
 class Routes extends BaseComponent {
@@ -27,15 +29,16 @@ class Routes extends BaseComponent {
                 <Router history={history}>
                     <Switch>
                         <Route exact path={'/'} component={BlockChainClass} />
-                        <Route path={'/token-data'} component={TokenDataComponent} />
-                        <Route path={'/view-all-transaction'} component={LatestTransactionList} />
-                        <Route path={'/view-all-blocks'} component={LatestBlocksList} />
-                        <Route exact path={'/token-details'} component={TokenDetails} />
+                        <Route exact path={'/token-data'} component={TokenDataComponent} />
+                        <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
+                        <Route exact path={'/view-all-blocks'} component={LatestBlocksList} />
+                        <Route exact path={'/tokens'} component={TokenDetails} />
                         <Route exact path={'/transaction-details'} component={TransactionDetails} />
+                        <Route exact path={'/block-details'} component={BlockDetailsData} />
                         <Redirect exact from='*' to="/" />
-                   </Switch>
-                  
-                 </Router>
+                    </Switch>
+
+                </Router>
             </MuiThemeProvider>
         );
     }

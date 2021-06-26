@@ -9,10 +9,10 @@ import Utils from '../../utility'
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
   if (num > 999 && num < 1000000) {
     return (num / 1000).toFixed(2) + " K"; // convert to K for number from > 1000 < 1 million
-  } else if (num > 1000000 && num < 100000000) {
+  } else if (num > 999999 && num < 999999999) {
     return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
-  } else if (num > 100000000) {
-    return (num / 100000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
+  } else if (num > 1000000000) {
+    return (num / 1000000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
   } else if (num < 900) {
     return num; // if value < 1000, nothing to do
   }
@@ -35,10 +35,15 @@ export default function MarketDatatable() {
     totalcoinMarketData = totalcoinMarketData.sort((a, b) => {
       return a.lastUpdated - b.lastUpdated;
     });
+    if (error || !totalcoinMarketData)
+      return
     setLatestMarket(totalcoinMarketData[1]);
     setPreviousMarket(totalcoinMarketData[0]);
     const interval = setInterval(async () => {
+
       let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+      if (error || !totalcoinMarketData)
+        return
       setLatestMarket(totalcoinMarketData[1]);
       setPreviousMarket(totalcoinMarketData[0]);
     }, 45000)

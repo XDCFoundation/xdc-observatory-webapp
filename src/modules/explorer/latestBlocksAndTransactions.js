@@ -101,8 +101,8 @@ function LatestBlocks() {
                 return (
                   <div className="value_main_main">
                     <div className="main_vaa">
-                      <p>{ti < 0 ? "0 secs ago" : ti}</p>
-                      <p className="height">{z.number}</p>
+                      <p>{ti}</p>
+                      <a className="height" href={"/block-details"}>{z.number}</a>
                       <p>{z.transactions.length}</p>
                     </div>
                   </div>
