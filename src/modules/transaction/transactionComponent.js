@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useHistory } from "react-router";
 
 
 function timeDiff(curr, prev) {
@@ -47,6 +48,8 @@ function timeDiff(curr, prev) {
 
 export default function TransactionComponent(props) {
 
+    const history = useHistory();
+
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
@@ -81,7 +84,7 @@ export default function TransactionComponent(props) {
                                 <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                     <TableCell style={{ border: "none" }} >
                                         <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
-                                        <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata">{shorten(row.hash)}  </span> </a>
+                                        <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata" onClick={() => history.push("/transaction-details/" + row.hash)}>{shorten(row.hash)}  </span> </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.value}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>
@@ -107,6 +110,7 @@ export default function TransactionComponent(props) {
                     <span className="text">Records</span>
                 </Grid>
                 <Grid xs="5"></Grid>
+                
                 <Grid item xs="4">
                     <button style={{ marginLeft: "15px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>

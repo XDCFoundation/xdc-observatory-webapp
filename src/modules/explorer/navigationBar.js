@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { NavLink, useHistory } from 'react-router-dom';
 
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -145,12 +146,16 @@ export default function Navbar() {
             <List>
                 <Divider />
                 <ul>
-                    <select className="side-box1">
+                <p  ><a className="side-box1" href = "/contract-details">Contract</a></p>
+                    {/* <select className="side-box1" >
+                  
                         <option selected>Contracts</option>
+                        <a href="/contract-details">
                         <option>Contract</option>
+                         </a>
                         <option>Verify Contract</option>
-
-                    </select>
+                 
+                    </select> */}
 
                 </ul>
                 <Divider />
@@ -289,15 +294,11 @@ export default function Navbar() {
                     <MarketTable />
                 </div> */}
 
-
             </main>
 
         </div>
     );
 }
 
-
-
-
-
+                                                          
 

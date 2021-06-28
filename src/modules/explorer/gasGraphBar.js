@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
+import { AccountService, BlockService, TransactionService } from '../../services'
+import Utils from '../../utility'
 
 
 const MyResponsiveLine = ({ data }) => (
@@ -77,58 +79,71 @@ export default function App() {
 
     const [data, setData] = useState([])
 
+    const [graphTransactions, setGraphTransactions] = useState([]);
 
-    useEffect(() => {
-        fetch("https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/getSomeDaysTransactions/14")
-            .then(res => res.json())
-            .then((result) => {
-                var arr = [{
-                    id: "GasPrice",
-                    color: "hsl(248, 70%, 50%)",
-                    data: []
-                }]
+    useEffect(async () => {
+        let [error, transactionGraph] = await Utils.parseResponse(TransactionService.getSomeDaysTransaction())
+        if (error || !transactionGraph)
+            return
+        setGraphTransactions(transactionGraph)
+        // alert(JSON.stringify(transactionGraph))
+        const interval = setInterval(async () => {
+            let [error, transactionGraph] = await Utils.parseResponse(TransactionService.getSomeDaysTransaction())
+            setGraphTransactions
+                (transactionGraph);
+        // alert(JSON.stringify(transactionGraph))
+        }, 30000)
+    
+        var arr = [{
+            id: "GasPrice",
+            color: "hsl(248, 70%, 50%)",
+            data: []
+        }]
 
-                var resultData = []
+        var resultData = []
 
-                result.responseData.map(items => {
+        transactionGraph.map(items => {
 
-                    if (resultData.length > 0) {
-                        if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"),items.gasPrice)) {
-                            resultData.push({
-                                x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
-                                y: parseInt(items.gasPrice)
-                            })
-                        }
-                    }
-                    else {
-                        resultData.push({
-                            x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
-                            y: parseInt(items.gasPrice)
-                        })
-                    }
-
-                })
-
-                function checkDuplicate(id,gasPrice) {
-                    for (let index = 0; index < resultData.length; index++) {
-                        if (id === resultData[index].x) {
-                            resultData[index].y += parseInt(gasPrice)
-                            return false;
-                        }
-                    }
-                    return true;
+            if (resultData.length > 0) {
+                if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"),items.gasPrice)) {
+                    resultData.push({
+                        x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
+                        y: parseInt(items.gasPrice)
+                    })
                 }
+            }
+            else {
+                resultData.push({
+                    x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
+                    y: parseInt(items.gasPrice)
+                })
+            }
 
-                let graphdata = resultData
-                console.log(graphdata.reverse())
-                arr[0].data=resultData
-                setData(arr)
+        })
 
-            })
+        function checkDuplicate(id,gasPrice) {
+            for (let index = 0; index < resultData.length; index++) {
+                if (id === resultData[index].x) {
+                    resultData[index].y += parseInt(gasPrice)
+                    return false;
+                }
+            }
+            return true;
+        }
 
-            .catch(err => {
-                console.log(err);
-            })
+        let graphdata = resultData
+        console.log(graphdata.reverse())
+        arr[0].data=resultData
+        setData(arr)
+
+   
+
+    // .catch(err => {
+    //     console.log(err);
+    // })
+   
+
+    
     }, [])
 
     return (
@@ -138,3 +153,4 @@ export default function App() {
     );
 }
 
+                       
