@@ -12,6 +12,7 @@ import LatestBlocksList from './modules/blocks';
 import BlockChainClass from './modules/explorer/';
 import TokenDetails from './modules/explorer/tokendetails';
 import TransactionDetails from './modules/explorer/transactiondetails';
+import ContractComponent from './modules/dashboard/contractComponent'
 
 
 
@@ -32,7 +33,8 @@ class Routes extends BaseComponent {
                         <Route path={'/view-all-transaction'} component={LatestTransactionList} />
                         <Route path={'/view-all-blocks'} component={LatestBlocksList} />
                         <Route exact path={'/token-details'} component={TokenDetails} />
-                        <Route exact path={'/transaction-details'} component={TransactionDetails} />
+                        <Route exact path={'/transaction-details/:hash'} component={TransactionDetails} />
+                        <Route exact path={'/contract-details'} component={ContractComponent} />
                         <Redirect exact from='*' to="/" />
                    </Switch>
                   

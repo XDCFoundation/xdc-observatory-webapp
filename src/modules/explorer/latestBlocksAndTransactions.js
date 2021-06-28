@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import { BlockService, TransactionService } from '../../services'
 import Utils from '../../utility'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory, useParams } from 'react-router-dom'
 
 
 
@@ -39,8 +39,12 @@ function timeDiff(curr, prev) {
 }
 function LatestBlocks() {
 
+  const history = useHistory();
+
+
   /* FETCHING LATEST BLOCKS API*/
   const [postHeight, setPostHeight] = useState([]);
+  // console.log("abcd")
 
   useEffect(async () => {
     let urlPath = "?skip=0&limit=10"
@@ -58,10 +62,13 @@ function LatestBlocks() {
 
   /* FETCHING LATEST TRANSACTIONS API*/
   const [postTransactions, setlatestTransactions] = useState([]);
+  console.log("efgh")
 
   useEffect(async () => {
     let urlPath = "?skip=0&limit=10"
     let [error, latestTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
+    // console.log(error)
+    // console.log(typeof latestTransactions)
     if (error || !latestTransactions)
       return
     setlatestTransactions(latestTransactions);
@@ -69,6 +76,7 @@ function LatestBlocks() {
       let [error, latestTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
       setlatestTransactions
         (latestTransactions);
+        // alert(latestTransactions)
     }, 45000)
   }, []);
 
@@ -128,21 +136,21 @@ function LatestBlocks() {
               </div>
             </div>
             <div className="data_value">
-              {postTransactions.map((e) => {
+              {postTransactions && postTransactions.length && postTransactions.map((e) => {
                 const currentTime = new Date();
                 const previousTime = new Date(e.timestamp * 1000);
                 const age = timeDiff(currentTime, previousTime);
                 return (
                   <div className="value_main_main">
                     <div className="value_main main_val">
-                      <NavLink to="/transaction-details">
-                      <button className="bttn">{shorten(e.hash)}</button>
-                      </NavLink>
+                      <a href={"/transaction-details/" + e.hash} >
+                        <button className="bttn" >{shorten(e.hash)}</button>
+                      </a>
                       <p>{e.value} XDC</p>
                       <p>{age}</p>
-                      <NavLink to="/transaction-details">
-                      <button className="details">Details</button>
-                      </NavLink>
+                      <a href={"/transaction-details/" + e.hash} >
+                      <button className="details" >Details</button>
+                      </a>
                     </div>
                   </div>
                 );
