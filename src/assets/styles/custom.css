@@ -834,23 +834,50 @@ p {
 }
 
 .side-box {
-  height: 36px;
-  margin-left: -10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: transparent;
+  color: #ffffff;
+  background-color: #102e84;
+
+}
+
+.myhr{
+  width: 90%;
+  margin-bottom: 11px;
+  margin-right: 25px;
+  border: solid 0.1px #4867c1;
+}
+
+.myhr2{
+ margin-left: 0px;
+  width: 40%;
+  border: solid 0.5px #e3e7eb;
+}
+
+.myhr3{
+  margin-right: 0px;
+  margin-top: -18px;
+   width: 50%;
+   border: solid 0.5px #e3e7eb;
+ }
+
+.inside-side-box {
+  margin-left: -20px;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.67px;
+  letter-spacing: 0.65px;
   color: #ffffff;
-}
 
-.inside-side-box {
-  margin-left: -20px;
 }
 
 .side-box1 {
-  width: 205px;
+  /* width: 205px; */
+  
   margin-top: 7px;
   text-align: center;
   margin-left: -25px;
@@ -894,6 +921,8 @@ p {
   text-align: center;
   color: #686868;
 }
+
+
 
 .TableTexts {
   margin-top: 12px;
@@ -976,6 +1005,30 @@ p {
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
+}
+
+.Live-Network{
+ margin-left: -20px;
+  font-family: 'Inter-Regular';
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #8ebbfe;
+}
+
+.Live-Network-list{
+  margin-left: -20px;
+  font-family: 'Inter';
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.65px;
+  color: #ffffff;
 }
 
 
@@ -1298,6 +1351,75 @@ body {
     background-color: #ffffff;
     color: black;
   }
+
+  .input-area-3{
+    width:  100%;
+    height: 181px;
+    margin-top: 10px;
+    border-left-color: #2149b9;
+  /* opacity: 0.33; */
+  border-radius: 4px;
+  border: solid 1px #9fa9ba;
+  background-color: #efefef;
+}
+
+.input-area-4{
+  width:  100%;
+  height: 41px;
+  margin-top: 10px;
+  border-left-color: #2149b9;
+/* opacity: 0.33; */
+border-radius: 4px;
+border: solid 1px #9fa9ba;
+background-color: #efefef;
+}
+
+.contract-source{
+  font-family: 'Inter';
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #252525;
+}
+
+.contract-source-2{
+  font-family: 'Inter';
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.62px;
+  color: #2a2a2a;
+}
+
+.contract-name{
+  display: flex;
+  flex-direction: row;
+  font-family: 'Inter';
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #252525;
+}
+
+.Fiat-Token{
+  
+  font-family: 'Inter';
+  font-size: 11px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #3a3a3a;
+}
 
 /* 
   .hello{
