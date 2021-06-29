@@ -20,43 +20,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ChevronLeft, Directions, ShortText } from '@material-ui/icons';
+import Tooltip from '@material-ui/core/Tooltip';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
-
-const columns = [
-    {
-        id: 'Address',
-        label: 'Address',
-        align: 'left',
-        backgroundColor: 'white',
-        format: (value) => value.toLocaleString('en-US'),
-
-    },
-
-    {
-        id: 'Token',
-        label: 'Token Name',
-        align: 'left',
-
-        backgroundColor: 'white',
-        format: (value) => value.toLocaleString('en-US'),
-
-    },
-
-    {
-        id: 'Contract',
-        label: 'Contract Name',
-        align: 'left',
-        backgroundColor: 'white',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'IsToken',
-        label: 'IsToken',
-        align: 'left',
-         backgroundColor: 'white',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-];
 
 function createData(Address, Tokenname, Contractname, IsToken) {
     return { Address, Tokenname, Contractname, IsToken};
@@ -66,8 +32,8 @@ const rows = [
 
     { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
     { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe80', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe90', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
     { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
     { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
     { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
@@ -88,6 +54,7 @@ const useStyles = makeStyles({
         borderTopColor: 'white',
         backgroundColor: 'white',
         borderBottomColor: 'white',
+        borderBottom: 'none',
         background: '#fff',
         padding: '0 20px',
     },
@@ -175,19 +142,16 @@ export default function StickyHeadTable() {
             <br />
             <Paper className={classes.rootui} >
                 <TableContainer className={classes.container} id="container-table">
-                    <Table stickyHeader aria-label="sticky table">
+                    <Table >
                         <TableHead>
-                            <TableRow >
-                                {columns.map((column) => (
-                                    <TableCell id="th"
-                                        key={column.id}
-                                        align={column.align}
-                                        style={{ backgroundColor: '#fffff'}}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
+                        <TableRow >
+                            <TableCell style={{ border: "none", paddingLeft: '5%' }} align="left" ><span  className={"tableheaders"}>Address</span></TableCell>
+                            <TableCell style={{ border: "none"}} align="left"><span className={"tableheaders"}>Token Name</span></TableCell>
+                            <TableCell style={{ border: "none"}} align="left"><span className={"tableheaders"}>Contract Name</span></TableCell>
+                            <TableCell style={{ border: "none"}} align="left"><span className={"tableheaders"}>Is Token</span></TableCell>
+                           
+                        </TableRow>
+                           
                         </TableHead>
                         <TableBody>
                             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
@@ -196,11 +160,12 @@ export default function StickyHeadTable() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}  >
                                       
                                         <TableCell id="td" >
-                                      <a style={{color: 'blue', fontSize: 11}} href="#text">  {shorten(row.Address)} </a>
+                                        <Tooltip placement="right" title={row.Address}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
+                                      <a style={{color: 'blue', fontSize: 11, marginLeft: '10px'}} href="#text"><span className="tabledata" > {shorten(row.Address)} </span> </a>
                                         </TableCell>
-                                        <TableCell id="td">{row.Tokenname}</TableCell>
-                                        <TableCell id="td" >{row.Contractname}</TableCell>
-                                        <TableCell id="td"  >{row.IsToken}</TableCell>
+                                        <TableCell id="td"  ><span className="tabledata" style={{marginLeft: '6px'}}>{row.Tokenname}</span></TableCell>
+                                        <TableCell id="td" ><span className="tabledata" style={{marginLeft: '5px'}}>{row.Contractname}</span></TableCell>
+                                        <TableCell id="td"  ><span className="tabledata" style={{marginLeft: '5px'}}>{row.IsToken}</span></TableCell>
                                       
                                  
 
@@ -216,16 +181,15 @@ export default function StickyHeadTable() {
             </Paper>
 
           
-            {/* <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
 
                 <div style={{display: 'flex', flexDirection: 'row' ,marginLeft: '270px', marginTop: '50px'}}>
                     Show
                     <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option selected>50</option>
+                        <option selected>10</option>
                         <option >25</option>
-                        <option >15</option>
-                        <option >10</option>
-                        <option >5</option>
+                        <option >50</option>
+                        <option >100</option>
                     </select>
                     Records
                 </div>
@@ -250,7 +214,7 @@ export default function StickyHeadTable() {
                 </div>
 
 
-            </div> */}
+            </div>
 
             <FooterComponent />
 
@@ -258,4 +222,3 @@ export default function StickyHeadTable() {
 
     );
 }
-

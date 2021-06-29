@@ -12,6 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { NavLink, useHistory } from 'react-router-dom';
+import { TableCell } from '@material-ui/core';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 
 
@@ -103,6 +105,7 @@ export default function Navbar() {
         right: false,
     });
 
+   
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -140,57 +143,187 @@ export default function Navbar() {
             <List className="side-box">
                 <ul className="inside-side-box">
                     <p>Accounts</p>
+                    <hr className="myhr" />
                 </ul>
-
-            </List>
-            <List>
-                <Divider />
-                <ul>
-                <p  ><a className="side-box1" href = "/contract-details">Contract</a></p>
-                    {/* <select className="side-box1" >
-                  
-                        <option selected>Contracts</option>
-                        <a href="/contract-details">
-                        <option>Contract</option>
-                         </a>
-                        <option>Verify Contract</option>
-                 
-                    </select> */}
-
+                <ul className="inside-side-box">
+                    <p>Contracts</p>
+                    <hr className="myhr" />
                 </ul>
-                <Divider />
-                <ul>
-                    <select className="side-box2">
-                        <option selected>Tools</option>
-                        <option>Dummy</option>
-                    </select>
+                <ul  className="inside-side-box">
+                    <p onClick={toggleDroz('right', true)}>Tools</p>
+                    <hr className="myhr" />
                 </ul>
-                <Divider />
-            </List>
-            <List className="side-box">
                 <ul className="inside-side-box">
                     <p>XinFin APIs</p>
+                    <hr className="myhr" />
                 </ul>
-                <Divider />
-                <ul style={{ marginTop: 10, marginLeft: -20 }}>
+                <ul className="inside-side-box" >
                     <p>Nodes</p>
+                    <hr className="myhr" />
                 </ul>
-                <Divider />
             </List>
+           
 
         </div>
     );
 
-
     const list = ["Accounts", "Contract", "Tools", "Xinfin Apis", "Nodes", "Tokens"]
     const [filter, setFilter] = useState("")
 
+// ..................
+
+    const toggleDroz = (subanchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setState({ ...state, [subanchor]: open });
+    };
+
+    const items = (subanchor) => (
+        <div
+            className={clsx(classes.list, {
+                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+            })}
+            role="presentation"
+            onKeyDown={toggleDroz(subanchor, false)}
+        >
+             <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <p style={{
+                    color: 'white',
+                    fontSize: 11,
+                    fontFamily: 'Inter',
+                    marginLeft: 20,
+                    marginTop: '15px',
+                }}> <span onClick={toggleDroz(subanchor, false)} style={{fontSize: 20, marginRight: '2px'}}> <i class="fa fa-angle-left" aria-hidden="true"></i> </span> Tools</p>
+                <div style={{ marginLeft: 120 }} className={classes.drawerHeader}>
+                    <IconButton style={{ color: 'white' }} onClick={toggleDroz(subanchor, false)}>
+                        {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
+                    </IconButton>
+                </div>
+            </div>
+
+
+            <List className="side-box">
+                <ul className="Live-Network">
+                    <p>Live Network</p>
+                  
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>Web Wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p >Android wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>Block Explorer</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list" >
+                    <p>XinFin APIs</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list" >
+                    <p>Become a Master Node/Validator</p>
+                    <hr className="myhr" />
+                </ul>
+            </List>
+            <br/>
+            <List className="side-box">
+                <ul className="Live-Network">
+                    <p>Sand Box/Testnet</p>
+                  
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>Faucet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p >Web wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>Block Explorer</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list" >
+                    <p>XinFin APIs</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list" >
+                    <p>Become a Master Node/Validator</p>
+                    <hr className="myhr" />
+                </ul>
+            </List>
+            <br/>
+            <List className="side-box">
+                <ul className="Live-Network">
+                    <p>Supported Wallet</p>
+                  
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>Guarda Wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p >D'CENT Wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>D'CENT Hardware Wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list" >
+                    <p>Freewallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list" >
+                    <p>XcelPay Wallet</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list" >
+                    <p>Bitfi Hardware Wallet</p>
+                    <hr className="myhr" />
+                </ul>
+            </List>
+            <br/>
+            <List className="side-box">
+                <ul className="Live-Network">
+                    <p>More</p>
+                  
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>XinPay</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p >XinFin Remix</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list">
+                    <p>One-Click Node Installer</p>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Live-Network-list" >
+                    <p>Explore dApps</p>
+                    <hr className="myhr" />
+                </ul>
+
+            </List>
+
+        </div>
+        
+    );
+
+  // ..................  
 
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar elevation={0}
-                    className={clsx(classes.appBar)}
+                className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
@@ -200,15 +333,15 @@ export default function Navbar() {
                         <p className="XDC"> XDC </p>
 
                         <div>
-                        <a href='/'>
-                            <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
+                            <a href='/'>
+                                <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
                             </a>
                         </div>
                         <div>
                             <a href='/token-details'>
-                                <div  className="Token" id="Token">Tokens</div>
-                         </a>
-                        </div> 
+                                <div className="Token" id="Token">Tokens</div>
+                            </a>
+                        </div>
 
                     </Typography>
                     <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
@@ -218,7 +351,10 @@ export default function Navbar() {
                             color="inherit"
                             aria-label="open drawer"
                             edge="end"
-                            onClick={toggleDrawer('right', true)}
+                            // onClick={toggleDrawer('right', true)}
+                            onClick={toggleDroz('left', true)}
+                            
+                           
 
                         >
                             <MenuIcon />
@@ -227,6 +363,10 @@ export default function Navbar() {
                         <Drawer className={classes.drawer} anchor={'right'} open={state['right']}>
                             {lists('right')}
                         </Drawer>
+                        <Drawer className={classes.drawer} anchor={'left'} open={state['left']}>
+                            {items('left')}
+                        </Drawer>
+                      
                     </React.Fragment>
 
                 </Toolbar>
@@ -252,9 +392,9 @@ export default function Navbar() {
                             <form method="post">
 
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                       style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                       className="main-input"
-                                       placeholder="Search for an address a transaction or a block number" />
+                                    style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                    className="main-input"
+                                    placeholder="Search for an address a transaction or a block number" />
                                 {/* name="NAME" */}
 
                                 <select className="select">
@@ -300,5 +440,5 @@ export default function Navbar() {
     );
 }
 
-                                                          
+
 
