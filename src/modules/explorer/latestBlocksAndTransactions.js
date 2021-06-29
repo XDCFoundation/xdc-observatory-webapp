@@ -102,7 +102,7 @@ function LatestBlocks() {
                   <div className="value_main_main">
                     <div className="main_vaa">
                       <p>{ti}</p>
-                      <a className="height" href={"/block-details"}>{z.number}</a>
+                      <a className="height" href={"/block-details/" + z.number}>{z.number}</a>
                       <p>{z.transactions.length}</p>
                     </div>
                   </div>

@@ -145,6 +145,7 @@ export default function BlockChainDataComponent() {
 
   useEffect(async () => {
     let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
+    console.log(totalTransactions, "totalTransaction")
     if (error || !totalTransactions)
       return
     setTotalTransaction(totalTransactions);
@@ -159,6 +160,7 @@ export default function BlockChainDataComponent() {
 
   useEffect(async () => {
     let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+    console.log(totalAccounts, "totalacc")
     if (error || !totalAccounts)
       return
     setTotalAccount(totalAccounts);
@@ -172,6 +174,7 @@ export default function BlockChainDataComponent() {
 
   useEffect(async () => {
     let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
+    console.log(someDayAccount, "someday")
     if (error || !someDaysAccount)
       return
     setSomeDaysAccounts(someDaysAccount.length);
@@ -184,6 +187,7 @@ export default function BlockChainDataComponent() {
 
   useEffect(async () => {
     let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+    console.log(totalcoinMarketPrice, "coin")
     if (error || !totalcoinMarketPrice)
       return
     totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
@@ -195,8 +199,17 @@ export default function BlockChainDataComponent() {
       setcoinMarketPrice(totalcoinMarketPrice[1]);
     }, 45000)
   }, []);
+  let changePrice
+  if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
+    changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
 
-  var changePrice = coinMarketPrice.pricePercentChangePerHour;
+  }
+  console.log(changePrice, "change price")
+  // if (coinMarketPrice && coinMarketPrice?.quote[0]?.USD?.percent_change_24h) {
+  //   changePrice = coinMarketPrice?.quote[0]?.USD?.percent_change_24h;
+  // }
+
+  // console.log(changePrice, "Abcgf")
   var changeDecimal = parseFloat(changePrice).toFixed(2);
 
   var changeXdc = coinMarketPrice.price;

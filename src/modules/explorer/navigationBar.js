@@ -139,7 +139,7 @@ export default function Navbar() {
 
             <List className="side-box">
                 <ul className="inside-side-box">
-                    <p>Accounts</p>
+                    <NavLink to="/latestblock"><p>Accounts</p></NavLink>
                 </ul>
 
             </List>
