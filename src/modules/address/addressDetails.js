@@ -1,38 +1,23 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import "../../assets/styles/custom.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Tokensearchbar from "../../modules/explorer/tokensearchbar";
+import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import moment from "moment";
-import Utils from "../../utility";
 import SearchIcon from "@material-ui/icons/Search";
 import AddressTableComponent from "./addressTable";
-import searchIcon from "../../assets/images/Search.png";
 import { ImQrcode } from "react-icons/im";
-// import { AccountService, CoinMarketService, BlockService, TransactionService } from '../../services'
-// import "../../../src/assets/styles/blocksAndTransactionList.css";
 
 import { Grid } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import { useParams } from "react-router";
-import { BlockService } from "../../services";
 import Button from "@material-ui/core/Button";
+
 const useStyles = makeStyles({
-  rootui: {
+  rootUI: {
     minWidth: 650,
     borderRadius: "10px",
     backgroundColor: "white",
@@ -45,20 +30,6 @@ export default function AddressDetails() {
   const toggleTab = (index) => {
     setToggleState(index);
   };
-  //   useEffect(async () => {
-  //     let urlPath = `/${blockNumber}`;
-  //     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
-  //       BlockService.getDetailsOfBlock(urlPath, {})
-  //     );
-  //     if (error || !blockDetailsUsingHeight) return;
-  //     setHeight(blockDetailsUsingHeight);
-  //     const interval = setInterval(async () => {
-  //       let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
-  //         BlockService.getDetailsOfBlock(urlPath, {})
-  //       );
-  //       setHeight(blockDetailsUsingHeight);
-  //     }, 45000);
-  //   }, []);
 
   const classes = useStyles();
 
@@ -72,7 +43,7 @@ export default function AddressDetails() {
         >
           <p className="block_details_heading_left">Account Details</p>
         </div>
-        <Paper className={classes.rootui}>
+        <Paper className={classes.rootUI}>
           <Table className="table-block" aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -83,7 +54,7 @@ export default function AddressDetails() {
                     borderBottom: "none",
                   }}
                   id="td"
-                ></TableCell>
+                />
                 <TableCell className="first-row-table_address">
                   Address
                 </TableCell>
@@ -99,7 +70,7 @@ export default function AddressDetails() {
                         fontSize: 14,
                       }}
                     >
-                      <i class="fa fa-clone" aria-hidden="true"></i>
+                      <i class="fa fa-clone" aria-hidden="true"/>
                     </button>
                   </CopyToClipboard>
                   <ImQrcode />
@@ -113,7 +84,7 @@ export default function AddressDetails() {
                     borderBottom: "none",
                   }}
                   id="td"
-                ></TableCell>
+               />
                 <TableCell className="first-row-table_address">
                   XDC Value
                 </TableCell>
@@ -129,7 +100,7 @@ export default function AddressDetails() {
                         fontSize: 14,
                       }}
                     >
-                      <i class="fa fa-clone" aria-hidden="true"></i>
+                      <i class="fa fa-clone" aria-hidden="true"/>
                     </button>
                   </CopyToClipboard>
                 </TableCell>

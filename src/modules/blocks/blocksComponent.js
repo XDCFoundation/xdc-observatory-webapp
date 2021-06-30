@@ -108,7 +108,7 @@ export default function BlocksComponent(props) {
                     </Select>
                     <span className="text">Records</span>
                 </Grid>
-                <Grid xs="5"></Grid>
+                <Grid xs="5"/>
                 <Grid item xs="4">
                     <button style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>

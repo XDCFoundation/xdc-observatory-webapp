@@ -1,8 +1,6 @@
 import React from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
-import styled from "styled-components";
-import logo from "../../assets/images/XDC-Icon@3x.png";
 import INR from "../../assets/images/inr.png";
 import EUR from "../../assets/images/euro.png";
 import DOLLAR from "../../assets/images/dollar.png";
@@ -10,7 +8,8 @@ import NightModeLogo from "../../images/nightmode.svg"
 import Grid from '@material-ui/core/Grid'
 import Select from "@material-ui/core/Select"
 import { MenuItem } from "material-ui";
-import Iframe from 'react-iframe'
+
+
 
 export default function FooterComponent() {
     return (
@@ -20,11 +19,11 @@ export default function FooterComponent() {
 
                 <Grid className="footer-items" alignContent="right" item xs={12} md={3} lg={2}>
                     <div className="Top-Header">
-                        <img style={{ width: 28, height: 28 }} className="Shape-footer" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
+                        <img style={{width: 28, height: 28}} className="Shape-footer" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         <p className="XDC-Header">XDC</p>
                     </div>
                     <p className="xdc-desc">
-                        XinFinScan is a Block Explorer<br></br> and Analytics Platform for<br></br> XDC, a decentralized smart contracts platform.
+                        XinFinScan is a Block Explorer and Analytics Platform for XDC, a decentralized smart contracts platform.
                     </p>
                     <div>
                         <Select id="currency" className={"inline select-xdc"} defaultValue="INR">
@@ -43,7 +42,7 @@ export default function FooterComponent() {
                 </Grid>
                 <Grid alignContent="center" item xs={12} md={3} lg={2}>
                     <div className="Table-Header">Community
-                        <hr style={{ marginRight: '20px' }}></hr>
+                        <hr style={{marginRight: '20px'}}></hr>
                     </div>
                     <div >
                         <ul >
@@ -61,7 +60,7 @@ export default function FooterComponent() {
 
                 <Grid justify="left" item xs={12} md={3} lg={2}>
                     <div className="Table-Header">Other Links
-                        <hr style={{ marginRight: '20px' }}></hr>
+                        <hr style={{marginRight: '20px'}}></hr>
                     </div>
                     <ul>
                         <li className="Table-Comp"><a href="https://howto.xinfin.org/general/faq/" target="_blank">Read FAQ</a></li>
@@ -76,7 +75,7 @@ export default function FooterComponent() {
 
                 <Grid alignContent="center" item xs={12} md={3} lg={2}>
                     <div className="Table-Header">Follow Us
-                        <hr style={{ marginRight: '20px' }}></hr>
+                        <hr style={{marginRight: '20px'}}></hr>
                     </div>
                     <ul>
                         <li className="Table-Comp"><a className="a-style" href="https://twitter.com/XinFin_Official" rel="nofollow" target="_blank"><i className="fab fa-twitter mr-2" />Twitter</a></li>
@@ -89,19 +88,19 @@ export default function FooterComponent() {
                 </Grid>
                 <Grid alignContent="center" item xs={12} md={6} lg={2}>
                     <div className="Table-Header">Twitter
-                        <hr style={{ marginRight: '20px' }}></hr>
+                        <hr style={{marginRight: '20px'}}></hr>
                     </div>
 
                     <div className={"twitter"}>
-                        <a class="twitter-timeline" data-lang="en" data-height="230" data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw">Tweets by</a>
+                        <a  class="twitter-timeline" data-lang="en" data-height="230"  data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw">Tweets by</a>
                     </div>
                 </Grid>
 
             </Grid>
 
-            <div className="footer-line">
+            <div  className="footer-line">
                 <hr></hr>
-                <span className={"copyright"}>© 2021 XinFin. All Rights Reserved.</span>
+                <span  className={"copyright"}>© 2021 XinFin. All Rights Reserved.</span>
             </div>
 
         </div>
