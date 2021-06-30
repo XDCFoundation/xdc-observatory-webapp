@@ -153,7 +153,7 @@ const useStyles = makeStyles({
 export default function StickyHeadTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(50);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const history = useHistory()
 
@@ -279,11 +279,10 @@ export default function StickyHeadTable() {
                 <div style={{display: 'flex', flexDirection: 'row' ,marginLeft: '270px', marginTop: '50px'}}>
                     Show
                     <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option selected>50</option>
+                        <option selected>10</option>
                         <option >25</option>
-                        <option >15</option>
-                        <option >10</option>
-                        <option >5</option>
+                        <option >50</option>
+                        <option >100</option>
                     </select>
                     Records
                 </div>

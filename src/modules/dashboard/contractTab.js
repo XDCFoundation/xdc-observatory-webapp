@@ -7,9 +7,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import TokenTransfertab from './tokenTransfertab';
-import TokenHoldertab from './tokenHoldersTab';
-import TokenContracttab from './tokenContractTab';
+import VerifyContract from './verifyContract';
+import Tokensearchbar from '../explorer/tokensearchbar';
+import FooterComponent from '../common/footerComponent';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
       marginLeft: '19%',
       width: '62%',
-      backgroundColor: 'transparent',
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+ 
   },
 }));
 
@@ -66,30 +66,28 @@ export default function SimpleTabs() {
 
  
   return (
+      <>
+        <Tokensearchbar />
+        <div className="vc-header">Verify Contract</div>
     <div className={classes.root}>
        
-       <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'transparent'}}>
-            <div  >
-                <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'transparent'}} >
+     
+       <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
+            <div>
+                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '20px'}} >
                     <button
-                        className={toggleState === 1 ? "tabs active-tabs-token" : "tabs"}
+                        className={toggleState === 1 ? "tabs active-tabs-contract" : "tabs"}
                         onClick={() => toggleTab(1)}
                     >
-                       Transfers
+                       Source Code
                     </button>
-                    <button 
-                        className={toggleState === 2 ? "tabs active-tabs-token" : "tabs"}
+                    <button style={{whiteSpace: 'nowrap'}}
+                        className={toggleState === 2 ? "tabs active-tabs-contract" : "tabs"}
                         onClick={() => toggleTab(2)}
                     >
-                        Holders
+                       Bytecode and ABI
                     </button>
-                    <button
-                        className={toggleState === 3 ? "tabs active-tabs-token" : "tabs"}
-                        onClick={() => toggleTab(3)}
-                     
-                    >
-                        Contracts
-                    </button>
+    
                 </div>
             </div>
             </div>
@@ -98,26 +96,20 @@ export default function SimpleTabs() {
              <div>
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                   <div style={{marginTop: '10px'}}> 
-                <TokenTransfertab/>
+                        <VerifyContract/>
                 </div>
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
                 <div style={{marginTop: '10px'}}> 
-                 <TokenHoldertab/>
+                        <VerifyContract/>
                  </div>
                 </div>
-
-                <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                <div style={{marginTop: '10px'}}> 
-                   <TokenContracttab/> 
-                   </div>
-
-                </div>
             </div>
-
+       
         </div>
- 
+         <FooterComponent/>
+    </>
     
   );
 }
