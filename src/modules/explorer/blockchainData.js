@@ -202,7 +202,6 @@ export default function BlockChainDataComponent() {
   let changePrice
   if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
     changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
-
   }
   console.log(changePrice, "change price")
   // if (coinMarketPrice && coinMarketPrice?.quote[0]?.USD?.percent_change_24h) {
