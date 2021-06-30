@@ -10,6 +10,9 @@ import { FaRedditSquare } from "react-icons/fa";
 import { AiOutlineTwitter } from "react-icons/ai";
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
+import Tokensearchbar from "../explorer/tokensearchBar";
+import FooterComponent from "../common/footerComponent";
+import Tokentabs from "./tokentabs";
 
 const MainContainer = styled.div`
   width: 950px;
@@ -210,6 +213,9 @@ export default function TokenDataComponent() {
   }
   return (
     <>
+    <Tokensearchbar/>
+    <br/>
+    <br/>
       <MainContainer>
         <LeftContainer>
           <LeftFirst>
@@ -377,6 +383,10 @@ export default function TokenDataComponent() {
         </RightContainer>
       </MainContainer>
       <TokenMarketDataTable />
+      <br/><br/><br/>
+      <Tokentabs/>
+      <br/><br/>
+      <FooterComponent/>
     </>
   );
 }
