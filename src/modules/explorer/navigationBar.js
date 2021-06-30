@@ -139,7 +139,7 @@ export default function Navbar() {
 
             <List className="side-box">
                 <ul className="inside-side-box">
-                    <NavLink to="/latestblock"><p>Accounts</p></NavLink>
+                    <a className="account_details_button" href="/account-details"><p>Accounts</p></a>
                 </ul>
 
             </List>
@@ -193,7 +193,7 @@ export default function Navbar() {
 
                     <Typography className="Header">
 
-                        <img className="Shape" onClick={() => scroll.scrollTo(375)} src={require("../../../src/assets/images/XDC-Icon.png")}></img>
+                        <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         <p className="XDC" > XDC </p>
 
                         <div>
