@@ -30,6 +30,7 @@
     "react-s-alert": "^1.4.1",
     "react-scripts": "^3.3.0",
     "react-scroll": "^1.8.2",
+    "reactjs-popup": "^2.0.4",
     "redux": "latest",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",

@@ -26,7 +26,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useParams } from 'react-router';
 import { BlockService } from '../../services';
-
+import history from '../../managers/history';
 const useStyles = makeStyles({
     rootui: {
         minWidth: 650,
@@ -40,10 +40,11 @@ const useStyles = makeStyles({
 
 export default function BlockDetailsData() {
 
-    const { blockNumber } = useParams();
+
     // const param = blockNumber
     // alert(JSON.stringify(blockNumber))
     const [height, setHeight] = useState([])
+    const [count, setcount] = useState(0)
     // useEffect(() => {
     //     fetchHeight();
     // }, []);
@@ -58,25 +59,38 @@ export default function BlockDetailsData() {
     //             console.log(err);
     //         });
     // };
+    const { blockNumber } = useParams();
+    useEffect(() => {
+        getLatestaccount(blockNumber)
+        setcount(blockNumber)
+        setInterval(() => {
+            getLatestaccount(count)
+        }, 45000)
+    }, []);
 
-    useEffect(async () => {
+    const getLatestaccount = async (blockNumber) => {
         let urlPath = `/${blockNumber}`
         let [error, blockDetailsUsingHeight] = await Utils.parseResponse(BlockService.getDetailsOfBlock(urlPath, {}))
         if (error || !blockDetailsUsingHeight)
             return
         setHeight(blockDetailsUsingHeight);
-        const interval = setInterval(async () => {
-            let [error, blockDetailsUsingHeight] = await Utils.parseResponse(BlockService.getDetailsOfBlock(urlPath, {}))
-            setHeight(blockDetailsUsingHeight);
-        }, 45000)
-    }, []);
+    }
 
-    const [count, setcount] = useState(blockNumber)
+
     function increment() {
-        setcount(count + 1);
+        let updatedCount = Number(count) + 1
+        setcount(updatedCount);
+        window.history.pushState("", "", `/block-details/${updatedCount}`)
+        getLatestaccount(updatedCount)
+
+
     }
     function decrement() {
-        setcount(count - 1);
+        let updatedCount = Number(count) - 1
+        setcount(updatedCount);
+        window.history.pushState("", "", `/block-details/${updatedCount}`)
+        getLatestaccount(updatedCount)
+
     }
     // function increment() {
     //     setHeight(blockNumber + 1);
@@ -144,7 +158,7 @@ export default function BlockDetailsData() {
                                     Block Height
                                 </TableCell>
                                 <TableCell className="second-row-table_height" >
-                                    <ArrowBackIosIcon style={{ marginRight: "10px" }} onClick={decrement} />{blockNumber}<ArrowForwardIosIcon style={{ marginLeft: "10px" }} onClick={increment} />
+                                    <ArrowBackIosIcon style={{ marginRight: "10px" }} onClick={decrement} />{count}<ArrowForwardIosIcon style={{ marginLeft: "10px" }} onClick={increment} />
                                 </TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
@@ -159,7 +173,7 @@ export default function BlockDetailsData() {
                                     Transactions
                                 </TableCell>
                                 <TableCell className="second-row-table">
-                                    8
+                                    {height.transactions && height.transactions.length ? height.transactions.length : 0}
                                 </TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
