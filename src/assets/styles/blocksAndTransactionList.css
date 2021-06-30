@@ -102,3 +102,8 @@
   color: #939499;
   font-weight: bold;
 }
+.tablegrid_address {
+  padding-top: 1.5%;
+  margin: auto;
+  width: 100%;
+}
