@@ -147,23 +147,23 @@ export default function Navbar() {
                 </ul>
 
                 <ul className="inside-side-box">
-                    <p onClick={() => setOpencontracts(true)}> Contracts <span style={{marginLeft: '50%'}}><i
+                    <p className="xinfin_api_button" onClick={() => setOpencontracts(true)}> Contracts <span style={{marginLeft: '50%'}}><i
                         class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr"/>
                 </ul>
 
 
                 <ul className="inside-side-box">
-                    <p onClick={() => setOpen(true)}>Tools <span style={{marginLeft: '65%'}}><i
+                    <p className="xinfin_api_button" onClick={() => setOpen(true)}>Tools <span style={{marginLeft: '65%'}}><i
                         class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr"/>
                 </ul>
                 <ul className="inside-side-box">
-                    <p>XinFin APIs</p>
+                <p className="xinfin_api_button">XinFin APIs</p> 
                     <hr className="myhr"/>
                 </ul>
                 <ul className="inside-side-box">
-                    <p>Nodes</p>
+                    <p className="xinfin_api_button">Nodes</p>
                     <hr className="myhr"/>
                 </ul>
             </List>
@@ -211,14 +211,14 @@ export default function Navbar() {
             <List className="side-box">
 
                 <ul className="Live-Network-list">
-                    <a style={{fontSize: 13, color: 'white'}} href='/contracts'>
-                        <div>Contracts</div>
+                    <a style={{fontSize: 13, color: 'white', listStyle: 'none', textDecoration: 'none'}} href='/contracts'>
+                        <div className="xinfin_api_button">Contracts</div>
                     </a>
                     <hr className="myhr4"/>
                 </ul>
                 <ul className="Live-Network-list">
-                    <a style={{fontSize: 13, color: 'white'}} href='/verify-contracts'>
-                        <div>Verify Contracts</div>
+                    <a style={{fontSize: 13, color: 'white', listStyle: 'none', textDecoration: 'none'}} href='/verify-contracts'>
+                        <div className="xinfin_api_button">Verify Contracts</div>
                     </a>
                     <hr className="myhr4"/>
                 </ul>
