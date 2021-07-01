@@ -379,7 +379,7 @@ export default function Navbar() {
 
 
                     <Typography className="Header" >
-                        <a href={'/'}>
+                        <a className="logo_tokensearch" href={'/'}>
                             <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img></a>
                         <a className="XDC" href="/"> XDC </a>
 
