@@ -237,6 +237,8 @@ input:focus {
 
 .Shape {
   margin-right: 10px;
+  height: 22px;
+  width: 22px;
 }
 
 .Shape2 {
@@ -289,6 +291,18 @@ input:focus {
   line-height: normal;
   letter-spacing: 0.62px;
   color: #ffffff;
+}
+.XDC:hover {
+  margin-left: -5px;
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.62px;
+  color: #ffffff;
+  list-style: none;
+  text-decoration: none;
 }
 
 .Network-explorer {
@@ -433,6 +447,7 @@ p {
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+  max-width: 500px;
 }
 
 .transactionbox-table {
@@ -1447,13 +1462,18 @@ button {
 
 .data_heading {
   width: 96%;
-  margin-left: 6px;
+  margin-left: 5px;
   margin-top: 7px;
   display: flex;
   padding: 0 12px;
   letter-spacing: 00.6px;
 }
-
+.table-grid-block2 {
+  padding-top: 0%;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 80%;
+}
 .post p {
   font-size: 10px;
 }
@@ -1461,7 +1481,8 @@ button {
 .data_heading1 {
   margin-top: 7px;
   display: flex;
-  padding: 0 15px;
+  padding: 0;
+  padding-left: 8px;
   justify-content: space-between;
   width: 100%;
 }
@@ -1474,6 +1495,9 @@ button {
   font-weight: 900;
   font-size: 13px;
   padding-left: 12px;
+}
+.data_heading1 p:last-child {
+  margin-right: 10px;
 }
 
 .data_heading:last-child {
@@ -1489,7 +1513,7 @@ button {
 .age p {
   font-weight: 900;
   font-size: 13px;
-  padding-left: 65px;
+  padding-left: 60px;
 }
 
 .value_main_main {
@@ -1550,7 +1574,7 @@ button {
   letter-spacing: 0.54px;
   color: #2149b9 !important;
   margin-top: 8px;
-  margin-right: 25px;
+  margin-right: 28px;
 }
 
 .height:hover {
@@ -1561,35 +1585,52 @@ button {
 }
 
 .bttn {
-  cursor: pointer;
   background-color: transparent;
-  font-weight: 600;
+  font-family: Inter;
   font-size: 11px;
-  margin-right: 45px;
-  color: #2149b9;
-  width: 25%;
-  letter-spacing: 0.6px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  width: 530px;
+  margin-left: 7px;
+  margin-top: 7px;
 }
 
 .bttn:hover {
-  color: black;
+  color: black !important;
+  list-style: none;
+  text-decoration: none;
+  font-size: 11px;
 }
 
 .main_val p:nth-child(2) {
   color: #2a2a2a;
-  width: 100%;
+  width: 400px;
+  padding-left: 0px;
 }
 
 .details {
   background-color: transparent;
+  font-family: Inter;
   font-size: 11px;
   font-weight: 600;
-  border: none;
-  color: #2149b9;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  width: 190px;
+  margin-top: 8px;
 }
 
 .details:hover {
-  color: black;
+  color: black !important;
+  list-style: none;
+  text-decoration: none;
+  font-size: 11px;
 }
 
 .value_main {
@@ -1616,10 +1657,13 @@ button {
 }
 
 .main_vaa p:first-child {
-  padding-left: 12px;
+  padding-left: 20px;
   font-size: 11px;
 }
-
+.main_vaa p:last-child {
+  padding-left: 0px;
+  font-size: 11px;
+}
 .main_vaa p {
   width: 19%;
   height: 100%;
@@ -1999,5 +2043,4 @@ button {
   border: 1px solid lightgray;
   border-radius: 10px;
   box-shadow: black;
-  backdrop-filter: blur(8px);
 }

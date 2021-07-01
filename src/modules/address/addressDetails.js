@@ -7,7 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import "../../assets/styles/custom.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import Tokensearchbar from "../explorer/tokensearchbar";
+import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import SearchIcon from "@material-ui/icons/Search";
 import AddressTableComponent from "./addressTable";
