@@ -1988,3 +1988,16 @@ button {
   width: 25px;
   background-color: #eee;
 }
+.popup_qr {
+  width: 400px;
+  height: 400px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  box-shadow: black;
+  backdrop-filter: blur(8px);
+}
