@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import logo from "../../images/XDC-Icon.svg";
@@ -9,9 +9,9 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tab from "./tab";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
-import { AccountService, CoinMarketService, TransactionService } from '../../services'
+import {BsFillCaretDownFill} from "react-icons/bs";
+import {BsFillCaretUpFill} from "react-icons/bs";
+import {AccountService, CoinMarketService, TransactionService} from '../../services'
 import Utils from '../../utility'
 
 const MainContainer = styled.div`
@@ -136,192 +136,183 @@ const LeftTopSecMain = styled.div`
   text-align: center;
 `;
 export default function BlockChainDataComponent() {
-  const [totalTransaction, setTotalTransaction] = useState([]);
-  const [totalAccount, setTotalAccount] = useState([]);
-  const [someDayAccount, setSomeDaysAccounts] = useState([]);
-  const [coinMarketPrice, setcoinMarketPrice] = useState([]);
+    const [totalTransaction, setTotalTransaction] = useState([]);
+    const [totalAccount, setTotalAccount] = useState([]);
+    const [someDayAccount, setSomeDaysAccounts] = useState([]);
+    const [coinMarketPrice, setcoinMarketPrice] = useState([]);
 
-  /* FETCHING GET TOTAL TRANSACTIONS API*/
+    /* FETCHING GET TOTAL TRANSACTIONS API*/
 
-  useEffect(async () => {
-    let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
-    console.log(totalTransactions, "totalTransaction")
-    if (error || !totalTransactions)
-      return
-    setTotalTransaction(totalTransactions);
-    const interval = setInterval(async () => {
-      let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
-      setTotalTransaction(totalTransactions);
-    }, 45000)
-  }, []);
+    useEffect(async () => {
+        let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
+        if (error || !totalTransactions)
+            return;
+        setTotalTransaction(totalTransactions);
+        const interval = setInterval(async () => {
+            let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
+            setTotalTransaction(totalTransactions);
+        }, 45000)
+    }, []);
 
 
-  /* FETCHING GET TOTAL ACCOUNTS API*/
+    /* FETCHING GET TOTAL ACCOUNTS API*/
 
-  useEffect(async () => {
-    let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
-    console.log(totalAccounts, "totalacc")
-    if (error || !totalAccounts)
-      return
-    setTotalAccount(totalAccounts);
-    const interval = setInterval(async () => {
-      let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
-      setTotalAccount(totalAccounts);
-    }, 45000)
-  }, []);
+    useEffect(async () => {
+        let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+        if (error || !totalAccounts)
+            return
+        setTotalAccount(totalAccounts);
+        const interval = setInterval(async () => {
+            let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
+            setTotalAccount(totalAccounts);
+        }, 45000)
+    }, []);
 
-  // /* FETCHING GET SOME DAYS ACCOUNTS API*/
+    // /* FETCHING GET SOME DAYS ACCOUNTS API*/
 
-  useEffect(async () => {
-    let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
-    console.log(someDayAccount, "someday")
-    if (error || !someDaysAccount)
-      return
-    setSomeDaysAccounts(someDaysAccount.length);
-    const interval = setInterval(async () => {
-      let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
-      setSomeDaysAccounts(someDaysAccount.length);
-    }, 45000)
-  }, []);
-  // /* FETCHING GET COIN MARKET CAP API*/
+    useEffect(async () => {
+        let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
+        if (error || !someDaysAccount)
+            return
+        setSomeDaysAccounts(someDaysAccount.length);
+        const interval = setInterval(async () => {
+            let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
+            setSomeDaysAccounts(someDaysAccount.length);
+        }, 45000)
+    }, []);
+    // /* FETCHING GET COIN MARKET CAP API*/
 
-  useEffect(async () => {
-    let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
-    console.log(totalcoinMarketPrice, "coin")
-    if (error || !totalcoinMarketPrice)
-      return
-    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
-      return a.lastUpdated - b.lastUpdated;
-    });
-    setcoinMarketPrice(totalcoinMarketPrice[1]);
-    const interval = setInterval(async () => {
-      let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
-      setcoinMarketPrice(totalcoinMarketPrice[1]);
-    }, 45000)
-  }, []);
-  let changePrice
-  if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
-    changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
-  }
-  console.log(changePrice, "change price")
-  // if (coinMarketPrice && coinMarketPrice?.quote[0]?.USD?.percent_change_24h) {
-  //   changePrice = coinMarketPrice?.quote[0]?.USD?.percent_change_24h;
-  // }
+    useEffect(async () => {
+        let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+        if (error || !totalcoinMarketPrice)
+            return
+        totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+            return a.lastUpdated - b.lastUpdated;
+        });
+        setcoinMarketPrice(totalcoinMarketPrice[1]);
+        const interval = setInterval(async () => {
+            let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+            setcoinMarketPrice(totalcoinMarketPrice[1]);
+        }, 45000)
+    }, []);
+    let changePrice
+    if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
+        changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
+    }
 
-  // console.log(changePrice, "Abcgf")
-  var changeDecimal = parseFloat(changePrice).toFixed(2);
+    var changeDecimal = parseFloat(changePrice).toFixed(2);
 
-  var changeXdc = coinMarketPrice.price;
-  var changeDecimals = parseFloat(changeXdc).toFixed(6);
+    var changeXdc = coinMarketPrice.price;
+    var changeDecimals = parseFloat(changeXdc).toFixed(6);
 
-  let changeAccounts = someDayAccount;
+    let changeAccounts = someDayAccount;
 
-  return (
-    <MainContainer>
-      <LeftContainer>
-        <LeftFirst>
-          <LeftTop>
-            <IconLogo src={logo} />
-            <LeftTitle>XDC</LeftTitle>
-          </LeftTop>
-          <LeftTopSecMain>
-            <LeftTopSec>${changeDecimals}</LeftTopSec>
-            <div
-              className={
-                changePrice > 0
-                  ? "data_value_green last_value_main"
-                  : "data_value_red"
-              }
-            >
-              <div className="value_changePrice">
-                {changePrice > 0 ? (
-                  <div className="arrow_up">
-                    <BsFillCaretUpFill size={10} />
-                  </div>
-                ) : (
-                  <div className="arrow_down">
-                    <BsFillCaretDownFill size={10} />
-                  </div>
-                )}
-                &nbsp;{changeDecimal}%
-              </div>
-            </div>
-          </LeftTopSecMain>
-          <Line1></Line1>
-        </LeftFirst>
-        <LeftSec>
-          <ValueMain>
-            <Value>
-              <TitleIcon src={blockHeightImg} />
-              <ValueName>
-                <Title>Block Height</Title>
-                <TitleValue>30,080,290</TitleValue>
-              </ValueName>
-            </Value>
-            <Value>
-              <TitleIcon src={priceLogo} />
-              <ValueName>
-                <Title>Gas Price</Title>
-                <TitleValue>0.0000034</TitleValue>
-              </ValueName>
-            </Value>
-            <Value>
-              <TitleIcon src={transactionLogo} />
-              <ValueName>
-                <Title>Transactions</Title>
-                <TitleValue> {totalTransaction}</TitleValue>
-              </ValueName>
-            </Value>
-            <Value>
-              <TitleIcon src={difficultyLogo} />
-              <ValueName>
-                <Title>Difficulty</Title>
-                <TitleValue>85412.0</TitleValue>
-              </ValueName>
-            </Value>
-            <Value>
-              <TitleIcon src={maxLogo} />
-              <ValueName>
-                <Title>Current/Max TPS</Title>
-                <TitleValue>0/2000</TitleValue>
-              </ValueName>
-            </Value>
-            <Value>
-              <TitleIcon src={accountLogo} />
-              <ValueName>
-                <Title>Accounts</Title>
-                <div className="last_value">
-                  <TitleValue>{totalAccount}</TitleValue>
-                  <div
-                    className={
-                      changeAccounts > 0
-                        ? "data_value_green last_value_main"
-                        : "data_value_red"
-                    }
-                  >
-                    <div className="value_p">
-                      {changeAccounts > 0 ? (
-                        <div className="arrow_up">
-                          <BsFillCaretUpFill size={10} />
+    return (
+        <MainContainer>
+            <LeftContainer>
+                <LeftFirst>
+                    <LeftTop>
+                        <IconLogo src={logo}/>
+                        <LeftTitle>XDC</LeftTitle>
+                    </LeftTop>
+                    <LeftTopSecMain>
+                        <LeftTopSec>${changeDecimals}</LeftTopSec>
+                        <div
+                            className={
+                                changePrice > 0
+                                    ? "data_value_green last_value_main"
+                                    : "data_value_red"
+                            }
+                        >
+                            <div className="value_changePrice">
+                                {changePrice > 0 ? (
+                                    <div className="arrow_up">
+                                        <BsFillCaretUpFill size={10}/>
+                                    </div>
+                                ) : (
+                                    <div className="arrow_down">
+                                        <BsFillCaretDownFill size={10}/>
+                                    </div>
+                                )}
+                                &nbsp;{changeDecimal}%
+                            </div>
                         </div>
-                      ) : (
-                        <div className="arrow_down">
-                          <BsFillCaretDownFill size={10} />
-                        </div>
-                      )}
-                      {changeAccounts}
-                    </div>
-                  </div>
-                </div>
-              </ValueName>
-            </Value>
-          </ValueMain>
-        </LeftSec>
-      </LeftContainer>
+                    </LeftTopSecMain>
+                    <Line1></Line1>
+                </LeftFirst>
+                <LeftSec>
+                    <ValueMain>
+                        <Value>
+                            <TitleIcon src={blockHeightImg}/>
+                            <ValueName>
+                                <Title>Block Height</Title>
+                                <TitleValue>30,080,290</TitleValue>
+                            </ValueName>
+                        </Value>
+                        <Value>
+                            <TitleIcon src={priceLogo}/>
+                            <ValueName>
+                                <Title>Gas Price</Title>
+                                <TitleValue>0.0000034</TitleValue>
+                            </ValueName>
+                        </Value>
+                        <Value>
+                            <TitleIcon src={transactionLogo}/>
+                            <ValueName>
+                                <Title>Transactions</Title>
+                                <TitleValue> {totalTransaction}</TitleValue>
+                            </ValueName>
+                        </Value>
+                        <Value>
+                            <TitleIcon src={difficultyLogo}/>
+                            <ValueName>
+                                <Title>Difficulty</Title>
+                                <TitleValue>85412.0</TitleValue>
+                            </ValueName>
+                        </Value>
+                        <Value>
+                            <TitleIcon src={maxLogo}/>
+                            <ValueName>
+                                <Title>Current/Max TPS</Title>
+                                <TitleValue>0/2000</TitleValue>
+                            </ValueName>
+                        </Value>
+                        <Value>
+                            <TitleIcon src={accountLogo}/>
+                            <ValueName>
+                                <Title>Accounts</Title>
+                                <div className="last_value">
+                                    <TitleValue>{totalAccount}</TitleValue>
+                                    <div
+                                        className={
+                                            changeAccounts > 0
+                                                ? "data_value_green last_value_main"
+                                                : "data_value_red"
+                                        }
+                                    >
+                                        <div className="value_p">
+                                            {changeAccounts > 0 ? (
+                                                <div className="arrow_up">
+                                                    <BsFillCaretUpFill size={10}/>
+                                                </div>
+                                            ) : (
+                                                <div className="arrow_down">
+                                                    <BsFillCaretDownFill size={10}/>
+                                                </div>
+                                            )}
+                                            {changeAccounts}
+                                        </div>
+                                    </div>
+                                </div>
+                            </ValueName>
+                        </Value>
+                    </ValueMain>
+                </LeftSec>
+            </LeftContainer>
 
-      <RightContainer>
-        <Tab />
-      </RightContainer>
-    </MainContainer>
-  );
+            <RightContainer>
+                <Tab/>
+            </RightContainer>
+        </MainContainer>
+    );
 }

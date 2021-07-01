@@ -10,7 +10,6 @@ label {
 
 .footer_base {
     width: 100% !important ;
-    height: 373px;
     background: linear-gradient(to bottom, #2149b9, #3e71ff);
     margin: 40px 0 0;
     padding: 3%
@@ -207,7 +206,6 @@ a:hover{
 
 .Top-Header {
     margin-top: -15px;
-    margin-left: -13px;
     font-size: 10px;
     font-weight: normal;
     font-stretch: normal;

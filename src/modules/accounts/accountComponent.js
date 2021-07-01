@@ -1,5 +1,4 @@
 import React from "react";
-import BaseComponent from "../baseComponent";
 import "../../../src/assets/styles/blocksAndTransactionList.css";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -12,7 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import Tokensearchbar from '../../modules/explorer/tokensearchbar';
+import Tokensearchbar from '../explorer/tokensearchBar';
 import FooterComponent from '../common/footerComponent';
 
 
@@ -45,7 +44,6 @@ export default function AccountComponent(props) {
                             {props.state.accountList && props.state.accountList.length && props.state.accountList.map((row, index) => {
                                 let num = row.balance;
                                 let bal = shortenBalance(num.toLocaleString())
-                                console.log(bal, "ksdjsjasfaslj")
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                         <TableCell style={{ border: "none" }} margin-left="5px" >

@@ -2,7 +2,7 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import AccountComponent from "./accountComponent"
 import Utils from '../../utility'
-import { AccountService, CoinMarketService, BlockService, TransactionService } from '../../services'
+import {AccountService} from '../../services'
 
 
 export default class LatestAccountsList extends BaseComponent {
@@ -18,13 +18,13 @@ export default class LatestAccountsList extends BaseComponent {
 
         }
     }
+
     componentDidMount() {
         // this.getListOfBlocks()
         this.getListOfAccounts()
         // this.getTotalAccount()
         this.getTotalAccounts()
     }
-
 
 
     async getListOfAccounts(from, amount) {
@@ -34,7 +34,7 @@ export default class LatestAccountsList extends BaseComponent {
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
         if (error || !listOfAccounts)
             return
-        this.setState({ accountList: listOfAccounts })
+        this.setState({accountList: listOfAccounts})
     }
 
 
@@ -42,43 +42,42 @@ export default class LatestAccountsList extends BaseComponent {
         let [error, totalNumberAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
         if (error || !totalNumberAccounts)
             return
-        this.setState({ totalAccounts: totalNumberAccounts })
+        this.setState({totalAccounts: totalNumberAccounts})
     }
 
 
-
     _handleChange = (event) => {
-        this.setState({ amount: event.target.value })
+        this.setState({amount: event.target.value})
         this.getListOfAccounts(this.state.from, event.target.value)
     }
 
 
     _FirstPage = (event) => {
-        this.setState({ from: 0 })
+        this.setState({from: 0})
         this.getListOfAccounts(0, this.state.amount)
     }
     _LastPage = (event) => {
         let from = this.state.totalAccounts - this.state.amount
-        this.setState({ from })
+        this.setState({from})
         this.getListOfAccounts(from, this.state.amount)
     }
     _NextPage = async (event) => {
         if (this.state.amount + this.state.from < this.state.totalAccounts) {
             let from = this.state.amount + this.state.from
-            this.setState({ from })
+            this.setState({from})
             this.getListOfAccounts(from, this.state.amount)
         }
     }
     _PrevPage = (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
-            this.setState({ from })
+            this.setState({from})
             this.getListOfAccounts(from, this.state.amount)
         }
     }
 
     create_data(hash, amount, age, block, from, to, txnfee) {
-        return { hash, amount, age, block, from, to, txnfee }
+        return {hash, amount, age, block, from, to, txnfee}
     }
 
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -96,6 +95,7 @@ export default class LatestAccountsList extends BaseComponent {
         }
         return `#${item}-#{type}`
     }
+
     render() {
         return (
             <AccountComponent

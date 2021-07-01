@@ -80,7 +80,6 @@ function trackEvent(event, eventData) {
 
 function getDateFormat() {
     var my_date = new Date(2019, 0, 31);
-    console.log(my_date.toLocaleDateString());
     // Initialize variables
     var separator = "";
     var first = "";

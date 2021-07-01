@@ -4,29 +4,25 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { Divider } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import Tokensearchbar from './tokensearchbar';
+import Tokensearchbar from './tokensearchBar';
 import '../../assets/styles/custom.css';
 import FooterComponent from '../common/footerComponent';
-import { borderColor, height } from '@material-ui/system';
-import Button from '@material-ui/core/Button';
-import { NavLink } from 'react-router-dom';
-import SearchIcon from '@material-ui/icons/Search';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { useParams } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import moment from 'moment';
+import { TransactionService } from '../../services';
+import Utils from '../../utility';
 
 
 const useStyles = makeStyles((theme) => ({
     rootui: {
-        borderRadius: '17px',
-        width: '66.5%',
-        backgroundColor: 'white'
+        borderRadius: '14px',
+        border: 0,
+        minWidth: 650,
+        backgroundColor: 'white',
+        borderCollapse: 'collapse',
     },
 
     button: {
@@ -42,9 +38,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function StickyHeadTable() {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const { hash } = useParams();
+    // alert(hash)
 
+
+    const [transactions, setTransactions] = useState(false)
+
+
+    useEffect(async () => {
+        let urlPath = `/${hash}`
+        let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
+        if (error || !transactiondetailusinghash)
+            return
+        setTransactions(transactiondetailusinghash);
+        const interval = setInterval(async () => {
+            let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
+            setTransactions(transactiondetailusinghash);
+        }, 45000)
+    }, []);
 
     const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
     const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
@@ -60,105 +71,27 @@ export default function StickyHeadTable() {
     const input = `Additional information that is required for the transaction `;
     const privatenote = ` Private notes `;
 
+
     return (
         <div>
             <Tokensearchbar />
 
             <div className="Transaction-display" style={{ display: 'flex', flexDirection: 'row' }}>
                 <p className="Transaction-Details">Transaction Details</p>
-                <p className="Success-rectangle">Success</p>
-            </div>
 
-            {/* <div style={{ display: 'flex', justifyContent: 'center'}} >
+                {transactions ? transactions.status ? <p className="Success-rectangle">Success</p> : <p className="Failed-rectangle">Failed</p> : null}
 
-                <div className="transaction-box-inside">
-                    <Tooltip  title={hashid}>
-                        <img className="transaction-box-image"
-                             src={require("../../../src/assets/images/questionmark.png")}/>
-                    </Tooltip>
-                    <p className="transaction-box-text"> Hash ID </p>
-                    <p className="transaction-box-text-1">xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60</p>
-                    <p style={{marginTop: '17px'}}>
-                        <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'}>
-                            <button style={{color: 'blue', backgroundColor: 'white', fontSize: 14}}><i
-                                class="fa fa-clone" aria-hidden="true"></i></button>
-                        </CopyToClipboard>
-                    </p>
-                </div>
-
-            </div> */}
-            {/* ........ */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Paper className={classes.rootui}>
-                    <Table className="transaction-box-below" id="transactionbox-table">
-
-
-                        <TableBody>
-
-                            <TableRow>
-
-                                <TableCell style={{ width: '1px' }} id="td">
-
-                                    <Tooltip title={hashid} >
-                                        <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
-                                    </Tooltip>
-                                </TableCell>
-
-                                <TableCell style={{
-                                    whiteSpace: 'nowrap',
-                                    fontFamily: 'Inter',
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    fontStretch: 'normal',
-                                    fontStyle: 'normal',
-                                    lineHeight: 'normal',
-                                    letterSpacing: '0.58px',
-                                    color: '#252525'
-                                }} id="td">
-                                    Hash ID
-                                </TableCell>
-                                <TableCell style={{
-                                    fontFamily: 'Inter',
-                                    fontStyle: 'normal',
-                                    fontSize: 13,
-                                    fontWeight: 'normal',
-                                    lineHeight: 'normal',
-                                    letterSpacing: '0.58px',
-                                    color: '#3a3a3a',
-
-                                }} id="td">
-                                    xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60
-
-
-                                </TableCell>
-                                <p style={{ marginTop: '17px' }}>
-                                    <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'}>
-                                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i
-                                            class="fa fa-clone" aria-hidden="true"></i></button>
-                                    </CopyToClipboard>
-                                </p>
-                            </TableRow>
-
-                        </TableBody>
-
-
-
-                    </Table>
-
-
-                </Paper>
             </div>
 
             {/* ........ */}
-            <br />
-
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Paper className={classes.rootui}>
-                    <Table className="transaction-box-below" id="transactionbox-table">
+                <Paper style={{
+                    width: "66%"
+                }}>
+                    <Table className="transaction-box-below">
 
 
-                        <TableBody>
+                        < TableBody >
 
                             <TableRow>
 
@@ -171,6 +104,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
 
                                 <TableCell style={{
+                                    width: '15%',
                                     whiteSpace: 'nowrap',
                                     fontFamily: 'Inter',
                                     fontSize: '11px',
@@ -193,14 +127,114 @@ export default function StickyHeadTable() {
                                     color: '#3a3a3a',
 
                                 }} id="td">
-                                    3097482-2165 Block Confirmation
+                                    <a style={{ color: 'blue', fontSize: 13 }} href="#text-as"> {transactions.blockNumber} </a>
+                                    -2165 Block Confirmation
+                                </TableCell>
+
+                            </TableRow>
+                            <TableRow>
+
+                                <TableCell style={{ width: '1px' }} id="td">
+
+                                    <Tooltip title={blocknumber}>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                    </Tooltip>
+                                </TableCell>
+
+                                <TableCell style={{
+                                    width: '15%',
+                                    whiteSpace: 'nowrap',
+                                    fontFamily: 'Inter',
+                                    fontSize: '11px',
+                                    fontWeight: 600,
+                                    fontStyle: 'normal',
+                                    lineHeight: 'normal',
+                                    letterSpacing: '0.58px',
+                                    color: '#252525',
+
+                                }} id="td">
+                                    Block Number
+                                </TableCell>
+                                <TableCell style={{
+                                    fontFamily: 'Inter',
+                                    fontStyle: 'normal',
+                                    fontSize: 12,
+                                    fontWeight: 'normal',
+                                    lineHeight: 'normal',
+                                    letterSpacing: '0.58px',
+                                    color: '#3a3a3a',
+
+                                }} id="td">
+                                    <a style={{ color: 'blue', fontSize: 13 }} href="#text-as"> {transactions.blockNumber} </a>
+                                    -2165 Block Confirmation
+                                </TableCell>
+
+                            </TableRow>
+
+
+
+                        </TableBody>
+
+                    </Table>
+
+
+                </Paper>
+            </div >
+
+            {/* ........ */}
+            < br />
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Paper style={{ width: "60%" }}>
+                    <Table className="transaction-box-below">
+
+
+                        <TableBody>
+
+                            <TableRow>
+
+                                <TableCell style={{ width: '1px' }} id="td">
+
+                                    <Tooltip title={blocknumber}>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                    </Tooltip>
+                                </TableCell>
+
+                                <TableCell style={{
+                                    width: '15%',
+                                    whiteSpace: 'nowrap',
+                                    fontFamily: 'Inter',
+                                    fontSize: '11px',
+                                    fontWeight: 600,
+                                    fontStyle: 'normal',
+                                    lineHeight: 'normal',
+                                    letterSpacing: '0.58px',
+                                    color: '#252525',
+
+                                }} id="td">
+                                    Block Number
+                                </TableCell>
+                                <TableCell style={{
+                                    fontFamily: 'Inter',
+                                    fontStyle: 'normal',
+                                    fontSize: 12,
+                                    fontWeight: 'normal',
+                                    lineHeight: 'normal',
+                                    letterSpacing: '0.58px',
+                                    color: '#3a3a3a',
+
+                                }} id="td">
+                                    <a style={{ color: 'blue', fontSize: 13 }} href="#text-as"> {transactions.blockNumber} </a>
+                                    -2165 Block Confirmation
                                 </TableCell>
 
                             </TableRow>
 
                             <TableRow>
 
-                                <TableCell style={{ width: '1px', paddingTop: '12px' }} id="td">
+                                <TableCell style={{ width: '1px' }} id="td">
 
                                     <Tooltip title={timestamp}>
                                         <img style={{ width: 13, height: 13 }}
@@ -228,7 +262,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    2021-12-21 10:59:23 +05:30(1hr 16min ago)
+                                    {moment(transactions.timestamp * 1000).format('MMMM Do YYYY, h:mm:ss a')}
                                 </TableCell>
                             </TableRow>
 
@@ -264,8 +298,8 @@ export default function StickyHeadTable() {
                                     <a style={{
                                         color: 'blue',
                                         fontSize: 12
-                                    }}> xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60 </a>
-                                    <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'}>
+                                    }}>{transactions.from} </a>
+                                    <CopyToClipboard text={transactions.from}>
                                         <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
                                     </CopyToClipboard>
@@ -304,8 +338,8 @@ export default function StickyHeadTable() {
                                     <a style={{
                                         color: 'blue',
                                         fontSize: 12
-                                    }}> xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60 </a>
-                                    <CopyToClipboard text={'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60'}>
+                                    }}>{transactions.to}</a>
+                                    <CopyToClipboard text={transactions.to}>
                                         <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
                                     </CopyToClipboard>
@@ -341,7 +375,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    572818397.33 XDC(300$)
+                                    {transactions.value} XDC
                                 </TableCell>
                             </TableRow>
 
@@ -374,7 +408,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    0.000000000007 XDC(0.00000000025$)
+                                    {transactions.transactionIndex} XDC
                                 </TableCell>
                             </TableRow>
 
@@ -407,7 +441,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    21000
+                                    {transactions.gas}
                                 </TableCell>
                             </TableRow>
 
@@ -440,7 +474,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    0.00000000000525
+                                    {transactions.gasPrice}
                                 </TableCell>
                             </TableRow>
 
@@ -473,7 +507,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    210000
+                                    {transactions.gasUsed}
                                 </TableCell>
                             </TableRow>
 
@@ -506,7 +540,7 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    7
+                                    {transactions.nonce}
                                 </TableCell>
                             </TableRow>
 
@@ -531,7 +565,7 @@ export default function StickyHeadTable() {
                                     Input
                                 </TableCell>
                                 <TableCell id="td">
-                                    <input className="input-area" type="text" />
+                                    <textarea className="input-area" readOnly value={transactions.input} />
                                 </TableCell>
                             </TableRow>
 
@@ -572,9 +606,9 @@ export default function StickyHeadTable() {
             <br />
             <br />
             <FooterComponent />
-        </div>
-
+        </div >
 
     );
 }
+
 
