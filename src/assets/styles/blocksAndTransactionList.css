@@ -19,9 +19,9 @@
   margin-bottom: 15px;
 }
 .tablegrid {
-  padding-top: 5%;
+  padding-top: 8%;
   margin: auto;
-  width: 80%;
+  width: 100%;
 }
 
 .tableheaders {
@@ -49,7 +49,7 @@
 
 .tabledata {
   font-family: Inter;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -101,4 +101,9 @@
 .disabled {
   color: #939499;
   font-weight: bold;
+}
+.tablegrid_address {
+  padding-top: 1.5%;
+  margin: auto;
+  width: 100%;
 }

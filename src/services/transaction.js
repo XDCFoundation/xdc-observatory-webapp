@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../constants";
+import { httpConstants } from "../images/constants";
 
 export default { getTotalTransaction, getLatestTransaction, getSomeDaysTransaction, getTransactionDetailsUsingHash }
 async function getTotalTransaction() {

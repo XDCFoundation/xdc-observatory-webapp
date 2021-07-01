@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.4d3f31f2.chunk.css",
-    "main.js": "/static/js/main.709914f9.chunk.js",
-    "main.js.map": "/static/js/main.709914f9.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.547ccad9.js",
-    "runtime~main.js.map": "/static/js/runtime~main.547ccad9.js.map",
-    "static/css/2.2984e407.chunk.css": "/static/css/2.2984e407.chunk.css",
-    "static/js/2.001d9603.chunk.js": "/static/js/2.001d9603.chunk.js",
-    "static/js/2.001d9603.chunk.js.map": "/static/js/2.001d9603.chunk.js.map",
+    "main.css": "/static/css/main.f78da635.chunk.css",
+    "main.js": "/static/js/main.f90f8235.chunk.js",
+    "main.js.map": "/static/js/main.f90f8235.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c9145c61.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c9145c61.js.map",
+    "static/css/2.7cc2f9cc.chunk.css": "/static/css/2.7cc2f9cc.chunk.css",
+    "static/js/2.7e4f69c4.chunk.js": "/static/js/2.7e4f69c4.chunk.js",
+    "static/js/2.7e4f69c4.chunk.js.map": "/static/js/2.7e4f69c4.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.5e9e54dab9b43a7f5cba35369fe6485f.js": "/precache-manifest.5e9e54dab9b43a7f5cba35369fe6485f.js",
+    "precache-manifest.097c22c40c4b635f4ee37fb287c53a92.js": "/precache-manifest.097c22c40c4b635f4ee37fb287c53a92.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.2984e407.chunk.css.map": "/static/css/2.2984e407.chunk.css.map",
-    "static/css/main.4d3f31f2.chunk.css.map": "/static/css/main.4d3f31f2.chunk.css.map",
+    "static/css/2.7cc2f9cc.chunk.css.map": "/static/css/2.7cc2f9cc.chunk.css.map",
+    "static/css/main.f78da635.chunk.css.map": "/static/css/main.f78da635.chunk.css.map",
+    "static/js/2.7e4f69c4.chunk.js.LICENSE.txt": "/static/js/2.7e4f69c4.chunk.js.LICENSE.txt",
     "static/media/Accounts.svg": "/static/media/Accounts.4cdf742c.svg",
     "static/media/Block Height.svg": "/static/media/Block Height.c639c6a5.svg",
     "static/media/Current Max_TPS.svg": "/static/media/Current Max_TPS.15801967.svg",
@@ -22,5 +23,12 @@
     "static/media/XDC-Icon.svg": "/static/media/XDC-Icon.5d3f7e75.svg",
     "static/media/nightmode.svg": "/static/media/nightmode.64516664.svg",
     "static/media/usdc.png": "/static/media/usdc.c76b33ca.png"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c9145c61.js",
+    "static/css/2.7cc2f9cc.chunk.css",
+    "static/js/2.7e4f69c4.chunk.js",
+    "static/css/main.f78da635.chunk.css",
+    "static/js/main.f90f8235.chunk.js"
+  ]
 }

@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { ResponsiveLine } from '@nivo/line';
+import React, {useEffect, useState} from "react";
+import {ResponsiveLine} from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
-import { AccountService, BlockService, TransactionService } from '../../services'
+import {AccountService} from '../../services'
 import Utils from '../../utility'
 
 
-
-const MyResponsiveLine = ({ data  }) => (
+const MyResponsiveLine = ({data}) => (
     <ResponsiveLine
         data={data}
 
         // margin={{right: 40,left: 50, bottom: 45}}
 
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+        xScale={{type: 'point'}}
+        yScale={{type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false}}
         yFormat=" >-.2f"
         curve="basis"
         axisTop={null}
@@ -41,9 +40,9 @@ const MyResponsiveLine = ({ data  }) => (
         enableGridY={false}
         enablePoints={false}
         pointSize={10}
-        pointColor={{ theme: 'background' }}
+        pointColor={{theme: 'background'}}
         pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
+        pointBorderColor={{from: 'serieColor'}}
         pointLabelYOffset={-12}
         enableArea={true}
         enableCrosshair={false}
@@ -80,10 +79,10 @@ const MyResponsiveLine = ({ data  }) => (
 
 export default function App() {
 
-    const[data, setData]=useState([])
+    const [data, setData] = useState([])
 
     const [graphAccounts, setGraphAccounts] = useState([]);
-    
+
     useEffect(async () => {
         let [error, AccountGraph] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
         if (error || !AccountGraph)
@@ -93,17 +92,17 @@ export default function App() {
         const interval = setInterval(async () => {
             let [error, AccountGraph] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
             setGraphAccounts
-                (AccountGraph);
-        // alert(JSON.stringify(AccountGraph))
+            (AccountGraph);
+            // alert(JSON.stringify(AccountGraph))
         }, 30000)
-    
+
         var arr = [{
             id: "Accounts",
             color: "hsl(248, 70%, 50%)",
             data: []
-        }]
-  
-        var resultData = []
+        }];
+
+        var resultData = [];
         AccountGraph.map(items => {
             if (resultData.length > 0) {
                 if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"))) {
@@ -112,15 +111,14 @@ export default function App() {
                         y: 1
                     })
                 }
-            }
-            else {
+            } else {
                 resultData.push({
                     x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
                     y: 1
                 })
             }
 
-        })
+        });
 
         function checkDuplicate(id) {
             for (let index = 0; index < resultData.length; index++) {
@@ -133,23 +131,16 @@ export default function App() {
         }
 
 
-        let graphdata = resultData
-        console.log(graphdata.reverse())
-        arr[0].data=resultData
+        arr[0].data = resultData
         setData(arr)
 
 
-    
-
-    // .catch(err => {
-    //     console.log(err);
-    // })
-}, [])
+    }, []);
 
 
     return (
-        <div style={{ height: 122, width: 370}}>
-            <MyResponsiveLine data={data} />
+        <div style={{height: 122, width: 370}}>
+            <MyResponsiveLine data={data}/>
         </div>
     );
 }

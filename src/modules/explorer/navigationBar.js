@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-import { NavLink, useHistory } from 'react-router-dom';
-import { TableCell } from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
+import {NavLink} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -114,7 +111,7 @@ export default function Navbar() {
             return;
         }
 
-        setState({ ...state, [anchor]: open });
+        setState({...state, [anchor]: open});
     };
 
     const lists = (anchor) => (
@@ -126,7 +123,7 @@ export default function Navbar() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
                 <p style={{
                     color: '#4666c4',
                     fontSize: 13,
@@ -134,9 +131,9 @@ export default function Navbar() {
                     marginLeft: 20,
                     marginTop: '20px'
                 }}>Browse</p>
-                <div style={{ marginLeft: 120 }} className={classes.drawerHeader}>
-                    <IconButton style={{ color: 'white' }} onClick={toggleDrawer(anchor, false)}>
-                        {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
+                <div style={{marginLeft: 120}} className={classes.drawerHeader}>
+                    <IconButton style={{color: 'white'}} onClick={toggleDrawer(anchor, false)}>
+                        {theme.direction === 'rtl' ? <CloseIcon/> : <CloseIcon/>}
                     </IconButton>
                 </div>
             </div>
@@ -144,27 +141,30 @@ export default function Navbar() {
 
             <List className="side-box">
                 <ul className="inside-side-box">
-                    <p>Accounts</p>
-                    <hr className="myhr" />
+
+                    <a className="account_details_button" href="/account-details"><p>Accounts</p></a>
+                    <hr className="myhr"/>
                 </ul>
 
                 <ul className="inside-side-box">
-                    <p onClick={() => setOpencontracts(true)}> Contracts <span style={{ marginLeft: '50%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
-                    <hr className="myhr" />
+                    <p onClick={() => setOpencontracts(true)}> Contracts <span style={{marginLeft: '50%'}}><i
+                        class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                    <hr className="myhr"/>
                 </ul>
 
 
                 <ul className="inside-side-box">
-                    <p onClick={() => setOpen(true)}>Tools <span style={{ marginLeft: '65%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
-                    <hr className="myhr" />
+                    <p onClick={() => setOpen(true)}>Tools <span style={{marginLeft: '65%'}}><i
+                        class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="inside-side-box">
                     <p>XinFin APIs</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul className="inside-side-box" >
+                <ul className="inside-side-box">
                     <p>Nodes</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
             </List>
 
@@ -177,23 +177,26 @@ export default function Navbar() {
 
 
     const contracts = (subanchor) => (
-        <div style={{ overflow: 'revert' }}
-            className={clsx(classes.list, {
-                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
-            })}
-            role="presentation"
-            onKeyDown={() => setOpencontracts(false)}
+        <div style={{overflow: 'revert'}}
+             className={clsx(classes.list, {
+                 [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+             })}
+             role="presentation"
+             onKeyDown={() => setOpencontracts(false)}
         >
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
 
                 <div className={classes.drawerHeader}>
 
-                    <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
-                        <div style={{ marginTop: 10 }}> <span onClick={() => setOpencontracts(false)} style={{ color: 'white', fontSize: 17 }}><i class="fa fa-angle-left" aria-hidden="true"></i></span> </div>
-                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Contract</div>
-                        <div >
-                            <IconButton style={{ color: 'white', marginLeft: '120px' }} onClick={() => setOpencontracts(false)}>
-                                {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
+                    <div style={{display: 'flex', flexDirection: 'row', marginLeft: '4px'}}>
+                        <div style={{marginTop: 10}}><span onClick={() => setOpencontracts(false)}
+                                                           style={{color: 'white', fontSize: 17}}><i
+                            class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                        <div style={{color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px'}}>Contract</div>
+                        <div>
+                            <IconButton style={{color: 'white', marginLeft: '120px'}}
+                                        onClick={() => setOpencontracts(false)}>
+                                {theme.direction === 'rtl' ? <CloseIcon/> : <CloseIcon/>}
                             </IconButton>
 
                         </div>
@@ -208,16 +211,16 @@ export default function Navbar() {
             <List className="side-box">
 
                 <ul className="Live-Network-list">
-                    <a style={{ fontSize: 13, color: 'white' }} href='/contracts'>
+                    <a style={{fontSize: 13, color: 'white'}} href='/contracts'>
                         <div>Contracts</div>
                     </a>
-                    <hr className="myhr4" />
+                    <hr className="myhr4"/>
                 </ul>
                 <ul className="Live-Network-list">
-                    <a style={{ fontSize: 13, color: 'white' }} href='/verify-contracts'>
-                        <div >Verify Contracts</div>
+                    <a style={{fontSize: 13, color: 'white'}} href='/verify-contracts'>
+                        <div>Verify Contracts</div>
                     </a>
-                    <hr className="myhr4" />
+                    <hr className="myhr4"/>
                 </ul>
 
             </List>
@@ -228,24 +231,26 @@ export default function Navbar() {
 
     // ..................
     const items = (subanchor) => (
-        <div style={{ overflow: 'revert' }}
-            className={clsx(classes.list, {
-                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
-            })}
-            role="presentation"
-            onKeyDown={() => setOpen(false)}
+        <div style={{overflow: 'revert'}}
+             className={clsx(classes.list, {
+                 [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+             })}
+             role="presentation"
+             onKeyDown={() => setOpen(false)}
         >
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{display: 'flex', flexDirection: 'row'}}>
 
                 <div className={classes.drawerHeader}>
 
-                    <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
-                        <div style={{ marginTop: 10 }}> <span onClick={() => setOpen(false)} style={{ color: 'white', fontSize: 17 }}><i class="fa fa-angle-left" aria-hidden="true"></i></span> </div>
-                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Tools</div>
-                        <div >
-                            <IconButton style={{ color: 'white', marginLeft: '120px' }} oonClick={() => setOpen(false)}>
-                                {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
+                    <div style={{display: 'flex', flexDirection: 'row', marginLeft: '4px'}}>
+                        <div style={{marginTop: 10}}><span onClick={() => setOpen(false)}
+                                                           style={{color: 'white', fontSize: 17}}><i
+                            class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                        <div style={{color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px'}}>Tools</div>
+                        <div>
+                            <IconButton style={{color: 'white', marginLeft: '120px'}} oonClick={() => setOpen(false)}>
+                                {theme.direction === 'rtl' ? <CloseIcon/> : <CloseIcon/>}
                             </IconButton>
 
                         </div>
@@ -265,26 +270,26 @@ export default function Navbar() {
                 </ul>
                 <ul className="Live-Network-list">
                     <p>Web Wallet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
-                    <p >Android wallet</p>
-                    <hr className="myhr" />
+                    <p>Android wallet</p>
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
                     <p>Block Explorer</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul className="Live-Network-list" >
+                <ul className="Live-Network-list">
                     <p>XinFin APIs</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list" >
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list">
                     <p>Become a Master Node/Validator</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
             </List>
-            <br />
+            <br/>
             <List className="side-box">
                 <ul className="Live-Network">
                     <p>Sand Box/Testnet</p>
@@ -292,26 +297,26 @@ export default function Navbar() {
                 </ul>
                 <ul className="Live-Network-list">
                     <p>Faucet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
-                    <p >Web wallet</p>
-                    <hr className="myhr" />
+                    <p>Web wallet</p>
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
                     <p>Block Explorer</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul className="Live-Network-list" >
+                <ul className="Live-Network-list">
                     <p>XinFin APIs</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list" >
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list">
                     <p>Become a Master Node/Validator</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
             </List>
-            <br />
+            <br/>
             <List className="side-box">
                 <ul className="Live-Network">
                     <p>Supported Wallet</p>
@@ -319,30 +324,30 @@ export default function Navbar() {
                 </ul>
                 <ul className="Live-Network-list">
                     <p>Guarda Wallet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
-                    <p >D'CENT Wallet</p>
-                    <hr className="myhr" />
+                    <p>D'CENT Wallet</p>
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
                     <p>D'CENT Hardware Wallet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul className="Live-Network-list" >
+                <ul className="Live-Network-list">
                     <p>Freewallet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list" >
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list">
                     <p>XcelPay Wallet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list" >
+                <ul style={{whiteSpace: 'nowrap'}} className="Live-Network-list">
                     <p>Bitfi Hardware Wallet</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
             </List>
-            <br />
+            <br/>
             <List className="side-box">
                 <ul className="Live-Network">
                     <p>More</p>
@@ -350,19 +355,19 @@ export default function Navbar() {
                 </ul>
                 <ul className="Live-Network-list">
                     <p>XinPay</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
-                    <p >XinFin Remix</p>
-                    <hr className="myhr" />
+                    <p>XinFin Remix</p>
+                    <hr className="myhr"/>
                 </ul>
                 <ul className="Live-Network-list">
                     <p>One-Click Node Installer</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
-                <ul className="Live-Network-list" >
+                <ul className="Live-Network-list">
                     <p>Explore dApps</p>
-                    <hr className="myhr" />
+                    <hr className="myhr"/>
                 </ul>
 
             </List>
@@ -375,18 +380,28 @@ export default function Navbar() {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar elevation={0}
-                className={clsx(classes.appBar)}
+                    className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
 
                     <Typography className="Header">
+
                         <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         <p className="XDC"> XDC </p>
 
                         <div>
+                            <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network
+                                Explorer</NavLink>
+
+                            {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
+
+                        </div>
+                        <div>
+                            <NavLink exact activeClassName="active-t" to={'/tokens'} className="Token">Tokens</NavLink>
+
                             <a href='/'>
                                 <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
                             </a>
@@ -408,19 +423,17 @@ export default function Navbar() {
                             onClick={toggleDrawer('right', true)}
 
 
-
-
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
 
                         <Drawer className={classes.drawer} anchor={'right'} open={state['right']}>
                             {lists('right')}
                         </Drawer>
-                        <Drawer className={classes.drawer} anchor={'right'} open={open} >
+                        <Drawer className={classes.drawer} anchor={'right'} open={open}>
                             {items('right')}
                         </Drawer>
-                        <Drawer className={classes.drawer} anchor={'right'} open={opencontracts} >
+                        <Drawer className={classes.drawer} anchor={'right'} open={opencontracts}>
                             {contracts('right')}
                         </Drawer>
                     </React.Fragment>
@@ -448,9 +461,9 @@ export default function Navbar() {
                             <form method="post">
 
                                 <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                    style={{ fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                    className="main-input"
-                                    placeholder="Search for an address a transaction or a block number" />
+                                       style={{fontSize: 13, letterSpacing: 0.62, color: '#9fa8b1'}} type="text"
+                                       className="main-input"
+                                       placeholder="Search for an address a transaction or a block number"/>
                                 {/* name="NAME" */}
 
                                 <select className="select">
@@ -462,7 +475,7 @@ export default function Navbar() {
                                 </select>
                             </form>
 
-                            <ul style={{ color: 'black' }}>
+                            <ul style={{color: 'black'}}>
                                 {list.map((name) => {
 
                                     if (filter.length !== 0) {

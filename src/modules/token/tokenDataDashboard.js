@@ -10,7 +10,7 @@ import { FaRedditSquare } from "react-icons/fa";
 import { AiOutlineTwitter } from "react-icons/ai";
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
-import Tokensearchbar from "../explorer/tokensearchbar";
+import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
 
