@@ -2,8 +2,10 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import BlocksComponent from "./blocksComponent"
 import Utils from '../../utility'
-import {AccountService, CoinMarketService, BlockService, TransactionService} from '../../services'
-import TokenSearchComponent from "../explorer/tokensearchbar";
+import {BlockService} from '../../services'
+
+
+import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 
 export default class LatestBlocksList extends BaseComponent {
@@ -11,7 +13,6 @@ export default class LatestBlocksList extends BaseComponent {
         super(props);
 
         this.state = {
-            // DataSet: Array(250).fill(this.create_data("0x43730ce5eb14d295d2a08f31a1402c65930aff870a5734b39077dc2407c046e2", `99.99 XDC`, "43 secs ago", "30771616", "0xb7f5d2172d17dcaa6269eabfdb58fb82d2f3f3c0", "0xb7f5d2172d17dcaa6269eabfdb58fb82d2f3f3c0", "0.00000000005 XDC")),
             from: 0,
             amount: 50,
             tableName: "Blocks",
@@ -25,14 +26,9 @@ export default class LatestBlocksList extends BaseComponent {
 
         this.getListOfBlocks()
         this.getTotalNumberOfBlocks()
-        // this.setGetListOfTransactionsInterval()
     }
 
-    // async setGetListOfTransactionsInterval() {
-    //     setInterval(() => {
-    //         this.getListOfTransactions()
-    //     }, 45000)
-    // }
+
 
 
     async getListOfBlocks(from, amount) {
@@ -49,7 +45,6 @@ export default class LatestBlocksList extends BaseComponent {
 
     async getTotalNumberOfBlocks() {
         let [error, totalB] = await Utils.parseResponse(BlockService.getTotalBlocks())
-        console.log(totalB, "datatata")
         if (error || !totalB)
             return
         this.setState({totalblocks: totalB})

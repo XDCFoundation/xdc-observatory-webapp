@@ -1,4 +1,3 @@
-import { Paper } from 'material-ui';
 import React from 'react';
 
 

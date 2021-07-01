@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
-import { AccountService, BlockService, TransactionService } from '../../services'
+import {  TransactionService } from '../../services'
 import Utils from '../../utility'
 
 
@@ -132,7 +132,6 @@ export default function App() {
         }
 
         let graphdata = resultData
-        console.log(graphdata.reverse())
         arr[0].data=resultData
         setData(arr)
 

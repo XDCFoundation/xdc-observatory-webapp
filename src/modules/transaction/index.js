@@ -2,8 +2,8 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import TransactionComponent from "./transactionComponent"
 import Utils from '../../utility'
-import {AccountService, CoinMarketService, BlockService, TransactionService} from '../../services'
-import TokenSearchComponent from "../explorer/tokensearchbar";
+import {TransactionService} from '../../services'
+import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 
 
@@ -17,7 +17,8 @@ export default class LatestTransactionList extends BaseComponent {
             amount: 50,
             tableName: "Transactions",
             transactionList: [],
-            totalTransaction: 0
+            totalTransaction: 0,
+            isLoader: false
             // total:""
         }
     }
@@ -49,13 +50,14 @@ export default class LatestTransactionList extends BaseComponent {
     // }
 
     async getListOfTransactions(from, amount) {
+        this.setState({isLoader: true})
         from = from || from === 0 ? from : this.state.from;
         amount = amount ? amount : this.state.amount;
         let urlPath = `?skip=${from}&limit=${amount}`
         let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
         if (error || !listOfTransactions)
-            return
-        this.setState({transactionList: listOfTransactions})
+            return this.setState({isLoader: false})
+        this.setState({transactionList: listOfTransactions, isLoader: false})
 
         // const interval = setInterval(async () => {
         //     let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))

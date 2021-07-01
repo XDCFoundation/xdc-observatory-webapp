@@ -7,19 +7,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import '../../assets/styles/custom.css';
-import SearchIcon from '@material-ui/icons/Search';
 
 
 
@@ -181,11 +174,11 @@ export default function Navbar() {
 
     const contracts = (subanchor) => (
         <div style={{ overflow: 'revert' }}
-            className={clsx(classes.list, {
-                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
-            })}
-            role="presentation"
-            onKeyDown={() => setOpencontracts(false)}
+             className={clsx(classes.list, {
+                 [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+             })}
+             role="presentation"
+             onKeyDown={() => setOpencontracts(false)}
         >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
 
@@ -235,11 +228,11 @@ export default function Navbar() {
 
     const items = (subanchor) => (
         <div style={{ overflow: 'revert' }}
-            className={clsx(classes.list, {
-                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
-            })}
-            role="presentation"
-            onKeyDown={() => setOpen(false)}
+             className={clsx(classes.list, {
+                 [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+             })}
+             role="presentation"
+             onKeyDown={() => setOpen(false)}
         >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
 
@@ -380,7 +373,7 @@ export default function Navbar() {
 
             <CssBaseline />
             <AppBar elevation={0}
-                className={clsx(classes.appBar)}
+                    className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
@@ -410,8 +403,8 @@ export default function Navbar() {
                                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                                         < img style={{ width: 20, height: 20, marginRight: 5 }} src={require('../../assets/images/Search.png')} />
                                         <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                            style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                            className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
+                                               style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                               className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
                                         {/* name="NAME" */}
 
 

@@ -4,24 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { Divider } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import Tokensearchbar from './tokensearchbar';
+import Tokensearchbar from './tokensearchBar';
 import '../../assets/styles/custom.css';
 import FooterComponent from '../common/footerComponent';
-import { borderColor, height } from '@material-ui/system';
-import Button from '@material-ui/core/Button';
-import { NavLink, useParams } from 'react-router-dom';
-import SearchIcon from '@material-ui/icons/Search';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import {  useParams } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { transparent } from 'material-ui/styles/colors';
-import axios from 'axios';
 import moment from 'moment';
 import { TransactionService } from '../../services';
 import Utils from '../../utility';
@@ -54,8 +43,8 @@ export default function StickyHeadTable() {
 
 
     const [transactions, setTransactions] = useState(false)
-   
-    
+
+
     useEffect(async () => {
         let urlPath = `/${hash}`
         let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
@@ -108,12 +97,12 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={hashid} >
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
 
                                 <TableCell style={{
-                                    width: '15%',    
+                                    width: '15%',
                                     whiteSpace: 'nowrap',
                                     fontFamily: 'Inter',
                                     fontSize: '14px',
@@ -173,7 +162,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={blocknumber}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
 
@@ -213,7 +202,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={timestamp}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -246,7 +235,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={from}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -255,7 +244,7 @@ export default function StickyHeadTable() {
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
-                                    lineHeight: 'normal', 
+                                    lineHeight: 'normal',
                                     letterSpacing: '0.58px',
                                     color: '#252525'
                                 }} id="td">
@@ -286,7 +275,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={to}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -326,7 +315,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={value}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -359,7 +348,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={txnfee}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -392,7 +381,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={gasprovided}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -425,7 +414,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={gasprice}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -458,7 +447,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={gasused}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -491,7 +480,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={nounced}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -524,7 +513,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={input}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -549,7 +538,7 @@ export default function StickyHeadTable() {
 
                                     <Tooltip title={privatenote}>
                                         <img style={{ width: 13, height: 13 }}
-                                            src={require("../../../src/assets/images/questionmark.png")} />
+                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell style={{
@@ -582,7 +571,7 @@ export default function StickyHeadTable() {
             <br />
             <FooterComponent />
         </div>
-  
+
     );
 }
 
