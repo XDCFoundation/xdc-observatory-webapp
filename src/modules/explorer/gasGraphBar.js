@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
-import {  TransactionService } from '../../services'
+import { TransactionService } from '../../services'
 import Utils from '../../utility'
 
 
@@ -10,7 +10,7 @@ const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
 
-        margin={{top: 10}}
+        margin={{ top: 10 }}
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
         yFormat=" >-.2f"
@@ -91,9 +91,9 @@ export default function App() {
             let [error, transactionGraph] = await Utils.parseResponse(TransactionService.getSomeDaysTransaction())
             setGraphTransactions
                 (transactionGraph);
-        // alert(JSON.stringify(transactionGraph))
+            // alert(JSON.stringify(transactionGraph))
         }, 30000)
-    
+
         var arr = [{
             id: "GasPrice",
             color: "hsl(248, 70%, 50%)",
@@ -104,52 +104,31 @@ export default function App() {
 
         transactionGraph.map(items => {
 
-            if (resultData.length > 0) {
-                if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"),items.gasPrice)) {
-                    resultData.push({
-                        x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
-                        y: parseInt(items.gasPrice)
-                    })
-                }
-            }
-            else {
-                resultData.push({
-                    x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
-                    y: parseInt(items.gasPrice)
-                })
-            }
+
+            resultData.push({
+                x: items.day,
+                y: parseFloat(items.gasPrice)
+            })
 
         })
 
-        function checkDuplicate(id,gasPrice) {
-            for (let index = 0; index < resultData.length; index++) {
-                if (id === resultData[index].x) {
-                    resultData[index].y += parseInt(gasPrice)
-                    return false;
-                }
-            }
-            return true;
-        }
-
         let graphdata = resultData
-        arr[0].data=resultData
+        console.log(graphdata.reverse())
+        arr[0].data = resultData
         setData(arr)
 
-   
 
-    // .catch(err => {
-    //     console.log(err);
-    // })
-   
 
-    
+
+
+
+
     }, [])
 
     return (
-        <div style={{ height: 120, width: 370}}>
+        <div style={{ height: 120, width: 370 }}>
             <MyResponsiveLine data={data} />
         </div>
     );
 }
 
-                       

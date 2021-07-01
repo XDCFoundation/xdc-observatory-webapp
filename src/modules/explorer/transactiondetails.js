@@ -105,7 +105,7 @@ export default function StickyHeadTable() {
                                     width: '15%',
                                     whiteSpace: 'nowrap',
                                     fontFamily: 'Inter',
-                                    fontSize: '14px',
+                                    fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -170,7 +170,7 @@ export default function StickyHeadTable() {
                                     width: '15%',
                                     whiteSpace: 'nowrap',
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStyle: 'normal',
                                     lineHeight: 'normal',
@@ -183,7 +183,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -191,7 +191,7 @@ export default function StickyHeadTable() {
 
                                 }} id="td">
                                     <a style={{ color: 'blue', fontSize: 13 }} href="#text-as"> {transactions.blockNumber} </a>
-                                    -2165 Block Confirmation
+                                    -{transactions.blockConfirmation} Blocks Confirmation
                                 </TableCell>
 
                             </TableRow>
@@ -207,7 +207,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -220,7 +220,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -240,7 +240,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -253,7 +253,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -280,7 +280,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -293,7 +293,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -320,7 +320,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -333,13 +333,13 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    {transactions.value} XDC
+                                    {transactions.value} XDC (${transactions.valueUSD})
                                 </TableCell>
                             </TableRow>
 
@@ -353,7 +353,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -366,13 +366,13 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
                                     color: '#3a3a3a'
                                 }} id="td">
-                                    {transactions.transactionIndex} XDC
+                                    {transactions.transactionFee} XDC (${transactions.transactionFeeUSD})
                                 </TableCell>
                             </TableRow>
 
@@ -386,7 +386,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -399,7 +399,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -419,7 +419,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -432,7 +432,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -452,7 +452,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -465,7 +465,7 @@ export default function StickyHeadTable() {
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -485,7 +485,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -493,12 +493,12 @@ export default function StickyHeadTable() {
                                     letterSpacing: '0.58px',
                                     color: '#252525'
                                 }} id="td">
-                                    Nounced
+                                    Nounce
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
                                     fontStyle: 'normal',
-                                    fontSize: 12,
+                                   fontSize: '12px',
                                     fontWeight: 'normal',
                                     lineHeight: 'normal',
                                     letterSpacing: '0.58px',
@@ -518,7 +518,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',
@@ -543,7 +543,7 @@ export default function StickyHeadTable() {
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
-                                    fontSize: '11px',
+                                   fontSize: '12px',
                                     fontWeight: 600,
                                     fontStretch: 'normal',
                                     fontStyle: 'normal',

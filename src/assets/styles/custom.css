@@ -443,7 +443,7 @@ p {
     margin-left: -50px;
     color: white;
     font-size: 12px;
-    padding: 2px 10px 2px 10px;
+    padding: 2px 10px 2px 13px;
     border-radius: 4px;
     background-color: #02c227;
 }
@@ -636,13 +636,12 @@ p {
 }
 
 .centerbox-td {
-    width: 427px;
-    height: 32px;
-    margin: 0 25px 0 785px;
-    padding: 8px 10.3px 0 12px;
-    border-radius: 7px;
-    background-color: #ffffff;
-    margin-right: 10px;
+  width: 427px;
+  height: 32px;
+  padding: 8px 10.3px 0 12px;
+  margin-right: 10px;
+  border-radius: 7px;
+  background-color: #ffffff;
 }
 
 .centerbox-1 {
@@ -694,6 +693,8 @@ p {
     width: 58px;
     height: 35px;
     margin-top: -8px;
+    margin-left: 6px;
+    margin-right: 6px;
     padding: 9px 8px 9px 4px;
     border-radius: 4px;
     border: solid 1px #e5e8f0;
@@ -745,8 +746,7 @@ p {
 }
 
 .path {
-    display: flex;
-    justify-content: center;
+  margin-left: -10px;
     width: 6px;
     height: 11px;
     flex-grow: 0;
@@ -754,8 +754,7 @@ p {
 }
 
 .path-2 {
-    display: flex;
-    justify-content: center;
+    margin-left: -4px;
     width: 6px;
     height: 11px;
     flex-grow: 0;
@@ -847,20 +846,22 @@ p {
 }
 
 .main-input-td {
-    margin-top: -19px;
-    outline-color: #ffffff;
-    height: 22px;
-    width: 330px;
-    color: #9fa8b1;
-    border: 1px solid #cccccc;
-    border-color: transparent;
-    display: flex;
-    text-align: left;
-    font-size: 16px;
-    font-weight: 300;
-    padding: 2px 0px 0px 2px;
-    background-color: #ffffff;
+  outline-color: #ffffff;
+  margin-top: -3px;
+  height: 22px;
+  width: 330px;
+  color: #9fa8b1;
+  border: 1px solid #cccccc;
+  border-color: transparent;
+  display: flex;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 2px 0px 0px 2px;
+  font-size: 16px;
+   background-color: #ffffff;
 }
+
 
 .main-location {
     display: none;
@@ -900,19 +901,19 @@ p {
 }
 
 .select-td {
-    width: 60px;
-    margin-top: -19px;
-    margin-left: -4px;
-    outline-color: #ffffff;
-    border-color: transparent;
-    border-left-color: #9fa9ba;
-    font-size: 11px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #2a2a2a;
+  width: 65px;
+  margin-top: -3px;
+  margin-left: -7px;
+  outline-color: #ffffff;
+  border-color: transparent;
+  border-left-color: #9fa9ba;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2a2a2a;
 }
 
 .side-box {
@@ -973,6 +974,18 @@ p {
     text-decoration: none;
     font-size: 15px;
     color: #2149b9;
+}
+
+.xinfin_api_button {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.xinfin_api_button:hover {
+  list-style: none;
+  text-decoration: none;
+  font-size: 14px;
+  color: #2149b9;
 }
 
 .inside-side-box {
@@ -1486,6 +1499,7 @@ body {
     background-size: cover;
     font-family: "Inter" !important;
     font-weight: 600;
+    margin-top: -3px;
     padding-left: 2.5px;
     padding-top: 0.9px;
 }

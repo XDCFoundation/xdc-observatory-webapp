@@ -138,26 +138,26 @@ export default function Navbar() {
 
             <List className="side-box">
                 <ul className="inside-side-box">
-                    <p>Accounts</p>
+                <a className="account_details_button" href="/account-details"><p>Accounts</p></a>
                     <hr className="myhr" />
                 </ul>
 
                 <ul className="inside-side-box">
-                    <p onClick={() => setOpencontracts(true)}> Contracts <span style={{ marginLeft: '50%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                    <p className="xinfin_api_button" onClick={() => setOpencontracts(true)}> Contracts <span style={{ marginLeft: '50%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr" />
                 </ul>
 
 
                 <ul className="inside-side-box">
-                    <p onClick={() => setOpen(true)}>Tools <span style={{ marginLeft: '65%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                    <p className="xinfin_api_button" onClick={() => setOpen(true)}>Tools <span style={{ marginLeft: '65%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box">
-                    <p>XinFin APIs</p>
+                <p className="xinfin_api_button">XinFin APIs</p> 
                     <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box" >
-                    <p>Nodes</p>
+                <p className="xinfin_api_button">Nodes</p>
                     <hr className="myhr" />
                 </ul>
             </List>
@@ -204,14 +204,14 @@ export default function Navbar() {
             <List className="side-box">
 
                 <ul className="Live-Network-list">
-                    <a style={{ fontSize: 13, color: 'white' }} href='/contracts'>
-                        <div>Contracts</div>
+                    <a style={{ fontSize: 13, color: 'white',listStyle: 'none', textDecoration: 'none' }} href='/contracts'>
+                        <div className="xinfin_api_button">Contracts</div>
                     </a>
                     <hr className="myhr4" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <a style={{ fontSize: 13, color: 'white' }} href='/verify-contracts'>
-                        <div >Verify Contracts</div>
+                    <a style={{ fontSize: 13, color: 'white',listStyle: 'none', textDecoration: 'none' }} href='/verify-contracts'>
+                        <div className="xinfin_api_button">Verify Contracts</div>
                     </a>
                     <hr className="myhr4" />
                 </ul>
@@ -403,8 +403,8 @@ export default function Navbar() {
                                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                                         < img style={{ width: 20, height: 20, marginRight: 5 }} src={require('../../assets/images/Search.png')} />
                                         <input value={filter} onChange={(e) => setFilter(e.target.value)}
-                                               style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
-                                               className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
+                                            style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                            className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
                                         {/* name="NAME" */}
 
 

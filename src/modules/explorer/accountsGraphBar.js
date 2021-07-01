@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {ResponsiveLine} from '@nivo/line';
+import React, { useEffect, useState } from "react";
+import { ResponsiveLine } from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
-import {AccountService} from '../../services'
+import { AccountService } from '../../services'
 import Utils from '../../utility'
 
 
-const MyResponsiveLine = ({data}) => (
+const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
 
         // margin={{right: 40,left: 50, bottom: 45}}
 
-        xScale={{type: 'point'}}
-        yScale={{type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false}}
+        xScale={{ type: 'point' }}
+        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
         yFormat=" >-.2f"
         curve="basis"
         axisTop={null}
@@ -40,9 +40,9 @@ const MyResponsiveLine = ({data}) => (
         enableGridY={false}
         enablePoints={false}
         pointSize={10}
-        pointColor={{theme: 'background'}}
+        pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
-        pointBorderColor={{from: 'serieColor'}}
+        pointBorderColor={{ from: 'serieColor' }}
         pointLabelYOffset={-12}
         enableArea={true}
         enableCrosshair={false}
@@ -92,7 +92,7 @@ export default function App() {
         const interval = setInterval(async () => {
             let [error, AccountGraph] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
             setGraphAccounts
-            (AccountGraph);
+                (AccountGraph);
             // alert(JSON.stringify(AccountGraph))
         }, 30000)
 
@@ -102,35 +102,19 @@ export default function App() {
             data: []
         }];
 
-        var resultData = [];
+        var resultData = []
         AccountGraph.map(items => {
-            if (resultData.length > 0) {
-                if (checkDuplicate(moment(items.timestamp * 1000).format("MMMM Do YYYY"))) {
-                    resultData.push({
-                        x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
-                        y: 1
-                    })
-                }
-            } else {
-                resultData.push({
-                    x: moment(items.timestamp * 1000).format("MMMM Do YYYY"),
-                    y: 1
-                })
-            }
+            resultData.push({
+                x: items.day,
+                y: items.count
+            })
 
-        });
+            // moment(items.timestamp * 1000).format("MMMM Do YYYY"),moment(items.timestamp * 1000).format("MMMM Do YYYY"),
 
-        function checkDuplicate(id) {
-            for (let index = 0; index < resultData.length; index++) {
-                if (id === resultData[index].x) {
-                    resultData[index].y += 1
-                    return false;
-                }
-            }
-            return true;
-        }
+        })
 
-
+        let graphdata = resultData
+        console.log(graphdata.reverse())
         arr[0].data = resultData
         setData(arr)
 
@@ -139,10 +123,9 @@ export default function App() {
 
 
     return (
-        <div style={{height: 122, width: 370}}>
-            <MyResponsiveLine data={data}/>
+        <div style={{ height: 122, width: 370 }}>
+            <MyResponsiveLine data={data} />
         </div>
     );
 }
 
-                                                                           
