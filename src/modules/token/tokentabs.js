@@ -43,8 +43,8 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-      marginLeft: '19%',
-      width: '62%',
+      marginLeft: '13%',
+      width: '74%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },

@@ -59,7 +59,7 @@ export default function TransactionComponent(props) {
 
     const { state } = props
     return (
-        <Grid lg={8} className="tablegrid">
+        <Grid lg={10} className="tablegrid">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             <Grid component={Paper}>
                 <Table className="table" aria-label="Latest Transactions">
@@ -88,7 +88,7 @@ export default function TransactionComponent(props) {
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.value}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={props.create_url(row.blockNumber, "block")}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
+                                    <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><a className="linkTable" href={props.create_url(row.from, "hash")}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.to, "hash")}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell>

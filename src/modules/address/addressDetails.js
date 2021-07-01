@@ -13,6 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddressTableComponent from "./addressTable";
 import { ImQrcode } from "react-icons/im";
 
+import Popup from "reactjs-popup";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
@@ -70,10 +71,35 @@ export default function AddressDetails() {
                         fontSize: 14,
                       }}
                     >
-                      <i class="fa fa-clone" aria-hidden="true"/>
+                      <i class="fa fa-clone" aria-hidden="true" />
                     </button>
                   </CopyToClipboard>
-                  <ImQrcode />
+                  <Popup trigger={<ImQrcode />} modal>
+                    {(close) => (
+                      <div className="popup_qr">
+                        <p>
+                          {" "}
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Atque, a nostrum. Dolorem, repellat quidem ut,
+                          minima sint vel eveniet quibusdam voluptates delectus
+                          doloremque, explicabo tempore dicta adipisci fugit
+                          amet dignissimos? Lorem ipsum dolor sit amet,
+                          consectetur adipisicing elit. Consequatur sit commodi
+                          beatae optio voluptatum sed eius cumque, delectus
+                          saepe repudiandae explicabo nemo nam libero ad,
+                          doloribus, voluptas rem alias. Vitae?
+                        </p>
+                        <button
+                          className="close"
+                          onClick={() => {
+                            close();
+                          }}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    )}
+                  </Popup>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -84,7 +110,7 @@ export default function AddressDetails() {
                     borderBottom: "none",
                   }}
                   id="td"
-               />
+                />
                 <TableCell className="first-row-table_address">
                   XDC Value
                 </TableCell>
@@ -100,7 +126,7 @@ export default function AddressDetails() {
                         fontSize: 14,
                       }}
                     >
-                      <i class="fa fa-clone" aria-hidden="true"/>
+                      <i class="fa fa-clone" aria-hidden="true" />
                     </button>
                   </CopyToClipboard>
                 </TableCell>
