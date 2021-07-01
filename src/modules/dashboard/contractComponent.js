@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,11 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Divider} from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import Tokensearchbar from '../explorer/tokensearchBar';
 import '../../assets/styles/custom.css';
 import FooterComponent from '../common/footerComponent';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -20,13 +20,13 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const rows = [
 
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe80', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe90', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
-    {Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes'},
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe80', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe90', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
+    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
 
 
 ];
@@ -99,7 +99,7 @@ export default function StickyHeadTable() {
 
     return (
         <div>
-            <Tokensearchbar/>
+            <Tokensearchbar />
 
             <div>
 
@@ -110,8 +110,8 @@ export default function StickyHeadTable() {
                         <div className="searchelement-div">
                             <p className="searchelement-token">Contracts</p>
                             <div className="searchelement-input">
-                                <img style={{width: 22, height: 22, marginRight: 5}}
-                                     src={require('../../assets/images/Search.png')}/>
+                                <img style={{ width: 22, height: 22, marginRight: 5 }}
+                                    src={require('../../assets/images/Search.png')} />
 
                                 <input
                                     style={{
@@ -121,7 +121,7 @@ export default function StickyHeadTable() {
                                         outlineColor: '#e3e7eb',
                                         borderWidth: 0
                                     }} type="text"
-                                    placeholder="Search Contracts"/>
+                                    placeholder="Search Contracts" />
                                 {/* name="NAME" */}
                             </div>
 
@@ -134,17 +134,17 @@ export default function StickyHeadTable() {
                 </div>
             </div>
 
-            <br/>
+            <br />
             <Paper className={classes.rootui}>
                 <TableContainer className={classes.container} id="container-table">
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{border: "none", paddingLeft: '5%'}} align="left"><span
+                                <TableCell style={{ border: "none", paddingLeft: '5%' }} align="left"><span
                                     className={"tableheaders"}>Address</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span className={"tableheaders"}>Token Name</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span className={"tableheaders"}>Contract Name</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span className={"tableheaders"}>Is Token</span></TableCell>
+                                <TableCell style={{ border: "none" }} align="left"><span className={"tableheaders"}>Token Name</span></TableCell>
+                                <TableCell style={{ border: "none" }} align="left"><span className={"tableheaders"}>Contract Name</span></TableCell>
+                                <TableCell style={{ border: "none" }} align="left"><span className={"tableheaders"}>Is Token</span></TableCell>
 
                             </TableRow>
 
@@ -157,17 +157,17 @@ export default function StickyHeadTable() {
 
                                         <TableCell id="td">
                                             <Tooltip placement="right" title={row.Address}><VisibilityIcon
-                                                fontSize="small" style={{color: "#b9b9b9"}}/></Tooltip>
-                                            <a style={{color: 'blue', fontSize: 11, marginLeft: '10px'}}
-                                               href="#text"><span className="tabledata"> {shorten(row.Address)} </span>
+                                                fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
+                                            <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
+                                                href="#text"><span className="tabledata"> {shorten(row.Address)} </span>
                                             </a>
                                         </TableCell>
                                         <TableCell id="td"><span className="tabledata"
-                                                                 style={{marginLeft: '6px'}}>{row.Tokenname}</span></TableCell>
+                                            style={{ marginLeft: '6px' }}>{row.Tokenname}</span></TableCell>
                                         <TableCell id="td"><span className="tabledata"
-                                                                 style={{marginLeft: '5px'}}>{row.Contractname}</span></TableCell>
+                                            style={{ marginLeft: '5px' }}>{row.Contractname}</span></TableCell>
                                         <TableCell id="td"><span className="tabledata"
-                                                                 style={{marginLeft: '5px'}}>{row.IsToken}</span></TableCell>
+                                            style={{ marginLeft: '5px' }}>{row.IsToken}</span></TableCell>
 
 
                                     </TableRow>
@@ -177,14 +177,14 @@ export default function StickyHeadTable() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Divider className={classes.divider}/>
+                <Divider className={classes.divider} />
 
             </Paper>
 
 
-            <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
 
-                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px'}}>
+                <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px' }}>
                     Show
                     <select className="selectbox" onChange={handleChangeRowsPerPage}>
                         <option selected>10</option>
@@ -195,29 +195,29 @@ export default function StickyHeadTable() {
                     Records
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
+                <div style={{ display: 'flex', flexDirection: 'row', marginRight: '17%' }}>
 
                     <div className="firstbox" onClick={() => setPage(0)}>
-                        <button style={{backgroundColor: 'white'}} className="first">First</button>
+                        <button style={{ backgroundColor: 'white' }} className="first">First</button>
                     </div>
                     <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path"><ChevronLeftIcon/></p>
+                        <p className="path"><ChevronLeftIcon /></p>
                     </div>
                     <div className="pagebox">
                         <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}</p>
                     </div>
                     <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
+                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /></p>
                     </div>
                     <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage) - 1)}>
-                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
+                        <button style={{ backgroundColor: 'white' }} className="last">Last</button>
                     </div>
                 </div>
 
 
             </div>
 
-            <FooterComponent/>
+            <FooterComponent />
 
         </div>
 

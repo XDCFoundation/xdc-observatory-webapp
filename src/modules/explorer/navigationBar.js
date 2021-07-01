@@ -159,7 +159,7 @@ export default function Navbar() {
                     <hr className="myhr"/>
                 </ul>
                 <ul className="inside-side-box">
-                <p className="xinfin_api_button">XinFin APIs</p> 
+                    <p className="xinfin_api_button">XinFin APIs</p>
                     <hr className="myhr"/>
                 </ul>
                 <ul className="inside-side-box">
@@ -376,7 +376,7 @@ export default function Navbar() {
     );
 
 
-    // ..................  
+    // ..................
 
     return (
         <div className={classes.root}>
@@ -389,8 +389,10 @@ export default function Navbar() {
 
                     <Typography className="Header">
 
-                        <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
-                        <p className="XDC"> XDC </p>
+                        <a className="logo_t</a>okensearch" href={'/'}>
+                            <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
+                        </a>
+                        <a className="XDC" href="/"> XDC </a>
 
                         <div>
                             <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network
@@ -468,10 +470,11 @@ export default function Navbar() {
 
                                 <select className="select">
                                     <option selected>All Filters</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
+                                    <option>Addresses</option>
+                                    <option>Tokens</option>
+                                    <option>Nametags</option>
+                                    <option>Labels</option>
+                                    <option>Websites</option>
                                 </select>
                             </form>
 

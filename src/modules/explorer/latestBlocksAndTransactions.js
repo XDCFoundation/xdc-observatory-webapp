@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
-import {BlockService, TransactionService} from '../../services'
+import { BlockService, TransactionService } from '../../services'
 import Utils from '../../utility'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 
 function timeDiff(curr, prev) {
@@ -35,6 +35,12 @@ function timeDiff(curr, prev) {
         return Math.abs(Math.round(diff / ms_Yr)) + ' years ago';
     }
 }
+function shortenBalance(b, amountL = 4, amountR = 3, stars = 0) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+
+        b.length
+    )}`;
+}
 
 function LatestBlocks() {
 
@@ -53,7 +59,7 @@ function LatestBlocks() {
         const interval = setInterval(async () => {
             let [error, latestBlocks] = await Utils.parseResponse(BlockService.getLatestBlock(urlPath, {}))
             setPostHeight
-            (latestBlocks);
+                (latestBlocks);
         }, 45000)
     }, []);
 
@@ -70,7 +76,7 @@ function LatestBlocks() {
         const interval = setInterval(async () => {
             let [error, latestTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
             setlatestTransactions
-            (latestTransactions);
+                (latestTransactions);
         }, 45000)
     }, []);
 
@@ -137,13 +143,13 @@ function LatestBlocks() {
                                 return (
                                     <div className="value_main_main">
                                         <div className="value_main main_val">
-                                            <a href={"/transaction-details/" + e.hash}>
-                                                <button className="bttn">{shorten(e.hash)}</button>
+                                            <a className="bttn" href={"/transaction-details/" + e.hash}>
+                                                {shorten(e.hash)}
                                             </a>
-                                            <p>{e.value} XDC</p>
+                                            <p>{shortenBalance(e.value)} XDC</p>
                                             <p>{age}</p>
-                                            <a href={"/transaction-details/" + e.hash}>
-                                                <button className="details">Details</button>
+                                            <a className="details" href={"/transaction-details/" + e.hash}>
+                                                Details
                                             </a>
                                         </div>
                                     </div>

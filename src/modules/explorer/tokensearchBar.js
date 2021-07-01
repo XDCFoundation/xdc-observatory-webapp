@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-import {  useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import '../../assets/styles/custom.css';
 
@@ -174,11 +174,11 @@ export default function Navbar() {
 
     const contracts = (subanchor) => (
         <div style={{ overflow: 'revert' }}
-             className={clsx(classes.list, {
-                 [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
-             })}
-             role="presentation"
-             onKeyDown={() => setOpencontracts(false)}
+            className={clsx(classes.list, {
+                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+            })}
+            role="presentation"
+            onKeyDown={() => setOpencontracts(false)}
         >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
 
@@ -228,11 +228,11 @@ export default function Navbar() {
 
     const items = (subanchor) => (
         <div style={{ overflow: 'revert' }}
-             className={clsx(classes.list, {
-                 [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
-             })}
-             role="presentation"
-             onKeyDown={() => setOpen(false)}
+            className={clsx(classes.list, {
+                [classes.fullList]: subanchor === 'top' || subanchor === 'bottom',
+            })}
+            role="presentation"
+            onKeyDown={() => setOpen(false)}
         >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
 
@@ -373,22 +373,21 @@ export default function Navbar() {
 
             <CssBaseline />
             <AppBar elevation={0}
-                    className={clsx(classes.appBar)}
+                className={clsx(classes.appBar)}
             >
                 <Toolbar>
 
 
                     <Typography className="Header" >
-                        <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
-                        <p className="XDC"> XDC </p>
+                        <a  href={'/'}>
+                            <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img></a>
+                        <a className="XDC" href="/"> XDC </a>
 
                         <div>
-                            <p className="Network-explorer" id="Network-explorer" >Network Explorer</p>
+                            <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network Explorer</NavLink>
                         </div>
                         <div >
-                            <NavLink to='/token-details'>
-                                <p className="Token" id="Token" >Tokens</p>
-                            </NavLink>
+                            <NavLink exact activeClassName="active-t" to={'/token-details'} className="Token" >Tokens</NavLink>
                         </div>
 
 
@@ -410,10 +409,11 @@ export default function Navbar() {
 
                                         <select className="select-td">
                                             <option selected>Filters</option>
-                                            <option >Dummy</option>
-                                            <option >Dummy</option>
-                                            <option >Dummy</option>
-                                            <option >Dummy</option>
+                                            <option>Addresses</option>
+                                            <option>Tokens</option>
+                                            <option>Nametags</option>
+                                            <option>Labels</option>
+                                            <option>Websites</option>
                                         </select>
                                     </div>
                                 </div>

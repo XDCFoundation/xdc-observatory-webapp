@@ -17,10 +17,10 @@ label {
 }
 
 .footer {
-    padding-left: 130px;
+    padding-left: 10px;
     background: transparent;
     /* background-color: red; */
-    padding-right: 130px;
+    padding-right: 10px;
 }
 
 .footer-line {
@@ -229,7 +229,7 @@ a:hover{
 
 .XDC-Header {
     margin-top: -23px;
-    margin-left: 18%;
+    margin-left: 20%;
     font-size: 18px;
     font-weight: normal;
     font-stretch: normal;
