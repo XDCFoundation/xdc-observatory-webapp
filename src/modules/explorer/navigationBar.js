@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { NavLink } from 'react-router-dom';
 import Login from './loginDialog';
-
+// import AccountProfile from './accountProfile'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({

@@ -12,7 +12,7 @@ import LatestBlocksList from './modules/blocks';
 import BlockChainClass from './modules/explorer/';
 import TokenDetails from './modules/explorer/tokendetails';
 import TransactionDetails from './modules/explorer/transactiondetails';
-
+import AccountProfile from './modules/explorer/accountProfile';
 
 class Routes extends BaseComponent {
 
@@ -32,6 +32,7 @@ class Routes extends BaseComponent {
                         <Route path={'/view-all-blocks'} component={LatestBlocksList} />
                         <Route exact path={'/token-details'} component={TokenDetails} />
                         <Route exact path={'/transaction-details'} component={TransactionDetails} />
+                        <Route exact path={'/loginprofile'} component={AccountProfile} />
                         <Redirect exact from='*' to="/" />
                    </Switch>
                   

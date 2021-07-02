@@ -12,6 +12,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+import AccountProfile from "./accountProfile";
+import { NavLink } from "react-router-dom";
+import { history } from "../../managers/history";
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -117,6 +120,12 @@ export default function FormDialog() {
     setOpen(false);
   };
 
+
+  const handleLogin =() => {
+      history.push("/loginprofile")
+      
+  }
+
   return (
     <div className={classes.add}>
       <Button
@@ -167,7 +176,7 @@ export default function FormDialog() {
             </span>
           </DialogContent>
           <DialogActions>
-            <button className={classes.addbtn}> Log in </button>
+            <button className={classes.addbtn} onClick={handleLogin} >Log in </button>
           </DialogActions>
           <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
