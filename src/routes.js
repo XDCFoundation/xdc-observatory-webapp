@@ -17,7 +17,7 @@ import LatestAccountsList from './modules/accounts';
 import AddressDetails from './modules/address/addressDetails'
 import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
-
+import AccountProfile from './modules/explorer/accountProfile';
 
 class Routes extends BaseComponent {
 
@@ -47,6 +47,7 @@ class Routes extends BaseComponent {
                         <Route exact path={'/transaction-details/:hash'} component={TransactionDetails} />
                         <Route exact path={'/contracts'} component={ContractComponent} />
                         <Route exact path={'/verify-contracts'} component={ContractTab} />
+                        <Route exact path={'/loginprofile'} component={AccountProfile} />
                         <Redirect exact from='*' to="/" />
                     </Switch>
 
