@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "25px",
     marginLeft: "40px",
     fontWeight: "500",
+    cursor: "pointer"
   },
   dialog: {
     marginLeft: "10%",
@@ -186,7 +187,7 @@ export default function FormDialog() {
           </DialogActions>
           <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
+              New to XDC Explorer? <span className={classes.createaccount}> Create an account</span> 
             </DialogContentText>
         </Dialog>
       </div>
