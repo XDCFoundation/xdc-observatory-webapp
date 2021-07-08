@@ -42,7 +42,7 @@ export default function AddressDetails() {
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p className="block_details_heading_left">Account Details</p>
+          <p className="block_details_heading_left">Address Details</p>
         </div>
         <Paper className={classes.rootUI}>
           <Table className="table-block" aria-label="simple table">

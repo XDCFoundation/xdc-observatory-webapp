@@ -7,6 +7,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Tooltip from '@material-ui/core/Tooltip';
 import { Grid } from "@material-ui/core";
 
 export default function AddressTableComponent(props) {
@@ -24,29 +25,29 @@ export default function AddressTableComponent(props) {
     useEffect(() => {
         let address = [
             {
-                Txn_Hash: "dfhdfnfldflkdngigikafihnadiadfiaikfnhai",
+                Txn_Hash: "0x3243ab7818dcbd7b4e8898743d5be2c5410cdab5a1b34c559a61c8757be0dd9b",
                 Age: "1 day ago",
                 Block: "30972506",
-                From: "xdccejkvlenvlkenvklev",
-                To: "nvjvevevbekvnklnvksnvikvni",
+                From: "xdc374b7cc91c918c32a1149bd73b9527076e86bba4",
+                To: "xdc0000000000000000000000000000000000000089",
                 Value: "45000.00XDC",
                 id: 1,
             },
             {
-                Txn_Hash: "dfhdfnfldflkdngigikafihnadiadfiaikfnhai",
+                Txn_Hash: "0x3243ab7818dcbd7b4e8898743d5be2c5410cdab5a1b34c559a61c8757be0dd9b",
                 Age: "1 day ago",
                 Block: "30972506",
-                From: "xdccejkvlenvlkenvklev",
-                To: "nvjvevevbekvnklnksnvikvni",
+                From: "xdc374b7cc91c918c32a1149bd73b9527076e86bba4",
+                To: "xdc0000000000000000000000000000000000000089",
                 Value: "45000.00XDC",
                 id: 2,
             },
             {
-                Txn_Hash: "dfhdfnfldflkdngigikafihnadiadfiaikfnhai",
+                Txn_Hash: "0x3243ab7818dcbd7b4e8898743d5be2c5410cdab5a1b34c559a61c8757be0dd9b",
                 Age: "1 day ago",
                 Block: "30972506",
-                From: "xdccejkvlenvlkenvklev",
-                To: "nvjvevevbekvnklnvksnvikvni",
+                From: "xdc374b7cc91c918c32a1149bd73b9527076e86bba4",
+                To: "xdc0000000000000000000000000000000000000089",
                 Value: "45000.00XDC",
                 id: 3,
             },
@@ -140,12 +141,7 @@ export default function AddressTableComponent(props) {
                                     }
                                 >
                                     <TableCell style={{ border: "none" }} margin-left="5px">
-                                        {/* <Tooltip placement="right" title={row.Txn_Hash}>
-                      <VisibilityIcon
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
-                      />
-                    </Tooltip> */}
+
                                         <input
                                             onChange={(event) => {
                                                 let checked = event.target.checked;
@@ -157,9 +153,11 @@ export default function AddressTableComponent(props) {
                                             style={{ marginRight: "8px" }}
                                         />
                                         <a className="linkTable" href="/">
-                                            <span className="tabledata">
-                                                {shorten(row.Txn_Hash)}{" "}
-                                            </span>
+                                            <Tooltip placement="top" title={row.Txn_Hash}>
+                                                <span className="tabledata">
+                                                    {shorten(row.Txn_Hash)}{" "}
+                                                </span>
+                                            </Tooltip>
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
@@ -172,18 +170,21 @@ export default function AddressTableComponent(props) {
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
                                         <a className="linkTable" href="/">
-                                            <span className="tabledata"> {row.From}</span>
+                                            <Tooltip placement="top" title={row.From}>
+                                                <span className="tabledata"> {shorten(row.From)}</span>
+                                            </Tooltip>
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
                                         <a className="linkTable" href="/">
-                                            <span className="tabledata">{row.To}</span>
+                                            <Tooltip placement="top" title={row.To}>
+                                                <span className="tabledata">{shorten(row.To)}</span>
+                                            </Tooltip>
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
                                         <span className="tabledata">{row.Value}</span>
                                     </TableCell>
-                                    {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                                 </TableRow>
                             );
                         })}

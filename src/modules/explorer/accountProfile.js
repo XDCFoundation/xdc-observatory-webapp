@@ -18,7 +18,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
+import Tokensearchbar from './tokensearchBar';
+import FooterComponent from '../common/footerComponent';
 
 // import React from 'react';
 import PropTypes from 'prop-types';
@@ -248,7 +249,8 @@ export default function SimpleTabs(props) {
     //     underlineStyle: {borderColor: '#f65857'}
     // });
     return (
-
+<div>
+<Tokensearchbar/>
 
         <div className="maindiv" >
             <div className="heading">
@@ -837,7 +839,8 @@ export default function SimpleTabs(props) {
                 <h1></h1>
             </div>
 
-
+            </div>
+            <FooterComponent/>
         </div>
 
     );

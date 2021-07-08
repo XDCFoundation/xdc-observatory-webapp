@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
-import {BsFillCaretDownFill} from "react-icons/bs";
-import {BsFillCaretUpFill} from "react-icons/bs";
-import {CoinMarketService} from '../../services'
+import { BsFillCaretDownFill } from "react-icons/bs";
+import { BsFillCaretUpFill } from "react-icons/bs";
+import { CoinMarketService } from '../../services'
 import Utils from '../../utility'
 
 
@@ -72,8 +72,8 @@ export default function MarketDatatable() {
     let volumeMarketcap = postLatestMarket.volumeMarketCap; //volumeMarketCap
     let vmc = parseFloat(volumeMarketcap).toFixed(6);
 
-    var totalSupplyValue = postLatestMarket.totalSupply; //totalSupply
-    // totalSupplyValue = totalSupplyValue.toLocaleString();
+    var totalSupplyValue = Math.round(postLatestMarket.totalSupply); //totalSupply
+    totalSupplyValue = totalSupplyValue.toLocaleString();
 
     return (
 
@@ -91,11 +91,11 @@ export default function MarketDatatable() {
                     <div className="varMarket">
                         {MarketCapchange >= 0 ? (
                             <div className="arrow_up">
-                                <BsFillCaretUpFill size={10}/>
+                                <BsFillCaretUpFill size={10} />
                             </div>
                         ) : (
                             <div className="arrow_down">
-                                <BsFillCaretDownFill size={10}/>
+                                <BsFillCaretDownFill size={10} />
                             </div>
                         )}
                         &nbsp;{MarketCapchange}%
@@ -115,11 +115,11 @@ export default function MarketDatatable() {
                     <div className="varMarket">
                         {FullyDilutedMarketCapchange >= 0 ? (
                             <div className="arrow_up">
-                                <BsFillCaretUpFill size={10}/>
+                                <BsFillCaretUpFill size={10} />
                             </div>
                         ) : (
                             <div className="arrow_down">
-                                <BsFillCaretDownFill size={10}/>
+                                <BsFillCaretDownFill size={10} />
                             </div>
                         )}
                         &nbsp;{FullyDilutedMarketCapchange}%
@@ -139,11 +139,11 @@ export default function MarketDatatable() {
                     <div className="varMarket">
                         {Volumechange >= 0 ? (
                             <div className="arrow_up">
-                                <BsFillCaretUpFill size={10}/>
+                                <BsFillCaretUpFill size={10} />
                             </div>
                         ) : (
                             <div className="arrow_down">
-                                <BsFillCaretDownFill size={10}/>
+                                <BsFillCaretDownFill size={10} />
                             </div>
                         )}
                         &nbsp;{Volumechange}%
