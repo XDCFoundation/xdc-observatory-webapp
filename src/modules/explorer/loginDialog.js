@@ -16,6 +16,8 @@ import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
 import { Link } from "@material-ui/core";
+
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -74,7 +76,8 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "14px",
     fontweight: "500",
-    border: "none !important"
+    border: "none !important",
+    outline: "none"
   },
   forgotpass: {
       color: "#2149b9",
@@ -130,6 +133,8 @@ export default function FormDialog() {
   }
 
   return (
+    <div>
+
     <div className={classes.add}>
       <Button
         className={classes.btn}
@@ -191,6 +196,8 @@ export default function FormDialog() {
             </DialogContentText>
         </Dialog>
       </div>
+    </div>
+   
     </div>
   );
 }

@@ -103,6 +103,7 @@ function LatestBlocks() {
                         </div>
                         <div className="data_value">
 
+
                             {postHeight.map((z) => {
                                 const currentTime = new Date();
                                 const previousTime = new Date(z.timestamp * 1000);
@@ -111,7 +112,7 @@ function LatestBlocks() {
                                     <div className="value_main_main">
                                         <div className="main_vaa">
                                             <p>{ti}</p>
-                                            <a className="height" href={"/block-details/" + z.number}>{z.number}</a>
+                                            <a className="height" href={"/block-details/" + z.number}>{z.number.toLocaleString()}</a>
                                             <p>{z.transactions.length}</p>
                                         </div>
                                     </div>

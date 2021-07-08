@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import "../../assets/styles/custom.css";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Tokensearchbar from './tokensearchBar';
 import FooterComponent from '../common/footerComponent';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import moment from 'moment'
 import Utils from '../../utility'
-import {Grid} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Tooltip from '@material-ui/core/Tooltip';
-import {useParams} from 'react-router';
-import {BlockService} from '../../services';
+import { useParams } from 'react-router';
+import { BlockService } from '../../services';
 
 const useStyles = makeStyles({
     rootui: {
@@ -33,7 +33,7 @@ export default function BlockDetailsData() {
     const [height, setHeight] = useState([])
     const [count, setcount] = useState(0)
 
-    const {blockNumber} = useParams();
+    const { blockNumber } = useParams();
     useEffect(() => {
         getLatestaccount(blockNumber)
         setcount(blockNumber)
@@ -86,9 +86,9 @@ export default function BlockDetailsData() {
     var isActive = false
     return (
         <div>
-            <Tokensearchbar/>
+            <Tokensearchbar />
             <Grid lg={8} className="table-grid-block">
-                <div className="block_details_heading" style={{display: 'flex', flexDirection: 'row'}}>
+                <div className="block_details_heading" style={{ display: 'flex', flexDirection: 'row' }}>
                     <p className="block_details_heading_left">Block Details</p>
                     {/* {isActive === true ? (<p className="Success-rectangle-block" >Success</p>) :
                         (<p className="failure-rectangle">Failed</p>)} */}
@@ -97,21 +97,21 @@ export default function BlockDetailsData() {
                     <Table className="table-block" aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px", borderBottom: "none"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "none" }} id="td">
                                     <Tooltip align="right" title={hashid}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell style={{borderBottom: "none"}} className="first-row-table">
+                                <TableCell style={{ borderBottom: "none" }} className="first-row-table">
                                     Hash ID
                                 </TableCell>
                                 <TableCell className="second-row-table_hash">
                                     {height.hash}
                                 </TableCell>
-                                <p style={{marginTop: '17px'}}>
+                                <p style={{ marginTop: '17px' }}>
                                     <CopyToClipboard text={height.hash}>
-                                        <button style={{color: '#2149b9', backgroundColor: 'white', fontSize: 14}}><i
+                                        <button style={{ color: '#2149b9', backgroundColor: 'white', fontSize: 14 }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
                                     </CopyToClipboard>
                                 </p>
@@ -119,32 +119,32 @@ export default function BlockDetailsData() {
                         </TableHead>
                     </Table>
                 </Paper>
-                <br/>
+                <br />
                 <Paper className={classes.rootui}>
                     <Table className="table-block" aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={blockheight}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
                                     Block Height
                                 </TableCell>
                                 <TableCell className="second-row-table_height">
-                                    <ArrowBackIosIcon style={{marginRight: "10px"}}
-                                                      onClick={decrement}/>{count}<ArrowForwardIosIcon
-                                    style={{marginLeft: "10px"}} onClick={increment}/>
+                                    <ArrowBackIosIcon style={{ marginRight: "10px" }}
+                                        onClick={decrement} />{count}<ArrowForwardIosIcon
+                                        style={{ marginLeft: "10px" }} onClick={increment} />
                                 </TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={hashid}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -156,10 +156,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={timestamp}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -171,10 +171,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={parenthash}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -199,10 +199,10 @@ export default function BlockDetailsData() {
 
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={sha3uncles}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -223,10 +223,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={diffi}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -238,10 +238,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={tdiffi}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -252,10 +252,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={gasU}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -267,10 +267,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
                                     <Tooltip align="right" title={gasL}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -282,10 +282,10 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px"}}>
+                                <TableCell style={{ width: '0px', paddingRight: "1px" }}>
                                     <Tooltip align="right" title={nonc}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
@@ -297,26 +297,26 @@ export default function BlockDetailsData() {
                                 <TableCell></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{width: '0px', paddingRight: "1px", borderBottom: "none"}}>
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "none" }}>
                                     <Tooltip align="right" title={extrad}>
-                                        <img style={{width: 13, height: 13}}
-                                             src={require("../../../src/assets/images/questionmark.png")}/>
+                                        <img style={{ width: 13, height: 13 }}
+                                            src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
                                 <TableCell className="first-row-table">
                                     Extra Data
                                 </TableCell>
                                 <TableCell className="second-row-table">
-                                    <textarea className="text-area" readOnly value={height.extraData}/>
+                                    <textarea className="text-area" readOnly value={height.extraData} />
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                     </Table>
                 </Paper>
-                <br/>
-                <br/>
+                <br />
+                <br />
             </Grid>
-            <FooterComponent/>
+            <FooterComponent />
         </div>
     );
 

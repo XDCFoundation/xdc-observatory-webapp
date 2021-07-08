@@ -85,7 +85,7 @@ export default function BlocksComponent(props) {
 
                                         <span className="tabledata">{shorten(row.hash)}  </span>
                                     </TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell>
+                                    <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className="tabledata">{row.number}</span></a></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata"> {row.transactions.length}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{(row.difficulty)}</span></TableCell>
@@ -108,7 +108,7 @@ export default function BlocksComponent(props) {
                     </Select>
                     <span className="text">Records</span>
                 </Grid>
-                <Grid xs="5"/>
+                <Grid xs="5" />
                 <Grid item xs="4">
                     <button style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
@@ -118,6 +118,6 @@ export default function BlocksComponent(props) {
 
                 </Grid>
             </Grid>
-        </Grid>
+        </Grid >
     )
 }
