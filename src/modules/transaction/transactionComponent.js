@@ -1,5 +1,4 @@
 import React from "react";
-import BaseComponent from "../baseComponent";
 import "../../../src/assets/styles/blocksAndTransactionList.css";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -56,7 +55,11 @@ export default function TransactionComponent(props) {
             b.length
         )}`;
     }
-
+    function shortenData(b, amountL = 4, amountR = 3, stars = 0) {
+        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+            b.length
+        )}`;
+    }
     const { state } = props
     return (
         <Grid lg={9} className="tablegrid">
@@ -67,11 +70,11 @@ export default function TransactionComponent(props) {
                         <TableRow>
                             <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Amount</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "3%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>From</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "6.5%" }} align="left"><span className={"tableheaders"}>From</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>To</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "2%" }} align="right"><span className={"tableheaders"}>Txn Fee</span></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -86,12 +89,12 @@ export default function TransactionComponent(props) {
                                         <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
                                         <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata" onClick={() => history.push("/transaction-details/" + row.hash)}>{shorten(row.hash)}  </span> </a>
                                     </TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.value}</span></TableCell>
+                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{shortenData(row.value)}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><a className="linkTable" href={props.create_url(row.from, "hash")}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.to, "hash")}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell>
+                                    <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/address-details"}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
+                                    <TableCell style={{ border: "none" }} align="left"> <a className="linkTable" href={"/address-details"}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
+                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{row.transactionFee} XDC</span></TableCell>
                                 </TableRow>
                             );
                         })}

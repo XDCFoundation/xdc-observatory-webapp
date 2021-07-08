@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import logo from "../../images/XDC-Icon.svg";
@@ -9,20 +9,20 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tab from "./tab";
-import {BsFillCaretDownFill} from "react-icons/bs";
-import {BsFillCaretUpFill} from "react-icons/bs";
-import {AccountService, CoinMarketService, TransactionService} from '../../services'
+import { BsFillCaretDownFill } from "react-icons/bs";
+import { BsFillCaretUpFill } from "react-icons/bs";
+import { AccountService, CoinMarketService, TransactionService } from '../../services'
 import Utils from '../../utility'
 
 const MainContainer = styled.div`
   width: 950px;
   height: 200px;
   margin: 0 auto;
-  margin-top: 76px;
+  margin-top: 50px;
   padding-top:20px;
   padding-left:15px
   border-radius: 12px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
@@ -212,7 +212,7 @@ export default function BlockChainDataComponent() {
             <LeftContainer>
                 <LeftFirst>
                     <LeftTop>
-                        <IconLogo src={logo}/>
+                        <IconLogo src={logo} />
                         <LeftTitle>XDC</LeftTitle>
                     </LeftTop>
                     <LeftTopSecMain>
@@ -227,11 +227,11 @@ export default function BlockChainDataComponent() {
                             <div className="value_changePrice">
                                 {changePrice > 0 ? (
                                     <div className="arrow_up">
-                                        <BsFillCaretUpFill size={10}/>
+                                        <BsFillCaretUpFill size={10} />
                                     </div>
                                 ) : (
                                     <div className="arrow_down">
-                                        <BsFillCaretDownFill size={10}/>
+                                        <BsFillCaretDownFill size={10} />
                                     </div>
                                 )}
                                 &nbsp;{changeDecimal}%
@@ -243,42 +243,42 @@ export default function BlockChainDataComponent() {
                 <LeftSec>
                     <ValueMain>
                         <Value>
-                            <TitleIcon src={blockHeightImg}/>
+                            <TitleIcon src={blockHeightImg} />
                             <ValueName>
                                 <Title>Block Height</Title>
                                 <TitleValue>30,080,290</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
-                            <TitleIcon src={priceLogo}/>
+                            <TitleIcon src={priceLogo} />
                             <ValueName>
                                 <Title>Gas Price</Title>
                                 <TitleValue>0.0000034</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
-                            <TitleIcon src={transactionLogo}/>
+                            <TitleIcon src={transactionLogo} />
                             <ValueName>
                                 <Title>Transactions</Title>
                                 <TitleValue> {totalTransaction}</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
-                            <TitleIcon src={difficultyLogo}/>
+                            <TitleIcon src={difficultyLogo} />
                             <ValueName>
                                 <Title>Difficulty</Title>
                                 <TitleValue>85412.0</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
-                            <TitleIcon src={maxLogo}/>
+                            <TitleIcon src={maxLogo} />
                             <ValueName>
                                 <Title>Current/Max TPS</Title>
                                 <TitleValue>0/2000</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
-                            <TitleIcon src={accountLogo}/>
+                            <TitleIcon src={accountLogo} />
                             <ValueName>
                                 <Title>Accounts</Title>
                                 <div className="last_value">
@@ -293,11 +293,11 @@ export default function BlockChainDataComponent() {
                                         <div className="value_p">
                                             {changeAccounts > 0 ? (
                                                 <div className="arrow_up">
-                                                    <BsFillCaretUpFill size={10}/>
+                                                    <BsFillCaretUpFill size={10} />
                                                 </div>
                                             ) : (
                                                 <div className="arrow_down">
-                                                    <BsFillCaretDownFill size={10}/>
+                                                    <BsFillCaretDownFill size={10} />
                                                 </div>
                                             )}
                                             {changeAccounts}
@@ -311,7 +311,7 @@ export default function BlockChainDataComponent() {
             </LeftContainer>
 
             <RightContainer>
-                <Tab/>
+                <Tab />
             </RightContainer>
         </MainContainer>
     );

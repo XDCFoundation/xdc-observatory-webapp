@@ -9,29 +9,30 @@ label {
 }
 
 .footer_base {
+  
     width: 100% !important ;
     background: linear-gradient(to bottom, #2149b9, #3e71ff);
-    margin: 40px 0 0;
-    padding: 3%
+     margin: 40px 0 0;
+    padding: 4%
 }
 
 .footer {
-    padding-left: 200px;
+    padding-left: 10px;
     background: transparent;
-    padding-right: 150px;
+    /* background-color: red; */
+    padding-right: 10px;
 }
 
 .footer-line {
-    margin-top: 80px;
-    padding-left: 240px;
+    margin-top: 70px;
+    padding-left: 220px;
     background: transparent;
-    padding-right: 240px;
+    padding-right: 220px;
 }
 
 
 .twitter {
-    width: 230px;
-    height: 70px;
+    width: 100%;
     border-radius: 12px;
     background-color: #ffffff
 }
@@ -89,7 +90,7 @@ ul {
 
 .USD {
 
-    font-size: 14px;
+    font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -183,12 +184,10 @@ a:hover{
 .select-xdc {
     height: 32px;
     width: 90px;
-    margin: 19px 13px 19.7px 1px;
-    margin-left: -40px;
+    margin: 24px 13px 19.7px 1px;
     padding: 7px 7px 6px 9px;
     border-radius: 4px;
     background-color: #2149b9;
-
 }
 
 .title-icon {
@@ -199,9 +198,9 @@ a:hover{
     border: solid 2px #ffffff;
 }
 
-.Shape-footer{
+/* .Shape-footer{
     margin-left: -40px;
-}
+} */
 
 
 .Top-Header {
@@ -216,9 +215,21 @@ a:hover{
 
 }
 
+/* .Table-Header {
+    margin-top: -15px;
+    font-size: 10px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    color: #ffffff;
+    opacity: 0.8;
+} */
+
 .XDC-Header {
     margin-top: -23px;
-    margin-left: -6px;
+    margin-left: 20%;
     font-size: 18px;
     font-weight: normal;
     font-stretch: normal;
@@ -229,14 +240,15 @@ a:hover{
 }
 
 .xdc-desc {
-    margin-left: -49px;
+    /* margin-left: -49px; */
+    margin-top: 20px;
     font-family: Inter;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.29;
-    letter-spacing: 0.54px;
+    line-height: 1;
+    letter-spacing: 0.64px;
     color: #81b4ff;
     /* margin-left: -20px;
    font-family: Inter;
