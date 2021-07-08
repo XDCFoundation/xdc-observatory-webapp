@@ -1,135 +1,279 @@
-import { mergeClasses } from '@material-ui/styles';
+
+import { mergeClasses, withTheme } from '@material-ui/styles';
 import React, { Component } from 'react';
 import "../../assets/styles/profile.css";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import Transaction from './dashboardPopup/transactionpopup';
 import Watchlist from './dashboardPopup/watchlist';
-import Private from './dashboardPopup/private'; 
+import Private from './dashboardPopup/private';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import SearchIcon from '@material-ui/icons/Search';
-
-// import * as React from 'react';
-// import { DataGrid } from '@material-ui/data-grid';
-// import { useDemoData } from '@material-ui/x-grid-data-generator';
-
+import watchlistComponent from './table/watchlistTable';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import { Tooltip } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-// import { Grid } from "@material-ui/core";
 
 
-class AccountProfile extends Component {
-    state={
-    table1:false
-    }
-    handleWatch=()=>{
-     this.setState({
-     table1:true    
-     })
-    }
-    shorten(b, amountL = 10, amountR = 3, stars = 3) {
+// import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { withStyles } from '@material-ui/styles';
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+
+
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+// const a11yProps = {
+//     underlineStyle: {borderColor: '#f65857'}
+//   };
+
+const useStyles = makeStyles((theme) => ({
+
+    root: {
+        // flexGrow: 1,
+        // backgroundColor: "#f8f9fa00",
+        // width: "100vw",
+        borderRadius: "none",
+        padding: "40px 0px",
+        justifyContent: "space-around",
+        textTransform: 'none',
+        
+    },
+    label: {
+        textTransform: 'none',
+      },
+    appbar: {
+        backgroundColor: "#f8f9fa00",
+        marginLeft: "115px",
+        borderRadius: "0px",
+
+        width: "55vw",
+    },
+    PrivateTabIndicatorColorSecondary57: {
+        backgroundColor: "#2149b9",
+    },
+    // taboption: {
+        
+    //         activeTintColor: "white", 
+    //         inactiveTintColor: "blue", 
+          
+    //         indicatorStyle :{
+    //               backgroundColor:'blue'
+    //         },
+          
+    //         style: {
+    //           backgroundColor: 'grey', 
+    //         },
+    //         labelStyle: {
+    //           fontSize: 9,
+    //           margin: 0,
+    //           padding: 0,
+    //           fontFamily: 'Poppins-bold',
+    //         },
+    //       },
+    mywatch: {
+        /* width: 100px; */
+        height: "19px",
+        /* margin: 65px 56.5px 10.5px 200px; */
+        paddingLeft: "30px",
+        fontFamily: "Inter",
+        fontSize: "15px",
+        fontWeight: "500",
+        fontStretch: "normal",
+        fontStyle: "normal",
+        lineHeight: "normal",
+        letterSpacing: "0.58px",
+        textAlign: "center",
+        // color: "#2149b9",
+    },
+    txnprivate: {
+        height: "19px",
+        /* margin: 65px 67.5px 10.5px 8.5px; */
+        paddingLeft: "30px",
+        fontFamily: "Inter",
+        fontSize: "15px",
+        fontWeight: "normal",
+        fontStretch: "normal",
+        fontStyle: "normal",
+        lineHeight: "normal",
+        letterSpacing: "0.58px",
+        textAlign: "center",
+        color: "#6b7482",
+    },
+    address: {
+        height: "19px",
+        /* margin: 65px 314px 10.5px 2px; */
+        paddingLeft: "30px",
+        fontFamily: "Inter",
+        fontSize: "15px",
+        fontWeight: "normal",
+        fontStretch: "normal",
+        fontStyle: "normal",
+        lineHeight: "normal",
+        letterSpacing: "0.58px",
+        textAlign: "center",
+        color: "#6b7482",
+    },
+}));
+
+
+export default function SimpleTabs(props) {
+
+
+    function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
             b.length
         )}`;
     }
-    // const { data } = useDemoData({
-    //     dataSet: 'Commodity',
-    //     rowLength: 10,
-    //     maxColumns: 6,
-    //   });
 
-    // export default function CheckboxSelectionGrid() {
-    //     const { data } = useDemoData({
-    //       dataSet: 'Commodity',
-    //       rowLength: 10,
-    //       maxColumns: 6,
-    //     });
-    // }
+    const [address, setAddress] = React.useState([]);
+    const [exports, exportAddress] = React.useState({});
+    const [toggle, handleToggle] = React.useState(false);
 
-    create_url(item, type) {
-        // Thisn is to create URL for table items. changing it can affect whole table.
-        if (!item || !item.length) {
-            return "..."
-        }
-        return `#${item}-#{type}`
-    }
-    //  splitId(id) {
-    //     return(
-    //         id.split(0,8)+"..."+id.split(id.length-3)
-    //     ) 
-           
+    React.useEffect(() => {
+        let address = [
+            {
+                Adress: "xdcc4e699581116412965b5e7c",
+                Description: "My wallet",
+                Balance: "800 XDC ($38.56)",
+                AddedOn: "8:12 PM, 6 Jun 2021",
+                Notification: "Off",
+                Value: "45000.00XDC",
+                id: 1,
+            },
+            {
+                Adress: "xdcc4e699581116412965b5e7c",
+                // xdcc4e699581116412965b…5e7c
+                Description: "My wallet",
+                Balance: "800 XDC ($38.56)",
+                AddedOn: "8:12 PM, 6 Jun 2021",
+                Notification: "Email",
+                Value: "45000.00XDC",
+                id: 2,
+            },
+            {
+                Adress: "xdcc4e699581116412965b5e7c",
+                Description: "My wallet",
+                Balance: "800 XDC ($38.56)",
+                AddedOn: "8:12 PM, 6 Jun 2021",
+                Notification: "Email",
+                Value: "45000.00XDC",
+                id: 3,
+            },
+        ]
         
-    // }
-    render() {
+        ;
+        setAddress(
+            address.map((d) => {
+                return {
+                    select: false,
+                    Adress: d.Adress,
+                    Description: d.Description,
+                    Balance: d.Balance,
+                    AddedOn: d.AddedOn,
+                    Notification: d.Notification,
+                    Value: d.Value,
+                    id: d.id,
+                };
+            })
+        );
+    }, []);
 
-        
-            
-        
-        return (
-            <div className="maindiv" >
-                <div className="heading">
+
+    // const [search, setSearch] = React.useState("");
+
+    // const filteredProducts = address.filter((product) => {
+    //   if (
+    //     product.tags.toLowerCase().includes(search) ||
+    //     product.title.toLowerCase().includes(search) ||
+    //     product.category.toLowerCase().includes(search)
+    //   ) {
+    //     return product;
+    //   }
+    // });
+
+
+    const { state } = props;
+
+    // 765876778994489048984589865
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    // const a11yProps(() => {
+    //     underlineStyle: {borderColor: '#f65857'}
+    // });
+    return (
+
+
+        <div className="maindiv" >
+            <div className="heading">
                 <span ><img className="icon" src={require("../../assets/images/Profile.png")}></img>
                 </span>
                 <span >
-                <div className="nameicon">
-                <span className="welcome">welcome, CrytoAlex</span><span ><img className="noticon" src={require("../../assets/images/notification.png")} ></img></span>
-                </div>
-                <div className="edit">
-                Edit Profile
-                </div>
+                    <div className="nameicon">
+                        <span className="welcome">Welcome, CrytoAlex</span><span ><img className="noticon" src={require("../../assets/images/notification.png")} ></img></span>
+                    </div>
+                    <div className="edit">
+                        Edit Profile
+                    </div>
 
                 </span>
-                
-                </div>
-                <div className="divbox">
-                    <Watchlist/>
-                {/* <div className="div1" onClick={<Transaction/>}>
-                    
-                    <div >
-                    <img className="imagediv1" src={require("../../assets/images/watchlist.png")}></img>
-                    </div>
-                    <div className="headingdiv1">
-                     Create Watchlist
-                    </div>
-                    <div className="paradiv1">
-                     An Email notification can be sent to you when an address on your watchlist recieves an incoming notifications
-                    </div>
-                    
-                </div> */}
-                {/* <div className="div2">
-                <div >
-                <img className="imagediv2" src={require("../../assets/images/transaction.png")}></img>
-                    </div>
-                    <div className="headingdiv2">
-                    Add Transaction label
-                    </div>
-                    <div className="paradiv2">
-                     Add a personal note to transacton hash to track it in future
-                    </div>
-                    
-                </div> */}
-                <Transaction/>
-                <Private/>
-                {/* <div className="div3">
-                <div >
-                <img className="imagediv3" src={require("../../assets/images/private.png")}></img>
-                    </div>
-                    <div className="headingdiv3">
-                    Add private tag to an address
-                    </div>
-                    <div className="paradiv3">
-                     Add a short memo or private tag to the address of interest
-                    </div>
-                    
-                </div> */}
-                </div>
 
-                <div className="innerdiv">
+            </div>
+            <div className="divbox">
+                <Watchlist />
+
+                <Transaction />
+                <Private />
+
+            </div>
+
+            {/* <div className="innerdiv">
                     <span className="mywatch" >
                         My Watchlist
                     </span>
@@ -141,209 +285,561 @@ class AccountProfile extends Component {
                         Tagged Adresses
 
                     </span>
-                </div>
+                </div> */}
 
+            {/* <div className="line" ></div> */}
+
+
+
+            <div className={classes.root}>
+                <AppBar position="static" style={{ boxShadow: "0px 0px 0px 0px" }} className={classes.appbar}>
+                    <Tabs value={value} onChange={handleChange} style={{ color: "#2149b9" }} tabBarUnderlineStyle={{ backgroundColor: 'blue'}} indicatorColor="primary"
+        textColor="primary"
+        centered textTransform="uppercase" >
+                        <Tab label="My Watchlist"  className={classes.mywatch} {...a11yProps(0)} />
+                        <Tab label="Txn Private Note" className={classes.txnprivate}  {...a11yProps(1)} />
+                        <Tab label="Tagged Adresses" className={classes.address} {...a11yProps(2)} />
+                    </Tabs>
+                </AppBar>
                 <div className="line" ></div>
-                
                 <div className="searchdiv">
-                    {/* <SearchIcon style={{paddingRight:"4px"}}></SearchIcon> */}
+
                     <span>
-                    <span className="searchiccon"><SearchIcon style={{color:"#9fa9ba", marginRight:"-4px",position:"relative",left:'20px'}}/></span>
-                        <span><input type ="text" placeholder="Search"  className="searchinput">
-                        {/* <img  src={require("../../assets/images/Search.png")}></img> */}
+                        <span className="searchiccon"><SearchIcon style={{ color: "#9fa9ba", marginRight: "-4px", position: "relative", left: '20px' }} /></span>
+                        <span><input type="text" placeholder="Search" 
+                        // onChange={(e) => {
+                        //     setSearch(e.target.value.toLowerCase());
+                        //   }}
+                        className="searchinput">
+
                         </input>
                         </span>
-                        </span>
-                    
-                        <button style={{color:"white",borderRadius: "4px",
-  backgroundColor: "#9fa9ba"}}> Export</button>
+                    </span>
 
-                    
-                </div>
+                    <button
 
-                
-
-                <div className="griddiv">
-
-                  
-<Table >
-                <TableHead >
-                        <TableRow >
-                            <TableCell style={{ border: "none", paddingLeft: "6%" }} align="left" >
-                            <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></input>
-                                <span className={"tableheaders"}>Address</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "8.5%" }} align="left"><span className={"tableheaders"}>Description</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "13%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "8.5%" }} align="left"><span className={"tableheaders"}>AddedOn</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "6.5%" }} align="left"><span className={"tableheaders"}>Notification</span></TableCell>
-                
-                        </TableRow>
-                    </TableHead> 
-
-                    <TableBody>
-                        {/* {props.state.transactionList && props.state.transactionList.length && props.state.transactionList.map((row, index) => { */}
-
-                            {/* const currentTime = new Date();
-                            const previousTime = new Date(row.timestamp * 1000);
-                            const ti = timeDiff(currentTime, previousTime);
-                            return ( */}
-                                <TableRow >
-                                {/* <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></input> */}
-                                    <TableCell 
-                                    style={{ border: "none" }} align="left">
-                                        <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></input>
-                                        <span className="tabledata">xdcc4e699581116412965b…5e7c</span>
-                                        {/* <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip> */}
-                                        {/* <a className="linkTable" href={("address")}> <span className="tabledata"> </span> </a> */}
-                                    </TableCell>
-                                    <TableCell style={{ border: "none",  }} align="left"><span className="tabledata">My Wallet</span></TableCell>
-                                    <TableCell style={{ border: "none",}} align="right"><span className="tabledata">13,141 XDC ($633.37)</span></TableCell>
-                                    <TableCell style={{ border: "none",  }} align="right"> <span className="tabledata"> 10:30 AM, 9 Jun 2021</span></TableCell>
-                                    <TableCell style={{ border: "none", }} align="right"><span className="tabledata">Off</span></TableCell>
-                                    {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.to, "hash")}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell> */}
-                                    <TableCell style={{ border: "none",  }} align="right"><span className="tabledata">Edit</span></TableCell>
-                                </TableRow>
-                                <TableRow >
-                                    <TableCell style={{ border: "none" }} align="left">
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></input>
-                                        <span className="tabledata">xdcc4e699581116412965b…5e7c</span>
-                                        {/* <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip> */}
-                                        {/* <a className="linkTable" href={("address")}> <span className="tabledata"> </span> </a> */}
-                                    </TableCell>
-                                    <TableCell style={{ border: "none",  }} align="left"><span className="tabledata">JohnB</span></TableCell>
-                                    <TableCell style={{ border: "none",}} align="right"><span className="tabledata">800 XDC ($38.56)</span></TableCell>
-                                    <TableCell style={{ border: "none",  }} align="right"> <span className="tabledata"> 8:12 PM, 6 Jun 2021</span></TableCell>
-                                    <TableCell style={{ border: "none", }} align="right"><span className="tabledata">Email</span></TableCell>
-                                    {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.to, "hash")}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell> */}
-                                    <TableCell style={{ border: "none",  }} align="right"><span className="tabledata">Edit</span></TableCell>
-                                </TableRow>
-                                <TableRow >
-                                    <TableCell style={{ border: "none" }} align="left">
-                                    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></input>
-                                        <span className="tabledata">5e7c71b8e2dd50ac8d30x…5b9c</span>
-                                        {/* <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip> */}
-                                        {/* <a className="linkTable" href={("address")}> <span className="tabledata"> </span> </a> */}
-                                    </TableCell>
-                                    <TableCell style={{ border: "none",  }} align="left"><span className="tabledata">Company</span></TableCell>
-                                    <TableCell style={{ border: "none",}} align="right"><span className="tabledata">621 XDC ($26.50)</span></TableCell>
-                                    <TableCell style={{ border: "none",  }} align="right"> <span className="tabledata">5:18 PM, 1 Jun 2021</span></TableCell>
-                                    <TableCell style={{ border: "none", }} align="right"><span className="tabledata">Email</span></TableCell>
-                                    {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.to, "hash")}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell> */}
-                                    <TableCell style={{ border: "none",  }} align="right"><span className="tabledata">Edit</span></TableCell>
-                                </TableRow>
-                            {/* );
-                        })} */}
-                    {/* })} */}
-                    </TableBody>
-                    </Table>
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-              
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                {/* <Grid lg={8} className="tablegrid">
-            <Grid class="tabletop-header"></Grid>
-            <Grid component={Paper}>
-                <Table className="table" aria-label="Latest Transactions">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Description</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "3%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Added On</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Notification</span></TableCell>
-                            {/* <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>To</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
-                        {/* </TableRow>
-                    </TableHead> */} 
-
-                    {/* <TableBody>
-
-                    </TableBody> */}
-                    {/* <TableBody>
-                        {props.state.transactionList && props.state.transactionList.length && props.state.transactionList.map((row, index) => {
-
-                            const currentTime = new Date();
-                            const previousTime = new Date(row.timestamp * 1000);
-                            const ti = timeDiff(currentTime, previousTime);
-                            return (
-                                <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                    <TableCell style={{ border: "none" }} >
-                                        <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
-                                        <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata">{shorten(row.hash)}  </span> </a>
-                                    </TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.value}</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={props.create_url(row.blockNumber, "block")}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><a className="linkTable" href={props.create_url(row.from, "hash")}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.to, "hash")}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody> */}
-                {/* </Table>
-            </Grid>
-</Grid> */}
+                        style={{
+                            color: "white", borderRadius: "4px",
+                            backgroundColor: "#9fa9ba",
+                        }}> Export</button>
 
 
                 </div>
-
-              <div>
-                <h1></h1>
-              </div>
+                <TabPanel value={value} index={0}>
+                    <div className="griddiv">
 
 
+                        <Grid lg={13} className="tablegrid_address">
+                            <Grid component={Paper} style={{ boxShadow: "0px 0px 0px 0px" }}>
+                                <Table className="table" aria-label="Latest Transactions" style={{ boxShadow: "0px 0px 0px 0px" }}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell style={{ border: "none" }} align="left">
+
+                                                {/* <input
+                                            onChange={(event) => {
+                                                let checked = event.target.checked;
+                                                exportAddress(event.row);
+                                                handleToggle(checked);
+                                            }}
+                                            type="checkbox"
+                                            checked={toggle}
+                                            style={{ marginRight: "8px" }}
+                                        /> */}
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={(e) => {
+                                                        let checked = e.target.checked;
+                                                        setAddress(
+                                                            address.map((d) => {
+                                                                d.select = checked;
+
+                                                                return d;
+                                                            })
+                                                        );
+                                                        // let checked = e.target.checked;
+                                                        exportAddress(e.row);
+                                                        handleToggle(checked);
+                                                    }}
+                                                    style={{
+                                                        marginRight: "10px",
+                                                    }}
+                                                />
+                                                <span className={"tableheaders"}>Address</span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1.8%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>Description</span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "2%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>Balance</span>
+                                                <span><ArrowUpwardIcon style={{ color: "#3763dd", height: "20px", width: "15px", marginLeft: "5px" }} /></span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>AddedOn</span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>Notification</span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}></span>
+                                            </TableCell>
+                                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {/* {filteredProducts.map((product)=>{ */}
+
+                                        
+                                        {address.map((row, index) => {
+                                            // const currentTime = new Date();
+                                            // const previousTime = new Date(row.timestamp * 1000);
+                                            // const ti = timeDiff(currentTime, previousTime);
+                                            return (
+                                                <TableRow
+                                                    style={
+                                                        index % 2 !== 1
+                                                            ? { background: "#f9f9f9" }
+                                                            : { background: "white" }
+                                                    }
+                                                >
+                                                    <TableCell style={{ border: "none" }} margin-left="5px">
+                                                        {/* <Tooltip placement="right" title={row.Adress}>
+                      <VisibilityIcon
+                        fontSize="small"
+                        style={{ color: "#b9b9b9" }}
+                      />
+                    </Tooltip> */}
+
+
+                                                        {/* <input
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        let checked = e.target.checked;
+                                        setAddress(
+                                            address.map((d) => {
+                                                d.select = checked;
+
+                                                return d;
+                                            })
+                                        );
+                                    }}
+                                    style={{
+                                        marginRight: "10px",
+                                    }}
+                                /> */}
+                                                        <input
+                                                            onChange={(event) => {
+                                                                // let checked = event.target.checked;
+                                                                // exportAddress(row);
+                                                                // handleToggle(checked);
+                                                                //         let checked = event.target.checked;
+                                                                // setAddress(
+                                                                //     address.map((d) => {
+                                                                //         d.select = checked;
+
+                                                                //         return d;
+                                                                //     })
+                                                                // );
+                                                                let checked = event.target.checked;
+                                                                exportAddress(event.row);
+                                                                handleToggle(checked);
+                                                            }}
+                                                            type="checkbox"
+                                                            checked={toggle}
+                                                            style={{ marginRight: "8px" }}
+                                                        />
+                                                        <a className="linkTable" href="/">
+                                                        <Tooltip placement="top" title={row.Adress}>
+                                                            <span className="tabledata">
+                                                                {shorten(row.Adress)}{" "}
+                                                            </span></Tooltip>
+                                                        </a>
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <span className="tabledata">{row.Description}</span>
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        {/* <a className="linkTable" href="/"> */}
+                                                        <span className="tabledata">{row.Balance}</span>
+                                                        {/* </a> */}
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        {/* <a className="linkTable" href="/"> */}
+                                                        <span className="tabledata"> {row.AddedOn}</span>
+                                                        {/* </a> */}
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        {/* <a className="linkTable" href="/"> */}
+                                                        <span className="tabledata">{row.Notification}</span>
+                                                        {/* </a> */}
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <a className="linkTable" href="/">
+                                                            <span className="tabledata">Edit</span>
+                                                        </a>
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
+                                                </TableRow>
+                                            );
+                                        })}
+                                    {/* })} */}
+                                    </TableBody>
+                                </Table>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </TabPanel>
+
+                <TabPanel value={value} index={1}>
+                    <div className="griddiv">
+
+
+                        <Grid lg={13} className="tablegrid_address">
+                            <Grid component={Paper} style={{ boxShadow: "0px 0px 0px 0px" }}>
+                                <Table className="table" aria-label="Latest Transactions" style={{ boxShadow: "0px 0px 0px 0px" }}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell style={{ border: "none" }} align="left">
+
+                                                {/* <input
+                                            onChange={(event) => {
+                                                let checked = event.target.checked;
+                                                exportAddress(event.row);
+                                                handleToggle(checked);
+                                            }}
+                                            type="checkbox"
+                                            checked={toggle}
+                                            style={{ marginRight: "8px" }}
+                                        /> */}
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={(e) => {
+                                                        let checked = e.target.checked;
+                                                        setAddress(
+                                                            address.map((d) => {
+                                                                d.select = checked;
+
+                                                                return d;
+                                                            })
+                                                        );
+                                                    }}
+                                                    style={{
+                                                        marginRight: "10px",
+                                                    }}
+                                                />
+                                                <span className={"tableheaders"}>Transaction Hash</span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1.8%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>Note</span>
+                                            </TableCell>
+                                            {/* <TableCell
+                                style={{ border: "none", paddingLeft: "2%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders"}>Balance</span>
+                            </TableCell> */}
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>AddedOn</span>
+                                                <span><ArrowUpwardIcon style={{ color: "#3763dd", height: "20px", width: "15px", marginLeft: "5px" }} /></span>
+                                            </TableCell>
+                                            {/* <TableCell
+                                style={{ border: "none", paddingLeft: "1%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders"}>Notification</span>
+                            </TableCell> */}
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}></span>
+                                            </TableCell>
+                                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {address.map((row, index) => {
+                                            // const currentTime = new Date();
+                                            // const previousTime = new Date(row.timestamp * 1000);
+                                            // const ti = timeDiff(currentTime, previousTime);
+                                            return (
+                                                <TableRow
+                                                    style={
+                                                        index % 2 !== 1
+                                                            ? { background: "#f9f9f9" }
+                                                            : { background: "white" }
+                                                    }
+                                                >
+                                                    <TableCell style={{ border: "none" }} margin-left="5px">
+                                                        {/* <Tooltip placement="right" title={row.Adress}>
+                      <VisibilityIcon
+                        fontSize="small"
+                        style={{ color: "#b9b9b9" }}
+                      />
+                    </Tooltip> */}
+
+
+                                                        {/* <input
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        let checked = e.target.checked;
+                                        setAddress(
+                                            address.map((d) => {
+                                                d.select = checked;
+
+                                                return d;
+                                            })
+                                        );
+                                    }}
+                                    style={{
+                                        marginRight: "10px",
+                                    }}
+                                /> */}
+                                                        <input
+                                                            onChange={(event) => {
+                                                                let checked = event.target.checked;
+                                                                exportAddress(row);
+                                                                handleToggle(checked);
+                                                            }}
+                                                            type="checkbox"
+                                                            checked={toggle}
+                                                            style={{ marginRight: "8px" }}
+                                                        />
+                                                        <a className="linkTable" href="/">
+                                                        <Tooltip placement="top" title={row.Adress}>
+                                                            <span className="tabledata">
+                                                                {shorten(row.Adress)}{" "}
+                                                            </span></Tooltip>
+                                                        </a>
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <span className="tabledata">Payment for web hosting</span>
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="left">
+                                        
+                                            <span className="tabledata">{row.Balance}</span>
+                                        
+                                    </TableCell> */}
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        {/* <a className="linkTable" href="/"> */}
+                                                        <span className="tabledata"> {row.AddedOn}</span>
+                                                        {/* </a> */}
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="left">
+                                        
+                                            <span className="tabledata">{row.Notification}</span>
+                                        
+                                    </TableCell> */}
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <a className="linkTable" href="/">
+                                                            <span className="tabledata">Edit</span>
+                                                        </a>
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
+                                                </TableRow>
+                                            );
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <div className="griddiv">
+
+
+                        <Grid lg={13} className="tablegrid_address" >
+                            <Grid component={Paper} style={{ boxShadow: "0px 0px 0px 0px" }}>
+                                <Table className="table" aria-label="Latest Transactions" style={{ boxShadow: "0px 0px 0px 0px" }}>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell style={{ border: "none" }} align="left">
+
+                                                {/* <input
+                                            onChange={(event) => {
+                                                let checked = event.target.checked;
+                                                exportAddress(event.row);
+                                                handleToggle(checked);
+                                            }}
+                                            type="checkbox"
+                                            checked={toggle}
+                                            style={{ marginRight: "8px" }}
+                                        /> */}
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={(e) => {
+                                                        let checked = e.target.checked;
+                                                        setAddress(
+                                                            address.map((d) => {
+                                                                d.select = checked;
+
+                                                                return d;
+                                                            })
+                                                        );
+                                                    }}
+                                                    style={{
+                                                        marginRight: "10px",
+                                                    }}
+                                                />
+                                                <span className={"tableheaders"}>Address</span>
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "-6.4%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>Name Tag</span>
+                                                <span><ArrowUpwardIcon style={{ color: "#3763dd", height: "20px", width: "15px", marginLeft: "5px" }} /></span>
+                                            </TableCell>
+                                            {/* <TableCell
+                                style={{ border: "none", paddingLeft: "2%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders"}>Balance</span>
+                            </TableCell> */}
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}>AddedOn</span>
+                                            </TableCell>
+                                            {/* <TableCell
+                                style={{ border: "none", paddingLeft: "1%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders"}>Notification</span>
+                            </TableCell> */}
+                                            <TableCell
+                                                style={{ border: "none", paddingLeft: "1%" }}
+                                                align="left"
+                                            >
+                                                <span className={"tableheaders"}></span>
+                                            </TableCell>
+                                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {address.map((row, index) => {
+                                            // const currentTime = new Date();
+                                            // const previousTime = new Date(row.timestamp * 1000);
+                                            // const ti = timeDiff(currentTime, previousTime);
+                                            return (
+                                                <TableRow
+                                                    style={
+                                                        index % 2 !== 1
+                                                            ? { background: "#f9f9f9" }
+                                                            : { background: "white" }
+                                                    }
+                                                >
+                                                    <TableCell style={{ border: "none" }} margin-left="5px">
+                                                        {/* <Tooltip placement="right" title={row.Adress}>
+                      <VisibilityIcon
+                        fontSize="small"
+                        style={{ color: "#b9b9b9" }}
+                      />
+                    </Tooltip> */}
+
+
+                                                        {/* <input
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        let checked = e.target.checked;
+                                        setAddress(
+                                            address.map((d) => {
+                                                d.select = checked;
+
+                                                return d;
+                                            })
+                                        );
+                                    }}
+                                    style={{
+                                        marginRight: "10px",
+                                    }}
+                                /> */}
+                                                        <input
+                                                            onChange={(event) => {
+                                                                let checked = event.target.checked;
+                                                                exportAddress(row);
+                                                                handleToggle(checked);
+                                                            }}
+                                                            type="checkbox"
+                                                            checked={toggle}
+                                                            style={{ marginRight: "8px" }}
+                                                        />
+                                                        <a className="linkTable" href="/">
+                                                        <Tooltip placement="top" title={row.Adress}>
+                                                            <span className="tabledata">
+                                                            {shorten(row.Adress)}
+                                                            </span></Tooltip>
+                                                        </a>
+                                                    </TableCell>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <span className="tabledata">Comapny</span>
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="left">
+                                        
+                                            <span className="tabledata">{row.Balance}</span>
+                                        
+                                    </TableCell> */}
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        {/* <a className="linkTable" href="/"> */}
+                                                        <span className="tabledata"> {row.AddedOn}</span>
+                                                        {/* </a> */}
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="left">
+                                        
+                                            <span className="tabledata">{row.Notification}</span>
+                                        
+                                    </TableCell> */}
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <a className="linkTable" href="/">
+                                                            <span className="tabledata">Edit</span>
+                                                        </a>
+                                                    </TableCell>
+                                                    {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
+                                                </TableRow>
+                                            );
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            </Grid>
+                        </Grid>
+
+                    </div>
+                </TabPanel>
             </div>
-        );
-    }
+
+
+
+            <div>
+                <h1></h1>
+            </div>
+
+
+        </div>
+
+    );
 }
-
-export default AccountProfile;
-// export default function CheckboxSelectionGrid() {
-//     const { data } = useDemoData({
-//       dataSet: 'Commodity',
-//       rowLength: 10,
-//       maxColumns: 6,
-//     });
-// }
-
-
-
-
 
