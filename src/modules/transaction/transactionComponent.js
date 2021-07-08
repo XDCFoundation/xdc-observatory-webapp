@@ -59,7 +59,7 @@ export default function TransactionComponent(props) {
 
     const { state } = props
     return (
-        <Grid lg={8} className="tablegrid">
+        <Grid lg={9} className="tablegrid">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             <Grid component={Paper}>
                 <Table className="table" aria-label="Latest Transactions">
