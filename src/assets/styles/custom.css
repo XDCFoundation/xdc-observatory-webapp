@@ -1790,7 +1790,7 @@ button {
   display: flex !important;
   font-family: Inter !important;
   font-size: 12px !important;
-  font-weight: 550 !important;
+  font-weight: normal !important;
   letter-spacing: 0.65px;
   padding-left: 30px !important;
   align-items: center !important;
@@ -1798,7 +1798,7 @@ button {
 .second-row-table_hash {
   font-family: Inter !important;
   font-size: 12px !important;
-  font-weight: 550 !important;
+  font-weight: normal !important;
   letter-spacing: 0.65px;
   padding-left: 75px !important;
 }
