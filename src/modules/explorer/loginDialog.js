@@ -15,6 +15,7 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
+import { Link } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -123,6 +124,7 @@ export default function FormDialog() {
 
   const handleLogin =() => {
       history.push("/loginprofile")
+      // window.location("/loginprofile")
       
   }
 
@@ -176,7 +178,11 @@ export default function FormDialog() {
             </span>
           </DialogContent>
           <DialogActions>
-            <button className={classes.addbtn} onClick={handleLogin} >Log in </button>
+            <button className={classes.addbtn} onClick={handleLogin} 
+            onClick={event =>  window.location.href='loginprofile'}
+
+            >Log in </button>
+            {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
           </DialogActions>
           <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>

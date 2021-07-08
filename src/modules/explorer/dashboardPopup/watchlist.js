@@ -282,12 +282,12 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
   
     <FormControl component="fieldset"  style={{backgoundColor:"red !important"}} className={classes.main_div}>
       {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
-      <RadioGroup aria-label="gender" name="gender1" className={classes.radio} style={{margin:"-5px 28px -3px -10px"}} value={value} onChange={handleChange}>
-        <FormControlLabel value="female" control={<Radio />} style={{margin:"5px 2px -5px -5px"}} label="No Notifications" />
-        <FormControlLabel value="male" control={<Radio />} style={{margin:"-5px 26px -5px -5px"}}label="Notify on Incoming & Outgoing Txns" />
-        <FormControlLabel value="other" control={<Radio />} style={{margin:"-5px 26px -5px -5px"}}label="Notify on Incoming (Recieve) Txns Only" />
+      <RadioGroup aria-label="gender" name="gender1"  className={classes.radio} style={{margin:"-5px 28px -3px -10px"}} value={value} onChange={handleChange}>
+        <FormControlLabel value="female" control={<Radio style={{color:"#2149b9"}}/>} style={{margin:"5px 2px -5px -5px"}} label="No Notifications" />
+        <FormControlLabel value="male" control={<Radio style={{color:"#2149b9"}}/>} style={{margin:"-5px 26px -5px -5px"}}label="Notify on Incoming & Outgoing Txns" />
+        <FormControlLabel value="other" control={<Radio style={{color:"#2149b9"}}/>} style={{margin:"-5px 26px -5px -5px"}}label="Notify on Incoming (Recieve) Txns Only" />
         {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
-        <FormControlLabel value="disabled" control={<Radio />} style={{margin:"-5px 26px -5px -5px"}}label="Notify on Outgoing (Sent) Txns Only" />
+        <FormControlLabel value="disabled" control={<Radio style={{color:"#2149b9"}}/>} style={{margin:"-5px 26px -5px -5px"}}label="Notify on Outgoing (Sent) Txns Only" />
       </RadioGroup>
     </FormControl>
 

@@ -26,7 +26,7 @@
   height: 19px;
   /* margin: 65px 56.5px 10.5px 200px; */
   padding-left: 210px;
-  font-family: Inter;
+  font-family:Inter;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -65,13 +65,13 @@
     border-radius: 8px;
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
-    /* outline: none; */
+    outline: none;
   
 }
 .line {
     width: 960px;
   height: 1px;
-  margin: -30.5px 359px 18.5px 210px;
+  margin: -1px 359px 18.5px 210px;
   border: solid 1px #e3e7eb;
 }
 /* .griddiv {
@@ -86,11 +86,14 @@
 .griddiv {
     width: 70vw;
   height: 51vh;
-  margin: 10px 220px;
+  margin: 10px 190px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+}
+.PrivateTabIndicator-colorSecondary-58 {
+  background-color: #4415eb;
 }
 .address {
     /* width: 142px; */
