@@ -8,7 +8,7 @@
 
 .tabletop-header {
   font-family: Inter;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -106,4 +106,13 @@
   padding-top: 1.5%;
   margin: auto;
   width: 100%;
+}
+.linkTableDetails:hover {
+  color: #252525;
+  text-decoration: none;
+  font-size: 13px;
+}
+.linkTableDetails {
+  color: #2149b9;
+  font-size: 13px;
 }
