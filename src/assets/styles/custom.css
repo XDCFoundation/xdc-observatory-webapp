@@ -237,8 +237,8 @@ input:focus {
 
 .Shape {
   margin-right: 10px;
-  height: 22px;
-  width: 22px;
+  height: 25px;
+  width: 25px;
 }
 
 .Shape2 {
@@ -284,17 +284,18 @@ input:focus {
 
 .XDC {
   margin-left: -5px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.62px;
   color: #ffffff;
+  margin-top: 2px;
 }
 .XDC:hover {
   margin-left: -5px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -303,6 +304,7 @@ input:focus {
   color: #ffffff;
   list-style: none;
   text-decoration: none;
+  margin-top: 2px;
 }
 
 .Network-explorer {
@@ -429,7 +431,7 @@ p {
   margin-left: 15px;
   color: white;
   font-size: 12px;
-  padding: 2px 10px 2px 13px;
+  padding: 3px 12px 3px 12px;
   border-radius: 4px;
   background-color: #02c227;
 }
@@ -1492,16 +1494,22 @@ body {
   outline: transparent;
   border: solid 1px #9fa9ba;
   background-color: #dee0e3;
-  color: black;
+  color: #3a3a3a;
+}
+.xcvs {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%;
 }
 
 .input-area-2 {
   width: 100%;
+  height: 100%;
   border-radius: 4px;
   outline: transparent;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
-  color: black;
+  color: #3a3a3a;
 }
 
 .input-area-3 {
@@ -2078,19 +2086,30 @@ button {
 
 .first-row-table {
   font-family: Inter !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
+  line-height: 1rem !important;
 }
+
 .first-row-table-hashid {
   font-family: Inter !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
   padding-left: 30px !important;
+  line-height: 1rem !important;
 }
 .second-row-table {
-  display: flex !important;
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 30px !important;
+  align-items: center !important;
+  line-height: 1rem !important;
+}
+.second-row-table-extra {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
@@ -2103,7 +2122,8 @@ button {
   font-size: 12px !important;
   font-weight: normal !important;
   letter-spacing: 0.65px;
-  padding-left: 55px !important;
+  padding-left: 62px !important;
+  line-height: 1rem !important;
 }
 .table-grid-block {
   padding-top: 8%;
@@ -2111,7 +2131,7 @@ button {
   width: 100%;
 }
 .table-block {
-  border-radius: 15px;
+  border-radius: 6px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: 0px solid transparent;
   background-color: #ffffff;
@@ -2130,44 +2150,51 @@ button {
   background-color: #9cd0f3;
   padding: 4px;
   padding-left: 6px;
+  line-height: 1rem !important;
 }
 .second-row-table_height .MuiSvgIcon-root:hover {
   color: #ffffff;
   background-color: #2149b9;
+  line-height: 1rem !important;
 }
 
 .second-row-table_height {
-  display: flex !important;
   font-family: Inter !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.65px;
   padding-left: 30px !important;
   align-items: center !important;
   padding-top: 15px !important;
+  line-height: 1rem !important;
 }
 .parent_hash {
   font-family: Inter !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.65px;
-  color: #6abdf5 !important;
+  color: #2149b9 !important;
+  line-height: 0.7rem !important;
 }
 .parent_hash:hover {
-  color: #2149b9 !important;
+  color: black !important;
   list-style: none;
   text-decoration: none;
   font-size: 12px;
+  line-height: 0.7rem !important;
 }
 .text-area {
   width: 100%;
-  height: 93px;
+  height: 100%;
   border-radius: 4px;
   outline: transparent;
   border: solid 1px #9fa9ba;
   background-color: #dee0e3;
-  color: black;
+  color: #3a3a3a;
   margin-left: 0px;
+}
+.input-data-text {
+  height: 100%;
 }
 .block_details_heading_left {
   font-size: 16px;
@@ -2211,7 +2238,7 @@ button {
 }
 .first-row-table_address {
   font-family: Inter !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
 }
