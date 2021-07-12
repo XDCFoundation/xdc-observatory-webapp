@@ -418,7 +418,7 @@ export default function StickyHeadTable() {
 
 
     return (
-        <div>
+        <div style={{backgroundColor: '#fff'}}>
             <Tokensearchbar/>
 
             <div>
@@ -456,7 +456,8 @@ export default function StickyHeadTable() {
 
             <br/>
             <Paper className={classes.rootui}>
-                <TableContainer className={classes.container} id="container-table">
+                <TableContainer className={classes.container} id="container-table"
+                style={{borderRadius: '12px',border: 'solid 1px #e3e7eb',backgroundColor: '#ffffff',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)'}}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -474,16 +475,23 @@ export default function StickyHeadTable() {
                         <TableBody>
                             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                 return (
-
+                               
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}
                                               onClick={() => history.push('/token-data')}>
 
                                         <TableCell style={{width: '1px'}} id="td">
                                             {row.S}
                                         </TableCell>
+                                        {row.src.length > 0 ?
                                         <TableCell style={{width: '1px'}} id="td"> <img
                                             style={{width: 25, height: 25, borderRadius: '10px'}}
-                                            src={row.src}/></TableCell>
+                                            src= {row.src} /></TableCell>
+                                            :
+                                          <TableCell style={{width: '1px'}} id="td"> 
+                                          <span style={{width: 25, height: 25, borderRadius: '10px'}}
+                                             >{row.Token.slice(0, 2).toUpperCase()}</span>
+                                           </TableCell>  
+                                       }
                                         <TableCell id="td" style={{width: '110px'}}>{row.Token}</TableCell>
                                         <TableCell id="td" style={{width: '130px'}}>{row.Type}</TableCell>
                                         <TableCell>
@@ -501,36 +509,21 @@ export default function StickyHeadTable() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Divider className={classes.divider}/>
 
+               {/* <Divider className={classes.divider}/>*/}
             </Paper>
-
-            {/* <TablePagination
-                style={{ display: 'flex', justifyContent: 'space-between' }}
-                rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-
-            /> */}
             <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-
-                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px'}}>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '18%'}}>
                     Show
-                    <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option selected>10</option>
-                        <option>25</option>
-                        <option>50</option>
+                    <select className="selectbox" onChange={handleChangeRowsPerPage}> 
+                        <option selected>50</option>
+                        <option>75</option>
                         <option>100</option>
                     </select>
                     Records
                 </div>
 
                 <div style={{display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
-
                     <div className="firstbox" onClick={() => setPage(0)}>
                         <button style={{backgroundColor: 'white'}} className="first">First</button>
                     </div>
@@ -550,6 +543,19 @@ export default function StickyHeadTable() {
 
 
             </div>
+
+            {/* <TablePagination
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+
+            /> */}
+            
 
             <FooterComponent/>
 
