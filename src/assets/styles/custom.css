@@ -638,7 +638,7 @@ p {
 }
 
 .firstbox {
-  width: 50px;
+  width: 51px;
   height: 35px;
   margin: 39px 6px 46px 68px;
   /*padding: 9px 6px 9px 7px;*/
@@ -1433,6 +1433,29 @@ body {
   font-weight: 600;
   letter-spacing: 0.65px;
 }
+.tabs-data {
+  padding-bottom: 7px;
+  color: #b5bac7;
+  text-align: center;
+  width: 80%;
+  cursor: pointer;
+  position: relative;
+  font-size: 11px;
+  background: #fff;
+  cursor: pointer;
+  padding-left: 0px;
+  margin: 0px 27px 1px 0.5px;
+  font-weight: 600;
+  letter-spacing: 0.65px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  text-align: center;
+}
 
 .container {
   display: flex;
@@ -1635,6 +1658,7 @@ button {
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
+  color: #2149b9;
 }
 
 .active-tabs-contract::before {

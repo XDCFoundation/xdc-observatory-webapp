@@ -8,7 +8,7 @@ export default function TokenContracttab() {
     return (
 
         <>
-            <Paper style={{ borderRadius: '14px' }} elevation={3}>
+            <Paper style={{ borderRadius: '14px',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',border: 'solid 1px #e3e7eb' }} elevation={3}>
                 <div className="container">
                     <div style={{ marginTop: '15px' }} className="contract-source"><span style={{color: '#03be46', marginRight: '5px', fontSize: '14'}}><i class="fa fa-check-circle-o" aria-hidden="true"></i></span>Contract Source Code verified</div>
                     <br /><br />

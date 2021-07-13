@@ -7,6 +7,9 @@ import Box from '@material-ui/core/Box';
 import TokenTransfertab from './tokenTransfertab';
 import TokenHoldertab from './tokenHoldersTab';
 import TokenContracttab from './tokenContractTab';
+import styled from "styled-components";
+
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,7 +46,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-      marginLeft: '13%',
+      marginLeft: '15%',
       width: '74%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -62,25 +65,27 @@ export default function SimpleTabs() {
 
  
   return (
+  <div>
+  
+  
     <div className={classes.root}>
-       
-       <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'transparent'}}>
-            <div  >
+       <div style={{width: '950px',display: 'flex', flexDirection: 'row', backgroundColor: 'transparent',height:'25px',borderBottom:'solid 1px #e3e7eb'}}>
+            <div>
                 <div style={{display: 'flex', flexDirection: 'row', backgroundColor: 'transparent'}} >
                     <button
-                        className={toggleState === 1 ? "tabs active-tabs-token" : "tabs"}
+                        className={toggleState === 1 ? "tabs-data active-tabs-token" : "tabs-data"}
                         onClick={() => toggleTab(1)}
                     >
                        Transfers
                     </button>
                     <button 
-                        className={toggleState === 2 ? "tabs active-tabs-token" : "tabs"}
+                        className={toggleState === 2 ? "tabs-data active-tabs-token" : "tabs-data"}
                         onClick={() => toggleTab(2)}
                     >
                         Holders
                     </button>
                     <button
-                        className={toggleState === 3 ? "tabs active-tabs-token" : "tabs"}
+                        className={toggleState === 3 ? "tabs-data active-tabs-token" : "tabs-data"}
                         onClick={() => toggleTab(3)}
                      
                     >
@@ -89,31 +94,32 @@ export default function SimpleTabs() {
                 </div>
             </div>
             </div>
-    
 
              <div>
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
-                  <div style={{marginTop: '10px'}}> 
+                  <div style={{marginTop: '10px',width: '950px',borderRadius: '14px',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',border: 'solid 1px #e3e7eb'}}> 
                 <TokenTransfertab/>
                 </div>
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
-                <div style={{marginTop: '10px'}}> 
+                <div style={{marginTop: '10px',width: '950px',borderRadius: '14px',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',border: 'solid 1px #e3e7eb'}}> 
                  <TokenHoldertab/>
                  </div>
                 </div>
 
                 <div className={toggleState === 3 ? "content  active-content" : "content"}>
-                <div style={{marginTop: '10px'}}> 
+                <div style={{marginTop: '10px',width: '950px',borderRadius: '14px',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',border: 'solid 1px #e3e7eb'}}> 
                    <TokenContracttab/> 
                    </div>
 
                 </div>
+
             </div>
 
         </div>
  
-    
+  
+   </div>
   );
 }
