@@ -237,8 +237,8 @@ input:focus {
 
 .Shape {
   margin-right: 10px;
-  height: 25px;
-  width: 25px;
+  height: 23px;
+  width: 23px;
 }
 
 .Shape2 {
@@ -1743,6 +1743,21 @@ button {
   letter-spacing: 0.7px;
   color: #2a2a2a;
 }
+.latest2 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+  margin-top: 20px;
+}
+.latest2 h1 {
+  width: 40%;
+  font-family: Inter;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.7px;
+  color: #2a2a2a;
+  margin-left: 2px;
+}
 
 .latest button {
   width: 70px;
@@ -1819,12 +1834,33 @@ button {
   font-size: 13px;
   padding-left: 60px;
 }
+.first-block-age {
+  padding-left: 20px;
+  font-size: 11px;
+  width: 19%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 
 .value_main_main {
   display: flex;
   flex-direction: column;
   width: 100%;
   font-size: 11px;
+}
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .value_main_main:nth-child(odd) {
@@ -1887,7 +1923,49 @@ button {
   text-decoration: none;
   font-size: 11px;
 }
-
+.height2 {
+  background-color: transparent;
+  font-family: Inter !important;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  margin-top: 8px;
+  margin-right: 22px;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+. .height2:hover {
+  color: black !important;
+  list-style: none;
+  text-decoration: none;
+  font-size: 11px;
+}
+.last-block-transaction {
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  width: 19%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding-left: 0px;
+  font-size: 11px;
+}
+.fade-appear {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opactiy 300ms linear;
+}
 .bttn {
   background-color: transparent;
   font-family: Inter;
@@ -2097,7 +2175,7 @@ button {
   font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
-  padding-left: 30px !important;
+  padding-left: 32px !important;
   line-height: 1rem !important;
 }
 .second-row-table {
@@ -2122,7 +2200,7 @@ button {
   font-size: 12px !important;
   font-weight: normal !important;
   letter-spacing: 0.65px;
-  padding-left: 62px !important;
+  padding-left: 55px !important;
   line-height: 1rem !important;
 }
 .table-grid-block {
