@@ -41,7 +41,7 @@ export default function AccountComponent(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {props.state.accountList && props.state.accountList.length && props.state.accountList.map((row, index) => {
+                            {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                                 let num = row.balance;
                                 let bal = shortenBalance(num.toLocaleString())
                                 return (

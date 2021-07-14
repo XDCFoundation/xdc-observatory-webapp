@@ -113,7 +113,7 @@ export default function App() {
         })
 
         let graphdata = resultData
-        console.log(graphdata.reverse())
+        // console.log(graphdata.reverse())
         arr[0].data = resultData
         setData(arr)
 

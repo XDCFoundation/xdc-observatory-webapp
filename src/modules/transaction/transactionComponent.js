@@ -78,7 +78,7 @@ export default function TransactionComponent(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.state.transactionList && props.state.transactionList.length && props.state.transactionList.map((row, index) => {
+                        {props.state.transactionList && props.state.transactionList.length >= 1 && props.state.transactionList.map((row, index) => {
 
                             const currentTime = new Date();
                             const previousTime = new Date(row.timestamp * 1000);

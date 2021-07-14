@@ -204,7 +204,7 @@ export default function BlockDetailsData() {
                                 }} id="td">
                                     <a className="linkTableDetails" href='/address-details'>{transactions.from} </a>
                                     <CopyToClipboard text={transactions.from}>
-                                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "27px" }}><i
+                                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
                                     </CopyToClipboard>
                                 </TableCell>
