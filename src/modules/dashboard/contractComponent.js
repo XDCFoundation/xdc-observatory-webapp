@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles,makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,9 +15,13 @@ import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Tooltip from '@material-ui/core/Tooltip';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-
-
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 const rows = [
 
     { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
@@ -41,6 +45,9 @@ const useStyles = makeStyles({
 
     container: {
 
+        borderRadius: '14px',
+        boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',
+        border: 'solid 1px #e3e7eb',
         borderTopColor: 'white',
         backgroundColor: 'white',
         borderBottomColor: 'white',
@@ -98,7 +105,7 @@ export default function StickyHeadTable() {
     }
 
     return (
-        <div>
+        <div style={{backgroundColor:'#fff'}}>
             <Tokensearchbar />
 
             <div>
@@ -135,7 +142,7 @@ export default function StickyHeadTable() {
             </div>
 
             <br />
-            <Paper className={classes.rootui}>
+            <Paper style={{ borderRadius: '14px' }} className={classes.rootui}>
                 <TableContainer className={classes.container} id="container-table">
                     <Table>
                         <TableHead>
@@ -153,13 +160,14 @@ export default function StickyHeadTable() {
                             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                 return (
 
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
 
                                         <TableCell id="td">
-                                            <Tooltip placement="right" title={row.Address}><VisibilityIcon
-                                                fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
                                             <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
-                                                href="#text"><span className="tabledata"> {shorten(row.Address)} </span>
+                                                href={`/address/${row.Address}`}>
+                                                <Tooltip placement="top" title={row.Address}>
+                                                <span className="tabledata"> {shorten(row.Address)} </span>
+                                                </Tooltip>
                                             </a>
                                         </TableCell>
                                         <TableCell id="td"><span className="tabledata"
@@ -170,7 +178,7 @@ export default function StickyHeadTable() {
                                             style={{ marginLeft: '5px' }}>{row.IsToken}</span></TableCell>
 
 
-                                    </TableRow>
+                                    </StyledTableRow>
 
                                 );
                             })}
@@ -187,9 +195,8 @@ export default function StickyHeadTable() {
                 <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px' }}>
                     Show
                     <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option selected>10</option>
-                        <option>25</option>
-                        <option>50</option>
+                        <option selected>50</option>
+                        <option>75</option>
                         <option>100</option>
                     </select>
                     Records

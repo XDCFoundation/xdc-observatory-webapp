@@ -9,7 +9,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from '@material-ui/core/Tooltip';
 import { Grid } from "@material-ui/core";
-
+import {useHistory} from 'react-router-dom';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 export default function AddressTableComponent(props) {
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -21,6 +23,36 @@ export default function AddressTableComponent(props) {
     const [address, setAddress] = useState([]);
     const [exports, exportAddress] = useState({});
     const [toggle, handleToggle] = useState(false);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(50);
+
+    const history = useHistory()
+
+    const handleChangePage = (action) => {
+
+        if (action == 'next') {
+            if (Math.ceil(address.length / rowsPerPage) != page + 1) {
+                setPage(page + 1)
+
+            }
+
+        } else {
+            if (0 != page) {
+                setPage(page - 1)
+            }
+        }
+        if (action == 'next') {
+            if (Math.ceil(address.length / rowsPerPage) < page + 1)
+                setPage(Math.ceil(address.length / rowsPerPage))
+        }
+
+
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
     useEffect(() => {
         let address = [
@@ -190,7 +222,40 @@ export default function AddressTableComponent(props) {
                         })}
                     </TableBody>
                 </Table>
+                
             </Grid>
+            <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '0%'}}>
+                    Show
+                    <select className="selectbox" onChange={handleChangeRowsPerPage}> 
+                        <option selected>50</option>
+                        <option>75</option>
+                        <option>100</option>
+                    </select>
+                    Records
+                </div>
+
+                <div style={{display: 'flex', flexDirection: 'row', marginRight: '0%'}}>
+                    <div className="firstbox" onClick={() => setPage(0)}>
+                        <button style={{backgroundColor: 'white'}} className="first">First</button>
+                    </div>
+                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
+                        <p className="path"><ChevronLeftIcon/></p>
+                    </div>
+                    <div className="pagebox">
+                        <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(address.length / rowsPerPage)}</p>
+                    </div>
+                    <div className="nextbox">
+                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
+                    </div>
+                    <div className="lastbox" onClick={() => setPage(Math.ceil(address.length / rowsPerPage) - 1)}>
+                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
+                    </div>
+                </div>
+
+
+            </div>
         </Grid>
+
     );
 }

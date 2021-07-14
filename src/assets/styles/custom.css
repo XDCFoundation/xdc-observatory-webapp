@@ -2224,6 +2224,44 @@ button {
   font-size: 14px;
   letter-spacing: 00.7px;
 }
+/*address/address page*/
+.AddressTitle{
+  height: 20px;
+  font-family: Inter;
+  font-size: 17px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.65px;
+  color: #2149b9;
+}
+.address_block_main{
+  align-items: center;
+    /* height: 75vh; */
+  justify-content: space-between;
+  display: flex;
+  width: 900px;
+  margin: 0 auto;
+  margin-top: 35px !important;
+}
+.contractOverview{
+  width: 432px;
+  height: 254px;
+  border-radius: 12px;
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+}
+
+.contractSummary{
+    width: 432px;
+    height: 254px;
+    border-radius: 12px;
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+}
 /*Address Details CSS*/
 
 .second-row-table_address {
@@ -2255,7 +2293,7 @@ button {
   padding-bottom: 7px;
   color: #b5bac7;
   background-color: transparent;
-  width: 15%;
+  width: 16%;
   display: flex;
   cursor: pointer;
   position: relative;
@@ -2308,6 +2346,9 @@ button {
   background-color: transparent;
   display: inline-block;
   width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
+  border-radius: 4px;
 }
 .content_input_add {
   background: #fff;
@@ -2316,6 +2357,7 @@ button {
   display: flex;
   border-radius: 6px;
   border: 1px solid rgb(226, 223, 223);
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
 }
 .content_input_add_btn:focus {
   outline: none;
