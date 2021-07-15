@@ -86,25 +86,33 @@ function LatestBlocks() {
       b.length
     )}`;
   }
-  var socket = socketClient(SERVER);
-  socket.on("Connected", () => {
-    console.log("Hello from client");
-  });
-  // socket.emit('Connected', "hello")
-  const [blockdata, setblockdata] = useState({});
-  socket.on("block-socket", (blockData) => {
-    setblockdata(blockData);
-  });
 
-  console.log(blockdata, "data-socket");
-  let value = blockdata.difficulty;
-  console.log(value);
-  socket.on("transaction-socket", (transactionData) => {
-    console.log(transactionData, "data-transaction");
-  });
+  const [blockdata, setblockdata] = useState({});
+  const [transactiondata, settransactiondata] = useState({});
+  let socket = socketClient(SERVER);
+  try {
+    socket.on("Connected", () => {
+      console.log("Hello from client");
+    });
+    // socket.emit('Connected', "hello")
+
+    socket.on("block-socket", (blockData) => {
+      setblockdata(blockData);
+    });
+
+    socket.on("transaction-socket", (transactionData) => {
+      settransactiondata(transactionData);
+    });
+  } catch (error) {
+    socket.on("Connected", () => {
+      console.log("Hello from client");
+    });
+  }
   const currentTime = new Date();
-  const previousTime = new Date(blockdata.timestamp * 1000);
-  const ti = timeDiff(currentTime, previousTime);
+  const previousTime = new Date(blockdata?.timestamp * 1000);
+  const blockage = timeDiff(currentTime, previousTime);
+  const previousTime2 = new Date(transactiondata?.timestamp * 1000);
+  const transactionAge = timeDiff(currentTime, previousTime2);
   return (
     <>
       <div className="block_main">
@@ -125,7 +133,7 @@ function LatestBlocks() {
               {blockdata && Object.keys(blockdata).length >= 1 ? (
                 <div className="value_main_main">
                   <div className="main_vaa">
-                    <p className="first-block-age">{ti}</p>
+                    <p className="first-block-age">{blockage}</p>
                     <a
                       className="height2"
                       href={"/block-details/" + blockdata.number}
@@ -140,8 +148,8 @@ function LatestBlocks() {
               ) : (
                 ""
               )}
-
-              {blockdata == null
+              {console.log(blockdata, "BLOCKDATA")}
+              {blockdata === null || blockdata === "" || blockdata === undefined
                 ? postHeight &&
                   postHeight.length >= 1 &&
                   postHeight.map((z) => {
@@ -203,35 +211,96 @@ function LatestBlocks() {
               </div>
             </div>
             <div className="data_value">
-              {postTransactions &&
-                postTransactions.length >= 1 &&
-                postTransactions.map((e) => {
-                  const currentTime = new Date();
-                  const previousTime = new Date(e.timestamp * 1000);
-                  const age = timeDiff(currentTime, previousTime);
-                  return (
-                    <div className="value_main_main">
-                      <div className="value_main main_val">
-                        <Tooltip placement="top" title={e.hash}>
+              {transactiondata && Object.keys(transactiondata).length >= 1 ? (
+                <div className="value_main_main">
+                  <div className="value_main main_val">
+                    <Tooltip placement="top" title={transactiondata.hash}>
+                      <a
+                        className="bttn2"
+                        href={"/transaction-details/" + transactiondata.hash}
+                      >
+                        {shorten(transactiondata.hash)}
+                      </a>
+                    </Tooltip>
+                    <p className="amount-table">
+                      {shortenBalance(transactiondata.value)} XDC
+                    </p>
+                    <p className="age-table">{transactionAge}</p>
+                    <a
+                      className="details2"
+                      href={"/transaction-details/" + transactiondata.hash}
+                    >
+                      Details
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+
+              {transactiondata === null ||
+              transactiondata === "" ||
+              transactiondata === undefined
+                ? postTransactions &&
+                  postTransactions.length >= 1 &&
+                  postTransactions.map((e) => {
+                    const currentTime = new Date();
+                    const previousTime = new Date(e.timestamp * 1000);
+                    const age = timeDiff(currentTime, previousTime);
+                    return (
+                      <div className="value_main_main">
+                        <div className="value_main main_val">
+                          <Tooltip placement="top" title={e.hash}>
+                            <a
+                              className="bttn"
+                              href={"/transaction-details/" + e.hash}
+                            >
+                              {shorten(e.hash)}
+                            </a>
+                          </Tooltip>
+                          <p>{shortenBalance(e.value)} XDC</p>
+                          <p>{age}</p>
                           <a
-                            className="bttn"
+                            className="details"
                             href={"/transaction-details/" + e.hash}
                           >
-                            {shorten(e.hash)}
+                            Details
                           </a>
-                        </Tooltip>
-                        <p>{shortenBalance(e.value)} XDC</p>
-                        <p>{age}</p>
-                        <a
-                          className="details"
-                          href={"/transaction-details/" + e.hash}
-                        >
-                          Details
-                        </a>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                : postTransactions &&
+                  postTransactions.length >= 1 &&
+                  postTransactions
+                    .slice(0, postTransactions.length - 1)
+                    .map((e) => {
+                      const currentTime = new Date();
+                      const previousTime = new Date(e.timestamp * 1000);
+                      const age = timeDiff(currentTime, previousTime);
+                      return (
+                        <div className="value_main_main">
+                          <div className="value_main main_val">
+                            <Tooltip placement="top" title={e.hash}>
+                              <a
+                                className="bttn"
+                                href={"/transaction-details/" + e.hash}
+                              >
+                                {shorten(e.hash)}
+                              </a>
+                            </Tooltip>
+                            <p>{shortenBalance(e.value)} XDC</p>
+                            <p>{age}</p>
+                            <a
+                              className="details"
+                              href={"/transaction-details/" + e.hash}
+                            >
+                              Details
+                            </a>
+                          </div>
+                        </div>
+                      );
+                    })}
             </div>
           </div>
         </div>

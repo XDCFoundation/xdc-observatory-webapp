@@ -1843,7 +1843,7 @@ button {
   align-items: center;
   font-size: 11px;
   font-weight: 600;
-  animation: fadeInAnimation ease 3s;
+  animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
@@ -1867,9 +1867,9 @@ button {
   background-color: #f9f9f9;
 }
 
-.value_main p:nth-child(2) {
-  color: #2149b9;
-}
+/* .value_main p:nth-child(2) {
+  color: red;
+} */
 
 .block_main {
   align-items: center;
@@ -1935,18 +1935,18 @@ button {
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 22px;
-  animation: fadeInAnimation ease 3s;
+  animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
-. .height2:hover {
+.height2:hover {
   color: black !important;
   list-style: none;
   text-decoration: none;
   font-size: 11px;
 }
 .last-block-transaction {
-  animation: fadeInAnimation ease 3s;
+  animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   width: 19%;
@@ -1980,6 +1980,23 @@ button {
   margin-left: 7px;
   margin-top: 7px;
 }
+.bttn2 {
+  background-color: transparent;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #2149b9 !important;
+  width: 530px;
+  margin-left: 7px;
+  margin-top: 7px;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 
 .bttn:hover {
   color: black !important;
@@ -2007,6 +2024,22 @@ button {
   width: 190px;
   margin-top: 8px;
 }
+.details2 {
+  background-color: transparent;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  width: 190px;
+  margin-top: 8px;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 
 .details:hover {
   color: black !important;
@@ -2030,6 +2063,30 @@ button {
   align-items: center;
   font-size: 11px;
   font-weight: 600;
+}
+.amount-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.age-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .main_vaa {
