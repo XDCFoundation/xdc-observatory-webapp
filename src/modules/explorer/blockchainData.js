@@ -11,7 +11,7 @@ import accountLogo from "../../images/Accounts.svg";
 import Tab from "./tab";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
-import { AccountService, CoinMarketService, TransactionService } from '../../services'
+import { AccountService, CoinMarketService, TpsService, TransactionService } from '../../services'
 import Utils from '../../utility'
 
 const MainContainer = styled.div`
@@ -140,6 +140,7 @@ export default function BlockChainDataComponent() {
     const [totalAccount, setTotalAccount] = useState([]);
     const [someDayAccount, setSomeDaysAccounts] = useState([]);
     const [coinMarketPrice, setcoinMarketPrice] = useState([]);
+    const [tpsCounts, setTpsCount] = useState({});
 
     /* FETCHING GET TOTAL TRANSACTIONS API*/
 
@@ -195,6 +196,20 @@ export default function BlockChainDataComponent() {
             setcoinMarketPrice(totalcoinMarketPrice[1]);
         }, 45000)
     }, []);
+    // /* FETCHING TPS COUNTER API*/
+
+    useEffect(async () => {
+        let [error, tpsCount] = await Utils.parseResponse(TpsService.getTpsCounter())
+        if (error || !tpsCount)
+            return
+
+        setTpsCount(tpsCount);
+        const interval = setInterval(async () => {
+            let [error, tpsCount] = await Utils.parseResponse(TpsService.getTpsCounter())
+            setTpsCount(tpsCount);
+        }, 45000)
+    }, []);
+    console.log(tpsCounts, "I ammmmmmm")
     let changePrice
     if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
         changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
@@ -274,7 +289,7 @@ export default function BlockChainDataComponent() {
                             <TitleIcon src={maxLogo} />
                             <ValueName>
                                 <Title>Current/Max TPS</Title>
-                                <TitleValue>0/2000</TitleValue>
+                                <TitleValue>{tpsCounts.totalTransactions}/2000</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
