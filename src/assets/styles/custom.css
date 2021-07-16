@@ -703,7 +703,7 @@ p {
 }
 
 .pagebox {
-  width: 96px;
+  width: 135px;
   height: 35px;
   margin: 39px 6px 46px;
   padding: 9px 8px;
@@ -713,7 +713,7 @@ p {
 }
 
 .Page-1-of-5 {
-  width: 80px;
+  width: 125px;
   height: 17px;
   font-family: Inter;
   font-size: 12px;
@@ -2401,14 +2401,13 @@ button {
   background-color: #eee;
 }
 .popup_qr {
-  width: 400px;
-  height: 400px;
+  
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid lightgray;
+  
   border-radius: 10px;
   box-shadow: black;
 }
@@ -2420,4 +2419,58 @@ button {
   letter-spacing: 0.65px;
   padding-left: 30px !important;
   align-items: center !important;
+}
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 30%;
+  padding: 5px;
+  border-radius: 10px;
+}
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
+[role='tooltip'].popup-content {
+  width: 100px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
+}
+
+.modal {
+  font-size: 12px;
+}
+
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 15px;
+  text-align: center;
+  padding: 5px;
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.modal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
 }
