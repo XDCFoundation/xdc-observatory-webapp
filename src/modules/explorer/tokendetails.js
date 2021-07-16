@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -385,8 +385,10 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable() {
     const classes = useStyles();
+    let perPageValue = 10;
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(50);
+    const [disabled, setDisabled] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(perPageValue);
 
     const history = useHistory()
 
@@ -415,6 +417,16 @@ export default function StickyHeadTable() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    useEffect(() => {    
+    
+    });
+    /*when user try to Search token */
+    const handleSearchKeyUp=(event)=> {
+        let searchValue = event.target.value;
+        if(searchValue.length > 2){
+            alert(searchValue)
+        }
+    };
 
 
     return (
@@ -441,7 +453,7 @@ export default function StickyHeadTable() {
                                         outlineColor: '#e3e7eb',
                                         borderWidth: 0
                                     }} type="text"
-                                    placeholder="Search Tokens"/>
+                                    placeholder="Search Tokens" onKeyUp={handleSearchKeyUp}/>
                                 {/* name="NAME" */}
                             </div>
 
@@ -488,7 +500,7 @@ export default function StickyHeadTable() {
                                             src= {row.src} /></TableCell>
                                             :
                                           <TableCell style={{width: '1px'}} id="td"> 
-                                          <span style={{width: 25, height: 25, borderRadius: '10px'}}
+                                          <span style={{border:'1px solid',padding:'5px',width: 25, height: 25, borderRadius: '15px'}}
                                              >{row.Token.slice(0, 2).toUpperCase()}</span>
                                            </TableCell>  
                                        }
@@ -515,16 +527,18 @@ export default function StickyHeadTable() {
             <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
                 <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '18%'}}>
                     Show
-                    <select className="selectbox" onChange={handleChangeRowsPerPage}> 
-                        <option selected>50</option>
-                        <option>75</option>
-                        <option>100</option>
+                    <select value={perPageValue} className="selectbox" onChange={handleChangeRowsPerPage}> 
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="75">75</option>
+                        <option value="100">100</option>
                     </select>
                     Records
                 </div>
 
                 <div style={{display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
-                    <div className="firstbox" onClick={() => setPage(0)}>
+                    <div className={"firstbox " + (disabled ? 'disabledShow' : 'disabledHide')} onClick={() => setPage(0)}>
                         <button style={{backgroundColor: 'white'}} className="first">First</button>
                     </div>
                     <div className="previousbox" onClick={() => handleChangePage("prev")}>

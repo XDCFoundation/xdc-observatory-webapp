@@ -195,6 +195,8 @@ export default function StickyHeadTable() {
                 <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px' }}>
                     Show
                     <select className="selectbox" onChange={handleChangeRowsPerPage}>
+                        <option>10</option>
+                        <option>25</option>
                         <option selected>50</option>
                         <option>75</option>
                         <option>100</option>
