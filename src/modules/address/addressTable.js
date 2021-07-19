@@ -61,6 +61,7 @@ export default function AddressTableComponent(props) {
     const [toggle, handleToggle] = useState(false);
     const [page, setPage] = React.useState(0);
     const [checkAll, setCheckAll] = React.useState(0);
+    const [isDownloadActive, setDownloadActive] = useState(0);
 
     let showPerPage = 10;
     const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
@@ -97,12 +98,10 @@ export default function AddressTableComponent(props) {
         
        setAddress(
             address.map((d) => {
-                const currentTime = new Date();
-                const previousTime = new Date(d.timestamp * 1000);
-                const age = timeDiff(currentTime, previousTime);
+                
                 return {                   
                     Txn_Hash: d.hash,
-                    Age: age,
+                    Age: d.timestamp,
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
@@ -114,12 +113,10 @@ export default function AddressTableComponent(props) {
 
        setReportaddress(
             address.map((d) => {
-                const currentTime = new Date();
-                const previousTime = new Date(d.timestamp * 1000);
-                const age = timeDiff(currentTime, previousTime);
+                
                 return {
                     Txn_Hash: d.hash,
-                    Age: age,
+                    Age: d.timestamp,
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
@@ -127,13 +124,10 @@ export default function AddressTableComponent(props) {
                 };
             })
         );
-       setDownloadaddress(address.map((d) => {
-                const currentTime = new Date();
-                const previousTime = new Date(d.timestamp * 1000);
-                const age = timeDiff(currentTime, previousTime);
+       setDownloadaddress(address.map((d) => {                
                 return {
                     Txn_Hash: d.hash,
-                    Age: age,
+                    Age: d.timestamp,
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
@@ -150,6 +144,17 @@ const handleChanged = (event) => {
         return {...addr, isChecked: checked}
     });
     setAddress(tempAddress)
+    let tempAddr = tempAddress.filter((addr) =>{
+        if(addr.isChecked === true){
+            return addr
+        }
+       })
+    if(tempAddr.length > 0){
+        setDownloadActive(1)
+     }else{
+       setDownloadActive(0) 
+     }
+    
     setDownloadaddress(tempAddress.map((d) => {                
                 return {
                     Txn_Hash: d.Txn_Hash,
@@ -168,7 +173,12 @@ const handleChanged = (event) => {
             return addr
         }
        })
-     console.log(tempAddr)
+     //
+     if(tempAddr.length > 0){
+        setDownloadActive(1)
+     }else{
+       setDownloadActive(0) 
+     }
      setDownloadaddress(tempAddr.map((d) => {                
                 return {
                     Txn_Hash: d.Txn_Hash,
@@ -196,11 +206,13 @@ const handleChanged = (event) => {
                     className="content_input_add_btn"
                   />
                 </div>
-               {downloadaddress.length > 0 &&
-                  <CSVLink filename={"transactions.csv"} data={downloadaddress.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} 
-                style={{fontSize: '15px',color: '#ffffff',backgroundColor: '#e3e7eb',borderRadius: '4px',width:'94px',height:'34px',padding: '4px 0px 0px 20px'}}>Export</CSVLink>  
-                }
-
+               
+                {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} 
+                style={{fontSize: '15px',color: '#ffffff',backgroundColor: 'rgb(7 125 245)',borderRadius: '4px',width:'94px',height:'34px',padding: '4px 0px 0px 20px'}}>Export</CSVLink> 
+                :
+                <CSVLink filename={"transactions.csv"} data={downloadaddress.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
+                style={{pointerEvents: 'none',fontSize: '15px',color: '#ffffff',backgroundColor: '#e3e7eb',borderRadius: '4px',width:'94px',height:'34px',padding: '4px 0px 0px 20px'}}>Export</CSVLink> 
+            }
                 
                
                 
@@ -257,7 +269,9 @@ const handleChanged = (event) => {
                     </TableHead>
                     <TableBody>
                         {address.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                            
+                            const currentTime = new Date();
+                            const previousTime = new Date(row.Age * 1000);
+                            const TimeAge = timeDiff(currentTime, previousTime);
                             return (
                                 <TableRow
                                     style={
@@ -285,7 +299,7 @@ const handleChanged = (event) => {
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <span className="tabledata">{row.Age}</span>
+                                        <span className="tabledata">{TimeAge}</span>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
                                         <a className="linkTable" href="/">
