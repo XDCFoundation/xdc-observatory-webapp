@@ -158,7 +158,7 @@ export default function AddressDetailsData() {
                 <i class="fa fa-download" aria-hidden="true"></i> Download CSV</span>
                 
               </div>
-              <AddressTableComponent />
+              {/* <AddressTableComponent />*/}
             </div>
 
             <div
@@ -181,7 +181,7 @@ export default function AddressDetailsData() {
                 <i class="fa fa-download" aria-hidden="true"></i> Download CSV</span>
                 
               </div>
-              <AddressTableComponent />
+              {/* <AddressTableComponent />*/}
             </div>
 
             <div
@@ -204,7 +204,7 @@ export default function AddressDetailsData() {
                 <i class="fa fa-download" aria-hidden="true"></i> Download CSV</span>
                 
               </div>
-              <AddressTableComponent />
+             {/* <AddressTableComponent />*/}
             </div>
           </div>
         </div>
