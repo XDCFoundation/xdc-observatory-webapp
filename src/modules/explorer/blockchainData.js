@@ -13,6 +13,8 @@ import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { AccountService, CoinMarketService, TpsService, TransactionService } from '../../services'
 import Utils from '../../utility'
+import socketClient from "socket.io-client";
+const SERVER = "http://localhost:3001";
 
 const MainContainer = styled.div`
   width: 950px;
@@ -105,7 +107,7 @@ const IconLogo = styled.img`
   margin-left:5px;
 `;
 const LeftTitle = styled.div`
-margin-top:3px
+  margin-top:3px;
   font-size: 20px;
   font-weight: 600;
   font-family: Inter;
@@ -135,7 +137,9 @@ const LeftTopSecMain = styled.div`
   flex-direction: column;
   text-align: center;
 `;
+
 export default function BlockChainDataComponent() {
+
     const [totalTransaction, setTotalTransaction] = useState([]);
     const [totalAccount, setTotalAccount] = useState([]);
     const [someDayAccount, setSomeDaysAccounts] = useState([]);
@@ -154,7 +158,6 @@ export default function BlockChainDataComponent() {
             setTotalTransaction(totalTransactions);
         }, 45000)
     }, []);
-
 
     /* FETCHING GET TOTAL ACCOUNTS API*/
 
@@ -181,6 +184,7 @@ export default function BlockChainDataComponent() {
             setSomeDaysAccounts(someDaysAccount.length);
         }, 45000)
     }, []);
+
     // /* FETCHING GET COIN MARKET CAP API*/
 
     useEffect(async () => {
@@ -196,6 +200,7 @@ export default function BlockChainDataComponent() {
             setcoinMarketPrice(totalcoinMarketPrice[1]);
         }, 45000)
     }, []);
+
     // /* FETCHING TPS COUNTER API*/
 
     useEffect(async () => {
@@ -209,17 +214,45 @@ export default function BlockChainDataComponent() {
             setTpsCount(tpsCount);
         }, 45000)
     }, []);
-    console.log(tpsCounts, "I ammmmmmm")
+
+    const [blockdata, setblockdata] = useState([]);
+    let blocks = [...blockdata];
+    let socket = socketClient(SERVER);
+    try {
+        socket.on("Connected", () => {
+            console.log("Hello from client");
+        });
+        // socket.emit('Connected', "hello")
+
+        socket.on("block-socket", (blockData) => {
+            let blockDataExist = blocks.findIndex((item) => {
+                return item.number == blockData.number;
+            });
+            if (blockDataExist == -1) {
+                blocks.pop();
+                blocks.unshift(blockData);
+            }
+            setblockdata(blocks);
+            // setblockdata(blockData);
+            console.log(blocks, " BLOCK HOONMM")
+            console.log(blockData, "data while pushing");
+        });
+
+    } catch (error) {
+        socket.on("Connected", () => {
+            console.log("Hello from client");
+        });
+        // socket.emit('Connected', "hello")
+    }
+    console.log(blockdata, "adgjhhhhhhhfasDJHFDUYWFDYUILQA")
     let changePrice
     if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
         changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
     }
 
     var changeDecimal = parseFloat(changePrice).toFixed(2);
-
     var changeXdc = coinMarketPrice.price;
     var changeDecimals = parseFloat(changeXdc).toFixed(6);
-
     let changeAccounts = someDayAccount;
 
     return (
@@ -261,7 +294,7 @@ export default function BlockChainDataComponent() {
                             <TitleIcon src={blockHeightImg} />
                             <ValueName>
                                 <Title>Block Height</Title>
-                                <TitleValue>30,080,290</TitleValue>
+                                <TitleValue>{blockdata[0]?.number?.toLocaleString()}</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
@@ -282,14 +315,14 @@ export default function BlockChainDataComponent() {
                             <TitleIcon src={difficultyLogo} />
                             <ValueName>
                                 <Title>Difficulty</Title>
-                                <TitleValue>85412.0</TitleValue>
+                                <TitleValue>{blockdata[0]?.totalDifficulty}</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
                             <TitleIcon src={maxLogo} />
                             <ValueName>
                                 <Title>Current/Max TPS</Title>
-                                <TitleValue>{tpsCounts.totalTransactions}/2000</TitleValue>
+                                <TitleValue>{tpsCounts?.totalTransactions}/2000</TitleValue>
                             </ValueName>
                         </Value>
                         <Value>
