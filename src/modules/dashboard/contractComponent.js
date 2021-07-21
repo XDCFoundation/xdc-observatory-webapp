@@ -209,7 +209,7 @@ render(props) {
                                     <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                                         <TableCell id="td">
                                             <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
-                                                href={`/address/${row.address}`}>
+                                                href={`/address-details/${row.address}`}>
                                                 <Tooltip placement="top" title={row.address}>
                                                 <span className="tabledata">{this.shorten(row.address)} </span>
                                                 </Tooltip>
