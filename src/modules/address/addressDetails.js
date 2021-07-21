@@ -151,7 +151,7 @@ export default function AddressDetails() {
                   XDC Value
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                {shortenBalance(balance.toLocaleString())}
+                {balance}
                 </TableCell>
                
               </TableRow>
