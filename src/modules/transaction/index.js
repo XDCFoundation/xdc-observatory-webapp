@@ -2,7 +2,7 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import TransactionComponent from "./transactionComponent"
 import Utils from '../../utility'
-import {TransactionService} from '../../services'
+import { TransactionService } from '../../services'
 import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 
@@ -50,14 +50,14 @@ export default class LatestTransactionList extends BaseComponent {
     // }
 
     async getListOfTransactions(from, amount) {
-        this.setState({isLoader: true})
+
         from = from || from === 0 ? from : this.state.from;
         amount = amount ? amount : this.state.amount;
         let urlPath = `?skip=${from}&limit=${amount}`
         let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
         if (error || !listOfTransactions)
-            return this.setState({isLoader: false})
-        this.setState({transactionList: listOfTransactions, isLoader: false})
+            return this.setState({ isLoader: false })
+        this.setState({ transactionList: listOfTransactions, isLoader: false })
 
         // const interval = setInterval(async () => {
         //     let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
@@ -70,7 +70,7 @@ export default class LatestTransactionList extends BaseComponent {
         console.log(total, "datatata")
         if (error || !total)
             return
-        this.setState({totalTransaction: total})
+        this.setState({ totalTransaction: total })
         // const interval = setInterval(async () => {
         //     let [error, total] = await Utils.parseResponse(TransactionService.getTotalTransaction())
         //     this.setState({ totalTransaction: total })
@@ -78,7 +78,7 @@ export default class LatestTransactionList extends BaseComponent {
     }
 
     _handleChange = (event) => {
-        this.setState({amount: event.target.value})
+        this.setState({ amount: event.target.value })
         this.getListOfTransactions(this.state.from, event.target.value)
     }
 
@@ -88,31 +88,31 @@ export default class LatestTransactionList extends BaseComponent {
     // }
 
     _FirstPage = (event) => {
-        this.setState({from: 0})
+        this.setState({ from: 0 })
         this.getListOfTransactions(0, this.state.amount)
     }
     _LastPage = (event) => {
         let from = this.state.totalTransaction - this.state.amount
-        this.setState({from})
+        this.setState({ from })
         this.getListOfTransactions(from, this.state.amount)
     }
     _NextPage = async (event) => {
         if (this.state.amount + this.state.from < this.state.totalTransaction) {
             let from = this.state.amount + this.state.from
-            this.setState({from})
+            this.setState({ from })
             this.getListOfTransactions(from, this.state.amount)
         }
     }
     _PrevPage = (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
-            this.setState({from})
+            this.setState({ from })
             this.getListOfTransactions(from, this.state.amount)
         }
     }
 
     create_data(hash, amount, age, block, from, to, txnfee) {
-        return {hash, amount, age, block, from, to, txnfee}
+        return { hash, amount, age, block, from, to, txnfee }
     }
 
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -134,7 +134,7 @@ export default class LatestTransactionList extends BaseComponent {
     render() {
         return (
             <div>
-                <TokenSearchComponent/>
+                <TokenSearchComponent />
                 <TransactionComponent
                     create_data={this.create_data}
                     state={this.state}
@@ -146,7 +146,7 @@ export default class LatestTransactionList extends BaseComponent {
                     _FirstPage={this._FirstPage}
                     _handleChange={this._handleChange}
                 />
-                <FooterComponent/>
+                <FooterComponent />
             </div>)
 
     }
