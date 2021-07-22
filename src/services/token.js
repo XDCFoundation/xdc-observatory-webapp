@@ -4,7 +4,7 @@ import { httpConstants } from "../images/constants";
 export default { getTokenLists , getTotalToken , getTokenSearch }
 
 async function getTokenLists(data) { 
-    let url = process.env.REACT_APP_GET_TOKEN_LIST+'?skip='+Math.ceil((data.pageNum)*(data.perpage))+'&limit='+data.perpage;
+    let url = process.env.REACT_APP_GET_TOKEN_LIST+'?skip='+Math.ceil(data.pageNum)+'&limit='+data.perpage;
     
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
@@ -20,7 +20,7 @@ async function getTokenLists(data) {
 }
 
 async function getTokenSearch(data) { 
-    let url = process.env.REACT_APP_GET_TOKEN_SEARCH+'?skip='+Math.ceil((data.pageNum)*(data.perpage))+'&limit='+data.perpage+'&data='+data.searchkey;
+    let url = process.env.REACT_APP_GET_TOKEN_SEARCH+'?skip='+Math.ceil(data.pageNum)+'&limit='+data.perpage+'&data='+data.searchkey;
     
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
