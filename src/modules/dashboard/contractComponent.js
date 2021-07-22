@@ -79,6 +79,12 @@ class Contractlist extends React.Component {
      componentDidUpdate(){
         console.log(this.state)
      }
+     handleSearch=async(action)=>{ 
+        let keywords = action.target.value
+        if(keywords.length > 2){
+
+        }
+     }
 
     handleChangePage=async(action)=>{ 
         if (action == 'first') { 
@@ -135,6 +141,21 @@ class Contractlist extends React.Component {
     
   }
 
+  getContractSearch = async () => {
+    
+    const [error, responseData] = await Utility.parseResponse(
+      ContractData.getContractSearch()
+    );
+      
+      if(responseData) { 
+        //this.setState({ isLoading: 0 })
+        //this.setState({ totalRecord: responseData })
+      }else{
+        //setLoading(false);
+      }
+    
+  }
+
   getTotalContractList = async () => {
     
     const [error, responseData] = await Utility.parseResponse(
@@ -168,6 +189,7 @@ render(props) {
                                 <img style={{ width: 22, height: 22, marginRight: 5 }}
                                     src={require('../../assets/images/Search.png')} />
                                 <input
+                                    onKeyUp={this.handleSearch}
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,
