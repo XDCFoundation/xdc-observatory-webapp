@@ -84,19 +84,8 @@ function createData(S, src, Token, Type, Contract, Holder, Status) {
     return {S, src, Token, Type, Contract, Holder, Status};
 }
 
-const rows = [
 
-    {
-        S: 1,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    
-];
+
 
 const useStyles = makeStyles({
     rootui: {
@@ -130,41 +119,76 @@ export default function StickyHeadTable() {
     const [amount, setAmount] = React.useState(10);
     const [isLoading, setLoading] = React.useState(true);
     const [totalToken, setTotalToken] = React.useState(0);
+    const [keywords, setKeywords] = React.useState('');
     const [rows, setRows] = React.useState([]);    
     const history = useHistory()
 
     const handleChangePage = (action) => {
         if(action == 'first'){
             setFrom(0)
-            let data = {pageNum:0,perpage:amount}
-            getTokenList(data)
+            if(keywords){
+                let data = {pageNum:0,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+            }else{
+                let data = {pageNum:0,perpage:amount}
+                getTokenList(data)
+            }
+            
         }
         if(action == 'prev'){
-            if (0 != from) {
-                setFrom(from - 1)
-                let data = {pageNum:from - 1,perpage:amount}
-                getTokenList(data)
+            if (from - amount >= 0) {
+                let page = from - amount
+                setFrom(page)
+                if(keywords){
+                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+                }else{
+                    let data = {pageNum:page,perpage:amount}
+                    getTokenList(data)
+                }
+                
             }
         }
         if (action == 'next') {
-            if (Math.ceil(totalToken / amount) != from + 1) {
-                setFrom(from + 1)
-                let data = {pageNum:from + 1,perpage:amount}
-                getTokenList(data)
-
+            if (amount + from < totalToken) {
+                let page = amount + from
+                setFrom(page)
+                if(keywords){
+                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+                }else{
+                    let data = {pageNum:page,perpage:amount}
+                    getTokenList(data)
+                }
             }
 
         } 
-        if (action == 'next') {
-            if (Math.ceil(totalToken / amount) < from + 1)
+        /*if (action == 'next') {
+            if (Math.ceil(totalToken / amount) < from + 1){
                 setFrom(Math.ceil(totalToken / amount))
-                let data = {pageNum:totalToken / amount,perpage:amount}
+                
+                if(keywords){
+                let data = {pageNum:Math.ceil(totalToken / amount),perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+                }else{
+                    let data = {pageNum:Math.ceil(totalToken / amount),perpage:amount}
+                    getTokenList(data)
+                }
+            }
+                
+        }*/
+        if (action == 'last') { 
+            let page = totalToken - amount           
+            setFrom(page)
+            
+            if(keywords){
+                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+            }else{
+                let data = {pageNum:page,perpage:amount}
                 getTokenList(data)
-        }
-        if (action == 'last') {
-            setFrom(Math.ceil(totalToken / amount) - 1)
-            let data = {pageNum:totalToken / amount - 1,perpage:amount}
-            getTokenList(data)
+            }
+            
         }
     };
 
@@ -172,13 +196,20 @@ export default function StickyHeadTable() {
         setAmount(event.target.value);
         setFrom(0);
         setAmount(event.target.value)
-        let data = {pageNum:0,perpage:event.target.value}
-        getTokenList(data)
+        if(keywords){
+            let data = {pageNum:0,perpage:event.target.value,searchkey:keywords}
+            SearchTokens(data)
+        }else{
+            let data = {pageNum:0,perpage:event.target.value}
+            getTokenList(data)
+        }
+        
     };
     const handleKeyUp = (event) => {
         let searchkeyword = event.target.value
 
         if(searchkeyword.length > 2){
+            setKeywords(searchkeyword)
             setLoading(false);
             let data = {pageNum:from,perpage:amount,searchkey:searchkeyword}
             SearchTokens(data)
@@ -226,8 +257,9 @@ export default function StickyHeadTable() {
         );
            
         if(responseData) {
+            setTotalToken(responseData.length);
             setLoading(false);
-            setRows(responseData)
+            setRows(responseData.newResponse)
             //alert(responseData.length)
         }
         }catch (error) {
@@ -366,7 +398,7 @@ export default function StickyHeadTable() {
                         <p className="path"><ChevronLeftIcon/></p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {from + 1} of {Math.ceil(totalToken / amount)}</p>
+                        <p className="Page-1-of-5">Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}</p>
                     </div>
                     <div className="nextbox">
                         <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
