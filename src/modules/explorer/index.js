@@ -8,6 +8,10 @@ import MarketTable from "./marketDatatable";
 
 
 export default class BlockChainClass extends BaseComponent {
+    constructor(props) {
+        super(props)
+        console.log(props, "PORPROP")
+    }
     render() {
         return (
 
@@ -15,7 +19,7 @@ export default class BlockChainClass extends BaseComponent {
                 <NavigationBar />
                 <BlockChainDataComponent />
                 <MarketTable />
-                <LatestBlocksComponent />
+                <LatestBlocksComponent socket={this.props.socket} />
                 <FooterComponent />
             </div>
         )

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import "../../assets/styles/custom.css";
 import { BlockService, TransactionService } from "../../services";
 import Utils from "../../utility";
-import { useHistory } from "react-router-dom";
-import socketClient from "socket.io-client";
 import Tooltip from "@material-ui/core/Tooltip";
-const SERVER = "http://localhost:3001";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -41,58 +38,109 @@ function shortenBalance(b, amountL = 4, amountR = 3, stars = 0) {
   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length)}`;
 }
 
-function LatestBlocks() {
-  const history = useHistory();
+function increment(data) {
+  console.log(data, "DATA FUNCTION");
+}
+
+class LatestBlocks extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latestBlocksData: [],
+      latestTransactionData: [],
+      socketBlock: {},
+    };
+  }
 
   /* FETCHING LATEST BLOCKS API*/
-  const [postHeight, setPostHeight] = useState([]);
-  let blocks = [...postHeight];
+  // const [postHeight, setPostHeight] = useState([]);
 
-  useEffect(async () => {
+  // console.log(postHeight, "postheightymmk");
+  componentWillUnmount() {
+    this.props.socket.off("block-socket");
+  }
+  async componentDidMount() {
+    await this.blocksLatest();
+    await this.transactionsLatest();
+    this.socketData(this.props.socket);
+
+    // socket.on("block-socket", (blockData, error) => {
+    //   this.setState({ socketBlock: blockData });
+    //   console.log(blockData.number);
+    // });
+    // socket.emit("Connected", "Test");
+  }
+  socketData(socket) {
+    let blocks = this.state.latestBlocksData;
+    socket.on("block-socket", (blockData, error) => {
+      console.log(blockData.number);
+      let blockDataExist = blocks.findIndex((item) => {
+        return item.number == blockData.number;
+      });
+      blockData["class"] = "first-block-age ";
+      if (blockDataExist == -1) {
+        // socket.emit("received", true);
+        console.log(blockData.number, "NUMBER");
+        if (blocks.length >= 10) blocks.pop();
+        blocks.unshift(blockData);
+        blocks.sort((a, b) => {
+          return b.number - a.number;
+        });
+        this.setState({ latestBlocksData: blocks });
+
+        if (error) {
+          console.log("hello error");
+        }
+      }
+
+      // console.log(blockData, "data while pushig");
+    });
+  }
+  async blocksLatest() {
     let urlPath = "?skip=0&limit=10";
     let [error, latestBlocks] = await Utils.parseResponse(
       BlockService.getLatestBlock(urlPath, {})
     );
     if (error || !latestBlocks) return;
-    setPostHeight(latestBlocks);
-    blocks = latestBlocks;
+    this.setState({ latestBlocksData: latestBlocks });
+    // blocks = latestBlocks;
     const interval = setInterval(async () => {
       let [error, latestBlocks] = await Utils.parseResponse(
         BlockService.getLatestBlock(urlPath, {})
       );
-      setPostHeight(latestBlocks);
-      blocks = latestBlocks;
+      this.setState({ latestBlocksData: latestBlocks });
+      // blocks = latestBlocks;
     }, 45000);
-  }, []);
+  }
 
   /* FETCHING LATEST TRANSACTIONS API*/
-  const [postTransactions, setlatestTransactions] = useState([]);
-  let socketTransactions = [...postTransactions];
+  // const [postTransactions, setlatestTransactions] = useState([]);
+  // let socketTransactions = [...postTransactions];
 
-  useEffect(async () => {
+  async transactionsLatest() {
     let urlPath = "?skip=0&limit=10";
     let [error, latestTransactions] = await Utils.parseResponse(
       TransactionService.getLatestTransaction(urlPath, {})
     );
     if (error || !latestTransactions) return;
-    setlatestTransactions(latestTransactions);
+    this.setState({ latestTransactionData: latestTransactions });
     const interval = setInterval(async () => {
       let [error, latestTransactions] = await Utils.parseResponse(
         TransactionService.getLatestTransaction(urlPath, {})
       );
-      setlatestTransactions(latestTransactions);
+      this.setState({ latestTransactionData: latestTransactions });
     }, 45000);
-  }, []);
+  }
 
-  function shorten(b, amountL = 10, amountR = 3, stars = 3) {
+  shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
       b.length
     )}`;
   }
 
-  const [transactiondata, settransactiondata] = useState({});
-  let socket = socketClient(SERVER);
+  // const [transactiondata, settransactiondata] = useState({});
+
   // let [blockSocket, setBlockSocket] = useState([]);
   // let data = new Array(1);
   // useEffect(() => {
@@ -102,48 +150,107 @@ function LatestBlocks() {
   //   }, 1000);
   // }, []);
   // let queue = [];
-  try {
-    socket.on("Connected", () => {
-      console.log("Hello from client");
-    });
-    socket.on("error", (error) => {
-      console.log(error, "Its an error");
-    });
-    // socket.emit('Connected', "hello")
+  // ...... //
+  // try {
+  //   console.log("soxket-connection-call");
+  //   // socket.on("connect", () => {
+  //   //   console.log(socket.id, "SOCKET.ID");
+  //   // });
+  //   // socket.on("error", (error) => {
+  //   //   console.log(error, "Its an error");
+  //   // });
+  //   // // socket.emit('Connected', "hello")
 
-    socket.on("block-socket", (blockData) => {
-      let blockDataExist = blocks.findIndex((item) => {
-        return item.number == blockData.number;
-      });
-      if (blockDataExist == -1) {
-        blocks.pop();
-        blocks.unshift(blockData);
-      }
-      setPostHeight(blocks);
-      // setblockdata(blockData);
+  //   // socket.on("block-socket", (blockData, error) => {
+  //   //   let blockDataExist = blocks.findIndex((item) => {
+  //   //     return item.number == blockData.number;
+  //   //   });
+  //   //   if (blockDataExist == -1) {
+  //   //     // socket.emit("received", true);
+  //   //     console.log(blockData.number, "NUMBER");
+  //   //     blocks.pop();
+  //   //     blocks.unshift(blockData);
+  //   //     blocks.sort((a, b) => {
+  //   //       return b.number - a.number;
+  //   //     });
+  //   //     setPostHeight(blocks);
+  //   //     if (error) {
+  //   //       console.log("hello error");
+  //   //     }
+  //   //   }
 
-      console.log(blockData, "data while pushing");
-    });
+  //   //   // console.log(blockData, "data while pushig");
+  //   // });
 
-    socket.on("transaction-socket", (transactionData) => {
-      let transactionDataExist = socketTransactions.findIndex((item) => {
-        return item.hash == transactionData.hash;
-      });
-      if (transactionDataExist == -1) {
-        socketTransactions.pop();
-        socketTransactions.unshift(transactionData);
-      }
-      setlatestTransactions(socketTransactions);
-      // setblockdata(blockData);
+  //   // // socket.onclose = function (e) {
+  //   // //   console.log(
+  //   // //     "Socket is closed. Reconnect will be attempted in 1 second.",
+  //   // //     e.reason
+  //   // //   );
+  //   // //   setTimeout(function () {
+  //   // //     socket.on("Connected", () => {
+  //   // //       console.log("Hello from client");
+  //   // //     });
+  //   // //   }, 1000);
+  //   // // };
 
-      // console.log(blockData, "data while pushing");
-    });
-  } catch (error) {
-    socket.on("Connected", () => {
-      console.log("Hello from client");
-    });
-    // socket.emit('Connected', "hello")
-  }
+  //   // socket.on("transaction-socket", (transactionData) => {
+  //   //   let transactionDataExist = socketTransactions.findIndex((item) => {
+  //   //     return item.hash == transactionData.hash;
+  //   //   });
+  //   //   if (transactionDataExist == -1) {
+  //   //     socketTransactions.pop();
+  //   //     socketTransactions.unshift(transactionData);
+  //   //     setlatestTransactions(socketTransactions);
+  //   //   }
+  //   // });
+  // } catch (error) {
+  //   // socket.on("Connected", () => {
+  //   //   console.log("Hello from client");
+  //   // });
+  //   // socket.emit('Connected', "hello")
+  // }
+  // .....  //
+  //   function connect() {
+
+  //     socket.onopen = function () {
+  //       // subscribe to some channels
+  //        socket.on("block-socket", (blockData, error) => {
+  //       let blockDataExist = blocks.findIndex((item) => {
+  //         return item.number == blockData.number;
+  //       });
+  //       if (blockDataExist == -1) {
+  //         // socket.emit("received", true);
+  //         console.log(blockData.number, "NUMBER");
+  //         blocks.pop();
+  //         blocks.unshift(blockData);
+  //         blocks.sort((a, b) => {
+  //           return b.number - a.number;
+  //         });
+  //         setPostHeight(blocks);
+  //         if (error) {
+  //           console.log("hello error");
+  //         }
+  //     };
+  //     socket.onclose = function (e) {
+  //       console.log(
+  //         "Socket is closed. Reconnect will be attempted in 1 second.",
+  //         e.reason
+  //       );
+  //       setTimeout(function () {
+  //         connect();
+  //       }, 1000);
+  //     };
+  //     socket.onerror = function (err) {
+  //       console.error(
+  //         "Socket encountered error: ",
+  //         err.message,
+  //         "Closing socket"
+  //       );
+  //       socket.close();
+  //     };
+  //   }
+  // console.log(postHeight, "bloc-socket");
   // const currentTime = new Date();
   // // const previousTime = new Date(blockdata?.timestamp * 1000);
   // // const blockage = timeDiff(currentTime, previousTime);
@@ -151,85 +258,92 @@ function LatestBlocks() {
   // const transactionAge = timeDiff(currentTime, previousTime2);
 
   // console.log(blockdata, "BLOCK-DATA-SOCKET");
-  return (
-    <>
-      <div className="block_main">
-        <div className="latestblock">
-          <div className="latest">
-            <h1>Latest Blocks</h1>
-            <a className="nav_button" href="/view-all-blocks">
-              View All
-            </a>
-          </div>
-          <div className="data">
-            <div className="data_heading1">
-              <p>Age</p>
-              <p>Height</p>
-              <p>Transactions</p>
+  render() {
+    return (
+      <>
+        <div className="block_main">
+          <div className="latestblock">
+            <div className="latest">
+              <h1>Latest Blocks</h1>
+              <a className="nav_button" href="/view-all-blocks">
+                View All
+              </a>
             </div>
-            <div className="data_value">
-              {/* {blockdata && Object.keys(blockdata).length >= 1 ? (
-                <div className="value_main_main">
-                  <div className="main_vaa">
-                    <p className="first-block-age">{blockage}</p>
-                    <a
-                      className="height2"
-                      href={"/block-details/" + blockdata.number}
-                    >
-                      {blockdata.number.toLocaleString()}
-                    </a>
-                    <p className="last-block-transaction">
-                      {blockdata.transactions}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )} */}
-
-              {postHeight &&
-                postHeight.length >= 1 &&
-                postHeight.map((z, index) => {
-                  const currentTime = new Date();
-                  const previousTime = new Date(z.timestamp * 1000);
-                  const ti = timeDiff(currentTime, previousTime);
-                  return (
-                    <div className="value_main_main">
-                      <div className="main_vaa">
-                        <p className>{ti}</p>
-                        <a
-                          className="height"
-                          href={"/block-details/" + z.number}
-                        >
-                          {z.number.toLocaleString()}
-                        </a>
-                        <p>{z.transactions.length}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        </div>
-        <div className="latestTranscation">
-          <div className="latest2">
-            <h1>Latest Transactions</h1>
-            <a className="nav_button" href="/view-all-transaction">
-              View All
-            </a>
-          </div>
-          <div className="data">
-            <div className="data_heading">
-              <div className="main_head">
-                <p>Hash</p>
-                <p>Amount</p>
-              </div>
-              <div className="age">
+            <div className="data">
+              <div className="data_heading1">
                 <p>Age</p>
+                <p>Height</p>
+                <p>Transactions</p>
+              </div>
+              <div className="data_value">
+                {/* {this.state.socketBlock &&
+                Object.keys(this.state.socketBlock).length >= 1 ? (
+                  <div className="value_main_main">
+                    <div className="main_vaa">
+                      <p className="first-block-age">hiii</p>
+                      <a
+                        className="height2"
+                        href={"/block-details/" + this.state.socketBlock.number}
+                      >
+                        {this.state.socketBlock.number.toLocaleString()}
+                      </a>
+                      <p className="last-block-transaction">
+                        {this.state.socketBlock.transactions}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )} */}
+                {this.state.latestBlocksData &&
+                  this.state.latestBlocksData.length >= 1 &&
+                  this.state.latestBlocksData.map((z, index) => {
+                    const currentTime = new Date();
+                    const previousTime = new Date(z.timestamp * 1000);
+                    const ti = timeDiff(currentTime, previousTime);
+                    return (
+                      <div
+                        className={
+                          !index && z.class
+                            ? `${z.class} value_main_main`
+                            : "value_main_main"
+                        }
+                      >
+                        <div className="main_vaa">
+                          <p className>{ti}</p>
+                          <a
+                            className="height"
+                            href={"/block-details/" + z.number}
+                          >
+                            {z.number.toLocaleString()}
+                          </a>
+                          <p>{z.transactions.length}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
-            <div className="data_value">
-              {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
+          </div>
+          <div className="latestTranscation">
+            <div className="latest2">
+              <h1>Latest Transactions</h1>
+              <a className="nav_button" href="/view-all-transaction">
+                View All
+              </a>
+            </div>
+            <div className="data">
+              <div className="data_heading">
+                <div className="main_head">
+                  <p>Hash</p>
+                  <p>Amount</p>
+                </div>
+                <div className="age">
+                  <p>Age</p>
+                </div>
+              </div>
+              <div className="data_value">
+                {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
                 <div className="value_main_main">
                   <div className="value_main main_val">
                     <Tooltip placement="top" title={transactiondata.hash}>
@@ -256,41 +370,106 @@ function LatestBlocks() {
                 ""
               )} */}
 
-              {postTransactions &&
-                postTransactions.length >= 1 &&
-                postTransactions.map((e) => {
-                  const currentTime = new Date();
-                  const previousTime = new Date(e.timestamp * 1000);
-                  const age = timeDiff(currentTime, previousTime);
-                  return (
-                    <div className="value_main_main">
-                      <div className="value_main main_val">
-                        <Tooltip placement="top" title={e.hash}>
+                {this.state.latestTransactionData &&
+                  this.state.latestTransactionData.length >= 1 &&
+                  this.state.latestTransactionData.map((e) => {
+                    const currentTime = new Date();
+                    const previousTime = new Date(e.timestamp * 1000);
+                    const age = timeDiff(currentTime, previousTime);
+                    return (
+                      <div className="value_main_main">
+                        <div className="value_main main_val">
+                          <Tooltip placement="top" title={e.hash}>
+                            <a
+                              className="bttn"
+                              href={"/transaction-details/" + e.hash}
+                            >
+                              {this.shorten(e.hash)}
+                            </a>
+                          </Tooltip>
+                          <p>{shortenBalance(e.value)} XDC</p>
+                          <p>{age}</p>
                           <a
-                            className="bttn"
+                            className="details"
                             href={"/transaction-details/" + e.hash}
                           >
-                            {shorten(e.hash)}
+                            Details
                           </a>
-                        </Tooltip>
-                        <p>{shortenBalance(e.value)} XDC</p>
-                        <p>{age}</p>
-                        <a
-                          className="details"
-                          href={"/transaction-details/" + e.hash}
-                        >
-                          Details
-                        </a>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
+
+// export default LatestBlocks;
+
+// import React, { Component } from "react";
+
+// class LatestBlocks extends Component {
+//   // const [response, setResponse] = useState([]);
+//   // const {
+//   //     // sendMessage,
+//   //     // lastMessage,
+//   //     readyState,
+//   // } = useWebSocket(SERVER);
+//   // let blocks = [...response];
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       setResponse: {},
+//     };
+//   }
+//   componentDidMount() {
+//     console.log("componentDidMount");
+
+//     // socket.on("backend", data => {
+//     //     this.setState({ setResponse: data });
+//     //     console.log(data)
+//     // });
+
+//     // console.log(readyState)
+//     this.props.socket.on("block-socket", (blockData, error) => {
+//       this.setState({ setResponse: blockData });
+//       console.log(blockData.number);
+//       // let blockDataExist = blocks.findIndex((item) => {
+//       //     return item.number == blockData.number;
+//       // });
+//       // if (blockDataExist == -1) {
+//       //     // socket.emit("received", true);
+//       //     console.log(blockData.number, "NUMBER");
+//       //     blocks.pop();
+//       //     blocks.unshift(blockData);
+//       //     blocks.sort((a, b) => {
+//       //         return b.number - a.number;
+//       //     });
+
+//       //     if (error) {
+//       //         console.log("hello error");
+//       //     }
+//       // }
+
+//       // console.log(blockData, "data while pushig");
+//     });
+//     // socket.off("block-socket")
+
+//     // this.props.socket.emit("Connected", "Test");
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         HELLO
+//         {this.state.setResponse.number}
+//       </div>
+//     );
+//   }
+// }
 
 export default LatestBlocks;

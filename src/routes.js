@@ -17,8 +17,11 @@ import LatestAccountsList from './modules/accounts';
 import AddressDetails from './modules/address/addressDetails'
 import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
-
-
+import socketClient from "socket.io-client";
+let socket = socketClient("http://localhost:3001", {
+    transports: ["websocket"],
+});
+// let socket = {}
 class Routes extends BaseComponent {
 
     componentDidMount() {
@@ -31,7 +34,7 @@ class Routes extends BaseComponent {
             <MuiThemeProvider muiTheme={getMuiTheme()}>
                 <Router history={history}>
                     <Switch>
-                        <Route exact path={'/'} component={BlockChainClass} />
+                        <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
                         <Route exact path={'/token-data'} component={TokenDataComponent} />
                         <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
                         <Route exact path={'/view-all-blocks'} component={LatestBlocksList} />

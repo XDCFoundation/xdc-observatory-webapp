@@ -14,7 +14,12 @@ import { BsFillCaretUpFill } from "react-icons/bs";
 import { AccountService, CoinMarketService, TpsService, TransactionService } from '../../services'
 import Utils from '../../utility'
 import socketClient from "socket.io-client";
-const SERVER = "http://localhost:3001";
+// const SERVER = "ws://localhost:3001";
+// let socket = socketClient(SERVER);
+// setInterval(() => {
+//     socket = socketClient(SERVER);
+// }, 5000);
+
 
 const MainContainer = styled.div`
   width: 950px;
@@ -216,35 +221,36 @@ export default function BlockChainDataComponent() {
     }, []);
 
     const [blockdata, setblockdata] = useState([]);
-    let blocks = [...blockdata];
-    let socket = socketClient(SERVER);
-    try {
-        socket.on("Connected", () => {
-            console.log("Hello from client");
-        });
-        // socket.emit('Connected', "hello")
+    // let blocks = [...blockdata];
+    // let socket = socketClient(SERVER);
+    // try {
+    //     socket.on("Connected", () => {
+    //         console.log("Hello from client");
+    //     });
+    //     // socket.emit('Connected', "hello")
 
-        socket.on("block-socket", (blockData) => {
-            let blockDataExist = blocks.findIndex((item) => {
-                return item.number == blockData.number;
-            });
-            if (blockDataExist == -1) {
-                blocks.pop();
-                blocks.unshift(blockData);
-            }
-            setblockdata(blocks);
-            // setblockdata(blockData);
-            console.log(blocks, " BLOCK HOONMM")
-            console.log(blockData, "data while pushing");
-        });
+    //     socket.on("block-socket", (blockData) => {
+    //         let blockDataExist = blocks.findIndex((item) => {
+    //             return item.number == blockData.number;
+    //         });
+    //         if (blockDataExist == -1) {
+    //             blocks.pop();
+    //             blocks.unshift(blockData);
+    //             setblockdata(blocks);
+    //         }
 
-    } catch (error) {
-        socket.on("Connected", () => {
-            console.log("Hello from client");
-        });
-        // socket.emit('Connected', "hello")
-    }
-    console.log(blockdata, "adgjhhhhhhhfasDJHFDUYWFDYUILQA")
+    //         // setblockdata(blockData);
+    //         // console.log(blocks, " BLOCK HOONMM")
+    //         // console.log(blockData, "data while pushing");
+    //     });
+
+    // } catch (error) {
+    //     socket.on("Connected", () => {
+    //         console.log("Hello from client");
+    //     });
+    //     // socket.emit('Connected', "hello")
+    // }
+    // console.log(blockdata, "dgbdkjhgdkjgdkusagdlkui")
     let changePrice
     if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
         changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
