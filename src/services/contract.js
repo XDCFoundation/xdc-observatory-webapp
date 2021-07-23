@@ -3,7 +3,7 @@ import { httpConstants } from "../images/constants";
 
 export default { getContractLists , getTotalContractList , getContractSearch}
 async function getContractLists(data) { 
-    let url = process.env.REACT_APP_GET_CONTRACT_LIST+'?skip='+Math.ceil((data.page)*(data.rowsPerPage))+'&limit='+data.rowsPerPage;
+    let url = process.env.REACT_APP_GET_CONTRACT_LIST+'?skip='+Math.ceil((data.pageNum))+'&limit='+data.perpage;
     
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
@@ -33,7 +33,8 @@ async function getTotalContractList(){
         });
 }
 async function getContractSearch(data){
-    let url = process.env.REACT_APP_GET_CONTRACT_SEARCH+'?skip='+Math.ceil((data.page)*(data.rowsPerPage))+'&limit='+data.rowsPerPage;  
+
+    let url = process.env.REACT_APP_GET_CONTRACT_SEARCH+'?skip='+Math.ceil(data.pageNum)+'&limit='+data.perpage+'&keywords='+data.keywords;  
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
             response => { 
