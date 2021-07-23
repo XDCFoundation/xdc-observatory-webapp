@@ -323,7 +323,7 @@ render(props) {
                         <p className="path"><ChevronLeftIcon /></p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {Math.round(this.state.totalRecord / this.state.amount) + 1 - Math.round((this.state.totalRecord -this.state.from) / this.state.amount)} of {Math.round(this.state.totalRecord / this.state.amount)}</p>
+                        <p className="Page-1-of-5">Page {Math.round(this.state.totalRecord / this.state.amount) + 1 - Math.round((this.state.totalRecord -this.state.from) / this.state.amount)} of {Math.ceil(this.state.totalRecord / this.state.amount)}</p>
                     </div>
                     <div className="nextbox">
                         <p className="path-2" onClick={() => this.handleChangePage("next")}><ChevronRightIcon /></p>
