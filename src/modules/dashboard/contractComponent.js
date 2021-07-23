@@ -66,58 +66,101 @@ class Contractlist extends React.Component {
           amount: 10,
           isLoading: 1,
           rows: [],
-          totalRecord:0
+          totalRecord:0,
+          keywords:''
         }
        
         
       }
-    componentDidMount = async () => {
-        await this.getContractList(this.state.from,this.state.amount);
+    componentDidMount = async () => { 
+        let data = {pageNum:this.state.from,perpage:this.state.amount}
+        await this.getContractList(data);
         await this.getTotalContractList()
     };
     
      componentDidUpdate(){
-        console.log(this.state)
+        //console.log(this.state)
      }
-     handleSearch=async(action)=>{ 
-        let keywords = action.target.value
-        if(keywords.length > 2){
 
+      handleKeyUp = async(event) => {
+        let searchkeyword = event.target.value
+        this.setState({ from: 0})
+        if(searchkeyword.length > 2){
+            this.setState({keywords: searchkeyword})
+            this.setState({ isLoading: 0 })
+            let data = {pageNum:this.state.from,perpage:this.state.amount,keywords:searchkeyword}
+            await this.getContractSearch(data)
         }
-     }
+        if(searchkeyword.length == 0){
+            this.setState({ from: 0})
+            let data = {pageNum:0,perpage:this.state.amount}
+            await this.getContractList(data);
+            await this.getTotalContractList()
+        }
+    }
 
     handleChangePage=async(action)=>{ 
         if (action == 'first') { 
             this.setState({ from: 0})
-            await this.getContractList(0,this.state.amount);
+            if(this.state.keywords){
+                let data = {pageNum:0,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+            }else{
+                await this.getContractList(0,this.state.amount);
+                await this.getTotalContractList()
+            }
         }
         if (action === 'last') {
-            //Math.ceil(rows.length / rowsPerPage) - 1
-            let from = Math.ceil(this.state.totalRecord / this.state.amount) - 1
-            this.setState({ from:from })
-            await this.getContractList(from,this.state.amount);
-        }
-        if (action === 'next') {
-            if (Math.ceil(this.state.totalRecord / this.state.amount) !== this.state.from + 1) {
-                
-                this.setState({from:this.state.from + 1})
-                this.getContractList(this.state.from + 1 , this.state.amount)
+            let page = this.state.totalRecord - this.state.amount
+            this.setState({ from: page})
+            if(this.state.keywords){
+                let data = {pageNum:page,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+            }else{
+                let data = {pageNum:page,perpage:this.state.amount}
+                await this.getContractList(data)
+                await this.getTotalContractList()
             }
-            
+        }
+
+        if (action === 'next') {
+            if (this.state.amount + this.state.from < this.state.totalRecord) {
+                let page = this.state.amount + this.state.from
+                this.setState({ from: page})
+               if(this.state.keywords){
+                let data = {pageNum:page,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+                }else{
+                    let data = {pageNum:page,perpage:this.state.amount}
+                    await this.getContractList(data)
+                    await this.getTotalContractList()
+                }
+            }
         }
         if (action === 'prev') {
-            if (0 !== this.state.from) {
-                 this.setState({from:this.state.from - 1})
-                 this.getContractList(this.state.from - 1, this.state.amount)
+            if (this.state.from - this.state.amount >= 0) {
+                let page = this.state.from - this.state.amount
+                this.setState({ from: page})
+                if(this.state.keywords){
+                let data = {pageNum:page,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+                }else{
+                    let data = {pageNum:page,perpage:this.state.amount}
+                    await this.getContractList(data)
+                    await this.getTotalContractList()
+                }           
+
             }
-            
         }
         
     }
 
     handleChangeRowsPerPage= async(event)=>{ 
        this.setState({amount: event.target.value})
-        this.getContractList(this.state.from, event.target.value)
+       let data = {pageNum:this.state.from,perpage:event.target.value}
+       this.getContractList(data)
+       //this.getTotalContractList()
+
         
     }
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -127,9 +170,10 @@ class Contractlist extends React.Component {
         )}`;
     }
     
-    getContractList = async (startPage, perPage) => {
-    const [error, responseData] = await Utility.parseResponse(
-      ContractData.getContractLists({rowsPerPage:perPage , page:startPage})
+    getContractList = async (data) => {
+        
+        const [error, responseData] = await Utility.parseResponse(
+      ContractData.getContractLists(data)
     );
 
       if(responseData) { 
@@ -141,15 +185,14 @@ class Contractlist extends React.Component {
     
   }
 
-  getContractSearch = async () => {
-    
+  getContractSearch = async (data) => { 
     const [error, responseData] = await Utility.parseResponse(
-      ContractData.getContractSearch()
+      ContractData.getContractSearch(data)
     );
       
       if(responseData) { 
-        //this.setState({ isLoading: 0 })
-        //this.setState({ totalRecord: responseData })
+        this.setState({ totalRecord: responseData.length })
+        this.setState({ rows: responseData.response })
       }else{
         //setLoading(false);
       }
@@ -189,7 +232,7 @@ render(props) {
                                 <img style={{ width: 22, height: 22, marginRight: 5 }}
                                     src={require('../../assets/images/Search.png')} />
                                 <input
-                                    onKeyUp={this.handleSearch}
+                                    onKeyUp={this.handleKeyUp}
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,
@@ -280,7 +323,7 @@ render(props) {
                         <p className="path"><ChevronLeftIcon /></p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {this.state.from + 1} of {Math.ceil(this.state.totalRecord / this.state.amount)}</p>
+                        <p className="Page-1-of-5">Page {Math.round(this.state.totalRecord / this.state.amount) + 1 - Math.round((this.state.totalRecord -this.state.from) / this.state.amount)} of {Math.round(this.state.totalRecord / this.state.amount)}</p>
                     </div>
                     <div className="nextbox">
                         <p className="path-2" onClick={() => this.handleChangePage("next")}><ChevronRightIcon /></p>
