@@ -48,14 +48,11 @@ class LatestBlocks extends Component {
     this.state = {
       latestBlocksData: [],
       latestTransactionData: [],
-      socketBlock: {},
     };
   }
 
   /* FETCHING LATEST BLOCKS API*/
-  // const [postHeight, setPostHeight] = useState([]);
 
-  // console.log(postHeight, "postheightymmk");
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
@@ -63,37 +60,46 @@ class LatestBlocks extends Component {
     await this.blocksLatest();
     await this.transactionsLatest();
     this.socketData(this.props.socket);
-
-    // socket.on("block-socket", (blockData, error) => {
-    //   this.setState({ socketBlock: blockData });
-    //   console.log(blockData.number);
-    // });
-    // socket.emit("Connected", "Test");
   }
   socketData(socket) {
     let blocks = this.state.latestBlocksData;
+    let transactions = this.state.latestTransactionData;
     socket.on("block-socket", (blockData, error) => {
       console.log(blockData.number);
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
-      blockData["class"] = "first-block-age ";
+      // blockData["class"] = "first-block-age last-block-transaction height2";
       if (blockDataExist == -1) {
-        // socket.emit("received", true);
-        console.log(blockData.number, "NUMBER");
+        // console.log(blockData.number, "NUMBER");
+        console.log(blockData.timestamp, "hiiiiii");
         if (blocks.length >= 10) blocks.pop();
         blocks.unshift(blockData);
-        blocks.sort((a, b) => {
-          return b.number - a.number;
-        });
+        // blocks.sort((a, b) => {
+        //   return b.number - a.number;
+        // });
+
         this.setState({ latestBlocksData: blocks });
 
         if (error) {
           console.log("hello error");
         }
       }
+    });
 
-      // console.log(blockData, "data while pushig");
+    socket.on("transaction-socket", (transactionData, error) => {
+      let transactionDataExist = transactions.findIndex((item) => {
+        return item.hash == transactionData.hash;
+      });
+      if (transactionDataExist == -1) {
+        if (transactions.length >= 10) transactions.pop();
+        transactions.unshift(transactionData);
+        this.setState({ latestTransactionData: transactions });
+
+        if (error) {
+          console.log("hello error");
+        }
+      }
     });
   }
   async blocksLatest() {
@@ -114,8 +120,6 @@ class LatestBlocks extends Component {
   }
 
   /* FETCHING LATEST TRANSACTIONS API*/
-  // const [postTransactions, setlatestTransactions] = useState([]);
-  // let socketTransactions = [...postTransactions];
 
   async transactionsLatest() {
     let urlPath = "?skip=0&limit=10";
@@ -194,16 +198,6 @@ class LatestBlocks extends Component {
   //   // //   }, 1000);
   //   // // };
 
-  //   // socket.on("transaction-socket", (transactionData) => {
-  //   //   let transactionDataExist = socketTransactions.findIndex((item) => {
-  //   //     return item.hash == transactionData.hash;
-  //   //   });
-  //   //   if (transactionDataExist == -1) {
-  //   //     socketTransactions.pop();
-  //   //     socketTransactions.unshift(transactionData);
-  //   //     setlatestTransactions(socketTransactions);
-  //   //   }
-  //   // });
   // } catch (error) {
   //   // socket.on("Connected", () => {
   //   //   console.log("Hello from client");
@@ -252,8 +246,8 @@ class LatestBlocks extends Component {
   //   }
   // console.log(postHeight, "bloc-socket");
   // const currentTime = new Date();
-  // // const previousTime = new Date(blockdata?.timestamp * 1000);
-  // // const blockage = timeDiff(currentTime, previousTime);
+  // const previousTime = new Date(blockdata?.timestamp * 1000);
+  // const blockage = timeDiff(currentTime, previousTime);
   // const previousTime2 = new Date(transactiondata?.timestamp * 1000);
   // const transactionAge = timeDiff(currentTime, previousTime2);
 
@@ -407,69 +401,5 @@ class LatestBlocks extends Component {
     );
   }
 }
-
-// export default LatestBlocks;
-
-// import React, { Component } from "react";
-
-// class LatestBlocks extends Component {
-//   // const [response, setResponse] = useState([]);
-//   // const {
-//   //     // sendMessage,
-//   //     // lastMessage,
-//   //     readyState,
-//   // } = useWebSocket(SERVER);
-//   // let blocks = [...response];
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       setResponse: {},
-//     };
-//   }
-//   componentDidMount() {
-//     console.log("componentDidMount");
-
-//     // socket.on("backend", data => {
-//     //     this.setState({ setResponse: data });
-//     //     console.log(data)
-//     // });
-
-//     // console.log(readyState)
-//     this.props.socket.on("block-socket", (blockData, error) => {
-//       this.setState({ setResponse: blockData });
-//       console.log(blockData.number);
-//       // let blockDataExist = blocks.findIndex((item) => {
-//       //     return item.number == blockData.number;
-//       // });
-//       // if (blockDataExist == -1) {
-//       //     // socket.emit("received", true);
-//       //     console.log(blockData.number, "NUMBER");
-//       //     blocks.pop();
-//       //     blocks.unshift(blockData);
-//       //     blocks.sort((a, b) => {
-//       //         return b.number - a.number;
-//       //     });
-
-//       //     if (error) {
-//       //         console.log("hello error");
-//       //     }
-//       // }
-
-//       // console.log(blockData, "data while pushig");
-//     });
-//     // socket.off("block-socket")
-
-//     // this.props.socket.emit("Connected", "Test");
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         HELLO
-//         {this.state.setResponse.number}
-//       </div>
-//     );
-//   }
-// }
 
 export default LatestBlocks;

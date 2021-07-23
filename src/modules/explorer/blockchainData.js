@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import logo from "../../images/XDC-Icon.svg";
@@ -11,15 +11,14 @@ import accountLogo from "../../images/Accounts.svg";
 import Tab from "./tab";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
-import { AccountService, CoinMarketService, TpsService, TransactionService } from '../../services'
-import Utils from '../../utility'
+import {
+  AccountService,
+  CoinMarketService,
+  TpsService,
+  TransactionService,
+} from "../../services";
+import Utils from "../../utility";
 import socketClient from "socket.io-client";
-// const SERVER = "ws://localhost:3001";
-// let socket = socketClient(SERVER);
-// setInterval(() => {
-//     socket = socketClient(SERVER);
-// }, 5000);
-
 
 const MainContainer = styled.div`
   width: 950px;
@@ -112,7 +111,7 @@ const IconLogo = styled.img`
   margin-left:5px;
 `;
 const LeftTitle = styled.div`
-  margin-top:3px;
+  margin-top: 3px;
   font-size: 20px;
   font-weight: 600;
   font-family: Inter;
@@ -142,231 +141,269 @@ const LeftTopSecMain = styled.div`
   flex-direction: column;
   text-align: center;
 `;
+let changePrice;
+class BlockChainDataComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalTransaction: [],
+      totalAccount: [],
+      someDayAccount: [],
+      coinMarketPrice: [],
+      tpsCounts: {},
+    };
+  }
 
-export default function BlockChainDataComponent() {
+  async componentDidMount() {
+    await this.totalTransactionCount();
+    await this.totalAccountsCount();
+    await this.someDaysAccountCount();
+    await this.coinMarketCapDetails();
+    await this.tpsCountDetail();
+  }
 
-    const [totalTransaction, setTotalTransaction] = useState([]);
-    const [totalAccount, setTotalAccount] = useState([]);
-    const [someDayAccount, setSomeDaysAccounts] = useState([]);
-    const [coinMarketPrice, setcoinMarketPrice] = useState([]);
-    const [tpsCounts, setTpsCount] = useState({});
+  /* FETCHING GET TOTAL TRANSACTIONS API*/
 
-    /* FETCHING GET TOTAL TRANSACTIONS API*/
+  async totalTransactionCount() {
+    let [error, totalTransactions] = await Utils.parseResponse(
+      TransactionService.getTotalTransaction()
+    );
+    if (error || !totalTransactions) return;
+    this.setState({ totalTransaction: totalTransactions });
+    const interval = setInterval(async () => {
+      let [error, totalTransactions] = await Utils.parseResponse(
+        TransactionService.getTotalTransaction()
+      );
+      this.setState({ totalTransaction: totalTransactions });
+    }, 45000);
+  }
 
-    useEffect(async () => {
-        let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
-        if (error || !totalTransactions)
-            return;
-        setTotalTransaction(totalTransactions);
-        const interval = setInterval(async () => {
-            let [error, totalTransactions] = await Utils.parseResponse(TransactionService.getTotalTransaction())
-            setTotalTransaction(totalTransactions);
-        }, 45000)
-    }, []);
+  /* FETCHING GET TOTAL ACCOUNTS API*/
 
-    /* FETCHING GET TOTAL ACCOUNTS API*/
+  async totalAccountsCount() {
+    let [error, totalAccounts] = await Utils.parseResponse(
+      AccountService.getTotalAccount()
+    );
+    if (error || !totalAccounts) return;
+    this.setState({ totalAccount: totalAccounts });
+    const interval = setInterval(async () => {
+      let [error, totalAccounts] = await Utils.parseResponse(
+        AccountService.getTotalAccount()
+      );
+      this.setState({ totalAccount: totalAccounts });
+    }, 45000);
+  }
 
-    useEffect(async () => {
-        let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
-        if (error || !totalAccounts)
-            return
-        setTotalAccount(totalAccounts);
-        const interval = setInterval(async () => {
-            let [error, totalAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
-            setTotalAccount(totalAccounts);
-        }, 45000)
-    }, []);
+  /* FETCHING GET SOME DAYS ACCOUNTS API*/
 
-    // /* FETCHING GET SOME DAYS ACCOUNTS API*/
+  async someDaysAccountCount() {
+    let [error, someDaysAccount] = await Utils.parseResponse(
+      AccountService.getSomeDaysAccount()
+    );
+    if (error || !someDaysAccount) return;
+    this.setState({ someDayAccount: someDaysAccount.length });
+    const interval = setInterval(async () => {
+      let [error, someDaysAccount] = await Utils.parseResponse(
+        AccountService.getSomeDaysAccount()
+      );
+      this.setState({ someDayAccount: someDaysAccount.length });
+    }, 45000);
+  }
 
-    useEffect(async () => {
-        let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
-        if (error || !someDaysAccount)
-            return
-        setSomeDaysAccounts(someDaysAccount.length);
-        const interval = setInterval(async () => {
-            let [error, someDaysAccount] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
-            setSomeDaysAccounts(someDaysAccount.length);
-        }, 45000)
-    }, []);
+  /* FETCHING GET COIN MARKET CAP API*/
 
-    // /* FETCHING GET COIN MARKET CAP API*/
+  async coinMarketCapDetails() {
+    let [error, totalcoinMarketPrice] = await Utils.parseResponse(
+      CoinMarketService.getCoinMarketData()
+    );
+    if (error || !totalcoinMarketPrice) return;
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
 
-    useEffect(async () => {
-        let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
-        if (error || !totalcoinMarketPrice)
-            return
-        totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
-            return a.lastUpdated - b.lastUpdated;
-        });
-        setcoinMarketPrice(totalcoinMarketPrice[1]);
-        const interval = setInterval(async () => {
-            let [error, totalcoinMarketPrice] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
-            setcoinMarketPrice(totalcoinMarketPrice[1]);
-        }, 45000)
-    }, []);
+    this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
+    const interval = setInterval(async () => {
+      let [error, totalcoinMarketPrice] = await Utils.parseResponse(
+        CoinMarketService.getCoinMarketData()
+      );
+      this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
+    }, 45000);
+  }
 
-    // /* FETCHING TPS COUNTER API*/
+  /* FETCHING TPS COUNTER API*/
 
-    useEffect(async () => {
-        let [error, tpsCount] = await Utils.parseResponse(TpsService.getTpsCounter())
-        if (error || !tpsCount)
-            return
+  async tpsCountDetail() {
+    let [error, tpsCount] = await Utils.parseResponse(
+      TpsService.getTpsCounter()
+    );
+    if (error || !tpsCount) return;
 
-        setTpsCount(tpsCount);
-        const interval = setInterval(async () => {
-            let [error, tpsCount] = await Utils.parseResponse(TpsService.getTpsCounter())
-            setTpsCount(tpsCount);
-        }, 45000)
-    }, []);
+    this.setState({ tpsCounts: tpsCount });
+    const interval = setInterval(async () => {
+      let [error, tpsCount] = await Utils.parseResponse(
+        TpsService.getTpsCounter()
+      );
+      this.setState({ tpsCounts: tpsCount });
+    }, 45000);
+  }
 
-    const [blockdata, setblockdata] = useState([]);
-    // let blocks = [...blockdata];
-    // let socket = socketClient(SERVER);
-    // try {
-    //     socket.on("Connected", () => {
-    //         console.log("Hello from client");
-    //     });
-    //     // socket.emit('Connected', "hello")
+  // let blocks = [...blockdata];
+  // let socket = socketClient(SERVER);
+  // try {
+  //     socket.on("Connected", () => {
+  //         console.log("Hello from client");
+  //     });
+  //     // socket.emit('Connected', "hello")
 
-    //     socket.on("block-socket", (blockData) => {
-    //         let blockDataExist = blocks.findIndex((item) => {
-    //             return item.number == blockData.number;
-    //         });
-    //         if (blockDataExist == -1) {
-    //             blocks.pop();
-    //             blocks.unshift(blockData);
-    //             setblockdata(blocks);
-    //         }
+  //     socket.on("block-socket", (blockData) => {
+  //         let blockDataExist = blocks.findIndex((item) => {
+  //             return item.number == blockData.number;
+  //         });
+  //         if (blockDataExist == -1) {
+  //             blocks.pop();
+  //             blocks.unshift(blockData);
+  //             setblockdata(blocks);
+  //         }
 
-    //         // setblockdata(blockData);
-    //         // console.log(blocks, " BLOCK HOONMM")
-    //         // console.log(blockData, "data while pushing");
-    //     });
+  //         // setblockdata(blockData);
+  //         // console.log(blocks, " BLOCK HOONMM")
+  //         // console.log(blockData, "data while pushing");
+  //     });
 
-    // } catch (error) {
-    //     socket.on("Connected", () => {
-    //         console.log("Hello from client");
-    //     });
-    //     // socket.emit('Connected', "hello")
-    // }
-    // console.log(blockdata, "dgbdkjhgdkjgdkusagdlkui")
-    let changePrice
-    if (coinMarketPrice && coinMarketPrice.quote && coinMarketPrice.quote.length >= 1 && coinMarketPrice.quote[0].USD && coinMarketPrice.quote[0].USD.percent_change_24h) {
-        changePrice = coinMarketPrice.quote[0].USD.percent_change_24h;
+  // } catch (error) {
+  //     socket.on("Connected", () => {
+  //         console.log("Hello from client");
+  //     });
+  //     // socket.emit('Connected', "hello")
+  // }
+  // console.log(blockdata, "dgbdkjhgdkjgdkusagdlkui")
+
+  render() {
+    let changePrice;
+    if (
+      this.state.coinMarketPrice &&
+      this.state.coinMarketPrice.quote &&
+      this.state.coinMarketPrice.quote.length >= 1 &&
+      this.state.coinMarketPrice.quote[0].USD &&
+      this.state.coinMarketPrice.quote[0].USD.percent_change_24h
+    ) {
+      changePrice = this.state.coinMarketPrice.quote[0].USD.percent_change_24h;
     }
 
-    var changeDecimal = parseFloat(changePrice).toFixed(2);
-    var changeXdc = coinMarketPrice.price;
-    var changeDecimals = parseFloat(changeXdc).toFixed(6);
-    let changeAccounts = someDayAccount;
-
+    let changeDecimal = parseFloat(changePrice).toFixed(2);
+    let changeXdc = this.state.coinMarketPrice.price;
+    let changeDecimals = parseFloat(changeXdc).toFixed(6);
+    let changeAccounts = this.state.someDayAccount;
     return (
-        <MainContainer>
-            <LeftContainer>
-                <LeftFirst>
-                    <LeftTop>
-                        <IconLogo src={logo} />
-                        <LeftTitle>XDC</LeftTitle>
-                    </LeftTop>
-                    <LeftTopSecMain>
-                        <LeftTopSec>${changeDecimals}</LeftTopSec>
-                        <div
-                            className={
-                                changePrice > 0
-                                    ? "data_value_green last_value_main"
-                                    : "data_value_red"
-                            }
-                        >
-                            <div className="value_changePrice">
-                                {changePrice > 0 ? (
-                                    <div className="arrow_up">
-                                        <BsFillCaretUpFill size={10} />
-                                    </div>
-                                ) : (
-                                    <div className="arrow_down">
-                                        <BsFillCaretDownFill size={10} />
-                                    </div>
-                                )}
-                                &nbsp;{changeDecimal}%
-                            </div>
-                        </div>
-                    </LeftTopSecMain>
-                    <Line1></Line1>
-                </LeftFirst>
-                <LeftSec>
-                    <ValueMain>
-                        <Value>
-                            <TitleIcon src={blockHeightImg} />
-                            <ValueName>
-                                <Title>Block Height</Title>
-                                <TitleValue>{blockdata[0]?.number?.toLocaleString()}</TitleValue>
-                            </ValueName>
-                        </Value>
-                        <Value>
-                            <TitleIcon src={priceLogo} />
-                            <ValueName>
-                                <Title>Gas Price</Title>
-                                <TitleValue>0.0000034</TitleValue>
-                            </ValueName>
-                        </Value>
-                        <Value>
-                            <TitleIcon src={transactionLogo} />
-                            <ValueName>
-                                <Title>Transactions</Title>
-                                <TitleValue> {totalTransaction}</TitleValue>
-                            </ValueName>
-                        </Value>
-                        <Value>
-                            <TitleIcon src={difficultyLogo} />
-                            <ValueName>
-                                <Title>Difficulty</Title>
-                                <TitleValue>{blockdata[0]?.totalDifficulty}</TitleValue>
-                            </ValueName>
-                        </Value>
-                        <Value>
-                            <TitleIcon src={maxLogo} />
-                            <ValueName>
-                                <Title>Current/Max TPS</Title>
-                                <TitleValue>{tpsCounts?.totalTransactions}/2000</TitleValue>
-                            </ValueName>
-                        </Value>
-                        <Value>
-                            <TitleIcon src={accountLogo} />
-                            <ValueName>
-                                <Title>Accounts</Title>
-                                <div className="last_value">
-                                    <TitleValue>{totalAccount}</TitleValue>
-                                    <div
-                                        className={
-                                            changeAccounts > 0
-                                                ? "data_value_green last_value_main"
-                                                : "data_value_red"
-                                        }
-                                    >
-                                        <div className="value_p">
-                                            {changeAccounts > 0 ? (
-                                                <div className="arrow_up">
-                                                    <BsFillCaretUpFill size={10} />
-                                                </div>
-                                            ) : (
-                                                <div className="arrow_down">
-                                                    <BsFillCaretDownFill size={10} />
-                                                </div>
-                                            )}
-                                            {changeAccounts}
-                                        </div>
-                                    </div>
-                                </div>
-                            </ValueName>
-                        </Value>
-                    </ValueMain>
-                </LeftSec>
-            </LeftContainer>
+      <MainContainer>
+        <LeftContainer>
+          <LeftFirst>
+            <LeftTop>
+              <IconLogo src={logo} />
+              <LeftTitle>XDC</LeftTitle>
+            </LeftTop>
+            <LeftTopSecMain>
+              <LeftTopSec>${changeDecimals}</LeftTopSec>
+              <div
+                className={
+                  changePrice > 0
+                    ? "data_value_green last_value_main"
+                    : "data_value_red"
+                }
+              >
+                <div className="value_changePrice">
+                  {changePrice > 0 ? (
+                    <div className="arrow_up">
+                      <BsFillCaretUpFill size={10} />
+                    </div>
+                  ) : (
+                    <div className="arrow_down">
+                      <BsFillCaretDownFill size={10} />
+                    </div>
+                  )}
+                  &nbsp;{changeDecimal}%
+                </div>
+              </div>
+            </LeftTopSecMain>
+            <Line1></Line1>
+          </LeftFirst>
+          <LeftSec>
+            <ValueMain>
+              <Value>
+                <TitleIcon src={blockHeightImg} />
+                <ValueName>
+                  <Title>Block Height</Title>
+                  <TitleValue>hii</TitleValue>
+                </ValueName>
+              </Value>
+              <Value>
+                <TitleIcon src={priceLogo} />
+                <ValueName>
+                  <Title>Gas Price</Title>
+                  <TitleValue>0.0000034</TitleValue>
+                </ValueName>
+              </Value>
+              <Value>
+                <TitleIcon src={transactionLogo} />
+                <ValueName>
+                  <Title>Transactions</Title>
+                  <TitleValue> {this.state.totalTransaction}</TitleValue>
+                </ValueName>
+              </Value>
+              <Value>
+                <TitleIcon src={difficultyLogo} />
+                <ValueName>
+                  <Title>Difficulty</Title>
+                  <TitleValue>hi</TitleValue>
+                </ValueName>
+              </Value>
+              <Value>
+                <TitleIcon src={maxLogo} />
+                <ValueName>
+                  <Title>Current/Max TPS</Title>
+                  <TitleValue>
+                    {this.state.tpsCounts?.totalTransactions}/2000
+                  </TitleValue>
+                </ValueName>
+              </Value>
+              <Value>
+                <TitleIcon src={accountLogo} />
+                <ValueName>
+                  <Title>Accounts</Title>
+                  <div className="last_value">
+                    <TitleValue>{this.state.totalAccount}</TitleValue>
+                    <div
+                      className={
+                        changeAccounts > 0
+                          ? "data_value_green last_value_main"
+                          : "data_value_red"
+                      }
+                    >
+                      <div className="value_p">
+                        {changeAccounts > 0 ? (
+                          <div className="arrow_up">
+                            <BsFillCaretUpFill size={10} />
+                          </div>
+                        ) : (
+                          <div className="arrow_down">
+                            <BsFillCaretDownFill size={10} />
+                          </div>
+                        )}
+                        {changeAccounts}
+                      </div>
+                    </div>
+                  </div>
+                </ValueName>
+              </Value>
+            </ValueMain>
+          </LeftSec>
+        </LeftContainer>
 
-            <RightContainer>
-                <Tab />
-            </RightContainer>
-        </MainContainer>
+        <RightContainer>
+          <Tab />
+        </RightContainer>
+      </MainContainer>
     );
+  }
 }
+export default BlockChainDataComponent;
