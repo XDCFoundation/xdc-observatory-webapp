@@ -328,7 +328,7 @@ render(props) {
                         </TableBody>
                         <TableBody className={msgStatus}>
                             <TableCell id="td" >
-                                    <span style={{textAlign:'center'}} className="tabledata">No data found.</span>
+                                    <span style={{textAlign:'center',color:'red'}} className="tabledata">No data found.</span>
                             </TableCell>
                         </TableBody>
                     </Table>
