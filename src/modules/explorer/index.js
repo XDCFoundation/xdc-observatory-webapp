@@ -10,7 +10,6 @@ import MarketTable from "./marketDatatable";
 export default class BlockChainClass extends BaseComponent {
     constructor(props) {
         super(props)
-        console.log(props, "PORPROP")
     }
     render() {
         return (
