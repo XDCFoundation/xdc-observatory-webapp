@@ -67,7 +67,8 @@ class Contractlist extends React.Component {
           isLoading: 1,
           rows: [],
           totalRecord:0,
-          keywords:''
+          keywords:'',
+          noData:false
         }
        
         
@@ -157,8 +158,14 @@ class Contractlist extends React.Component {
 
     handleChangeRowsPerPage= async(event)=>{ 
        this.setState({amount: event.target.value})
-       let data = {pageNum:this.state.from,perpage:event.target.value}
-       this.getContractList(data)
+        if(this.state.keywords){
+            let data = {pageNum:this.state.from,perpage:this.state.amount,keywords:this.state.keywords}
+            await this.getContractSearch(data)
+        }else{
+            let data = {pageNum:this.state.from,perpage:event.target.value}
+            this.getContractList(data)
+        }
+       
        //this.getTotalContractList()
 
         
@@ -170,7 +177,7 @@ class Contractlist extends React.Component {
         )}`;
     }
     
-    getContractList = async (data) => {
+    getContractList = async (data) => { 
         
         const [error, responseData] = await Utility.parseResponse(
       ContractData.getContractLists(data)
@@ -179,6 +186,7 @@ class Contractlist extends React.Component {
       if(responseData) { 
         this.setState({ isLoading: 0 })
         this.setState({ rows: responseData })
+        this.setState({noData: false}) 
       }else{
         //setLoading(false);
       }
@@ -189,13 +197,21 @@ class Contractlist extends React.Component {
     const [error, responseData] = await Utility.parseResponse(
       ContractData.getContractSearch(data)
     );
-      
-      if(responseData) { 
-        this.setState({ totalRecord: responseData.length })
+
+      if (responseData.totalRecord == 0) {
+        this.setState({noData: true}) 
+        this.setState({ totalRecord: 0 })
         this.setState({ rows: responseData.response })
+      } 
+      if(responseData.totalRecord > 0) { 
+        this.setState({ totalRecord: responseData.totalRecord })
+        this.setState({ rows: responseData.response })
+        this.setState({noData: false}) 
       }else{
         //setLoading(false);
       }
+
+      
     
   }
 
@@ -204,10 +220,13 @@ class Contractlist extends React.Component {
     const [error, responseData] = await Utility.parseResponse(
       ContractData.getTotalContractList()
     );
-      
+      if (responseData == 0) {
+        this.setState({noData: true}) 
+      } 
       if(responseData) { 
         this.setState({ isLoading: 0 })
         this.setState({ totalRecord: responseData })
+        this.setState({noData: false}) 
       }else{
         //setLoading(false);
       }
@@ -217,15 +236,25 @@ class Contractlist extends React.Component {
     
 render(props) {
     const { classes } = this.props;
+    let contentStatus = '';
+    let msgStatus = '';
+    if(this.state.noData){
+         contentStatus = "hideContent"
+         msgStatus = 'showContent'
+    }else{
+         contentStatus = "showContent"
+         msgStatus = 'hideContent'
+    }
     if (this.state.isLoading) {
         return <div id="overlay" className="App"><img src={loader} alt="logo" /></div>;
     }
+    
     return (
         <div style={{backgroundColor:'#fff'}}>
             <Tokensearchbar />
             <div>
                 <div>
-                    <form method="post">
+                    <form method="post" onSubmit={e => { e.preventDefault(); }}>
                         <div className="searchelement-div">
                             <p className="searchelement-token">Contracts</p>
                             <div className="searchelement-input">
@@ -262,7 +291,9 @@ render(props) {
                             </TableRow>
 
                         </TableHead>
-                        <TableBody>
+                        <TableBody >
+                      
+                         
                             {this.state.rows.map((row) => { 
                                 let isToken = ''
                                 if(row.ERC == 0){
@@ -271,7 +302,7 @@ render(props) {
                                      isToken = 'Yes'
                                 }
                                 return (
-                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                         <TableCell id="td">
                                             <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
                                                 href={`/address-details/${row.address}`}>
@@ -292,10 +323,17 @@ render(props) {
 
                                 );
                             })}
+
+                                
+                        </TableBody>
+                        <TableBody className={msgStatus}>
+                            <TableCell id="td" >
+                                    <span style={{textAlign:'center'}} className="tabledata">No data found.</span>
+                            </TableCell>
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Divider className={classes.divider} />
+                
 
             </Paper>
 
@@ -323,7 +361,7 @@ render(props) {
                         <p className="path"><ChevronLeftIcon /></p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {Math.round(this.state.totalRecord / this.state.amount) + 1 - Math.round((this.state.totalRecord -this.state.from) / this.state.amount)} of {Math.ceil(this.state.totalRecord / this.state.amount)}</p>
+                        <p className="Page-1-of-5">Page {Math.round(this.state.totalRecord / this.state.amount) + 1 - Math.round((this.state.totalRecord - this.state.from) / this.state.amount)} of {Math.ceil(this.state.totalRecord / this.state.amount)}</p>
                     </div>
                     <div className="nextbox">
                         <p className="path-2" onClick={() => this.handleChangePage("next")}><ChevronRightIcon /></p>

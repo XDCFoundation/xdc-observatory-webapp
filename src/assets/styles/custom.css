@@ -2494,3 +2494,9 @@ button {
   color: #939499 !important;
   font-weight: bold;
 }
+.showContent {
+  display: block !important;
+}
+.hideContent {
+  display: none !important;
+}
