@@ -214,7 +214,7 @@ export default function StickyHeadTable() {
             let data = {pageNum:from,perpage:amount,searchkey:searchkeyword}
             SearchTokens(data)
         }
-        if(searchkeyword.length < 2){
+        if(searchkeyword.length == 0){
             setLoading(false);
             let data = {pageNum:from,perpage:amount}
             getTokenList(data)
@@ -286,7 +286,7 @@ export default function StickyHeadTable() {
 
 
                 <div>
-                    <form method="post">
+                    <form method="post" onSubmit={e => { e.preventDefault(); }}>
 
                         <div className="searchelement-div">
                             <p className="searchelement-token">Tokens</p>
