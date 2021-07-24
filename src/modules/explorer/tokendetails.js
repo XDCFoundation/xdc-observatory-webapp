@@ -122,7 +122,7 @@ export default function StickyHeadTable() {
     const [keywords, setKeywords] = React.useState('');
     const [rows, setRows] = React.useState([]);    
     const history = useHistory()
-
+    const [noData, setNoData] = React.useState(0);
     const handleChangePage = (action) => {
         if(action == 'first'){
             setFrom(0)
@@ -130,8 +130,10 @@ export default function StickyHeadTable() {
                 let data = {pageNum:0,perpage:amount,searchkey:keywords}
                 SearchTokens(data)
             }else{
+                setNoData(0)
                 let data = {pageNum:0,perpage:amount}
                 getTokenList(data)
+                getTotalTokenList()
             }
             
         }
@@ -143,8 +145,10 @@ export default function StickyHeadTable() {
                 let data = {pageNum:page,perpage:amount,searchkey:keywords}
                 SearchTokens(data)
                 }else{
+                    setNoData(0)
                     let data = {pageNum:page,perpage:amount}
                     getTokenList(data)
+                    getTotalTokenList()
                 }
                 
             }
@@ -157,26 +161,15 @@ export default function StickyHeadTable() {
                 let data = {pageNum:page,perpage:amount,searchkey:keywords}
                 SearchTokens(data)
                 }else{
+                    setNoData(0)
                     let data = {pageNum:page,perpage:amount}
                     getTokenList(data)
+                    getTotalTokenList()
                 }
             }
 
         } 
-        /*if (action == 'next') {
-            if (Math.ceil(totalToken / amount) < from + 1){
-                setFrom(Math.ceil(totalToken / amount))
-                
-                if(keywords){
-                let data = {pageNum:Math.ceil(totalToken / amount),perpage:amount,searchkey:keywords}
-                SearchTokens(data)
-                }else{
-                    let data = {pageNum:Math.ceil(totalToken / amount),perpage:amount}
-                    getTokenList(data)
-                }
-            }
-                
-        }*/
+       
         if (action == 'last') { 
             let page = totalToken - amount           
             setFrom(page)
@@ -185,8 +178,10 @@ export default function StickyHeadTable() {
                 let data = {pageNum:page,perpage:amount,searchkey:keywords}
                 SearchTokens(data)
             }else{
+                setNoData(0)
                 let data = {pageNum:page,perpage:amount}
                 getTokenList(data)
+                getTotalTokenList()
             }
             
         }
@@ -200,8 +195,10 @@ export default function StickyHeadTable() {
             let data = {pageNum:0,perpage:event.target.value,searchkey:keywords}
             SearchTokens(data)
         }else{
+            setNoData(0)
             let data = {pageNum:0,perpage:event.target.value}
             getTokenList(data)
+            getTotalTokenList()
         }
         
     };
@@ -216,8 +213,10 @@ export default function StickyHeadTable() {
         }
         if(searchkeyword.length == 0){
             setLoading(false);
+            setNoData(0)
             let data = {pageNum:from,perpage:amount}
             getTokenList(data)
+            getTotalTokenList()
         }
     }
     const getTokenList = async (data) => {
@@ -255,9 +254,15 @@ export default function StickyHeadTable() {
             const [error, responseData] = await Utility.parseResponse(
             TokenData.getTokenSearch(data)
         );
+        if(responseData.total == 0){
+            setNoData(1);
+            setTotalToken(0);
+            setRows([])
+        }
            
-        if(responseData) {
-            setTotalToken(responseData.length);
+        if(responseData.total > 0) {
+            setNoData(0);
+            setTotalToken(responseData.total);
             setLoading(false);
             setRows(responseData.newResponse)
             //alert(responseData.length)
@@ -273,6 +278,15 @@ export default function StickyHeadTable() {
         getTokenList(data)
         getTotalTokenList()
     },[]);
+    let contentStatus = '';
+    let msgStatus = '';
+    if(noData){
+         contentStatus = "hideContent"
+         msgStatus = 'showContent'
+    }else{
+         contentStatus = "showContent"
+         msgStatus = 'hideContent'
+    }
     if(isLoading){
         return(<div class="loader"></div>)
     }
@@ -371,6 +385,11 @@ export default function StickyHeadTable() {
 
                                 );
                             })}
+                        </TableBody>
+                        <TableBody className={msgStatus}>
+                           <TableCell id="td" >
+                                <span style={{textAlign:'center',color:'red'}} className="tabledata">No data found.</span>
+                           </TableCell>
                         </TableBody>
                     </Table>
                 </TableContainer>

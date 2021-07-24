@@ -2382,3 +2382,9 @@ button {
     transform: rotate(360deg);
   }
 }
+.showContent {
+  display: block !important;
+}
+.hideContent {
+  display: none !important;
+}
