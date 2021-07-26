@@ -78,7 +78,7 @@ export default function AddressDetails() {
   }, []);
 
         if (isLoading) {
-            return <div className="App">Loading...</div>;
+            return <div class="loader"></div>;
           }
 
   return (
