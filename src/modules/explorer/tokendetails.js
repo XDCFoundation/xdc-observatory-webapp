@@ -202,7 +202,7 @@ export default function StickyHeadTable() {
         }
         
     };
-    const handleKeyUp = (event) => {
+    const handleSearchKeyUp = (event) => {
         let searchkeyword = event.target.value
 
         if(searchkeyword.length > 2){
@@ -308,7 +308,7 @@ export default function StickyHeadTable() {
                                 <img style={{width: 22, height: 22, marginRight: 5}}
                                      src={require('../../assets/images/Search.png')}/>
                                 <input
-                                onKeyUp={handleKeyUp}
+                                
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,

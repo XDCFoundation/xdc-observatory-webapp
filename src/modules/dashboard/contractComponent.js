@@ -245,8 +245,9 @@ render(props) {
          contentStatus = "showContent"
          msgStatus = 'hideContent'
     }
-    if (this.state.isLoading) {
-        return <div id="overlay" className="App"><img src={loader} alt="logo" /></div>;
+    
+    if(this.state.isLoading){
+        return(<div class="loader"></div>)
     }
     
     return (
