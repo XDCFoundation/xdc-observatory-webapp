@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -316,7 +316,7 @@ export default function StickyHeadTable() {
                                         outlineColor: '#e3e7eb',
                                         borderWidth: 0
                                     }} type="text"
-                                    placeholder="Search Tokens"/>
+                                    placeholder="Search Tokens" onKeyUp={handleSearchKeyUp}/>
                                 {/* name="NAME" */}
                             </div>
 
