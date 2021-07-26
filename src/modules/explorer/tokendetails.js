@@ -14,7 +14,8 @@ import FooterComponent from '../common/footerComponent';
 import {useHistory} from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-
+import Utility, { dispatchAction } from "../../utility";
+import TokenData from "../../services/token";
 
 const columns = [
     {
@@ -83,279 +84,8 @@ function createData(S, src, Token, Type, Contract, Holder, Status) {
     return {S, src, Token, Type, Contract, Holder, Status};
 }
 
-const rows = [
 
-    {
-        S: 1,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 2,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'USDC',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 3,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'DAI',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 4,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'Tether',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 5,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'PAXOS',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 6,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 2,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'USDC',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 3,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'DAI',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 4,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'Tether',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 5,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'PAXOS',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 6,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 2,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'USDC',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 3,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'DAI',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 4,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'Tether',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 5,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'PAXOS',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 6,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 2,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'USDC',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 3,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'DAI',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 4,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'Tether',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 5,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'PAXOS',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 6,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 2,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'USDC',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 3,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'DAI',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 4,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'Tether',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 5,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'PAXOS',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 6,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'EURG',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 2,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'USDC',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 3,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'DAI',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 4,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'Tether',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-    {
-        S: 5,
-        src: "https://th.bing.com/th/id/OIP.x2szykLFcwq3fzNBzpdkpwHaHa?w=173&h=180&c=7&o=5&dpr=1.25&pid=1.7",
-        Token: 'PAXOS',
-        Type: 'XRC 20',
-        Contract: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Holder: '5,75,203',
-        Status: 'Verified'
-    },
-];
+
 
 const useStyles = makeStyles({
     rootui: {
@@ -385,55 +115,200 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable() {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+    const [from, setFrom] = React.useState(0);
+    const [amount, setAmount] = React.useState(10);
+    const [isLoading, setLoading] = React.useState(true);
+    const [totalToken, setTotalToken] = React.useState(0);
+    const [keywords, setKeywords] = React.useState('');
+    const [rows, setRows] = React.useState([]);    
     const history = useHistory()
-
+    const [noData, setNoData] = React.useState(0);
     const handleChangePage = (action) => {
-
-        if (action == 'next') {
-            if (Math.ceil(rows.length / rowsPerPage) != page + 1) {
-                setPage(page + 1)
-
+        if(action == 'first'){
+            setFrom(0)
+            if(keywords){
+                let data = {pageNum:0,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+            }else{
+                setNoData(0)
+                let data = {pageNum:0,perpage:amount}
+                getTokenList(data)
+                getTotalTokenList()
             }
-
-        } else {
-            if (0 != page) {
-                setPage(page - 1)
+            
+        }
+        if(action == 'prev'){
+            if (from - amount >= 0) {
+                let page = from - amount
+                setFrom(page)
+                if(keywords){
+                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+                }else{
+                    setNoData(0)
+                    let data = {pageNum:page,perpage:amount}
+                    getTokenList(data)
+                    getTotalTokenList()
+                }
+                
             }
         }
         if (action == 'next') {
-            if (Math.ceil(rows.length / rowsPerPage) < page + 1)
-                setPage(Math.ceil(rows.length / rowsPerPage))
+            if (amount + from < totalToken) {
+                let page = amount + from
+                setFrom(page)
+                if(keywords){
+                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+                }else{
+                    setNoData(0)
+                    let data = {pageNum:page,perpage:amount}
+                    getTokenList(data)
+                    getTotalTokenList()
+                }
+            }
+
+        } 
+       
+        if (action == 'last') { 
+            let page = totalToken - amount           
+            setFrom(page)
+            
+            if(keywords){
+                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+                SearchTokens(data)
+            }else{
+                setNoData(0)
+                let data = {pageNum:page,perpage:amount}
+                getTokenList(data)
+                getTotalTokenList()
+            }
+            
         }
-
-
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
+        setAmount(event.target.value);
+        setFrom(0);
+        setAmount(event.target.value)
+        if(keywords){
+            let data = {pageNum:0,perpage:event.target.value,searchkey:keywords}
+            SearchTokens(data)
+        }else{
+            setNoData(0)
+            let data = {pageNum:0,perpage:event.target.value}
+            getTokenList(data)
+            getTotalTokenList()
+        }
+        
     };
+    const handleKeyUp = (event) => {
+        let searchkeyword = event.target.value
 
+        if(searchkeyword.length > 2){
+            setKeywords(searchkeyword)
+            setLoading(false);
+            let data = {pageNum:from,perpage:amount,searchkey:searchkeyword}
+            SearchTokens(data)
+        }
+        if(searchkeyword.length == 0){
+            setLoading(false);
+            setNoData(0)
+            let data = {pageNum:from,perpage:amount}
+            getTokenList(data)
+            getTotalTokenList()
+        }
+    }
+    const getTokenList = async (data) => {
+        try {
+            const [error, responseData] = await Utility.parseResponse(
+            TokenData.getTokenLists(data)
+        );
+           
+        if(responseData) {
+            setLoading(false);
+            setRows(responseData)
+
+        }else{
+            setLoading(false);
+        }
+        }catch (error) {
+          console.error(error);
+        }
+  }
+  const getTotalTokenList = async () => {
+        try {
+            const [error, responseData] = await Utility.parseResponse(
+            TokenData.getTotalToken()
+        );
+           
+        if(responseData) {
+            setTotalToken(responseData);
+        }
+        }catch (error) {
+          console.error(error);
+        }
+  }
+  const SearchTokens = async (data) => {
+        try {
+            const [error, responseData] = await Utility.parseResponse(
+            TokenData.getTokenSearch(data)
+        );
+        if(responseData.total == 0){
+            setNoData(1);
+            setTotalToken(0);
+            setRows([])
+        }
+           
+        if(responseData.total > 0) {
+            setNoData(0);
+            setTotalToken(responseData.total);
+            setLoading(false);
+            setRows(responseData.newResponse)
+            //alert(responseData.length)
+        }
+        }catch (error) {
+          console.error(error);
+        }
+  }
+
+
+    React.useEffect(() => {
+        let data = {pageNum:from,perpage:amount}
+        getTokenList(data)
+        getTotalTokenList()
+    },[]);
+    let contentStatus = '';
+    let msgStatus = '';
+    if(noData){
+         contentStatus = "hideContent"
+         msgStatus = 'showContent'
+    }else{
+         contentStatus = "showContent"
+         msgStatus = 'hideContent'
+    }
+    if(isLoading){
+        return(<div class="loader"></div>)
+    }
 
     return (
-        <div>
+        <div style={{backgroundColor: '#fff'}}>
             <Tokensearchbar/>
 
+        
             <div>
 
 
                 <div>
-                    <form method="post">
+                    <form method="post" onSubmit={e => { e.preventDefault(); }}>
 
                         <div className="searchelement-div">
                             <p className="searchelement-token">Tokens</p>
                             <div className="searchelement-input">
                                 <img style={{width: 22, height: 22, marginRight: 5}}
                                      src={require('../../assets/images/Search.png')}/>
-
                                 <input
+                                onKeyUp={handleKeyUp}
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,
@@ -456,7 +331,8 @@ export default function StickyHeadTable() {
 
             <br/>
             <Paper className={classes.rootui}>
-                <TableContainer className={classes.container} id="container-table">
+                <TableContainer className={classes.container} id="container-table"
+                style={{borderRadius: '12px',border: 'solid 1px #e3e7eb',backgroundColor: '#ffffff',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)'}}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -472,26 +348,37 @@ export default function StickyHeadTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                            {rows.map((row,index) => {
                                 return (
-
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}
+                               
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row._id}
                                               onClick={() => history.push('/token-data')}>
 
                                         <TableCell style={{width: '1px'}} id="td">
-                                            {row.S}
+                                            {index + 1}
                                         </TableCell>
+                                        {row.src ?
                                         <TableCell style={{width: '1px'}} id="td"> <img
-                                            style={{width: 25, height: 25, borderRadius: '10px'}}
-                                            src={row.src}/></TableCell>
-                                        <TableCell id="td" style={{width: '110px'}}>{row.Token}</TableCell>
-                                        <TableCell id="td" style={{width: '130px'}}>{row.Type}</TableCell>
+                                            style={{width: 25, height: 25, borderRadius: '15px'}}
+                                            src= {row.src} /></TableCell>
+                                            :
+                                          <TableCell style={{width: '1px'}} id="td"> 
+                                          {row.tokenName ? 
+                                          <span style={{width: 25, height: 25, borderRadius: '15px',border:'1px solid',padding:'5px'}}
+                                             >{row.tokenName ? row.tokenName.slice(0, 2).toUpperCase() : ''}</span>
+                                             :
+                                            ''
+                                          }   
+                                           </TableCell>  
+                                       }
+                                        <TableCell id="td" style={{width: '110px'}}>{row.tokenName}</TableCell>
+                                        <TableCell id="td" style={{width: '130px'}}>{row.type}</TableCell>
                                         <TableCell>
                                             <a style={{fontSize: 12, color: '#2149b9'}}
-                                               href="#text-as"> {row.Contract}</a>
+                                               href={'/address-details/'+row.address}> {row.address}</a>
                                         </TableCell>
-                                        <TableCell id="td" style={{width: '120px'}}>{row.Holder}</TableCell>
-                                        <TableCell id="td">{row.Status}</TableCell>
+                                        <TableCell id="td" style={{width: '120px'}}>{row.tokenHolders}</TableCell>
+                                        <TableCell id="td">{row.status}</TableCell>
 
 
                                     </TableRow>
@@ -499,11 +386,49 @@ export default function StickyHeadTable() {
                                 );
                             })}
                         </TableBody>
+                        <TableBody className={msgStatus}>
+                           <TableCell id="td" >
+                                <span style={{textAlign:'center',color:'red'}} className="tabledata">No data found.</span>
+                           </TableCell>
+                        </TableBody>
                     </Table>
                 </TableContainer>
-                <Divider className={classes.divider}/>
 
+               {/* <Divider className={classes.divider}/>*/}
             </Paper>
+            <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
+                <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '18%'}}>
+                    Show
+                    <select value={amount} className="selectbox" onChange={handleChangeRowsPerPage}> 
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                        <option value={75}>75</option>
+                        <option value={100}>100</option>
+                    </select>
+                    Records
+                </div>
+
+                <div style={{display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
+                    <div className="firstbox" onClick={() => handleChangePage("first")}>
+                        <button style={{backgroundColor: 'white'}} className="first">First</button>
+                    </div>
+                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
+                        <p className="path"><ChevronLeftIcon/></p>
+                    </div>
+                    <div className="pagebox">
+                        <p className="Page-1-of-5">Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}</p>
+                    </div>
+                    <div className="nextbox">
+                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
+                    </div>
+                    <div className="lastbox" onClick={() => handleChangePage("last")}>
+                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
+                    </div>
+                </div>
+
+
+            </div>
 
             {/* <TablePagination
                 style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -516,40 +441,7 @@ export default function StickyHeadTable() {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
 
             /> */}
-            <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-
-                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px'}}>
-                    Show
-                    <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option selected>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                        <option>100</option>
-                    </select>
-                    Records
-                </div>
-
-                <div style={{display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
-
-                    <div className="firstbox" onClick={() => setPage(0)}>
-                        <button style={{backgroundColor: 'white'}} className="first">First</button>
-                    </div>
-                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path"><ChevronLeftIcon/></p>
-                    </div>
-                    <div className="pagebox">
-                        <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}</p>
-                    </div>
-                    <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
-                    </div>
-                    <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage) - 1)}>
-                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
-                    </div>
-                </div>
-
-
-            </div>
+            
 
             <FooterComponent/>
 
