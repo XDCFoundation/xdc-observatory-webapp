@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState , useEffect } from 'react';
+import { withStyles,makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,21 +15,19 @@ import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Tooltip from '@material-ui/core/Tooltip';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import Utility, { dispatchAction } from "../../utility";
+import ContractData from "../../services/contract";
+import loader from '../../assets/images/loader.gif';
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 
-const rows = [
-
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe80', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe90', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-    { Address: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60', Tokenname: 'EURG', Contractname: 'Coin', IsToken: 'Yes' },
-
-
-];
 
 const useStyles = makeStyles({
     rootui: {
@@ -41,6 +39,9 @@ const useStyles = makeStyles({
 
     container: {
 
+        borderRadius: '14px',
+        boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',
+        border: 'solid 1px #e3e7eb',
         borderTopColor: 'white',
         backgroundColor: 'white',
         borderBottomColor: 'white',
@@ -52,68 +53,216 @@ const useStyles = makeStyles({
     divider: {
         borderTop: '0px solid #bbb',
         width: "100%"
-    },
+    }
 
 });
 
 
-export default function StickyHeadTable() {
-    const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(50);
+class Contractlist extends React.Component {
+        constructor(props) {
+        super(props)
+        this.state = {
+          from: 0,
+          amount: 10,
+          isLoading: 1,
+          rows: [],
+          totalRecord:0,
+          keywords:'',
+          noData:false
+        }
+       
+        
+      }
+    componentDidMount = async () => { 
+        let data = {pageNum:this.state.from,perpage:this.state.amount}
+        await this.getContractList(data);
+        await this.getTotalContractList()
+    };
+    
+     componentDidUpdate(){
+        //console.log(this.state)
+     }
 
-    const history = useHistory()
+      handleKeyUp = async(event) => {
+        let searchkeyword = event.target.value
+        this.setState({ from: 0})
+        if(searchkeyword.length > 2){
+            this.setState({keywords: searchkeyword})
+            this.setState({ isLoading: 0 })
+            let data = {pageNum:this.state.from,perpage:this.state.amount,keywords:searchkeyword}
+            await this.getContractSearch(data)
+        }
+        if(searchkeyword.length == 0){
+            this.setState({ from: 0})
+            let data = {pageNum:0,perpage:this.state.amount}
+            await this.getContractList(data);
+            await this.getTotalContractList()
+        }
+    }
 
-    const handleChangePage = (action) => {
-
-        if (action === 'next') {
-            if (Math.ceil(rows.length / rowsPerPage) !== page + 1) {
-                setPage(page + 1)
-
-            }
-
-        } else {
-            if (0 !== page) {
-                setPage(page - 1)
+    handleChangePage=async(action)=>{ 
+        if (action == 'first') { 
+            this.setState({ from: 0})
+            if(this.state.keywords){
+                let data = {pageNum:0,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+            }else{
+                await this.getContractList(0,this.state.amount);
+                await this.getTotalContractList()
             }
         }
-        if (action === 'next') {
-            if (Math.ceil(rows.length / rowsPerPage) < page + 1)
-                setPage(Math.ceil(rows.length / rowsPerPage))
+        if (action === 'last') {
+            let page = this.state.totalRecord - this.state.amount
+            this.setState({ from: page})
+            if(this.state.keywords){
+                let data = {pageNum:page,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+            }else{
+                let data = {pageNum:page,perpage:this.state.amount}
+                await this.getContractList(data)
+                await this.getTotalContractList()
+            }
         }
 
+        if (action === 'next') {
+            if (this.state.amount + this.state.from < this.state.totalRecord) {
+                let page = this.state.amount + this.state.from
+                this.setState({ from: page})
+               if(this.state.keywords){
+                let data = {pageNum:page,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+                }else{
+                    let data = {pageNum:page,perpage:this.state.amount}
+                    await this.getContractList(data)
+                    await this.getTotalContractList()
+                }
+            }
+        }
+        if (action === 'prev') {
+            if (this.state.from - this.state.amount >= 0) {
+                let page = this.state.from - this.state.amount
+                this.setState({ from: page})
+                if(this.state.keywords){
+                let data = {pageNum:page,perpage:this.state.amount,keywords:this.state.keywords}
+                await this.getContractSearch(data)
+                }else{
+                    let data = {pageNum:page,perpage:this.state.amount}
+                    await this.getContractList(data)
+                    await this.getTotalContractList()
+                }           
 
-    };
+            }
+        }
+        
+    }
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
+    handleChangeRowsPerPage= async(event)=>{ 
+       this.setState({amount: event.target.value})
+        if(this.state.keywords){
+            let data = {pageNum:this.state.from,perpage:this.state.amount,keywords:this.state.keywords}
+            await this.getContractSearch(data)
+        }else{
+            let data = {pageNum:this.state.from,perpage:event.target.value}
+            this.getContractList(data)
+        }
+       
+       //this.getTotalContractList()
 
-    function shorten(b, amountL = 10, amountR = 3, stars = 3) {
+        
+    }
+    shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
             b.length
         )}`;
     }
+    
+    getContractList = async (data) => { 
+        
+        const [error, responseData] = await Utility.parseResponse(
+      ContractData.getContractLists(data)
+    );
 
+      if(responseData) { 
+        this.setState({ isLoading: 0 })
+        this.setState({ rows: responseData })
+        this.setState({noData: false}) 
+      }else{
+        //setLoading(false);
+      }
+    
+  }
+
+  getContractSearch = async (data) => { 
+    const [error, responseData] = await Utility.parseResponse(
+      ContractData.getContractSearch(data)
+    );
+
+      if (responseData.totalRecord == 0) {
+        this.setState({noData: true}) 
+        this.setState({ totalRecord: 0 })
+        this.setState({ rows: responseData.response })
+      } 
+      if(responseData.totalRecord > 0) { 
+        this.setState({ totalRecord: responseData.totalRecord })
+        this.setState({ rows: responseData.response })
+        this.setState({noData: false}) 
+      }else{
+        //setLoading(false);
+      }
+
+      
+    
+  }
+
+  getTotalContractList = async () => {
+    
+    const [error, responseData] = await Utility.parseResponse(
+      ContractData.getTotalContractList()
+    );
+      if (responseData == 0) {
+        this.setState({noData: true}) 
+      } 
+      if(responseData) { 
+        this.setState({ isLoading: 0 })
+        this.setState({ totalRecord: responseData })
+        this.setState({noData: false}) 
+      }else{
+        //setLoading(false);
+      }
+    
+  }
+
+    
+render(props) {
+    const { classes } = this.props;
+    let contentStatus = '';
+    let msgStatus = '';
+    if(this.state.noData){
+         contentStatus = "hideContent"
+         msgStatus = 'showContent'
+    }else{
+         contentStatus = "showContent"
+         msgStatus = 'hideContent'
+    }
+    
+    if(this.state.isLoading){
+        return(<div class="loader"></div>)
+    }
+    
     return (
-        <div>
+        <div style={{backgroundColor:'#fff'}}>
             <Tokensearchbar />
-
             <div>
-
-
                 <div>
-                    <form method="post">
-
+                    <form method="post" onSubmit={e => { e.preventDefault(); }}>
                         <div className="searchelement-div">
                             <p className="searchelement-token">Contracts</p>
                             <div className="searchelement-input">
                                 <img style={{ width: 22, height: 22, marginRight: 5 }}
                                     src={require('../../assets/images/Search.png')} />
-
                                 <input
+                                    onKeyUp={this.handleKeyUp}
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,
@@ -124,18 +273,12 @@ export default function StickyHeadTable() {
                                     placeholder="Search Contracts" />
                                 {/* name="NAME" */}
                             </div>
-
                         </div>
-
-
                     </form>
-
-
                 </div>
             </div>
-
             <br />
-            <Paper className={classes.rootui}>
+            <Paper style={{ borderRadius: '14px',marginLeft: '18%',marginRight: '18%' }} className={classes.rootui}>
                 <TableContainer className={classes.container} id="container-table">
                     <Table>
                         <TableHead>
@@ -149,35 +292,49 @@ export default function StickyHeadTable() {
                             </TableRow>
 
                         </TableHead>
-                        <TableBody>
-                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                        <TableBody >
+                      
+                         
+                            {this.state.rows.map((row) => { 
+                                let isToken = ''
+                                if(row.ERC == 0){
+                                     isToken = 'No'
+                                }else{
+                                     isToken = 'Yes'
+                                }
                                 return (
-
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-
+                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                         <TableCell id="td">
-                                            <Tooltip placement="right" title={row.Address}><VisibilityIcon
-                                                fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
                                             <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
-                                                href="#text"><span className="tabledata"> {shorten(row.Address)} </span>
+                                                href={`/address-details/${row.address}`}>
+                                                <Tooltip placement="top" title={row.address}>
+                                                <span className="tabledata">{this.shorten(row.address)} </span>
+                                                </Tooltip>
                                             </a>
                                         </TableCell>
                                         <TableCell id="td"><span className="tabledata"
-                                            style={{ marginLeft: '6px' }}>{row.Tokenname}</span></TableCell>
+                                            style={{ marginLeft: '6px' }}>{row.tokenName}</span></TableCell>
                                         <TableCell id="td"><span className="tabledata"
-                                            style={{ marginLeft: '5px' }}>{row.Contractname}</span></TableCell>
+                                            style={{ marginLeft: '5px' }}>{row.contractName}</span></TableCell>
                                         <TableCell id="td"><span className="tabledata"
-                                            style={{ marginLeft: '5px' }}>{row.IsToken}</span></TableCell>
+                                            style={{ marginLeft: '5px' }}>{isToken}</span></TableCell>
 
 
-                                    </TableRow>
+                                    </StyledTableRow>
 
                                 );
                             })}
+
+                                
+                        </TableBody>
+                        <TableBody className={msgStatus}>
+                            <TableCell id="td" >
+                                    <span style={{textAlign:'center',color:'red'}} className="tabledata">No data found.</span>
+                            </TableCell>
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Divider className={classes.divider} />
+                
 
             </Paper>
 
@@ -186,30 +343,31 @@ export default function StickyHeadTable() {
 
                 <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '270px', marginTop: '50px' }}>
                     Show
-                    <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option selected>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                        <option>100</option>
+                    <select value={this.state.amount} className="selectbox" onChange={(event) => this.handleChangeRowsPerPage(event)}>
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                        <option value={75}>75</option>
+                        <option value={100}>100</option>
                     </select>
                     Records
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'row', marginRight: '17%' }}>
 
-                    <div className="firstbox" onClick={() => setPage(0)}>
+                    <div  className={this.state.from == 0 ? "firstbox disabled" : "firstbox"} onClick={() => this.handleChangePage("first")}>
                         <button style={{ backgroundColor: 'white' }} className="first">First</button>
                     </div>
-                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
+                    <div className="previousbox" onClick={() => this.handleChangePage("prev")}>
                         <p className="path"><ChevronLeftIcon /></p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}</p>
+                        <p className="Page-1-of-5">Page {Math.round(this.state.totalRecord / this.state.amount) + 1 - Math.round((this.state.totalRecord - this.state.from) / this.state.amount)} of {Math.ceil(this.state.totalRecord / this.state.amount)}</p>
                     </div>
                     <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /></p>
+                        <p className="path-2" onClick={() => this.handleChangePage("next")}><ChevronRightIcon /></p>
                     </div>
-                    <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage) - 1)}>
+                    <div className="lastbox" onClick={() => this.handleChangePage("last")}>
                         <button style={{ backgroundColor: 'white' }} className="last">Last</button>
                     </div>
                 </div>
@@ -223,3 +381,5 @@ export default function StickyHeadTable() {
 
     );
 }
+}
+export default withStyles(useStyles)(Contractlist);
