@@ -21,7 +21,7 @@ import { BlockService } from '../../services';
 const useStyles = makeStyles({
     rootui: {
         minWidth: 650,
-        borderRadius: '17px',
+        borderRadius: '10px',
         backgroundColor: 'white'
     }
 });
@@ -93,7 +93,7 @@ export default function BlockDetailsData() {
                     {/* {isActive === true ? (<p className="Success-rectangle-block" >Success</p>) :
                         (<p className="failure-rectangle">Failed</p>)} */}
                 </div>
-                <Paper className={classes.rootui}>
+                <Paper className={classes.rootui} elevation={0}>
                     <Table className="table-block" aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -106,7 +106,7 @@ export default function BlockDetailsData() {
                                 <TableCell style={{ borderBottom: "none" }} className="first-row-table">
                                     Hash ID
                                 </TableCell>
-                                <TableCell className="second-row-table_hash">
+                                <TableCell className="second-row-table_hash" style={{ borderBottom: "none" }}>
                                     {height.hash}
                                 </TableCell>
                                 <p style={{ marginTop: '17px' }}>
@@ -120,67 +120,67 @@ export default function BlockDetailsData() {
                     </Table>
                 </Paper>
                 <br />
-                <Paper className={classes.rootui}>
+                <Paper className={classes.rootui} elevation={0}>
                     <Table className="table-block" aria-label="simple table">
-                        <TableHead>
+                        <TableHead >
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={blockheight}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Block Height
                                 </TableCell>
-                                <TableCell className="second-row-table_height">
+                                <TableCell className="second-row-table_height" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     <ArrowBackIosIcon style={{ marginRight: "10px" }}
                                         onClick={decrement} />{count}<ArrowForwardIosIcon
                                         style={{ marginLeft: "10px" }} onClick={increment} />
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={hashid}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Transactions
                                 </TableCell>
                                 <TableCell className="second-row-table">
                                     {height.transactions && height.transactions.length ? height.transactions.length : 0}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={timestamp}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Time Stamp
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {moment(height.timestamp * 1000).format('MMMM Do YYYY, h:mm:ss a')}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={parenthash}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Parent Hash
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     <a className="parent_hash"> {height.parentHash}</a>
 
                                     <CopyToClipboard text={height.parentHash}>
@@ -188,125 +188,125 @@ export default function BlockDetailsData() {
                                             color: '#2149b9',
                                             backgroundColor: 'white',
                                             fontSize: 14,
-                                            marginLeft: '10px'
+                                            marginLeft: '22px'
                                         }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
                                     </CopyToClipboard>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}>
 
                                 </TableCell>
 
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={sha3uncles}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Sha3Uncles
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.sha3Uncles}
                                     <CopyToClipboard text={height.sha3Uncles}>
                                         <button style={{
                                             color: '#2149b9',
                                             backgroundColor: 'white',
                                             fontSize: 14,
-                                            marginLeft: '10px'
+                                            marginLeft: '50px'
                                         }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
                                     </CopyToClipboard>
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={diffi}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Difficulty
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.difficulty}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={tdiffi}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Total Difficulty </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.totalDifficulty}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={gasU}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Gas Used
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.gasUsed}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }} id="td">
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }} id="td">
                                     <Tooltip align="right" title={gasL}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Gas Limit
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.gasLimit}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px" }}>
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "1px solid #e3e7eb" }}>
                                     <Tooltip align="right" title={nonc}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     Nonce
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.nonce}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "none" }}>
+                                <TableCell style={{ width: '0px', paddingRight: "1px", borderBottom: "none", paddingBottom: "60px" }}>
                                     <Tooltip align="right" title={extrad}>
                                         <img style={{ width: 13, height: 13 }}
                                             src={require("../../../src/assets/images/questionmark.png")} />
                                     </Tooltip>
                                 </TableCell>
-                                <TableCell className="first-row-table">
+                                <TableCell className="first-row-table" style={{ paddingBottom: "60px", borderBottom: "none" }}>
                                     Extra Data
                                 </TableCell>
-                                <TableCell className="second-row-table">
+                                <TableCell className="second-row-table-extra" style={{ borderBottom: "none" }}>
                                     <textarea className="text-area" readOnly value={height.extraData} />
                                 </TableCell>
                             </TableRow>

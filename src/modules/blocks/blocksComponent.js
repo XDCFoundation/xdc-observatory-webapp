@@ -73,7 +73,7 @@ export default function BlocksComponent(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.state.blocksList && props.state.blocksList.length && props.state.blocksList.map((row, index) => {
+                        {props.state.blocksList && props.state.blocksList.length >= 1 && props.state.blocksList.map((row, index) => {
 
                             const currentTime = new Date();
                             const previousTime = new Date(row.timestamp * 1000);

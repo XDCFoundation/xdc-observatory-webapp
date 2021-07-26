@@ -4,7 +4,6 @@ import "../../assets/styles/custom.css";
 import INR from "../../assets/images/inr.png";
 import EUR from "../../assets/images/euro.png";
 import DOLLAR from "../../assets/images/dollar.png";
-import NightModeLogo from "../../images/nightmode.svg"
 import Grid from '@material-ui/core/Grid'
 import Select from "@material-ui/core/Select"
 import { MenuItem } from "material-ui";
@@ -14,18 +13,17 @@ import { MenuItem } from "material-ui";
 export default function FooterComponent() {
     return (
         <div className={"footer_base"}>
-
             <Grid className="footer" container alignContent="center" justify="center">
                 <Grid alignContent="center" item xs={12} md={3} lg={2}>
                     <div className="Top-Header">
-                        <img style={{ width: 28, height: 28 }} className="Shape-footer" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
+                        <img style={{ width: 24, height: 24 }} className="Shape-footer" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         <p className="XDC-Header">XDC</p>
                     </div>
                     <p className="xdc-desc">
-                        XinFinScan is a Block <br />Explorer and Analytics  <br />Platform for XDC, a decentralized smart<br />  contracts platform.
+                        XinFinScan is a Block Explorer and Analytics Platform for XDC, a decentralized smart contracts platform.
                     </p>
                     <div>
-                        <Select id="currency" className={"inline select-xdc"} defaultValue="USD">
+                        <Select id="currency" className={"filled select-xdc"} defaultValue="USD">
                             <MenuItem value="USD" selected="selected">
                                 <img className="select-icon" src={DOLLAR} /> <span className="USD" selected>USD</span>
                             </MenuItem>
@@ -36,9 +34,12 @@ export default function FooterComponent() {
                                 <img className="select-icon" src={INR} /> <span className="USD" >INR</span>
                             </MenuItem>
                         </Select>
-                        <img className={"inline Nmode"} src={NightModeLogo}></img>
-                    </div>
+                        {/* <select className="select-form">
+                            <option>usd</option>
 
+                            <option>inr</option>
+                        </select> */}
+                    </div>
                 </Grid>
 
                 <Grid alignContent="center" item xs={12} md={3} lg={2}>
@@ -79,21 +80,21 @@ export default function FooterComponent() {
                         <hr style={{ marginRight: '20px' }}></hr>
                     </div>
                     <ul>
-                        <li className="Table-Comp"><a className="a-style" href="https://twitter.com/XinFin_Official" rel="nofollow" target="_blank"><span style={{ marginRight: '5px' }}><i class="fa fa-twitter" aria-hidden="true"></i></span>Twitter</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://www.facebook.com/XinFinHybridBlockchain/" rel="nofollow" target="_blank"><span style={{ marginRight: '5px' }}><i class="fa fa-facebook" aria-hidden="true"></i></span>Facebook</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://github.com/XinFinorg" rel="nofollow" target="_blank"><span style={{ marginRight: '5px' }}><i class="fa fa-github" aria-hidden="true"></i></span>Github</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://www.linkedin.com/company/xinfin/" rel="nofollow" target="_blank"><span style={{ marginRight: '5px' }}><i class="fa fa-linkedin" aria-hidden="true"></i></span>LinkedIn</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://t.me/xinfintalk" rel="nofollow" target="_blank"><span style={{ marginRight: '5px' }} ><i class="fa fa-telegram" aria-hidden="true"></i></span>Telegram</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://www.reddit.com/r/xinfin/" rel="nofollow" target="_blank"><span style={{ marginRight: '5px' }}><i class="fa fa-reddit-alien" aria-hidden="true" /></span>Reddit</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://twitter.com/XinFin_Official" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-twitter" aria-hidden="true"></i></span>Twitter</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://www.facebook.com/XinFinHybridBlockchain/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-facebook" aria-hidden="true"></i></span>Facebook</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://github.com/XinFinorg" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-github" aria-hidden="true"></i></span>Github</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://www.linkedin.com/company/xinfin/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-linkedin" aria-hidden="true"></i></span>LinkedIn</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://t.me/xinfintalk" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }} ><i class="fa fa-telegram" aria-hidden="true"></i></span>Telegram</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://www.reddit.com/r/xinfin/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-reddit-alien" aria-hidden="true" /></span>Reddit</a></li>
                     </ul>
                 </Grid>
                 <Grid alignContent="center" item xs={12} md={6} lg={2}>
                     <div className="Table-Header">Twitter
-                        <hr style={{ marginRight: '20px' }}></hr>
+                        <hr style={{ marginRight: '2px' }}></hr>
 
                     </div>
                     <div className={"twitter"}>
-                        <a class="twitter-timeline" data-lang="en" data-height="230" data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw">Tweets by</a>
+                        <a class="twitter-timeline" data-lang="en" data-height="220" data-theme="light" href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"></a>
                     </div>
 
 

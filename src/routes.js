@@ -18,7 +18,12 @@ import AddressDetails from './modules/address/addressDetails'
 import AddressDetailsData from './modules/address/AddressDetailsData'
 import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
+import socketClient from "socket.io-client";
 import AccountProfile from './modules/explorer/accountProfile';
+let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
+    transports: ["websocket"],
+});
+
 
 class Routes extends BaseComponent {
 
@@ -32,7 +37,7 @@ class Routes extends BaseComponent {
             <MuiThemeProvider muiTheme={getMuiTheme()}>
                 <Router history={history}>
                     <Switch>
-                        <Route exact path={'/'} component={BlockChainClass} />
+                        <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
                         <Route exact path={'/token-data'} component={TokenDataComponent} />
                         <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
                         <Route exact path={'/view-all-blocks'} component={LatestBlocksList} />
