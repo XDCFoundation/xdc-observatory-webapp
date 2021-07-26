@@ -15,6 +15,7 @@ import TransactionDetails from './modules/explorer/transactiondetails';
 import BlockDetailsData from './modules/explorer/blockDetails'
 import LatestAccountsList from './modules/accounts';
 import AddressDetails from './modules/address/addressDetails'
+import AddressDetailsData from './modules/address/AddressDetailsData'
 import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
 import AccountProfile from './modules/explorer/accountProfile';
@@ -48,6 +49,9 @@ class Routes extends BaseComponent {
                         <Route exact path={'/contracts'} component={ContractComponent} />
                         <Route exact path={'/verify-contracts'} component={ContractTab} />
                         <Route exact path={'/loginprofile'} component={AccountProfile} />
+
+                        <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
+
                         <Redirect exact from='*' to="/" />
                     </Switch>
 
