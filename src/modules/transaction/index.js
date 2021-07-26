@@ -36,18 +36,6 @@ export default class LatestTransactionList extends BaseComponent {
         }, 45000)
     }
 
-    // async getListOfBlocks() {
-    //     let urlPath = "?skip=0&limit=10"
-    //     let [error, listOfBlocks] = await Utils.parseResponse(BlockService.getLatestBlock(urlPath, {}))
-    //     console.log(listOfBlocks, "datatata")
-    //     if (error || !listOfBlocks)
-    //         return
-    //     this.setState({ blockList: listOfBlocks })
-    //     const interval = setInterval(async () => {
-    //         let [error, listOfBlocks] = await Utils.parseResponse(BlockService.getLatestBlock())
-    //         this.setState({ blockList: listOfBlocks })
-    //     }, 45000)
-    // }
 
     async getListOfTransactions(from, amount) {
 

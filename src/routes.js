@@ -18,7 +18,7 @@ import AddressDetails from './modules/address/addressDetails'
 import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
 import socketClient from "socket.io-client";
-let socket = socketClient("http://localhost:3001", {
+let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
     transports: ["websocket"],
 });
 // let socket = {}

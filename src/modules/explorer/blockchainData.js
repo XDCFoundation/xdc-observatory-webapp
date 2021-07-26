@@ -16,6 +16,7 @@ import {
   CoinMarketService,
   TpsService,
   TransactionService,
+  BlockService,
 } from "../../services";
 import Utils from "../../utility";
 import socketClient from "socket.io-client";
@@ -151,15 +152,62 @@ class BlockChainDataComponent extends Component {
       someDayAccount: [],
       coinMarketPrice: [],
       tpsCounts: {},
+      blockdataNumber: [],
+      transactionDataDetails: [],
     };
   }
-
+  componentWillUnmount() {
+    this.props.socket.off("block-socket");
+  }
   async componentDidMount() {
     await this.totalTransactionCount();
     await this.totalAccountsCount();
     await this.someDaysAccountCount();
     await this.coinMarketCapDetails();
     await this.tpsCountDetail();
+    await this.blocksLatest();
+    await this.transactionsLatest();
+    this.socketData(this.props.socket);
+  }
+  socketData(socket) {
+    let blocks = this.state.blockdataNumber;
+    let transactions = this.state.transactionDataDetails;
+    socket.on("block-socket", (blockData, error) => {
+      console.log(blockData.number);
+      let blockDataExist = blocks.findIndex((item) => {
+        return item.number == blockData.number;
+      });
+      // blockData["class"] = "first-block-age last-block-transaction height2";
+      if (blockDataExist == -1) {
+        // console.log(blockData.number, "NUMBER");
+        console.log(blockData.timestamp, "hiiiiii");
+        if (blocks.length >= 10) blocks.pop();
+        blocks.unshift(blockData);
+        // blocks.sort((a, b) => {
+        //   return b.number - a.number;
+        // });
+
+        this.setState({ blockdataNumber: blocks });
+
+        if (error) {
+          console.log("hello error");
+        }
+      }
+    });
+    socket.on("transaction-socket", (transactionData, error) => {
+      let transactionDataExist = transactions.findIndex((item) => {
+        return item.hash == transactionData.hash;
+      });
+      if (transactionDataExist == -1) {
+        if (transactions.length >= 10) transactions.pop();
+        transactions.unshift(transactionData);
+        this.setState({ transactionDataDetails: transactions });
+
+        if (error) {
+          console.log("hello error");
+        }
+      }
+    });
   }
 
   /* FETCHING GET TOTAL TRANSACTIONS API*/
@@ -247,38 +295,45 @@ class BlockChainDataComponent extends Component {
     }, 45000);
   }
 
-  // let blocks = [...blockdata];
-  // let socket = socketClient(SERVER);
-  // try {
-  //     socket.on("Connected", () => {
-  //         console.log("Hello from client");
-  //     });
-  //     // socket.emit('Connected', "hello")
+  /* FETCHING LATEST BLOCKS API */
 
-  //     socket.on("block-socket", (blockData) => {
-  //         let blockDataExist = blocks.findIndex((item) => {
-  //             return item.number == blockData.number;
-  //         });
-  //         if (blockDataExist == -1) {
-  //             blocks.pop();
-  //             blocks.unshift(blockData);
-  //             setblockdata(blocks);
-  //         }
+  async blocksLatest() {
+    let urlPath = "?skip=0&limit=10";
+    let [error, latestBlocks] = await Utils.parseResponse(
+      BlockService.getLatestBlock(urlPath, {})
+    );
+    if (error || !latestBlocks) return;
 
-  //         // setblockdata(blockData);
-  //         // console.log(blocks, " BLOCK HOONMM")
-  //         // console.log(blockData, "data while pushing");
-  //     });
+    this.setState({ blockdataNumber: latestBlocks });
+    // blocks = latestBlocks;
+    const interval = setInterval(async () => {
+      let [error, latestBlocks] = await Utils.parseResponse(
+        BlockService.getLatestBlock(urlPath, {})
+      );
+      this.setState({ blockdataNumber: latestBlocks });
+      // blocks = latestBlocks;
+    }, 45000);
+  }
 
-  // } catch (error) {
-  //     socket.on("Connected", () => {
-  //         console.log("Hello from client");
-  //     });
-  //     // socket.emit('Connected', "hello")
-  // }
-  // console.log(blockdata, "dgbdkjhgdkjgdkusagdlkui")
+  /* FETCHING LATEST TRANSACTIONS API*/
+
+  async transactionsLatest() {
+    let urlPath = "?skip=0&limit=10";
+    let [error, latestTransactions] = await Utils.parseResponse(
+      TransactionService.getLatestTransaction(urlPath, {})
+    );
+    if (error || !latestTransactions) return;
+    this.setState({ transactionDataDetails: latestTransactions });
+    const interval = setInterval(async () => {
+      let [error, latestTransactions] = await Utils.parseResponse(
+        TransactionService.getLatestTransaction(urlPath, {})
+      );
+      this.setState({ transactionDataDetails: latestTransactions });
+    }, 45000);
+  }
 
   render() {
+    console.log(this.state.blockdataNumber, "BLOCCCOKK");
     let changePrice;
     if (
       this.state.coinMarketPrice &&
@@ -333,14 +388,18 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={blockHeightImg} />
                 <ValueName>
                   <Title>Block Height</Title>
-                  <TitleValue>hii</TitleValue>
+                  <TitleValue>
+                    {this.state.blockdataNumber[0]?.number.toLocaleString()}
+                  </TitleValue>
                 </ValueName>
               </Value>
               <Value>
                 <TitleIcon src={priceLogo} />
                 <ValueName>
                   <Title>Gas Price</Title>
-                  <TitleValue>0.0000034</TitleValue>
+                  <TitleValue>
+                    {this.state.transactionDataDetails[0]?.gasPrice}
+                  </TitleValue>
                 </ValueName>
               </Value>
               <Value>
@@ -354,7 +413,9 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={difficultyLogo} />
                 <ValueName>
                   <Title>Difficulty</Title>
-                  <TitleValue>hi</TitleValue>
+                  <TitleValue>
+                    {this.state.blockdataNumber[0]?.totalDifficulty}
+                  </TitleValue>
                 </ValueName>
               </Value>
               <Value>
