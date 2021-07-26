@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.d6fcb1bf.chunk.css",
-    "main.js": "/static/js/main.4362ea80.chunk.js",
-    "main.js.map": "/static/js/main.4362ea80.chunk.js.map",
+    "main.css": "/static/css/main.c7491af1.chunk.css",
+    "main.js": "/static/js/main.b24d7303.chunk.js",
+    "main.js.map": "/static/js/main.b24d7303.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c9145c61.js",
     "runtime-main.js.map": "/static/js/runtime-main.c9145c61.js.map",
-    "static/css/2.edf06cd7.chunk.css": "/static/css/2.edf06cd7.chunk.css",
-    "static/js/2.42e8bf50.chunk.js": "/static/js/2.42e8bf50.chunk.js",
-    "static/js/2.42e8bf50.chunk.js.map": "/static/js/2.42e8bf50.chunk.js.map",
+    "static/css/2.27251d9e.chunk.css": "/static/css/2.27251d9e.chunk.css",
+    "static/js/2.3bae7548.chunk.js": "/static/js/2.3bae7548.chunk.js",
+    "static/js/2.3bae7548.chunk.js.map": "/static/js/2.3bae7548.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.c36a1a8dca098ef3cde8f8acc164ccca.js": "/precache-manifest.c36a1a8dca098ef3cde8f8acc164ccca.js",
+    "precache-manifest.08775054aab59eb5f6fa1966a5ce497e.js": "/precache-manifest.08775054aab59eb5f6fa1966a5ce497e.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.edf06cd7.chunk.css.map": "/static/css/2.edf06cd7.chunk.css.map",
-    "static/css/main.d6fcb1bf.chunk.css.map": "/static/css/main.d6fcb1bf.chunk.css.map",
-    "static/js/2.42e8bf50.chunk.js.LICENSE.txt": "/static/js/2.42e8bf50.chunk.js.LICENSE.txt",
+    "static/css/2.27251d9e.chunk.css.map": "/static/css/2.27251d9e.chunk.css.map",
+    "static/css/main.c7491af1.chunk.css.map": "/static/css/main.c7491af1.chunk.css.map",
+    "static/js/2.3bae7548.chunk.js.LICENSE.txt": "/static/js/2.3bae7548.chunk.js.LICENSE.txt",
     "static/media/Accounts.svg": "/static/media/Accounts.153a6952.svg",
     "static/media/Block Height.svg": "/static/media/Block Height.14cdccf6.svg",
     "static/media/Current Max_TPS.svg": "/static/media/Current Max_TPS.af38a2ad.svg",
@@ -21,14 +21,14 @@
     "static/media/Gas Price.svg": "/static/media/Gas Price.817492b7.svg",
     "static/media/Transaction.svg": "/static/media/Transaction.02f9801e.svg",
     "static/media/XDC-Icon.svg": "/static/media/XDC-Icon.97ff7a10.svg",
-    "static/media/nightmode.svg": "/static/media/nightmode.9e30db78.svg",
+    "static/media/loader.gif": "/static/media/loader.7763d389.gif",
     "static/media/usdc.png": "/static/media/usdc.c76b33ca.png"
   },
   "entrypoints": [
     "static/js/runtime-main.c9145c61.js",
-    "static/css/2.edf06cd7.chunk.css",
-    "static/js/2.42e8bf50.chunk.js",
-    "static/css/main.d6fcb1bf.chunk.css",
-    "static/js/main.4362ea80.chunk.js"
+    "static/css/2.27251d9e.chunk.css",
+    "static/js/2.3bae7548.chunk.js",
+    "static/css/main.c7491af1.chunk.css",
+    "static/js/main.b24d7303.chunk.js"
   ]
 }
