@@ -207,12 +207,14 @@ const Icons = styled.div`
 export default function TokenDataComponent() {
   let changePrice = 5.21;
   let changeHolders = 351;
+  let tokenName = 'USDC'
   let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   function shorten(b, amountL = 17, amountR = 0, stars = 3) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
   return (
     <>
+    <div style={{backgroundColor:'#fff'}}>
     <Tokensearchbar/>
     <br/>
     <br/>
@@ -220,7 +222,11 @@ export default function TokenDataComponent() {
         <LeftContainer>
           <LeftFirst>
             <LeftTop>
+              {logo.length > 0 ?
               <IconLogo src={logo} />
+              :
+              <span>{tokenName.slice(0, 2).toUpperCase()}</span>
+            }
               <LeftTitle>USDC</LeftTitle>
             </LeftTop>
             <LeftTopSecMain>
@@ -383,10 +389,11 @@ export default function TokenDataComponent() {
         </RightContainer>
       </MainContainer>
       <TokenMarketDataTable />
-      <br/><br/><br/>
+      <br/><br/>
       <Tokentabs/>
       <br/><br/>
       <FooterComponent/>
+    </div>
     </>
   );
 }
