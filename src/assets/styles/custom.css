@@ -1835,15 +1835,7 @@ button {
   padding-left: 60px;
 }
 .first-block-age {
-  padding-left: 20px;
-  font-size: 11px;
-  width: 19%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 11px;
-  font-weight: 600;
-  animation: fadeInAnimation ease 2s;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
@@ -1914,7 +1906,26 @@ button {
   letter-spacing: 0.54px;
   color: #2149b9 !important;
   margin-top: 8px;
+  margin-right: 24px;
+}
+.height_2 {
+  background-color: transparent;
+  font-family: Inter !important;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  margin-top: 8px;
   margin-right: 22px;
+}
+.height_2:hover {
+  color: black !important;
+  list-style: none;
+  text-decoration: none;
+  font-size: 11px;
 }
 
 .height:hover {
@@ -2093,6 +2104,31 @@ button {
   display: flex;
   justify-content: space-between;
   letter-spacing: 00.6px;
+}
+.main_vaa_2 {
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 00.6px;
+}
+.main_vaa_2 p:first-child {
+  padding-left: 20px;
+  font-size: 11px;
+}
+.main_vaa_2 p:last-child {
+  padding-left: 0px;
+  font-size: 11px;
+}
+.main_vaa_2 p {
+  width: 19%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.main_vaa_2 p:nth-child(2) {
+  color: #2149b9;
 }
 
 .main_vaa p:first-child {

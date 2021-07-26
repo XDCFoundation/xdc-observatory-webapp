@@ -5,6 +5,9 @@ import Utils from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 
 function timeDiff(curr, prev) {
+  // curr = new Date(Date.now());
+  // console.log(curr, "PRINMNMNMNTT");
+  if (curr < prev) return "0 secs ago";
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
   var ms_Day = ms_Hour * 24; // milliseconds in day
@@ -48,10 +51,9 @@ class LatestBlocks extends Component {
     this.state = {
       latestBlocksData: [],
       latestTransactionData: [],
+      // blockAnimation: {},
     };
   }
-
-  /* FETCHING LATEST BLOCKS API*/
 
   componentWillUnmount() {
     this.props.socket.off("block-socket");
@@ -69,12 +71,16 @@ class LatestBlocks extends Component {
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
-      // blockData["class"] = "first-block-age last-block-transaction height2";
+
       if (blockDataExist == -1) {
         // console.log(blockData.number, "NUMBER");
         console.log(blockData.timestamp, "hiiiiii");
         if (blocks.length >= 10) blocks.pop();
+        // this.setState({ blockAnimation: {} });
         blocks.unshift(blockData);
+        // let blockAnimationClass = { [blockData.number]: "first-block-age" };
+        // this.setState({ blockAnimation: blockAnimationClass });
+
         // blocks.sort((a, b) => {
         //   return b.number - a.number;
         // });
@@ -102,12 +108,15 @@ class LatestBlocks extends Component {
       }
     });
   }
+  /* FETCHING LATEST BLOCKS API*/
+
   async blocksLatest() {
     let urlPath = "?skip=0&limit=10";
     let [error, latestBlocks] = await Utils.parseResponse(
       BlockService.getLatestBlock(urlPath, {})
     );
     if (error || !latestBlocks) return;
+
     this.setState({ latestBlocksData: latestBlocks });
     // blocks = latestBlocks;
     const interval = setInterval(async () => {
@@ -143,116 +152,8 @@ class LatestBlocks extends Component {
     )}`;
   }
 
-  // const [transactiondata, settransactiondata] = useState({});
-
-  // let [blockSocket, setBlockSocket] = useState([]);
-  // let data = new Array(1);
-  // useEffect(() => {
-  //   const interval = setInterval(async () => {
-  //     setblockdata(data[0]);
-  //     console.log(data, "data with interval");
-  //   }, 1000);
-  // }, []);
-  // let queue = [];
-  // ...... //
-  // try {
-  //   console.log("soxket-connection-call");
-  //   // socket.on("connect", () => {
-  //   //   console.log(socket.id, "SOCKET.ID");
-  //   // });
-  //   // socket.on("error", (error) => {
-  //   //   console.log(error, "Its an error");
-  //   // });
-  //   // // socket.emit('Connected', "hello")
-
-  //   // socket.on("block-socket", (blockData, error) => {
-  //   //   let blockDataExist = blocks.findIndex((item) => {
-  //   //     return item.number == blockData.number;
-  //   //   });
-  //   //   if (blockDataExist == -1) {
-  //   //     // socket.emit("received", true);
-  //   //     console.log(blockData.number, "NUMBER");
-  //   //     blocks.pop();
-  //   //     blocks.unshift(blockData);
-  //   //     blocks.sort((a, b) => {
-  //   //       return b.number - a.number;
-  //   //     });
-  //   //     setPostHeight(blocks);
-  //   //     if (error) {
-  //   //       console.log("hello error");
-  //   //     }
-  //   //   }
-
-  //   //   // console.log(blockData, "data while pushig");
-  //   // });
-
-  //   // // socket.onclose = function (e) {
-  //   // //   console.log(
-  //   // //     "Socket is closed. Reconnect will be attempted in 1 second.",
-  //   // //     e.reason
-  //   // //   );
-  //   // //   setTimeout(function () {
-  //   // //     socket.on("Connected", () => {
-  //   // //       console.log("Hello from client");
-  //   // //     });
-  //   // //   }, 1000);
-  //   // // };
-
-  // } catch (error) {
-  //   // socket.on("Connected", () => {
-  //   //   console.log("Hello from client");
-  //   // });
-  //   // socket.emit('Connected', "hello")
-  // }
-  // .....  //
-  //   function connect() {
-
-  //     socket.onopen = function () {
-  //       // subscribe to some channels
-  //        socket.on("block-socket", (blockData, error) => {
-  //       let blockDataExist = blocks.findIndex((item) => {
-  //         return item.number == blockData.number;
-  //       });
-  //       if (blockDataExist == -1) {
-  //         // socket.emit("received", true);
-  //         console.log(blockData.number, "NUMBER");
-  //         blocks.pop();
-  //         blocks.unshift(blockData);
-  //         blocks.sort((a, b) => {
-  //           return b.number - a.number;
-  //         });
-  //         setPostHeight(blocks);
-  //         if (error) {
-  //           console.log("hello error");
-  //         }
-  //     };
-  //     socket.onclose = function (e) {
-  //       console.log(
-  //         "Socket is closed. Reconnect will be attempted in 1 second.",
-  //         e.reason
-  //       );
-  //       setTimeout(function () {
-  //         connect();
-  //       }, 1000);
-  //     };
-  //     socket.onerror = function (err) {
-  //       console.error(
-  //         "Socket encountered error: ",
-  //         err.message,
-  //         "Closing socket"
-  //       );
-  //       socket.close();
-  //     };
-  //   }
-  // console.log(postHeight, "bloc-socket");
-  // const currentTime = new Date();
-  // const previousTime = new Date(blockdata?.timestamp * 1000);
-  // const blockage = timeDiff(currentTime, previousTime);
-  // const previousTime2 = new Date(transactiondata?.timestamp * 1000);
-  // const transactionAge = timeDiff(currentTime, previousTime2);
-
-  // console.log(blockdata, "BLOCK-DATA-SOCKET");
   render() {
+    console.log(this.state.latestBlocksData, "hiiiiiii");
     return (
       <>
         <div className="block_main">
@@ -292,19 +193,20 @@ class LatestBlocks extends Component {
                 {this.state.latestBlocksData &&
                   this.state.latestBlocksData.length >= 1 &&
                   this.state.latestBlocksData.map((z, index) => {
-                    const currentTime = new Date();
+                    const currentTime = Date.now();
+
+                    // let blockNumber = z.number;
+                    // let animationClass =
+                    //   this.state.blockAnimation?.[blockNumber];
+                    // console.log(animationClass, blockNumber);
+                    const currentTimeFormat = new Date(currentTime);
                     const previousTime = new Date(z.timestamp * 1000);
-                    const ti = timeDiff(currentTime, previousTime);
+                    const ti = timeDiff(currentTimeFormat, previousTime);
                     return (
-                      <div
-                        className={
-                          !index && z.class
-                            ? `${z.class} value_main_main`
-                            : "value_main_main"
-                        }
-                      >
+                      <div className="value_main_main">
                         <div className="main_vaa">
-                          <p className>{ti}</p>
+                          <p>{ti}</p>
+                          {/* <a className={animationClass}> */}
                           <a
                             className="height"
                             href={"/block-details/" + z.number}

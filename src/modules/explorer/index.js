@@ -16,7 +16,7 @@ export default class BlockChainClass extends BaseComponent {
 
             <div>
                 <NavigationBar />
-                <BlockChainDataComponent />
+                <BlockChainDataComponent socket={this.props.socket} />
                 <MarketTable />
                 <LatestBlocksComponent socket={this.props.socket} />
                 <FooterComponent />
