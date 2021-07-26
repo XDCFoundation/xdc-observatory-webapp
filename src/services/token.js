@@ -1,9 +1,10 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../images/constants";
 
-export default { getContractLists , getTotalContractList , getContractSearch}
-async function getContractLists(data) { 
-    let url = process.env.REACT_APP_GET_CONTRACT_LIST+'?skip='+Math.ceil((data.pageNum))+'&limit='+data.perpage;
+export default { getTokenLists , getTotalToken , getTokenSearch }
+
+async function getTokenLists(data) { 
+    let url = process.env.REACT_APP_GET_TOKEN_LIST+'?skip='+Math.ceil(data.pageNum)+'&limit='+data.perpage;
     
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
@@ -18,8 +19,9 @@ async function getContractLists(data) {
         });
 }
 
-async function getTotalContractList(){
-    let url = process.env.REACT_APP_GET_TOTAL_CONTRACT_LIST;    
+async function getTokenSearch(data) { 
+    let url = process.env.REACT_APP_GET_TOKEN_SEARCH+'?skip='+Math.ceil(data.pageNum)+'&limit='+data.perpage+'&data='+data.searchkey;
+    
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
             response => { 
@@ -32,9 +34,9 @@ async function getTotalContractList(){
             return Promise.reject(err);
         });
 }
-async function getContractSearch(data){
 
-    let url = process.env.REACT_APP_GET_CONTRACT_SEARCH+'?skip='+Math.ceil(data.pageNum)+'&limit='+data.perpage+'&keywords='+data.keywords;  
+async function getTotalToken(){
+    let url = process.env.REACT_APP_GET_TOTAL_TOKEN;    
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
             response => { 

@@ -14,6 +14,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { CSVLink, CSVDownload } from "react-csv";
 import SearchIcon from "@material-ui/icons/Search";
+import moment from 'moment'
 function timeDiff(curr, prev) {
     var ms_Min = 60 * 1000; // milliseconds in Minute
     var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -124,10 +125,10 @@ export default function AddressTableComponent(props) {
                 };
             })
         );
-       setDownloadaddress(address.map((d) => {                
+       setDownloadaddress(address.map((d) => {              
                 return {
                     Txn_Hash: d.hash,
-                    Age: d.timestamp,
+                    Date: moment(d.timestamp* 1000).format('DD/MM/YYYY hh:mm:ss'),
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
@@ -155,10 +156,10 @@ const handleChanged = (event) => {
        setDownloadActive(0) 
      }
     
-    setDownloadaddress(tempAddress.map((d) => {                
+    setDownloadaddress(tempAddress.map((d) => {               
                 return {
                     Txn_Hash: d.Txn_Hash,
-                    Age: d.Age,
+                    Date: moment(d.Age* 1000).format('DD/MM/YYYY hh:mm:ss'),
                     Block: d.Block,
                     From: d.From,
                     To: d.To,
@@ -179,10 +180,10 @@ const handleChanged = (event) => {
      }else{
        setDownloadActive(0) 
      }
-     setDownloadaddress(tempAddr.map((d) => {                
+     setDownloadaddress(tempAddr.map((d) => {               
                 return {
                     Txn_Hash: d.Txn_Hash,
-                    Age: d.Age,
+                    Date: moment(d.Age* 1000).format('DD/MM/YYYY hh:mm:ss'),
                     Block: d.Block,
                     From: d.From,
                     To: d.To,
@@ -290,7 +291,7 @@ const handleChanged = (event) => {
                                             //checked={checkAll}
                                             style={{ marginRight: "8px" }}
                                         />
-                                        <a className="linkTable" href="/">
+                                        <a className="linkTable" href={'/transaction-details/'+row.Txn_Hash}>
                                             <Tooltip placement="top" title={row.Txn_Hash}>
                                                 <span className="tabledata">
                                                     {shorten(row.Txn_Hash)}{" "}
@@ -302,19 +303,19 @@ const handleChanged = (event) => {
                                         <span className="tabledata">{TimeAge}</span>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <a className="linkTable" href="/">
+                                        <a className="linkTable" href={'/block-details/'+row.Block}>
                                             <span className="tabledata">{row.Block}</span>
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <a className="linkTable" href="/">
+                                        <a className="linkTable" href={'/address-details/'+row.From}>
                                             <Tooltip placement="top" title={row.From}>
                                                 <span className="tabledata"> {shorten(row.From)}</span>
                                             </Tooltip>
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <a className="linkTable" href="/">
+                                        <a className="linkTable" href={'/address-details/'+row.To}>
                                             <Tooltip placement="top" title={row.To}>
                                                 <span className="tabledata">{shorten(row.To)}</span>
                                             </Tooltip>
