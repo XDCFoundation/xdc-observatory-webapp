@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-
+import Login from './loginDialog';
 
 const drawerWidth = 240;
 
@@ -415,7 +415,8 @@ export default function Navbar() {
                         </div>
 
                     </Typography>
-                    <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
+                    <Login/> 
+                    {/* <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img> */}
 
                     <React.Fragment key={'right'}>
                         <IconButton
