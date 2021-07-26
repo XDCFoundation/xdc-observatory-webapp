@@ -237,8 +237,8 @@ input:focus {
 
 .Shape {
   margin-right: 10px;
-  height: 22px;
-  width: 22px;
+  height: 23px;
+  width: 23px;
 }
 
 .Shape2 {
@@ -284,17 +284,18 @@ input:focus {
 
 .XDC {
   margin-left: -5px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.62px;
   color: #ffffff;
+  margin-top: 2px;
 }
 .XDC:hover {
   margin-left: -5px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -303,6 +304,7 @@ input:focus {
   color: #ffffff;
   list-style: none;
   text-decoration: none;
+  margin-top: 2px;
 }
 
 .Network-explorer {
@@ -429,7 +431,7 @@ p {
   margin-left: 15px;
   color: white;
   font-size: 12px;
-  padding: 2px 10px 2px 13px;
+  padding: 3px 12px 3px 12px;
   border-radius: 4px;
   background-color: #02c227;
 }
@@ -1515,16 +1517,22 @@ body {
   outline: transparent;
   border: solid 1px #9fa9ba;
   background-color: #dee0e3;
-  color: black;
+  color: #3a3a3a;
+}
+.xcvs {
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 100%;
 }
 
 .input-area-2 {
   width: 100%;
+  height: 100%;
   border-radius: 4px;
   outline: transparent;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
-  color: black;
+  color: #3a3a3a;
 }
 
 .input-area-3 {
@@ -1759,6 +1767,21 @@ button {
   letter-spacing: 0.7px;
   color: #2a2a2a;
 }
+.latest2 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+  margin-top: 20px;
+}
+.latest2 h1 {
+  width: 40%;
+  font-family: Inter;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.7px;
+  color: #2a2a2a;
+  margin-left: 2px;
+}
 
 .latest button {
   width: 70px;
@@ -1835,6 +1858,11 @@ button {
   font-size: 13px;
   padding-left: 60px;
 }
+.first-block-age {
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 
 .value_main_main {
   display: flex;
@@ -1842,14 +1870,22 @@ button {
   width: 100%;
   font-size: 11px;
 }
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 .value_main_main:nth-child(odd) {
   background-color: #f9f9f9;
 }
 
-.value_main p:nth-child(2) {
-  color: #2149b9;
-}
+/* .value_main p:nth-child(2) {
+  color: red;
+} */
 
 .block_main {
   align-items: center;
@@ -1894,7 +1930,26 @@ button {
   letter-spacing: 0.54px;
   color: #2149b9 !important;
   margin-top: 8px;
+  margin-right: 24px;
+}
+.height_2 {
+  background-color: transparent;
+  font-family: Inter !important;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  margin-top: 8px;
   margin-right: 22px;
+}
+.height_2:hover {
+  color: black !important;
+  list-style: none;
+  text-decoration: none;
+  font-size: 11px;
 }
 
 .height:hover {
@@ -1903,7 +1958,49 @@ button {
   text-decoration: none;
   font-size: 11px;
 }
-
+.height2 {
+  background-color: transparent;
+  font-family: Inter !important;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  margin-top: 8px;
+  margin-right: 22px;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.height2:hover {
+  color: black !important;
+  list-style: none;
+  text-decoration: none;
+  font-size: 11px;
+}
+.last-block-transaction {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  width: 19%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding-left: 0px;
+  font-size: 11px;
+}
+.fade-appear {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opactiy 300ms linear;
+}
 .bttn {
   background-color: transparent;
   font-family: Inter;
@@ -1917,6 +2014,23 @@ button {
   width: 530px;
   margin-left: 7px;
   margin-top: 7px;
+}
+.bttn2 {
+  background-color: transparent;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.7px;
+  color: #2149b9 !important;
+  width: 530px;
+  margin-left: 7px;
+  margin-top: 7px;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .bttn:hover {
@@ -1945,6 +2059,22 @@ button {
   width: 190px;
   margin-top: 8px;
 }
+.details2 {
+  background-color: transparent;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+  width: 190px;
+  margin-top: 8px;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 
 .details:hover {
   color: black !important;
@@ -1969,11 +2099,60 @@ button {
   font-size: 11px;
   font-weight: 600;
 }
+.amount-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.age-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 
 .main_vaa {
   display: flex;
   justify-content: space-between;
   letter-spacing: 00.6px;
+}
+.main_vaa_2 {
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 00.6px;
+}
+.main_vaa_2 p:first-child {
+  padding-left: 20px;
+  font-size: 11px;
+}
+.main_vaa_2 p:last-child {
+  padding-left: 0px;
+  font-size: 11px;
+}
+.main_vaa_2 p {
+  width: 19%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.main_vaa_2 p:nth-child(2) {
+  color: #2149b9;
 }
 
 .main_vaa p:first-child {
@@ -2102,19 +2281,30 @@ button {
 
 .first-row-table {
   font-family: Inter !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
+  line-height: 1rem !important;
 }
+
 .first-row-table-hashid {
   font-family: Inter !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
-  padding-left: 30px !important;
+  padding-left: 32px !important;
+  line-height: 1rem !important;
 }
 .second-row-table {
-  display: flex !important;
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 30px !important;
+  align-items: center !important;
+  line-height: 1rem !important;
+}
+.second-row-table-extra {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
@@ -2128,6 +2318,7 @@ button {
   font-weight: normal !important;
   letter-spacing: 0.65px;
   padding-left: 55px !important;
+  line-height: 1rem !important;
 }
 .table-grid-block {
   padding-top: 8%;
@@ -2135,7 +2326,7 @@ button {
   width: 100%;
 }
 .table-block {
-  border-radius: 15px;
+  border-radius: 6px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: 0px solid transparent;
   background-color: #ffffff;
@@ -2154,44 +2345,51 @@ button {
   background-color: #9cd0f3;
   padding: 4px;
   padding-left: 6px;
+  line-height: 1rem !important;
 }
 .second-row-table_height .MuiSvgIcon-root:hover {
   color: #ffffff;
   background-color: #2149b9;
+  line-height: 1rem !important;
 }
 
 .second-row-table_height {
-  display: flex !important;
   font-family: Inter !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.65px;
   padding-left: 30px !important;
   align-items: center !important;
   padding-top: 15px !important;
+  line-height: 1rem !important;
 }
 .parent_hash {
   font-family: Inter !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.65px;
-  color: #6abdf5 !important;
+  color: #2149b9 !important;
+  line-height: 0.7rem !important;
 }
 .parent_hash:hover {
-  color: #2149b9 !important;
+  color: black !important;
   list-style: none;
   text-decoration: none;
   font-size: 12px;
+  line-height: 0.7rem !important;
 }
 .text-area {
   width: 100%;
-  height: 93px;
+  height: 100%;
   border-radius: 4px;
   outline: transparent;
   border: solid 1px #9fa9ba;
   background-color: #dee0e3;
-  color: black;
+  color: #3a3a3a;
   margin-left: 0px;
+}
+.input-data-text {
+  height: 100%;
 }
 .block_details_heading_left {
   font-size: 16px;
@@ -2273,7 +2471,7 @@ button {
 }
 .first-row-table_address {
   font-family: Inter !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
   letter-spacing: 0.58px;
 }
