@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
+import {useParams} from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
@@ -12,10 +13,13 @@ import FooterComponent from "../common/footerComponent";
 import SearchIcon from "@material-ui/icons/Search";
 import AddressTableComponent from "./addressTable";
 import { ImQrcode } from "react-icons/im";
-
 import Popup from "reactjs-popup";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Utility, { dispatchAction } from "../../utility";
+import AddressData from "../../services/address";
+import { CSVLink, CSVDownload } from "react-csv";
+var QRCode = require('qrcode.react');
 
 const useStyles = makeStyles({
   rootUI: {
@@ -27,15 +31,58 @@ const useStyles = makeStyles({
 
 export default function AddressDetails() {
   const [toggleState, setToggleState] = useState(1);
+  
+  const [txtAddress, setTxtAddress] = useState('');
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
+  let { address } = useParams();
+  let addressValue =0
   const toggleTab = (index) => {
     setToggleState(index);
   };
-
   const classes = useStyles();
 
+    function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
+        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+            b.length - 3,
+
+        )}`;
+    }
+  const getAddressDetails = async () => {
+    try {
+       const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetail(address)
+    );
+       
+      if(responseData) {
+        setBalance(parseFloat(responseData.balance).toFixed(2));
+        setTransactions(responseData.transaction);
+        setTxtAddress(responseData.address);
+        setLoading(false);
+      }else{        
+        setBalance(parseFloat(0).toFixed(2));
+        setTransactions([]);
+        setTxtAddress(0);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  useEffect(() => {    
+     getAddressDetails();
+  }, []);
+
+        if (isLoading) {
+            return <div className="App">Loading...</div>;
+          }
+
   return (
-    <div>
+    <div style={{backgroundColor:'#fff'}}>
       <Tokensearchbar />
       <Grid lg={8} className="table-grid-block">
         <div
@@ -60,10 +107,10 @@ export default function AddressDetails() {
                   Address
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                  xdcbb70bbce1429d622d0306b5b149b48f233d70df3
+                  {address}
                 </TableCell>
                 <TableCell>
-                  <CopyToClipboard text="xdcbb70bbce1429d622d0306b5b149b48f233d70df3">
+                  <CopyToClipboard text={txtAddress}>
                     <button
                       style={{
                         color: "#2149b9",
@@ -78,25 +125,14 @@ export default function AddressDetails() {
                     {(close) => (
                       <div className="popup_qr">
                         <p>
-                          {" "}
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Atque, a nostrum. Dolorem, repellat quidem ut,
-                          minima sint vel eveniet quibusdam voluptates delectus
-                          doloremque, explicabo tempore dicta adipisci fugit
-                          amet dignissimos? Lorem ipsum dolor sit amet,
-                          consectetur adipisicing elit. Consequatur sit commodi
-                          beatae optio voluptatum sed eius cumque, delectus
-                          saepe repudiandae explicabo nemo nam libero ad,
-                          doloribus, voluptas rem alias. Vitae?
-                        </p>
-                        <button
-                          className="close"
-                          onClick={() => {
-                            close();
-                          }}
-                        >
-                          Close
-                        </button>
+                        <div>
+                        <button style={{border:'null',width:'0px'}} className="close" onClick={close}>
+                        &times;
+                      </button>
+                          <div className="header" style={{fontSize:'12px',paddingTop:'6px',paddingBottom:'22px'}}> {address} </div>
+                          <QRCode size="320" value={address} />
+                        </div>                        
+                        </p>                        
                       </div>
                     )}
                   </Popup>
@@ -115,21 +151,9 @@ export default function AddressDetails() {
                   XDC Value
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                  $145.80 (@ $0.054055/XDC)
+                {balance}
                 </TableCell>
-                <TableCell>
-                  <CopyToClipboard text="fxcfxfgxfgfcfchchgchgtycccujgcvj">
-                    <button
-                      style={{
-                        color: "#2149b9",
-                        backgroundColor: "white",
-                        fontSize: 14,
-                      }}
-                    >
-                      <i class="fa fa-clone" aria-hidden="true" />
-                    </button>
-                  </CopyToClipboard>
-                </TableCell>
+               
               </TableRow>
             </TableHead>
           </Table>
@@ -166,20 +190,11 @@ export default function AddressDetails() {
                   : "content_sec"
               }
             >
-              <div className="content_input_all">
-                <div className="content_input_add">
-                  <SearchIcon />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="content_input_add_btn"
-                  />
-                </div>
-                <Button variant="contained" disabled>
-                  Export
-                </Button>
-              </div>
-              <AddressTableComponent />
+              
+              <AddressTableComponent
+              trans={transactions}
+               />
+              
             </div>
 
             <div
@@ -189,29 +204,10 @@ export default function AddressDetails() {
                   : "content_sec"
               }
             >
-              <div className="content_input_all">
-                <div className="content_input_add">
-                  <SearchIcon />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="content_input_add_btn"
-                  />
-                </div>
-                <Button variant="contained" disabled>
-                  Export
-                </Button>
-                {/* {this.address === true ? (
-                  <Button variant="contained" color="primary">
-                    Export
-                  </Button>
-                ) : (
-                  <Button variant="contained" disabled>
-                    Disabled
-                  </Button>
-                )} */}
-              </div>
-              <AddressTableComponent />
+              
+              <AddressTableComponent
+              trans={transactions}
+              />
             </div>
           </div>
         </div>
