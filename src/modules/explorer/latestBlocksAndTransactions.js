@@ -41,9 +41,7 @@ function shortenBalance(b, amountL = 4, amountR = 3, stars = 0) {
   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length)}`;
 }
 
-function increment(data) {
-  console.log(data, "DATA FUNCTION");
-}
+
 
 class LatestBlocks extends Component {
   constructor(props) {
@@ -51,6 +49,8 @@ class LatestBlocks extends Component {
     this.state = {
       latestBlocksData: [],
       latestTransactionData: [],
+      blockSocketConnected: false,
+      transactionSocketConnected: false
       // blockAnimation: {},
     };
   }
@@ -67,7 +67,7 @@ class LatestBlocks extends Component {
     let blocks = this.state.latestBlocksData;
     let transactions = this.state.latestTransactionData;
     socket.on("block-socket", (blockData, error) => {
-      console.log(blockData.number);
+      this.setState({ blockSocketConnected: true })
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
@@ -94,9 +94,11 @@ class LatestBlocks extends Component {
     });
 
     socket.on("transaction-socket", (transactionData, error) => {
+      this.setState({ transactionSocketConnected: true })
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash == transactionData.hash;
       });
+
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
@@ -119,13 +121,17 @@ class LatestBlocks extends Component {
 
     this.setState({ latestBlocksData: latestBlocks });
     // blocks = latestBlocks;
+
     const interval = setInterval(async () => {
-      let [error, latestBlocks] = await Utils.parseResponse(
-        BlockService.getLatestBlock(urlPath, {})
-      );
-      this.setState({ latestBlocksData: latestBlocks });
+      if (!this.state.blockSocketConnected) {
+        let [error, latestBlocks] = await Utils.parseResponse(
+          BlockService.getLatestBlock(urlPath, {})
+        );
+        this.setState({ latestBlocksData: latestBlocks });
+      }
+
       // blocks = latestBlocks;
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING LATEST TRANSACTIONS API*/
@@ -138,11 +144,14 @@ class LatestBlocks extends Component {
     if (error || !latestTransactions) return;
     this.setState({ latestTransactionData: latestTransactions });
     const interval = setInterval(async () => {
-      let [error, latestTransactions] = await Utils.parseResponse(
-        TransactionService.getLatestTransaction(urlPath, {})
-      );
-      this.setState({ latestTransactionData: latestTransactions });
-    }, 45000);
+      if (!this.state.transactionSocketConnected) {
+        let [error, latestTransactions] = await Utils.parseResponse(
+          TransactionService.getLatestTransaction(urlPath, {})
+        );
+        this.setState({ latestTransactionData: latestTransactions });
+      }
+
+    }, 90000);
   }
 
   shorten(b, amountL = 10, amountR = 3, stars = 3) {

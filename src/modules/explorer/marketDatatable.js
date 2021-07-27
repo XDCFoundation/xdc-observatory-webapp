@@ -46,7 +46,7 @@ export default function MarketDatatable() {
                 return
             setLatestMarket(totalcoinMarketData[1]);
             setPreviousMarket(totalcoinMarketData[0]);
-        }, 45000)
+        }, 90000)
     }, []);
 
     /* Calculating marketCap change percentege */
