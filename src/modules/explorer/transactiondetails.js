@@ -40,7 +40,7 @@ export default function BlockDetailsData() {
         const interval = setInterval(async () => {
             let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
             setTransactions(transactiondetailusinghash);
-        }, 45000)
+        }, 90000)
     }, []);
 
     const classes = useStyles();

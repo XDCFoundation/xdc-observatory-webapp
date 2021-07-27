@@ -92,7 +92,7 @@ export default function App() {
             setGraphTransactions
                 (transactionGraph);
             // alert(JSON.stringify(transactionGraph))
-        }, 30000)
+        }, 90000)
 
         var arr = [{
             id: "GasPrice",

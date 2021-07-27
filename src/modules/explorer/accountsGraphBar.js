@@ -94,7 +94,7 @@ export default function App() {
             setGraphAccounts
                 (AccountGraph);
             // alert(JSON.stringify(AccountGraph))
-        }, 30000)
+        }, 90000)
 
         var arr = [{
             id: "Accounts",

@@ -39,7 +39,7 @@ export default function BlockDetailsData() {
         setcount(blockNumber)
         setInterval(() => {
             getLatestaccount(count)
-        }, 45000)
+        }, 90000)
     }, []);
 
     const getLatestaccount = async (blockNumber) => {
