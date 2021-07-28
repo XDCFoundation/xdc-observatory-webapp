@@ -146,6 +146,7 @@ let changePrice;
 class BlockChainDataComponent extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       totalTransaction: [],
       totalAccount: [],
@@ -155,7 +156,8 @@ class BlockChainDataComponent extends Component {
       blockdataNumber: [],
       transactionDataDetails: [],
       blockSocketConnected: false,
-      transactionSocketConnected: false
+      transactionSocketConnected: false,
+      currencyType: this.props.currency
     };
   }
   componentWillUnmount() {
@@ -171,19 +173,26 @@ class BlockChainDataComponent extends Component {
     await this.transactionsLatest();
     this.socketData(this.props.socket);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currency !== this.props.currency) {
+      this.coinMarketCapDetails();
+    }
+
+  }
+
   socketData(socket) {
     let blocks = this.state.blockdataNumber;
     let transactions = this.state.transactionDataDetails;
     socket.on("block-socket", (blockData, error) => {
       this.setState({ blockSocketConnected: true })
-      console.log(blockData.number);
+
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
       // blockData["class"] = "first-block-age last-block-transaction height2";
       if (blockDataExist == -1) {
-        // console.log(blockData.number, "NUMBER");
-        console.log(blockData.timestamp, "hiiiiii");
+
         blocks.pop();
         blocks.unshift(blockData);
         // blocks.sort((a, b) => {
@@ -265,8 +274,9 @@ class BlockChainDataComponent extends Component {
   /* FETCHING GET COIN MARKET CAP API*/
 
   async coinMarketCapDetails() {
+
     let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-      CoinMarketService.getCoinMarketData()
+      CoinMarketService.getCoinMarketData(this.props.currency, {})
     );
     if (error || !totalcoinMarketPrice) return;
     totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
@@ -276,11 +286,12 @@ class BlockChainDataComponent extends Component {
     this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     const interval = setInterval(async () => {
       let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-        CoinMarketService.getCoinMarketData()
+        CoinMarketService.getCoinMarketData(this.props.currency, {})
       );
       this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     }, 90000);
   }
+
   /* FETCHING TPS COUNTER API*/
 
   async tpsCountDetail() {
@@ -343,21 +354,22 @@ class BlockChainDataComponent extends Component {
   }
 
   render() {
-    console.log(this.props.currency, "HHHHHHHHHHHHH")
     let changePrice;
     if (
       this.state.coinMarketPrice &&
       this.state.coinMarketPrice.quote &&
       this.state.coinMarketPrice.quote.length >= 1 &&
-      this.state.coinMarketPrice.quote[0].USD &&
-      this.state.coinMarketPrice.quote[0].USD.percent_change_24h
+      this.state.coinMarketPrice.quote[0][this.props.currency] &&
+      this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h
     ) {
-      changePrice = this.state.coinMarketPrice.quote[0].USD.percent_change_24h;
-    }
+      changePrice = this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h;
 
-    let changeDecimal = parseFloat(changePrice).toFixed(2);
+
+    }
+    const currencySymbol = this.props.currency === "INR" ? "₹ " : this.props.currency === "USD" ? "$ " : "€ "
+    let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
-    let changeDecimals = parseFloat(changeXdc).toFixed(6);
+    let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount;
     return (
       <MainContainer>
@@ -368,7 +380,7 @@ class BlockChainDataComponent extends Component {
               <LeftTitle>XDC</LeftTitle>
             </LeftTop>
             <LeftTopSecMain>
-              <LeftTopSec>${changeDecimals}</LeftTopSec>
+              <LeftTopSec>{currencySymbol}{changeDecimals}</LeftTopSec>
               <div
                 className={
                   changePrice > 0
@@ -386,7 +398,7 @@ class BlockChainDataComponent extends Component {
                       <BsFillCaretDownFill size={10} />
                     </div>
                   )}
-                  &nbsp;{changeDecimal}%
+                  &nbsp;{changeDecimal ? changeDecimal : 0}%
                 </div>
               </div>
             </LeftTopSecMain>

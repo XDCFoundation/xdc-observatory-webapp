@@ -10,7 +10,8 @@ import { MenuItem } from "material-ui";
 
 
 
-export default function FooterComponent() {
+export default function Footer(props) {
+
     return (
         <div className={"footer_base"}>
             <Grid className="footer" container alignContent="center" justify="center">
@@ -23,7 +24,7 @@ export default function FooterComponent() {
                         XinFinScan is a Block Explorer and Analytics Platform for XDC, a decentralized smart contracts platform.
                     </p>
                     <div>
-                        <Select id="currency" className={"filled select-xdc"} defaultValue="USD">
+                        <Select id="currency" className={"filled select-xdc"} defaultValue="USD" value={props.currency} onChange={(event) => props._handleChange(event)}>
                             <MenuItem value="USD" selected="selected">
                                 <img className="select-icon" src={DOLLAR} /> <span className="USD" selected>USD</span>
                             </MenuItem>

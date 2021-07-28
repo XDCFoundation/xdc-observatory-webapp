@@ -74,7 +74,7 @@ class LatestBlocks extends Component {
 
       if (blockDataExist == -1) {
         // console.log(blockData.number, "NUMBER");
-        console.log(blockData.timestamp, "hiiiiii");
+
         if (blocks.length >= 10) blocks.pop();
         // this.setState({ blockAnimation: {} });
         blocks.unshift(blockData);
@@ -162,7 +162,7 @@ class LatestBlocks extends Component {
   }
 
   render() {
-    console.log(this.state.latestBlocksData, "hiiiiiii");
+
     return (
       <>
         <div className="block_main">

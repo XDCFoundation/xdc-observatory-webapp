@@ -1930,7 +1930,7 @@ button {
   letter-spacing: 0.54px;
   color: #2149b9 !important;
   margin-top: 8px;
-  margin-right: 24px;
+  margin-right: 25px;
 }
 .height_2 {
   background-color: transparent;
@@ -2423,7 +2423,7 @@ button {
   letter-spacing: 00.7px;
 }
 /*address/address page*/
-.AddressTitle{
+.AddressTitle {
   height: 20px;
   font-family: Inter;
   font-size: 17px;
@@ -2434,16 +2434,16 @@ button {
   letter-spacing: 0.65px;
   color: #2149b9;
 }
-.address_block_main{
+.address_block_main {
   align-items: center;
-    /* height: 75vh; */
+  /* height: 75vh; */
   justify-content: space-between;
   display: flex;
   width: 900px;
   margin: 0 auto;
   margin-top: 35px !important;
 }
-.contractOverview{
+.contractOverview {
   width: 432px;
   height: 254px;
   border-radius: 12px;
@@ -2452,13 +2452,13 @@ button {
   background-color: #ffffff;
 }
 
-.contractSummary{
-    width: 432px;
-    height: 254px;
-    border-radius: 12px;
-    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
-    border: solid 1px #e3e7eb;
-    background-color: #ffffff;
+.contractSummary {
+  width: 432px;
+  height: 254px;
+  border-radius: 12px;
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
 }
 /*Address Details CSS*/
 
@@ -2599,13 +2599,12 @@ button {
   background-color: #eee;
 }
 .popup_qr {
-  
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   border-radius: 10px;
   box-shadow: black;
 }
@@ -2628,7 +2627,7 @@ button {
 .popup-arrow {
   color: rgb(255, 255, 255);
 }
-[role='tooltip'].popup-content {
+[role="tooltip"].popup-content {
   width: 100px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
 }
@@ -2636,7 +2635,7 @@ button {
 .popup-overlay {
   background: rgba(0, 0, 0, 0.5);
 }
-[data-popup='tooltip'].popup-overlay {
+[data-popup="tooltip"].popup-overlay {
   background: transparent;
 }
 
