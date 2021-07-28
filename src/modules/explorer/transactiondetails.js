@@ -157,7 +157,7 @@ export default function BlockDetailsData() {
                                     letterSpacing: '0.58px',
                                     color: '#252525', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    TimeStamp
+                                    Timestamp
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
@@ -301,7 +301,7 @@ export default function BlockDetailsData() {
                                     color: '#252525', borderBottom: "1px solid #e3e7eb"
 
                                 }} id="td">
-                                    TxnFee
+                                    Txn Fee
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
@@ -437,7 +437,7 @@ export default function BlockDetailsData() {
                                     letterSpacing: '0.58px',
                                     color: '#252525', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    Nounce
+                                    Nonce
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import "../../assets/styles/custom.css";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
@@ -23,12 +23,27 @@ let percentageChange = function relDiff(a, b) {
 };
 
 
-export default function MarketDatatable() {
-    const [postLatestMarket, setLatestMarket] = useState([]);
-    const [postPreviousMarket, setPreviousMarket] = useState([]);
+class MarketDatatable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            postLatestMarket: [],
+            postPreviousMarket: []
 
-    useEffect(async () => {
-        let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+        }
+    }
+
+    async componentDidMount() {
+        await this.getMarketData();
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.currency !== this.props.currency) {
+            this.getMarketData();
+        }
+
+    }
+    async getMarketData() {
+        let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData(this.props.currency, {}))
 
         if (error || !totalcoinMarketData)
             return
@@ -37,131 +52,138 @@ export default function MarketDatatable() {
         });
         if (error || !totalcoinMarketData)
             return
-        setLatestMarket(totalcoinMarketData[1]);
-        setPreviousMarket(totalcoinMarketData[0]);
+        this.setState({ postLatestMarket: totalcoinMarketData[1] })
+        this.setState({ postPreviousMarket: totalcoinMarketData[0] })
         const interval = setInterval(async () => {
 
-            let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData())
+            let [error, totalcoinMarketData] = await Utils.parseResponse(CoinMarketService.getCoinMarketData(this.props.currency, {}))
             if (error || !totalcoinMarketData)
                 return
-            setLatestMarket(totalcoinMarketData[1]);
-            setPreviousMarket(totalcoinMarketData[0]);
+            this.setState({ postLatestMarket: totalcoinMarketData[1] })
+            this.setState({ postPreviousMarket: totalcoinMarketData[0] })
         }, 90000)
-    }, []);
+    }
 
-    /* Calculating marketCap change percentege */
-    let LatestMarketCap = postLatestMarket.marketCap
-    let PreviousMarketCap = postPreviousMarket.marketCap
-    let MarketCapchange = percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2);
+    render() {
+        /* Calculating marketCap change percentege */
+        const LatestMarketCap = this.state.postLatestMarket.marketCap
+        const PreviousMarketCap = this.state.postPreviousMarket.marketCap
+        const MarketCapchange = LatestMarketCap && PreviousMarketCap ? percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2) : 0;
 
-    /* Calculating marketCap change percentege */
-    let Latestfdmc = postLatestMarket.fullyDilutedMarketCap
-    let Previousfdmc = postPreviousMarket.fullyDilutedMarketCap
-    let FullyDilutedMarketCapchange = percentageChange(Latestfdmc, Previousfdmc).toFixed(2);
+        /* Calculating marketCap change percentege */
+        const Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap
+        const Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap
+        const FullyDilutedMarketCapchange = Previousfdmc && Latestfdmc ? percentageChange(Latestfdmc, Previousfdmc).toFixed(2) : 0;
 
-    /* Calculating marketCap change percentege */
-    let LatestVolume = postLatestMarket.volume
-    let PreviousVolume = postPreviousMarket.volume
-    let Volumechange = percentageChange(LatestVolume, PreviousVolume).toFixed(2);
+        /* Calculating marketCap change percentege */
+        const LatestVolume = this.state.postLatestMarket.volume
+        const PreviousVolume = this.state.postPreviousMarket.volume
+        const Volumechange = LatestVolume && PreviousVolume ? percentageChange(LatestVolume, PreviousVolume).toFixed(2) : 0;
 
 
-    let MarketCapValue = convertToInternationalCurrencySystem(postLatestMarket.marketCap) //marketCap
-    let FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(postLatestMarket.fullyDilutedMarketCap) //Fully Diluted Market Cap
-    let volumeValue = convertToInternationalCurrencySystem(postLatestMarket.volume) //volume(24hr)
-    let circulatingSupplyValue = convertToInternationalCurrencySystem(postLatestMarket.circulatingSupply); //circulatingSupply
-    let volumeMarketcap = postLatestMarket.volumeMarketCap; //volumeMarketCap
-    let vmc = parseFloat(volumeMarketcap).toFixed(6);
+        const MarketCapValue = convertToInternationalCurrencySystem(this.state.postLatestMarket.marketCap) //marketCap
+        const FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(this.state.postLatestMarket.fullyDilutedMarketCap) //Fully Diluted Market Cap
+        const volumeValue = convertToInternationalCurrencySystem(this.state.postLatestMarket.volume) //volume(24hr)
+        const circulatingSupplyValue = convertToInternationalCurrencySystem(this.state.postLatestMarket.circulatingSupply); //circulatingSupply
+        const volumeMarketcap = this.state.postLatestMarket.volumeMarketCap; //volumeMarketCap
+        const vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
 
-    var totalSupplyValue = Math.round(postLatestMarket.totalSupply); //totalSupply
-    totalSupplyValue = totalSupplyValue.toLocaleString();
+        let totalSupplyValue = Math.round(this.state.postLatestMarket.totalSupply); //totalSupply
+        totalSupplyValue = totalSupplyValue ? totalSupplyValue.toLocaleString() : 0;
 
-    return (
+        const currencySymbol = this.props.currency === "INR" ? "₹ " : this.props.currency === "USD" ? "$ " : "€ "
+        return (
 
-        <div className="main_mid">
-            <div className="cont1">
-                <p>Market Cap</p>
-                <p>${MarketCapValue}</p>
-                <div
-                    className={
-                        MarketCapchange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {MarketCapchange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{MarketCapchange}%
+            <div className="main_mid">
+                <div className="cont1">
+                    <p>Market Cap</p>
+                    <p>{currencySymbol}{MarketCapValue ? MarketCapValue : 0}</p>
+                    <div
+                        className={
+                            MarketCapchange >= 0
+                                ? "data_value_green"
+                                : "data_value_red"
+                        }
+                    >
+                        <div className="varMarket">
+                            {MarketCapchange >= 0 ? (
+                                <div className="arrow_up">
+                                    <BsFillCaretUpFill size={10} />
+                                </div>
+                            ) : (
+                                <div className="arrow_down">
+                                    <BsFillCaretDownFill size={10} />
+                                </div>
+                            )}
+                            &nbsp;{MarketCapchange}%
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="cont1">
-                <p>Fully Diluted Market Cap</p>
-                <p>${FullyDilutedMarketCapValue}</p>
-                <div
-                    className={
-                        FullyDilutedMarketCapchange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {FullyDilutedMarketCapchange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{FullyDilutedMarketCapchange}%
+                <div className="cont1">
+                    <p>Fully Diluted Market Cap</p>
+                    <p>{currencySymbol}{FullyDilutedMarketCapValue ? FullyDilutedMarketCapValue : 0}</p>
+                    <div
+                        className={
+                            FullyDilutedMarketCapchange >= 0
+                                ? "data_value_green"
+                                : "data_value_red"
+                        }
+                    >
+                        <div className="varMarket">
+                            {FullyDilutedMarketCapchange >= 0 ? (
+                                <div className="arrow_up">
+                                    <BsFillCaretUpFill size={10} />
+                                </div>
+                            ) : (
+                                <div className="arrow_down">
+                                    <BsFillCaretDownFill size={10} />
+                                </div>
+                            )}
+                            &nbsp;{FullyDilutedMarketCapchange}%
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="cont1">
-                <p>Volume (24hr)</p>
-                <p>${volumeValue}</p>
-                <div
-                    className={
-                        Volumechange >= 0
-                            ? "data_value_green"
-                            : "data_value_red"
-                    }
-                >
-                    <div className="varMarket">
-                        {Volumechange >= 0 ? (
-                            <div className="arrow_up">
-                                <BsFillCaretUpFill size={10} />
-                            </div>
-                        ) : (
-                            <div className="arrow_down">
-                                <BsFillCaretDownFill size={10} />
-                            </div>
-                        )}
-                        &nbsp;{Volumechange}%
+                <div className="cont1">
+                    <p>Volume (24hr)</p>
+                    <p>{currencySymbol}{volumeValue ? volumeValue : 0}</p>
+                    <div
+                        className={
+                            Volumechange >= 0
+                                ? "data_value_green"
+                                : "data_value_red"
+                        }
+                    >
+                        <div className="varMarket">
+                            {Volumechange >= 0 ? (
+                                <div className="arrow_up">
+                                    <BsFillCaretUpFill size={10} />
+                                </div>
+                            ) : (
+                                <div className="arrow_down">
+                                    <BsFillCaretDownFill size={10} />
+                                </div>
+                            )}
+                            &nbsp;{Volumechange}%
+                        </div>
                     </div>
                 </div>
+                <div className="cont1">
+                    <p>Circulating Supply</p>
+                    <p>{circulatingSupplyValue ? circulatingSupplyValue : 0} XDC</p>
+                </div>
+                <div className="cont1">
+                    <p>Volume/Market Cap</p>
+                    <p>{vmc ? vmc : 0}</p>
+
+                </div>
+                <div className="cont1">
+                    <p>Total Supply</p>
+                    <p>{!totalSupplyValue ? 0 : totalSupplyValue}</p>
+                </div>
             </div>
-            <div className="cont1">
-                <p>Circulating Supply</p>
-                <p>{circulatingSupplyValue} XDC</p>
-            </div>
-            <div className="cont1">
-                <p>Volume/Market Cap</p>
-                <p>{vmc}</p>
-            </div>
-            <div className="cont1">
-                <p>Total Supply</p>
-                <p>{totalSupplyValue}</p>
-            </div>
-        </div>
-    );
+        );
+    }
+
 }
+
+export default MarketDatatable;
