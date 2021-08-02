@@ -33,7 +33,6 @@
     "react-scripts": "^3.4.4",
     "react-scroll": "^1.8.2",
     "react-websocket": "^2.1.0",
-    "reactjs-popup": "^2.0.4",
     "reactjs-popup": "^2.0.5",
     "redux": "latest",
     "redux-logger": "^3.0.6",

@@ -19,7 +19,6 @@ export default class LatestTransactionList extends BaseComponent {
             transactionList: [],
             totalTransaction: 0,
             isLoader: false
-            // total:""
         }
     }
 
@@ -33,7 +32,7 @@ export default class LatestTransactionList extends BaseComponent {
     async setGetListOfTransactionsInterval() {
         setInterval(() => {
             this.getListOfTransactions()
-        }, 45000)
+        }, 90000)
     }
 
 
@@ -47,10 +46,7 @@ export default class LatestTransactionList extends BaseComponent {
             return this.setState({ isLoader: false })
         this.setState({ transactionList: listOfTransactions, isLoader: false })
 
-        // const interval = setInterval(async () => {
-        //     let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
-        //     this.setState({ transactionList: listOfTransactions })
-        // }, 45000)
+
     }
 
     async getTotalTransaction() {
@@ -59,10 +55,7 @@ export default class LatestTransactionList extends BaseComponent {
         if (error || !total)
             return
         this.setState({ totalTransaction: total })
-        // const interval = setInterval(async () => {
-        //     let [error, total] = await Utils.parseResponse(TransactionService.getTotalTransaction())
-        //     this.setState({ totalTransaction: total })
-        // }, 45000)
+
     }
 
     _handleChange = (event) => {

@@ -47,8 +47,8 @@ export default function AccountComponent(props) {
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                         <TableCell style={{ border: "none" }} margin-left="5px" >
-                                            <Tooltip placement="left" title={row.address}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "10px" }} /></Tooltip>
-                                            <a className="linkTable" href={'/address-details/'+row.address}><span className="tabledata">{props.shorten(row.address)}</span></a>
+
+                                            <a className="linkTable" href={'/address-details/' + row.address}><span className="tabledata">{(row.address)}</span></a>
 
                                         </TableCell>
                                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}

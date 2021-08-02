@@ -25,23 +25,29 @@ const useStyles = makeStyles({
 });
 
 
-export default function BlockDetailsData() {
+export default function TransactionsDetailsData({ _handleChange }) {
 
     const { hash } = useParams();
     const [transactions, setTransactions] = useState(false)
+    const [amount, setAmount] = useState("USD")
+    useEffect(() => {
+        transactionDetail()
+    }, [amount])
 
-
-    useEffect(async () => {
+    const transactionDetail = async () => {
+        console.log("IJU")
         let urlPath = `/${hash}`
         let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
         if (error || !transactiondetailusinghash)
             return
         setTransactions(transactiondetailusinghash);
-        const interval = setInterval(async () => {
-            let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
-            setTransactions(transactiondetailusinghash);
-        }, 45000)
-    }, []);
+    }
+
+    // const interval = setInterval(async () => {
+    //     let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
+    //     setTransactions(transactiondetailusinghash);
+    // }, 90000)
+
 
     const classes = useStyles();
     const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
@@ -58,7 +64,16 @@ export default function BlockDetailsData() {
     const input = `Additional information that is required for the transaction `;
     const privatenote = ` Private notes `;
 
+    function _handleChange(event) {
+        setAmount(event?.target?.value)
+        console.log(event, "UUUUUUU")
+    }
+    const currencySymbol = amount === "INR" ? "₹ " : amount === "USD" ? "$ " : "€ "
+    const valueFetch = amount === "INR" ? transactions.valueINR : amount === "USD" ? transactions.valueUSD : transactions.valueEUR
+    const transactionFetch = amount === "INR" ? transactions.transactionFeeINR : amount === "USD" ? transactions.transactionFeeUSD : transactions.transactionFeeEUR
+    console.log(amount, "AAAAAA")
     return (
+
         <div>
             <Tokensearchbar />
             <Grid lg={8} className="table-grid-block">
@@ -157,7 +172,7 @@ export default function BlockDetailsData() {
                                     letterSpacing: '0.58px',
                                     color: '#252525', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    TimeStamp
+                                    Timestamp
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
@@ -278,7 +293,7 @@ export default function BlockDetailsData() {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    {transactions.value} XDC (${transactions.valueUSD})
+                                    {transactions.value} XDC ({currencySymbol}{valueFetch})
                                 </TableCell>
                             </TableRow>
 
@@ -301,7 +316,7 @@ export default function BlockDetailsData() {
                                     color: '#252525', borderBottom: "1px solid #e3e7eb"
 
                                 }} id="td">
-                                    TxnFee
+                                    Txn Fee
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
@@ -313,7 +328,7 @@ export default function BlockDetailsData() {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    {transactions.transactionFee} XDC (${transactions.transactionFeeUSD})
+                                    {transactions.transactionFee} XDC ({currencySymbol}{transactionFetch})
                                 </TableCell>
                             </TableRow>
 
@@ -437,7 +452,7 @@ export default function BlockDetailsData() {
                                     letterSpacing: '0.58px',
                                     color: '#252525', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    Nounce
+                                    Nonce
                                 </TableCell>
                                 <TableCell style={{
                                     fontFamily: 'Inter',
@@ -510,7 +525,7 @@ export default function BlockDetailsData() {
                 <br />
                 <br />
             </Grid>
-            <FooterComponent />
+            <FooterComponent _handleChange={_handleChange} currency={amount} />
         </div>
     );
 

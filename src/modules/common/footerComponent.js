@@ -3,14 +3,15 @@ import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
 import INR from "../../assets/images/inr.png";
 import EUR from "../../assets/images/euro.png";
-import DOLLAR from "../../assets/images/dollar.png";
+import USD from "../../assets/images/usd.png";
 import Grid from '@material-ui/core/Grid'
 import Select from "@material-ui/core/Select"
 import { MenuItem } from "material-ui";
 
 
 
-export default function FooterComponent() {
+export default function Footer(props) {
+    console.log(props.showDropDown, "JJIII")
     return (
         <div className={"footer_base"}>
             <Grid className="footer" container alignContent="center" justify="center">
@@ -23,14 +24,27 @@ export default function FooterComponent() {
                         XinFinScan is a Block Explorer and Analytics Platform for XDC, a decentralized smart contracts platform.
                     </p>
                     <div>
-                        <Select id="currency" className={"filled select-xdc"} defaultValue="USD">
-                            <MenuItem value="USD" selected="selected">
-                                <img className="select-icon" src={DOLLAR} /> <span className="USD" selected>USD</span>
-                            </MenuItem>
-                            <MenuItem value="EUR" >
+                        <Select style={{
+                            outline: "0",
+                            backgroundColor: "#2149b9"
+                        }} id="currency" className={"filled select-xdc"} defaultValue="USD" value={props.currency} onChange={(event) => props._handleChange(event)} >
+                            {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
+                            <MenuItem value="USD" selected="selected" style={{
+                                outline: "0",
+                                backgroundColor: "#2149b9", paddingTop: "0px", paddingBottom: "0px"
+                            }}>
+                                <img className="select-icon" src={USD} />  <span className="USD" selected>USD</span>
+                            </MenuItem >
+                            <MenuItem value="EUR" style={{
+                                outline: "0",
+                                backgroundColor: "#2149b9"
+                            }}>
                                 <img className="select-icon" src={EUR} /> <span className="USD">EUR</span>
                             </MenuItem>
-                            <MenuItem value="INR" >
+                            <MenuItem value="INR" style={{
+                                outline: "0",
+                                backgroundColor: "#2149b9"
+                            }} >
                                 <img className="select-icon" src={INR} /> <span className="USD" >INR</span>
                             </MenuItem>
                         </Select>

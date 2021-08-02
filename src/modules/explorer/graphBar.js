@@ -91,7 +91,7 @@ export default function App() {
             setGraphTransactions
                 (transactionGraph);
             // alert(JSON.stringify(transactionGraph))
-        }, 30000)
+        }, 90000)
 
 
         var arr = [{
@@ -112,7 +112,7 @@ export default function App() {
         })
 
         let graphdata = resultData
-        // console.log(graphdata.reverse())
+        // graphdata.reverse()
         arr[0].data = resultData
         setData(arr)
     }, [])
