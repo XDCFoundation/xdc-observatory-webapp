@@ -146,7 +146,6 @@ let changePrice;
 class BlockChainDataComponent extends Component {
   constructor(props) {
     super(props);
-    console.log(props, "PROP")
     this.state = {
       totalTransaction: [],
       totalAccount: [],
@@ -186,14 +185,11 @@ class BlockChainDataComponent extends Component {
     let transactions = this.state.transactionDataDetails;
     socket.on("block-socket", (blockData, error) => {
       this.setState({ blockSocketConnected: true })
-      console.log(blockData.number);
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
       // blockData["class"] = "first-block-age last-block-transaction height2";
       if (blockDataExist == -1) {
-        // console.log(blockData.number, "NUMBER");
-        console.log(blockData.timestamp, "hiiiiii");
         blocks.pop();
         blocks.unshift(blockData);
         // blocks.sort((a, b) => {
@@ -364,7 +360,9 @@ class BlockChainDataComponent extends Component {
       this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h
     ) {
       changePrice = this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h;
-      console.log(changePrice, this.state.coinMarketPrice.quote[0], this.state.currencyType, "HHHIII")
+
+
+
 
     }
     const currencySymbol = this.props.currency === "INR" ? "₹ " : this.props.currency === "USD" ? "$ " : "€ "

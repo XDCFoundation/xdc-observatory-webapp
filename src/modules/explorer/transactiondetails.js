@@ -35,7 +35,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
     }, [amount])
 
     const transactionDetail = async () => {
-        console.log("IJU")
+
         let urlPath = `/${hash}`
         let [error, transactiondetailusinghash] = await Utils.parseResponse(TransactionService.getTransactionDetailsUsingHash(urlPath, {}))
         if (error || !transactiondetailusinghash)

@@ -53,6 +53,8 @@ class LatestBlocks extends Component {
       transactionSocketConnected: false,
       blockAnimation: {},
       ageAnimation: {}, transactionsAnimation: {}, hashAnimation: {}, ageeAnimation: {}, amountAnimation: {}, detailAnimation: {}
+
+      // blockAnimation: {},
     };
   }
 
@@ -76,7 +78,6 @@ class LatestBlocks extends Component {
       });
 
       if (blockDataExist == -1) {
-        console.log(blockData.timestamp, "hiiiiii");
         if (blocks.length >= 10) blocks.pop();
         blocks.unshift(blockData);
         let blockAnimationClass = { [blockData.number]: "first-block-age" };
@@ -181,7 +182,7 @@ class LatestBlocks extends Component {
   }
 
   render() {
-    console.log(this.state.latestBlocksData, "hiiiiiii");
+
     return (
       <>
         <div className="block_main">

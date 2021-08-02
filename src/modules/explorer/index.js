@@ -24,9 +24,7 @@ export default class BlockChainClass extends BaseComponent {
     }
 
     render() {
-        console.log(this.state.amount, "IIIINNNNDDEEEEXXXX")
         return (
-
             <div>
                 <NavigationBar />
                 <BlockChainDataComponent

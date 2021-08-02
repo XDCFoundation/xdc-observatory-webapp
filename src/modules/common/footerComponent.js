@@ -11,7 +11,6 @@ import { MenuItem } from "material-ui";
 
 
 export default function Footer(props) {
-    console.log(props.showDropDown, "JJIII")
     return (
         <div className={"footer_base"}>
             <Grid className="footer" container alignContent="center" justify="center">
