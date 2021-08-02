@@ -2,7 +2,7 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import BlocksComponent from "./blocksComponent"
 import Utils from '../../utility'
-import {BlockService} from '../../services'
+import { BlockService } from '../../services'
 
 
 import TokenSearchComponent from "../explorer/tokensearchBar";
@@ -17,8 +17,8 @@ export default class LatestBlocksList extends BaseComponent {
             amount: 50,
             tableName: "Blocks",
             blocksList: [],
-            totalblocks: 0
-
+            totalblocks: 0,
+            showDropDown: true
         }
     }
 
@@ -38,7 +38,7 @@ export default class LatestBlocksList extends BaseComponent {
         let [error, listOfBlocks] = await Utils.parseResponse(BlockService.getLatestBlock(urlPath, {}))
         if (error || !listOfBlocks)
             return
-        this.setState({blocksList: listOfBlocks})
+        this.setState({ blocksList: listOfBlocks })
 
 
     }
@@ -47,42 +47,42 @@ export default class LatestBlocksList extends BaseComponent {
         let [error, totalB] = await Utils.parseResponse(BlockService.getTotalBlocks())
         if (error || !totalB)
             return
-        this.setState({totalblocks: totalB})
+        this.setState({ totalblocks: totalB })
 
     }
 
     _handleChange = (event) => {
-        this.setState({amount: event.target.value})
+        this.setState({ amount: event.target.value })
         this.getListOfBlocks(this.state.from, event.target.value)
     }
 
 
     _FirstPage = (event) => {
-        this.setState({from: 0})
+        this.setState({ from: 0 })
         this.getListOfBlocks(0, this.state.amount)
     }
     _LastPage = (event) => {
         let from = this.state.totalblocks - this.state.amount
-        this.setState({from})
+        this.setState({ from })
         this.getListOfBlocks(from, this.state.amount)
     }
     _NextPage = async (event) => {
         if (this.state.amount + this.state.from < this.state.totalblocks) {
             let from = this.state.amount + this.state.from
-            this.setState({from})
+            this.setState({ from })
             this.getListOfBlocks(from, this.state.amount)
         }
     }
     _PrevPage = (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
-            this.setState({from})
+            this.setState({ from })
             this.getListOfBlocks(from, this.state.amount)
         }
     }
 
     create_data(hash, amount, age, block, from, to, txnfee) {
-        return {hash, amount, age, block, from, to, txnfee}
+        return { hash, amount, age, block, from, to, txnfee }
     }
 
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -104,7 +104,7 @@ export default class LatestBlocksList extends BaseComponent {
     render() {
         return (
             <div>
-                <TokenSearchComponent/>
+                <TokenSearchComponent />
                 <BlocksComponent
                     create_data={this.create_data}
                     state={this.state}
@@ -116,7 +116,7 @@ export default class LatestBlocksList extends BaseComponent {
                     _FirstPage={this._FirstPage}
                     _handleChange={this._handleChange}
                 />
-                <FooterComponent/>
+                <FooterComponent showDropDown={this.state.showDropDown} />
             </div>
         )
 

@@ -11,7 +11,7 @@ import LatestTransactionList from './modules/transaction';
 import LatestBlocksList from './modules/blocks';
 import BlockChainClass from './modules/explorer';
 import TokenDetails from './modules/explorer/tokendetails';
-import TransactionDetails from './modules/explorer/transactiondetails';
+import TransactionsDetailsData from './modules/explorer/transactiondetails';
 import BlockDetailsData from './modules/explorer/blockDetails'
 import LatestAccountsList from './modules/accounts';
 import AddressDetails from './modules/address/addressDetails'
@@ -42,7 +42,7 @@ class Routes extends BaseComponent {
                         <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
                         <Route exact path={'/view-all-blocks'} component={LatestBlocksList} />
                         <Route exact path={'/tokens'} component={TokenDetails} />
-                        <Route exact path={'/transaction-details'} component={TransactionDetails} />
+                        {/* <Route exact path={'/transaction-details'} component={TransactionDetails} /> */}
                         <Route exact path={'/block-details/:blockNumber'} component={BlockDetailsData} />
                         <Route exact path={'/account-details'} component={LatestAccountsList} />
                         <Route exact path={'/address-details/:address'} component={AddressDetails} />
@@ -50,11 +50,10 @@ class Routes extends BaseComponent {
                         <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
                         <Route exact path={'/view-all-blocks'} component={LatestBlocksList} />
                         <Route exact path={'/token-details'} component={TokenDetails} />
-                        <Route exact path={'/transaction-details/:hash'} component={TransactionDetails} />
+                        <Route exact path={'/transaction-details/:hash'} component={TransactionsDetailsData} />
                         <Route exact path={'/contracts'} component={ContractComponent} />
                         <Route exact path={'/verify-contracts'} component={ContractTab} />
                         <Route exact path={'/loginprofile'} component={AccountProfile} />
-
                         <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
 
                         <Redirect exact from='*' to="/" />

@@ -41,9 +41,7 @@ function shortenBalance(b, amountL = 4, amountR = 3, stars = 0) {
   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length)}`;
 }
 
-function increment(data) {
-  console.log(data, "DATA FUNCTION");
-}
+
 
 class LatestBlocks extends Component {
   constructor(props) {
@@ -51,9 +49,13 @@ class LatestBlocks extends Component {
     this.state = {
       latestBlocksData: [],
       latestTransactionData: [],
-      // blockAnimation: {},
+      blockSocketConnected: false,
+      transactionSocketConnected: false,
+      blockAnimation: {},
+      ageAnimation: {}, transactionsAnimation: {}, hashAnimation: {}, ageeAnimation: {}, amountAnimation: {}, detailAnimation: {}
     };
   }
+
 
   componentWillUnmount() {
     this.props.socket.off("block-socket");
@@ -67,20 +69,25 @@ class LatestBlocks extends Component {
     let blocks = this.state.latestBlocksData;
     let transactions = this.state.latestTransactionData;
     socket.on("block-socket", (blockData, error) => {
-      console.log(blockData.number);
+
+      this.setState({ blockSocketConnected: true })
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
 
       if (blockDataExist == -1) {
-        // console.log(blockData.number, "NUMBER");
         console.log(blockData.timestamp, "hiiiiii");
         if (blocks.length >= 10) blocks.pop();
-        // this.setState({ blockAnimation: {} });
         blocks.unshift(blockData);
-        // let blockAnimationClass = { [blockData.number]: "first-block-age" };
-        // this.setState({ blockAnimation: blockAnimationClass });
-
+        let blockAnimationClass = { [blockData.number]: "first-block-age" };
+        this.setState({ blockAnimation: blockAnimationClass });
+        let ageAnimationClass = { [blockData.number]: "second-block-age" };
+        this.setState({ ageAnimation: ageAnimationClass });
+        let transactionAnimationClass = { [blockData.number]: "third-block-age" };
+        this.setState({ transactionsAnimation: transactionAnimationClass });
+        setTimeout(() => {
+          this.setState({ transactionsAnimation: {}, ageAnimation: {}, blockAnimation: {} })
+        }, 500)
         // blocks.sort((a, b) => {
         //   return b.number - a.number;
         // });
@@ -91,15 +98,29 @@ class LatestBlocks extends Component {
           console.log("hello error");
         }
       }
+
     });
 
     socket.on("transaction-socket", (transactionData, error) => {
+      this.setState({ transactionSocketConnected: true })
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash == transactionData.hash;
       });
+
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
+        let hashAnimationClass = { [transactionData.hash]: "first-transaction-hash" };
+        this.setState({ hashAnimation: hashAnimationClass });
+        let amountAnimationClass = { [transactionData.hash]: "second-transaction-amount" };
+        this.setState({ amountAnimation: amountAnimationClass });
+        let ageAnimationClass = { [transactionData.hash]: "third-transaction-age" };
+        this.setState({ ageeAnimation: ageAnimationClass });
+        let detailAnimationClass = { [transactionData.hash]: "fourth-transaction-detail" };
+        this.setState({ detailAnimation: detailAnimationClass })
+        setTimeout(() => {
+          this.setState({ hashAnimation: {}, amountAnimation: {}, ageeAnimation: {}, detailAnimation: {} })
+        }, 500)
         this.setState({ latestTransactionData: transactions });
 
         if (error) {
@@ -119,13 +140,17 @@ class LatestBlocks extends Component {
 
     this.setState({ latestBlocksData: latestBlocks });
     // blocks = latestBlocks;
+
     const interval = setInterval(async () => {
-      let [error, latestBlocks] = await Utils.parseResponse(
-        BlockService.getLatestBlock(urlPath, {})
-      );
-      this.setState({ latestBlocksData: latestBlocks });
+      if (!this.state.blockSocketConnected) {
+        let [error, latestBlocks] = await Utils.parseResponse(
+          BlockService.getLatestBlock(urlPath, {})
+        );
+        this.setState({ latestBlocksData: latestBlocks });
+      }
+
       // blocks = latestBlocks;
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING LATEST TRANSACTIONS API*/
@@ -138,11 +163,14 @@ class LatestBlocks extends Component {
     if (error || !latestTransactions) return;
     this.setState({ latestTransactionData: latestTransactions });
     const interval = setInterval(async () => {
-      let [error, latestTransactions] = await Utils.parseResponse(
-        TransactionService.getLatestTransaction(urlPath, {})
-      );
-      this.setState({ latestTransactionData: latestTransactions });
-    }, 45000);
+      if (!this.state.transactionSocketConnected) {
+        let [error, latestTransactions] = await Utils.parseResponse(
+          TransactionService.getLatestTransaction(urlPath, {})
+        );
+        this.setState({ latestTransactionData: latestTransactions });
+      }
+
+    }, 90000);
   }
 
   shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -193,27 +221,35 @@ class LatestBlocks extends Component {
                 {this.state.latestBlocksData &&
                   this.state.latestBlocksData.length >= 1 &&
                   this.state.latestBlocksData.map((z, index) => {
-                    const currentTime = Date.now();
-
-                    // let blockNumber = z.number;
-                    // let animationClass =
-                    //   this.state.blockAnimation?.[blockNumber];
-                    // console.log(animationClass, blockNumber);
+                    const currentTime = Date.now()
                     const currentTimeFormat = new Date(currentTime);
                     const previousTime = new Date(z.timestamp * 1000);
                     const ti = timeDiff(currentTimeFormat, previousTime);
+                    let blockNumber = z.number;
+
+                    // let transactionLength = z.trans
+                    let animationClass =
+                      this.state.blockAnimation?.[blockNumber]
+                      ;
+                    let ageAnimationClass =
+                      this.state.ageAnimation?.[blockNumber]
+                      ;
+                    let transAnimationClass =
+                      this.state.transactionsAnimation?.[blockNumber]
+                      ;
+                    console.log(animationClass, blockNumber);
                     return (
                       <div className="value_main_main">
                         <div className="main_vaa">
-                          <p>{ti}</p>
+                          <p className={ageAnimationClass ? ageAnimationClass : "main_vaa"} > {ti}</p>
                           {/* <a className={animationClass}> */}
                           <a
-                            className="height"
+                            a className={animationClass ? animationClass : "height"}
                             href={"/block-details/" + z.number}
                           >
                             {z.number.toLocaleString()}
                           </a>
-                          <p>{z.transactions.length}</p>
+                          <p className={transAnimationClass ? transAnimationClass : "main_vaa"}>{z.transactions.length}</p>
                         </div>
                       </div>
                     );
@@ -268,25 +304,32 @@ class LatestBlocks extends Component {
 
                 {this.state.latestTransactionData &&
                   this.state.latestTransactionData.length >= 1 &&
-                  this.state.latestTransactionData.map((e) => {
+                  this.state.latestTransactionData.map((e, index) => {
                     const currentTime = new Date();
                     const previousTime = new Date(e.timestamp * 1000);
                     const age = timeDiff(currentTime, previousTime);
+                    let hash = e.hash
+                    let hashanimationClass =
+                      this.state.hashAnimation?.[hash]
+                      ;
+                    let amountanimationclass = this.state.amountAnimation?.[hash]
+                    let ageanimationclass = this.state.ageeAnimation?.[hash]
+                    let detailanimationclass = this.state.detailAnimation?.[hash]
                     return (
                       <div className="value_main_main">
                         <div className="value_main main_val">
                           <Tooltip placement="top" title={e.hash}>
                             <a
-                              className="bttn"
+                              className={hashanimationClass ? hashanimationClass : "bttn"}
                               href={"/transaction-details/" + e.hash}
                             >
                               {this.shorten(e.hash)}
                             </a>
                           </Tooltip>
-                          <p>{shortenBalance(e.value)} XDC</p>
-                          <p>{age}</p>
+                          <p className={amountanimationclass ? amountanimationclass : "value_main "}>{shortenBalance(e.value)} XDC</p>
+                          <p className={ageanimationclass ? ageanimationclass : ""}>{age}</p>
                           <a
-                            className="details"
+                            className={detailanimationclass ? detailanimationclass : "details"}
                             href={"/transaction-details/" + e.hash}
                           >
                             Details

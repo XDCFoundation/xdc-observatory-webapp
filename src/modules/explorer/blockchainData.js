@@ -146,6 +146,7 @@ let changePrice;
 class BlockChainDataComponent extends Component {
   constructor(props) {
     super(props);
+    console.log(props, "PROP")
     this.state = {
       totalTransaction: [],
       totalAccount: [],
@@ -154,6 +155,9 @@ class BlockChainDataComponent extends Component {
       tpsCounts: {},
       blockdataNumber: [],
       transactionDataDetails: [],
+      blockSocketConnected: false,
+      transactionSocketConnected: false,
+      currencyType: this.props.currency
     };
   }
   componentWillUnmount() {
@@ -169,10 +173,19 @@ class BlockChainDataComponent extends Component {
     await this.transactionsLatest();
     this.socketData(this.props.socket);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currency !== this.props.currency) {
+      this.coinMarketCapDetails();
+    }
+
+  }
+
   socketData(socket) {
     let blocks = this.state.blockdataNumber;
     let transactions = this.state.transactionDataDetails;
     socket.on("block-socket", (blockData, error) => {
+      this.setState({ blockSocketConnected: true })
       console.log(blockData.number);
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
@@ -181,7 +194,7 @@ class BlockChainDataComponent extends Component {
       if (blockDataExist == -1) {
         // console.log(blockData.number, "NUMBER");
         console.log(blockData.timestamp, "hiiiiii");
-        if (blocks.length >= 10) blocks.pop();
+        blocks.pop();
         blocks.unshift(blockData);
         // blocks.sort((a, b) => {
         //   return b.number - a.number;
@@ -195,6 +208,7 @@ class BlockChainDataComponent extends Component {
       }
     });
     socket.on("transaction-socket", (transactionData, error) => {
+      this.setState({ transactionSocketConnected: true })
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash == transactionData.hash;
       });
@@ -223,7 +237,7 @@ class BlockChainDataComponent extends Component {
         TransactionService.getTotalTransaction()
       );
       this.setState({ totalTransaction: totalTransactions });
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING GET TOTAL ACCOUNTS API*/
@@ -239,7 +253,7 @@ class BlockChainDataComponent extends Component {
         AccountService.getTotalAccount()
       );
       this.setState({ totalAccount: totalAccounts });
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING GET SOME DAYS ACCOUNTS API*/
@@ -255,14 +269,15 @@ class BlockChainDataComponent extends Component {
         AccountService.getSomeDaysAccount()
       );
       this.setState({ someDayAccount: someDaysAccount.length });
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING GET COIN MARKET CAP API*/
 
   async coinMarketCapDetails() {
+
     let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-      CoinMarketService.getCoinMarketData()
+      CoinMarketService.getCoinMarketData(this.props.currency, {})
     );
     if (error || !totalcoinMarketPrice) return;
     totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
@@ -272,10 +287,10 @@ class BlockChainDataComponent extends Component {
     this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     const interval = setInterval(async () => {
       let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-        CoinMarketService.getCoinMarketData()
+        CoinMarketService.getCoinMarketData(this.props.currency, {})
       );
       this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING TPS COUNTER API*/
@@ -292,13 +307,13 @@ class BlockChainDataComponent extends Component {
         TpsService.getTpsCounter()
       );
       this.setState({ tpsCounts: tpsCount });
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING LATEST BLOCKS API */
 
   async blocksLatest() {
-    let urlPath = "?skip=0&limit=10";
+    let urlPath = "?skip=0&limit=1";
     let [error, latestBlocks] = await Utils.parseResponse(
       BlockService.getLatestBlock(urlPath, {})
     );
@@ -307,47 +322,55 @@ class BlockChainDataComponent extends Component {
     this.setState({ blockdataNumber: latestBlocks });
     // blocks = latestBlocks;
     const interval = setInterval(async () => {
-      let [error, latestBlocks] = await Utils.parseResponse(
-        BlockService.getLatestBlock(urlPath, {})
-      );
-      this.setState({ blockdataNumber: latestBlocks });
+      if (!this.state.blockSocketConnected) {
+        let [error, latestBlocks] = await Utils.parseResponse(
+          BlockService.getLatestBlock(urlPath, {})
+        );
+        this.setState({ blockdataNumber: latestBlocks });
+
+      }
+
       // blocks = latestBlocks;
-    }, 45000);
+    }, 90000);
   }
 
   /* FETCHING LATEST TRANSACTIONS API*/
 
   async transactionsLatest() {
-    let urlPath = "?skip=0&limit=10";
+    let urlPath = "?skip=0&limit=1";
     let [error, latestTransactions] = await Utils.parseResponse(
       TransactionService.getLatestTransaction(urlPath, {})
     );
     if (error || !latestTransactions) return;
     this.setState({ transactionDataDetails: latestTransactions });
     const interval = setInterval(async () => {
-      let [error, latestTransactions] = await Utils.parseResponse(
-        TransactionService.getLatestTransaction(urlPath, {})
-      );
-      this.setState({ transactionDataDetails: latestTransactions });
-    }, 45000);
+      if (!this.state.transactionSocketConnected) {
+        let [error, latestTransactions] = await Utils.parseResponse(
+          TransactionService.getLatestTransaction(urlPath, {})
+        );
+        this.setState({ transactionDataDetails: latestTransactions });
+      }
+
+    }, 90000);
   }
 
   render() {
-    console.log(this.state.blockdataNumber, "BLOCCCOKK");
     let changePrice;
     if (
       this.state.coinMarketPrice &&
       this.state.coinMarketPrice.quote &&
       this.state.coinMarketPrice.quote.length >= 1 &&
-      this.state.coinMarketPrice.quote[0].USD &&
-      this.state.coinMarketPrice.quote[0].USD.percent_change_24h
+      this.state.coinMarketPrice.quote[0][this.props.currency] &&
+      this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h
     ) {
-      changePrice = this.state.coinMarketPrice.quote[0].USD.percent_change_24h;
-    }
+      changePrice = this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h;
+      console.log(changePrice, this.state.coinMarketPrice.quote[0], this.state.currencyType, "HHHIII")
 
-    let changeDecimal = parseFloat(changePrice).toFixed(2);
+    }
+    const currencySymbol = this.props.currency === "INR" ? "₹ " : this.props.currency === "USD" ? "$ " : "€ "
+    let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
-    let changeDecimals = parseFloat(changeXdc).toFixed(6);
+    let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount;
     return (
       <MainContainer>
@@ -358,7 +381,7 @@ class BlockChainDataComponent extends Component {
               <LeftTitle>XDC</LeftTitle>
             </LeftTop>
             <LeftTopSecMain>
-              <LeftTopSec>${changeDecimals}</LeftTopSec>
+              <LeftTopSec>{currencySymbol}{changeDecimals}</LeftTopSec>
               <div
                 className={
                   changePrice > 0
@@ -376,7 +399,7 @@ class BlockChainDataComponent extends Component {
                       <BsFillCaretDownFill size={10} />
                     </div>
                   )}
-                  &nbsp;{changeDecimal}%
+                  &nbsp;{changeDecimal ? changeDecimal : 0}%
                 </div>
               </div>
             </LeftTopSecMain>
