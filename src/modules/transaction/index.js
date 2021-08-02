@@ -51,7 +51,7 @@ export default class LatestTransactionList extends BaseComponent {
 
     async getTotalTransaction() {
         let [error, total] = await Utils.parseResponse(TransactionService.getTotalTransaction())
-        console.log(total, "datatata")
+
         if (error || !total)
             return
         this.setState({ totalTransaction: total })
