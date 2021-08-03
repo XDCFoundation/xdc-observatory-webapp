@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles, makeStyles} from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,18 +7,18 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Divider} from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import '../../assets/styles/custom.css';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Tooltip from '@material-ui/core/Tooltip';
 const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
     },
-  },
 }))(TableRow);
 const rows = [
 
@@ -74,7 +74,7 @@ const useStyles = makeStyles({
 
     container: {
         borderRadius: '14px',
-        boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
         border: 'solid 1px #e3e7eb',
         borderTopColor: 'white',
         backgroundColor: 'transparent',
@@ -138,15 +138,15 @@ export default function StickyHeadTable() {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{border: "none"}} align="left"><span
+                                <TableCell style={{ border: "none" }} align="left"><span
                                     className={"tableheaders"}>Rank</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span
+                                <TableCell style={{ border: "none" }} align="left"><span
                                     className={"tableheaders"}>Address</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span
+                                <TableCell style={{ border: "none" }} align="left"><span
                                     className={"tableheaders"}>Quantity</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span
+                                <TableCell style={{ border: "none" }} align="left"><span
                                     className={"tableheaders"}>Percentage</span></TableCell>
-                                <TableCell style={{border: "none"}} align="left"><span
+                                <TableCell style={{ border: "none" }} align="left"><span
                                     className={"tableheaders"}>Value</span></TableCell>
 
                             </TableRow>
@@ -160,11 +160,11 @@ export default function StickyHeadTable() {
 
                                         <TableCell id="td"><span className="tabledata">{row.Rank}</span></TableCell>
                                         <TableCell id="td">
-                                            <a style={{color: 'blue', fontSize: 11}} href="#text">
-                                            <Tooltip placement="top" title={row.Address}>
-                                            <span
-                                                className="tabledata"> {shorten(row.Address)} </span>
-                                            </Tooltip>
+                                            <a style={{ color: 'blue', fontSize: 11 }} href="#text">
+                                                <Tooltip placement="top" title={row.Address}>
+                                                    <span
+                                                        className="tabledata"> {shorten(row.Address)} </span>
+                                                </Tooltip>
                                             </a>
                                         </TableCell>
                                         <TableCell id="td"><span className="tabledata">{row.Quantity}</span></TableCell>
@@ -179,39 +179,39 @@ export default function StickyHeadTable() {
                             })}
                         </TableBody>
                     </Table>
-                    <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-                <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '1%'}}>
-                    Show
-                    <select className="selectbox" onChange={handleChangeRowsPerPage}> 
-                        <option selected>50</option>
-                        <option>75</option>
-                        <option>100</option>
-                    </select>
-                    Records
-                </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', marginTop: '45px', marginLeft: '1%' }}>
+                            Show
+                            <select className="selectbox" onChange={handleChangeRowsPerPage}>
+                                <option selected>50</option>
+                                <option>75</option>
+                                <option>100</option>
+                            </select>
+                            Records
+                        </div>
 
-                <div style={{display: 'flex', flexDirection: 'row', marginRight: '0%'}}>
-                    <div className="firstbox" onClick={() => setPage(0)}>
-                        <button style={{backgroundColor: 'white'}} className="first">First</button>
-                    </div>
-                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path"><ChevronLeftIcon/></p>
-                    </div>
-                    <div className="pagebox">
-                        <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}</p>
-                    </div>
-                    <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
-                    </div>
-                    <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage) - 1)}>
-                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
-                    </div>
-                </div>
+                        <div style={{ display: 'flex', flexDirection: 'row', marginRight: '0%' }}>
+                            <div className="firstbox" onClick={() => setPage(0)}>
+                                <button style={{ backgroundColor: 'white' }} className="first">First</button>
+                            </div>
+                            <div className="previousbox" onClick={() => handleChangePage("prev")}>
+                                <p className="path"><ChevronLeftIcon /></p>
+                            </div>
+                            <div className="pagebox">
+                                <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}</p>
+                            </div>
+                            <div className="nextbox">
+                                <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /></p>
+                            </div>
+                            <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage) - 1)}>
+                                <button style={{ backgroundColor: 'white' }} className="last">Last</button>
+                            </div>
+                        </div>
 
 
-            </div>
+                    </div>
                 </TableContainer>
-                <Divider className={classes.divider}/>
+                <Divider className={classes.divider} />
 
             </Paper>
 

@@ -382,7 +382,7 @@ input:focus {
   color: #21a1e9;
 } */
 .active-t {
-  border-bottom: 1px solid #fff !important;
+  border-bottom: 1px solid #ffffff !important;
 }
 
 /*  */
@@ -694,6 +694,7 @@ p {
   width: 37px;
   height: 17px;
   font-family: Inter;
+  margin-right: "10px";
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -741,7 +742,7 @@ p {
 .lastbox {
   width: 50px;
   height: 35px;
-  margin: 39px 0px 46px 6px;
+  margin: 39px 15px 46px 6px;
   padding: 7px 6px 9px 7px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -1413,6 +1414,7 @@ body {
   line-height: normal;
   color: #b5bac7;
   letter-spacing: 0.5px;
+  margin-top: 4px;
 }
 
 .bloc-tabs {
@@ -2420,6 +2422,11 @@ button {
   padding-top: 8%;
   margin: auto;
   width: 100%;
+}
+.table-grid-block3 {
+  padding-top: 1%;
+  margin: auto;
+  width: 950px;
 }
 .table-block {
   border-radius: 6px;

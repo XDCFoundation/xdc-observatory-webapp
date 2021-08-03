@@ -246,6 +246,9 @@ a:hover {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
+.select-xdc .MuiSvgIcon-root {
+  fill: #ffffff !important;
+}
 .select-xdc .MuiSelect-select.MuiSelect-select {
   padding-right: 0px !important;
 }

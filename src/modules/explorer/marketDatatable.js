@@ -171,11 +171,7 @@ class MarketDatatable extends Component {
                     <p>Circulating Supply</p>
                     <p>{circulatingSupplyValue ? circulatingSupplyValue : 0} XDC</p>
                 </div>
-                <div className="cont1">
-                    <p>Volume/Market Cap</p>
-                    <p>{vmc ? vmc : 0}</p>
 
-                </div>
                 <div className="cont1">
                     <p>Total Supply</p>
                     <p>{!totalSupplyValue ? 0 : totalSupplyValue}</p>
