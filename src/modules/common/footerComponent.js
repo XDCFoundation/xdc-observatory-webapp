@@ -28,22 +28,53 @@ export default function Footer(props) {
                             backgroundColor: "#2149b9"
                         }} id="currency" className={"filled select-xdc"} defaultValue="USD" value={props.currency} onChange={(event) => props._handleChange(event)} >
                             {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
-                            <MenuItem value="USD" selected="selected" style={{
-                                outline: "0",
-                                backgroundColor: "#2149b9", paddingTop: "0px", paddingBottom: "0px"
-                            }}>
+                            <MenuItem value="USD" selected="selected" anchorReference="anchorPosition"
+                                anchorPosition={{ top: 435, left: 600 }}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }} style={{
+                                    outline: "0",
+                                    backgroundColor: "#2149b9", paddingTop: "0px", paddingBottom: "0px"
+                                }}>
                                 <img className="select-icon" src={USD} />  <span className="USD" selected>USD</span>
                             </MenuItem >
-                            <MenuItem value="EUR" style={{
-                                outline: "0",
-                                backgroundColor: "#2149b9"
-                            }}>
+                            <MenuItem value="EUR"
+                                anchorReference="anchorPosition"
+                                anchorPosition={{ top: 435, left: 600 }}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                style={{
+                                    outline: "0",
+                                    backgroundColor: "#2149b9"
+                                }}>
                                 <img className="select-icon" src={EUR} /> <span className="USD">EUR</span>
                             </MenuItem>
-                            <MenuItem value="INR" style={{
-                                outline: "0",
-                                backgroundColor: "#2149b9"
-                            }} >
+                            <MenuItem value="INR"
+                                anchorReference="anchorPosition"
+                                anchorPosition={{ top: 435, left: 600 }}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                style={{
+                                    outline: "0",
+                                    backgroundColor: "#2149b9"
+                                }} >
                                 <img className="select-icon" src={INR} /> <span className="USD" >INR</span>
                             </MenuItem>
                         </Select>

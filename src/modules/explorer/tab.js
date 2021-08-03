@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import "../../assets/styles/custom.css";
 import Graphbar from './graphBar';
 import Accountsgraphbar from './accountsGraphBar';
 import Gasgraphbar from './gasGraphBar';
+import { TransactionService, AccountService } from '../../services'
+import Utils from '../../utility'
 
 function Tab() {
     const [toggleState, setToggleState] = useState(1);
@@ -44,6 +46,7 @@ function Tab() {
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     <Graphbar />
 
+
                 </div>
 
                 <div className={toggleState === 2 ? "content  active-content" : "content"}>
@@ -55,6 +58,8 @@ function Tab() {
 
                 </div>
             </div>
+
+
 
         </div>
     );

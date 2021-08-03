@@ -34,7 +34,7 @@ export default function AccountComponent(props) {
                     <Table className="table" aria-label="Latest Transactions">
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "2.7%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Type</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "4.1%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "5.5%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
@@ -43,18 +43,19 @@ export default function AccountComponent(props) {
                         <TableBody>
                             {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                                 let num = row.balance;
-                                let bal = shortenBalance(num.toLocaleString())
+                                let finalBal = num / 1000000000000000000;
+                                // let bal = shortenBalance(num.toLocaleString())
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                        <TableCell style={{ border: "none" }} margin-left="5px" >
+                                        <TableCell style={{ border: "none", paddingLeft: "2.5%" }} >
 
                                             <a className="linkTable" href={'/address-details/' + row.address}><span className="tabledata">{(row.address)}</span></a>
 
                                         </TableCell>
                                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
                                         <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{row.balance.toFixed(2)}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((row.balance / 37676671812.45) * 100).toFixed(2)}%</span></TableCell>
+                                        <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{finalBal.toFixed(2)}</span></TableCell>
+                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / row.totalSupply) * 100).toFixed(4)}%</span></TableCell>
                                     </TableRow>
                                 );
                             })}

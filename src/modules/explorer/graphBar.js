@@ -112,15 +112,32 @@ export default function App() {
         })
 
         let graphdata = resultData
-        // graphdata.reverse()
+        graphdata.reverse()
         arr[0].data = resultData
         setData(arr)
     }, [])
+    var d = new Date();
+    var n = d.getFullYear();
+    let length = data[0]?.data.length;
 
+    let value1 = data[0]?.data[0]?.x
+    const colonIndex1 = value1?.indexOf(n);
+    const atIndex1 = value1?.indexOf("");
+    let firstDate = value1?.slice(atIndex1, colonIndex1);
+
+    let value2 = data[0]?.data[length - 1]?.x
+    const colonIndex2 = value2?.indexOf(n);
+    const atIndex2 = value2?.indexOf("");
+    let lastDate = value2?.slice(atIndex2, colonIndex2);
 
     return (
         <div style={{ height: 115, width: 370 }}>
             <MyResponsiveLine data={data} />
+            <div className="dates">
+                <p>{firstDate}</p>
+                <p>{lastDate}</p>
+            </div>
+
         </div>
     );
 }

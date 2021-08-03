@@ -5,8 +5,7 @@ import Utils from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 
 function timeDiff(curr, prev) {
-  // curr = new Date(Date.now());
-  // console.log(curr, "PRINMNMNMNTT");
+
   if (curr < prev) return "0 secs ago";
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -238,7 +237,7 @@ class LatestBlocks extends Component {
                     let transAnimationClass =
                       this.state.transactionsAnimation?.[blockNumber]
                       ;
-                    console.log(animationClass, blockNumber);
+                    // console.log(animationClass, blockNumber);
                     return (
                       <div className="value_main_main">
                         <div className="main_vaa">
