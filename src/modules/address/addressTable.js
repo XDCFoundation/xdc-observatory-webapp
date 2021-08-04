@@ -272,7 +272,7 @@ const handleChanged = (event) => {
                   />
                 </div>
                
-                {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} 
+                {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress} 
                 style={{fontSize: '15px',color: '#ffffff',backgroundColor: 'rgb(7 125 245)',borderRadius: '4px',width:'94px',height:'34px',padding: '4px 0px 0px 20px'}}>Export</CSVLink> 
                 :
                 <CSVLink filename={"transactions.csv"} data={downloadaddress.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
