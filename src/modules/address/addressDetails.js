@@ -34,11 +34,13 @@ export default function AddressDetails() {
   
   const [txtAddress, setTxtAddress] = useState('');
   const [balance, setBalance] = useState(0);
+  const [convertCurrency, setConvertCurrency] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
-  let { address } = useParams();
+  let { addr } = useParams();
   let addressValue =0
+ 
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -52,19 +54,31 @@ export default function AddressDetails() {
     }
   const getAddressDetails = async () => {
     try {
+      
        const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetail(address)
+        AddressData.getAddressDetail(addr)
     );
        
       if(responseData) {
-        setBalance(parseFloat(responseData.balance).toFixed(2));
-        setTransactions(responseData.transaction);
-        setTxtAddress(responseData.address);
+        setBalance((responseData.balance / 1000000000000000000).toFixed(2));
+        let activeCurrency = window.localStorage.getItem('currency')
+        let convertedCurrency = ''
+        if(activeCurrency == 'USD'){
+          convertedCurrency = '$ '+(responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        }else if(activeCurrency == 'EUR'){
+          convertedCurrency = 'EUR '+(responseData.balanceInEUR / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        }else if(activeCurrency == 'INR'){
+          convertedCurrency = 'INR '+(responseData.balanceInINR / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        }else{
+          convertedCurrency = '$ '+(responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        }       
         setLoading(false);
       }else{        
-        setBalance(parseFloat(0).toFixed(2));
-        setTransactions([]);
-        setTxtAddress(0);
+        setBalance(parseFloat(0).toFixed(2));        
         setLoading(false);
       }
     } catch (error) {
@@ -73,13 +87,11 @@ export default function AddressDetails() {
   }
 
 
-  useEffect(() => {    
+  useEffect(() => {  
      getAddressDetails();
   }, []);
 
-        if (isLoading) {
-            return <div className="App">Loading...</div>;
-          }
+        
 
   return (
     <div style={{backgroundColor:'#fff'}}>
@@ -107,7 +119,7 @@ export default function AddressDetails() {
                   Address
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                  {address}
+                  {addr}
                 </TableCell>
                 <TableCell>
                   <CopyToClipboard text={txtAddress}>
@@ -129,8 +141,8 @@ export default function AddressDetails() {
                         <button style={{border:'null',width:'0px'}} className="close" onClick={close}>
                         &times;
                       </button>
-                          <div className="header" style={{fontSize:'12px',paddingTop:'6px',paddingBottom:'22px'}}> {address} </div>
-                          <QRCode size="320" value={address} />
+                          <div className="header" style={{fontSize:'12px',paddingTop:'6px',paddingBottom:'22px'}}> {addr} </div>
+                          <QRCode size="320" value={addr} />
                         </div>                        
                         </p>                        
                       </div>
@@ -148,10 +160,10 @@ export default function AddressDetails() {
                   id="td"
                 />
                 <TableCell className="first-row-table_address">
-                  XDC Value
+                  Balance
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                {balance}
+                {balance} XDC({convertCurrency})
                 </TableCell>
                
               </TableRow>
@@ -193,7 +205,9 @@ export default function AddressDetails() {
               
               <AddressTableComponent
               trans={transactions}
+              coinadd={addr}
                />
+              
               
             </div>
 

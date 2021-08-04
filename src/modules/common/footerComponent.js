@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
 import INR from "../../assets/images/inr.png";
@@ -8,13 +8,28 @@ import NightModeLogo from "../../images/nightmode.svg"
 import Grid from '@material-ui/core/Grid'
 import Select from "@material-ui/core/Select"
 import { MenuItem } from "material-ui";
-
-
-
+import {useSelector , useDispatch} from "react-redux"
+import {usdCurrency , eurCurrency , inrCurrency} from "../../actions/index"
 export default function FooterComponent() {
+    const [activeCurrency, setActiveCurrency] = useState('USD');
+    
+    useEffect(() => {
+      let CurrencyValue = window.localStorage.getItem('currency');
+        if(!CurrencyValue){
+            window.localStorage.setItem('currency', 'USD') 
+        }else{
+            setActiveCurrency(window.localStorage.getItem('currency'))
+        }  
+    }, []);
+    const handleChange = (event) => {
+        window.localStorage.setItem('currency', event.target.value) 
+        setActiveCurrency(event.target.value)        
+    };
+//const currencyState = useSelector((state)=>state.activeCurrency) 
+
+
     return (
         <div className={"footer_base"}>
-
             <Grid className="footer" container alignContent="center" justify="center">
                 <Grid alignContent="center" item xs={12} md={3} lg={2}>
                     <div className="Top-Header">
@@ -25,8 +40,8 @@ export default function FooterComponent() {
                         XinFinScan is a Block <br />Explorer and Analytics  <br />Platform for XDC, a decentralized smart<br />  contracts platform.
                     </p>
                     <div>
-                        <Select id="currency" className={"inline select-xdc"} defaultValue="USD">
-                            <MenuItem value="USD" selected="selected">
+                        <Select onChange={(event) => handleChange(event)} value={activeCurrency} id="currency" className={"inline select-xdc"} defaultValue="USD">
+                            <MenuItem value="USD">
                                 <img className="select-icon" src={DOLLAR} /> <span className="USD" selected>USD</span>
                             </MenuItem>
                             <MenuItem value="EUR" >
@@ -109,5 +124,4 @@ export default function FooterComponent() {
         </div>
 
     )
-
 }
