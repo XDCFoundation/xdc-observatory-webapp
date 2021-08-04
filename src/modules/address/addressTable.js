@@ -172,7 +172,7 @@ export default function AddressTableComponent(props) {
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
-                    Value: d.value
+                    Value: (d.value / 1000000000000000000)
                 };
             })
         );
@@ -183,7 +183,7 @@ export default function AddressTableComponent(props) {
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
-                    Value: d.value
+                    Value: (d.value / 1000000000000000000)
                 };
             }))
       }else{        
@@ -228,7 +228,7 @@ const handleChanged = (event) => {
                     Block: d.Block,
                     From: d.From,
                     To: d.To,
-                    Value: d.Value
+                    Value: (d.Value / 1000000000000000000)
                 };
             }))
    }else{
@@ -252,7 +252,7 @@ const handleChanged = (event) => {
                     Block: d.Block,
                     From: d.From,
                     To: d.To,
-                    Value: d.Value
+                    Value: (d.Value / 1000000000000000000)
                 };
             }))
    }
