@@ -316,7 +316,7 @@ export default function StickyHeadTable() {
                                         outlineColor: '#e3e7eb',
                                         borderWidth: 0
                                     }} type="text"
-                                    placeholder="Search Tokens" onKeyUp={handleSearchKeyUp}/>
+                                    placeholder="Search Tokens" />
                                 {/* name="NAME" */}
                             </div>
 

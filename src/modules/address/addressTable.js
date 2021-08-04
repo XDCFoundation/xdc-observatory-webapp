@@ -15,6 +15,10 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { CSVLink, CSVDownload } from "react-csv";
 import SearchIcon from "@material-ui/icons/Search";
 import moment from 'moment'
+import Utility, { dispatchAction } from "../../utility";
+import AddressData from "../../services/address";
+import {useParams} from "react-router-dom";
+
 function timeDiff(curr, prev) {
     var ms_Min = 60 * 1000; // milliseconds in Minute
     var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -54,8 +58,14 @@ export default function AddressTableComponent(props) {
             b.length
         )}`;
     }
-
+    let { addr } = useParams();
     const [address, setAddress] = useState([]);
+    const [txtAddress, setTxtAddress] = useState('');
+    const [balance, setBalance] = useState(0);
+    const [transactions, setTransactions] = useState([]);
+    const [totalRecord, setTotalRecord] = useState(0);
+
+
     const [reportaddress, setReportaddress] = useState([]);
     const [downloadaddress, setDownloadaddress] = useState([]);
     const [exports, exportAddress] = useState({});
@@ -64,41 +74,81 @@ export default function AddressTableComponent(props) {
     const [checkAll, setCheckAll] = React.useState(0);
     const [isDownloadActive, setDownloadActive] = useState(0);
 
-    let showPerPage = 10;
+    let showPerPage = 50;
+    let datas = {}
     const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
 
     const history = useHistory()
     const handleChangePage = (action) => {
-
-        if (action == 'next') {
-            if (Math.ceil(address.length / rowsPerPage) != page + 1) {
-                setPage(page + 1)
-
+        if (action == 'first') { 
+            setPage(0)
+            datas = {
+                pageNum:0,
+                perpage:rowsPerPage,
+                addrr:addr
             }
+            getAddressDetails(datas)
 
-        } else {
-            if (0 != page) {
-                setPage(page - 1)
+        }
+        if (action === 'last') {
+            let pagecount = totalRecord - rowsPerPage
+            setPage(pagecount)
+            datas = {
+                pageNum:pagecount,
+                perpage:rowsPerPage,
+                addrr:addr
+            }
+            getAddressDetails(datas)
+        }
+
+        if (action === 'next') {
+            if (rowsPerPage + page < totalRecord) {
+                let pagecount = rowsPerPage + page
+                setPage(pagecount)
+               let datas = {pageNum:pagecount,perpage:rowsPerPage,addrr:addr}
+                getAddressDetails(datas)
             }
         }
-        if (action == 'next') {
-            if (Math.ceil(address.length / rowsPerPage) < page + 1)
-                setPage(Math.ceil(address.length / rowsPerPage))
+
+        if (action === 'prev') {
+            if (page - rowsPerPage >= 0) {
+                let pagecount = page - rowsPerPage
+                setPage(pagecount)
+                datas = {
+                    pageNum:pagecount,
+                    perpage:rowsPerPage,
+                    addrr:addr
+                }
+                getAddressDetails(datas)
+
+            }
         }
 
 
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
+        setRowsPerPage(event.target.value);
         setPage(0);
+        datas = {
+            pageNum:0,
+            perpage:event.target.value,
+            addrr:addr
+        }
+        getAddressDetails(datas)
     };
-
-    useEffect(() => {
-        let address =props.trans
-        
-       setAddress(
-            address.map((d) => {
+    const getAddressDetails = async (data) => {
+    try {
+    
+       const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetailWithlimit(data)
+    );
+       
+      if(responseData) {
+        let trxn = responseData.transaction
+        setTotalRecord(responseData.totalTransactionCount)
+        setAddress(
+            trxn.map((d) => {
                 
                 return {                   
                     Txn_Hash: d.hash,
@@ -113,7 +163,7 @@ export default function AddressTableComponent(props) {
         );
 
        setReportaddress(
-            address.map((d) => {
+            trxn.map((d) => {
                 
                 return {
                     Txn_Hash: d.hash,
@@ -125,7 +175,7 @@ export default function AddressTableComponent(props) {
                 };
             })
         );
-       setDownloadaddress(address.map((d) => {              
+       setDownloadaddress(trxn.map((d) => {              
                 return {
                     Txn_Hash: d.hash,
                     Date: moment(d.timestamp* 1000).format('DD/MM/YYYY hh:mm:ss'),
@@ -135,7 +185,21 @@ export default function AddressTableComponent(props) {
                     Value: d.value
                 };
             }))
-
+      }else{        
+        setBalance(parseFloat(0).toFixed(2)); 
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+    useEffect(() => { 
+        //let address =props.trans
+    datas = {
+        pageNum:page,
+        perpage:rowsPerPage,
+        addrr:addr
+    }
+        getAddressDetails(datas);
     }, []);
 
 const handleChanged = (event) => { 
@@ -269,7 +333,7 @@ const handleChanged = (event) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {address.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                        {address.map((row, index) => {
                             const currentTime = new Date();
                             const previousTime = new Date(row.Age * 1000);
                             const TimeAge = timeDiff(currentTime, previousTime);
@@ -334,8 +398,8 @@ const handleChanged = (event) => {
             <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
                 <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '0%'}}>
                     Show
-                    <select className="selectbox" onChange={handleChangeRowsPerPage}> 
-                        <option selected>10</option>
+                    <select value={rowsPerPage} className="selectbox" onChange={handleChangeRowsPerPage}> 
+                        <option>10</option>
                         <option>25</option>
                         <option>50</option>
                         <option>75</option>
@@ -345,19 +409,19 @@ const handleChanged = (event) => {
                 </div>
 
                 <div style={{display: 'flex', flexDirection: 'row', marginRight: '0%'}}>
-                    <div className="firstbox" onClick={() => setPage(0)}>
+                    <div className="firstbox" onClick={() => handleChangePage("first")}>
                         <button style={{backgroundColor: 'white'}} className="first">First</button>
                     </div>
                     <div className="previousbox" onClick={() => handleChangePage("prev")}>
                         <p className="path"><ChevronLeftIcon/></p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(address.length / rowsPerPage)}</p>
+                        <p className="Page-1-of-5">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.ceil(totalRecord / rowsPerPage)}</p>
                     </div>
                     <div className="nextbox">
                         <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
                     </div>
-                    <div className="lastbox" onClick={() => setPage(Math.ceil(address.length / rowsPerPage) - 1)}>
+                    <div className="lastbox" onClick={() => handleChangePage("last")}>
                         <button style={{backgroundColor: 'white'}} className="last">Last</button>
                     </div>
                 </div>
