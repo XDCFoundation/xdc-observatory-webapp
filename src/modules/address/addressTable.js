@@ -18,7 +18,8 @@ import moment from 'moment'
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import {useParams} from "react-router-dom";
-
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 function timeDiff(curr, prev) {
     var ms_Min = 60 * 1000; // milliseconds in Minute
     var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -395,39 +396,28 @@ const handleChanged = (event) => {
                 </Table>
                 
             </Grid>
-            <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-                <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '0%'}}>
-                    Show
-                    <select value={rowsPerPage} className="selectbox" onChange={handleChangeRowsPerPage}> 
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                        <option>75</option>
-                        <option>100</option>
-                    </select>
-                    Records
-                </div>
+            <Grid container>
+            <Grid item xs="3">
+                        <span className="text">Show</span>
+                        <Select value={rowsPerPage} className="select-amount" onChange={handleChangeRowsPerPage} >
+                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={25}>25</MenuItem>
+                            <MenuItem value={50}>50</MenuItem>
+                            <MenuItem value={100}>100</MenuItem>
+                        </Select>
+                        <span className="text">Records</span>
+                    </Grid>
+                    <Grid xs="5"></Grid>
+                    <Grid item xs="4">
+                        <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
+                        <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button className="btn">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.round(totalRecord / rowsPerPage)}</button>
+                        <button onClick={() => handleChangePage("next")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={() => handleChangePage("last")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}>Last</button>
 
-                <div style={{display: 'flex', flexDirection: 'row', marginRight: '0%'}}>
-                    <div className="firstbox" onClick={() => handleChangePage("first")}>
-                        <button style={{backgroundColor: 'white'}} className="first">First</button>
-                    </div>
-                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path"><ChevronLeftIcon/></p>
-                    </div>
-                    <div className="pagebox">
-                        <p className="Page-1-of-5">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.ceil(totalRecord / rowsPerPage)}</p>
-                    </div>
-                    <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
-                    </div>
-                    <div className="lastbox" onClick={() => handleChangePage("last")}>
-                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
-                    </div>
-                </div>
-
-
-            </div>
+                    </Grid>
+            </Grid>
+            
         </Grid>
         </div>
 
