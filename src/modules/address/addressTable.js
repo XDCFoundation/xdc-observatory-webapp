@@ -356,12 +356,7 @@ export default function AddressTableComponent(props) {
                                                 //checked={checkAll}
                                                 style={{ marginRight: "8px" }}
                                             />
-                                            {row.To == addr &&
-                                                <i class="fa fa-long-arrow-down green-color" aria-hidden="true"></i>
-                                            }
-                                            {row.From == addr &&
-                                                <i class="fa fa-long-arrow-up red-color" aria-hidden="true"></i>
-                                            }
+                                           
                                             <a className="linkTable" href={'/transaction-details/' + row.Txn_Hash}>
                                                 <Tooltip placement="top" title={row.Txn_Hash}>
                                                     <span className="tabledata">
@@ -406,6 +401,12 @@ export default function AddressTableComponent(props) {
                                             }
                                         </TableCell>
                                         <TableCell style={{ border: "none" }} align="left">
+                                         {row.To == addr &&
+                                                <i class="fa fa-long-arrow-down green-color" aria-hidden="true"></i>
+                                            }
+                                            {row.From == addr &&
+                                                <i class="fa fa-long-arrow-up red-color" aria-hidden="true"></i>
+                                            }
                                             <span className="tabledata">{(row.Value / 1000000000000000000)}</span>
                                         </TableCell>
                                     </TableRow>
@@ -423,6 +424,7 @@ export default function AddressTableComponent(props) {
                             <MenuItem value={25}>25</MenuItem>
                             <MenuItem value={50}>50</MenuItem>
                             <MenuItem value={100}>100</MenuItem>
+                            <MenuItem value={500}>500</MenuItem>
                         </Select>
                         <span className="text">Records</span>
                     </Grid>
