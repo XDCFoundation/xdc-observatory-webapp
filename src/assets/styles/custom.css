@@ -2644,7 +2644,7 @@ button {
 .content_input_add_btn {
   outline-color: transparent;
   border: 1 px solid #cccccc;
-  border-color: transparent;
+  border-color: transparent !important;
   background-color: transparent;
   display: inline-block;
   width: 100%;
