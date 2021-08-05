@@ -147,23 +147,23 @@ export default function Navbar() {
                 </ul>
 
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button" onClick={() => setOpencontracts(true)}> Contracts <span style={{ marginLeft: '50%' }}><i
+                    <p className="xinfin_api_button" onClick={() => setOpencontracts(true)} style={{ cursor: "pointer" }}> Contracts <span style={{ marginLeft: '50%' }}><i
                         class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr" />
                 </ul>
 
 
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button" onClick={() => setOpen(true)}>Tools <span style={{ marginLeft: '65%' }}><i
+                    <p className="xinfin_api_button" onClick={() => setOpen(true)} style={{ cursor: "pointer" }}>Tools <span style={{ marginLeft: '65%' }}><i
                         class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button">XinFin APIs</p>
+                    <p className="xinfin_api_button" style={{ cursor: "pointer" }}>XinFin APIs</p>
                     <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button">Nodes</p>
+                    <p className="xinfin_api_button" style={{ cursor: "pointer" }}>Nodes</p>
                     <hr className="myhr" />
                 </ul>
             </List>
@@ -190,9 +190,9 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
                         <div style={{ marginTop: 10 }}><span onClick={() => setOpencontracts(false)}
-                            style={{ color: 'white', fontSize: 17 }}><i
-                                class="fa fa-angle-left" aria-hidden="true"></i></span></div>
-                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Contract</div>
+                            style={{ color: 'white', fontSize: 17 }}>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                        <div onClick={() => setOpencontracts(false)} style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px', cursor: 'pointer' }}>Contract</div>
                         <div>
                             <IconButton style={{ color: 'white', marginLeft: '120px' }}
                                 onClick={() => setOpencontracts(false)}>
@@ -245,8 +245,8 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
                         <div style={{ marginTop: 10 }}><span onClick={() => setOpen(false)}
-                            style={{ color: 'white', fontSize: 17 }}><i
-                                class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                            style={{ color: 'white', fontSize: 17 }}>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i></span></div>
                         <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Tools</div>
                         <div>
                             <IconButton style={{ color: 'white', marginLeft: '120px' }} oonClick={() => setOpen(false)}>
@@ -415,7 +415,7 @@ export default function Navbar() {
                         </div>
 
                     </Typography>
-                    <Login/> 
+                    <Login />
                     {/* <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img> */}
 
                     <React.Fragment key={'right'}>

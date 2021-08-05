@@ -138,26 +138,26 @@ export default function Navbar() {
 
             <List className="side-box">
                 <ul className="inside-side-box">
-                <a className="account_details_button" href="/account-details"><p>Accounts</p></a>
+                    <a className="account_details_button" href="/account-details" style={{ cursor: "pointer" }}><p>Accounts</p></a>
                     <hr className="myhr" />
                 </ul>
 
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button" onClick={() => setOpencontracts(true)}> Contracts <span style={{ marginLeft: '50%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                    <p className="xinfin_api_button" onClick={() => setOpencontracts(true)} style={{ cursor: "pointer" }}> Contracts <span style={{ marginLeft: '50%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr" />
                 </ul>
 
 
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button" onClick={() => setOpen(true)}>Tools <span style={{ marginLeft: '65%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
+                    <p className="xinfin_api_button" onClick={() => setOpen(true)} style={{ cursor: "pointer" }}>Tools <span style={{ marginLeft: '65%' }}><i class="fa fa-angle-right" aria-hidden="true"></i></span></p>
                     <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box">
-                <p className="xinfin_api_button">XinFin APIs</p> 
+                    <p className="xinfin_api_button" style={{ cursor: "pointer" }}>XinFin APIs</p>
                     <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box" >
-                <p className="xinfin_api_button">Nodes</p>
+                    <p className="xinfin_api_button" style={{ cursor: "pointer" }}>Nodes</p>
                     <hr className="myhr" />
                 </ul>
             </List>
@@ -186,7 +186,7 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
                         <div style={{ marginTop: 10 }}> <span onClick={() => setOpencontracts(false)} style={{ color: 'white', fontSize: 17 }}><i class="fa fa-angle-left" aria-hidden="true"></i></span> </div>
-                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Contract</div>
+                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px', cursor: 'pointer' }} onClick={() => setOpencontracts(false)}>Contract</div>
                         <div >
                             <IconButton style={{ color: 'white', marginLeft: '120px' }} onClick={() => setOpencontracts(false)}>
                                 {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
@@ -204,13 +204,13 @@ export default function Navbar() {
             <List className="side-box">
 
                 <ul className="Live-Network-list">
-                    <a style={{ fontSize: 13, color: 'white',listStyle: 'none', textDecoration: 'none' }} href='/contracts'>
+                    <a style={{ fontSize: 13, color: 'white', listStyle: 'none', textDecoration: 'none' }} href='/contracts'>
                         <div className="xinfin_api_button">Contracts</div>
                     </a>
                     <hr className="myhr4" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <a style={{ fontSize: 13, color: 'white',listStyle: 'none', textDecoration: 'none' }} href='/verify-contracts'>
+                    <a style={{ fontSize: 13, color: 'white', listStyle: 'none', textDecoration: 'none' }} href='/verify-contracts'>
                         <div className="xinfin_api_button">Verify Contracts</div>
                     </a>
                     <hr className="myhr4" />
@@ -379,7 +379,7 @@ export default function Navbar() {
 
 
                     <Typography className="Header" >
-                        <a  href={'/'}>
+                        <a href={'/'}>
                             <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img></a>
                         <a className="XDC" href="/"> XDC </a>
 

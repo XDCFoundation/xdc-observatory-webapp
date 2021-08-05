@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import { CSVLink, CSVDownload } from "react-csv";
+import ReactHtmlParser from "react-html-parser";
 var QRCode = require('qrcode.react');
 
 const useStyles = makeStyles({
@@ -35,8 +36,11 @@ export default function AddressDetails() {
   const [txtAddress, setTxtAddress] = useState('');
   const [balance, setBalance] = useState(0);
   const [convertCurrency, setConvertCurrency] = useState('');
+  const [coinValue, setCoinValue] = useState(0);
+
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  let nowCurrency = window.localStorage.getItem('currency')
 
   let { addr } = useParams();
   let addressValue = 0
@@ -64,16 +68,20 @@ export default function AddressDetails() {
         let activeCurrency = window.localStorage.getItem('currency')
         let convertedCurrency = ''
         if (activeCurrency == 'USD') {
-          convertedCurrency = '$ ' + (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+          setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
           setConvertCurrency(convertedCurrency)
         } else if (activeCurrency == 'EUR') {
-          convertedCurrency = 'EUR ' + (responseData.balanceInEUR / 1000000000000000000).toFixed(2)
+          convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
+          setCoinValue((responseData.balanceInEUR / 1000000000000000000).toFixed(2))
           setConvertCurrency(convertedCurrency)
         } else if (activeCurrency == 'INR') {
-          convertedCurrency = 'INR ' + (responseData.balanceInINR / 1000000000000000000).toFixed(2)
+          convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
+          setCoinValue((responseData.balanceInINR / 1000000000000000000).toFixed(2))
           setConvertCurrency(convertedCurrency)
         } else {
-          convertedCurrency = '$ ' + (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+          setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
           setConvertCurrency(convertedCurrency)
         }
         setLoading(false);
@@ -86,14 +94,16 @@ export default function AddressDetails() {
     }
   }
 
-
+  const options = {
+    htmlparser2: {
+      lowerCaseTags: false
+    }
+  };
   useEffect(() => {
     getAddressDetails();
   }, []);
-
-
-
   return (
+
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
       <Grid lg={8} className="table-grid-block">
@@ -122,7 +132,7 @@ export default function AddressDetails() {
                   {addr}
                 </TableCell>
                 <TableCell>
-                  <CopyToClipboard text={txtAddress}>
+                  <CopyToClipboard text={addr}>
                     <button
                       style={{
                         color: "#2149b9",
@@ -163,7 +173,7 @@ export default function AddressDetails() {
                   Balance
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                  {balance} XDC({convertCurrency})
+                  {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
                 </TableCell>
 
               </TableRow>
