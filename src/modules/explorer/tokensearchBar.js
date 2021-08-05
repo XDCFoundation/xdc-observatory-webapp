@@ -186,7 +186,7 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
                         <div style={{ marginTop: 10 }}> <span onClick={() => setOpencontracts(false)} style={{ color: 'white', fontSize: 17 }}><i class="fa fa-angle-left" aria-hidden="true"></i></span> </div>
-                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Contract</div>
+                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px',cursor: 'pointer' }} onClick={() => setOpencontracts(false)}>Contract</div>
                         <div >
                             <IconButton style={{ color: 'white', marginLeft: '120px' }} onClick={() => setOpencontracts(false)}>
                                 {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
