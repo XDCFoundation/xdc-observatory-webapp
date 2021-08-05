@@ -181,7 +181,7 @@ export default function BlockDetailsData() {
                                     Parent Hash
                                 </TableCell>
                                 <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
-                                    <a className="parent_hash"> {height.parentHash}</a>
+                                    <a className="parent_hash" onClick={decrement} style={{ cursor: "pointer" }}> {height.parentHash}</a>
 
                                     <CopyToClipboard text={height.parentHash}>
                                         <button style={{
