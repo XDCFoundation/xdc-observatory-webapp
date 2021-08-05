@@ -37,14 +37,14 @@ export default function AccountComponent(props) {
                                 <TableCell style={{ border: "none", paddingLeft: "2.7%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Type</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "4.1%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "5.5%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                                 let num = row.balance;
                                 let finalBal = num / 1000000000000000000;
-                                // let bal = shortenBalance(num.toLocaleString())
+                                let bal = finalBal.toString()
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                         <TableCell style={{ border: "none", paddingLeft: "2.5%" }} >
@@ -54,8 +54,8 @@ export default function AccountComponent(props) {
                                         </TableCell>
                                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
                                         <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{finalBal.toFixed(2)}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / row.totalSupply) * 100).toFixed(4)}%</span></TableCell>
+                                        <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
+                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / row.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
                                     </TableRow>
                                 );
                             })}

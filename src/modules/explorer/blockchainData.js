@@ -142,7 +142,7 @@ const LeftTopSecMain = styled.div`
   flex-direction: column;
   text-align: center;
 `;
-let changePrice;
+
 class BlockChainDataComponent extends Component {
   constructor(props) {
     super(props);
@@ -156,7 +156,7 @@ class BlockChainDataComponent extends Component {
       transactionDataDetails: [],
       blockSocketConnected: false,
       transactionSocketConnected: false,
-      currencyType: this.props.currency
+      // currencyType: activeCurrency
     };
   }
   componentWillUnmount() {
@@ -390,11 +390,14 @@ class BlockChainDataComponent extends Component {
                 <div className="value_changePrice">
                   {changePrice > 0 ? (
                     <div className="arrow_up">
-                      <BsFillCaretUpFill size={10} />
+                      {/* <BsFillCaretUpFill size={10} /> */}
+                      <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "10px" }} />
+
                     </div>
                   ) : (
                     <div className="arrow_down">
-                      <BsFillCaretDownFill size={10} />
+                      {/* <BsFillCaretDownFill size={10} /> */}
+                      <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "10px" }} />
                     </div>
                   )}
                   &nbsp;{changeDecimal ? changeDecimal : 0}%
@@ -419,7 +422,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Gas Price</Title>
                   <TitleValue>
-                    {this.state.transactionDataDetails[0]?.gasPrice}
+                    {(this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9)}
                   </TitleValue>
                 </ValueName>
               </Value>
@@ -464,11 +467,13 @@ class BlockChainDataComponent extends Component {
                       <div className="value_p">
                         {changeAccounts > 0 ? (
                           <div className="arrow_up">
-                            <BsFillCaretUpFill size={10} />
+                            {/* <BsFillCaretUpFill size={10} /> */}
+                            <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "10px" }} />
                           </div>
                         ) : (
                           <div className="arrow_down">
-                            <BsFillCaretDownFill size={10} />
+                            {/* <BsFillCaretDownFill size={10} /> */}
+                            <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "10px" }} />
                           </div>
                         )}
                         {changeAccounts}
