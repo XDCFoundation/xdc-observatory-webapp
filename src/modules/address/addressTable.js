@@ -172,7 +172,7 @@ export default function AddressTableComponent(props) {
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
-                    Value: d.value
+                    Value: (d.value / 1000000000000000000)
                 };
             })
         );
@@ -183,7 +183,7 @@ export default function AddressTableComponent(props) {
                     Block: d.blockNumber,
                     From: d.from,
                     To: d.to,
-                    Value: d.value
+                    Value: (d.value / 1000000000000000000)
                 };
             }))
       }else{        
@@ -228,7 +228,7 @@ const handleChanged = (event) => {
                     Block: d.Block,
                     From: d.From,
                     To: d.To,
-                    Value: d.Value
+                    Value: (d.Value / 1000000000000000000)
                 };
             }))
    }else{
@@ -252,7 +252,7 @@ const handleChanged = (event) => {
                     Block: d.Block,
                     From: d.From,
                     To: d.To,
-                    Value: d.Value
+                    Value: (d.Value / 1000000000000000000)
                 };
             }))
    }
@@ -274,10 +274,10 @@ const handleChanged = (event) => {
                 </div>
                
                 {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress} 
-                style={{fontSize: '15px',color: '#ffffff',backgroundColor: 'rgb(7 125 245)',borderRadius: '4px',width:'94px',height:'34px',padding: '4px 0px 0px 20px'}}>Export</CSVLink> 
+                style={{fontSize: '15px',color: '#ffffff',textAlign: 'center',backgroundColor: 'rgb(7 125 245)',borderRadius: '4px',width:'94px',height:'34px'}}>Export</CSVLink> 
                 :
                 <CSVLink filename={"transactions.csv"} data={downloadaddress}
-                style={{pointerEvents: 'none',fontSize: '15px',color: '#ffffff',backgroundColor: '#e3e7eb',borderRadius: '4px',width:'94px',height:'34px',padding: '4px 0px 0px 20px'}}>Export</CSVLink> 
+                style={{pointerEvents: 'none',fontSize: '15px',textAlign: 'center',color: '#ffffff',backgroundColor: '#e3e7eb',borderRadius: '4px',width:'94px',height:'34px'}}>Export</CSVLink> 
             }
                 
                
@@ -295,7 +295,7 @@ const handleChanged = (event) => {
                                     onChange={handleChanged}
                                     type="checkbox"
                                     name="allselect"
-                                    checked={address.filter((addr) => addr?.isChecked !== true).length < 1}
+                                    checked={address.filter((addr) => addr?.isChecked !== true).length <= 1}
                                     style={{ marginRight: "8px" }}
                                         />
                                 <span className={"tableheaders"}>Txn Hash</span>
@@ -356,13 +356,20 @@ const handleChanged = (event) => {
                                             //checked={checkAll}
                                             style={{ marginRight: "8px" }}
                                         />
+                                         {row.To == addr &&
+                                            <i class="fa fa-long-arrow-down green-color" aria-hidden="true"></i>
+                                        } 
+                                        {row.From == addr &&
+                                           <i class="fa fa-long-arrow-up red-color" aria-hidden="true"></i> 
+                                        }
                                         <a className="linkTable" href={'/transaction-details/'+row.Txn_Hash}>
                                             <Tooltip placement="top" title={row.Txn_Hash}>
                                                 <span className="tabledata">
                                                     {shorten(row.Txn_Hash)}{" "}
                                                 </span>
-                                            </Tooltip>
+                                            </Tooltip>                                            
                                         </a>
+                                        
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
                                         <span className="tabledata">{TimeAge}</span>
@@ -373,21 +380,33 @@ const handleChanged = (event) => {
                                         </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
+                                    {row.From != addr ?
                                         <a className="linkTable" href={'/address-details/'+row.From}>
                                             <Tooltip placement="top" title={row.From}>
                                                 <span className="tabledata"> {shorten(row.From)}</span>
                                             </Tooltip>
                                         </a>
+                                        :
+                                        <Tooltip placement="top" title={row.From}>
+                                                <span className="tabledata"> {shorten(row.From)}</span>
+                                            </Tooltip>
+                                    }
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
+                                     {row.To != addr ?
                                         <a className="linkTable" href={'/address-details/'+row.To}>
                                             <Tooltip placement="top" title={row.To}>
                                                 <span className="tabledata">{shorten(row.To)}</span>
                                             </Tooltip>
                                         </a>
+                                        :
+                                        <Tooltip placement="top" title={row.To}>
+                                                <span className="tabledata">{shorten(row.To)}</span>
+                                            </Tooltip>
+                                    }
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <span className="tabledata">{row.Value}</span>
+                                        <span className="tabledata">{(row.Value / 1000000000000000000)}</span>
                                     </TableCell>
                                 </TableRow>
                             );
