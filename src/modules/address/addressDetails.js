@@ -1,5 +1,5 @@
-import React, { useState , useEffect } from "react";
-import {useParams} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
@@ -31,40 +31,54 @@ const useStyles = makeStyles({
 
 export default function AddressDetails() {
   const [toggleState, setToggleState] = useState(1);
-  
+
   const [txtAddress, setTxtAddress] = useState('');
   const [balance, setBalance] = useState(0);
+  const [convertCurrency, setConvertCurrency] = useState('');
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
-  let { address } = useParams();
-  let addressValue =0
+  let { addr } = useParams();
+  let addressValue = 0
+
   const toggleTab = (index) => {
     setToggleState(index);
   };
   const classes = useStyles();
 
-    function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-            b.length - 3,
+  function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 3,
 
-        )}`;
-    }
+    )}`;
+  }
   const getAddressDetails = async () => {
     try {
-       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetail(address)
-    );
-       
-      if(responseData) {
-        setBalance(parseFloat(responseData.balance).toFixed(2));
-        setTransactions(responseData.transaction);
-        setTxtAddress(responseData.address);
+
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetail(addr)
+      );
+
+      if (responseData) {
+        setBalance((responseData.balance / 1000000000000000000).toFixed(2));
+        let activeCurrency = window.localStorage.getItem('currency')
+        let convertedCurrency = ''
+        if (activeCurrency == 'USD') {
+          convertedCurrency = '$ ' + (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        } else if (activeCurrency == 'EUR') {
+          convertedCurrency = 'EUR ' + (responseData.balanceInEUR / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        } else if (activeCurrency == 'INR') {
+          convertedCurrency = 'INR ' + (responseData.balanceInINR / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        } else {
+          convertedCurrency = '$ ' + (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          setConvertCurrency(convertedCurrency)
+        }
         setLoading(false);
-      }else{        
+      } else {
         setBalance(parseFloat(0).toFixed(2));
-        setTransactions([]);
-        setTxtAddress(0);
         setLoading(false);
       }
     } catch (error) {
@@ -73,16 +87,14 @@ export default function AddressDetails() {
   }
 
 
-  useEffect(() => {    
-     getAddressDetails();
+  useEffect(() => {
+    getAddressDetails();
   }, []);
 
-        if (isLoading) {
-            return <div class="loader"></div>;
-          }
+
 
   return (
-    <div style={{backgroundColor:'#fff'}}>
+    <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
       <Grid lg={8} className="table-grid-block">
         <div
@@ -107,7 +119,7 @@ export default function AddressDetails() {
                   Address
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                  {address}
+                  {addr}
                 </TableCell>
                 <TableCell>
                   <CopyToClipboard text={txtAddress}>
@@ -125,14 +137,14 @@ export default function AddressDetails() {
                     {(close) => (
                       <div className="popup_qr">
                         <p>
-                        <div>
-                        <button style={{border:'null',width:'0px'}} className="close" onClick={close}>
-                        &times;
-                      </button>
-                          <div className="header" style={{fontSize:'12px',paddingTop:'6px',paddingBottom:'22px'}}> {address} </div>
-                          <QRCode size="320" value={address} />
-                        </div>                        
-                        </p>                        
+                          <div>
+                            <button style={{ border: 'null', width: '0px' }} className="close" onClick={close}>
+                              &times;
+                            </button>
+                            <div className="header" style={{ fontSize: '12px', paddingTop: '6px', paddingBottom: '22px' }}> {addr} </div>
+                            <QRCode size="320" value={addr} />
+                          </div>
+                        </p>
                       </div>
                     )}
                   </Popup>
@@ -148,12 +160,12 @@ export default function AddressDetails() {
                   id="td"
                 />
                 <TableCell className="first-row-table_address">
-                  XDC Value
+                  Balance
                 </TableCell>
                 <TableCell className="second-row-table_address">
-                {balance}
+                  {balance} XDC({convertCurrency})
                 </TableCell>
-               
+
               </TableRow>
             </TableHead>
           </Table>
@@ -190,11 +202,13 @@ export default function AddressDetails() {
                   : "content_sec"
               }
             >
-              
+
               <AddressTableComponent
-              trans={transactions}
-               />
-              
+                trans={transactions}
+                coinadd={addr}
+              />
+
+
             </div>
 
             <div
@@ -204,9 +218,9 @@ export default function AddressDetails() {
                   : "content_sec"
               }
             >
-              
+
               <AddressTableComponent
-              trans={transactions}
+                trans={transactions}
               />
             </div>
           </div>

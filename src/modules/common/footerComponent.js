@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
 import INR from "../../assets/images/inr.png";
@@ -7,11 +7,28 @@ import USD from "../../assets/images/usd.png";
 import Grid from '@material-ui/core/Grid'
 import Select from "@material-ui/core/Select"
 import { MenuItem } from "material-ui";
+import { useSelector, useDispatch } from "react-redux"
+import { usdCurrency, eurCurrency, inrCurrency } from "../../actions/index"
+export default function FooterComponent(props) {
+    const [activeCurrency, setActiveCurrency] = useState('USD');
 
+    useEffect(() => {
+        let CurrencyValue = window.localStorage.getItem('currency');
+        if (!CurrencyValue) {
+            window.localStorage.setItem('currency', 'USD')
+        } else {
+            setActiveCurrency(window.localStorage.getItem('currency'))
+        }
+    }, []);
+    const handleChange = (event) => {
+        window.localStorage.setItem('currency', event.target.value)
+        setActiveCurrency(event.target.value)
+    };
+    //const currencyState = useSelector((state)=>state.activeCurrency) 
 
-
-export default function Footer(props) {
+    let CurrencyNow = window.localStorage.getItem('currency');
     return (
+
         <div className={"footer_base"}>
             <Grid className="footer" container alignContent="center" justify="center">
                 <Grid alignContent="center" item xs={12} md={3} lg={2}>
@@ -26,7 +43,7 @@ export default function Footer(props) {
                         <Select style={{
                             outline: "0",
                             backgroundColor: "#2149b9"
-                        }} id="currency" className={"filled select-xdc"} defaultValue="USD" value={props.currency} onChange={(event) => props._handleChange(event)} >
+                        }} id="currency" className={"filled select-xdc"} defaultValue="USD" onChange={(event) => props._handleChange(event)} value={CurrencyNow} >
                             {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
                             <MenuItem value="USD" selected="selected" anchorReference="anchorPosition"
                                 anchorPosition={{ top: 435, left: 600 }}

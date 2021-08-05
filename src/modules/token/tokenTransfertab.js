@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -14,6 +14,9 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import TokenData from "../../services/token";
+import Utils from "../../utility";
+import { useParams } from "react-router";
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
@@ -86,8 +89,28 @@ export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [transfer, settransfer] = useState({});
+  useEffect(() => {
+    transferDetail();
+  }, []);
+  const { address } = useParams();
+  const transferDetail = async () => {
+    let urlPath = `${address}`;
+    let [error, tns] = await Utils.parseResponse(
+      TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+    );
+    console.log(tns, "<<<<<transfer");
+    if (error || !tns) return;
+    settransfer(tns);
+    console.log(tns, "<<<<<<TXS");
+    const interval = setInterval(async () => {
+      let [error, tns] = await Utils.parseResponse(
+        TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+      );
+      settransfer(tns);
+    }, 90000);
+  };
 
-  const history = useHistory();
   const handleChangePage = (action) => {
     if (action == "next") {
       if (Math.ceil(rows.length / rowsPerPage) != page + 1) {
@@ -141,9 +164,9 @@ export default function StickyHeadTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+              {transfer.totalTransactions &&
+                transfer.totalTransactions.length >= 1 &&
+                transfer.totalTransactions.map((row) => {
                   return (
                     <StyledTableRow
                       hover
@@ -156,18 +179,18 @@ export default function StickyHeadTable() {
                           <Tooltip placement="top" title={row.TxnHash}>
                             <span className="tabledata">
                               {" "}
-                              {shorten(row.TxnHash)}{" "}
+                              {shorten(row.hash)}{" "}
                             </span>
                           </Tooltip>{" "}
                         </a>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata">{row.Age}</span>
+                        <span className="tabledata">{row.timestamp}</span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <span className="tabledata"> {row.Block}</span>{" "}
+                          <span className="tabledata"> {row.blockNumber}</span>{" "}
                         </a>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
@@ -176,7 +199,7 @@ export default function StickyHeadTable() {
                           <Tooltip placement="top" title={row.From}>
                             <span className="tabledata">
                               {" "}
-                              {shorten(row.From)}{" "}
+                              {shorten(row.from)}{" "}
                             </span>
                           </Tooltip>
                         </a>
@@ -187,7 +210,7 @@ export default function StickyHeadTable() {
                           <Tooltip placement="top" title={row.To}>
                             <span className="tabledata">
                               {" "}
-                              {shorten(row.To)}{" "}
+                              {shorten(row.to)}{" "}
                             </span>
                           </Tooltip>
                         </a>

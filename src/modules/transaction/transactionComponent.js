@@ -89,12 +89,12 @@ export default function TransactionComponent(props) {
                                         <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
                                         <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata" onClick={() => history.push("/transaction-details/" + row.hash)}>{shorten(row.hash)}  </span> </a>
                                     </TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{shortenData(row.value)}</span></TableCell>
+                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{(row.value / 1000000000000000000)}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/address-details"}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"> <a className="linkTable" href={"/address-details"}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{row.transactionFee} XDC</span></TableCell>
+                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{row.transactionFee / 100000000000000000} XDC</span></TableCell>
                                 </TableRow>
                             );
                         })}

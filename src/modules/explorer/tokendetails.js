@@ -1,5 +1,5 @@
-import React, { useEffect, useState }from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,11 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Divider} from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import Tokensearchbar from './tokensearchBar';
 import '../../assets/styles/custom.css';
 import FooterComponent from '../common/footerComponent';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Utility, { dispatchAction } from "../../utility";
@@ -81,7 +81,7 @@ const columns = [
 ];
 
 function createData(S, src, Token, Type, Contract, Holder, Status) {
-    return {S, src, Token, Type, Contract, Holder, Status};
+    return { S, src, Token, Type, Contract, Holder, Status };
 }
 
 
@@ -120,70 +120,70 @@ export default function StickyHeadTable() {
     const [isLoading, setLoading] = React.useState(true);
     const [totalToken, setTotalToken] = React.useState(0);
     const [keywords, setKeywords] = React.useState('');
-    const [rows, setRows] = React.useState([]);    
+    const [rows, setRows] = React.useState([]);
     const history = useHistory()
     const [noData, setNoData] = React.useState(0);
     const handleChangePage = (action) => {
-        if(action == 'first'){
+        if (action == 'first') {
             setFrom(0)
-            if(keywords){
-                let data = {pageNum:0,perpage:amount,searchkey:keywords}
+            if (keywords) {
+                let data = { pageNum: 0, perpage: amount, searchkey: keywords }
                 SearchTokens(data)
-            }else{
+            } else {
                 setNoData(0)
-                let data = {pageNum:0,perpage:amount}
+                let data = { pageNum: 0, perpage: amount }
                 getTokenList(data)
                 getTotalTokenList()
             }
-            
+
         }
-        if(action == 'prev'){
+        if (action == 'prev') {
             if (from - amount >= 0) {
                 let page = from - amount
                 setFrom(page)
-                if(keywords){
-                let data = {pageNum:page,perpage:amount,searchkey:keywords}
-                SearchTokens(data)
-                }else{
+                if (keywords) {
+                    let data = { pageNum: page, perpage: amount, searchkey: keywords }
+                    SearchTokens(data)
+                } else {
                     setNoData(0)
-                    let data = {pageNum:page,perpage:amount}
+                    let data = { pageNum: page, perpage: amount }
                     getTokenList(data)
                     getTotalTokenList()
                 }
-                
+
             }
         }
         if (action == 'next') {
             if (amount + from < totalToken) {
                 let page = amount + from
                 setFrom(page)
-                if(keywords){
-                let data = {pageNum:page,perpage:amount,searchkey:keywords}
-                SearchTokens(data)
-                }else{
+                if (keywords) {
+                    let data = { pageNum: page, perpage: amount, searchkey: keywords }
+                    SearchTokens(data)
+                } else {
                     setNoData(0)
-                    let data = {pageNum:page,perpage:amount}
+                    let data = { pageNum: page, perpage: amount }
                     getTokenList(data)
                     getTotalTokenList()
                 }
             }
 
-        } 
-       
-        if (action == 'last') { 
-            let page = totalToken - amount           
+        }
+
+        if (action == 'last') {
+            let page = totalToken - amount
             setFrom(page)
-            
-            if(keywords){
-                let data = {pageNum:page,perpage:amount,searchkey:keywords}
+
+            if (keywords) {
+                let data = { pageNum: page, perpage: amount, searchkey: keywords }
                 SearchTokens(data)
-            }else{
+            } else {
                 setNoData(0)
-                let data = {pageNum:page,perpage:amount}
+                let data = { pageNum: page, perpage: amount }
                 getTokenList(data)
                 getTotalTokenList()
             }
-            
+
         }
     };
 
@@ -191,30 +191,30 @@ export default function StickyHeadTable() {
         setAmount(event.target.value);
         setFrom(0);
         setAmount(event.target.value)
-        if(keywords){
-            let data = {pageNum:0,perpage:event.target.value,searchkey:keywords}
+        if (keywords) {
+            let data = { pageNum: 0, perpage: event.target.value, searchkey: keywords }
             SearchTokens(data)
-        }else{
+        } else {
             setNoData(0)
-            let data = {pageNum:0,perpage:event.target.value}
+            let data = { pageNum: 0, perpage: event.target.value }
             getTokenList(data)
             getTotalTokenList()
         }
-        
+
     };
     const handleSearchKeyUp = (event) => {
         let searchkeyword = event.target.value
 
-        if(searchkeyword.length > 2){
+        if (searchkeyword.length > 2) {
             setKeywords(searchkeyword)
             setLoading(false);
-            let data = {pageNum:from,perpage:amount,searchkey:searchkeyword}
+            let data = { pageNum: from, perpage: amount, searchkey: searchkeyword }
             SearchTokens(data)
         }
-        if(searchkeyword.length == 0){
+        if (searchkeyword.length == 0) {
             setLoading(false);
             setNoData(0)
-            let data = {pageNum:from,perpage:amount}
+            let data = { pageNum: from, perpage: amount }
             getTokenList(data)
             getTotalTokenList()
         }
@@ -222,80 +222,80 @@ export default function StickyHeadTable() {
     const getTokenList = async (data) => {
         try {
             const [error, responseData] = await Utility.parseResponse(
-            TokenData.getTokenLists(data)
-        );
-           
-        if(responseData) {
-            setLoading(false);
-            setRows(responseData)
+                TokenData.getTokenLists(data)
+            );
 
-        }else{
-            setLoading(false);
+            if (responseData) {
+                setLoading(false);
+                setRows(responseData)
+
+            } else {
+                setLoading(false);
+            }
+        } catch (error) {
+            console.error(error);
         }
-        }catch (error) {
-          console.error(error);
-        }
-  }
-  const getTotalTokenList = async () => {
+    }
+    const getTotalTokenList = async () => {
         try {
             const [error, responseData] = await Utility.parseResponse(
-            TokenData.getTotalToken()
-        );
-           
-        if(responseData) {
-            setTotalToken(responseData);
+                TokenData.getTotalToken()
+            );
+
+            if (responseData) {
+                setTotalToken(responseData);
+            }
+        } catch (error) {
+            console.error(error);
         }
-        }catch (error) {
-          console.error(error);
-        }
-  }
-  const SearchTokens = async (data) => {
+    }
+    const SearchTokens = async (data) => {
         try {
             const [error, responseData] = await Utility.parseResponse(
-            TokenData.getTokenSearch(data)
-        );
-        if(responseData.total == 0){
-            setNoData(1);
-            setTotalToken(0);
-            setRows([])
+                TokenData.getTokenSearch(data)
+            );
+            if (responseData.total == 0) {
+                setNoData(1);
+                setTotalToken(0);
+                setRows([])
+            }
+
+            if (responseData.total > 0) {
+                setNoData(0);
+                setTotalToken(responseData.total);
+                setLoading(false);
+                setRows(responseData.newResponse)
+                //alert(responseData.length)
+            }
+        } catch (error) {
+            console.error(error);
         }
-           
-        if(responseData.total > 0) {
-            setNoData(0);
-            setTotalToken(responseData.total);
-            setLoading(false);
-            setRows(responseData.newResponse)
-            //alert(responseData.length)
-        }
-        }catch (error) {
-          console.error(error);
-        }
-  }
+    }
 
 
     React.useEffect(() => {
-        let data = {pageNum:from,perpage:amount}
+        let data = { pageNum: from, perpage: amount }
         getTokenList(data)
         getTotalTokenList()
-    },[]);
+    }, []);
     let contentStatus = '';
     let msgStatus = '';
-    if(noData){
-         contentStatus = "hideContent"
-         msgStatus = 'showContent'
-    }else{
-         contentStatus = "showContent"
-         msgStatus = 'hideContent'
+    if (noData) {
+        contentStatus = "hideContent"
+        msgStatus = 'showContent'
+    } else {
+        contentStatus = "showContent"
+        msgStatus = 'hideContent'
     }
-    if(isLoading){
-        return(<div class="loader"></div>)
+    if (isLoading) {
+        return (<div class="loader"></div>)
     }
 
     return (
-        <div style={{backgroundColor: '#fff'}}>
-            <Tokensearchbar/>
+        <div style={{ backgroundColor: '#fff' }}>
+            <Tokensearchbar />
 
-        
+
             <div>
 
 
@@ -305,10 +305,10 @@ export default function StickyHeadTable() {
                         <div className="searchelement-div">
                             <p className="searchelement-token">Tokens</p>
                             <div className="searchelement-input">
-                                <img style={{width: 22, height: 22, marginRight: 5}}
-                                     src={require('../../assets/images/Search.png')}/>
+                                <img style={{ width: 22, height: 22, marginRight: 5 }}
+                                    src={require('../../assets/images/Search.png')} />
                                 <input
-                                
+
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,
@@ -316,7 +316,7 @@ export default function StickyHeadTable() {
                                         outlineColor: '#e3e7eb',
                                         borderWidth: 0
                                     }} type="text"
-                                    placeholder="Search Tokens" onKeyUp={handleSearchKeyUp}/>
+                                    placeholder="Search Tokens" />
                                 {/* name="NAME" */}
                             </div>
 
@@ -329,18 +329,18 @@ export default function StickyHeadTable() {
                 </div>
             </div>
 
-            <br/>
+            <br />
             <Paper className={classes.rootui}>
                 <TableContainer className={classes.container} id="container-table"
-                style={{borderRadius: '12px',border: 'solid 1px #e3e7eb',backgroundColor: '#ffffff',boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)'}}>
+                    style={{ borderRadius: '12px', border: 'solid 1px #e3e7eb', backgroundColor: '#ffffff', boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)' }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                                 {columns.map((column) => (
                                     <TableCell id="th"
-                                               key={column.id}
-                                               align={column.align}
-                                               style={{backgroundColor: 'white'}}
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ backgroundColor: 'white' }}
                                     >
                                         {column.label}
                                     </TableCell>
@@ -348,36 +348,36 @@ export default function StickyHeadTable() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row,index) => {
+                            {rows.map((row, index) => {
                                 return (
-                               
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row._id}
-                                              onClick={() => history.push('/token-data')}>
 
-                                        <TableCell style={{width: '1px'}} id="td">
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row._id}
+                                        onClick={() => history.push('/token-data/' + row.address)}>
+
+                                        <TableCell style={{ width: '1px' }} id="td">
                                             {index + 1}
                                         </TableCell>
                                         {row.src ?
-                                        <TableCell style={{width: '1px'}} id="td"> <img
-                                            style={{width: 25, height: 25, borderRadius: '15px'}}
-                                            src= {row.src} /></TableCell>
+                                            <TableCell style={{ width: '1px' }} id="td"> <img
+                                                style={{ width: 25, height: 25, borderRadius: '15px' }}
+                                                src={row.src} /></TableCell>
                                             :
-                                          <TableCell style={{width: '1px'}} id="td"> 
-                                          {row.tokenName ? 
-                                          <span style={{width: 25, height: 25, borderRadius: '15px',border:'1px solid',padding:'5px'}}
-                                             >{row.tokenName ? row.tokenName.slice(0, 2).toUpperCase() : ''}</span>
-                                             :
-                                            ''
-                                          }   
-                                           </TableCell>  
-                                       }
-                                        <TableCell id="td" style={{width: '110px'}}>{row.tokenName}</TableCell>
-                                        <TableCell id="td" style={{width: '130px'}}>{row.type}</TableCell>
+                                            <TableCell style={{ width: '1px' }} id="td">
+                                                {row.tokenName ?
+                                                    <span style={{ width: 25, height: 25, borderRadius: '15px', border: '1px solid', padding: '5px' }}
+                                                    >{row.tokenName ? row.tokenName.slice(0, 2).toUpperCase() : ''}</span>
+                                                    :
+                                                    ''
+                                                }
+                                            </TableCell>
+                                        }
+                                        <TableCell id="td" style={{ width: '110px' }}>{row.tokenName}</TableCell>
+                                        <TableCell id="td" style={{ width: '130px' }}>{row.type}</TableCell>
                                         <TableCell>
-                                            <a style={{fontSize: 12, color: '#2149b9'}}
-                                               href={'/address-details/'+row.address}> {row.address}</a>
+                                            <a style={{ fontSize: 12, color: '#2149b9' }}
+                                                href={'/address-details/' + row.address}> {row.address}</a>
                                         </TableCell>
-                                        <TableCell id="td" style={{width: '120px'}}>{row.tokenHolders}</TableCell>
+                                        <TableCell id="td" style={{ width: '120px' }}>{row.tokenHolders}</TableCell>
                                         <TableCell id="td">{row.status}</TableCell>
 
 
@@ -387,19 +387,19 @@ export default function StickyHeadTable() {
                             })}
                         </TableBody>
                         <TableBody className={msgStatus}>
-                           <TableCell id="td" >
-                                <span style={{textAlign:'center',color:'red'}} className="tabledata">No data found.</span>
-                           </TableCell>
+                            <TableCell id="td" >
+                                <span style={{ textAlign: 'center', color: 'red' }} className="tabledata">No data found.</span>
+                            </TableCell>
                         </TableBody>
                     </Table>
                 </TableContainer>
 
-               {/* <Divider className={classes.divider}/>*/}
+                {/* <Divider className={classes.divider}/>*/}
             </Paper>
-            <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-                <div style={{display: 'flex', flexDirection: 'row', marginTop: '45px',marginLeft: '18%'}}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', marginTop: '45px', marginLeft: '18%' }}>
                     Show
-                    <select value={amount} className="selectbox" onChange={handleChangeRowsPerPage}> 
+                    <select value={amount} className="selectbox" onChange={handleChangeRowsPerPage}>
                         <option value={10}>10</option>
                         <option value={25}>25</option>
                         <option value={50}>50</option>
@@ -409,21 +409,21 @@ export default function StickyHeadTable() {
                     Records
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'row', marginRight: '17%'}}>
+                <div style={{ display: 'flex', flexDirection: 'row', marginRight: '17%' }}>
                     <div className="firstbox" onClick={() => handleChangePage("first")}>
-                        <button style={{backgroundColor: 'white'}} className="first">First</button>
+                        <button style={{ backgroundColor: 'white' }} className="first">First</button>
                     </div>
                     <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path"><ChevronLeftIcon/></p>
+                        <p className="path"><ChevronLeftIcon /></p>
                     </div>
                     <div className="pagebox">
                         <p className="Page-1-of-5">Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}</p>
                     </div>
                     <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon/></p>
+                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /></p>
                     </div>
                     <div className="lastbox" onClick={() => handleChangePage("last")}>
-                        <button style={{backgroundColor: 'white'}} className="last">Last</button>
+                        <button style={{ backgroundColor: 'white' }} className="last">Last</button>
                     </div>
                 </div>
 
@@ -441,9 +441,9 @@ export default function StickyHeadTable() {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
 
             /> */}
-            
 
-            <FooterComponent/>
+
+            <FooterComponent />
 
         </div>
 
