@@ -356,7 +356,7 @@ export default function AddressTableComponent(props) {
                                                 //checked={checkAll}
                                                 style={{ marginRight: "8px" }}
                                             />
-                                           
+
                                             <a className="linkTable" href={'/transaction-details/' + row.Txn_Hash}>
                                                 <Tooltip placement="top" title={row.Txn_Hash}>
                                                     <span className="tabledata">
@@ -401,7 +401,7 @@ export default function AddressTableComponent(props) {
                                             }
                                         </TableCell>
                                         <TableCell style={{ border: "none" }} align="left">
-                                         {row.To == addr &&
+                                            {row.To == addr &&
                                                 <i class="fa fa-long-arrow-down green-color" aria-hidden="true"></i>
                                             }
                                             {row.From == addr &&
