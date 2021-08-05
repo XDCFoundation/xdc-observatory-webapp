@@ -73,7 +73,10 @@ export default function TransactionsDetailsData({ _handleChange }) {
     const currencySymbol = CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ "
     const valueFetch = CurrencyValue === "INR" ? transactions.valueINR : CurrencyValue === "USD" ? transactions.valueUSD : transactions.valueEUR
     const transactionFetch = CurrencyValue === "INR" ? transactions.transactionFeeINR : CurrencyValue === "USD" ? transactions.transactionFeeUSD : transactions.transactionFeeEUR
-    console.log(CurrencyValue, "AAAAAA")
+    const fetchtxn = !transactionFetch ? 0 : (transactionFetch / 1000000000000000000).toFixed(11)
+    const txfee = !transactions.transactionFee ? 0 : (transactions.transactionFee / 1000000000000000000).toFixed(11)
+    const gasP = !transactions.gasPrice ? 0 : (transactions.gasPrice / 1000000000000000000).toFixed(10)
+    console.log(valueFetch, "<<<<value")
     return (
 
         <div>
@@ -295,7 +298,8 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    {transactions.value / 1000000000000000000} XDC ({currencySymbol}{valueFetch / 1000000000000000000})
+                                    {!transactions?.value ? 0 : transactions?.value / 1000000000000000000} XDC ({currencySymbol}{
+                                        valueFetch && valueFetch > 0 ? valueFetch : 0})
                                 </TableCell>
                             </TableRow>
 
@@ -330,7 +334,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    {(transactions.transactionFee / 1000000000000000000).toFixed(11)} XDC ({currencySymbol}{(transactionFetch / 1000000000000000000).toFixed(11)})
+                                    {txfee} XDC ({currencySymbol}{fetchtxn})
                                 </TableCell>
                             </TableRow>
 
@@ -398,7 +402,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    {(transactions.gasPrice / 1000000000000000000).toFixed(10)}
+                                    {gasP > 0 ? gasP : 0}
                                 </TableCell>
                             </TableRow>
 

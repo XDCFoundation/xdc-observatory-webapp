@@ -107,8 +107,10 @@ export default function App() {
 
             resultData.push({
                 x: items.day,
-                y: parseFloat(items.gasPrice)
+                y: (items.gasPrice / 1000000000000000000).toString().substr(0, 6)
+
             })
+
 
         })
 

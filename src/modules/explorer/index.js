@@ -16,10 +16,7 @@ export default class BlockChainClass extends BaseComponent {
             // showDropDown: true
 
         }
-
     }
-
-
 
     _handleChange = (event) => {
         this.setState({ amount: event.target.value })

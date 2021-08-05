@@ -99,10 +99,9 @@ export default function StickyHeadTable() {
     let [error, tns] = await Utils.parseResponse(
       TokenData.getTotalTransferTransactionsForToken(urlPath, {})
     );
-    console.log(tns, "<<<<<transfer");
     if (error || !tns) return;
     settransfer(tns);
-    console.log(tns, "<<<<<<TXS");
+
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(urlPath, {})

@@ -326,7 +326,7 @@ class LatestBlocks extends Component {
                               {this.shorten(e.hash)}
                             </a>
                           </Tooltip>
-                          <p className={amountanimationclass ? amountanimationclass : "value_main "}>{(e.value / 1000000000000000000).toFixed(5)} XDC</p>
+                          <p className={amountanimationclass ? amountanimationclass : "value_main "}>{e.value == 0 ? 0 : (e.value / 1000000000000000000).toFixed(3)} XDC</p>
                           <p className={ageanimationclass ? ageanimationclass : ""}>{age}</p>
                           <a
                             className={detailanimationclass ? detailanimationclass : "details"}

@@ -369,7 +369,8 @@ class BlockChainDataComponent extends Component {
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
-    let changeAccounts = this.state.someDayAccount;
+    let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
+    let gp = this.state.transactionDataDetails[0]?.gasPrice ? (this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9) : 0
     return (
       <MainContainer>
         <LeftContainer>
@@ -382,22 +383,22 @@ class BlockChainDataComponent extends Component {
               <LeftTopSec>{currencySymbol}{changeDecimals}</LeftTopSec>
               <div
                 className={
-                  changePrice > 0
+                  changeDecimal >= 0
                     ? "data_value_green last_value_main"
                     : "data_value_red"
                 }
               >
                 <div className="value_changePrice">
-                  {changePrice > 0 ? (
+                  {changeDecimal >= 0 ? (
                     <div className="arrow_up">
                       {/* <BsFillCaretUpFill size={10} /> */}
-                      <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "10px" }} />
+                      <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
 
                     </div>
                   ) : (
                     <div className="arrow_down">
                       {/* <BsFillCaretDownFill size={10} /> */}
-                      <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "10px" }} />
+                      <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
                     </div>
                   )}
                   &nbsp;{changeDecimal ? changeDecimal : 0}%
@@ -422,7 +423,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Gas Price</Title>
                   <TitleValue>
-                    {(this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9)}
+                    {(gp && gp > 0) ? gp : 0}
                   </TitleValue>
                 </ValueName>
               </Value>
@@ -459,7 +460,7 @@ class BlockChainDataComponent extends Component {
                     <TitleValue>{this.state.totalAccount}</TitleValue>
                     <div
                       className={
-                        changeAccounts > 0
+                        changeAccounts >= 0
                           ? "data_value_green last_value_main"
                           : "data_value_red"
                       }
@@ -468,14 +469,14 @@ class BlockChainDataComponent extends Component {
                         {changeAccounts > 0 ? (
                           <div className="arrow_up">
                             {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "10px" }} />
+                            <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
                           </div>
                         ) : (
                           <div className="arrow_down">
                             {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "10px" }} />
+                            <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
                           </div>
-                        )}
+                        ) ? changeAccounts == 0 : ""}
                         {changeAccounts}
                       </div>
                     </div>
