@@ -143,12 +143,12 @@ export default function AddressDetails() {
                       <i class="fa fa-clone" aria-hidden="true" />
                     </button>
                   </CopyToClipboard>
-                  <Popup trigger={<ImQrcode />} modal>
+                  <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px" }} />} modal>
                     {(close) => (
                       <div className="popup_qr">
                         <p>
                           <div>
-                            <button style={{ border: 'null', width: '0px' }} className="close" onClick={close}>
+                            <button style={{ border: 'null', width: '0px', marginLeft: "4px" }} className="close" onClick={close}>
                               &times;
                             </button>
                             <div className="header" style={{ fontSize: '12px', paddingTop: '6px', paddingBottom: '22px' }}> {addr} </div>

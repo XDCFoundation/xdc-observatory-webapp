@@ -219,7 +219,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    <a className="linkTableDetails" href='/address-details'>{transactions.from} </a>
+                                    <a className="linkTableDetails" href={'/address-details/' + transactions.from}>{transactions.from} </a>
                                     <CopyToClipboard text={transactions.from}>
                                         <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
@@ -257,7 +257,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    <a className="linkTableDetails" href='/address-details'>{transactions.to}</a>
+                                    <a className="linkTableDetails" href={'/address-details/' + transactions.to}>{transactions.to}</a>
                                     <CopyToClipboard text={transactions.to}>
                                         <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "10px" }}><i
                                             class="fa fa-clone" aria-hidden="true"></i></button>
