@@ -190,9 +190,9 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
                         <div style={{ marginTop: 10 }}><span onClick={() => setOpencontracts(false)}
-                            style={{ color: 'white', fontSize: 17 }}><i
-                                class="fa fa-angle-left" aria-hidden="true"></i></span></div>
-                        <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Contract</div>
+                            style={{ color: 'white', fontSize: 17 }}>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                        <div onClick={() => setOpencontracts(false)} style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px',cursor: 'pointer' }}>Contract</div>
                         <div>
                             <IconButton style={{ color: 'white', marginLeft: '120px' }}
                                 onClick={() => setOpencontracts(false)}>
@@ -245,8 +245,8 @@ export default function Navbar() {
 
                     <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '4px' }}>
                         <div style={{ marginTop: 10 }}><span onClick={() => setOpen(false)}
-                            style={{ color: 'white', fontSize: 17 }}><i
-                                class="fa fa-angle-left" aria-hidden="true"></i></span></div>
+                            style={{ color: 'white', fontSize: 17 }}>
+                            <i class="fa fa-angle-left" aria-hidden="true"></i></span></div>
                         <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Tools</div>
                         <div>
                             <IconButton style={{ color: 'white', marginLeft: '120px' }} oonClick={() => setOpen(false)}>

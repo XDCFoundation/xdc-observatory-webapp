@@ -356,6 +356,12 @@ const handleChanged = (event) => {
                                             //checked={checkAll}
                                             style={{ marginRight: "8px" }}
                                         />
+                                         {row.To == addr &&
+                                            <i class="fa fa-long-arrow-down green-color" aria-hidden="true"></i>
+                                        } 
+                                        {row.From == addr &&
+                                           <i class="fa fa-long-arrow-up red-color" aria-hidden="true"></i> 
+                                        }
                                         <a className="linkTable" href={'/transaction-details/'+row.Txn_Hash}>
                                             <Tooltip placement="top" title={row.Txn_Hash}>
                                                 <span className="tabledata">
@@ -363,12 +369,7 @@ const handleChanged = (event) => {
                                                 </span>
                                             </Tooltip>                                            
                                         </a>
-                                         {row.To == addr &&
-                                            <i class="fa fa-arrow-down green-color" aria-hidden="true"></i>
-                                        } 
-                                        {row.From == addr &&
-                                           <i class="fa fa-arrow-up red-color" aria-hidden="true"></i> 
-                                        }
+                                        
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left">
                                         <span className="tabledata">{TimeAge}</span>
