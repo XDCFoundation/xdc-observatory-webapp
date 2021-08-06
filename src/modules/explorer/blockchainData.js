@@ -156,6 +156,7 @@ class BlockChainDataComponent extends Component {
       transactionDataDetails: [],
       blockSocketConnected: false,
       transactionSocketConnected: false,
+      animationBlock: {}, animationTransaction: {}
       // currencyType: activeCurrency
     };
   }
@@ -192,9 +193,11 @@ class BlockChainDataComponent extends Component {
       if (blockDataExist == -1) {
         blocks.pop();
         blocks.unshift(blockData);
-        // blocks.sort((a, b) => {
-        //   return b.number - a.number;
-        // });
+        let blockAnimationClass = { [blockData.number]: "block-height-animation" };
+        this.setState({ animationBlock: blockAnimationClass });
+        setTimeout(() => {
+          this.setState({ animationBlock: {} })
+        }, 500)
 
         this.setState({ blockdataNumber: blocks });
 
@@ -211,6 +214,11 @@ class BlockChainDataComponent extends Component {
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
+        let blockAnimationClass = { [transactionData.hash]: "block-height-animation" };
+        this.setState({ animationTransaction: blockAnimationClass });
+        setTimeout(() => {
+          this.setState({ animationTransaction: {} })
+        }, 500)
         this.setState({ transactionDataDetails: transactions });
 
         if (error) {
@@ -361,9 +369,6 @@ class BlockChainDataComponent extends Component {
     ) {
       changePrice = this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h;
 
-
-
-
     }
     const currencySymbol = this.props.currency === "INR" ? "₹ " : this.props.currency === "USD" ? "$ " : "€ "
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
@@ -371,6 +376,15 @@ class BlockChainDataComponent extends Component {
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
     let gp = this.state.transactionDataDetails[0]?.gasPrice ? (this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9) : 0
+    let blockNumber = this.state.blockdataNumber[0]?.number
+    let animationClass =
+      this.state.animationBlock?.[blockNumber]
+      ;
+    let txhash = this.state.transactionDataDetails[0]?.hash
+    let TxanimationClass =
+      this.state.animationTransaction?.[txhash]
+      ;
+    console.log(animationClass, "<<<<LLLL")
     return (
       <MainContainer>
         <LeftContainer>
@@ -389,18 +403,19 @@ class BlockChainDataComponent extends Component {
                 }
               >
                 <div className="value_changePrice">
-                  {changeDecimal >= 0 ? (
-                    <div className="arrow_up">
-                      {/* <BsFillCaretUpFill size={10} /> */}
-                      <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                  {changeDecimal == 0 ? "" :
+                    changeDecimal > 0 ? (
+                      <div className="arrow_up">
+                        {/* <BsFillCaretUpFill size={10} /> */}
+                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
 
-                    </div>
-                  ) : (
-                    <div className="arrow_down">
-                      {/* <BsFillCaretDownFill size={10} /> */}
-                      <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
-                    </div>
-                  )}
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} /> */}
+                        <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
+                      </div>
+                    )}
                   &nbsp;{changeDecimal ? changeDecimal : 0}%
                 </div>
               </div>
@@ -413,7 +428,7 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={blockHeightImg} />
                 <ValueName>
                   <Title>Block Height</Title>
-                  <TitleValue>
+                  <TitleValue className={animationClass ? animationClass : ""} >
                     {this.state.blockdataNumber[0]?.number.toLocaleString()}
                   </TitleValue>
                 </ValueName>
@@ -422,7 +437,7 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={priceLogo} />
                 <ValueName>
                   <Title>Gas Price</Title>
-                  <TitleValue>
+                  <TitleValue className={TxanimationClass ? TxanimationClass : ""}>
                     {(gp && gp > 0) ? gp : 0}
                   </TitleValue>
                 </ValueName>
@@ -431,15 +446,16 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={transactionLogo} />
                 <ValueName>
                   <Title>Transactions</Title>
-                  <TitleValue> {this.state.totalTransaction}</TitleValue>
+                  <TitleValue>{this.state.totalTransaction}</TitleValue>
                 </ValueName>
               </Value>
               <Value>
                 <TitleIcon src={difficultyLogo} />
                 <ValueName>
                   <Title>Difficulty</Title>
-                  <TitleValue>
+                  <TitleValue className={animationClass ? animationClass : ""}>
                     {this.state.blockdataNumber[0]?.totalDifficulty}
+
                   </TitleValue>
                 </ValueName>
               </Value>
@@ -466,17 +482,18 @@ class BlockChainDataComponent extends Component {
                       }
                     >
                       <div className="value_p">
-                        {changeAccounts > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
-                          </div>
-                        ) ? changeAccounts == 0 : ""}
+                        {changeAccounts == 0 ? "" :
+                          changeAccounts > 0 ? (
+                            <div className="arrow_up">
+                              {/* <BsFillCaretUpFill size={10} /> */}
+                              <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                            </div>
+                          ) : (
+                            <div className="arrow_down">
+                              {/* <BsFillCaretDownFill size={10} /> */}
+                              <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
+                            </div>
+                          )}
                         {changeAccounts}
                       </div>
                     </div>

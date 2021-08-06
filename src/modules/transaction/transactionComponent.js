@@ -12,6 +12,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router";
+import { makeStyles } from '@material-ui/core/styles';
 
 
 function timeDiff(curr, prev) {
@@ -44,8 +45,16 @@ function timeDiff(curr, prev) {
         return Math.abs(Math.round(diff / ms_Yr)) + ' years ago';
     }
 }
-
+const useStyles = makeStyles({
+    rootui: {
+        minWidth: 650,
+        borderRadius: '10px',
+        backgroundColor: 'white'
+    }
+});
 export default function TransactionComponent(props) {
+    const classes = useStyles();
+
 
     const history = useHistory();
 
@@ -64,7 +73,8 @@ export default function TransactionComponent(props) {
     return (
         <Grid lg={9} className="tablegrid">
             <Grid class="tabletop-header">{state.tableName}</Grid>
-            <Grid component={Paper}>
+            <Paper className={classes.rootui} elevation={0}>
+
                 <Table className="table" aria-label="Latest Transactions">
                     <TableHead>
                         <TableRow>
@@ -86,21 +96,21 @@ export default function TransactionComponent(props) {
                             return (
                                 <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                     <TableCell style={{ border: "none" }} >
-                                        <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
+                                        <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "3px" }} /></Tooltip>
                                         <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata" onClick={() => history.push("/transaction-details/" + row.hash)}>{shorten(row.hash)}  </span> </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{(row.value / 1000000000000000000)}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/address-details"}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"> <a className="linkTable" href={"/address-details"}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
+                                    <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/address-details/" + row.from}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
+                                    <TableCell style={{ border: "none" }} align="left"> <a className="linkTable" href={"/address-details/" + row.to}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{row.transactionFee / 100000000000000000} XDC</span></TableCell>
                                 </TableRow>
                             );
                         })}
                     </TableBody>
                 </Table>
-            </Grid>
+            </Paper>
             <Grid container>
                 <Grid item xs="3">
                     <span className="text">Show</span>

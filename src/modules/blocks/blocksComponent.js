@@ -12,6 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from '@material-ui/core/styles';
 
 
 
@@ -45,6 +46,13 @@ function timeDiff(curr, prev) {
         return Math.abs(Math.round(diff / ms_Yr)) + ' years ago';
     }
 }
+const useStyles = makeStyles({
+    rootui: {
+        minWidth: 650,
+        borderRadius: '10px',
+        backgroundColor: 'white'
+    }
+});
 
 export default function BlocksComponent(props) {
 
@@ -56,16 +64,17 @@ export default function BlocksComponent(props) {
     }
 
     const { state } = props
+    const classes = useStyles();
     return (
         <Grid lg={8} className="tablegrid">
             <Grid class="tabletop-header">{state.tableName}</Grid>
-            <Grid component={Paper}>
+            <Paper className={classes.rootui} elevation={0}>
                 <Table className="table" aria-label="Latest Transactions">
                     <TableHead>
                         <TableRow>
-                            <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "1.6%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Transactions</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Difficulty</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
@@ -81,7 +90,7 @@ export default function BlocksComponent(props) {
                             return (
                                 <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                     <TableCell style={{ border: "none" }} margin-left="5px" >
-                                        <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip>
+                                        <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "7px" }} /></Tooltip>
 
                                         <span className="tabledata">{shorten(row.hash)}  </span>
                                     </TableCell>
@@ -96,7 +105,7 @@ export default function BlocksComponent(props) {
                         })}
                     </TableBody>
                 </Table>
-            </Grid>
+            </Paper>
             <Grid container>
                 <Grid item xs="3">
                     <span className="text">Show</span>
