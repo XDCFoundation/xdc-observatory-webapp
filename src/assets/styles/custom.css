@@ -1962,6 +1962,25 @@ button {
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
+.block-height-animation {
+  font-size: 13.5px;
+  font-family: Inter;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #252525;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: inherit;
+  animation-fill-mode: forwards;
+}
+.bk-height {
+  font-size: 13.5px;
+  font-family: Inter;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #252525;
+}
 .value_main_main {
   display: flex;
   flex-direction: column;

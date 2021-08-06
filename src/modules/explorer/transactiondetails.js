@@ -73,9 +73,10 @@ export default function TransactionsDetailsData({ _handleChange }) {
     const currencySymbol = CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ "
     const valueFetch = CurrencyValue === "INR" ? transactions.valueINR : CurrencyValue === "USD" ? transactions.valueUSD : transactions.valueEUR
     const transactionFetch = CurrencyValue === "INR" ? transactions.transactionFeeINR : CurrencyValue === "USD" ? transactions.transactionFeeUSD : transactions.transactionFeeEUR
-    const fetchtxn = !transactionFetch ? 0 : (transactionFetch / 1000000000000000000).toFixed(11)
-    const txfee = !transactions.transactionFee ? 0 : (transactions.transactionFee / 1000000000000000000).toFixed(11)
-    const gasP = !transactions.gasPrice ? 0 : (transactions.gasPrice / 1000000000000000000).toFixed(10)
+    const fetchtxn = !transactionFetch ? 0 : (transactionFetch / 1000000000000000000).toFixed(12)
+    const txfee = !transactions.transactionFee ? 0 : (transactions.transactionFee / 1000000000000000000).toFixed(12)
+    const gasP = !transactions.gasPrice ? 0 : (transactions.gasPrice / 1000000000000000000).toFixed(18)
+    const valueDiv = !valueFetch ? 0 : (valueFetch / 1000000000000000000).toFixed(11)
     console.log(valueFetch, "<<<<value")
     return (
 
@@ -299,7 +300,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
                                     {!transactions?.value ? 0 : transactions?.value / 1000000000000000000} XDC ({currencySymbol}{
-                                        valueFetch && valueFetch > 0 ? valueFetch : 0})
+                                        valueDiv && valueDiv > 0 ? valueDiv : 0})
                                 </TableCell>
                             </TableRow>
 
@@ -402,7 +403,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                                     color: '#3a3a3a',
                                     paddingLeft: '28px', borderBottom: "1px solid #e3e7eb"
                                 }} id="td">
-                                    {gasP > 0 ? gasP : 0}
+                                    {gasP}
                                 </TableCell>
                             </TableRow>
 
