@@ -17,12 +17,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 function timeDiff(curr, prev) {
-    var ms_Min = 60 * 1000; // milliseconds in Minute
-    var ms_Hour = ms_Min * 60; // milliseconds in Hour
-    var ms_Day = ms_Hour * 24; // milliseconds in day
-    var ms_Mon = ms_Day * 30; // milliseconds in Month
-    var ms_Yr = ms_Day * 365; // milliseconds in Year
-    var diff = curr - prev; //difference between dates.
+    if (curr < prev) return "0 secs ago";
+    let ms_Min = 60 * 1000; // milliseconds in Minute
+    let ms_Hour = ms_Min * 60; // milliseconds in Hour
+    let ms_Day = ms_Hour * 24; // milliseconds in day
+    let ms_Mon = ms_Day * 30; // milliseconds in Month
+    let ms_Yr = ms_Day * 365; // milliseconds in Year
+    let diff = curr - prev; //difference between dates.
     // If the diff is less then milliseconds in a minute
     if (diff < ms_Min) {
         return Math.abs(Math.round(diff / 1000)) + ' secs ago';
@@ -57,7 +58,7 @@ const useStyles = makeStyles({
 export default function BlocksComponent(props) {
 
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
             b.length - 3,
             b.length
         )}`;

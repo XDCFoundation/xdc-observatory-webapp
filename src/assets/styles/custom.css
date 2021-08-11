@@ -2388,6 +2388,12 @@ button {
   text-decoration: none;
   font-size: 13px;
 }
+.nav_button:active {
+  color: #000000;
+  list-style: none;
+  text-decoration: none;
+  font-size: 13px;
+}
 .age1 {
   font-weight: 600;
   font-size: 2px;

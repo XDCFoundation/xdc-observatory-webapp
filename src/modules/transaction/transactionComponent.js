@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 function timeDiff(curr, prev) {
+    if (curr < prev) return "0 secs ago";
     var ms_Min = 60 * 1000; // milliseconds in Minute
     var ms_Hour = ms_Min * 60; // milliseconds in Hour
     var ms_Day = ms_Hour * 24; // milliseconds in day
@@ -59,13 +60,13 @@ export default function TransactionComponent(props) {
     const history = useHistory();
 
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
             b.length - 3,
             b.length
         )}`;
     }
     function shortenData(b, amountL = 4, amountR = 3, stars = 0) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
             b.length
         )}`;
     }
@@ -80,9 +81,9 @@ export default function TransactionComponent(props) {
                         <TableRow>
                             <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Amount</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "6.5%" }} align="left"><span className={"tableheaders"}>From</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "3%" }} align="center"><span className={"tableheaders"}>Age</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="center"><span className={"tableheaders"}>Block</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "3%" }} align="center"><span className={"tableheaders"}>From</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>To</span></TableCell>
                             <TableCell style={{ border: "none", paddingLeft: "2%" }} align="right"><span className={"tableheaders"}>Txn Fee</span></TableCell>
                         </TableRow>
@@ -93,6 +94,7 @@ export default function TransactionComponent(props) {
                             const currentTime = new Date();
                             const previousTime = new Date(row.timestamp * 1000);
                             const ti = timeDiff(currentTime, previousTime);
+                            const txFee = (row.transactionFee / 100000000000000000).toFixed(12)
                             return (
                                 <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                     <TableCell style={{ border: "none" }} >
@@ -104,7 +106,7 @@ export default function TransactionComponent(props) {
                                     <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className="tabledata"> {row.blockNumber}</span> </a></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"> <a className="linkTable" href={"/address-details/" + row.from}><Tooltip placement="top" title={row.from}><span className="tabledata">{shorten(row.from)}</span></Tooltip></a></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"> <a className="linkTable" href={"/address-details/" + row.to}><Tooltip placement="top" title={row.to}><span className="tabledata">{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{row.transactionFee / 100000000000000000} XDC</span></TableCell>
+                                    <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{txFee == 0 ? 0 : txFee} XDC</span></TableCell>
                                 </TableRow>
                             );
                         })}

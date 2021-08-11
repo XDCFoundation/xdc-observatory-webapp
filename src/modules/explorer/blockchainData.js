@@ -267,12 +267,12 @@ class BlockChainDataComponent extends Component {
       AccountService.getSomeDaysAccount()
     );
     if (error || !someDaysAccount) return;
-    this.setState({ someDayAccount: someDaysAccount.length });
+    this.setState({ someDayAccount: someDaysAccount[0]?.count });
     const interval = setInterval(async () => {
       let [error, someDaysAccount] = await Utils.parseResponse(
         AccountService.getSomeDaysAccount()
       );
-      this.setState({ someDayAccount: someDaysAccount.length });
+      this.setState({ someDayAccount: someDaysAccount[0]?.count });
     }, 90000);
   }
 
@@ -375,6 +375,7 @@ class BlockChainDataComponent extends Component {
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
+
     let gp = this.state.transactionDataDetails[0]?.gasPrice ? (this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9) : 0
     let blockNumber = this.state.blockdataNumber[0]?.number
     let animationClass =

@@ -21,15 +21,46 @@ export default class LatestBlocksList extends BaseComponent {
             showDropDown: true
         }
     }
+    componentWillUnmount() {
+        this.props.socketblock.off("block-socket");
+    }
+    async componentDidMount() {
 
-    componentDidMount() {
-
-        this.getListOfBlocks()
-        this.getTotalNumberOfBlocks()
+        await this.getListOfBlocks()
+        await this.getTotalNumberOfBlocks()
+        await this.socketData(this.props.socketblock);
     }
 
 
+    socketData(socket) {
 
+
+        socket.on("block-socket", (blockData, error) => {
+            console.log(blockData, "<<<<<mmm")
+            let blocks = this.state.blocksList
+                ;
+
+            let blockDataExist = blocks.findIndex((item) => {
+                return item.number == blockData.number;
+            });
+
+            if (blockDataExist == -1 && this.state.from == 0) {
+                if (blocks.length >= 10) blocks.pop();
+                blocks.unshift(blockData);
+
+                // blocks.sort((a, b) => {
+                //   return b.number - a.number;
+                // });
+
+                this.setState({ blocksList: blocks });
+
+                if (error) {
+                    console.log("hello error");
+                }
+            }
+
+        });
+    }
 
     async getListOfBlocks(from, amount) {
         from = from || from === 0 ? from : this.state.from;
