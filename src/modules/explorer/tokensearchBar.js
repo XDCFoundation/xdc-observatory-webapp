@@ -13,8 +13,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import '../../assets/styles/custom.css';
-
-
+import SearchData from "../../services/search";
+import Utility, { dispatchAction } from "../../utility";
 
 const drawerWidth = 240;
 
@@ -109,7 +109,55 @@ export default function Navbar() {
 
     const [open, setOpen] = useState(false)
     const [opencontracts, setOpencontracts] = useState(false)
+    const ref = React.useRef(null);
+    const SelectOptRef = React.useRef(null);
+    const SearchDataRef = React.useRef(null);
+    const handleSearch = (event) => {
+        var selectOptType = SelectOptRef.current?.value
+        
+          let requestdata = {
+            filter:selectOptType,
+            data:event.target.value
+          }
+          BlockChainSearch(requestdata)
+    }
+    const handleSearchOption = (event) => {
+        var selectOptType = SelectOptRef.current?.value
+        var SearchDataInput = SearchDataRef.current?.value
+          let requestdata = {
+            filter:selectOptType,
+            data:SearchDataInput
+          }
+          BlockChainSearch(requestdata)
+    }
+    const BlockChainSearch = async (data) => {
+        try {
 
+            const [error, responseData] = await Utility.parseResponse(
+                SearchData.searchData(data)
+            );
+
+            if (responseData) {
+                if(responseData.redirect == 'block'){
+                    let blockurl = '/block-details/'+responseData.block.number
+                    window.location.href = blockurl
+                }else if(responseData.redirect == 'account'){
+                    let accounturl = '/address-details/'+responseData.account.address
+                    window.location.href = accounturl
+                }else if(responseData.redirect == 'transaction'){
+                    let transactionurl = '/transaction-details/'+responseData.transaction.hash
+                    window.location.href = transactionurl
+                }else if(responseData.redirect == 'token'){
+                    let tokenurl = '/address-details/'+responseData.token.address
+                    window.location.href = tokenurl
+                }else{
+
+                }
+            } 
+        } catch (error) {
+            console.error(error);
+        }
+    }
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -396,24 +444,31 @@ export default function Navbar() {
 
                         {/* <p className="description"></p> */}
                         <div className="main-form-container-td">
-                            <form method="post">
+                            <form method="post" onSubmit={(e) => { e.preventDefault(); }}>
                                 <div>
-
                                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                                         < img style={{ width: 20, height: 20, marginRight: 5 }} src={require('../../assets/images/Search.png')} />
-                                        <input value={filter} onChange={(e) => setFilter(e.target.value)}
+                                        <input defaultValue={filter} 
                                             style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                            onChange={(event) => handleSearch(event)}
+                                            ref={SearchDataRef}
+                                            onKeyPress={event => {
+                                                if (event.key === 'Enter') {
+                                                    handleSearch(event)
+                                                }
+                                            }}
                                             className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
                                         {/* name="NAME" */}
 
 
-                                        <select className="select-td">
-                                            <option selected>Filters</option>
-                                            <option>Addresses</option>
-                                            <option>Tokens</option>
-                                            <option>Nametags</option>
-                                            <option>Labels</option>
-                                            <option>Websites</option>
+                                        <select className="select-td" onChange={(event) => handleSearchOption(event)} ref={SelectOptRef}>
+                                            <option value="All filters" selected>All Filters</option>
+                                            <option value="Addresses">Addresses</option>
+                                            <option value="Tokens">Tokens</option>
+                                            <option value="Transaction">Transaction</option>
+                                            <option value="Nametags">Nametags</option>
+                                            <option value="Labels">Labels</option>
+                                            <option value="Websites">Websites</option>
                                         </select>
                                     </div>
                                 </div>
