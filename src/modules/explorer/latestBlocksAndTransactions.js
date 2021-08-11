@@ -68,7 +68,7 @@ class LatestBlocks extends Component {
   }
   socketData(socket) {
     let blocks = this.state.latestBlocksData;
-    let transactions = this.state.latestTransactionData;
+
     socket.on("block-socket", (blockData, error) => {
 
       this.setState({ blockSocketConnected: true })
@@ -102,6 +102,7 @@ class LatestBlocks extends Component {
     });
 
     socket.on("transaction-socket", (transactionData, error) => {
+      let transactions = this.state.latestTransactionData;
       this.setState({ transactionSocketConnected: true })
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash == transactionData.hash;
