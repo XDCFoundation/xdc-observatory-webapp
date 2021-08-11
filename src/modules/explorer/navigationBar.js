@@ -11,8 +11,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useHistory , Redirect  } from 'react-router-dom';
 import Login from './loginDialog';
+import Utility, { dispatchAction } from "../../utility";
+import SearchData from "../../services/search";
 
 const drawerWidth = 240;
 
@@ -93,9 +95,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
     const classes = useStyles();
     const theme = useTheme();
-
+    const ref = React.useRef(null);
     const history = useHistory();
-
+    const SelectOptRef = React.useRef(null);
+    const SearchDataRef = React.useRef(null);
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -104,7 +107,52 @@ export default function Navbar() {
     });
     const [open, setOpen] = useState(false)
     const [opencontracts, setOpencontracts] = useState(false)
+    const handleSearch = (event) => {
+        var selectOptType = SelectOptRef.current?.value        
+          let requestdata = {
+            filter:selectOptType,
+            data:event.target.value
+          }
+          BlockChainSearch(requestdata)
+    }
+    const handleSearchOption = (event) => {
+        var selectOptType = SelectOptRef.current?.value
+        var SearchDataInput = SearchDataRef.current?.value
+          let requestdata = {
+            filter:selectOptType,
+            data:SearchDataInput
+          }
+          BlockChainSearch(requestdata)
+    }
+    
+    const BlockChainSearch = async (data) => {
+        try {
 
+            const [error, responseData] = await Utility.parseResponse(
+                SearchData.searchData(data)
+            );
+
+            if (responseData) {
+                if(responseData.redirect == 'block'){
+                    let blockurl = '/block-details/'+responseData.block.number
+                    window.location.href = blockurl
+                }else if(responseData.redirect == 'account'){
+                    let accounturl = '/address-details/'+responseData.account.address
+                    window.location.href = accounturl
+                }else if(responseData.redirect == 'transaction'){
+                    let transactionurl = '/transaction-details/'+responseData.transaction.hash
+                    window.location.href = transactionurl
+                }else if(responseData.redirect == 'token'){
+                    let tokenurl = '/address-details/'+responseData.token.address
+                    window.location.href = tokenurl
+                }else{
+
+                }
+            } 
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -461,21 +509,29 @@ export default function Navbar() {
 
                         <p className="description"></p>
                         <div className="main-form-container">
-                            <form method="post">
+                            <form method="post" onSubmit={(e) => { e.preventDefault(); }}>
 
-                                <input value={filter} onChange={(e) => setFilter(e.target.value)}
+                                <input defaultValue={filter} onChange={(event) => handleSearch(event)}
                                     type="text"
+                                    ref={SearchDataRef}
                                     className="main-input"
+                                    onKeyPress={event => {
+                                        if (event.key === 'Enter') {
+                                            handleSearch(event)
+                                        }
+                                    }}
                                     placeholder="Search for an address, a Transaction or a block number" />
+                                    
                                 {/* name="NAME" */}
 
-                                <select className="select">
-                                    <option selected>All Filters</option>
-                                    <option>Addresses</option>
-                                    <option>Tokens</option>
-                                    <option>Nametags</option>
-                                    <option>Labels</option>
-                                    <option>Websites</option>
+                                <select onChange={(event) => handleSearchOption(event)} className="select" id="SearchOption" ref={SelectOptRef}>
+                                    <option value="All filters" selected>All Filters</option>
+                                    <option value="Addresses">Addresses</option>
+                                    <option value="Tokens">Tokens</option>
+                                    <option value="Transaction">Transaction</option>
+                                    <option value="Nametags">Nametags</option>
+                                    <option value="Labels">Labels</option>
+                                    <option value="Websites">Websites</option>
                                 </select>
                             </form>
 
