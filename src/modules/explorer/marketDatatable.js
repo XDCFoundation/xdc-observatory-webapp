@@ -108,17 +108,18 @@ class MarketDatatable extends Component {
                         }
                     >
                         <div className="varMarket">
-                            {MarketCapchange >= 0 ? (
-                                <div className="arrow_up">
-                                    {/* <BsFillCaretUpFill size={10} /> */}
-                                    <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-                                </div>
-                            ) : (
-                                <div className="arrow_down">
-                                    {/* <BsFillCaretDownFill size={10} /> */}
-                                    <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
-                                </div>
-                            )}
+                            {MarketCapchange == 0 ? "" :
+                                MarketCapchange > 0 ? (
+                                    <div className="arrow_up">
+                                        {/* <BsFillCaretUpFill size={10} /> */}
+                                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                                    </div>
+                                ) : (
+                                    <div className="arrow_down">
+                                        {/* <BsFillCaretDownFill size={10} /> */}
+                                        <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
+                                    </div>
+                                )}
                             &nbsp;{MarketCapchange}%
                         </div>
                     </div>
@@ -134,17 +135,18 @@ class MarketDatatable extends Component {
                         }
                     >
                         <div className="varMarket">
-                            {FullyDilutedMarketCapchange >= 0 ? (
-                                <div className="arrow_up">
-                                    {/* <BsFillCaretUpFill size={10} /> */}
-                                    <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-                                </div>
-                            ) : (
-                                <div className="arrow_down">
-                                    {/* <BsFillCaretDownFill size={10} /> */}
-                                    <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
-                                </div>
-                            )}
+                            {FullyDilutedMarketCapchange == 0 ? "" :
+                                FullyDilutedMarketCapchange > 0 ? (
+                                    <div className="arrow_up">
+                                        {/* <BsFillCaretUpFill size={10} /> */}
+                                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                                    </div>
+                                ) : (
+                                    <div className="arrow_down">
+                                        {/* <BsFillCaretDownFill size={10} /> */}
+                                        <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
+                                    </div>
+                                )}
                             &nbsp;{FullyDilutedMarketCapchange}%
                         </div>
                     </div>
@@ -160,17 +162,18 @@ class MarketDatatable extends Component {
                         }
                     >
                         <div className="varMarket">
-                            {Volumechange >= 0 ? (
-                                <div className="arrow_up">
-                                    {/* <BsFillCaretUpFill size={10} /> */}
-                                    <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-                                </div>
-                            ) : (
-                                <div className="arrow_down">
-                                    {/* <BsFillCaretDownFill size={10} /> */}
-                                    <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
-                                </div>
-                            )}
+                            {Volumechange == 0 ? "" :
+                                Volumechange > 0 ? (
+                                    <div className="arrow_up">
+                                        {/* <BsFillCaretUpFill size={10} /> */}
+                                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                                    </div>
+                                ) : (
+                                    <div className="arrow_down">
+                                        {/* <BsFillCaretDownFill size={10} /> */}
+                                        <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
+                                    </div>
+                                )}
                             &nbsp;{Volumechange}%
                         </div>
                     </div>

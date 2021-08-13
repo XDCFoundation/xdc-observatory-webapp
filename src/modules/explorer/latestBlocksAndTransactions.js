@@ -52,8 +52,6 @@ class LatestBlocks extends Component {
       transactionSocketConnected: false,
       blockAnimation: {},
       ageAnimation: {}, transactionsAnimation: {}, hashAnimation: {}, ageeAnimation: {}, amountAnimation: {}, detailAnimation: {}
-
-      // blockAnimation: {},
     };
   }
 
@@ -68,9 +66,9 @@ class LatestBlocks extends Component {
   }
   socketData(socket) {
     let blocks = this.state.latestBlocksData;
-    let transactions = this.state.latestTransactionData;
-    socket.on("block-socket", (blockData, error) => {
 
+    socket.on("block-socket", (blockData, error) => {
+      console.log(blockData, "HIUL>>>>")
       this.setState({ blockSocketConnected: true })
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
@@ -102,6 +100,7 @@ class LatestBlocks extends Component {
     });
 
     socket.on("transaction-socket", (transactionData, error) => {
+      let transactions = this.state.latestTransactionData;
       this.setState({ transactionSocketConnected: true })
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash == transactionData.hash;
@@ -129,6 +128,7 @@ class LatestBlocks extends Component {
       }
     });
   }
+
   /* FETCHING LATEST BLOCKS API*/
 
   async blocksLatest() {
