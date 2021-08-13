@@ -52,8 +52,6 @@ class LatestBlocks extends Component {
       transactionSocketConnected: false,
       blockAnimation: {},
       ageAnimation: {}, transactionsAnimation: {}, hashAnimation: {}, ageeAnimation: {}, amountAnimation: {}, detailAnimation: {}
-
-      // blockAnimation: {},
     };
   }
 
@@ -70,7 +68,7 @@ class LatestBlocks extends Component {
     let blocks = this.state.latestBlocksData;
 
     socket.on("block-socket", (blockData, error) => {
-
+      console.log(blockData, "HIUL>>>>")
       this.setState({ blockSocketConnected: true })
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
@@ -130,6 +128,7 @@ class LatestBlocks extends Component {
       }
     });
   }
+
   /* FETCHING LATEST BLOCKS API*/
 
   async blocksLatest() {

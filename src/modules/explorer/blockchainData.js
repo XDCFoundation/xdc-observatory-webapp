@@ -9,8 +9,6 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tab from "./tab";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
 import {
   AccountService,
   CoinMarketService,
@@ -19,7 +17,7 @@ import {
   BlockService,
 } from "../../services";
 import Utils from "../../utility";
-import socketClient from "socket.io-client";
+
 
 const MainContainer = styled.div`
   width: 950px;
@@ -385,7 +383,7 @@ class BlockChainDataComponent extends Component {
     let TxanimationClass =
       this.state.animationTransaction?.[txhash]
       ;
-    console.log(animationClass, "<<<<LLLL")
+
     return (
       <MainContainer>
         <LeftContainer>
