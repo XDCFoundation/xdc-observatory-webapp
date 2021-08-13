@@ -12,7 +12,6 @@ export default class LatestTransactionList extends BaseComponent {
         super(props);
 
         this.state = {
-            // DataSet: Array(250).fill(this.create_data("0x43730ce5eb14d295d2a08f31a1402c65930aff870a5734b39077dc2407c046e2", `99.99 XDC`, "43 secs ago", "30771616", "0xb7f5d2172d17dcaa6269eabfdb58fb82d2f3f3c0", "0xb7f5d2172d17dcaa6269eabfdb58fb82d2f3f3c0", "0.00000000005 XDC")),
             from: 0,
             amount: 50,
             tableName: "Transactions",
@@ -21,13 +20,20 @@ export default class LatestTransactionList extends BaseComponent {
             isLoader: false
         }
     }
-
-    componentDidMount() {
-        // this.getListOfBlocks()
-        this.getListOfTransactions()
-        this.getTotalTransaction()
-        this.setGetListOfTransactionsInterval()
+    componentWillUnmount() {
+        this.props.socket.off("block-socket");
     }
+    async componentDidMount() {
+        // console.log(this.props.socketTrans, "<<<<<PPPP")
+
+        await this.getListOfTransactions()
+        await this.getTotalTransaction()
+        await this.socketData(this.props.socketTrans);
+        await this.setGetListOfTransactionsInterval()
+
+
+    }
+
 
     async setGetListOfTransactionsInterval() {
         setInterval(() => {
@@ -56,6 +62,30 @@ export default class LatestTransactionList extends BaseComponent {
             return
         this.setState({ totalTransaction: total })
 
+    }
+    socketData(socket
+    ) {
+
+
+        socket.on("transaction-socket", (transactionData, error) => {
+            // this.setState({ transactionSocketConnected: true })
+            let transactions = this.state.transactionList;
+
+            let transactionDataExist = transactions.findIndex((item) => {
+                return item.hash == transactionData.hash;
+            });
+
+            if (transactionDataExist == -1 && this.state.from == 0) {
+                if (transactions.length >= 10) transactions.pop();
+                transactions.unshift(transactionData);
+                this.setState({ transactionList: transactions });
+
+
+                if (error) {
+                    console.log("hello error");
+                }
+            }
+        });
     }
 
     _handleChange = (event) => {
@@ -97,9 +127,9 @@ export default class LatestTransactionList extends BaseComponent {
     }
 
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-            b.length - 3,
-            b.length
+        return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+            b?.length - 3,
+            b?.length
         )}`;
     }
 
