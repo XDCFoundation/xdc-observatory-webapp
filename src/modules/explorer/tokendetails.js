@@ -366,7 +366,7 @@ export default function StickyHeadTable() {
                                         <TableCell id="td" style={{ width: '130px' }}>{row.type}</TableCell>
                                         <TableCell>
                                             <a style={{ fontSize: 12, color: '#2149b9' }}
-                                                href={'/address-details/' + row.address}> {row.address}</a>
+                                                href={'/token-data/' + row.address}> {row.address}</a>
                                         </TableCell>
                                         <TableCell id="td" style={{ width: '120px' }}>{row.tokenHolders}</TableCell>
                                         <TableCell id="td">{row.status}</TableCell>
