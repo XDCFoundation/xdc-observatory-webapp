@@ -30,6 +30,24 @@ export default function AccountComponent(props) {
             <Tokensearchbar />
             <Grid lg={8} className="tablegrid">
                 <Grid class="tabletop-header">{state.tableName}</Grid>
+                <div className="searchelement-input2">
+                    <img style={{ width: 22, height: 22, marginRight: 5 }}
+                        src={require('../../assets/images/Search.png')} />
+                    <input
+                        style={{
+                            fontSize: '13px',
+                            letterSpacing: 0.62,
+                            color: '#2a2a2a',
+                            fontFamily: 'Inter',
+                            outlineColor: 'transparent',
+                            borderWidth: 0,
+                            fontWeight: "600"
+                        }} type="text"
+                        placeholder="Search Accounts" />
+                    {/* name="NAME" */}
+                </div>
+                <br />
+
                 <Grid component={Paper}>
                     <Table className="table" aria-label="Latest Transactions">
                         <TableHead>
@@ -85,6 +103,6 @@ export default function AccountComponent(props) {
                 </Grid>
             </Grid >
             <FooterComponent />
-        </div>
+        </div >
     )
 }

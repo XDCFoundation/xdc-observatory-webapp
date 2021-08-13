@@ -987,6 +987,17 @@ p {
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
 }
+.searchelement-input2 {
+  display: flex;
+  flex-direction: row;
+  width: 220px;
+  padding: 7.7px 43px 8.6px 10px;
+  border-radius: 4px;
+  outline-color: #e3e7eb;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+}
 
 .token-text {
   margin-top: 90px;
@@ -1683,7 +1694,7 @@ button {
 }
 
 .data_value_red {
-  color: red;
+  color: #f60202;
 }
 
 .data_value_green {
@@ -1692,7 +1703,7 @@ button {
 }
 
 .data_value_red {
-  color: red;
+  color: #f60202;
 }
 
 .data_value_green {
@@ -2048,6 +2059,12 @@ button {
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 25px;
+}
+.tippy-tooltip.custom-theme {
+  background-color: white;
+  color: black;
+  font-family: Raleway, sans-serif;
+  font-size: 18px;
 }
 .height_2 {
   background-color: transparent;

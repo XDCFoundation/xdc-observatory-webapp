@@ -4,6 +4,7 @@
   border: 0px solid transparent;
   background-color: #ffffff;
   padding: 26px 1px 31px;
+  border-bottom: none;
 }
 
 .tabletop-header {
