@@ -14,7 +14,8 @@ export default class LatestAccountsList extends BaseComponent {
             amount: 50,
             tableName: "Accounts",
             accountList: [],
-            totalAccounts: 0
+            totalAccounts: 0,
+            totalSupply:0
 
         }
     }
@@ -27,14 +28,26 @@ export default class LatestAccountsList extends BaseComponent {
     }
 
 
-    async getListOfAccounts(from, amount) {
+    async getListOfAccounts(from, amount,keywords='') {
         from = from || from === 0 ? from : this.state.from;
         amount = amount ? amount : this.state.amount;
-        let urlPath = `?skip=${from}&limit=${amount}`
+        let urlPath = ''
+        if(keywords){
+             urlPath = `?skip=${from}&limit=${amount}&keywords=${keywords}`
+        }else{
+             urlPath = `?skip=${from}&limit=${amount}`
+        }
+        
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
         if (error || !listOfAccounts)
             return
-        this.setState({ accountList: listOfAccounts })
+        this.setState({ accountList: listOfAccounts.newResponse })
+        this.setState({ totalSupply: listOfAccounts.totalSupply })
+        if(keywords){
+            this.setState({ totalAccounts: listOfAccounts.totalRecord })
+        }else{
+            this.getTotalAccounts() 
+        }
     }
 
 
@@ -45,7 +58,14 @@ export default class LatestAccountsList extends BaseComponent {
         this.setState({ totalAccounts: totalNumberAccounts })
     }
 
-
+    _handleSearch = (event) =>{
+        let searchkeyword = event.target.value
+        if (searchkeyword.length > 2) {
+            this.getListOfAccounts(0, this.state.amount,searchkeyword)
+        }else{
+            this.getListOfAccounts(0, this.state.amount)
+        }
+    }
     _handleChange = (event) => {
         this.setState({ amount: event.target.value })
         this.getListOfAccounts(this.state.from, event.target.value)
@@ -106,6 +126,7 @@ export default class LatestAccountsList extends BaseComponent {
                 _LastPage={this._LastPage}
                 _FirstPage={this._FirstPage}
                 _handleChange={this._handleChange}
+                _handleSearch={this._handleSearch}
             />
         )
 
