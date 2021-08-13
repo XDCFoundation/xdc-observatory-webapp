@@ -16,7 +16,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Utility, { dispatchAction } from "../../utility";
 import TokenData from "../../services/token";
-
+import { Grid } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 const columns = [
     {
         id: 'S',
@@ -116,7 +118,7 @@ const useStyles = makeStyles({
 export default function StickyHeadTable() {
     const classes = useStyles();
     const [from, setFrom] = React.useState(0);
-    const [amount, setAmount] = React.useState(10);
+    const [amount, setAmount] = React.useState(50);
     const [isLoading, setLoading] = React.useState(true);
     const [totalToken, setTotalToken] = React.useState(0);
     const [keywords, setKeywords] = React.useState('');
@@ -190,7 +192,6 @@ export default function StickyHeadTable() {
     const handleChangeRowsPerPage = (event) => {
         setAmount(event.target.value);
         setFrom(0);
-        setAmount(event.target.value)
         if (keywords) {
             let data = { pageNum: 0, perpage: event.target.value, searchkey: keywords }
             SearchTokens(data)
@@ -212,6 +213,7 @@ export default function StickyHeadTable() {
             SearchTokens(data)
         }
         if (searchkeyword.length == 0) {
+            setKeywords('')
             setLoading(false);
             setNoData(0)
             let data = { pageNum: from, perpage: amount }
@@ -278,19 +280,7 @@ export default function StickyHeadTable() {
         getTokenList(data)
         getTotalTokenList()
     }, []);
-    let contentStatus = '';
-    let msgStatus = '';
-    if (noData) {
-        contentStatus = "hideContent"
-        msgStatus = 'showContent'
-    } else {
-        contentStatus = "showContent"
-        msgStatus = 'hideContent'
-    }
-    if (isLoading) {
-        return (<div class="loader"></div>)
-    }
-
+   
     return (
         <div style={{ backgroundColor: '#fff' }}>
             <Tokensearchbar />
@@ -308,7 +298,7 @@ export default function StickyHeadTable() {
                                 <img style={{ width: 22, height: 22, marginRight: 5 }}
                                     src={require('../../assets/images/Search.png')} />
                                 <input
-
+                                    onChange={handleSearchKeyUp}
                                     style={{
                                         fontSize: 11,
                                         letterSpacing: 0.62,
@@ -347,6 +337,7 @@ export default function StickyHeadTable() {
                                 ))}
                             </TableRow>
                         </TableHead>
+                        {noData == false &&
                         <TableBody>
                             {rows.map((row, index) => {
                                 return (
@@ -375,7 +366,7 @@ export default function StickyHeadTable() {
                                         <TableCell id="td" style={{ width: '130px' }}>{row.type}</TableCell>
                                         <TableCell>
                                             <a style={{ fontSize: 12, color: '#2149b9' }}
-                                                href={'/address-details/' + row.address}> {row.address}</a>
+                                                href={'/token-data/' + row.address}> {row.address}</a>
                                         </TableCell>
                                         <TableCell id="td" style={{ width: '120px' }}>{row.tokenHolders}</TableCell>
                                         <TableCell id="td">{row.status}</TableCell>
@@ -386,50 +377,47 @@ export default function StickyHeadTable() {
                                 );
                             })}
                         </TableBody>
-                        <TableBody className={msgStatus}>
-                            <TableCell id="td" >
-                                <span style={{ textAlign: 'center', color: 'red' }} className="tabledata">No data found.</span>
-                            </TableCell>
-                        </TableBody>
+                        }     
+                        {noData == true &&
+                            <TableBody >
+                                <TableCell id="td" >
+                                    <span style={{ textAlign: 'center', color: 'red' }} className="tabledata">No data found.</span>
+                                </TableCell>
+                            </TableBody>
+                        }
                     </Table>
                 </TableContainer>
 
                 {/* <Divider className={classes.divider}/>*/}
             </Paper>
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', marginTop: '45px', marginLeft: '18%' }}>
-                    Show
-                    <select value={amount} className="selectbox" onChange={handleChangeRowsPerPage}>
-                        <option value={10}>10</option>
-                        <option value={25}>25</option>
-                        <option value={50}>50</option>
-                        <option value={75}>75</option>
-                        <option value={100}>100</option>
-                    </select>
-                    Records
-                </div>
+            
+            
+            <Grid lg={8} className="tablegrid_address" style={{marginLeft:'245px'}}>   
+            <Grid container>
+                    <Grid item xs="3">
+                        <span className="text">Show</span>
+                        <Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
+                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={25}>25</MenuItem>
+                            <MenuItem value={50}>50</MenuItem>
+                            <MenuItem value={100}>100</MenuItem>
+                            <MenuItem value={500}>500</MenuItem>
+                        </Select>
+                        <span className="text">Records</span>
+                    </Grid>
+                    <Grid xs="5"></Grid>
+                    <Grid item xs="4">
+                        <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
+                        <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button className="btn">Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}</button>
+                        <button onClick={() => handleChangePage("next")} className={from + amount === totalToken ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={() => handleChangePage("last")} className={from + amount === totalToken ? "btn disabled" : "btn"}>Last</button>
 
-                <div style={{ display: 'flex', flexDirection: 'row', marginRight: '17%' }}>
-                    <div className="firstbox" onClick={() => handleChangePage("first")}>
-                        <button style={{ backgroundColor: 'white' }} className="first">First</button>
-                    </div>
-                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path"><ChevronLeftIcon /></p>
-                    </div>
-                    <div className="pagebox">
-                        <p className="Page-1-of-5">Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}</p>
-                    </div>
-                    <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}><ChevronRightIcon /></p>
-                    </div>
-                    <div className="lastbox" onClick={() => handleChangePage("last")}>
-                        <button style={{ backgroundColor: 'white' }} className="last">Last</button>
-                    </div>
-                </div>
+                    </Grid>
+                </Grid>
+            </Grid>
 
-
-            </div>
-
+           
             {/* <TablePagination
                 style={{ display: 'flex', justifyContent: 'space-between' }}
                 rowsPerPageOptions={[5, 10, 25, 50, 100]}

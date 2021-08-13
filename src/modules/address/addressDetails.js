@@ -10,15 +10,12 @@ import "../../assets/styles/custom.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import SearchIcon from "@material-ui/icons/Search";
 import AddressTableComponent from "./addressTable";
 import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
 import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
-import { CSVLink, CSVDownload } from "react-csv";
 import ReactHtmlParser from "react-html-parser";
 var QRCode = require('qrcode.react');
 
@@ -30,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddressDetails() {
+export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
   const [txtAddress, setTxtAddress] = useState('');
@@ -56,6 +53,9 @@ export default function AddressDetails() {
 
     )}`;
   }
+function _handleChange(event) {
+    alert('dd')
+}
   const getAddressDetails = async () => {
     try {
 
