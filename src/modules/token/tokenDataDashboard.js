@@ -283,7 +283,7 @@ let numberStatus = Math.sign(tokenChanges24hr)
               <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
             </LeftTop>
             <LeftTopSecMain>
-              <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal}</LeftTopSec>
+              <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
               
               <div
                 className={
