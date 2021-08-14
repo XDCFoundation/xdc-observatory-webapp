@@ -99,7 +99,7 @@ export default function TransactionComponent(props) {
                                 <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                                     <TableCell style={{ border: "none" }} >
                                         <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "3px" }} /></Tooltip>
-                                        <a className="linkTable" href={props.create_url(row.hash, "hash")}> <span className="tabledata" onClick={() => history.push("/transaction-details/" + row.hash)}>{shorten(row.hash)}  </span> </a>
+                                        <a className="linkTable" href={"/transaction-details/" + row.hash}> <span className="tabledata"> {shorten(row.hash)}</span> </a>
                                     </TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{(row.value / 1000000000000000000)}</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="right"><span className="tabledata">{ti}</span></TableCell>

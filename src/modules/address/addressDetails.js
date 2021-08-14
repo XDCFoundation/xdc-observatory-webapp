@@ -20,6 +20,7 @@ import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import { CSVLink, CSVDownload } from "react-csv";
 import ReactHtmlParser from "react-html-parser";
+import Tooltip from '@material-ui/core/Tooltip';
 var QRCode = require('qrcode.react');
 
 const useStyles = makeStyles({
@@ -40,6 +41,7 @@ export default function AddressDetails() {
 
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem('currency')
 
   let { addr } = useParams();
@@ -132,16 +134,18 @@ export default function AddressDetails() {
                   {addr}
                 </TableCell>
                 <TableCell>
-                  <CopyToClipboard text={addr}>
-                    <button
-                      style={{
-                        color: "#2149b9",
-                        backgroundColor: "white",
-                        fontSize: 14,
-                      }}
+                  <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
+                    <Tooltip
+                      title={
+                        copiedText === addr
+                          ? "This was Copied!"
+                          : "Copy To Clipboard"
+                      }
+                      placement="top"
                     >
-                      <i class="fa fa-clone" aria-hidden="true" />
-                    </button>
+                      <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
+                        class="fa fa-clone" aria-hidden="true"></i></button>
+                    </Tooltip>
                   </CopyToClipboard>
                   <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px" }} />} modal>
                     {(close) => (
