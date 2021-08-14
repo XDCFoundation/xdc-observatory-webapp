@@ -32,7 +32,7 @@ export default function BlockDetailsData() {
 
     const [height, setHeight] = useState([])
     const [count, setcount] = useState(0)
-
+    const [copiedText, setCopiedText] = useState("");
     const { blockNumber } = useParams();
     useEffect(() => {
         getLatestaccount(blockNumber)
@@ -110,9 +110,18 @@ export default function BlockDetailsData() {
                                     {height.hash}
                                 </TableCell>
                                 <p style={{ marginTop: '17px' }}>
-                                    <CopyToClipboard text={height.hash}>
-                                        <button style={{ color: '#2149b9', backgroundColor: 'white', fontSize: 14 }}><i
-                                            class="fa fa-clone" aria-hidden="true"></i></button>
+                                    <CopyToClipboard text={height.hash} onCopy={() => setCopiedText(height.hash)}>
+                                        <Tooltip
+                                            title={
+                                                copiedText === height.hash
+                                                    ? "This was Copied!"
+                                                    : "Copy To Clipboard"
+                                            }
+                                            placement="top"
+                                        >
+                                            <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i
+                                                class="fa fa-clone" aria-hidden="true"></i></button>
+                                        </Tooltip>
                                     </CopyToClipboard>
                                 </p>
                             </TableRow>
@@ -183,14 +192,18 @@ export default function BlockDetailsData() {
                                 <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     <a className="parent_hash" onClick={decrement} style={{ cursor: "pointer" }}> {height.parentHash}</a>
 
-                                    <CopyToClipboard text={height.parentHash}>
-                                        <button style={{
-                                            color: '#2149b9',
-                                            backgroundColor: 'white',
-                                            fontSize: 14,
-                                            marginLeft: '22px'
-                                        }}><i
-                                            class="fa fa-clone" aria-hidden="true"></i></button>
+                                    <CopyToClipboard text={height.parentHash} onCopy={() => setCopiedText(height.parentHash)}>
+                                        <Tooltip
+                                            title={
+                                                copiedText === height.parentHash
+                                                    ? "This was Copied!"
+                                                    : "Copy To Clipboard"
+                                            }
+                                            placement="top"
+                                        >
+                                            <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "22px" }}><i
+                                                class="fa fa-clone" aria-hidden="true"></i></button>
+                                        </Tooltip>
                                     </CopyToClipboard>
                                 </TableCell>
                                 <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}>
@@ -210,14 +223,18 @@ export default function BlockDetailsData() {
                                 </TableCell>
                                 <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
                                     {height.sha3Uncles}
-                                    <CopyToClipboard text={height.sha3Uncles}>
-                                        <button style={{
-                                            color: '#2149b9',
-                                            backgroundColor: 'white',
-                                            fontSize: 14,
-                                            marginLeft: '50px'
-                                        }}><i
-                                            class="fa fa-clone" aria-hidden="true"></i></button>
+                                    <CopyToClipboard text={height.sha3Uncles} onCopy={() => setCopiedText(height.sha3Uncles)}>
+                                        <Tooltip
+                                            title={
+                                                copiedText === height.sha3Uncles
+                                                    ? "This was Copied!"
+                                                    : "Copy To Clipboard"
+                                            }
+                                            placement="top"
+                                        >
+                                            <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "50px" }}><i
+                                                class="fa fa-clone" aria-hidden="true"></i></button>
+                                        </Tooltip>
                                     </CopyToClipboard>
                                 </TableCell>
                                 <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>

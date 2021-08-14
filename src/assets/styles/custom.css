@@ -437,10 +437,10 @@ p {
 }
 .Failed-rectangle {
   height: 24px;
-  margin-left: -50px;
+  margin-left: 15px;
   color: white;
   font-size: 12px;
-  padding: 2px 10px 2px 10px;
+  padding: 3px 12px 3px 12px;
   border-radius: 4px;
   background-color: red;
 }
@@ -2457,7 +2457,7 @@ button {
   font-size: 12px !important;
   font-weight: normal !important;
   letter-spacing: 0.65px;
-  padding-left: 55px !important;
+  padding-left: 85px !important;
   line-height: 1rem !important;
 }
 .table-grid-block {
