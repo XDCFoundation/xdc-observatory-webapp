@@ -114,7 +114,7 @@ export default function BlockDetailsData() {
                                         <Tooltip
                                             title={
                                                 copiedText === height.hash
-                                                    ? "This was Copied!"
+                                                    ? "Copied"
                                                     : "Copy To Clipboard"
                                             }
                                             placement="top"
@@ -196,7 +196,7 @@ export default function BlockDetailsData() {
                                         <Tooltip
                                             title={
                                                 copiedText === height.parentHash
-                                                    ? "This was Copied!"
+                                                    ? "Copied"
                                                     : "Copy To Clipboard"
                                             }
                                             placement="top"
@@ -227,7 +227,7 @@ export default function BlockDetailsData() {
                                         <Tooltip
                                             title={
                                                 copiedText === height.sha3Uncles
-                                                    ? "This was Copied!"
+                                                    ? "Copied"
                                                     : "Copy To Clipboard"
                                             }
                                             placement="top"
