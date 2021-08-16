@@ -13,6 +13,10 @@ import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
+import { useParams } from "react-router-dom";
+import TokenData from "../../services/token";
+import Utility, { dispatchAction } from "../../utility";
+import ReactHtmlParser from "react-html-parser";
 
 const MainContainer = styled.div`
   width: 950px;
@@ -207,11 +211,60 @@ const Icons = styled.div`
 export default function TokenDataComponent() {
   let changePrice = 5.21;
   let changeHolders = 351;
-  let tokenName = 'USDC'
+  let tokenName = 'XDC'
   let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
+  const [marketCapVal, setMarketCapValue] = React.useState(0);
   function shorten(b, amountL = 17, amountR = 0, stars = 3) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
+  const CoinMarketExchangeForToken = async (data) => {
+    try {
+        const [error, responseData] = await Utility.parseResponse(
+            TokenData.CoinMarketExchangeForToken(data)
+        );
+        console.log('helo',responseData)
+        if (responseData) {
+          
+          setMarketCapValue(responseData)
+
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+React.useEffect(() => {
+  (async () => {
+    let token = 'XDC'
+    await CoinMarketExchangeForToken(tokenName)
+  })();
+}, []);
+let activeCurrency = window.localStorage.getItem('currency')
+let tokenPriceVal = 0
+let tokenChanges24hr = 0
+let CurrencySymbol = ''
+if(marketCapVal){
+  if (activeCurrency == 'USD') {
+    CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+    tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
+    tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
+  }else if(activeCurrency == 'EUR'){
+    CurrencySymbol = '<i class="fa fa-eur" aria-hidden="true"></i> '
+    tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice
+    tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr
+
+  }else if(activeCurrency == 'INR'){
+    CurrencySymbol = '<i class="fa fa-INR" aria-hidden="true"></i> '
+    tokenPriceVal = marketCapVal.parseDataINR.tokenPrice
+    tokenChanges24hr = marketCapVal.parseDataINR.pricePercentageChange24_hr
+
+  }else{
+    CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+    tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
+    tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
+  }
+}
+let numberStatus = Math.sign(tokenChanges24hr)
+
   return (
     <>
     <div style={{backgroundColor:'#fff'}}>
@@ -227,28 +280,31 @@ export default function TokenDataComponent() {
               :
               <span>{tokenName.slice(0, 2).toUpperCase()}</span>
             }
-              <LeftTitle>USDC</LeftTitle>
+              <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
             </LeftTop>
             <LeftTopSecMain>
-              <LeftTopSec>$0.061780</LeftTopSec>
+              <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
+              
               <div
                 className={
-                  changePrice > 0
+                  numberStatus > 0
                     ? "data_value_green last_value_main"
                     : "data_value_red"
                 }
               >
                 <div className="value_changePrice">
-                  {changePrice > 0 ? (
+                  {numberStatus > 0 ? (
                     <div className="arrow_up">
-                      <BsFillCaretUpFill size={10} />
+                      {/*<BsFillCaretUpFill size={10} />*/}
+                      <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
                     </div>
                   ) : (
                     <div className="arrow_down">
-                      <BsFillCaretDownFill size={10} />
+                     {/* <BsFillCaretDownFill size={10} />*/}
+                     <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
                     </div>
                   )}
-                  &nbsp;{changePrice}%
+                  &nbsp;{tokenChanges24hr.toFixed(2)}%
                 </div>
               </div>
             </LeftTopSecMain>
@@ -388,7 +444,9 @@ export default function TokenDataComponent() {
           </GraphContainer>
         </RightContainer>
       </MainContainer>
-      <TokenMarketDataTable />
+      <TokenMarketDataTable 
+        marketCap={marketCapVal}
+      />
       <br/><br/>
       <Tokentabs/>
       <br/><br/>

@@ -34,6 +34,7 @@ export default function AccountComponent(props) {
                     <img style={{ width: 22, height: 22, marginRight: 5 }}
                         src={require('../../assets/images/Search.png')} />
                     <input
+                        onKeyUp={(event) => props._handleSearch(event)}
                         style={{
                             fontSize: '13px',
                             letterSpacing: 0.62,
@@ -73,7 +74,7 @@ export default function AccountComponent(props) {
                                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
                                         <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
                                         <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / row.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
+                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
                                     </TableRow>
                                 );
                             })}
