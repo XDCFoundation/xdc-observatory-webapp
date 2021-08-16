@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import logo from "../../assets/images/usdc.png";
+//import logo from "../../assets/images/usdc.png";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
@@ -242,6 +242,7 @@ let activeCurrency = window.localStorage.getItem('currency')
 let tokenPriceVal = 0
 let tokenChanges24hr = 0
 let CurrencySymbol = ''
+let logo = ''
 if(marketCapVal){
   if (activeCurrency == 'USD') {
     CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
@@ -278,7 +279,7 @@ let numberStatus = Math.sign(tokenChanges24hr)
               {logo.length > 0 ?
               <IconLogo src={logo} />
               :
-              <span>{tokenName.slice(0, 2).toUpperCase()}</span>
+              <span style={{width: '25px',height: '25px',borderRadius: '15px',border: '1px solid',fontSize:'15px',marginTop: '5px',marginRight: '5px'}}>{tokenName.slice(0, 2).toUpperCase()}</span>
             }
               <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
             </LeftTop>
