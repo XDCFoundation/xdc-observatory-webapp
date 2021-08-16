@@ -67,18 +67,18 @@ export default function BlocksComponent(props) {
     const { state } = props
     const classes = useStyles();
     return (
-        <Grid lg={8} className="tablegrid">
+        <Grid lg={7} className="tablegrid">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             <Paper className={classes.rootui} elevation={0}>
                 <Table className="table" aria-label="Latest Transactions">
                     <TableHead>
                         <TableRow>
                             <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.6%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Transactions</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Difficulty</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Transactions</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Difficulty</span></TableCell>
+                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
                             {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                         </TableRow>
                     </TableHead>
@@ -120,7 +120,7 @@ export default function BlocksComponent(props) {
                 </Grid>
                 <Grid xs="5" />
                 <Grid item xs="4">
-                    <button style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
+                    <button style={{ marginLeft: "-40px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                     <button className="btn">Page {Math.round(state.totalblocks / state.amount) + 1 - Math.round((state.totalblocks - state.from) / state.amount)} of {Math.round(state.totalblocks / state.amount)}</button>
                     <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalblocks ? "btn disabled" : "btn"}>{">"}</button>

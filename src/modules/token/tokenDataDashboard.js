@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
 import Utility, { dispatchAction } from "../../utility";
 import ReactHtmlParser from "react-html-parser";
+import Utils from "../../utility";
 
 const MainContainer = styled.div`
   width: 950px;
@@ -210,248 +211,268 @@ const Icons = styled.div`
 
 export default function TokenDataComponent() {
   let changePrice = 5.21;
-  let changeHolders = 351;
+  let changeHolders = 0;
   let tokenName = 'XDC'
   let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
+  const [holders, setHolders] = useState({})
   function shorten(b, amountL = 17, amountR = 0, stars = 3) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
   const CoinMarketExchangeForToken = async (data) => {
     try {
-        const [error, responseData] = await Utility.parseResponse(
-            TokenData.CoinMarketExchangeForToken(data)
-        );
-        console.log('helo',responseData)
-        if (responseData) {
-          
-          setMarketCapValue(responseData)
+      const [error, responseData] = await Utility.parseResponse(
+        TokenData.CoinMarketExchangeForToken(data)
+      );
 
-        }
+      if (responseData) {
+
+        setMarketCapValue(responseData)
+
+      }
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
-React.useEffect(() => {
-  (async () => {
-    let token = 'XDC'
-    await CoinMarketExchangeForToken(tokenName)
-  })();
-}, []);
-let activeCurrency = window.localStorage.getItem('currency')
-let tokenPriceVal = 0
-let tokenChanges24hr = 0
-let CurrencySymbol = ''
-if(marketCapVal){
-  if (activeCurrency == 'USD') {
-    CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
-    tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
-    tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
-  }else if(activeCurrency == 'EUR'){
-    CurrencySymbol = '<i class="fa fa-eur" aria-hidden="true"></i> '
-    tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice
-    tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr
-
-  }else if(activeCurrency == 'INR'){
-    CurrencySymbol = '<i class="fa fa-INR" aria-hidden="true"></i> '
-    tokenPriceVal = marketCapVal.parseDataINR.tokenPrice
-    tokenChanges24hr = marketCapVal.parseDataINR.pricePercentageChange24_hr
-
-  }else{
-    CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
-    tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
-    tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
   }
-}
-let numberStatus = Math.sign(tokenChanges24hr)
+  useEffect(() => {
+    listOfHolders();
+  }, []);
+  const { address } = useParams();
+  const listOfHolders = async () => {
+    let urlPath = `${address}`;
+    let [error, tns] = await Utils.parseResponse(
+      TokenData.getListOfHoldersForToken(urlPath, {})
+    );
+    if (error || !tns) return;
+    setHolders(tns);
 
+    const interval = setInterval(async () => {
+      let [error, tns] = await Utils.parseResponse(
+        TokenData.getListOfHoldersForToken(urlPath, {})
+      );
+      setHolders(tns);
+    }, 90000);
+  };
+  React.useEffect(() => {
+    (async () => {
+      let token = 'XDC'
+      await CoinMarketExchangeForToken(tokenName)
+    })();
+  }, []);
+  let activeCurrency = window.localStorage.getItem('currency')
+  let tokenPriceVal = 0
+  let tokenChanges24hr = 0
+  let CurrencySymbol = ''
+  if (marketCapVal) {
+    if (activeCurrency == 'USD') {
+      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+      tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
+      tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
+    } else if (activeCurrency == 'EUR') {
+      CurrencySymbol = '<i class="fa fa-eur" aria-hidden="true"></i> '
+      tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice
+      tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr
+
+    } else if (activeCurrency == 'INR') {
+      CurrencySymbol = '<i class="fa fa-INR" aria-hidden="true"></i> '
+      tokenPriceVal = marketCapVal.parseDataINR.tokenPrice
+      tokenChanges24hr = marketCapVal.parseDataINR.pricePercentageChange24_hr
+
+    } else {
+      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+      tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
+      tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
+    }
+  }
+  let numberStatus = Math.sign(tokenChanges24hr)
+  console.log(holders, "HIIIII")
   return (
     <>
-    <div style={{backgroundColor:'#fff'}}>
-    <Tokensearchbar/>
-    <br/>
-    <br/>
-      <MainContainer>
-        <LeftContainer>
-          <LeftFirst>
-            <LeftTop>
-              {logo.length > 0 ?
-              <IconLogo src={logo} />
-              :
-              <span>{tokenName.slice(0, 2).toUpperCase()}</span>
-            }
-              <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
-            </LeftTop>
-            <LeftTopSecMain>
-              <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
-              
-              <div
-                className={
-                  numberStatus > 0
-                    ? "data_value_green last_value_main"
-                    : "data_value_red"
+      <div style={{ backgroundColor: '#fff' }}>
+        <Tokensearchbar />
+        <br />
+        <br />
+        <MainContainer>
+          <LeftContainer>
+            <LeftFirst>
+              <LeftTop>
+                {logo.length > 0 ?
+                  <IconLogo src={logo} />
+                  :
+                  <span>{tokenName.slice(0, 2).toUpperCase()}</span>
                 }
-              >
-                <div className="value_changePrice">
-                  {numberStatus > 0 ? (
-                    <div className="arrow_up">
-                      {/*<BsFillCaretUpFill size={10} />*/}
-                      <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-                    </div>
-                  ) : (
-                    <div className="arrow_down">
-                     {/* <BsFillCaretDownFill size={10} />*/}
-                     <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
-                    </div>
-                  )}
-                  &nbsp;{tokenChanges24hr.toFixed(2)}%
+                <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
+              </LeftTop>
+              <LeftTopSecMain>
+                <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
+
+                <div
+                  className={
+                    numberStatus > 0
+                      ? "data_value_green last_value_main"
+                      : "data_value_red"
+                  }
+                >
+                  <div className="value_changePrice">
+                    {numberStatus > 0 ? (
+                      <div className="arrow_up">
+                        {/*<BsFillCaretUpFill size={10} />*/}
+                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} />*/}
+                        <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
+                      </div>
+                    )}
+                    &nbsp;{tokenChanges24hr.toFixed(2)}%
+                  </div>
                 </div>
-              </div>
-            </LeftTopSecMain>
-            <Line1></Line1>
-          </LeftFirst>
-          <LeftSec>
-            <ValueMain>
-              <Value>
-                {/* <TitleIcon src={blockHeightImg} /> */}
-                <ValueName>
-                  <Title>Holders</Title>
-                  <div className="last_value">
-                    <TitleValue>4521</TitleValue>
+              </LeftTopSecMain>
+              <Line1></Line1>
+            </LeftFirst>
+            <LeftSec>
+              <ValueMain>
+                <Value>
+                  {/* <TitleIcon src={blockHeightImg} /> */}
+                  <ValueName>
+                    <Title>Holders</Title>
                     <div className="last_value">
-                      <div
-                        className={
-                          changeHolders > 0
-                            ? "data_value_green last_value_main"
-                            : "data_value_red"
-                        }
-                      >
-                        <div className="value_p">
-                          {changeHolders > 0 ? (
-                            <div className="arrow_up">
-                              <BsFillCaretUpFill size={10} />
-                            </div>
-                          ) : (
-                            <div className="arrow_down">
-                              <BsFillCaretDownFill size={10} />
-                            </div>
-                          )}
-                          {changeHolders}
+                      <TitleValue>{holders.responseCount}</TitleValue>
+                      <div className="last_value">
+                        <div
+                          className={
+                            changeHolders >= 0
+                              ? "data_value_green last_value_main"
+                              : "data_value_red"
+                          }
+                        >
+                          <div className="value_p">
+                            {changeHolders >= 0 ? (
+                              <div className="arrow_up">
+                                <BsFillCaretUpFill size={10} />
+                              </div>
+                            ) : (
+                              <div className="arrow_down">
+                                <BsFillCaretDownFill size={10} />
+                              </div>
+                            )}
+                            {changeHolders}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={priceLogo} /> */}
-                <ValueName>
-                  <Title>Transfer</Title>
-                  <TitleValue>685632</TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={transactionLogo} /> */}
-                <ValueName>
-                  <Title>Contract</Title>
-                  <ContractButton> {shorten(contract)}</ContractButton>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={difficultyLogo} /> */}
-                <ValueName>
-                  <Title>Decimal</Title>
-                  <TitleValue>8</TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={maxLogo} /> */}
-                <ValueName>
-                  <Title>Website</Title>
-                  <ContractButton>www.usdc.com</ContractButton>
-                </ValueName>
-              </Value>
-              <Value>
-                {/* <TitleIcon src={accountLogo} /> */}
-                <ValueName>
-                  <Title>Social Media</Title>
+                  </ValueName>
+                </Value>
+                <Value>
+                  {/* <TitleIcon src={priceLogo} /> */}
+                  <ValueName>
+                    <Title>Transfer</Title>
+                    <TitleValue>685632</TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  {/* <TitleIcon src={transactionLogo} /> */}
+                  <ValueName>
+                    <Title>Contract</Title>
+                    <ContractButton> {shorten(contract)}</ContractButton>
+                  </ValueName>
+                </Value>
+                <Value>
+                  {/* <TitleIcon src={difficultyLogo} /> */}
+                  <ValueName>
+                    <Title>Decimal</Title>
+                    <TitleValue>8</TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  {/* <TitleIcon src={maxLogo} /> */}
+                  <ValueName>
+                    <Title>Website</Title>
+                    <ContractButton>www.usdc.com</ContractButton>
+                  </ValueName>
+                </Value>
+                <Value>
+                  {/* <TitleIcon src={accountLogo} /> */}
+                  <ValueName>
+                    <Title>Social Media</Title>
 
-                  <Icons>
-                    <FiMail
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                    <FaRedditSquare
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                    <FaFacebookF
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                    <AiOutlineTwitter
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                    <AiOutlineTwitter
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                    <AiOutlineTwitter
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                    <AiOutlineTwitter
-                      style={{
-                        color: "#a09e9e",
-                        cursor: "pointer",
-                        marginRight: "4px",
-                      }}
-                    />
-                  </Icons>
-                </ValueName>
-              </Value>
-            </ValueMain>
-          </LeftSec>
-        </LeftContainer>
+                    <Icons>
+                      <FiMail
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <FaRedditSquare
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <FaFacebookF
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <AiOutlineTwitter
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <AiOutlineTwitter
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <AiOutlineTwitter
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <AiOutlineTwitter
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                    </Icons>
+                  </ValueName>
+                </Value>
+              </ValueMain>
+            </LeftSec>
+          </LeftContainer>
 
-        <RightContainer>
-          <RightTop>
-            <RightTitle>Holders</RightTitle>
-            <RightTopSec>14 Days</RightTopSec>
-            <Line2></Line2>
-          </RightTop>
-          <GraphContainer>
-            <HolderGraphBar />
-          </GraphContainer>
-        </RightContainer>
-      </MainContainer>
-      <TokenMarketDataTable 
-        marketCap={marketCapVal}
-      />
-      <br/><br/>
-      <Tokentabs/>
-      <br/><br/>
-      <FooterComponent/>
-    </div>
+          <RightContainer>
+            <RightTop>
+              <RightTitle>Holders</RightTitle>
+              <RightTopSec>14 Days</RightTopSec>
+              <Line2></Line2>
+            </RightTop>
+            <GraphContainer>
+              <HolderGraphBar />
+            </GraphContainer>
+          </RightContainer>
+        </MainContainer>
+        <TokenMarketDataTable
+          marketCap={marketCapVal}
+        />
+        <br /><br />
+        <Tokentabs />
+        <br /><br />
+        <FooterComponent />
+      </div>
     </>
   );
 }

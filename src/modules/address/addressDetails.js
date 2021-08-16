@@ -55,9 +55,9 @@ export default function AddressDetails(props) {
 
     )}`;
   }
-function _handleChange(event) {
+  function _handleChange(event) {
     alert('dd')
-}
+  }
   const getAddressDetails = async () => {
     try {
 
@@ -138,7 +138,7 @@ function _handleChange(event) {
                     <Tooltip
                       title={
                         copiedText === addr
-                          ? "This was Copied!"
+                          ? "Copied"
                           : "Copy To Clipboard"
                       }
                       placement="top"
