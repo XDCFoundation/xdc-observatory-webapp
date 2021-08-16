@@ -148,7 +148,7 @@ export default function Navbar() {
                     let transactionurl = '/transaction-details/'+responseData.transaction.hash
                     window.location.href = transactionurl
                 }else if(responseData.redirect == 'token'){
-                    let tokenurl = '/address-details/'+responseData.token.address
+                    let tokenurl = '/token-data/'+responseData.token.address
                     window.location.href = tokenurl
                 }else{
 
@@ -464,6 +464,7 @@ export default function Navbar() {
                                         <select className="select-td" onChange={(event) => handleSearchOption(event)} ref={SelectOptRef}>
                                             <option value="All filters" selected>All Filters</option>
                                             <option value="Addresses">Addresses</option>
+                                            <option value="Blocks">Blocks</option>
                                             <option value="Tokens">Tokens</option>
                                             <option value="Transaction">Transaction</option>
                                             <option value="Nametags">Nametags</option>
