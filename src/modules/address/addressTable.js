@@ -53,6 +53,7 @@ function timeDiff(curr, prev) {
 export default function AddressTableComponent(props) {
 
     const { state } = props;
+    
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
@@ -65,16 +66,16 @@ export default function AddressTableComponent(props) {
     const [balance, setBalance] = useState(0);
     const [transactions, setTransactions] = useState([]);
     const [totalRecord, setTotalRecord] = useState(0);
-
+    const [keywords, setKeywords] = useState('');
 
     const [reportaddress, setReportaddress] = useState([]);
     const [downloadaddress, setDownloadaddress] = useState([]);
-    const [exports, exportAddress] = useState({});
-    const [toggle, handleToggle] = useState(false);
+    //const [exports, exportAddress] = useState({});
+    //const [toggle, handleToggle] = useState(false);
     const [page, setPage] = React.useState(0);
-    const [checkAll, setCheckAll] = React.useState(0);
+    //const [checkAll, setCheckAll] = React.useState(0);
     const [isDownloadActive, setDownloadActive] = useState(0);
-
+    const [noData , setNoData] = useState(false)
     let showPerPage = 50;
     let datas = {}
     const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
@@ -82,32 +83,66 @@ export default function AddressTableComponent(props) {
     const history = useHistory()
     const handleChangePage = (action) => {
         if (action == 'first') {
-            setPage(0)
-            datas = {
-                pageNum: 0,
-                perpage: rowsPerPage,
-                addrr: addr
+            
+            if(keywords){
+                datas = {
+                    pageNum: 0,
+                    perpage: rowsPerPage,
+                    addrr: addr,
+                    keywords:keywords
+                }
+                getTransactionSearch(datas)
+            }else{
+                datas = {
+                    pageNum: 0,
+                    perpage: rowsPerPage,
+                    addrr: addr
+                }
+                getAddressDetails(datas)
             }
-            getAddressDetails(datas)
+            
+            
 
         }
         if (action === 'last') {
             let pagecount = totalRecord - rowsPerPage
             setPage(pagecount)
-            datas = {
-                pageNum: pagecount,
-                perpage: rowsPerPage,
-                addrr: addr
+            if(keywords){
+                datas = {
+                    pageNum: pagecount,
+                    perpage: rowsPerPage,
+                    addrr: addr,
+                    keywords:keywords
+                }
+                getTransactionSearch(datas)
+            }else{
+                datas = {
+                    pageNum: pagecount,
+                    perpage: rowsPerPage,
+                    addrr: addr
+                }
+                getAddressDetails(datas)
             }
-            getAddressDetails(datas)
+            
         }
 
         if (action === 'next') {
             if (rowsPerPage + page < totalRecord) {
                 let pagecount = rowsPerPage + page
                 setPage(pagecount)
-                let datas = { pageNum: pagecount, perpage: rowsPerPage, addrr: addr }
-                getAddressDetails(datas)
+                if(keywords){
+                    datas = {
+                        pageNum: pagecount,
+                        perpage: rowsPerPage,
+                        addrr: addr,
+                        keywords:keywords
+                    }
+                    getTransactionSearch(datas)
+                }else{
+                    let datas = { pageNum: pagecount, perpage: rowsPerPage, addrr: addr }
+                    getAddressDetails(datas)
+                }
+                
             }
         }
 
@@ -115,12 +150,23 @@ export default function AddressTableComponent(props) {
             if (page - rowsPerPage >= 0) {
                 let pagecount = page - rowsPerPage
                 setPage(pagecount)
-                datas = {
-                    pageNum: pagecount,
-                    perpage: rowsPerPage,
-                    addrr: addr
+                if(keywords){
+                    datas = {
+                        pageNum: pagecount,
+                        perpage: rowsPerPage,
+                        addrr: addr,
+                        keywords:keywords
+                    }
+                    getTransactionSearch(datas)
+                }else{
+                    datas = {
+                        pageNum: pagecount,
+                        perpage: rowsPerPage,
+                        addrr: addr
+                    }
+                    getAddressDetails(datas)
                 }
-                getAddressDetails(datas)
+                
 
             }
         }
@@ -145,9 +191,57 @@ export default function AddressTableComponent(props) {
                 AddressData.getAddressDetailWithlimit(data)
             );
 
-            if (responseData) {
-                let trxn = responseData.transaction
-                setTotalRecord(responseData.totalTransactionCount)
+            if (responseData.totalTransactionCount > 0) {
+                setNoData(false)
+                parseResponseData(responseData , 1)
+            } else {
+                setNoData(true)
+                setBalance(parseFloat(0).toFixed(2));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        //let address =props.trans
+        datas = {
+            pageNum: page,
+            perpage: rowsPerPage,
+            addrr: addr
+        }
+        getAddressDetails(datas);
+    }, []);
+
+    const getTransactionSearch = async (data) => {
+        try {
+
+            const [error, responseData] = await Utility.parseResponse(
+                AddressData.getTransactionSearch(data)
+            );
+
+            if (responseData.responseTransaction.length > 0) {
+                setNoData(false)
+                parseResponseData(responseData , 2)
+            } else {
+                setNoData(true)
+                setBalance(parseFloat(0).toFixed(2));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const parseResponseData = async (Recdata , type) => {    
+                let trxn = []             
+                if(type == 1){
+                    trxn = Recdata.transaction
+                    setTotalRecord(Recdata.totalTransactionCount)
+                }                
+                else{
+                    trxn = Recdata.responseTransaction
+                    setTotalRecord(Recdata.total)
+                }
+                
                 setAddress(
                     trxn.map((d) => {
 
@@ -186,22 +280,30 @@ export default function AddressTableComponent(props) {
                         Value: (d.value / 1000000000000000000)
                     };
                 }))
-            } else {
-                setBalance(parseFloat(0).toFixed(2));
-            }
-        } catch (error) {
-            console.error(error);
-        }
     }
-    useEffect(() => {
-        //let address =props.trans
-        datas = {
-            pageNum: page,
-            perpage: rowsPerPage,
-            addrr: addr
+    const handleKeyUp =  (event) => { 
+        let searchkeyword = event.target.value
+        setPage(0);
+        if (searchkeyword.length > 2) {
+            setKeywords(searchkeyword)
+            datas = {
+                pageNum: 0,
+                perpage: rowsPerPage,
+                addrr: addr,
+                keywords:searchkeyword
+            }
+            getTransactionSearch(datas)
         }
-        getAddressDetails(datas);
-    }, []);
+        if (searchkeyword.length == 0) {
+            setPage(0);
+            datas = {
+                pageNum: 0,
+                perpage: rowsPerPage,
+                addrr: addr
+            }
+            getAddressDetails(datas)
+        }     
+    }
 
     const handleChanged = (event) => {
         const { name, checked } = event.target;
@@ -256,11 +358,8 @@ export default function AddressTableComponent(props) {
                 };
             }))
         }
-
-
     }
-
-
+   
     return (
         <div>
             <div className="content_input_all">
@@ -268,8 +367,9 @@ export default function AddressTableComponent(props) {
                     <SearchIcon />
                     <input
                         type="text"
-                        placeholder="Search"
+                        placeholder="Search transactions using hash"
                         className="content_input_add_btn"
+                        onKeyUp={handleKeyUp}
                     />
                 </div>
 
@@ -333,7 +433,8 @@ export default function AddressTableComponent(props) {
                                 {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        {noData == false &&
+                        <TableBody >
                             {address.map((row, index) => {
                                 const currentTime = new Date();
                                 const previousTime = new Date(row.Age * 1000);
@@ -413,6 +514,16 @@ export default function AddressTableComponent(props) {
                                 );
                             })}
                         </TableBody>
+                    }   
+                    {noData == true &&
+                        <TableBody >
+                            <TableRow>
+                            <TableCell id="td" colspan="6">
+                                    <span className="tabledata" style={{color:'red'}}>No transaction found.</span>
+                            </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    }   
                     </Table>
 
                 </Grid>

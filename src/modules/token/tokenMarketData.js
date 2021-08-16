@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
-
+import ReactHtmlParser from "react-html-parser";
 
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
     if (num > 999 && num < 1000000) {
@@ -21,7 +21,8 @@ let percentageChange = function differenceBtwNumbers(a, b) {
 };
 
 
-export default function TokenMarketDataTable() {
+export default function TokenMarketDataTable(props) {
+    console.log('test',props.marketCap)
     // const [postLatestMarket, setLatestMarket] = useState([]);
     // const [postPreviousMarket, setPreviousMarket] = useState([]);
     // useEffect(() => {
@@ -67,14 +68,58 @@ export default function TokenMarketDataTable() {
 
     var totalSupplyValue = 25425328688//totalSupply
     totalSupplyValue = totalSupplyValue.toLocaleString();
-
+    let activeCurrency = window.localStorage.getItem('currency')
+    let CurrencySymbol = ''
+    let marketCapVal = 0
+    let totalSupplyVal = 0
+    let circulatingSupplyVal = 0
+    let fullyDilutedMarketCapmarketCapVal = 0
+    let tokenPriceVal = 0
+    let val24 = 0
+    let symbol = ''
+    if(props.marketCap){
+        symbol = props.marketCap.symbol
+   if (activeCurrency == 'USD') {
+        CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+         marketCapVal = props.marketCap.parseDataUSD.marketCap.toFixed(2)
+         totalSupplyVal = props.marketCap.parseDataUSD.totalSupply.toFixed(2)
+         circulatingSupplyVal = props.marketCap.parseDataUSD.circulatingSupply.toFixed(2)
+         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataUSD.fullyDilutedMarketCap.toFixed(2)
+         tokenPriceVal = props.marketCap.parseDataUSD.tokenPrice.toFixed(2)
+         val24 = props.marketCap.parseDataUSD.volume24_hr.toFixed(2)
+    } else if (activeCurrency == 'EUR') {
+        CurrencySymbol = "<i class='fa fa-eur' aria-hidden='true'></i> "
+         marketCapVal = props.marketCap.parseDataEUR.marketCap.toFixed(2)
+         totalSupplyVal = props.marketCap.parseDataEUR.totalSupply.toFixed(2)
+         circulatingSupplyVal = props.marketCap.parseDataEUR.circulatingSupply.toFixed(2)
+         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataEUR.fullyDilutedMarketCap.toFixed(2)
+         tokenPriceVal = props.marketCap.parseDataEUR.tokenPrice.toFixed(2)
+         val24 = props.marketCap.parseDataEUR.volume24_hr.toFixed(2)
+    }else if (activeCurrency == 'INR') {
+        CurrencySymbol = "<i class='fa fa-inr' aria-hidden='true'></i> "
+         marketCapVal = props.marketCap.parseDataINR.marketCap.toFixed(2)
+         totalSupplyVal = props.marketCap.parseDataINR.totalSupply.toFixed(2)
+         circulatingSupplyVal = props.marketCap.parseDataINR.circulatingSupply.toFixed(2)
+         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataINR.fullyDilutedMarketCap.toFixed(2)
+         tokenPriceVal = props.marketCap.parseDataINR.tokenPrice.toFixed(2)
+         val24 = props.marketCap.parseDataINR.volume24_hr.toFixed(2)
+    }else{
+        CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+         marketCapVal = props.marketCap.parseDataUSD.marketCap.toFixed(2)
+         totalSupplyVal = props.marketCap.parseDataUSD.totalSupply.toFixed(2)
+         circulatingSupplyVal = props.marketCap.parseDataUSD.circulatingSupply.toFixed(2)
+         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataUSD.fullyDilutedMarketCap.toFixed(2)
+         tokenPriceVal = props.marketCap.parseDataUSD.tokenPrice.toFixed(2)
+         val24 = props.marketCap.parseDataUSD.volume24_hr.toFixed(2)
+    }
+}
     return (
 
         <div className="main_mid">
             <div className="cont1">
                 <p>Market Cap</p>
-                <p>${MarketCapValue}</p>
-                <div
+                <p>{ReactHtmlParser(CurrencySymbol)}{marketCapVal}</p>
+                {/* <div
                     className={
                         MarketCapchange >= 0
                             ? "data_value_green"
@@ -93,12 +138,12 @@ export default function TokenMarketDataTable() {
                         )}
                         &nbsp;{MarketCapchange}%
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="cont1">
                 <p>Fully Diluted Market Cap</p>
-                <p>${FullyDilutedMarketCapValue}</p>
-                <div
+                <p>{ReactHtmlParser(CurrencySymbol)}{fullyDilutedMarketCapmarketCapVal}</p>
+                {/*<div
                     className={
                         FullyDilutedMarketCapchange >= 0
                             ? "data_value_green"
@@ -117,12 +162,12 @@ export default function TokenMarketDataTable() {
                         )}
                         &nbsp;{FullyDilutedMarketCapchange}%
                     </div>
-                </div>
+                </div>*/}
             </div>
             <div className="cont1">
                 <p>Volume (24hr)</p>
-                <p>${volumeValue}</p>
-                <div
+                <p>{ReactHtmlParser(CurrencySymbol)}{val24}</p>
+                 {/*<div
                     className={
                         Volumechange >= 0
                             ? "data_value_green"
@@ -141,16 +186,16 @@ export default function TokenMarketDataTable() {
                         )}
                         &nbsp;{Volumechange}%
                     </div>
-                </div>
+                </div>*/}
             </div>
             <div className="cont1">
                 <p>Circulating Supply</p>
-                <p>{circulatingSupplyValue} UDC</p>
+                <p>{circulatingSupplyVal} {symbol}</p>
             </div>
 
             <div className="cont1">
                 <p>Total Supply</p>
-                <p>{totalSupplyValue}</p>
+                <p>{totalSupplyVal}</p>
             </div>
         </div>
     );
