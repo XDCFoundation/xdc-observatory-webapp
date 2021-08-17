@@ -149,7 +149,10 @@ class BlockChainDataComponent extends Component {
       totalAccount: [],
       someDayAccount: [],
       coinMarketPrice: [],
-      tpsCounts: {},
+      tpsCounts: {
+        totalTransactions:0
+      },
+      Maxtps:0,
       blockdataNumber: [],
       transactionDataDetails: [],
       blockSocketConnected: false,
@@ -167,6 +170,7 @@ class BlockChainDataComponent extends Component {
     await this.someDaysAccountCount();
     await this.coinMarketCapDetails();
     await this.tpsCountDetail();
+    await this.CountMaxtps();
     await this.blocksLatest();
     await this.transactionsLatest();
     this.socketData(this.props.socket);
@@ -314,6 +318,20 @@ class BlockChainDataComponent extends Component {
         TpsService.getTpsCounter()
       );
       this.setState({ tpsCounts: tpsCount });
+    }, 90000);
+  }
+
+  async CountMaxtps() { 
+    let [error, MaxtpsCount] = await Utils.parseResponse(
+      TpsService.getMaxTpsCounter()
+    );
+    if (error || !MaxtpsCount) return;
+    this.setState({ Maxtps: MaxtpsCount.responseData });
+    const interval = setInterval(async () => {
+      let [error, MaxtpsCount] = await Utils.parseResponse(
+        TpsService.getMaxTpsCounter()
+      );
+      this.setState({ Maxtps: MaxtpsCount.responseData });
     }, 90000);
   }
 
@@ -468,7 +486,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Current/Max TPS</Title>
                   <TitleValue>
-                    {this.state.tpsCounts?.totalTransactions}/2000
+                    {(this.state.tpsCounts?.totalTransactions/60).toFixed(2)}/{this.state.Maxtps.toFixed(2)}
                   </TitleValue>
                 </ValueName>
               </Value>
