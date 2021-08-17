@@ -285,7 +285,7 @@ class Contractlist extends React.Component {
                                 <TableRow>
                                     <TableCell style={{ border: "none", paddingLeft: '5%' }} align="left"><span
                                         className={"tableheaders"}>Address</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className={"tableheaders"}>Token Name</span></TableCell>
+                                    <TableCell style={{ border: "none", marginLeft: '-15px' }} align="left"><span className={"tableheaders"}>Token Name</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className={"tableheaders"}>Contract Name</span></TableCell>
                                     <TableCell style={{ border: "none" }} align="left"><span className={"tableheaders"}>Is Token</span></TableCell>
 
@@ -308,12 +308,12 @@ class Contractlist extends React.Component {
                                                 <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
                                                     href={`/address-details/${row.address}`}>
                                                     <Tooltip placement="top" title={row.address}>
-                                                        <span className="tabledata">{this.shorten(row.address)} </span>
+                                                        <span className="tabledata">{(row.address)} </span>
                                                     </Tooltip>
                                                 </a>
                                             </TableCell>
                                             <TableCell id="td"><span className="tabledata"
-                                                style={{ marginLeft: '6px' }}>{row.tokenName}</span></TableCell>
+                                                style={{ marginLeft: '5px' }}>{row.tokenName}</span></TableCell>
                                             <TableCell id="td"><span className="tabledata"
                                                 style={{ marginLeft: '5px' }}>{row.contractName}</span></TableCell>
                                             <TableCell id="td"><span className="tabledata"

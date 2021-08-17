@@ -47,10 +47,10 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-      marginLeft: '19%',
-      width: '62%',
+    marginLeft: '19%',
+    width: '62%',
     flexGrow: 1,
- 
+
   },
 }));
 
@@ -61,55 +61,55 @@ export default function SimpleTabs() {
   const [toggleState, setToggleState] = useState(1);
 
   const toggleTab = (index) => {
-      setToggleState(index);
+    setToggleState(index);
   };
 
- 
+
   return (
-      <>
-        <Tokensearchbar />
-        <div className="vc-header">Verify Contract</div>
-    <div className={classes.root}>
-       
-     
-       <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
-            <div>
-                <div style={{display: 'flex', flexDirection: 'row', marginLeft: '20px'}} >
-                    <button
-                        className={toggleState === 1 ? "tabs active-tabs-contract" : "tabs"}
-                        onClick={() => toggleTab(1)}
-                    >
-                       Source Code
-                    </button>
-                    <button style={{whiteSpace: 'nowrap'}}
-                        className={toggleState === 2 ? "tabs active-tabs-contract" : "tabs"}
-                        onClick={() => toggleTab(2)}
-                    >
-                       Bytecode and ABI
-                    </button>
-    
-                </div>
-            </div>
-            </div>
-    
+    <>
+      <Tokensearchbar />
+      <div className="vc-header">Verify Contract</div>
+      <div className={classes.root}>
 
-             <div>
-                <div className={toggleState === 1 ? "content  active-content" : "content"}>
-                  <div style={{marginTop: '10px'}}> 
-                        <VerifyContract/>
-                </div>
-                </div>
 
-                <div className={toggleState === 2 ? "content  active-content" : "content"}>
-                <div style={{marginTop: '10px'}}> 
-                        <VerifyContract/>
-                 </div>
-                </div>
+        <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+          <div>
+            <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '20px' }} >
+              <button
+                className={toggleState === 1 ? "tabs active-tabs-contract" : "tabs"}
+                onClick={() => toggleTab(1)}
+              >
+                Source Code
+              </button>
+              <button style={{ whiteSpace: 'nowrap' }}
+                className={toggleState === 2 ? "tabs active-tabs-contract" : "tabs"}
+                onClick={() => toggleTab(2)}
+              >
+                Bytecode and ABI
+              </button>
+
             </div>
-       
+          </div>
         </div>
-         <FooterComponent/>
+
+
+        <div>
+          <div className={toggleState === 1 ? "content  active-content" : "content"}>
+            <div style={{ marginTop: '10px' }}>
+              <VerifyContract />
+            </div>
+          </div>
+
+          <div className={toggleState === 2 ? "content  active-content" : "content"}>
+            <div style={{ marginTop: '10px' }}>
+              <VerifyContract />
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <FooterComponent />
     </>
-    
+
   );
 }
