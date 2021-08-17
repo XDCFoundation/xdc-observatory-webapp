@@ -22,7 +22,7 @@ let percentageChange = function differenceBtwNumbers(a, b) {
 
 
 export default function TokenMarketDataTable(props) {
-    console.log('test',props.marketCap)
+
     // const [postLatestMarket, setLatestMarket] = useState([]);
     // const [postPreviousMarket, setPreviousMarket] = useState([]);
     // useEffect(() => {
@@ -77,42 +77,42 @@ export default function TokenMarketDataTable(props) {
     let tokenPriceVal = 0
     let val24 = 0
     let symbol = ''
-    if(props.marketCap){
+    if (props.marketCap) {
         symbol = props.marketCap.symbol
-   if (activeCurrency == 'USD') {
-        CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
-         marketCapVal = props.marketCap.parseDataUSD.marketCap.toFixed(2)
-         totalSupplyVal = props.marketCap.parseDataUSD.totalSupply.toFixed(2)
-         circulatingSupplyVal = props.marketCap.parseDataUSD.circulatingSupply.toFixed(2)
-         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataUSD.fullyDilutedMarketCap.toFixed(2)
-         tokenPriceVal = props.marketCap.parseDataUSD.tokenPrice.toFixed(2)
-         val24 = props.marketCap.parseDataUSD.volume24_hr.toFixed(2)
-    } else if (activeCurrency == 'EUR') {
-        CurrencySymbol = "<i class='fa fa-eur' aria-hidden='true'></i> "
-         marketCapVal = props.marketCap.parseDataEUR.marketCap.toFixed(2)
-         totalSupplyVal = props.marketCap.parseDataEUR.totalSupply.toFixed(2)
-         circulatingSupplyVal = props.marketCap.parseDataEUR.circulatingSupply.toFixed(2)
-         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataEUR.fullyDilutedMarketCap.toFixed(2)
-         tokenPriceVal = props.marketCap.parseDataEUR.tokenPrice.toFixed(2)
-         val24 = props.marketCap.parseDataEUR.volume24_hr.toFixed(2)
-    }else if (activeCurrency == 'INR') {
-        CurrencySymbol = "<i class='fa fa-inr' aria-hidden='true'></i> "
-         marketCapVal = props.marketCap.parseDataINR.marketCap.toFixed(2)
-         totalSupplyVal = props.marketCap.parseDataINR.totalSupply.toFixed(2)
-         circulatingSupplyVal = props.marketCap.parseDataINR.circulatingSupply.toFixed(2)
-         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataINR.fullyDilutedMarketCap.toFixed(2)
-         tokenPriceVal = props.marketCap.parseDataINR.tokenPrice.toFixed(2)
-         val24 = props.marketCap.parseDataINR.volume24_hr.toFixed(2)
-    }else{
-        CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
-         marketCapVal = props.marketCap.parseDataUSD.marketCap.toFixed(2)
-         totalSupplyVal = props.marketCap.parseDataUSD.totalSupply.toFixed(2)
-         circulatingSupplyVal = props.marketCap.parseDataUSD.circulatingSupply.toFixed(2)
-         fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataUSD.fullyDilutedMarketCap.toFixed(2)
-         tokenPriceVal = props.marketCap.parseDataUSD.tokenPrice.toFixed(2)
-         val24 = props.marketCap.parseDataUSD.volume24_hr.toFixed(2)
+        if (activeCurrency == 'USD') {
+            CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+            marketCapVal = props.marketCap.parseDataUSD.marketCap.toFixed(2)
+            totalSupplyVal = props.marketCap.parseDataUSD.totalSupply.toFixed(2)
+            circulatingSupplyVal = props.marketCap.parseDataUSD.circulatingSupply.toFixed(2)
+            fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataUSD.fullyDilutedMarketCap.toFixed(2)
+            tokenPriceVal = props.marketCap.parseDataUSD.tokenPrice.toFixed(2)
+            val24 = props.marketCap.parseDataUSD.volume24_hr.toFixed(2)
+        } else if (activeCurrency == 'EUR') {
+            CurrencySymbol = "<i class='fa fa-eur' aria-hidden='true'></i> "
+            marketCapVal = props.marketCap.parseDataEUR.marketCap.toFixed(2)
+            totalSupplyVal = props.marketCap.parseDataEUR.totalSupply.toFixed(2)
+            circulatingSupplyVal = props.marketCap.parseDataEUR.circulatingSupply.toFixed(2)
+            fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataEUR.fullyDilutedMarketCap.toFixed(2)
+            tokenPriceVal = props.marketCap.parseDataEUR.tokenPrice.toFixed(2)
+            val24 = props.marketCap.parseDataEUR.volume24_hr.toFixed(2)
+        } else if (activeCurrency == 'INR') {
+            CurrencySymbol = "<i class='fa fa-inr' aria-hidden='true'></i> "
+            marketCapVal = props.marketCap.parseDataINR.marketCap.toFixed(2)
+            totalSupplyVal = props.marketCap.parseDataINR.totalSupply.toFixed(2)
+            circulatingSupplyVal = props.marketCap.parseDataINR.circulatingSupply.toFixed(2)
+            fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataINR.fullyDilutedMarketCap.toFixed(2)
+            tokenPriceVal = props.marketCap.parseDataINR.tokenPrice.toFixed(2)
+            val24 = props.marketCap.parseDataINR.volume24_hr.toFixed(2)
+        } else {
+            CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+            marketCapVal = props.marketCap.parseDataUSD.marketCap.toFixed(2)
+            totalSupplyVal = props.marketCap.parseDataUSD.totalSupply.toFixed(2)
+            circulatingSupplyVal = props.marketCap.parseDataUSD.circulatingSupply.toFixed(2)
+            fullyDilutedMarketCapmarketCapVal = props.marketCap.parseDataUSD.fullyDilutedMarketCap.toFixed(2)
+            tokenPriceVal = props.marketCap.parseDataUSD.tokenPrice.toFixed(2)
+            val24 = props.marketCap.parseDataUSD.volume24_hr.toFixed(2)
+        }
     }
-}
     return (
 
         <div className="main_mid">
@@ -167,7 +167,7 @@ export default function TokenMarketDataTable(props) {
             <div className="cont1">
                 <p>Volume (24hr)</p>
                 <p>{ReactHtmlParser(CurrencySymbol)}{val24}</p>
-                 {/*<div
+                {/*<div
                     className={
                         Volumechange >= 0
                             ? "data_value_green"

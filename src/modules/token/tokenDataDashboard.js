@@ -279,7 +279,7 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr)
-  console.log(holders, "HIIIII")
+
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
