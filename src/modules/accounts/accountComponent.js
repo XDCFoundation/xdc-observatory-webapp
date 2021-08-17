@@ -24,7 +24,7 @@ export default function AccountComponent(props) {
         )}`;
     }
     const { state } = props
-
+//alert(props.state.noData)
     return (
         <div>
             <Tokensearchbar />
@@ -59,6 +59,7 @@ export default function AccountComponent(props) {
                                 <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
                             </TableRow>
                         </TableHead>
+                        {props.state.noData == 1 &&
                         <TableBody>
                             {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                                 let num = row.balance;
@@ -79,6 +80,14 @@ export default function AccountComponent(props) {
                                 );
                             })}
                         </TableBody>
+                    }
+                    {props.state.noData == 0 &&
+                            <TableBody >
+                                <TableCell id="td" colSpan="4">
+                                    <span style={{ textAlign: 'center', color: 'red' }} className="tabledata">No data found.</span>
+                                </TableCell>
+                            </TableBody>
+                        }
                     </Table>
                 </Grid>
                 <Grid container>
