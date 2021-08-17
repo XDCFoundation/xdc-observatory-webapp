@@ -154,8 +154,8 @@ class BlockChainDataComponent extends Component {
       transactionDataDetails: [],
       blockSocketConnected: false,
       transactionSocketConnected: false,
-      animationBlock: {}, animationTransaction: {}
-      // currencyType: activeCurrency
+      animationBlock: {}, animationTransaction: {}, gasPrice: 0
+
     };
   }
   componentWillUnmount() {
@@ -218,6 +218,11 @@ class BlockChainDataComponent extends Component {
           this.setState({ animationTransaction: {} })
         }, 500)
         this.setState({ transactionDataDetails: transactions });
+        let gp = this.state.transactionDataDetails[0]?.gasPrice ? (this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9) : 0
+        if (gp >= 0.000000001) {
+          this.setState({ gasPrice: gp })
+
+        }
 
         if (error) {
           console.log("hello error");
@@ -374,7 +379,7 @@ class BlockChainDataComponent extends Component {
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
 
-    let gp = this.state.transactionDataDetails[0]?.gasPrice ? (this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9) : 0
+
     let blockNumber = this.state.blockdataNumber[0]?.number
     let animationClass =
       this.state.animationBlock?.[blockNumber]
@@ -437,7 +442,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Gas Price</Title>
                   <TitleValue className={TxanimationClass ? TxanimationClass : ""}>
-                    {(gp > 0) ? gp : gp}
+                    {this.state.gasPrice}
                   </TitleValue>
                 </ValueName>
               </Value>

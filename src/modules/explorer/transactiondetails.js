@@ -79,14 +79,14 @@ export default function TransactionsDetailsData({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -99,7 +99,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
-  console.log(valueFetch, "<<<<value");
+
   return (
     <div>
       <Tokensearchbar />
