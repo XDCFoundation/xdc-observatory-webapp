@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import logo from "../../assets/images/usdc.png";
+//import logo from "../../assets/images/usdc.png";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
@@ -233,6 +233,7 @@ export default function TokenDataComponent() {
     } catch (error) {
       console.error(error);
     }
+<<<<<<< HEAD
   }
   useEffect(() => {
     listOfHolders();
@@ -245,6 +246,29 @@ export default function TokenDataComponent() {
     );
     if (error || !tns) return;
     setHolders(tns);
+=======
+}
+React.useEffect(() => {
+  (async () => {
+    let token = 'XDC'
+    await CoinMarketExchangeForToken(tokenName)
+  })();
+}, []);
+let activeCurrency = window.localStorage.getItem('currency')
+let tokenPriceVal = 0
+let tokenChanges24hr = 0
+let CurrencySymbol = ''
+let logo = ''
+if(marketCapVal){
+  if (activeCurrency == 'USD') {
+    CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+    tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
+    tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
+  }else if(activeCurrency == 'EUR'){
+    CurrencySymbol = '<i class="fa fa-eur" aria-hidden="true"></i> '
+    tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice
+    tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr
+>>>>>>> 9e1b3a796b1fa1436b8c6ac06d2ea59b06cc34de
 
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
@@ -288,6 +312,7 @@ export default function TokenDataComponent() {
   console.log(holders, "HIIIII")
   return (
     <>
+<<<<<<< HEAD
       <div style={{ backgroundColor: '#fff' }}>
         <Tokensearchbar />
         <br />
@@ -300,6 +325,31 @@ export default function TokenDataComponent() {
                   <IconLogo src={logo} />
                   :
                   <span>{tokenName.slice(0, 2).toUpperCase()}</span>
+=======
+    <div style={{backgroundColor:'#fff'}}>
+    <Tokensearchbar/>
+    <br/>
+    <br/>
+      <MainContainer>
+        <LeftContainer>
+          <LeftFirst>
+            <LeftTop>
+              {logo.length > 0 ?
+              <IconLogo src={logo} />
+              :
+              <span style={{width: '25px',height: '25px',borderRadius: '15px',border: '1px solid',fontSize:'15px',marginTop: '5px',marginRight: '5px'}}>{tokenName.slice(0, 2).toUpperCase()}</span>
+            }
+              <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
+            </LeftTop>
+            <LeftTopSecMain>
+              <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
+              
+              <div
+                className={
+                  numberStatus > 0
+                    ? "data_value_green last_value_main"
+                    : "data_value_red"
+>>>>>>> 9e1b3a796b1fa1436b8c6ac06d2ea59b06cc34de
                 }
                 <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
               </LeftTop>

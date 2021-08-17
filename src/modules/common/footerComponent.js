@@ -141,12 +141,12 @@ export default function FooterComponent(props) {
                         <hr style={{ marginRight: '20px' }}></hr>
                     </div>
                     <ul>
-                        <li className="Table-Comp"><a className="a-style" href="https://twitter.com/XinFin_Official" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-twitter" aria-hidden="true"></i></span>Twitter</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://www.facebook.com/XinFinHybridBlockchain/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-facebook" aria-hidden="true"></i></span>Facebook</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://github.com/XinFinorg" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-github" aria-hidden="true"></i></span>Github</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://www.linkedin.com/company/xinfin/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-linkedin" aria-hidden="true"></i></span>LinkedIn</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://t.me/xinfintalk" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }} ><i class="fa fa-telegram" aria-hidden="true"></i></span>Telegram</a></li>
-                        <li className="Table-Comp"><a className="a-style" href="https://www.reddit.com/r/xinfin/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '5px', marginRight: '5px' }}><i class="fa fa-reddit-alien" aria-hidden="true" /></span>Reddit</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://twitter.com/XinFin_Official" rel="nofollow" target="_blank"><span style={{ paddingLeft: '3px', marginRight: '3px' }}></span>Twitter</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://www.facebook.com/XinFinHybridBlockchain/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '3px', marginRight: '3px' }}></span>Facebook</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://github.com/XinFinorg" rel="nofollow" target="_blank"><span style={{ paddingLeft: '3px', marginRight: '3px' }}></span>Github</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://www.linkedin.com/company/xinfin/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '3px', marginRight: '3px' }}></span>LinkedIn</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://t.me/xinfintalk" rel="nofollow" target="_blank"><span style={{ paddingLeft: '3px', marginRight: '3px' }} ></span>Telegram</a></li>
+                        <li className="Table-Comp"><a className="a-style" href="https://www.reddit.com/r/xinfin/" rel="nofollow" target="_blank"><span style={{ paddingLeft: '3px', marginRight: '3px' }}></span>Reddit</a></li>
                     </ul>
                 </Grid>
                 <Grid alignContent="center" item xs={12} md={6} lg={2}>
@@ -168,7 +168,7 @@ export default function FooterComponent(props) {
                 <span className={"copyright"}>© 2021 XinFin. All Rights Reserved.</span>
             </div>
 
-        </div>
+        </div >
 
     )
 

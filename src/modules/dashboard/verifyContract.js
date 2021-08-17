@@ -45,7 +45,7 @@ export default function VerifyContract() {
                     <br /><br />
 
                     <div className="constructor-arg">Constructor arguments ABI-encoded (OPTIONAL required for certain contracts only)</div>
-                    <input readOnly className="textarea-constructor-arg" />
+                    <input readOnly className="textarea-constructor-arg" placeholder="Constructor Arguments" />
                     <br /><br />
 
                     <div>
@@ -55,8 +55,6 @@ export default function VerifyContract() {
 
                 </div>
             </div>
-
-
         </>
     );
 }
