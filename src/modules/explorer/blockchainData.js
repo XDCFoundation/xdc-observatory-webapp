@@ -437,7 +437,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Gas Price</Title>
                   <TitleValue className={TxanimationClass ? TxanimationClass : ""}>
-                    {(gp && gp > 0) ? gp : 0}
+                    {(gp > 0) ? gp : gp}
                   </TitleValue>
                 </ValueName>
               </Value>
