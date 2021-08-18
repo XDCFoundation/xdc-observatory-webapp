@@ -18,7 +18,8 @@ export default class LatestBlocksList extends BaseComponent {
             tableName: "Blocks",
             blocksList: [],
             totalblocks: 0,
-            showDropDown: true
+            showDropDown: true,
+            blockAnimation: {}, ageAnimation: {}
         }
     }
     componentWillUnmount() {
@@ -47,7 +48,13 @@ export default class LatestBlocksList extends BaseComponent {
             if (blockDataExist == -1 && this.state.from == 0) {
                 if (blocks.length >= 10) blocks.pop();
                 blocks.unshift(blockData);
+                let blockAnimationClass = { [blockData.number]: "first-block-details" };
+                this.setState({ blockAnimation: blockAnimationClass });
 
+
+                setTimeout(() => {
+                    this.setState({ ageAnimation: {}, blockAnimation: {} })
+                }, 500)
                 // blocks.sort((a, b) => {
                 //   return b.number - a.number;
                 // });

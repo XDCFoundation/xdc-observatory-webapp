@@ -114,21 +114,21 @@ export default function Navbar() {
     const SearchDataRef = React.useRef(null);
     const handleSearch = (event) => {
         var selectOptType = SelectOptRef.current?.value
-        
-          let requestdata = {
-            filter:selectOptType,
-            data:event.target.value
-          }
-          BlockChainSearch(requestdata)
+
+        let requestdata = {
+            filter: selectOptType,
+            data: event.target.value
+        }
+        BlockChainSearch(requestdata)
     }
     const handleSearchOption = (event) => {
         var selectOptType = SelectOptRef.current?.value
         var SearchDataInput = SearchDataRef.current?.value
-          let requestdata = {
-            filter:selectOptType,
-            data:SearchDataInput
-          }
-          BlockChainSearch(requestdata)
+        let requestdata = {
+            filter: selectOptType,
+            data: SearchDataInput
+        }
+        BlockChainSearch(requestdata)
     }
     const BlockChainSearch = async (data) => {
         try {
@@ -138,22 +138,22 @@ export default function Navbar() {
             );
 
             if (responseData) {
-                if(responseData.redirect == 'block'){
-                    let blockurl = '/block-details/'+responseData.block.number
+                if (responseData.redirect == 'block') {
+                    let blockurl = '/block-details/' + responseData.block.number
                     window.location.href = blockurl
-                }else if(responseData.redirect == 'account'){
-                    let accounturl = '/address-details/'+responseData.account.address
+                } else if (responseData.redirect == 'account') {
+                    let accounturl = '/address-details/' + responseData.account.address
                     window.location.href = accounturl
-                }else if(responseData.redirect == 'transaction'){
-                    let transactionurl = '/transaction-details/'+responseData.transaction.hash
+                } else if (responseData.redirect == 'transaction') {
+                    let transactionurl = '/transaction-details/' + responseData.transaction.hash
                     window.location.href = transactionurl
-                }else if(responseData.redirect == 'token'){
-                    let tokenurl = '/token-data/'+responseData.token.address
+                } else if (responseData.redirect == 'token') {
+                    let tokenurl = '/token-data/' + responseData.token.address
                     window.location.href = tokenurl
-                }else{
+                } else {
 
                 }
-            } 
+            }
         } catch (error) {
             console.error(error);
         }
@@ -448,8 +448,8 @@ export default function Navbar() {
                                 <div>
                                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                                         < img style={{ width: 20, height: 20, marginRight: 5 }} src={require('../../assets/images/Search.png')} />
-                                        <input defaultValue={filter} 
-                                            style={{ fontSize: 11, letterSpacing: 0.62, color: '#9fa8b1' }} type="text"
+                                        <input defaultValue={filter}
+                                            type="text"
                                             onChange={(event) => handleSearch(event)}
                                             ref={SearchDataRef}
                                             onKeyPress={event => {
@@ -457,13 +457,13 @@ export default function Navbar() {
                                                     handleSearch(event)
                                                 }
                                             }}
-                                            className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address a transaction or a block number" />
+                                            className="main-input-td" src={require("../../images/Search.png")} placeholder="Search for an address, a transaction or a block number" />
                                         {/* name="NAME" */}
 
 
                                         <select className="select-td" onChange={(event) => handleSearchOption(event)} ref={SelectOptRef}>
                                             <option value="All filters" selected>All Filters</option>
-                                            <option value="Addresses">Addresses</option>
+                                            <option value="Address">Addresses</option>
                                             <option value="Blocks">Blocks</option>
                                             <option value="Tokens">Tokens</option>
                                             <option value="Transaction">Transaction</option>

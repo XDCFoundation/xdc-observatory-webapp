@@ -79,14 +79,14 @@ export default function TransactionsDetailsData({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -873,7 +873,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   style={{
                     width: "0px",
                     borderBottom: "none",
-                    paddingBottom: "45px",
+
                   }}
                 >
                   <Tooltip align="right" title={privatenote}>
@@ -893,8 +893,8 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
                     color: "#252525",
-                    borderBottom: "none",
-                    paddingBottom: "45px",
+                    borderBottom: "none"
+
                   }}
                   id="td"
                 >
@@ -904,7 +904,8 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   className="second-row-table"
                   style={{ borderBottom: "none" }}
                 >
-                  <textarea className="input-area-2" type="text" />
+                  To access the Private Note feature, you must be <a className="linkTableDetails">Logged In</a>
+                  {/* <textarea className="input-area-2" type="text" placeholder="To access the Private Note feature, you must be Logged In" /> */}
                 </TableCell>
               </TableRow>
             </TableHead>
