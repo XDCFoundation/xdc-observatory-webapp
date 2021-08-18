@@ -991,9 +991,21 @@ p {
 .searchelement-input2 {
   display: flex;
   flex-direction: row;
-  width: 220px;
+  width: 225px;
   padding: 7.7px 43px 8.6px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
+  outline-color: #e3e7eb;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+}
+.searchelement-input3 {
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  width: 180px;
+  padding: 5px 43px 2px 10px;
+  border-radius: 6px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -2458,7 +2470,7 @@ button {
   font-size: 12px !important;
   font-weight: normal !important;
   letter-spacing: 0.65px;
-  padding-left: 82px !important;
+  padding-left: 55px !important;
   line-height: 1rem !important;
 }
 .second-row-table_hash2 {
@@ -2619,11 +2631,25 @@ button {
 .second-row-table_address {
   font-family: Inter !important;
   font-size: 12px !important;
-
+  border-bottom: none !important;
   letter-spacing: 0.65px;
   padding-left: 75px !important;
 }
 .first-row-table_address {
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.58px;
+  border-bottom: none !important;
+}
+.second-row-table_address1 {
+  font-family: Inter !important;
+  font-size: 12px !important;
+
+  letter-spacing: 0.65px;
+  padding-left: 75px !important;
+}
+.first-row-table_address1 {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
@@ -2645,7 +2671,7 @@ button {
   padding-bottom: 7px;
   color: #b5bac7;
   background-color: transparent;
-  width: 16%;
+  width: 12%;
   display: flex;
   cursor: pointer;
   position: relative;
@@ -2701,7 +2727,6 @@ button {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
-  border-radius: 4px;
 }
 .content_input_add {
   background: #fff;
@@ -2867,7 +2892,6 @@ button {
 }
 .Tooltip-graph {
   width: 100%;
-
   padding: 4px 8px 7px;
   border-radius: 6px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);

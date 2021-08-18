@@ -99,7 +99,13 @@ export default function TransactionsDetailsData({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
-  console.log(valueFetch, "<<<<value");
+
+  // let charCount = transactions?.input?.length
+  // let value1 = transactions.input
+  // let MethodID = value1?.slice(0, 10);
+  // let zero = value1?.slice(10, 74);
+  // let one = value1?.slice(74, 138);
+  // console.log(charCount, "<<<")
   return (
     <div>
       <Tokensearchbar />
@@ -431,124 +437,6 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   </CopyToClipboard>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell
-                  style={{ width: "1px", borderBottom: "1px solid #e3e7eb" }}
-                  id="td"
-                >
-                  <Tooltip title={transferToken}>
-                    <img
-                      style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
-                    />
-                  </Tooltip>
-                </TableCell>
-
-                <TableCell
-                  style={{
-                    width: "15%",
-                    whiteSpace: "nowrap",
-                    fontFamily: "Inter",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    fontStyle: "normal",
-                    lineHeight: "1rem",
-                    letterSpacing: "0.58px",
-                    color: "#252525",
-                    borderBottom: "1px solid #e3e7eb",
-                  }}
-                  id="td"
-                >
-                  Interacted With (To)
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontFamily: "Inter",
-                    fontStyle: "normal",
-                    fontSize: "12px",
-                    fontWeight: "normal",
-                    lineHeight: "1rem",
-                    letterSpacing: "0.58px",
-                    color: "#3a3a3a",
-                    paddingLeft: "28px",
-                    borderBottom: "1px solid #e3e7eb",
-                  }}
-                  id="td"
-                >
-                  Contract
-                  <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    xdc07318f7651eeb9ba05b9ba6ccb9e195c23b72a51{" "}
-                  </a>
-                  (TXRC20: TestXRC20)
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell
-                  style={{ width: "1px", borderBottom: "1px solid #e3e7eb" }}
-                  id="td"
-                >
-                  <Tooltip title={transferToken}>
-                    <img
-                      style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
-                    />
-                  </Tooltip>
-                </TableCell>
-
-                <TableCell
-                  style={{
-                    width: "15%",
-                    whiteSpace: "nowrap",
-                    fontFamily: "Inter",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    fontStyle: "normal",
-                    lineHeight: "1rem",
-                    letterSpacing: "0.58px",
-                    color: "#252525",
-                    borderBottom: "1px solid #e3e7eb",
-                  }}
-                  id="td"
-                >
-                  Token Transfer
-                </TableCell>
-                <TableCell
-                  style={{
-                    fontFamily: "Inter",
-                    fontStyle: "normal",
-                    fontSize: "12px",
-                    fontWeight: "normal",
-                    lineHeight: "1rem",
-                    letterSpacing: "0.58px",
-                    color: "#3a3a3a",
-                    paddingLeft: "28px",
-                    borderBottom: "1px solid #e3e7eb",
-                  }}
-                  id="td"
-                >
-                  From
-                  <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    {shorten(
-                      "xdc07318f7651eeb9ba05b9ba6ccb9e195c23b72a51"
-                    )}{" "}
-                  </a>{" "}
-                  To{" "}
-                  <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    {shorten(
-                      "xdc07318f7651eeb9ba05b9ba6ccb9e195c23b72a51"
-                    )}{" "}
-                  </a>{" "}
-                  For{" "}
-                  <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    1 TestXRC20 (TXRC20)
-                  </a>
-                </TableCell>
-              </TableRow>
-
               <TableRow>
                 <TableCell
                   style={{ width: "1px", borderBottom: "1px solid #e3e7eb" }}

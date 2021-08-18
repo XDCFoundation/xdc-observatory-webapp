@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import { NavLink } from 'react-router-dom';
-import { useHistory , Redirect  } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import Login from './loginDialog';
 import Utility, { dispatchAction } from "../../utility";
 import SearchData from "../../services/search";
@@ -108,23 +108,23 @@ export default function Navbar() {
     const [open, setOpen] = useState(false)
     const [opencontracts, setOpencontracts] = useState(false)
     const handleSearch = (event) => {
-        var selectOptType = SelectOptRef.current?.value        
-          let requestdata = {
-            filter:selectOptType,
-            data:event.target.value
-          }
-          BlockChainSearch(requestdata)
+        var selectOptType = SelectOptRef.current?.value
+        let requestdata = {
+            filter: selectOptType,
+            data: event.target.value
+        }
+        BlockChainSearch(requestdata)
     }
     const handleSearchOption = (event) => {
         var selectOptType = SelectOptRef.current?.value
         var SearchDataInput = SearchDataRef.current?.value
-          let requestdata = {
-            filter:selectOptType,
-            data:SearchDataInput
-          }
-          BlockChainSearch(requestdata)
+        let requestdata = {
+            filter: selectOptType,
+            data: SearchDataInput
+        }
+        BlockChainSearch(requestdata)
     }
-    
+
     const BlockChainSearch = async (data) => {
         try {
 
@@ -133,22 +133,22 @@ export default function Navbar() {
             );
 
             if (responseData) {
-                if(responseData.redirect == 'block'){
-                    let blockurl = '/block-details/'+responseData.block.number
+                if (responseData.redirect == 'block') {
+                    let blockurl = '/block-details/' + responseData.block.number
                     window.location.href = blockurl
-                }else if(responseData.redirect == 'account'){
-                    let accounturl = '/address-details/'+responseData.account.address
+                } else if (responseData.redirect == 'account') {
+                    let accounturl = '/address-details/' + responseData.account.address
                     window.location.href = accounturl
-                }else if(responseData.redirect == 'transaction'){
-                    let transactionurl = '/transaction-details/'+responseData.transaction.hash
+                } else if (responseData.redirect == 'transaction') {
+                    let transactionurl = '/transaction-details/' + responseData.transaction.hash
                     window.location.href = transactionurl
-                }else if(responseData.redirect == 'token'){
-                    let tokenurl = '/token-data/'+responseData.token.address
+                } else if (responseData.redirect == 'token') {
+                    let tokenurl = '/token-data/' + responseData.token.address
                     window.location.href = tokenurl
-                }else{
+                } else {
 
                 }
-            } 
+            }
         } catch (error) {
             console.error(error);
         }
@@ -297,7 +297,7 @@ export default function Navbar() {
                             <i class="fa fa-angle-left" aria-hidden="true"></i></span></div>
                         <div style={{ color: 'white', marginTop: '14px', fontSize: 13, marginLeft: '8px' }}>Tools</div>
                         <div>
-                            <IconButton style={{ color: 'white', marginLeft: '120px' }} oonClick={() => setOpen(false)}>
+                            <IconButton style={{ color: 'white', marginLeft: '120px' }} onClick={() => setOpen(false)}>
                                 {theme.direction === 'rtl' ? <CloseIcon /> : <CloseIcon />}
                             </IconButton>
 
@@ -521,7 +521,7 @@ export default function Navbar() {
                                         }
                                     }}
                                     placeholder="Search for an address, a Transaction or a block number" />
-                                    
+
                                 {/* name="NAME" */}
 
                                 <select onChange={(event) => handleSearchOption(event)} className="select" id="SearchOption" ref={SelectOptRef}>
