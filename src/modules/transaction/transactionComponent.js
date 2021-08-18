@@ -75,7 +75,7 @@ export default function TransactionComponent(props) {
     }
     const { state } = props
     return (
-        <Grid lg={9} className="tablegrid">
+        <Grid lg={9} className="tablegrid_trans">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             <Paper style={{ borderRadius: '14px' }} elevation={0}>
                 <TableContainer className={classes.container} id="container-table">
