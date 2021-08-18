@@ -150,9 +150,9 @@ class BlockChainDataComponent extends Component {
       someDayAccount: [],
       coinMarketPrice: [],
       tpsCounts: {
-        totalTransactions:0
+        totalTransactions: 0
       },
-      Maxtps:0,
+      Maxtps: 0,
       blockdataNumber: [],
       transactionDataDetails: [],
       blockSocketConnected: false,
@@ -321,10 +321,11 @@ class BlockChainDataComponent extends Component {
     }, 90000);
   }
 
-  async CountMaxtps() { 
+  async CountMaxtps() {
     let [error, MaxtpsCount] = await Utils.parseResponse(
       TpsService.getMaxTpsCounter()
     );
+    console.log(MaxtpsCount, "<<<<<")
     if (error || !MaxtpsCount) return;
     this.setState({ Maxtps: MaxtpsCount.responseData });
     const interval = setInterval(async () => {
@@ -406,6 +407,8 @@ class BlockChainDataComponent extends Component {
     let TxanimationClass =
       this.state.animationTransaction?.[txhash]
       ;
+    let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0
+    let currentTp = this.state.tpsCounts?.totalTransactions ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2) : 0
 
     return (
       <MainContainer>
@@ -458,7 +461,7 @@ class BlockChainDataComponent extends Component {
               <Value>
                 <TitleIcon src={priceLogo} />
                 <ValueName>
-                  <Title>Gas Price</Title>
+                  <Title>Gas Price(Gwei)</Title>
                   <TitleValue className={TxanimationClass ? TxanimationClass : ""}>
                     {this.state.gasPrice}
                   </TitleValue>
@@ -486,7 +489,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Current/Max TPS</Title>
                   <TitleValue>
-                    {(this.state.tpsCounts?.totalTransactions/60).toFixed(2)}/{this.state.Maxtps.toFixed(2)}
+                    {currentTp ? currentTp : 0}/{maxTp}
                   </TitleValue>
                 </ValueName>
               </Value>

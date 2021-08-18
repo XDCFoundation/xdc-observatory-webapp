@@ -295,10 +295,7 @@ export default function Navbar() {
                             </IconButton>
 
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
 
