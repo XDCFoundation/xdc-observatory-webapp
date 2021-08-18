@@ -6,15 +6,26 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid } from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Tokensearchbar from '../explorer/tokensearchBar';
 import FooterComponent from '../common/footerComponent';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
 
+    container: {
+
+        borderRadius: '14px',
+        boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+        borderBottom: 'none',
+        background: '#fff',
+    },
+
+});
 export default function AccountComponent(props) {
 
     function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
@@ -24,7 +35,8 @@ export default function AccountComponent(props) {
         )}`;
     }
     const { state } = props
-
+    const classes = useStyles();
+    //alert(props.state.noData)
     return (
         <div>
             <Tokensearchbar />
@@ -49,39 +61,52 @@ export default function AccountComponent(props) {
                 </div>
                 <br />
 
-                <Grid component={Paper}>
-                    <Table className="table" aria-label="Latest Transactions">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell style={{ border: "none", paddingLeft: "2.7%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Type</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "4.1%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
-                                let num = row.balance;
-                                let finalBal = num / 1000000000000000000;
-                                let bal = finalBal.toString()
-                                return (
-                                    <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                        <TableCell style={{ border: "none", paddingLeft: "2.5%" }} >
+                <Paper style={{ borderRadius: '14px' }} elevation={0}>
+                    <TableContainer className={classes.container} id="container-table">
+                        <Table>
 
-                                            <a className="linkTable" href={'/address-details/' + row.address}><span className="tabledata">{(row.address)}</span></a>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.7%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Type</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "4.1%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            {props.state.noData == 1 &&
+                                <TableBody>
+                                    {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
+                                        let num = row.balance;
+                                        let finalBal = num / 1000000000000000000;
+                                        let bal = finalBal.toString()
+                                        return (
+                                            <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
+                                                <TableCell style={{ border: "none", paddingLeft: "2.5%", width: "48%" }} >
 
-                                        </TableCell>
-                                        {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
-                                        <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
-                                        <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </Grid>
-                <Grid container>
+                                                    <a className="linkTable" href={'/address-details/' + row.address}><span className="tabledata">{(row.address)}</span></a>
+
+                                                </TableCell>
+                                                {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
+                                                <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
+                                                <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
+                                                <TableCell style={{ border: "none", paddingLeft: "3.5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            }
+                            {props.state.noData == 0 &&
+                                <TableBody >
+                                    <TableCell id="td" colSpan="4" style={{ borderBottom: "none" }}>
+                                        <span style={{ textAlign: 'center', color: 'black', borderBottom: "none" }} className="tabledata">No Account Found.</span>
+                                    </TableCell>
+                                </TableBody>
+                            }
+                        </Table>
+                    </TableContainer>
+                </Paper>
+
+                <Grid container style={{ marginTop: "15px" }}>
                     <Grid item xs="3">
                         <span className="text">Show</span>
                         <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >

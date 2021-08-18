@@ -37,7 +37,7 @@ export default class LatestBlocksList extends BaseComponent {
 
 
         socket.on("block-socket", (blockData, error) => {
-            console.log(blockData, "<<<<<mmm")
+
             let blocks = this.state.blocksList
                 ;
 

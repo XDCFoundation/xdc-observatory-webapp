@@ -13,7 +13,7 @@ import FooterComponent from "../common/footerComponent";
 import AddressTableComponent from "./addressTable";
 import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
-import { Grid } from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import ReactHtmlParser from "react-html-parser";
@@ -21,13 +21,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 var QRCode = require('qrcode.react');
 
 const useStyles = makeStyles({
-  rootUI: {
-    minWidth: 650,
-    borderRadius: "10px",
-    backgroundColor: "white",
-  },
-});
 
+  container: {
+
+    borderRadius: '14px',
+    boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+    borderBottom: 'none',
+    background: '#fff',
+  },
+
+});
 export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
@@ -115,74 +118,76 @@ export default function AddressDetails(props) {
         >
           <p className="block_details_heading_left">Address Details</p>
         </div>
-        <Paper className={classes.rootUI}>
-          <Table className="table-block" aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  style={{
-                    width: "0px",
-                    paddingRight: "1px",
-                    borderBottom: "none",
-                  }}
-                  id="td"
-                />
-                <TableCell className="first-row-table_address">
-                  Address
-                </TableCell>
-                <TableCell className="second-row-table_address">
-                  {addr}
-                </TableCell>
-                <TableCell>
-                  <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
-                    <Tooltip
-                      title={
-                        copiedText === addr
-                          ? "Copied"
-                          : "Copy To Clipboard"
-                      }
-                      placement="top"
-                    >
-                      <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
-                        class="fa fa-clone" aria-hidden="true"></i></button>
-                    </Tooltip>
-                  </CopyToClipboard>
-                  <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px" }} />} modal>
-                    {(close) => (
-                      <div className="popup_qr">
-                        <p>
-                          <div>
-                            <button style={{ border: 'null', width: '0px', marginLeft: "4px" }} className="close" onClick={close}>
-                              &times;
-                            </button>
-                            <div className="header" style={{ fontSize: '12px', paddingTop: '6px', paddingBottom: '22px' }}> {addr} </div>
-                            <QRCode size="320" value={addr} />
-                          </div>
-                        </p>
-                      </div>
-                    )}
-                  </Popup>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell
-                  style={{
-                    width: "0px",
-                    paddingRight: "1px",
-                    borderBottom: "none",
-                  }}
-                  id="td"
-                />
-                <TableCell className="first-row-table_address">
-                  Balance
-                </TableCell>
-                <TableCell className="second-row-table_address">
-                  {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
-                </TableCell>
+        <Paper style={{ borderRadius: '14px' }} elevation={0}>
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    style={{
+                      width: "0px",
+                      paddingRight: "1px",
 
-              </TableRow>
-            </TableHead>
-          </Table>
+                    }}
+                    id="td"
+                  />
+                  <TableCell className="first-row-table_address1">
+                    Address
+                  </TableCell>
+                  <TableCell className="second-row-table_address1">
+                    {addr}
+                  </TableCell>
+                  <TableCell>
+                    <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
+                      <Tooltip
+                        title={
+                          copiedText === addr
+                            ? "Copied"
+                            : "Copy To Clipboard"
+                        }
+                        placement="top"
+                      >
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
+                          class="fa fa-clone" aria-hidden="true"></i></button>
+                      </Tooltip>
+                    </CopyToClipboard>
+                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px" }} />} modal>
+                      {(close) => (
+                        <div className="popup_qr">
+                          <p>
+                            <div>
+                              <button style={{ border: 'null', width: '0px', marginLeft: "4px" }} className="close" onClick={close}>
+                                &times;
+                              </button>
+                              <div className="header" style={{ fontSize: '12px', paddingTop: '6px', paddingBottom: '22px' }}> {addr} </div>
+                              <QRCode size="320" value={addr} />
+                            </div>
+                          </p>
+                        </div>
+                      )}
+                    </Popup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    style={{
+                      width: "0px",
+                      paddingRight: "1px",
+                      borderBottom: "none",
+                    }}
+                    id="td"
+                  />
+                  <TableCell className="first-row-table_address" >
+                    Balance
+                  </TableCell>
+                  <TableCell className="second-row-table_address">
+                    {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
+                  </TableCell>
+
+                </TableRow>
+              </TableHead>
+            </Table>
+          </TableContainer>
         </Paper>
         <br />
         <br />

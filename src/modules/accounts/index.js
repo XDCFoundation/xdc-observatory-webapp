@@ -15,7 +15,8 @@ export default class LatestAccountsList extends BaseComponent {
             tableName: "Accounts",
             accountList: [],
             totalAccounts: 0,
-            totalSupply:0
+            totalSupply:0,
+            noData:1
 
         }
     }
@@ -41,6 +42,11 @@ export default class LatestAccountsList extends BaseComponent {
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
         if (error || !listOfAccounts)
             return
+        if(listOfAccounts.newResponse.length > 0){
+            this.setState({noData:1})
+        }else{
+            this.setState({noData:0})
+        }
         this.setState({ accountList: listOfAccounts.newResponse })
         this.setState({ totalSupply: listOfAccounts.totalSupply })
         if(keywords){
