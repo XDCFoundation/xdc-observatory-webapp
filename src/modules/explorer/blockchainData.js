@@ -409,7 +409,7 @@ class BlockChainDataComponent extends Component {
       ;
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0
     let currentTp = this.state.tpsCounts?.totalTransactions ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2) : 0
-
+    console.log(maxTp, "<<<")
     return (
       <MainContainer>
         <LeftContainer>
@@ -489,7 +489,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Current/Max TPS</Title>
                   <TitleValue>
-                    {currentTp ? currentTp : 0}/{maxTp}
+                    {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
                   </TitleValue>
                 </ValueName>
               </Value>
