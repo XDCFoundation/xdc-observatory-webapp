@@ -24,7 +24,16 @@
   margin: auto;
   width: 100%;
 }
-
+.tablegrid_trans {
+  padding-top: 8%;
+  margin: auto;
+  width: 990px;
+}
+.tablegrid2 {
+  padding-top: 8%;
+  margin: auto;
+  width: 790px;
+}
 .tableheaders {
   font-family: "Fira Sans";
   font-size: 13px;

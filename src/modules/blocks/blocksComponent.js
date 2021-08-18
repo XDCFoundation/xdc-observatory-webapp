@@ -71,7 +71,7 @@ export default function BlocksComponent(props) {
     const { state } = props
     const classes = useStyles();
     return (
-        <Grid lg={7} className="tablegrid">
+        <Grid lg={7} className="tablegrid2">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             <Paper style={{ borderRadius: '14px' }} elevation={0}>
                 <TableContainer className={classes.container} id="container-table">
