@@ -106,7 +106,7 @@ export default function BlockDetailsData() {
                                 <TableCell style={{ borderBottom: "none" }} className="first-row-table">
                                     Hash ID
                                 </TableCell>
-                                <TableCell className="second-row-table_hash" style={{ borderBottom: "none" }}>
+                                <TableCell className="second-row-table_hash2" style={{ borderBottom: "none" }}>
                                     {height.hash}
                                 </TableCell>
                                 <p style={{ marginTop: '17px' }}>
