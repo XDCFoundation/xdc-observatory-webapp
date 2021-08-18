@@ -137,7 +137,7 @@ export default function TransactionComponent(props) {
                 <Grid xs="5"></Grid>
 
                 <Grid item xs="4">
-                    <button style={{ marginLeft: "42px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
+                    <button style={{ marginLeft: "35px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                     <button className="btn">Page {Math.round(state.totalTransaction / state.amount) + 1 - Math.round((state.totalTransaction - state.from) / state.amount)} of {Math.round(state.totalTransaction / state.amount)}</button>
                     <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>{">"}</button>
