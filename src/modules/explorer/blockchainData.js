@@ -169,10 +169,12 @@ class BlockChainDataComponent extends Component {
     await this.totalAccountsCount();
     await this.someDaysAccountCount();
     await this.coinMarketCapDetails();
-    await this.tpsCountDetail();
-    await this.CountMaxtps();
     await this.blocksLatest();
     await this.transactionsLatest();
+    await this.tpsCountDetail();
+    await this.CountMaxtps();
+
+
     this.socketData(this.props.socket);
   }
 
@@ -304,7 +306,7 @@ class BlockChainDataComponent extends Component {
     }, 90000);
   }
 
-  /* FETCHING TPS COUNTER API*/
+  /* FETCHING TPS COUNTER API */
 
   async tpsCountDetail() {
     let [error, tpsCount] = await Utils.parseResponse(
@@ -327,12 +329,12 @@ class BlockChainDataComponent extends Component {
     );
     console.log(MaxtpsCount, "<<<<<")
     if (error || !MaxtpsCount) return;
-    this.setState({ Maxtps: MaxtpsCount.responseData });
+    this.setState({ Maxtps: MaxtpsCount?.responseData });
     const interval = setInterval(async () => {
       let [error, MaxtpsCount] = await Utils.parseResponse(
         TpsService.getMaxTpsCounter()
       );
-      this.setState({ Maxtps: MaxtpsCount.responseData });
+      this.setState({ Maxtps: MaxtpsCount?.responseData });
     }, 90000);
   }
 
@@ -397,8 +399,6 @@ class BlockChainDataComponent extends Component {
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
-
-
     let blockNumber = this.state.blockdataNumber[0]?.number
     let animationClass =
       this.state.animationBlock?.[blockNumber]
@@ -409,7 +409,6 @@ class BlockChainDataComponent extends Component {
       ;
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0
     let currentTp = this.state.tpsCounts?.totalTransactions ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2) : 0
-    console.log(maxTp, "<<<")
     return (
       <MainContainer>
         <LeftContainer>
