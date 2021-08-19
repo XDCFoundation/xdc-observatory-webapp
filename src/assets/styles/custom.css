@@ -597,7 +597,7 @@ p {
 }
 
 .main-input {
-  margin: -8px 5px 0px 1px;
+  margin: -8px 0px 0px 1px;
   outline-color: #ffffff;
   height: 50px;
   width: 85%;
@@ -625,7 +625,7 @@ p {
   margin-top: -8px;
   margin-left: 6px;
   margin-right: 6px;
-  padding: 9px 8px 9px 4px;
+  padding: 7px 0px 9px 5px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -633,22 +633,22 @@ p {
 
 .firstbox {
   height: 35px;
-  margin: 39px 6px 46px 68px;
+  margin: -6px 6px 0px 68px;
   padding: 6px 6px 9px 7px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
-.firstbox {
+/* .firstbox {
   width: 51px;
   height: 35px;
   margin: 39px 6px 46px 68px;
-  /*padding: 9px 6px 9px 7px;*/
+  padding: 9px 6px 9px 7px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
-}
+} */
 .First {
   width: 37px;
   height: 17px;
@@ -667,8 +667,8 @@ p {
 .previousbox {
   width: 35px;
   height: 35px;
-  margin: 39px 6px 46px;
-  padding: 12.5px 14.5px 11.5px;
+  margin: -6px 6px 0px 0px;
+  padding: 12.5px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -709,7 +709,7 @@ p {
 .pagebox {
   width: 135px;
   height: 35px;
-  margin: 39px 6px 46px;
+  margin: -6px 6px 0px 0px;
   padding: 9px 8px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -717,10 +717,9 @@ p {
 }
 
 .Page-1-of-5 {
-  width: 125px;
   height: 17px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: bold;
@@ -733,8 +732,8 @@ p {
 .nextbox {
   width: 35px;
   height: 35px;
-  margin: 39px 6px 46px;
-  padding: 12.5px 20.5px 11.5px 8.5px;
+  margin: -6px 6px 0px 0px;
+  padding: 12.5px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -743,8 +742,8 @@ p {
 .lastbox {
   width: 50px;
   height: 35px;
-  margin: 39px 15px 46px 6px;
-  padding: 7px 6px 9px 7px;
+  margin: -6px 6px 0px 0px;
+  padding: 5px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -788,9 +787,9 @@ p {
 }
 
 .select {
-  width: 100px;
+  width: 110px;
   height: 40px;
-  padding-left: 8px;
+  padding-left: 4px;
   margin-top: -5px;
   outline-color: #ffffff;
   border-color: transparent;
@@ -800,7 +799,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0.2x;
   color: #2a2a2a;
 }
 
@@ -830,6 +829,7 @@ p {
 .account_details_button {
   font-size: 15px;
   color: #ffffff;
+  margin-bottom: 2px;
 }
 .account_details_button:hover {
   list-style: none;
@@ -842,7 +842,17 @@ p {
   font-size: 14px;
   color: #ffffff;
 }
-
+.xinfin_account_button {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.xinfin_account_button:hover {
+  list-style: none;
+  text-decoration: none;
+  font-size: 14px;
+  color: #2149b9;
+}
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
@@ -982,7 +992,7 @@ p {
   margin-left: 18%;
   width: 220px;
   padding: 7.7px 43px 8.6px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -1865,6 +1875,7 @@ button {
   font-size: 13px;
   padding-left: 12px;
 }
+
 .data_heading1 p:last-child {
   margin-right: 10px;
 }
@@ -1882,7 +1893,7 @@ button {
 .age p {
   font-weight: 600;
   font-size: 13px;
-  padding-left: 60px;
+  padding-left: 63px;
 }
 .first-block-age {
   font-size: 11px;
@@ -1940,7 +1951,6 @@ button {
   animation-fill-mode: forwards;
 }
 .second-transaction-amount {
-  /* padding-left: 15px; */
   padding: 0 10px;
   height: 100%;
   display: flex;
@@ -2920,4 +2930,16 @@ button {
   line-height: normal;
   letter-spacing: 0.46px;
   color: #2a2a2a;
+}
+.sidebar-links {
+  font-size: 14px;
+  color: #ffffff;
+  list-style: none;
+  text-decoration: none;
+}
+.sidebar-links:hover {
+  font-size: 14px;
+  color: #2149b9;
+  list-style: none;
+  text-decoration: none;
 }
