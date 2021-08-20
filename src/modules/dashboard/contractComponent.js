@@ -407,7 +407,7 @@ class Contractlist extends React.Component {
             Show
             <select
               value={this.state.amount}
-              className="selectbox"
+              className="selectbox-contract"
               onChange={(event) => this.handleChangeRowsPerPage(event)}
             >
               <option value={10}>10</option>
@@ -429,24 +429,29 @@ class Contractlist extends React.Component {
           >
             <div
               className={
-                this.state.from == 0 ? "firstbox disabled" : "firstbox"
+                this.state.from == 0
+                  ? "firstbox-contract disabled"
+                  : "firstbox-contract"
               }
               onClick={() => this.handleChangePage("first")}
             >
-              <button style={{ backgroundColor: "white" }} className="first">
+              <button
+                style={{ backgroundColor: "white" }}
+                className="first-contract"
+              >
                 First
               </button>
             </div>
             <div
-              className="previousbox"
+              className="previousbox-contract"
               onClick={() => this.handleChangePage("prev")}
             >
-              <p className="path">
+              <p className="path-contract">
                 <ChevronLeftIcon />
               </p>
             </div>
-            <div className="pagebox">
-              <p className="Page-1-of-5">
+            <div className="pagebox-contract">
+              <p className="Page-1-of-5-contract">
                 Page{" "}
                 {Math.round(this.state.totalRecord / this.state.amount) +
                   1 -
@@ -457,19 +462,22 @@ class Contractlist extends React.Component {
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
             </div>
-            <div className="nextbox">
+            <div className="nextbox-contract">
               <p
-                className="path-2"
+                className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
               >
                 <ChevronRightIcon />
               </p>
             </div>
             <div
-              className="lastbox"
+              className="lastbox-contract"
               onClick={() => this.handleChangePage("last")}
             >
-              <button style={{ backgroundColor: "white" }} className="last">
+              <button
+                style={{ backgroundColor: "white" }}
+                className="last-contract"
+              >
                 Last
               </button>
             </div>

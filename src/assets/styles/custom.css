@@ -625,7 +625,7 @@ p {
   margin-top: -8px;
   margin-left: 6px;
   margin-right: 6px;
-  padding: 7px 0px 9px 5px;
+  padding: 9px 8px 9px 4px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -633,22 +633,22 @@ p {
 
 .firstbox {
   height: 35px;
-  margin: -6px 6px 0px 68px;
+  margin: 39px 6px 46px 68px;
   padding: 6px 6px 9px 7px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
-/* .firstbox {
+.firstbox {
   width: 51px;
   height: 35px;
   margin: 39px 6px 46px 68px;
-  padding: 9px 6px 9px 7px;
+  /*padding: 9px 6px 9px 7px;*/
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
-} */
+}
 .First {
   width: 37px;
   height: 17px;
@@ -667,8 +667,8 @@ p {
 .previousbox {
   width: 35px;
   height: 35px;
-  margin: -6px 6px 0px 0px;
-  padding: 12.5px;
+  margin: 39px 6px 46px;
+  padding: 12.5px 14.5px 11.5px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -709,7 +709,7 @@ p {
 .pagebox {
   width: 135px;
   height: 35px;
-  margin: -6px 6px 0px 0px;
+  margin: 39px 6px 46px;
   padding: 9px 8px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -717,9 +717,10 @@ p {
 }
 
 .Page-1-of-5 {
+  width: 125px;
   height: 17px;
   font-family: Inter;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
   font-style: bold;
@@ -732,6 +733,70 @@ p {
 .nextbox {
   width: 35px;
   height: 35px;
+  margin: 39px 6px 46px;
+  padding: 12.5px 20.5px 11.5px 8.5px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.lastbox {
+  width: 50px;
+  height: 35px;
+  margin: 39px 15px 46px 6px;
+  padding: 7px 6px 9px 7px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+.selectbox-contract {
+  width: 60px;
+  height: 35px;
+  margin-top: -8px;
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 7px 0px 9px 5px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.firstbox-contract {
+  height: 35px;
+  margin: -6px 6px 0px 68px;
+  padding: 6px 6px 9px 7px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+/* .firstbox {
+  width: 51px;
+  height: 35px;
+  margin: 39px 6px 46px 68px;
+  padding: 9px 6px 9px 7px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+} */
+.First-contract {
+  width: 37px;
+  height: 17px;
+  opacity: 0.5;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #4f4f4f;
+}
+
+.previousbox-contract {
+  width: 35px;
+  height: 35px;
   margin: -6px 6px 0px 0px;
   padding: 12.5px;
   border-radius: 4px;
@@ -739,7 +804,72 @@ p {
   background-color: #ffffff;
 }
 
-.lastbox {
+.path-contract {
+  margin-left: -10px;
+  width: 6px;
+  height: 11px;
+  flex-grow: 0;
+  margin-top: -8px;
+}
+
+.path-2-contract {
+  display: flex;
+  justify-content: center;
+  width: 6px;
+  height: 11px;
+  flex-grow: 0;
+  margin-top: -8px;
+}
+
+.Last-contract {
+  width: 37px;
+  height: 17px;
+  font-family: Inter;
+  margin-right: "10px";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+}
+
+.pagebox-contract {
+  width: 135px;
+  height: 35px;
+  margin: -6px 6px 0px 0px;
+  padding: 9px 8px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.Page-1-of-5-contract {
+  height: 17px;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: bold;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+}
+
+.nextbox-contract {
+  width: 35px;
+  height: 35px;
+  margin: -6px 6px 0px 0px;
+  padding: 12.5px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.lastbox-contract {
   width: 50px;
   height: 35px;
   margin: -6px 6px 0px 0px;
@@ -880,15 +1010,14 @@ p {
 
 .myhr2 {
   margin-left: 0px;
+  margin-top: 10px;
   width: 40%;
-  border: solid 0.5px #e3e7eb;
 }
 
 .myhr3 {
   margin-right: 0px;
   margin-top: -18px;
-  width: 50%;
-  border: solid 0.5px #e3e7eb;
+  width: 49.2%;
 }
 
 .myhr4 {
@@ -1494,12 +1623,22 @@ body {
   letter-spacing: 0.58px;
   text-align: center;
 }
-
+.verified-logo {
+  height: 18px;
+  width: 18px;
+  margin-right: 8px;
+}
+.code-logo {
+  height: 22px;
+  width: 22px;
+  margin-right: 8px;
+}
 .container {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 95%;
+  width: 100%;
+  border-radius: 14px;
   background: #fff;
   border: none;
   padding: 0 20px;
@@ -1631,7 +1770,7 @@ body {
 
 .Fiat-Token {
   font-family: "Inter";
-  font-size: 11px;
+  font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -1691,14 +1830,35 @@ button {
   border: solid 1px #2149b9;
   background: #2149b9;
 }
-
+.active-tabs-token {
+  color: #2149b9;
+  font-weight: 600;
+}
 .active-tabs-token::before {
   content: "";
+  font-weight: 600;
   display: block;
   position: absolute;
   top: 100%;
   left: 0%;
   width: 60px;
+  height: 1px;
+  border: solid 1px #2149b9;
+  background: #2149b9;
+  color: #2149b9;
+}
+.active-tabs-token-holder {
+  color: #2149b9;
+  font-weight: 600;
+}
+.active-tabs-token-holder::before {
+  content: "";
+  display: block;
+  font-weight: 600;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 47px;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;

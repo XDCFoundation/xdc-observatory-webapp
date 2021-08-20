@@ -63,14 +63,11 @@ const rows = [
 ];
 
 const useStyles = makeStyles({
-  rootui: {
-    backgroundColor: "white",
-  },
+
 
   container: {
     borderRadius: "14px",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-    border: "solid 0.5px #e3e7eb",
     borderTopColor: "white",
     backgroundColor: "white",
     borderBottomColor: "white",

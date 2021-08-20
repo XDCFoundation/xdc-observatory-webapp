@@ -16,7 +16,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 const StyledTableRow = withStyles((theme) => ({
     root: {
         '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
+            backgroundColor: "f9f9f9",
         },
     },
 }))(TableRow);
@@ -74,14 +74,12 @@ const useStyles = makeStyles({
 
     container: {
         borderRadius: '14px',
-        boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
-        border: 'solid 1px #e3e7eb',
+        boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         borderTopColor: 'white',
         backgroundColor: 'transparent',
         borderBottomColor: 'white',
         borderBottom: 'none',
         background: '#fff',
-        padding: '0 20px',
     },
 
     divider: {
@@ -133,7 +131,7 @@ export default function StickyHeadTable() {
 
     return (
         <div>
-            <Paper style={{ borderRadius: '14px' }} elevation={3}>
+            <Paper style={{ borderRadius: '14px' }} elevation={0}>
                 <TableContainer className={classes.container} id="container-table">
                     <Table>
                         <TableHead>
@@ -211,7 +209,7 @@ export default function StickyHeadTable() {
 
                     </div>
                 </TableContainer>
-                <Divider className={classes.divider} />
+
 
             </Paper>
 
