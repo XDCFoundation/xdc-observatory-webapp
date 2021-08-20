@@ -425,7 +425,6 @@ export default function Navbar() {
                 </ul>
                 <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list">
                     <a className="sidebar-links" href='https://bitfi.com/'>
-
                         <div className="xinfin_account_button">Bitfi Hardware Wallet</div>
                     </a>
                     <hr className="myhr" />
