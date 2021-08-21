@@ -1215,7 +1215,7 @@ p {
 .paper-verify-contracts {
   width: 100%;
   padding: 20px;
-  border-radius: 17px;
+  border-radius: 10px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
@@ -1236,13 +1236,17 @@ p {
   color: #000000;
   width: 100%;
   height: 73px;
-  font-size: 11px;
+  font-size: 12px;
+  padding-left: 6px;
   opacity: 0.73;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #efefef;
 }
-
+.textarea-verify-contract::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
+}
 .textarea-contract-code {
   height: 194px;
   width: 100%;
@@ -1268,12 +1272,19 @@ p {
   width: 100%;
   margin-top: 10px;
   border-radius: 6px;
+  font-size: 13px;
+  padding-left: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
 }
+.textarea-constructor-arg::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
+}
 
 .validate-button {
-  padding: 13px 20px 12px 21px;
+  padding: 10px;
+  width: 120px;
   font-family: "Inter";
   font-size: 11px;
   font-weight: 600;
@@ -1286,10 +1297,12 @@ p {
 }
 
 .reset-button {
-  margin-left: 10px;
-  padding: 13px 20px 12px 21px;
-  font-size: 11px;
+  margin-left: 13px;
+  padding: 10px;
+  width: 80px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.55px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1302,6 +1315,7 @@ p {
   font-family: "Inter";
   font-size: 13px;
   font-weight: 600;
+
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1311,10 +1325,18 @@ p {
 
 .vc-input-contract-add {
   height: 35px;
+  font-size: 11px;
+  font-weight: 600;
   margin-top: 7px;
+  padding-left: 6px;
+  letter-spacing: 0.55px;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
+}
+.vc-input-contract-add::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
 }
 
 .vc-contract-name {
@@ -1331,17 +1353,25 @@ p {
 
 .vc-input-contract-name {
   height: 35px;
-  margin-top: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  padding-left: 6px;
   border-radius: 4px;
+  margin-top: 7px;
+  letter-spacing: 0.55px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
+}
+.vc-input-contract-name::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
 }
 
 .vc-contract-compiler {
   font-family: "Inter";
   font-size: 13px;
   margin-left: 18px;
-  font-weight: 600;
+  font-weight: 600 !important;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1353,6 +1383,9 @@ p {
   height: 35px;
   margin-top: 7px;
   padding-right: 50px;
+  color: #000000;
+  font-weight: 600;
+  padding-left: 6px;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -1834,6 +1867,15 @@ button {
   color: #2149b9;
   font-weight: 600;
 }
+.container-graph-tab {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 95%;
+  background: #fff;
+  border: none;
+  padding: 0 20px;
+}
 .active-tabs-token::before {
   content: "";
   font-weight: 600;
@@ -1874,6 +1916,9 @@ button {
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
+}
+.active-tabs-contract {
+  color: #2149b9;
 }
 
 .data_value_red {

@@ -19,7 +19,7 @@ export default function TokenContracttab() {
 
                         <div style={{ flexGrow: 0.1 }} className="contract-name">Contract Name</div>
                         <div style={{ flexGrow: 0.4 }} className="Fiat-Token">Fiat Token V1</div>
-                        <div style={{ flexGrow: 0.18 }} className="contract-name">Optimization-enabled </div>
+                        <div style={{ flexGrow: 0.18, marginLeft: "4px" }} className="contract-name">Optimization-enabled </div>
                         <div className="Fiat-Token">False</div>
 
                     </div>
@@ -57,7 +57,7 @@ export default function TokenContracttab() {
                     </div>
 
                     <div>
-                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9' }} readOnly className="input-area-3" value="Contract-source Code Verified" />
+                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-3" value="Contract-source Code Verified" />
                     </div>
 
                     <br />
@@ -65,11 +65,11 @@ export default function TokenContracttab() {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div className="contract-source-2"><img className="code-logo" src={abi} />Contract ABI</div>
                         <div>
-                            <CopyToClipboard text="Contract-source Code Verified"
-                                onCopy={() => setCopiedText("Contract-source Code Verified")}>
+                            <CopyToClipboard text="ABI Verified"
+                                onCopy={() => setCopiedText("ABI Verified")}>
                                 <Tooltip
                                     title={
-                                        copiedText === "Contract-source Code Verified"
+                                        copiedText === "ABI Verified"
                                             ? "Copied"
                                             : "Copy To Clipboard"
                                     }
@@ -83,7 +83,7 @@ export default function TokenContracttab() {
                     </div>
 
                     <div>
-                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9' }} readOnly className="input-area-3" />
+                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-3" />
                     </div>
 
                     <br />
@@ -91,11 +91,11 @@ export default function TokenContracttab() {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div className="contract-source-2"><img className="code-logo" src={bytecod} />Contract Byte-Code</div>
                         <div>
-                            <CopyToClipboard text="Contract-source Code Verified"
-                                onCopy={() => setCopiedText("Contract-source Code Verified")}>
+                            <CopyToClipboard text="ByteCode Verified"
+                                onCopy={() => setCopiedText("ByteCode Verified")}>
                                 <Tooltip
                                     title={
-                                        copiedText === "Contract-source Code Verified"
+                                        copiedText === "ByteCode Verified"
                                             ? "Copied"
                                             : "Copy To Clipboard"
                                     }
@@ -109,7 +109,7 @@ export default function TokenContracttab() {
                     </div>
 
                     <div>
-                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9' }} readOnly className="input-area-4" />
+                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-4" />
                     </div>
 
                 </div>
