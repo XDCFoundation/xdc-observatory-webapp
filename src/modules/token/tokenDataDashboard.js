@@ -304,7 +304,7 @@ export default function TokenDataComponent() {
               <LeftTopSecMain>
                 <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
                 <div
-                  className={
+                  className={   
                     numberStatus > 0
                       ? "data_value_green last_value_main"
                       : "data_value_red"

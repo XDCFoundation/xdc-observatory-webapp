@@ -434,19 +434,19 @@ export default function AddressTableComponent(props) {
                                         <span className={"tableheaders"}>Age</span>
                                     </TableCell>
                                     <TableCell
-                                        style={{ border: "none", paddingLeft: "2%" }}
+                                        style={{ border: "none", paddingLeft: "1.8%" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders"}>Block</span>
                                     </TableCell>
                                     <TableCell
-                                        style={{ border: "none", paddingLeft: "1%" }}
+                                        style={{ border: "none", paddingLeft: "1.8%" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders"}>From</span>
                                     </TableCell>
                                     <TableCell
-                                        style={{ border: "none", paddingLeft: "1%" }}
+                                        style={{ border: "none", paddingLeft: "1.8%" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders"}>To</span>
@@ -474,14 +474,13 @@ export default function AddressTableComponent(props) {
                                                         : { background: "white" }
                                                 }
                                             >
-                                                <TableCell style={{ border: "none" }} margin-left="5px">
+                                                <TableCell style={{ border: "none", width: '22%' }} margin-left="5px" >
                                                     <input
                                                         key={row.id}
                                                         name={row.id}
                                                         onChange={handleChanged}
                                                         type="checkbox"
                                                         checked={row?.isChecked || false}
-                                                        //checked={checkAll}
                                                         style={{ marginRight: "8px" }}
                                                     />
 
@@ -494,10 +493,10 @@ export default function AddressTableComponent(props) {
                                                     </a>
 
                                                 </TableCell>
-                                                <TableCell style={{ border: "none" }} align="left">
+                                                <TableCell style={{ border: "none", width: '17%' }} align="left">
                                                     <span className="tabledata">{TimeAge}</span>
                                                 </TableCell>
-                                                <TableCell style={{ border: "none" }} align="left">
+                                                <TableCell style={{ border: "none", width: '15%' }} align="left">
                                                     <a className="linkTable" href={'/block-details/' + row.Block}>
                                                         <span className="tabledata">{row.Block}</span>
                                                     </a>
