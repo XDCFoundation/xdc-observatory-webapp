@@ -326,6 +326,8 @@ class BlockChainDataComponent extends Component {
       TpsService.getMaxTpsCounter()
     );
     if (error || !MaxtpsCount) return;
+
+    console.log('hello')
     this.setState({ Maxtps: MaxtpsCount.responseData });
     const interval = setInterval(async () => {
       let [error, MaxtpsCount] = await Utils.parseResponse(

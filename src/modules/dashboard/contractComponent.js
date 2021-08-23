@@ -268,7 +268,8 @@ class Contractlist extends React.Component {
                                             letterSpacing: 0.62,
                                             color: '#9fa8b1',
                                             outlineColor: '#e3e7eb',
-                                            borderWidth: 0
+                                            borderWidth: 0,
+                                            outline: 'none'
                                         }} type="text"
                                         placeholder="Search Contracts" />
                                     {/* name="NAME" */}
@@ -306,7 +307,7 @@ class Contractlist extends React.Component {
                                         <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                             <TableCell id="td">
                                                 <a style={{ color: 'blue', fontSize: 11, marginLeft: '10px' }}
-                                                    href={`/address-details/${row.address}`}>
+                                                    href={`/address/${row.address}`}>
                                                     <Tooltip placement="top" title={row.address}>
                                                         <span className="tabledata">{(row.address)} </span>
                                                     </Tooltip>
