@@ -97,19 +97,19 @@ export default function SimpleTabs() {
 
           <div>
             <div className={toggleState === 1 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px', borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)', border: 'solid 1px #e3e7eb' }}>
+              <div style={{ marginTop: '10px', width: '950px' }}>
                 <TokenTransfertab />
               </div>
             </div>
 
             <div className={toggleState === 2 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px', borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)', border: 'solid 1px #e3e7eb' }}>
+              <div style={{ marginTop: '10px' }}>
                 <TokenHoldertab />
               </div>
             </div>
 
             <div className={toggleState === 3 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px', borderRadius: '14px', boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)', border: 'solid 1px #e3e7eb' }}>
+              <div style={{ marginTop: '10px' }}>
                 <TokenContracttab />
               </div>
 

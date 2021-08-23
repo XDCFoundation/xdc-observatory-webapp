@@ -578,7 +578,7 @@ p {
 }
 
 .centerbox-td {
-  width: 427px;
+  width: 435px;
   height: 32px;
   padding: 8px 10.3px 0 12px;
   margin-right: 10px;
@@ -625,26 +625,25 @@ p {
   margin-top: -8px;
   margin-left: 6px;
   margin-right: 6px;
-  padding: 9px 8px 9px 4px;
+
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
-.firstbox {
+/* .firstbox {
   height: 35px;
   margin: 39px 6px 46px 68px;
   padding: 6px 6px 9px 7px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
-}
+} */
 
 .firstbox {
-  width: 51px;
-  height: 35px;
+  height: 27px;
   margin: 39px 6px 46px 68px;
-  /*padding: 9px 6px 9px 7px;*/
+  padding: 2px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -666,20 +665,19 @@ p {
 
 .previousbox {
   width: 35px;
-  height: 35px;
+  height: 27px;
   margin: 39px 6px 46px;
-  padding: 12.5px 14.5px 11.5px;
+  padding: 12px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
 .path {
-  margin-left: -10px;
-  width: 6px;
-  height: 11px;
-  flex-grow: 0;
+  color: #252525;
+  font-size: 10px;
   margin-top: -8px;
+  font-weight: 600;
 }
 
 .path-2 {
@@ -707,20 +705,18 @@ p {
 }
 
 .pagebox {
-  width: 135px;
-  height: 35px;
+  width: 100%;
+  height: 27px;
   margin: 39px 6px 46px;
-  padding: 9px 8px;
+  padding: 6px 8px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
 .Page-1-of-5 {
-  width: 125px;
-  height: 17px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: normal;
   font-stretch: normal;
   font-style: bold;
@@ -732,9 +728,9 @@ p {
 
 .nextbox {
   width: 35px;
-  height: 35px;
+  height: 27px;
   margin: 39px 6px 46px;
-  padding: 12.5px 20.5px 11.5px 8.5px;
+  padding: 12px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -742,9 +738,9 @@ p {
 
 .lastbox {
   width: 50px;
-  height: 35px;
-  margin: 39px 15px 46px 6px;
-  padding: 7px 6px 9px 7px;
+  height: 27px;
+  margin: 39px 0px 46px 6px;
+  padding: 2px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -762,9 +758,10 @@ p {
 }
 
 .firstbox-contract {
-  height: 35px;
+  height: 27px;
+  width: 50px;
   margin: -6px 6px 0px 68px;
-  padding: 6px 6px 9px 7px;
+  padding: 1px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -796,31 +793,34 @@ p {
 
 .previousbox-contract {
   width: 35px;
-  height: 35px;
+  height: 27px;
   margin: -6px 6px 0px 0px;
-  padding: 12.5px;
+  padding: 12px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
 .path-contract {
-  margin-left: -10px;
-  width: 6px;
-  height: 11px;
-  flex-grow: 0;
+  color: #252525;
+
+  font-size: 10px;
   margin-top: -8px;
+  font-weight: 600;
 }
 
 .path-2-contract {
-  display: flex;
-  justify-content: center;
-  width: 6px;
-  height: 11px;
-  flex-grow: 0;
+  color: #252525;
+  font-size: 10px;
   margin-top: -8px;
+  font-weight: 600;
 }
-
+.path-2 {
+  color: #252525;
+  font-size: 10px;
+  margin-top: -8px;
+  font-weight: 600;
+}
 .Last-contract {
   width: 37px;
   height: 17px;
@@ -837,31 +837,64 @@ p {
 }
 
 .pagebox-contract {
-  width: 135px;
-  height: 35px;
+  width: 100%;
+  height: 27px;
   margin: -6px 6px 0px 0px;
-  padding: 9px 8px;
+  padding: 6px 8px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
 .Page-1-of-5-contract {
-  height: 17px;
   font-family: Inter;
-  font-size: 13px;
-  font-weight: normal;
+  font-size: 10px;
+  font-weight: 600;
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.66px;
   text-align: center;
   color: #252525;
 }
-
+.Page-1-of-5 {
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: bold;
+  line-height: normal;
+  letter-spacing: 0.66px;
+  text-align: center;
+  color: #252525;
+}
+.last-contract {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.first-contract {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.last {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.first {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
 .nextbox-contract {
   width: 35px;
-  height: 35px;
+  height: 27px;
   margin: -6px 6px 0px 0px;
   padding: 12.5px;
   border-radius: 4px;
@@ -871,9 +904,9 @@ p {
 
 .lastbox-contract {
   width: 50px;
-  height: 35px;
+  height: 27px;
   margin: -6px 6px 0px 0px;
-  padding: 5px;
+  padding: 1px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -934,7 +967,7 @@ p {
 }
 
 .select-td {
-  width: 75px;
+  width: 85px;
   margin-top: -3px;
   outline-color: #ffffff;
   border-color: transparent;

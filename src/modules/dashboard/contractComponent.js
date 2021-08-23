@@ -4,20 +4,15 @@ import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import { Grid, TableContainer } from "@material-ui/core";
+import { TableContainer } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Divider } from "@material-ui/core";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
-import { useHistory } from "react-router-dom";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Tooltip from "@material-ui/core/Tooltip";
 import Utility, { dispatchAction } from "../../utility";
 import ContractData from "../../services/contract";
-import loader from "../../assets/images/loader.gif";
+
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -402,9 +397,13 @@ class Contractlist extends React.Component {
               flexDirection: "row",
               marginLeft: "18%",
               marginTop: "20px",
+
             }}
-          >
-            Show
+          ><p style={{
+            fontSize: "12px",
+            fontWeight: "600"
+          }}>Show</p>
+
             <select
               value={this.state.amount}
               className="selectbox-contract"
@@ -416,7 +415,11 @@ class Contractlist extends React.Component {
               <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
-            Records
+            <p style={{
+              fontSize: "12px",
+              fontWeight: "600"
+            }}> Records</p>
+
           </div>
 
           <div
@@ -427,6 +430,7 @@ class Contractlist extends React.Component {
               marginTop: "20px",
             }}
           >
+
             <div
               className={
                 this.state.from == 0
@@ -447,7 +451,7 @@ class Contractlist extends React.Component {
               onClick={() => this.handleChangePage("prev")}
             >
               <p className="path-contract">
-                <ChevronLeftIcon />
+                {"<"}
               </p>
             </div>
             <div className="pagebox-contract">
@@ -457,7 +461,7 @@ class Contractlist extends React.Component {
                   1 -
                   Math.round(
                     (this.state.totalRecord - this.state.from) /
-                      this.state.amount
+                    this.state.amount
                   )}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
@@ -467,7 +471,7 @@ class Contractlist extends React.Component {
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
               >
-                <ChevronRightIcon />
+                {">"}
               </p>
             </div>
             <div
