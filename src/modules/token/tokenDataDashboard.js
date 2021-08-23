@@ -113,7 +113,8 @@ const IconLogo = styled.img`
   margin-left: 5px;
 `;
 const LeftTitle = styled.div`
-margin-top:5px
+  margin-left:4px;
+  margin-top:5px;
   font-size: 20px;
   font-weight: 800;
   font-family: Inter;
@@ -293,18 +294,18 @@ export default function TokenDataComponent() {
           <LeftContainer>
             <LeftFirst>
               <LeftTop>
-                {logo.length > 0 ?
+                {/* {logo.length > 0 ?
                   <IconLogo src={logo} />
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
-                }
+                } */}
                 <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
               </LeftTop>
 
               <LeftTopSecMain>
                 <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
                 <div
-                  className={   
+                  className={
                     numberStatus > 0
                       ? "data_value_green last_value_main"
                       : "data_value_red"

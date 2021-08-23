@@ -202,14 +202,6 @@ export default function AddressDetails(props) {
               >
                 Transactions
               </button>
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(2)}
-              >
-                Internal Txn
-              </button>
             </div>
           </div>
 
