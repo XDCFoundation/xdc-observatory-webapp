@@ -6,6 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 function timeDiff(curr, prev) {
 
+
   if (curr < prev) return "0 secs ago";
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -181,7 +182,7 @@ class LatestBlocks extends Component {
   }
 
   render() {
-
+    console.log(this.props.socket, "<<<<")
     return (
       <>
         <div className="block_main">
