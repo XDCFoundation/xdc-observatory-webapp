@@ -63,14 +63,11 @@ const rows = [
 ];
 
 const useStyles = makeStyles({
-  rootui: {
-    backgroundColor: "white",
-  },
+
 
   container: {
     borderRadius: "14px",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-    border: "solid 0.5px #e3e7eb",
     borderTopColor: "white",
     backgroundColor: "white",
     borderBottomColor: "white",
@@ -219,74 +216,81 @@ export default function StickyHeadTable() {
                 })}
             </TableBody>
           </Table>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginTop: "45px",
-                marginLeft: "1%",
-              }}
-            >
-              Show
-              <select className="selectbox" onChange={handleChangeRowsPerPage}>
-                <option selected>50</option>
-                <option>75</option>
-                <option>100</option>
-              </select>
-              Records
-            </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginRight: "0%",
-              }}
-            >
-              <div className="firstbox" onClick={() => setPage(0)}>
-                <button style={{ backgroundColor: "white" }} className="first">
-                  First
-                </button>
-              </div>
-              <div
-                className="previousbox"
-                onClick={() => handleChangePage("prev")}
-              >
-                <p className="path">
-                  <ChevronLeftIcon />
-                </p>
-              </div>
-              <div className="pagebox">
-                <p className="Page-1-of-5">
-                  Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}
-                </p>
-              </div>
-              <div className="nextbox">
-                <p className="path-2" onClick={() => handleChangePage("next")}>
-                  <ChevronRightIcon />
-                </p>
-              </div>
-              <div
-                className="lastbox"
-                onClick={() =>
-                  setPage(Math.ceil(rows.length / rowsPerPage) - 1)
-                }
-              >
-                <button style={{ backgroundColor: "white" }} className="last">
-                  Last
-                </button>
-              </div>
-            </div>
-          </div>
         </TableContainer>
       </Paper>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginTop: "45px",
+            marginLeft: "1%",
+          }}
+        >
+          <p style={{
+            fontSize: "12px",
+            fontWeight: "600"
+          }}>Show</p>
+          <select className="selectbox" onChange={handleChangeRowsPerPage}>
+            <option selected>50</option>
+            <option>75</option>
+            <option>100</option>
+          </select>
+          <p style={{
+            fontSize: "12px",
+            fontWeight: "600"
+          }}> Records</p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            marginRight: "0%",
+          }}
+        >
+          <div className="firstbox" onClick={() => setPage(0)}>
+            <button style={{ backgroundColor: "white" }} className="first">
+              First
+            </button>
+          </div>
+          <div
+            className="previousbox"
+            onClick={() => handleChangePage("prev")}
+          >
+            <p className="path">
+              {"<"}
+            </p>
+          </div>
+          <div className="pagebox">
+            <p className="Page-1-of-5">
+              Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}
+            </p>
+          </div>
+          <div className="nextbox">
+            <p className="path-2" onClick={() => handleChangePage("next")}>
+              {">"}
+            </p>
+          </div>
+          <div
+            className="lastbox"
+            onClick={() =>
+              setPage(Math.ceil(rows.length / rowsPerPage) - 1)
+            }
+          >
+            <button style={{ backgroundColor: "white" }} className="last">
+              Last
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

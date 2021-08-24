@@ -18,10 +18,23 @@ const data = [
         ]
     }
 ]
+const toolTipElement = (props) => {
+    console.log(props.point?.data?.x, "<<prop")
+    console.log(props, "<<")
+    return (
+        <div>
+            <div className="Tooltip-graph">
+                <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
+                <p className="Tooltip-graph-tx">Holders: {props.point?.data?.y}</p>
+            </div>
+            {/* <TriangleArrowDown /> */}
+        </div>
+    )
+}
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
-
+        tooltip={toolTipElement}
         margin={{ top: 10 }}
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
@@ -94,6 +107,11 @@ export default function App() {
     return (
         <div style={{ height: 120, width: 390 }}>
             <MyResponsiveLine data={data} />
+            <div className="dates">
+                <p>5 Aug</p>
+                <p>19 Aug</p>
+            </div>
+
         </div>
     );
 }
