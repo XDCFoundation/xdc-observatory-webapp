@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import logo from "../../assets/images/usdc.png";
+
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
-import { FaRedditSquare } from "react-icons/fa";
+import { GrMail } from "react-icons/gr";
+import { FaReddit } from "react-icons/fa";
 import { AiOutlineTwitter } from "react-icons/ai";
+import { FaFileAlt } from 'react-icons/fa'
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
@@ -27,7 +29,7 @@ const MainContainer = styled.div`
   padding-top:20px;
   padding-left:15px
   border-radius: 12px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
@@ -111,7 +113,8 @@ const IconLogo = styled.img`
   margin-left: 5px;
 `;
 const LeftTitle = styled.div`
-margin-top:5px
+  margin-left:4px;
+  margin-top:5px;
   font-size: 20px;
   font-weight: 800;
   font-family: Inter;
@@ -188,6 +191,7 @@ const RightTopSec = styled.div`
   width: 50px;
   height: 18px;
   font-size: 11px;
+  padding: 4.5px;
   color: #2a2a2a;
   border: none;
   border-radius: 4px;
@@ -290,11 +294,11 @@ export default function TokenDataComponent() {
           <LeftContainer>
             <LeftFirst>
               <LeftTop>
-                {logo.length > 0 ?
+                {/* {logo.length > 0 ?
                   <IconLogo src={logo} />
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
-                }
+                } */}
                 <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
               </LeftTop>
 
@@ -392,14 +396,14 @@ export default function TokenDataComponent() {
                     <Title>Social Media</Title>
 
                     <Icons>
-                      <FiMail
+                      <GrMail
                         style={{
                           color: "#a09e9e",
                           cursor: "pointer",
                           marginRight: "4px",
                         }}
                       />
-                      <FaRedditSquare
+                      <FaReddit
                         style={{
                           color: "#a09e9e",
                           cursor: "pointer",
@@ -412,8 +416,23 @@ export default function TokenDataComponent() {
                           cursor: "pointer",
                           marginRight: "4px",
                         }}
+
                       />
                       <AiOutlineTwitter
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      <FaFileAlt
+                        style={{
+                          color: "#a09e9e",
+                          cursor: "pointer",
+                          marginRight: "4px",
+                        }}
+                      />
+                      {/* <AiOutlineTwitter
                         style={{
                           color: "#a09e9e",
                           cursor: "pointer",
@@ -426,21 +445,7 @@ export default function TokenDataComponent() {
                           cursor: "pointer",
                           marginRight: "4px",
                         }}
-                      />
-                      <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
-                      <AiOutlineTwitter
-                        style={{
-                          color: "#a09e9e",
-                          cursor: "pointer",
-                          marginRight: "4px",
-                        }}
-                      />
+                      /> */}
                     </Icons>
                   </ValueName>
                 </Value>

@@ -578,7 +578,7 @@ p {
 }
 
 .centerbox-td {
-  width: 427px;
+  width: 435px;
   height: 32px;
   padding: 8px 10.3px 0 12px;
   margin-right: 10px;
@@ -597,7 +597,7 @@ p {
 }
 
 .main-input {
-  margin: -8px 5px 0px 1px;
+  margin: -8px 0px 0px 1px;
   outline-color: #ffffff;
   height: 50px;
   width: 85%;
@@ -625,26 +625,25 @@ p {
   margin-top: -8px;
   margin-left: 6px;
   margin-right: 6px;
-  padding: 9px 8px 9px 4px;
+
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
-.firstbox {
+/* .firstbox {
   height: 35px;
   margin: 39px 6px 46px 68px;
   padding: 6px 6px 9px 7px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
-}
+} */
 
 .firstbox {
-  width: 51px;
-  height: 35px;
+  height: 27px;
   margin: 39px 6px 46px 68px;
-  /*padding: 9px 6px 9px 7px;*/
+  padding: 2px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -666,20 +665,19 @@ p {
 
 .previousbox {
   width: 35px;
-  height: 35px;
+  height: 27px;
   margin: 39px 6px 46px;
-  padding: 12.5px 14.5px 11.5px;
+  padding: 12px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
 .path {
-  margin-left: -10px;
-  width: 6px;
-  height: 11px;
-  flex-grow: 0;
+  color: #252525;
+  font-size: 10px;
   margin-top: -8px;
+  font-weight: 600;
 }
 
 .path-2 {
@@ -707,20 +705,18 @@ p {
 }
 
 .pagebox {
-  width: 135px;
-  height: 35px;
+  width: 100%;
+  height: 27px;
   margin: 39px 6px 46px;
-  padding: 9px 8px;
+  padding: 6px 8px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
 
 .Page-1-of-5 {
-  width: 125px;
-  height: 17px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: normal;
   font-stretch: normal;
   font-style: bold;
@@ -732,9 +728,9 @@ p {
 
 .nextbox {
   width: 35px;
-  height: 35px;
+  height: 27px;
   margin: 39px 6px 46px;
-  padding: 12.5px 20.5px 11.5px 8.5px;
+  padding: 12px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -742,9 +738,175 @@ p {
 
 .lastbox {
   width: 50px;
+  height: 27px;
+  margin: 39px 0px 46px 6px;
+  padding: 2px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+.selectbox-contract {
+  width: 60px;
   height: 35px;
-  margin: 39px 15px 46px 6px;
-  padding: 7px 6px 9px 7px;
+  margin-top: -8px;
+  margin-left: 6px;
+  margin-right: 6px;
+  padding: 7px 0px 9px 5px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.firstbox-contract {
+  height: 27px;
+  width: 50px;
+  margin: -6px 6px 0px 68px;
+  padding: 1px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+/* .firstbox {
+  width: 51px;
+  height: 35px;
+  margin: 39px 6px 46px 68px;
+  padding: 9px 6px 9px 7px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+} */
+.First-contract {
+  width: 37px;
+  height: 17px;
+  opacity: 0.5;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #4f4f4f;
+}
+
+.previousbox-contract {
+  width: 35px;
+  height: 27px;
+  margin: -6px 6px 0px 0px;
+  padding: 12px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.path-contract {
+  color: #252525;
+
+  font-size: 10px;
+  margin-top: -8px;
+  font-weight: 600;
+}
+
+.path-2-contract {
+  color: #252525;
+  font-size: 10px;
+  margin-top: -8px;
+  font-weight: 600;
+}
+.path-2 {
+  color: #252525;
+  font-size: 10px;
+  margin-top: -8px;
+  font-weight: 600;
+}
+.Last-contract {
+  width: 37px;
+  height: 17px;
+  font-family: Inter;
+  margin-right: "10px";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+}
+
+.pagebox-contract {
+  width: 100%;
+  height: 27px;
+  margin: -6px 6px 0px 0px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.Page-1-of-5-contract {
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: bold;
+  line-height: normal;
+  letter-spacing: 0.66px;
+  text-align: center;
+  color: #252525;
+}
+.Page-1-of-5 {
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: bold;
+  line-height: normal;
+  letter-spacing: 0.66px;
+  text-align: center;
+  color: #252525;
+}
+.last-contract {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.first-contract {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.last {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.first {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+}
+.nextbox-contract {
+  width: 35px;
+  height: 27px;
+  margin: -6px 6px 0px 0px;
+  padding: 12.5px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+}
+
+.lastbox-contract {
+  width: 50px;
+  height: 27px;
+  margin: -6px 6px 0px 0px;
+  padding: 1px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
@@ -788,9 +950,9 @@ p {
 }
 
 .select {
-  width: 100px;
+  width: 110px;
   height: 40px;
-  padding-left: 8px;
+  padding-left: 4px;
   margin-top: -5px;
   outline-color: #ffffff;
   border-color: transparent;
@@ -800,12 +962,12 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0.2x;
   color: #2a2a2a;
 }
 
 .select-td {
-  width: 75px;
+  width: 85px;
   margin-top: -3px;
   outline-color: #ffffff;
   border-color: transparent;
@@ -830,6 +992,7 @@ p {
 .account_details_button {
   font-size: 15px;
   color: #ffffff;
+  margin-bottom: 2px;
 }
 .account_details_button:hover {
   list-style: none;
@@ -842,7 +1005,17 @@ p {
   font-size: 14px;
   color: #ffffff;
 }
-
+.xinfin_account_button {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.xinfin_account_button:hover {
+  list-style: none;
+  text-decoration: none;
+  font-size: 14px;
+  color: #2149b9;
+}
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
@@ -870,15 +1043,14 @@ p {
 
 .myhr2 {
   margin-left: 0px;
+  margin-top: 10px;
   width: 40%;
-  border: solid 0.5px #e3e7eb;
 }
 
 .myhr3 {
   margin-right: 0px;
   margin-top: -18px;
-  width: 50%;
-  border: solid 0.5px #e3e7eb;
+  width: 49.2%;
 }
 
 .myhr4 {
@@ -982,7 +1154,7 @@ p {
   margin-left: 18%;
   width: 220px;
   padding: 7.7px 43px 8.6px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -1076,7 +1248,7 @@ p {
 .paper-verify-contracts {
   width: 100%;
   padding: 20px;
-  border-radius: 17px;
+  border-radius: 10px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
@@ -1097,13 +1269,17 @@ p {
   color: #000000;
   width: 100%;
   height: 73px;
-  font-size: 11px;
+  font-size: 12px;
+  padding-left: 6px;
   opacity: 0.73;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #efefef;
 }
-
+.textarea-verify-contract::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
+}
 .textarea-contract-code {
   height: 194px;
   width: 100%;
@@ -1129,12 +1305,19 @@ p {
   width: 100%;
   margin-top: 10px;
   border-radius: 6px;
+  font-size: 13px;
+  padding-left: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
 }
+.textarea-constructor-arg::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
+}
 
 .validate-button {
-  padding: 13px 20px 12px 21px;
+  padding: 10px;
+  width: 120px;
   font-family: "Inter";
   font-size: 11px;
   font-weight: 600;
@@ -1147,10 +1330,12 @@ p {
 }
 
 .reset-button {
-  margin-left: 10px;
-  padding: 13px 20px 12px 21px;
-  font-size: 11px;
+  margin-left: 13px;
+  padding: 10px;
+  width: 80px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.55px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1163,6 +1348,7 @@ p {
   font-family: "Inter";
   font-size: 13px;
   font-weight: 600;
+
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1172,10 +1358,18 @@ p {
 
 .vc-input-contract-add {
   height: 35px;
+  font-size: 11px;
+  font-weight: 600;
   margin-top: 7px;
+  padding-left: 6px;
+  letter-spacing: 0.55px;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
+}
+.vc-input-contract-add::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
 }
 
 .vc-contract-name {
@@ -1192,17 +1386,25 @@ p {
 
 .vc-input-contract-name {
   height: 35px;
-  margin-top: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  padding-left: 6px;
   border-radius: 4px;
+  margin-top: 7px;
+  letter-spacing: 0.55px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
+}
+.vc-input-contract-name::placeholder {
+  color: #9fa9ba !important;
+  font-weight: 500px !important;
 }
 
 .vc-contract-compiler {
   font-family: "Inter";
   font-size: 13px;
   margin-left: 18px;
-  font-weight: 600;
+  font-weight: 600 !important;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1214,6 +1416,9 @@ p {
   height: 35px;
   margin-top: 7px;
   padding-right: 50px;
+  color: #000000;
+  font-weight: 600;
+  padding-left: 6px;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -1484,12 +1689,22 @@ body {
   letter-spacing: 0.58px;
   text-align: center;
 }
-
+.verified-logo {
+  height: 18px;
+  width: 18px;
+  margin-right: 8px;
+}
+.code-logo {
+  height: 22px;
+  width: 22px;
+  margin-right: 8px;
+}
 .container {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 95%;
+  width: 100%;
+  border-radius: 14px;
   background: #fff;
   border: none;
   padding: 0 20px;
@@ -1621,7 +1836,7 @@ body {
 
 .Fiat-Token {
   font-family: "Inter";
-  font-size: 11px;
+  font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -1681,14 +1896,44 @@ button {
   border: solid 1px #2149b9;
   background: #2149b9;
 }
-
+.active-tabs-token {
+  color: #2149b9;
+  font-weight: 600;
+}
+.container-graph-tab {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 95%;
+  background: #fff;
+  border: none;
+  padding: 0 20px;
+}
 .active-tabs-token::before {
   content: "";
+  font-weight: 600;
   display: block;
   position: absolute;
   top: 100%;
   left: 0%;
   width: 60px;
+  height: 1px;
+  border: solid 1px #2149b9;
+  background: #2149b9;
+  color: #2149b9;
+}
+.active-tabs-token-holder {
+  color: #2149b9;
+  font-weight: 600;
+}
+.active-tabs-token-holder::before {
+  content: "";
+  display: block;
+  font-weight: 600;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 47px;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -1704,6 +1949,9 @@ button {
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
+}
+.active-tabs-contract {
+  color: #2149b9;
 }
 
 .data_value_red {
@@ -1865,6 +2113,7 @@ button {
   font-size: 13px;
   padding-left: 12px;
 }
+
 .data_heading1 p:last-child {
   margin-right: 10px;
 }
@@ -1882,7 +2131,7 @@ button {
 .age p {
   font-weight: 600;
   font-size: 13px;
-  padding-left: 60px;
+  padding-left: 63px;
 }
 .first-block-age {
   font-size: 11px;
@@ -1940,7 +2189,6 @@ button {
   animation-fill-mode: forwards;
 }
 .second-transaction-amount {
-  /* padding-left: 15px; */
   padding: 0 10px;
   height: 100%;
   display: flex;
@@ -2920,4 +3168,16 @@ button {
   line-height: normal;
   letter-spacing: 0.46px;
   color: #2a2a2a;
+}
+.sidebar-links {
+  font-size: 14px;
+  color: #ffffff;
+  list-style: none;
+  text-decoration: none;
+}
+.sidebar-links:hover {
+  font-size: 14px;
+  color: #2149b9;
+  list-style: none;
+  text-decoration: none;
 }

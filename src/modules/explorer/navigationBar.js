@@ -190,7 +190,7 @@ export default function Navbar() {
             <List className="side-box">
                 <ul className="inside-side-box">
 
-                    <a className="account_details_button" href="/account-details"><p>Accounts</p></a>
+                    <a className="account_details_button" href="/account-details"><div className="xinfin_account_button">Accounts</div></a>
                     <hr className="myhr" />
                 </ul>
 
@@ -317,23 +317,35 @@ export default function Navbar() {
 
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Web Wallet</p>
+                    <a className="sidebar-links" href='https://wallet.xinfin.network/#/'>
+                        <div className="xinfin_account_button">Web Wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Android wallet</p>
+                    <a className="sidebar-links" href='https://play.google.com/store/apps/details?id=com.xdcwallet'>
+
+                        <div className="xinfin_account_button">Android wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Block Explorer</p>
+                    <a className="sidebar-links" href='https://xinfin.network/#explorer'>
+                        <div className="xinfin_account_button">Block Explorer</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>XinFin APIs</p>
+                    <a className="sidebar-links" href='https://apidocs.xinfin.network/docs/#xinfin-apis'>
+                        <div className="xinfin_account_button">XinFin APIs</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list">
-                    <p>Become a Master Node/Validator</p>
+                    <a className="sidebar-links" href='https://xinfin.network/#masternode'>
+
+                        <div className="xinfin_account_button">Become a Master Node/Validator</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
             </List>
@@ -344,23 +356,34 @@ export default function Navbar() {
 
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Faucet</p>
+                    <a className="sidebar-links" href='https://apothem.network/#getTestXDC'>
+                        <div className="xinfin_account_button">Faucet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Web wallet</p>
+                    <a className="sidebar-links" href='https://wallet.apothem.network/#/'>
+                        <div className="xinfin_account_button">Web wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Block Explorer</p>
+                    <a className="sidebar-links" href='https://explorer.apothem.network/home'>
+                        <div className="xinfin_account_button">Block Explorer</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>XinFin APIs</p>
+                    <a className="sidebar-links" href='https://apidocs.xinfin.network/docs/#xinfin-apis'>
+                        <div className="xinfin_account_button">XinFin APIs</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list">
-                    <p>Become a Master Node/Validator</p>
+                    <a className="sidebar-links" href='https://apothem.network/#masternode'>
+
+                        <div className="xinfin_account_button">Become a Master Node/Validator</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
             </List>
@@ -371,27 +394,39 @@ export default function Navbar() {
 
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Guarda Wallet</p>
+                    <a className="sidebar-links" href='https://guarda.com/'>
+                        <div className="xinfin_account_button">Guarda Wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>D'CENT Wallet</p>
+                    <a className="sidebar-links" href='https://dcentwallet.com/MobileApp'>
+                        <div className="xinfin_account_button">D'CENT Wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>D'CENT Hardware Wallet</p>
+                    <a className="sidebar-links" href='https://dcentwallet.com/products/BiometricWallet'>
+                        <div className="xinfin_account_button">D'CENT Hardware Wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Freewallet</p>
+                    <a className="sidebar-links" href='https://freewallet.org/#wallets'>
+                        <div className="xinfin_account_button">Freewallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list">
-                    <p>XcelPay Wallet</p>
+                    <a className="sidebar-links" href='https://xcelpay.io/'>
+                        <div className="xinfin_account_button">XcelPay Wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul style={{ whiteSpace: 'nowrap' }} className="Live-Network-list">
-                    <p>Bitfi Hardware Wallet</p>
+                    <a className="sidebar-links" href='https://bitfi.com/'>
+                        <div className="xinfin_account_button">Bitfi Hardware Wallet</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
             </List>
@@ -402,19 +437,27 @@ export default function Navbar() {
 
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>XinPay</p>
+                    <a className="sidebar-links" href='https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo'>
+                        <div className="xinfin_account_button">XinPay</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>XinFin Remix</p>
+                    <a className="sidebar-links" href='https://remix.xinfin.network/'>
+                        <div className="xinfin_account_button">XinFin Remix</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>One-Click Node Installer</p>
+                    <a className="sidebar-links" href='https://xinfin.org/setup-masternode'>
+                        <div className="xinfin_account_button">One-Click Node Installer</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
-                    <p>Explore dApps</p>
+                    <a className="sidebar-links" href='https://explorer.xinfin.network/home'>
+                        <div className="xinfin_account_button">Explore dApps</div>
+                    </a>
                     <hr className="myhr" />
                 </ul>
 

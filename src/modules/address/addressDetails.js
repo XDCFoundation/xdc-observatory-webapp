@@ -151,16 +151,16 @@ export default function AddressDetails(props) {
                           class="fa fa-clone" aria-hidden="true"></i></button>
                       </Tooltip>
                     </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px" }} />} modal>
+                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer" }} />} modal>
                       {(close) => (
                         <div className="popup_qr">
                           <p>
                             <div>
-                              <button style={{ border: 'null', width: '0px', marginLeft: "4px" }} className="close" onClick={close}>
+                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
                                 &times;
                               </button>
-                              <div className="header" style={{ fontSize: '12px', paddingTop: '6px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size="320" value={addr} />
+                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
+                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
                             </div>
                           </p>
                         </div>
@@ -201,14 +201,6 @@ export default function AddressDetails(props) {
                 onClick={() => toggleTab(1)}
               >
                 Transactions
-              </button>
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(2)}
-              >
-                Internal Txn
               </button>
             </div>
           </div>
