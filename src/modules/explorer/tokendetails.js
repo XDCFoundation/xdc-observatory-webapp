@@ -351,7 +351,8 @@ export default function StickyHeadTable() {
                                             <TableCell style={{ width: '1px' }} id="td">
                                                 {index + 1}
                                             </TableCell>
-                                            {row.src ?
+                                            <TableCell></TableCell>
+                                            {/* {row.src ?
                                                 <TableCell style={{ width: '1px' }} id="td"> <img
                                                     style={{ width: 25, height: 25, borderRadius: '15px' }}
                                                     src={row.src} /></TableCell>
@@ -364,7 +365,7 @@ export default function StickyHeadTable() {
                                                         ''
                                                     }
                                                 </TableCell>
-                                            }
+                                            } */}
                                             <TableCell id="td" style={{ width: '110px' }}>{row.tokenName}</TableCell>
                                             <TableCell id="td" style={{ width: '130px' }}>{row.type}</TableCell>
                                             <TableCell>
