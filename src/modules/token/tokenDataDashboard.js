@@ -21,6 +21,7 @@ import Utility, { dispatchAction } from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 import Utils from "../../utility";
 
+
 const MainContainer = styled.div`
   width: 950px;
   height: 200px;
@@ -220,7 +221,7 @@ export default function TokenDataComponent() {
   let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({})
-  function shorten(b, amountL = 17, amountR = 0, stars = 3) {
+  function shorten(b, amountL = 14, amountR = 0, stars = 3) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
   const CoinMarketExchangeForToken = async (data) => {
@@ -283,7 +284,6 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr)
-
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
@@ -373,7 +373,7 @@ export default function TokenDataComponent() {
                   {/* <TitleIcon src={transactionLogo} /> */}
                   <ValueName>
                     <Title>Contract</Title>
-                    <ContractButton> {shorten(contract)}</ContractButton>
+                    <ContractButton> {shorten(address)}</ContractButton>
                   </ValueName>
                 </Value>
                 <Value>

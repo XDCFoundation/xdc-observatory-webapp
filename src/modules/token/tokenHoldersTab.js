@@ -158,7 +158,7 @@ export default function StickyHeadTable() {
 
                                         <TableCell id="td"><span className="tabledata">{row.Rank}</span></TableCell>
                                         <TableCell id="td">
-                                            <a style={{ color: 'blue', fontSize: 11 }} href="#text">
+                                            <a style={{ color: 'blue', fontSize: 11 }} href={"/holder-details/" + row.Address}>
 
                                                 <span
                                                     className="tabledata"> {row.Address} </span>
