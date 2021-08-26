@@ -54,7 +54,7 @@ export default class LatestBlocksList extends BaseComponent {
 
                 setTimeout(() => {
                     this.setState({ ageAnimation: {}, blockAnimation: {} })
-                }, 500)
+                }, 800)
                 // blocks.sort((a, b) => {
                 //   return b.number - a.number;
                 // });

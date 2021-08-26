@@ -1,7 +1,8 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../images/constants";
 
-export default { getContractLists , getTotalContractList , getContractSearch}
+
+export default { getContractLists , getTotalContractList , getContractSearch,getContractDetailsUsingAddress}
 async function getContractLists(data) { 
     let url = process.env.REACT_APP_GET_CONTRACT_LIST+'?skip='+Math.ceil((data.pageNum))+'&limit='+data.perpage;
     
@@ -42,6 +43,20 @@ async function getContractSearch(data){
                     return Promise.reject();
                 }
                 return Promise.resolve(response.responseData);
+            }
+        ).catch(function (err) {
+            return Promise.reject(err);
+        });
+}
+async function getContractDetailsUsingAddress(path, data) {
+    let url = process.env.REACT_APP_GET_CONTRACT_DETAIL_USING_ADDRESS + path;
+    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
+        .then(
+            response => {
+                if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+                    return Promise.reject();
+                return Promise.resolve(response.responseData);
+
             }
         ).catch(function (err) {
             return Promise.reject(err);
