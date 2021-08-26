@@ -1709,7 +1709,76 @@ body {
   border: none;
   padding: 0 20px;
 }
-
+.source-code-unverified {
+  display: flex;
+  flex-direction: column;
+}
+.contract-source-code {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  margin-top: 15px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.contract-source-code-verify {
+  display: flex;
+  align-items: center;
+  width: 65%;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+.contract-unverified-text {
+  background-color: rgb(252, 236, 235);
+  border-radius: 3px;
+  font-size: 12px;
+  font-family: inter;
+  display: flex;
+  height: 25px;
+  font-weight: normal;
+  padding: 4.5px 8px 6px 8px;
+}
+.danger-logo {
+  color: rgb(222, 68, 55);
+  margin-top: 1px;
+  margin-right: 3px;
+  width: 16px;
+  height: 16px;
+}
+.contract-text {
+  font-size: 13px;
+  font-family: inter;
+  font-weight: 600;
+  letter-spacing: 0.55px;
+}
+.hr-line {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 0px;
+  width: 100%;
+}
+.click-here-btn {
+  font-size: 12px;
+  font-family: inter;
+  color: #ffffff;
+  height: 25px;
+  background-color: #2149b9;
+  border-radius: 3px;
+}
+.btn-click-div {
+  display: flex;
+}
+.to-verify-text {
+  font-size: 14px;
+  color: #2a2a2a;
+  margin-top: 4px;
+  margin-left: 4px;
+  margin-bottom: 0px;
+}
+.shield-logo {
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
 .container-table {
   border-radius: 12px;
   width: 95%;
@@ -1792,12 +1861,21 @@ body {
   height: 41px;
   margin-top: 10px;
   border-left-color: #2149b9;
-  /* opacity: 0.33; */
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #efefef;
 }
-
+.input-area-bytecode {
+  width: 100%;
+  height: 158px;
+  font-size: 12px;
+  color: #2a2a2a;
+  margin-top: 10px;
+  border-left-color: #2149b9;
+  border-radius: 4px;
+  border: solid 1px #9fa9ba;
+  background-color: #efefef;
+}
 .contract-source {
   font-family: "Inter";
   font-size: 15px;
@@ -1844,7 +1922,19 @@ body {
   letter-spacing: 0.58px;
   color: #3a3a3a;
 }
-
+.not-available-token {
+  margin-right: 0px !important;
+  margin-left: 56px;
+  margin-bottom: 1px;
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #2a2a2a;
+}
 /* 
   .hello{
     font-family: Inter;
@@ -2889,6 +2979,19 @@ button {
   font-weight: 600 !important;
   letter-spacing: 0.58px;
   border-bottom: none !important;
+}
+.second-row-table_address-balance {
+  font-family: Inter !important;
+  font-size: 12px !important;
+
+  letter-spacing: 0.65px;
+  padding-left: 75px !important;
+}
+.first-row-table_address-balance {
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.58px;
 }
 .second-row-table_address1 {
   font-family: Inter !important;

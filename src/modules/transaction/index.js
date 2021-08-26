@@ -83,7 +83,7 @@ export default class LatestTransactionList extends BaseComponent {
                 this.setState({ hashAnimation: hashAnimationClass });
                 setTimeout(() => {
                     this.setState({ hashAnimation: {} })
-                }, 500)
+                }, 800)
                 this.setState({ transactionList: transactions });
 
 

@@ -86,7 +86,7 @@ class LatestBlocks extends Component {
         this.setState({ transactionsAnimation: transactionAnimationClass });
         setTimeout(() => {
           this.setState({ transactionsAnimation: {}, ageAnimation: {}, blockAnimation: {} })
-        }, 500)
+        }, 800)
         // blocks.sort((a, b) => {
         //   return b.number - a.number;
         // });
@@ -120,7 +120,7 @@ class LatestBlocks extends Component {
         this.setState({ detailAnimation: detailAnimationClass })
         setTimeout(() => {
           this.setState({ hashAnimation: {}, amountAnimation: {}, ageeAnimation: {}, detailAnimation: {} })
-        }, 500)
+        }, 800)
         this.setState({ latestTransactionData: transactions });
 
         if (error) {

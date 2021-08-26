@@ -324,7 +324,7 @@ export default function Navbar() {
               listStyle: "none",
               textDecoration: "none",
             }}
-            href="/verify-contracts"
+            href={"/verify-contracts"}
           >
             <div className="xinfin_api_button">Verify Contracts</div>
           </a>
@@ -646,9 +646,9 @@ export default function Navbar() {
                       <option value="Blocks">Blocks</option>
                       <option value="Tokens">Tokens</option>
                       <option value="Transaction">Transaction</option>
-                      <option value="Nametags">Nametags</option>
+                      {/* <option value="Nametags">Nametags</option>
                       <option value="Labels">Labels</option>
-                      <option value="Websites">Websites</option>
+                      <option value="Websites">Websites</option> */}
                     </select>
                   </div>
                 </div>
