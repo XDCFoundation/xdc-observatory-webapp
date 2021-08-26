@@ -117,7 +117,7 @@ export default function App() {
 
             resultData.push({
                 x: items.day,
-                y: items.count
+                y: items.transactionCount
             })
 
         })

@@ -1,7 +1,8 @@
 import React from 'react';
-
+import { useParams } from "react-router-dom";
 
 export default function VerifyContract() {
+    const { address } = useParams();
 
     return (
         <>
@@ -15,9 +16,13 @@ export default function VerifyContract() {
                     <br /><br />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div className="vc-contract-add">Contract Address
-                            <div>
-                                <input className="vc-input-contract-add" type="text" placeholder="Contract Address" />
-                            </div>
+                            {
+                                address ? <div>
+                                    <input className="vc-input-contract-add" type="text" placeholder="Contract Address" value={address ? address : ""} />
+                                </div> : <div>
+                                    <input className="vc-input-contract-add" type="text" placeholder="Contract Address" />
+                                </div>
+                            }
                         </div>
                         <div className="vc-contract-name" >Contract Name
                             <div>

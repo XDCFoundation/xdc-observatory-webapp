@@ -117,7 +117,7 @@ export default function App() {
         AccountGraph.map(items => {
             resultData.push({
                 x: items.day,
-                y: items.count
+                y: items.accountCount
             })
 
             // moment(items.timestamp * 1000).format("MMMM Do YYYY"),moment(items.timestamp * 1000).format("MMMM Do YYYY"),

@@ -276,12 +276,12 @@ class BlockChainDataComponent extends Component {
       AccountService.getSomeDaysAccount()
     );
     if (error || !someDaysAccount) return;
-    this.setState({ someDayAccount: someDaysAccount[0]?.count });
+    this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     const interval = setInterval(async () => {
       let [error, someDaysAccount] = await Utils.parseResponse(
         AccountService.getSomeDaysAccount()
       );
-      this.setState({ someDayAccount: someDaysAccount[0]?.count });
+      this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     }, 90000);
   }
 

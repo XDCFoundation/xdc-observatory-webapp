@@ -480,7 +480,7 @@ export default function Navbar() {
 
                     <Typography className="Header">
 
-                        <a className="logo_t</a>okensearch" href={'/'}>
+                        <a className="logo_tokensearch" href={'/'}>
                             <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
                         </a>
                         <a className="XDC" href="/"> XDC </a>
@@ -573,9 +573,9 @@ export default function Navbar() {
                                     <option value="Blocks">Blocks</option>
                                     <option value="Tokens">Tokens</option>
                                     <option value="Transaction">Transaction</option>
-                                    <option value="Nametags">Nametags</option>
+                                    {/* <option value="Nametags">Nametags</option>
                                     <option value="Labels">Labels</option>
-                                    <option value="Websites">Websites</option>
+                                    <option value="Websites">Websites</option> */}
                                 </select>
                             </form>
 
