@@ -14,18 +14,23 @@ import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import SearchIcon from "@material-ui/icons/Search";
 import AddressTableComponent from "./addressTable";
+import TransactionTableComponent from "./transactionTable";
 import { ImQrcode } from "react-icons/im";
-
+import Utility, { dispatchAction } from "../../utility";
 import Popup from "reactjs-popup";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-
+import ContractData from "../../services/contract";
+import ReactHtmlParser from "react-html-parser";
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
     borderRadius: "10px",
     backgroundColor: "white",
   },
+  table:{
+    
+  }
 });
 
 export default function AddressDetailsData() {
@@ -34,8 +39,84 @@ export default function AddressDetailsData() {
   const toggleTab = (index) => {
     setToggleState(index);
   };
-
+  function shorten(b, amountL = 25, amountR = 5, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 3,
+        b.length
+    )}`;
+}
   const classes = useStyles();
+  const [from, setFrom] = React.useState(0);
+  const [amount, setAmount] = React.useState(50);
+  let initialState = {
+    balance:0,
+    transactionCout:0,
+    contractName:'',
+    creator:'',
+    transaction:'',
+    currencySymbol:'',
+    val:0.00,
+    changedVal:0.00,
+    transactionlist:[]
+  }
+  const [data, setData] = React.useState(initialState);
+  const [responses, setResponses] = React.useState([]);
+
+  const getContractDetails = async (values) => {
+    try {
+        const [error, responseData] = await Utility.parseResponse(
+          ContractData.getContractDetails(values)
+        );
+
+        if (responseData.address != '') { 
+          setResponses(responseData)
+          let activeCurrency = window.localStorage.getItem('currency')
+          let convertedCurrency = ''
+          let value = 0
+          let changeVal = 0
+          if (activeCurrency == 'USD') {
+            convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+            value = (responseData.xdcValueUSD).toFixed(6)
+            changeVal = (responseData.priceInUSD).toFixed(6)
+          } else if (activeCurrency == 'EUR') {
+            convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
+            value = (responseData.xdcValueEUR).toFixed(6)
+            changeVal = (responseData.priceInEUR).toFixed(6)
+          } else if (activeCurrency == 'INR') {
+            convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
+            value = (responseData.xdcValueINR).toFixed(6)
+            changeVal = (responseData.priceInINR).toFixed(6)
+          } else {
+            convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+            value = (responseData.xdcValueUSD).toFixed(6)
+            changeVal = (responseData.priceInUSD).toFixed(6)
+          }
+          
+          setData({
+            balance:responseData.balance,
+            transactionCout:responseData.transactionCount,
+            contractName:responseData.contractName,
+            creator:responseData.owner,
+            transaction:responseData.creationTransaction,
+            currencySymbol:convertedCurrency,
+            val:value,
+            changedVal:changeVal,
+            transactionlist:responseData.transactionArray
+
+          })
+          console.log(responses)
+        } else {
+            
+        }
+    } catch (error) {
+        console.error(error);
+    }
+  }
+  React.useEffect(() => {
+    let values = { addr:addressNumber,pageNum: from, perpage: amount,keywords:'' }
+    getContractDetails(values)
+    
+}, []);
 
   return (
     <div style={{backgroundColor:'#fff'}}>
@@ -56,24 +137,24 @@ export default function AddressDetailsData() {
                         <h1>Contract Overview</h1>                        
                     </div>
                     <div className="data">                       
-                      <TableContainer component={Paper}>
+                      <TableContainer component={Paper} elevation={0} style={{padding:'15px'}}>
                         <Table className={classes.table} aria-label="simple table">
                           <TableBody>                           
                             <TableRow>
-                              <TableCell style={{fontWeight: 'bold'}}>Balance</TableCell> 
-                              <TableCell>0.00000076 XDC</TableCell>                             
+                              <TableCell style={{fontWeight: 'bold', padding:'8px'}}>Balance</TableCell> 
+                              <TableCell style={{padding:'8px'}}>{data.balance} XDC</TableCell>                             
                             </TableRow>  
                             <TableRow>
-                              <TableCell style={{fontWeight: 'bold'}}>XDC Value</TableCell> 
-                              <TableCell>$0.00 (@ $0.068376/CDX)</TableCell>                             
+                              <TableCell style={{fontWeight: 'bold', padding:'8px'}}>XDC Value</TableCell> 
+                              <TableCell style={{padding:'8px'}}>{ReactHtmlParser(data.currencySymbol)}{data.val} (@ {ReactHtmlParser(data.currencySymbol)}{data.changedVal}/XDC)</TableCell>                             
                             </TableRow>
                             <TableRow>
-                              <TableCell style={{fontWeight: 'bold'}}>Transactions</TableCell> 
-                              <TableCell>21</TableCell>                             
+                              <TableCell style={{fontWeight: 'bold', padding:'8px'}}>Transactions</TableCell> 
+                              <TableCell style={{padding:'8px'}}>{data.transactionCout}</TableCell>                             
                             </TableRow>
                             <TableRow>
-                              <TableCell style={{fontWeight: 'bold'}}>Contract Name</TableCell> 
-                              <TableCell>EURG contact Verified<i class="fas fa-badge-check"></i></TableCell>                             
+                              <TableCell style={{fontWeight: 'bold', padding:'8px'}}>Contract Name</TableCell> 
+                              <TableCell style={{padding:'8px'}}>{data.contractName}<i class="fas fa-badge-check"></i></TableCell>                             
                             </TableRow>                         
                           </TableBody>
                         </Table>
@@ -85,16 +166,29 @@ export default function AddressDetailsData() {
                         <h1>Contract-Summary</h1>
                     </div>
                     <div className="data">
-                        <TableContainer component={Paper}>
+                        <TableContainer component={Paper} elevation={0} style={{padding:'15px'}}>
                         <Table className={classes.table} aria-label="simple table">
                           <TableBody>                           
                             <TableRow>
-                              <TableCell style={{fontWeight: 'bold'}}>Creator</TableCell> 
-                              <TableCell>{addressNumber.substring(0,30)}</TableCell>                             
+                              <TableCell style={{fontWeight: 'bold', padding:'8px'}}>Creator</TableCell> 
+                              <TableCell style={{padding:'8px'}}>
+                              {data.creator != '' &&
+                                  <a className="linkTable" href={'/address-details/' + data.creator}>
+                                    <span className="tabledata">{shorten(data.creator)}</span>
+                                  </a>
+                                }
+                              </TableCell>                             
                             </TableRow>  
                             <TableRow>
-                              <TableCell style={{fontWeight: 'bold'}}>Transactions</TableCell> 
-                              <TableCell>{addressNumber.substring(0,30)}</TableCell>                             
+                              <TableCell style={{fontWeight: 'bold', padding:'8px'}}>Transactions</TableCell> 
+                              <TableCell style={{padding:'8px'}}>
+                                {data.transaction != '' &&
+                                  <a className="linkTable" href={'/transaction-details/' + data.transaction}>
+                                    <span className="tabledata">{shorten(data.transaction)}</span>
+                                  </a>
+                                }
+                                
+                                </TableCell>                             
                             </TableRow>
                            
                                                     
@@ -118,7 +212,7 @@ export default function AddressDetailsData() {
               >
                 All Transactions
               </button>
-              <button
+            {/*  <button
                 className={
                   toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
                 }
@@ -133,7 +227,7 @@ export default function AddressDetailsData() {
                 onClick={() => toggleTab(3)}
               >
                 Contract Source
-              </button>
+              </button>*/}
             </div>
           </div>
 
@@ -145,20 +239,8 @@ export default function AddressDetailsData() {
                   : "content_sec"
               }
             >
-              <div className="content_input_all">
-                <div className="content_input_add">
-                  <SearchIcon />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="content_input_add_btn"
-                  />
-                </div>
-                <span style={{color: '#2149b9',fontFamily: 'Inter',fontSize: '14px',fontStyle: 'normal'}}>
-                <i class="fa fa-download" aria-hidden="true"></i> Download CSV</span>
-                
-              </div>
-              {/* <AddressTableComponent />*/}
+              
+          <TransactionTableComponent />
             </div>
 
             <div
