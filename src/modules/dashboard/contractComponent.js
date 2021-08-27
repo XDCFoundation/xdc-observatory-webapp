@@ -337,7 +337,7 @@ class Contractlist extends React.Component {
                             fontSize: 11,
                             marginLeft: "10px",
                           }}
-                          href={`/address-details/${row.address}`}
+                          href={`/address/${row.address}`}
                         >
                           <span className="tabledata">{row.address} </span>
                         </a>
