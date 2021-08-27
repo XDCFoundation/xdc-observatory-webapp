@@ -95,6 +95,56 @@ export default function AddressTableComponent(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
 
     const history = useHistory()
+
+    const dummyData = [
+
+        {
+            TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Age: '1 hrs ago',
+            Block: '22,650,452',
+            From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Amount: '0 XDC'
+        },
+        {
+            TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Age: '1 hrs ago',
+            Block: '22,650,452',
+            From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Amount: '0 XDC'
+        },
+        {
+            TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Age: '1 hrs ago', Block: '22,650,452',
+            From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Amount: '0 XDC'
+        },
+        {
+            TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Age: '1 hrs ago', Block: '22,650,452',
+            From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Amount: '0 XDC'
+        },
+        {
+            TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Age: '1 hrs ago', Block: '22,650,452',
+            From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Amount: '0 XDC'
+        },
+        {
+            TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Age: '1 hrs ago', Block: '22,650,452',
+            From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+            Amount: '0 XDC'
+        },
+
+    ];
+
     const handleChangePage = (action) => {
         if (action == 'first') {
 
@@ -322,7 +372,7 @@ export default function AddressTableComponent(props) {
     const handleChanged = (event) => {
         const { name, checked } = event.target;
         if (name === 'allselect') {
-            let tempAddress = address.map((addr) => {
+            let tempAddress = dummyData.map((addr) => {
                 return { ...addr, isChecked: checked }
             });
             setAddress(tempAddress)
@@ -455,14 +505,14 @@ export default function AddressTableComponent(props) {
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Value</span>
+                                        <span className={"tableheaders"}>Amount</span>
                                     </TableCell>
                                     {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                                 </TableRow>
                             </TableHead>
                             {noData == false &&
                                 <TableBody >
-                                    {address.map((row, index) => {
+                                    {dummyData.map((row, index) => {
                                         const currentTime = new Date();
                                         const previousTime = new Date(row.Age * 1000);
                                         const TimeAge = timeDiff(currentTime, previousTime);
@@ -485,16 +535,16 @@ export default function AddressTableComponent(props) {
                                                     />
 
                                                     <a className="linkTable" href={'/transaction-details/' + row.Txn_Hash}>
-                                                        <Tooltip placement="top" title={row.Txn_Hash}>
+                                                        <Tooltip placement="top" title={row.TxHash}>
                                                             <span className="tabledata">
-                                                                {shorten(row.Txn_Hash)}{" "}
+                                                                {shorten(row.TxHash)}{" "}
                                                             </span>
                                                         </Tooltip>
                                                     </a>
 
                                                 </TableCell>
                                                 <TableCell style={{ border: "none", width: '17%' }} align="left">
-                                                    <span className="tabledata">{TimeAge}</span>
+                                                    <span className="tabledata">{row.Age}</span>
                                                 </TableCell>
                                                 <TableCell style={{ border: "none", width: '15%' }} align="left">
                                                     <a className="linkTable" href={'/block-details/' + row.Block}>
@@ -528,13 +578,8 @@ export default function AddressTableComponent(props) {
                                                     }
                                                 </TableCell>
                                                 <TableCell style={{ border: "none" }} align="left">
-                                                    {row.To == addr &&
-                                                        <i class="fa fa-long-arrow-down green-color" aria-hidden="true"></i>
-                                                    }
-                                                    {row.From == addr &&
-                                                        <i class="fa fa-long-arrow-up red-color" aria-hidden="true"></i>
-                                                    }
-                                                    <span className="tabledata">{(row.Value / 1000000000000000000)}</span>
+
+                                                    <span className="tabledata">{row.Amount}</span>
                                                 </TableCell>
                                             </TableRow>
                                         );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -7,9 +7,12 @@ import Box from '@material-ui/core/Box';
 import TokenTransfertab from './tokenTransfertab';
 import TokenHoldertab from './tokenHoldersTab';
 import TokenContracttab from './tokenContractTab';
-import styled from "styled-components";
+import TokenUnverifiedContract from './tokenUnverifiedContract'
 import { Grid } from "@material-ui/core";
-
+import ContractData from "../../services/contract";
+import Utils from "../../utility";
+import { useParams } from "react-router";
+let li = 0;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,12 +61,27 @@ export default function SimpleTabs() {
   const [value, setValue] = React.useState(0);
 
   const [toggleState, setToggleState] = useState(1);
+  const [contractStatus, setContractStatus] = useState("")
+  useEffect(() => {
+    verifiedStatus();
+  }, []);
+  const { address } = useParams();
+
+  const verifiedStatus = async () => {
+
+    let urlPath = `${address}`;
+    let [error, contractStatus] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractStatus) return;
+    setContractStatus(contractStatus);
+  };
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
-
+  console.log(contractStatus.status, ">>>>")
   return (
     <div>
 
@@ -79,7 +97,7 @@ export default function SimpleTabs() {
                   Transfers
                 </button>
                 <button
-                  className={toggleState === 2 ? "tabs-data active-tabs-token" : "tabs-data"}
+                  className={toggleState === 2 ? "tabs-data active-tabs-token-holder" : "tabs-data"}
                   onClick={() => toggleTab(2)}
                 >
                   Holders
@@ -97,20 +115,20 @@ export default function SimpleTabs() {
 
           <div>
             <div className={toggleState === 1 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px', borderRadius: '14px', boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)', border: 'solid 1px #e3e7eb' }}>
+              <div style={{ marginTop: '10px', width: '950px' }}>
                 <TokenTransfertab />
               </div>
             </div>
 
             <div className={toggleState === 2 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px', borderRadius: '14px', boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)', border: 'solid 1px #e3e7eb' }}>
+              <div style={{ marginTop: '10px' }}>
                 <TokenHoldertab />
               </div>
             </div>
 
             <div className={toggleState === 3 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px', borderRadius: '14px', boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.1)', border: 'solid 1px #e3e7eb' }}>
-                <TokenContracttab />
+              <div style={{ marginTop: '10px' }}>
+                {contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
               </div>
 
             </div>

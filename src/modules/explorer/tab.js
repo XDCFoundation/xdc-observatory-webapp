@@ -15,7 +15,7 @@ function Tab() {
     };
 
     return (
-        <div className="container">
+        <div className="container-graph-tab">
             <div className="block">
                 <div className="bloc-tabs">
                     <button

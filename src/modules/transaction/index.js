@@ -17,7 +17,8 @@ export default class LatestTransactionList extends BaseComponent {
             tableName: "Transactions",
             transactionList: [],
             totalTransaction: 0,
-            isLoader: false
+            isLoader: false,
+            hashAnimation: {}
         }
     }
     componentWillUnmount() {
@@ -78,6 +79,11 @@ export default class LatestTransactionList extends BaseComponent {
             if (transactionDataExist == -1 && this.state.from == 0) {
                 if (transactions.length >= 10) transactions.pop();
                 transactions.unshift(transactionData);
+                let hashAnimationClass = { [transactionData.hash]: "first-block-details" };
+                this.setState({ hashAnimation: hashAnimationClass });
+                setTimeout(() => {
+                    this.setState({ hashAnimation: {} })
+                }, 800)
                 this.setState({ transactionList: transactions });
 
 

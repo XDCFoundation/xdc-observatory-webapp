@@ -7,7 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid } from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Select from "@material-ui/core/Select";
@@ -48,11 +48,15 @@ function timeDiff(curr, prev) {
     }
 }
 const useStyles = makeStyles({
-    rootui: {
-        minWidth: 650,
-        borderRadius: '10px',
-        backgroundColor: 'white'
-    }
+
+    container: {
+
+        borderRadius: '14px',
+        boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+        borderBottom: 'none',
+        background: '#fff',
+    },
+
 });
 
 export default function BlocksComponent(props) {
@@ -67,47 +71,53 @@ export default function BlocksComponent(props) {
     const { state } = props
     const classes = useStyles();
     return (
-        <Grid lg={7} className="tablegrid">
+        <Grid lg={7} className="tablegrid2">
             <Grid class="tabletop-header">{state.tableName}</Grid>
-            <Paper className={classes.rootui} elevation={0}>
-                <Table className="table" aria-label="Latest Transactions">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Transactions</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Difficulty</span></TableCell>
-                            <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
-                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {props.state.blocksList && props.state.blocksList.length >= 1 && props.state.blocksList.map((row, index) => {
+            <Paper style={{ borderRadius: '14px' }} elevation={0}>
+                <TableContainer className={classes.container} id="container-table">
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Transactions</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Difficulty</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
+                                {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {props.state.blocksList && props.state.blocksList.length >= 1 && props.state.blocksList.map((row, index) => {
 
-                            const currentTime = new Date();
-                            const previousTime = new Date(row.timestamp * 1000);
-                            const ti = timeDiff(currentTime, previousTime);
-                            return (
-                                <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                    <TableCell style={{ border: "none" }} margin-left="5px" >
-                                        <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "7px" }} /></Tooltip>
+                                const currentTime = new Date();
+                                const previousTime = new Date(row.timestamp * 1000);
+                                const ti = timeDiff(currentTime, previousTime);
+                                const blockNumber = row.number
+                                let animationClass =
+                                    props.state.blockAnimation?.[blockNumber]
+                                    ;
+                                return (
+                                    <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
+                                        <TableCell style={{ border: "none", width: "190px" }} margin-left="5px" >
+                                            <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "7px" }} /></Tooltip>
 
-                                        <span className="tabledata">{shorten(row.hash)}  </span>
-                                    </TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className="tabledata">{row.number}</span></a></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata"> {row.transactions.length}</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{(row.difficulty)}</span></TableCell>
-                                    <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.gasUsed}</span></TableCell>
-                                    {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
+                                            <span className={animationClass ? animationClass : "tabledata"}>{shorten(row.hash)}  </span>
+                                        </TableCell>
+                                        <TableCell style={{ border: "none", width: "115px" }} align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className={animationClass ? animationClass : "tabledata"}>{row.number}</span></a></TableCell>
+                                        <TableCell style={{ border: "none", width: "115px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "135px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}> {row.transactions.length}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "115px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{(row.difficulty)}</span></TableCell>
+                                        <TableCell style={{ border: "none" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{row.gasUsed}</span></TableCell>
+                                        {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Paper>
-            <Grid container>
+            <Grid container style={{ marginTop: "15px" }}>
                 <Grid item xs="3">
                     <span className="text">Show</span>
                     <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >

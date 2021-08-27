@@ -100,6 +100,12 @@ export default function TransactionsDetailsData({ _handleChange }) {
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
 
+  // let charCount = transactions?.input?.length
+  // let value1 = transactions.input
+  // let MethodID = value1?.slice(0, 10);
+  // let zero = value1?.slice(10, 74);
+  // let one = value1?.slice(74, 138);
+  // console.log(charCount, "<<<")
   return (
     <div>
       <Tokensearchbar />
@@ -755,7 +761,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   style={{
                     width: "0px",
                     borderBottom: "none",
-                    paddingBottom: "45px",
+
                   }}
                 >
                   <Tooltip align="right" title={privatenote}>
@@ -775,8 +781,8 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
                     color: "#252525",
-                    borderBottom: "none",
-                    paddingBottom: "45px",
+                    borderBottom: "none"
+
                   }}
                   id="td"
                 >
@@ -786,7 +792,8 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   className="second-row-table"
                   style={{ borderBottom: "none" }}
                 >
-                  <textarea className="input-area-2" type="text" />
+                  To access the Private Note feature, you must be <a className="linkTableDetails">Logged In</a>
+                  {/* <textarea className="input-area-2" type="text" placeholder="To access the Private Note feature, you must be Logged In" /> */}
                 </TableCell>
               </TableRow>
             </TableHead>

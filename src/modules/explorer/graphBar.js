@@ -5,18 +5,29 @@ import moment from "moment";
 import { TransactionService } from '../../services'
 import Utils from '../../utility'
 
-
+const toolTipElement = (props) => {
+    console.log(props.point?.data?.x, "<<prop")
+    console.log(props, "<<")
+    return (
+        <div>
+            <div className="Tooltip-graph">
+                <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
+                <p className="Tooltip-graph-tx">Transactions: {props.point?.data?.y}</p>
+            </div>
+            {/* <TriangleArrowDown /> */}
+        </div>
+    )
+}
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
-
-
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
         yFormat=" >-.2f"
         curve="basis"
         axisTop={null}
         axisRight={null}
+        tooltip={toolTipElement}
         axisBottom={{
             orient: 'bottom',
             tickSize: 5,
@@ -106,7 +117,7 @@ export default function App() {
 
             resultData.push({
                 x: items.day,
-                y: items.count
+                y: items.transactionCount
             })
 
         })

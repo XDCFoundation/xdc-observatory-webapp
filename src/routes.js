@@ -15,6 +15,7 @@ import TransactionsDetailsData from './modules/explorer/transactiondetails';
 import BlockDetailsData from './modules/explorer/blockDetails'
 import LatestAccountsList from './modules/accounts';
 import AddressDetails from './modules/address/addressDetails'
+import HolderDetails from './modules/holders/holderDetails'
 import AddressDetailsData from './modules/address/AddressDetailsData'
 import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
@@ -48,11 +49,12 @@ class Routes extends BaseComponent {
                         <Route exact path={'/block-details/:blockNumber'} component={BlockDetailsData} />
                         <Route exact path={'/account-details'} component={LatestAccountsList} />
                         <Route exact path={'/address-details/:addr'} component={AddressDetails} />
+                        <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
                         <Route exact path={'/token-data/:address'} component={TokenDataComponent} />
                         <Route exact path={'/token-details'} component={TokenDetails} />
                         <Route exact path={'/transaction-details/:hash'} component={TransactionsDetailsData} />
                         <Route exact path={'/contracts'} component={ContractComponent} />
-                        <Route exact path={'/verify-contracts'} component={ContractTab} />
+                        <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
                         <Route exact path={'/loginprofile'} component={AccountProfile} />
                         <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
 

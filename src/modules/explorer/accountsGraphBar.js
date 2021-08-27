@@ -5,7 +5,17 @@ import moment from "moment";
 import { AccountService } from '../../services'
 import Utils from '../../utility'
 
-
+const toolTipElement = (props) => {
+    return (
+        <div>
+            <div className="Tooltip-graph">
+                <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
+                <p className="Tooltip-graph-tx">Accounts: {props.point?.data?.y}</p>
+            </div>
+            {/* <TriangleArrowDown /> */}
+        </div>
+    )
+}
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
@@ -18,6 +28,7 @@ const MyResponsiveLine = ({ data }) => (
         curve="basis"
         axisTop={null}
         axisRight={null}
+        tooltip={toolTipElement}
         axisBottom={{
             orient: 'bottom',
             tickSize: 5,
@@ -106,7 +117,7 @@ export default function App() {
         AccountGraph.map(items => {
             resultData.push({
                 x: items.day,
-                y: items.count
+                y: items.accountCount
             })
 
             // moment(items.timestamp * 1000).format("MMMM Do YYYY"),moment(items.timestamp * 1000).format("MMMM Do YYYY"),

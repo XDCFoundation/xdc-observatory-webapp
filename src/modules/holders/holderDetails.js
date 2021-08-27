@@ -10,7 +10,7 @@ import "../../assets/styles/custom.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import AddressTableComponent from "./addressTable";
+import AddressTableComponent from "./holderTable";
 import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
 import { Grid, TableContainer } from "@material-ui/core";
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 
 });
-export default function AddressDetails(props) {
+export default function HoldersDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
   const [txtAddress, setTxtAddress] = useState('');
@@ -40,73 +40,73 @@ export default function AddressDetails(props) {
   const [coinValue, setCoinValue] = useState(0);
 
   const [transactions, setTransactions] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+
   const [copiedText, setCopiedText] = useState("");
-  let nowCurrency = window.localStorage.getItem('currency')
+  // let nowCurrency = window.localStorage.getItem('currency')
 
   let { addr } = useParams();
-  let addressValue = 0
+  // let addressValue = 0
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
   const classes = useStyles();
 
-  function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 3,
+  // function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 3,
 
-    )}`;
-  }
-  function _handleChange(event) {
-    alert('dd')
-  }
-  const getAddressDetails = async () => {
-    try {
+  //   )}`;
+  // }
+  // function _handleChange(event) {
+  //   alert('dd')
+  // }
+  // const getAddressDetails = async () => {
+  //   try {
 
-      const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetail(addr)
-      );
+  //     const [error, responseData] = await Utility.parseResponse(
+  //       AddressData.getAddressDetail(addr)
+  //     );
 
-      if (responseData) {
-        setBalance((responseData.balance / 1000000000000000000).toFixed(2));
-        let activeCurrency = window.localStorage.getItem('currency')
-        let convertedCurrency = ''
-        if (activeCurrency == 'USD') {
-          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
-        } else if (activeCurrency == 'EUR') {
-          convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
-          setCoinValue((responseData.balanceInEUR / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
-        } else if (activeCurrency == 'INR') {
-          convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
-          setCoinValue((responseData.balanceInINR / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
-        } else {
-          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
-        }
-        setLoading(false);
-      } else {
-        setBalance(parseFloat(0).toFixed(2));
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //     if (responseData) {
+  //       setBalance((responseData.balance / 1000000000000000000).toFixed(2));
+  //       let activeCurrency = window.localStorage.getItem('currency')
+  //       let convertedCurrency = ''
+  //       if (activeCurrency == 'USD') {
+  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+  //         setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
+  //         setConvertCurrency(convertedCurrency)
+  //       } else if (activeCurrency == 'EUR') {
+  //         convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
+  //         setCoinValue((responseData.balanceInEUR / 1000000000000000000).toFixed(2))
+  //         setConvertCurrency(convertedCurrency)
+  //       } else if (activeCurrency == 'INR') {
+  //         convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
+  //         setCoinValue((responseData.balanceInINR / 1000000000000000000).toFixed(2))
+  //         setConvertCurrency(convertedCurrency)
+  //       } else {
+  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+  //         setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
+  //         setConvertCurrency(convertedCurrency)
+  //       }
+  //       setLoading(false);
+  //     } else {
+  //       setBalance(parseFloat(0).toFixed(2));
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   const options = {
     htmlparser2: {
       lowerCaseTags: false
     }
   };
-  useEffect(() => {
-    getAddressDetails();
-  }, []);
+  // useEffect(() => {
+  //   getAddressDetails();
+  // }, []);
   return (
 
     <div style={{ backgroundColor: '#fff' }}>
@@ -116,7 +116,7 @@ export default function AddressDetails(props) {
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p className="block_details_heading_left">Address Details</p>
+          <p className="block_details_heading_left">Holder Details</p>
         </div>
         <Paper style={{ borderRadius: '14px' }} elevation={0}>
           <TableContainer className={classes.container} id="container-table">
@@ -132,7 +132,7 @@ export default function AddressDetails(props) {
                     id="td"
                   />
                   <TableCell className="first-row-table_address1">
-                    Address
+                    Holder
                   </TableCell>
                   <TableCell className="second-row-table_address1">
                     {addr}
@@ -173,15 +173,48 @@ export default function AddressDetails(props) {
                     style={{
                       width: "0px",
                       paddingRight: "1px",
+
+                    }}
+                    id="td"
+                  />
+                  <TableCell className="first-row-table_address-balance" >
+                    Balance
+                  </TableCell>
+                  <TableCell className="second-row-table_address-balance">
+                    {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
+                  </TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    style={{
+                      width: "0px",
+                      paddingRight: "1px",
+                    }}
+                    id="td"
+                  />
+                  <TableCell className="first-row-table_address-balance" >
+                    Transfers
+                  </TableCell>
+                  <TableCell className="second-row-table_address-balance">
+                    30
+                  </TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    style={{
+                      width: "0px",
+                      paddingRight: "1px",
                       borderBottom: "none",
                     }}
                     id="td"
                   />
                   <TableCell className="first-row-table_address" >
-                    Balance
+                    Contract Address
                   </TableCell>
                   <TableCell className="second-row-table_address">
-                    {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
+                    {addr}
                   </TableCell>
 
                 </TableRow>
@@ -200,7 +233,7 @@ export default function AddressDetails(props) {
                 }
                 onClick={() => toggleTab(1)}
               >
-                Transactions
+                Transfers
               </button>
             </div>
           </div>

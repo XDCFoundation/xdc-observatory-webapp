@@ -6,6 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 function timeDiff(curr, prev) {
 
+
   if (curr < prev) return "0 secs ago";
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -85,7 +86,7 @@ class LatestBlocks extends Component {
         this.setState({ transactionsAnimation: transactionAnimationClass });
         setTimeout(() => {
           this.setState({ transactionsAnimation: {}, ageAnimation: {}, blockAnimation: {} })
-        }, 500)
+        }, 800)
         // blocks.sort((a, b) => {
         //   return b.number - a.number;
         // });
@@ -119,7 +120,7 @@ class LatestBlocks extends Component {
         this.setState({ detailAnimation: detailAnimationClass })
         setTimeout(() => {
           this.setState({ hashAnimation: {}, amountAnimation: {}, ageeAnimation: {}, detailAnimation: {} })
-        }, 500)
+        }, 800)
         this.setState({ latestTransactionData: transactions });
 
         if (error) {
@@ -181,7 +182,7 @@ class LatestBlocks extends Component {
   }
 
   render() {
-
+    console.log(this.props.socket, "<<<<")
     return (
       <>
         <div className="block_main">
