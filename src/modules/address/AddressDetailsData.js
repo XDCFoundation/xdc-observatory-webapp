@@ -212,7 +212,7 @@ export default function AddressDetailsData() {
               >
                 All Transactions
               </button>
-              <button
+            {/*  <button
                 className={
                   toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
                 }
@@ -227,7 +227,7 @@ export default function AddressDetailsData() {
                 onClick={() => toggleTab(3)}
               >
                 Contract Source
-              </button>
+              </button>*/}
             </div>
           </div>
 
