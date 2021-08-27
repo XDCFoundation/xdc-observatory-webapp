@@ -72,9 +72,9 @@ export default function SimpleTabs() {
       <div className={classes.root}>
 
 
-        <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', marginTop: "20px", borderBottom: 'solid 1px #e3e7eb' }}>
           <div>
-            <div style={{ display: 'flex', flexDirection: 'row', marginLeft: '20px' }} >
+            <div style={{ display: 'flex', flexDirection: 'row' }} >
               <button
                 className={toggleState === 1 ? "tabs active-tabs-contract" : "tabs"}
                 onClick={() => toggleTab(1)}

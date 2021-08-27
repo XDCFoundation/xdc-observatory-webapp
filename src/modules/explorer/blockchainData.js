@@ -150,9 +150,9 @@ class BlockChainDataComponent extends Component {
       someDayAccount: [],
       coinMarketPrice: [],
       tpsCounts: {
-        totalTransactions:0
+        totalTransactions: 0
       },
-      Maxtps:0,
+      Maxtps: 0,
       blockdataNumber: [],
       transactionDataDetails: [],
       blockSocketConnected: false,
@@ -169,10 +169,12 @@ class BlockChainDataComponent extends Component {
     await this.totalAccountsCount();
     await this.someDaysAccountCount();
     await this.coinMarketCapDetails();
-    await this.tpsCountDetail();
-    await this.CountMaxtps();
     await this.blocksLatest();
     await this.transactionsLatest();
+    await this.tpsCountDetail();
+    await this.CountMaxtps();
+
+
     this.socketData(this.props.socket);
   }
 
@@ -274,12 +276,12 @@ class BlockChainDataComponent extends Component {
       AccountService.getSomeDaysAccount()
     );
     if (error || !someDaysAccount) return;
-    this.setState({ someDayAccount: someDaysAccount[0]?.count });
+    this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     const interval = setInterval(async () => {
       let [error, someDaysAccount] = await Utils.parseResponse(
         AccountService.getSomeDaysAccount()
       );
-      this.setState({ someDayAccount: someDaysAccount[0]?.count });
+      this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     }, 90000);
   }
 
@@ -304,7 +306,7 @@ class BlockChainDataComponent extends Component {
     }, 90000);
   }
 
-  /* FETCHING TPS COUNTER API*/
+  /* FETCHING TPS COUNTER API */
 
   async tpsCountDetail() {
     let [error, tpsCount] = await Utils.parseResponse(
@@ -321,19 +323,18 @@ class BlockChainDataComponent extends Component {
     }, 90000);
   }
 
-  async CountMaxtps() { 
+  async CountMaxtps() {
     let [error, MaxtpsCount] = await Utils.parseResponse(
       TpsService.getMaxTpsCounter()
     );
+    console.log(MaxtpsCount, "<<<<<")
     if (error || !MaxtpsCount) return;
-
-    console.log('hello')
-    this.setState({ Maxtps: MaxtpsCount.responseData });
+    this.setState({ Maxtps: MaxtpsCount?.responseData });
     const interval = setInterval(async () => {
       let [error, MaxtpsCount] = await Utils.parseResponse(
         TpsService.getMaxTpsCounter()
       );
-      this.setState({ Maxtps: MaxtpsCount.responseData });
+      this.setState({ Maxtps: MaxtpsCount?.responseData });
     }, 90000);
   }
 
@@ -398,8 +399,6 @@ class BlockChainDataComponent extends Component {
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
     let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
-
-
     let blockNumber = this.state.blockdataNumber[0]?.number
     let animationClass =
       this.state.animationBlock?.[blockNumber]
@@ -408,7 +407,8 @@ class BlockChainDataComponent extends Component {
     let TxanimationClass =
       this.state.animationTransaction?.[txhash]
       ;
-
+    let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0
+    let currentTp = this.state.tpsCounts?.totalTransactions ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2) : 0
     return (
       <MainContainer>
         <LeftContainer>
@@ -460,7 +460,7 @@ class BlockChainDataComponent extends Component {
               <Value>
                 <TitleIcon src={priceLogo} />
                 <ValueName>
-                  <Title>Gas Price</Title>
+                  <Title>Gas Price(Gwei)</Title>
                   <TitleValue className={TxanimationClass ? TxanimationClass : ""}>
                     {this.state.gasPrice}
                   </TitleValue>
@@ -488,7 +488,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Current/Max TPS</Title>
                   <TitleValue>
-                    {(this.state.tpsCounts?.totalTransactions/60).toFixed(2)}/{this.state.Maxtps.toFixed(2)}
+                    {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
                   </TitleValue>
                 </ValueName>
               </Value>
