@@ -426,7 +426,7 @@ class Contractlist extends React.Component {
             style={{
               display: "flex",
               flexDirection: "row",
-              marginRight: "18%",
+              marginRight: "17.5%",
               marginTop: "20px",
             }}
           >

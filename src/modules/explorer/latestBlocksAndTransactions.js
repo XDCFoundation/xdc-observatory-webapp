@@ -67,14 +67,11 @@ class LatestBlocks extends Component {
   }
   socketData(socket) {
     let blocks = this.state.latestBlocksData;
-
     socket.on("block-socket", (blockData, error) => {
-
       this.setState({ blockSocketConnected: true })
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
-
       if (blockDataExist == -1) {
         if (blocks.length >= 10) blocks.pop();
         blocks.unshift(blockData);
@@ -87,12 +84,7 @@ class LatestBlocks extends Component {
         setTimeout(() => {
           this.setState({ transactionsAnimation: {}, ageAnimation: {}, blockAnimation: {} })
         }, 800)
-        // blocks.sort((a, b) => {
-        //   return b.number - a.number;
-        // });
-
         this.setState({ latestBlocksData: blocks });
-
         if (error) {
           console.log("hello error");
         }
