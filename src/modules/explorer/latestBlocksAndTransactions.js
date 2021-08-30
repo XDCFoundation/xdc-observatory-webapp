@@ -174,7 +174,6 @@ class LatestBlocks extends Component {
   }
 
   render() {
-    console.log(this.props.socket, "<<<<")
     return (
       <>
         <div className="block_main">

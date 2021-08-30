@@ -6,7 +6,7 @@ import { TransactionService } from '../../services'
 import Utils from '../../utility'
 
 const toolTipElement = (props) => {
-    console.log(props.point?.data?.x, "<<prop")
+    console.log(props, "<<prop")
     console.log(props, "<<")
     return (
         <div>

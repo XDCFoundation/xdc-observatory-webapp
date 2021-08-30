@@ -241,7 +241,26 @@ export default function TokenDataComponent() {
   }
   useEffect(() => {
     listOfHolders();
+    transferDetail();
   }, []);
+  const [transfer, settransfer] = useState({});
+
+
+  const transferDetail = async () => {
+    let urlPath = `${address}`;
+    let [error, tns] = await Utils.parseResponse(
+      TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+    );
+    if (error || !tns) return;
+    settransfer(tns);
+
+    const interval = setInterval(async () => {
+      let [error, tns] = await Utils.parseResponse(
+        TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+      );
+      settransfer(tns);
+    }, 90000);
+  };
   const { address } = useParams();
   const listOfHolders = async () => {
     let urlPath = `${address}`;
@@ -251,7 +270,7 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     setHolders(tns);
   }
-
+  console.log(transfer, "<><>")
   React.useEffect(() => {
     (async () => {
       let token = 'XDC'
@@ -366,7 +385,7 @@ export default function TokenDataComponent() {
                   {/* <TitleIcon src={priceLogo} /> */}
                   <ValueName>
                     <Title>Transfer</Title>
-                    <TitleValue>685632</TitleValue>
+                    <TitleValue>{transfer.totalTransactionCount}</TitleValue>
                   </ValueName>
                 </Value>
                 <Value>
@@ -387,15 +406,16 @@ export default function TokenDataComponent() {
                   {/* <TitleIcon src={maxLogo} /> */}
                   <ValueName>
                     <Title>Website</Title>
-                    <ContractButton>www.usdc.com</ContractButton>
+                    <TitleValue>Not available</TitleValue>
+                    {/* <ContractButton>www.usdc.com</ContractButton> */}
                   </ValueName>
                 </Value>
                 <Value>
                   {/* <TitleIcon src={accountLogo} /> */}
                   <ValueName>
                     <Title>Social Media</Title>
-
-                    <Icons>
+                    <TitleValue>Not available</TitleValue>
+                    {/* <Icons>
                       <GrMail
                         style={{
                           color: "#a09e9e",
@@ -431,8 +451,8 @@ export default function TokenDataComponent() {
                           cursor: "pointer",
                           marginRight: "4px",
                         }}
-                      />
-                      {/* <AiOutlineTwitter
+                      /> */}
+                    {/* <AiOutlineTwitter
                         style={{
                           color: "#a09e9e",
                           cursor: "pointer",
@@ -446,7 +466,7 @@ export default function TokenDataComponent() {
                           marginRight: "4px",
                         }}
                       /> */}
-                    </Icons>
+                    {/* </Icons> */}
                   </ValueName>
                 </Value>
               </ValueMain>
