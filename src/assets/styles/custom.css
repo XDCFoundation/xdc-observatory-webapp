@@ -797,6 +797,7 @@ p {
   margin: -6px 6px 0px 0px;
   padding: 12px;
   border-radius: 4px;
+  cursor: pointer;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
@@ -874,6 +875,13 @@ p {
   letter-spacing: 0.45px;
   color: #252525;
 }
+.last-contract-disabled {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45px;
+  color: #252525;
+  cursor: text;
+}
 .first-contract {
   font-size: 10px;
   font-weight: 600;
@@ -898,6 +906,7 @@ p {
   margin: -6px 6px 0px 0px;
   padding: 12.5px;
   border-radius: 4px;
+  cursor: pointer;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
@@ -2125,6 +2134,34 @@ button {
   background-color: #ffffff;
 }
 
+.latest1 {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+  margin-top: 20px;
+}
+
+.latest1 h1 {
+  width: 40%;
+  font-family: Inter;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.7px;
+  color: #2a2a2a;
+}
+.latest1 button {
+  width: 70px;
+  height: 20px;
+  background-color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  color: #2149b9 !important;
+}
 .latest {
   display: flex;
   justify-content: space-between;
@@ -3187,6 +3224,7 @@ button {
   color: #939499;
   font-weight: bold;
   opacity: 0.5;
+  cursor: text;
 }
 .checkmark {
   position: absolute;

@@ -178,7 +178,7 @@ class LatestBlocks extends Component {
       <>
         <div className="block_main">
           <div className="latestblock">
-            <div className="latest">
+            <div className="latest1">
               <h1>Latest Blocks</h1>
               <a className="nav_button" href="/view-all-blocks">
                 View All

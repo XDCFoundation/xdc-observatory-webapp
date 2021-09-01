@@ -134,7 +134,6 @@ export default function StickyHeadTable() {
       if (rowsPerPage + page < totalToken) {
         let pageValue = rowsPerPage + page
         setPage(pageValue)
-
         let values = { addr: address, pageNum: page, perpage: rowsPerPage }
         transferDetail(values);
 
@@ -205,7 +204,7 @@ export default function StickyHeadTable() {
                     >
                       <TableCell id="td" style={{ border: "none" }}>
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.TxnHash}>
+                          <Tooltip placement="top" title={row.hash}>
                             <span className="tabledata">
                               {" "}
                               {shorten(row.hash)}{" "}
@@ -225,7 +224,7 @@ export default function StickyHeadTable() {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.From}>
+                          <Tooltip placement="top" title={row.from}>
                             <span className="tabledata">
                               {" "}
                               {shorten(row.from)}{" "}
@@ -236,7 +235,7 @@ export default function StickyHeadTable() {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.To}>
+                          <Tooltip placement="top" title={row.to}>
                             <span className="tabledata">
                               {" "}
                               {shorten(row.to)}{" "}
