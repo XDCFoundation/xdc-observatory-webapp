@@ -432,11 +432,8 @@ class Contractlist extends React.Component {
           >
 
             <div
-              className={
-                this.state.from == 0
-                  ? "firstbox-contract disabled"
-                  : "firstbox-contract"
-              }
+              className=
+              {this.state.from === 0 ? "firstbox-contract disabled" : "firstbox-contract"}
               onClick={() => this.handleChangePage("first")}
             >
               <button
@@ -447,7 +444,7 @@ class Contractlist extends React.Component {
               </button>
             </div>
             <div
-              className="previousbox-contract"
+              className={this.state.from === 0 ? "previousbox-contract disabled" : "previousbox-contract"}
               onClick={() => this.handleChangePage("prev")}
             >
               <p className="path-contract">
@@ -466,7 +463,7 @@ class Contractlist extends React.Component {
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
             </div>
-            <div className="nextbox-contract">
+            <div className={this.state.from + this.state.amount === this.state.totalRecord ? "nextbox-contract disabled" : "nextbox-contract"}>
               <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
@@ -475,7 +472,7 @@ class Contractlist extends React.Component {
               </p>
             </div>
             <div
-              className="lastbox-contract"
+              className={this.state.from + this.state.amount === this.state.totalRecord ? "lastbox-contract disabled" : "lastbox-contract"}
               onClick={() => this.handleChangePage("last")}
             >
               <button
