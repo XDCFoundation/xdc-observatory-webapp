@@ -82,9 +82,9 @@ async function getTotalTransferTransactionsForToken(data) {
         });
 }
 
-async function getListOfHoldersForToken(path, data) {
-    let url = process.env.REACT_APP_GET_LIST_OF_HOLDERS_FOR_TOKEN + path;
-    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
+async function getListOfHoldersForToken(data) {
+    let url = process.env.REACT_APP_GET_LIST_OF_HOLDERS_FOR_TOKEN + data.addr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;;
+    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
             response => {
                 if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
