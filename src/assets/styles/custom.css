@@ -600,7 +600,7 @@ p {
   margin: -8px 0px 0px 1px;
   outline-color: #ffffff;
   height: 50px;
-  width: 85%;
+  width: 83%;
   color: #000000 !important;
   border: 1px solid #cccccc;
   border-color: transparent;
@@ -959,11 +959,10 @@ p {
 }
 
 .select {
-  width: 110px;
   height: 40px;
-  padding-left: 4px;
+  padding-left: 1.7%;
   margin-top: -5px;
-  outline-color: #ffffff;
+  outline: none;
   border-color: transparent;
   border-left-color: #9fa9ba;
   font-size: 14px;
@@ -971,8 +970,19 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.2x;
+  letter-spacing: 0.4px;
   color: #2a2a2a;
+}
+.select select {
+  background: transparent;
+  -webkit-appearance: none;
+  width: 100px;
+  font-size: 14px !important;
+  border: 0;
+  height: 17px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .select-td {

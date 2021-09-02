@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -81,7 +81,7 @@ export default function SimpleTabs() {
     setToggleState(index);
   };
 
-  console.log(contractStatus.status, ">>>>")
+  console.log(props, ">>>>")
   return (
     <div>
 

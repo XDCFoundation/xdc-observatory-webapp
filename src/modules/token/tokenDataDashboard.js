@@ -221,6 +221,7 @@ export default function TokenDataComponent() {
   let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({})
+  const { address } = useParams();
   function shorten(b, amountL = 14, amountR = 0, stars = 3) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
@@ -239,33 +240,38 @@ export default function TokenDataComponent() {
       console.error(error);
     }
   }
+
+
+
+
   useEffect(() => {
-    listOfHolders();
-    transferDetail();
+    let values = { addr: address, pageNum: 0, perpage: 50 }
+    listOfHolders(values);
+    transferDetail(values);
   }, []);
   const [transfer, settransfer] = useState({});
 
 
-  const transferDetail = async () => {
-    let urlPath = `${address}`;
+  const transferDetail = async (values) => {
+
     let [error, tns] = await Utils.parseResponse(
-      TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+      TokenData.getTotalTransferTransactionsForToken(values)
     );
     if (error || !tns) return;
     settransfer(tns);
 
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
-        TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+        TokenData.getTotalTransferTransactionsForToken(values)
       );
       settransfer(tns);
     }, 90000);
   };
-  const { address } = useParams();
-  const listOfHolders = async () => {
+
+  const listOfHolders = async (values) => {
     let urlPath = `${address}`;
     let [error, tns] = await Utils.parseResponse(
-      TokenData.getListOfHoldersForToken(urlPath, {})
+      TokenData.getListOfHoldersForToken(values)
     );
     if (error || !tns) return;
     setHolders(tns);
