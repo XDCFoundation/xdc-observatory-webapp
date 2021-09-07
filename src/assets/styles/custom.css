@@ -2679,16 +2679,41 @@ button {
   letter-spacing: 00.6px;
 }
 .main_mid {
+  display: flex;
+  flex-direction: row;
   margin-top: 50px !important;
   border-radius: 12px;
   height: 90px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
-  display: flex;
-
-  width: 950px;
+  /* width: 950px; */
+  width: 100%;
   margin: 0 auto;
+  height: 150px;
+}
+@media (min-width: 0px) and (max-width:767px) {
+  .main_mid {
+    display: flex;
+  flex-direction: column;
+  
+  }
+}
+
+@media (min-width: 0px) and (max-width:767px) {
+  .main_child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+  }
+}
+@media (min-width: 768px) and (max-width:1440px) {
+  .main_child {
+    display: flex;
+    justify-content: space-between;
+  
+  }
 }
 .cont1 {
   display: flex;
@@ -2697,6 +2722,8 @@ button {
   text-align: center;
   padding: 8px 2px;
   width: 100%;
+  /* Updated */
+  margin-left: 70px;
 }
 .cont1 p {
   margin: 2px;
