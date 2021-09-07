@@ -422,7 +422,7 @@ export default function AddressTableComponent(props) {
                                             onChange={handleChanged}
                                             type="checkbox"
                                             name="allselect"
-                                            checked={address.filter((addr) => addr?.isChecked !== true).length <= 1}
+                                            checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
                                             style={{ marginRight: "8px" }}
                                         />
                                         <span className={"tableheaders"}>Txn Hash</span>

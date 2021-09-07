@@ -21,6 +21,7 @@ const toolTipElement = (props) => {
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
+        // colors={{ scheme: "yellow_orange_brown" }}
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
         yFormat=" >-.2f"
