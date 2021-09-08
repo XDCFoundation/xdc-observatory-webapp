@@ -57,8 +57,6 @@ input:focus {
   display: inline;
 }
 
-/*Cursor-CSS*/
-
 .cursor-pointer {
   cursor: pointer;
 }
@@ -245,6 +243,24 @@ input:focus {
     height: 18px;
     width: 18px;
   }
+  .xinfin_api_button {
+    font-size: 12px !important;
+    color: #ffffff;
+  }
+  .xinfin_account_button {
+    font-size: 12px !important;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  .inside-side-box {
+    margin-left: -26px !important;
+  }
+  .side-arrow-contract-tab {
+    margin-left: 48% !important;
+  }
+}
+.side-arrow-contract-tab {
+  margin-left: 50%;
 }
 
 .Shape2 {
@@ -1021,7 +1037,6 @@ p {
 
 .select {
   height: 40px;
-  padding-left: 5%;
   margin-top: -5px;
   outline: none;
   border-color: transparent;
@@ -1074,6 +1089,7 @@ p {
   font-size: 14px;
   color: #ffffff;
 }
+
 .xinfin_account_button {
   font-size: 14px;
   color: #ffffff;
@@ -3706,8 +3722,31 @@ button {
     font-size: 2rem;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .select {
+    width: 100%;
+    margin-top: -5px;
+    padding-left: 0%;
+    outline: none;
+    border-color: transparent;
+    border-left-color: #9fa9ba;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    color: #2a2a2a;
+  }
   .search-dashboard-select {
-    width: 17%;
+    width: "";
+  }
+  .exp-parent {
+    height: 330px;
+  }
+}
+@media (min-width: 1181px) {
+  .search-dashboard-select {
+    width: "";
   }
 }
