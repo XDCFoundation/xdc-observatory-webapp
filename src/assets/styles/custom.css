@@ -1620,6 +1620,11 @@ body {
   padding-left: 2.5px;
   padding-top: 0.9px;
 }
+@media (max-width: 1023px){
+  .days p{
+    margin-top: 0px;
+  }
+}
 
 .block {
   justify-content: space-between;
@@ -1665,7 +1670,15 @@ body {
   margin: -3px 27px 1px 0.5px;
   font-weight: 600;
   letter-spacing: 0.65px;
+
 }
+@media (max-width:1023px){
+  .tabs{
+    margin: 0px;
+    letter-spacing: 0.65px;
+  }
+}
+
 .tabs-data {
   padding-bottom: 7px;
   color: #b5bac7;
@@ -1981,7 +1994,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 76px;
+  width: 93%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -1999,6 +2012,12 @@ button {
   border: none;
   padding: 0 20px;
 }
+@media (max-width:1023px){
+  .container-graph-tab{
+    padding: 40px 0 0 0;
+    
+  }
+} 
 .active-tabs-token::before {
   content: "";
   font-weight: 600;

@@ -30,32 +30,33 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
     flex-direction: column;
     width: auto;
-    margin-left: 18%;
-    margin-right: 18%;
+    margin-left: 5%;
+    margin-right: 5%;
     height: 500px;
-    padding-left: 0px;
+    
+    padding-top: 0px;
   }
-  @media (max-width :767px){
+  @media (max-width :640px){
     flex-direction: column;
     width: auto;
     height: 500px;
     margin-right: 2%;
     margin-left: 2%;
+    
 
   }
 `;
-const LeftContainer = styled.div`
-  flex: 0.53;
+const MobileScreen=styled.div`
+@media (min-width:640px){
   display: flex;
-  flex-direction: column;
-`;
-const RightContainer = styled.div`
-  flex: 0.47;
-  display: flex;
-  margin-left: 12px;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
 `;
 const LeftFirst = styled.div`
   flex: 0.3;
@@ -64,15 +65,33 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   font-size: 2px;
   align-items: center;
-  @media (max-width:1024px){
+  @media (max-width:1023px){
     padding-left: 10px;
     padding-right: 10px;
   }
 `;
+const LeftContainer = styled.div`
+  flex: 0.53;
+  display: flex;
+  flex-direction: column;
+  
+`;
+const RightContainer = styled.div`
+  flex: 0.47;
+  display: flex;
+  margin-left: 12px;
+  @media (max-width:1023px){
+    margin-left: 0px
+  }
+`;
+
 const LeftSec = styled.div`
   flex: 0.7;
   padding-left: 2px;
   margin-bottom: 2px;
+  @media (max-width:1023px){
+    padding-top: 20px;
+  }
 `;
 const ValueMain = styled.div`
   display: flex;
@@ -145,11 +164,10 @@ const Line1 = styled.hr`
   position: absolute;
   top: 55%;
   left: 1%;
-  @media (max-width:1024px){
-    width:96%
-    
-
-  }
+  @media (max-width:1023px){
+    width:96%;
+    top: 65%;
+    }
 `;
 const LeftTopSec = styled.div`
   font-size: 18px;
@@ -164,15 +182,7 @@ const LeftTopSecMain = styled.div`
   flex-direction: column;
   text-align: center;
 `;
-const MobileScreen=styled.div`
-@media (min-width:768px){
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-`;
+
 
 class BlockChainDataComponent extends Component {
   constructor(props) {
