@@ -73,10 +73,19 @@ const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
-    overflow: "hidden",
+    overflow: "auto",
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+    '&::-webkit-scrollbar-track': {
+      display: 'none'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      display: 'none'
+    }
   },
   content: {
     flexGrow: 1,
@@ -93,10 +102,21 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 0,
   },
 
-  list: {
-    width: 250,
-    backgroundColor: "#102e84",
-    height: "100%",
+  "@media (min-width: 640px) ": {
+    list: {
+      width: 250,
+      backgroundColor: "#102e84",
+      height: "100%",
+    },
+  },
+
+  "@media (min-width: 0px) and (max-width: 640px)": {
+    list: {
+      width: 180,
+      backgroundColor: "#102e84",
+      height: "100%",
+
+    },
   },
   fullList: {
     width: "auto",
@@ -183,8 +203,8 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <p
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+        <div
           style={{
             color: "#4666c4",
             fontSize: 13,
@@ -194,8 +214,8 @@ export default function Navbar() {
           }}
         >
           Browse
-        </p>
-        <div style={{ marginLeft: 120 }} className={classes.drawerHeader}>
+        </div>
+        <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
             onClick={toggleDrawer(anchor, false)}
@@ -221,7 +241,7 @@ export default function Navbar() {
           >
             {" "}
             Contracts{" "}
-            <span style={{ marginLeft: "50%" }}>
+            <span className="side-arrow-contract-tab">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </p>
@@ -269,7 +289,7 @@ export default function Navbar() {
 
   const contracts = (subanchor) => (
     <div
-      style={{ overflow: "revert" }}
+      // style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
