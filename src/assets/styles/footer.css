@@ -327,3 +327,16 @@ a:hover {
    letter-spacing: 0.54px;
    color: #81b4ff; */
 }
+
+@media (max-width:640px){
+  .xdc-desc{
+    width:50%
+  }
+  
+.button-Padding-Mobile{
+  
+  padding-top: 35px;
+  padding-right: 15px;
+}
+}
+
