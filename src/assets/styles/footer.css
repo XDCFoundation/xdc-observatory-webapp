@@ -17,6 +17,13 @@ label {
   padding-right: 7%;
   padding-left: 7%;
 }
+@media(max-width:1023px){
+  .footer_base{
+    
+    padding: 0px;
+  }
+}
+
 
 .footer {
   padding-left: 10px;
@@ -32,6 +39,24 @@ label {
   padding-right: 9%;
 }
 
+@media (max-width:1023px){
+  .footer-line{
+    padding: 3%;
+    padding: 3%;
+  }
+
+}
+
+.for-button {
+  
+}
+
+@media (max-width:640px){
+  .for-button{
+    display: flex;
+  }
+
+}
 .twitter {
   font-size: 0px !important;
   width: 100%;
@@ -213,6 +238,11 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
+@media(max-width:1023px){
+  .Top-Header{
+ margin-top: 24px;
+ }
+}
 
 /* .Table-Header {
     margin-top: -15px;
@@ -236,6 +266,13 @@ a:hover {
   line-height: normal;
   letter-spacing: 0.54px;
   color: #ffffff;
+}
+
+@media (max-width:1023px){
+  .XDC-Header{
+    margin-left: 15%;
+
+  }
 }
 /* .MuiMenu-list {
   outline: 0;

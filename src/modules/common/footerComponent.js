@@ -27,15 +27,30 @@ export default function FooterComponent(props) {
   };
   //const currencyState = useSelector((state)=>state.activeCurrency)
  
+  const BlankSpaceDiv=styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    @media (min-width:1024px){
+        width: 40%;
+        display: contents;
+    }
+  `;
+  
+  
   const FirstCloumn = styled.div`
+    display: flex;
+    /* flex-direction: column; */
+    width: 20%;
     
-    @media (max-width:640px){
+    @media(min-width:0px) and (max-width:640px){
         display: flex;
         flex-direction: row;
         width: 100%;
     
     }
-    @media (max-width: 1023px) {
+    @media(min-width:641px) and (max-width: 1023px) {
       display: flex;
       flex-direction:column;
       width: 33%;
@@ -44,30 +59,41 @@ export default function FooterComponent(props) {
   `;
   const SecondCloumn = styled.div`
     
-    @media (max-width:640px){
+    /* width: 100%; */
+    display: flex;
+    /* flex-direction: column; */
+    width: auto;
+    @media(min-width:0px) and (max-width:640px){
         display: flex;
         flex-direction: row;
         width: 100%;
         
     }
-    @media (max-width: 1023px) {
+    @media(min-width:641px) and (max-width: 1023px) {
       display: flex;
       flex-direction: row;
-      width: 66%;     
+      width: 66%;  
+      padding-top   : 40px ;
     }
     
   `;
   const ThirdCloumn = styled.div`
+    display: flex;
+    width: 40%;
     
-    @media (max-width:640px){
+    
+    /* width: 100%; */
+    @media(min-width:0px) and (max-width:640px){
         display: flex;
         flex-direction: row;
         width: 100%;
     }
-    @media (max-width: 1023px) {
+    @media(min-width:641px) and (max-width: 1023px) {
       display: flex;
       flex-direction:row;
-      width: 100%;
+      width: 66%;
+      
+      
     }
     
   `;
@@ -77,7 +103,9 @@ export default function FooterComponent(props) {
     <div className={"footer_base"}>
       <Grid className="footer" container alignContent="center" justify="center">
         <FirstCloumn>
-          <Grid alignContent="center" item xs={12} md={3} lg={2}>
+          <Grid alignContent="center" item xs={12} style={{margin:"7px"}} >
+            <div className="for-button">
+                <div>
             <div className="Top-Header">
               <img
                 style={{ width: 24, height: 24 }}
@@ -90,6 +118,7 @@ export default function FooterComponent(props) {
               XinFinScan is a Block Explorer and Analytics Platform for XDC, a
               decentralized smart contracts platform.
             </p>
+            </div>
             <div>
               <Select
                 style={{
@@ -175,11 +204,12 @@ export default function FooterComponent(props) {
                             <option>inr</option>
                         </select> */}
             </div>
+          </div>
           </Grid>
         </FirstCloumn>
 
         <SecondCloumn>
-          <Grid alignContent="center" item xs={12} md={3} lg={2}>
+          <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
             <div className="Table-Header">
               Community
               <hr style={{ marginRight: "20px" }}></hr>
@@ -228,7 +258,7 @@ export default function FooterComponent(props) {
             </div>
           </Grid>
 
-          <Grid justify="left" item xs={12} md={3} lg={2}>
+          <Grid justify="left" item xs={12} style={{margin:"7px"}}>
             <div className="Table-Header">
               Other Links
               <hr style={{ marginRight: "20px" }}></hr>
@@ -279,9 +309,11 @@ export default function FooterComponent(props) {
           </Grid>
         </SecondCloumn>
 
+        <BlankSpaceDiv>
+            <div></div>
         <ThirdCloumn>
 
-        <Grid alignContent="center" item xs={12} md={3} lg={2}>
+        <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
           <div className="Table-Header">
             Follow Us
             <hr style={{ marginRight: "20px" }}></hr>
@@ -355,7 +387,8 @@ export default function FooterComponent(props) {
             </li>
           </ul>
         </Grid>
-        <Grid alignContent="center" item xs={12} md={6} lg={2}>
+        
+        <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
           <div className="Table-Header">
             Twitter
             <hr style={{ marginRight: "2px" }}></hr>
@@ -370,7 +403,9 @@ export default function FooterComponent(props) {
             ></a>
           </div>
         </Grid>
+        
         </ThirdCloumn>
+        </BlankSpaceDiv>
       </Grid>
 
       <div className="footer-line">
