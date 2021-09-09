@@ -50,6 +50,7 @@ const MainContainer = styled.div`
   }
 `;
 const MobileScreen=styled.div`
+margin-right: 3px;
 @media (min-width:640px){
   display: flex;
   justify-content: space-between;
@@ -145,7 +146,7 @@ const IconLogo = styled.img`
   width: 52%;
   height: 52%;
   margin-right: 12px;
-  margin-left: 5px;
+  
 `;
 const LeftTitle = styled.div`
   margin-top: 3px;
@@ -181,6 +182,7 @@ const LeftTopSecMain = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-right: 5px;
 `;
 
 
