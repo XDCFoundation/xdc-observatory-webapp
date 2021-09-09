@@ -119,7 +119,7 @@ export default function FooterComponent(props) {
               decentralized smart contracts platform.
             </p>
             </div>
-            <div>
+            <div className ="button-Padding-Mobile">
               <Select
                 style={{
                   outline: "0",
