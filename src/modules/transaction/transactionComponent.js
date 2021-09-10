@@ -91,7 +91,7 @@ export default function TransactionComponent(props) {
     const { state } = props
     return (
         
-        <Grid  className="tableresponsive">
+        <Grid className="tableresponsive">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             
             <Paper  style={{ borderRadius: '14px' }} elevation={0}>
@@ -101,13 +101,13 @@ export default function TransactionComponent(props) {
                     <Table >
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Amount</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>From</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>To</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell>
+                                <TableCell className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Amount</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Age</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Block</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>From</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>To</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Txn Fee</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -124,12 +124,12 @@ export default function TransactionComponent(props) {
                                     ;
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                        <TableCell style={{ border: "none", width: "190px" }} >
+                                        <TableCell  style={{ border: "none", width: "190px" }} >
                                             <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "3px" }} /></Tooltip>
                                             <a className="linkTable" href={"/transaction-details/" + row.hash}> <span className={animationClass ? animationClass : "tabledata"}> {shorten(row.hash)}</span> </a>
                                         </TableCell>
                                         <TableCell style={{ border: "none", width: "100px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{amt >= 0.0001 ? amt : 0}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "120px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "s0px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti}</span></TableCell>
                                         <TableCell style={{ border: "none", width: "120px" }} align="left"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className={animationClass ? animationClass : "tabledata"}> {row.blockNumber}</span> </a></TableCell>
                                         <TableCell style={{ border: "none", width: "160px" }} align="left"> <a className="linkTable" href={"/address-details/" + row.from}><Tooltip placement="top" title={row.from}><span className={animationClass ? animationClass : "tabledata"}>{shorten(row.from)}</span></Tooltip></a></TableCell>
                                         <TableCell style={{ border: "none", width: "155px" }} align="left"> <a className="linkTable" href={"/address-details/" + row.to}><Tooltip placement="top" title={row.to}><span className={animationClass ? animationClass : "tabledata"}>{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
