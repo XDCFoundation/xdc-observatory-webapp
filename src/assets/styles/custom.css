@@ -1424,11 +1424,60 @@ p {
   background-color: #ffffff;
 }
 
+@media  (min-width:1024px) {
+  .tab-search{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+   }
+   .search-responsive{
+     display: flex;
+   }
+   
+  }
+
 @media (max-width: 767px) {
   .centerbox {
     display: none;
   }
 }
+@media  (max-width:1023px) {
+.tab-search{
+  display: block;
+  margin-top: 15px;
+  width: 100%;
+}
+.makeStyles-appBar-5{
+  height: 130px !important;
+}
+.centerbox-td {
+  width: 100%;
+  height: 35px;
+  margin-right: -20px;
+  margin-top: 30px;
+  margin-left: 45px;
+}
+.select-td{
+  margin-left: 180px;
+}
+.Shape2{
+  margin-top: -45px;
+  margin-left: -15px !important;
+}
+.MuiIconButton-colorInherit{
+  margin-top: -45px !important;
+  margin-left: -5px !important;
+}
+.MuiAppBar-positionFixed{
+  position: unset !important;
+}
+.search-responsive{
+  display: flex;
+  justify-content: space-between;
+  width: 80vw;
+}
+}
+
 
 /* .main-input{
       display: none;
