@@ -574,6 +574,8 @@ export default function Navbar() {
         
          <div className="tab-search">
           <Typography className="Header">
+            <div className="mobile-navbartab">
+              <div className="mobile-navbartab1">
             <a href={"/"}>
               <img
                 className="Shape"
@@ -584,7 +586,8 @@ export default function Navbar() {
               {" "}
               XDC{" "}
             </a>
-
+            </div>
+<div>
             <div>
               <NavLink
                 exact
@@ -604,6 +607,8 @@ export default function Navbar() {
               >
                 Tokens
               </NavLink>
+              </div>
+            </div>
             </div>
           </Typography>
           <div className="centerbox-td">
