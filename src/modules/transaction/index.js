@@ -25,7 +25,7 @@ export default class LatestTransactionList extends BaseComponent {
         this.props.socket.off("block-socket");
     }
     async componentDidMount() {
-        // console.log(this.props.socketTrans, "<<<<<PPPP")
+
 
         await this.getListOfTransactions()
         await this.getTotalTransaction()

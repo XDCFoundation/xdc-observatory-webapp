@@ -99,6 +99,7 @@ export default function AddressTableComponent(props) {
     const dummyData = [
 
         {
+            id: '1',
             TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
             Age: '1 hrs ago',
             Block: '22,650,452',
@@ -107,6 +108,7 @@ export default function AddressTableComponent(props) {
             Amount: '0 XDC'
         },
         {
+            id: '2',
             TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
             Age: '1 hrs ago',
             Block: '22,650,452',
@@ -115,6 +117,7 @@ export default function AddressTableComponent(props) {
             Amount: '0 XDC'
         },
         {
+            id: '3',
             TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
             Age: '1 hrs ago', Block: '22,650,452',
             From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
@@ -122,6 +125,7 @@ export default function AddressTableComponent(props) {
             Amount: '0 XDC'
         },
         {
+            id: '4',
             TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
             Age: '1 hrs ago', Block: '22,650,452',
             From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
@@ -129,6 +133,7 @@ export default function AddressTableComponent(props) {
             Amount: '0 XDC'
         },
         {
+            id: '5',
             TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
             Age: '1 hrs ago', Block: '22,650,452',
             From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
@@ -136,6 +141,7 @@ export default function AddressTableComponent(props) {
             Amount: '0 XDC'
         },
         {
+            id: '6',
             TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
             Age: '1 hrs ago', Block: '22,650,452',
             From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
@@ -268,12 +274,55 @@ export default function AddressTableComponent(props) {
     }
     useEffect(() => {
         //let address =props.trans
-        datas = {
-            pageNum: page,
-            perpage: rowsPerPage,
-            addrr: addr
-        }
-        getAddressDetails(datas);
+        // datas = {
+        //     pageNum: page,
+        //     perpage: rowsPerPage,
+        //     addrr: addr
+        // }
+
+        setAddress(
+            dummyData.map((d) => {
+
+
+                return {
+                    id: d.id,
+                    TxHash: d.TxHash,
+                    Age: d.Age,
+                    Block: d.Block,
+                    From: d.From,
+                    To: d.To,
+                    Amount: d.Amount
+                };
+            })
+        );
+
+        console.log(address, "<>")
+
+        setReportaddress(
+            dummyData.map((d) => {
+
+                return {
+
+                    TxHash: d.TxHash,
+                    Age: d.Age,
+                    From: d.From,
+                    To: d.To,
+                    Amount: d.Amount
+                };
+            })
+        );
+        setDownloadaddress(address.map((d) => {
+            return {
+                id: d.id,
+                TxHash: d.TxHash,
+                Age: d.Age,
+                Block: d.Block,
+                From: d.From,
+                To: d.To,
+                Amount: d.Amount
+            };
+        }))
+        // getAddressDetails(datas);
     }, []);
 
     const getTransactionSearch = async (data) => {
@@ -306,44 +355,44 @@ export default function AddressTableComponent(props) {
             setTotalRecord(Recdata.total)
         }
 
-        setAddress(
-            trxn.map((d) => {
+        // setAddress(
+        //     trxn.map((d) => {
 
-                return {
-                    Txn_Hash: d.hash,
-                    Age: d.timestamp,
-                    Block: d.blockNumber,
-                    From: d.from,
-                    To: d.to,
-                    Value: d.value,
-                    id: d._id,
-                };
-            })
-        );
+        //         return {
+        //             Txn_Hash: d.hash,
+        //             Age: d.timestamp,
+        //             Block: d.blockNumber,
+        //             From: d.from,
+        //             To: d.to,
+        //             Value: d.value,
+        //             id: d._id,
+        //         };
+        //     })
+        // );
 
-        setReportaddress(
-            trxn.map((d) => {
+        // setReportaddress(
+        //     trxn.map((d) => {
 
-                return {
-                    Txn_Hash: d.hash,
-                    Age: d.timestamp,
-                    Block: d.blockNumber,
-                    From: d.from,
-                    To: d.to,
-                    Value: (d.value / 1000000000000000000)
-                };
-            })
-        );
-        setDownloadaddress(trxn.map((d) => {
-            return {
-                Txn_Hash: d.hash,
-                Date: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
-                Block: d.blockNumber,
-                From: d.from,
-                To: d.to,
-                Value: (d.value / 1000000000000000000)
-            };
-        }))
+        //         return {
+        //             Txn_Hash: d.hash,
+        //             Age: d.timestamp,
+        //             Block: d.blockNumber,
+        //             From: d.from,
+        //             To: d.to,
+        //             Value: (d.value / 1000000000000000000)
+        //         };
+        //     })
+        // );
+        // setDownloadaddress(trxn.map((d) => {
+        //     return {
+        //         Txn_Hash: d.hash,
+        //         Age: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
+        //         Block: d.blockNumber,
+        //         From: d.from,
+        //         To: d.to,
+        //         Value: (d.value / 1000000000000000000)
+        //     };
+        // }))
     }
     const handleKeyUp = (event) => {
         let searchkeyword = event.target.value
@@ -372,9 +421,10 @@ export default function AddressTableComponent(props) {
     const handleChanged = (event) => {
         const { name, checked } = event.target;
         if (name === 'allselect') {
-            let tempAddress = dummyData.map((addr) => {
+            let tempAddress = address.map((addr) => {
                 return { ...addr, isChecked: checked }
             });
+            // console.log(tempAddress, "<<")
             setAddress(tempAddress)
             let tempAddr = tempAddress.filter((addr) => {
                 if (addr.isChecked === true) {
@@ -389,22 +439,24 @@ export default function AddressTableComponent(props) {
 
             setDownloadaddress(tempAddress.map((d) => {
                 return {
-                    Txn_Hash: d.Txn_Hash,
-                    Date: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
-                    Block: d.Block,
+                    TxHash: d.TxHash,
+                    Age: d.Age,
                     From: d.From,
                     To: d.To,
-                    Value: (d.Value / 1000000000000000000)
+                    Amount: d.Amount
                 };
             }))
         } else {
+            // alert("hiiii")
             let tempAddress = address.map((addr) => addr.id === name ? { ...addr, isChecked: checked } : addr);
+            console.log(tempAddress, ">>>>")
             setAddress(tempAddress)
             let tempAddr = tempAddress.filter((addr) => {
                 if (addr.isChecked === true) {
                     return addr
                 }
             })
+
             //
             if (tempAddr.length > 0) {
                 setDownloadActive(1)
@@ -413,12 +465,11 @@ export default function AddressTableComponent(props) {
             }
             setDownloadaddress(tempAddr.map((d) => {
                 return {
-                    Txn_Hash: d.Txn_Hash,
-                    Date: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
-                    Block: d.Block,
+                    TxHash: d.TxHash,
+                    Age: d.Age,  //moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss')
                     From: d.From,
                     To: d.To,
-                    Value: (d.Value / 1000000000000000000)
+                    Amount: d.Amount
                 };
             }))
         }
@@ -472,7 +523,7 @@ export default function AddressTableComponent(props) {
                                             onChange={handleChanged}
                                             type="checkbox"
                                             name="allselect"
-                                            checked={address.filter((addr) => addr?.isChecked !== true).length <= 1}
+                                            checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
                                             style={{ marginRight: "8px" }}
                                         />
                                         <span className={"tableheaders"}>Txn Hash</span>
@@ -512,7 +563,7 @@ export default function AddressTableComponent(props) {
                             </TableHead>
                             {noData == false &&
                                 <TableBody >
-                                    {dummyData.map((row, index) => {
+                                    {address.map((row, index) => {
                                         const currentTime = new Date();
                                         const previousTime = new Date(row.Age * 1000);
                                         const TimeAge = timeDiff(currentTime, previousTime);

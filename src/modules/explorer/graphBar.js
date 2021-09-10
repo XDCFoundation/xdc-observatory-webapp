@@ -6,7 +6,7 @@ import { TransactionService } from '../../services'
 import Utils from '../../utility'
 
 const toolTipElement = (props) => {
-    console.log(props.point?.data?.x, "<<prop")
+    console.log(props, "<<prop")
     console.log(props, "<<")
     return (
         <div>
@@ -21,6 +21,7 @@ const toolTipElement = (props) => {
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
+        // colors={{ scheme: "yellow_orange_brown" }}
         xScale={{ type: 'point' }}
         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
         yFormat=" >-.2f"

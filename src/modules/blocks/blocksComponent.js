@@ -117,7 +117,7 @@ export default function BlocksComponent(props) {
                     </Table>
                 </TableContainer>
             </Paper>
-            <Grid container style={{ marginTop: "15px" }}>
+            <Grid container style={{ marginTop: "15px", display: "flex", justifyContent: "space-between" }}>
                 <Grid item xs="3">
                     <span className="text">Show</span>
                     <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
@@ -129,7 +129,7 @@ export default function BlocksComponent(props) {
                     <span className="text">Records</span>
                 </Grid>
                 <Grid xs="5" />
-                <Grid item xs="4">
+                <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
                     <button style={{ marginLeft: "-40px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                     <button className="btn">Page {Math.round(state.totalblocks / state.amount) + 1 - Math.round((state.totalblocks - state.from) / state.amount)} of {Math.round(state.totalblocks / state.amount)}</button>

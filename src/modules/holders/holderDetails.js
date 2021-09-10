@@ -248,8 +248,6 @@ export default function HoldersDetails(props) {
             >
 
               <AddressTableComponent
-                trans={transactions}
-                coinadd={addr}
               />
 
 

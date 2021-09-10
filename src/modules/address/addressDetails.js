@@ -151,7 +151,7 @@ export default function AddressDetails(props) {
                           class="fa fa-clone" aria-hidden="true"></i></button>
                       </Tooltip>
                     </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer" }} />} modal>
+                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer", color: "#2149b9" }} />} modal>
                       {(close) => (
                         <div className="popup_qr">
                           <p>
