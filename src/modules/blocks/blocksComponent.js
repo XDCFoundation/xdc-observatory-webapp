@@ -71,7 +71,7 @@ export default function BlocksComponent(props) {
     const { state } = props
     const classes = useStyles();
     return (
-        <Grid lg={7} className="tablegrid2">
+        <Grid  className="table_1">
             <Grid class="tabletop-header">{state.tableName}</Grid>
             <Paper style={{ borderRadius: '14px' }} elevation={0}>
                 <TableContainer className={classes.container} id="container-table">
@@ -99,15 +99,15 @@ export default function BlocksComponent(props) {
                                     ;
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                        <TableCell style={{ border: "none", width: "190px" }} margin-left="5px" >
+                                        <TableCell style={{ border: "none", width: "23%" }} margin-left="5px" >
                                             <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "7px" }} /></Tooltip>
 
                                             <span className={animationClass ? animationClass : "tabledata"}>{shorten(row.hash)}  </span>
                                         </TableCell>
-                                        <TableCell style={{ border: "none", width: "115px" }} align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className={animationClass ? animationClass : "tabledata"}>{row.number}</span></a></TableCell>
-                                        <TableCell style={{ border: "none", width: "115px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "135px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}> {row.transactions.length}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "115px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{(row.difficulty)}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "17%" }} align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className={animationClass ? animationClass : "tabledata"}>{row.number}</span></a></TableCell>
+                                        <TableCell style={{ border: "none", width: "21%" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "16%" }} align="left"><span className={animationClass ? animationClass : "tabledata"}> {row.transactions.length}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "15%" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{(row.difficulty)}</span></TableCell>
                                         <TableCell style={{ border: "none" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{row.gasUsed}</span></TableCell>
                                         {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                                     </TableRow>
