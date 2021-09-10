@@ -29,6 +29,14 @@
   margin: auto;
   width: 990px;
 }
+
+.tableresponsive {
+  padding-top: 50px;
+  margin-top: 50px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: auto;
+}
 .tablegrid2 {
   padding-top: 8%;
   margin: auto;
@@ -121,7 +129,7 @@
 .btn {
   font-family: Inter;
 
-  font-size: 10px;
+  font-size: 9px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

@@ -13,6 +13,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
+import styled from "styled-components";
 
 
 function timeDiff(curr, prev) {
@@ -46,6 +47,7 @@ function timeDiff(curr, prev) {
         return Math.abs(Math.round(diff / ms_Yr)) + ' years ago';
     }
 }
+
 const useStyles = makeStyles({
     container: {
 
@@ -56,6 +58,19 @@ const useStyles = makeStyles({
     },
 
 });
+const Pagination =styled.div`
+
+
+
+@media (min-width:640px){
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+`;
+
+
 export default function TransactionComponent(props) {
     const classes = useStyles();
 
@@ -75,21 +90,24 @@ export default function TransactionComponent(props) {
     }
     const { state } = props
     return (
-        <Grid lg={9} className="tablegrid_trans">
+        
+        <Grid  className="tableresponsive">
             <Grid class="tabletop-header">{state.tableName}</Grid>
-            <Paper style={{ borderRadius: '14px' }} elevation={0}>
-                <TableContainer className={classes.container} id="container-table">
+            
+            <Paper  style={{ borderRadius: '14px' }} elevation={0}>
+                
+                <TableContainer  style={{height:304,borderRadius: 7}}  className={classes.container} id="container-table">
 
                     <Table >
                         <TableHead>
                             <TableRow>
                                 <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Amount</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>From</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>To</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Amount</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>From</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>To</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "1.5%"  }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -123,8 +141,10 @@ export default function TransactionComponent(props) {
                     </Table>
                 </TableContainer>
             </Paper>
+            
             <Grid container style={{ marginTop: "15px" }}>
-                <Grid item xs="3">
+            <Pagination>
+                <Grid style={{ height: "25px" , display: "flex"}}>
                     <span className="text">Show</span>
                     <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
                         <MenuItem value={10}>10</MenuItem>
@@ -134,17 +154,19 @@ export default function TransactionComponent(props) {
                     </Select>
                     <span className="text">Records</span>
                 </Grid>
-                <Grid xs="5"></Grid>
+                
 
-                <Grid item xs="4">
-                    <button style={{ marginLeft: "35px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
+                <Grid >
+                    <button onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                     <button className="btn">Page {Math.round(state.totalTransaction / state.amount) + 1 - Math.round((state.totalTransaction - state.from) / state.amount)} of {Math.round(state.totalTransaction / state.amount)}</button>
                     <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>{">"}</button>
                     <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>Last</button>
 
                 </Grid>
+                </Pagination>
             </Grid>
         </Grid >
+        
     )
 }
