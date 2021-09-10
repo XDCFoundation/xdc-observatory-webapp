@@ -37,6 +37,25 @@
   margin-right: 5%;
   width: auto;
 }
+.table-head-hash {
+  
+  margin-right: 5%;
+  border: none;
+  padding-left: 4%;
+  /* width: 50%; */
+}
+
+.table-head-all {
+  border: none;
+  padding-left: 1.5%;
+}
+
+.table-row-latest-transaction{
+  border: none;
+  width: 100px 
+}
+
+
 .tablegrid2 {
   padding-top: 8%;
   margin: auto;
@@ -54,6 +73,48 @@
   color: #252525;
   opacity: 0.8;
 }
+.tableheaders-hash {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 115px;
+}
+@media(max-width:640px){
+.tableheaders-hash {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 115px;
+}
+.tableheaders-all {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 40px;
+}
+}
+
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
