@@ -2159,7 +2159,6 @@ button {
 
   }
 } */
-
 .latest2 {
   display: flex;
   justify-content: space-between;
@@ -2644,7 +2643,6 @@ button {
 @media(max-width:640px){
   .main_val p:nth-child(2) {
         width:235px;
-   
   }
 }
 
