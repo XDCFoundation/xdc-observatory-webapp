@@ -4,6 +4,7 @@ import '../../assets/styles/custom.css';
 import moment from "moment";
 import { AccountService } from '../../services'
 import Utils from '../../utility'
+import styled from "styled-components";
 
 const toolTipElement = (props) => {
     return (
@@ -87,6 +88,10 @@ const MyResponsiveLine = ({ data }) => (
 
     />
 )
+const GraphSize =styled.div`
+height: 115px;
+width: auto;
+`
 
 export default function App() {
 
@@ -145,13 +150,15 @@ export default function App() {
     const atIndex2 = value2?.indexOf("");
     let lastDate = value2?.slice(atIndex2, colonIndex2);
     return (
-        <div style={{ height: 122, width: 370 }}>
+        <GraphSize >
+       
             <MyResponsiveLine data={data} />
             <div className="dates">
                 <p>{firstDate}</p>
                 <p>{lastDate}</p>
             </div>
-        </div>
+        
+        </GraphSize>
     );
 }
 

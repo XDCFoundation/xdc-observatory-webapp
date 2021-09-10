@@ -18,29 +18,46 @@ import {
 } from "../../services";
 import Utils from "../../utility";
 
-
 const MainContainer = styled.div`
   width: 950px;
   height: 200px;
   margin: 0 auto;
   margin-top: 50px;
-  padding-top:20px;
-  padding-left:15px
+  padding-top: 20px;
+  padding-left: 15px;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    width: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 500px;
+    
+    padding-top: 0px;
+  }
+  @media (max-width :640px){
+    flex-direction: column;
+    width: auto;
+    height: 500px;
+    margin-right: 2%;
+    margin-left: 2%;
+    
+
+  }
 `;
-const LeftContainer = styled.div`
-  flex: 0.53;
+const MobileScreen=styled.div`
+margin-right: 3px;
+@media (min-width:640px){
   display: flex;
-  flex-direction: column;
-`;
-const RightContainer = styled.div`
-  flex: 0.47;
-  display: flex;
-  margin-left: 12px;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
 `;
 const LeftFirst = styled.div`
   flex: 0.3;
@@ -48,12 +65,34 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 2px;
-  align-item: center;
+  align-items: center;
+  @media (max-width:1023px){
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
+const LeftContainer = styled.div`
+  flex: 0.53;
+  display: flex;
+  flex-direction: column;
+  
+`;
+const RightContainer = styled.div`
+  flex: 0.47;
+  display: flex;
+  margin-left: 12px;
+  @media (max-width:1023px){
+    margin-left: 0px
+  }
+`;
+
 const LeftSec = styled.div`
   flex: 0.7;
   padding-left: 2px;
   margin-bottom: 2px;
+  @media (max-width:1023px){
+    padding-top: 20px;
+  }
 `;
 const ValueMain = styled.div`
   display: flex;
@@ -75,7 +114,7 @@ const TitleIcon = styled.img`
 const ValueName = styled.div`
   display: flex;
   flex-direction: column;
-  align-item: flex-end;
+  align-items: flex-flex-start;
   // margin-left: 2px;
 `;
 const Title = styled.div`
@@ -99,15 +138,15 @@ const TitleValue = styled.div`
 `;
 const LeftTop = styled.div`
   display: flex;
-  align-item: center;
+  align-items: center;
   text-align: center;
   justify-content: center;
 `;
 const IconLogo = styled.img`
-  width:52%;
-  height:52%
+  width: 52%;
+  height: 52%;
   margin-right: 12px;
-  margin-left:5px;
+  
 `;
 const LeftTitle = styled.div`
   margin-top: 3px;
@@ -121,11 +160,15 @@ const LeftTitle = styled.div`
   color: #252525;
 `;
 const Line1 = styled.hr`
-  backgroundcolor: #fff;
+  background-color: #fff;
   width: 478px;
   position: absolute;
   top: 55%;
   left: 1%;
+  @media (max-width:1023px){
+    width:96%;
+    top: 65%;
+    }
 `;
 const LeftTopSec = styled.div`
   font-size: 18px;
@@ -139,7 +182,9 @@ const LeftTopSecMain = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-right: 5px;
 `;
+
 
 class BlockChainDataComponent extends Component {
   constructor(props) {
@@ -150,15 +195,16 @@ class BlockChainDataComponent extends Component {
       someDayAccount: [],
       coinMarketPrice: [],
       tpsCounts: {
-        totalTransactions: 0
+        totalTransactions: 0,
       },
       Maxtps: 0,
       blockdataNumber: [],
       transactionDataDetails: [],
       blockSocketConnected: false,
       transactionSocketConnected: false,
-      animationBlock: {}, animationTransaction: {}, gasPrice: 0
-
+      animationBlock: {},
+      animationTransaction: {},
+      gasPrice: 0,
     };
   }
   componentWillUnmount() {
@@ -174,7 +220,6 @@ class BlockChainDataComponent extends Component {
     await this.tpsCountDetail();
     await this.CountMaxtps();
 
-
     this.socketData(this.props.socket);
   }
 
@@ -182,14 +227,13 @@ class BlockChainDataComponent extends Component {
     if (prevProps.currency !== this.props.currency) {
       this.coinMarketCapDetails();
     }
-
   }
 
   socketData(socket) {
     let blocks = this.state.blockdataNumber;
     let transactions = this.state.transactionDataDetails;
     socket.on("block-socket", (blockData, error) => {
-      this.setState({ blockSocketConnected: true })
+      this.setState({ blockSocketConnected: true });
       let blockDataExist = blocks.findIndex((item) => {
         return item.number == blockData.number;
       });
@@ -197,11 +241,13 @@ class BlockChainDataComponent extends Component {
       if (blockDataExist == -1) {
         blocks.pop();
         blocks.unshift(blockData);
-        let blockAnimationClass = { [blockData.number]: "block-height-animation" };
+        let blockAnimationClass = {
+          [blockData.number]: "block-height-animation",
+        };
         this.setState({ animationBlock: blockAnimationClass });
         setTimeout(() => {
-          this.setState({ animationBlock: {} })
-        }, 500)
+          this.setState({ animationBlock: {} });
+        }, 500);
 
         this.setState({ blockdataNumber: blocks });
 
@@ -211,23 +257,29 @@ class BlockChainDataComponent extends Component {
       }
     });
     socket.on("transaction-socket", (transactionData, error) => {
-      this.setState({ transactionSocketConnected: true })
+      this.setState({ transactionSocketConnected: true });
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash == transactionData.hash;
       });
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        let blockAnimationClass = { [transactionData.hash]: "block-height-animation" };
+        let blockAnimationClass = {
+          [transactionData.hash]: "block-height-animation",
+        };
         this.setState({ animationTransaction: blockAnimationClass });
         setTimeout(() => {
-          this.setState({ animationTransaction: {} })
-        }, 500)
+          this.setState({ animationTransaction: {} });
+        }, 500);
         this.setState({ transactionDataDetails: transactions });
-        let gp = this.state.transactionDataDetails[0]?.gasPrice ? (this.state.transactionDataDetails[0]?.gasPrice / 1000000000000000000).toFixed(9) : 0
+        let gp = this.state.transactionDataDetails[0]?.gasPrice
+          ? (
+              this.state.transactionDataDetails[0]?.gasPrice /
+              1000000000000000000
+            ).toFixed(9)
+          : 0;
         if (gp >= 0.000000001) {
-          this.setState({ gasPrice: gp })
-
+          this.setState({ gasPrice: gp });
         }
 
         if (error) {
@@ -288,7 +340,6 @@ class BlockChainDataComponent extends Component {
   /* FETCHING GET COIN MARKET CAP API*/
 
   async coinMarketCapDetails() {
-
     let [error, totalcoinMarketPrice] = await Utils.parseResponse(
       CoinMarketService.getCoinMarketData(this.props.currency, {})
     );
@@ -355,7 +406,6 @@ class BlockChainDataComponent extends Component {
           BlockService.getLatestBlock(urlPath, {})
         );
         this.setState({ blockdataNumber: latestBlocks });
-
       }
 
       // blocks = latestBlocks;
@@ -378,7 +428,6 @@ class BlockChainDataComponent extends Component {
         );
         this.setState({ transactionDataDetails: latestTransactions });
       }
-
     }, 90000);
   }
 
@@ -389,26 +438,33 @@ class BlockChainDataComponent extends Component {
       this.state.coinMarketPrice.quote &&
       this.state.coinMarketPrice.quote.length >= 1 &&
       this.state.coinMarketPrice.quote[0][this.props.currency] &&
-      this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h
+      this.state.coinMarketPrice.quote[0][this.props.currency]
+        .percent_change_24h
     ) {
-      changePrice = this.state.coinMarketPrice.quote[0][this.props.currency].percent_change_24h;
-
+      changePrice =
+        this.state.coinMarketPrice.quote[0][this.props.currency]
+          .percent_change_24h;
     }
-    const currencySymbol = this.props.currency === "INR" ? "₹ " : this.props.currency === "USD" ? "$ " : "€ "
+    const currencySymbol =
+      this.props.currency === "INR"
+        ? "₹ "
+        : this.props.currency === "USD"
+        ? "$ "
+        : "€ ";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
-    let changeAccounts = this.state.someDayAccount ? this.state.someDayAccount : 0;
-    let blockNumber = this.state.blockdataNumber[0]?.number
-    let animationClass =
-      this.state.animationBlock?.[blockNumber]
-      ;
-    let txhash = this.state.transactionDataDetails[0]?.hash
-    let TxanimationClass =
-      this.state.animationTransaction?.[txhash]
-      ;
-    let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0
-    let currentTp = this.state.tpsCounts?.totalTransactions ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2) : 0
+    let changeAccounts = this.state.someDayAccount
+      ? this.state.someDayAccount
+      : 0;
+    let blockNumber = this.state.blockdataNumber[0]?.number;
+    let animationClass = this.state.animationBlock?.[blockNumber];
+    let txhash = this.state.transactionDataDetails[0]?.hash;
+    let TxanimationClass = this.state.animationTransaction?.[txhash];
+    let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
+    let currentTp = this.state.tpsCounts?.totalTransactions
+      ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2)
+      : 0;
     return (
       <MainContainer>
         <LeftContainer>
@@ -418,7 +474,10 @@ class BlockChainDataComponent extends Component {
               <LeftTitle>XDC</LeftTitle>
             </LeftTop>
             <LeftTopSecMain>
-              <LeftTopSec>{currencySymbol}{changeDecimals}</LeftTopSec>
+              <LeftTopSec>
+                {currencySymbol}
+                {changeDecimals}
+              </LeftTopSec>
               <div
                 className={
                   changeDecimal >= 0
@@ -427,19 +486,25 @@ class BlockChainDataComponent extends Component {
                 }
               >
                 <div className="value_changePrice">
-                  {changeDecimal == 0 ? "" :
-                    changeDecimal > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
-                      </div>
-                    )}
+                  {changeDecimal == 0 ? (
+                    ""
+                  ) : changeDecimal > 0 ? (
+                    <div className="arrow_up">
+                      {/* <BsFillCaretUpFill size={10} /> */}
+                      <img
+                        src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif"
+                        style={{ width: "8px" }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="arrow_down">
+                      {/* <BsFillCaretDownFill size={10} /> */}
+                      <img
+                        src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png"
+                        style={{ width: "8px" }}
+                      />
+                    </div>
+                  )}
                   &nbsp;{changeDecimal ? changeDecimal : 0}%
                 </div>
               </div>
@@ -448,11 +513,12 @@ class BlockChainDataComponent extends Component {
           </LeftFirst>
           <LeftSec>
             <ValueMain>
+              <MobileScreen>
               <Value>
                 <TitleIcon src={blockHeightImg} />
                 <ValueName>
                   <Title>Block Height</Title>
-                  <TitleValue className={animationClass ? animationClass : ""} >
+                  <TitleValue className={animationClass ? animationClass : ""}>
                     {this.state.blockdataNumber[0]?.number.toLocaleString()}
                   </TitleValue>
                 </ValueName>
@@ -461,7 +527,9 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src={priceLogo} />
                 <ValueName>
                   <Title>Gas Price(Gwei)</Title>
-                  <TitleValue className={TxanimationClass ? TxanimationClass : ""}>
+                  <TitleValue
+                    className={TxanimationClass ? TxanimationClass : ""}
+                  >
                     {this.state.gasPrice}
                   </TitleValue>
                 </ValueName>
@@ -473,13 +541,14 @@ class BlockChainDataComponent extends Component {
                   <TitleValue>{this.state.totalTransaction}</TitleValue>
                 </ValueName>
               </Value>
+              </MobileScreen>
+              <MobileScreen>
               <Value>
                 <TitleIcon src={difficultyLogo} />
                 <ValueName>
                   <Title>Difficulty</Title>
                   <TitleValue className={animationClass ? animationClass : ""}>
                     {this.state.blockdataNumber[0]?.totalDifficulty}
-
                   </TitleValue>
                 </ValueName>
               </Value>
@@ -492,6 +561,7 @@ class BlockChainDataComponent extends Component {
                   </TitleValue>
                 </ValueName>
               </Value>
+              
               <Value>
                 <TitleIcon src={accountLogo} />
                 <ValueName>
@@ -506,24 +576,32 @@ class BlockChainDataComponent extends Component {
                       }
                     >
                       <div className="value_p">
-                        {changeAccounts == 0 ? "" :
-                          changeAccounts > 0 ? (
-                            <div className="arrow_up">
-                              {/* <BsFillCaretUpFill size={10} /> */}
-                              <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
-                            </div>
-                          ) : (
-                            <div className="arrow_down">
-                              {/* <BsFillCaretDownFill size={10} /> */}
-                              <img src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png" style={{ width: "8px" }} />
-                            </div>
-                          )}
+                        {changeAccounts == 0 ? (
+                          ""
+                        ) : changeAccounts > 0 ? (
+                          <div className="arrow_up">
+                            {/* <BsFillCaretUpFill size={10} /> */}
+                            <img
+                              src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif"
+                              style={{ width: "8px" }}
+                            />
+                          </div>
+                        ) : (
+                          <div className="arrow_down">
+                            {/* <BsFillCaretDownFill size={10} /> */}
+                            <img
+                              src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png"
+                              style={{ width: "8px" }}
+                            />
+                          </div>
+                        )}
                         {changeAccounts}
                       </div>
                     </div>
                   </div>
                 </ValueName>
               </Value>
+              </MobileScreen>
             </ValueMain>
           </LeftSec>
         </LeftContainer>
