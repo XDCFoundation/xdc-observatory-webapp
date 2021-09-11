@@ -1442,6 +1442,7 @@ p {
 }
 
 .vc-input-contract-add {
+  width: 100%;
   height: 35px;
   font-size: 11px;
   font-weight: 600;
@@ -1470,6 +1471,7 @@ p {
 }
 
 .vc-input-contract-name {
+  width: 100%;
   height: 35px;
   font-size: 11px;
   font-weight: 600;
@@ -1498,6 +1500,7 @@ p {
 }
 
 .vc-contract-add-select {
+  width: 100%;
   height: 35px;
   margin-top: 7px;
   padding-right: 50px;
@@ -1742,6 +1745,21 @@ body {
 }
 
 .tabs {
+  padding-bottom: 7px;
+  color: #b5bac7;
+  text-align: center;
+  width: 80%;
+  cursor: pointer;
+  position: relative;
+  font-size: 11px;
+  background: transparent;
+  cursor: pointer;
+  padding-left: 0px;
+  margin: -3px 27px 1px 0.5px;
+  font-weight: 600;
+  letter-spacing: 0.65px;
+}
+.tabs-vc {
   padding-bottom: 7px;
   color: #b5bac7;
   text-align: center;
@@ -4475,5 +4493,123 @@ font-size: 9px;
 @media (min-width: 1181px) {
   .search-dashboard-select {
     width: "";
+  }
+}
+@media (min-width: 0px) and (max-width: 640px) {
+  .vc-header {
+    width: 96%;
+    margin: 95px auto 2%;
+    font-family: "Inter" !important;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.72px;
+    color: #2a2a2a;
+  }
+  .vc-tab-all {
+    width: 96%;
+    margin: 0 auto;
+  }
+  .verify-contracts-head {
+    font-size: 11px;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .paper-verify-contracts {
+    padding: 20px 10px;
+  }
+  .vc-contract-name {
+    margin-top: 20px;
+    margin-left: 0px;
+    font-size: 11px;
+  }
+  .vc-contract-compiler {
+    margin-top: 20px;
+    margin-left: 0px;
+    font-size: 11px;
+  }
+  .vc-contract-add {
+    font-size: 11px;
+  }
+  .constructor-arg {
+    font-size: 11px;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .vc-header {
+    width: 85%;
+    margin: 95px auto 2%;
+    font-family: "Inter" !important;
+    font-size: 17px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.72px;
+    color: #2a2a2a;
+  }
+  .vc-tab-all {
+    width: 85%;
+    margin: 0 auto;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .vc-contract-name {
+    width: 100%;
+    font-size: 12px;
+  }
+  .vc-contract-compiler {
+    width: 100%;
+    font-size: 12px;
+  }
+  .vc-contract-add {
+    font-size: 12px;
+    width: 100%;
+  }
+  .constructor-arg {
+    font-size: 12px;
+  }
+}
+@media (min-width: 1024px) {
+  .vc-header {
+    width: 65%;
+    margin: 95px auto 2%;
+    font-family: "Inter" !important;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.72px;
+    color: #2a2a2a;
+  }
+  .vc-tab-all {
+    width: 65%;
+    margin: 0 auto;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .vc-contract-name {
+    width: 100%;
+    font-size: 13px;
+  }
+  .vc-contract-compiler {
+    width: 100%;
+    font-size: 13px;
+  }
+  .vc-contract-add {
+    font-size: 13px;
+    width: 100%;
+  }
+  .constructor-arg {
+    font-size: 13px;
   }
 }
