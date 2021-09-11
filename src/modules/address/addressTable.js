@@ -387,7 +387,7 @@ export default function AddressTableComponent(props) {
                         style={{
                             fontSize: '11px',
                             letterSpacing: 0.62,
-                            width: "105px",
+                            width: "138px",
                             color: '#2a2a2a',
                             fontFamily: 'Inter',
                             outlineColor: 'transparent',
@@ -422,7 +422,7 @@ export default function AddressTableComponent(props) {
                                             onChange={handleChanged}
                                             type="checkbox"
                                             name="allselect"
-                                            checked={address.filter((addr) => addr?.isChecked !== true).length <= 1}
+                                            checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
                                             style={{ marginRight: "8px" }}
                                         />
                                         <span className={"tableheaders"}>Txn Hash</span>
@@ -554,7 +554,7 @@ export default function AddressTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "15px" }}>
+                <Grid container style={{ marginTop: "15px", display: "flex", justifyContent: "space-between" }}>
                     <Grid item xs="3">
                         <span className="text">Show</span>
                         <Select value={rowsPerPage} className="select-amount" onChange={handleChangeRowsPerPage} >
@@ -567,7 +567,7 @@ export default function AddressTableComponent(props) {
                         <span className="text">Records</span>
                     </Grid>
                     <Grid xs="5"></Grid>
-                    <Grid item xs="4">
+                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.round(totalRecord / rowsPerPage)}</button>
