@@ -45,17 +45,17 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginLeft: '19%',
-    width: '62%',
-    flexGrow: 1,
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     marginLeft: '19%',
+//     width: '62%',
+//     flexGrow: 1,
 
-  },
-}));
+//   },
+// }));
 
 export default function SimpleTabs() {
-  const classes = useStyles();
+
   const [value, setValue] = React.useState(0);
 
   const [toggleState, setToggleState] = useState(1);
@@ -69,20 +69,20 @@ export default function SimpleTabs() {
     <>
       <Tokensearchbar />
       <div className="vc-header">Verify Contract</div>
-      <div className={classes.root}>
+      <div className="vc-tab-all">
 
 
         <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', marginTop: "20px", borderBottom: 'solid 1px #e3e7eb' }}>
           <div>
             <div style={{ display: 'flex', flexDirection: 'row' }} >
               <button
-                className={toggleState === 1 ? "tabs active-tabs-contract" : "tabs"}
+                className={toggleState === 1 ? "tabs-vc active-tabs-contract" : "tabs-vc"}
                 onClick={() => toggleTab(1)}
               >
                 Source Code
               </button>
               <button style={{ whiteSpace: 'nowrap' }}
-                className={toggleState === 2 ? "tabs active-tabs-contract" : "tabs"}
+                className={toggleState === 2 ? "tabs-vc active-tabs-contract" : "tabs-vc"}
                 onClick={() => toggleTab(2)}
               >
                 Bytecode and ABI
