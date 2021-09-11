@@ -84,48 +84,80 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable() {
   const classes = useStyles();
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
   const [transfer, settransfer] = useState({});
-  useEffect(() => {
-    transferDetail();
-  }, []);
+  const [totalToken, setTotalToken] = useState({});
   const { address } = useParams();
-  const transferDetail = async () => {
-    let urlPath = `${address}`;
+
+  useEffect(() => {
+    let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+    transferDetail(values);
+  }, []);
+  console.log(rowsPerPage, "<>?")
+
+
+  const transferDetail = async (values) => {
+
     let [error, tns] = await Utils.parseResponse(
-      TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+      TokenData.getTotalTransferTransactionsForToken(values)
     );
     if (error || !tns) return;
     settransfer(tns);
-
+    setTotalToken(tns.totalTransactionCount)
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
-        TokenData.getTotalTransferTransactionsForToken(urlPath, {})
+        TokenData.getTotalTransferTransactionsForToken(values)
       );
       settransfer(tns);
+      setTotalToken(tns.totalTransactionCount)
     }, 90000);
   };
 
   const handleChangePage = (action) => {
-    if (action == "next") {
-      if (Math.ceil(rows.length / rowsPerPage) != page + 1) {
-        setPage(page + 1);
-      }
-    } else {
-      if (0 != page) {
-        setPage(page - 1);
+    if (action == 'first') {
+      setPage(0)
+      let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+      transferDetail(values);
+    }
+    if (action == 'prev') {
+      if (page - rowsPerPage >= 0) {
+        let pageValue = page - rowsPerPage
+        setPage(pageValue)
+        let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+        transferDetail(values);
+
       }
     }
-    if (action == "next") {
-      if (Math.ceil(rows.length / rowsPerPage) < page + 1)
-        setPage(Math.ceil(rows.length / rowsPerPage));
+    if (action == 'next') {
+      if (rowsPerPage + page < totalToken) {
+        let pageValue = rowsPerPage + page
+        setPage(pageValue)
+        let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+        transferDetail(values);
+
+      }
+
     }
-  };
+
+    if (action == 'last') {
+      let pageValue = totalToken - rowsPerPage
+      setPage(pageValue)
+      let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+      transferDetail(values);
+
+    }
+
+  }
+
+
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+    let values = { addr: address, pageNum: 0, perpage: event.target.value }
+    transferDetail(values);
   };
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -172,7 +204,7 @@ export default function StickyHeadTable() {
                     >
                       <TableCell id="td" style={{ border: "none" }}>
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.TxnHash}>
+                          <Tooltip placement="top" title={row.hash}>
                             <span className="tabledata">
                               {" "}
                               {shorten(row.hash)}{" "}
@@ -192,7 +224,7 @@ export default function StickyHeadTable() {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.From}>
+                          <Tooltip placement="top" title={row.from}>
                             <span className="tabledata">
                               {" "}
                               {shorten(row.from)}{" "}
@@ -203,7 +235,7 @@ export default function StickyHeadTable() {
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
                         <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.To}>
+                          <Tooltip placement="top" title={row.to}>
                             <span className="tabledata">
                               {" "}
                               {shorten(row.to)}{" "}
@@ -256,13 +288,13 @@ export default function StickyHeadTable() {
             marginRight: "0%",
           }}
         >
-          <div className="firstbox" onClick={() => setPage(0)}>
+          <div className={page === 0 ? "firstbox disabled" : "firstbox"} onClick={() => handleChangePage("first")}>
             <button style={{ backgroundColor: "white" }} className="first">
               First
             </button>
           </div>
           <div
-            className="previousbox"
+            className={page === 0 ? "previousbox disabled" : "previousbox"}
             onClick={() => handleChangePage("prev")}
           >
             <p className="path">
@@ -271,19 +303,18 @@ export default function StickyHeadTable() {
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
-              Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}
+              Page {Math.round(totalToken / rowsPerPage) + 1 - Math.round((totalToken - page) / rowsPerPage)} of {Math.round(totalToken / rowsPerPage)}
             </p>
           </div>
-          <div className="nextbox">
+          <div className={page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"}>
             <p className="path-2" onClick={() => handleChangePage("next")}>
               {">"}
             </p>
           </div>
           <div
-            className="lastbox"
-            onClick={() =>
-              setPage(Math.ceil(rows.length / rowsPerPage) - 1)
-            }
+            className={page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"}
+            onClick={() => handleChangePage("last")}
+
           >
             <button style={{ backgroundColor: "white" }} className="last">
               Last

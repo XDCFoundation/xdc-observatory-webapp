@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -13,6 +13,12 @@ import { useHistory } from 'react-router-dom';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Tooltip from '@material-ui/core/Tooltip';
+import { useParams } from "react-router-dom";
+import TokenData from "../../services/token";
+import Utility, { dispatchAction } from "../../utility";
+import ReactHtmlParser from "react-html-parser";
+import Utils from "../../utility";
+
 const StyledTableRow = withStyles((theme) => ({
     root: {
         '&:nth-of-type(odd)': {
@@ -94,34 +100,69 @@ export default function StickyHeadTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(50);
-
+    const [holders, setHolders] = useState([])
+    const [totalHolder, setTotalHolder] = useState({})
+    const [transfer, settransfer] = useState({});
+    const { address } = useParams();
     const history = useHistory()
+    useEffect(() => {
+        let values = { addr: address, pageNum: 0, perpage: 50 }
+        listOfHolders(values);
+
+    }, []);
+    const listOfHolders = async (values) => {
+
+        let [error, tns] = await Utils.parseResponse(
+            TokenData.getListOfHoldersForToken(values)
+        );
+        if (error || !tns) return;
+        setHolders(tns.response);
+        setTotalHolder(tns.responseCount)
+    }
+
     const handleChangePage = (action) => {
+        if (action == 'first') {
+            setPage(0)
+            let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+            listOfHolders(values);
+        }
+        if (action == 'prev') {
+            if (page - rowsPerPage >= 0) {
+                let pageValue = page - rowsPerPage
+                setPage(pageValue)
+                let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+                listOfHolders(values);
 
-        if (action == 'next') {
-            if (Math.ceil(rows.length / rowsPerPage) != page + 1) {
-                setPage(page + 1)
-
-            }
-
-        } else {
-            if (0 != page) {
-                setPage(page - 1)
             }
         }
         if (action == 'next') {
-            if (Math.ceil(rows.length / rowsPerPage) < page + 1)
-                setPage(Math.ceil(rows.length / rowsPerPage))
+            if (rowsPerPage + page < totalHolder) {
+                let pageValue = rowsPerPage + page
+                setPage(pageValue)
+                let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+                listOfHolders(values);
+
+            }
+
         }
 
+        if (action == 'last') {
+            let pageValue = totalHolder - rowsPerPage
+            setPage(pageValue)
+            let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+            listOfHolders(values);
 
-    };
+        }
+
+    }
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
+        setRowsPerPage(event.target.value);
         setPage(0);
+        let values = { addr: address, pageNum: 0, perpage: event.target.value }
+        listOfHolders(values);
     };
-
+    console.log(rowsPerPage, "???")
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
@@ -129,6 +170,7 @@ export default function StickyHeadTable() {
         )}`;
     }
 
+    console.log(holders, "<<<<")
     return (
         <div>
             <Paper style={{ borderRadius: '14px' }} elevation={0}>
@@ -151,24 +193,24 @@ export default function StickyHeadTable() {
 
                         </TableHead>
                         <TableBody>
-                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                            {holders.map((row, index) => {
                                 return (
 
-                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    <StyledTableRow hover role="checkbox" tabIndex={-1} >
 
-                                        <TableCell id="td"><span className="tabledata">{row.Rank}</span></TableCell>
+                                        <TableCell id="td"><span className="tabledata">{index + 1 ? index + 1 : ""}</span></TableCell>
                                         <TableCell id="td">
-                                            <a style={{ color: 'blue', fontSize: 11 }} href={"/holder-details/" + row.Address}>
+                                            <a style={{ color: 'blue', fontSize: 11 }} href={"/holder-details/" + holders.address}>
 
                                                 <span
-                                                    className="tabledata"> {row.Address} </span>
+                                                    className="tabledata"> {holders.address} </span>
 
                                             </a>
                                         </TableCell>
-                                        <TableCell id="td"><span className="tabledata">{row.Quantity}</span></TableCell>
-                                        <TableCell id="td"> <span className="tabledata"> {row.Percentage}</span>
+                                        <TableCell id="td"><span className="tabledata">{holders.quantity}</span></TableCell>
+                                        <TableCell id="td"> <span className="tabledata"> {holders.percentage}</span>
                                         </TableCell>
-                                        <TableCell id="td"> <span className="tabledata"> {row.Value}</span> </TableCell>
+                                        <TableCell id="td"> <span className="tabledata"> {holders.Value}</span> </TableCell>
 
 
                                     </StyledTableRow>
@@ -182,12 +224,25 @@ export default function StickyHeadTable() {
 
 
             </Paper>
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', marginTop: '45px' }}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                }}
+            >
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        marginTop: "45px",
+                        marginLeft: "1%",
+                    }}
+                >
                     <p style={{
                         fontSize: "12px",
                         fontWeight: "600"
-                    }}> Show</p>
+                    }}>Show</p>
                     <select className="selectbox" onChange={handleChangeRowsPerPage}>
                         <option selected>50</option>
                         <option>75</option>
@@ -199,28 +254,49 @@ export default function StickyHeadTable() {
                     }}> Records</p>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'row', marginRight: '0%' }}>
-                    <div className="firstbox" onClick={() => setPage(0)}>
-                        <button style={{ backgroundColor: 'white' }} className="first">First</button>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        marginRight: "0%",
+                    }}
+                >
+                    <div className={page === 0 ? "firstbox disabled" : "firstbox"} onClick={() => handleChangePage("first")}>
+                        <button style={{ backgroundColor: "white" }} className="first">
+                            First
+                        </button>
                     </div>
-                    <div className="previousbox" onClick={() => handleChangePage("prev")}>
-                        <p className="path">{"<"}</p>
+                    <div
+                        className={page === 0 ? "previousbox disabled" : "previousbox"}
+                        onClick={() => handleChangePage("prev")}
+                    >
+                        <p className="path">
+                            {"<"}
+                        </p>
                     </div>
                     <div className="pagebox">
-                        <p className="Page-1-of-5">Page {page + 1} of {Math.ceil(rows.length / rowsPerPage)}</p>
+                        <p className="Page-1-of-5">
+                            Page {Math.round(totalHolder / rowsPerPage) + 1 - Math.round((totalHolder - page) / rowsPerPage)} of {Math.round(totalHolder / rowsPerPage)}
+                        </p>
                     </div>
-                    <div className="nextbox">
-                        <p className="path-2" onClick={() => handleChangePage("next")}>{">"}</p>
+                    <div className={page + rowsPerPage === totalHolder ? "nextbox disabled" : "nextbox"}>
+                        <p className="path-2" onClick={() => handleChangePage("next")}>
+                            {">"}
+                        </p>
                     </div>
-                    <div className="lastbox" onClick={() => setPage(Math.ceil(rows.length / rowsPerPage) - 1)}>
-                        <button style={{ backgroundColor: 'white' }} className="last">Last</button>
+                    <div
+                        className={page + rowsPerPage === totalHolder ? "lastbox disabled" : "lastbox"}
+                        onClick={() => handleChangePage("last")}
+
+                    >
+                        <button style={{ backgroundColor: "white" }} className="last">
+                            Last
+                        </button>
                     </div>
                 </div>
 
 
             </div>
-
-
         </div>
 
     );

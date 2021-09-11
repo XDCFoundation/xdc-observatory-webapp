@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from '@material-ui/core/Tooltip';
-import { Grid } from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
 import { CSVLink, CSVDownload } from "react-csv";
 import SearchIcon from "@material-ui/icons/Search";
@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import ContractData from "../../services/contract";
+import { makeStyles } from '@material-ui/core/styles';
 function timeDiff(curr, prev) {
     var ms_Min = 60 * 1000; // milliseconds in Minute
     var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -50,8 +51,8 @@ function timeDiff(curr, prev) {
 export default function TransactionTableComponent(props) {
 
     const { state } = props;
-    
-    
+
+
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
@@ -68,20 +69,31 @@ export default function TransactionTableComponent(props) {
     const [reportaddress, setReportaddress] = useState([]);
     const [downloadaddress, setDownloadaddress] = useState([]);
     const [isDownloadActive, setDownloadActive] = useState(0);
-    const [noData , setNoData] = useState(false)
+    const [noData, setNoData] = useState(false)
     const [totalRecord, setTotalRecord] = useState(0);
     let datas = {}
+    const useStyles = makeStyles({
+
+        container: {
+
+            borderRadius: '14px',
+            boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+            borderBottom: 'none',
+            background: '#fff',
+        },
+
+    });
     const getContractDetails = async (values) => {
         try {
             const [error, responseData] = await Utility.parseResponse(
-              ContractData.getContractDetails(values)
+                ContractData.getContractDetails(values)
             );
-    
-            if (responseData.transactionArray.length > 0) { 
-              
+
+            if (responseData.transactionArray.length > 0) {
+
                 setAddress(responseData.transactionArray)
                 setTotalRecord(responseData.transactionCount)
-              console.log(responseData)
+                console.log(responseData)
             } else {
                 setNoData(true)
                 setTotalRecord(0)
@@ -90,8 +102,8 @@ export default function TransactionTableComponent(props) {
         } catch (error) {
             console.error(error);
         }
-      }
-      const handleKeyUp =  (event) => { 
+    }
+    const handleKeyUp = (event) => {
         let searchkeyword = event.target.value
         setFrom(0);
         if (searchkeyword.length > 2) {
@@ -99,8 +111,8 @@ export default function TransactionTableComponent(props) {
             datas = {
                 pageNum: 0,
                 perpage: amount,
-                keywords:searchkeyword,
-                addr:ContractAddress
+                keywords: searchkeyword,
+                addr: ContractAddress
             }
             getContractDetails(datas)
         }
@@ -111,79 +123,79 @@ export default function TransactionTableComponent(props) {
             datas = {
                 pageNum: 0,
                 perpage: amount,
-                addr:ContractAddress,
-                keywords:''
+                addr: ContractAddress,
+                keywords: ''
             }
             getContractDetails(datas)
-        }     
+        }
     }
     const handleChangePage = (action) => {
         if (action == 'first') {
-            
-            if(keywords){
+
+            if (keywords) {
                 datas = {
                     pageNum: 0,
                     perpage: amount,
                     addr: ContractAddress,
-                    keywords:keywords
+                    keywords: keywords
                 }
                 getContractDetails(datas)
-            }else{
+            } else {
                 datas = {
                     pageNum: 0,
                     perpage: amount,
-                    addr:ContractAddress,
-                    keywords:''
+                    addr: ContractAddress,
+                    keywords: ''
                 }
                 getContractDetails(datas)
             }
-            
-            
+
+
 
         }
         if (action === 'last') {
             let pagecount = totalRecord - amount
             setFrom(pagecount);
-            if(keywords){
+            if (keywords) {
                 datas = {
                     pageNum: pagecount,
                     perpage: amount,
                     addr: ContractAddress,
-                    keywords:keywords
+                    keywords: keywords
                 }
                 getContractDetails(datas)
-            }else{
+            } else {
                 datas = {
                     pageNum: pagecount,
                     perpage: amount,
                     addr: ContractAddress,
-                    keywords:keywords
+                    keywords: keywords
                 }
                 getContractDetails(datas)
             }
-            
+
         }
 
         if (action === 'next') {
             if (amount + from < totalRecord) {
                 let pagecount = amount + from
                 setFrom(pagecount)
-                if(keywords){
+                if (keywords) {
                     datas = {
                         pageNum: pagecount,
                         perpage: amount,
                         addr: ContractAddress,
-                        keywords:keywords
+                        keywords: keywords
                     }
                     getContractDetails(datas)
-                }else{
-                    let datas = { 
-                        pageNum: pagecount, perpage: amount, addr: ContractAddress,keywords:keywords 
+                } else {
+                    let datas = {
+                        pageNum: pagecount, perpage: amount, addr: ContractAddress, keywords: keywords
                     }
-                   
+
                     getContractDetails(datas)
                 }
-                
+
             }
         }
 
@@ -191,24 +203,24 @@ export default function TransactionTableComponent(props) {
             if (from - amount >= 0) {
                 let pagecount = from - amount
                 setFrom(pagecount)
-                if(keywords){
+                if (keywords) {
                     datas = {
                         pageNum: pagecount,
                         perpage: amount,
                         addr: ContractAddress,
-                        keywords:keywords
+                        keywords: keywords
                     }
                     getContractDetails(datas)
-                }else{
+                } else {
                     datas = {
                         pageNum: pagecount,
                         perpage: amount,
                         addr: ContractAddress,
-                        keywords:keywords
+                        keywords: keywords
                     }
                     getContractDetails(datas)
                 }
-                
+
 
             }
         }
@@ -222,7 +234,7 @@ export default function TransactionTableComponent(props) {
             pageNum: 0,
             perpage: event.target.value,
             addr: ContractAddress,
-            keywords:keywords
+            keywords: keywords
         }
         getContractDetails(datas)
     };
@@ -283,33 +295,44 @@ export default function TransactionTableComponent(props) {
     }
     React.useEffect(() => {
         //let params = addressNumber."?skip="+from+'&limit='+amount
-       //alert(addressNumber)
+        //alert(addressNumber)
         setContractAddress(addressNumber);
-        let values = { addr:ContractAddress,pageNum: from, perpage: amount, keywords:keywords}
+        let values = { addr: ContractAddress, pageNum: from, perpage: amount, keywords: keywords }
         getContractDetails(values)
-        
-    }, []);
 
+    }, []);
+    const classes = useStyles();
     const history = useHistory()
 
     return (
         <div>
             <div className="content_input_all">
-                <div className="content_input_add">
-                    <SearchIcon />
+
+                <div className="searchelement-input3">
+                    <img style={{ width: 18, height: 18, marginRight: 5 }}
+                        src={require('../../assets/images/Search.png')} />
                     <input
-                        type="text"
+                        onKeyUp={(event) => props._handleSearch(event)}
+                        style={{
+                            fontSize: '11px',
+                            letterSpacing: 0.62,
+                            width: "138px",
+                            color: '#2a2a2a',
+                            fontFamily: 'Inter',
+                            outlineColor: 'transparent',
+                            borderWidth: 0,
+                            fontWeight: "600"
+                        }} type="text"
                         placeholder="Search"
-                        className="content_input_add_btn"
-                        onKeyUp={handleKeyUp}
-                    />
+                        onKeyUp={handleKeyUp} />
+
                 </div>
-                
+
                 {isDownloadActive ? <div><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
-                    >Download CSV</CSVLink></div>
+                >Download CSV</CSVLink></div>
                     :
                     <div><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
-                        >Download CSV</CSVLink></div>
+                    >Download CSV</CSVLink></div>
                 }
 
 
@@ -318,156 +341,158 @@ export default function TransactionTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Grid component={Paper}>
-                    <Table className="table" aria-label="Latest Transactions">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell style={{ border: "none" }} align="left">
-                                    <input
-                                        onChange={handleChanged}
-                                        type="checkbox"
-                                        name="allselect"
-                                        checked={address.filter((addr) => addr?.isChecked !== true).length <= 1}
-                                        style={{ marginRight: "8px" }}
-                                    />
-                                    <span className={"tableheaders"}>Txn Hash</span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "1.8%" }}
-                                    align="left"
-                                >
-                                    <span className={"tableheaders"}>Age</span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "2%" }}
-                                    align="left"
-                                >
-                                    <span className={"tableheaders"}>Block</span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "1%" }}
-                                    align="left"
-                                >
-                                    <span className={"tableheaders"}>From</span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "1%" }}
-                                    align="left"
-                                >
-                                    <span className={"tableheaders"}>To</span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "1%" }}
-                                    align="left"
-                                >
-                                    <span className={"tableheaders"}>Value</span>
-                                </TableCell>
-                                {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
-                            </TableRow>
-                        </TableHead>
-                        {noData == false &&
-                        <TableBody >
-                            {address.map((row, index) => {
-                                const currentTime = new Date();
-                                const previousTime = new Date(row.timestamp * 1000);
-                                const TimeAge = timeDiff(currentTime, previousTime);
-                                return (
-                                    <TableRow
-                                        style={
-                                            index % 2 !== 1
-                                                ? { background: "#f9f9f9" }
-                                                : { background: "white" }
-                                        }
+                <Paper style={{ borderRadius: '14px' }} elevation={0}>
+                    <TableContainer className={classes.container} id="container-table">
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell style={{ border: "none" }} align="left">
+                                        <input
+                                            onChange={handleChanged}
+                                            type="checkbox"
+                                            name="allselect"
+                                            checked={address.filter((addr) => addr?.isChecked !== true).length <= address.length + 1}
+                                            style={{ marginRight: "8px" }}
+                                        />
+                                        <span className={"tableheaders"}>Txn Hash</span>
+                                    </TableCell>
+                                    <TableCell
+                                        style={{ border: "none", paddingLeft: "1.8%" }}
+                                        align="left"
                                     >
-                                        <TableCell style={{ border: "none" }} margin-left="5px">
-                                            <input
-                                                key={row._id}
-                                                name={row._id}
-                                                onChange={handleChanged}
-                                                type="checkbox"
-                                                checked={row?.isChecked || false}
-                                                //checked={checkAll}
-                                                style={{ marginRight: "8px" }}
-                                            />
+                                        <span className={"tableheaders"}>Age</span>
+                                    </TableCell>
+                                    <TableCell
+                                        style={{ border: "none", paddingLeft: "2%" }}
+                                        align="left"
+                                    >
+                                        <span className={"tableheaders"}>Block</span>
+                                    </TableCell>
+                                    <TableCell
+                                        style={{ border: "none", paddingLeft: "1%" }}
+                                        align="left"
+                                    >
+                                        <span className={"tableheaders"}>From</span>
+                                    </TableCell>
+                                    <TableCell
+                                        style={{ border: "none", paddingLeft: "1%" }}
+                                        align="left"
+                                    >
+                                        <span className={"tableheaders"}>To</span>
+                                    </TableCell>
+                                    <TableCell
+                                        style={{ border: "none", paddingLeft: "1%" }}
+                                        align="left"
+                                    >
+                                        <span className={"tableheaders"}>Value</span>
+                                    </TableCell>
+                                    {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                                </TableRow>
+                            </TableHead>
+                            {noData == false &&
+                                <TableBody >
+                                    {address.map((row, index) => {
+                                        const currentTime = new Date();
+                                        const previousTime = new Date(row.timestamp * 1000);
+                                        const TimeAge = timeDiff(currentTime, previousTime);
+                                        return (
+                                            <TableRow
+                                                style={
+                                                    index % 2 !== 1
+                                                        ? { background: "#f9f9f9" }
+                                                        : { background: "white" }
+                                                }
+                                            >
+                                                <TableCell style={{ border: "none" }} margin-left="5px">
+                                                    <input
+                                                        key={row._id}
+                                                        name={row._id}
+                                                        onChange={handleChanged}
+                                                        type="checkbox"
+                                                        checked={row?.isChecked || false}
+                                                        //checked={checkAll}
+                                                        style={{ marginRight: "8px" }}
+                                                    />
 
-                                            <a className="linkTable" href={'/transaction-details/' + row.hash}>
-                                                <Tooltip placement="top" title={row.hash}>
-                                                    <span className="tabledata">
-                                                        {shorten(row.hash)}{" "}
-                                                    </span>
-                                                </Tooltip>
-                                            </a>
+                                                    <a className="linkTable" href={'/transaction-details/' + row.hash}>
+                                                        <Tooltip placement="top" title={row.hash}>
+                                                            <span className="tabledata">
+                                                                {shorten(row.hash)}{" "}
+                                                            </span>
+                                                        </Tooltip>
+                                                    </a>
 
-                                        </TableCell>
-                                        <TableCell style={{ border: "none" }} align="left">
-                                            <span className="tabledata">{TimeAge}</span>
-                                        </TableCell>
-                                        <TableCell style={{ border: "none" }} align="left">
-                                            <a className="linkTable" href={'/block-details/' + row.blockNumber}>
-                                                <span className="tabledata">{row.blockNumber}</span>
-                                            </a>
-                                        </TableCell>
-                                        <TableCell style={{ border: "none" }} align="left">
-                                            {row.From != addr ?
-                                                <a className="linkTable" href={'/address-details/' + row.from}>
-                                                    <Tooltip placement="top" title={row.from}>
-                                                        <span className="tabledata"> {shorten(row.from)}</span>
-                                                    </Tooltip>
-                                                </a>
-                                                :
-                                                <Tooltip placement="top" title={row.from}>
-                                                    <span className="tabledata"> {shorten(row.from)}</span>
-                                                </Tooltip>
-                                            }
-                                        </TableCell>
-                                        <TableCell style={{ border: "none" }} align="left">
-                                            {row.To != addr ?
-                                                <a className="linkTable" href={'/address-details/' + row.to}>
-                                                    <Tooltip placement="top" title={row.to}>
-                                                        <span className="tabledata">{shorten(row.to)}</span>
-                                                    </Tooltip>
-                                                </a>
-                                                :
-                                                <Tooltip placement="top" title={row.to}>
-                                                    <span className="tabledata">{shorten(row.to)}</span>
-                                                </Tooltip>
-                                            }
-                                        </TableCell>
-                                        <TableCell style={{ border: "none" }} align="left">
-                                           
-                                            <span className="tabledata">{(row.value / 1000000000000000000)}</span>
+                                                </TableCell>
+                                                <TableCell style={{ border: "none" }} align="left">
+                                                    <span className="tabledata">{TimeAge}</span>
+                                                </TableCell>
+                                                <TableCell style={{ border: "none" }} align="left">
+                                                    <a className="linkTable" href={'/block-details/' + row.blockNumber}>
+                                                        <span className="tabledata">{row.blockNumber}</span>
+                                                    </a>
+                                                </TableCell>
+                                                <TableCell style={{ border: "none" }} align="left">
+                                                    {row.From != addr ?
+                                                        <a className="linkTable" href={'/address-details/' + row.from}>
+                                                            <Tooltip placement="top" title={row.from}>
+                                                                <span className="tabledata"> {shorten(row.from)}</span>
+                                                            </Tooltip>
+                                                        </a>
+                                                        :
+                                                        <Tooltip placement="top" title={row.from}>
+                                                            <span className="tabledata"> {shorten(row.from)}</span>
+                                                        </Tooltip>
+                                                    }
+                                                </TableCell>
+                                                <TableCell style={{ border: "none" }} align="left">
+                                                    {row.To != addr ?
+                                                        <a className="linkTable" href={'/address-details/' + row.to}>
+                                                            <Tooltip placement="top" title={row.to}>
+                                                                <span className="tabledata">{shorten(row.to)}</span>
+                                                            </Tooltip>
+                                                        </a>
+                                                        :
+                                                        <Tooltip placement="top" title={row.to}>
+                                                            <span className="tabledata">{shorten(row.to)}</span>
+                                                        </Tooltip>
+                                                    }
+                                                </TableCell>
+                                                <TableCell style={{ border: "none" }} align="left">
+
+                                                    <span className="tabledata">{(row.value / 1000000000000000000)}</span>
+                                                </TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            }
+                            {noData == true &&
+                                <TableBody >
+                                    <TableRow>
+                                        <TableCell id="td" colspan="6" style={{ borderBottom: "none" }}>
+                                            <span className="tabledata" style={{ color: 'black' }}>No transaction found.</span>
                                         </TableCell>
                                     </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    }   
-                    {noData == true &&
-                        <TableBody >
-                            <TableRow>
-                            <TableCell id="td" colspan="6">
-                                    <span className="tabledata" style={{color:'black'}}>No transaction found.</span>
-                            </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    }   
-                    </Table>
+                                </TableBody>
+                            }
+                        </Table>
 
-                </Grid>
-                <Grid container>
+                    </TableContainer>
+                </Paper>
+                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }}>
                     <Grid item xs="3">
                         <span className="text">Show</span>
-                     {   <Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
+                        {<Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
                             <MenuItem value={10}>10</MenuItem>
                             <MenuItem value={25}>25</MenuItem>
                             <MenuItem value={50}>50</MenuItem>
                             <MenuItem value={100}>100</MenuItem>
                             <MenuItem value={500}>500</MenuItem>
-                </Select> }
+                        </Select>}
                         <span className="text">Records</span>
                     </Grid>
                     <Grid xs="5"></Grid>
-                        <Grid item xs="4">
+                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(totalRecord / amount) + 1 - Math.round((totalRecord - from) / amount)} of {Math.round(totalRecord / amount)}</button>
