@@ -1451,7 +1451,51 @@ p {
   .mobile-navbartab{
     display: block !important;
   }
+  .centerbox-td {
+    width: 100% !important;
+    height: 35px;
+    margin-right: 0px !important;
+    margin-top: 40px !important;
+    margin-left: 5px !important;
   
+
+}
+.tab-search{
+  margin-top: 25px !important;
+}
+.Network-explorer{
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.Token{
+  margin-top: 10px;
+}
+.search-responsive{
+  display: flex !important;
+  justify-content: space-between !important;
+  width: 78vw !important;
+}
+.select-td {
+  margin-left: -20px !important;
+}
+.main-input-td{
+  width: 130px !important;
+}
+.Shape2{
+  margin-left: -45px !important;
+}
+/* .MuiAppBar-colorPrimary{
+  height: 200px !important;
+} */
+/* .MuiAppBar-colorPrimary{
+  height: 200px !important;
+} */
+.makeStyles-appBar-5{
+  height: 200px !important;
+}
+/* .mob-height{
+  height: 200px !important;
+} */
 }
 @media  (max-width:1023px) {
 .tab-search{
@@ -1462,6 +1506,9 @@ p {
 .makeStyles-appBar-5{
   height: 130px !important;
 }
+/* .MuiAppBar-colorPrimary{
+  height: 130px;
+} */
 .centerbox-td {
   width: 100%;
   height: 35px;
@@ -1474,7 +1521,7 @@ p {
 }
 .Shape2{
   margin-top: -45px;
-  margin-left: -15px !important;
+  /* margin-left: -15px !important; */
 }
 .MuiIconButton-colorInherit{
   margin-top: -45px !important;

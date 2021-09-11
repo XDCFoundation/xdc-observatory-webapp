@@ -569,7 +569,7 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar elevation={0} className={clsx(classes.appBar)}>
+      <AppBar className="mob-height" elevation={0} className={clsx(classes.appBar)}>
         <Toolbar>
         
          <div className="tab-search">
