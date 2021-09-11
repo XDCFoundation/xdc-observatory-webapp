@@ -16,6 +16,7 @@ import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility, { dispatchAction } from "../../utility";
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -568,9 +569,13 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar elevation={0} className={clsx(classes.appBar)}>
+      <AppBar className="mob-height" elevation={0} className={clsx(classes.appBar)}>
         <Toolbar>
+        
+         <div className="tab-search">
           <Typography className="Header">
+            <div className="mobile-navbartab">
+              <div className="mobile-navbartab1">
             <a href={"/"}>
               <img
                 className="Shape"
@@ -581,7 +586,8 @@ export default function Navbar() {
               {" "}
               XDC{" "}
             </a>
-
+            </div>
+<div>
             <div>
               <NavLink
                 exact
@@ -601,6 +607,8 @@ export default function Navbar() {
               >
                 Tokens
               </NavLink>
+              </div>
+            </div>
             </div>
           </Typography>
           <div className="centerbox-td">
@@ -618,6 +626,8 @@ export default function Navbar() {
                       style={{ width: 20, height: 20, marginRight: 5 }}
                       src={require("../../assets/images/Search.png")}
                     />
+                    <div className="search-responsive">
+                      <div>
                     <input
                       defaultValue={filter}
                       type="text"
@@ -632,7 +642,9 @@ export default function Navbar() {
                       src={require("../../images/Search.png")}
                       placeholder="Search for an address, a transaction or a block number"
                     />
+                    </div>
                     {/* name="NAME" */}
+                    <div>
 
                     <select
                       className="select-td"
@@ -650,6 +662,8 @@ export default function Navbar() {
                       <option value="Labels">Labels</option>
                       <option value="Websites">Websites</option> */}
                     </select>
+                    </div>
+                    </div>
                   </div>
                 </div>
                 <ul style={{ color: "black" }}>
@@ -668,13 +682,14 @@ export default function Navbar() {
               </form>
             </div>
           </div>
+          </div>
 
           <img
             className="Shape2"
             src={require("../../../src/assets/images/Profile.png")}
           ></img>
 
-          <React.Fragment key={"right"}>
+          <React.Fragment className="rigt-line" key={"right"}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -702,7 +717,9 @@ export default function Navbar() {
               {contracts("right")}
             </Drawer>
           </React.Fragment>
+        
         </Toolbar>
+       
       </AppBar>
     </div>
   );
