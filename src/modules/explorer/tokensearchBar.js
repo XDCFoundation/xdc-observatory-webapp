@@ -16,7 +16,6 @@ import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility, { dispatchAction } from "../../utility";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -569,118 +568,104 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar className="mob-height" elevation={0} className={clsx(classes.appBar)}>
+      <AppBar elevation={0} className={clsx(classes.appBar)}>
         <Toolbar>
+          <Typography className="Header">
+            <a href={"/"}>
+              <img
+                className="Shape"
+                src={require("../../../src/assets/images/XDC-Icon.png")}
+              ></img>
+            </a>
+            <a className="XDC" href="/">
+              {" "}
+              XDC{" "}
+            </a>
 
-          <div className="tab-search">
-            <Typography className="Header">
-              <div className="mobile-navbartab">
-                <div className="mobile-navbartab1">
-                  <a href={"/"}>
-                    <img
-                      className="Shape"
-                      src={require("../../../src/assets/images/XDC-Icon.png")}
-                    ></img>
-                  </a>
-                  <a className="XDC" href="/">
-                    {" "}
-                    XDC{" "}
-                  </a>
-                </div>
+            <div>
+              <NavLink
+                exact
+                activeClassName="active-t"
+                to={"/"}
+                className="Network-explorer"
+              >
+                Network Explorer
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                exact
+                activeClassName="active-t"
+                to={"/token-details"}
+                className="Token"
+              >
+                Tokens
+              </NavLink>
+            </div>
+          </Typography>
+          <div className="centerbox-td">
+            {/* <p className="description"></p> */}
+            <div className="main-form-container-td">
+              <form
+                method="post"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 <div>
-                  <div>
-                    <NavLink
-                      exact
-                      activeClassName="active-t"
-                      to={"/"}
-                      className="Network-explorer"
-                    >
-                      Network Explorer
-                    </NavLink>
-                  </div>
-                  <div>
-                    <NavLink
-                      exact
-                      activeClassName="active-t"
-                      to={"/token-details"}
-                      className="Token"
-                    >
-                      Tokens
-                    </NavLink>
-                  </div>
-                </div>
-              </div>
-            </Typography>
-            <div className="centerbox-td">
-              {/* <p className="description"></p> */}
-              <div className="main-form-container-td">
-                <form
-                  method="post"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                  }}
-                >
-                  <div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <img
-                        style={{ width: 20, height: 20, marginRight: 5 }}
-                        src={require("../../assets/images/Search.png")}
-                      />
-                      <div className="search-responsive">
-                        <div>
-                          <input
-                            defaultValue={filter}
-                            type="text"
-                            onChange={(event) => handleSearch(event)}
-                            ref={SearchDataRef}
-                            onKeyPress={(event) => {
-                              if (event.key === "Enter") {
-                                handleSearch(event);
-                              }
-                            }}
-                            className="main-input-td"
-                            src={require("../../images/Search.png")}
-                            placeholder="Search for an address, a transaction or a block number"
-                          />
-                        </div>
-                        {/* name="NAME" */}
-                        <div>
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <img
+                      style={{ width: 20, height: 20, marginRight: 5 }}
+                      src={require("../../assets/images/Search.png")}
+                    />
+                    <input
+                      defaultValue={filter}
+                      type="text"
+                      onChange={(event) => handleSearch(event)}
+                      ref={SearchDataRef}
+                      onKeyPress={(event) => {
+                        if (event.key === "Enter") {
+                          handleSearch(event);
+                        }
+                      }}
+                      className="main-input-td"
+                      src={require("../../images/Search.png")}
+                      placeholder="Search for an address, a transaction or a block number"
+                    />
+                    {/* name="NAME" */}
 
-                          <select
-                            className="select-td"
-                            onChange={(event) => handleSearchOption(event)}
-                            ref={SelectOptRef}
-                          >
-                            <option value="All filters" selected>
-                              All Filters
-                            </option>
-                            <option value="Address">Addresses</option>
-                            <option value="Blocks">Blocks</option>
-                            <option value="Tokens">Tokens</option>
-                            <option value="Transaction">Transaction</option>
-                            {/* <option value="Nametags">Nametags</option>
+                    <select
+                      className="select-td"
+                      onChange={(event) => handleSearchOption(event)}
+                      ref={SelectOptRef}
+                    >
+                      <option value="All filters" selected>
+                        All Filters
+                      </option>
+                      <option value="Address">Addresses</option>
+                      <option value="Blocks">Blocks</option>
+                      <option value="Tokens">Tokens</option>
+                      <option value="Transaction">Transaction</option>
+                      {/* <option value="Nametags">Nametags</option>
                       <option value="Labels">Labels</option>
                       <option value="Websites">Websites</option> */}
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    </select>
                   </div>
-                  <ul style={{ color: "black" }}>
-                    {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-                    <li>
-                      {list.map((name) => {
-                        if (filter.length !== 0) {
-                          if (name.toLowerCase().startsWith(filter.toLowerCase()))
-                            return <li>{name}</li>;
-                        } else {
-                          return null;
-                        }
-                      })}
-                    </li>
-                  </ul>
-                </form>
-              </div>
+                </div>
+                <ul style={{ color: "black" }}>
+                  {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+                  <li>
+                    {list.map((name) => {
+                      if (filter.length !== 0) {
+                        if (name.toLowerCase().startsWith(filter.toLowerCase()))
+                          return <li>{name}</li>;
+                      } else {
+                        return null;
+                      }
+                    })}
+                  </li>
+                </ul>
+              </form>
             </div>
           </div>
 
@@ -689,7 +674,7 @@ export default function Navbar() {
             src={require("../../../src/assets/images/Profile.png")}
           ></img>
 
-          <React.Fragment className="rigt-line" key={"right"}>
+          <React.Fragment key={"right"}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -717,9 +702,7 @@ export default function Navbar() {
               {contracts("right")}
             </Drawer>
           </React.Fragment>
-
         </Toolbar>
-
       </AppBar>
     </div>
   );
