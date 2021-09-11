@@ -14,7 +14,7 @@ export default function VerifyContract() {
                     <div className="verify-contracts-head">Verify and Publish Contract Source Code</div><br />
                     <textarea readOnly className="textarea-verify-contract" value="Enter Contract Source Code below." />
                     <br /><br />
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <div className="flex-row">
                         <div className="vc-contract-add">Contract Address
                             {
                                 address ? <div>
