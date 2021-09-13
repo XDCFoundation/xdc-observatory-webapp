@@ -28,12 +28,41 @@ const MainContainer = styled.div`
   margin: 0 auto;
   margin-top: 76px;
   padding-top:20px;
-  padding-left:15px
+  padding-left:15px;
+  padding-right: 15px;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    width: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 500px;
+    
+    padding-top: 0px;
+  }
+  @media (max-width :640px){
+    flex-direction: column;
+    width: auto;
+    height: 500px;
+    margin-right: 2%;
+    margin-left: 2%;
+    
+
+  }
+`;
+const MobileScreen=styled.div`
+margin-right: 3px;
+@media (min-width:640px){
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
 `;
 const LeftContainer = styled.div`
   flex: 0.55;
@@ -46,6 +75,10 @@ const RightContainer = styled.div`
   margin-right: 0px;
   flex-direction: column;
   padding: 0px 20px 25px 40px;
+  @media (max-width:1023px){
+    margin-left: 0px;
+    padding: 40px 0px 0px 0px
+  }
 `;
 const LeftFirst = styled.div`
   flex: 0.3;
@@ -53,7 +86,7 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 2px;
-  align-item: center;
+  align-items: center;
 `;
 const LeftSec = styled.div`
   flex: 0.7;
@@ -71,16 +104,20 @@ const Value = styled.div`
   display: flex;
   width: 140px;
   padding-bottom: 22px;
+  @media (max-width:640px){
+    width: 75px;
+  }
 `;
 const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
+ 
 `;
 
 const ValueName = styled.div`
   display: flex;
   flex-direction: column;
-  align-item: flex-end;
+  align-items: flex-start;
 `;
 const Title = styled.div`
   color: #a09e9e;
@@ -93,7 +130,7 @@ const Title = styled.div`
   letter-spacing: 0.65px;
 `;
 const TitleValue = styled.div`
-  font-size: 13.5px;
+  font-size: 8.5px;
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
@@ -103,7 +140,7 @@ const TitleValue = styled.div`
 `;
 const LeftTop = styled.div`
   display: flex;
-  align-item: center;
+  align-items: center;
   text-align: center;
   justify-content: center;
 `;
@@ -126,11 +163,15 @@ const LeftTitle = styled.div`
   color: #252525;
 `;
 const Line1 = styled.hr`
-  backgroundcolor: #e3e7eb !important;
+  background-color: #e3e7eb !important;
   width: 478px;
   position: absolute;
   top: 55%;
   left: 1%;
+  @media (max-width:1023px){
+    width:100%;
+    top: 65%;
+    }
 `;
 const LeftTopSec = styled.div`
   font-size: 18px;
@@ -161,7 +202,7 @@ const RightFirst = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 2px;
-  align-item: center;
+  align-items: center;
 `;
 const RightTop = styled.div`
   flex: 0.2;
@@ -172,7 +213,7 @@ const RightTop = styled.div`
 `;
 
 const RightTitle = styled.div`
-  margin-top:3px
+  margin-top:3px;
   font-size: 13px;
   font-weight: 600;
   font-family: Inter;
@@ -180,13 +221,19 @@ const RightTitle = styled.div`
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.65px;
-  color: #2a2a2a;`;
+  color: #2a2a2a;
+  
+  `;
 const Line2 = styled.hr`
-  backgroundcolor: #e3e7eb !important;
+  background-color: #e3e7eb !important;
   width: 392px;
   position: absolute;
   top: 20%;
   left: 0%;
+  @media (max-width:1023px){
+    width:100%;
+    top: 65%;
+    }
 `;
 const RightTopSec = styled.div`
   width: 50px;
@@ -356,6 +403,7 @@ export default function TokenDataComponent() {
             </LeftFirst>
             <LeftSec>
               <ValueMain>
+              <MobileScreen>
                 <Value>
                   {/* <TitleIcon src={blockHeightImg} /> */}
                   <ValueName>
@@ -401,6 +449,8 @@ export default function TokenDataComponent() {
                     <ContractButton> {shorten(address)}</ContractButton>
                   </ValueName>
                 </Value>
+                </MobileScreen>
+                <MobileScreen>
                 <Value>
                   {/* <TitleIcon src={difficultyLogo} /> */}
                   <ValueName>
@@ -475,7 +525,9 @@ export default function TokenDataComponent() {
                     {/* </Icons> */}
                   </ValueName>
                 </Value>
+                </MobileScreen>
               </ValueMain>
+
             </LeftSec>
           </LeftContainer>
 
