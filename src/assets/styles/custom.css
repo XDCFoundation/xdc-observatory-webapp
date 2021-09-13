@@ -3304,3 +3304,99 @@ button {
   list-style: none;
   text-decoration: none;
 }
+
+@media (min-width:0px) and (max-width:640px) {
+   #rootui{
+     overflow: hidden !important;
+    min-width: 260px !important;
+    border-radius: 10px;
+    background-color: white;
+    width: 84% !important;
+    margin: 0px 97px 0 15px !important;
+  } 
+  .table-grid-block {   
+    padding-top: 87px !important;
+    margin: 0 0 0 0px!important;
+    min-width: 377px !important;
+}
+
+  
+
+.first-row-table {
+  white-space: nowrap !important;
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.58px;
+  line-height: 1rem !important;
+}
+.block_details_heading_left {
+  font-size: 15px;
+  font-family: Inter;
+  font-weight: 600 !important;
+  letter-spacing: 0.65px;
+  margin-bottom: 15px;
+  margin-left: 17px;
+}
+.table-block{
+  display: flex !important;
+}
+.MuiTableCell-root {
+  display: flex;
+  padding: 4px;
+  font-size: 0.875rem;
+  text-align: left;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  letter-spacing: 0.01071em;
+ 
+  flex-direction: column;
+}
+
+/* .second-row-table_height {
+  font-family: Inter !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.65px;
+  padding-left: 0px !important;
+  align-items: left !important;
+  padding-top: 10px !important;
+  line-height: 1rem !important;
+}
+.second-row-table_hash2 {
+  display:flex !important;
+  flex-direction: column !important;
+  font-family: Inter !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 0px !important;
+  line-height: 1rem !important;
+}
+.second-row-table {
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 10px !important;
+  align-items: left !important;
+  line-height: 1rem !important;
+} */
+}
+@media (min-width:960px) {
+  .table-grid-block {   
+    padding-top: 9% !important;
+    margin-left: auto!important;
+    min-width: 76.666%;
+}
+.second-row-table_hash2 {
+  font-family: Inter !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 42px !important;
+  line-height: 1rem !important;
+}
+}
