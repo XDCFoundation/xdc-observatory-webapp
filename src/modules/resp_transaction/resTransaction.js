@@ -489,7 +489,7 @@ const MiddleContainer = styled.div`
     margin-left: unset;
     margin-top: 10px;
     width: 100%;
-    max-width: 232px;
+    // max-width: 232px;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
   }
   // @media (max-width: 1024px) {
