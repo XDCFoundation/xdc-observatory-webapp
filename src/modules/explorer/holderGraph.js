@@ -1,6 +1,13 @@
 import React from "react";
 import { ResponsiveLine } from '@nivo/line';
 import '../../assets/styles/custom.css';
+import styled from "styled-components";
+
+const GraphSize =styled.div`
+height: 115px;
+width: auto;
+
+`
 
 const data = [
     {
@@ -105,14 +112,16 @@ export default function App() {
 
 
     return (
-        <div style={{ height: 120, width: 390 }}>
+        <GraphSize >
+        {/* <div style={{ height: 120, width: 390 }}> */}
             <MyResponsiveLine data={data} />
             <div className="dates">
                 <p>5 Aug</p>
                 <p>19 Aug</p>
             </div>
 
-        </div>
+        {/* </div> */}
+        </GraphSize>
     );
 }
 
