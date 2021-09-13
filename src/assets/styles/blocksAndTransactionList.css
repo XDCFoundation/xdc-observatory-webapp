@@ -171,9 +171,115 @@
 }
 
 .table_1 {
-    padding-top: 50px;
-    margin-top: 50px;
+    padding-top: 70px;
     margin-left: 5%;
     margin-right: 5%;
     width: auto;
+}
+
+.Pagination {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 665px) {
+    .tableheaders {
+        font-family: "Fira Sans";
+        font-size: 13px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 0.54px;
+        text-align: center;
+        color: #252525;
+        opacity: 0.8;
+        margin-right: 164px;
+    }
+    #container-table td {
+        padding: 7px 0 6px 20px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        margin: 19px 21px 1.8px 48px;
+        font-family: "Inter" !important;
+        font-size: 12px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: 0.58px;
+        text-align: left;
+        color: #252525;
+    }
+    .select-amount {
+        width: 63px;
+        height: 28px;
+    }
+    .Pagination {
+        display: flex;
+        flex-direction: column;
+    }
+    .Pagination_1 {
+        flex-grow: 0 !important;
+        max-width: 70% !important;
+        flex-basis: 25% !important;
+    }
+    .Pagination_2 {
+        flex-grow: 0!important;
+        max-width: 92.333333%!important;
+        flex-basis: 33.333333%!important;
+    }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 666px) {
+    .container-table {
+        overflow: auto;
+    }
+    .Pagination_1 {
+        width: 163px;
+    }
+    .Pagination {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 1100px) {
+    .table_1 {
+        padding-top: 70px;
+        margin-left: 17%;
+        margin-right: 17%;
+        width: auto;
+    }
+    .w-1 {
+        width: 23%
+    }
+    .w-2 {
+        width: 17%
+    }
+    .w-3 {
+        width: 18%
+    }
+    .w-4 {
+        width: 17%
+    }
+    .w-5 {
+        width: 13%
+    }
+    .Pagination_1 {
+        width: 163px;
+    }
+    .Pagination {
+        display: flex;
+        justify-content: space-between;
+    }
 }
