@@ -103,11 +103,11 @@ export default function TransactionComponent(props) {
                             <TableRow>
                                 <TableCell className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
                                 <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Amount</span></TableCell>
-                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Age</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-age"}>Age</span></TableCell>
                                 <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Block</span></TableCell>
                                 <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>From</span></TableCell>
                                 <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>To</span></TableCell>
-                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-all"}>Txn Fee</span></TableCell>
+                                <TableCell  className="table-head-all" align="left"><span className={"tableheaders","tableheaders-txn-fee"}>Txn Fee</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

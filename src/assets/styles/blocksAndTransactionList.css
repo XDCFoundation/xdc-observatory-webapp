@@ -111,8 +111,34 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 40px;
+  margin-right: 50px;
 }
+}
+.tableheaders-txn-fee {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 100px;
+}
+.tableheaders-age{
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
 }
 
 .select-amount {
