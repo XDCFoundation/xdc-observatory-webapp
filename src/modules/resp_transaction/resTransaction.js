@@ -16,10 +16,13 @@ import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "center",
     maxWidth: "970px",
-    marginTop: "100px",
+
+    marginRight: "auto",
+    marginTop: "90px",
+    marginLeft: "auto",
+    marginBottom: "auto",
+
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
       maxWidth: "300px",
@@ -46,8 +49,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "0px",
   },
   mainContainer: {
-    display: "flex",
-    justifyContent: "center",
     width: "100%",
   },
 }));
@@ -152,7 +153,7 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>Hash ID</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 <Content>{hash}</Content>
               </MiddleContainer>
               <SecondContainer>
@@ -187,18 +188,17 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>Block Number</Hash>
               </Container>
-              <MiddleContainer>
-                {/* <Digits>3097582 -</Digits>
-                <Blocks> */}{" "}
-                {/* </Blocks> */}
-                <a
-                  className="linkTableDetails"
-                  href={"/block-details/" + transactions.blockNumber}
-                >
-                  {" "}
-                  {transactions.blockNumber}{" "}
-                </a>
-                - {transactions.blockConfirmation} Blocks Confirmation
+              <MiddleContainer isTextArea={false}>
+                <Content>
+                  <a
+                    className="linkTableDetails"
+                    href={"/block-details/" + transactions.blockNumber}
+                  >
+                    {" "}
+                    {transactions.blockNumber}{" "}
+                  </a>
+                  - {transactions.blockConfirmation} Blocks Confirmation
+                </Content>
               </MiddleContainer>
             </Spacing>
             <Spacing>
@@ -211,7 +211,7 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>Timestamp</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 {" "}
                 {moment(transactions.timestamp * 1000).format(
                   "MMMM Do YYYY, h:mm:ss a"
@@ -228,7 +228,7 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>From</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 <Content>
                   {" "}
                   <a
@@ -274,7 +274,7 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>To</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 <Content>
                   <a
                     className="linkTableDetails"
@@ -318,7 +318,7 @@ export default function Transaction({ _handleChange }) {
                 </Tooltip>
                 <Hash>Value</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 {" "}
                 {!transactions?.value
                   ? 0
@@ -337,7 +337,7 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>Txn Fee</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 <Content>
                   {" "}
                   {txfee} XDC ({currencySymbol}
@@ -354,7 +354,7 @@ export default function Transaction({ _handleChange }) {
                 </Tooltip>
                 <Hash>Gas Provided</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 {transactions.gas}
                 {/* <Content> {transactions.gas}</Content> */}
               </MiddleContainer>
@@ -368,7 +368,7 @@ export default function Transaction({ _handleChange }) {
                 </Tooltip>
                 <Hash>Gas Price</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 {gasP}
                 {/* <Content> {gasP}</Content> */}
               </MiddleContainer>
@@ -382,7 +382,7 @@ export default function Transaction({ _handleChange }) {
                 </Tooltip>
                 <Hash>Gas Used</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 <Content>{transactions.gasUsed}</Content>
               </MiddleContainer>
             </Spacing>
@@ -395,7 +395,7 @@ export default function Transaction({ _handleChange }) {
                 </Tooltip>
                 <Hash>Nounce</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainer isTextArea={false}>
                 <Content> {transactions.nonce}</Content>
               </MiddleContainer>
             </Spacing>
@@ -408,12 +408,8 @@ export default function Transaction({ _handleChange }) {
                 </Tooltip>
                 <Hash>Input Data</Hash>
               </Container>
-              <MiddleContainer>
-                <TextArea
-                  className="text-area"
-                  readOnly
-                  value={transactions.input}
-                />
+              <MiddleContainer isTextArea={true}>
+                <TextArea readOnly value={transactions.input} />
               </MiddleContainer>
             </Spacing>
             <Spacing>
@@ -437,7 +433,7 @@ export default function Transaction({ _handleChange }) {
         </Grid>
       </div>
 
-      {/* <FooterComponent _handleChange={_handleChange} currency={amount} /> */}
+      <FooterComponent _handleChange={_handleChange} currency={amount} />
     </div>
   );
 }
@@ -457,8 +453,10 @@ const Content = styled.span`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
+  word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 10px;
+    word-break: break-all;
   }
 `;
 const TextArea = styled.textarea`
@@ -466,28 +464,15 @@ const TextArea = styled.textarea`
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #dee0e3;
-`;
-const Digits = styled.span`
+  width: 100%;
   font-family: Inter;
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  text-align: left;
-  color: #4878ff;
+
+  float: left;
+  padding: 14px;
+  overflow-y: auto;
 `;
-const Blocks = styled.span`
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  text-align: left;
-`;
+
 const Div__ = styled.div`
   height: auto;
   border-radius: 7px;
@@ -498,23 +483,27 @@ const Div__ = styled.div`
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 95px;
-  @media (min-width: 300px) and (max-width: 767px) {
+  margin-left: 100px;
+  width: 100%;
+  @media (max-width: 768px) {
     font-size: 12px;
     margin-left: unset;
+    margin-top: 10px;
+
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
   }
 `;
+
 const Hash = styled.span`
   color: var(--unnamed-color-2a2a2a);
   white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 13px;
-
   letter-spacing: 0.5px;
   color: #2a2a2a;
   @media (min-width: 300px) and (max-width: 767px) {
@@ -526,7 +515,6 @@ const Hash = styled.span`
 const Spacing = styled.div`
   display: flex;
   flex-flow: row nowrap;
-
   width: 100%;
   height: auto;
   align-items: center;
@@ -552,7 +540,7 @@ const HashDiv = styled.div`
 `;
 const Container = styled.div`
   display: flex;
-  word-break: break-all;
+
   width: 100%;
   align-items: center;
   max-width: 84px;
@@ -571,7 +559,7 @@ const Div = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #fff;
   margin-bottom: 15px;
-  padding: 9px;
+  padding: 5px;
 `;
 
 const Heading = styled.span`
@@ -583,13 +571,7 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 18px;
 `;
-const Leftcontainer = styled.div`
-  text-align: right;
-  font: normal normal normal 12px/17px Inter;
-  letter-spacing: 0px;
-  color: #acacac;
-  opacity: 1;
-`;
+
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;

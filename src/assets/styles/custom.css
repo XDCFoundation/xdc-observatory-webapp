@@ -434,6 +434,7 @@ p {
   padding: 3px 12px 3px 12px;
   border-radius: 4px;
   background-color: #02c227;
+  margin-top: 15px;
 }
 .Failed-rectangle {
   height: 24px;
