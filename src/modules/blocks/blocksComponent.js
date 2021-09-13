@@ -78,12 +78,12 @@ export default function BlocksComponent(props) {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ border: "none", paddingLeft: "5%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
+                                <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left" ><span style={{ border: "none", paddingLeft: "13%" }} className={"tableheaders"}>Hash</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left"><span className={"tableheaders"}>Height</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Transactions</span></TableCell>
                                 <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Difficulty</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.8%" }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
+                                <TableCell style={{ border: "none",  }} align="left"><span className={"tableheaders"}>Gas Used</span></TableCell>
                                 {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                             </TableRow>
                         </TableHead>
@@ -99,16 +99,16 @@ export default function BlocksComponent(props) {
                                     ;
                                 return (
                                     <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                        <TableCell style={{ border: "none", width: "23%" }} margin-left="5px" >
+                                        <TableCell  className="w-1" margin-left="5px" >
                                             <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "7px" }} /></Tooltip>
 
                                             <span className={animationClass ? animationClass : "tabledata"}>{shorten(row.hash)}  </span>
                                         </TableCell>
-                                        <TableCell style={{ border: "none", width: "17%" }} align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className={animationClass ? animationClass : "tabledata"}>{row.number}</span></a></TableCell>
-                                        <TableCell style={{ border: "none", width: "21%" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "16%" }} align="left"><span className={animationClass ? animationClass : "tabledata"}> {row.transactions.length}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "15%" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{(row.difficulty)}</span></TableCell>
-                                        <TableCell style={{ border: "none" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{row.gasUsed}</span></TableCell>
+                                        <TableCell  className="w-2" align="left"><a className="linkTable" href={"/block-details/" + row.number}><span className={animationClass ? animationClass : "tabledata"}>{row.number}</span></a></TableCell>
+                                        <TableCell  className="w-3" align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti < 0 ? "0 secs ago" : ti}</span></TableCell>
+                                        <TableCell  className="w-4" align="left"><span className={animationClass ? animationClass : "tabledata"}> {row.transactions.length}</span></TableCell>
+                                        <TableCell  className="w-5" align="left"><span className={animationClass ? animationClass : "tabledata"}>{(row.difficulty)}</span></TableCell>
+                                        <TableCell align="left"><span className={animationClass ? animationClass : "tabledata"}>{row.gasUsed}</span></TableCell>
                                         {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                                     </TableRow>
                                 );
@@ -117,8 +117,8 @@ export default function BlocksComponent(props) {
                     </Table>
                 </TableContainer>
             </Paper>
-            <Grid container style={{ marginTop: "15px" }}>
-                <Grid item xs="3">
+            <Grid container style={{ marginTop: "15px" }} className="Pagination">
+                <Grid item  className="Pagination_1">
                     <span className="text">Show</span>
                     <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
                         <MenuItem value={10}>10</MenuItem>
@@ -128,9 +128,9 @@ export default function BlocksComponent(props) {
                     </Select>
                     <span className="text">Records</span>
                 </Grid>
-                <Grid xs="5" />
-                <Grid item xs="4">
-                    <button style={{ marginLeft: "-40px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
+               
+                <Grid item  className="Pagination_2">
+                <button onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                     <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                     <button className="btn">Page {Math.round(state.totalblocks / state.amount) + 1 - Math.round((state.totalblocks - state.from) / state.amount)} of {Math.round(state.totalblocks / state.amount)}</button>
                     <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalblocks ? "btn disabled" : "btn"}>{">"}</button>
