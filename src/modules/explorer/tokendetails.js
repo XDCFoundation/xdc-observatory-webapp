@@ -396,43 +396,99 @@ export default function StickyHeadTable() {
             </Paper>
 
 
-            <Grid lg={8} className="tablegrid_address" style={{ marginLeft: '245px' }}>
-                <Grid container>
-                    <Grid item xs="3">
-                        <span className="text">Show</span>
-                        <Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
-                            <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={25}>25</MenuItem>
-                            <MenuItem value={50}>50</MenuItem>
-                            <MenuItem value={100}>100</MenuItem>
-                            <MenuItem value={500}>500</MenuItem>
-                        </Select>
-                        <span className="text">Records</span>
-                    </Grid>
-                    <Grid xs="5"></Grid>
-                    <Grid item xs="4">
-                        <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
-                        <button className="btn">Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}</button>
-                        <button onClick={() => handleChangePage("next")} className={from + amount === totalToken ? "btn disabled" : "btn"}>{">"}</button>
-                        <button onClick={() => handleChangePage("last")} className={from + amount === totalToken ? "btn disabled" : "btn"}>Last</button>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                }}
+            >
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        marginLeft: "18%",
+                        marginTop: "20px",
 
-                    </Grid>
-                </Grid>
-            </Grid>
+                    }}
+                ><p style={{
+                    fontSize: "12px",
+                    fontWeight: "600"
+                }}>Show</p>
 
+                    <select
+                        value={amount}
+                        className="selectbox-contract"
+                        onChange={(event) => handleChangeRowsPerPage(event)}
+                    >
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                        <option value={75}>75</option>
+                        <option value={100}>100</option>
+                    </select>
+                    <p style={{
+                        fontSize: "12px",
+                        fontWeight: "600"
+                    }}> Records</p>
 
-            {/* <TablePagination
-                style={{ display: 'flex', justifyContent: 'space-between' }}
-                rowsPerPageOptions={[5, 10, 25, 50, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                </div>
 
-            /> */}
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        marginRight: "17.5%",
+                        marginTop: "20px",
+                    }}
+                >
+
+                    <div
+                        className=
+                        {from === 0 ? "firstbox-contract disabled" : "firstbox-contract"}
+                        onClick={() => handleChangePage("first")}
+                    >
+                        <button
+                            style={{ backgroundColor: "white" }}
+                            className="first-contract"
+                        >
+                            First
+                        </button>
+                    </div>
+                    <div
+                        className={from === 0 ? "previousbox-contract disabled" : "previousbox-contract"}
+                        onClick={() => handleChangePage("prev")}
+                    >
+                        <p className="path-contract">
+                            {"<"}
+                        </p>
+                    </div>
+                    <div className="pagebox-contract">
+                        <p className="Page-1-of-5-contract">
+                            Page {Math.round(totalToken / amount) + 1 - Math.round((totalToken - from) / amount)} of {Math.round(totalToken / amount)}
+                        </p>
+                    </div>
+                    <div className={from + amount === totalToken ? "nextbox-contract disabled" : "nextbox-contract"}>
+                        <p
+                            className="path-2-contract"
+                            onClick={() => handleChangePage("next")}
+                        >
+                            {">"}
+                        </p>
+                    </div>
+                    <div
+                        className={from + amount === totalToken ? "lastbox-contract disabled" : "lastbox-contract"}
+                        onClick={() => handleChangePage("last")}
+                    >
+                        <button
+                            style={{ backgroundColor: "white" }}
+                            className="last-contract"
+                        >
+                            Last
+                        </button>
+                    </div>
+                </div>
+            </div>
 
 
             <FooterComponent />

@@ -80,28 +80,28 @@ const useStyles = makeStyles((theme) => ({
     outline: "none"
   },
   forgotpass: {
-      color: "#2149b9",
-      marginLeft: "123px"
+    color: "#2149b9",
+    marginLeft: "123px"
   },
   createaccount: {
     color: "#2149b9",
     marginLeft: "32px",
     fontfamily: "Inter",
-  fontsize: "14px",
+    fontsize: "14px",
   },
   icon: {
-      marginLeft: "-30px"
+    marginLeft: "-30px"
   },
   xdc: {
     color: "#2a2a2a",
     marginLeft: "30px",
     fontfamily: "Inter",
-  fontsize: "5px",
+    fontsize: "5px",
   },
   heading: {
-      marginLeft: "60px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginLeft: "60px",
+    fontfamily: "Inter",
+    fontweight: "600"
   }
 }));
 
@@ -126,78 +126,77 @@ export default function FormDialog() {
   };
 
 
-  const handleLogin =() => {
-      history.push("/loginprofile")
-      // window.location("/loginprofile")
-      
+  const handleLogin = () => {
+    history.push("/loginprofile")
+    // window.location("/loginprofile")
+
   }
 
   return (
     <div>
 
-    <div className={classes.add}>
-      <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
-      </Button>
+      <div className={classes.add}>
+        <button
+          className="login-button"
 
-      <div>
-        <Dialog
-          className={classes.dialog}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
+          onClick={handleClickOpen}
         >
-          <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">Log in to your account</DialogTitle>
-            <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Username</b>
-            </DialogContentText>
-            <input className={classes.input}></input>
-          </DialogContent>
-         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
-              <b>Password</b>
-              <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span>
-            </DialogContentText>
-            
-            <input type="password" type={passwordShown ? "text" : "password"}  className={classes.input}></input>
-            <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
+          <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
+        </button>
+
+        <div>
+          <Dialog
+            className={classes.dialog}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <Row>
+              <DialogTitle className={classes.heading} id="form-dialog-title">Log in to your account</DialogTitle>
+              <span onClick={handleClose} className={classes.cross}>
+                {" "}
+                X{" "}
+              </span>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Username</b>
+              </DialogContentText>
+              <input className={classes.input}></input>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Password</b>
+                <span className={classes.forgotpass}>
+                  Forgot Password?
+                </span>
+              </DialogContentText>
+
+              <input type="password" type={passwordShown ? "text" : "password"} className={classes.input}></input>
+              <span>
+                {passwordShown ? <VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} /> : <VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} />}
+                {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            </span>
-          </DialogContent>
-          <DialogActions>
-            <button className={classes.addbtn} onClick={handleLogin} 
-            onClick={event =>  window.location.href='loginprofile'}
+              </span>
+            </DialogContent>
+            <DialogActions>
+              <button className={classes.addbtn} onClick={handleLogin}
+                onClick={event => window.location.href = 'loginprofile'}
 
-            >Log in </button>
-            {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
-          </DialogActions>
-          <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Explorer? <span className={classes.createaccount}> Create an account</span> 
+              >Log in </button>
+              {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
+            </DialogActions>
+            <div className={classes.value}></div>
+            <DialogContentText className={classes.xdc}>
+              New to XDC Explorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText>
-        </Dialog>
+          </Dialog>
+        </div>
       </div>
-    </div>
-   
+
     </div>
   );
 }
