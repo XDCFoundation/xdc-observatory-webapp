@@ -1584,6 +1584,9 @@ p {
 .makeStyles-appBar-3{
   height: 120px;
 }
+/* .Header{
+  height: 50px !important;
+} */
 /* .mob-height{
   height: 200px !important;
 } */
@@ -1637,13 +1640,19 @@ p {
   margin-left: 180px;
 }
 .Shape2{
-  /* margin-top: -30px; */
+  margin-top: -35px;
   /* margin-left: -15px !important; */
 }
 .MuiIconButton-colorInherit{
-  /* margin-top: -30px !important; */
+  margin-top: -35px !important;
   margin-left: -5px !important;
 }
+.MuiToolbar-regular{
+  height: 90px;
+}
+/* .Header{
+  height: 42px;
+} */
 .MuiAppBar-positionFixed{
   /* position: unset !important; */
 }
