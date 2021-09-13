@@ -28,7 +28,7 @@ const MainContainer = styled.div`
   margin: 0 auto;
   margin-top: 76px;
   padding-top:20px;
-  padding-left:15px
+  padding-left:15px;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -172,7 +172,7 @@ const RightTop = styled.div`
 `;
 
 const RightTitle = styled.div`
-  margin-top:3px
+  margin-top:3px;
   font-size: 13px;
   font-weight: 600;
   font-family: Inter;
