@@ -43,11 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
     justifyContent: "space-between",
   },
-  line: {
-    width: "100%",
-    marginTop: "0px",
-    marginBottom: "0px",
-  },
+
   mainContainer: {
     width: "100%",
   },
@@ -455,7 +451,7 @@ const Content = styled.span`
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 10px;
+    font-size: 12px;
     word-break: break-all;
   }
 `;
@@ -467,7 +463,6 @@ const TextArea = styled.textarea`
   width: 100%;
   font-family: Inter;
   font-size: 14px;
-
   float: left;
   padding: 14px;
   overflow-y: auto;
@@ -477,7 +472,6 @@ const Div__ = styled.div`
   height: auto;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-
   background-color: #fff;
   padding: 9px;
 `;
@@ -489,13 +483,19 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+
   @media (max-width: 768px) {
     font-size: 12px;
     margin-left: unset;
     margin-top: 10px;
-
+    width: 100%;
+    max-width: 232px;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
   }
+  // @media (max-width: 1024px) {
+  //   width: 100%;
+  //   max-width: 340px;
+  // }
 `;
 
 const Hash = styled.span`
@@ -506,7 +506,7 @@ const Hash = styled.span`
   font-size: 13px;
   letter-spacing: 0.5px;
   color: #2a2a2a;
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 13px;
@@ -521,8 +521,9 @@ const Spacing = styled.div`
   padding: 16px 23px;
   border-bottom: solid 1px #e3e7eb;
 
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (max-width: 767px) {
     display: block;
+    padding: 11px 6px;
   }
 `;
 const HashDiv = styled.div`
@@ -534,8 +535,9 @@ const HashDiv = styled.div`
   align-items: center;
   padding: 16px 23px;
 
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (max-width: 767px) {
     display: block;
+    padding: 16px 6px;
   }
 `;
 const Container = styled.div`
@@ -548,7 +550,7 @@ const Container = styled.div`
 const SecondContainer = styled.div`
   display: flex;
   align-items: center;
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (max-width: 767px) {
   }
 `;
 
@@ -570,6 +572,10 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 18px;
+  margin-left: -21px;
+  @media (min-width: 300px) and (max-width: 767px) {
+    margin-left: unset;
+  }
 `;
 
 const ImageView = styled.img`
