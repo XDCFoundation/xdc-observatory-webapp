@@ -21,6 +21,7 @@ import ContractComponent from './modules/dashboard/contractComponent';
 import ContractTab from './modules/dashboard/contractTab';
 import socketClient from "socket.io-client";
 import AccountProfile from './modules/explorer/accountProfile';
+import BlockDetails from './modules/explorer/newblockDetail'
 let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
     transports: ["websocket"],
 });
@@ -46,7 +47,8 @@ class Routes extends BaseComponent {
                         <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
 
                         <Route exact path={'/tokens'} component={TokenDetails} />
-                        <Route exact path={'/block-details/:blockNumber'} component={BlockDetailsData} />
+                        {/* <Route exact path={'/block-details/:blockNumber'} component={BlockDetailsData} /> */}
+                        <Route exact path={'/block-details/:blockNumber'} component={BlockDetails} />
                         <Route exact path={'/account-details'} component={LatestAccountsList} />
                         <Route exact path={'/address-details/:addr'} component={AddressDetails} />
                         <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
@@ -57,7 +59,6 @@ class Routes extends BaseComponent {
                         <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
                         <Route exact path={'/loginprofile'} component={AccountProfile} />
                         <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
-
                         <Redirect exact from='*' to="/" />
                     </Switch>
 
