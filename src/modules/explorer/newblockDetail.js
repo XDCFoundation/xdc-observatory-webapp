@@ -125,7 +125,7 @@ export default function BlockDetails() {
                   </Tooltip>
                   <Hash>Hash ID</Hash>
                 </Container>
-                <MiddleContainer>
+                <MiddleContainer style={{paddingRight: '84px'}}>
                 <Content>
                       
                   {height.hash}
@@ -506,6 +506,7 @@ const MiddleContainer = styled.div`
     font-size: 12px;
     margin-left: unset;
     margin-top: 8px;
+    
   }
 `;
 const Hash = styled.span`
