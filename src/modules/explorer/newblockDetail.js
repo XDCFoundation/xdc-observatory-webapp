@@ -125,12 +125,12 @@ export default function BlockDetails() {
                   </Tooltip>
                   <Hash>Hash ID</Hash>
                 </Container>
-                <MiddleContainer style={{paddingRight: '84px'}}>
+                <MiddleContainerHash >
                 <Content>
                       
                   {height.hash}
                   </Content>
-                  </MiddleContainer>
+                  </MiddleContainerHash>
                 <SecondContainer>
                   <CopyToClipboard
                     text={height.hash}
@@ -407,7 +407,7 @@ export default function BlockDetails() {
                   </Tooltip>
                   <Hash>Extra Data</Hash>
                 </Container>
-                <MiddleContainer style={{height: '80px',width:'100%'}}>
+                <MiddleContainer style={{height: '60px',width:'100%'}}>
                   
                     <textarea style={{width: "100%",
     height: "100%",
@@ -506,6 +506,22 @@ const MiddleContainer = styled.div`
     font-size: 12px;
     margin-left: unset;
     margin-top: 8px;
+    
+  }
+`;
+const MiddleContainerHash = styled.div`
+  font-family: Inter;
+  font-size: 13px;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 12px;
+    margin-left: unset;
+    margin-top: 8px;
+    padding-right:84px;
     
   }
 `;
