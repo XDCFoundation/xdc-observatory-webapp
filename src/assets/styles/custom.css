@@ -1557,7 +1557,7 @@ p {
   margin-left: -5px !important;
 }
 .MuiAppBar-positionFixed{
-  position: unset !important;
+  /* position: unset !important; */
 }
 .search-responsive{
   display: flex;
