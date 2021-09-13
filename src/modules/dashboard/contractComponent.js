@@ -12,7 +12,7 @@ import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import Utility, { dispatchAction } from "../../utility";
 import ContractData from "../../services/contract";
-
+import styled from "styled-components";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -28,8 +28,38 @@ const useStyles = makeStyles({
     marginLeft: "18%",
     width: "65%",
     backgroundColor: "white",
+    
   },
 });
+const Pagination=styled.div`
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    @media (max-width:640px){
+      display: flex;
+      flex-direction:column;
+    }        
+  `;
+const RightPagination =styled.div`
+  display:flex ;
+  margin-right: 18%;
+  margin-top: 20px;
+  flex-direction: row;
+  @media(max-width:1023px){
+    margin-right: 5%;
+    }
+`
+const LeftPagination=styled.div`
+display: flex;
+flex-direction: row;
+margin-left: 18%;
+margin-top: 20px;
+@media (max-width:1023px){
+  margin-left: 5%;
+}
+`;
+
 
 class Contractlist extends React.Component {
   constructor(props) {
@@ -271,14 +301,15 @@ class Contractlist extends React.Component {
           </div>
         </div>
         <br />
-        <Paper
-          style={{
-            borderRadius: "14px",
-            marginLeft: "18%",
-            marginRight: "18%",
-          }}
-          className={classes.rootui}
-          elevation={0}
+        <Paper    
+        className={"responsive-table-width-contract-list"}
+          // style={{
+          //   borderRadius: "14px",
+          //   marginLeft: "18%",
+          //   marginRight: "18%",
+          // }}
+          // className={classes.rootui}
+          // elevation={0}
         >
           <TableContainer
             className={classes.container}
@@ -384,25 +415,29 @@ class Contractlist extends React.Component {
           </TableContainer>
         </Paper>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
+        <Pagination
+          // style={{
+          //   display: "flex",
+          //   justifyContent: "space-between",
+          //   flexDirection: "row",
+          // }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              marginLeft: "18%",
-              marginTop: "20px",
-
-            }}
-          ><p style={{
-            fontSize: "12px",
-            fontWeight: "600"
-          }}>Show</p>
+          <LeftPagination
+            // style={{
+            //   display: "flex",
+            //   flexDirection: "row",
+            //   marginLeft: "18%",
+            //   marginTop: "20px",
+            // }}
+          >
+            <p
+              style={{
+                fontSize: "11px",
+                fontWeight: "600",
+              }}
+            >
+              Show
+            </p>
 
             <select
               value={this.state.amount}
@@ -415,25 +450,31 @@ class Contractlist extends React.Component {
               <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
-            <p style={{
-              fontSize: "12px",
-              fontWeight: "600"
-            }}> Records</p>
+            <p
+              style={{
+                fontSize: "11px",
+                fontWeight: "600",
+              }}
+            >
+              {" "}
+              Records
+            </p>
+          </LeftPagination>
 
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              marginRight: "17.5%",
-              marginTop: "20px",
-            }}
+          <RightPagination
+            // style={{
+            //   display: "flex",
+            //   flexDirection: "row",
+            //   marginRight: "17.5%",
+            //   marginTop: "20px",
+            // }}
           >
-
             <div
-              className=
-              {this.state.from === 0 ? "firstbox-contract disabled" : "firstbox-contract"}
+              className={
+                this.state.from === 0
+                  ? "firstbox-contract disabled"
+                  : "firstbox-contract"
+              }
               onClick={() => this.handleChangePage("first")}
             >
               <button
@@ -444,12 +485,14 @@ class Contractlist extends React.Component {
               </button>
             </div>
             <div
-              className={this.state.from === 0 ? "previousbox-contract disabled" : "previousbox-contract"}
+              className={
+                this.state.from === 0
+                  ? "previousbox-contract disabled"
+                  : "previousbox-contract"
+              }
               onClick={() => this.handleChangePage("prev")}
             >
-              <p className="path-contract">
-                {"<"}
-              </p>
+              <p className="path-contract">{"<"}</p>
             </div>
             <div className="pagebox-contract">
               <p className="Page-1-of-5-contract">
@@ -458,12 +501,18 @@ class Contractlist extends React.Component {
                   1 -
                   Math.round(
                     (this.state.totalRecord - this.state.from) /
-                    this.state.amount
+                      this.state.amount
                   )}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
             </div>
-            <div className={this.state.from + this.state.amount === this.state.totalRecord ? "nextbox-contract disabled" : "nextbox-contract"}>
+            <div
+              className={
+                this.state.from + this.state.amount === this.state.totalRecord
+                  ? "nextbox-contract disabled"
+                  : "nextbox-contract"
+              }
+            >
               <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
@@ -472,7 +521,11 @@ class Contractlist extends React.Component {
               </p>
             </div>
             <div
-              className={this.state.from + this.state.amount === this.state.totalRecord ? "lastbox-contract disabled" : "lastbox-contract"}
+              className={
+                this.state.from + this.state.amount === this.state.totalRecord
+                  ? "lastbox-contract disabled"
+                  : "lastbox-contract"
+              }
               onClick={() => this.handleChangePage("last")}
             >
               <button
@@ -482,8 +535,8 @@ class Contractlist extends React.Component {
                 Last
               </button>
             </div>
-          </div>
-        </div>
+          </RightPagination>
+        </Pagination>
 
         <FooterComponent />
       </div>
