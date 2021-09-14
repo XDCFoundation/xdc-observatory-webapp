@@ -15,69 +15,40 @@ export default function TokenContracttab(props) {
         <>
             <Paper style={{ borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)' }} elevation={0}>
                 <div className="container">
-                    <div style={{ marginTop: '15px', alignItems: 'center' }} className="contract-source"><span style={{ color: '#03be46', marginRight: '5px', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={verified} ></img></span>Contract Source Code Verified</div>
+                    <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={verified} ></img></span>Contract Source Code Verified</div>
                     <br /><br />
-                    {/* <div style={{ display: "flex", justifyContent: "spaceBetween" }}>
-                        <div style={{ display: "flex", flexDirection: "column", flex: 0.5 }}>
-                            <div style={{
-                                display: "flex", flex: 0.5
-                            }}>
-                                <div>Helloo
+                    <div className="source-code-verified-container">
+                        <div className="source-code-first-container">
+                            <div className="source-code-content">
+                                <div className="source-code-content-heading">Contract Name</div>
+                                <div className="source-code-content-value-name">{verifiedData.contractName}</div>
+                            </div>
+                            <hr className="source-code-line"></hr>
+                            <div className="source-code-content">
+                                <div className="source-code-content-heading">Compiler Version
                                 </div>
-                                <div style={{ marginLeft: "10px" }}>Helloo
+                                <div className="source-code-content-value">{verifiedData.compilerVersion}
                                 </div>
                             </div>
-                            <div style={{
-                                display: "flex"
-                            }}>
-                                <div >Helloo
+                            <hr className="source-code-line"></hr>
+                        </div>
+                        <div className="source-code-first-container">
+                            <div className="source-code-content">
+                                <div className="source-code-content-heading">Optimization Enabled</div>
+                                <div className="source-code-content-value-optimization">{(props?.contractData?.optimization)?.toString() === "false" ? "No" : "Yes"}</div>
+                            </div>
+                            <hr className="source-code-line"></hr>
+                            <div className="source-code-content">
+                                <div className="source-code-content-heading">Share On Socialmedia
                                 </div>
-                                <div>Helloo
+                                <div className="source-code-content-value">Not available
                                 </div>
                             </div>
-
+                            <hr className="source-code-line"></hr>
 
 
                         </div>
-                        <div style={{ display: "flex", flexDirection: "column", flex: 0.5 }}>
-                            <div style={{
-                                display: "flex", flex: 0.5
-                            }}>
-                                <div>Helloo
-                                </div>
-                                <div>Helloo
-                                </div>
-                            </div>
-                            <div style={{
-                                display: "flex", flex: 0.5
-                            }}>
-                                <div>Helloo
-                                </div>
-                                <div>Helloo
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div> */}
-                    <div style={{ display: 'flex', flexDirection: 'row', }}>
-
-                        <div style={{ flexGrow: 0 }} className="contract-name">Contract Name</div>
-                        <div style={{ flexGrow: 0.56 }} className="Fiat-Token">{verifiedData.contractName}</div>
-                        <div style={{ flexGrow: 0.09 }} className="contract-name">Optimization-enabled </div>
-                        <div className="Fiat-Token">{(props?.contractData?.optimization)?.toString() === "false" ? "No" : "Yes"}</div>
-
                     </div>
-                    <hr className="myhr2" /> <hr className="myhr3" />
-
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-
-                        <div className="contract-name">Compiler Version</div>
-                        <div style={{ flexGrow: 0.69 }} className="Fiat-Token">{verifiedData.compilerVersion}</div>
-                        <div className="contract-name">Share on Social Media</div>
-                        <div className="Fiat-Token" ><p className="not-available-token">Not available</p></div>
-                    </div>
-                    <hr className="myhr2" /> <hr className="myhr3" />
 
                     <br />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>

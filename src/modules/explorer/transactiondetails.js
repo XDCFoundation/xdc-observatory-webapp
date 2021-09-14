@@ -126,7 +126,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p className="block_details_heading_left">Transactions Details</p>
+          <p className="block_details_heading_left_transaction">Transactions Details</p>
           {transactions ? (
             transactions.status ? (
               <p className="Success-rectangle">Success</p>
