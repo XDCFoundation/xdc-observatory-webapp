@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -81,7 +81,7 @@ export default function SimpleTabs() {
     setToggleState(index);
   };
 
-  console.log(contractStatus.status, ">>>>")
+  console.log(props, ">>>>")
   return (
     <div>
 
@@ -128,7 +128,7 @@ export default function SimpleTabs() {
 
             <div className={toggleState === 3 ? "content  active-content" : "content"}>
               <div style={{ marginTop: '10px' }}>
-                {contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
+                {!contractStatus ? "" : contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
               </div>
 
             </div>
