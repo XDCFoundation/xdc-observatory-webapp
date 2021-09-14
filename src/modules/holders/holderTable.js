@@ -519,7 +519,7 @@ export default function AddressTableComponent(props) {
                             <TableHead>
                                 <TableRow>
                                     <TableCell style={{ border: "none" }} align="left">
-                                        <input
+                                       <input
                                             onChange={handleChanged}
                                             type="checkbox"
                                             name="allselect"
@@ -532,7 +532,7 @@ export default function AddressTableComponent(props) {
                                         style={{ border: "none", paddingLeft: "1.8%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Age</span>
+                                        <span className={"tableheaders mar-right-45 mar-right-40"}>Age</span>
                                     </TableCell>
                                     <TableCell
                                         style={{ border: "none", paddingLeft: "1.8%" }}
@@ -576,7 +576,7 @@ export default function AddressTableComponent(props) {
                                                 }
                                             >
                                                 <TableCell style={{ border: "none", width: '22%' }} margin-left="5px" >
-                                                    <input
+                                                   <div className="dis-flex"> <input
                                                         key={row.id}
                                                         name={row.id}
                                                         onChange={handleChanged}
@@ -591,7 +591,7 @@ export default function AddressTableComponent(props) {
                                                                 {shorten(row.TxHash)}{" "}
                                                             </span>
                                                         </Tooltip>
-                                                    </a>
+                                                    </a></div>
 
                                                 </TableCell>
                                                 <TableCell style={{ border: "none", width: '17%' }} align="left">
@@ -651,7 +651,7 @@ export default function AddressTableComponent(props) {
                     </TableContainer>
                 </Paper>
                 <Grid container style={{ marginTop: "15px" }}>
-                    <Grid item xs="3">
+                    <Grid item xs="3" className="dis-flex">
                         <span className="text">Show</span>
                         <Select value={rowsPerPage} className="select-amount" onChange={handleChangeRowsPerPage} >
                             <MenuItem value={10}>10</MenuItem>
