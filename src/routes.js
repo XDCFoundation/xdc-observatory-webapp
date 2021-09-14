@@ -48,7 +48,11 @@ class Routes extends BaseComponent {
 
             <Route exact path={'/token-data'} component={TokenDataComponent} />
             <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
-
+            <Route
+              exact
+              path={"/transfertransaction-details"}
+              component={TransferDetailsUi}
+            />
             <Route exact path={'/tokens'} component={TokenDetails} />
             {/* <Route exact path={'/block-details/:blockNumber'} component={BlockDetailsData} /> */}
             <Route exact path={'/block-details/:blockNumber'} component={BlockDetails} />
@@ -57,7 +61,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
             <Route exact path={'/token-data/:address'} component={TokenDataComponent} />
             <Route exact path={'/token-details'} component={TokenDetails} />
-            <Route exact path={'/transaction-details/:hash'} component={TransactionsDetailsData} />
+            <Route exact path={'/transaction-details/:hash'} component={Transaction} />
             <Route exact path={'/contracts'} component={ContractComponent} />
             <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
             <Route exact path={'/loginprofile'} component={AccountProfile} />

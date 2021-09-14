@@ -4696,7 +4696,7 @@ button {
 @media (min-width: 0px) and (max-width: 640px) {
   .vc-header {
     width: 96%;
-    margin: 95px auto 2%;
+    margin: 150px auto 2%;
     font-family: "Inter" !important;
     font-size: 15px;
     font-weight: bold;
@@ -4740,7 +4740,7 @@ button {
 @media (min-width: 641px) and (max-width: 1023px) {
   .vc-header {
     width: 85%;
-    margin: 95px auto 2%;
+    margin: 150px auto 2%;
     font-family: "Inter" !important;
     font-size: 17px;
     font-weight: bold;
