@@ -208,28 +208,39 @@ input:focus {
 .w-250 {
   width: 250px;
 }
-
+.mar-top-15{
+  margin-top: 15px;
+}
 .z-index-100 {
   z-index: 100;
 }
+
 @media(max-width:1023px){
 .dis-flex{
   display: flex;
 }
 }
-
+@media(max-width:640px){
+  .word-break{
+    word-break: break-all;
+  }
+  }
 
 @media(max-width:640px){
   .mar-right-45{
     margin-right: 45px;
   }
   }
+  @media(max-width:640px){
+    .flex-dir-col{
+     flex-direction: column;
+    }
+    }
   @media(min-width:641px) and (max-width:1023px){
     .mar-right-40{
       margin-right: 40px;
     }
   }
-
 .text-transform-capitalize {
   text-transform: capitalize !important;
 }
@@ -4099,6 +4110,12 @@ button {
   font-size: 12px !important;
   letter-spacing: 0.65px;
   font-weight: 500 !important;
+}
+@media(max-width:640px){
+  .sec-row-table{
+   display: flex;
+   word-break: break-all;
+  }
 }
 .p-top-30{
   padding-top: 30%;
