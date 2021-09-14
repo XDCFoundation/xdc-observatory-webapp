@@ -193,7 +193,7 @@ export default function StickyHeadTable() {
 
                         </TableHead>
                         <TableBody>
-                            {holders.map((row, index) => {
+                            {holders?.map((row, index) => {
                                 return (
 
                                     <StyledTableRow hover role="checkbox" tabIndex={-1} >
