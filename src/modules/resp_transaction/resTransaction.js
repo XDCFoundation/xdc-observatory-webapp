@@ -484,7 +484,7 @@ const MiddleContainer = styled.div`
   margin-left: 100px;
   width: 100%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     font-size: 12px;
     margin-left: unset;
     margin-top: 10px;
