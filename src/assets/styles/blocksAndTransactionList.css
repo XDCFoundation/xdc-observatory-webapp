@@ -29,14 +29,24 @@
   margin: auto;
   width: 990px;
 }
-
 .tableresponsive {
-  padding-top: 50px;
+  width: 990px;
+  padding-top: 8%;
+  margin: auto;
+  
+}
+
+@media (max-width:1023px){
+  
+.tableresponsive {
+  padding-top: 110px;
   margin-top: 50px;
   margin-left: 5%;
   margin-right: 5%;
   width: auto;
 }
+}
+
 .table-head-hash {
   
   margin-right: 5%;
@@ -125,7 +135,30 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 100px;
+  
+}
+@media (max-width: 1023px){
+  .tableheaders-txn-fee{
+
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  /* margin-right: 100px; */
+
+  }
+}
+@media(max-width:1023px){
+.Height-mobile-tab{
+  height: 200px;
+  border-radius: 7 ;
+}
 }
 .tableheaders-age{
   font-family: "Fira Sans";
