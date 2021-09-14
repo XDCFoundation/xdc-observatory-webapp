@@ -36,14 +36,20 @@ const Pagination=styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    width: 990px;
+    margin:auto;
+
     @media (max-width:640px){
       display: flex;
       flex-direction:column;
-    }        
+    }  
+    @media (max-width:1023px){
+      width: auto;
+    }       
   `;
 const RightPagination =styled.div`
   display:flex ;
-  margin-right: 18%;
+  
   margin-top: 20px;
   flex-direction: row;
   @media(max-width:1023px){
@@ -53,7 +59,7 @@ const RightPagination =styled.div`
 const LeftPagination=styled.div`
 display: flex;
 flex-direction: row;
-margin-left: 18%;
+
 margin-top: 20px;
 @media (max-width:1023px){
   margin-left: 5%;
