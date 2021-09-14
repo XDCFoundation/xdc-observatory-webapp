@@ -41,7 +41,7 @@ const MainContainer = styled.div`
     margin-left: 5%;
     margin-right: 5%;
     height: 500px;
-    
+    margin-top: 110px;    
     padding-top: 0px;
   }
   @media (max-width :640px){
@@ -75,9 +75,11 @@ const RightContainer = styled.div`
   margin-right: 0px;
   flex-direction: column;
   padding: 0px 20px 25px 40px;
+  width: 50%;
   @media (max-width:1023px){
     margin-left: 0px;
-    padding: 40px 0px 0px 0px
+    padding: 40px 0px 0px 0px;
+    width:auto;
   }
 `;
 const LeftFirst = styled.div`
