@@ -31,6 +31,15 @@ const useStyles = makeStyles({
     minWidth: 650,
     borderRadius: "10px",
     backgroundColor: "white",
+    "@media (min-width: 300px) and (max-width: 567px)": {
+      maxWidth: "300px",
+    },
+    "@media (min-width: 567px) and (max-width: 767px)": {
+      maxWidth: "500px",
+    },
+    "@media (min-width: 767px) and (max-width: 1040px)": {
+      maxWidth: "700px",
+    },
   },
   table: {
 
@@ -140,12 +149,12 @@ export default function AddressDetailsData() {
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block">
+      <Grid lg={8} className="table-grid-block tb-grid">
         <div
-          className="block_details_heading"
+          className="block_details_heading b-h1"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p className="block_details_heading_left">Address <span className="AddressTitle">{addressNumber}</span></p>
+          <p className="block_details_heading_left add">Address <span className="AddressTitle addtitle">{addressNumber}</span></p>
         </div>
 
 
@@ -221,14 +230,14 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
-          <div className="block_sec">
+          <div className="block_sec sec-block">
             <div className="bloc-tabs_sec">
               <button
                 className={
                   toggleState === 1 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
                 }
                 onClick={() => toggleTab(1)}
-              >
+              id="transaction-btn">
                 All Transactions
               </button>
 
@@ -237,7 +246,7 @@ export default function AddressDetailsData() {
                   toggleState === 2 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
                 }
                 onClick={() => toggleTab(2)}
-              >
+              id="contract-btn">
                 Contract Source
               </button>
             </div>
