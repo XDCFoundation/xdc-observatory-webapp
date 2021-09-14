@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a1efc231.chunk.css",
+    "main.js": "/static/js/main.ab18f1ef.chunk.js",
+    "main.js.map": "/static/js/main.ab18f1ef.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c9145c61.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c9145c61.js.map",
+    "static/css/2.92f2cb58.chunk.css": "/static/css/2.92f2cb58.chunk.css",
+    "static/js/2.981951a7.chunk.js": "/static/js/2.981951a7.chunk.js",
+    "static/js/2.981951a7.chunk.js.map": "/static/js/2.981951a7.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.5eed9df9f9b2bf4d56ec6680e1055af0.js": "/precache-manifest.5eed9df9f9b2bf4d56ec6680e1055af0.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.92f2cb58.chunk.css.map": "/static/css/2.92f2cb58.chunk.css.map",
+    "static/css/main.a1efc231.chunk.css.map": "/static/css/main.a1efc231.chunk.css.map",
+    "static/js/2.981951a7.chunk.js.LICENSE.txt": "/static/js/2.981951a7.chunk.js.LICENSE.txt",
+    "static/media/Accounts.svg": "/static/media/Accounts.153a6952.svg",
+    "static/media/Block Height.svg": "/static/media/Block Height.14cdccf6.svg",
+    "static/media/Current Max_TPS.svg": "/static/media/Current Max_TPS.af38a2ad.svg",
+    "static/media/Difficulty.svg": "/static/media/Difficulty.86b1c484.svg",
+    "static/media/Gas Price.svg": "/static/media/Gas Price.817492b7.svg",
+    "static/media/Transaction.svg": "/static/media/Transaction.02f9801e.svg",
+    "static/media/XDC-Icon.svg": "/static/media/XDC-Icon.97ff7a10.svg",
+    "static/media/arrow.gif": "/static/media/arrow.2f63b52f.gif",
+    "static/media/usdc.png": "/static/media/usdc.c76b33ca.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c9145c61.js",
+    "static/css/2.92f2cb58.chunk.css",
+    "static/js/2.981951a7.chunk.js",
+    "static/css/main.a1efc231.chunk.css",
+    "static/js/main.ab18f1ef.chunk.js"
+  ]
+}
