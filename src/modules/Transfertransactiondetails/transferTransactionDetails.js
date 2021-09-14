@@ -26,12 +26,16 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
       maxWidth: "300px",
+
+      marginTop: "155px",
     },
     "@media (min-width: 567px) and (max-width: 767px)": {
       maxWidth: "500px",
+      marginTop: "160px",
     },
-    "@media (min-width: 767px) and (max-width: 1040px)": {
+    "@media (min-width: 768px) and (max-width: 1040px)": {
       maxWidth: "700px",
+      marginTop: "140px",
     },
   },
   rowDiv: {
@@ -615,7 +619,7 @@ const Div = styled.div`
   height: auto;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  // border: solid 1px #e3e7eb;
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
