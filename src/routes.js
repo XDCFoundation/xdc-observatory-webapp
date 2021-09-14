@@ -22,7 +22,7 @@ import ContractTab from "./modules/dashboard/contractTab";
 import socketClient from "socket.io-client";
 import AccountProfile from "./modules/explorer/accountProfile";
 import Transaction from "./modules/resp_transaction/resTransaction";
-
+import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
 let socket = socketClient(
   "http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/",
   {
@@ -109,6 +109,11 @@ class Routes extends BaseComponent {
               exact
               path={"/transaction-details/:hash"}
               component={Transaction}
+            />
+            <Route
+              exact
+              path={"/transfertransaction-details"}
+              component={TransferDetailsUi}
             />
             <Redirect exact from="*" to="/" />
           </Switch>
