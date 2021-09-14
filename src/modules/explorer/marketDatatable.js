@@ -223,13 +223,13 @@ class MarketDatatable extends Component {
                 </div>
                 </div>
 
-                <div className="cont1">
+                <div className="cont1 cont1_align">
                 <div className="cont1-child2">
                     <p>Total Supply</p>
                     <p>{!totalSupplyValue ? 0 : totalSupplyValue}</p>
                 </div>
                 </div>
-       
+                <div className="con">{" "}</div>
         </div>
          </div>
         </DeskTopView>
@@ -238,7 +238,7 @@ class MarketDatatable extends Component {
         <div className="second_mid">
           
             <div className="second_cont">
-              <div><p>Market Cap</p></div>
+              <div  className="w-50-per"><p>Market Cap</p></div>
               <div className="mid_cont ">
               <p>
                 {currencySymbol}
@@ -278,7 +278,7 @@ class MarketDatatable extends Component {
           
             
             <div className="second_cont">
-            <div>  <p>Fully Diluted Market Cap</p></div>
+            <div  className="w-50-per">  <p>Fully Diluted Market Cap</p></div>
             <div className="mid_cont ">  <p>
                 {currencySymbol}
                 {FullyDilutedMarketCapValue ? FullyDilutedMarketCapValue : 0}
@@ -321,7 +321,7 @@ class MarketDatatable extends Component {
             </div>
          
             <div className="second_cont">
-            <div> <p>Volume (24hr)</p></div>
+            <div  className="w-50-per"> <p>Volume (24hr)</p></div>
             <div className="mid_cont "> <p>
                 {currencySymbol}
                 {volumeValue ? volumeValue : 0}
@@ -360,13 +360,13 @@ class MarketDatatable extends Component {
            
           
             <div className="second_cont">
-            <div>   <p>Circulating Supply</p></div>
+            <div  className="w-50-per">   <p>Circulating Supply</p></div>
             <div className="mid_cont">  <p style={{marginRight:"42px"}}>{circulatingSupplyValue ? circulatingSupplyValue : 0} XDC</p></div>
             
             </div>
 
             <div className="second_cont">
-            <div> <p>Total Supply</p></div>
+            <div  className="w-50-per"> <p>Total Supply</p></div>
             <div className="mid_cont">  <p style={{marginRight:"25px"}}>{!totalSupplyValue ? 0 : totalSupplyValue}</p></div>
           </div>
             </div>
