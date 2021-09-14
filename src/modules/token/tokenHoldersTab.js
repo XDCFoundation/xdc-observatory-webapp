@@ -313,6 +313,7 @@ export default function StickyHeadTable() {
           >
             Show
           </p>
+          
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>50</option>
             <option>75</option>

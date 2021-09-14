@@ -90,7 +90,7 @@ export default function SimpleTabs(props) {
 
       <Grid lg={10} className="table-grid-block3">
         <div className={classes.root}>
-          <div style={{ width: '950px', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
+          <div style={{ width: 'auto', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
             <div>
               <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: 'transparent' }} >
                 <button

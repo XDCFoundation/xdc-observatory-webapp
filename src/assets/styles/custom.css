@@ -3684,6 +3684,13 @@ button {
   margin: auto;
   width: 950px;
 }
+@media (max-width:1023px){
+  .table-grid-block3{
+    width: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
 .table-block {
   border-radius: 6px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
