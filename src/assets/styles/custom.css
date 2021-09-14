@@ -1511,6 +1511,10 @@ p {
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
 }
+.right-nav-div{
+  display: flex;
+  align-items: center;
+}
 
 @media  (min-width:1024px) {
   .tab-search{
@@ -1549,7 +1553,7 @@ p {
 
 }
 .tab-search{
-  margin-top: 25px !important;
+  /* margin-top: 25px !important; */
 }
 /* .Network-explorer{
   margin-top: 10px;
@@ -1594,8 +1598,14 @@ p {
 @media  (max-width:1023px) {
 .tab-search{
   display: block;
-  margin-top: 15px;
+  /* margin-top: 15px; */
   width: 100%;
+}
+.MuiSvgIcon-root{
+  /* margin-top: 5px !important; */
+}
+.MuiIconButton-label{
+  display: initial !important;
 }
 .makeStyles-appBar-5{
   height: 130px !important;
@@ -1624,7 +1634,14 @@ p {
 .makeStyles-appBar-8{
   height: 130px !important;
 }
-
+.MuiToolbar-regular{
+  display:flex !important;
+  align-items: baseline !important;
+}
+.right-nav-div{
+  display: flex;
+  align-items: center;
+}
 
 /* .MuiAppBar-colorPrimary{
   height: 130px;
@@ -1640,16 +1657,16 @@ p {
   margin-left: 180px;
 }
 .Shape2{
-  margin-top: -35px;
+  /* margin-top: -35px; */
   /* margin-left: -15px !important; */
 }
 .MuiIconButton-colorInherit{
-  margin-top: -35px !important;
-  margin-left: -5px !important;
+  /* margin-top: -35px !important;
+  margin-left: -5px !important; */
 }
-.MuiToolbar-regular{
+/* .MuiToolbar-regular{
   height: 90px;
-}
+} */
 /* .Header{
   height: 42px;
 } */

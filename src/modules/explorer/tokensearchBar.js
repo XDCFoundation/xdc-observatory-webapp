@@ -683,7 +683,7 @@ export default function Navbar() {
             </div>
           </div>
           </div>
-
+          <div className="right-nav-div">
           <img
             className="Shape2"
             src={require("../../../src/assets/images/Profile.png")}
@@ -717,6 +717,7 @@ export default function Navbar() {
               {contracts("right")}
             </Drawer>
           </React.Fragment>
+          </div>
         
         </Toolbar>
        
