@@ -7,7 +7,6 @@
   border-bottom: none;
 }
 
-
 .tabletop-header {
   font-family: Inter;
   font-size: 20px;
@@ -295,6 +294,11 @@
   margin-left: 5%;
   margin-right: 5%;
   width: auto;
+}
+@media (max-width: 1023px) {
+  .table_1 {
+    margin-top: 80px !important;
+  }
 }
 
 .Pagination {
