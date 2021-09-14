@@ -420,5 +420,4 @@ class LatestBlocks extends Component {
     );
   }
 }
-
 export default LatestBlocks;
