@@ -1222,11 +1222,23 @@ p {
 }
 
 .searchelement-div {
-  margin-top: 80px;
+  margin-top: 80px !important;
+  width: 990px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+}
+@media (max-width:1023px){
+  .searchelement-div{
+    width: auto;
+  }
+
 }
 
 .searchelement-token {
-  margin-left: 18%;
+  /* margin-left: 18%; */
   font-family: Inter;
   font-size: 19px;
   font-weight: 600;
@@ -1236,9 +1248,12 @@ p {
   letter-spacing: 0.69px;
   text-align: left;
   color: #2a2a2a;
+  margin: auto;
+  width: 990px;
 }
 @media (max-width:1023px){
   .searchelement-token{
+    width: auto;
     margin-left: 5%;
   }
 }
@@ -1246,7 +1261,7 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  margin-left: 18%;
+  /* margin-left: 18%; */
   width: 220px;
   padding: 7.7px 43px 8.6px 10px;
   border-radius: 6px;
@@ -4619,8 +4634,11 @@ button {
 .responsive-table-width-contract-list{
    
     border-radius:14px;
-    margin-left: 18%;
+    /* margin-left: 18%;
     margin-right:18%;
+    padding-top: 8%; */
+    margin: auto;
+    width: 990px;
 
 }
 @media (max-width:640px){
@@ -4628,6 +4646,7 @@ button {
   border-radius:14px;
     margin-left: 5%;
     margin-right:5%;
+    width: auto;
   }
 
 }
@@ -4636,6 +4655,7 @@ button {
   border-radius:14px;
     margin-left: 5%;
     margin-right:5%;
+    width: auto;
   }
   
 }
