@@ -1580,9 +1580,9 @@ p {
     margin-top: 40px !important;
     margin-left: 5px !important;
   }
-  .tab-search {
+  /* .tab-search {
     /* margin-top: 25px !important; */
-  }
+  /* } */
   /* .Network-explorer{
   margin-top: 10px;
   margin-left: 5px;
@@ -1629,9 +1629,7 @@ p {
     /* margin-top: 15px; */
     width: 100%;
   }
-  .MuiSvgIcon-root {
-    /* margin-top: 5px !important; */
-  }
+
   .MuiIconButton-label {
     display: initial !important;
   }
@@ -1684,23 +1682,14 @@ p {
   .select-td {
     margin-left: 180px;
   }
-  .Shape2 {
-    /* margin-top: -35px; */
-    /* margin-left: -15px !important; */
-  }
-  .MuiIconButton-colorInherit {
-    /* margin-top: -35px !important;
-  margin-left: -5px !important; */
-  }
+
   /* .MuiToolbar-regular{
   height: 90px;
 } */
   /* .Header{
   height: 42px;
 } */
-  .MuiAppBar-positionFixed {
-    /* position: unset !important; */
-  }
+
   .search-responsive {
     display: flex;
     justify-content: space-between;
