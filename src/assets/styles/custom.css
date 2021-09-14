@@ -1223,11 +1223,21 @@ p {
 }
 
 .searchelement-div {
-  margin-top: 80px;
+  width: 990px;
+  margin: 80px auto auto auto;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+@media (max-width: 1023px) {
+  .searchelement-div {
+    width: auto;
+    margin-top: 150px !important;
+  }
 }
 
 .searchelement-token {
-  margin-left: 18%;
+  /* margin-left: 18%; */
   font-family: Inter;
   font-size: 19px;
   font-weight: 600;
@@ -1237,17 +1247,21 @@ p {
   letter-spacing: 0.69px;
   text-align: left;
   color: #2a2a2a;
+  margin: auto;
+  width: 990px;
 }
 @media (max-width: 1023px) {
   .searchelement-token {
+    width: auto;
     margin-left: 5%;
   }
 }
 
 .searchelement-input {
+  margin-top: 8px;
   display: flex;
   flex-direction: row;
-  margin-left: 18%;
+  /* margin-left: 18%; */
   width: 220px;
   padding: 7.7px 43px 8.6px 10px;
   border-radius: 6px;
@@ -1259,6 +1273,7 @@ p {
 @media (max-width: 1023px) {
   .searchelement-input {
     margin-left: 5%;
+    margin-top: 8px;
   }
 }
 .searchelement-input2 {
@@ -4798,14 +4813,18 @@ button {
 }
 .responsive-table-width-contract-list {
   border-radius: 14px;
-  margin-left: 18%;
-  margin-right: 18%;
+  /* margin-left: 18%;
+    margin-right:18%;
+    padding-top: 8%; */
+  margin: auto;
+  width: 990px;
 }
 @media (max-width: 640px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
+    width: auto;
   }
 }
 @media (min-width: 640px) and (max-width: 1023px) {
@@ -4813,5 +4832,6 @@ button {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
+    width: auto;
   }
 }
