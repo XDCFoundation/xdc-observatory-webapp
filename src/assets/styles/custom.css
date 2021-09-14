@@ -495,6 +495,7 @@ p {
   padding: 3px 12px 3px 12px;
   border-radius: 4px;
   background-color: #02c227;
+  margin-top: 15px;
 }
 .Failed-rectangle {
   height: 24px;
@@ -3640,6 +3641,7 @@ button {
   letter-spacing: 0.58px;
   padding-left: 32px !important;
   line-height: 1rem !important;
+  white-space: nowrap !important;
 }
 .second-row-table {
   font-family: Inter !important;
@@ -3673,10 +3675,12 @@ button {
   letter-spacing: 0.65px;
   padding-left: 60px !important;
   line-height: 1rem !important;
+  word-break: break-all !important;
 }
 .table-grid-block {
-  padding-top: 8%;
-  margin: auto;
+  margin: 110px auto auto auto;
+ 
+  
   width: 100%;
 }
 .table-grid-block3 {
