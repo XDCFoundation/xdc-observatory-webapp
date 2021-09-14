@@ -56,6 +56,12 @@ const useStyles = makeStyles({
         borderBottom: 'none',
         background: '#fff',
     },
+    "@media (max-width: 1024px)": {
+        container: {
+        height:600,
+            },
+        },
+
 
 });
 const Pagination = styled.div`
@@ -96,18 +102,18 @@ export default function TransactionComponent(props) {
 
             <Paper style={{ borderRadius: '14px' }} elevation={0}>
 
-                <TableContainer style={{ height: 304, borderRadius: 7 }} className={classes.container} id="container-table">
+                <TableContainer className={classes.container} id="container-table">
 
                     <Table >
                         <TableHead>
                             <TableRow>
-                                <TableCell className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
-                                <TableCell className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Amount</span></TableCell>
-                                <TableCell className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-age"}>Age</span></TableCell>
-                                <TableCell className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Block</span></TableCell>
-                                <TableCell className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>From</span></TableCell>
-                                <TableCell className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>To</span></TableCell>
-                                <TableCell className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-txn-fee"}>Txn Fee</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Amount</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-age"}>Age</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Block</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>From</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>To</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-txn-fee"}>Txn Fee</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
