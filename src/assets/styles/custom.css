@@ -846,6 +846,11 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
+@media (max-width:1023px){
+  .firstbox-contract{
+    margin-left: 5%;
+  }
+}
 
 /* .firstbox {
   width: 51px;
@@ -1233,6 +1238,11 @@ p {
   text-align: left;
   color: #2a2a2a;
 }
+@media (max-width:1023px){
+  .searchelement-token{
+    margin-left: 5%;
+  }
+}
 
 .searchelement-input {
   display: flex;
@@ -1245,6 +1255,11 @@ p {
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+}
+@media (max-width: 1023px){
+  .searchelement-input{
+    margin-left: 5%;
+  }
 }
 .searchelement-input2 {
   display: flex;
@@ -4787,4 +4802,27 @@ button {
   .constructor-arg {
     font-size: 13px;
   }
+}
+.responsive-table-width-contract-list{
+   
+    border-radius:14px;
+    margin-left: 18%;
+    margin-right:18%;
+
+}
+@media (max-width:640px){
+  .responsive-table-width-contract-list{  
+  border-radius:14px;
+    margin-left: 5%;
+    margin-right:5%;
+  }
+
+}
+@media (min-width:640px) and (max-width:1023px){
+  .responsive-table-width-contract-list{  
+  border-radius:14px;
+    margin-left: 5%;
+    margin-right:5%;
+  }
+  
 }
