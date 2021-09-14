@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    "@media (max-width: 1023px)": {
+      minWidth: 300,
+      },
   },
 }));
 
