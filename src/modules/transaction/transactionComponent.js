@@ -13,6 +13,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router";
 import { makeStyles } from '@material-ui/core/styles';
+import styled from "styled-components";
 
 
 function timeDiff(curr, prev) {
@@ -46,6 +47,7 @@ function timeDiff(curr, prev) {
         return Math.abs(Math.round(diff / ms_Yr)) + ' years ago';
     }
 }
+
 const useStyles = makeStyles({
     container: {
 
@@ -54,8 +56,27 @@ const useStyles = makeStyles({
         borderBottom: 'none',
         background: '#fff',
     },
+    "@media (max-width: 1024px)": {
+        container: {
+        height:600,
+            },
+        },
+
 
 });
+const Pagination = styled.div`
+
+
+
+@media (min-width:640px){
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+`;
+
+
 export default function TransactionComponent(props) {
     const classes = useStyles();
 
@@ -75,21 +96,24 @@ export default function TransactionComponent(props) {
     }
     const { state } = props
     return (
-        <Grid lg={9} className="tablegrid_trans">
+
+        <Grid className="tableresponsive">
             <Grid class="tabletop-header">{state.tableName}</Grid>
+
             <Paper style={{ borderRadius: '14px' }} elevation={0}>
+
                 <TableContainer className={classes.container} id="container-table">
 
                     <Table >
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders"}>Hash</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Amount</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Age</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Block</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>From</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>To</span></TableCell>
-                                <TableCell style={{ border: "none", paddingLeft: "1%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Amount</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-age"}>Age</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Block</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>From</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>To</span></TableCell>
+                                <TableCell style={{ border: "none"}} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-txn-fee"}>Txn Fee</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -111,7 +135,7 @@ export default function TransactionComponent(props) {
                                             <a className="linkTable" href={"/transaction-details/" + row.hash}> <span className={animationClass ? animationClass : "tabledata"}> {shorten(row.hash)}</span> </a>
                                         </TableCell>
                                         <TableCell style={{ border: "none", width: "100px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{amt >= 0.0001 ? amt : 0}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "120px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "s0px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti}</span></TableCell>
                                         <TableCell style={{ border: "none", width: "120px" }} align="left"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className={animationClass ? animationClass : "tabledata"}> {row.blockNumber}</span> </a></TableCell>
                                         <TableCell style={{ border: "none", width: "160px" }} align="left"> <a className="linkTable" href={"/address-details/" + row.from}><Tooltip placement="top" title={row.from}><span className={animationClass ? animationClass : "tabledata"}>{shorten(row.from)}</span></Tooltip></a></TableCell>
                                         <TableCell style={{ border: "none", width: "155px" }} align="left"> <a className="linkTable" href={"/address-details/" + row.to}><Tooltip placement="top" title={row.to}><span className={animationClass ? animationClass : "tabledata"}>{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
@@ -123,28 +147,32 @@ export default function TransactionComponent(props) {
                     </Table>
                 </TableContainer>
             </Paper>
-            <Grid container style={{ marginTop: "15px", display: "flex", justifyContent: "space-between" }}>
-                <Grid item xs="3">
-                    <span className="text">Show</span>
-                    <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={25}>25</MenuItem>
-                        <MenuItem value={50}>50</MenuItem>
-                        <MenuItem value={100}>100</MenuItem>
-                    </Select>
-                    <span className="text">Records</span>
-                </Grid>
-                <Grid xs="5"></Grid>
 
-                <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
-                    <button style={{ marginLeft: "35px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
-                    <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
-                    <button className="btn">Page {Math.round(state.totalTransaction / state.amount) + 1 - Math.round((state.totalTransaction - state.from) / state.amount)} of {Math.round(state.totalTransaction / state.amount)}</button>
-                    <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>{">"}</button>
-                    <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>Last</button>
+            <Grid container style={{ marginTop: "15px" }}>
+                <Pagination>
+                    <Grid style={{ height: "25px", display: "flex" }}>
+                        <span className="text">Show</span>
+                        <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
+                            <MenuItem value={10}>10</MenuItem>
+                            <MenuItem value={25}>25</MenuItem>
+                            <MenuItem value={50}>50</MenuItem>
+                            <MenuItem value={100}>100</MenuItem>
+                        </Select>
+                        <span className="text">Records</span>
+                    </Grid>
 
-                </Grid>
+
+                    <Grid >
+                        <button onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
+                        <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button className="btn">Page {Math.round(state.totalTransaction / state.amount) + 1 - Math.round((state.totalTransaction - state.from) / state.amount)} of {Math.round(state.totalTransaction / state.amount)}</button>
+                        <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>Last</button>
+
+                    </Grid>
+                </Pagination>
             </Grid>
         </Grid >
+
     )
 }
