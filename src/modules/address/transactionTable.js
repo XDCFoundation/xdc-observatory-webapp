@@ -306,9 +306,9 @@ export default function TransactionTableComponent(props) {
 
     return (
         <div>
-            <div className="content_input_all">
+            <div className="content_input_all cont-tab">
 
-                <div className="searchelement-input3">
+                <div className="searchelement-input3 search-btn">
                     <img style={{ width: 18, height: 18, marginRight: 5 }}
                         src={require('../../assets/images/Search.png')} />
                     <input
@@ -328,10 +328,10 @@ export default function TransactionTableComponent(props) {
 
                 </div>
 
-                {isDownloadActive ? <div><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                {isDownloadActive ? <div className="csv"><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
                 >Download CSV</CSVLink></div>
                     :
-                    <div><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                    <div className="csv-inactive"><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
                     >Download CSV</CSVLink></div>
                 }
 
@@ -341,7 +341,7 @@ export default function TransactionTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Paper style={{ borderRadius: '14px' }} elevation={0}>
+                <Paper style={{ borderRadius: '14px' }} elevation={0} className="table-paper">
                     <TableContainer className={classes.container} id="container-table">
                         <Table>
                             <TableHead>
@@ -479,8 +479,8 @@ export default function TransactionTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }}>
-                    <Grid item xs="3">
+                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }} className="page-container">
+                    <Grid item xs="3" className="pagination-tab">
                         <span className="text">Show</span>
                         {<Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
                             <MenuItem value={10}>10</MenuItem>
@@ -492,7 +492,7 @@ export default function TransactionTableComponent(props) {
                         <span className="text">Records</span>
                     </Grid>
                     <Grid xs="5"></Grid>
-                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
+                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="page-tab">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(totalRecord / amount) + 1 - Math.round((totalRecord - from) / amount)} of {Math.round(totalRecord / amount)}</button>
