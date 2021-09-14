@@ -650,7 +650,7 @@ export default function AddressTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "15px" }}>
+                <Grid container className="mar-top-15 flex-dir-col">
                     <Grid item xs="3" className="dis-flex">
                         <span className="text">Show</span>
                         <Select value={rowsPerPage} className="select-amount" onChange={handleChangeRowsPerPage} >

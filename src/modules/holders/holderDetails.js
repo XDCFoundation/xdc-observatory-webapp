@@ -320,7 +320,7 @@ export default function HoldersDetails(props) {
                   <TableCell className="first-row-table_address1">
                     Holder
                     <div className="sec-row-table">
-                   <div> {addr}</div>
+                   <div className="word-break"> {addr}
                     <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
                       <Tooltip
                         title={
@@ -348,7 +348,7 @@ export default function HoldersDetails(props) {
                           </p>
                         </div>
                       )}
-                    </Popup></div>
+                    </Popup></div></div>
                   </TableCell></TableRow>
                 
                 <TableRow>
