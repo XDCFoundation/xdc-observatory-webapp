@@ -160,7 +160,8 @@ export default function HoldersDetails(props) {
                <TableCell className="second-row-table_address1">
                  {addr}
                   </TableCell>
-                  <TableCell className="dis1-flex">
+                  <TableCell >
+                    <div className="dis-flex">
                     <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
                       <Tooltip
                         title={
@@ -174,7 +175,7 @@ export default function HoldersDetails(props) {
                           class="fa fa-clone" aria-hidden="true"></i></button>
                       </Tooltip>
                     </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer" }} />} modal>
+                    <Popup trigger={<ImQrcode className="qr-code"/>} modal>
                       {(close) => (
                         <div className="popup_qr">
                           <p>
@@ -189,6 +190,7 @@ export default function HoldersDetails(props) {
                         </div>
                       )}
                     </Popup>
+                    </div>
                   </TableCell>
                 </TableRow>
                 <TableRow>

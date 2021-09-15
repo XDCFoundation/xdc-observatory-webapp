@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import "../../../src/assets/styles/blocksAndTransactionList.css";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";

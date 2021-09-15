@@ -241,6 +241,16 @@ input:focus {
       margin-right: 40px;
     }
   }
+  .qr-code{
+    margin-left: 10px;
+    margin-bottom: 2px;
+    cursor: pointer; 
+  }
+  @media(min-width:641px) and (max-width:1023px){
+    .qr-code{
+      margin-top: 5px;
+    }
+  }
 .text-transform-capitalize {
   text-transform: capitalize !important;
 }
