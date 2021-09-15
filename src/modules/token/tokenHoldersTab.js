@@ -18,7 +18,43 @@ import TokenData from "../../services/token";
 import Utility, { dispatchAction } from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 import Utils from "../../utility";
+import styled from "styled-components";
 
+const Pagination=styled.div`
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 950px;
+    margin:auto;
+
+    @media (max-width:640px){
+      display: flex;
+      flex-direction:column;
+    }  
+    @media (max-width:1023px){
+      width: auto;
+    }       
+  `;
+  const RightPagination =styled.div`
+  display:flex ;
+  
+  margin-top: 20px;
+  flex-direction: row;
+  @media(max-width:1023px){
+    /* margin-right: 5%; */
+    }
+`
+const LeftPagination=styled.div`
+display: flex;
+flex-direction: row;
+margin-top: 60px;
+
+@media (max-width:1023px){
+  /* margin-left: 5%; */
+  margin-top: 20px;
+}
+`;
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
@@ -163,44 +199,43 @@ export default function StickyHeadTable() {
 
   const dummyData = [
     {
-        id: '1',
-        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Age: '1 hrs ago',
-        Block: '22,650,452',
-        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Amount: '0 XDC'
+      id: "1",
+      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Age: "1 hrs ago",
+      Block: "22,650,452",
+      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Amount: "0 XDC",
     },
     {
-        id: '1',
-        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Age: '1 hrs ago',
-        Block: '22,650,452',
-        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Amount: '0 XDC'
+      id: "1",
+      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Age: "1 hrs ago",
+      Block: "22,650,452",
+      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Amount: "0 XDC",
     },
     {
-        id: '1',
-        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Age: '1 hrs ago',
-        Block: '22,650,452',
-        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Amount: '0 XDC'
+      id: "1",
+      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Age: "1 hrs ago",
+      Block: "22,650,452",
+      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Amount: "0 XDC",
     },
     {
-        id: '1',
-        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Age: '1 hrs ago',
-        Block: '22,650,452',
-        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-        Amount: '0 XDC'
+      id: "1",
+      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Age: "1 hrs ago",
+      Block: "22,650,452",
+      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+      Amount: "0 XDC",
     },
-
-
   ];
+
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -226,6 +261,8 @@ export default function StickyHeadTable() {
               </TableRow>
             </TableHead>
             {/* <TableBody>
+                        </TableHead>
+                        <TableBody>
                             {holders?.map((row, index) => {
                                 return (
 
@@ -259,15 +296,12 @@ export default function StickyHeadTable() {
                 return (
                   <StyledTableRow hover role="checkbox" tabIndex={-1}>
                     <TableCell id="td">
-                      <span className="tabledata">
-                      {row.TxHash}
-                      </span>
-              
+                      <span className="tabledata">{row.TxHash}</span>
                     </TableCell>
                     <TableCell id="td">
                       <a
                         style={{ color: "blue", fontSize: 11 }}
-                        // href={"/holder-details/" + holders.address}
+                      // href={"/holder-details/" + holders.address}
                       >
                         <span className="tabledata"> {row.Age} </span>
                       </a>
@@ -290,30 +324,31 @@ export default function StickyHeadTable() {
           </Table>
         </TableContainer>
       </Paper>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
+      <Pagination
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "space-between",
+        //   flexDirection: "row",
+        // }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            marginTop: "45px",
-            marginLeft: "1%",
-          }}
+        <LeftPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginTop: "45px",
+          //   marginLeft: "1%",
+          // }}
         >
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "11px",
               fontWeight: "600",
+              marginTop: "6px"
             }}
           >
             Show
           </p>
-          
+
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>50</option>
             <option>75</option>
@@ -321,21 +356,22 @@ export default function StickyHeadTable() {
           </select>
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "11px",
               fontWeight: "600",
+              marginTop: "6px"
             }}
           >
             {" "}
             Records
           </p>
-        </div>
+        </LeftPagination>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            marginRight: "0%",
-          }}
+        <RightPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginRight: "0%",
+          // }}
         >
           <div
             className={page === 0 ? "firstbox disabled" : "firstbox"}
@@ -383,8 +419,8 @@ export default function StickyHeadTable() {
               Last
             </button>
           </div>
-        </div>
-      </div>
+        </RightPagination>
+      </Pagination>
     </div>
   );
 }
