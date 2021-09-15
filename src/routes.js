@@ -23,99 +23,50 @@ import socketClient from "socket.io-client";
 import AccountProfile from "./modules/explorer/accountProfile";
 import Transaction from "./modules/resp_transaction/resTransaction";
 import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
-let socket = socketClient(
-  "http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/",
-  {
-    transports: ["websocket"],
-  }
+import BlockDetails from './modules/explorer/newblockDetail'
+let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
+  transports: ["websocket"],
+}
 );
 
 class Routes extends BaseComponent {
-  componentDidMount() {}
+  componentDidMount() { }
+
+  componentDidMount() {
+
+  }
 
   render() {
     return (
+
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router history={history}>
           <Switch>
-            <Route
-              exact
-              path={"/view-all-transaction"}
-              component={() => <LatestTransactionList socketTrans={socket} />}
-            />
-            <Route
-              exact
-              path={"/view-all-blocks"}
-              component={() => <LatestBlocksList socketblock={socket} />}
-            />
-            <Route
-              exact
-              path={"/"}
-              component={() => <BlockChainClass socket={socket} />}
-            />
+            <Route exact path={'/view-all-transaction'} component={() => <LatestTransactionList socketTrans={socket} />} />
+            <Route exact path={'/view-all-blocks'} component={() => <LatestBlocksList socketblock={socket} />} />
+            <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
 
-            <Route exact path={"/token-data"} component={TokenDataComponent} />
-            <Route
-              exact
-              path={"/view-all-transaction"}
-              component={LatestTransactionList}
-            />
-
-            <Route exact path={"/tokens"} component={TokenDetails} />
-            <Route
-              exact
-              path={"/block-details/:blockNumber"}
-              component={BlockDetailsData}
-            />
-            <Route
-              exact
-              path={"/account-details"}
-              component={LatestAccountsList}
-            />
-            <Route
-              exact
-              path={"/address-details/:addr"}
-              component={AddressDetails}
-            />
-            <Route
-              exact
-              path={"/holder-details/:addr"}
-              component={HolderDetails}
-            />
-            <Route
-              exact
-              path={"/token-data/:address"}
-              component={TokenDataComponent}
-            />
-            <Route exact path={"/token-details"} component={TokenDetails} />
-            {/* <Route
-              exact
-              path={"/transaction-details/:hash"}
-              component={TransactionsDetailsData}
-            /> */}
-            <Route exact path={"/contracts"} component={ContractComponent} />
-            <Route
-              exact
-              path={["/verify-contracts/:address", "/verify-contracts"]}
-              component={ContractTab}
-            />
-            <Route exact path={"/loginprofile"} component={AccountProfile} />
-            <Route
-              exact
-              path={"/address/:addressNumber"}
-              component={AddressDetailsData}
-            />
-            <Route
-              exact
-              path={"/transaction-details/:hash"}
-              component={Transaction}
-            />
+            <Route exact path={'/token-data'} component={TokenDataComponent} />
+            <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
             <Route
               exact
               path={"/transfertransaction-details"}
               component={TransferDetailsUi}
             />
-            <Redirect exact from="*" to="/" />
+            <Route exact path={'/tokens'} component={TokenDetails} />
+            {/* <Route exact path={'/block-details/:blockNumber'} component={BlockDetailsData} /> */}
+            <Route exact path={'/block-details/:blockNumber'} component={BlockDetails} />
+            <Route exact path={'/account-details'} component={LatestAccountsList} />
+            <Route exact path={'/address-details/:addr'} component={AddressDetails} />
+            <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
+            <Route exact path={'/token-data/:address'} component={TokenDataComponent} />
+            <Route exact path={'/token-details'} component={TokenDetails} />
+            <Route exact path={'/transaction-details/:hash'} component={Transaction} />
+            <Route exact path={'/contracts'} component={ContractComponent} />
+            <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
+            <Route exact path={'/loginprofile'} component={AccountProfile} />
+            <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
+            <Redirect exact from='*' to="/" />
           </Switch>
         </Router>
       </MuiThemeProvider>

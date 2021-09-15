@@ -196,7 +196,9 @@ input:focus {
 }
 
 /*Width-CSS*/
-
+.w-100{
+  width: 100%;
+}
 .w-150 {
   width: 150px;
 }
@@ -213,6 +215,9 @@ input:focus {
 }
 .z-index-100 {
   z-index: 100;
+}
+.txt-center{
+  text-align: center;
 }
 
 @media(max-width:1023px){
@@ -236,6 +241,21 @@ input:focus {
      flex-direction: column;
     }
     }
+    @media(max-width:640px){
+      .mar-left-7{
+      margin-left: 7px;
+      }
+      }
+      @media(max-width:640px){
+        .pad-left{
+          padding-left: 3.8%;
+        }
+        }
+    @media(max-width:640px){
+       .w-100-640{
+         width: 100%;
+      }
+      }
   @media(min-width:641px) and (max-width:1023px){
     .mar-right-40{
       margin-right: 40px;
@@ -333,6 +353,7 @@ input:focus {
 }
 
 .exp {
+  
   display: flex;
   font-size: 48px;
   font-weight: bold;
