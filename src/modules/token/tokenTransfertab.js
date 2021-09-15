@@ -243,19 +243,19 @@ export default function StickyHeadTable() {
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>TxnHash</span>
+                  <span className={"tableheaders_Transfer-table-hash"}>TxnHash</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>Age</span>
+                  <span className={"tableheaders_Transfer-table-age"}>Age</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>Block</span>
+                  <span className={"Tableheaders"}>Block</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>From</span>
+                  <span className={"Tableheaders"}>From</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>To</span>
+                  <span className={"Tableheaders"}>To</span>
                 </TableCell>
               </TableRow>
             </TableHead>
