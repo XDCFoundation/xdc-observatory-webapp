@@ -36,7 +36,6 @@ const MainContainer = styled.div`
     margin-left: 5%;
     margin-right: 5%;
     height: 500px;
-    
     padding-top: 0px;
   }
   @media (max-width :640px){
@@ -45,8 +44,6 @@ const MainContainer = styled.div`
     height: 500px;
     margin-right: 2%;
     margin-left: 2%;
-    
-
   }
 `;
 const MobileScreen=styled.div`

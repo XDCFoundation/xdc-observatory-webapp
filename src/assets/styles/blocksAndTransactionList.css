@@ -29,6 +29,33 @@
   margin: auto;
   width: 990px;
 }
+
+.tableresponsive {
+  padding-top: 50px;
+  margin-top: 50px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: auto;
+}
+.table-head-hash {
+  
+  margin-right: 5%;
+  border: none;
+  padding-left: 4%;
+  /* width: 50%; */
+}
+
+.table-head-all {
+  border: none;
+  padding-left: 1.5%;
+}
+
+.table-row-latest-transaction{
+  border: none;
+  width: 100px 
+}
+
+
 .tablegrid2 {
   padding-top: 8%;
   margin: auto;
@@ -46,6 +73,74 @@
   color: #252525;
   opacity: 0.8;
 }
+.tableheaders-hash {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 115px;
+}
+@media(max-width:640px){
+.tableheaders-hash {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 115px;
+}
+.tableheaders-all {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
+}
+.tableheaders-txn-fee {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 100px;
+}
+.tableheaders-age{
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
+
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
@@ -121,7 +216,7 @@
 .btn {
   font-family: Inter;
 
-  font-size: 10px;
+  font-size: 9px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
