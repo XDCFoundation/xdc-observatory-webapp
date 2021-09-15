@@ -37,13 +37,16 @@ const Pagination=styled.div`
     }       
   `;
   const RightPagination =styled.div`
-  display:flex ;
-  
+  display:flex ;  
   margin-top: 20px;
   flex-direction: row;
-  @media(max-width:1023px){
+  
+
+    @media(max-width:640px){
+    margin-top: 10px;
     /* margin-right: 5%; */
     }
+    
 `
 const LeftPagination=styled.div`
 display: flex;
