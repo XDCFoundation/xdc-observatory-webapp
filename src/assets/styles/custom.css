@@ -490,7 +490,7 @@ input:focus {
   }
   
 }
-@media (min-width:767px) and (max-width:1024px) {
+@media (min-width:767px) and (max-width:1025px) {
   /* contract start */
   .b-h1{
     padding: 0 16px 0 15px !important;
@@ -590,7 +590,7 @@ input:focus {
     padding: 0 10px 0 9px !important;
   }
 }
-@media (min-width:1024px) and (max-width:1280px) {
+@media (min-width:1025px) and (max-width:1280px) {
   /* contract start */
   .b-h1{
     padding: 0 16px 0 15px !important;
