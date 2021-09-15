@@ -87,13 +87,13 @@ export default function BlockDetailsData() {
     return (
         <div>
             <Tokensearchbar />
-            <Grid lg={8} className="table-grid-block">
+            <Grid xs={12} sm={10} md={5} lg={8} className="table-grid-block">
                 <div className="block_details_heading" style={{ display: 'flex', flexDirection: 'row' }}>
                     <p className="block_details_heading_left">Block Details</p>
                     {/* {isActive === true ? (<p className="Success-rectangle-block" >Success</p>) :
                         (<p className="failure-rectangle">Failed</p>)} */}
                 </div>
-                <Paper className={classes.rootui} elevation={0}>
+                <Paper className={classes.rootui} elevation={0} id="rootui">
                     <Table className="table-block" aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -129,7 +129,7 @@ export default function BlockDetailsData() {
                     </Table>
                 </Paper>
                 <br />
-                <Paper className={classes.rootui} elevation={0}>
+                <Paper className={classes.rootui} elevation={0} id="rootui">
                     <Table className="table-block" aria-label="simple table">
                         <TableHead >
                             <TableRow>

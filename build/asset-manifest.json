@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.fe95cbcf.chunk.css",
-    "main.js": "/static/js/main.5d68128a.chunk.js",
-    "main.js.map": "/static/js/main.5d68128a.chunk.js.map",
+    "main.css": "/static/css/main.7d451c93.chunk.css",
+    "main.js": "/static/js/main.b43cb3b0.chunk.js",
+    "main.js.map": "/static/js/main.b43cb3b0.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c9145c61.js",
     "runtime-main.js.map": "/static/js/runtime-main.c9145c61.js.map",
-    "static/css/2.27251d9e.chunk.css": "/static/css/2.27251d9e.chunk.css",
-    "static/js/2.9306ce62.chunk.js": "/static/js/2.9306ce62.chunk.js",
-    "static/js/2.9306ce62.chunk.js.map": "/static/js/2.9306ce62.chunk.js.map",
+    "static/css/2.92f2cb58.chunk.css": "/static/css/2.92f2cb58.chunk.css",
+    "static/js/2.981951a7.chunk.js": "/static/js/2.981951a7.chunk.js",
+    "static/js/2.981951a7.chunk.js.map": "/static/js/2.981951a7.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.6c18b449ccdc69f11b03ba2c6e003b67.js": "/precache-manifest.6c18b449ccdc69f11b03ba2c6e003b67.js",
+    "precache-manifest.520e41f72552f7aab25b1ce428103826.js": "/precache-manifest.520e41f72552f7aab25b1ce428103826.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.27251d9e.chunk.css.map": "/static/css/2.27251d9e.chunk.css.map",
-    "static/css/main.fe95cbcf.chunk.css.map": "/static/css/main.fe95cbcf.chunk.css.map",
-    "static/js/2.9306ce62.chunk.js.LICENSE.txt": "/static/js/2.9306ce62.chunk.js.LICENSE.txt",
+    "static/css/2.92f2cb58.chunk.css.map": "/static/css/2.92f2cb58.chunk.css.map",
+    "static/css/main.7d451c93.chunk.css.map": "/static/css/main.7d451c93.chunk.css.map",
+    "static/js/2.981951a7.chunk.js.LICENSE.txt": "/static/js/2.981951a7.chunk.js.LICENSE.txt",
     "static/media/Accounts.svg": "/static/media/Accounts.153a6952.svg",
     "static/media/Block Height.svg": "/static/media/Block Height.14cdccf6.svg",
     "static/media/Current Max_TPS.svg": "/static/media/Current Max_TPS.af38a2ad.svg",
@@ -26,9 +26,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.c9145c61.js",
-    "static/css/2.27251d9e.chunk.css",
-    "static/js/2.9306ce62.chunk.js",
-    "static/css/main.fe95cbcf.chunk.css",
-    "static/js/main.5d68128a.chunk.js"
+    "static/css/2.92f2cb58.chunk.css",
+    "static/js/2.981951a7.chunk.js",
+    "static/css/main.7d451c93.chunk.css",
+    "static/js/main.b43cb3b0.chunk.js"
   ]
 }
