@@ -1265,6 +1265,23 @@ p {
   color: #686868;
 }
 
+@media (max-width:640px){
+  .TableHeaders{
+    margin-top: 10px;
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #686868;
+  margin-right: 20px;
+} 
+
+}
+
 .TableTexts {
   margin-top: 12px;
   font-family: Inter;
