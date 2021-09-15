@@ -196,7 +196,12 @@ input:focus {
 }
 
 /*Width-CSS*/
-
+.w-16{
+  width:16%;
+}
+.w-850{
+  width:850px;
+}
 .w-150 {
   width: 150px;
 }
@@ -291,10 +296,10 @@ input:focus {
     display: flex !important;
 
   }
-  .w-850 {
+  .w-31 {
     width: 31%;
   }
-  .w-350{
+  .w-19{
     width:19%;
   }
   .tb-grid{
@@ -334,6 +339,9 @@ input:focus {
     letter-spacing: 0.7px;
     color: #2a2a2a;
 }
+/* #table-cont td{
+  padding: 7px 0 15px 7px !important;
+} */
   .contractSummary {
     width: 100% !important;
     height: 254px;
