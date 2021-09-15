@@ -343,10 +343,10 @@ export default function TransactionTableComponent(props) {
             <Grid lg={13} className="tablegrid_address">
                 <Paper style={{ borderRadius: '14px' }} elevation={0} className="table-paper">
                     <TableContainer className={classes.container} id="container-table">
-                        <Table>
+                        <Table className="table-trans">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ border: "none" }} align="left">
+                                    <TableCell className="w-450 w-850" style={{ border: "none"}} align="left">
                                         <input
                                             onChange={handleChanged}
                                             type="checkbox"
@@ -354,37 +354,37 @@ export default function TransactionTableComponent(props) {
                                             checked={address.filter((addr) => addr?.isChecked !== true).length <= address.length + 1}
                                             style={{ marginRight: "8px" }}
                                         />
-                                        <span className={"tableheaders"}>Txn Hash</span>
+                                        <span className={"tableheaders table-hash"}>Txn Hash</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450 w-350"
                                         style={{ border: "none", paddingLeft: "1.8%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Age</span>
+                                        <span className={"tableheaders table-age"}>Age</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450"
                                         style={{ border: "none", paddingLeft: "2%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Block</span>
+                                        <span className={"tableheaders table-block"}>Block</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450"
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>From</span>
+                                        <span className={"tableheaders table-from"}>From</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450"
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>To</span>
+                                        <span className={"tableheaders table-to"}>To</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450"
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Value</span>
+                                        <span className={"tableheaders table-value"}>Value</span>
                                     </TableCell>
                                     {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                                 </TableRow>
