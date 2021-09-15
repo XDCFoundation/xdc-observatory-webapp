@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     "@media (max-width: 1023px)": {
-      minWidth: 300,
+      minWidth: 280,
       },
   },
 }));
@@ -118,7 +118,7 @@ export default function SimpleTabs(props) {
 
           <div>
             <div className={toggleState === 1 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px' }}>
+              <div style={{ marginTop: '10px', width: 'auto' }}>
                 <TokenTransfertab />
               </div>
             </div>
