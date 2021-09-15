@@ -19,11 +19,13 @@
   color: #2a2a2a;
   margin-bottom: 15px;
 }
+
 .tablegrid {
   padding-top: 8%;
   margin: auto;
   width: 100%;
 }
+
 .tablegrid_trans {
   padding-top: 8%;
   margin: auto;
@@ -33,22 +35,19 @@
   width: 990px;
   padding-top: 8%;
   margin: auto;
-  
 }
 
-@media (max-width:1023px){
-  
-.tableresponsive {
-  padding-top: 110px;
-  margin-top: 50px;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: auto;
-}
+@media (max-width: 1023px) {
+  .tableresponsive {
+    padding-top: 110px;
+    margin-top: 50px;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: auto;
+  }
 }
 
 .table-head-hash {
-  
   margin-right: 5%;
   border: none;
   padding-left: 4%;
@@ -60,16 +59,53 @@
   padding-left: 1.5%;
 }
 
-.table-row-latest-transaction{
+.table-row-latest-transaction {
   border: none;
-  width: 100px 
+  width: 100px;
 }
-
 
 .tablegrid2 {
   padding-top: 8%;
   margin: auto;
   width: 790px;
+}
+.tableheader {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+}
+.tableheader-hash {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 115px;
+}
+.tableheader-age {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
 }
 .tableheaders {
   font-family: "Fira Sans";
@@ -96,21 +132,7 @@
   opacity: 0.8;
   margin-right: 115px;
 }
-@media(max-width:640px){
-.tableheaders-hash {
-  font-family: "Fira Sans";
-  font-size: 13px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  text-align: center;
-  color: #252525;
-  opacity: 0.8;
-  margin-right: 115px;
-}
-.tableheaders-all {
+.tableheader-all {
   font-family: "Fira Sans";
   font-size: 13px;
   font-weight: bold;
@@ -123,6 +145,58 @@
   opacity: 0.8;
   margin-right: 50px;
 }
+.tableheader-txn-fee {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+}
+.tableheader-age {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
+@media (max-width: 640px) {
+  .tableheaders-hash {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    margin-right: 115px;
+  }
+  .tableheaders-all {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    margin-right: 50px;
+  }
 }
 .tableheaders-txn-fee {
   font-family: "Fira Sans";
@@ -135,32 +209,29 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  
 }
-@media (max-width: 1023px){
-  .tableheaders-txn-fee{
-
-  font-family: "Fira Sans";
-  font-size: 13px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  text-align: center;
-  color: #252525;
-  opacity: 0.8;
-  /* margin-right: 100px; */
-
+@media (max-width: 1023px) {
+  .tableheaders-txn-fee {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    /* margin-right: 100px; */
   }
 }
-@media(max-width:1023px){
-.Height-mobile-tab{
-  height: 200px;
-  border-radius: 7 ;
+@media (max-width: 1023px) {
+  .Height-mobile-tab {
+    height: 200px;
+    border-radius: 7;
+  }
 }
-}
-.tableheaders-age{
+.tableheaders-age {
   font-family: "Fira Sans";
   font-size: 13px;
   font-weight: bold;
@@ -198,6 +269,7 @@
   opacity: 0.7;
   padding-left: 2px;
 }
+
 .first-block-details {
   width: 10%;
   font-family: Inter;
@@ -214,23 +286,28 @@
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
+
 .second-block-details {
   color: #2149b9;
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
+
 .second-block-details:hover {
   color: #252525;
   text-decoration: none;
 }
+
 .linkTable:hover {
   color: #252525;
   text-decoration: none;
 }
+
 .linkTable {
   color: #2149b9;
 }
+
 .text {
   font-family: Inter;
   font-size: 12px;
@@ -248,8 +325,7 @@
 
 .btn {
   font-family: Inter;
-
-  font-size: 9px;
+  font-size: 10px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -268,6 +344,7 @@
   color: #939499;
   font-weight: bold;
 }
+
 .tablegrid_address {
   padding-top: 1.5%;
   margin: auto;
@@ -279,14 +356,151 @@
     padding-left: 1%;
   }
 }
+
 .linkTableDetails:hover {
   color: #252525;
   text-decoration: none;
   font-size: 12px;
   font-weight: 600 !important;
 }
+
 .linkTableDetails {
   color: #2149b9;
   font-size: 12px;
   font-weight: 600 !important;
+}
+
+.table_1 {
+  padding-top: 70px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: auto;
+}
+@media (max-width: 1023px) {
+  .table_1 {
+    margin-top: 80px !important;
+  }
+}
+
+.Pagination {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 665px) {
+  .tableheaders {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    margin-right: 164px;
+  }
+  .tableheaders_1 {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    margin-right: 27px;
+  }
+  #container-table td {
+    /* padding: 7px 0 6px 20px; */
+    text-align: left;
+    border-bottom: none !important;
+    margin: 19px 21px 1.8px 48px;
+    font-family: "Inter" !important;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    text-align: left;
+    color: #252525;
+  }
+  .select-amount {
+    width: 63px;
+    height: 28px;
+  }
+  .Pagination {
+    display: flex;
+    flex-direction: column;
+  }
+  .Pagination_1 {
+    flex-grow: 0 !important;
+    max-width: 70% !important;
+    flex-basis: 25% !important;
+  }
+  .Pagination_2 {
+    flex-grow: 0 !important;
+    max-width: 92.333333% !important;
+    flex-basis: 33.333333% !important;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 666px) {
+  .container-table {
+    overflow: auto;
+  }
+  .Pagination_1 {
+    width: 163px;
+  }
+  .Pagination {
+    display: flex;
+    justify-content: space-between;
+  }
+  .pl--1 {
+    margin-left: -8.5% !important;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 1100px) {
+  .table_1 {
+    padding-top: 70px;
+    margin-left: 17%;
+    margin-right: 17%;
+    width: auto;
+  }
+  .w-1 {
+    width: 23%;
+  }
+  .w-2 {
+    width: 17%;
+  }
+  .w-3 {
+    width: 18%;
+  }
+  .w-4 {
+    width: 17%;
+  }
+  .w-5 {
+    width: 13%;
+  }
+  .Pagination_1 {
+    width: 163px;
+  }
+  .Pagination {
+    display: flex;
+    justify-content: space-between;
+  }
+  .pl--1 {
+    margin-left: -8.5% !important;
+  }
 }

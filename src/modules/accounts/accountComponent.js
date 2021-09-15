@@ -40,7 +40,7 @@ export default function AccountComponent(props) {
     return (
         <div>
             <Tokensearchbar />
-            <Grid lg={8} className="tablegrid">
+            <Grid className="table_1">
                 <Grid class="tabletop-header">{state.tableName}</Grid>
                 <div className="searchelement-input2">
                     <img style={{ width: 22, height: 22, marginRight: 5 }}
@@ -67,10 +67,10 @@ export default function AccountComponent(props) {
 
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ border: "none", paddingLeft: "2.7%" }} align="left" ><span className={"tableheaders"}>Address</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "1.5%" }} align="left"><span className={"tableheaders"}>Type</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "4.1%" }} align="left"><span className={"tableheaders"}>Balance</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders"}>Percentage</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders_1"}>Address</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
                                 </TableRow>
                             </TableHead>
                             {props.state.noData == 1 &&
@@ -81,15 +81,15 @@ export default function AccountComponent(props) {
                                         let bal = finalBal.toString()
                                         return (
                                             <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
-                                                <TableCell style={{ border: "none", paddingLeft: "2.5%", width: "48%" }} >
+                                                <TableCell className="w-1" style={{ border: "none", paddingLeft: "25.5px", width: "48%" }} >
 
                                                     <a className="linkTable" href={'/address-details/' + row.address}><span className="tabledata">{(row.address)}</span></a>
 
                                                 </TableCell>
                                                 {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
-                                                <TableCell style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
-                                                <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
-                                                <TableCell style={{ border: "none", paddingLeft: "3.5%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
+                                                <TableCell className="w-2" style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
+                                                <TableCell className="w-3" style={{ border: "none", paddingLeft: "2%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
+                                                <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -106,8 +106,8 @@ export default function AccountComponent(props) {
                     </TableContainer>
                 </Paper>
 
-                <Grid container style={{ marginTop: "15px", display: "flex", justifyContent: "space-between" }}>
-                    <Grid item xs="3">
+                <Grid container style={{ marginTop: "15px" }} className="Pagination">
+                    <Grid item className="Pagination_1">
                         <span className="text">Show</span>
                         <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
                             <MenuItem value={10}>10</MenuItem>
@@ -117,8 +117,8 @@ export default function AccountComponent(props) {
                         </Select>
                         <span className="text">Records</span>
                     </Grid>
-                    <Grid xs="5"></Grid>
-                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
+
+                    <Grid item className="Pagination_2">
                         <button style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(state.totalAccounts / state.amount) + 1 - Math.round((state.totalAccounts - state.from) / state.amount)} of {Math.round(state.totalAccounts / state.amount)}</button>
