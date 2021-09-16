@@ -317,6 +317,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-top: 3px;
     word-break: break-all !important;
   }
   .contractOverview {
@@ -421,6 +422,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-top: 3px;
     word-break: break-all !important;
   }
   .contractOverview {
@@ -463,7 +465,7 @@ input:focus {
   .cont-tab{
     display:flex !important;
     flex-direction: column !important;
-    padding: 0 12px 0 11px !important;
+    /* padding: 0 12px 0 11px !important; */
   }
   .search-btn{
     width:100% !important;
@@ -493,9 +495,9 @@ input:focus {
     max-width: 100% !important;
     width: 100% !important;
   }
-  .table-paper{
+  /* .table-paper{
     padding: 0 10px 0 9px !important;
-  }
+  } */
   
 }
 @media (min-width:767px) and (max-width:1025px) {
@@ -522,6 +524,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-top: 3px;
     word-break: break-all !important;
   }
   .contractOverview {
@@ -561,14 +564,15 @@ input:focus {
     width: 100% !important;
     max-width: 110px !important;
   }
-  /* .cont-tab{
-    display:flex !important;
-    flex-direction: column !important;
-    padding: 0 12px 0 11px !important;
+  .cont-tab{
+    /* display:flex !important;
+    flex-direction: column !important; */
+    padding: 0 12px 0 0px !important;
   }
   .search-btn{
+    max-width: 180px;
     width:100% !important;
-  } */
+  }
   /* .csv{
     padding: 11px 8px 9px 0 !important;
     align-self: flex-end !important;
@@ -594,9 +598,9 @@ input:focus {
     max-width: 100% !important;
     width: 100% !important;
   } */
-  .table-paper{
+  /* .table-paper{
     padding: 0 10px 0 9px !important;
-  }
+  } */
 }
 @media (min-width:1025px) and (max-width:1280px) {
   /* contract start */
@@ -623,6 +627,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-top: 3px;
     word-break: break-all !important;
   }
   .contractOverview {
@@ -662,14 +667,15 @@ input:focus {
     width: 100% !important;
     max-width: 110px !important;
   }
-  /* .cont-tab{
-    display:flex !important;
-    flex-direction: column !important;
-    padding: 0 12px 0 11px !important;
+  .cont-tab{
+    /* display:flex !important;
+    flex-direction: column !important; */
+    padding: 0 12px 0 0px !important;
   }
   .search-btn{
+    max-width:180px;
     width:100% !important;
-  } */
+  }
   /* .csv{
     padding: 11px 8px 9px 0 !important;
     align-self: flex-end !important;
@@ -695,9 +701,9 @@ input:focus {
     max-width: 100% !important;
     width: 100% !important;
   } */
-  .table-paper{
+  /* .table-paper{
     padding: 0 10px 0 9px !important;
-  }
+  } */
 }
 .Shape3 {
   width: 65px;
