@@ -125,6 +125,7 @@ const useStyles = makeStyles({
     background: "#fff",
   },
 
+
   divider: {
     borderTop: "0px solid #bbb",
     width: "100%",
