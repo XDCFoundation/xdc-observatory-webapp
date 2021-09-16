@@ -320,6 +320,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-left: 4px;
     margin-top: 3px;
     word-break: break-all !important;
   }
@@ -425,6 +426,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-left: 6px !important;
     margin-top: 3px;
     word-break: break-all !important;
   }
@@ -503,7 +505,7 @@ input:focus {
   } */
   
 }
-@media (min-width:767px) and (max-width:1025px) {
+@media (min-width:767px) and (max-width:1023px) {
   /* contract start */
   .b-h1{
     padding: 0 16px 0 15px !important;
@@ -528,6 +530,7 @@ input:focus {
   }
   .addtitle{
     margin-top: 3px;
+    margin-left: 8px !important;
     word-break: break-all !important;
   }
   .contractOverview {
@@ -605,7 +608,7 @@ input:focus {
     padding: 0 10px 0 9px !important;
   } */
 }
-@media (min-width:1025px) and (max-width:1280px) {
+@media (min-width:1024px) and (max-width:1280px) {
   /* contract start */
   .b-h1{
     padding: 0 16px 0 15px !important;
@@ -630,6 +633,7 @@ input:focus {
     display: flex !important;
   }
   .addtitle{
+    margin-left: 8px !important;
     margin-top: 3px;
     word-break: break-all !important;
   }
