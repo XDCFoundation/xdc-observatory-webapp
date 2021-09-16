@@ -17,6 +17,85 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
 import { useParams } from "react-router";
+import styled from "styled-components";
+
+const Pagination=styled.div`
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 950px;
+    margin:auto;
+
+    @media (max-width:640px){
+      display: flex;
+      flex-direction:column;
+    }  
+    @media (max-width:1023px){
+      width: auto;
+    }       
+  `;
+  const RightPagination =styled.div`
+  display:flex ;  
+  margin-top: 20px;
+  flex-direction: row;
+  
+
+    @media(max-width:640px){
+    margin-top: 10px;
+    /* margin-right: 5%; */
+    }
+    
+`
+const LeftPagination=styled.div`
+display: flex;
+flex-direction: row;
+margin-top: 60px;
+
+@media (max-width:1023px){
+  /* margin-left: 5%; */
+  margin-top: 20px;
+}
+`;
+
+const dummyData = [
+  {
+    id: "1",
+    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Age: "1 hrs ago",
+    Block: "22,650,452",
+    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Amount: "0 XDC",
+  },
+  {
+    id: "1",
+    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Age: "1 hrs ago",
+    Block: "22,650,452",
+    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Amount: "0 XDC",
+  },
+  {
+    id: "1",
+    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Age: "1 hrs ago",
+    Block: "22,650,452",
+    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Amount: "0 XDC",
+  },
+  {
+    id: "1",
+    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Age: "1 hrs ago",
+    Block: "22,650,452",
+    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
+    Amount: "0 XDC",
+  },
+];
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
@@ -63,8 +142,6 @@ const rows = [
 ];
 
 const useStyles = makeStyles({
-
-
   container: {
     borderRadius: "14px",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
@@ -92,71 +169,62 @@ export default function StickyHeadTable() {
   const { address } = useParams();
 
   useEffect(() => {
-    let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+    let values = { addr: address, pageNum: page, perpage: rowsPerPage };
     transferDetail(values);
   }, []);
-  console.log(rowsPerPage, "<>?")
-
+  console.log(rowsPerPage, "<>?");
 
   const transferDetail = async (values) => {
-
     let [error, tns] = await Utils.parseResponse(
       TokenData.getTotalTransferTransactionsForToken(values)
     );
     if (error || !tns) return;
     settransfer(tns);
-    setTotalToken(tns.totalTransactionCount)
+    setTotalToken(tns.totalTransactionCount);
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(values)
       );
       settransfer(tns);
-      setTotalToken(tns.totalTransactionCount)
+      setTotalToken(tns.totalTransactionCount);
     }, 90000);
   };
 
   const handleChangePage = (action) => {
-    if (action == 'first') {
-      setPage(0)
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+    if (action == "first") {
+      setPage(0);
+      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       transferDetail(values);
     }
-    if (action == 'prev') {
+    if (action == "prev") {
       if (page - rowsPerPage >= 0) {
-        let pageValue = page - rowsPerPage
-        setPage(pageValue)
-        let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+        let pageValue = page - rowsPerPage;
+        setPage(pageValue);
+        let values = { addr: address, pageNum: page, perpage: rowsPerPage };
         transferDetail(values);
-
       }
     }
-    if (action == 'next') {
+    if (action == "next") {
       if (rowsPerPage + page < totalToken) {
-        let pageValue = rowsPerPage + page
-        setPage(pageValue)
-        let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+        let pageValue = rowsPerPage + page;
+        setPage(pageValue);
+        let values = { addr: address, pageNum: page, perpage: rowsPerPage };
         transferDetail(values);
-
       }
-
     }
 
-    if (action == 'last') {
-      let pageValue = totalToken - rowsPerPage
-      setPage(pageValue)
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage }
+    if (action == "last") {
+      let pageValue = totalToken - rowsPerPage;
+      setPage(pageValue);
+      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       transferDetail(values);
-
     }
-
-  }
-
-
+  };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-    let values = { addr: address, pageNum: 0, perpage: event.target.value }
+    let values = { addr: address, pageNum: 0, perpage: event.target.value };
     transferDetail(values);
   };
 
@@ -175,23 +243,23 @@ export default function StickyHeadTable() {
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>TxnHash</span>
+                  <span className={"tableheaders_Transfer-table-hash"}>TxnHash</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>Age</span>
+                  <span className={"tableheaders_Transfer-table-age"}>Age</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>Block</span>
+                  <span className={"Tableheaders"}>Block</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>From</span>
+                  <span className={"Tableheaders"}>From</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders"}>To</span>
+                  <span className={"Tableheaders"}>To</span>
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            {/* <TableBody>
               {transfer.totalTransactions &&
                 transfer.totalTransactions.length >= 1 &&
                 transfer.totalTransactions.map((row) => {
@@ -246,49 +314,117 @@ export default function StickyHeadTable() {
                     </StyledTableRow>
                   );
                 })}
-            </TableBody>
-          </Table>
+            </TableBody> */}
 
+            {dummyData.map((row)=> (
+              <>
+              <StyledTableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
+                      <TableCell id="td" style={{ border: "none" }}>
+                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                          <Tooltip placement="top" title={row.TxHash}>
+                            <span className="tabledata">
+                              {" "}
+                              {shorten(row.TxHash)}{" "}
+                            </span>
+                          </Tooltip>{" "}
+                        </a>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        <span className="tabledata">{row.Age}</span>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        {" "}
+                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                          <span className="tabledata"> {row.Block}</span>{" "}
+                        </a>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        {" "}
+                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                          <Tooltip placement="top" title={row.From}>
+                            <span className="tabledata">
+                              {" "}
+                              {shorten(row.From)}{" "}
+                            </span>
+                          </Tooltip>
+                        </a>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        {" "}
+                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                          <Tooltip placement="top" title={row.To}>
+                            <span className="tabledata">
+                              {" "}
+                              {shorten(row.To)}{" "}
+                            </span>
+                          </Tooltip>
+                        </a>
+                      </TableCell>
+                    </StyledTableRow>
+
+              </>
+            ))}
+
+          </Table>
         </TableContainer>
       </Paper>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
+      <Pagination
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "space-between",
+        //   flexDirection: "row",
+        // }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            marginTop: "45px",
-            marginLeft: "1%",
-          }}
+        <LeftPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginTop: "45px",
+          //   marginLeft: "1%",
+          // }}
         >
-          <p style={{
-            fontSize: "12px",
-            fontWeight: "600"
-          }}>Show</p>
+          <p
+            style={{
+              fontSize: "11px",
+              fontWeight: "600",
+              marginTop: "6px"
+            }}
+          >
+            Show
+          </p>
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>50</option>
             <option>75</option>
             <option>100</option>
           </select>
-          <p style={{
-            fontSize: "12px",
-            fontWeight: "600"
-          }}> Records</p>
-        </div>
+          <p
+            style={{
+              fontSize: "11px",
+              fontWeight: "600",
+              marginTop: "6px"
+            }}
+          >
+            {" "}
+            Records
+          </p>
+        </LeftPagination>
 
-        <div
+        <RightPagination
           style={{
             display: "flex",
             flexDirection: "row",
             marginRight: "0%",
           }}
         >
-          <div className={page === 0 ? "firstbox disabled" : "firstbox"} onClick={() => handleChangePage("first")}>
+          <div
+            className={page === 0 ? "firstbox disabled" : "firstbox"}
+            onClick={() => handleChangePage("first")}
+          >
             <button style={{ backgroundColor: "white" }} className="first">
               First
             </button>
@@ -297,31 +433,38 @@ export default function StickyHeadTable() {
             className={page === 0 ? "previousbox disabled" : "previousbox"}
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path">
-              {"<"}
-            </p>
+            <p className="path">{"<"}</p>
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
-              Page {Math.round(totalToken / rowsPerPage) + 1 - Math.round((totalToken - page) / rowsPerPage)} of {Math.round(totalToken / rowsPerPage)}
+              Page{" "}
+              {Math.round(totalToken / rowsPerPage) +
+                1 -
+                Math.round((totalToken - page) / rowsPerPage)}{" "}
+              of {Math.round(totalToken / rowsPerPage)}
             </p>
           </div>
-          <div className={page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"}>
+          <div
+            className={
+              page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"
+            }
+          >
             <p className="path-2" onClick={() => handleChangePage("next")}>
               {">"}
             </p>
           </div>
           <div
-            className={page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"}
+            className={
+              page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"
+            }
             onClick={() => handleChangePage("last")}
-
           >
             <button style={{ backgroundColor: "white" }} className="last">
               Last
             </button>
           </div>
-        </div>
-      </div>
+        </RightPagination>
+      </Pagination>
     </>
   );
 }

@@ -702,13 +702,25 @@ p {
 .selectbox {
   width: 60px;
   height: 35px;
-  margin-top: -8px;
+  margin-top: -4px;
   margin-left: 6px;
   margin-right: 6px;
 
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+@media (max-width: 1023px){
+  .selectbox {
+    width: 60px;
+    height: 27px;
+    margin-top: 0px;
+    margin-left: 6px;
+    margin-right: 6px;  
+    border-radius: 4px;
+    border: solid 1px #e5e8f0;
+    background-color: #ffffff;
+  }
 }
 
 /* .firstbox {
@@ -727,6 +739,17 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+@media (max-width:1023px){
+  .firstbox{
+  height: 27px;
+  margin: 0px;
+  padding: 2px;
+  border-radius: 4px;
+  border: solid 1px #e5e8f0;
+  background-color: #ffffff;
+
+  }
 }
 .First {
   width: 37px;
@@ -751,6 +774,18 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+@media (max-width: 1023px){
+  .previousbox {
+    width: 35px;
+    height: 27px;
+    padding: 12px;
+    margin: 0px;
+    border-radius: 4px;
+    border: solid 1px #e5e8f0;
+    background-color: #ffffff;
+  }
+
 }
 
 .path {
@@ -793,6 +828,17 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
+@media (max-width:1023px){
+  .pagebox {
+    width: 100%;
+    height: 27px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin: 0px;
+    border: solid 1px #e5e8f0;
+    background-color: #ffffff;
+  }
+}
 
 .Page-1-of-5 {
   font-family: Inter;
@@ -815,6 +861,17 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
+@media (max-width:1023px){
+  .nextbox {
+    width: 35px;
+    height: 27px;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 0px;
+    border: solid 1px #e5e8f0;
+    background-color: #ffffff;
+  }
+}
 
 .lastbox {
   width: 50px;
@@ -824,6 +881,17 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+}
+@media (max-width: 1023px){
+  .lastbox {
+    width: 50px;
+    height: 27px;
+    padding: 2px;
+    border-radius: 4px;
+    margin: 0px;
+    border: solid 1px #e5e8f0;
+    background-color: #ffffff;
+  }
 }
 .selectbox-contract {
   width: 60px;
@@ -1195,6 +1263,23 @@ p {
   letter-spacing: 0.54px;
   text-align: center;
   color: #686868;
+}
+
+@media (max-width:640px){
+  .TableHeaders{
+    margin-top: 10px;
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #686868;
+  margin-right: 20px;
+} 
+
 }
 
 .TableTexts {
@@ -3882,6 +3967,13 @@ button {
   padding-top: 1%;
   margin: auto;
   width: 950px;
+}
+@media (max-width:1023px){
+  .table-grid-block3{
+    width: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }
 .table-block {
   border-radius: 6px;

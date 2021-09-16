@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    "@media (max-width: 1023px)": {
+      minWidth: 280,
+      },
   },
 }));
 
@@ -87,7 +90,7 @@ export default function SimpleTabs(props) {
 
       <Grid lg={10} className="table-grid-block3">
         <div className={classes.root}>
-          <div style={{ width: '950px', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
+          <div style={{ width: 'auto', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
             <div>
               <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: 'transparent' }} >
                 <button
@@ -115,7 +118,7 @@ export default function SimpleTabs(props) {
 
           <div>
             <div className={toggleState === 1 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: '950px' }}>
+              <div style={{ marginTop: '10px', width: 'auto' }}>
                 <TokenTransfertab />
               </div>
             </div>
