@@ -353,7 +353,7 @@ export default function StickyHeadTable() {
       >
         <TableContainer
           className={classes.container}
-          id="container-table"
+          id="container-table-token"
           style={{
             borderRadius: "12px",
             border: "solid 1px #e3e7eb",
