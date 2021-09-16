@@ -24,6 +24,11 @@ const useStyles = makeStyles({
         borderBottom: 'none',
         background: '#fff',
     },
+    "@media (max-width: 1024px)": {
+        container: {
+            height: 600,
+        },
+    },
 
 });
 export default function AccountComponent(props) {

@@ -21,12 +21,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "100px",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
-      maxWidth: "330px",
+      marginTop: "130px",
+      maxWidth: "300px",
     },
     "@media (min-width: 567px) and (max-width: 767px)": {
+      marginTop: "140px",
       maxWidth: "540px",
     },
     "@media (min-width: 767px) and (max-width: 1040px)": {
+      marginTop: "140px",
       maxWidth: "700px",
     },
   },
