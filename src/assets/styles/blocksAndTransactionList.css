@@ -322,6 +322,34 @@
     opacity: 0.8;
     margin-right: 164px;
   }
+  .tableheaders_Transfer-table-hash {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    padding-left: 10px;
+    margin-right: 60px;
+  }
+  .tableheaders_Transfer-table-age {
+    font-family: "Fira Sans";
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    padding-left: 10px;
+    margin-right: 50px;
+  }
   .tableheaders_1 {
     font-family: "Fira Sans";
     font-size: 13px;
