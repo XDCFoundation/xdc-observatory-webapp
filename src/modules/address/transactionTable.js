@@ -644,8 +644,8 @@ export default function TransactionTableComponent(props) {
                         </Select>}
                         <span className="text">Records</span>
                     </Grid>
-                    <Grid xs="5"></Grid>
-                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="page-tab">
+                    <Grid xs="2"></Grid>
+                    <Grid item xs="7" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="page-tab">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(totalRecord / amount) + 1 - Math.round((totalRecord - from) / amount)} of {Math.round(totalRecord / amount)}</button>

@@ -306,6 +306,9 @@ input:focus {
     padding: 5px !important;
     padding-top: 9% !important;
   }
+  .MuiTableCell-root {
+    padding: 8px !important;
+  }
   .address_block_main{
     margin-top: 8% !important;
     display: flex !important;
