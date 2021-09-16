@@ -21,16 +21,17 @@ export default function TokenContracttab(props) {
                         <div className="source-code-first-container">
                             <div className="source-code-content">
                                 <div className="source-code-content-heading">Contract Name</div>
-                                <div className="source-code-content-value-name">{verifiedData.contractName}</div>
+                                <div className="source-code-content-value-name">{verifiedData?.contractName}</div>
                             </div>
                             <hr className="source-code-line"></hr>
                             <div className="source-code-content">
                                 <div className="source-code-content-heading">Compiler Version
                                 </div>
-                                <div className="source-code-content-value">{verifiedData.compilerVersion}
+                                <div className="source-code-content-value">{verifiedData?.compilerVersion}
                                 </div>
                             </div>
                             <hr className="source-code-line"></hr>
+                            <br />
                         </div>
                         <div className="source-code-first-container">
                             <div className="source-code-content">
@@ -80,11 +81,11 @@ export default function TokenContracttab(props) {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div className="contract-source-2"><img className="code-logo" src={abi} />Contract ABI</div>
                         <div>
-                            <CopyToClipboard text={verifiedData.abi}
-                                onCopy={() => setCopiedText(verifiedData.abi)}>
+                            <CopyToClipboard text={verifiedData?.abi}
+                                onCopy={() => setCopiedText(verifiedData?.abi)}>
                                 <Tooltip
                                     title={
-                                        copiedText === verifiedData.abi
+                                        copiedText === verifiedData?.abi
                                             ? "Copied"
                                             : "Copy To Clipboard"
                                     }
@@ -98,7 +99,7 @@ export default function TokenContracttab(props) {
                     </div>
 
                     <div>
-                        <textarea value={verifiedData.abi} style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-3" />
+                        <textarea value={verifiedData?.abi} style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-3" />
                     </div>
 
                     <br />
@@ -106,11 +107,11 @@ export default function TokenContracttab(props) {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div className="contract-source-2"><img className="code-logo" src={bytecod} />Contract Byte-Code</div>
                         <div>
-                            <CopyToClipboard text={verifiedData.byteCode}
-                                onCopy={() => setCopiedText(verifiedData.byteCode)}>
+                            <CopyToClipboard text={verifiedData?.byteCode}
+                                onCopy={() => setCopiedText(verifiedData?.byteCode)}>
                                 <Tooltip
                                     title={
-                                        copiedText === verifiedData.byteCode
+                                        copiedText === verifiedData?.byteCode
                                             ? "Copied"
                                             : "Copy To Clipboard"
                                     }
@@ -124,7 +125,7 @@ export default function TokenContracttab(props) {
                     </div>
 
                     <div>
-                        <textarea value={verifiedData.byteCode} style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-4" />
+                        <textarea value={verifiedData?.byteCode} style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-4" />
                     </div>
 
                 </div>
