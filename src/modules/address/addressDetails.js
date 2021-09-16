@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import styled from "styled-components";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
@@ -28,6 +29,45 @@ const useStyles = makeStyles({
     boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
     borderBottom: 'none',
     background: '#fff',
+  },
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    maxWidth: "970px",
+    marginTop: "100px",
+    width: "100%",
+    "@media (min-width: 300px) and (max-width: 567px)": {
+      
+         marginTop: "130px",
+        maxWidth: "300px",
+           },
+           "@media (min-width: 567px) and (max-width: 767px)": {
+        marginTop: "140px",
+             maxWidth: "540px",
+           },
+           "@media (min-width: 767px) and (max-width: 1040px)": {
+         marginTop: "140px",
+             maxWidth: "700px",
+           },
+  },
+  rowDiv: {
+    width: "100%",
+    alignItems: "center",
+    height: "53px",
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    borderRadius: "7px",
+
+    justifyContent: "space-between",
+  },
+  line: {
+    width: "100%",
+    marginTop: "0px",
+    marginBottom: "0px",
+  },
+  mainContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
   },
 
 });
@@ -111,8 +151,76 @@ export default function AddressDetails(props) {
 
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
+
+      <div className={classes.mainContainer}>
+        <div className={classes.root}>
+          <Grid item xs={12}>
+            <Spacing style={{borderBottom:'none'}}>
+              <Container>
+                <Heading>Address Details</Heading>
+              </Container>
+            </Spacing>
+
+            <Div>
+            <Spacing >
+            <HashDiv>
+                <Container>
+                  <Hash>Hash ID</Hash>
+                </Container>
+                <MiddleContainerHash >
+                <Content>
+                      
+                {addr}
+                  </Content>
+                  </MiddleContainerHash>
+                <SecondContainer>
+                <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
+                      <Tooltip
+                        title={
+                          copiedText === addr
+                            ? "Copied"
+                            : "Copy To Clipboard"
+                        }
+                        placement="top"
+                      >
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
+                          class="fa fa-clone" aria-hidden="true"></i></button>
+                      </Tooltip>
+                    </CopyToClipboard>
+                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer", color: "#2149b9" }} />} modal>
+                      {(close) => (
+                        <div className="popup_qr">
+                          <p>
+                            <div>
+                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
+                                &times;
+                              </button>
+                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
+                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
+                            </div>
+                          </p>
+                        </div>
+                      )}
+                    </Popup>
+                  </SecondContainer>
+                  </HashDiv>
+                  </Spacing>
+                  <Spacing style={{borderBottom:'none'}}>
+                <Container>
+                  <Hash>Balance</Hash>
+                </Container>
+                <MiddleContainer>
+                <Content>
+                {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
+                  </Content>
+                  </MiddleContainer>
+              </Spacing>
+            </Div>
+          </Grid>
+        </div>
+      </div>
       <Grid lg={8} className="table-grid-block">
-        <div
+        {/* <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
@@ -188,9 +296,8 @@ export default function AddressDetails(props) {
               </TableHead>
             </Table>
           </TableContainer>
-        </Paper>
-        <br />
-        <br />
+        </Paper> */}
+        
         <div className="container_sec">
           <div className="block_sec">
             <div className="bloc-tabs_sec">
@@ -241,3 +348,177 @@ export default function AddressDetails(props) {
     </div>
   );
 }
+
+
+
+const Input = styled.input`
+  border-radius: 5px;
+  border: solid 1px #e3e7eb;
+  background-color: #fff;
+  font-family: Inter;
+  font-size: 14px;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #2a2a2a;
+`;
+const Content = styled.span`
+  font-family: Inter;
+  font-size: 13px;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  word-break: break-all;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 10px;
+    word-break: break-all;
+  }
+`;
+const TextArea = styled.textarea`
+  opacity: 0.33;
+  border-radius: 4px;
+  border: solid 1px #9fa9ba;
+  background-color: #dee0e3;
+  width: 100%;
+  font-family: Inter;
+  font-size: 14px;
+  height: 85px;
+  float: left;
+
+  overflow-y: auto;
+`;
+const Digits = styled.span`
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #4878ff;
+`;
+const Blocks = styled.span`
+  font-family: Inter;
+  font-size: 14px;
+
+  letter-spacing: 0.54px;
+  text-align: left;
+`;
+const Div__ = styled.div`
+  height: auto;
+  border-radius: 7px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 9px;
+`;
+const MiddleContainer = styled.div`
+  font-family: Inter;
+  font-size: 13px;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 12px;
+    margin-left: unset;
+    margin-top: 8px;
+    
+  }
+`;
+const MiddleContainerHash = styled.div`
+  font-family: Inter;
+  font-size: 13px;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 12px;
+    margin-left: unset;
+    margin-top: 8px;
+    padding-right:84px;
+    
+  }
+`;
+const Hash = styled.span`
+  color: var(--unnamed-color-2a2a2a);
+  white-space: nowrap;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: #2a2a2a;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+  }
+`;
+const Spacing = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  padding: 11px 6px;
+  border-bottom: solid 1px #e3e7eb;
+
+  @media (min-width: 300px) and (max-width: 767px) {
+    display: block;
+  }
+`;
+const HashDiv = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  padding: 11px 6px;
+
+  @media (min-width: 300px) and (max-width: 767px) {
+    display: block;
+  }
+`;
+const Container = styled.div`
+  display: flex;
+  word-break: break-all;
+  width: 100%;
+  align-items: center;
+  max-width: 84px;
+`;
+const SecondContainer = styled.div`
+  display: flex;
+  align-items: center;
+  @media (min-width: 300px) and (max-width: 767px) {
+  }
+`;
+
+const Div = styled.div`
+  height: auto;
+  border-radius: 7px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #fff;
+  margin-bottom: 15px;
+  padding: 5px;
+ 
+`;
+
+const Heading = styled.span`
+  white-space: nowrap;
+  color: #2a2a2a;
+  box-shadow: none;
+  color: var(--unnamed-color-2a2a2a);
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+const ImageView = styled.img`
+  width: 15px;
+  margin-right: 15px;
+`;
