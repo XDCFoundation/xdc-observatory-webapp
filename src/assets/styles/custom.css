@@ -2982,7 +2982,7 @@ button {
   font-weight: 600;
 }
 .mainhead_child2 {
-  width: 30%;
+  width: 29%;
   font-size: 12px;
   color: #2a2a2a;
   font-weight: 600;
@@ -3001,13 +3001,13 @@ button {
 }
 @media (min-width: 1024px) {
   .mainhead_child2 {
-    padding-left: 13px;
+    padding-left: 11px;
     font-size: 13px;
   }
 }
 @media (min-width: 1024px) {
   .mainhead_child3 {
-    padding-left: 5px;
+    padding-left: 4px;
     font-size: 13px;
   }
 }
@@ -3464,6 +3464,11 @@ button {
 @media (max-width: 640px) {
   .details {
     font-size: 9px;
+  }
+}
+@media (min-width: 1024px) {
+  .details {
+    margin-right: 12px;
   }
 }
 .details2 {
