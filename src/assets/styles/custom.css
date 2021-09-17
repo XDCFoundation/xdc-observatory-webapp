@@ -2877,18 +2877,20 @@ button {
   display: flex;
   width: 950px;
   margin: 0 auto;
-  margin-top: 50px !important;
+  margin-top: 50px ;
 }
 @media (max-width: 640px) {
   .block_main {
     flex-direction: column;
     width: 100%;
+    margin-top: 15px;
   }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
   .block_main {
     flex-direction: column;
     width: 100%;
+    margin-top: 20px;
   }
 }
 .latestTranscation {
@@ -3638,7 +3640,7 @@ button {
 .main_mid {
   display: flex;
   flex-direction: row;
-  margin-top: 50px !important;
+  margin-top: 50px;
   border-radius: 12px;
   /* height: 90px; */
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
@@ -3654,36 +3656,16 @@ button {
     display: flex;
     flex-direction: column;
     width: 91%;
+    margin-top: 20px;
   }
 }
 @media (min-width: 1023px) {
   .main_mid {
     display: flex;
     width: 950px;
+    margin-top: 50px;
   }
 }
-
-/* @media (min-width: 1440px)  {
-  .main_mid {
-    display: flex;
-    width: 66%;
-  }
-} */
-
-/* @media (min-width: 640px) and (max-width:1023px) {
-  .main_mid {
-     
-  
-  }
-} */
-/* @media (min-width: 0px) and (max-width:767px) {
-  .main_child {
-    display: flex;
-    flex-direction: row; */
-/* justify-content: space-between; */
-
-/* }
-} */
 @media (min-width: 1024px) {
   .main_child {
     display: flex;
@@ -3715,15 +3697,6 @@ button {
     margin-left: 8px;
   }
 }
-/* @media (min-width: 801px) and (max-width: 1023px) {
-  .main_sec {
-    display: flex;
-    justify-content: space-between;
-    width: 56%;
-    margin-left: 8px;
-  }
-} */
-
 .cont1 {
   display: flex;
   margin-top: 12px;
@@ -3766,7 +3739,7 @@ button {
 }
 /* for mobile responsive */
 .second_mid {
-  margin-top: 50px !important;
+  margin-top: 50px;
   border-radius: 8px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -3775,6 +3748,18 @@ button {
   margin-left: 2%;
   margin-right: 2%;
 }
+@media (max-width: 640px) {
+  .second_mid {
+    margin-top: 22px;
+  }
+}
+/* @media (min-width: 641px) and (max-width: 1023px) {
+  .second_mid {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+  }
+} */
 .w-50-per {
   width: 50%;
 }
