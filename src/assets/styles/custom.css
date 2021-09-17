@@ -2528,6 +2528,7 @@ button {
 @media (min-width: 641px) and (max-width: 1023px) {
   .latestblock {
     width: 91%;
+    height: 410px;
   }
 }
 .latest {
@@ -2900,7 +2901,7 @@ button {
 }
 @media (max-width: 640px) {
   .latestTranscation {
-    margin-top: 55px;
+    margin-top: 15px;
     width: 96%;
     height: 385px;
   }
@@ -2913,8 +2914,9 @@ button {
 } */
 @media (min-width: 641px) and (max-width: 1023px) {
   .latestTranscation {
-    margin-top: 55px;
+    margin-top: 20px;
     width: 91%;
+    height:395px;
   }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
