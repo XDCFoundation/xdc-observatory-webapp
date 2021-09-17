@@ -491,7 +491,7 @@ export default function AddressTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Paper style={{ borderRadius: '14px' }} elevation={0}>
+                <Paper style={{ borderRadius: '14px' }} elevation={0} className="table-paper">
                     <TableContainer className={classes.container} id="container-table table-cont">
                         <Table className="table-trans">
                             <TableHead>
@@ -720,8 +720,8 @@ export default function AddressTableComponent(props) {
                         </Select>
                         <span className="text">Records</span>
                     </Grid>
-                    <Grid xs="2"></Grid>
-                    <Grid item xs="7" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
+                    <Grid xs="1"></Grid>
+                    <Grid item xs="8" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="pagination-page">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.round(totalRecord / rowsPerPage)}</button>
