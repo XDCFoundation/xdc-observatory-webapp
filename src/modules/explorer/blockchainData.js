@@ -87,9 +87,9 @@ const LeftSec = styled.div`
   flex: 0.7;
   padding-left: 2px;
   margin-bottom: 2px;
-  @media (max-width:1023px){
+  /* @media (max-width:1023px){
     padding-top: 20px;
-  }
+  } */
 `;
 const ValueMain = styled.div`
   display: flex;
