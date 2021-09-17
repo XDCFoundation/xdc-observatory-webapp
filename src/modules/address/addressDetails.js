@@ -33,21 +33,22 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "970px",
+    maxWidth: "1500px",
     marginTop: "100px",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
       
          marginTop: "130px",
-        maxWidth: "300px",
+        maxWidth: "500px",
+        padding:"0 8px 0 8px"
            },
            "@media (min-width: 567px) and (max-width: 767px)": {
         marginTop: "140px",
-             maxWidth: "540px",
+             maxWidth: "740px",
            },
            "@media (min-width: 767px) and (max-width: 1040px)": {
-         marginTop: "140px",
-             maxWidth: "700px",
+        
+             maxWidth: "1020px",
            },
   },
   rowDiv: {
@@ -151,7 +152,7 @@ export default function AddressDetails(props) {
 
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-
+      <Grid lg={8} className="table-grid-block tb-grid tb-grid-block">
       <div className={classes.mainContainer}>
         <div className={classes.root}>
           <Grid item xs={12}>
@@ -222,7 +223,7 @@ export default function AddressDetails(props) {
           </Grid>
         </div>
       </div>
-      <Grid lg={8} className="table-grid-block tb-grid tb-grid-block">
+      
         {/* <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
@@ -301,7 +302,7 @@ export default function AddressDetails(props) {
           </TableContainer>
         </Paper> */}
         
-        <div className="container_sec">
+        <div className="container_sec sec-contain">
           <div className="block_sec sec-block">
             <div className="bloc-tabs_sec">
               <button
