@@ -454,6 +454,9 @@ input:focus {
   .table-paper {
     padding: 0 10px 0 9px !important;
   }
+  .tb-grid-block{
+    margin:20px auto auto auto !important;
+  }
 }
 @media (min-width: 567px) and (max-width: 767px) {
   /* contract start */

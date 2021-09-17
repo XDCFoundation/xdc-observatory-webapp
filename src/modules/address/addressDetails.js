@@ -206,20 +206,23 @@ export default function AddressDetails(props) {
                   </HashDiv>
                   </Spacing>
                   <Spacing style={{borderBottom:'none'}}>
+            <HashDiv>
                 <Container>
                   <Hash>Balance</Hash>
                 </Container>
-                <MiddleContainer>
+                <MiddleContainerHash >
                 <Content>
+                      
                 {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
                   </Content>
-                  </MiddleContainer>
-              </Spacing>
+                  </MiddleContainerHash>
+                  </HashDiv>
+                  </Spacing>
             </Div>
           </Grid>
         </div>
       </div>
-      <Grid lg={8} className="table-grid-block">
+      <Grid lg={8} className="table-grid-block tb-grid tb-grid-block">
         {/* <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
@@ -299,14 +302,14 @@ export default function AddressDetails(props) {
         </Paper> */}
         
         <div className="container_sec">
-          <div className="block_sec">
+          <div className="block_sec sec-block">
             <div className="bloc-tabs_sec">
               <button
                 className={
                   toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
                 }
                 onClick={() => toggleTab(1)}
-              >
+                id="transaction-btn">
                 Transactions
               </button>
             </div>
@@ -463,7 +466,7 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 11px 6px;
+  padding: 3px 4px;
   border-bottom: solid 1px #e3e7eb;
 
   @media (min-width: 300px) and (max-width: 767px) {
@@ -477,7 +480,7 @@ const HashDiv = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 11px 6px;
+  padding: 6px 6px;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
