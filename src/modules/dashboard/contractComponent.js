@@ -28,26 +28,29 @@ const useStyles = makeStyles({
     marginLeft: "18%",
     width: "65%",
     backgroundColor: "white",
-    
+
   },
 });
-const Pagination=styled.div`
+const Pagination = styled.div`
 
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 990px;
-    margin:auto;
-
+   margin-right: 18%;
+   margin-left: 18%;
     @media (max-width:640px){
       display: flex;
       flex-direction:column;
+      margin-right: 0%;
+   margin-left: 0%;
     }  
     @media (max-width:1023px){
       width: auto;
+      margin-right: 0%;
+   margin-left: 0%;
     }       
   `;
-const RightPagination =styled.div`
+const RightPagination = styled.div`
   display:flex ;
   
   margin-top: 20px;
@@ -56,7 +59,7 @@ const RightPagination =styled.div`
     margin-right: 5%;
     }
 `
-const LeftPagination=styled.div`
+const LeftPagination = styled.div`
 display: flex;
 flex-direction: row;
 
@@ -307,15 +310,15 @@ class Contractlist extends React.Component {
           </div>
         </div>
         <br />
-        <Paper    
-        className={"responsive-table-width-contract-list"}
-          // style={{
-          //   borderRadius: "14px",
-          //   marginLeft: "18%",
-          //   marginRight: "18%",
-          // }}
-          // className={classes.rootui}
-          // elevation={0}
+        <Paper
+          className={"responsive-table-width-contract-list"}
+        // style={{
+        //   borderRadius: "14px",
+        //   marginLeft: "18%",
+        //   marginRight: "18%",
+        // }}
+        // className={classes.rootui}
+        // elevation={0}
         >
           <TableContainer
             className={classes.container}
@@ -422,19 +425,19 @@ class Contractlist extends React.Component {
         </Paper>
 
         <Pagination
-          // style={{
-          //   display: "flex",
-          //   justifyContent: "space-between",
-          //   flexDirection: "row",
-          // }}
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "space-between",
+        //   flexDirection: "row",
+        // }}
         >
           <LeftPagination
-            // style={{
-            //   display: "flex",
-            //   flexDirection: "row",
-            //   marginLeft: "18%",
-            //   marginTop: "20px",
-            // }}
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginLeft: "18%",
+          //   marginTop: "20px",
+          // }}
           >
             <p
               style={{
@@ -468,12 +471,12 @@ class Contractlist extends React.Component {
           </LeftPagination>
 
           <RightPagination
-            // style={{
-            //   display: "flex",
-            //   flexDirection: "row",
-            //   marginRight: "17.5%",
-            //   marginTop: "20px",
-            // }}
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginRight: "17.5%",
+          //   marginTop: "20px",
+          // }}
           >
             <div
               className={
@@ -507,7 +510,7 @@ class Contractlist extends React.Component {
                   1 -
                   Math.round(
                     (this.state.totalRecord - this.state.from) /
-                      this.state.amount
+                    this.state.amount
                   )}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
