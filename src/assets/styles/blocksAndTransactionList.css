@@ -474,9 +474,10 @@
   }
   .Pagination_2 {
     flex-grow: 0 !important;
-    max-width: 92.333333% !important;
+    max-width: 100% !important;
     flex-basis: 33.333333% !important;
   }
+  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
