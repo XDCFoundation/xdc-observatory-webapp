@@ -3888,13 +3888,11 @@ button {
   letter-spacing: 0.54px;
   color: #2149b9 !important;
 }
-/* @media(max-width:640px){
+@media(min-width:760px) and (max-width:770px){
   .nav_button{
-    /* margin-right: 32px; */
-/* font-weight: normal;
-   
-  }
-} */
+    margin-right: 9px;
+
+  }}
 
 .nav_button:hover {
   color: #000000;
