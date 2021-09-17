@@ -1474,7 +1474,17 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
-
+@media (max-width:640px){
+  .pagebox-contract {
+    width: auto;
+    height: 27px;
+    margin: -6px 6px 0px 0px;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: solid 1px #e5e8f0;
+    background-color: #ffffff;
+  }
+}
 .Page-1-of-5-contract {
   font-family: Inter;
   font-size: 10px;

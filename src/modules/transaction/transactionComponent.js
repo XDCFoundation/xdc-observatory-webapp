@@ -141,9 +141,9 @@ export default function TransactionComponent(props) {
                 </TableContainer>
             </Paper>
 
-            <Grid container style={{ marginTop: "15px" }}>
-                <Pagination>
-                    <Grid style={{ height: "25px", display: "flex" }}>
+            <Grid container style={{ marginTop: "15px" }} className="Pagination">
+                {/* <Pagination> */}
+                    <Grid className="Pagination_1">
                         <span className="text">Show</span>
                         <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
                             <MenuItem value={10}>10</MenuItem>
@@ -155,7 +155,7 @@ export default function TransactionComponent(props) {
                     </Grid>
 
 
-                    <Grid >
+                    <Grid item className="Pagination_2" >
                         <button onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(state.totalTransaction / state.amount) + 1 - Math.round((state.totalTransaction - state.from) / state.amount)} of {Math.round(state.totalTransaction / state.amount)}</button>
@@ -163,7 +163,7 @@ export default function TransactionComponent(props) {
                         <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
-                </Pagination>
+                {/* </Pagination> */}
             </Grid>
         </Grid >
 
