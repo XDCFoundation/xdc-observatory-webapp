@@ -69,7 +69,44 @@
   margin: auto;
   width: 790px;
 }
-
+.tableheader {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+}
+.tableheader-hash {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 115px;
+}
+.tableheader-age {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
 .tableheaders {
   font-family: "Fira Sans";
   font-size: 13px;
@@ -94,6 +131,44 @@
   color: #252525;
   opacity: 0.8;
   margin-right: 115px;
+}
+.tableheader-all {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
+.tableheader-txn-fee {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+}
+.tableheader-age {
+  font-family: "Fira Sans";
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
 }
 @media (max-width: 640px) {
   .tableheaders-hash {
@@ -275,6 +350,12 @@
   margin: auto;
   width: 100%;
 }
+@media(max-width:640px){
+  .tablegrid_address {
+    padding-top: 12.5%;
+    padding-left: 1%;
+  }
+}
 
 .linkTableDetails:hover {
   color: #252525;
@@ -320,7 +401,7 @@
     text-align: center;
     color: #252525;
     opacity: 0.8;
-    margin-right: 164px;
+    /* margin-right: 164px; */
   }
   .tableheaders_Transfer-table-hash {
     font-family: "Fira Sans";
@@ -364,7 +445,7 @@
     margin-right: 27px;
   }
   #container-table td {
-    padding: 7px 0 6px 20px;
+    /* padding: 7px 0 6px 20px; */
     text-align: left;
     border-bottom: none !important;
     margin: 19px 21px 1.8px 48px;
@@ -393,9 +474,10 @@
   }
   .Pagination_2 {
     flex-grow: 0 !important;
-    max-width: 92.333333% !important;
+    max-width: 100% !important;
     flex-basis: 33.333333% !important;
   }
+  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

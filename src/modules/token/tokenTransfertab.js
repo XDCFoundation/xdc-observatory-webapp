@@ -153,6 +153,7 @@ const useStyles = makeStyles({
     padding: "0 px",
   },
 
+
   divider: {
     borderTop: "0px solid #bbb",
     width: "100%",

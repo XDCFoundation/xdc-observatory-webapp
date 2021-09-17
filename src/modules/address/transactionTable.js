@@ -18,6 +18,84 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import ContractData from "../../services/contract";
 import { makeStyles } from '@material-ui/core/styles';
+
+const dummyData = [
+
+    {
+
+id:'1',
+
+TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Age:'1 hrs ago',
+
+Block:'22,650,452',
+
+From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Amount:'0 XDC'
+
+    },
+
+    {
+
+id:'2',
+
+TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Age:'1 hrs ago',
+
+Block:'22,650,452',
+
+From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Amount:'0 XDC'
+
+    },
+
+    {
+
+id:'3',
+
+TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Age:'1 hrs ago', Block:'22,650,452',
+
+From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Amount:'0 XDC'
+
+    },
+
+    {
+
+id:'4',
+
+TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Age:'1 hrs ago', Block:'22,650,452',
+
+From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+Amount:'0 XDC'
+
+    },
+
+];
+
+
+
+
+
+
 function timeDiff(curr, prev) {
     var ms_Min = 60 * 1000; // milliseconds in Minute
     var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -306,9 +384,9 @@ export default function TransactionTableComponent(props) {
 
     return (
         <div>
-            <div className="content_input_all">
+            <div className="content_input_all cont-tab">
 
-                <div className="searchelement-input3">
+                <div className="searchelement-input3 search-btn">
                     <img style={{ width: 18, height: 18, marginRight: 5 }}
                         src={require('../../assets/images/Search.png')} />
                     <input
@@ -328,10 +406,10 @@ export default function TransactionTableComponent(props) {
 
                 </div>
 
-                {isDownloadActive ? <div><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                {isDownloadActive ? <div className="csv"><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
                 >Download CSV</CSVLink></div>
                     :
-                    <div><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                    <div className="csv-inactive"><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
                     >Download CSV</CSVLink></div>
                 }
 
@@ -341,12 +419,12 @@ export default function TransactionTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Paper style={{ borderRadius: '14px' }} elevation={0}>
-                    <TableContainer className={classes.container} id="container-table">
-                        <Table>
+                <Paper style={{ borderRadius: '14px' }} elevation={0} className="table-paper">
+                    <TableContainer className={classes.container} id="container-table table-cont">
+                        <Table className="table-trans">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ border: "none" }} align="left">
+                                    <TableCell className="w-31 w-850" style={{ border: "none"}} align="left">
                                         <input
                                             onChange={handleChanged}
                                             type="checkbox"
@@ -354,44 +432,119 @@ export default function TransactionTableComponent(props) {
                                             checked={address.filter((addr) => addr?.isChecked !== true).length <= address.length + 1}
                                             style={{ marginRight: "8px" }}
                                         />
-                                        <span className={"tableheaders"}>Txn Hash</span>
+                                        <span className={"tableheaders table-hash"}>Txn Hash</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-16 w-19"
                                         style={{ border: "none", paddingLeft: "1.8%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Age</span>
+                                        <span className={"tableheaders table-age"}>Age</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450 w-19"
                                         style={{ border: "none", paddingLeft: "2%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Block</span>
+                                        <span className={"tableheaders table-block"}>Block</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450 w-19"
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>From</span>
+                                        <span className={"tableheaders table-from"}>From</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450 w-18"
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>To</span>
+                                        <span className={"tableheaders table-to"}>To</span>
                                     </TableCell>
-                                    <TableCell
+                                    <TableCell className="w-450 "
                                         style={{ border: "none", paddingLeft: "1%" }}
                                         align="left"
                                     >
-                                        <span className={"tableheaders"}>Value</span>
+                                        <span className={"tableheaders table-value"}>Value</span>
                                     </TableCell>
                                     {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                                 </TableRow>
                             </TableHead>
                             {noData == false &&
+                                // <TableBody >
+                                //     {address.map((row, index) => {
+                                //         const currentTime = new Date();
+                                //         const previousTime = new Date(row.timestamp * 1000);
+                                //         const TimeAge = timeDiff(currentTime, previousTime);
+                                //         return (
+                                //             <TableRow
+                                //                 style={
+                                //                     index % 2 !== 1
+                                //                         ? { background: "#f9f9f9" }
+                                //                         : { background: "white" }
+                                //                 }
+                                //             >
+                                //                 <TableCell style={{ border: "none" }} margin-left="5px">
+                                //                     <input
+                                //                         key={row._id}
+                                //                         name={row._id}
+                                //                         onChange={handleChanged}
+                                //                         type="checkbox"
+                                //                         checked={row?.isChecked || false}
+                                //                         //checked={checkAll}
+                                //                         style={{ marginRight: "8px" }}
+                                //                     />
+
+                                //                     <a className="linkTable" href={'/transaction-details/' + row.hash}>
+                                //                         <Tooltip placement="top" title={row.hash}>
+                                //                             <span className="tabledata">
+                                //                                 {shorten(row.hash)}{" "}
+                                //                             </span>
+                                //                         </Tooltip>
+                                //                     </a>
+
+                                //                 </TableCell>
+                                //                 <TableCell style={{ border: "none" }} align="left">
+                                //                     <span className="tabledata">{TimeAge}</span>
+                                //                 </TableCell>
+                                //                 <TableCell style={{ border: "none" }} align="left">
+                                //                     <a className="linkTable" href={'/block-details/' + row.blockNumber}>
+                                //                         <span className="tabledata">{row.blockNumber}</span>
+                                //                     </a>
+                                //                 </TableCell>
+                                //                 <TableCell style={{ border: "none" }} align="left">
+                                //                     {row.From != addr ?
+                                //                         <a className="linkTable" href={'/address-details/' + row.from}>
+                                //                             <Tooltip placement="top" title={row.from}>
+                                //                                 <span className="tabledata"> {shorten(row.from)}</span>
+                                //                             </Tooltip>
+                                //                         </a>
+                                //                         :
+                                //                         <Tooltip placement="top" title={row.from}>
+                                //                             <span className="tabledata"> {shorten(row.from)}</span>
+                                //                         </Tooltip>
+                                //                     }
+                                //                 </TableCell>
+                                //                 <TableCell style={{ border: "none" }} align="left">
+                                //                     {row.To != addr ?
+                                //                         <a className="linkTable" href={'/address-details/' + row.to}>
+                                //                             <Tooltip placement="top" title={row.to}>
+                                //                                 <span className="tabledata">{shorten(row.to)}</span>
+                                //                             </Tooltip>
+                                //                         </a>
+                                //                         :
+                                //                         <Tooltip placement="top" title={row.to}>
+                                //                             <span className="tabledata">{shorten(row.to)}</span>
+                                //                         </Tooltip>
+                                //                     }
+                                //                 </TableCell>
+                                //                 <TableCell style={{ border: "none" }} align="left">
+
+                                //                     <span className="tabledata">{(row.value / 1000000000000000000)}</span>
+                                //                 </TableCell>
+                                //             </TableRow>
+                                //         );
+                                //     })}
+                                // </TableBody>
                                 <TableBody >
-                                    {address.map((row, index) => {
+                                    {dummyData.map((row, index) => {
                                         const currentTime = new Date();
                                         const previousTime = new Date(row.timestamp * 1000);
                                         const TimeAge = timeDiff(currentTime, previousTime);
@@ -415,51 +568,51 @@ export default function TransactionTableComponent(props) {
                                                     />
 
                                                     <a className="linkTable" href={'/transaction-details/' + row.hash}>
-                                                        <Tooltip placement="top" title={row.hash}>
+                                                        <Tooltip placement="top" title={row.TxHash}>
                                                             <span className="tabledata">
-                                                                {shorten(row.hash)}{" "}
+                                                                {shorten(row.TxHash)}{" "}
                                                             </span>
                                                         </Tooltip>
                                                     </a>
 
                                                 </TableCell>
                                                 <TableCell style={{ border: "none" }} align="left">
-                                                    <span className="tabledata">{TimeAge}</span>
+                                                    <span className="tabledata">{row.Age}</span>
                                                 </TableCell>
                                                 <TableCell style={{ border: "none" }} align="left">
-                                                    <a className="linkTable" href={'/block-details/' + row.blockNumber}>
-                                                        <span className="tabledata">{row.blockNumber}</span>
+                                                    <a className="linkTable" href={'/block-details/' + row.Block}>
+                                                        <span className="tabledata">{row.Block}</span>
                                                     </a>
                                                 </TableCell>
                                                 <TableCell style={{ border: "none" }} align="left">
                                                     {row.From != addr ?
                                                         <a className="linkTable" href={'/address-details/' + row.from}>
-                                                            <Tooltip placement="top" title={row.from}>
-                                                                <span className="tabledata"> {shorten(row.from)}</span>
+                                                            <Tooltip placement="top" title={row.From}>
+                                                                <span className="tabledata"> {shorten(row.From)}</span>
                                                             </Tooltip>
                                                         </a>
                                                         :
-                                                        <Tooltip placement="top" title={row.from}>
-                                                            <span className="tabledata"> {shorten(row.from)}</span>
+                                                        <Tooltip placement="top" title={row.From}>
+                                                            <span className="tabledata"> {shorten(row.From)}</span>
                                                         </Tooltip>
                                                     }
                                                 </TableCell>
                                                 <TableCell style={{ border: "none" }} align="left">
                                                     {row.To != addr ?
-                                                        <a className="linkTable" href={'/address-details/' + row.to}>
-                                                            <Tooltip placement="top" title={row.to}>
-                                                                <span className="tabledata">{shorten(row.to)}</span>
+                                                        <a className="linkTable" href={'/address-details/' + row.To}>
+                                                            <Tooltip placement="top" title={row.To}>
+                                                                <span className="tabledata">{shorten(row.To)}</span>
                                                             </Tooltip>
                                                         </a>
                                                         :
-                                                        <Tooltip placement="top" title={row.to}>
-                                                            <span className="tabledata">{shorten(row.to)}</span>
+                                                        <Tooltip placement="top" title={row.To}>
+                                                            <span className="tabledata">{shorten(row.To)}</span>
                                                         </Tooltip>
                                                     }
                                                 </TableCell>
                                                 <TableCell style={{ border: "none" }} align="left">
 
-                                                    <span className="tabledata">{(row.value / 1000000000000000000)}</span>
+                                                    <span className="tabledata">{(row.Amount)}</span>
                                                 </TableCell>
                                             </TableRow>
                                         );
@@ -479,8 +632,8 @@ export default function TransactionTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }}>
-                    <Grid item xs="3">
+                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }} className="page-container">
+                    <Grid item xs="3" className="pagination-tab">
                         <span className="text">Show</span>
                         {<Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
                             <MenuItem value={10}>10</MenuItem>
@@ -491,8 +644,8 @@ export default function TransactionTableComponent(props) {
                         </Select>}
                         <span className="text">Records</span>
                     </Grid>
-                    <Grid xs="5"></Grid>
-                    <Grid item xs="4" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }}>
+                    <Grid xs="2"></Grid>
+                    <Grid item xs="7" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="page-tab">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
                         <button className="btn">Page {Math.round(totalRecord / amount) + 1 - Math.round((totalRecord - from) / amount)} of {Math.round(totalRecord / amount)}</button>
