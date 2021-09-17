@@ -267,7 +267,15 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
-
+.XDC-Block-Width-tablet{
+    margin: 7px !important;
+}
+@media (min-width:640px) and (max-width:1023px){
+  .XDC-Block-Width-tablet{
+    margin-left: 20px !important;
+      margin-top: 7px !important;
+  }
+}
 @media (max-width:1023px){
   .XDC-Header{
     margin-left: 30px;
