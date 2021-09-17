@@ -164,7 +164,7 @@ const Line1 = styled.hr`
   left: 1%;
   @media (max-width:1023px){
     width:96%;
-    top: 65%;
+    top: 75%;
     }
 `;
 const LeftTopSec = styled.div`
