@@ -129,9 +129,12 @@ export default function SimpleTabs(props) {
               </div>
             </div>
 
+
+
             <div className={toggleState === 3 ? "content  active-content" : "content"}>
               <div style={{ marginTop: '10px' }}>
-                {!contractStatus ? "" : contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
+                {/* {!contractStatus ? "" : contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />} */}
+                <TokenContracttab/>
               </div>
 
             </div>
