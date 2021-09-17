@@ -2467,12 +2467,12 @@ button {
 
 .arrow_up {
   color: #02c227;
-  margin-right: 2px;
+  /* margin-right: 2px; */
 }
 
 .arrow_down {
   color: #f70a0a;
-  margin-right: 4px;
+  /* margin-right: 4px; */
 }
 
 .value_changePrice {
@@ -3677,8 +3677,8 @@ button {
   .main_child {
     display: flex;
     justify-content: space-between;
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
 @media (min-width: 1024px) {
@@ -3694,7 +3694,7 @@ button {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-left: 8px;
+    margin-left: 15px;
   }
 }
 .cont1 {
@@ -3708,7 +3708,7 @@ button {
 
 @media (min-width: 641px) and (max-width: 1023px) {
   .cont1_align {
-    margin-right: 140px;
+    margin-right: 150px;
   }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -3719,7 +3719,8 @@ button {
 }
 
 .cont1 p {
-  margin: 2px;
+  /* margin: 2px; */
+  margin: 0px;
   color: hsl(0, 1%, 62%);
   font-size: 10.5px;
   font-family: "Inter";
