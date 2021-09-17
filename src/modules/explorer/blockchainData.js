@@ -444,10 +444,10 @@ class BlockChainDataComponent extends Component {
     }
     const currencySymbol =
       this.props.currency === "INR"
-        ? "₹ "
+        ? "₹"
         : this.props.currency === "USD"
-        ? "$ "
-        : "€ ";
+        ? "$"
+        : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
