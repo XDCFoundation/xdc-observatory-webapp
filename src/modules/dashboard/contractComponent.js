@@ -36,18 +36,21 @@ const Pagination = styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-   margin-right: 18%;
-   margin-left: 18%;
+    margin:auto;
+    width: 990px;
+   /* margin-right: 18%;
+   margin-left: 18%; */
     @media (max-width:640px){
       display: flex;
       flex-direction:column;
+      width: auto;
       margin-right: 0%;
-   margin-left: 0%;
+      margin-left: 0%;
     }  
     @media (max-width:1023px){
       width: auto;
       margin-right: 0%;
-   margin-left: 0%;
+      margin-left: 0%;
     }       
   `;
 const RightPagination = styled.div`
