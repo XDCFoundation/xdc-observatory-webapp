@@ -204,15 +204,7 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-        <div
-          style={{
-            color: "#4666c4",
-            fontSize: 13,
-            fontFamily: "Inter",
-            marginLeft: 20,
-            marginTop: "20px",
-          }}
-        >
+        <div className="browse-text-sidebar">
           Browse
         </div>
         <div className={classes.drawerHeader}>
@@ -642,7 +634,7 @@ export default function Navbar() {
                 edge="end"
                 onClick={toggleDrawer("right", true)}
               >
-                <MenuIcon />
+                <MenuIcon class="menu-sidebar" />
               </IconButton>
 
               <Drawer
@@ -740,7 +732,7 @@ export default function Navbar() {
               edge="end"
               onClick={toggleDrawer("right", true)}
             >
-              <MenuIcon />
+              <MenuIcon class="menu-sidebar" />
             </IconButton>
 
             <Drawer

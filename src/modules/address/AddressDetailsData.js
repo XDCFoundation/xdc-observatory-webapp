@@ -237,7 +237,7 @@ export default function AddressDetailsData() {
                   toggleState === 1 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
                 }
                 onClick={() => toggleTab(1)}
-              id="transaction-btn">
+                id="transaction-btn">
                 All Transactions
               </button>
 
@@ -246,7 +246,7 @@ export default function AddressDetailsData() {
                   toggleState === 2 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
                 }
                 onClick={() => toggleTab(2)}
-              id="contract-btn">
+                id="contract-btn">
                 Contract Source
               </button>
             </div>
