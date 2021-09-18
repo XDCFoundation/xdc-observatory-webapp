@@ -458,7 +458,7 @@ export default function AddressTableComponent(props) {
 
         <div>
             <div className="content_input_all cont-tab">
-                <div className="searchelement-input3 search-btn">
+                <div className="searchelement-input3">
                     <img style={{ width: 18, height: 18, marginRight: 5 }}
                         src={require('../../assets/images/Search.png')} />
                     <input
@@ -478,11 +478,11 @@ export default function AddressTableComponent(props) {
 
                 </div>
 
-                {isDownloadActive ? <div className="csv"><CSVLink filename={"transactions.csv"} data={downloadaddress}
-                    style={{ fontSize: '15px', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink></div>
+                {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress}
+                    style={{ fontSize: '15px', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink>
                     :
-                    <div className="csv-inactive"><CSVLink filename={"transactions.csv"} data={downloadaddress}
-                        style={{ pointerEvents: 'none', fontSize: '15px', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink></div>
+                   <CSVLink filename={"transactions.csv"} data={downloadaddress}
+                        style={{ pointerEvents: 'none', fontSize: '15px', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink>
                 }
 
 

@@ -425,7 +425,7 @@ input:focus {
   }
   .cont-tab {
     display: flex !important;
-    flex-direction: column !important;
+    /* flex-direction: column !important; */
     padding: 0 12px 0 11px !important;
   }
   .search-btn {
@@ -543,7 +543,7 @@ input:focus {
   }
   .cont-tab {
     display: flex !important;
-    flex-direction: column !important;
+    /* flex-direction: column !important; */
     /* padding: 0 12px 0 11px !important; */
   }
   .search-btn {
@@ -588,7 +588,7 @@ input:focus {
   .tb-grid {
     max-width: 1020px !important;
     padding: 40px !important;
-    padding-top: 35px !important;
+    padding-top: 60px !important;
   }
   .sec-contain{
     max-width: 1020px !important;
