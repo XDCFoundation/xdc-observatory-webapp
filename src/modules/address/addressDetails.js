@@ -33,8 +33,9 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "1500px",
+    maxWidth: "3000px",
     marginTop: "100px",
+    marginBottom:"15px",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
       
@@ -184,7 +185,7 @@ export default function AddressDetails(props) {
                         }
                         placement="top"
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14}}><i
                           class="fa fa-clone" aria-hidden="true"></i></button>
                       </Tooltip>
                     </CopyToClipboard>
@@ -443,7 +444,7 @@ const MiddleContainerHash = styled.div`
     font-size: 12px;
     margin-left: unset;
     margin-top: 8px;
-    padding-right:84px;
+    padding-right:37px;
     
   }
 `;
@@ -509,7 +510,7 @@ const Div = styled.div`
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
- 
+  margin-top: 10px;
 `;
 
 const Heading = styled.span`
