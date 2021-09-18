@@ -271,7 +271,9 @@ export default function AddressDetailsData() {
               }
             >
 
-              {!contractStatus ? "" : contractStatus.status === "verified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
+              {/* {!contractStatus ? "" : contractStatus.status === "verified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />} */}
+              {/* <TokenUnverifiedContract contractData={contractStatus} /> */}
+              <TokenContracttab contractData={contractStatus} />
             </div>
             {/* <div
               className={
