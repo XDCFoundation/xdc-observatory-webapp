@@ -30,20 +30,25 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (max-width: 1023px) {
+  @media (min-width:641px) and (max-width: 1023px) {
     flex-direction: column;
     width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
-    height: 500px;
+    /* margin-left: 5%;
+    margin-right: 5%; */
+    margin-left: 4.7%;
+    margin-right: 4.7%;
+    height: 400px;
+    //use this height in case of giving height to graph in tablet mode
+    /* height:450px; */
     padding-top: 0px;
   }
   @media (max-width :640px){
     flex-direction: column;
     width: auto;
-    height: 500px;
+    height: 450px;
     margin-right: 2%;
     margin-left: 2%;
+    padding-top: 0px;
   }
 `;
 const MobileScreen=styled.div`

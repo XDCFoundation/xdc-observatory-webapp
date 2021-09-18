@@ -2495,6 +2495,25 @@ margin-top: 150px;
 body {
   background: #fff;
 }
+@media(max-width:640px){
+  .days-14 {
+      display: flex;
+     justify-content: flex-end;
+     margin-top: 20px;
+    }
+}
+
+@media (max-width:640px){
+  .content-tabs{
+    margin-top: 50px;
+  }
+}
+@media (min-width:640px) and (max-width:1023px) {
+  .content-tabs{
+    /* margin-top: 50px; */
+    padding-bottom: 35px;
+  }
+}
 
 .days p {
   width: 45px;
@@ -2524,6 +2543,16 @@ body {
   width: 100%;
   height: 22px;
 }
+@media (max-width:640px){
+  .block {
+    justify-content: space-between;
+    display: flex;
+    border-bottom: solid 1px #e3e7eb;
+    width: 100%;
+    height: 22px;
+    flex-direction: column;
+  }
+}
 
 .dates {
   display: flex;
@@ -2545,6 +2574,16 @@ body {
 .bloc-tabs {
   width: 90%;
   display: flex;
+}
+@media(max-width:640px){
+  .bloc-tabs{
+    width: 100%;
+  }
+}
+@media (min-width:640px) and (max-width:1023px) {
+  .bloc-tabs{
+   width: 50%;
+  }
 }
 
 .tabs {
@@ -2947,7 +2986,7 @@ button {
 }
 @media (max-width: 1023px) {
   .container-graph-tab {
-    padding: 40px 0 0 0;
+    padding: 20px 0 0 0;
   }
 }
 .active-tabs-token::before {
@@ -4931,6 +4970,7 @@ button {
     margin-top: 25px;
   }
 }
+
 .bloc-tabs_sec {
   width: 100%;
   display: flex;

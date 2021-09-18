@@ -37,7 +37,7 @@ function Tab() {
                         Gas Price
                     </button>
                 </div>
-                <div className="days">
+                <div className="days , days-14">
                     <p>14 Days</p>
                 </div>
             </div>
