@@ -375,6 +375,11 @@ input:focus {
     margin-top: 8% !important;
     display: flex !important;
   }
+  .sec-contain{
+    max-width: 500px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
   .w-31 {
     width: 31%;
   }
@@ -444,7 +449,7 @@ input:focus {
   }
   .cont-tab {
     display: flex !important;
-    flex-direction: column !important;
+    /* flex-direction: column !important; */
     padding: 0 12px 0 11px !important;
   }
   .search-btn {
@@ -468,6 +473,11 @@ input:focus {
     width: 100% !important;
     padding: 0px 0px 11px 8px !important;
   }
+  .pagination-page {
+    max-width: 100% !important;
+    width: 100% !important;
+    /* padding: 0px 0px 11px 8px !important; */
+  }
   .sec-block {
     padding: 0 0px 0px 14px !important;
   }
@@ -477,6 +487,10 @@ input:focus {
   }
   .table-paper {
     padding: 0 10px 0 9px !important;
+  }
+  .tb-grid-block{
+    width: 100% !important;
+    margin:20px auto auto auto !important;
   }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -510,6 +524,15 @@ input:focus {
     padding: 0 16px 0 15px !important;
     margin-top: 15% !important;
     display: flex !important;
+  }
+  .tb-grid-block{
+    width: 100% !important;
+  margin: 17px auto auto auto !important;
+  }
+  .sec-contain{
+    max-width: 740px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
   }
   .tb-grid {
     max-width: 767px !important;
@@ -569,7 +592,7 @@ input:focus {
   }
   .cont-tab {
     display: flex !important;
-    flex-direction: column !important;
+    /* flex-direction: column !important; */
     /* padding: 0 12px 0 11px !important; */
   }
   .search-btn {
@@ -614,7 +637,13 @@ input:focus {
   .tb-grid {
     max-width: 1020px !important;
     padding: 40px !important;
-    padding-top: 1% !important;
+    padding-top: 60px !important;
+  }
+  .sec-contain{
+    max-width: 1020px !important;
+    margin-top: 10px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
   }
   .address_block_main {
     margin-top: 8% !important;
@@ -625,6 +654,10 @@ input:focus {
   }
   .add {
     display: flex !important;
+  }
+  .tb-grid-block{
+    width: 100% !important;
+    margin: 29px auto auto auto !important;
   }
   .addtitle {
     margin-top: 3px;
@@ -724,6 +757,12 @@ input:focus {
     width: 100% !important;
     max-width: 1080px !important;
   }
+  .sec-contain{
+    max-width: 1020px !important;
+    margin-top: 10px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
   .add {
     display: flex !important;
   }
@@ -731,6 +770,10 @@ input:focus {
     margin-left: 8px !important;
     margin-top: 3px;
     word-break: break-all !important;
+  }
+  .tb-grid-block{
+    width: 100% !important;
+    margin: 29px auto auto auto !important;
   }
   .contractOverview {
     width: 100% !important;
@@ -805,6 +848,19 @@ input:focus {
   /* .table-paper{
     padding: 0 10px 0 9px !important;
   } */
+}
+@media (max-width:1800px) {
+  .sec-contain{
+    
+    margin-top: 10px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  .tb-grid-block{
+    width: 100% !important;
+    margin: 1px auto auto auto !important;
+  }
+  
 }
 .Shape3 {
   width: 80px;
