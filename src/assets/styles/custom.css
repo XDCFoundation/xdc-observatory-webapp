@@ -329,16 +329,40 @@ input:focus {
   height: 24px;
 }
 @media (min-width: 0px) and (max-width: 640px) {
+  .menu-sidebar {
+    margin-top: 7px;
+    fill: white;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+  }
   .Shape2 {
     height: 20px;
     width: 20px;
-    margin-top: -2px;
   }
   .Shape3 {
     width: 50px !important;
     height: 50px !important;
     margin-top: 70px;
   }
+  .browse-text-sidebar {
+    color: rgb(70, 102, 196);
+    font-size: 13px;
+    font-family: Inter;
+    margin-left: 14px !important;
+    margin-top: 20px;
+  }
+}
+.browse-text-sidebar {
+  color: rgb(70, 102, 196);
+  font-size: 13px;
+  font-family: Inter;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 .table-trans {
   overflow: scroll !important;
@@ -453,6 +477,31 @@ input:focus {
   }
   .table-paper {
     padding: 0 10px 0 9px !important;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .menu-sidebar {
+    margin-top: 7px;
+    fill: white;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+  }
+}
+@media (min-width: 1023px) {
+  .menu-sidebar {
+    fill: white;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
   }
 }
 @media (min-width: 567px) and (max-width: 767px) {
@@ -758,8 +807,8 @@ input:focus {
   } */
 }
 .Shape3 {
-  width: 65px;
-  height: 65px;
+  width: 80px;
+  height: 80px;
 }
 
 .exp-parent {
@@ -1474,7 +1523,7 @@ p {
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
 }
-@media (max-width:640px){
+@media (max-width: 640px) {
   .pagebox-contract {
     width: auto;
     height: 27px;
@@ -1607,6 +1656,7 @@ p {
   line-height: normal;
   letter-spacing: 0.4px;
   color: #2a2a2a;
+      background-color: #ffffff !important;
 }
 
 .select-td {
@@ -1792,11 +1842,10 @@ p {
 }
 .searchelement-div-contract {
   margin-top: 80px;
-  
 }
-@media (max-width:1023px){
-  .searchelement-div-contract{
-  margin-top: 150px;
+@media (max-width: 1023px) {
+  .searchelement-div-contract {
+    margin-top: 150px;
   }
 }
 
@@ -1836,26 +1885,22 @@ p {
   }
 }
 
-
 .searchelement-div {
-  
   margin-top: 80px !important;
   margin: auto;
   width: 990px;
 }
-@media (max-width:1023px){
-  .searchelement-div{
+@media (max-width: 1023px) {
+  .searchelement-div {
     margin-top: 60px !important;
-    width: auto;    
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    
   }
 }
 
 .searchelement-token {
-  
   font-family: Inter;
   font-size: 19px;
   font-weight: 600;
@@ -1876,7 +1921,7 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  
+
   width: 220px;
   padding: 7.7px 43px 8.6px 10px;
   border-radius: 6px;
@@ -2183,6 +2228,11 @@ p {
     display: none;
   }
 } */
+@media (min-width: 0px) and (max-width: 767px) {
+  .select-td {
+    margin-left: 21px !important;
+  }
+}
 @media (max-width: 767px) {
   .mobile-navbartab {
     display: block !important;
@@ -2205,17 +2255,13 @@ p {
   .search-responsive {
     display: flex !important;
     justify-content: space-between !important;
-    width: 78vw !important;
+    width: 100% !important;
   }
-  .select-td {
-    margin-left: -20px !important;
-  }
+
   .main-input-td {
     width: 130px !important;
   }
-  .Shape2 {
-    margin-left: -40px !important;
-  }
+
   /* .MuiAppBar-colorPrimary{
   height: 200px !important;
 } */
@@ -2235,17 +2281,17 @@ p {
   height: 200px !important;
 } */
 }
-@media (max-width: 1023px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .tab-search {
     display: block;
-    /* margin-top: 15px; */
-    width: 100%;
+    width: 82%;
   }
-
+}
+@media (max-width: 1023px) {
   .MuiIconButton-label {
     display: initial !important;
   }
-  .makeStyles-appBar-5 {
+  /* .makeStyles-appBar-5 {
     height: 130px !important;
   }
   .makeStyles-appBar-3 {
@@ -2271,10 +2317,11 @@ p {
   }
   .makeStyles-appBar-8 {
     height: 130px !important;
-  }
+  } */
   .MuiToolbar-regular {
     display: flex !important;
     align-items: baseline !important;
+    justify-content: space-between !important;
   }
   .right-nav-div {
     display: flex;
@@ -5149,7 +5196,16 @@ button {
     position: absolute !important;
   }
 }
+@media (min-width: 641px) and (max-width: 1023px) {
+  .MuiAppBar-positionFixed {
+    top: 0;
+    left: auto;
+    right: 0;
+    position: absolute !important;
+  }
+}
 .login-button {
+  padding-right: 0px;
   background-color: transparent;
 }
 @media (min-width: 0px) and (max-width: 640px) {
@@ -5178,6 +5234,7 @@ button {
     line-height: normal;
     letter-spacing: 0.4px;
     color: #2a2a2a;
+    background-color: #ffffff !important;
   }
   .exp-parent {
     height: 250px;
@@ -5242,13 +5299,14 @@ button {
     line-height: normal;
     letter-spacing: 0.4px;
     color: #2a2a2a;
+        background-color: #ffffff !important;
   }
   .search-dashboard-select {
     width: "";
   }
-  /* .exp-parent {
+  .exp-parent {
     height: 300px;
-  } */
+  }
 
   .exp {
     font-size: 2rem;
@@ -5290,13 +5348,14 @@ button {
     line-height: normal;
     letter-spacing: 0.4px;
     color: #2a2a2a;
+        background-color: #ffffff !important;
   }
   .search-dashboard-select {
     width: "";
   }
-  /* .exp-parent {
+  .exp-parent {
     height: 300px;
-  } */
+  }
 
   .exp {
     font-size: 2rem;
@@ -5316,6 +5375,7 @@ button {
     font-style: normal;
     line-height: normal;
     letter-spacing: 0.4px;
+        background-color: #ffffff !important;
     color: #2a2a2a;
   }
   .search-dashboard-select {
@@ -5497,7 +5557,7 @@ button {
   }
 }
 
-.tablehead-token-details{
+.tablehead-token-details {
   font-family: "Fira Sans";
   font-size: 13px;
   font-weight: bold;
@@ -5509,5 +5569,4 @@ button {
   color: #252525;
   opacity: 0.8;
   /* padding-left: 4px; */
-  
 }
