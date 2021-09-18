@@ -34,9 +34,12 @@ label {
 
 .footer-line {
   margin-top: 15px;
-  padding-left: 9%;
+  /* padding-left: 9%; */
+  padding-left: 2%;
   background: transparent;
-  padding-right: 9%;
+  /* padding-right: 9%; */
+  padding-right: 2%;
+
 }
 
 @media (max-width:1023px){
