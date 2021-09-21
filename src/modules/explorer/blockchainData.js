@@ -30,20 +30,25 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (max-width: 1023px) {
+  @media (min-width:641px) and (max-width: 1023px) {
     flex-direction: column;
     width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
-    height: 500px;
+    /* margin-left: 5%;
+    margin-right: 5%; */
+    margin-left: 4.7%;
+    margin-right: 4.7%;
+    height: 400px;
+    //use this height in case of giving height to graph in tablet mode
+    /* height:450px; */
     padding-top: 0px;
   }
   @media (max-width :640px){
     flex-direction: column;
     width: auto;
-    height: 500px;
+    height: 450px;
     margin-right: 2%;
     margin-left: 2%;
+    padding-top: 0px;
   }
 `;
 const MobileScreen=styled.div`
@@ -87,9 +92,9 @@ const LeftSec = styled.div`
   flex: 0.7;
   padding-left: 2px;
   margin-bottom: 2px;
-  @media (max-width:1023px){
+  /* @media (max-width:1023px){
     padding-top: 20px;
-  }
+  } */
 `;
 const ValueMain = styled.div`
   display: flex;
@@ -164,7 +169,7 @@ const Line1 = styled.hr`
   left: 1%;
   @media (max-width:1023px){
     width:96%;
-    top: 65%;
+    top: 75%;
     }
 `;
 const LeftTopSec = styled.div`
@@ -444,10 +449,10 @@ class BlockChainDataComponent extends Component {
     }
     const currencySymbol =
       this.props.currency === "INR"
-        ? "₹ "
+        ? "₹"
         : this.props.currency === "USD"
-        ? "$ "
-        : "€ ";
+        ? "$"
+        : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;

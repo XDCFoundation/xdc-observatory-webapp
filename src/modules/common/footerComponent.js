@@ -103,7 +103,7 @@ export default function FooterComponent(props) {
     <div className={"footer_base"}>
       <Grid className="footer" container alignContent="center" justify="center">
         <FirstCloumn>
-          <Grid alignContent="center" item xs={12} style={{margin:"7px"}} >
+          <Grid alignContent="center" item xs={12} className="XDC-Block-Width-tablet" >
             <div className="for-button">
                 <div>
             <div className="Top-Header">
@@ -390,7 +390,7 @@ export default function FooterComponent(props) {
         
         <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
           <div className="Table-Header">
-            Twitter
+            Tweets
             <hr style={{ marginRight: "2px" }}></hr>
           </div>
           <div className={"twitter"}>
