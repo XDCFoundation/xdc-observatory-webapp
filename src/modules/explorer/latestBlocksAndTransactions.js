@@ -369,7 +369,7 @@ class LatestBlocks extends Component {
                     return (
                       <div className="value_main_main">
                         <div className="value_main main_val">
-                          <Tooltip placement="top" title={e.hash}>
+                        <Tooltip placement="top" title={e.hash}>
                             <a
                               className={
                                 hashanimationClass ? hashanimationClass : "bttn"
@@ -408,6 +408,7 @@ class LatestBlocks extends Component {
                           >
                             Details
                           </a>
+                         
                         </div>
                       </div>
                     );
