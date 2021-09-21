@@ -24,7 +24,7 @@ import AccountProfile from "./modules/explorer/accountProfile";
 import Transaction from "./modules/resp_transaction/resTransaction";
 import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
 import BlockDetails from './modules/explorer/newblockDetail'
-let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
+let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
 }
 );
