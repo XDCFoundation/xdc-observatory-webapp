@@ -17,13 +17,11 @@ label {
   padding-right: 7%;
   padding-left: 7%;
 }
-@media(max-width:1023px){
-  .footer_base{
-    
+@media (max-width: 1023px) {
+  .footer_base {
     padding: 0px;
   }
 }
-
 
 .footer {
   padding-left: 10px;
@@ -39,26 +37,19 @@ label {
   background: transparent;
   /* padding-right: 9%; */
   padding-right: 2%;
-
 }
 
-@media (max-width:1023px){
-  .footer-line{
+@media (max-width: 1023px) {
+  .footer-line {
     padding: 3%;
     padding: 3%;
   }
-
 }
 
-.for-button {
-  
-}
-
-@media (max-width:640px){
-  .for-button{
+@media (max-width: 640px) {
+  .for-button {
     display: flex;
   }
-
 }
 .twitter {
   font-size: 0px !important;
@@ -88,7 +79,7 @@ ul {
 .copyright {
   align-self: left;
   font-family: Inter;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -120,7 +111,7 @@ ul {
 }
 
 .USD {
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -159,7 +150,7 @@ ul {
 
 .Table-Header {
   margin-top: -15px;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -176,7 +167,7 @@ ul {
 
 a {
   font-family: Inter;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -186,7 +177,7 @@ a {
 }
 
 a:hover {
-  font-size: 11px;
+  font-size: 0.875rem;
   color: white;
   text-decoration: none;
 }
@@ -227,9 +218,10 @@ a:hover {
   border: solid 2px #ffffff;
 }
 
-/* .Shape-footer{
-    margin-left: -40px;
-} */
+.Shape-footer {
+  height: 1.875rem;
+  width: 1.875rem;
+}
 
 .Top-Header {
   margin-top: -15px;
@@ -241,10 +233,10 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
-@media(max-width:1023px){
-  .Top-Header{
- margin-top: 24px;
- }
+@media (max-width: 1023px) {
+  .Top-Header {
+    margin-top: 24px;
+  }
 }
 
 /* .Table-Header {
@@ -260,9 +252,9 @@ a:hover {
 } */
 
 .XDC-Header {
-  margin-top: -23px;
-  margin-left: 17%;
-  font-size: 18px;
+  margin-top: -28px;
+  margin-left: 40px;
+  font-size: 1.375rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -270,19 +262,18 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
-.XDC-Block-Width-tablet{
-    margin: 7px !important;
+.XDC-Block-Width-tablet {
+  margin: 7px !important;
 }
-@media (min-width:640px) and (max-width:1023px){
-  .XDC-Block-Width-tablet{
+@media (min-width: 640px) and (max-width: 1023px) {
+  .XDC-Block-Width-tablet {
     margin-left: 20px !important;
-      margin-top: 7px !important;
+    margin-top: 7px !important;
   }
 }
-@media (max-width:1023px){
-  .XDC-Header{
+@media (max-width: 1023px) {
+  .XDC-Header {
     margin-left: 30px;
-
   }
 }
 /* .MuiMenu-list {
@@ -321,7 +312,7 @@ a:hover {
   width: 95%;
   margin-top: 20px;
   font-family: Inter;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -339,15 +330,13 @@ a:hover {
    color: #81b4ff; */
 }
 
-@media (max-width:640px){
-  .xdc-desc{
-    width:50%
+@media (max-width: 640px) {
+  .xdc-desc {
+    width: 50%;
   }
-  
-.button-Padding-Mobile{
-  
-  padding-top: 35px;
-  padding-right: 15px;
-}
-}
 
+  .button-Padding-Mobile {
+    padding-top: 35px;
+    padding-right: 15px;
+  }
+}
