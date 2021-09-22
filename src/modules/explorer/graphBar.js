@@ -88,13 +88,12 @@ const MyResponsiveLine = ({ data }) => (
     />
 )
 const GraphSize =styled.div`
-height: 115px;
+height: 7.56rem;
 width: auto;
+margin-top: 3.19rem;
 @media (max-width:640px){
     height: 80px;
 }
-
-
 `
 export default function App() {
 
