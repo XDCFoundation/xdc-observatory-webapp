@@ -280,7 +280,7 @@ class LatestBlocks extends Component {
                             <a
                               a
                               className={
-                                animationClass ? animationClass : "height"
+                                animationClass ? animationClass : "height pad-lef-18"
                               }
                               href={"/block-details/" + z.number}
                             >
@@ -293,7 +293,7 @@ class LatestBlocks extends Component {
                               className={
                                 transAnimationClass
                                   ? transAnimationClass
-                                  : "main_vaa"
+                                  : "main_vaa  pad-left-5"
                               }
                             >
                               {z.transactions.length}
@@ -368,7 +368,8 @@ class LatestBlocks extends Component {
                       this.state.detailAnimation?.[hash];
                     return (
                       <div className="value_main_main">
-                        <div className="value_main main_val">
+                      <div className="main_vaa">
+                        <div className="latest_child w-34 mar-top-6">
                         <Tooltip placement="top" title={e.hash}>
                             <a
                               className={
@@ -378,7 +379,8 @@ class LatestBlocks extends Component {
                             >
                               {this.shorten(e.hash)}
                             </a>
-                          </Tooltip>
+                          </Tooltip></div>
+                          <div className="latest_child w-25">
                           <p
                             className={
                               amountanimationclass
@@ -391,13 +393,17 @@ class LatestBlocks extends Component {
                               : (e.value / 1000000000000000000).toFixed(3)}{" "}
                             XDC
                           </p>
+                          </div>
+                          <div className="latest_child w-34">
                           <p
                             className={
-                              ageanimationclass ? ageanimationclass : ""
+                              ageanimationclass ? ageanimationclass : "value_main"
                             }
                           >
                             {age}
                           </p>
+                          </div>
+                          <div className="latest_child w-18 mar-top-6 ">
                           <a
                             className={
                               detailanimationclass
@@ -408,6 +414,7 @@ class LatestBlocks extends Component {
                           >
                             Details
                           </a>
+                          </div>
                          
                         </div>
                       </div>
