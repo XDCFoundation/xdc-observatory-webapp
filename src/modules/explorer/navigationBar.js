@@ -16,6 +16,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import Login from "./loginDialog";
 import Utility, { dispatchAction } from "../../utility";
 import SearchData from "../../services/search";
+import searchIcon from "../../assets/images/Search.svg";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -767,7 +768,6 @@ export default function Navbar() {
 
         <div className="centerbox-parent">
           <div className="centerbox">
-            <p className="description"></p>
             <div className="main-form-container">
 
               <form
@@ -778,6 +778,7 @@ export default function Navbar() {
               >
                 <div className="search-dashboard">
                   <div className="search-dashboard-input">
+                    <img className="search-dashboard-icon" src={searchIcon}></img>
                     <input
                       defaultValue={filter}
                       onChange={(event) => handleSearch(event)}
