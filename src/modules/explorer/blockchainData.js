@@ -106,12 +106,13 @@ const ValueMain = styled.div`
 
 const Value = styled.div`
   display: flex;
-  width: 10.625rem;
+  width: 7.625rem;
   padding-bottom: 22px;
 `;
 const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
+  margin-bottom: 36px;
 `;
 
 const ValueName = styled.div`
