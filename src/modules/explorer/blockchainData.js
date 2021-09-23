@@ -19,12 +19,12 @@ import {
 import Utils from "../../utility";
 
 const MainContainer = styled.div`
-  width: 950px;
-  height: 200px;
+  width: 75.125rem;
+  height: 18.563rem;
   margin: 0 auto;
   margin-top: 50px;
-  padding-top: 20px;
-  padding-left: 15px;
+  padding-top: 1.9rem;
+  padding-left: 1.75rem;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -68,6 +68,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   font-size: 2px;
   align-items: center;
+  padding-bottom: 3.5rem;
   @media (max-width:1023px){
     padding-left: 10px;
     padding-right: 10px;
@@ -100,17 +101,18 @@ const ValueMain = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 12px;
+  /* margin-top: 12px; */
 `;
 
 const Value = styled.div`
   display: flex;
-  width: 140px;
+  width: 7.625rem;
   padding-bottom: 22px;
 `;
 const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
+  margin-bottom: 36px;
 `;
 
 const ValueName = styled.div`
@@ -121,7 +123,7 @@ const ValueName = styled.div`
 `;
 const Title = styled.div`
   color: #a09e9e;
-  font-size: 10px;
+  font-size: 0.875rem;
   font-family: "Inter";
   font-weight: bold;
   font-stretch: normal;
@@ -131,7 +133,7 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
-  font-size: 13.5px;
+  font-size: 1rem;
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
@@ -145,14 +147,14 @@ const LeftTop = styled.div`
   justify-content: center;
 `;
 const IconLogo = styled.img`
-  width: 52%;
-  height: 52%;
+  width: 2.625rem;
+  height: 2.625rem;
   margin-right: 12px;
   
 `;
 const LeftTitle = styled.div`
   margin-top: 3px;
-  font-size: 20px;
+  font-size: 1.75rem;
   font-weight: 600;
   font-family: Inter;
   font-stretch: normal;
@@ -163,9 +165,9 @@ const LeftTitle = styled.div`
 `;
 const Line1 = styled.hr`
   background-color: #fff;
-  width: 478px;
+  width: 38.25rem;
   position: absolute;
-  top: 55%;
+  top: 60%;
   left: 1%;
   @media (max-width:1023px){
     width:96%;
@@ -173,11 +175,12 @@ const Line1 = styled.hr`
     }
 `;
 const LeftTopSec = styled.div`
-  font-size: 18px;
+  font-size: 1.375rem;
   font-weight: 800;
   margin-right: 3px;
   font-family: Inter;
   letter-spacing: 0.55px;
+  /* margin-top: 0.938rem; */
   color: #252525;
 `;
 const LeftTopSecMain = styled.div`
@@ -494,7 +497,7 @@ class BlockChainDataComponent extends Component {
                     <div className="arrow_up">
                       {/* <BsFillCaretUpFill size={10} /> */}
                       <img
-                        src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif"
+                        src={require("../../../src/assets/images/Up.svg")}
                         style={{ width: "8px" }}
                       />
                     </div>
@@ -502,7 +505,7 @@ class BlockChainDataComponent extends Component {
                     <div className="arrow_down">
                       {/* <BsFillCaretDownFill size={10} /> */}
                       <img
-                        src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png"
+                        src={require("../../../src/assets/images/Down.svg")}
                         style={{ width: "8px" }}
                       />
                     </div>
@@ -528,7 +531,7 @@ class BlockChainDataComponent extends Component {
               <Value>
                 <TitleIcon src={priceLogo} />
                 <ValueName>
-                  <Title>Gas Price(Gwei)</Title>
+                  <Title>Gas Price</Title>
                   <TitleValue
                     className={TxanimationClass ? TxanimationClass : ""}
                   >
@@ -584,16 +587,16 @@ class BlockChainDataComponent extends Component {
                           <div className="arrow_up">
                             {/* <BsFillCaretUpFill size={10} /> */}
                             <img
-                              src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif"
-                              style={{ width: "8px" }}
+                              src={require("../../../src/assets/images/Up.svg")}
+                              style={{ width: "0.5rem", marginRight: "5px" ,marginBottom:"5px"  }}
                             />
                           </div>
                         ) : (
                           <div className="arrow_down">
                             {/* <BsFillCaretDownFill size={10} /> */}
                             <img
-                              src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png"
-                              style={{ width: "8px" }}
+                              src={require("../../../src/assets/images/Down.svg")}
+                              style={{ width: "0.5rem" , marginRight: "5px",marginBottom:"5px" }}
                             />
                           </div>
                         )}
