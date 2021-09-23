@@ -48,7 +48,7 @@ export default function AccountComponent(props) {
             <Grid className="table_1">
                 <Grid class="tabletop-header">{state.tableName}</Grid>
                 <div className="searchelement-input2">
-                    <img style={{ width: 22, height: 22, marginRight: 5 }}
+                    <img style={{ width: 20, height: 20, marginRight: 5 }}
                         src={require('../../assets/images/Search.png')} />
                     <input
                         onKeyUp={(event) => props._handleSearch(event)}
@@ -72,10 +72,10 @@ export default function AccountComponent(props) {
 
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders_1"}>Address</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%"}} align="left" ><span className={"tableheaders_1"}>Address</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
                                 </TableRow>
                             </TableHead>
                             {props.state.noData == 1 &&
@@ -111,7 +111,7 @@ export default function AccountComponent(props) {
                     </TableContainer>
                 </Paper>
 
-                <Grid container style={{ marginTop: "15px" }} className="Pagination">
+                <Grid container style={{ marginTop: "35px" }} className="Pagination">
                     <Grid item className="Pagination_1">
                         <span className="text">Show</span>
                         <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
