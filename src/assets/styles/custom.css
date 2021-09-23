@@ -2111,6 +2111,7 @@ p {
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+  margin-bottom: 20px;
 }
 
 .searchelement-input3 {
@@ -3147,12 +3148,15 @@ body {
 
 #container-table th {
   padding: 15px;
+  padding-top: 25px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 #container-table td {
   padding: 12px;
+  padding-top: 17px;
+  padding-bottom: 17px;
   text-align: left;
   border-bottom: 1px solid #ddd;
   margin: 19px 49px 1.8px 69px;
