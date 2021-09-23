@@ -48,12 +48,12 @@ export default function AccountComponent(props) {
             <Grid className="table_1">
                 <Grid class="tabletop-header">{state.tableName}</Grid>
                 <div className="searchelement-input2">
-                    <img style={{ width: 20, height: 20, marginRight: 5 }}
+                    <img style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
                         src={require('../../assets/images/Search.png')} />
                     <input
                         onKeyUp={(event) => props._handleSearch(event)}
                         style={{
-                            fontSize: '13px',
+                            fontSize: '0.938rem',
                             letterSpacing: 0.62,
                             color: '#2a2a2a',
                             fontFamily: 'Inter',

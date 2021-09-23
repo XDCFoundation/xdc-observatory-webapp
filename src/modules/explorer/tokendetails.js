@@ -324,13 +324,13 @@ export default function StickyHeadTable() {
               <p className="searchelement-token">Tokens</p>
               <div className="searchelement-input">
                 <img
-                  style={{ width: 17, height: 17, marginRight: 5 }}
+                  style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
                   src={require("../../assets/images/Search.png")}
                 />
                 <input
                   onChange={handleSearchKeyUp}
                   style={{
-                    fontSize: 13,
+                    fontSize: '0.938rem',
                     letterSpacing: 0.62,
                     fontWeight: 600,
 

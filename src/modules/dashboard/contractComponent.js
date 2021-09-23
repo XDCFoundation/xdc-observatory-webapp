@@ -37,7 +37,7 @@ const Pagination = styled.div`
     justify-content: space-between;
     flex-direction: row;
     margin:auto;
-    width: 990px;
+    width: 75.125rem;
    /* margin-right: 18%;
    margin-left: 18%; */
     @media (max-width:640px){
@@ -56,7 +56,7 @@ const Pagination = styled.div`
 const RightPagination = styled.div`
   display:flex ;
   
-  margin-top: 20px;
+  margin-top: 2.188rem;
   flex-direction: row;
   @media(max-width:1023px){
     margin-right: 5%;
@@ -66,7 +66,7 @@ const LeftPagination = styled.div`
 display: flex;
 flex-direction: row;
 
-margin-top: 20px;
+margin-top: 2.188rem;
 @media (max-width:1023px){
   margin-left: 5%;
 }
@@ -290,13 +290,13 @@ class Contractlist extends React.Component {
                 <p className="searchelement-token">Contracts</p>
                 <div className="searchelement-input">
                   <img
-                    style={{ width: 22, height: 22, marginRight: 5 }}
+                    style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
                     src={require("../../assets/images/Search.png")}
                   />
                   <input
                     onKeyUp={this.handleKeyUp}
                     style={{
-                      fontSize: "12px",
+                      fontSize: "0.938rem",
                       letterSpacing: 0.62,
                       fontWeight: 600,
                       color: "#2a2a2a",
@@ -315,19 +315,19 @@ class Contractlist extends React.Component {
         <br />
         <Paper
           className={"responsive-table-width-contract-list"}
-        // style={{
-        //   borderRadius: "14px",
-        //   marginLeft: "18%",
-        //   marginRight: "18%",
-        // }}
+        style={{
+          borderRadius: "14px",
+          // marginLeft: "18%",
+          // marginRight: "18%",
+        }}
         // className={classes.rootui}
-        // elevation={0}
+        elevation={0}
         >
           <TableContainer
             className={classes.container}
             id="container-table"
             style={{
-              borderRadius: "14px",
+              borderRadius: "12px",
               boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
               background: "#fff",
               border: "none",
@@ -340,16 +340,16 @@ class Contractlist extends React.Component {
                     style={{ border: "none", paddingLeft: "3%" }}
                     align="left"
                   >
-                    <span className={"tableheaders"}>Address</span>
+                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Address</span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders"}>Token Name</span>
+                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Token Name</span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders"}>Contract Name</span>
+                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Contract Name</span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders"}>Is Token</span>
+                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Is Token</span>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -377,8 +377,8 @@ class Contractlist extends React.Component {
                         <a
                           style={{
                             color: "blue",
-                            fontSize: 11,
-                            marginLeft: "10px",
+                            fontSize: 14,
+                            marginLeft: "1.375rem",
                           }}
                           href={`/address/${row.address}`}
                         >
@@ -404,7 +404,7 @@ class Contractlist extends React.Component {
                       <TableCell id="td" style={{ borderBottom: "none" }}>
                         <span
                           className="tabledata"
-                          style={{ marginLeft: "5px" }}
+                          style={{ marginLeft: "0.188rem", fontSize: 14,}}
                         >
                           {isToken}
                         </span>
@@ -444,7 +444,7 @@ class Contractlist extends React.Component {
           >
             <p
               style={{
-                fontSize: "11px",
+                fontSize: "0.875rem",
                 fontWeight: "600",
               }}
             >
@@ -464,7 +464,7 @@ class Contractlist extends React.Component {
             </select>
             <p
               style={{
-                fontSize: "11px",
+                fontSize: "0.875rem",
                 fontWeight: "600",
               }}
             >
