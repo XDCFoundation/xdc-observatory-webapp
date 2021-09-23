@@ -25,7 +25,7 @@ const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  width: 990px;
+  width: 75.125rem;
   margin: 20px auto;
 
   @media (max-width: 640px) {
@@ -40,7 +40,7 @@ const Pagination = styled.div`
 `;
 const RightPagination = styled.div`
   display: flex;
-  margin-top: 60px;
+  margin-top: 1.75rem;
   flex-direction: row;
 
   @media (max-width: 1023px) {
@@ -51,7 +51,7 @@ const RightPagination = styled.div`
 const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 60px;
+  margin-top: 1.75rem;
 
   @media (max-width: 1023px) {
     margin-left: 5%;
@@ -324,13 +324,13 @@ export default function StickyHeadTable() {
               <p className="searchelement-token">Tokens</p>
               <div className="searchelement-input">
                 <img
-                  style={{ width: 22, height: 22, marginRight: 5 }}
+                  style={{ width: 17, height: 17, marginRight: 5 }}
                   src={require("../../assets/images/Search.png")}
                 />
                 <input
                   onChange={handleSearchKeyUp}
                   style={{
-                    fontSize: 12,
+                    fontSize: 13,
                     letterSpacing: 0.62,
                     fontWeight: 600,
 
@@ -351,17 +351,17 @@ export default function StickyHeadTable() {
       <br />
       <Paper
         className={"responsive-table-width-token-list"}
-        // style={{
-        //     borderRadius: "14px",
-        //     marginLeft: "18%",
-        //     marginRight: "18%",
-        // }} elevation={0}
+        style={{
+            borderRadius: "14px",
+            // marginLeft: "18%",
+            // marginRight: "18%",
+        }} elevation={0}
       >
         <TableContainer
           className={classes.container}
           id="container-table-token"
           style={{
-            borderRadius: "12px",
+            borderRadius: "0.75rem",
             border: "solid 1px #e3e7eb",
             backgroundColor: "#ffffff",
             boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
@@ -387,15 +387,13 @@ export default function StickyHeadTable() {
                             </TableRow>
                         </TableHead> */}
 
-            <TableHead>
+            <TableHead
+            style={{ borderBottom: "1px solid #e5e8f0" }}>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span>#</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
-                  <span></span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                <TableCell style={{ border: "none"}} align="left">
                   <span className={"tablehead-token-details"}>Token</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
@@ -429,7 +427,7 @@ export default function StickyHeadTable() {
                       >
                         {index + 1}
                       </TableCell>
-                      <TableCell></TableCell>
+              
                       {/* {row.src ?
                                                 <TableCell style={{ width: '1px' }} id="td"> <img
                                                     style={{ width: 25, height: 25, borderRadius: '15px' }}
@@ -458,7 +456,7 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell>
                         <a
-                          style={{ fontSize: 12, color: "#2149b9" }}
+                          style={{ fontSize: 15, color: "#2149b9" }}
                           href={"/token-data/" + row.address}
                         >
                           {" "}
@@ -513,7 +511,7 @@ export default function StickyHeadTable() {
         >
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "0.875rem",
               fontWeight: "600",
             }}
           >
@@ -533,7 +531,7 @@ export default function StickyHeadTable() {
           </select>
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "0.875rem",
               fontWeight: "600",
             }}
           >
