@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
-import INR from "../../assets/images/inr.png";
-import EUR from "../../assets/images/euro.png";
-import USD from "../../assets/images/usd.png";
+import INR from "../../assets/images/INR.svg";
+import EUR from "../../assets/images/Euro.svg";
+import USD from "../../assets/images/dollar.svg";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import { MenuItem } from "material-ui";
