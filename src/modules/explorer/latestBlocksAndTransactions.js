@@ -201,6 +201,7 @@ class LatestBlocks extends Component {
     console.log(this.props.socket, "<<<<");
     return (
       <>
+       <div>
         <div className="block_main">
           <div className="latestblock">
             <div className="latest">
@@ -424,6 +425,7 @@ class LatestBlocks extends Component {
             </div>
           </div>
         </div>
+      </div>
       </>
     );
   }
