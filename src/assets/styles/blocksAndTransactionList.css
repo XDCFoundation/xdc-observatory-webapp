@@ -9,7 +9,7 @@
 
 .tabletop-header {
   font-family: Inter;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -32,8 +32,8 @@
   width: 990px;
 }
 .tableresponsive {
-  width: 990px;
-  padding-top: 8%;
+  width: 75.125rem;
+  padding-top: 5.8rem;
   margin: auto;
 }
 
@@ -92,7 +92,7 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 115px;
+  margin-left: 1.56rem;
 }
 .tableheader-age {
   font-family: "Fira Sans";
@@ -121,7 +121,7 @@
 }
 .tableheaders-hash {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -130,7 +130,6 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 115px;
 }
 .tableheader-all {
   font-family: "Fira Sans";
@@ -170,10 +169,23 @@
   opacity: 0.8;
   margin-right: 50px;
 }
+.tableheaders-all {
+  font-family: "Fira Sans";
+  font-size: 0.875rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
 @media (max-width: 640px) {
   .tableheaders-hash {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -186,7 +198,7 @@
   }
   .tableheaders-all {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -197,10 +209,11 @@
     opacity: 0.8;
     margin-right: 50px;
   }
+  
 }
 .tableheaders-txn-fee {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -233,7 +246,7 @@
 }
 .tableheaders-age {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -248,7 +261,9 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  height: 60%;
+  height: 2.188rem;
+  width:  3.8rem;
+  font-size: 0.875rem !important;
   padding: 9px 10px 9px 6px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -259,7 +274,7 @@
 .tabledata {
   width: 10%;
   font-family: Inter;
-  font-size: 11.5px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -310,7 +325,7 @@
 
 .text {
   font-family: Inter;
-  font-size: 12px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -325,7 +340,7 @@
 
 .btn {
   font-family: Inter;
-  font-size: 10px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -460,8 +475,8 @@
     color: #252525;
   }
   .select-amount {
-    width: 63px;
-    height: 28px;
+    width: 3.125rem;
+    height: 2.188rem;
   }
   .Pagination {
     display: flex;
@@ -487,7 +502,7 @@
     overflow: auto;
   }
   .Pagination_1 {
-    width: 163px;
+    width: 200px;
   }
   .Pagination {
     display: flex;
@@ -523,7 +538,7 @@
     width: 13%;
   }
   .Pagination_1 {
-    width: 163px;
+    width: 200px;
   }
   .Pagination {
     display: flex;
