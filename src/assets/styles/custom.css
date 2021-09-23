@@ -2048,7 +2048,7 @@ p {
 }
 
 .searchelement-div {
-  margin-top: 80px !important;
+  margin-top: 90px !important;
   margin: auto;
   padding-bottom: 20px;
   width: 75.125rem;
@@ -2086,9 +2086,9 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  width: 220px;
-  padding: 7.7px 43px 8.6px 10px;
-  border-radius: 6px;
+  width: 15.625rem;
+  padding: 7.7px 43px 10px 10px;
+  border-radius: 0.25rem;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -2104,9 +2104,9 @@ p {
 .searchelement-input2 {
   display: flex;
   flex-direction: row;
-  width: 225px;
-  padding: 7.7px 43px 8.6px 10px;
-  border-radius: 6px;
+  width: 15.625rem;
+  padding: 7.7px 43px 10px 10px;
+  border-radius: 0.25rem;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
