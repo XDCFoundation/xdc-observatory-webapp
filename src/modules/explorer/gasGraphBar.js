@@ -5,7 +5,17 @@ import moment from "moment";
 import { TransactionService } from '../../services'
 import Utils from '../../utility'
 import styled from "styled-components";
-
+const TriangleArrowDown = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top:solid 8px #ffffff;;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
+`
 const toolTipElement = (props) => {
     return (
         <div>
@@ -13,82 +23,48 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
                 <p className="Tooltip-graph-tx">Gas Price(Gwei): {props.point?.data?.y}</p>
             </div>
-            {/* <TriangleArrowDown /> */}
+            <TriangleArrowDown />
         </div>
     )
 }
 const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
         data={data}
+        tooltip={toolTipElement}
 
-        margin={{ top: 10 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+        // colors={{ scheme: "category10" }}
+        xScale={{ type: "point" }}
+        yScale={{
+            type: "linear",
+            min: "auto",
+            max: "auto",
+            stacked: true,
+            reverse: false,
+        }}
         yFormat=" >-.2f"
         curve="basis"
         axisTop={null}
         axisRight={null}
-        tooltip={toolTipElement}
-        axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'transportation',
-            legendOffset: 36,
-            legendPosition: 'middle'
-        }}
-        axisLeft={{
-            orient: 'left',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'count',
-            legendOffset: -40,
-            legendPosition: 'middle'
-        }}
+        axisBottom={null}
+        axisLeft={null}
         enableGridX={false}
         enableGridY={false}
+        // colors={{ scheme: 'purple_blue' }}
         enablePoints={false}
         pointSize={10}
-        pointColor={{ theme: 'background' }}
+        pointColor={{ theme: "background" }}
+        enableCrosshair={false}
         pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
+        pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
         enableArea={true}
-        enableCrosshair={false}
         useMesh={true}
-        legends={[
-            {
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 100,
-                translateY: 0,
-                itemsSpacing: 0,
-                itemDirection: 'left-to-right',
-                itemWidth: 80,
-                itemHeight: 20,
-                itemOpacity: 0.75,
-                symbolSize: 12,
-                symbolShape: 'circle',
-                symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemBackground: 'rgba(0, 0, 0, .03)',
-                            itemOpacity: 1
-                        }
-                    }
-                ]
-            }
-        ]}
+        legends={[]}
     />
 )
-const GraphSize =styled.div`
+const GraphSize = styled.div`
 
-height: 7.56rem;
+height: 8.75rem;
 width: auto;
 margin-top: 3.19rem;
 
@@ -163,7 +139,7 @@ export default function App() {
     let lastDate = value2?.slice(atIndex2, colonIndex2);
     return (
         <GraphSize >
-        
+
             <MyResponsiveLine data={data} />
             <div className="dates">
                 <p>{firstDate}</p>

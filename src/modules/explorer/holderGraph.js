@@ -1,12 +1,24 @@
 import React from "react";
 import { ResponsiveLine } from '@nivo/line';
+// import { IoTriangleSharp } from 'react-icons/io'
 import '../../assets/styles/custom.css';
 import styled from "styled-components";
 
-const GraphSize =styled.div`
+const GraphSize = styled.div`
 height: 115px;
 width: auto;
 
+`
+const TriangleArrowDown = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-top:solid 8px #ffffff;;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 const data = [
@@ -34,7 +46,7 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
                 <p className="Tooltip-graph-tx">Holders: {props.point?.data?.y}</p>
             </div>
-            {/* <TriangleArrowDown /> */}
+            <TriangleArrowDown />
         </div>
     )
 }
@@ -113,14 +125,14 @@ export default function App() {
 
     return (
         <GraphSize >
-        {/* <div style={{ height: 120, width: 390 }}> */}
+            {/* <div style={{ height: 120, width: 390 }}> */}
             <MyResponsiveLine data={data} />
             <div className="dates">
                 <p>5 Aug</p>
                 <p>19 Aug</p>
             </div>
 
-        {/* </div> */}
+            {/* </div> */}
         </GraphSize>
     );
 }
