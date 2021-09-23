@@ -632,7 +632,7 @@ const Heading = styled.span`
   color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.5rem;
   margin-left: -21px;
   @media (min-width: 300px) and (max-width: 767px) {
     margin-left: unset;
