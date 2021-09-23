@@ -3506,8 +3506,10 @@ button {
     .latestblock{
     width: 36.125rem;
     height: 30.625rem;
-    margin: 66px 46px 91px 359px;
-    padding: 22px 1px 37px;
+    /* margin: 66px 46px 91px 359px;
+    padding: 22px 1px 37px; */
+        margin: 4.125rem 2.875rem 5.688rem 22.438rem;
+    padding: 1.375rem 0.063rem 2.313rem;
     border-radius: 12px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
     border: solid 1px #e3e7eb;
