@@ -972,6 +972,10 @@ input:focus {
   background-color: #2149b9;
 }
 
+.back-arrow{
+  margin-bottom: 0.75rem;
+}
+
 .XDC {
   margin-left: -5px;
   font-size: 18px;
@@ -1570,6 +1574,7 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+  outline: none;
 }
 
 .firstbox-contract {

@@ -26,16 +26,16 @@ const Pagination = styled.div`
   justify-content: space-between;
   flex-direction: row;
   width: 75.125rem;
-  margin: 20px auto;
+  margin: 1.25rem auto;
 
   @media (max-width: 640px) {
     display: flex;
     flex-direction: column;
-    margin: 10px auto;
+    margin: 0.625rem auto;
   }
   @media (max-width: 1023px) {
     width: auto;
-    margin: 10px auto;
+    margin: 0.625rem auto;
   }
 `;
 const RightPagination = styled.div`
@@ -44,7 +44,7 @@ const RightPagination = styled.div`
   flex-direction: row;
 
   @media (max-width: 1023px) {
-    margin-top: 10px;
+    margin-top: 0.625rem;
     margin-right: 5%;
   }
 `;
@@ -55,7 +55,7 @@ const LeftPagination = styled.div`
 
   @media (max-width: 1023px) {
     margin-left: 5%;
-    margin-top: 10px;
+    margin-top: 0.625rem;
   }
 `;
 
@@ -121,13 +121,13 @@ function createData(S, src, Token, Type, Contract, Holder, Status) {
 
 const useStyles = makeStyles({
   rootui: {
-    borderRadius: "14px",
+    borderRadius: "0.875rem",
     marginLeft: "18%",
     marginRight: "18%",
   },
 
   container: {
-    borderRadius: "14px",
+    borderRadius: "0.875rem",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
@@ -140,7 +140,7 @@ const useStyles = makeStyles({
   
 
   divider: {
-    borderTop: "0px solid #bbb",
+    borderTop: "0rem solid #bbb",
     width: "100%",
   },
 });
@@ -325,7 +325,7 @@ export default function StickyHeadTable() {
               <div className="searchelement-input">
                 <img
                   style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
-                  src={require("../../assets/images/Search.png")}
+                  src={require("../../assets/images/Search.svg")}
                 />
                 <input
                   onChange={handleSearchKeyUp}
@@ -352,7 +352,7 @@ export default function StickyHeadTable() {
       <Paper
         className={"responsive-table-width-token-list"}
         style={{
-            borderRadius: "14px",
+            borderRadius: "0.875rem",
             // marginLeft: "18%",
             // marginRight: "18%",
         }} elevation={0}
@@ -362,9 +362,9 @@ export default function StickyHeadTable() {
           id="container-table-token"
           style={{
             borderRadius: "0.75rem",
-            border: "solid 1px #e3e7eb",
+            border: "solid 0.063rem #e3e7eb",
             backgroundColor: "#ffffff",
-            boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+            boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
           }}
         >
           <Table
@@ -388,7 +388,7 @@ export default function StickyHeadTable() {
                         </TableHead> */}
 
             <TableHead
-            style={{ borderBottom: "1px solid #e5e8f0" }}>
+            style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span>#</span>
@@ -569,7 +569,11 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path-contract">{"<"}</p>
+          <img
+                  className="back-arrow"
+                  src={require("../../assets/images/back.svg")}
+                />
+            {/* <p className="path-contract">{"<"}</p> */}
           </div>
           <div className="pagebox-contract">
             <p className="Page-1-of-5-contract">
@@ -587,12 +591,16 @@ export default function StickyHeadTable() {
                 : "nextbox-contract"
             }
           >
-            <p
+          <img
+                  className="back-arrow"
+                  src={require("../../assets/images/next.svg")}
+                />
+            {/* <p
               className="path-2-contract"
               onClick={() => handleChangePage("next")}
             >
               {">"}
-            </p>
+            </p> */}
           </div>
           <div
             className={

@@ -291,7 +291,7 @@ class Contractlist extends React.Component {
                 <div className="searchelement-input">
                   <img
                     style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
-                    src={require("../../assets/images/Search.png")}
+                    src={require("../../assets/images/Search.svg")}
                   />
                   <input
                     onKeyUp={this.handleKeyUp}
@@ -376,7 +376,7 @@ class Contractlist extends React.Component {
                       >
                         <a
                           style={{
-                            color: "blue",
+                            color: "#2149b9",
                             fontSize: 14,
                             marginLeft: "1.375rem",
                           }}
@@ -504,7 +504,11 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("prev")}
             >
-              <p className="path-contract">{"<"}</p>
+            <img
+                  className="back-arrow"
+                  src={require("../../assets/images/back.svg")}
+                />
+              {/* <p className="path-contract">{"<"}</p> */}
             </div>
             <div className="pagebox-contract">
               <p className="Page-1-of-5-contract">
@@ -525,12 +529,16 @@ class Contractlist extends React.Component {
                   : "nextbox-contract"
               }
             >
-              <p
+            <img
+                  className="back-arrow"
+                  src={require("../../assets/images/next.svg")}
+                />
+              {/* <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
               >
                 {">"}
-              </p>
+              </p> */}
             </div>
             <div
               className={
