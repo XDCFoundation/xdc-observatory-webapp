@@ -5,20 +5,12 @@ import '../../assets/styles/custom.css';
 import styled from "styled-components";
 
 const GraphSize = styled.div`
-height: 115px;
+height: 8.75rem;
 width: auto;
-
-`
-const TriangleArrowDown = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-top:solid 8px #ffffff;;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
+margin-top: 1rem;
+@media (max-width:640px){
+    height: 80px;
+}
 `
 
 const data = [
@@ -46,7 +38,7 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
                 <p className="Tooltip-graph-tx">Holders: {props.point?.data?.y}</p>
             </div>
-            <TriangleArrowDown />
+
         </div>
     )
 }

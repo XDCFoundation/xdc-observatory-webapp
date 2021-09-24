@@ -5,17 +5,7 @@ import moment from "moment";
 import { TransactionService } from '../../services'
 import Utils from '../../utility'
 import styled from "styled-components";
-const TriangleArrowDown = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top:solid 8px #ffffff;;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
-`
+
 const toolTipElement = (props) => {
     return (
         <div>
@@ -23,7 +13,7 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
                 <p className="Tooltip-graph-tx">Gas Price(Gwei): {props.point?.data?.y}</p>
             </div>
-            <TriangleArrowDown />
+
         </div>
     )
 }

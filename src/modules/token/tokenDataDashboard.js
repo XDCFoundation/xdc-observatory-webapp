@@ -23,35 +23,34 @@ import Utils from "../../utility";
 
 
 const MainContainer = styled.div`
-  width: 950px;
-  height: 200px;
+  width: 75.125rem;
+  height: 16.563rem;
   margin: 0 auto;
-  margin-top: 76px;
-  padding-top:20px;
-  padding-left:15px;
-  padding-right: 15px;
+  margin-top: 50px;
+  padding-top: 1.9rem;
+  padding-left: 1.75rem;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (max-width: 1023px) {
+  @media (min-width:641px) and (max-width: 1023px) {
     flex-direction: column;
     width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
-    height: 500px;
-    margin-top: 110px;    
+    margin-left: 4.7%;
+    margin-right: 4.7%;
+    height: 400px;
+    //use this height in case of giving height to graph in tablet mode
+    /* height:450px; */
     padding-top: 0px;
   }
   @media (max-width :640px){
     flex-direction: column;
     width: auto;
-    height: 500px;
+    height: 450px;
     margin-right: 2%;
     margin-left: 2%;
-    
-
+    padding-top: 0px;
   }
 `;
 const MobileScreen = styled.div`
@@ -60,8 +59,7 @@ margin-right: 3px;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  margin-right: 0px;
 }
 `;
 const LeftContainer = styled.div`
@@ -87,33 +85,33 @@ const LeftFirst = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  font-size: 2px;
-  align-items: center;
+  align-items: flex-start;
+  @media (max-width:1023px){
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
 const LeftSec = styled.div`
   flex: 0.7;
-  padding-left: 2px;
-  margin-bottom: 2px;
+      margin-top: 10px;
+  
 `;
 const ValueMain = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 12px;
+  /* margin-top: 12px; */
 `;
 
 const Value = styled.div`
   display: flex;
-  width: 140px;
-  padding-bottom: 22px;
-  @media (max-width:640px){
-    width: 75px;
-  }
+  width: 10.625rem;
+  padding-bottom: 35px;
 `;
 const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
- 
+  margin-bottom: 36px;
 `;
 
 const ValueName = styled.div`
@@ -123,22 +121,22 @@ const ValueName = styled.div`
 `;
 const Title = styled.div`
   color: #a09e9e;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-family: "Inter";
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.65px;
+  margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
-  font-size: 8.5px;
+  font-size: 1rem;
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
   letter-spacing: 0.58px;
   color: #252525;
-  padding-top: 3px;
 `;
 const LeftTop = styled.div`
   display: flex;
@@ -153,10 +151,9 @@ const IconLogo = styled.img`
   margin-left: 5px;
 `;
 const LeftTitle = styled.div`
-  margin-left:4px;
-  margin-top:5px;
-  font-size: 20px;
-  font-weight: 800;
+  margin-top: 3px;
+  font-size: 1.75rem;
+  font-weight: 600;
   font-family: Inter;
   font-stretch: normal;
   font-style: normal;
@@ -165,20 +162,18 @@ const LeftTitle = styled.div`
   color: #252525;
 `;
 const Line1 = styled.hr`
-  background-color: #e3e7eb !important;
-  width: 478px;
+  background-color: #fff;
+  width: 100%;
   position: absolute;
-  top: 55%;
-  left: 1%;
+  top: 65%;
   @media (max-width:1023px){
-    width:100%;
-    top: 65%;
+    width:96%;
+    top: 75%;
     }
 `;
 const LeftTopSec = styled.div`
-  font-size: 18px;
+  font-size: 1.25rem;
   font-weight: 800;
-  margin-right: 3px;
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #252525;
@@ -187,10 +182,12 @@ const LeftTopSecMain = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  
 `;
+
 const ContractButton = styled.button`
   background-color: transparent;
-  font-size: 12px;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.45px;
   border: none;
@@ -215,8 +212,7 @@ const RightTop = styled.div`
 `;
 
 const RightTitle = styled.div`
-  margin-top:3px;
-  font-size: 13px;
+  font-size: 0.938rem;
   font-weight: 600;
   font-family: Inter;
   font-stretch: normal;
@@ -228,7 +224,7 @@ const RightTitle = styled.div`
   `;
 const Line2 = styled.hr`
   background-color: #e3e7eb !important;
-  width: 392px;
+  width: 100%;
   position: absolute;
   top: 20%;
   left: 0%;
@@ -238,19 +234,18 @@ const Line2 = styled.hr`
     }
 `;
 const RightTopSec = styled.div`
-  width: 50px;
-  height: 18px;
-  font-size: 11px;
-  padding: 4.5px;
-  color: #2a2a2a;
-  border: none;
-  border-radius: 4px;
-  background-color: #e3e7eb;
-  background-size: cover;
-  font-family: "Inter" !important;
-  font-weight: 600;
-  padding-left: 3px;
-  padding-top: 1px;
+  width: 3.938rem;
+    height: 1.375rem;
+    font-size: 0.875rem;
+    padding: 4.5px;
+    color: #2a2a2a;
+    border: none;
+    border-radius: 4px;
+    background-color: #e3e7eb;
+    background-size: cover;
+    font-family: "Inter" !important;
+    font-weight: 600;
+    padding-top: 2px;
 `;
 
 const GraphContainer = styled.div`
@@ -338,21 +333,21 @@ export default function TokenDataComponent() {
   let CurrencySymbol = ''
   if (marketCapVal) {
     if (activeCurrency == 'USD') {
-      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+      CurrencySymbol = '$'
       tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
       tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
     } else if (activeCurrency == 'EUR') {
-      CurrencySymbol = '<i class="fa fa-eur" aria-hidden="true"></i> '
+      CurrencySymbol = '€'
       tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice
       tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr
 
     } else if (activeCurrency == 'INR') {
-      CurrencySymbol = '<i class="fa fa-INR" aria-hidden="true"></i> '
+      CurrencySymbol = '₹'
       tokenPriceVal = marketCapVal.parseDataINR.tokenPrice
       tokenChanges24hr = marketCapVal.parseDataINR.pricePercentageChange24_hr
 
     } else {
-      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> '
+      CurrencySymbol = '$'
       tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
       tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
     }
