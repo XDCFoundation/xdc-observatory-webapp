@@ -418,7 +418,7 @@ export default function Transaction({ _handleChange }) {
                 <TextArea readOnly value={transactions.input} />
               </MiddleContainerInputData>
             </SpacingInputData>
-            <Spacing>
+            <SpacingPrivateNode>
               <Container>
                 <Tooltip align="right" title={transferToken}>
                   <ImageView
@@ -432,7 +432,7 @@ export default function Transaction({ _handleChange }) {
                 To access the Private Note feature, you must be{" "}
                 <a className="linkTableDetails">Logged In</a>
               </MiddleContainerPrivateNote>
-            </Spacing>
+            </SpacingPrivateNode>
           </Div__>
           <br />
           <br />
@@ -484,7 +484,8 @@ const Div__ = styled.div`
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  padding: 9px;
+  padding: 0.563rem;
+  padding-left: 2.188rem;
 `;
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
@@ -497,7 +498,8 @@ const MiddleContainerPrivateNote = styled.div`
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   height: 2.313rem;
-  padding:7px
+  padding:7px;
+
   `
   const MiddleContainerInputData = styled.div`
   font-family: Inter;
@@ -562,9 +564,19 @@ const SpacingInputData = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 16px 23px;
+  padding-right: 2.313rem;
   border-bottom: solid 1px #e3e7eb;
   height:7.75rem;
+  `
+  const SpacingPrivateNode = styled.div`
+ display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height:4.063rem;
+  padding-right:2.313rem;
   `
 const Spacing = styled.div`
   display: flex;
@@ -572,7 +584,6 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 16px 28px;
   border-bottom: solid 1px #e3e7eb;
   height:4.063rem;
 
