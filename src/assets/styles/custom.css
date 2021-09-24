@@ -2128,10 +2128,10 @@ p {
 .searchelement-input3 {
   display: flex;
   flex-direction: row;
-  height: 30px;
-  width: 180px;
+  height: 2.125rem;
+  width: 10.625rem;
   padding: 5px 43px 2px 10px;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -5079,8 +5079,9 @@ button {
 }
 
 .table-grid-block {
-  margin: 110px auto auto auto;
-  width: 100%;
+  margin: auto;
+  width: 75.125rem;
+  margin-top: 1.875rem;
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -5336,7 +5337,8 @@ button {
   display: flex;
   border-bottom: solid 1px #e3e7eb;
   width: 100%;
-  height: 22px;
+  height: 2rem;
+  margin-top: 1.875rem;
 }
 
 @media (max-width: 640px) {
@@ -5351,18 +5353,18 @@ button {
 }
 
 .tabs_sec {
-  padding-bottom: 7px;
+  padding-bottom: 0.438rem;
   color: #b5bac7;
   background-color: transparent;
   width: 12%;
   display: flex;
   cursor: pointer;
   position: relative;
-  font-size: 11px;
+  font-size: 0.938rem;
   cursor: pointer;
-  padding-left: 5.5px;
+  padding-left: 1.188rem;
   font-weight: 600;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.044rem;
 }
 
 .tabs_sec_contract {
@@ -5394,7 +5396,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 85px;
+  width: 8.563rem;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;

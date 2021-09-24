@@ -110,12 +110,12 @@
 }
 .tableheaders {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: center;
   color: #252525;
   opacity: 0.8;
@@ -311,7 +311,7 @@
 
 .text {
   font-family: Inter;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -349,7 +349,7 @@
 }
 
 .tablegrid_address {
-  padding-top: 1.5%;
+  padding-top: 1.563rem;
   margin: auto;
   width: 100%;
 }

@@ -459,14 +459,14 @@ export default function AddressTableComponent(props) {
         <div>
             <div className="content_input_all cont-tab">
                 <div className="searchelement-input3">
-                    <img style={{ width: 18, height: 18, marginRight: 5 }}
-                        src={require('../../assets/images/Search.png')} />
+                    <img style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
+                        src={require('../../assets/images/Search.svg')} />
                     <input
                         onKeyUp={(event) => props._handleSearch(event)}
                         style={{
-                            fontSize: '11px',
+                            fontSize: '0.938rem',
                             letterSpacing: 0.62,
-                            width: "138px",
+                            width: "8.438rem",
                             color: '#2a2a2a',
                             fontFamily: 'Inter',
                             outlineColor: 'transparent',
@@ -482,7 +482,7 @@ export default function AddressTableComponent(props) {
                     style={{ fontSize: '15px', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink>
                     :
                    <CSVLink filename={"transactions.csv"} data={downloadaddress}
-                        style={{ pointerEvents: 'none', fontSize: '15px', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink>
+                        style={{ pointerEvents: 'none', fontSize: '0.938rem', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '0.25rem', width: '5.875rem', height: '2.125rem' }}>Export</CSVLink>
                 }
 
 
@@ -491,7 +491,7 @@ export default function AddressTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Paper style={{ borderRadius: '14px' }} elevation={0} className="table-paper">
+                <Paper style={{ borderRadius: '0.75rem' }} elevation={0} className="table-paper">
                     <TableContainer className={classes.container} id="container-table table-cont">
                         <Table className="table-trans">
                             <TableHead>
@@ -519,19 +519,19 @@ export default function AddressTableComponent(props) {
                                         <span className={"tableheaders table-block"}>Block</span>
                                     </TableCell>
                                     <TableCell className="w-450 w-19"
-                                        style={{ border: "none", paddingLeft: "1.8%" }}
+                                        style={{ border: "none", paddingLeft: "1.5%" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-from"}>From</span>
                                     </TableCell>
                                     <TableCell className="w-450 w-18"
-                                        style={{ border: "none", paddingLeft: "1.8%" }}
+                                        style={{ border: "none", paddingLeft: "1.5%" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-to"}>To</span>
                                     </TableCell>
                                     <TableCell className="w-450 "
-                                        style={{ border: "none", paddingLeft: "1%" }}
+                                        style={{ border: "none", paddingLeft: "1.5%" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-value"}>Value</span>
@@ -708,7 +708,7 @@ export default function AddressTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }} className="page-container">
+                <Grid container style={{ marginTop: "28px", display: "flex", justifyContent: "space-between" }} className="page-container">
                     <Grid item xs="3" className="pagination-tab">
                         <span className="text">Show</span>
                         <Select value={rowsPerPage} className="select-amount" onChange={handleChangeRowsPerPage} >
@@ -723,9 +723,15 @@ export default function AddressTableComponent(props) {
                     <Grid xs="1"></Grid>
                     <Grid item xs="8" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="pagination-page">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}><img
+                  className="back-arrow"
+                  src={require("../../assets/images/back.svg")}
+                /></button>
                         <button className="btn">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.round(totalRecord / rowsPerPage)}</button>
-                        <button onClick={() => handleChangePage("next")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={() => handleChangePage("next")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}><img
+                  className="back-arrow"
+                  src={require("../../assets/images/next.svg")}
+                /></button>
                         <button onClick={() => handleChangePage("last")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
