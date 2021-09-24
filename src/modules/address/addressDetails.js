@@ -185,11 +185,11 @@ export default function AddressDetails(props) {
                         }
                         placement="top"
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14}}><i
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 20}}><i
                           class="fa fa-clone" aria-hidden="true"></i></button>
                       </Tooltip>
                     </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer", color: "#2149b9" }} />} modal>
+                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer", color: "#2149b9", height: "20px", width: "20px"}} />} modal>
                       {(close) => (
                         <div className="popup_qr">
                           <p>
@@ -368,7 +368,7 @@ const Input = styled.input`
 `;
 const Content = styled.span`
   font-family: Inter;
-  font-size: 13px;
+  font-size: 0.938rem;
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
@@ -453,7 +453,7 @@ const Hash = styled.span`
   white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 0.938rem;
   letter-spacing: 0.5px;
   color: #2a2a2a;
   @media (min-width: 300px) and (max-width: 767px) {
@@ -482,7 +482,7 @@ const HashDiv = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 6px 6px;
+  padding: 15px 15px;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -520,7 +520,8 @@ const Heading = styled.span`
   color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
 `;
 
 const ImageView = styled.img`
