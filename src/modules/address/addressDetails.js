@@ -197,8 +197,8 @@ export default function AddressDetails(props) {
                               <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
                                 &times;
                               </button>
-                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
+                              <div className="header" style={{ fontSize: '0.875rem', paddingTop: '5px', paddingBottom: '60px' }}> {addr} </div>
+                              <QRCode size={320} style={{ height: 400, width: 400 }} value={addr} />
                             </div>
                           </p>
                         </div>

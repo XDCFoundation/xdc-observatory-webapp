@@ -5564,7 +5564,8 @@ button {
 .popup-content {
   margin: auto;
   background: rgb(255, 255, 255);
-  width: 30%;
+  width: 512px;
+  height: 579px;
   padding: 20px;
   border-radius: 10px;
 }
