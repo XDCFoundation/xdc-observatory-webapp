@@ -42,6 +42,11 @@ const MobileView = styled.div`
   display: none;
 }
 `;
+const PaginationInLine=styled.div`
+    display: flex;
+    width: 75.125rem;
+    justify-content: space-between;
+`
 const Pagination=styled.div`
 
     display: flex;
@@ -519,13 +524,13 @@ export default function AddressTableComponent(props) {
       <div className="content_input_all">
         <div className="searchelement-input3">
           <img
-            style={{ width: 18, height: 18, marginRight: 5 }}
-            src={require("../../assets/images/Search.png")}
+            style={{ width: 18, height: 18, marginRight: 5,marginTop:5 }}
+            src={require("../../assets/images/Search.svg")}
           />
           <input
             onKeyUp={(event) => props._handleSearch(event)}
             style={{
-              fontSize: "11px",
+              fontSize: "0.938rem",
               letterSpacing: 0.62,
               width: "105px",
               color: "#2a2a2a",
@@ -545,13 +550,13 @@ export default function AddressTableComponent(props) {
             filename={"transactions.csv"}
             data={downloadaddress}
             style={{
-              fontSize: "15px",
+              fontSize: "0.938rem",
               color: "#ffffff",
               textAlign: "center",
               backgroundColor: "rgb(7 125 245)",
               borderRadius: "4px",
-              width: "94px",
-              height: "30px",
+              width: "5.875rem",
+              height: "2.125rem",
             }}
           >
             Export
@@ -756,8 +761,9 @@ export default function AddressTableComponent(props) {
           </TableContainer>
         </Paper>
         <DeskTopView>
-        <Grid container >
-          <Grid item xs="3" >
+        <Grid container style={{marginTop:"2.25rem"}} >
+          <PaginationInLine>
+          <Grid item style={{width:"12.5rem"}} >
             <span className="text">Show</span>
             <Select
               value={rowsPerPage}
@@ -772,8 +778,8 @@ export default function AddressTableComponent(props) {
             </Select>
             <span className="text">Records</span>
           </Grid>
-          <Grid xs="5"></Grid>
-          <Grid item xs="4" >
+          
+          <Grid  >
             <button
               style={{ marginLeft: "0px" }}
               onClick={() => handleChangePage("first")}
@@ -810,7 +816,9 @@ export default function AddressTableComponent(props) {
             >
               Last
             </button>
+            
           </Grid>
+          </PaginationInLine>
         </Grid>
         </DeskTopView>
         <MobileView>

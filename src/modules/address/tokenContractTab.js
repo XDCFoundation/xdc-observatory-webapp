@@ -14,7 +14,7 @@ export default function TokenContracttab(props) {
 
         <>
             <Paper style={{ borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)' }} elevation={0}>
-                <div className="container">
+                <div className="container" style={{marginLeft:"15px",marginRight:"0px",paddingRight:"0px"}}>
                     <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={require("../../../src/assets/images/verified.svg")} ></img></span>Contract Source Code Verified</div>
                     <br /><br />
                     <div className="source-code-verified-container">
@@ -32,7 +32,7 @@ export default function TokenContracttab(props) {
                             </div>
                             <hr className="source-code-line"></hr>
                         </div>
-                        <div className="source-code-first-container">
+                        <div className="source-code-second-container">
                             <div className="source-code-content">
                                 <div className="source-code-content-heading">Optimization Enabled</div>
                                 <div className="source-code-content-value-optimization">{(props?.contractData?.optimization)?.toString() === "false" ? "No" : "Yes"}</div>
