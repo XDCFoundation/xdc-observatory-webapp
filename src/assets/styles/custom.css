@@ -320,9 +320,10 @@ input:focus {
 }
 
 .Shape {
-  margin-right: 10px;
-  height: 23px;
-  width: 23px;
+  margin-right: 0.625rem;
+  margin-top: 1rem;
+  height: 2.188rem;
+  width: 2.188rem;
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
@@ -352,8 +353,10 @@ input:focus {
 }
 
 .Shape2 {
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
@@ -977,15 +980,15 @@ input:focus {
 }
 
 .XDC {
-  margin-left: -5px;
-  font-size: 18px;
+  margin-left: -0.313rem;
+  font-size: 1.375rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.62px;
+  letter-spacing: 0.039rem;
   color: #ffffff;
-  margin-top: 2px;
+  margin-top: 1.25rem;
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
@@ -1010,14 +1013,15 @@ input:focus {
 }
 
 .Network-explorer {
-  padding-bottom: 3px;
-  margin: 3px 40px 3px 25px;
-  font-size: 12px;
+  padding-bottom: 0.188rem;
+  margin: 15px 40px 3px 25px;
+  padding-top: 0.438rem;
+  font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
+  letter-spacing: 0.041rem;
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1052,14 +1056,15 @@ input:focus {
 } */
 
 .Token {
-  padding-bottom: 3px;
-  margin: 3px 40px 3px 160px;
-  font-size: 12px;
+  padding-bottom: 0.188rem;
+  padding-top: 0.438rem;
+  margin: 0.938rem 2.5rem 0.188rem 11.563rem;
+  font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
+  letter-spacing: 0.041rem;
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1305,11 +1310,12 @@ p {
 }
 
 .centerbox-td {
-  width: 435px;
-  height: 32px;
-  padding: 8px 10.3px 0 12px;
-  margin-right: 10px;
-  border-radius: 7px;
+  width: 33.438rem;
+  height: 2.375rem;
+  padding: 0.5rem 0.644rem 0 0.75rem;
+  margin-right: 0.625rem;
+  margin-top: 15px;
+  border-radius: 0.25rem;
   background-color: #ffffff;
 }
 
@@ -1769,18 +1775,18 @@ p {
 
 .main-input-td {
   outline-color: #ffffff;
-  margin-top: -3px;
-  height: 22px;
-  width: 310px;
+  margin-top: -0.125rem;
+  height: 1.375rem;
+  width: 25.938rem;
   color: #2a2a2a;
-  border: 1px solid #cccccc;
+  border: 0.063rem solid #cccccc;
   border-color: transparent;
   display: flex;
   text-align: left;
-  letter-spacing: 0.2px;
-  font-size: 11px;
+  letter-spacing: 0.013rem;
+  font-size: 0.938rem;
   font-weight: 600;
-  padding: 2px 2px 0px 2px;
+  padding: 0.125rem 0.125rem 0px 0.125rem;
   background-color: #ffffff;
 }
 
@@ -1819,12 +1825,12 @@ p {
 }
 
 .select-td {
-  width: 85px;
-  margin-top: -3px;
-  outline-color: #ffffff;
+  width: 5.313rem;
+  margin-top: -0.188rem;
+  outline-color: #858585;
   border-color: transparent;
   border-left-color: #9fa9ba;
-  font-size: 11px;
+  font-size: 0.875rem;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
