@@ -50,6 +50,7 @@ const useStyles = makeStyles({
     boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
     borderBottom: 'none',
     background: '#fff',
+    width:"75.125rem"
   },
 
 });
@@ -134,7 +135,7 @@ export default function HoldersDetails(props) {
     <DeskTopView>
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block">
+      <Grid className="table-grid-block">
         <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
@@ -171,8 +172,7 @@ export default function HoldersDetails(props) {
                         }
                         placement="top"
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
-                          class="fa fa-clone" aria-hidden="true"></i></button>
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}> <img src={require("../../../src/assets/images/copy.svg")}/> </button>
                       </Tooltip>
                     </CopyToClipboard>
                     <Popup trigger={<ImQrcode className="qr-code"/>} modal>
