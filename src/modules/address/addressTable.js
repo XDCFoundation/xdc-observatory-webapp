@@ -496,7 +496,7 @@ export default function AddressTableComponent(props) {
                         <Table className="table-trans">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className="w-31 w-850" style={{ border: "none" }} align="left">
+                                    <TableCell className="w-31 w-850" style={{ border: "none" , paddingTop: "1.375rem"}} align="left">
                                         <input
                                             onChange={handleChanged}
                                             type="checkbox"
@@ -507,31 +507,31 @@ export default function AddressTableComponent(props) {
                                         <span className={"tableheaders table-hash"}>Txn Hash</span>
                                     </TableCell>
                                     <TableCell className="w-16 w-19"
-                                        style={{ border: "none", paddingLeft: "1.8%" }}
+                                        style={{ border: "none", paddingLeft: "1.8%", paddingTop: "1.375rem"}}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-age"}>Age</span>
                                     </TableCell>
                                     <TableCell className="w-450 w-19"
-                                        style={{ border: "none", paddingLeft: "1.8%" }}
+                                        style={{ border: "none", paddingLeft: "1.8%", paddingTop: "1.375rem" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-block"}>Block</span>
                                     </TableCell>
                                     <TableCell className="w-450 w-19"
-                                        style={{ border: "none", paddingLeft: "1.5%" }}
+                                        style={{ border: "none", paddingLeft: "1.5%", paddingTop: "1.375rem" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-from"}>From</span>
                                     </TableCell>
                                     <TableCell className="w-450 w-18"
-                                        style={{ border: "none", paddingLeft: "1.5%" }}
+                                        style={{ border: "none", paddingLeft: "1.5%", paddingTop: "1.375rem" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-to"}>To</span>
                                     </TableCell>
                                     <TableCell className="w-450 "
-                                        style={{ border: "none", paddingLeft: "1.5%" }}
+                                        style={{ border: "none", paddingLeft: "1.5%", paddingTop: "1.375rem" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-value"}>Value</span>
