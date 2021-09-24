@@ -2059,9 +2059,9 @@ p {
 }
 
 .searchelement-div {
-  margin-top: 90px !important;
+  margin-top: 6.875rem !important;
   margin: auto;
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
   width: 75.125rem;
 }
 
@@ -5562,12 +5562,12 @@ button {
 }
 
 .popup-content {
-  margin: auto;
+  margin: 4.438rem 15.688rem 0 3.406rem;
   background: rgb(255, 255, 255);
-  width: 512px;
-  height: 579px;
-  padding: 20px;
-  border-radius: 10px;
+  width: 32rem;
+  height: 35rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
 }
 
 .popup-arrow {
