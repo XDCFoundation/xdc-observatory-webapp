@@ -112,7 +112,7 @@ const TitleIcon = styled.img`
 const ValueName = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-flex-start;
+  align-items: flex-start;
   // margin-left: 2px;
 `;
 const Title = styled.div`
