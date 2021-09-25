@@ -5560,17 +5560,6 @@ button {
       line-height: normal;
       text-align: left;
 }
-@media(min-width:1024px){
-  .parent_hash{
-    @media (min-width:1024px){
-  
-      font-family: Inter;
-   
-      
-    
-      }
-  }
-}
 
 .parent_hash:hover {
   color: black !important;
