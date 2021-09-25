@@ -88,7 +88,8 @@ export default function SimpleTabs(props) {
   return (
     <div>
 
-      <Grid lg={10} className="table-grid-block3">
+      {/* <Grid lg={10} className="table-grid-block3"> */}
+      <Grid  className="table-grid-block3">
         <div className={classes.root}>
           <div style={{ width: 'auto', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
             <div>

@@ -327,7 +327,7 @@ export default function StickyHeadTable() {
                   <TableCell id="td" style={{ border: "none" }}>
                     <a style={{ color: "blue", fontSize: 11 }} href="#text">
                       <Tooltip placement="top" title={row.TxHash}>
-                        <span className="tabledata">
+                        <span className="tabledata table-data">
                           {" "}
                           {shorten(row.TxHash)}{" "}
                         </span>
@@ -335,19 +335,19 @@ export default function StickyHeadTable() {
                     </a>
                   </TableCell>
                   <TableCell id="td" style={{ border: "none" }}>
-                    <span className="tabledata">{row.Age}</span>
+                    <span className="tabledata table-data">{row.Age}</span>
                   </TableCell>
                   <TableCell id="td" style={{ border: "none" }}>
                     {" "}
                     <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                      <span className="tabledata"> {row.Block}</span>{" "}
+                      <span className="tabledata table-data"> {row.Block}</span>{" "}
                     </a>
                   </TableCell>
                   <TableCell id="td" style={{ border: "none" }}>
                     {" "}
                     <a style={{ color: "blue", fontSize: 11 }} href="#text">
                       <Tooltip placement="top" title={row.From}>
-                        <span className="tabledata">
+                        <span className="tabledata table-data">
                           {" "}
                           {shorten(row.From)}{" "}
                         </span>
@@ -358,7 +358,7 @@ export default function StickyHeadTable() {
                     {" "}
                     <a style={{ color: "blue", fontSize: 11 }} href="#text">
                       <Tooltip placement="top" title={row.To}>
-                        <span className="tabledata">
+                        <span className="tabledata table-data">
                           {" "}
                           {shorten(row.To)}{" "}
                         </span>
