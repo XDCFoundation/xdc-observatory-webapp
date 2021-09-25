@@ -20,61 +20,57 @@ import { useParams } from "react-router-dom";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const DeskTopView = styled.div`
-@media (min-width: 0px) and (max-width: 1023px) {
-  display: none;
-}
+  @media (min-width: 0px) and (max-width: 1023px) {
+    display: none;
+  }
 
-@media (min-width: 1024px) {
-  display: visible;
-}
-
+  @media (min-width: 1024px) {
+    display: visible;
+  }
 `;
 
 const MobileView = styled.div`
-@media (min-width: 0px) and (max-width: 1023px) {
-  display: visible;
-}
+  @media (min-width: 0px) and (max-width: 1023px) {
+    display: visible;
+  }
 
-@media (min-width: 1024px) {
-  display: none;
-}
+  @media (min-width: 1024px) {
+    display: none;
+  }
 `;
-const PaginationInLine=styled.div`
-    display: flex;
-    width: 75.125rem;
-    justify-content: space-between;
-`
-const Pagination=styled.div`
+const PaginationInLine = styled.div`
+  display: flex;
+  width: 75.125rem;
+  justify-content: space-between;
+`;
+const Pagination = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  /* width: 990px; */
+  margin: auto;
 
+  @media (max-width: 640px) {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    /* width: 990px; */
-    margin:auto;
-
-    @media (max-width:640px){
-      display: flex;
-      flex-direction:column;
-    }  
-    @media (min-width:641px)and (max-width:1023px){
-      display: flex;
-    }    
-  `;
-const RightPagination =styled.div`
-  display:flex ;
+    flex-direction: column;
+  }
+  @media (min-width: 641px) and (max-width: 1023px) {
+    display: flex;
+  }
+`;
+const RightPagination = styled.div`
+  display: flex;
   margin-top: 20px;
   flex-direction: row;
   /* width: 100%; */
- 
-`
-const LeftPagination=styled.div`
-display: flex;
-flex-direction: row;
-margin-top: 20px;
-
+`;
+const LeftPagination = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
 `;
 
 function timeDiff(curr, prev) {
@@ -524,7 +520,7 @@ export default function AddressTableComponent(props) {
       <div className="content_input_all">
         <div className="searchelement-input3">
           <img
-            style={{ width: 18, height: 18, marginRight: 5,marginTop:5 }}
+            style={{ width: 18, height: 18, marginRight: 5, marginTop: 5 }}
             src={require("../../assets/images/Search.svg")}
           />
           <input
@@ -601,7 +597,7 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheader"}>Txn Hash</span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    style={{ border: "none" }}
                     align="left"
                   >
                     <span className={"tableheader mar-right-45 mar-right-40"}>
@@ -609,25 +605,25 @@ export default function AddressTableComponent(props) {
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    style={{ border: "none" }}
                     align="left"
                   >
                     <span className={"tableheader"}>Block</span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    style={{ border: "none" }}
                     align="left"
                   >
                     <span className={"tableheader"}>From</span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "1.8%" }}
+                    style={{ border: "none" }}
                     align="left"
                   >
                     <span className={"tableheader"}>To</span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "1%" }}
+                    style={{ border: "none" }}
                     align="left"
                   >
                     <span className={"tableheader"}>Amount</span>
@@ -761,128 +757,127 @@ export default function AddressTableComponent(props) {
           </TableContainer>
         </Paper>
         <DeskTopView>
-        <Grid container style={{marginTop:"2.25rem"}} >
-          <PaginationInLine>
-          <Grid item style={{width:"12.5rem"}} >
-            <span className="text">Show</span>
-            <Select
-              value={rowsPerPage}
-              className="select-amount"
-              onChange={handleChangeRowsPerPage}
-            >
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={25}>25</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={100}>100</MenuItem>
-              <MenuItem value={500}>500</MenuItem>
-            </Select>
-            <span className="text">Records</span>
+          <Grid container style={{ marginTop: "2.25rem" }}>
+            <PaginationInLine>
+              <Grid item style={{ width: "12.5rem" }}>
+                <span className="text">Show</span>
+                <Select
+                  value={rowsPerPage}
+                  className="select-amount"
+                  onChange={handleChangeRowsPerPage}
+                >
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={25}>25</MenuItem>
+                  <MenuItem value={50}>50</MenuItem>
+                  <MenuItem value={100}>100</MenuItem>
+                  <MenuItem value={500}>500</MenuItem>
+                </Select>
+                <span className="text">Records</span>
+              </Grid>
+
+              <Grid>
+                <button
+                  style={{ marginLeft: "0px" }}
+                  onClick={() => handleChangePage("first")}
+                  className={page === 0 ? "btn disabled" : "btn"}
+                >
+                  First
+                </button>
+                <button
+                  onClick={() => handleChangePage("prev")}
+                  className={page === 0 ? "btn disabled" : "btn"}
+                >
+                  {"<"}
+                </button>
+                <button className="btn">
+                  Page{" "}
+                  {Math.round(totalRecord / rowsPerPage) +
+                    1 -
+                    Math.round((totalRecord - page) / rowsPerPage)}{" "}
+                  of {Math.round(totalRecord / rowsPerPage)}
+                </button>
+                <button
+                  onClick={() => handleChangePage("next")}
+                  className={
+                    page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                  }
+                >
+                  {">"}
+                </button>
+                <button
+                  onClick={() => handleChangePage("last")}
+                  className={
+                    page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                  }
+                >
+                  Last
+                </button>
+              </Grid>
+            </PaginationInLine>
           </Grid>
-          
-          <Grid  >
-            <button
-              style={{ marginLeft: "0px" }}
-              onClick={() => handleChangePage("first")}
-              className={page === 0 ? "btn disabled" : "btn"}
-            >
-              First
-            </button>
-            <button
-              onClick={() => handleChangePage("prev")}
-              className={page === 0 ? "btn disabled" : "btn"}
-            >
-              {"<"}
-            </button>
-            <button className="btn">
-              Page{" "}
-              {Math.round(totalRecord / rowsPerPage) +
-                1 -
-                Math.round((totalRecord - page) / rowsPerPage)}{" "}
-              of {Math.round(totalRecord / rowsPerPage)}
-            </button>
-            <button
-              onClick={() => handleChangePage("next")}
-              className={
-                page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
-              }
-            >
-              {">"}
-            </button>
-            <button
-              onClick={() => handleChangePage("last")}
-              className={
-                page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
-              }
-            >
-              Last
-            </button>
-            
-          </Grid>
-          </PaginationInLine>
-        </Grid>
         </DeskTopView>
         <MobileView>
-        <Pagination >
-          <LeftPagination>
-            <span className="text">Show</span>
-            <Select
-              value={rowsPerPage}
-              className="select-amount"
-              onChange={handleChangeRowsPerPage}
-            >
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={25}>25</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={100}>100</MenuItem>
-              <MenuItem value={500}>500</MenuItem>
-            </Select>
-            <span className="text">Records</span>
-          </LeftPagination>
+          <Pagination>
+            <LeftPagination>
+              <span className="text">Show</span>
+              <Select
+                value={rowsPerPage}
+                className="select-amount"
+                onChange={handleChangeRowsPerPage}
+              >
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={25}>25</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={100}>100</MenuItem>
+                <MenuItem value={500}>500</MenuItem>
+              </Select>
+              <span className="text">Records</span>
+            </LeftPagination>
 
-          <RightPagination>
-            <button
-              style={{ marginLeft: "0px" }}
-              onClick={() => handleChangePage("first")}
-              className={page === 0 ? "btn disabled" : "btn"}
-            >
-              First
-            </button>
-            <button
-              onClick={() => handleChangePage("prev")}
-              className={page === 0 ? "btn disabled" : "btn"}
-            >
-              {"<"}
-            </button>
-            <button className="btn w-100">
-             <div className="txt-center"> Page{" "}
-              {Math.round(totalRecord / rowsPerPage) +
-                1 -
-                Math.round((totalRecord - page) / rowsPerPage)}{" "}
-              of {Math.round(totalRecord / rowsPerPage)}</div>
-            </button>
-            <button
-              onClick={() => handleChangePage("next")}
-              className={
-                page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
-              }
-            >
-              {">"}
-            </button>
-            <button
-              onClick={() => handleChangePage("last")}
-              className={
-                page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
-              }
-            >
-              Last
-            </button> 
-          </RightPagination>
-        </Pagination>
-
+            <RightPagination>
+              <button
+                style={{ marginLeft: "0px" }}
+                onClick={() => handleChangePage("first")}
+                className={page === 0 ? "btn disabled" : "btn"}
+              >
+                First
+              </button>
+              <button
+                onClick={() => handleChangePage("prev")}
+                className={page === 0 ? "btn disabled" : "btn"}
+              >
+                {"<"}
+              </button>
+              <button className="btn w-100">
+                <div className="txt-center">
+                  {" "}
+                  Page{" "}
+                  {Math.round(totalRecord / rowsPerPage) +
+                    1 -
+                    Math.round((totalRecord - page) / rowsPerPage)}{" "}
+                  of {Math.round(totalRecord / rowsPerPage)}
+                </div>
+              </button>
+              <button
+                onClick={() => handleChangePage("next")}
+                className={
+                  page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                }
+              >
+                {">"}
+              </button>
+              <button
+                onClick={() => handleChangePage("last")}
+                className={
+                  page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                }
+              >
+                Last
+              </button>
+            </RightPagination>
+          </Pagination>
         </MobileView>
       </Grid>
-      </div>
-   
-  
+    </div>
   );
 }
