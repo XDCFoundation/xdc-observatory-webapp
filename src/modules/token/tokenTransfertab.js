@@ -19,12 +19,12 @@ import Utils from "../../utility";
 import { useParams } from "react-router";
 import styled from "styled-components";
 
-const Pagination=styled.div`
+const Pagination = styled.div`
 
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 950px;
+    width: 75.125rem;
     margin:auto;
 
     @media (max-width:640px){
@@ -35,9 +35,8 @@ const Pagination=styled.div`
       width: auto;
     }       
   `;
-  const RightPagination =styled.div`
+const RightPagination = styled.div`
   display:flex ;  
-  margin-top: 20px;
   flex-direction: row;
   
 
@@ -47,10 +46,10 @@ const Pagination=styled.div`
     }
     
 `
-const LeftPagination=styled.div`
+const LeftPagination = styled.div`
 display: flex;
 flex-direction: row;
-margin-top: 60px;
+margin-top: 39px;
 
 @media (max-width:1023px){
   /* margin-left: 5%; */
@@ -317,56 +316,56 @@ export default function StickyHeadTable() {
                 })}
             </TableBody> */}
 
-            {dummyData.map((row)=> (
+            {dummyData.map((row) => (
               <>
-              <StyledTableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
-                    >
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.TxHash}>
-                            <span className="tabledata">
-                              {" "}
-                              {shorten(row.TxHash)}{" "}
-                            </span>
-                          </Tooltip>{" "}
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata">{row.Age}</span>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <span className="tabledata"> {row.Block}</span>{" "}
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.From}>
-                            <span className="tabledata">
-                              {" "}
-                              {shorten(row.From)}{" "}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.To}>
-                            <span className="tabledata">
-                              {" "}
-                              {shorten(row.To)}{" "}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                    </StyledTableRow>
+                <StyledTableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={row.code}
+                >
+                  <TableCell id="td" style={{ border: "none" }}>
+                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                      <Tooltip placement="top" title={row.TxHash}>
+                        <span className="tabledata">
+                          {" "}
+                          {shorten(row.TxHash)}{" "}
+                        </span>
+                      </Tooltip>{" "}
+                    </a>
+                  </TableCell>
+                  <TableCell id="td" style={{ border: "none" }}>
+                    <span className="tabledata">{row.Age}</span>
+                  </TableCell>
+                  <TableCell id="td" style={{ border: "none" }}>
+                    {" "}
+                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                      <span className="tabledata"> {row.Block}</span>{" "}
+                    </a>
+                  </TableCell>
+                  <TableCell id="td" style={{ border: "none" }}>
+                    {" "}
+                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                      <Tooltip placement="top" title={row.From}>
+                        <span className="tabledata">
+                          {" "}
+                          {shorten(row.From)}{" "}
+                        </span>
+                      </Tooltip>
+                    </a>
+                  </TableCell>
+                  <TableCell id="td" style={{ border: "none" }}>
+                    {" "}
+                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                      <Tooltip placement="top" title={row.To}>
+                        <span className="tabledata">
+                          {" "}
+                          {shorten(row.To)}{" "}
+                        </span>
+                      </Tooltip>
+                    </a>
+                  </TableCell>
+                </StyledTableRow>
 
               </>
             ))}
@@ -375,19 +374,19 @@ export default function StickyHeadTable() {
         </TableContainer>
       </Paper>
       <Pagination
-        // style={{
-        //   display: "flex",
-        //   justifyContent: "space-between",
-        //   flexDirection: "row",
-        // }}
+      // style={{
+      //   display: "flex",
+      //   justifyContent: "space-between",
+      //   flexDirection: "row",
+      // }}
       >
         <LeftPagination
-          // style={{
-          //   display: "flex",
-          //   flexDirection: "row",
-          //   marginTop: "45px",
-          //   marginLeft: "1%",
-          // }}
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "row",
+        //   marginTop: "45px",
+        //   marginLeft: "1%",
+        // }}
         >
           <p
             style={{

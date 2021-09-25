@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
+
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 const DeskTopView = styled.div`
@@ -101,7 +100,7 @@ export default function TokenMarketDataTable(props) {
   if (props.marketCap) {
     symbol = props.marketCap.symbol;
     if (activeCurrency == "USD") {
-      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> ';
+      CurrencySymbol = '$';
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -120,7 +119,7 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else if (activeCurrency == "EUR") {
-      CurrencySymbol = "<i class='fa fa-eur' aria-hidden='true'></i> ";
+      CurrencySymbol = "€";
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -139,7 +138,7 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else if (activeCurrency == "INR") {
-      CurrencySymbol = "<i class='fa fa-inr' aria-hidden='true'></i> ";
+      CurrencySymbol = "₹";
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -158,7 +157,7 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else {
-      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> ';
+      CurrencySymbol = '$';
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );

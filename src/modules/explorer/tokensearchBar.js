@@ -589,7 +589,7 @@ export default function Navbar() {
                   <a href={"/"}>
                     <img
                       className="Shape"
-                      src={require("../../../src/assets/images/XDC-Icon.png")}
+                      src={require("../../../src/assets/images/XDC-Icon.svg")}
                     ></img>
                   </a>
                   <a className="XDC" href="/">
@@ -696,7 +696,7 @@ export default function Navbar() {
           <div className="right-nav-div">
             <img
               className="Shape2"
-              src={require("../../../src/assets/images/Profile.png")}
+              src={require("../../../src/assets/images/Profile.svg")}
             ></img>
 
             <React.Fragment className="rigt-line" key={"right"}>

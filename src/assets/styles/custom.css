@@ -348,7 +348,10 @@ input:focus {
 }
 
 .side-arrow-contract-tab {
-  margin-left: 50%;
+  margin-left: 63%;
+}
+.right-arrow-side-bar {
+  margin-left: 75%;
 }
 
 .Shape2 {
@@ -388,7 +391,7 @@ input:focus {
 
 .browse-text-sidebar {
   color: rgb(70, 102, 196);
-  font-size: 13px;
+  font-size: 0.875rem;
   font-family: Inter;
   margin-left: 20px;
   margin-top: 20px;
@@ -503,7 +506,7 @@ input:focus {
     letter-spacing: 0.7px;
     color: #2a2a2a;
   }
- 
+
   /* #table-cont td{
   padding: 7px 0 15px 7px !important;
 } */
@@ -994,17 +997,17 @@ input:focus {
 }
 
 .XDC:hover {
-  margin-left: -5px;
-  font-size: 18px;
+  margin-left: 0.438rem;
+  font-size: 1.375rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.62px;
   color: #ffffff;
+  margin-top: 2px;
   list-style: none;
   text-decoration: none;
-  margin-top: 2px;
 }
 
 .Network-explorer {
@@ -1023,8 +1026,6 @@ input:focus {
 }
 
 .Network-explorer:hover {
-  list-style: none;
-  text-decoration: none;
   padding-bottom: 3px;
   margin: 0.25rem 2.188rem 0.25rem 2.5rem;
   font-size: 0.938rem;
@@ -1048,7 +1049,17 @@ input:focus {
 .Token:hover {
   list-style: none;
   text-decoration: none;
-  font-size: 12px;
+  padding-bottom: 3px;
+  margin: 0.25rem 0rem 0.25rem 13.5rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.65px;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
 }
 /* .active.Network-explorer {
   color: #fdfeff;
@@ -1854,12 +1865,12 @@ p {
 }
 
 .xinfin_api_button {
-  font-size: 14px;
+  font-size: 1.063rem;
   color: #ffffff;
 }
 
 .xinfin_account_button {
-  font-size: 14px;
+  font-size: 1.063rem;
   color: #ffffff;
   margin-bottom: 10px;
 }
@@ -1867,14 +1878,14 @@ p {
 .xinfin_account_button:hover {
   list-style: none;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 1.063rem;
   color: #2149b9;
 }
 
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 1.063rem;
   color: #2149b9;
 }
 
@@ -1890,10 +1901,11 @@ p {
 }
 
 .myhr {
-  width: 90%;
+  width: 95%;
+  left: 0%;
   margin-top: -9px;
-  margin-right: 25px;
   border: solid 0.1px #4867c1;
+  margin-left: 0%;
 }
 
 .myhr2 {
@@ -1909,10 +1921,11 @@ p {
 }
 
 .myhr4 {
-  width: 90%;
   margin-top: 3px;
-  margin-right: 25px;
+  width: 95%;
+  left: 0%;
   border: solid 0.1px #4867c1;
+  margin-left: 0%;
 }
 
 .side-box1 {
@@ -2191,7 +2204,7 @@ p {
 
 .paper-verify-contracts {
   width: 100%;
-  padding: 20px;
+  padding: 25px;
   border-radius: 10px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -2200,7 +2213,7 @@ p {
 
 .verify-contracts-head {
   font-family: Inter;
-  font-size: 13px;
+  font-size: 0.938rem;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -2212,11 +2225,12 @@ p {
 .textarea-verify-contract {
   color: #000000;
   width: 100%;
-  height: 73px;
-  font-size: 12px;
+  height: 5.813rem;
+  font-size: 0.938rem;
   padding-left: 6px;
   opacity: 0.73;
   border-radius: 4px;
+  letter-spacing: 0.58px;
   border: solid 1px #9fa9ba;
   background-color: #efefef;
 }
@@ -2227,8 +2241,9 @@ p {
 }
 
 .textarea-contract-code {
-  height: 194px;
+  height: 18.375rem;
   width: 100%;
+  letter-spacing: 0.58px;
   margin-top: 10px;
   border-radius: 6px;
   border: solid 1px #9fa9ba;
@@ -2247,11 +2262,12 @@ p {
 }
 
 .textarea-constructor-arg {
-  height: 40px;
+  height: 2.5rem;
   width: 100%;
+  font-size: 0.875rem;
   margin-top: 10px;
   border-radius: 6px;
-  font-size: 13px;
+  letter-spacing: 0.58px;
   padding-left: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -2264,9 +2280,9 @@ p {
 
 .validate-button {
   padding: 10px;
-  width: 120px;
+  width: 9.375rem;
   font-family: "Inter";
-  font-size: 11px;
+  font-size: 0.938rem;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -2279,8 +2295,8 @@ p {
 .reset-button {
   margin-left: 13px;
   padding: 10px;
-  width: 80px;
-  font-size: 12px;
+  width: 5.875rem;
+  font-size: 0.938rem;
   font-weight: 600;
   letter-spacing: 0.55px;
   font-stretch: normal;
@@ -2305,8 +2321,8 @@ p {
 .vc-input-contract-add {
   width: 100%;
   height: 35px;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
   margin-top: 7px;
   padding-left: 6px;
   letter-spacing: 0.55px;
@@ -2335,8 +2351,8 @@ p {
 .vc-input-contract-name {
   width: 100%;
   height: 35px;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
   padding-left: 6px;
   border-radius: 4px;
   margin-top: 7px;
@@ -2366,9 +2382,10 @@ p {
   width: 100%;
   height: 35px;
   margin-top: 7px;
+  font-size: 0.875rem;
   padding-right: 50px;
   color: #000000;
-  font-weight: 600;
+  font-weight: 500;
   padding-left: 6px;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
@@ -2793,7 +2810,7 @@ body {
 .days p {
   width: 3.5rem;
   height: 1.3rem;
-  font-size: 0.875;
+  font-size: 0.875rem;
   color: #2a2a2a;
   border: none;
   border-radius: 4px;
@@ -2802,8 +2819,8 @@ body {
   font-family: "Inter" !important;
   font-weight: 600;
   margin-top: -3px;
-  padding-left: 2.5px;
-  padding-top: 0.9px;
+  padding-left: 1.5px;
+  padding-top: 9.9px;
 }
 
 @media (max-width: 1023px) {
@@ -2818,6 +2835,7 @@ body {
   border-bottom: solid 1px #e3e7eb;
   width: 100%;
   height: 22px;
+  line-height: 0;
 }
 @media (max-width: 640px) {
   .block {
@@ -2873,8 +2891,8 @@ body {
   background: transparent;
   cursor: pointer;
   padding-left: 0px;
-  margin: -3px 27px 1px 0.5px;
-  font-weight: 600;
+  margin: 0px 34px 0px 0px;
+  font-weight: normal;
   letter-spacing: 0.65px;
 }
 
@@ -2882,15 +2900,15 @@ body {
   padding-bottom: 7px;
   color: #b5bac7;
   text-align: center;
-  width: 80%;
+  width: 100%;
   cursor: pointer;
   position: relative;
-  font-size: 11px;
+  font-size: 0.938rem;
   background: transparent;
   cursor: pointer;
   padding-left: 0px;
   margin: -3px 27px 1px 0.5px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.65px;
 }
 
@@ -2902,10 +2920,10 @@ body {
 }
 
 .tabs-data {
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   color: #b5bac7;
   text-align: center;
-  width: 80%;
+  width: 100%;
   cursor: pointer;
   position: relative;
   font-size: 11px;
@@ -2916,11 +2934,11 @@ body {
   font-weight: 600;
   letter-spacing: 0.65px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: 1rem;
   letter-spacing: 0.58px;
   text-align: center;
 }
@@ -3394,7 +3412,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 60px;
+  width: 90%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -3413,7 +3431,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 47px;
+  width: 58px;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -3469,13 +3487,11 @@ button {
   align-items: center;
   justify-content: flex-end;
   font-family: Inter;
-  /* font-size: 11px; */
   font-weight: 600;
   letter-spacing: 0.54px;
   text-align: right;
   margin-left: 4px;
   margin-top: -3px;
-  margin-right: 5.5px;
 }
 
 .value_p {
@@ -3504,13 +3520,13 @@ button {
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
 }
-@media(min-width:1024px) {
-    .latestblock{
+@media (min-width: 1024px) {
+  .latestblock {
     width: 36.125rem;
-    height: 30.625rem;
+    height: 29.625rem;
     /* margin: 66px 46px 91px 359px;
     padding: 22px 1px 37px; */
-        /* margin: 4.125rem 2.875rem 5.688rem 22.438rem; */
+    /* margin: 4.125rem 2.875rem 5.688rem 22.438rem; */
     padding: 1.375rem 0.063rem 2.313rem;
     border-radius: 12px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
@@ -3540,7 +3556,6 @@ button {
   margin-top: 1.25rem;
 }
 
-
 @media (max-width: 640px) {
   .latest {
     width: 90%;
@@ -3551,18 +3566,18 @@ button {
   }
 }
 /* --------------- */
-@media(max-width:1023px){
-.latest h1 {
-  width: 40%;
-  font-family: Inter;
-  font-size: 15px !important;
-  /* font-weight: 600 !important; */
-  font-weight: 600;
-  letter-spacing: 0.7px;
-  color: #2a2a2a;
+@media (max-width: 1023px) {
+  .latest h1 {
+    width: 40%;
+    font-family: Inter;
+    font-size: 15px !important;
+    /* font-weight: 600 !important; */
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    color: #2a2a2a;
+  }
 }
-}
-@media(min-width:1024px) {
+@media (min-width: 1024px) {
   .latest h1 {
     width: 40%;
     font-family: Inter;
@@ -3574,7 +3589,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing:0.043rem;
+    letter-spacing: 0.043rem;
     text-align: left;
     color: #2a2a2a;
   }
@@ -3589,8 +3604,7 @@ button {
 .latest2 {
   display: flex;
   justify-content: space-between;
-  margin-left: 15px;
-  margin-right: 20px;
+  margin: 0 20px;
   margin-top: 4px;
 }
 
@@ -3618,7 +3632,7 @@ button {
   margin-left: 2px;
 }
 
-@media(min-width:1024px) {
+@media (min-width: 1024px) {
   .latest2 h1 {
     /* width: 185px;
     height: 22px;
@@ -3629,7 +3643,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing:0.043rem;
+    letter-spacing: 0.043rem;
     text-align: left;
     color: #2a2a2a;
   }
@@ -3664,7 +3678,7 @@ button {
 
 .data_heading {
   width: 96%;
-  margin-left: 5px;
+  margin-left: 9px;
   margin-top: 7px;
   display: flex;
   padding: 0 12px;
@@ -3715,7 +3729,7 @@ button {
 @media (min-width: 1024px) {
   .data_heading {
     width: 83%;
-    margin-top: 19px;
+    margin-top: 18px;
   }
 }
 @media (max-width: 640px) {
@@ -3733,7 +3747,7 @@ button {
   font-size: 13px;
   padding-left: 12px;
 }
-@media(min-width:1024px){
+@media (min-width: 1024px) {
   .data_heading1 p {
     font-weight: 600;
     font-size: 0.875rem;
@@ -3819,7 +3833,7 @@ button {
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
-@media(min-width:1024px){
+@media (min-width: 1024px) {
   .first-block-age {
     /* width: 79px;
     height: 17px;
@@ -3835,7 +3849,7 @@ button {
     color: #2149b9 !important;
     padding-left: 18px;
   }
-  }
+}
 
 .second-block-age {
   width: 19%;
@@ -3880,20 +3894,20 @@ button {
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
-@media (min-width:1024px) {
+@media (min-width: 1024px) {
   .first-transaction-hash {
-  width: 8.563rem;
-  height:1.063rem;
-  /* margin: 0 44px 0 0; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.034rem;
-  text-align: left;
-  padding-left: 9px;
+    width: 8.563rem;
+    height: 1.063rem;
+    /* margin: 0 44px 0 0; */
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: left;
+    padding-left: 9px;
   }
 }
 .second-transaction-amount {
@@ -3911,22 +3925,21 @@ button {
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
-@media(min-width:1024px){
-  .second-transaction-amount
-  {
-   width: 5.375rem;
-  height: 1.063rem;
-  /* margin: 0 45px 0 44px; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing:0.034rem;
-  text-align: left;
-  color: #2a2a2a;
-}
+@media (min-width: 1024px) {
+  .second-transaction-amount {
+    width: 5.375rem;
+    height: 1.063rem;
+    /* margin: 0 45px 0 44px; */
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: left;
+    color: #2a2a2a;
+  }
 }
 
 .third-transaction-age {
@@ -3943,22 +3956,21 @@ button {
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
-@media(min-width:1024px){
-  .third-transaction-age
-  {
-   width: 5.375rem;
-  height: 1.063rem;
-  /* margin: 0 45px 0 44px; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing:0.034rem;
-  text-align: left;
-  color: #2a2a2a;
-}
+@media (min-width: 1024px) {
+  .third-transaction-age {
+    width: 5.375rem;
+    height: 1.063rem;
+    /* margin: 0 45px 0 44px; */
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: left;
+    color: #2a2a2a;
+  }
 }
 
 .fourth-transaction-detail {
@@ -3978,12 +3990,12 @@ button {
   animation-fill-mode: forwards;
 }
 @media (min-width: 1024px) {
-  .fourth-transaction-detail{
-     width:3.063rem;
-    height:1.063rem;
+  .fourth-transaction-detail {
+    width: 3.063rem;
+    height: 1.063rem;
     /* margin: 0 0 0 99px; */
     font-family: Inter;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -4047,14 +4059,14 @@ button {
   /* margin-top: 50px; */
 }
 
-@media(min-width:1024px) {
+@media (min-width: 1024px) {
   .block_main {
-   /* width: auto; */
-   width: 75.125rem;
-   margin-right: auto;
-   margin-left: auto;
-   margin-top: 48px;
-   justify-content: space-between;
+    /* width: auto; */
+    width: 75.125rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 48px;
+    justify-content: space-between;
   }
 }
 
@@ -4082,18 +4094,17 @@ button {
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
 }
-@media(min-width:1024px){
-  .latestTranscation{
-  width: 36.125rem;
-  height: 30.625rem;
-  /* margin: 66px 359px 91px 46px; */
-  padding: 22px 1px 31px;
-  border-radius: 12px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
-  background-color: #fff;
-  margin-left: 0.875rem;
-}
+@media (min-width: 1024px) {
+  .latestTranscation {
+    width: 36.125rem;
+    height: 29.625rem;
+    padding: 22px 1px 31px;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #e3e7eb;
+    background-color: #fff;
+    margin-left: 0.875rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -4140,16 +4151,14 @@ button {
     margin-left: 20px;
   }
 }
-@media (min-width: 1024px)  {
+@media (min-width: 1024px) {
   .latest_child {
-    width: 33.33%
-   
+    width: 33.33%;
   }
 }
 @media (min-width: 1024px) and (max-width: 1920px) {
   .pad-left-5 {
-   padding-left: 5px;
-   
+    padding-left: 5px;
   }
 }
 /* @media (min-width: 1024px) {
@@ -4158,9 +4167,8 @@ button {
     text-align: left;
   }
 } */
-    /* margin-left: 20px;  */
-    /* display: none; */
-
+/* margin-left: 20px;  */
+/* display: none; */
 
 @media (min-width: 1024px) {
   .latest_margin {
@@ -4224,7 +4232,7 @@ button {
 @media (min-width: 1024px) {
   .mainhead_child1 {
     width: 2.313rem;
-    height:1.063rem;
+    height: 1.063rem;
     /* margin: 27px 144px 9px 24px; */
     font-family: Inter;
     font-size: 0.875rem;
@@ -4246,9 +4254,9 @@ button {
 } */
 @media (min-width: 1024px) {
   .mainhead_child2 {
-    width:3.563rem;
+    width: 3.563rem;
     height: 1.063rem;
-  /* margin: 27px 74px 9px 144px; */
+    /* margin: 27px 74px 9px 144px; */
     font-family: Inter;
     font-size: 0.875rem;
     font-weight: 600;
@@ -4595,11 +4603,8 @@ button {
   margin-top: 8px;
   margin-right: 25px;
 }
-@media(min-width:1024px) {
+@media (min-width: 1024px) {
   .height {
-    /* width: 79px;
-    height: 17px;
-    margin: 0 67px 0 49px; */
     font-family: Inter;
     font-size: 0.875rem;
     font-weight: normal;
@@ -4610,7 +4615,7 @@ button {
     text-align: left;
     color: #2149b9 !important;
   }
-  }
+}
 @media (max-width: 640px) {
   .height {
     font-size: 11px;
@@ -4646,10 +4651,17 @@ button {
 }
 
 .height:hover {
-  color: black !important;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  text-align: left;
+  color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
-  font-size: 11px;
 }
 
 .height2 {
@@ -4714,20 +4726,19 @@ button {
   margin-left: 7px;
   margin-top: 7px;
 }
-@media (min-width:1024px) {
-  .bttn{
-  width: 8.563rem;
-  height:1.063rem;
-  /* margin: 0 44px 0 0; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.034rem;
-  text-align: left;
-  padding-left: 9px;
+@media (min-width: 1024px) {
+  .bttn {
+    width: 8.563rem;
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: left;
+    padding-left: 9px;
   }
 }
 @media (max-width: 640px) {
@@ -4760,10 +4771,19 @@ button {
 }
 
 .bttn:hover {
-  color: black !important;
+  width: 8.563rem;
+  height: 1.063rem;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  text-align: left;
+  padding-left: 9px;
   list-style: none;
   text-decoration: none;
-  font-size: 11px;
 }
 
 .main_val p:nth-child(2) {
@@ -4800,17 +4820,15 @@ button {
 
 @media (min-width: 1024px) {
   .details {
-    width:3.063rem;
-    height:1.063rem;
-    /* margin: 0 0 0 99px; */
+    width: 3.063rem;
+    height: 1.063rem;
     font-family: Inter;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: 0.034rem;
-    /* text-align: left; */
     padding-left: 17px;
   }
 }
@@ -4833,10 +4851,18 @@ button {
 }
 
 .details:hover {
-  color: black !important;
+  width: 3.063rem;
+  height: 1.063rem;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  padding-left: 17px;
   list-style: none;
   text-decoration: none;
-  font-size: 11px;
 }
 
 .value_main {
@@ -4865,40 +4891,24 @@ button {
   font-size: 11px;
   font-weight: 600;
 }
-@media(min-width:1024px){
-  .value_main p
-  {
-   width: 5.375rem;
-  height: 1.063rem;
-  /* margin: 0 45px 0 44px; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing:0.034rem;
-  text-align: left;
-  color: #2a2a2a;
-}
+@media (min-width: 1024px) {
+  .value_main p {
+    width: 5.375rem;
+    height: 1.063rem;
+    /* margin: 0 45px 0 44px; */
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: left;
+    color: #2a2a2a;
+  }
 }
 
-  .value_main 
-  {
-   width: 5.375rem;
-  height: 1.063rem;
-  /* margin: 0 45px 0 44px; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing:0.034rem;
-  text-align: left;
-  color: #2a2a2a;
-}
-.sec-ago{
+.value_main {
   width: 5.375rem;
   height: 1.063rem;
   /* margin: 0 45px 0 44px; */
@@ -4908,11 +4918,24 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing:0.034rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #2a2a2a;
 }
-
+.sec-ago {
+  width: 5.375rem;
+  height: 1.063rem;
+  /* margin: 0 45px 0 44px; */
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  text-align: left;
+  color: #2a2a2a;
+}
 
 @media (max-width: 640px) {
   .value_main p {
@@ -4985,10 +5008,10 @@ button {
   padding-left: 20px;
   font-size: 11px;
 }
-@media(min-width:1024px) {
+@media (min-width: 1024px) {
   .main_vaa p:first-child {
     padding-left: 20px;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -4997,17 +5020,16 @@ button {
     text-align: left;
     color: #2a2a2a;
   }
-  }
-
+}
 
 .main_vaa p:last-child {
   padding-left: 0px;
   font-size: 11px;
 }
-@media(min-width:1024px) {
-  .main_vaa p:last-child{
+@media (min-width: 1024px) {
+  .main_vaa p:last-child {
     padding-left: 20px;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -5016,7 +5038,7 @@ button {
     text-align: left;
     color: #2a2a2a;
   }
-  }
+}
 
 /* @media (min-width: 1024px) {
   .main_vaa p:last-child {
@@ -5097,7 +5119,7 @@ button {
   .main_mid {
     display: flex;
     /* width: 950px; */
-    width:75.125rem;
+    width: 75.125rem;
     height: 6.183rem;
     margin-top: 50px;
   }
@@ -5145,9 +5167,9 @@ button {
   /* padding: 8px 2px; */
   width: 100%;
 }
-@media (min-width:1023px){
-  .cont1{
-    padding-top: 9px;
+@media (min-width: 1023px) {
+  .cont1 {
+    padding-top: 7px;
   }
 }
 
@@ -5176,20 +5198,20 @@ button {
   line-height: normal;
   letter-spacing: 0.65px;
 }
-@media (min-width:1023px){
+@media (min-width: 1023px) {
   .cont1 p {
     /* margin: 2px; */
     /* width: 5.125rem;
   height: 1.063rem; */
-  /* margin: 0 0 5px; */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing:0.034rem;
-  text-align: center;
+    /* margin: 0 0 5px; */
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: center;
   }
 }
 
@@ -5202,7 +5224,7 @@ button {
   color: #252525;
 }
 
-@media (min-width:1023px){
+@media (min-width: 1023px) {
   .cont1 :nth-child(2) {
     /* width: 4.688rem;
     height: 1.188rem; */
@@ -5217,7 +5239,7 @@ button {
     text-align: center;
     color: #252525;
     padding-top: 5px;
-}
+  }
 }
 /* for mobile responsive */
 
@@ -5340,13 +5362,13 @@ button {
   line-height: normal;
   letter-spacing: 0.58px;
 }
-@media(min-width:1023px){
+@media (min-width: 1023px) {
   .varMarket {
     /* width: 3.563rem;
     height: 1.063rem; */
     /* margin: 0 0 0 5px; */
     font-family: Inter;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -5383,7 +5405,7 @@ button {
   letter-spacing: 0.54px;
   color: #2149b9 !important;
 }
-@media(min-width:1024px){
+@media (min-width: 1024px) {
   .nav_button {
     background-color: #fff;
     font-family: Inter;
@@ -5404,17 +5426,31 @@ button {
 }
 
 .nav_button:hover {
-  color: #000000;
+  background-color: #fff;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
-  font-size: 13px;
 }
 
 .nav_button:active {
-  color: #000000;
+  background-color: #fff;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
-  font-size: 13px;
 }
 
 .age1 {
@@ -5494,7 +5530,7 @@ button {
 .table-grid-block3 {
   padding-top: 1%;
   margin: auto;
-  width: 950px;
+  width: 75.125rem;
 }
 
 @media (max-width: 1023px) {
@@ -6581,10 +6617,11 @@ button {
 
 @media (min-width: 1024px) {
   .vc-header {
-    width: 65%;
-    margin: 95px auto 2%;
+    width: 75.125rem;
+    margin-top: 95px !important;
+    margin: 0 auto;
     font-family: "Inter" !important;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -6592,8 +6629,9 @@ button {
     letter-spacing: 0.72px;
     color: #2a2a2a;
   }
+
   .vc-tab-all {
-    width: 65%;
+    width: 75.125rem;
     margin: 0 auto;
   }
   .flex-row {
@@ -6601,19 +6639,19 @@ button {
     flex-direction: row;
   }
   .vc-contract-name {
+    font-size: 0.938rem;
     width: 100%;
-    font-size: 13px;
   }
   .vc-contract-compiler {
+    font-size: 0.938rem;
     width: 100%;
-    font-size: 13px;
   }
   .vc-contract-add {
-    font-size: 13px;
+    font-size: 0.938rem;
     width: 100%;
   }
   .constructor-arg {
-    font-size: 13px;
+    font-size: 0.938rem;
   }
 }
 
@@ -6682,29 +6720,34 @@ button {
   color: #252525;
   opacity: 0.8;
 }
-@media (min-width:1024px) {
-  .w-34{
+@media (min-width: 1024px) {
+  .w-34 {
     width: 34%;
   }
 }
-@media (min-width:1024px) {
-  .w-25{
-    width:25%;
+@media (min-width: 1024px) {
+  .w-25 {
+    width: 25%;
   }
 }
 
-@media (min-width:1024px) {
-  .w-18{
+@media (min-width: 1024px) {
+  .w-18 {
     width: 18%;
   }
 }
-@media (min-width:1024px) {
-  .pad-lef-18{
+@media (min-width: 1024px) {
+  .pad-lef-18 {
     padding-left: 18px;
   }
 }
-@media (min-width:1024px) {
-  .mar-top-6{
-  margin-top: 6px;
+@media (min-width: 1024px) {
+  .mar-top-6 {
+    margin-top: 6px;
+    margin-left: 5px;
   }
 }
+/* 
+.arrow-graph-tooltip {
+  transform: rotate(180deg);
+} */
