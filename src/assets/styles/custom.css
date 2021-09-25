@@ -2919,10 +2919,10 @@ body {
 }
 
 .tabs-data {
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   color: #b5bac7;
   text-align: center;
-  width: 80%;
+  width: 100%;
   cursor: pointer;
   position: relative;
   font-size: 11px;
@@ -2933,11 +2933,11 @@ body {
   font-weight: 600;
   letter-spacing: 0.65px;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: 1rem;
   letter-spacing: 0.58px;
   text-align: center;
 }
@@ -3411,7 +3411,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 60px;
+  width: 90%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -3430,7 +3430,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 47px;
+  width: 58px;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -5530,7 +5530,7 @@ button {
 .table-grid-block3 {
   padding-top: 1%;
   margin: auto;
-  width: 950px;
+  width: 75.125rem;
 }
 
 @media (max-width: 1023px) {

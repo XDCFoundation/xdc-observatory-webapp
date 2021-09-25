@@ -384,12 +384,18 @@ export default function TokenDataComponent() {
                     {numberStatus > 0 ? (
                       <div className="arrow_up">
                         {/*<BsFillCaretUpFill size={10} />*/}
-                        <img src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif" style={{ width: "8px" }} />
+                        <img
+                          src={require("../../../src/assets/images/Up.svg")}
+                          style={{ width: "8px" }}
+                        />
                       </div>
                     ) : (
                       <div className="arrow_down">
                         {/* <BsFillCaretDownFill size={10} />*/}
-                        <img src="https://i2.wp.com/exergic.in/wp-content/uploads/2018/06/Red-animated-arrow-down.gif?fit=600%2C600&ssl=1" style={{ width: "8px" }} />
+                        <img
+                          src={require("../../../src/assets/images/Down.svg")}
+                          style={{ width: "8px" }}
+                        />
                       </div>
                     )}
                     &nbsp;{tokenChanges24hr.toFixed(2)}%
