@@ -976,7 +976,11 @@ input:focus {
 }
 
 .back-arrow{
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.313rem;
+}
+
+.navigation-arrow{
+  margin-bottom: 0.625rem;
 }
 
 .XDC {

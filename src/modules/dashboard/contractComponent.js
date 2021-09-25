@@ -505,7 +505,7 @@ class Contractlist extends React.Component {
               onClick={() => this.handleChangePage("prev")}
             >
             <img
-                  className="back-arrow"
+                  className="navigation-arrow"
                   src={require("../../assets/images/back.svg")}
                 />
               {/* <p className="path-contract">{"<"}</p> */}
@@ -530,7 +530,7 @@ class Contractlist extends React.Component {
               }
             >
             <img
-                  className="back-arrow"
+                  className="navigation-arrow"
                   src={require("../../assets/images/next.svg")}
                 />
               {/* <p
