@@ -569,10 +569,12 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-          <img
-                  className="back-arrow"
+                <img
+                  className="navigation-arrow"
                   src={require("../../assets/images/back.svg")}
                 />
+  
+          
             {/* <p className="path-contract">{"<"}</p> */}
           </div>
           <div className="pagebox-contract">
@@ -592,7 +594,7 @@ export default function StickyHeadTable() {
             }
           >
           <img
-                  className="back-arrow"
+                  className="navigation-arrow"
                   src={require("../../assets/images/next.svg")}
                 />
             {/* <p
