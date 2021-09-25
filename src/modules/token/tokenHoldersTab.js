@@ -20,13 +20,13 @@ import ReactHtmlParser from "react-html-parser";
 import Utils from "../../utility";
 import styled from "styled-components";
 
-const Pagination=styled.div`
+const Pagination = styled.div`
 
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 950px;
-    margin:auto;
+    width: 75.125rem;
+    margin: 0 auto;
 
     @media (max-width:640px){
       display: flex;
@@ -36,9 +36,9 @@ const Pagination=styled.div`
       width: auto;
     }       
   `;
-  const RightPagination =styled.div`
+const RightPagination = styled.div`
   display:flex ;  
-  margin-top: 20px;
+
   flex-direction: row;
   
 
@@ -48,10 +48,10 @@ const Pagination=styled.div`
     }
     
 `
-const LeftPagination=styled.div`
+const LeftPagination = styled.div`
 display: flex;
 flex-direction: row;
-margin-top: 60px;
+margin-top: 39px;
 
 @media (max-width:1023px){
   /* margin-left: 5%; */
@@ -329,19 +329,19 @@ export default function StickyHeadTable() {
         </TableContainer>
       </Paper>
       <Pagination
-        // style={{
-        //   display: "flex",
-        //   justifyContent: "space-between",
-        //   flexDirection: "row",
-        // }}
+      // style={{
+      //   display: "flex",
+      //   justifyContent: "space-between",
+      //   flexDirection: "row",
+      // }}
       >
         <LeftPagination
-          // style={{
-          //   display: "flex",
-          //   flexDirection: "row",
-          //   marginTop: "45px",
-          //   marginLeft: "1%",
-          // }}
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "row",
+        //   marginTop: "45px",
+        //   marginLeft: "1%",
+        // }}
         >
           <p
             style={{
@@ -371,11 +371,11 @@ export default function StickyHeadTable() {
         </LeftPagination>
 
         <RightPagination
-          // style={{
-          //   display: "flex",
-          //   flexDirection: "row",
-          //   marginRight: "0%",
-          // }}
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "row",
+        //   marginRight: "0%",
+        // }}
         >
           <div
             className={page === 0 ? "firstbox disabled" : "firstbox"}
