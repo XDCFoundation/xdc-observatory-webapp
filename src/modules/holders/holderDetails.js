@@ -178,7 +178,7 @@ export default function HoldersDetails(props) {
                     <Popup trigger={<ImQrcode className="qr-code"/>} modal>
                       {(close) => (
                         <div className="popup_qr">
-                           <p>
+                            <p>
                             <div>
                               <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px",paddingTop: '1.5rem' }} className="close" onClick={close}>
                                 &times;
