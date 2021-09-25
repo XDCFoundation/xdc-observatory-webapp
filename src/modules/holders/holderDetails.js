@@ -178,13 +178,13 @@ export default function HoldersDetails(props) {
                     <Popup trigger={<ImQrcode className="qr-code"/>} modal>
                       {(close) => (
                         <div className="popup_qr">
-                          <p>
+                           <p>
                             <div>
-                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
+                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px",paddingTop: '1.5rem' }} className="close" onClick={close}>
                                 &times;
                               </button>
-                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
+                              <div className="header" style={{ fontSize: '0.875rem', paddingTop: '1.563rem', paddingBottom: '60px' }}> {addr} </div>
+                              <QRCode size={320} style={{ height: 400, width: 400 }} value={addr} />
                             </div>
                           </p>
                         </div>

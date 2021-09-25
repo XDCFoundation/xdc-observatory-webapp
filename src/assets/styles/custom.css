@@ -291,6 +291,7 @@ input:focus {
   margin-left: 10px;
   margin-bottom: 2px;
   cursor: pointer;
+  color: #2149b9;
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -5964,7 +5965,8 @@ button {
 .popup-content {
   margin: auto;
   background: rgb(255, 255, 255);
-  width: 30%;
+  width: 512px;
+  height: 579px;
   padding: 5px;
   border-radius: 10px;
 }
