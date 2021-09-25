@@ -5549,11 +5549,27 @@ button {
 
 .parent_hash {
   font-family: Inter !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.65px;
+  font-size: 0.938rem;
+  /* font-weight: 600 !important; */
+  letter-spacing: 0.036rem;
   color: #2149b9 !important;
-  line-height: 0.7rem !important;
+  height:1.125rem;
+  font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      text-align: left;
+}
+@media(min-width:1024px){
+  .parent_hash{
+    @media (min-width:1024px){
+  
+      font-family: Inter;
+   
+      
+    
+      }
+  }
 }
 
 .parent_hash:hover {

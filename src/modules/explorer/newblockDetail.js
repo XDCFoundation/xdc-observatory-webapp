@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "970px",
+    // maxWidth: "970px",
     marginTop: "100px",
-    width: "100%",
+    width:"75.125rem",
     "@media (min-width: 300px) and (max-width: 567px)": {
       marginTop: "130px",
       maxWidth: "300px",
@@ -120,7 +120,7 @@ export default function BlockDetails() {
 
             <Div>
             <HashDiv>
-                <Container>
+                <Container className="pad-left-6">
                   <Tooltip align="right" title={hashid}>
                     <ImageView
                       src={require("../../../src/assets/images/questionmark.png")}
@@ -129,8 +129,7 @@ export default function BlockDetails() {
                   <Hash>Hash ID</Hash>
                 </Container>
                 <MiddleContainerHash >
-                <Content>
-                      
+                <Content className="pad-left-5">
                   {height.hash}
                   </Content>
                   </MiddleContainerHash>
@@ -177,14 +176,14 @@ export default function BlockDetails() {
                     <ArrowBackIosIcon
                       style={{
                         marginRight: "10px",
-                        color: "#2149b9",
-                        backgroundColor: "#9cd0f3",
+                        color: "white",
+                        backgroundColor: "#2149b9",
                         width: "20px",
                         height: "20px",
                         padding: "3px",
                         paddingLeft: "6px",
                         borderRadius: "5px",
-                        border: "1px #9cd0f3",
+                        border: "1px #2149b9",
                         lineHeight: "1rem",
                       }}
                       onClick={decrement}
@@ -193,14 +192,14 @@ export default function BlockDetails() {
                     <ArrowForwardIosIcon
                       style={{
                         marginLeft: "10px",
-                        color: "#2149b9",
-                        backgroundColor: "#9cd0f3",
+                        color: "white",
+                        backgroundColor: "#2149b9",
                         width: "20px",
                         height: "20px",
                         padding: "3px",
                         paddingLeft: "6px",
                         borderRadius: "5px",
-                        border: "1px #9cd0f3",
+                        border: "1px #2149b9",
                         lineHeight: "1rem",
                       }}
                       onClick={increment}
@@ -402,7 +401,7 @@ export default function BlockDetails() {
                 </MiddleContainer>
               </Spacing>
               <Spacing style={{borderBottom:'none'}}>
-                <Container>
+                <Container className="pad-bottom-34">
                   <Tooltip align="right" title={extrad}>
                     <ImageView
                       src={require("../../../src/assets/images/questionmark.png")}
@@ -456,6 +455,19 @@ const Content = styled.span`
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 10px;
     word-break: break-all;
+   
+  }
+  @media (min-width:1024px){
+  height:1.125rem;
+  font-family: Inter;
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.036rem;
+  text-align: left;
+  color: #3a3a3a;
   }
 `;
 const TextArea = styled.textarea`
@@ -495,7 +507,8 @@ const Div__ = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
-  padding: 9px;
+  /* padding: 9px; */
+  padding:19px;
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
@@ -510,6 +523,18 @@ const MiddleContainer = styled.div`
     margin-left: unset;
     margin-top: 8px;
     
+  }
+  @media (min-width:1024px){
+  height:1.125rem;
+  font-family: Inter;
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.036rem;
+  text-align: left;
+  color: #3a3a3a;
   }
 `;
 const MiddleContainerHash = styled.div`
@@ -541,6 +566,18 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 13px;
   }
+  @media(min-width:1024px){
+  height: 1.125rem;
+  font-family: Inter;
+  font-size: 0.938rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.036rem;
+  text-align: left;
+  color: #252525;
+  }
 `;
 const Spacing = styled.div`
   display: flex;
@@ -548,7 +585,8 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 11px 6px;
+  /* padding: 11px 6px; */
+  padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
 
   @media (min-width: 300px) and (max-width: 767px) {
@@ -601,6 +639,19 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 18px;
+
+  @media(min-width:1024px){
+  height:1.813rem;
+  font-family: Inter;
+  font-size:1.5rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.058rem;
+  text-align: left;
+  color: #2a2a2a;
+  }
 `;
 
 const ImageView = styled.img`
