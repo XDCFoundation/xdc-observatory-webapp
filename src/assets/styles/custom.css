@@ -2984,7 +2984,7 @@ body {
 .contract-source-code {
   display: flex;
   align-items: center;
-  width: 44%;
+  width: 31.25rem;
   margin-top: 15px;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -3004,7 +3004,7 @@ body {
 .contract-source-code-verify {
   display: flex;
   align-items: center;
-  width: 68.5%;
+  width: 46.25rem;
   margin-top: 16px;
   justify-content: space-between;
 }
@@ -3040,7 +3040,7 @@ body {
 .contract-unverified-text {
   background-color: rgb(252, 236, 235);
   border-radius: 3px;
-  font-size: 12px;
+  font-size: 0.938rem;
   font-family: inter;
   display: flex;
   height: 25px;
@@ -3072,7 +3072,7 @@ body {
 }
 
 .contract-text {
-  font-size: 13px;
+  font-size: 1rem;
   font-family: inter;
   font-weight: 600;
   letter-spacing: 0.55px;
@@ -3086,7 +3086,7 @@ body {
 }
 
 .click-here-btn {
-  font-size: 12px;
+  font-size: 0.938rem;
   font-family: inter;
   color: #ffffff;
   height: 25px;
@@ -3106,7 +3106,7 @@ body {
 }
 
 .to-verify-text {
-  font-size: 14px;
+  font-size: 0.938rem;
   color: #2a2a2a;
   margin-top: 4px;
   margin-left: 4px;
