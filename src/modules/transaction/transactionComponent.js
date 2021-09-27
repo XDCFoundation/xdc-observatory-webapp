@@ -100,13 +100,13 @@ export default function TransactionComponent(props) {
                     <Table >
                         <TableHead>
                             <TableRow>
-                                <TableCell style={{ border: "none" }} className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
-                                <TableCell style={{ border: "none" }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Amount</span></TableCell>
-                                <TableCell style={{ border: "none" }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-age"}>Age</span></TableCell>
-                                <TableCell style={{ border: "none" }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Block</span></TableCell>
-                                <TableCell style={{ border: "none" }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>From</span></TableCell>
-                                <TableCell style={{ border: "none" }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>To</span></TableCell>
-                                <TableCell style={{ border: "none" }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-txn-fee"}>Txn Fee</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"2.5rem"    }} className="table-head-hash" align="left" ><span className={"tableheaders", "tableheaders-hash"}>Hash</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"2.813rem"  }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Amount</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"3.438rem"  }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-age"}>Age</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"2.813rem"  }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>Block</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"2.813rem"  }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>From</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"2.813rem"  }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-all"}>To</span></TableCell>
+                                <TableCell style={{ border: "none",paddingLeft:"2.813rem"  }} className="table-head-all" align="left"><span className={"tableheaders", "tableheaders-txn-fee"}>Txn Fee</span></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -127,12 +127,12 @@ export default function TransactionComponent(props) {
                                             <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9", marginRight: "3px" }} /></Tooltip>
                                             <a className="linkTable" href={"/transaction-details/" + row.hash}> <span className={animationClass ? animationClass : "tabledata"}> {shorten(row.hash)}</span> </a>
                                         </TableCell>
-                                        <TableCell style={{ border: "none", width: "100px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{amt >= 0.0001 ? amt : 0}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "s0px" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti}</span></TableCell>
-                                        <TableCell style={{ border: "none", width: "120px" }} align="left"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className={animationClass ? animationClass : "tabledata"}> {row.blockNumber}</span> </a></TableCell>
-                                        <TableCell style={{ border: "none", width: "160px" }} align="left"> <a className="linkTable" href={"/address-details/" + row.from}><Tooltip placement="top" title={row.from}><span className={animationClass ? animationClass : "tabledata"}>{shorten(row.from)}</span></Tooltip></a></TableCell>
-                                        <TableCell style={{ border: "none", width: "155px" }} align="left"> <a className="linkTable" href={"/address-details/" + row.to}><Tooltip placement="top" title={row.to}><span className={animationClass ? animationClass : "tabledata"}>{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
-                                        <TableCell style={{ border: "none" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{txFee == 0 ? 0 : txFee} XDC</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "100px" ,paddingLeft:"2.813rem" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{amt >= 0.0001 ? amt : 0}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "120px" ,paddingLeft:"2.813rem" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{ti}</span></TableCell>
+                                        <TableCell style={{ border: "none", width: "120px" ,paddingLeft:"2.813rem"  }} align="left"> <a className="linkTable" href={"/block-details/" + row.blockNumber}> <span className={animationClass ? animationClass : "tabledata"}> {row.blockNumber}</span> </a></TableCell>
+                                        <TableCell style={{ border: "none", width: "160px" ,paddingLeft:"2.813rem"  }} align="left"> <a className="linkTable" href={"/address-details/" + row.from}><Tooltip placement="top" title={row.from}><span className={animationClass ? animationClass : "tabledata"}>{shorten(row.from)}</span></Tooltip></a></TableCell>
+                                        <TableCell style={{ border: "none", width: "155px" ,paddingLeft:"2.813rem" }} align="left"> <a className="linkTable" href={"/address-details/" + row.to}><Tooltip placement="top" title={row.to}><span className={animationClass ? animationClass : "tabledata"}>{!row.to ? "------------------" : shorten(row.to)}</span></Tooltip></a></TableCell>
+                                        <TableCell style={{ border: "none",paddingLeft:"2.813rem" }} align="left"><span className={animationClass ? animationClass : "tabledata"}>{txFee == 0 ? 0 : txFee} XDC</span></TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -141,7 +141,7 @@ export default function TransactionComponent(props) {
                 </TableContainer>
             </Paper>
 
-            <Grid container style={{ marginTop: "15px" }} className="Pagination">
+            <Grid container style={{ marginTop: "2.25rem" }} className="Pagination">
                 {/* <Pagination> */}
                     <Grid className="Pagination_1">
                         <span className="text">Show</span>
@@ -157,9 +157,9 @@ export default function TransactionComponent(props) {
 
                     <Grid item className="Pagination_2" >
                         <button onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/back.svg")}/> </button>
                         <button className="btn">Page {Math.round(state.totalTransaction / state.amount) + 1 - Math.round((state.totalTransaction - state.from) / state.amount)} of {Math.round(state.totalTransaction / state.amount)}</button>
-                        <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/next.svg")}/></button>
                         <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalTransaction ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
