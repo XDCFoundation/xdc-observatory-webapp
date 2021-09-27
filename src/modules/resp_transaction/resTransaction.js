@@ -128,7 +128,7 @@ export default function Transaction({ _handleChange }) {
     <div className={classes.mainContainer}>
       <Tokensearchbar />
       <div className={classes.root}>
-        <Grid >
+        <Grid>
           <Spacing>
             <Container>
               <Heading>Transaction Details</Heading>
@@ -169,9 +169,10 @@ export default function Transaction({ _handleChange }) {
                         fontSize: 14,
                       }}
                     >
-                      <ImageView
-                    src={require("../../../src/assets/images/copy.svg")}
-                  />
+                      <img
+                        className="copy-icon"
+                        src={require("../../../src/assets/images/copy.svg")}
+                      />
                     </button>
                   </Tooltip>
                 </CopyToClipboard>
@@ -259,9 +260,10 @@ export default function Transaction({ _handleChange }) {
                           marginLeft: "25px",
                         }}
                       >
-                        <ImageView
-                    src={require("../../../src/assets/images/copy.svg")}
-                  />
+                        <img
+                          className="copy-icon"
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -306,9 +308,10 @@ export default function Transaction({ _handleChange }) {
                           marginLeft: "10px",
                         }}
                       >
-                        <ImageView
-                    src={require("../../../src/assets/images/copy.svg")}
-                  />
+                        <img
+                          className="copy-icon"
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -486,6 +489,7 @@ const Div__ = styled.div`
   background-color: #fff;
   padding: 0.563rem;
   padding-left: 2.188rem;
+  padding-right: 2.188rem;
 `;
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
@@ -498,10 +502,9 @@ const MiddleContainerPrivateNote = styled.div`
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   height: 2.313rem;
-  padding:7px;
-
-  `
-  const MiddleContainerInputData = styled.div`
+  padding: 7px;
+`;
+const MiddleContainerInputData = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
   letter-spacing: 0.54px;
@@ -509,7 +512,7 @@ const MiddleContainerPrivateNote = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
-  `
+`;
 
 const MiddleContainer = styled.div`
   font-family: Inter;
@@ -541,8 +544,8 @@ const HashInputData = styled.span`
   font-size: 13px;
   letter-spacing: 0.5px;
   color: #2a2a2a;
-  padding-bottom:30px;
-  `
+  padding-bottom: 30px;
+`;
 
 const Hash = styled.span`
   color: var(--unnamed-color-2a2a2a);
@@ -566,18 +569,18 @@ const SpacingInputData = styled.div`
   align-items: center;
   padding-right: 2.313rem;
   border-bottom: solid 1px #e3e7eb;
-  height:7.75rem;
-  `
-  const SpacingPrivateNode = styled.div`
- display: flex;
+  height: 7.75rem;
+`;
+const SpacingPrivateNode = styled.div`
+  display: flex;
   flex-flow: row nowrap;
   width: 100%;
   height: auto;
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
-  height:4.063rem;
-  padding-right:2.313rem;
-  `
+  height: 4.063rem;
+  padding-right: 2.313rem;
+`;
 const Spacing = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -585,7 +588,7 @@ const Spacing = styled.div`
   height: auto;
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
-  height:4.063rem;
+  height: 4.063rem;
 
   @media (max-width: 767px) {
     display: block;
@@ -622,7 +625,7 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: 4.125rem;
-  width:75.125rem;
+  width: 75.125rem;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   // border: solid 1px #e3e7eb;
@@ -648,7 +651,6 @@ const ImageViewInputData = styled.img`
   width: 15px;
   margin-right: 15px;
   padding-bottom: 30px;
-
 `;
 const ImageView = styled.img`
   width: 15px;
