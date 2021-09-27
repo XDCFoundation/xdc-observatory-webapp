@@ -25,46 +25,46 @@ const useStyles = makeStyles({
 
   container: {
 
-    borderRadius: '14px',
-    boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+    borderRadius: '0.875rem',
+    boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
     borderBottom: 'none',
     background: '#fff',
   },
   root: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "3000px",
-    marginTop: "100px",
-    marginBottom:"15px",
+    maxWidth: "187.5rem",
+    marginTop: "6.25rem",
+    marginBottom:"0.938rem",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
       
-         marginTop: "130px",
-        maxWidth: "500px",
-        padding:"0 8px 0 8px"
+         marginTop: "8.125rem",
+        maxWidth: "31.25rem",
+        padding:"0 0.5rem 0 0.5rem"
            },
            "@media (min-width: 567px) and (max-width: 767px)": {
-        marginTop: "140px",
-             maxWidth: "740px",
+        marginTop: "8.75rem",
+             maxWidth: "46.25rem",
            },
            "@media (min-width: 767px) and (max-width: 1040px)": {
         
-             maxWidth: "1020px",
+             maxWidth: "63.75rem",
            },
   },
   rowDiv: {
     width: "100%",
     alignItems: "center",
-    height: "53px",
+    height: "3.313rem",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
-    borderRadius: "7px",
+    borderRadius: "0.438rem",
 
     justifyContent: "space-between",
   },
   line: {
     width: "100%",
-    marginTop: "0px",
-    marginBottom: "0px",
+    marginTop: "0rem",
+    marginBottom: "0rem",
   },
   mainContainer: {
     display: "flex",
@@ -185,20 +185,20 @@ export default function AddressDetails(props) {
                         }
                         placement="top"
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14}}><i
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 17}}><i
                           class="fa fa-clone" aria-hidden="true"></i></button>
                       </Tooltip>
                     </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer", color: "#2149b9" }} />} modal>
+                    <Popup trigger={<ImQrcode style={{ marginLeft: "0.625rem", marginBottom: "0.125rem", cursor: "pointer", color: "#2149b9", height: "1.063rem", width: "1.063rem"}} />} modal>
                       {(close) => (
                         <div className="popup_qr">
                           <p>
                             <div>
-                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
+                              <button style={{ outline: 'none', width: '0rem', height: '0rem', marginLeft: "0rem" }} className="close" onClick={close}>
                                 &times;
                               </button>
-                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
+                              <div className="header" style={{ fontSize: '0.875rem', paddingTop: '0.313rem', paddingBottom: '3.75rem' }}> {addr} </div>
+                              <QRCode size={320} style={{ height: 400, width: 400 }} value={addr} />
                             </div>
                           </p>
                         </div>
@@ -357,94 +357,94 @@ export default function AddressDetails(props) {
 
 
 const Input = styled.input`
-  border-radius: 5px;
-  border: solid 1px #e3e7eb;
+  border-radius: 0.313rem;
+  border: solid 0.063rem #e3e7eb;
   background-color: #fff;
   font-family: Inter;
-  font-size: 14px;
-  letter-spacing: 0.54px;
+  font-size: 0.875rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.span`
   font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
+  font-size: 0.938rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 10px;
+    font-size: 0.625rem;
     word-break: break-all;
   }
 `;
 const TextArea = styled.textarea`
   opacity: 0.33;
-  border-radius: 4px;
-  border: solid 1px #9fa9ba;
+  border-radius: 0.25rem;
+  border: solid 0.063rem #9fa9ba;
   background-color: #dee0e3;
   width: 100%;
   font-family: Inter;
-  font-size: 14px;
-  height: 85px;
+  font-size: 0.875rem;
+  height: 5.313rem;
   float: left;
 
   overflow-y: auto;
 `;
 const Digits = styled.span`
   font-family: Inter;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #4878ff;
 `;
 const Blocks = styled.span`
   font-family: Inter;
-  font-size: 14px;
+  font-size: 0.875rem;
 
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: left;
 `;
 const Div__ = styled.div`
   height: auto;
-  border-radius: 7px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  border-radius: 0.438rem;
+  box-shadow: 0 0.125rem 0.938rem 0 rgba(0, 0, 0, 0.1);
+  margin-top: 1.25rem;
   background-color: #fff;
-  padding: 9px;
+  padding: 0.563rem;
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   width: 100%;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-left: unset;
-    margin-top: 8px;
+    margin-top: 0.5rem;
     
   }
 `;
 const MiddleContainerHash = styled.div`
   font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   width: 100%;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-left: unset;
-    margin-top: 8px;
-    padding-right:37px;
+    margin-top: 0.5rem;
+    padding-right:2.313rem;
     
   }
 `;
@@ -453,13 +453,13 @@ const Hash = styled.span`
   white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.5px;
+  font-size: 0.938rem;
+  letter-spacing: 0.031rem;
   color: #2a2a2a;
   @media (min-width: 300px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 0.813rem;
   }
 `;
 const Spacing = styled.div`
@@ -468,8 +468,8 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 3px 4px;
-  border-bottom: solid 1px #e3e7eb;
+  padding: 0.188rem 0.25rem;
+  border-bottom: solid 0.063rem #e3e7eb;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -482,7 +482,7 @@ const HashDiv = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 6px 6px;
+  padding: 0.938rem 0.938rem;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -493,7 +493,7 @@ const Container = styled.div`
   word-break: break-all;
   width: 100%;
   align-items: center;
-  max-width: 84px;
+  max-width: 5.25rem;
 `;
 const SecondContainer = styled.div`
   display: flex;
@@ -504,13 +504,13 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: auto;
-  border-radius: 7px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 0.938rem 0 rgba(0, 0, 0, 0.1);
+  border: solid 0.063rem #e3e7eb;
   background-color: #fff;
-  margin-bottom: 15px;
-  padding: 5px;
-  margin-top: 10px;
+  margin-bottom: 0.938rem;
+  padding: 0.313rem;
+  margin-top: 0.625rem;
 `;
 
 const Heading = styled.span`
@@ -520,10 +520,11 @@ const Heading = styled.span`
   color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
 `;
 
 const ImageView = styled.img`
-  width: 15px;
-  margin-right: 15px;
+  width: 0.938rem;
+  margin-right: 0.938rem;
 `;
