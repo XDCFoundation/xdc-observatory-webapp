@@ -6934,3 +6934,8 @@ button {
     margin-left: 2px;
   }
 }
+@media(min-width:1024px){
+  .pad-left-6{
+    padding-left: 6px;
+  }
+}

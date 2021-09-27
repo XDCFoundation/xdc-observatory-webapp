@@ -13,6 +13,7 @@ import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import { Row, Column } from "simple-flexbox";
 import moment from "moment";
+import { Media } from "react-bootstrap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "auto",
 
     width: "100%",
+
+    "@media(min-width:1024px)":{
+        maxWidth:"1202px",
+        height: "987px",
+        marginRight: "auto",
+        marginLeft: "auto",
+        marginBottom: "auto",
+    },
+
     "@media (min-width: 300px) and (max-width: 567px)": {
       maxWidth: "300px",
 
@@ -144,7 +154,7 @@ export default function TransferTransaction({ _handleChange }) {
 
           <Div>
             <HashDiv>
-              <Container>
+              <Container  className="pad-left-5">
                 <Tooltip align="right" title={hashid}>
                   <ImageView
                     src={require("../../../src/assets/images/questionmark.png")}
@@ -515,6 +525,18 @@ const Content = styled.span`
     font-size: 12px;
     word-break: break-all;
   }
+  @media (min-width:1024px){
+  height:1.125rem;
+  font-family: Inter;
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.036rem;
+  text-align: left;
+  color: #3a3a3a;
+  }
 `;
 const TextArea = styled.textarea`
   opacity: 0.33;
@@ -557,6 +579,18 @@ const MiddleContainer = styled.div`
   //   width: 100%;
   //   max-width: 340px;
   // }
+  @media (min-width:1024px){
+  height:1.125rem;
+  font-family: Inter;
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.036rem;
+  text-align: left;
+  color: #3a3a3a;
+  }
 `;
 
 const Hash = styled.span`
@@ -571,6 +605,18 @@ const Hash = styled.span`
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 13px;
+  }
+  @media(min-width:1024px){
+  height: 1.125rem;
+  font-family: Inter;
+  font-size: 0.938rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.036rem;
+  text-align: left;
+  color: #252525;
   }
 `;
 const Spacing = styled.div`
@@ -606,7 +652,7 @@ const Container = styled.div`
 
   width: 100%;
   align-items: center;
-  max-width: 84px;
+  max-width: 100px;
 `;
 const SecondContainer = styled.div`
   display: flex;
@@ -636,6 +682,18 @@ const Heading = styled.span`
   margin-left: -21px;
   @media (min-width: 300px) and (max-width: 767px) {
     margin-left: unset;
+  }
+  @media(min-width:1024px){
+  height:1.813rem;
+  font-family: Inter;
+  font-size:1.5rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.058rem;
+  text-align: left;
+  color: #2a2a2a;
   }
 `;
 
