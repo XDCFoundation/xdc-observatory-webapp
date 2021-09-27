@@ -406,7 +406,7 @@ export default function BlockDetails() {
                    {height.nonce}
                 </MiddleContainer>
               </Spacing>
-              <Spacing style={{borderBottom:'none'}}>
+              <Spacing style={{borderBottom:'none',marginTop:'30px'}}>
                 <Container className="pad-bottom-34">
                   <Tooltip align="right" title={extrad}>
                     <ImageView
@@ -418,13 +418,13 @@ export default function BlockDetails() {
                 <MiddleContainer style={{height: '60px',width:'100%'}}>
                   
                     <textarea style={{width: "100%",
-    height: "100%",
-    borderRadius: "4px",
-    outline: "transparent",
-    border: "solid 1px #9fa9ba",
-    backgroundColor: "#dee0e3",
-    color: "#3a3a3a",
-    marginLeft: "0px"}}
+       height: "100%",
+       borderRadius: "4px",
+        outline: "transparent",
+       border: "solid 1px #9fa9ba",
+      backgroundColor: "#dee0e3",
+      color: "#3a3a3a",
+      marginLeft: "0px"}}
                       className="text-area"
                       readOnly
                       value={height.extraData}
@@ -594,6 +594,7 @@ const Spacing = styled.div`
   /* padding: 11px 6px; */
   padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
+  height:4.063rem;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;

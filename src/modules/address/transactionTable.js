@@ -387,12 +387,12 @@ export default function TransactionTableComponent(props) {
             <div className="content_input_all cont-tab">
 
                 <div className="searchelement-input3 search-btn">
-                    <img style={{ width: 18, height: 18, marginRight: 5 }}
-                        src={require('../../assets/images/Search.png')} />
+                    <img style={{ width: 18, height: 18, marginRight: 5 , marginTop: 5 }}
+                        src={require('../../assets/images/Search.svg')} />
                     <input
                         onKeyUp={(event) => props._handleSearch(event)}
                         style={{
-                            fontSize: '11px',
+                            fontSize: '0.938rem',
                             letterSpacing: 0.62,
                             width: "138px",
                             color: '#2a2a2a',
@@ -406,10 +406,10 @@ export default function TransactionTableComponent(props) {
 
                 </div>
 
-                {isDownloadActive ? <div className="csv"><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                {isDownloadActive ? <div className="csv"><img src={require("../../../src/assets/images/rectangle-copy.svg")}/> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
                 >Download CSV</CSVLink></div>
                     :
-                    <div className="csv-inactive"><i class="fa fa-download" aria-hidden="true"></i> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                    <div className="csv-inactive"><img src={require("../../../src/assets/images/rectangle-copy.svg")}/> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
                     >Download CSV</CSVLink></div>
                 }
 
@@ -632,7 +632,7 @@ export default function TransactionTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "12px", display: "flex", justifyContent: "space-between" }} className="page-container">
+                <Grid container style={{ marginTop: "2.25rem", display: "flex", justifyContent: "space-between" }} className="page-container">
                     <Grid item xs="3" className="pagination-tab">
                         <span className="text">Show</span>
                         {<Select value={amount} className="select-amount" onChange={handleChangeRowsPerPage} >
@@ -647,9 +647,9 @@ export default function TransactionTableComponent(props) {
                     <Grid xs="2"></Grid>
                     <Grid item xs="7" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="page-tab">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/back.svg")}/></button>
                         <button className="btn">Page {Math.round(totalRecord / amount) + 1 - Math.round((totalRecord - from) / amount)} of {Math.round(totalRecord / amount)}</button>
-                        <button onClick={() => handleChangePage("next")} className={from + amount === totalRecord ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={() => handleChangePage("next")} className={from + amount === totalRecord ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/next.svg")}/></button>
                         <button onClick={() => handleChangePage("last")} className={from + amount === totalRecord ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
