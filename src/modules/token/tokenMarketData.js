@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
-
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 const DeskTopView = styled.div`

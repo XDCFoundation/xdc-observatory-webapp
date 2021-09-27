@@ -9,7 +9,7 @@
 
 .tabletop-header {
   font-family: Inter;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -18,6 +18,7 @@
   text-align: left;
   color: #2a2a2a;
   margin-bottom: 15px;
+  margin-top: 2.813rem;
 }
 @media(min-width:1024px){
   .table-top-header {
@@ -123,12 +124,12 @@
 }
 .tableheaders {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: center;
   color: #252525;
   opacity: 0.8;
@@ -287,7 +288,7 @@
 .tabledata {
   width: 10%;
   font-family: Inter;
-  font-size: 11.5px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -350,7 +351,7 @@
 
 .text {
   font-family: Inter;
-  font-size: 12px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -365,12 +366,14 @@
 
 .btn {
   font-family: Inter;
-  font-size: 10px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.45px;
+  height: 60%;
+  padding: 9px 10px 25px 6px;
   text-align: left;
   color: #252525;
   border-radius: 4px;
@@ -386,7 +389,7 @@
 }
 
 .tablegrid_address {
-  padding-top: 1.5%;
+  padding-top: 1.563rem;
   margin: auto;
   width: 100%;
 }
@@ -412,9 +415,8 @@
 
 .table_1 {
   padding-top: 70px;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: auto;
+  margin: auto;
+  width: 75.125rem;
 }
 @media (max-width: 1023px) {
   .table_1 {
@@ -488,7 +490,7 @@
     /* padding: 7px 0 6px 20px; */
     text-align: left;
     border-bottom: none !important;
-    margin: 19px 21px 1.8px 48px;
+    margin: 20px 21px 1.8px 48px;
     font-family: "Inter" !important;
     font-size: 12px;
     font-weight: normal;
@@ -571,7 +573,7 @@
     width: 13%;
   }
   .Pagination_1 {
-    width: 163px;
+    width: 12.5rem;
   }
   .Pagination {
     display: flex;
