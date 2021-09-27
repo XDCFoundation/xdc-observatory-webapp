@@ -136,8 +136,8 @@ const useStyles = makeStyles({
 
     container: {
 
-        borderRadius: '14px',
-        boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+        borderRadius: '0.875rem',
+        boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
         borderBottom: 'none',
         background: '#fff',
     },
@@ -479,7 +479,7 @@ export default function AddressTableComponent(props) {
                 </div>
 
                 {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress}
-                    style={{ fontSize: '15px', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '4px', width: '94px', height: '30px' }}>Export</CSVLink>
+                    style={{ fontSize: '15px', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '0.25rem', width: '5.875rem', height: '1.875rem' }}>Export</CSVLink>
                     :
                    <CSVLink filename={"transactions.csv"} data={downloadaddress}
                         style={{ pointerEvents: 'none', fontSize: '0.938rem', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '0.25rem', width: '5.875rem', height: '2.125rem' }}>Export</CSVLink>
@@ -502,7 +502,7 @@ export default function AddressTableComponent(props) {
                                             type="checkbox"
                                             name="allselect"
                                             checked={address.filter((addr) => addr?.isChecked == true).length == address.length}
-                                            style={{ marginRight: "8px" }}
+                                            style={{ marginRight: "0.5rem" }}
                                         />
                                         <span className={"tableheaders table-hash"}>Txn Hash</span>
                                     </TableCell>
@@ -632,7 +632,7 @@ export default function AddressTableComponent(props) {
                                                         : { background: "white" }
                                                 }
                                             >
-                                                <TableCell style={{ border: "none" }} margin-left="5px">
+                                                <TableCell style={{ border: "none" }} margin-left="0.313rem">
                                                     <input
                                                         key={row._id}
                                                         name={row._id}
@@ -640,7 +640,7 @@ export default function AddressTableComponent(props) {
                                                         type="checkbox"
                                                         checked={row?.isChecked || false}
                                                         //checked={checkAll}
-                                                        style={{ marginRight: "8px" }}
+                                                        style={{ marginRight: "0.5rem" }}
                                                     />
 
                                                     <a className="linkTable" href={'/transaction-details/' + row.hash}>
@@ -708,7 +708,7 @@ export default function AddressTableComponent(props) {
 
                     </TableContainer>
                 </Paper>
-                <Grid container style={{ marginTop: "28px", display: "flex", justifyContent: "space-between" }} className="page-container">
+                <Grid container style={{ marginTop: "1.75rem", display: "flex", justifyContent: "space-between" }} className="page-container">
                     <Grid item xs="3" className="pagination-tab">
                         <span className="text">Show</span>
                         <Select value={rowsPerPage} className="select-amount" onChange={handleChangeRowsPerPage} >
@@ -722,7 +722,7 @@ export default function AddressTableComponent(props) {
                     </Grid>
                     <Grid xs="1"></Grid>
                     <Grid item xs="8" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="pagination-page">
-                        <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
+                        <button style={{ marginLeft: "0rem" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}><img
                   className="back-arrow"
                   src={require("../../assets/images/back.svg")}
