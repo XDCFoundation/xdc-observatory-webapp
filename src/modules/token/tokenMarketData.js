@@ -181,7 +181,7 @@ export default function TokenMarketDataTable(props) {
       <DeskTopView>
         <div className="main_mid">
           <div className="main_child">
-            <div className="cont1">
+            <div className="cont-token-data">
               <p>Market Cap </p>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
@@ -208,7 +208,7 @@ export default function TokenMarketDataTable(props) {
                     </div>
                 </div> */}
             </div>
-            <div className="cont1">
+            <div className="cont-token-data">
               <p>Fully Diluted Market Cap</p>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
@@ -235,7 +235,7 @@ export default function TokenMarketDataTable(props) {
                     </div>
                 </div>*/}
             </div>
-            <div className="cont1">
+            <div className="cont-token-data">
               <p>Volume (24hr)</p>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
@@ -264,7 +264,7 @@ export default function TokenMarketDataTable(props) {
             </div>
           </div>
           <div className="main_sec">
-            <div className="cont1">
+            <div className="cont-token-data">
               <div className="cont1-child">
                 <p>Circulating Supply</p>
                 <p>
@@ -273,7 +273,7 @@ export default function TokenMarketDataTable(props) {
               </div>
             </div>
 
-            <div className="cont1 cont1_align">
+            <div className="cont-token-data cont1_align">
               <div className="cont1-child">
                 <p>Total Supply</p>
                 <p>{totalSupplyVal}</p>

@@ -46,7 +46,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
             <Route
               exact
-              path={"/transfertransaction-details"}
+              path={"/transfer-transaction-details/:address"}
               component={TransferDetailsUi}
             />
             <Route exact path={'/tokens'} component={TokenDetails} />
