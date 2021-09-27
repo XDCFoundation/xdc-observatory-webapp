@@ -324,6 +324,20 @@ input:focus {
   width: 1.875rem;
 }
 
+.Shape-XDC {
+  margin-right: 0.625rem;
+  margin-top: 1rem;
+  height: 2.188rem;
+  width: 2.188rem;
+}
+
+.Shape-XDC:hover {
+  margin-right: 0.625rem;
+  margin-top: 1rem;
+  height: 2.188rem;
+  width: 2.188rem;
+}
+
 @media (min-width: 0px) and (max-width: 640px) {
   .Shape {
     height: 18px;
@@ -356,6 +370,13 @@ input:focus {
 .Shape2 {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.Shape2-internal {
+  width: 1.563rem;
+  height: 1.563rem;
+  margin-top: 0.625rem;
+  margin-left: 0.313rem;
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
@@ -996,6 +1017,28 @@ input:focus {
   margin-top: 2px;
 }
 
+.XDC-internal {
+  margin-left: -0.313rem;
+  font-size: 1.375rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.039rem;
+  color: #ffffff;
+  margin-top: 1.25rem;
+}
+.XDC-internal:hover {
+  margin-left: -0.313rem;
+  font-size: 1.375rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.039rem;
+  color: #ffffff;
+  margin-top: 1.25rem;
+}
 @media (min-width: 0px) and (max-width: 640px) {
   .XDC {
     font-size: 14px;
@@ -1032,6 +1075,36 @@ input:focus {
   list-style: none;
 }
 
+.Network-explorer-internal {
+  padding-bottom: 0.188rem;
+  margin: 0.938rem 2.5rem 0.188rem 1.563rem;
+  padding-top: 0.438rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.041rem;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
+  list-style: none;
+}
+.Network-explorer-internal:hover {
+  padding-bottom: 0.188rem;
+  margin: 0.938rem 2.5rem 0.188rem 1.563rem;
+  padding-top: 0.438rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.041rem;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
+  list-style: none;
+}
 .Network-explorer:hover {
   padding-bottom: 3px;
   margin: 0.25rem 2.188rem 0.25rem 2.5rem;
@@ -1092,6 +1165,34 @@ input:focus {
   position: absolute;
 }
 
+.Token-internal {
+  padding-bottom: 0.188rem;
+  padding-top: 0.438rem;
+  margin: 0.938rem 2.5rem 0.188rem 11.563rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.041rem;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
+}
+.Token-internal:hover {
+  padding-bottom: 0.188rem;
+  padding-top: 0.438rem;
+  margin: 0.938rem 2.5rem 0.188rem 11.563rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.041rem;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
+}
 @media (min-width: 0px) and (max-width: 640px) {
   .Token {
     margin: 3px 40px 3px 130px;
@@ -5182,6 +5283,13 @@ button {
   /* padding: 8px 2px; */
   width: 100%;
 }
+.cont-token-data {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
 @media (min-width: 1023px) {
   .cont1 {
     padding-top: 7px;
@@ -5200,9 +5308,25 @@ button {
     width: auto;
   }
 }
+@media (min-width: 641px) and (max-width: 1023px) {
+  .cont-token-data {
+    margin-top: 5px;
+    width: auto;
+  }
+}
 
 .cont1 p {
-  /* margin: 2px; */
+  margin: 0px;
+  color: hsl(0, 1%, 62%);
+  font-size: 10.5px;
+  font-family: "Inter";
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.65px;
+}
+.cont-token-data p {
   margin: 0px;
   color: hsl(0, 1%, 62%);
   font-size: 10.5px;
@@ -5215,10 +5339,18 @@ button {
 }
 @media (min-width: 1023px) {
   .cont1 p {
-    /* margin: 2px; */
-    /* width: 5.125rem;
-  height: 1.063rem; */
-    /* margin: 0 0 5px; */
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: center;
+  }
+}
+@media (min-width: 1023px) {
+  .cont-token-data p {
     font-family: Inter;
     font-size: 0.875rem;
     font-weight: normal;
@@ -5238,12 +5370,31 @@ button {
   letter-spacing: 0.58px;
   color: #252525;
 }
+.cont-token-data :nth-child(2) {
+  font-size: 13px;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #252525;
+}
 
 @media (min-width: 1023px) {
   .cont1 :nth-child(2) {
-    /* width: 4.688rem;
-    height: 1.188rem; */
-    /* margin: 5px 2px 4px 5px; */
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.039rem;
+    text-align: center;
+    color: #252525;
+    padding-top: 5px;
+  }
+}
+@media (min-width: 1023px) {
+  .cont-token-data :nth-child(2) {
     font-family: Inter;
     font-size: 1rem;
     font-weight: 600;

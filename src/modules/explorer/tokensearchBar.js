@@ -588,11 +588,11 @@ export default function Navbar() {
                 <div className="mobile-navbartab1">
                   <a href={"/"}>
                     <img
-                      className="Shape"
+                      className="Shape-XDC"
                       src={require("../../../src/assets/images/XDC icon.svg")}
                     ></img>
                   </a>
-                  <a className="XDC" href="/">
+                  <a className="XDC-internal" href="/">
                     {" "}
                     XDC{" "}
                   </a>
@@ -603,7 +603,7 @@ export default function Navbar() {
                       exact
                       activeClassName="active-t"
                       to={"/"}
-                      className="Network-explorer"
+                      className="Network-explorer-internal"
                     >
                       Network Explorer
                     </NavLink>
@@ -613,7 +613,7 @@ export default function Navbar() {
                       exact
                       activeClassName="active-t"
                       to={"/token-details"}
-                      className="Token"
+                      className="Token-internal"
                     >
                       Tokens
                     </NavLink>
@@ -695,7 +695,7 @@ export default function Navbar() {
           </div>
           <div className="right-nav-div">
             <img
-              className="Shape2"
+              className="Shape2-internal"
               src={require("../../../src/assets/images/Profile.svg")}
             ></img>
 
@@ -707,7 +707,7 @@ export default function Navbar() {
                 onClick={toggleDrawer("right", true)}
               >
                 <img
-                  className="Shape2"
+                  className="Shape2-internal"
                   src={require("../../../src/assets/images/Menu.svg")}
                 ></img>
                 {/* <MenuIcon /> */}

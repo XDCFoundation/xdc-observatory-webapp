@@ -325,7 +325,7 @@ export default function StickyHeadTable() {
                   key={row.code}
                 >
                   <TableCell id="td" style={{ border: "none" }}>
-                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                    <a style={{ color: "blue", fontSize: 11 }} href={"/transfer-transaction-details/" + address}>
                       <Tooltip placement="top" title={row.TxHash}>
                         <span className="tabledata table-data">
                           {" "}

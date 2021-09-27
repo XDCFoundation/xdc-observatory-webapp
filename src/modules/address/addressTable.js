@@ -508,13 +508,13 @@ export default function AddressTableComponent(props) {
                                         <span className={"tableheaders table-hash"}>Txn Hash</span>
                                     </TableCell>
                                     <TableCell className="w-16 w-19"
-                                        style={{ border: "none", paddingLeft: "1.8%", paddingTop: "1.375rem"}}
+                                        style={{ border: "none", paddingLeft: "1.6%", paddingTop: "1.375rem"}}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-age"}>Age</span>
                                     </TableCell>
                                     <TableCell className="w-450 w-19"
-                                        style={{ border: "none", paddingLeft: "1.8%", paddingTop: "1.375rem" }}
+                                        style={{ border: "none", paddingLeft: "1.6%", paddingTop: "1.375rem" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-block"}>Block</span>

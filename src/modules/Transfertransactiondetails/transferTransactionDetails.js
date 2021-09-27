@@ -59,7 +59,7 @@ export default function TransferTransaction({ _handleChange }) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
 
-  const { hash } = useParams();
+  const { address } = useParams();
   const [transactions, setTransactions] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
@@ -68,7 +68,7 @@ export default function TransferTransaction({ _handleChange }) {
   }, [amount]);
 
   const transactionDetail = async () => {
-    let urlPath = `/${hash}`;
+    let urlPath = `/${address}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
@@ -103,14 +103,14 @@ export default function TransferTransaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -154,12 +154,12 @@ export default function TransferTransaction({ _handleChange }) {
                 <Hash>Hash ID</Hash>
               </Container>
               <MiddleContainer isTextArea={false}>
-                <Content>{hash}</Content>
+                <Content>{address}</Content>
               </MiddleContainer>
               <SecondContainer>
-                <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
+                <CopyToClipboard text={address} onCopy={() => setCopiedText(address)}>
                   <Tooltip
-                    title={copiedText === hash ? "Copied" : "Copy To Clipboard"}
+                    title={copiedText === address ? "Copied" : "Copy To Clipboard"}
                     placement="top"
                   >
                     <button
