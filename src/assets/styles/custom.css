@@ -2965,6 +2965,8 @@ body {
   background: #fff;
   border: none;
   height: 64.438;
+  max-width: 75rem !important;
+  padding: 0 1.875rem;
 }
 
 .source-code-unverified {
