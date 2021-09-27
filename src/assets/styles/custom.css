@@ -2340,7 +2340,7 @@ p {
   width: 100%;
   height: 5.813rem;
   font-size: 0.938rem;
-  padding-left: 6px;
+  padding-left: 8px;
   opacity: 0.73;
   border-radius: 4px;
   letter-spacing: 0.58px;
@@ -2351,6 +2351,18 @@ p {
 .textarea-verify-contract::placeholder {
   color: #9fa9ba !important;
   font-weight: 500px !important;
+}
+.verify-contract-first-div {
+  margin: 15px;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.1;
+  letter-spacing: 0.58px;
+  text-align: left;
+  color: #3a3a3a;
 }
 
 .textarea-contract-code {
