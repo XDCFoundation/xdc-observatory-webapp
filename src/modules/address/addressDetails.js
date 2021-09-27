@@ -186,7 +186,7 @@ export default function AddressDetails(props) {
                         placement="top"
                       >
                         <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 17}}>
-                          <i class="fa fa-clone" aria-hidden="true"></i></button>
+                        <img src={require("../../../src/assets/images/copy.svg")} /></button>
                       </Tooltip>
                     </CopyToClipboard>
                     <Popup trigger={<ImQrcode style={{ marginLeft: "0.625rem", marginBottom: "0.125rem", cursor: "pointer", color: "#2149b9", height: "1.063rem", width: "1.063rem"}} />} modal>
