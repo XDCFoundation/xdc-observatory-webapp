@@ -5765,7 +5765,7 @@ button {
 .parent_hash {
   font-family: Inter !important;
   font-size: 0.938rem;
-  
+
   letter-spacing: 0.036rem;
   color: #2149b9 !important;
   height: 1.125rem;
@@ -5779,7 +5779,7 @@ button {
 .parent_hash:hover {
   font-family: Inter !important;
   font-size: 0.938rem;
-  
+
   letter-spacing: 0.036rem;
   color: #2149b9 !important;
   height: 1.125rem;
@@ -6975,7 +6975,16 @@ button {
     margin-left: 2px;
   }
 }
-.copy-icon{
-  width: 20px;
-  height: 20px;
+@media (min-width: 1024px) {
+  .pad-left-6 {
+    padding-left: 6px;
+  }
+}
+@media (min-width: 1024px) {
+  .pad-left-22 {
+    padding-left: 22px;
+  }
+}
+.mar-bottom-45 {
+  margin-bottom: 45px;
 }

@@ -11,8 +11,6 @@ import LatestTransactionList from "./modules/transaction/index";
 import LatestBlocksList from "./modules/blocks";
 import BlockChainClass from "./modules/explorer";
 import TokenDetails from "./modules/explorer/tokendetails";
-// import TransactionsDetailsData from "./modules/explorer/transactiondetails";
-// import BlockDetailsData from "./modules/explorer/blockDetails";
 import LatestAccountsList from "./modules/accounts";
 import AddressDetails from "./modules/address/addressDetails";
 import HolderDetails from "./modules/holders/holderDetails";
