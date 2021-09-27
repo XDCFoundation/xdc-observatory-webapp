@@ -5765,7 +5765,7 @@ button {
 .parent_hash {
   font-family: Inter !important;
   font-size: 0.938rem;
-  /* font-weight: 600 !important; */
+  
   letter-spacing: 0.036rem;
   color: #2149b9 !important;
   height: 1.125rem;
@@ -5777,11 +5777,17 @@ button {
 }
 
 .parent_hash:hover {
-  color: black !important;
-  list-style: none;
-  text-decoration: none;
-  font-size: 12px;
-  line-height: 0.7rem !important;
+  font-family: Inter !important;
+  font-size: 0.938rem;
+  
+  letter-spacing: 0.036rem;
+  color: #2149b9 !important;
+  height: 1.125rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
 }
 
 .text-area {
@@ -6968,4 +6974,8 @@ button {
   .mar-lef-2 {
     margin-left: 2px;
   }
+}
+.copy-icon{
+  width: 20px;
+  height: 20px;
 }
