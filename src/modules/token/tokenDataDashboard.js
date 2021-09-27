@@ -267,7 +267,7 @@ export default function TokenDataComponent() {
   const [holders, setHolders] = useState({})
   const { address } = useParams();
   function shorten(b, amountL = 14, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
+    return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(b.length)} `;
   }
   const CoinMarketExchangeForToken = async (data) => {
     try {

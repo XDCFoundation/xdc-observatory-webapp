@@ -19,8 +19,8 @@ const useStyles = makeStyles({
 
     container: {
 
-        borderRadius: '14px',
-        boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
+        borderRadius: '0.875rem',
+        boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
         borderBottom: 'none',
         background: '#fff',
     },
@@ -48,12 +48,12 @@ export default function AccountComponent(props) {
             <Grid className="table_1">
                 <Grid class="tabletop-header">{state.tableName}</Grid>
                 <div className="searchelement-input2">
-                    <img style={{ width: 22, height: 22, marginRight: 5 }}
-                        src={require('../../assets/images/Search.png')} />
+                    <img style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
+                        src={require('../../assets/images/Search.svg')} />
                     <input
                         onKeyUp={(event) => props._handleSearch(event)}
                         style={{
-                            fontSize: '13px',
+                            fontSize: '0.938rem',
                             letterSpacing: 0.62,
                             color: '#2a2a2a',
                             fontFamily: 'Inter',
@@ -66,16 +66,16 @@ export default function AccountComponent(props) {
                 </div>
                 <br />
 
-                <Paper style={{ borderRadius: '14px' }} elevation={0}>
+                <Paper style={{ borderRadius: '0.875rem' }} elevation={0}>
                     <TableContainer className={classes.container} id="container-table">
                         <Table>
 
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left" ><span className={"tableheaders_1"}>Address</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
-                                    <TableCell style={{ border: "none", paddingLeft: "4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%"}} align="left" ><span className={"tableheaders_1"}>Address</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
                                 </TableRow>
                             </TableHead>
                             {props.state.noData == 1 &&
@@ -111,7 +111,7 @@ export default function AccountComponent(props) {
                     </TableContainer>
                 </Paper>
 
-                <Grid container style={{ marginTop: "15px" }} className="Pagination">
+                <Grid container style={{ marginTop: "35px" }} className="Pagination">
                     <Grid item className="Pagination_1">
                         <span className="text">Show</span>
                         <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
@@ -125,9 +125,15 @@ export default function AccountComponent(props) {
 
                     <Grid item className="Pagination_2">
                         <button style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>{"<"}</button>
+                        <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img
+                  className="back-arrow"
+                  src={require("../../assets/images/back.svg")}
+                /></button>
                         <button className="btn">Page {Math.round(state.totalAccounts / state.amount) + 1 - Math.round((state.totalAccounts - state.from) / state.amount)} of {Math.round(state.totalAccounts / state.amount)}</button>
-                        <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}>{">"}</button>
+                        <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
+                  className="back-arrow"
+                  src={require("../../assets/images/next.svg")}
+                /></button>
                         <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
