@@ -299,10 +299,10 @@ export default function StickyHeadTable() {
             {rows.map((row, index) => {
                 return (
                   <StyledTableRow hover role="checkbox" tabIndex={-1}>
-                    <TableCell id="td">
+                    <TableCell id="td"  style={{ border: "none"}}>
                       <span className="tabledata table-data">{index + 1 ? index + 1 : ""}</span>
                     </TableCell>
-                    <TableCell id="td">
+                    <TableCell id="td"  style={{ border: "none"}}>
                       <a
                         style={{ color: "blue", fontSize: 11 }}  href={"/holder-details/" + row.Address}>
                         {/* <Tooltip placement="top" title={row.Address}>
@@ -314,16 +314,16 @@ export default function StickyHeadTable() {
                         <span className="tabledata table-data">{row.Address}</span>
                       </a>
                     </TableCell>
-                    <TableCell id="td">
-                      <span className="tabledata table-data">{row.Quantity}</span>
+                    <TableCell id="td"  style={{ border: "none"}}>
+                      <span className="tabledata table-data mar-lef-3">{row.Quantity}</span>
                     </TableCell>
-                    <TableCell id="td">
+                    <TableCell id="td"  style={{ border: "none"}}>
                       {" "}
-                      <span className="tabledata table-data">  {row.Percentage}</span>
+                      <span className="tabledata table-data mar-lef-3">  {row.Percentage}</span>
                     </TableCell>
-                    <TableCell id="td">
+                    <TableCell id="td"  style={{ border: "none"}}>
                       {" "}
-                      <span className="tabledata table-data">  {row.Value}</span>{" "}
+                      <span className="tabledata table-data mar-lef-2">  {row.Value}</span>{" "}
                     </TableCell>
                   </StyledTableRow>
                 );
