@@ -201,29 +201,29 @@ class LatestBlocks extends Component {
     console.log(this.props.socket, "<<<<");
     return (
       <>
-       <div>
-        <div className="block_main">
-          <div className="latestblock">
-            <div className="latest">
-              <h1>Latest Blocks</h1>
-              <a className="nav_button" href="/view-all-blocks">
-                View All
-              </a>
-            </div>
-            <div className="data">
-              <div className="data_heading1">
-                <div className="block_child">
-                  <p>Age</p>
-                </div>
-                <div className="block_child">
-                  <p>Height</p>
-                </div>
-                <div className="block_child">
-                  <p>Transactions</p>
-                </div>
+        <div>
+          <div className="block_main">
+            <div className="latestblock">
+              <div className="latest2">
+                <h1>Latest Blocks</h1>
+                <a className="nav_button" href="/view-all-blocks">
+                  View All
+                </a>
               </div>
-              <div className="data_value">
-                {/* {this.state.socketBlock &&
+              <div className="data">
+                <div className="data_heading1">
+                  <div className="block_child">
+                    <p>Age</p>
+                  </div>
+                  <div className="block_child">
+                    <p>Height</p>
+                  </div>
+                  <div className="block_child">
+                    <p>Transactions</p>
+                  </div>
+                </div>
+                <div className="data_value">
+                  {/* {this.state.socketBlock &&
                 Object.keys(this.state.socketBlock).length >= 1 ? (
                   <div className="value_main_main">
                     <div className="main_vaa">
@@ -242,92 +242,92 @@ class LatestBlocks extends Component {
                 ) : (
                   ""
                 )} */}
-                {this.state.latestBlocksData &&
-                  this.state.latestBlocksData.length >= 1 &&
-                  this.state.latestBlocksData.map((z, index) => {
-                    const currentTime = Date.now();
-                    const currentTimeFormat = new Date(currentTime);
-                    const previousTime = new Date(z.timestamp * 1000);
-                    const ti = timeDiff(currentTimeFormat, previousTime);
-                    let blockNumber = z.number;
+                  {this.state.latestBlocksData &&
+                    this.state.latestBlocksData.length >= 1 &&
+                    this.state.latestBlocksData.map((z, index) => {
+                      const currentTime = Date.now();
+                      const currentTimeFormat = new Date(currentTime);
+                      const previousTime = new Date(z.timestamp * 1000);
+                      const ti = timeDiff(currentTimeFormat, previousTime);
+                      let blockNumber = z.number;
 
-                    // let transactionLength = z.trans
-                    let animationClass =
-                      this.state.blockAnimation?.[blockNumber];
-                    let ageAnimationClass =
-                      this.state.ageAnimation?.[blockNumber];
-                    let transAnimationClass =
-                      this.state.transactionsAnimation?.[blockNumber];
-                    // console.log(animationClass, blockNumber);
-                    return (
-                      <div className="value_main_main">
-                        <div className="main_vaa">
-                          <div className="latest_child">
-                            {" "}
-                            <p
-                              className={
-                                ageAnimationClass
-                                  ? ageAnimationClass
-                                  : "main_vaa"
-                              }
-                            >
+                      // let transactionLength = z.trans
+                      let animationClass =
+                        this.state.blockAnimation?.[blockNumber];
+                      let ageAnimationClass =
+                        this.state.ageAnimation?.[blockNumber];
+                      let transAnimationClass =
+                        this.state.transactionsAnimation?.[blockNumber];
+                      // console.log(animationClass, blockNumber);
+                      return (
+                        <div className="value_main_main">
+                          <div className="main_vaa">
+                            <div className="latest_child">
                               {" "}
-                              {ti}
-                            </p>
-                          </div>
-                          {/* <a className={animationClass}> */}
-                          <div className="latest_child latest_margin">
-                            {" "}
-                            <a
-                              a
-                              className={
-                                animationClass ? animationClass : "height pad-lef-18"
-                              }
-                              href={"/block-details/" + z.number}
-                            >
-                              {z.number.toLocaleString()}
-                            </a>
-                          </div>
-                          <div className="latest_child">
-                            {" "}
-                            <p
-                              className={
-                                transAnimationClass
-                                  ? transAnimationClass
-                                  : "main_vaa  pad-left-5"
-                              }
-                            >
-                              {z.transactions.length}
-                            </p>
+                              <p
+                                className={
+                                  ageAnimationClass
+                                    ? ageAnimationClass
+                                    : "main_vaa"
+                                }
+                              >
+                                {" "}
+                                {ti}
+                              </p>
+                            </div>
+                            {/* <a className={animationClass}> */}
+                            <div className="latest_child latest_margin">
+                              {" "}
+                              <a
+                                a
+                                className={
+                                  animationClass ? animationClass : "height pad-lef-18"
+                                }
+                                href={"/block-details/" + z.number}
+                              >
+                                {z.number.toLocaleString()}
+                              </a>
+                            </div>
+                            <div className="latest_child">
+                              {" "}
+                              <p
+                                className={
+                                  transAnimationClass
+                                    ? transAnimationClass
+                                    : "main_vaa  pad-left-5"
+                                }
+                              >
+                                {z.transactions.length}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="latestTranscation">
-            <div className="latest2">
-              <h1>Latest Transactions</h1>
-              <a className="nav_button" href="/view-all-transaction">
-                View All
-              </a>
-            </div>
-            <div className="data">
-              <div className="data_heading">
-                <div className="main_head">
-                  <div className="mainhead_child1">Hash</div>
-                  <div className="mainhead_child2">Amount</div>
-                  <div className="mainhead_child3">Age</div>
-                  <div>{" "}</div>
-                </div>
-                {/* <div className="age">
+            <div className="latestTranscation">
+              <div className="latest2">
+                <h1>Latest Transactions</h1>
+                <a className="nav_button" href="/view-all-transaction">
+                  View All
+                </a>
+              </div>
+              <div className="data">
+                <div className="data_heading">
+                  <div className="main_head">
+                    <div className="mainhead_child1">Hash</div>
+                    <div className="mainhead_child2">Amount</div>
+                    <div className="mainhead_child3">Age</div>
+                    <div>{" "}</div>
+                  </div>
+                  {/* <div className="age">
                  
                 </div> */}
-              </div>
-              <div className="data_value data_margin">
-                {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
+                </div>
+                <div className="data_value data_margin">
+                  {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
                 <div className="value_main_main">
                   <div className="value_main main_val">
                     <Tooltip placement="top" title={transactiondata.hash}>
@@ -354,78 +354,78 @@ class LatestBlocks extends Component {
                 ""
               )} */}
 
-                {this.state.latestTransactionData &&
-                  this.state.latestTransactionData.length >= 1 &&
-                  this.state.latestTransactionData.map((e, index) => {
-                    const currentTime = new Date();
-                    const previousTime = new Date(e.timestamp * 1000);
-                    const age = timeDiff(currentTime, previousTime);
-                    let hash = e.hash;
-                    let hashanimationClass = this.state.hashAnimation?.[hash];
-                    let amountanimationclass =
-                      this.state.amountAnimation?.[hash];
-                    let ageanimationclass = this.state.ageeAnimation?.[hash];
-                    let detailanimationclass =
-                      this.state.detailAnimation?.[hash];
-                    return (
-                      <div className="value_main_main">
-                      <div className="main_vaa">
-                        <div className="latest_child w-34 mar-top-6">
-                        <Tooltip placement="top" title={e.hash}>
-                            <a
-                              className={
-                                hashanimationClass ? hashanimationClass : "bttn"
-                              }
-                              href={"/transaction-details/" + e.hash}
-                            >
-                              {this.shorten(e.hash)}
-                            </a>
-                          </Tooltip></div>
-                          <div className="latest_child w-25">
-                          <p
-                            className={
-                              amountanimationclass
-                                ? amountanimationclass
-                                : "value_main "
-                            }
-                          >
-                            {e.value == 0
-                              ? 0
-                              : (e.value / 1000000000000000000).toFixed(3)}{" "}
-                            XDC
-                          </p>
+                  {this.state.latestTransactionData &&
+                    this.state.latestTransactionData.length >= 1 &&
+                    this.state.latestTransactionData.map((e, index) => {
+                      const currentTime = new Date();
+                      const previousTime = new Date(e.timestamp * 1000);
+                      const age = timeDiff(currentTime, previousTime);
+                      let hash = e.hash;
+                      let hashanimationClass = this.state.hashAnimation?.[hash];
+                      let amountanimationclass =
+                        this.state.amountAnimation?.[hash];
+                      let ageanimationclass = this.state.ageeAnimation?.[hash];
+                      let detailanimationclass =
+                        this.state.detailAnimation?.[hash];
+                      return (
+                        <div className="value_main_main">
+                          <div className="main_vaa">
+                            <div className="latest_child w-34 mar-top-6">
+                              <Tooltip placement="top" title={e.hash}>
+                                <a
+                                  className={
+                                    hashanimationClass ? hashanimationClass : "bttn"
+                                  }
+                                  href={"/transaction-details/" + e.hash}
+                                >
+                                  {this.shorten(e.hash)}
+                                </a>
+                              </Tooltip></div>
+                            <div className="latest_child w-25">
+                              <p
+                                className={
+                                  amountanimationclass
+                                    ? amountanimationclass
+                                    : "value_main "
+                                }
+                              >
+                                {e.value == 0
+                                  ? 0
+                                  : (e.value / 1000000000000000000).toFixed(3)}{" "}
+                                XDC
+                              </p>
+                            </div>
+                            <div className="latest_child w-34">
+                              <p
+                                className={
+                                  ageanimationclass ? ageanimationclass : "value_main"
+                                }
+                              >
+                                {age}
+                              </p>
+                            </div>
+                            <div className="latest_child w-18 mar-top-6 ">
+                              <a
+                                className={
+                                  detailanimationclass
+                                    ? detailanimationclass
+                                    : "details"
+                                }
+                                href={"/transaction-details/" + e.hash}
+                              >
+                                Details
+                              </a>
+                            </div>
+
                           </div>
-                          <div className="latest_child w-34">
-                          <p
-                            className={
-                              ageanimationclass ? ageanimationclass : "value_main"
-                            }
-                          >
-                            {age}
-                          </p>
-                          </div>
-                          <div className="latest_child w-18 mar-top-6 ">
-                          <a
-                            className={
-                              detailanimationclass
-                                ? detailanimationclass
-                                : "details"
-                            }
-                            href={"/transaction-details/" + e.hash}
-                          >
-                            Details
-                          </a>
-                          </div>
-                         
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </>
     );
   }

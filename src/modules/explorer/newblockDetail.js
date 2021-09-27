@@ -249,7 +249,7 @@ export default function BlockDetails() {
                 <MiddleContainer>
                   <Content>
                     {" "}
-                    <a onClick={decrement} style={{ cursor: "pointer",color:"#2149b9" }}>
+                    <a onClick={decrement} style={{ cursor: "pointer", color: "#2149b9" }}>
                       {" "}
                       {height.parentHash}
                     </a>
@@ -384,7 +384,7 @@ export default function BlockDetails() {
                 </Container>
                 <MiddleContainer>{height.nonce}</MiddleContainer>
               </Spacing>
-              <Spacing style={{ borderBottom: "none" }}>
+              <Spacing style={{ borderBottom: 'none', marginTop: '30px' }}>
                 <Container className="pad-bottom-34">
                   <Tooltip align="right" title={extrad}>
                     <ImageView
@@ -393,22 +393,23 @@ export default function BlockDetails() {
                   </Tooltip>
                   <Hash>Extra Data</Hash>
                 </Container>
-                <MiddleContainer style={{ height: "60px", width: "100%" }}>
-                  <textarea
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "4px",
-                      outline: "transparent",
-                      border: "solid 1px #9fa9ba",
-                      backgroundColor: "#dee0e3",
-                      color: "#3a3a3a",
-                      marginLeft: "0px",
-                    }}
+                <MiddleContainer style={{ height: '60px', width: '100%' }}>
+
+                  <textarea style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "4px",
+                    outline: "transparent",
+                    border: "solid 1px #9fa9ba",
+                    backgroundColor: "#dee0e3",
+                    color: "#3a3a3a",
+                    marginLeft: "0px"
+                  }}
                     className="text-area"
                     readOnly
                     value={height.extraData}
                   />
+
                 </MiddleContainer>
               </Spacing>
             </Div__>
@@ -487,7 +488,7 @@ const Blocks = styled.span`
 `;
 const Div__ = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
@@ -570,6 +571,7 @@ const Spacing = styled.div`
   /* padding: 11px 6px; */
   padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
+  height:4.063rem;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -604,7 +606,7 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #fff;
