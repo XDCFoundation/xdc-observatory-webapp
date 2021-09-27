@@ -471,7 +471,8 @@ export default function AddressTableComponent(props) {
                             fontFamily: 'Inter',
                             outlineColor: 'transparent',
                             borderWidth: 0,
-                            fontWeight: "600"
+                            fontWeight: "600",
+                            paddingBottom: "0.125rem"
                         }} type="text"
                         placeholder="Search Txn"
                         onKeyUp={handleKeyUp} />
@@ -479,10 +480,10 @@ export default function AddressTableComponent(props) {
                 </div>
 
                 {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress}
-                    style={{ fontSize: '15px', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '0.25rem', width: '5.875rem', height: '1.875rem' }}>Export</CSVLink>
+                    style={{ fontSize: '0.938rem', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '0.25rem', width: '5.875rem', height: '1.875rem' }}>Export</CSVLink>
                     :
                    <CSVLink filename={"transactions.csv"} data={downloadaddress}
-                        style={{ pointerEvents: 'none', fontSize: '0.938rem', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '0.25rem', width: '5.875rem', height: '2.125rem' }}>Export</CSVLink>
+                        style={{ pointerEvents: 'none', fontSize: '0.938rem', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '0.25rem', width: '5.875rem', height: '2.125rem', paddingTop:'0.125rem' }}>Export</CSVLink>
                 }
 
 
