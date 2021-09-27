@@ -326,6 +326,13 @@ input:focus {
   width: 2.188rem;
 }
 
+.Shape-XDC {
+  margin-right: 0.625rem;
+  margin-top: 1rem;
+  height: 2.188rem;
+  width: 2.188rem;
+}
+
 @media (min-width: 0px) and (max-width: 640px) {
   .Shape {
     height: 18px;
@@ -357,6 +364,13 @@ input:focus {
   height: 25px;
   margin-top: 10px;
   margin-left: 5px;
+}
+
+.Shape2-internal {
+  width: 1.563rem;
+  height: 1.563rem;
+  margin-top: 0.625rem;
+  margin-left: 0.313rem;
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
@@ -995,6 +1009,18 @@ input:focus {
   margin-top: 1.25rem;
 }
 
+.XDC-internal {
+  margin-left: -0.313rem;
+  font-size: 1.375rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.039rem;
+  color: #ffffff;
+  margin-top: 1.25rem;
+}
+
 @media (min-width: 0px) and (max-width: 640px) {
   .XDC {
     font-size: 14px;
@@ -1019,6 +1045,22 @@ input:focus {
 .Network-explorer {
   padding-bottom: 0.188rem;
   margin: 15px 40px 3px 25px;
+  padding-top: 0.438rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.041rem;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
+  list-style: none;
+}
+
+.Network-explorer-internal {
+  padding-bottom: 0.188rem;
+  margin: 0.938rem 2.5rem 0.188rem 1.563rem;
   padding-top: 0.438rem;
   font-size: 0.938rem;
   font-weight: 500;
@@ -1060,6 +1102,21 @@ input:focus {
 } */
 
 .Token {
+  padding-bottom: 0.188rem;
+  padding-top: 0.438rem;
+  margin: 0.938rem 2.5rem 0.188rem 11.563rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.041rem;
+  color: #ffffff;
+  display: inline-block;
+  position: absolute;
+}
+
+.Token-internal {
   padding-bottom: 0.188rem;
   padding-top: 0.438rem;
   margin: 0.938rem 2.5rem 0.188rem 11.563rem;
