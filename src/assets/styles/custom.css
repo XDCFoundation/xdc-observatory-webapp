@@ -6749,4 +6749,22 @@ button {
 .w-21{
   width: 21%;
 }
+@media(min-width:1024px){
+  .mar-lef-4
+  {
+    margin-left: 4px;
+  }
+}
+@media(min-width:1024px){
+  .mar-lef-3
+  {
+    margin-left: 3px;
+  }
+}
+@media(min-width:1024px){
+  .mar-lef-2
+  {
+    margin-left: 2px;
+  }
+}
 
