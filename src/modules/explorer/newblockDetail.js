@@ -509,7 +509,7 @@ const Blocks = styled.span`
 `;
 const Div__ = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
@@ -629,7 +629,7 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #fff;
