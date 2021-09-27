@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     maxWidth: "187.5rem",
-    marginTop: "6.25rem",
+    // marginTop: "6.25rem",
     marginBottom:"0.938rem",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
@@ -153,10 +153,10 @@ export default function AddressDetails(props) {
 
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block tb-grid tb-grid-block">
+      <Grid  className="table-grid-block ">
       <div className={classes.mainContainer}>
         <div className={classes.root}>
-          <Grid item xs={12}>
+          <Grid style={{width:"75.125rem"}}>
             <Spacing style={{borderBottom:'none'}}>
               <Container>
                 <Heading>Address Details</Heading>
@@ -185,8 +185,8 @@ export default function AddressDetails(props) {
                         }
                         placement="top"
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 17}}><i
-                          class="fa fa-clone" aria-hidden="true"></i></button>
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 17}}>
+                        <img src={require("../../../src/assets/images/copy.svg")} /></button>
                       </Tooltip>
                     </CopyToClipboard>
                     <Popup trigger={<ImQrcode style={{ marginLeft: "0.625rem", marginBottom: "0.125rem", cursor: "pointer", color: "#2149b9", height: "1.063rem", width: "1.063rem"}} />} modal>
