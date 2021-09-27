@@ -952,7 +952,7 @@ input:focus {
 
 @media (max-width: 1800px) {
   .sec-contain {
-    margin-top: 10px !important;
+    margin-top: 0px !important;
     margin-left: 0 !important;
     width: 100% !important;
   }
@@ -6053,7 +6053,6 @@ button {
   position: relative;
   width: 100%;
   border: none;
-  margin-top: -22px;
 }
 
 @media (max-width: 640px) {
