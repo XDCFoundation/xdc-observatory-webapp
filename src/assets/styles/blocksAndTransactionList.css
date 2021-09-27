@@ -20,18 +20,18 @@
   margin-bottom: 15px;
   margin-top: 2.813rem;
 }
-@media(min-width:1024px){
+@media (min-width: 1024px) {
   .table-top-header {
-  height:1.813rem;
-  font-family: Inter;
-  font-size: 1.5rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.043rem;
-  text-align: left;
-  color: #2a2a2a;
+    height: 1.813rem;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.043rem;
+    text-align: left;
+    color: #2a2a2a;
   }
 }
 
@@ -47,8 +47,8 @@
   width: 990px;
 }
 .tableresponsive {
-  width: 990px;
-  padding-top: 8%;
+  width: 75.125rem;
+  padding-top: 5.8rem;
   margin: auto;
 }
 
@@ -86,7 +86,7 @@
 }
 .tableheader {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.938rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -107,7 +107,7 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 115px;
+  margin-left: 1.56rem;
 }
 .tableheader-age {
   font-family: "Fira Sans";
@@ -134,23 +134,23 @@
   color: #252525;
   opacity: 0.8;
 }
-@media(min-width:1024px){
+@media (min-width: 1024px) {
   .table-headers {
-  height:1.063rem;
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.034rem;
-  text-align: center;
-  color: #252525;
-  font-weight: 500;
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: center;
+    color: #252525;
+    font-weight: 500;
   }
 }
 .tableheaders-hash {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -159,7 +159,6 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 115px;
 }
 .tableheader-all {
   font-family: "Fira Sans";
@@ -199,10 +198,23 @@
   opacity: 0.8;
   margin-right: 50px;
 }
+.tableheaders-all {
+  font-family: "Fira Sans";
+  font-size: 0.875rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
 @media (max-width: 640px) {
   .tableheaders-hash {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -215,7 +227,7 @@
   }
   .tableheaders-all {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -229,7 +241,7 @@
 }
 .tableheaders-txn-fee {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -262,7 +274,7 @@
 }
 .tableheaders-age {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -277,7 +289,9 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  height: 60%;
+  height: 2.188rem;
+  width: 3.8rem;
+  font-size: 0.875rem !important;
   padding: 9px 10px 9px 6px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -298,8 +312,8 @@
   opacity: 0.7;
   padding-left: 2px;
 }
-@media(min-width:1024px){
-  .table-data  {
+@media (min-width: 1024px) {
+  .table-data {
     height: 1.063rem;
     font-family: Inter;
     font-size: 0.875rem;
@@ -307,7 +321,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing:0.034rem;
+    letter-spacing: 0.034rem;
     text-align: left;
   }
 }
@@ -393,7 +407,7 @@
   margin: auto;
   width: 100%;
 }
-@media(max-width:640px){
+@media (max-width: 640px) {
   .tablegrid_address {
     padding-top: 12.5%;
     padding-left: 1%;
@@ -502,8 +516,8 @@
     color: #252525;
   }
   .select-amount {
-    width: 63px;
-    height: 28px;
+    width: 3.125rem;
+    height: 2.188rem;
   }
   .Pagination {
     display: flex;
@@ -519,7 +533,6 @@
     max-width: 100% !important;
     flex-basis: 33.333333% !important;
   }
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -529,7 +542,7 @@
     overflow: auto;
   }
   .Pagination_1 {
-    width: 163px;
+    width: 200px;
   }
   .Pagination {
     display: flex;
@@ -550,12 +563,12 @@
     width: auto;
   } */
 
-    .table_1{
-      width: 75.125rem;
-      margin-right: auto;
-      margin-left: auto;
-      padding-top: 90px;
-    }
+  .table_1 {
+    width: 75.125rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 90px;
+  }
 
   .w-1 {
     width: 23%;
@@ -583,32 +596,32 @@
     margin-left: -8.5% !important;
   }
 }
-.bord-none{
+.bord-none {
   border: none;
 }
-@media(min-width:1024px){
-  .pad-left-7{
+@media (min-width: 1024px) {
+  .pad-left-7 {
     padding-left: 7px;
   }
 }
-@media(min-width:1024px){
-  .pad-left-6{
+@media (min-width: 1024px) {
+  .pad-left-6 {
     padding-left: 6px;
   }
 }
 
-@media(min-width:1024px){
-  .pad-left-4{
+@media (min-width: 1024px) {
+  .pad-left-4 {
     padding-left: 4px;
   }
 }
-.pad-bottom-34{
+.pad-bottom-34 {
   padding-bottom: 34px;
 }
-.pad-left-5{
+.pad-left-5 {
   padding-left: 5px;
 }
 
-.fc-2149b9{
+.fc-2149b9 {
   color: #2149b9;
 }

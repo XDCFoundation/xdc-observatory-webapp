@@ -149,7 +149,7 @@ export default function AddressDetailsData() {
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block tb-grid">
+      <Grid className="table-grid-block tb-grid">
         <div
           className="block_details_heading b-h1"
           style={{ display: "flex", flexDirection: "row" }}
@@ -165,7 +165,7 @@ export default function AddressDetailsData() {
                 <h1>Contract Overview</h1>
               </div>
               <div className="data">
-                <TableContainer component={Paper} elevation={0} style={{ padding: '14px' }}>
+                <TableContainer component={Paper} elevation={0} style={{ padding: '0 1.5rem' }}>
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
@@ -181,8 +181,8 @@ export default function AddressDetailsData() {
                         <TableCell className="left-table-contract-data">{data.transactionCout}</TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract">Contract Name</TableCell>
-                        <TableCell className="left-table-contract-data">{data.contractName}<i class="fas fa-badge-check"></i></TableCell>
+                        <TableCell className="left-table-contract-last">Contract Name</TableCell>
+                        <TableCell className="left-table-contract-data-last">{data.contractName}<i class="fas fa-badge-check"></i></TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
@@ -194,7 +194,7 @@ export default function AddressDetailsData() {
                 <h1>Contract-Summary</h1>
               </div>
               <div className="data">
-                <TableContainer component={Paper} elevation={0} style={{ padding: '15px' }}>
+                <TableContainer component={Paper} elevation={0} style={{ padding: '0 1.5rem' }}>
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>

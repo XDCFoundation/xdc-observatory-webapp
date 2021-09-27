@@ -50,6 +50,7 @@ const useStyles = makeStyles({
     boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
     borderBottom: 'none',
     background: '#fff',
+    width:"75.125rem"
   },
 
 });
@@ -134,7 +135,7 @@ export default function HoldersDetails(props) {
     <DeskTopView>
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block">
+      <Grid className="table-grid-block">
         <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
@@ -171,20 +172,19 @@ export default function HoldersDetails(props) {
                         }
                         placement="top"
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
-                          class="fa fa-clone" aria-hidden="true"></i></button>
+                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}> <img src={require("../../../src/assets/images/copy.svg")}/> </button>
                       </Tooltip>
                     </CopyToClipboard>
                     <Popup trigger={<ImQrcode className="qr-code"/>} modal>
                       {(close) => (
                         <div className="popup_qr">
-                          <p>
+                            <p>
                             <div>
-                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
+                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px",paddingTop: '1.5rem' }} className="close" onClick={close}>
                                 &times;
                               </button>
-                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
+                              <div className="header" style={{ fontSize: '0.875rem', paddingTop: '1.563rem', paddingBottom: '60px' }}> {addr} </div>
+                              <QRCode size={320} style={{ height: 400, width: 400 }} value={addr} />
                             </div>
                           </p>
                         </div>
