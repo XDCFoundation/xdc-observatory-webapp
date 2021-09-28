@@ -571,7 +571,7 @@ const Div__ = styled.div`
   padding: 9px;
 
   @media (min-width: 1024px) {
-    height: 63.06rem;
+    height: 64.06rem;
     width: 75.125rem;
     border-radius: 7px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
@@ -689,7 +689,6 @@ const Spacing = styled.div`
   width: 100%;
   height: 4.063rem;
   align-items: center;
-  border-bottom: solid 1px #e3e7eb;
 
   @media (max-width: 767px) {
     display: block;
