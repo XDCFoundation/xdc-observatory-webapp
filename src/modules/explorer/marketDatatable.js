@@ -11,13 +11,13 @@ import arrowDown from "../../assets/images/Down.svg";
 
 const DeskTopView = styled.div`
 
-  @media (min-width: 0px) and (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
 
     display: none;
 
   }
 
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
 
     display: visible;
 
@@ -27,13 +27,13 @@ const DeskTopView = styled.div`
 
 const MobileView = styled.div`
 
-  @media (min-width: 0px) and (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
 
     display: visible;
 
   }
 
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
 
     display: none;
 
@@ -240,7 +240,7 @@ class MarketDatatable extends Component {
           <div className="second_mid">
 
             <div className="second_cont">
-              <div className="w-50-per"><p>Market Cap</p></div>
+              <div className="w-54-per"><p>Market Cap</p></div>
               <div className="mid_cont ">
                 <p>
                   {currencySymbol}
@@ -280,7 +280,7 @@ class MarketDatatable extends Component {
 
 
             <div className="second_cont">
-              <div className="w-50-per">  <p>Fully Diluted Market Cap</p></div>
+              <div className="w-54-per">  <p>Fully Diluted Market Cap</p></div>
               <div className="mid_cont ">  <p>
                 {currencySymbol}
                 {FullyDilutedMarketCapValue ? FullyDilutedMarketCapValue : 0}
@@ -323,7 +323,7 @@ class MarketDatatable extends Component {
             </div>
 
             <div className="second_cont">
-              <div className="w-50-per"> <p>Volume (24hr)</p></div>
+              <div className="w-54-per"> <p>Volume (24hr)</p></div>
               <div className="mid_cont "> <p>
                 {currencySymbol}
                 {volumeValue ? volumeValue : 0}
@@ -362,13 +362,13 @@ class MarketDatatable extends Component {
 
 
             <div className="second_cont">
-              <div className="w-50-per">   <p>Circulating Supply</p></div>
+              <div className="w-54-per">   <p>Circulating Supply</p></div>
               <div className="mid_cont">  <p style={{ marginRight: "42px" }}>{circulatingSupplyValue ? circulatingSupplyValue : 0} XDC</p></div>
 
             </div>
 
             <div className="second_cont">
-              <div className="w-50-per"> <p>Total Supply</p></div>
+              <div className="w-54-per"> <p>Total Supply</p></div>
               <div className="mid_cont">  <p style={{ marginRight: "25px" }}>{!totalSupplyValue ? 0 : totalSupplyValue}</p></div>
             </div>
           </div>
