@@ -118,6 +118,9 @@ const columns = [
 function createData(S, src, Token, Type, Contract, Holder, Status) {
   return { S, src, Token, Type, Contract, Holder, Status };
 }
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
 
 const useStyles = makeStyles({
   rootui: {
@@ -134,10 +137,10 @@ const useStyles = makeStyles({
   },
   "@media (max-width: 1024px)": {
     container: {
-        height: 600,
+      height: 600,
     },
-},
-  
+  },
+
 
   divider: {
     borderTop: "0rem solid #bbb",
@@ -352,9 +355,9 @@ export default function StickyHeadTable() {
       <Paper
         className={"responsive-table-width-token-list"}
         style={{
-            borderRadius: "0.875rem",
-            // marginLeft: "18%",
-            // marginRight: "18%",
+          borderRadius: "0.875rem",
+          // marginLeft: "18%",
+          // marginRight: "18%",
         }} elevation={0}
       >
         <TableContainer
@@ -388,12 +391,12 @@ export default function StickyHeadTable() {
                         </TableHead> */}
 
             <TableHead
-            style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
+              style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span>#</span>
                 </TableCell>
-                <TableCell style={{ border: "none"}} align="left">
+                <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Token</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
@@ -427,7 +430,7 @@ export default function StickyHeadTable() {
                       >
                         {index + 1}
                       </TableCell>
-              
+
                       {/* {row.src ?
                                                 <TableCell style={{ width: '1px' }} id="td"> <img
                                                     style={{ width: 25, height: 25, borderRadius: '15px' }}
@@ -444,13 +447,13 @@ export default function StickyHeadTable() {
                                             } */}
                       <TableCell
                         id="td"
-                        //    style={{ width: "110px" }}
+                      //    style={{ width: "110px" }}
                       >
                         {row.tokenName}
                       </TableCell>
                       <TableCell
                         id="td"
-                        //   style={{ width: "130px" }}
+                      //   style={{ width: "130px" }}
                       >
                         {row.type}
                       </TableCell>
@@ -465,11 +468,11 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell
                         id="td"
-                          style={{ paddingleft: "15" }}
+                        style={{ paddingleft: "15" }}
                       >
                         {row.tokenHolders}
                       </TableCell>
-                      <TableCell id="td">{row.status}</TableCell>
+                      <TableCell id="td">{capitalize(row.status)}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -569,12 +572,12 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-                <img
-                  className="navigation-arrow"
-                  src={require("../../assets/images/back.svg")}
-                />
-  
-          
+            <img
+              className="navigation-arrow"
+              src={require("../../assets/images/back.svg")}
+            />
+
+
             {/* <p className="path-contract">{"<"}</p> */}
           </div>
           <div className="pagebox-contract">
@@ -593,10 +596,10 @@ export default function StickyHeadTable() {
                 : "nextbox-contract"
             }
           >
-          <img
-                  className="navigation-arrow"
-                  src={require("../../assets/images/next.svg")}
-                />
+            <img
+              className="navigation-arrow"
+              src={require("../../assets/images/next.svg")}
+            />
             {/* <p
               className="path-2-contract"
               onClick={() => handleChangePage("next")}

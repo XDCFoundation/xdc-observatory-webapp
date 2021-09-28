@@ -89,11 +89,21 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  "@media (min-width: 640px) ": {
+    list: {
+      width: "21.25rem",
+      backgroundColor: "#102e84",
+      height: "100%",
+    },
+  },
 
-  list: {
-    width: 250,
-    backgroundColor: "#102e84",
-    height: "100%",
+  "@media (min-width: 0px) and (max-width: 640px)": {
+    list: {
+      width: 180,
+      backgroundColor: "#102e84",
+      height: "100%",
+
+    },
   },
   fullList: {
     width: "auto",
@@ -181,7 +191,7 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
         <p
           style={{
             color: "#4666c4",
@@ -219,7 +229,7 @@ export default function Navbar() {
           >
             {" "}
             Contracts{" "}
-            <span style={{ marginLeft: "50%" }}>
+            <span className="side-arrow-contract-tab">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </p>
@@ -233,7 +243,7 @@ export default function Navbar() {
             style={{ cursor: "pointer" }}
           >
             Tools{" "}
-            <span style={{ marginLeft: "65%" }}>
+            <span className="right-arrow-side-bar">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </p>
@@ -302,7 +312,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "120px" }}
+                style={{ color: "white", marginLeft: "12.630rem" }}
                 onClick={() => setOpencontracts(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -380,7 +390,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "120px" }}
+                style={{ color: "white", marginLeft: "14rem" }}
                 onClick={() => setOpen(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}

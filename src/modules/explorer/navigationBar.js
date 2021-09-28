@@ -316,7 +316,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "12.625rem" }}
+                style={{ color: "white", marginLeft: "12.630rem" }}
                 onClick={() => setOpencontracts(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -394,7 +394,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "13.625rem" }}
+                style={{ color: "white", marginLeft: "14rem" }}
                 onClick={() => setOpen(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
