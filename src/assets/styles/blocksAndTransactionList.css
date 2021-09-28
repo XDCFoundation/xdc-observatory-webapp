@@ -151,7 +151,7 @@
 .tableheaders-hash {
   font-family: "Fira Sans";
   font-size: 0.875rem;
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -201,7 +201,7 @@
 .tableheaders-all {
   font-family: "Fira Sans";
   font-size: 0.875rem;
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -215,7 +215,7 @@
   .tableheaders-hash {
     font-family: "Fira Sans";
     font-size: 0.875rem;
-    font-weight: bold;
+    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -242,7 +242,7 @@
 .tableheaders-txn-fee {
   font-family: "Fira Sans";
   font-size: 0.875rem;
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -275,7 +275,7 @@
 .tableheaders-age {
   font-family: "Fira Sans";
   font-size: 0.875rem;
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -303,7 +303,7 @@
   width: 10%;
   font-family: Inter;
   font-size: 0.875rem;
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
