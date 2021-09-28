@@ -5800,6 +5800,14 @@ button {
   font-weight: 1000 !important;
   letter-spacing: 0.65px;
 }
+.contract_details_heading_left {
+  font-size: 1.5rem;
+  font-family: Inter;
+  font-weight: 1000 !important;
+  letter-spacing: 0.65px;
+  display: flex !important;
+  margin-bottom: 0;
+}
 
 @media (max-width: 1023px) {
   .block_details_heading_left {
