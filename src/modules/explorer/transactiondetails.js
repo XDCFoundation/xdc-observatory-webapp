@@ -796,7 +796,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   }}
                   id="td"
                 >
-                  Private Note
+                  Private Note dhbh
                 </TableCell>
                 <TableCell
                   className="second-row-table"

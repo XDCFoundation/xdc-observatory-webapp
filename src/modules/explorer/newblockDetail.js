@@ -11,15 +11,15 @@ import { BlockService } from "../../services";
 import Tooltip from "@material-ui/core/Tooltip";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import moment from "moment";
-import FooterComponent from '../common/footerComponent';
+import FooterComponent from "../common/footerComponent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "970px",
+    // maxWidth: "970px",
     marginTop: "100px",
-    width: "100%",
+    width: "75.125rem",
     "@media (min-width: 300px) and (max-width: 567px)": {
       marginTop: "130px",
       maxWidth: "300px",
@@ -108,7 +108,7 @@ export default function BlockDetails() {
       <div className={classes.mainContainer}>
         <div className={classes.root}>
           <Grid item xs={12}>
-            <Spacing style={{borderBottom:'none'}}>
+            <Spacing style={{ borderBottom: "none" }}>
               <Container>
                 <Heading>Block Details</Heading>
               </Container>
@@ -119,21 +119,18 @@ export default function BlockDetails() {
             </Spacing>
 
             <Div>
-            <HashDiv>
-                <Container>
+              <HashDiv>
+                <Container className="pad-left-6">
                   <Tooltip align="right" title={hashid}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Hash ID</Hash>
                 </Container>
-                <MiddleContainerHash >
-                <Content>
-                      
-                  {height.hash}
-                  </Content>
-                  </MiddleContainerHash>
+                <MiddleContainerHash>
+                  <Content className="pad-left-5">{height.hash}</Content>
+                </MiddleContainerHash>
                 <SecondContainer>
                   <CopyToClipboard
                     text={height.hash}
@@ -154,37 +151,39 @@ export default function BlockDetails() {
                           fontSize: 14,
                         }}
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
+                        <ImgView
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
-                  </SecondContainer>
-                  </HashDiv>
+                </SecondContainer>
+              </HashDiv>
             </Div>
             <Div__>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={blockheight}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
 
                   <Hash>Block Height</Hash>
                 </Container>
                 <MiddleContainer>
-                <Content>
+                  <Content>
                     <ArrowBackIosIcon
                       style={{
                         marginRight: "10px",
-                        color: "#2149b9",
-                        backgroundColor: "#9cd0f3",
+                        color: "white",
+                        backgroundColor: "#2149b9",
                         width: "20px",
                         height: "20px",
                         padding: "3px",
                         paddingLeft: "6px",
                         borderRadius: "5px",
-                        border: "1px #9cd0f3",
+                        border: "1px #2149b9",
                         lineHeight: "1rem",
                       }}
                       onClick={decrement}
@@ -193,56 +192,56 @@ export default function BlockDetails() {
                     <ArrowForwardIosIcon
                       style={{
                         marginLeft: "10px",
-                        color: "#2149b9",
-                        backgroundColor: "#9cd0f3",
+                        color: "white",
+                        backgroundColor: "#2149b9",
                         width: "20px",
                         height: "20px",
                         padding: "3px",
                         paddingLeft: "6px",
                         borderRadius: "5px",
-                        border: "1px #9cd0f3",
+                        border: "1px #2149b9",
                         lineHeight: "1rem",
                       }}
                       onClick={increment}
                     />
                   </Content>
-                  </MiddleContainer>
+                </MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={hashid}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Transaction</Hash>
                 </Container>
                 <MiddleContainer>
-                 {height.transactions && height.transactions.length ? height.transactions.length : 0}
+                  {height.transactions && height.transactions.length
+                    ? height.transactions.length
+                    : 0}
                 </MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={timestamp}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Time Stamp</Hash>
                 </Container>
                 <MiddleContainer>
-                 
-                    {moment(height.timestamp * 1000).format(
-                      "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                  
+                  {moment(height.timestamp * 1000).format(
+                    "MMMM Do YYYY, h:mm:ss a"
+                  )}
                 </MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={parenthash}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Parent Hash</Hash>
@@ -250,54 +249,49 @@ export default function BlockDetails() {
                 <MiddleContainer>
                   <Content>
                     {" "}
-                    <a
-                      
-                      onClick={decrement}
-                      style={{ cursor: "pointer" }}
-                    >
+                    <a onClick={decrement} style={{ cursor: "pointer", color: "#2149b9" }}>
                       {" "}
                       {height.parentHash}
                     </a>
-                
-               
-                
-                  <CopyToClipboard
-                    text={height.hash}
-                    onCopy={() => setCopiedText(height.hash)}
-                  >
-                    <Tooltip
-                      title={
-                        copiedText === height.hash
-                          ? "Copied"
-                          : "Copy To Clipboard"
-                      }
-                      placement="top"
+                    <CopyToClipboard
+                      text={height.hash}
+                      onCopy={() => setCopiedText(height.hash)}
                     >
-                      <button
-                        style={{
-                          color: "blue",
-                          backgroundColor: "white",
-                          fontSize: 14,
-                        }}
+                      <Tooltip
+                        title={
+                          copiedText === height.hash
+                            ? "Copied"
+                            : "Copy To Clipboard"
+                        }
+                        placement="top"
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
-                      </button>
-                    </Tooltip>
-                  </CopyToClipboard>
+                        <button
+                          style={{
+                            color: "blue",
+                            backgroundColor: "white",
+                            fontSize: 14,
+                          }}
+                        >
+                          <ImgView
+                            src={require("../../../src/assets/images/copy.svg")}
+                          />
+                        </button>
+                      </Tooltip>
+                    </CopyToClipboard>
                   </Content>
                 </MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={sha3uncles}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Sha3Uncles</Hash>
                 </Container>
                 <MiddleContainer>
-                  <Content>
+                  <Content className="fc-2149b9">
                     {" "}
                     <a
                       className="parent_hash"
@@ -307,127 +301,118 @@ export default function BlockDetails() {
                       {" "}
                       {height.sha3Uncles}
                     </a>
-                  
-                
-                
-                  <CopyToClipboard
-                    text={height.hash}
-                    onCopy={() => setCopiedText(height.hash)}
-                  >
-                    <Tooltip
-                      title={
-                        copiedText === height.hash
-                          ? "Copied"
-                          : "Copy To Clipboard"
-                      }
-                      placement="top"
+                    <CopyToClipboard
+                      text={height.hash}
+                      onCopy={() => setCopiedText(height.hash)}
                     >
-                      <button
-                        style={{
-                          color: "blue",
-                          backgroundColor: "white",
-                          fontSize: 14,
-                        }}
+                      <Tooltip
+                        title={
+                          copiedText === height.hash
+                            ? "Copied"
+                            : "Copy To Clipboard"
+                        }
+                        placement="top"
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
-                      </button>
-                    </Tooltip>
-                  </CopyToClipboard>
+                        <button
+                          style={{
+                            color: "blue",
+                            backgroundColor: "white",
+                            fontSize: 14,
+                          }}
+                        >
+                          <ImgView
+                            src={require("../../../src/assets/images/copy.svg")}
+                          />
+                        </button>
+                      </Tooltip>
+                    </CopyToClipboard>
                   </Content>
                 </MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={diffi}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Difficulty</Hash>
                 </Container>
-                <MiddleContainer>
-                   {height.difficulty}
-                </MiddleContainer>
+                <MiddleContainer>{height.difficulty}</MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={tdiffi}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Total Difficulty</Hash>
                 </Container>
-                <MiddleContainer>
-                  {height.totalDifficulty}
-                </MiddleContainer>
+                <MiddleContainer>{height.totalDifficulty}</MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={gasU}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Gas Used</Hash>
                 </Container>
-                <MiddleContainer>
-                  {height.gasUsed}
-                </MiddleContainer>
+                <MiddleContainer>{height.gasUsed}</MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={gasL}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Gas Limit</Hash>
                 </Container>
-                <MiddleContainer>
-                  {height.gasLimit}
-                </MiddleContainer>
+                <MiddleContainer>{height.gasLimit}</MiddleContainer>
               </Spacing>
-              <Spacing >
+              <Spacing>
                 <Container>
                   <Tooltip align="right" title={nonc}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Nonce</Hash>
                 </Container>
-                <MiddleContainer>
-                   {height.nonce}
-                </MiddleContainer>
+                <MiddleContainer>{height.nonce}</MiddleContainer>
               </Spacing>
-              <Spacing style={{borderBottom:'none'}}>
-                <Container>
+              <Spacing style={{ borderBottom: 'none', marginTop: '30px' }}>
+                <Container className="pad-bottom-34">
                   <Tooltip align="right" title={extrad}>
                     <ImageView
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={require("../../../src/assets/images/question-mark.svg")}
                     />
                   </Tooltip>
                   <Hash>Extra Data</Hash>
                 </Container>
-                <MiddleContainer style={{height: '60px',width:'100%'}}>
-                  
-                    <textarea style={{width: "100%",
-    height: "100%",
-    borderRadius: "4px",
-    outline: "transparent",
-    border: "solid 1px #9fa9ba",
-    backgroundColor: "#dee0e3",
-    color: "#3a3a3a",
-    marginLeft: "0px"}}
-                      className="text-area"
-                      readOnly
-                      value={height.extraData}
-                    />
-                 
+                <MiddleContainer style={{ height: '60px', width: '100%' }}>
+
+                  <textarea style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "4px",
+                    outline: "transparent",
+                    border: "solid 1px #9fa9ba",
+                    backgroundColor: "#dee0e3",
+                    color: "#3a3a3a",
+                    marginLeft: "0px"
+                  }}
+                    className="text-area"
+                    readOnly
+                    value={height.extraData}
+                  />
+
                 </MiddleContainer>
               </Spacing>
-              </Div__>
+            </Div__>
           </Grid>
         </div>
       </div>
@@ -456,6 +441,18 @@ const Content = styled.span`
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 10px;
     word-break: break-all;
+  }
+  @media (min-width: 1024px) {
+    height: 1.125rem;
+    font-family: Inter;
+    font-size: 0.938rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.036rem;
+    text-align: left;
+    color: #3a3a3a;
   }
 `;
 const TextArea = styled.textarea`
@@ -491,11 +488,12 @@ const Blocks = styled.span`
 `;
 const Div__ = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
-  padding: 9px;
+  /* padding: 9px; */
+  padding: 19px;
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
@@ -509,7 +507,18 @@ const MiddleContainer = styled.div`
     font-size: 12px;
     margin-left: unset;
     margin-top: 8px;
-    
+  }
+  @media (min-width: 1024px) {
+    height: 1.125rem;
+    font-family: Inter;
+    font-size: 0.938rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.036rem;
+    text-align: left;
+    color: #3a3a3a;
   }
 `;
 const MiddleContainerHash = styled.div`
@@ -524,8 +533,7 @@ const MiddleContainerHash = styled.div`
     font-size: 12px;
     margin-left: unset;
     margin-top: 8px;
-    padding-right:84px;
-    
+    padding-right: 84px;
   }
 `;
 const Hash = styled.span`
@@ -541,6 +549,18 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 13px;
   }
+  @media (min-width: 1024px) {
+    height: 1.125rem;
+    font-family: Inter;
+    font-size: 0.938rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.036rem;
+    text-align: left;
+    color: #252525;
+  }
 `;
 const Spacing = styled.div`
   display: flex;
@@ -548,8 +568,10 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 11px 6px;
+  /* padding: 11px 6px; */
+  padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
+  height:4.063rem;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -584,13 +606,12 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
- 
 `;
 
 const Heading = styled.span`
@@ -601,9 +622,25 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 18px;
+
+  @media (min-width: 1024px) {
+    height: 1.813rem;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.058rem;
+    text-align: left;
+    color: #2a2a2a;
+  }
 `;
 
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+`;
+const ImgView = styled.img`
+  width: 20px;
 `;

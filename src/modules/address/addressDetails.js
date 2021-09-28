@@ -18,76 +18,71 @@ import { Grid, TableContainer } from "@material-ui/core";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import ReactHtmlParser from "react-html-parser";
-import Tooltip from '@material-ui/core/Tooltip';
-var QRCode = require('qrcode.react');
+import Tooltip from "@material-ui/core/Tooltip";
+var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
-
   container: {
-
-    borderRadius: '14px',
-    boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
-    borderBottom: 'none',
-    background: '#fff',
+    borderRadius: "0.875rem",
+    boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#fff",
   },
   root: {
     display: "flex",
     justifyContent: "center",
-    maxWidth: "3000px",
-    marginTop: "100px",
-    marginBottom:"15px",
+    maxWidth: "187.5rem",
+    // marginTop: "6.25rem",
+    marginBottom: "0.938rem",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 567px)": {
-      
-         marginTop: "130px",
-        maxWidth: "500px",
-        padding:"0 8px 0 8px"
-           },
-           "@media (min-width: 567px) and (max-width: 767px)": {
-        marginTop: "140px",
-             maxWidth: "740px",
-           },
-           "@media (min-width: 767px) and (max-width: 1040px)": {
-        
-             maxWidth: "1020px",
-           },
+      marginTop: "8.125rem",
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
+    },
+    "@media (min-width: 567px) and (max-width: 767px)": {
+      marginTop: "8.75rem",
+      maxWidth: "46.25rem",
+    },
+    "@media (min-width: 767px) and (max-width: 1040px)": {
+      maxWidth: "63.75rem",
+    },
   },
   rowDiv: {
     width: "100%",
     alignItems: "center",
-    height: "53px",
+    height: "3.313rem",
     background: "#FFFFFF 0% 0% no-repeat padding-box",
-    borderRadius: "7px",
+    borderRadius: "0.438rem",
 
     justifyContent: "space-between",
   },
   line: {
     width: "100%",
-    marginTop: "0px",
-    marginBottom: "0px",
+    marginTop: "0rem",
+    marginBottom: "0rem",
   },
   mainContainer: {
     display: "flex",
     justifyContent: "center",
     width: "100%",
   },
-
 });
 export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
-  const [txtAddress, setTxtAddress] = useState('');
+  const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState(0);
-  const [convertCurrency, setConvertCurrency] = useState('');
+  const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
 
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
-  let nowCurrency = window.localStorage.getItem('currency')
+  let nowCurrency = window.localStorage.getItem("currency");
 
   let { addr } = useParams();
-  let addressValue = 0
+  let addressValue = 0;
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -95,41 +90,45 @@ export default function AddressDetails(props) {
   const classes = useStyles();
 
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 3,
-
-    )}`;
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
   function _handleChange(event) {
-    alert('dd')
+    alert("dd");
   }
   const getAddressDetails = async () => {
     try {
-
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetail(addr)
       );
 
       if (responseData) {
         setBalance((responseData.balance / 1000000000000000000).toFixed(2));
-        let activeCurrency = window.localStorage.getItem('currency')
-        let convertedCurrency = ''
-        if (activeCurrency == 'USD') {
-          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
-        } else if (activeCurrency == 'EUR') {
-          convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
-          setCoinValue((responseData.balanceInEUR / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
-        } else if (activeCurrency == 'INR') {
-          convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
-          setCoinValue((responseData.balanceInINR / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
+        let activeCurrency = window.localStorage.getItem("currency");
+        let convertedCurrency = "";
+        if (activeCurrency == "USD") {
+          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
+          setCoinValue(
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          );
+          setConvertCurrency(convertedCurrency);
+        } else if (activeCurrency == "EUR") {
+          convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
+          setCoinValue(
+            (responseData.balanceInEUR / 1000000000000000000).toFixed(2)
+          );
+          setConvertCurrency(convertedCurrency);
+        } else if (activeCurrency == "INR") {
+          convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
+          setCoinValue(
+            (responseData.balanceInINR / 1000000000000000000).toFixed(2)
+          );
+          setConvertCurrency(convertedCurrency);
         } else {
-          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
-          setConvertCurrency(convertedCurrency)
+          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
+          setCoinValue(
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+          );
+          setConvertCurrency(convertedCurrency);
         }
         setLoading(false);
       } else {
@@ -139,92 +138,135 @@ export default function AddressDetails(props) {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const options = {
     htmlparser2: {
-      lowerCaseTags: false
-    }
+      lowerCaseTags: false,
+    },
   };
   useEffect(() => {
     getAddressDetails();
   }, []);
   return (
-
-    <div style={{ backgroundColor: '#fff' }}>
+    <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block tb-grid tb-grid-block">
-      <div className={classes.mainContainer}>
-        <div className={classes.root}>
-          <Grid item xs={12}>
-            <Spacing style={{borderBottom:'none'}}>
-              <Container>
-                <Heading>Address Details</Heading>
-              </Container>
-            </Spacing>
+      <Grid className="table-grid-block ">
+        <div className={classes.mainContainer}>
+          <div className={classes.root}>
+            <Grid style={{ width: "75.125rem" }}>
+              <Spacing style={{ borderBottom: "none" }}>
+                <Container>
+                  <Heading>Address Details</Heading>
+                </Container>
+              </Spacing>
 
-            <Div>
-            <Spacing >
-            <HashDiv>
-                <Container>
-                  <Hash>Hash ID</Hash>
-                </Container>
-                <MiddleContainerHash >
-                <Content>
-                      
-                {addr}
-                  </Content>
-                  </MiddleContainerHash>
-                <SecondContainer>
-                <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
-                      <Tooltip
-                        title={
-                          copiedText === addr
-                            ? "Copied"
-                            : "Copy To Clipboard"
-                        }
-                        placement="top"
+              <Div>
+                <Spacing>
+                  <HashDiv>
+                    <Container>
+                      <Hash>Hash ID</Hash>
+                    </Container>
+                    <MiddleContainerHash>
+                      <Content>{addr}</Content>
+                    </MiddleContainerHash>
+                    <SecondContainer>
+                      <CopyToClipboard
+                        text={addr}
+                        onCopy={() => setCopiedText(addr)}
                       >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14}}><i
-                          class="fa fa-clone" aria-hidden="true"></i></button>
-                      </Tooltip>
-                    </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer", color: "#2149b9" }} />} modal>
-                      {(close) => (
-                        <div className="popup_qr">
-                          <p>
-                            <div>
-                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
-                                &times;
-                              </button>
-                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
-                            </div>
-                          </p>
-                        </div>
-                      )}
-                    </Popup>
-                  </SecondContainer>
+                        <Tooltip
+                          title={
+                            copiedText === addr ? "Copied" : "Copy To Clipboard"
+                          }
+                          placement="top"
+                        >
+                          <button
+                            style={{
+                              color: "blue",
+                              backgroundColor: "white",
+                              fontSize: 17,
+                            }}
+                          >
+                            <img
+                              src={require("../../../src/assets/images/copy.svg")}
+                            />
+                          </button>
+                        </Tooltip>
+                      </CopyToClipboard>
+                      <Popup
+                        trigger={
+                          <ImQrcode
+                            style={{
+                              marginLeft: "0.625rem",
+                              marginBottom: "0.125rem",
+                              cursor: "pointer",
+                              color: "#2149b9",
+                              height: "1.063rem",
+                              width: "1.063rem",
+                            }}
+                          />
+                        }
+                        modal
+                      >
+                        {(close) => (
+                          <div className="popup_qr">
+                            <p>
+                              <div>
+                                <button
+                                  style={{
+                                    outline: "none",
+                                    width: "0rem",
+                                    height: "0rem",
+                                    marginLeft: "0rem",
+                                  }}
+                                  className="close"
+                                  onClick={close}
+                                >
+                                  &times;
+                                </button>
+                                <div
+                                  className="header"
+                                  style={{
+                                    fontSize: "0.875rem",
+                                    paddingTop: "0.313rem",
+                                    paddingBottom: "3.75rem",
+                                  }}
+                                >
+                                  {" "}
+                                  {addr}{" "}
+                                </div>
+                                <QRCode
+                                  size={320}
+                                  style={{ height: 400, width: 400 }}
+                                  value={addr}
+                                />
+                              </div>
+                            </p>
+                          </div>
+                        )}
+                      </Popup>
+                    </SecondContainer>
                   </HashDiv>
-                  </Spacing>
-                  <Spacing style={{borderBottom:'none'}}>
-            <HashDiv>
-                <Container>
-                  <Hash>Balance</Hash>
-                </Container>
-                <MiddleContainerHash >
-                <Content>
-                      
-                {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
-                  </Content>
-                  </MiddleContainerHash>
+                </Spacing>
+                <Spacing style={{ borderBottom: "none" }}>
+                  <HashDiv>
+                    <Container>
+                      <Hash>Balance</Hash>
+                    </Container>
+                    <MiddleContainerHash>
+                      <Content>
+                        {balance} XDC({ReactHtmlParser(convertCurrency)}{" "}
+                        {coinValue})
+                      </Content>
+                    </MiddleContainerHash>
                   </HashDiv>
-                  </Spacing>
-            </Div>
-          </Grid>
+                </Spacing>
+              </Div>
+            </Grid>
+          </div>
         </div>
-      </div>
-      
+
         {/* <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
@@ -302,7 +344,7 @@ export default function AddressDetails(props) {
             </Table>
           </TableContainer>
         </Paper> */}
-        
+
         <div className="container_sec sec-contain">
           <div className="block_sec sec-block">
             <div className="bloc-tabs_sec">
@@ -311,7 +353,8 @@ export default function AddressDetails(props) {
                   toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
                 }
                 onClick={() => toggleTab(1)}
-                id="transaction-btn">
+                id="transaction-btn"
+              >
                 Transactions
               </button>
             </div>
@@ -325,13 +368,7 @@ export default function AddressDetails(props) {
                   : "content_sec"
               }
             >
-
-              <AddressTableComponent
-                trans={transactions}
-                coinadd={addr}
-              />
-
-
+              <AddressTableComponent trans={transactions} coinadd={addr} />
             </div>
 
             <div
@@ -341,10 +378,7 @@ export default function AddressDetails(props) {
                   : "content_sec"
               }
             >
-
-              <AddressTableComponent
-                trans={transactions}
-              />
+              <AddressTableComponent trans={transactions} />
             </div>
           </div>
         </div>
@@ -354,98 +388,94 @@ export default function AddressDetails(props) {
   );
 }
 
-
-
 const Input = styled.input`
-  border-radius: 5px;
-  border: solid 1px #e3e7eb;
+  border-radius: 0.313rem;
+  border: solid 0.063rem #e3e7eb;
   background-color: #fff;
   font-family: Inter;
-  font-size: 14px;
-  letter-spacing: 0.54px;
+  font-size: 0.875rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.span`
   font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
+  font-size: 0.938rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 10px;
+    font-size: 0.625rem;
     word-break: break-all;
   }
 `;
 const TextArea = styled.textarea`
   opacity: 0.33;
-  border-radius: 4px;
-  border: solid 1px #9fa9ba;
+  border-radius: 0.25rem;
+  border: solid 0.063rem #9fa9ba;
   background-color: #dee0e3;
   width: 100%;
   font-family: Inter;
-  font-size: 14px;
-  height: 85px;
+  font-size: 0.875rem;
+  height: 5.313rem;
   float: left;
 
   overflow-y: auto;
 `;
 const Digits = styled.span`
   font-family: Inter;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #4878ff;
 `;
 const Blocks = styled.span`
   font-family: Inter;
-  font-size: 14px;
+  font-size: 0.875rem;
 
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: left;
 `;
 const Div__ = styled.div`
   height: auto;
-  border-radius: 7px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  border-radius: 0.438rem;
+  box-shadow: 0 0.125rem 0.938rem 0 rgba(0, 0, 0, 0.1);
+  margin-top: 1.25rem;
   background-color: #fff;
-  padding: 9px;
+  padding: 0.563rem;
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   width: 100%;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-left: unset;
-    margin-top: 8px;
-    
+    margin-top: 0.5rem;
   }
 `;
 const MiddleContainerHash = styled.div`
   font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   width: 100%;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-left: unset;
-    margin-top: 8px;
-    padding-right:37px;
-    
+    margin-top: 0.5rem;
+    padding-right: 2.313rem;
   }
 `;
 const Hash = styled.span`
@@ -453,13 +483,13 @@ const Hash = styled.span`
   white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.5px;
+  font-size: 0.938rem;
+  letter-spacing: 0.031rem;
   color: #2a2a2a;
   @media (min-width: 300px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 0.813rem;
   }
 `;
 const Spacing = styled.div`
@@ -468,8 +498,8 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 3px 4px;
-  border-bottom: solid 1px #e3e7eb;
+  padding: 0.188rem 0.25rem;
+  border-bottom: solid 0.063rem #e3e7eb;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -482,7 +512,7 @@ const HashDiv = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 6px 6px;
+  padding: 0.938rem 0.938rem;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -493,7 +523,7 @@ const Container = styled.div`
   word-break: break-all;
   width: 100%;
   align-items: center;
-  max-width: 84px;
+  max-width: 5.25rem;
 `;
 const SecondContainer = styled.div`
   display: flex;
@@ -504,13 +534,13 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: auto;
-  border-radius: 7px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.125rem 0.938rem 0 rgba(0, 0, 0, 0.1);
+  border: solid 0.063rem #e3e7eb;
   background-color: #fff;
-  margin-bottom: 15px;
-  padding: 5px;
-  margin-top: 10px;
+  margin-bottom: 0.938rem;
+  padding: 0.313rem;
+  margin-top: 0.625rem;
 `;
 
 const Heading = styled.span`
@@ -520,10 +550,11 @@ const Heading = styled.span`
   color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
 `;
 
 const ImageView = styled.img`
-  width: 15px;
-  margin-right: 15px;
+  width: 0.938rem;
+  margin-right: 0.938rem;
 `;

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 const DeskTopView = styled.div`
@@ -101,7 +99,7 @@ export default function TokenMarketDataTable(props) {
   if (props.marketCap) {
     symbol = props.marketCap.symbol;
     if (activeCurrency == "USD") {
-      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> ';
+      CurrencySymbol = '$';
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -120,7 +118,7 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else if (activeCurrency == "EUR") {
-      CurrencySymbol = "<i class='fa fa-eur' aria-hidden='true'></i> ";
+      CurrencySymbol = "€";
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -139,7 +137,7 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else if (activeCurrency == "INR") {
-      CurrencySymbol = "<i class='fa fa-inr' aria-hidden='true'></i> ";
+      CurrencySymbol = "₹";
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -158,7 +156,7 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else {
-      CurrencySymbol = '<i class="fa fa-usd" aria-hidden="true"></i> ';
+      CurrencySymbol = '$';
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
@@ -183,7 +181,7 @@ export default function TokenMarketDataTable(props) {
       <DeskTopView>
         <div className="main_mid">
           <div className="main_child">
-            <div className="cont1">
+            <div className="cont-token-data">
               <p>Market Cap </p>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
@@ -210,7 +208,7 @@ export default function TokenMarketDataTable(props) {
                     </div>
                 </div> */}
             </div>
-            <div className="cont1">
+            <div className="cont-token-data">
               <p>Fully Diluted Market Cap</p>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
@@ -237,7 +235,7 @@ export default function TokenMarketDataTable(props) {
                     </div>
                 </div>*/}
             </div>
-            <div className="cont1">
+            <div className="cont-token-data">
               <p>Volume (24hr)</p>
               <p>
                 {ReactHtmlParser(CurrencySymbol)}
@@ -266,7 +264,7 @@ export default function TokenMarketDataTable(props) {
             </div>
           </div>
           <div className="main_sec">
-            <div className="cont1">
+            <div className="cont-token-data">
               <div className="cont1-child">
                 <p>Circulating Supply</p>
                 <p>
@@ -275,7 +273,7 @@ export default function TokenMarketDataTable(props) {
               </div>
             </div>
 
-            <div className="cont1 cont1_align">
+            <div className="cont-token-data cont1_align">
               <div className="cont1-child">
                 <p>Total Supply</p>
                 <p>{totalSupplyVal}</p>

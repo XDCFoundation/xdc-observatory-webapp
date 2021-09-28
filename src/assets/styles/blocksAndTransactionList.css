@@ -9,7 +9,7 @@
 
 .tabletop-header {
   font-family: Inter;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -18,6 +18,21 @@
   text-align: left;
   color: #2a2a2a;
   margin-bottom: 15px;
+  margin-top: 2.813rem;
+}
+@media (min-width: 1024px) {
+  .table-top-header {
+    height: 1.813rem;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.043rem;
+    text-align: left;
+    color: #2a2a2a;
+  }
 }
 
 .tablegrid {
@@ -32,8 +47,8 @@
   width: 990px;
 }
 .tableresponsive {
-  width: 990px;
-  padding-top: 8%;
+  width: 75.125rem;
+  padding-top: 5.8rem;
   margin: auto;
 }
 
@@ -71,7 +86,7 @@
 }
 .tableheader {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.938rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -92,7 +107,7 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 115px;
+  margin-left: 1.56rem;
 }
 .tableheader-age {
   font-family: "Fira Sans";
@@ -109,20 +124,34 @@
 }
 .tableheaders {
   font-family: "Fira Sans";
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.034rem;
   text-align: center;
   color: #252525;
   opacity: 0.8;
 }
+@media (min-width: 1024px) {
+  .table-headers {
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: center;
+    color: #252525;
+    font-weight: 500;
+  }
+}
 .tableheaders-hash {
   font-family: "Fira Sans";
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -130,7 +159,6 @@
   text-align: center;
   color: #252525;
   opacity: 0.8;
-  margin-right: 115px;
 }
 .tableheader-all {
   font-family: "Fira Sans";
@@ -170,11 +198,24 @@
   opacity: 0.8;
   margin-right: 50px;
 }
+.tableheaders-all {
+  font-family: "Fira Sans";
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  margin-right: 50px;
+}
 @media (max-width: 640px) {
   .tableheaders-hash {
     font-family: "Fira Sans";
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 0.875rem;
+    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -186,7 +227,7 @@
   }
   .tableheaders-all {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -200,8 +241,8 @@
 }
 .tableheaders-txn-fee {
   font-family: "Fira Sans";
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -233,8 +274,8 @@
 }
 .tableheaders-age {
   font-family: "Fira Sans";
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -248,7 +289,9 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  height: 60%;
+  height: 2.188rem;
+  width: 3.8rem;
+  font-size: 0.875rem !important;
   padding: 9px 10px 9px 6px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -259,8 +302,8 @@
 .tabledata {
   width: 10%;
   font-family: Inter;
-  font-size: 11.5px;
-  font-weight: bold;
+  font-size: 0.875rem;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -269,7 +312,19 @@
   opacity: 0.7;
   padding-left: 2px;
 }
-
+@media (min-width: 1024px) {
+  .table-data {
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: left;
+  }
+}
 .first-block-details {
   width: 10%;
   font-family: Inter;
@@ -310,7 +365,7 @@
 
 .text {
   font-family: Inter;
-  font-size: 12px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -325,12 +380,14 @@
 
 .btn {
   font-family: Inter;
-  font-size: 10px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.45px;
+  height: 60%;
+  padding: 9px 10px 25px 6px;
   text-align: left;
   color: #252525;
   border-radius: 4px;
@@ -346,11 +403,11 @@
 }
 
 .tablegrid_address {
-  padding-top: 1.5%;
+  padding-top: 1.563rem;
   margin: auto;
   width: 100%;
 }
-@media(max-width:640px){
+@media (max-width: 640px) {
   .tablegrid_address {
     padding-top: 12.5%;
     padding-left: 1%;
@@ -372,9 +429,8 @@
 
 .table_1 {
   padding-top: 70px;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: auto;
+  margin: auto;
+  width: 75.125rem;
 }
 @media (max-width: 1023px) {
   .table_1 {
@@ -448,7 +504,7 @@
     /* padding: 7px 0 6px 20px; */
     text-align: left;
     border-bottom: none !important;
-    margin: 19px 21px 1.8px 48px;
+    margin: 20px 21px 1.8px 48px;
     font-family: "Inter" !important;
     font-size: 12px;
     font-weight: normal;
@@ -460,8 +516,8 @@
     color: #252525;
   }
   .select-amount {
-    width: 63px;
-    height: 28px;
+    width: 3.125rem;
+    height: 2.188rem;
   }
   .Pagination {
     display: flex;
@@ -477,7 +533,6 @@
     max-width: 100% !important;
     flex-basis: 33.333333% !important;
   }
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -487,7 +542,7 @@
     overflow: auto;
   }
   .Pagination_1 {
-    width: 163px;
+    width: 200px;
   }
   .Pagination {
     display: flex;
@@ -500,13 +555,21 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 
-@media only screen and (min-width: 1100px) {
-  .table_1 {
+@media only screen and (min-width: 1024px) {
+  /* .table_1 {
     padding-top: 70px;
     margin-left: 17%;
     margin-right: 17%;
     width: auto;
+  } */
+
+  .table_1 {
+    width: 75.125rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 90px;
   }
+
   .w-1 {
     width: 23%;
   }
@@ -523,7 +586,7 @@
     width: 13%;
   }
   .Pagination_1 {
-    width: 163px;
+    width: 12.5rem;
   }
   .Pagination {
     display: flex;
@@ -532,4 +595,33 @@
   .pl--1 {
     margin-left: -8.5% !important;
   }
+}
+.bord-none {
+  border: none;
+}
+@media (min-width: 1024px) {
+  .pad-left-7 {
+    padding-left: 7px;
+  }
+}
+@media (min-width: 1024px) {
+  .pad-left-6 {
+    padding-left: 6px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pad-left-4 {
+    padding-left: 4px;
+  }
+}
+.pad-bottom-34 {
+  padding-bottom: 34px;
+}
+.pad-left-5 {
+  padding-left: 5px;
+}
+
+.fc-2149b9 {
+  color: #2149b9;
 }

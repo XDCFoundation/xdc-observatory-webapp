@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
-import INR from "../../assets/images/inr.png";
-import EUR from "../../assets/images/euro.png";
-import USD from "../../assets/images/usd.png";
+import INR from "../../assets/images/INR.svg";
+import EUR from "../../assets/images/Euro.svg";
+import USD from "../../assets/images/dollar.svg";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import { MenuItem } from "material-ui";
@@ -26,8 +26,8 @@ export default function FooterComponent(props) {
     setActiveCurrency(event.target.value);
   };
   //const currencyState = useSelector((state)=>state.activeCurrency)
- 
-  const BlankSpaceDiv=styled.div`
+
+  const BlankSpaceDiv = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -37,8 +37,8 @@ export default function FooterComponent(props) {
         display: contents;
     }
   `;
-  
-  
+
+
   const FirstCloumn = styled.div`
     display: flex;
     /* flex-direction: column; */
@@ -105,111 +105,111 @@ export default function FooterComponent(props) {
         <FirstCloumn>
           <Grid alignContent="center" item xs={12} className="XDC-Block-Width-tablet" >
             <div className="for-button">
-                <div>
-            <div className="Top-Header">
-              <img
-                style={{ width: 24, height: 24 }}
-                className="Shape-footer"
-                src={require("../../../src/assets/images/XDC-Icon.png")}
-              ></img>
-              <p className="XDC-Header">XDC</p>
-            </div>
-            <p className="xdc-desc">
-              XinFinScan is a Block Explorer and Analytics Platform for XDC, a
-              decentralized smart contracts platform.
-            </p>
-            </div>
-            <div className ="button-Padding-Mobile">
-              <Select
-                style={{
-                  outline: "0",
-                  backgroundColor: "#2149b9",
-                }}
-                id="currency"
-                className={"filled select-xdc"}
-                defaultValue="USD"
-                onChange={(event) => props._handleChange(event)}
-                value={CurrencyNow}
-              >
-                {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
-                <MenuItem
-                  value="USD"
-                  selected="selected"
-                  anchorReference="anchorPosition"
-                  anchorPosition={{ top: 435, left: 600 }}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  style={{
-                    outline: "0",
-                    backgroundColor: "#2149b9",
-                    paddingTop: "0px",
-                    paddingBottom: "0px",
-                  }}
-                >
-                  <img className="select-icon" src={USD} />{" "}
-                  <span className="USD" selected>
-                    USD
-                  </span>
-                </MenuItem>
-                <MenuItem
-                  value="EUR"
-                  anchorReference="anchorPosition"
-                  anchorPosition={{ top: 435, left: 600 }}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
+              <div>
+                <div className="Top-Header">
+                  <img
+
+                    className="Shape-footer"
+                    src={require("../../../src/assets/images/XDC-Icon.svg")}
+                  ></img>
+                  <p className="XDC-Header">XDC</p>
+                </div>
+                <p className="xdc-desc">
+                  XinFinScan is a Block Explorer and Analytics Platform for XDC, a
+                  decentralized smart contracts platform.
+                </p>
+              </div>
+              <div className="button-Padding-Mobile">
+                <Select
                   style={{
                     outline: "0",
                     backgroundColor: "#2149b9",
                   }}
+                  id="currency"
+                  className={"filled select-xdc"}
+                  defaultValue="USD"
+                  onChange={(event) => props._handleChange(event)}
+                  value={CurrencyNow}
                 >
-                  <img className="select-icon" src={EUR} />{" "}
-                  <span className="USD">EUR</span>
-                </MenuItem>
-                <MenuItem
-                  value="INR"
-                  anchorReference="anchorPosition"
-                  anchorPosition={{ top: 435, left: 600 }}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  style={{
-                    outline: "0",
-                    backgroundColor: "#2149b9",
-                  }}
-                >
-                  <img className="select-icon" src={INR} />{" "}
-                  <span className="USD">INR</span>
-                </MenuItem>
-              </Select>
-              {/* <select className="select-form">
+                  {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
+                  <MenuItem
+                    value="USD"
+                    selected="selected"
+                    anchorReference="anchorPosition"
+                    anchorPosition={{ top: 435, left: 600 }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    style={{
+                      outline: "0",
+                      backgroundColor: "#2149b9",
+                      paddingTop: "0px",
+                      paddingBottom: "0px",
+                    }}
+                  >
+                    <img className="select-icon" src={USD} />{" "}
+                    <span className="USD" selected>
+                      USD
+                    </span>
+                  </MenuItem>
+                  <MenuItem
+                    value="EUR"
+                    anchorReference="anchorPosition"
+                    anchorPosition={{ top: 435, left: 600 }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    style={{
+                      outline: "0",
+                      backgroundColor: "#2149b9",
+                    }}
+                  >
+                    <img className="select-icon" src={EUR} />{" "}
+                    <span className="USD">EUR</span>
+                  </MenuItem>
+                  <MenuItem
+                    value="INR"
+                    anchorReference="anchorPosition"
+                    anchorPosition={{ top: 435, left: 600 }}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    style={{
+                      outline: "0",
+                      backgroundColor: "#2149b9",
+                    }}
+                  >
+                    <img className="select-icon" src={INR} />{" "}
+                    <span className="USD">INR</span>
+                  </MenuItem>
+                </Select>
+                {/* <select className="select-form">
                             <option>usd</option>
 
                             <option>inr</option>
                         </select> */}
+              </div>
             </div>
-          </div>
           </Grid>
         </FirstCloumn>
 
         <SecondCloumn>
-          <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
+          <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
             <div className="Table-Header">
               Community
               <hr style={{ marginRight: "20px" }}></hr>
@@ -258,7 +258,7 @@ export default function FooterComponent(props) {
             </div>
           </Grid>
 
-          <Grid justify="left" item xs={12} style={{margin:"7px"}}>
+          <Grid justify="left" item xs={12} style={{ margin: "7px" }}>
             <div className="Table-Header">
               Other Links
               <hr style={{ marginRight: "20px" }}></hr>
@@ -310,104 +310,103 @@ export default function FooterComponent(props) {
         </SecondCloumn>
 
         <BlankSpaceDiv>
-            <div></div>
-        <ThirdCloumn>
+          <div></div>
+          <ThirdCloumn>
 
-        <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
-          <div className="Table-Header">
-            Follow Us
-            <hr style={{ marginRight: "20px" }}></hr>
-          </div>
-          <ul>
-            <li className="Table-Comp">
-              <a
-                className="a-style"
-                href="https://twitter.com/XinFin_Official"
-                rel="nofollow"
-                target="_blank"
-              >
-                <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
-                Twitter
-              </a>
-            </li>
-            <li className="Table-Comp">
-              <a
-                className="a-style"
-                href="https://www.facebook.com/XinFinHybridBlockchain/"
-                rel="nofollow"
-                target="_blank"
-              >
-                <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
-                Facebook
-              </a>
-            </li>
-            <li className="Table-Comp">
-              <a
-                className="a-style"
-                href="https://github.com/XinFinorg"
-                rel="nofollow"
-                target="_blank"
-              >
-                <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
-                Github
-              </a>
-            </li>
-            <li className="Table-Comp">
-              <a
-                className="a-style"
-                href="https://www.linkedin.com/company/xinfin/"
-                rel="nofollow"
-                target="_blank"
-              >
-                <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
-                LinkedIn
-              </a>
-            </li>
-            <li className="Table-Comp">
-              <a
-                className="a-style"
-                href="https://t.me/xinfintalk"
-                rel="nofollow"
-                target="_blank"
-              >
-                <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
-                Telegram
-              </a>
-            </li>
-            <li className="Table-Comp">
-              <a
-                className="a-style"
-                href="https://www.reddit.com/r/xinfin/"
-                rel="nofollow"
-                target="_blank"
-              >
-                <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
-                Reddit
-              </a>
-            </li>
-          </ul>
-        </Grid>
-        
-        <Grid alignContent="center" item xs={12} style={{margin:"7px"}}>
-          <div className="Table-Header">
-            Tweets
-            <hr style={{ marginRight: "2px" }}></hr>
-          </div>
-          <div className={"twitter"}>
-            <a
-              class="twitter-timeline"
-              data-lang="en"
-              data-height="220"
-              data-theme="light"
-              href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"
-            ></a>
-          </div>
-        </Grid>
-        
-        </ThirdCloumn>
+            <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
+              <div className="Table-Header">
+                Follow Us
+                <hr style={{ marginRight: "20px" }}></hr>
+              </div>
+              <ul>
+                <li className="Table-Comp">
+                  <a
+                    className="a-style"
+                    href="https://twitter.com/XinFin_Official"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    Twitter
+                  </a>
+                </li>
+                <li className="Table-Comp">
+                  <a
+                    className="a-style"
+                    href="https://www.facebook.com/XinFinHybridBlockchain/"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    Facebook
+                  </a>
+                </li>
+                <li className="Table-Comp">
+                  <a
+                    className="a-style"
+                    href="https://github.com/XinFinorg"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    Github
+                  </a>
+                </li>
+                <li className="Table-Comp">
+                  <a
+                    className="a-style"
+                    href="https://www.linkedin.com/company/xinfin/"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    LinkedIn
+                  </a>
+                </li>
+                <li className="Table-Comp">
+                  <a
+                    className="a-style"
+                    href="https://t.me/xinfintalk"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    Telegram
+                  </a>
+                </li>
+                <li className="Table-Comp">
+                  <a
+                    className="a-style"
+                    href="https://www.reddit.com/r/xinfin/"
+                    rel="nofollow"
+                    target="_blank"
+                  >
+                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    Reddit
+                  </a>
+                </li>
+              </ul>
+            </Grid>
+
+            <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
+              <div className="Table-Header">
+                Tweets
+                <hr style={{ marginRight: "2px" }}></hr>
+              </div>
+              <div className={"twitter"}>
+                <a
+                  class="twitter-timeline"
+                  data-lang="en"
+                  data-height="220"
+                  data-theme="light"
+                  href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"
+                ></a>
+              </div>
+            </Grid>
+
+          </ThirdCloumn>
         </BlankSpaceDiv>
       </Grid>
-
       <div className="footer-line">
         <hr></hr>
         <span className={"copyright"}>© 2021 XinFin. All Rights Reserved.</span>

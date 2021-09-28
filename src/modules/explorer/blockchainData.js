@@ -19,12 +19,12 @@ import {
 import Utils from "../../utility";
 
 const MainContainer = styled.div`
-  width: 950px;
-  height: 200px;
+  width: 75.125rem;
+  height: 18.563rem;
   margin: 0 auto;
   margin-top: 50px;
-  padding-top: 20px;
-  padding-left: 15px;
+  padding-top: 1.9rem;
+  padding-left: 1.75rem;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -51,14 +51,13 @@ const MainContainer = styled.div`
     padding-top: 0px;
   }
 `;
-const MobileScreen=styled.div`
+const MobileScreen = styled.div`
 margin-right: 3px;
 @media (min-width:640px){
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  margin-right: 0px;
 }
 `;
 const LeftFirst = styled.div`
@@ -66,8 +65,7 @@ const LeftFirst = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  font-size: 2px;
-  align-items: center;
+  align-items: flex-start;
   @media (max-width:1023px){
     padding-left: 10px;
     padding-right: 10px;
@@ -90,40 +88,38 @@ const RightContainer = styled.div`
 
 const LeftSec = styled.div`
   flex: 0.7;
-  padding-left: 2px;
-  margin-bottom: 2px;
-  /* @media (max-width:1023px){
-    padding-top: 20px;
-  } */
+      margin-top: 10px;
+  
 `;
 const ValueMain = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 12px;
+  /* margin-top: 12px; */
 `;
 
 const Value = styled.div`
   display: flex;
-  width: 140px;
-  padding-bottom: 22px;
+  width: 10.625rem;
+  padding-bottom: 15px;
 `;
 const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
+  margin-bottom: 36px;
 `;
 
 const ValueName = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-flex-start;
+  align-items: flex-start;
   // margin-left: 2px;
 `;
 const Title = styled.div`
   color: #a09e9e;
-  font-size: 10px;
+  font-size: 0.875rem;
   font-family: "Inter";
-  font-weight: bold;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -131,7 +127,7 @@ const Title = styled.div`
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
-  font-size: 13.5px;
+  font-size: 1rem;
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
@@ -145,14 +141,14 @@ const LeftTop = styled.div`
   justify-content: center;
 `;
 const IconLogo = styled.img`
-  width: 52%;
-  height: 52%;
+  width: 2.625rem;
+  height: 2.625rem;
   margin-right: 12px;
   
 `;
 const LeftTitle = styled.div`
   margin-top: 3px;
-  font-size: 20px;
+  font-size: 1.75rem;
   font-weight: 600;
   font-family: Inter;
   font-stretch: normal;
@@ -163,19 +159,17 @@ const LeftTitle = styled.div`
 `;
 const Line1 = styled.hr`
   background-color: #fff;
-  width: 478px;
+  width: 100%;
   position: absolute;
-  top: 55%;
-  left: 1%;
+  top: 65%;
   @media (max-width:1023px){
     width:96%;
     top: 75%;
     }
 `;
 const LeftTopSec = styled.div`
-  font-size: 18px;
+  font-size: 1.375rem;
   font-weight: 800;
-  margin-right: 3px;
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #252525;
@@ -276,9 +270,9 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-              this.state.transactionDataDetails[0]?.gasPrice /
-              1000000000000000000
-            ).toFixed(9)
+            this.state.transactionDataDetails[0]?.gasPrice /
+            1000000000000000000
+          ).toFixed(9)
           : 0;
         if (gp >= 0.000000001) {
           this.setState({ gasPrice: gp });
@@ -451,8 +445,8 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-        ? "$"
-        : "€";
+          ? "$"
+          : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
@@ -494,7 +488,7 @@ class BlockChainDataComponent extends Component {
                     <div className="arrow_up">
                       {/* <BsFillCaretUpFill size={10} /> */}
                       <img
-                        src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif"
+                        src={require("../../../src/assets/images/Up.svg")}
                         style={{ width: "8px" }}
                       />
                     </div>
@@ -502,7 +496,7 @@ class BlockChainDataComponent extends Component {
                     <div className="arrow_down">
                       {/* <BsFillCaretDownFill size={10} /> */}
                       <img
-                        src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png"
+                        src={require("../../../src/assets/images/Down.svg")}
                         style={{ width: "8px" }}
                       />
                     </div>
@@ -516,93 +510,93 @@ class BlockChainDataComponent extends Component {
           <LeftSec>
             <ValueMain>
               <MobileScreen>
-              <Value>
-                <TitleIcon src={blockHeightImg} />
-                <ValueName>
-                  <Title>Block Height</Title>
-                  <TitleValue className={animationClass ? animationClass : ""}>
-                    {this.state.blockdataNumber[0]?.number.toLocaleString()}
-                  </TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                <TitleIcon src={priceLogo} />
-                <ValueName>
-                  <Title>Gas Price(Gwei)</Title>
-                  <TitleValue
-                    className={TxanimationClass ? TxanimationClass : ""}
-                  >
-                    {this.state.gasPrice}
-                  </TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                <TitleIcon src={transactionLogo} />
-                <ValueName>
-                  <Title>Transactions</Title>
-                  <TitleValue>{this.state.totalTransaction}</TitleValue>
-                </ValueName>
-              </Value>
+                <Value>
+                  <TitleIcon src={blockHeightImg} />
+                  <ValueName>
+                    <Title>Block Height</Title>
+                    <TitleValue className={animationClass ? animationClass : ""}>
+                      {this.state.blockdataNumber[0]?.number.toLocaleString()}
+                    </TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={priceLogo} />
+                  <ValueName>
+                    <Title>Gas Price</Title>
+                    <TitleValue
+                      className={TxanimationClass ? TxanimationClass : ""}
+                    >
+                      {this.state.gasPrice}
+                    </TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={transactionLogo} />
+                  <ValueName>
+                    <Title>Transactions</Title>
+                    <TitleValue>{this.state.totalTransaction}</TitleValue>
+                  </ValueName>
+                </Value>
               </MobileScreen>
               <MobileScreen>
-              <Value>
-                <TitleIcon src={difficultyLogo} />
-                <ValueName>
-                  <Title>Difficulty</Title>
-                  <TitleValue className={animationClass ? animationClass : ""}>
-                    {this.state.blockdataNumber[0]?.totalDifficulty}
-                  </TitleValue>
-                </ValueName>
-              </Value>
-              <Value>
-                <TitleIcon src={maxLogo} />
-                <ValueName>
-                  <Title>Current/Max TPS</Title>
-                  <TitleValue>
-                    {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
-                  </TitleValue>
-                </ValueName>
-              </Value>
-              
-              <Value>
-                <TitleIcon src={accountLogo} />
-                <ValueName>
-                  <Title>Accounts</Title>
-                  <div className="last_value">
-                    <TitleValue>{this.state.totalAccount}</TitleValue>
-                    <div
-                      className={
-                        changeAccounts >= 0
-                          ? "data_value_green last_value_main"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="value_p">
-                        {changeAccounts == 0 ? (
-                          ""
-                        ) : changeAccounts > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img
-                              src="http://www.clipartbest.com/cliparts/RTG/6or/RTG6orRrc.gif"
-                              style={{ width: "8px" }}
-                            />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img
-                              src="https://toppng.com/uploads/preview/free-red-arrow-png-115644712356jqqcocouq.png"
-                              style={{ width: "8px" }}
-                            />
-                          </div>
-                        )}
-                        {changeAccounts}
+                <Value>
+                  <TitleIcon src={difficultyLogo} />
+                  <ValueName>
+                    <Title>Difficulty</Title>
+                    <TitleValue className={animationClass ? animationClass : ""}>
+                      {this.state.blockdataNumber[0]?.totalDifficulty}
+                    </TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Current/Max TPS</Title>
+                    <TitleValue>
+                      {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
+                    </TitleValue>
+                  </ValueName>
+                </Value>
+
+                <Value>
+                  <TitleIcon src={accountLogo} />
+                  <ValueName>
+                    <Title>Accounts</Title>
+                    <div className="last_value">
+                      <TitleValue>{this.state.totalAccount}</TitleValue>
+                      <div
+                        className={
+                          changeAccounts >= 0
+                            ? "data_value_green last_value_main"
+                            : "data_value_red"
+                        }
+                      >
+                        <div className="value_p">
+                          {changeAccounts == 0 ? (
+                            ""
+                          ) : changeAccounts > 0 ? (
+                            <div className="arrow_up">
+                              {/* <BsFillCaretUpFill size={10} /> */}
+                              <img
+                                src={require("../../../src/assets/images/Up.svg")}
+                                style={{ width: "0.5rem", marginRight: "5px", marginBottom: "5px" }}
+                              />
+                            </div>
+                          ) : (
+                            <div className="arrow_down">
+                              {/* <BsFillCaretDownFill size={10} /> */}
+                              <img
+                                src={require("../../../src/assets/images/Down.svg")}
+                                style={{ width: "0.5rem", marginRight: "5px", marginBottom: "5px" }}
+                              />
+                            </div>
+                          )}
+                          {changeAccounts}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </ValueName>
-              </Value>
+                  </ValueName>
+                </Value>
               </MobileScreen>
             </ValueMain>
           </LeftSec>

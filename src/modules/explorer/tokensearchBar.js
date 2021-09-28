@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: "#2149b9",
-    height: "60px",
+    height: "4.875rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -89,11 +89,21 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  "@media (min-width: 640px) ": {
+    list: {
+      width: "21.25rem",
+      backgroundColor: "#102e84",
+      height: "100%",
+    },
+  },
 
-  list: {
-    width: 250,
-    backgroundColor: "#102e84",
-    height: "100%",
+  "@media (min-width: 0px) and (max-width: 640px)": {
+    list: {
+      width: 180,
+      backgroundColor: "#102e84",
+      height: "100%",
+
+    },
   },
   fullList: {
     width: "auto",
@@ -181,7 +191,7 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
         <p
           style={{
             color: "#4666c4",
@@ -219,7 +229,7 @@ export default function Navbar() {
           >
             {" "}
             Contracts{" "}
-            <span style={{ marginLeft: "50%" }}>
+            <span className="side-arrow-contract-tab">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </p>
@@ -233,7 +243,7 @@ export default function Navbar() {
             style={{ cursor: "pointer" }}
           >
             Tools{" "}
-            <span style={{ marginLeft: "65%" }}>
+            <span className="right-arrow-side-bar">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </p>
@@ -302,7 +312,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "120px" }}
+                style={{ color: "white", marginLeft: "12.630rem" }}
                 onClick={() => setOpencontracts(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -380,7 +390,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "120px" }}
+                style={{ color: "white", marginLeft: "14rem" }}
                 onClick={() => setOpen(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -588,11 +598,11 @@ export default function Navbar() {
                 <div className="mobile-navbartab1">
                   <a href={"/"}>
                     <img
-                      className="Shape"
-                      src={require("../../../src/assets/images/XDC-Icon.png")}
+                      className="Shape-XDC"
+                      src={require("../../../src/assets/images/XDC icon.svg")}
                     ></img>
                   </a>
-                  <a className="XDC" href="/">
+                  <a className="XDC-internal" href="/">
                     {" "}
                     XDC{" "}
                   </a>
@@ -603,7 +613,7 @@ export default function Navbar() {
                       exact
                       activeClassName="active-t"
                       to={"/"}
-                      className="Network-explorer"
+                      className="Network-explorer-internal"
                     >
                       Network Explorer
                     </NavLink>
@@ -613,7 +623,7 @@ export default function Navbar() {
                       exact
                       activeClassName="active-t"
                       to={"/token-details"}
-                      className="Token"
+                      className="Token-internal"
                     >
                       Tokens
                     </NavLink>
@@ -633,8 +643,8 @@ export default function Navbar() {
                   <div>
                     <div style={{ display: "flex", flexDirection: "row" }}>
                       <img
-                        style={{ width: 20, height: 20, marginRight: 5 }}
-                        src={require("../../assets/images/Search.png")}
+                        style={{ width: 16, height: 16, marginRight: 3, marginTop: 2 }}
+                        src={require("../../assets/images/Search.svg")}
                       />
                       <div className="search-responsive">
                         <div>
@@ -695,8 +705,8 @@ export default function Navbar() {
           </div>
           <div className="right-nav-div">
             <img
-              className="Shape2"
-              src={require("../../../src/assets/images/Profile.png")}
+              className="Shape2-internal"
+              src={require("../../../src/assets/images/Profile.svg")}
             ></img>
 
             <React.Fragment className="rigt-line" key={"right"}>
@@ -706,7 +716,11 @@ export default function Navbar() {
                 edge="end"
                 onClick={toggleDrawer("right", true)}
               >
-                <MenuIcon />
+                <img
+                  className="Shape2-internal"
+                  src={require("../../../src/assets/images/Menu.svg")}
+                ></img>
+                {/* <MenuIcon /> */}
               </IconButton>
 
               <Drawer

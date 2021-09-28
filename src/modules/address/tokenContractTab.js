@@ -14,8 +14,8 @@ export default function TokenContracttab(props) {
 
         <>
             <Paper style={{ borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)' }} elevation={0}>
-                <div className="container">
-                    <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={verified} ></img></span>Contract Source Code Verified</div>
+                <div className="container" >
+                    <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={require("../../../src/assets/images/verified.svg")} ></img></span>Contract Source Code Verified</div>
                     <br /><br />
                     <div className="source-code-verified-container">
                         <div className="source-code-first-container">
@@ -32,7 +32,7 @@ export default function TokenContracttab(props) {
                             </div>
                             <hr className="source-code-line"></hr>
                         </div>
-                        <div className="source-code-first-container">
+                        <div className="source-code-second-container">
                             <div className="source-code-content">
                                 <div className="source-code-content-heading">Optimization Enabled</div>
                                 <div className="source-code-content-value-optimization">{(props?.contractData?.optimization)?.toString() === "false" ? "No" : "Yes"}</div>
@@ -52,7 +52,7 @@ export default function TokenContracttab(props) {
 
                     <br />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={code} /> Contract Source Code Verified </div>
+                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/code.svg")} />Contract Source Code Verified </div>
                         <div>
                             <CopyToClipboard text="Contract-source Code Verified"
                                 onCopy={() => setCopiedText("Contract-source Code Verified")}>
@@ -64,7 +64,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i class="fa fa-clone" aria-hidden="true"></i></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
@@ -78,7 +78,7 @@ export default function TokenContracttab(props) {
                     <br />
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={abi} />Contract ABI</div>
+                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/abi.svg")} />Contract ABI</div>
                         <div>
                             <CopyToClipboard text={verifiedData.abi}
                                 onCopy={() => setCopiedText(verifiedData.abi)}>
@@ -90,7 +90,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i class="fa fa-clone" aria-hidden="true"></i></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
@@ -104,7 +104,7 @@ export default function TokenContracttab(props) {
                     <br />
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={bytecod} />Contract Byte-Code</div>
+                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/bytecode.svg")} />Contract Byte-Code</div>
                         <div>
                             <CopyToClipboard text={verifiedData.byteCode}
                                 onCopy={() => setCopiedText(verifiedData.byteCode)}>
@@ -116,7 +116,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><i class="fa fa-clone" aria-hidden="true"></i></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
