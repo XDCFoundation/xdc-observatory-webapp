@@ -129,7 +129,7 @@ export default function Transaction({ _handleChange }) {
       <Tokensearchbar />
       <div className={classes.root}>
         <Grid>
-          <Spacing>
+          <Spacing style={{borderBottom:'none'}}>
             <Container>
               <Heading>Transaction Details</Heading>
               {transactions ? (
