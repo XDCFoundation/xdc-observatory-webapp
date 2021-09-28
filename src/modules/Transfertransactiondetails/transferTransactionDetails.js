@@ -13,10 +13,11 @@ import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import { Row, Column } from "simple-flexbox";
 import moment from "moment";
+import { Media } from "react-bootstrap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "970px",
+    maxWidth: "75.125rem",
 
     marginRight: "auto",
     marginTop: "90px",
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "auto",
 
     width: "100%",
+
     "@media (min-width: 300px) and (max-width: 567px)": {
       maxWidth: "300px",
 
@@ -59,7 +61,7 @@ export default function TransferTransaction({ _handleChange }) {
     return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
   }
 
-  const { hash } = useParams();
+  const { address } = useParams();
   const [transactions, setTransactions] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
@@ -68,7 +70,7 @@ export default function TransferTransaction({ _handleChange }) {
   }, [amount]);
 
   const transactionDetail = async () => {
-    let urlPath = `/${hash}`;
+    let urlPath = `/${address}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
@@ -103,14 +105,14 @@ export default function TransferTransaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -128,8 +130,8 @@ export default function TransferTransaction({ _handleChange }) {
     <div className={classes.mainContainer}>
       <Tokensearchbar />
       <div className={classes.root}>
-        <Grid item xs={12}>
-          <Spacing>
+        <Grid>
+          <Spacin>
             <Container>
               <Heading>Transaction Details</Heading>
               {transactions ? (
@@ -140,11 +142,11 @@ export default function TransferTransaction({ _handleChange }) {
                 )
               ) : null}
             </Container>
-          </Spacing>
+          </Spacin>
 
           <Div>
             <HashDiv>
-              <Container>
+              <Container className="pad-left-5">
                 <Tooltip align="right" title={hashid}>
                   <ImageView
                     src={require("../../../src/assets/images/questionmark.png")}
@@ -154,12 +156,17 @@ export default function TransferTransaction({ _handleChange }) {
                 <Hash>Hash ID</Hash>
               </Container>
               <MiddleContainer isTextArea={false}>
-                <Content>{hash}</Content>
+                <Content>{address}</Content>
               </MiddleContainer>
               <SecondContainer>
-                <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
+                <CopyToClipboard
+                  text={address}
+                  onCopy={() => setCopiedText(address)}
+                >
                   <Tooltip
-                    title={copiedText === hash ? "Copied" : "Copy To Clipboard"}
+                    title={
+                      copiedText === address ? "Copied" : "Copy To Clipboard"
+                    }
                     placement="top"
                   >
                     <button
@@ -169,7 +176,9 @@ export default function TransferTransaction({ _handleChange }) {
                         fontSize: 14,
                       }}
                     >
-                      <i class="fa fa-clone" aria-hidden="true"></i>
+                      <ImgView
+                        src={require("../../../src/assets/images/copy.svg")}
+                      />
                     </button>
                   </Tooltip>
                 </CopyToClipboard>
@@ -177,12 +186,12 @@ export default function TransferTransaction({ _handleChange }) {
             </HashDiv>
           </Div>
 
-          <Div__>
+          <Div__ className="pad-right-30">
             <Spacing>
               <Container>
                 <Tooltip title={blocknumber}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -205,7 +214,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={timestamp}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -222,7 +231,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={from}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -254,10 +263,11 @@ export default function TransferTransaction({ _handleChange }) {
                           color: "blue",
                           backgroundColor: "white",
                           fontSize: 14,
-                          marginLeft: "25px",
                         }}
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
+                        <ImgView
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -268,7 +278,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={to}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -299,10 +309,11 @@ export default function TransferTransaction({ _handleChange }) {
                           color: "blue",
                           backgroundColor: "white",
                           fontSize: 14,
-                          marginLeft: "10px",
                         }}
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
+                        <ImgView
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -313,7 +324,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={transferToken}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -335,7 +346,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={transferToken}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -370,7 +381,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={value}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Value</Hash>
@@ -388,7 +399,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip title={txnfee}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -406,7 +417,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={gasprovided}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Gas Provided</Hash>
@@ -420,7 +431,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={gasprice}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Gas Price</Hash>
@@ -434,7 +445,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={gasused}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Gas Used</Hash>
@@ -447,7 +458,7 @@ export default function TransferTransaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={nounced}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Nounce</Hash>
@@ -456,34 +467,35 @@ export default function TransferTransaction({ _handleChange }) {
                 <Content> {transactions.nonce}</Content>
               </MiddleContainer>
             </Spacing>
-            <Spacing>
-              <Container>
+            <SpacingInputData>
+              <Container className="mar-bottom-45 ">
                 <Tooltip align="right" title={input}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Input Data</Hash>
               </Container>
-              <MiddleContainer isTextArea={true}>
+              <MiddleContainerInputData isTextArea={true}>
                 <TextArea readOnly value={transactions.input} />
-              </MiddleContainer>
-            </Spacing>
-            <Spacing>
+              </MiddleContainerInputData>
+            </SpacingInputData>
+            <SpacingPrivateNode>
               <Container>
                 <Tooltip align="right" title={transferToken}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Private Note</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainerPrivateNote>
                 {/* <Input /> */}
-                To access the Private Note feature, you must be{" "}
-                <a className="linkTableDetails">Logged In</a>
-              </MiddleContainer>
-            </Spacing>
+                <PrivateBox>
+                  To access the Private Note feature, you must be{" "}
+                  <a className="linkTableDetails">Logged In</a></PrivateBox>
+              </MiddleContainerPrivateNote>
+            </SpacingPrivateNode>
           </Div__>
           <br />
           <br />
@@ -515,6 +527,18 @@ const Content = styled.span`
     font-size: 12px;
     word-break: break-all;
   }
+  @media (min-width: 1024px) {
+    height: 1.125rem;
+    font-family: Inter;
+    font-size: 0.938rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.036rem;
+    text-align: left;
+    color: #3a3a3a;
+  }
 `;
 const TextArea = styled.textarea`
   opacity: 0.33;
@@ -527,14 +551,35 @@ const TextArea = styled.textarea`
   float: left;
   padding: 14px;
   overflow-y: auto;
+
+  @media (min-width: 1024px) {
+    width: 59.125rem;
+    height: 5.813rem;
+    opacity: 0.33;
+    border-radius: 4px;
+    border: solid 1px #9fa9ba;
+    background-color: #dee0e3;
+    margin-left: 88px;
+  }
 `;
 
 const Div__ = styled.div`
   height: auto;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   padding: 9px;
+
+  @media (min-width: 1024px) {
+    height: 64.06rem;
+    width: 75.125rem;
+    border-radius: 7px;
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 0.563rem;
+    padding-left: 2.188rem;
+    padding-right: 2.188rem;
+  }
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
@@ -557,6 +602,51 @@ const MiddleContainer = styled.div`
   //   width: 100%;
   //   max-width: 340px;
   // }
+  @media (min-width: 1024px) {
+    font-family: Inter;
+    font-size: 0.938rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.036rem;
+    text-align: left;
+    color: #3a3a3a;
+  }
+`;
+const MiddleContainerPrivateNote = styled.div`
+  font-family: Inter;
+  font-size: 0.938rem;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  height: 2.313rem;
+ 
+`;
+const PrivateBox = styled.div`
+  border-radius: 4px;
+  border: solid 1px #9fa9ba;
+  width: 59.125rem;
+  padding: 7px;
+  margin-left: 88px;
+`;
+const MiddleContainerInputData = styled.div`
+  font-family: Inter;
+  font-size: 0.938rem;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+ 
+  width: 100%;
+`;
+const InputContainer = styled.div`
+  font-family: Inter;
+  font-size: 13px;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
 `;
 
 const Hash = styled.span`
@@ -572,20 +662,57 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 13px;
   }
+  @media (min-width: 1024px) {
+    font-family: Inter;
+    font-size: 0.938rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.036rem;
+    text-align: left;
+    color: #252525;
+  }
 `;
+const Spacin = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-items: center;
+  padding: 16px 23px;
+`;
+
 const Spacing = styled.div`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-  height: auto;
+  height: 4.063rem;
   align-items: center;
-  padding: 16px 23px;
-  border-bottom: solid 1px #e3e7eb;
 
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
   }
+`;
+const SpacingInputData = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  padding-right: 2.313rem;
+  border-bottom: solid 1px #e3e7eb;
+  height: 7.75rem;
+`;
+const SpacingPrivateNode = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 4.063rem;
+  padding-right: 2.313rem;
 `;
 const HashDiv = styled.div`
   display: flex;
@@ -606,7 +733,7 @@ const Container = styled.div`
 
   width: 100%;
   align-items: center;
-  max-width: 84px;
+  max-width: 100px;
 `;
 const SecondContainer = styled.div`
   display: flex;
@@ -616,13 +743,12 @@ const SecondContainer = styled.div`
 `;
 
 const Div = styled.div`
-  height: auto;
-  border-radius: 7px;
+  height: 4.125rem;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  // border: solid 1px #e3e7eb;
   background-color: #fff;
   margin-bottom: 15px;
-  padding: 5px;
+  padding: 6px;
 `;
 
 const Heading = styled.span`
@@ -632,14 +758,29 @@ const Heading = styled.span`
   color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.5rem;
   margin-left: -21px;
   @media (min-width: 300px) and (max-width: 767px) {
     margin-left: unset;
+  }
+  @media (min-width: 1024px) {
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.058rem;
+    text-align: left;
+    color: #2a2a2a;
   }
 `;
 
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+`;
+const ImgView = styled.img`
+  width: 20px;
+  height: 20px;
 `;

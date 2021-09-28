@@ -16,6 +16,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import Login from "./loginDialog";
 import Utility, { dispatchAction } from "../../utility";
 import SearchData from "../../services/search";
+import searchIcon from "../../assets/images/Search.svg";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -104,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 640px) ": {
     list: {
-      width: 250,
+      width: "21.25rem",
       backgroundColor: "#102e84",
       height: "100%",
     },
@@ -247,7 +248,7 @@ export default function Navbar() {
             style={{ cursor: "pointer" }}
           >
             Tools{" "}
-            <span style={{ marginLeft: "65%" }}>
+            <span className="right-arrow-side-bar">
               <i class="fa fa-angle-right" aria-hidden="true"></i>
             </span>
           </p>
@@ -315,7 +316,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "120px" }}
+                style={{ color: "white", marginLeft: "12.630rem" }}
                 onClick={() => setOpencontracts(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -393,7 +394,7 @@ export default function Navbar() {
             </div>
             <div>
               <IconButton
-                style={{ color: "white", marginLeft: "120px" }}
+                style={{ color: "white", marginLeft: "14rem" }}
                 onClick={() => setOpen(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -600,7 +601,7 @@ export default function Navbar() {
             <Typography className="Header">
 
               <a className="logo_tokensearch" href={'/'}>
-                <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.png")}></img>
+                <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.svg")}></img>
               </a>
               <a className="XDC" href="/"> XDC </a>
 
@@ -634,7 +635,10 @@ export default function Navbar() {
                 edge="end"
                 onClick={toggleDrawer("right", true)}
               >
-                <MenuIcon class="menu-sidebar" />
+                <img
+                  className="menu-sidebar"
+                  src={require("../../../src/assets/images/Menu.svg")}
+                ></img>
               </IconButton>
 
               <Drawer
@@ -667,7 +671,7 @@ export default function Navbar() {
                 <a className="logo_tokensearch" href={"/"}>
                   <img
                     className="Shape"
-                    src={require("../../../src/assets/images/XDC-Icon.png")}
+                    src={require("../../../src/assets/images/XDC-Icon.svg")}
                   ></img>
                 </a>
                 <a className="XDC" href="/"> XDC </a>
@@ -759,7 +763,7 @@ export default function Navbar() {
         <div className="exp-parent">
           <img
             className="Shape3"
-            src={require("../../../src/assets/images/Networkexplorer.png")}
+            src={require("../../../src/assets/images/Networkexplorer.svg")}
           ></img>
           <div className="exp">Network Explorer</div>
         </div>
@@ -767,7 +771,6 @@ export default function Navbar() {
 
         <div className="centerbox-parent">
           <div className="centerbox">
-            <p className="description"></p>
             <div className="main-form-container">
 
               <form
@@ -778,6 +781,7 @@ export default function Navbar() {
               >
                 <div className="search-dashboard">
                   <div className="search-dashboard-input">
+                    <img className="search-dashboard-icon" src={searchIcon}></img>
                     <input
                       defaultValue={filter}
                       onChange={(event) => handleSearch(event)}

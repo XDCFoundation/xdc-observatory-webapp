@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     "@media (max-width: 1023px)": {
       minWidth: 280,
-      },
+    },
   },
 }));
 
@@ -88,7 +88,8 @@ export default function SimpleTabs(props) {
   return (
     <div>
 
-      <Grid lg={10} className="table-grid-block3">
+      {/* <Grid lg={10} className="table-grid-block3"> */}
+      <Grid className="table-grid-block3">
         <div className={classes.root}>
           <div style={{ width: 'auto', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
             <div>
@@ -134,7 +135,8 @@ export default function SimpleTabs(props) {
             <div className={toggleState === 3 ? "content  active-content" : "content"}>
               <div style={{ marginTop: '10px' }}>
                 {/* {!contractStatus ? "" : contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />} */}
-                <TokenContracttab/>
+                <TokenContracttab />
+                {/* <TokenUnverifiedContract contractData={contractStatus} /> */}
               </div>
 
             </div>

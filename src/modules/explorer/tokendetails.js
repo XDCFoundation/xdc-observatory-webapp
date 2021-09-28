@@ -25,37 +25,37 @@ const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  width: 990px;
-  margin: 20px auto;
+  width: 75.125rem;
+  margin: 1.25rem auto;
 
   @media (max-width: 640px) {
     display: flex;
     flex-direction: column;
-    margin: 10px auto;
+    margin: 0.625rem auto;
   }
   @media (max-width: 1023px) {
     width: auto;
-    margin: 10px auto;
+    margin: 0.625rem auto;
   }
 `;
 const RightPagination = styled.div`
   display: flex;
-  margin-top: 60px;
+  margin-top: 1.75rem;
   flex-direction: row;
 
   @media (max-width: 1023px) {
-    margin-top: 10px;
+    margin-top: 0.625rem;
     margin-right: 5%;
   }
 `;
 const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 60px;
+  margin-top: 1.75rem;
 
   @media (max-width: 1023px) {
     margin-left: 5%;
-    margin-top: 10px;
+    margin-top: 0.625rem;
   }
 `;
 
@@ -118,29 +118,32 @@ const columns = [
 function createData(S, src, Token, Type, Contract, Holder, Status) {
   return { S, src, Token, Type, Contract, Holder, Status };
 }
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
 
 const useStyles = makeStyles({
   rootui: {
-    borderRadius: "14px",
+    borderRadius: "0.875rem",
     marginLeft: "18%",
     marginRight: "18%",
   },
 
   container: {
-    borderRadius: "14px",
+    borderRadius: "0.875rem",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
   },
   "@media (max-width: 1024px)": {
     container: {
-        height: 600,
+      height: 600,
     },
-},
-  
+  },
+
 
   divider: {
-    borderTop: "0px solid #bbb",
+    borderTop: "0rem solid #bbb",
     width: "100%",
   },
 });
@@ -324,13 +327,13 @@ export default function StickyHeadTable() {
               <p className="searchelement-token">Tokens</p>
               <div className="searchelement-input">
                 <img
-                  style={{ width: 22, height: 22, marginRight: 5 }}
-                  src={require("../../assets/images/Search.png")}
+                  style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
+                  src={require("../../assets/images/Search.svg")}
                 />
                 <input
                   onChange={handleSearchKeyUp}
                   style={{
-                    fontSize: 12,
+                    fontSize: '0.938rem',
                     letterSpacing: 0.62,
                     fontWeight: 600,
 
@@ -351,20 +354,20 @@ export default function StickyHeadTable() {
       <br />
       <Paper
         className={"responsive-table-width-token-list"}
-        // style={{
-        //     borderRadius: "14px",
-        //     marginLeft: "18%",
-        //     marginRight: "18%",
-        // }} elevation={0}
+        style={{
+          borderRadius: "0.875rem",
+          // marginLeft: "18%",
+          // marginRight: "18%",
+        }} elevation={0}
       >
         <TableContainer
           className={classes.container}
           id="container-table-token"
           style={{
-            borderRadius: "12px",
-            border: "solid 1px #e3e7eb",
+            borderRadius: "0.75rem",
+            border: "solid 0.063rem #e3e7eb",
             backgroundColor: "#ffffff",
-            boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+            boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
           }}
         >
           <Table
@@ -387,13 +390,11 @@ export default function StickyHeadTable() {
                             </TableRow>
                         </TableHead> */}
 
-            <TableHead>
+            <TableHead
+              style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span>#</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
-                  <span></span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Token</span>
@@ -429,7 +430,7 @@ export default function StickyHeadTable() {
                       >
                         {index + 1}
                       </TableCell>
-                      <TableCell></TableCell>
+
                       {/* {row.src ?
                                                 <TableCell style={{ width: '1px' }} id="td"> <img
                                                     style={{ width: 25, height: 25, borderRadius: '15px' }}
@@ -446,19 +447,19 @@ export default function StickyHeadTable() {
                                             } */}
                       <TableCell
                         id="td"
-                        //    style={{ width: "110px" }}
+                      //    style={{ width: "110px" }}
                       >
                         {row.tokenName}
                       </TableCell>
                       <TableCell
                         id="td"
-                        //   style={{ width: "130px" }}
+                      //   style={{ width: "130px" }}
                       >
                         {row.type}
                       </TableCell>
                       <TableCell>
                         <a
-                          style={{ fontSize: 12, color: "#2149b9" }}
+                          style={{ fontSize: 15, color: "#2149b9" }}
                           href={"/token-data/" + row.address}
                         >
                           {" "}
@@ -467,11 +468,11 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell
                         id="td"
-                          style={{ paddingleft: "15" }}
+                        style={{ paddingleft: "15" }}
                       >
                         {row.tokenHolders}
                       </TableCell>
-                      <TableCell id="td">{row.status}</TableCell>
+                      <TableCell id="td">{capitalize(row.status)}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -513,7 +514,7 @@ export default function StickyHeadTable() {
         >
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "0.875rem",
               fontWeight: "600",
             }}
           >
@@ -533,7 +534,7 @@ export default function StickyHeadTable() {
           </select>
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "0.875rem",
               fontWeight: "600",
             }}
           >
@@ -571,7 +572,13 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path-contract">{"<"}</p>
+            <img
+              className="navigation-arrow"
+              src={require("../../assets/images/back.svg")}
+            />
+
+
+            {/* <p className="path-contract">{"<"}</p> */}
           </div>
           <div className="pagebox-contract">
             <p className="Page-1-of-5-contract">
@@ -589,12 +596,16 @@ export default function StickyHeadTable() {
                 : "nextbox-contract"
             }
           >
-            <p
+            <img
+              className="navigation-arrow"
+              src={require("../../assets/images/next.svg")}
+            />
+            {/* <p
               className="path-2-contract"
               onClick={() => handleChangePage("next")}
             >
               {">"}
-            </p>
+            </p> */}
           </div>
           <div
             className={

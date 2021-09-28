@@ -16,7 +16,7 @@ import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "970px",
+    maxWidth: "75.125rem",
 
     marginRight: "auto",
     marginTop: "90px",
@@ -128,8 +128,8 @@ export default function Transaction({ _handleChange }) {
     <div className={classes.mainContainer}>
       <Tokensearchbar />
       <div className={classes.root}>
-        <Grid item xs={12}>
-          <Spacing>
+        <Grid>
+          <Spacing style={{borderBottom:'none'}}>
             <Container>
               <Heading>Transaction Details</Heading>
               {transactions ? (
@@ -147,7 +147,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={hashid}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -169,7 +169,10 @@ export default function Transaction({ _handleChange }) {
                         fontSize: 14,
                       }}
                     >
-                      <i class="fa fa-clone" aria-hidden="true"></i>
+                      <img
+                        className="copy-icon"
+                        src={require("../../../src/assets/images/copy.svg")}
+                      />
                     </button>
                   </Tooltip>
                 </CopyToClipboard>
@@ -182,7 +185,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip title={blocknumber}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -205,7 +208,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip title={timestamp}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -222,7 +225,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip title={from}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -257,7 +260,10 @@ export default function Transaction({ _handleChange }) {
                           marginLeft: "25px",
                         }}
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
+                        <img
+                          className="copy-icon"
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -268,7 +274,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip title={to}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -302,7 +308,10 @@ export default function Transaction({ _handleChange }) {
                           marginLeft: "10px",
                         }}
                       >
-                        <i class="fa fa-clone" aria-hidden="true"></i>
+                        <img
+                          className="copy-icon"
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -313,7 +322,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip title={value}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Value</Hash>
@@ -331,7 +340,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip title={txnfee}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
 
@@ -349,7 +358,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={gasprovided}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Gas Provided</Hash>
@@ -363,7 +372,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={gasprice}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Gas Price</Hash>
@@ -377,7 +386,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={gasused}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Gas Used</Hash>
@@ -390,7 +399,7 @@ export default function Transaction({ _handleChange }) {
               <Container>
                 <Tooltip align="right" title={nounced}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Nounce</Hash>
@@ -399,34 +408,34 @@ export default function Transaction({ _handleChange }) {
                 <Content> {transactions.nonce}</Content>
               </MiddleContainer>
             </Spacing>
-            <Spacing>
+            <SpacingInputData>
               <Container>
                 <Tooltip align="right" title={input}>
-                  <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                  <ImageViewInputData
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
-                <Hash>Input Data</Hash>
+                <HashInputData>Input Data</HashInputData>
               </Container>
-              <MiddleContainer isTextArea={true}>
+              <MiddleContainerInputData isTextArea={true}>
                 <TextArea readOnly value={transactions.input} />
-              </MiddleContainer>
-            </Spacing>
-            <Spacing>
+              </MiddleContainerInputData>
+            </SpacingInputData>
+            <SpacingPrivateNode>
               <Container>
                 <Tooltip align="right" title={transferToken}>
                   <ImageView
-                    src={require("../../../src/assets/images/questionmark.png")}
+                    src={require("../../../src/assets/images/questionmark.svg")}
                   />
                 </Tooltip>
                 <Hash>Private Note</Hash>
               </Container>
-              <MiddleContainer>
+              <MiddleContainerPrivateNote>
                 {/* <Input /> */}
                 To access the Private Note feature, you must be{" "}
                 <a className="linkTableDetails">Logged In</a>
-              </MiddleContainer>
-            </Spacing>
+              </MiddleContainerPrivateNote>
+            </SpacingPrivateNode>
           </Div__>
           <br />
           <br />
@@ -449,7 +458,7 @@ const Input = styled.input`
 `;
 const Content = styled.span`
   font-family: Inter;
-  font-size: 13px;
+  font-size: 0.935rem;
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
@@ -473,15 +482,41 @@ const TextArea = styled.textarea`
 `;
 
 const Div__ = styled.div`
-  height: auto;
+  height: 56.06rem;
+  width: 75.125rem;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  padding: 9px;
+  padding: 0.563rem;
+  padding-left: 2.188rem;
+  padding-right: 2.188rem;
 `;
+const MiddleContainerPrivateNote = styled.div`
+  font-family: Inter;
+  font-size: 0.938rem;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
+  border-radius: 4px;
+  border: solid 1px #9fa9ba;
+  height: 2.313rem;
+  padding: 7px;
+`;
+const MiddleContainerInputData = styled.div`
+  font-family: Inter;
+  font-size: 0.938rem;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
+`;
+
 const MiddleContainer = styled.div`
   font-family: Inter;
-  font-size: 13px;
+  font-size: 0.938rem;
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
@@ -501,6 +536,16 @@ const MiddleContainer = styled.div`
   //   max-width: 340px;
   // }
 `;
+const HashInputData = styled.span`
+  color: var(--unnamed-color-2a2a2a);
+  white-space: nowrap;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: #2a2a2a;
+  padding-bottom: 30px;
+`;
 
 const Hash = styled.span`
   color: var(--unnamed-color-2a2a2a);
@@ -516,14 +561,34 @@ const Hash = styled.span`
     font-size: 13px;
   }
 `;
+const SpacingInputData = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  padding-right: 2.313rem;
+  border-bottom: solid 1px #e3e7eb;
+  height: 7.75rem;
+`;
+const SpacingPrivateNode = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 4.063rem;
+  padding-right: 2.313rem;
+`;
 const Spacing = styled.div`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 16px 23px;
   border-bottom: solid 1px #e3e7eb;
+  height: 4.063rem;
 
   @media (max-width: 767px) {
     display: block;
@@ -537,7 +602,7 @@ const HashDiv = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 16px 23px;
+  padding: 16px 33px;
 
   @media (max-width: 767px) {
     display: block;
@@ -559,7 +624,8 @@ const SecondContainer = styled.div`
 `;
 
 const Div = styled.div`
-  height: auto;
+  height: 4.125rem;
+  width: 75.125rem;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   // border: solid 1px #e3e7eb;
@@ -572,16 +638,18 @@ const Heading = styled.span`
   white-space: nowrap;
   color: #2a2a2a;
   box-shadow: none;
-  color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 18px;
-  margin-left: -21px;
+  font-size: 1.5rem;
   @media (min-width: 300px) and (max-width: 767px) {
     margin-left: unset;
   }
 `;
-
+const ImageViewInputData = styled.img`
+  width: 15px;
+  margin-right: 15px;
+  padding-bottom: 30px;
+`;
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;

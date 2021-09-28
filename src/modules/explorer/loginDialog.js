@@ -141,7 +141,7 @@ export default function FormDialog() {
 
           onClick={handleClickOpen}
         >
-          <img className="Shape2" src={require("../../../src/assets/images/Profile.png")}></img>
+          <img className="Shape2" src={require("../../../src/assets/images/Profile.svg")}></img>
         </button>
 
         <div>
