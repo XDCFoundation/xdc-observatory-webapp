@@ -149,7 +149,7 @@ export default function AddressDetailsData() {
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid className="table-grid-block tb-grid">
+      <Grid className="table-grid-block ">
         <div
           className="block_details_heading b-h1"
           style={{ display: "flex", flexDirection: "row" }}
