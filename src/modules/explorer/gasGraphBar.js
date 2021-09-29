@@ -58,7 +58,7 @@ height: 8.75rem;
 width: auto;
 margin-top: 3.19rem;
 
-@media (max-width:640px){
+@media (max-width:767px){
     height: 80px;
 }
 `

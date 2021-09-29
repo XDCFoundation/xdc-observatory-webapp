@@ -3027,6 +3027,24 @@ body {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1240px){
+  .tabs {
+    padding-bottom: 7px;
+    color: #b5bac7;
+    text-align: center;
+    width: 80%;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.875rem;
+    background: transparent;
+    cursor: pointer;
+    padding-left: 0px;
+    margin: 0px 34px 0px 0px;
+    font-weight: normal;
+    letter-spacing: 0.65px;
+  }
+}
+
 .tabs-vc {
   padding-bottom: 7px;
   color: #b5bac7;
@@ -3043,7 +3061,7 @@ body {
   letter-spacing: 0.65px;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .tabs {
     margin: 0px;
     letter-spacing: 0.65px;
@@ -3534,8 +3552,13 @@ button {
   border: none;
   padding: 0 0px 0px 3.25rem;
 }
+@media (min-width:0px) and (max-width: 767px) {
+  .container-graph-tab {
+    padding: 20px 0 0 0;
+  }
+}
 
-@media (max-width: 1240px) {
+@media  (min-width:768px) and  (max-width: 1240px) {
   .container-graph-tab {
     padding: 20px 0 0 0;
   }

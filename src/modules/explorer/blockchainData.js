@@ -23,8 +23,7 @@ const MainContainer = styled.div`
   height: 18.563rem;
   margin: 0 auto;
   margin-top: 50px;
-  padding-top: 1.9rem;
-  padding-left: 1.75rem;
+  padding: 1.9rem 1.375rem 0;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -32,18 +31,20 @@ const MainContainer = styled.div`
   display: flex;
   @media (min-width:767px) and (max-width: 1240px) {
     flex-direction: column;
-    width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
+    /* width: auto; */
+    width: 41.5rem;
+    margin-left: auto;
+    margin-right: auto;
     height: 38.625rem;
     padding-top: 0px;
   }
   @media (min-width:0px) and (max-width :767px){
     flex-direction: column;
-    width: auto;
+    /* width: auto; */
+    width: 22.563rem;
     height: 32.063rem;
-    margin-right: 2%;
-    margin-left: 2%;
+    margin-right: auto;
+    margin-left: auto;
     padding-top: 0px;
     padding-left: 10px;
     padding-right: 10px;
@@ -64,8 +65,11 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media (max-width:1240px){
+  @media (min-width:0px) and (max-width:767px){
     padding: 10px 10px 0;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    padding: 20px 10px 0 0;
   }
 `;
 const LeftContainer = styled.div`
@@ -149,6 +153,16 @@ const IconLogo = styled.img`
   width: 2.625rem;
   height: 2.625rem;
   margin-right: 12px;
+  @media (max-width:0px) and (max-width:767px){
+    width: 3.125rem;
+    height: 3.125rem;
+
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    width: 2.625rem;
+   height: 2.625rem;
+
+  }
   
 `;
 const LeftTitle = styled.div`
@@ -179,7 +193,7 @@ const Line1 = styled.hr`
     }
   @media (min-width:767px) and (max-width:1240px){
     width:96%;
-    top: 75%;
+    top: 60%;
     }
 `;
 const LeftTopSec = styled.div`
