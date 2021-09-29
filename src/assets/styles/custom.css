@@ -4329,7 +4329,7 @@ button {
   .latestTranscation {
     margin-top: 20px;
     width: 100%;
-    height: 29.625rem;
+    height: 37.625rem;
   }
 }
 
@@ -4352,6 +4352,16 @@ button {
     width: 33%;
     text-align: left;
     margin-left: 20px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .mar-left-15 {
+    margin-left: 15px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .mar-top-15 {
+    margin-top: 15px;
   }
 }
 @media (min-width: 1024px) {
@@ -4388,11 +4398,23 @@ button {
     margin-top: 15px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1240px) {
   .main_head {
     display: flex;
     justify-content: space-between;
     width: 100%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  .main-head {
+    display: flex;
+    width: 69%;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  .pad-left-38 {
+    padding-left: 38px;
   }
 }
 @media (min-width: 0px) and (max-width: 767px) {

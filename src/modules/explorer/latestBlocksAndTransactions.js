@@ -319,7 +319,7 @@ class LatestBlocks extends Component {
                   <div className="main_head main-head">
                     <div className="mainhead_child1 wid-40">Hash</div>
                     <div className="mainhead_child2 wid-21 pad-lef-8 ">Amount</div>
-                    <div className="mainhead_child3 wid-30">Age</div>
+                    <div className="mainhead_child3 wid-30 pad-left-38 ">Age</div>
                     <div>{" "}</div>
                   </div>
                   {/* <div className="age">
@@ -368,9 +368,9 @@ class LatestBlocks extends Component {
                       let detailanimationclass =
                         this.state.detailAnimation?.[hash];
                       return (
-                        <div className="value_main_main">
+                        <div className="value_main_main mar-top-15">
                           <div className="main_vaa">
-                            <div className="latest_child w-34 mar-top-6 wid-40">
+                            <div className="latest_child w-34 mar-top-6 wid-40 mar-left-15">
                               <Tooltip placement="top" title={e.hash}>
                                 <a
                                   className={
