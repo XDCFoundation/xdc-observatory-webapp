@@ -316,17 +316,17 @@ class LatestBlocks extends Component {
               </div>
               <div className="data">
                 <div className="data_heading">
-                  <div className="main_head">
-                    <div className="mainhead_child1">Hash</div>
-                    <div className="mainhead_child2">Amount</div>
-                    <div className="mainhead_child3">Age</div>
+                  <div className="main_head main-head">
+                    <div className="mainhead_child1 wid-40">Hash</div>
+                    <div className="mainhead_child2 wid-21 pad-lef-8 ">Amount</div>
+                    <div className="mainhead_child3 wid-30">Age</div>
                     <div>{" "}</div>
                   </div>
                   {/* <div className="age">
                  
                 </div> */}
                 </div>
-                <div className="data_value data_margin">
+                <div className="data_value data_margin mar-top-20 ">
                   {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
                 <div className="value_main_main">
                   <div className="value_main main_val">
@@ -370,18 +370,18 @@ class LatestBlocks extends Component {
                       return (
                         <div className="value_main_main">
                           <div className="main_vaa">
-                            <div className="latest_child w-34 mar-top-6">
+                            <div className="latest_child w-34 mar-top-6 wid-40">
                               <Tooltip placement="top" title={e.hash}>
                                 <a
                                   className={
-                                    hashanimationClass ? hashanimationClass : "bttn"
+                                    hashanimationClass ? hashanimationClass : "bttn pad-lef-5"
                                   }
                                   href={"/transaction-details/" + e.hash}
                                 >
                                   {this.shorten(e.hash)}
                                 </a>
                               </Tooltip></div>
-                            <div className="latest_child w-25">
+                            <div className="latest_child w-25 wid-20">
                               <p
                                 className={
                                   amountanimationclass
@@ -395,7 +395,7 @@ class LatestBlocks extends Component {
                                 XDC
                               </p>
                             </div>
-                            <div className="latest_child w-34">
+                            <div className="latest_child w-34 w-25-per">
                               <p
                                 className={
                                   ageanimationclass ? ageanimationclass : "value_main"
@@ -404,12 +404,12 @@ class LatestBlocks extends Component {
                                 {age}
                               </p>
                             </div>
-                            <div className="latest_child w-18 mar-top-6 ">
+                            <div className="latest_child w-18 mar-top-6 wid-15 ">
                               <a
                                 className={
                                   detailanimationclass
                                     ? detailanimationclass
-                                    : "details"
+                                    : "details pad-lef-5"
                                 }
                                 href={"/transaction-details/" + e.hash}
                               >
