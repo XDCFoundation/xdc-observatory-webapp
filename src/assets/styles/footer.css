@@ -33,6 +33,19 @@ label {
   background: transparent;
   padding-right: 10px;
 }
+@media (min-width: 0px) and (max-width: 767px) {
+  .footer {
+    width: 375px;
+    margin: auto;  
+  }
+}
+@media (min-width: 768px) and (max-width:1240px) {
+  .footer {
+    width: 768px;
+    margin: auto;  
+  }
+}
+
 @media (min-width: 1241px) {
   .footer {
     width: 75.125rem !important;
@@ -44,15 +57,17 @@ label {
     padding-right: 0px !important;
   }
 }
-@media (min-width: 1024px) {
-  .footer-line {
-    margin-top: 15px;
 
-    padding-left: 8px !important;
-    background: transparent;
-    padding-right: 8px !important;
-    width: 75.125rem;
-    margin: 0 auto;
+@media (min-width: 0px) and (max-width: 767px) {
+  .footer-line {
+    width: 375px;
+    margin: auto;  
+  }
+}
+@media (min-width: 768px) and (max-width:1240px) {
+  .footer-line {
+    width: 768px;
+    margin: auto;  
   }
 }
 
