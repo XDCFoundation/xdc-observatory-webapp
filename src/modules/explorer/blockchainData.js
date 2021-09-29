@@ -30,30 +30,28 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (min-width:641px) and (max-width: 1023px) {
+  @media (min-width:767px) and (max-width: 1240px) {
     flex-direction: column;
     width: auto;
-    /* margin-left: 5%;
-    margin-right: 5%; */
-    margin-left: 4.7%;
-    margin-right: 4.7%;
-    height: 400px;
-    //use this height in case of giving height to graph in tablet mode
-    /* height:450px; */
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 38.625rem;
     padding-top: 0px;
   }
-  @media (max-width :640px){
+  @media (min-width:0px) and (max-width :767px){
     flex-direction: column;
     width: auto;
-    height: 450px;
+    height: 32.063rem;
     margin-right: 2%;
     margin-left: 2%;
     padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 `;
 const MobileScreen = styled.div`
 margin-right: 3px;
-@media (min-width:640px){
+@media (min-width:768px){
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -66,9 +64,8 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media (max-width:1023px){
-    padding-left: 10px;
-    padding-right: 10px;
+  @media (max-width:1240px){
+    padding: 10px 10px 0;
   }
 `;
 const LeftContainer = styled.div`
@@ -81,14 +78,15 @@ const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
   margin-left: 12px;
-  @media (max-width:1023px){
-    margin-left: 0px
-  }
+  
 `;
 
 const LeftSec = styled.div`
   flex: 0.7;
       margin-top: 10px;
+  @media (min-width:335px) and (max-width:767px){
+    padding: 0 3%;
+  }
   
 `;
 const ValueMain = styled.div`
@@ -102,6 +100,10 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 15px;
+  @media (min-width:0px) and (max-width:768px){
+    padding: 10px 10px 0 0;
+    width: 8.625rem;
+  }
 `;
 const TitleIcon = styled.img`
   width: 22%;
@@ -133,6 +135,9 @@ const TitleValue = styled.div`
   line-height: normal;
   letter-spacing: 0.58px;
   color: #252525;
+  @media (max-width:767px){
+    font-size: 0.875rem;
+  }
 `;
 const LeftTop = styled.div`
   display: flex;
@@ -156,13 +161,23 @@ const LeftTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.9px;
   color: #252525;
+  @media (max-width:767px){
+    font-size: 1.375rem;
+  }  
+  @media (min-width:768px){
+    font-size: 1.5rem;
+  }
 `;
 const Line1 = styled.hr`
   background-color: #fff;
   width: 100%;
   position: absolute;
   top: 65%;
-  @media (max-width:1023px){
+  @media (min-width:0px) and (max-width:767px){
+    width:96%;
+    top: 87%;
+    }
+  @media (min-width:767px) and (max-width:1240px){
     width:96%;
     top: 75%;
     }
@@ -173,6 +188,10 @@ const LeftTopSec = styled.div`
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 1rem;
+  }
+
 `;
 const LeftTopSecMain = styled.div`
   display: flex;
