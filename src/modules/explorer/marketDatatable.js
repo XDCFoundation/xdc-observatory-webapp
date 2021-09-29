@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../../assets/styles/custom.css";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
-import arrowup from "../../assets/images/arrow.gif"
 import { CoinMarketService } from '../../services'
 import styled from "styled-components"
 import Utils from '../../utility'
