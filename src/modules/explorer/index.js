@@ -30,8 +30,8 @@ export default class BlockChainClass extends BaseComponent {
         return (
             <div>
                 <NavigationBar />
-                {/* <BlockChainDataComponent
-                    currency={activeCurrency} socket={this.props.socket} /> */}
+                <BlockChainDataComponent
+                    currency={activeCurrency} socket={this.props.socket} />
                 <MarketTable currency={activeCurrency} />
                 <LatestBlocksComponent socket={this.props.socket} />
                 <FooterComponent _handleChange={this._handleChange}
