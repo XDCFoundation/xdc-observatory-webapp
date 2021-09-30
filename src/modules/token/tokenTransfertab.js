@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
@@ -122,6 +121,7 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState({});
+  const [noData, setNoData] = useState(true);
   const { address } = useParams();
 
   useEffect(() => {
@@ -135,12 +135,16 @@ export default function StickyHeadTable() {
     );
     if (error || !tns) return;
     settransfer(tns);
+    if (tns.totalTransactions.length == 0) {
+      setNoData(false)
+    }
     setTotalToken(tns.totalTransactionCount);
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(values)
       );
       settransfer(tns);
+
       setTotalToken(tns.totalTransactionCount);
     }, 90000);
   };
@@ -191,6 +195,7 @@ export default function StickyHeadTable() {
     )}`;
   }
   console.log(transfer, "LLLL")
+  console.log(noData, "OOOO")
   return (
     <>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -216,7 +221,8 @@ export default function StickyHeadTable() {
               </TableRow>
             </TableHead>
 
-            {transfer.totalTransactions &&
+            {
+              transfer.totalTransactions &&
               transfer.totalTransactions.length >= 1 &&
               transfer.totalTransactions.map((row) => {
                 const currentTime = new Date();
@@ -228,42 +234,39 @@ export default function StickyHeadTable() {
                     key={row.code}
                   >
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a style={{ color: "blue", fontSize: 11 }} href={"/transfer-transaction-details/" + address}>
-                        <Tooltip placement="top" title={row.hash}>
-                          <span className="tabledata table-data">
-                            {" "}
-                            {shorten(row.hash)}{" "}
-                          </span>
-                        </Tooltip>{" "}
+                      <a style={{ color: "blue", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
+                        <span className="tabledata table-data">
+                          {shorten(row.hash)}
+                        </span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
                       <span className="tabledata table-data">{ti}</span>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      {" "}
+
                       <a style={{ color: "blue", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
-                        <span className="tabledata table-data"> {row.blockNumber}</span>{" "}
+                        <span className="tabledata table-data"> {row.blockNumber}</span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      {" "}
+
                       <a style={{ color: "blue", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.from}>
                           <span className="tabledata table-data">
-                            {" "}
-                            {shorten(row.from)}{" "}
+
+                            {shorten(row.from)}
                           </span>
                         </Tooltip>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      {" "}
+
                       <a style={{ color: "blue", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.to}>
                           <span className="tabledata table-data">
-                            {" "}
-                            {shorten(row.to)}{" "}
+
+                            {shorten(row.to)}
                           </span>
                         </Tooltip>
                       </a>
@@ -271,6 +274,18 @@ export default function StickyHeadTable() {
                   </StyledTableRow>
                 );
               })}
+            {
+              noData == false && (
+
+                <TableCell id="td" style={{ border: "none" }}>
+                  <span className="tabledata table-data">
+                    No Transfers Found
+                  </span>
+                </TableCell>
+
+              )
+            }
+
 
           </Table>
         </TableContainer>
@@ -299,7 +314,7 @@ export default function StickyHeadTable() {
               marginTop: "6px"
             }}
           >
-            {" "}
+
             Records
           </p>
         </LeftPagination>
@@ -327,10 +342,10 @@ export default function StickyHeadTable() {
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
-              Page{" "}
+              Page
               {Math.round(totalToken / rowsPerPage) +
                 1 -
-                Math.round((totalToken - page) / rowsPerPage)}{" "}
+                Math.round((totalToken - page) / rowsPerPage)}
               of {Math.round(totalToken / rowsPerPage)}
             </p>
           </div>

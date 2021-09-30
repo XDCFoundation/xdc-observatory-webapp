@@ -371,24 +371,9 @@ export default function StickyHeadTable() {
           }}
         >
           <Table
-            // stickyHeader
-            // aria-label="sticky table"
+
             style={{ borderBottom: "none" }}
           >
-            {/* <TableHead>
-                            <TableRow> 
-                                {columns.map((column) => (
-                                    <TableCell id="th"
-                                        key={column.id}
-                                        align={column.align}
-                        
-                                        style={{ backgroundColor: 'white' }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead> */}
 
             <TableHead
               style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
@@ -430,21 +415,6 @@ export default function StickyHeadTable() {
                       >
                         {index + 1}
                       </TableCell>
-
-                      {/* {row.src ?
-                                                <TableCell style={{ width: '1px' }} id="td"> <img
-                                                    style={{ width: 25, height: 25, borderRadius: '15px' }}
-                                                    src={row.src} /></TableCell>
-                                                :
-                                                <TableCell style={{ width: '1px' }} id="td">
-                                                    {row.tokenName ?
-                                                        <span style={{ width: 25, height: 25, borderRadius: '15px', border: '1px solid', padding: '5px' }}
-                                                        >{row.tokenName ? row.tokenName.slice(0, 2).toUpperCase() : ''}</span>
-                                                        :
-                                                        ''
-                                                    }
-                                                </TableCell>
-                                            } */}
                       <TableCell
                         id="td"
                       //    style={{ width: "110px" }}

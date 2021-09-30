@@ -3897,7 +3897,13 @@ button {
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
-
+.No-data-found {
+  border-bottom: none;
+  padding-left: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  width: 160px;
+}
 .first-transaction-hash {
   background-color: transparent;
   font-family: Inter;
