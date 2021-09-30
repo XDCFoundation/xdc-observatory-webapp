@@ -34,28 +34,26 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (min-width:641px) and (max-width: 1023px) {
+  @media (min-width:768px) and (max-width: 1240px) {
     flex-direction: column;
-    width: auto;
-    margin-left: 4.7%;
-    margin-right: 4.7%;
-    height: 400px;
-    //use this height in case of giving height to graph in tablet mode
-    /* height:450px; */
-    padding-top: 0px;
+    width: 41.5rem;
+    height: 38.625rem;
+    padding: 0 1.875rem;
+    margin:0 auto;
+    margin-top: 140px;
   }
-  @media (max-width :640px){
+  @media (max-width :767px){
     flex-direction: column;
-    width: auto;
-    height: 450px;
-    margin-right: 2%;
-    margin-left: 2%;
-    padding-top: 0px;
+    width: 22.563rem;
+    height: 32.063rem;
+    padding: 0 1.875rem;
+    margin: 0 auto;
+    margin-top: 140px;
   }
 `;
 const MobileScreen = styled.div`
 margin-right: 3px;
-@media (min-width:640px){
+@media (min-width:768px){
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -74,10 +72,14 @@ const RightContainer = styled.div`
   flex-direction: column;
   padding: 0px 20px 25px 40px;
   width: 50%;
-  @media (max-width:1023px){
-    margin-left: 0px;
-    padding: 40px 0px 0px 0px;
-    width:auto;
+  @media (max-width:767px){
+    margin-top: -10px;
+    padding: 0px 0px 0px 0px;
+    width: auto;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    padding: 0px 0px 0px 0px;
+    width: auto;
   }
 `;
 const LeftFirst = styled.div`
@@ -86,9 +88,11 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media (max-width:1023px){
-    padding-left: 10px;
-    padding-right: 10px;
+  @media (max-width:767px){
+   padding: 1.875rem 0;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+   padding: 3.125rem 0;
   }
 `;
 const LeftSec = styled.div`
@@ -107,6 +111,10 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 35px;
+  @media (min-width:0px) and (max-width:767px){
+    width: 6.625rem;
+    padding-bottom: 23px;
+  }
 `;
 const TitleIcon = styled.img`
   width: 22%;
@@ -129,6 +137,12 @@ const Title = styled.div`
   line-height: normal;
   letter-spacing: 0.65px;
   margin-bottom: 5px;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 0.75rem;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    font-size: 0.875rem;
+  }
 `;
 const TitleValue = styled.div`
   font-size: 1rem;
@@ -137,6 +151,12 @@ const TitleValue = styled.div`
   line-height: normal;
   letter-spacing: 0.58px;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 0.875rem;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    font-size: 1rem;
+  }
 `;
 const LeftTop = styled.div`
   display: flex;
@@ -160,15 +180,25 @@ const LeftTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.9px;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 1.375rem;
+  }
+  @media (min-width:767px) and (max-width:1240px){
+    font-size: 1.5rem;
+  }
 `;
 const Line1 = styled.hr`
   background-color: #fff;
   width: 100%;
   position: absolute;
   top: 65%;
-  @media (max-width:1023px){
-    width:96%;
+  @media (max-width:767px){
+    width:100%;
     top: 75%;
+    }
+    @media (min-width:768px) and (max-width:1240px){
+    width:100%;
+    top: 60%;
     }
 `;
 const LeftTopSec = styled.div`
@@ -177,6 +207,12 @@ const LeftTopSec = styled.div`
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 1rem;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    font-size: 1.375rem;
+  }
 `;
 const LeftTopSecMain = styled.div`
   display: flex;
@@ -194,6 +230,9 @@ const ContractButton = styled.button`
   color: #2149b9;
   padding-top: 2.5px;
   padding-left: 0px;
+  @media (max-width:767px){
+    font-size: 0.875rem;
+  }
 `;
 const RightFirst = styled.div`
   flex: 0.1;
@@ -220,6 +259,18 @@ const RightTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.65px;
   color: #2a2a2a;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 0.875rem;
+    text-align: left;
+    letter-spacing: 0.01px;
+    color: #9FA9BA;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    font-size: 0.875rem;
+    text-align: left;
+    letter-spacing: 0.54px;
+    color: #252525;
+  }
   
   `;
 const Line2 = styled.hr`
@@ -228,9 +279,13 @@ const Line2 = styled.hr`
   position: absolute;
   top: 20%;
   left: 0%;
-  @media (max-width:1023px){
+  @media (max-width:767px){
     width:100%;
-    top: 65%;
+    top: 30%;
+    }
+  @media (min-width:768px) and (max-width:1240px){
+    width:100%;
+    top: 20%;
     }
 `;
 const RightTopSec = styled.div`
@@ -246,6 +301,17 @@ const RightTopSec = styled.div`
     font-family: "Inter" !important;
     font-weight: 600;
     padding-top: 2px;
+    @media (min-width:0px) and (max-width:767px){
+    font-size: 0.75rem;
+    width: 3.438rem;
+    height: 1.375rem;
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    font-size: 0.875rem;
+    width: 4.063rem;
+    height: 1.573rem;
+    
+  }
 `;
 
 const GraphContainer = styled.div`
