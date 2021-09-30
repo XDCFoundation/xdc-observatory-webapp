@@ -4018,7 +4018,6 @@ button {
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
-    padding-left: 18px;
   }
 }
 
@@ -4386,6 +4385,7 @@ button {
   .latest_child {
     width: 104px;
     text-align: left;
+    padding-top: 10px;
   }
 }
 
@@ -4394,6 +4394,7 @@ button {
     width: 33%;
     text-align: left;
     margin-left: 20px;
+    padding-top: 10px;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
