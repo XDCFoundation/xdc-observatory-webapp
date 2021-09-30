@@ -2908,17 +2908,12 @@ body {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .content-tabs {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 }
-@media (min-width: 640px) and (max-width: 1023px) {
-  .content-tabs {
-    /* margin-top: 50px; */
-    padding-bottom: 35px;
-  }
-}
+
 
 .days p {
   width: 3.5rem;
@@ -2935,7 +2930,7 @@ body {
   padding-left: 1.5px;
   padding-top: 10.9px;
 }
-@media (min-width: 0px) and (max-width: 768px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .days p {
     margin-top: 0px;
     padding-top: 5px;
@@ -3558,7 +3553,7 @@ button {
   }
 }
 
-@media  (min-width:768px) and  (max-width: 1240px) {
+@media  (min-width:767px) and  (max-width: 1240px) {
   .container-graph-tab {
     padding: 20px 0 0 0;
   }
