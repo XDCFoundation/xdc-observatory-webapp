@@ -52,7 +52,7 @@ const MainContainer = styled.div`
 `;
 const MobileScreen = styled.div`
 margin-right: 3px;
-@media (min-width:768px){
+@media (min-width:767px){
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -68,7 +68,7 @@ const LeftFirst = styled.div`
   @media (min-width:0px) and (max-width:767px){
     padding: 10px 10px 0;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width:767px) and (max-width:1240px){
     padding: 20px 10px 0 0;
   }
 `;
@@ -104,7 +104,7 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 15px;
-  @media (min-width:0px) and (max-width:768px){
+  @media (min-width:0px) and (max-width:767px){
     padding: 10px 10px 0 0;
     width: 8.625rem;
   }
