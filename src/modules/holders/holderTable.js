@@ -131,10 +131,7 @@ export default function AddressTableComponent(props) {
 
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
-  //const [exports, exportAddress] = useState({});
-  //const [toggle, handleToggle] = useState(false);
   const [page, setPage] = React.useState(0);
-  //const [checkAll, setCheckAll] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
   let showPerPage = 50;
@@ -291,9 +288,9 @@ export default function AddressTableComponent(props) {
       perpage: event.target.value,
       addrr: addr,
     };
-    getAddressDetails(datas);
+    getHolderDetails(datas);
   };
-  const getAddressDetails = async (data) => {
+  const getHolderDetails = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data)
@@ -312,72 +309,31 @@ export default function AddressTableComponent(props) {
   };
   useEffect(() => {
     //let address =props.trans
-    // datas = {
-    //     pageNum: page,
-    //     perpage: rowsPerPage,
-    //     addrr: addr
-    // }
-
-    setAddress(
-      dummyData.map((d) => {
-        return {
-          id: d.id,
-          TxHash: d.TxHash,
-          Age: d.Age,
-          Block: d.Block,
-          From: d.From,
-          To: d.To,
-          Amount: d.Amount,
-        };
-      })
-    );
-
-    console.log(address, "<>");
-
-    setReportaddress(
-      dummyData.map((d) => {
-        return {
-          TxHash: d.TxHash,
-          Age: d.Age,
-          From: d.From,
-          To: d.To,
-          Amount: d.Amount,
-        };
-      })
-    );
-    setDownloadaddress(
-      address.map((d) => {
-        return {
-          id: d.id,
-          TxHash: d.TxHash,
-          Age: d.Age,
-          Block: d.Block,
-          From: d.From,
-          To: d.To,
-          Amount: d.Amount,
-        };
-      })
-    );
-    // getAddressDetails(datas);
+    datas = {
+      pageNum: page,
+      perpage: rowsPerPage,
+      addrr: addr
+    }
+    getAddressDetails(datas);
   }, []);
 
-  const getTransactionSearch = async (data) => {
-    try {
-      const [error, responseData] = await Utility.parseResponse(
-        AddressData.getTransactionSearch(data)
-      );
+  // const getTransactionSearch = async (data) => {
+  //   try {
+  //     const [error, responseData] = await Utility.parseResponse(
+  //       AddressData.getTransactionSearch(data)
+  //     );
 
-      if (responseData.responseTransaction.length > 0) {
-        setNoData(false);
-        parseResponseData(responseData, 2);
-      } else {
-        setNoData(true);
-        setBalance(parseFloat(0).toFixed(2));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (responseData.responseTransaction.length > 0) {
+  //       setNoData(false);
+  //       parseResponseData(responseData, 2);
+  //     } else {
+  //       setNoData(true);
+  //       setBalance(parseFloat(0).toFixed(2));
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const parseResponseData = async (Recdata, type) => {
     let trxn = [];
@@ -389,44 +345,44 @@ export default function AddressTableComponent(props) {
       setTotalRecord(Recdata.total);
     }
 
-    // setAddress(
-    //     trxn.map((d) => {
+    setAddress(
+      trxn.map((d) => {
 
-    //         return {
-    //             Txn_Hash: d.hash,
-    //             Age: d.timestamp,
-    //             Block: d.blockNumber,
-    //             From: d.from,
-    //             To: d.to,
-    //             Value: d.value,
-    //             id: d._id,
-    //         };
-    //     })
-    // );
+        return {
+          Txn_Hash: d.hash,
+          Age: d.timestamp,
+          Block: d.blockNumber,
+          From: d.from,
+          To: d.to,
+          Value: d.value,
+          id: d._id,
+        };
+      })
+    );
 
-    // setReportaddress(
-    //     trxn.map((d) => {
+    setReportaddress(
+      trxn.map((d) => {
 
-    //         return {
-    //             Txn_Hash: d.hash,
-    //             Age: d.timestamp,
-    //             Block: d.blockNumber,
-    //             From: d.from,
-    //             To: d.to,
-    //             Value: (d.value / 1000000000000000000)
-    //         };
-    //     })
-    // );
-    // setDownloadaddress(trxn.map((d) => {
-    //     return {
-    //         Txn_Hash: d.hash,
-    //         Age: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
-    //         Block: d.blockNumber,
-    //         From: d.from,
-    //         To: d.to,
-    //         Value: (d.value / 1000000000000000000)
-    //     };
-    // }))
+        return {
+          Txn_Hash: d.hash,
+          Age: d.timestamp,
+          Block: d.blockNumber,
+          From: d.from,
+          To: d.to,
+          Value: (d.value / 1000000000000000000)
+        };
+      })
+    );
+    setDownloadaddress(trxn.map((d) => {
+      return {
+        Txn_Hash: d.hash,
+        Age: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
+        Block: d.blockNumber,
+        From: d.from,
+        To: d.to,
+        Value: (d.value / 1000000000000000000)
+      };
+    }))
   };
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value;
