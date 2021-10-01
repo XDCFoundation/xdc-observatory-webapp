@@ -105,14 +105,14 @@ export default function TransferTransaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -176,9 +176,9 @@ export default function TransferTransaction({ _handleChange }) {
                         fontSize: 14,
                       }}
                     >
-                     <ImgView
-                    src={require("../../../src/assets/images/copy.svg")}
-                  />
+                      <ImgView
+                        src={require("../../../src/assets/images/copy.svg")}
+                      />
                     </button>
                   </Tooltip>
                 </CopyToClipboard>
@@ -266,8 +266,8 @@ export default function TransferTransaction({ _handleChange }) {
                         }}
                       >
                         <ImgView
-                    src={require("../../../src/assets/images/copy.svg")}
-                  />
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -311,9 +311,9 @@ export default function TransferTransaction({ _handleChange }) {
                           fontSize: 14,
                         }}
                       >
-                       <ImgView
-                    src={require("../../../src/assets/images/copy.svg")}
-                  />
+                        <ImgView
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
@@ -491,8 +491,9 @@ export default function TransferTransaction({ _handleChange }) {
               </Container>
               <MiddleContainerPrivateNote>
                 {/* <Input /> */}
-                To access the Private Note feature, you must be{" "}
-                <a className="linkTableDetails">Logged In</a>
+                <PrivateBox>
+                  To access the Private Note feature, you must be{" "}
+                  <a className="linkTableDetails">Logged In</a></PrivateBox>
               </MiddleContainerPrivateNote>
             </SpacingPrivateNode>
           </Div__>
@@ -552,12 +553,13 @@ const TextArea = styled.textarea`
   overflow-y: auto;
 
   @media (min-width: 1024px) {
-    width: 946px;
-    height: 93px;
+    width: 59.125rem;
+    height: 5.813rem;
     opacity: 0.33;
     border-radius: 4px;
     border: solid 1px #9fa9ba;
     background-color: #dee0e3;
+    margin-left: 88px;
   }
 `;
 
@@ -569,7 +571,7 @@ const Div__ = styled.div`
   padding: 9px;
 
   @media (min-width: 1024px) {
-    height: 63.06rem;
+    height: 64.06rem;
     width: 75.125rem;
     border-radius: 7px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
@@ -618,12 +620,15 @@ const MiddleContainerPrivateNote = styled.div`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
-  width: 100%;
+  height: 2.313rem;
+ 
+`;
+const PrivateBox = styled.div`
   border-radius: 4px;
   border: solid 1px #9fa9ba;
-  height: 2.313rem;
+  width: 59.125rem;
   padding: 7px;
+  margin-left: 88px;
 `;
 const MiddleContainerInputData = styled.div`
   font-family: Inter;
@@ -631,7 +636,7 @@ const MiddleContainerInputData = styled.div`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
+ 
   width: 100%;
 `;
 const InputContainer = styled.div`
@@ -675,7 +680,6 @@ const Spacin = styled.div`
   width: 100%;
   align-items: center;
   padding: 16px 23px;
-  border-bottom: solid 1px #e3e7eb;
 `;
 
 const Spacing = styled.div`
@@ -684,7 +688,6 @@ const Spacing = styled.div`
   width: 100%;
   height: 4.063rem;
   align-items: center;
-  border-bottom: solid 1px #e3e7eb;
 
   @media (max-width: 767px) {
     display: block;
@@ -779,4 +782,5 @@ const ImageView = styled.img`
 `;
 const ImgView = styled.img`
   width: 20px;
+  height: 20px;
 `;

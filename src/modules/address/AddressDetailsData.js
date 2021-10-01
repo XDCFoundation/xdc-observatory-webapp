@@ -149,12 +149,12 @@ export default function AddressDetailsData() {
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid className="table-grid-block tb-grid">
+      <Grid className="table-grid-block ">
         <div
           className="block_details_heading b-h1"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p className="block_details_heading_left add">Address <span className="AddressTitle addtitle">{addressNumber}</span></p>
+          <p className="contract_details_heading_left">Address <span className="AddressTitle addtitle">{addressNumber}</span></p>
         </div>
 
 
