@@ -32,7 +32,7 @@ export default function FooterComponent(props) {
     display: flex;
     justify-content: flex-end;
 
-    @media (min-width:1024px){
+    @media (min-width:1241px){
         width: 40%;
         display: contents;
     }
@@ -44,13 +44,13 @@ export default function FooterComponent(props) {
     /* flex-direction: column; */
     width: 20%;
     
-    @media(min-width:0px) and (max-width:640px){
+    @media(min-width:0px) and (max-width:767px){
         display: flex;
         flex-direction: row;
         width: 100%;
     
     }
-    @media(min-width:641px) and (max-width: 1023px) {
+    @media(min-width:767px) and (max-width: 1240px) {
       display: flex;
       flex-direction:column;
       width: 33%;
@@ -63,13 +63,13 @@ export default function FooterComponent(props) {
     display: flex;
     /* flex-direction: column; */
     width: auto;
-    @media(min-width:0px) and (max-width:640px){
+    @media(min-width:0px) and (max-width:767px){
         display: flex;
         flex-direction: row;
         width: 100%;
         
     }
-    @media(min-width:641px) and (max-width: 1023px) {
+    @media(min-width:767px) and (max-width: 1240px) {
       display: flex;
       flex-direction: row;
       width: 66%;  
@@ -83,12 +83,12 @@ export default function FooterComponent(props) {
     
     
     /* width: 100%; */
-    @media(min-width:0px) and (max-width:640px){
+    @media(min-width:0px) and (max-width:767px){
         display: flex;
         flex-direction: row;
         width: 100%;
     }
-    @media(min-width:641px) and (max-width: 1023px) {
+    @media(min-width:767px) and (max-width: 1240px) {
       display: flex;
       flex-direction:row;
       width: 66%;
