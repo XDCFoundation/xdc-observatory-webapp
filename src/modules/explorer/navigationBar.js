@@ -140,12 +140,14 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [opencontracts, setOpencontracts] = useState(false);
   const handleSearch = (event) => {
-    var selectOptType = SelectOptRef.current?.value;
-    let requestdata = {
-      filter: selectOptType,
-      data: event.target.value,
-    };
-    BlockChainSearch(requestdata);
+    if (event.key === "Enter") {
+      var selectOptType = SelectOptRef.current?.value;
+      let requestdata = {
+        filter: selectOptType,
+        data: event.target.value,
+      };
+      BlockChainSearch(requestdata);
+    }
   };
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
@@ -783,7 +785,7 @@ export default function Navbar() {
                     <img className="search-dashboard-icon" src={searchIcon}></img>
                     <input
                       defaultValue={filter}
-                      onChange={(event) => handleSearch(event)}
+                      onClick={(event) => handleSearch(event)}
                       type="text"
                       ref={SearchDataRef}
                       className="main-input"
