@@ -3575,7 +3575,7 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .latestblock {
     width: 100%;
-    height: 27.5rem;
+    height: 33.5rem;
   }
 }
 
@@ -4173,7 +4173,6 @@ button {
     opacity: 1;
     height: 1.063rem;
     font-weight: normal;
-    padding-left: 70px;
   }
 }
 @media (min-width: 768px) and (max-width: 1239px) {
@@ -4401,7 +4400,11 @@ button {
     margin-top: 15px;
   }
 }
-
+@media (min-width: 0px) and (max-width: 767px) {
+  .amount-left-43 {
+    padding-left: 43px !important;
+  }
+}
 .mainhead_child1 {
   width: 32%;
   font-size: 12px;
@@ -6959,8 +6962,8 @@ button {
   }
 }
 @media (max-width: 767px) {
-  .wid-15 {
-    width: 20% !important;
+  .wid-14 {
+    width: 14% !important;
   }
 }
 
@@ -7018,5 +7021,15 @@ button {
 @media (max-width: 767px) {
   .overflow {
     overflow-x: scroll;
+  }
+}
+@media (max-width: 767px) {
+  .w-118 {
+    width: 118%;
+  }
+}
+@media (max-width: 767px) {
+  .details-margin-30 {
+    margin-left: 30px;
   }
 }
