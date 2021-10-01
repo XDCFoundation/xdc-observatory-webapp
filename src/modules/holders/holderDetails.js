@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
     borderBottom: 'none',
     background: '#fff',
-    width:"75.125rem"
+    width: "75.125rem"
   },
 
 });
@@ -75,52 +75,7 @@ export default function HoldersDetails(props) {
   };
   const classes = useStyles();
 
-  // function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-  //     b.length - 3,
 
-  //   )}`;
-  // }
-  // function _handleChange(event) {
-  //   alert('dd')
-  // }
-  // const getAddressDetails = async () => {
-  //   try {
-
-  //     const [error, responseData] = await Utility.parseResponse(
-  //       AddressData.getAddressDetail(addr)
-  //     );
-
-  //     if (responseData) {
-  //       setBalance((responseData.balance / 1000000000000000000).toFixed(2));
-  //       let activeCurrency = window.localStorage.getItem('currency')
-  //       let convertedCurrency = ''
-  //       if (activeCurrency == 'USD') {
-  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-  //         setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
-  //         setConvertCurrency(convertedCurrency)
-  //       } else if (activeCurrency == 'EUR') {
-  //         convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
-  //         setCoinValue((responseData.balanceInEUR / 1000000000000000000).toFixed(2))
-  //         setConvertCurrency(convertedCurrency)
-  //       } else if (activeCurrency == 'INR') {
-  //         convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
-  //         setCoinValue((responseData.balanceInINR / 1000000000000000000).toFixed(2))
-  //         setConvertCurrency(convertedCurrency)
-  //       } else {
-  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-  //         setCoinValue((responseData.balanceInUSD / 1000000000000000000).toFixed(2))
-  //         setConvertCurrency(convertedCurrency)
-  //       }
-  //       setLoading(false);
-  //     } else {
-  //       setBalance(parseFloat(0).toFixed(2));
-  //       setLoading(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   const options = {
     htmlparser2: {
@@ -132,319 +87,319 @@ export default function HoldersDetails(props) {
   // }, []);
   return (
     <>
-    <DeskTopView>
-    <div style={{ backgroundColor: '#fff' }}>
-      <Tokensearchbar />
-      <Grid className="table-grid-block">
-        <div
-          className="block_details_heading"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-         <p className="block_details_heading_left">Holder Details</p>
-        </div>
-        <Paper style={{ borderRadius: '14px' }} elevation={0}>
-          <TableContainer className={classes.container} id="container-table">
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell
-                    style={{
-                      width: "0px",
-                      paddingRight: "1px",
+      <DeskTopView>
+        <div style={{ backgroundColor: '#fff' }}>
+          <Tokensearchbar />
+          <Grid className="table-grid-block">
+            <div
+              className="block_details_heading"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              <p className="block_details_heading_left">Holder Details</p>
+            </div>
+            <Paper style={{ borderRadius: '14px' }} elevation={0}>
+              <TableContainer className={classes.container} id="container-table">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          width: "0px",
+                          paddingRight: "1px",
 
-                    }}
-                    id="td"
-                  />
-                  <TableCell className="first-row-table_address1">
-                    Holder
-                  </TableCell>
-               <TableCell className="second-row-table_address1">
-                 {addr}
-                  </TableCell>
-                  <TableCell >
-                    <div className="dis-flex">
-                    <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
-                      <Tooltip
-                        title={
-                          copiedText === addr
-                            ? "Copied"
-                            : "Copy To Clipboard"
-                        }
-                        placement="top"
-                      >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}> <img src={require("../../../src/assets/images/copy.svg")}/> </button>
-                      </Tooltip>
-                    </CopyToClipboard>
-                    <Popup trigger={<ImQrcode className="qr-code"/>} modal>
-                      {(close) => (
-                        <div className="popup_qr">
-                            <p>
-                            <div>
-                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px",paddingTop: '1.5rem' }} className="close" onClick={close}>
-                                &times;
-                              </button>
-                              <div className="header" style={{ fontSize: '0.875rem', paddingTop: '1.563rem', paddingBottom: '60px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 400, width: 400 }} value={addr} />
-                            </div>
-                          </p>
+                        }}
+                        id="td"
+                      />
+                      <TableCell className="first-row-table_address1">
+                        Holder
+                      </TableCell>
+                      <TableCell className="second-row-table_address1">
+                        {addr}
+                      </TableCell>
+                      <TableCell >
+                        <div className="dis-flex">
+                          <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
+                            <Tooltip
+                              title={
+                                copiedText === addr
+                                  ? "Copied"
+                                  : "Copy To Clipboard"
+                              }
+                              placement="top"
+                            >
+                              <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}> <img src={require("../../../src/assets/images/copy.svg")} /> </button>
+                            </Tooltip>
+                          </CopyToClipboard>
+                          <Popup trigger={<ImQrcode className="qr-code" />} modal>
+                            {(close) => (
+                              <div className="popup_qr">
+                                <p>
+                                  <div>
+                                    <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px", paddingTop: '1.5rem' }} className="close" onClick={close}>
+                                      &times;
+                                    </button>
+                                    <div className="header" style={{ fontSize: '0.875rem', paddingTop: '1.563rem', paddingBottom: '60px' }}> {addr} </div>
+                                    <QRCode size={320} style={{ height: 400, width: 400 }} value={addr} />
+                                  </div>
+                                </p>
+                              </div>
+                            )}
+                          </Popup>
                         </div>
-                      )}
-                    </Popup>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          width: "0px",
+                          paddingRight: "1px",
+
+                        }}
+                        id="td"
+                      />
+                      <TableCell className="first-row-table_address-balance" >
+                        Balance
+                      </TableCell>
+                      <TableCell className="second-row-table_address-balance">
+                        {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
+                      </TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          width: "0px",
+                          paddingRight: "1px",
+                        }}
+                        id="td"
+                      />
+                      <TableCell className="first-row-table_address-balance" >
+                        Transfers
+                      </TableCell>
+                      <TableCell className="second-row-table_address-balance">
+                        30
+                      </TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        style={{
+                          width: "0px",
+                          paddingRight: "1px",
+                          borderBottom: "none",
+                        }}
+                        id="td"
+                      />
+                      <TableCell className="first-row-table_address" >
+                        Contract Address
+                      </TableCell>
+                      <TableCell className="second-row-table_address">
+                        {addr}
+                      </TableCell>
+
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              </TableContainer>
+            </Paper>
+            <br />
+            <br />
+            <div className="container_sec">
+              <div className="block_sec">
+                <div className="bloc-tabs_sec">
+                  <button
+                    className={
+                      toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                    }
+                    onClick={() => toggleTab(1)}
+                  >
+                    Transfers
+                  </button>
+                </div>
+              </div>
+
+              <div className="content-tabs_sec">
+                <div
+                  className={
+                    toggleState === 1
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+
+                  <AddressTableComponent
+                  />
+
+
+                </div>
+
+                <div
+                  className={
+                    toggleState === 2
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+
+                  <AddressTableComponent
+                    trans={transactions}
+                  />
+                </div>
+              </div>
+            </div>
+          </Grid>
+          <FooterComponent />
+        </div>
+      </DeskTopView>
+      <MobileView>
+        <div style={{ backgroundColor: '#fff' }}>
+          <Tokensearchbar />
+          <Grid lg={8} className="table-grid-block">
+            <div
+              className="block_details_heading"
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              <p className="block_details_heading_left  fs-15">Holder Details</p>
+            </div>
+            <Paper style={{ borderRadius: '14px', width: '95%', marginLeft: '2%' }} elevation={0}>
+              <TableContainer className={classes.container} id="container-table">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {/* <TableCell
                     style={{
                       width: "0px",
                       paddingRight: "1px",
 
                     }}
                     id="td"
-                  />
-                  <TableCell className="first-row-table_address-balance" >
-                    Balance
-                  </TableCell>
-                  <TableCell className="second-row-table_address-balance">
-                    {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})
-                  </TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell
+                  /> */}
+                      <TableCell className="first-row-table_address1">
+                        Holder
+                        <div className="sec-row-table">
+                          <div className="word-break"> {addr}
+                            <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
+                              <Tooltip
+                                title={
+                                  copiedText === addr
+                                    ? "Copied"
+                                    : "Copy To Clipboard"
+                                }
+                                placement="top"
+                              >
+                                <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
+                                  class="fa fa-clone" aria-hidden="true"></i></button>
+                              </Tooltip>
+                            </CopyToClipboard>
+                            <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer" }} />} modal>
+                              {(close) => (
+                                <div className="popup_qr">
+                                  <p>
+                                    <div>
+                                      <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
+                                        &times;
+                                      </button>
+                                      <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
+                                      <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
+                                    </div>
+                                  </p>
+                                </div>
+                              )}
+                            </Popup></div></div>
+                      </TableCell></TableRow>
+
+                    <TableRow>
+                      {/* <TableCell
+                    style={{
+                      width: "0px",
+                      paddingRight: "1px",
+
+                    }}
+                    id="td"
+                  /> */}
+                      <TableCell className="first-row-table_address-balance" >
+                        Balance
+                        <div className="sec-row-table"> {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})</div>
+                      </TableCell></TableRow>
+
+                    <TableRow>
+                      {/* <TableCell
                     style={{
                       width: "0px",
                       paddingRight: "1px",
                     }}
                     id="td"
-                  />
-                  <TableCell className="first-row-table_address-balance" >
-                    Transfers
-                  </TableCell>
-                  <TableCell className="second-row-table_address-balance">
-                    30
-                  </TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell
+                  /> */}
+                      <TableCell className="first-row-table_address-balance" >
+                        Transfers
+                        <div className="sec-row-table">  30</div>
+                      </TableCell></TableRow>
+                    <TableRow>
+                      {/* <TableCell
                     style={{
                       width: "0px",
                       paddingRight: "1px",
                       borderBottom: "none",
                     }}
                     id="td"
-                  />
-                  <TableCell className="first-row-table_address" >
-                    Contract Address
-                  </TableCell>
-                  <TableCell className="second-row-table_address">
-                    {addr}
-                  </TableCell>
-
-                </TableRow>
-              </TableHead>
-            </Table>
-          </TableContainer>
-        </Paper>
-        <br />
-        <br />
-        <div className="container_sec">
-          <div className="block_sec">
-            <div className="bloc-tabs_sec">
-              <button
-                className={
-                  toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(1)}
-              >
-                Transfers
-              </button>
-            </div>
-          </div>
-
-          <div className="content-tabs_sec">
-            <div
-              className={
-                toggleState === 1
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-
-              <AddressTableComponent
-              />
-
-
-            </div>
-
-            <div
-              className={
-                toggleState === 2
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-
-              <AddressTableComponent
-                trans={transactions}
-              />
-            </div>
-          </div>
-        </div>
-      </Grid>
-      <FooterComponent />
-    </div>
-    </DeskTopView>
-    <MobileView>
-    <div style={{ backgroundColor: '#fff' }}>
-      <Tokensearchbar />
-      <Grid lg={8} className="table-grid-block">
-        <div
-          className="block_details_heading"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          <p className="block_details_heading_left  fs-15">Holder Details</p>
-        </div>
-    <Paper style={{ borderRadius: '14px', width:'95%', marginLeft:'2%' }} elevation={0}>
-          <TableContainer className={classes.container} id="container-table">
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {/* <TableCell
-                    style={{
-                      width: "0px",
-                      paddingRight: "1px",
-
-                    }}
-                    id="td"
                   /> */}
-                  <TableCell className="first-row-table_address1">
-                    Holder
-                    <div className="sec-row-table">
-                   <div className="word-break"> {addr}
-                    <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
-                      <Tooltip
-                        title={
-                          copiedText === addr
-                            ? "Copied"
-                            : "Copy To Clipboard"
-                        }
-                        placement="top"
-                      >
-                        <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}><i
-                          class="fa fa-clone" aria-hidden="true"></i></button>
-                      </Tooltip>
-                    </CopyToClipboard>
-                    <Popup trigger={<ImQrcode style={{ marginLeft: "10px", marginBottom: "2px", cursor: "pointer" }} />} modal>
-                      {(close) => (
-                        <div className="popup_qr">
-                          <p>
-                            <div>
-                              <button style={{ outline: 'none', width: '0px', height: '0px', marginLeft: "0px" }} className="close" onClick={close}>
-                                &times;
-                              </button>
-                              <div className="header" style={{ fontSize: '11.5px', paddingTop: '5px', paddingBottom: '22px' }}> {addr} </div>
-                              <QRCode size={320} style={{ height: 320, width: 320 }} value={addr} />
-                            </div>
-                          </p>
-                        </div>
-                      )}
-                    </Popup></div></div>
-                  </TableCell></TableRow>
-                
-                <TableRow>
-                  {/* <TableCell
-                    style={{
-                      width: "0px",
-                      paddingRight: "1px",
-
-                    }}
-                    id="td"
-                  /> */}
-                  <TableCell className="first-row-table_address-balance" >
-                    Balance
-                   <div className="sec-row-table"> {balance} XDC({ReactHtmlParser(convertCurrency)} {coinValue})</div>
-                  </TableCell></TableRow>
-                 
-                <TableRow>
-                  {/* <TableCell
-                    style={{
-                      width: "0px",
-                      paddingRight: "1px",
-                    }}
-                    id="td"
-                  /> */}
-                  <TableCell className="first-row-table_address-balance" >
+                      <TableCell className="first-row-table_address" >
+                        Contract Address
+                        <div className="sec-row-table">{addr}</div>
+                      </TableCell></TableRow>
+                  </TableHead>
+                </Table>
+              </TableContainer>
+            </Paper>
+            <br />
+            <br />
+            <div className="container_sec">
+              <div className="block_sec">
+                <div className="bloc-tabs_sec">
+                  <button
+                    className={
+                      toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                    }
+                    onClick={() => toggleTab(1)}
+                  >
                     Transfers
-                  <div className="sec-row-table">  30</div>
-                  </TableCell></TableRow>
-                <TableRow>
-                  {/* <TableCell
-                    style={{
-                      width: "0px",
-                      paddingRight: "1px",
-                      borderBottom: "none",
-                    }}
-                    id="td"
-                  /> */}
-                  <TableCell className="first-row-table_address" >
-                    Contract Address
-                    <div  className="sec-row-table">{addr}</div>
-                  </TableCell></TableRow>
-              </TableHead>
-            </Table>
-          </TableContainer>
-        </Paper>
-        <br />
-        <br />
-        <div className="container_sec">
-          <div className="block_sec">
-            <div className="bloc-tabs_sec">
-              <button
-                className={
-                  toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(1)}
-              >
-                Transfers
-              </button>
+                  </button>
+                </div>
+              </div>
+
+              <div className="content-tabs_sec">
+                <div
+                  className={
+                    toggleState === 1
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+
+                  <AddressTableComponent
+                  />
+
+
+                </div>
+
+                <div
+                  className={
+                    toggleState === 2
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+
+                  <AddressTableComponent
+                    trans={transactions}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div className="content-tabs_sec">
-            <div
-              className={
-                toggleState === 1
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-
-              <AddressTableComponent
-              />
-
-
-            </div>
-
-            <div
-              className={
-                toggleState === 2
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-
-              <AddressTableComponent
-                trans={transactions}
-              />
-            </div>
-          </div>
+          </Grid>
+          <FooterComponent />
         </div>
-      </Grid>
-      <FooterComponent />
-    </div>
-    </MobileView>
+      </MobileView>
     </>
   );
 }
