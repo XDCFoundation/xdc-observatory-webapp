@@ -7,16 +7,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Divider } from "@material-ui/core";
 import "../../assets/styles/custom.css";
 import { useHistory } from "react-router-dom";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Tooltip from "@material-ui/core/Tooltip";
 import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
-import Utility, { dispatchAction } from "../../utility";
-import ReactHtmlParser from "react-html-parser";
 import Utils from "../../utility";
 import styled from "styled-components";
 import back from '../../assets/images/back.svg';
@@ -67,51 +61,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-const rows = [
-  {
-    Rank: "12",
-    Address: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Quantity: "267333",
-    Percentage: "9.76%",
-    Value: "0 XDC",
-  },
-  {
-    Rank: "12",
-    Address: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Quantity: "267333",
-    Percentage: "9.76%",
-    Value: "0 XDC",
-  },
-  {
-    Rank: "12",
-    Address: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Quantity: "267333",
-    Percentage: "9.76%",
-    Value: "0 XDC",
-  },
-  {
-    Rank: "12",
-    Address: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Quantity: "267333",
-    Percentage: "9.76%",
-    Value: "0 XDC",
-  },
-  {
-    Rank: "12",
-    Address: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Quantity: "267333",
-    Percentage: "9.76%",
-    Value: "0 XDC",
-  },
-  {
-    Rank: "12",
-    Address: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Quantity: "267333",
-    Percentage: "9.76%",
-    Value: "0 XDC",
-  },
-];
-
 const useStyles = makeStyles({
   rootui: {
     backgroundColor: "white",
@@ -137,14 +86,14 @@ const useStyles = makeStyles({
 export default function StickyHeadTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [holders, setHolders] = useState([]);
   const [totalHolder, setTotalHolder] = useState({});
-  const [transfer, settransfer] = useState({});
+  const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const history = useHistory();
   useEffect(() => {
-    let values = { addr: address, pageNum: 0, perpage: 50 };
+    let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
   }, []);
   const listOfHolders = async (values) => {
@@ -152,7 +101,10 @@ export default function StickyHeadTable() {
       TokenData.getListOfHoldersForToken(values)
     );
     if (error || !tns) return;
-    setHolders(tns.response);
+    setHolders(tns);
+    if (tns.data == 0) {
+      setNoData(false)
+    }
     setTotalHolder(tns.responseCount);
   };
 
@@ -201,47 +153,7 @@ export default function StickyHeadTable() {
     )}`;
   }
 
-  console.log(holders, "<<<<");
-
-  const dummyData = [
-    {
-      id: "1",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "1",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "1",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "1",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-  ];
-
+  console.log(holders, "HIIII")
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -252,10 +164,10 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} className="w-10" align="left">
                   <span className={"tableheaders table-headers"}>Rank</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }}  className="w-40"align="left">
+                <TableCell style={{ border: "none" }} className="w-40" align="left">
                   <span className={"tableheaders table-headers"}>Address</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} className="w-20"align="left">
+                <TableCell style={{ border: "none" }} className="w-20" align="left">
                   <span className={"tableheaders table-headers"}>Quantity</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} className="w-21" align="left">
@@ -266,88 +178,54 @@ export default function StickyHeadTable() {
                 </TableCell>
               </TableRow>
             </TableHead>
-            {/* <TableBody>
-                        </TableHead>
-                        <TableBody>
-                            {holders?.map((row, index) => {
-                                return (
-
-                                    <StyledTableRow hover role="checkbox" tabIndex={-1} >
-
-                                        <TableCell id="td"><span className="tabledata">{index + 1 ? index + 1 : ""}</span></TableCell>
-                                        <TableCell id="td">
-                                            <a style={{ color: 'blue', fontSize: 11 }} href={"/holder-details/" + holders.address}>
-
-                                                <span
-                                                    className="tabledata"> {holders.address} </span>
-
-                                            </a>
-                                        </TableCell>
-                                        <TableCell id="td"><span className="tabledata">{holders.quantity}</span></TableCell>
-                                        <TableCell id="td"> <span className="tabledata"> {holders.percentage}</span>
-                                        </TableCell>
-                                        <TableCell id="td"> <span className="tabledata"> {holders.Value}</span> </TableCell>
-
-
-                                    </StyledTableRow>
-
-                                );
-                            })}
-
-                            
-                        </TableBody> */}
-
             <TableBody>
-            {rows.map((row, index) => {
+              {holders?.data?.map((row, index) => {
                 return (
                   <StyledTableRow hover role="checkbox" tabIndex={-1}>
-                    <TableCell id="td"  style={{ border: "none"}}>
-                      <span className="tabledata table-data">{index + 1 ? index + 1 : ""}</span>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <span className="tabledata table-data">{row[0].Rank}</span>
                     </TableCell>
-                    <TableCell id="td"  style={{ border: "none"}}>
+                    <TableCell id="td" style={{ border: "none" }}>
                       <a
-                        style={{ color: "blue", fontSize: 11 }}  href={"/holder-details/" + row.Address}>
-                        {/* <Tooltip placement="top" title={row.Address}>
-                        <span className="tabledata table-data"> 
-                         {" "}
-                        {shorten(row.Address)}{" "}
-                        </span>
-                        </Tooltip>{" "} */}
-                        <span className="tabledata table-data">{row.Address}</span>
+                        style={{ color: "blue", fontSize: 11 }} href={"/holder-details/" + row.Address}>
+
+                        <span className="tabledata table-data">{row[0].Address}</span>
                       </a>
                     </TableCell>
-                    <TableCell id="td"  style={{ border: "none"}}>
-                      <span className="tabledata table-data mar-lef-3">{row.Quantity}</span>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <span className="tabledata table-data mar-lef-3">{row[0].Quantity}</span>
                     </TableCell>
-                    <TableCell id="td"  style={{ border: "none"}}>
+                    <TableCell id="td" style={{ border: "none" }}>
                       {" "}
-                      <span className="tabledata table-data mar-lef-3">  {row.Percentage}</span>
+                      <span className="tabledata table-data mar-lef-3">  {!(row[0].Percentage) ? "------" : (row[0].Percentage).toFixed(2)}</span>
                     </TableCell>
-                    <TableCell id="td"  style={{ border: "none"}}>
+                    <TableCell id="td" style={{ border: "none" }}>
                       {" "}
-                      <span className="tabledata table-data mar-lef-2">  {row.Value}</span>{" "}
+                      <span className="tabledata table-data mar-lef-2">  {row[0].Value}</span>{" "}
                     </TableCell>
                   </StyledTableRow>
                 );
               })}
+              {
+                noData == false && (
+
+                  <div className="No-data-found">
+                    <span
+                      style={{ textAlign: "center", color: "#2a2a2a" }}
+                      className="tabledata"
+                    >
+                      No Holders Found
+                    </span>
+                  </div>
+                )
+              }
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
       <Pagination
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "space-between",
-      //   flexDirection: "row",
-      // }}
       >
         <LeftPagination
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   marginTop: "45px",
-        //   marginLeft: "1%",
-        // }}
         >
           <p
             style={{
@@ -360,7 +238,8 @@ export default function StickyHeadTable() {
           </p>
 
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
-            <option selected>50</option>
+            <option selected>10</option>
+            <option>50</option>
             <option>75</option>
             <option>100</option>
           </select>
@@ -395,7 +274,7 @@ export default function StickyHeadTable() {
             className={page === 0 ? "previousbox disabled" : "previousbox"}
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path"><img src={back} width="9px"/></p>
+            <p className="path"><img src={back} width="9px" /></p>
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
@@ -414,7 +293,7 @@ export default function StickyHeadTable() {
             }
           >
             <p className="path-2" onClick={() => handleChangePage("next")}>
-            <img src={next} width="9px"/>
+              <img src={next} width="9px" />
             </p>
           </div>
           <div

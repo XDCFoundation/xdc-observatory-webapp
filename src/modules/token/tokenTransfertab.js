@@ -2,18 +2,13 @@ import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Divider } from "@material-ui/core";
 import "../../assets/styles/custom.css";
 import { useHistory } from "react-router-dom";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Tooltip from "@material-ui/core/Tooltip";
-import VisibilityIcon from "@material-ui/icons/Visibility";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
 import { useParams } from "react-router";
@@ -21,6 +16,38 @@ import styled from "styled-components";
 import back from '../../assets/images/back.svg';
 import next from '../../assets/images/next.svg';
 
+
+function timeDiff(curr, prev) {
+  if (curr < prev) return "0 secs ago";
+  let ms_Min = 60 * 1000; // milliseconds in Minute
+  let ms_Hour = ms_Min * 60; // milliseconds in Hour
+  let ms_Day = ms_Hour * 24; // milliseconds in day
+  let ms_Mon = ms_Day * 30; // milliseconds in Month
+  let ms_Yr = ms_Day * 365; // milliseconds in Year
+  let diff = curr - prev; //difference between dates.
+  // If the diff is less then milliseconds in a minute
+  if (diff < ms_Min) {
+    return Math.abs(Math.round(diff / 1000)) + ' secs ago';
+
+    // If the diff is less then milliseconds in a Hour
+  } else if (diff < ms_Hour) {
+    return Math.abs(Math.round(diff / ms_Min)) + ' mins ago';
+
+    // If the diff is less then milliseconds in a day
+  } else if (diff < ms_Day) {
+    return Math.abs(Math.round(diff / ms_Hour)) + ' hrs ago';
+
+    // If the diff is less then milliseconds in a Month
+  } else if (diff < ms_Mon) {
+    return Math.abs(Math.round(diff / ms_Day)) + ' days ago';
+
+    // If the diff is less then milliseconds in a year
+  } else if (diff < ms_Yr) {
+    return Math.abs(Math.round(diff / ms_Mon)) + ' months ago';
+  } else {
+    return Math.abs(Math.round(diff / ms_Yr)) + ' years ago';
+  }
+}
 const Pagination = styled.div`
 
     display: flex;
@@ -59,44 +86,6 @@ margin-top: 39px;
 }
 `;
 
-const dummyData = [
-  {
-    id: "1",
-    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "1 hrs ago",
-    Block: "22,650,452",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Amount: "0 XDC",
-  },
-  {
-    id: "1",
-    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "1 hrs ago",
-    Block: "22,650,452",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Amount: "0 XDC",
-  },
-  {
-    id: "1",
-    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "1 hrs ago",
-    Block: "22,650,452",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Amount: "0 XDC",
-  },
-  {
-    id: "1",
-    TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "1 hrs ago",
-    Block: "22,650,452",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Amount: "0 XDC",
-  },
-];
 const StyledTableRow = withStyles((theme) => ({
   root: {
     "&:nth-of-type(odd)": {
@@ -104,43 +93,7 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-const rows = [
-  {
-    TxnHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "5 min Ago",
-    Block: "267333",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-  },
-  {
-    TxnHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "5 min Ago",
-    Block: "267333",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-  },
-  {
-    TxnHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "5 min Ago",
-    Block: "267333",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-  },
-  {
-    TxnHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "5 min Ago",
-    Block: "267333",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-  },
-  {
-    TxnHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    Age: "5 min Ago",
-    Block: "267333",
-    From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-    To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-  },
-];
+
 
 const useStyles = makeStyles({
   container: {
@@ -165,16 +118,16 @@ export default function StickyHeadTable() {
   const classes = useStyles();
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(50);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState({});
+  const [noData, setNoData] = useState(true);
   const { address } = useParams();
 
   useEffect(() => {
     let values = { addr: address, pageNum: page, perpage: rowsPerPage };
     transferDetail(values);
   }, []);
-  console.log(rowsPerPage, "<>?");
 
   const transferDetail = async (values) => {
     let [error, tns] = await Utils.parseResponse(
@@ -182,19 +135,24 @@ export default function StickyHeadTable() {
     );
     if (error || !tns) return;
     settransfer(tns);
+    if (tns.totalTransactions.length == 0) {
+      setNoData(false)
+    }
     setTotalToken(tns.totalTransactionCount);
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(values)
       );
       settransfer(tns);
+
       setTotalToken(tns.totalTransactionCount);
     }, 90000);
   };
 
   const handleChangePage = (action) => {
     if (action == "first") {
-      setPage(0);
+      let pageValue = 0
+      setPage(pageValue);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       transferDetail(values);
     }
@@ -231,12 +189,13 @@ export default function StickyHeadTable() {
   };
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
       b.length
     )}`;
   }
-
+  console.log(transfer, "LLLL")
+  console.log(noData, "OOOO")
   return (
     <>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -261,135 +220,78 @@ export default function StickyHeadTable() {
                 </TableCell>
               </TableRow>
             </TableHead>
-            {/* <TableBody>
-              {transfer.totalTransactions &&
-                transfer.totalTransactions.length >= 1 &&
-                transfer.totalTransactions.map((row) => {
-                  return (
-                    <StyledTableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
-                    >
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.hash}>
-                            <span className="tabledata">
-                              {" "}
-                              {shorten(row.hash)}{" "}
-                            </span>
-                          </Tooltip>{" "}
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata">{row.timestamp}</span>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <span className="tabledata"> {row.blockNumber}</span>{" "}
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.from}>
-                            <span className="tabledata">
-                              {" "}
-                              {shorten(row.from)}{" "}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                          <Tooltip placement="top" title={row.to}>
-                            <span className="tabledata">
-                              {" "}
-                              {shorten(row.to)}{" "}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                    </StyledTableRow>
-                  );
-                })}
-            </TableBody> */}
 
-            {dummyData.map((row) => (
-              <>
-                <StyledTableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={row.code}
-                >
-                  <TableCell id="td" style={{ border: "none" }}>
-                    <a style={{ color: "blue", fontSize: 11 }} href={"/transfer-transaction-details/" + address}>
-                      <Tooltip placement="top" title={row.TxHash}>
+            {
+              transfer.totalTransactions &&
+              transfer.totalTransactions.length >= 1 &&
+              transfer.totalTransactions.map((row) => {
+                const currentTime = new Date();
+                const previousTime = new Date(row.timestamp * 1000);
+                const ti = timeDiff(currentTime, previousTime);
+                return (
+                  <StyledTableRow
+                    tabIndex={-1}
+                    key={row.code}
+                  >
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <a style={{ color: "blue", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
                         <span className="tabledata table-data">
-                          {" "}
-                          {shorten(row.TxHash)}{" "}
+                          {shorten(row.hash)}
                         </span>
-                      </Tooltip>{" "}
-                    </a>
-                  </TableCell>
-                  <TableCell id="td" style={{ border: "none" }}>
-                    <span className="tabledata table-data">{row.Age}</span>
-                  </TableCell>
-                  <TableCell id="td" style={{ border: "none" }}>
-                    {" "}
-                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                      <span className="tabledata table-data"> {row.Block}</span>{" "}
-                    </a>
-                  </TableCell>
-                  <TableCell id="td" style={{ border: "none" }}>
-                    {" "}
-                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                      <Tooltip placement="top" title={row.From}>
-                        <span className="tabledata table-data">
-                          {" "}
-                          {shorten(row.From)}{" "}
-                        </span>
-                      </Tooltip>
-                    </a>
-                  </TableCell>
-                  <TableCell id="td" style={{ border: "none" }}>
-                    {" "}
-                    <a style={{ color: "blue", fontSize: 11 }} href="#text">
-                      <Tooltip placement="top" title={row.To}>
-                        <span className="tabledata table-data">
-                          {" "}
-                          {shorten(row.To)}{" "}
-                        </span>
-                      </Tooltip>
-                    </a>
-                  </TableCell>
-                </StyledTableRow>
+                      </a>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <span className="tabledata table-data">{ti}</span>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
 
-              </>
-            ))}
+                      <a style={{ color: "blue", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
+                        <span className="tabledata table-data"> {row.blockNumber}</span>
+                      </a>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+
+                      <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                        <Tooltip placement="top" title={row.from}>
+                          <span className="tabledata table-data">
+
+                            {shorten(row.from)}
+                          </span>
+                        </Tooltip>
+                      </a>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+
+                      <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                        <Tooltip placement="top" title={row.to}>
+                          <span className="tabledata table-data">
+
+                            {shorten(row.to)}
+                          </span>
+                        </Tooltip>
+                      </a>
+                    </TableCell>
+                  </StyledTableRow>
+                );
+              })}
+            {
+              noData == false && (
+
+                <TableCell id="td" style={{ border: "none" }}>
+                  <span className="tabledata table-data">
+                    No Transfers Found
+                  </span>
+                </TableCell>
+
+              )
+            }
+
 
           </Table>
         </TableContainer>
       </Paper>
-      <Pagination
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "space-between",
-      //   flexDirection: "row",
-      // }}
-      >
-        <LeftPagination
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   marginTop: "45px",
-        //   marginLeft: "1%",
-        // }}
-        >
+      <Pagination>
+        <LeftPagination>
           <p
             style={{
               fontSize: "11px",
@@ -400,7 +302,8 @@ export default function StickyHeadTable() {
             Show
           </p>
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
-            <option selected>50</option>
+            <option selected>10</option>
+            <option>50</option>
             <option>75</option>
             <option>100</option>
           </select>
@@ -411,7 +314,7 @@ export default function StickyHeadTable() {
               marginTop: "6px"
             }}
           >
-            {" "}
+
             Records
           </p>
         </LeftPagination>
@@ -435,14 +338,14 @@ export default function StickyHeadTable() {
             className={page === 0 ? "previousbox disabled" : "previousbox"}
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path"><img src={back} width="9px"/></p>
+            <p className="path"><img src={back} width="9px" /></p>
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
-              Page{" "}
+              Page
               {Math.round(totalToken / rowsPerPage) +
                 1 -
-                Math.round((totalToken - page) / rowsPerPage)}{" "}
+                Math.round((totalToken - page) / rowsPerPage)}
               of {Math.round(totalToken / rowsPerPage)}
             </p>
           </div>
@@ -452,7 +355,7 @@ export default function StickyHeadTable() {
             }
           >
             <p className="path-2" onClick={() => handleChangePage("next")}>
-            <img src={next} width="9px"/>
+              <img src={next} width="9px" />
             </p>
           </div>
           <div

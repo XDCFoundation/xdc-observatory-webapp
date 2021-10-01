@@ -14,6 +14,7 @@ import FooterComponent from "../common/footerComponent";
 import { Row, Column } from "simple-flexbox";
 import moment from "moment";
 import { Media } from "react-bootstrap";
+import TokenData from "../../services/token";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TransferTransaction({ _handleChange }) {
   const classes = useStyles();
   function shorten(b, amountL = 25, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
+    return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(b.length)} `;
   }
 
   const { address } = useParams();
@@ -66,13 +67,13 @@ export default function TransferTransaction({ _handleChange }) {
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
   useEffect(() => {
-    transactionDetail();
+    transferTransactionDetail();
   }, [amount]);
 
-  const transactionDetail = async () => {
+  const transferTransactionDetail = async () => {
     let urlPath = `/${address}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
-      TransactionService.getTransactionDetailsUsingHash(urlPath, {})
+      TokenData.getTransferTransactionDetailsUsingHash(urlPath, {})
     );
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
@@ -125,7 +126,7 @@ export default function TransferTransaction({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
-
+  console.log(transactions, "GTRUH")
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -135,7 +136,7 @@ export default function TransferTransaction({ _handleChange }) {
             <Container>
               <Heading>Transaction Details</Heading>
               {transactions ? (
-                transactions.status ? (
+                transactions.status == true ? (
                   <p className="Success-rectangle">Success</p>
                 ) : (
                   <p className="Failed-rectangle">Failed</p>
@@ -203,8 +204,8 @@ export default function TransferTransaction({ _handleChange }) {
                     className="linkTableDetails"
                     href={"/block-details/" + transactions.blockNumber}
                   >
-                    {" "}
-                    {transactions.blockNumber}{" "}
+
+                    {transactions.blockNumber}
                   </a>
                   - {transactions.blockConfirmation} Blocks Confirmation
                 </Content>
@@ -221,7 +222,7 @@ export default function TransferTransaction({ _handleChange }) {
                 <Hash>Timestamp</Hash>
               </Container>
               <MiddleContainer isTextArea={false}>
-                {" "}
+
                 {moment(transactions.timestamp * 1000).format(
                   "MMMM Do YYYY, h:mm:ss a"
                 )}
@@ -239,12 +240,12 @@ export default function TransferTransaction({ _handleChange }) {
               </Container>
               <MiddleContainer isTextArea={false}>
                 <Content>
-                  {" "}
+
                   <a
                     className="linkTableDetails"
                     href={"/address-details/" + transactions.from}
                   >
-                    {transactions.from}{" "}
+                    {transactions.from}
                   </a>
                   <CopyToClipboard
                     text={transactions.from}
@@ -332,12 +333,12 @@ export default function TransferTransaction({ _handleChange }) {
               </Container>
               <MiddleContainer isTextArea={false}>
                 <Content>
-                  Contract
+                  Contract{" "}
                   <a className="linkTableDetails" href={"/"}>
+                    {transactions.ContractDetails?.address}
                     {" "}
-                    xdc07318f7651eeb9ba05b9ba6ccb9e195c23b72a51{" "}
                   </a>
-                  (TXRC20: TestXRC20)
+                  ({transactions.ContractDetails?.symbol} : {transactions.ContractDetails?.tokenName})
                 </Content>
               </MiddleContainer>
             </Spacing>
@@ -354,24 +355,19 @@ export default function TransferTransaction({ _handleChange }) {
               </Container>
               <MiddleContainer isTextArea={false}>
                 <Content>
-                  From
+                  From{" "}
                   <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    {shorten(
-                      "xdc07318f7651eeb9ba05b9ba6ccb9e195c23b72a51"
-                    )}{" "}
-                  </a>{" "}
+                    {shorten(transactions.from)}
+                  </a>
                   To{" "}
                   <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    {shorten(
-                      "xdc07318f7651eeb9ba05b9ba6ccb9e195c23b72a51"
-                    )}{" "}
-                  </a>{" "}
-                  For{" "}
+
+                    {shorten(transactions.to)}
+                  </a>
+                  For 1{" "}
                   <a className="linkTableDetails" href={"/"}>
-                    {" "}
-                    1 TestXRC20 (TXRC20)
+
+                    {transactions.ContractDetails?.symbol} ({transactions.ContractDetails?.tokenName})
                   </a>
                 </Content>
               </MiddleContainer>
@@ -387,10 +383,10 @@ export default function TransferTransaction({ _handleChange }) {
                 <Hash>Value</Hash>
               </Container>
               <MiddleContainer isTextArea={false}>
-                {" "}
+
                 {!transactions?.value
                   ? 0
-                  : transactions?.value / 1000000000000000000}{" "}
+                  : transactions?.value / 1000000000000000000}
                 XDC ({currencySymbol}
                 {valueDiv && valueDiv > 0 ? valueDiv : 0})
               </MiddleContainer>
@@ -407,7 +403,7 @@ export default function TransferTransaction({ _handleChange }) {
               </Container>
               <MiddleContainer isTextArea={false}>
                 <Content>
-                  {" "}
+
                   {txfee} XDC ({currencySymbol}
                   {fetchtxn})
                 </Content>
@@ -492,7 +488,7 @@ export default function TransferTransaction({ _handleChange }) {
               <MiddleContainerPrivateNote>
                 {/* <Input /> */}
                 <PrivateBox>
-                  To access the Private Note feature, you must be{" "}
+                  To access the Private Note feature, you must be
                   <a className="linkTableDetails">Logged In</a></PrivateBox>
               </MiddleContainerPrivateNote>
             </SpacingPrivateNode>
@@ -688,6 +684,7 @@ const Spacing = styled.div`
   width: 100%;
   height: 4.063rem;
   align-items: center;
+  border-bottom: solid 1px #e3e7eb;
 
   @media (max-width: 767px) {
     display: block;

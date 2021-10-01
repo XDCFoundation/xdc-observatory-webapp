@@ -20,18 +20,18 @@ import searchIcon from "../../assets/images/Search.svg";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
-  @media (min-width: 0px) and (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: none;
   }
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
     display: visible;
   }
 `;
 const MobileView = styled.div`
-  @media (min-width: 0px) and (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: visible;
   }
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;
@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 0,
   },
 
-  "@media (min-width: 640px) ": {
+  "@media (min-width: 768px) ": {
     list: {
       width: "21.25rem",
       backgroundColor: "#102e84",
@@ -111,9 +111,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  "@media (min-width: 0px) and (max-width: 640px)": {
+  "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: 180,
+      width: "13.313rem",
       backgroundColor: "#102e84",
       height: "100%",
 
@@ -204,7 +204,7 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+      <div className="menu-sidebar-top">
         <div className="browse-text-sidebar">
           Browse
         </div>
@@ -292,7 +292,7 @@ export default function Navbar() {
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
           <div
-            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
+            className="menubar-contract"
           >
             <div style={{ marginTop: 10 }}>
               <span
@@ -371,8 +371,7 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div
-            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
+          <div className="menubar-contract"
           >
             <div style={{ marginTop: 10 }}>
               <span
@@ -665,9 +664,9 @@ export default function Navbar() {
       <MobileView><AppBar elevation={0} className={clsx(classes.appBar)}>
         <Toolbar>
           <Typography className="Header">
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="header-mobile-top">
 
-              <div style={{ display: "flex" }} >
+              <div style={{ display: "flex", alignItems: "center" }} >
                 <a className="logo_tokensearch" href={"/"}>
                   <img
                     className="Shape"
