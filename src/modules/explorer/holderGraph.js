@@ -12,7 +12,7 @@ margin-top: 1rem;
     height: 102px;
     
 }
-@media (min-width:768px) and (max-width:1240px){
+@media (min-width:767px) and (max-width:1240px){
     margin-top: 2rem;
 }
 `
