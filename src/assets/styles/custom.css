@@ -3053,6 +3053,11 @@ body {
   letter-spacing: 0.036rem;
   text-align: center;
 }
+@media (max-width:1240px){
+  .tabs-data{
+    font-size: 0.875rem;
+  }
+}
 
 .verified-logo {
   height: 18px;
@@ -5701,12 +5706,28 @@ button {
   width: 75.125rem;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 0px) and (max-width:768px) {
   .table-grid-block3 {
     width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin: auto; 
   }
+}
+
+.Token-res-table {
+  border-radius: "14px";
+}
+@media (max-width: 767px) {
+  .Token-res-table {
+      width:360px;
+      margin:auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width:1240px)  {
+  .Token-res-table {
+      width:664px;
+      margin:auto;
+    }
 }
 
 .table-block {

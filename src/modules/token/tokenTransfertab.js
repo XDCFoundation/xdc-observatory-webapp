@@ -239,7 +239,7 @@ export default function StickyHeadTable() {
 
   return (
     <>
-      <Paper style={{ borderRadius: "14px" }} elevation={0}>
+      <Paper  elevation={0}>
         <TableContainer className={classes.container} id="container-table">
           <Table>
             <TableHead>
