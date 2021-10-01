@@ -14,7 +14,7 @@ export default function TokenContracttab(props) {
 
         <>
             <Paper style={{ borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)' }} elevation={0}>
-                <div className="container" style={{marginLeft:"15px",marginRight:"0px",paddingRight:"0px"}}>
+                <div className="container" >
                     <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={require("../../../src/assets/images/verified.svg")} ></img></span>Contract Source Code Verified</div>
                     <br /><br />
                     <div className="source-code-verified-container">
