@@ -1767,7 +1767,7 @@ p {
   letter-spacing: 0.54px;
   text-align: center;
   color: #252525;
-  margin: 4px 0 ;
+  margin: 4px 0;
 }
 
 .pagebox-contract {
@@ -5214,36 +5214,33 @@ button {
   flex-direction: row;
   margin-top: 50px;
   border-radius: 12px;
-  /* height: 90px; */
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
-  /* width: 950px; */
   width: 83%;
   margin: 0 auto;
-  /* height: 150px; */
 }
 
-@media (min-width: 641px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1239px) {
   .main_mid {
     display: flex;
     flex-direction: column;
-    width: 91%;
+    width: 41.5rem;
+    height: 11.875rem;
     margin-top: 20px;
   }
 }
 
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
   .main_mid {
     display: flex;
-    /* width: 950px; */
     width: 75.125rem;
     height: 6.183rem;
     margin-top: 50px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1240px) {
   .main_child {
     display: flex;
     justify-content: space-between;
@@ -5251,16 +5248,17 @@ button {
   }
 }
 
-@media (min-width: 641px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1239px) {
   .main_child {
     display: flex;
     justify-content: space-between;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1240px) {
   .main_sec {
     display: flex;
     justify-content: space-between;
@@ -5268,12 +5266,13 @@ button {
   }
 }
 
-@media (min-width: 641px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1239px) {
   .main_sec {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-left: 15px;
+    margin-top: 30px;
+    margin-left: 10px;
   }
 }
 
@@ -5282,35 +5281,42 @@ button {
   margin-top: 12px;
   flex-direction: column;
   text-align: center;
-  /* padding: 8px 2px; */
   width: 100%;
 }
 .cont-token-data {
   display: flex;
-  margin: auto;
   flex-direction: column;
   text-align: center;
   width: 100%;
 }
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
+  .cont-token-data {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+}
+@media (min-width: 1240px) {
   .cont1 {
     padding-top: 7px;
   }
 }
 
-@media (min-width: 641px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1239px) {
   .cont1_align {
     margin-right: 150px;
   }
 }
 
-@media (min-width: 641px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1239px) {
   .cont1 {
     margin-top: 5px;
     width: auto;
   }
 }
-@media (min-width: 641px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1239px) {
   .cont-token-data {
     margin-top: 5px;
     width: auto;
@@ -5339,7 +5345,7 @@ button {
   line-height: normal;
   letter-spacing: 0.65px;
 }
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
   .cont1 p {
     font-family: Inter;
     font-size: 0.875rem;
@@ -5351,7 +5357,7 @@ button {
     text-align: center;
   }
 }
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
   .cont-token-data p {
     font-family: Inter;
     font-size: 0.875rem;
@@ -5361,6 +5367,19 @@ button {
     line-height: normal;
     letter-spacing: 0.034rem;
     text-align: center;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  .cont-token-data p {
+    font-family: Inter;
+    font-size: 0.75rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: center;
+    height: 0.938rem;
   }
 }
 
@@ -5381,7 +5400,7 @@ button {
   color: #252525;
 }
 
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
   .cont1 :nth-child(2) {
     font-family: Inter;
     font-size: 1rem;
@@ -5395,7 +5414,7 @@ button {
     padding-top: 5px;
   }
 }
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
   .cont-token-data :nth-child(2) {
     font-family: Inter;
     font-size: 1rem;
@@ -5406,6 +5425,21 @@ button {
     letter-spacing: 0.039rem;
     text-align: center;
     color: #252525;
+    padding-top: 5px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .cont-token-data :nth-child(2) {
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.039rem;
+    text-align: center;
+    color: #252525;
+    height: 1rem;
     padding-top: 5px;
   }
 }
@@ -5422,32 +5456,30 @@ button {
   margin-right: 2%;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .second_mid {
     margin-top: 22px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 22.563rem;
+    height: 15.813rem;
   }
 }
-/* @media (min-width: 641px) and (max-width: 1023px) {
-  .second_mid {
-    flex-direction: column;
-    width: 100%;
-    margin-top: 20px;
-  }
-} */
 
 .w-50-per {
   width: 50%;
+}
+.w-54-per {
+  width: 54%;
 }
 
 .second_cont {
   display: flex;
   margin-top: 10px;
   margin-bottom: 10px;
-  /* justify-content: flex-start; */
-  /* text-align: center; */
   padding: 8px 2px;
   width: 100%;
-  margin-left: 2%;
+  padding-left: 2%;
 }
 
 .second_cont p {
@@ -5460,13 +5492,29 @@ button {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.65px;
-  /* font-size: 14px; */
   margin-right: 10px;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .second_cont p {
+    margin: 2px;
+    font-size: 0.875rem;
+    font-family: "Inter-Regular";
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    margin-right: 10px;
+    letter-spacing: 0.034rem;
+    color: #686868;
+    opacity: 1;
+    top: 762px;
+    left: 18px;
+    height: 1.063;
+  }
 }
 
 .mid_cont {
   display: flex;
-  /* margin-left: auto; */
   font-size: 13px;
   font-family: Inter;
   font-weight: 600;
@@ -5477,7 +5525,7 @@ button {
 
 .mid_cont p {
   color: #252525;
-  /* font-size: 12px; */
+  font-weight: 600;
 }
 
 .secondMarket {
@@ -5496,12 +5544,6 @@ button {
     display: none;
   }
 }
-/* .margin-right-38{
-  margin-right: 38px;
-}
-.margin-right-18{
-  margin-right: 18px;
-} */
 
 .row_cont {
   display: flex;
@@ -5530,11 +5572,8 @@ button {
   line-height: normal;
   letter-spacing: 0.58px;
 }
-@media (min-width: 1023px) {
+@media (min-width: 1240px) {
   .varMarket {
-    /* width: 3.563rem;
-    height: 1.063rem; */
-    /* margin: 0 0 0 5px; */
     font-family: Inter;
     font-size: 0.875rem;
     font-weight: normal;
