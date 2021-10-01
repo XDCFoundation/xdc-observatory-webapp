@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    // maxWidth: "970px",
     marginTop: "100px",
     width: "75.125rem",
     "@media (min-width: 300px) and (max-width: 567px)": {
@@ -442,7 +441,7 @@ const Content = styled.span`
     font-size: 10px;
     word-break: break-all;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1240px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -492,7 +491,6 @@ const Div__ = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
-  /* padding: 9px; */
   padding: 19px;
 `;
 const MiddleContainer = styled.div`
@@ -508,7 +506,7 @@ const MiddleContainer = styled.div`
     margin-left: unset;
     margin-top: 8px;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1240px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -549,7 +547,7 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 13px;
   }
-  @media (min-width: 1024px) {
+  @media  (min-width: 1240px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -623,7 +621,7 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 18px;
 
-  @media (min-width: 1024px) {
+  @media  (min-width: 1240px) {
     height: 1.813rem;
     font-family: Inter;
     font-size: 1.5rem;
@@ -632,6 +630,18 @@ const Heading = styled.span`
     font-style: normal;
     line-height: normal;
     letter-spacing: 0.058rem;
+    text-align: left;
+    color: #2a2a2a;
+  }
+  @media  (min-width: 0px) and  (max-width: 767px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }
