@@ -2803,7 +2803,7 @@ p {
 body {
   background: #fff;
 }
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .days-14 {
     display: flex;
     justify-content: flex-end;
@@ -2811,17 +2811,12 @@ body {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .content-tabs {
-    margin-top: 50px;
+    margin-top: 10px;
   }
 }
-@media (min-width: 640px) and (max-width: 1023px) {
-  .content-tabs {
-    /* margin-top: 50px; */
-    padding-bottom: 35px;
-  }
-}
+
 
 .days p {
   width: 3.5rem;
@@ -2836,12 +2831,12 @@ body {
   font-weight: 600;
   margin-top: -3px;
   padding-left: 1.5px;
-  padding-top: 9.9px;
+  padding-top: 10.9px;
 }
-
-@media (max-width: 1023px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .days p {
     margin-top: 0px;
+    padding-top: 5px;
   }
 }
 
@@ -2853,7 +2848,7 @@ body {
   height: 22px;
   line-height: 0;
 }
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .block {
     justify-content: space-between;
     display: flex;
@@ -2861,6 +2856,7 @@ body {
     width: 100%;
     height: 22px;
     flex-direction: column;
+    line-height: 1;
   }
 }
 
@@ -2885,12 +2881,12 @@ body {
   width: 90%;
   display: flex;
 }
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .bloc-tabs {
     width: 100%;
   }
 }
-@media (min-width: 640px) and (max-width: 1023px) {
+@media (min-width: 767px) and (max-width: 1240px) {
   .bloc-tabs {
     width: 50%;
   }
@@ -2911,6 +2907,41 @@ body {
   font-weight: normal;
   letter-spacing: 0.65px;
 }
+@media (min-width: 0px) and (max-width: 768px){
+  .tabs {
+    padding-bottom: 7px;
+    color: #b5bac7;
+    text-align: center;
+    width: 80%;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.875rem;
+    background: transparent;
+    cursor: pointer;
+    padding-left: 0px;
+    margin: 0px 34px 0px 0px;
+    font-weight: normal;
+    letter-spacing: 0.65px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1240px){
+  .tabs {
+    padding-bottom: 7px;
+    color: #b5bac7;
+    text-align: center;
+    width: 80%;
+    cursor: pointer;
+    position: relative;
+    font-size: 0.875rem;
+    background: transparent;
+    cursor: pointer;
+    padding-left: 0px;
+    margin: 0px 34px 0px 0px;
+    font-weight: normal;
+    letter-spacing: 0.65px;
+  }
+}
 
 .tabs-vc {
   padding-bottom: 7px;
@@ -2928,7 +2959,7 @@ body {
   letter-spacing: 0.65px;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .tabs {
     margin: 0px;
     letter-spacing: 0.65px;
@@ -3419,10 +3450,16 @@ button {
   border: none;
   padding: 0 0px 0px 3.25rem;
 }
-
-@media (max-width: 1023px) {
+@media (min-width:0px) and (max-width: 767px) {
   .container-graph-tab {
     padding: 20px 0 0 0;
+  }
+}
+
+@media  (min-width:767px) and  (max-width: 1240px) {
+  .container-graph-tab {
+    padding: 20px 0 0 0;
+    width: 98%;
   }
 }
 
