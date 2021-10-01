@@ -34,7 +34,7 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (min-width:768px) and (max-width: 1240px) {
+  @media (min-width:767px) and (max-width: 1240px) {
     flex-direction: column;
     width: 41.5rem;
     height: 38.625rem;
@@ -53,7 +53,7 @@ const MainContainer = styled.div`
 `;
 const MobileScreen = styled.div`
 margin-right: 3px;
-@media (min-width:768px){
+@media (min-width:767px){
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -72,7 +72,7 @@ const RightContainer = styled.div`
   flex-direction: column;
   padding: 0px 20px 25px 40px;
   width: 50%;
-  @media (max-width:767px){
+  @media (max-width:768px){
     margin-top: -10px;
     padding: 0px 0px 0px 0px;
     width: auto;
@@ -91,8 +91,8 @@ const LeftFirst = styled.div`
   @media (max-width:767px){
    padding: 1.875rem 0;
   }
-  @media (min-width:768px) and (max-width:1240px){
-   padding: 3.125rem 0;
+  @media (min-width:767px) and (max-width:1240px){
+   padding: 3.125rem 0 1.125rem;
   }
 `;
 const LeftSec = styled.div`
@@ -196,7 +196,7 @@ const Line1 = styled.hr`
     width:100%;
     top: 75%;
     }
-    @media (min-width:768px) and (max-width:1240px){
+    @media (min-width:767px) and (max-width:1240px){
     width:100%;
     top: 60%;
     }
@@ -210,7 +210,7 @@ const LeftTopSec = styled.div`
   @media (min-width:0px) and (max-width:767px){
     font-size: 1rem;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width:767px) and (max-width:1240px){
     font-size: 1.375rem;
   }
 `;
@@ -265,7 +265,7 @@ const RightTitle = styled.div`
     letter-spacing: 0.01px;
     color: #9FA9BA;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width:767px) and (max-width:1240px){
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.54px;
@@ -306,7 +306,7 @@ const RightTopSec = styled.div`
     width: 3.438rem;
     height: 1.375rem;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width:767px) and (max-width:1240px){
     font-size: 0.875rem;
     width: 4.063rem;
     height: 1.573rem;
