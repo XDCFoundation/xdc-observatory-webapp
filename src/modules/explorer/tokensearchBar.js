@@ -128,13 +128,15 @@ export default function Navbar() {
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
   const handleSearch = (event) => {
-    var selectOptType = SelectOptRef.current?.value;
+    if (event.key === "Enter") {
+      var selectOptType = SelectOptRef.current?.value;
 
-    let requestdata = {
-      filter: selectOptType,
-      data: event.target.value,
-    };
-    BlockChainSearch(requestdata);
+      let requestdata = {
+        filter: selectOptType,
+        data: event.target.value,
+      };
+      BlockChainSearch(requestdata);
+    }
   };
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
@@ -651,7 +653,7 @@ export default function Navbar() {
                           <input
                             defaultValue={filter}
                             type="text"
-                            onChange={(event) => handleSearch(event)}
+                            onClick={(event) => handleSearch(event)}
                             ref={SearchDataRef}
                             onKeyPress={(event) => {
                               if (event.key === "Enter") {
