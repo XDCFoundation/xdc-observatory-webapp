@@ -20,7 +20,7 @@
   margin-bottom: 15px;
   margin-top: 2.813rem;
 }
-@media (min-width: 1024px) {
+@media (min-width: 0px) and (max-width:1240px) {
   .table-top-header {
     height: 1.813rem;
     font-family: Inter;
@@ -488,16 +488,17 @@
 }
 @media(min-width:0px) and (max-width: 767px) {
   .table_1 {
-    margin-top: 80px !important;
     width: 22.563rem;
-    margin: auto;
+    margin: 2rem auto;
+    
+    
   }
 }
 @media(min-width:767px) and (max-width: 1240px) {
   .table_1 {
-    margin-top: 80px !important;
     width: 41.5rem;
-    margin: auto;
+    margin: 2rem auto;
+   
   }
 }
 
@@ -511,7 +512,7 @@
 @media only screen and (max-width: 767px) {
   .tableheaders {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
