@@ -615,9 +615,12 @@
     padding-left: 4px;
   }
 }
-.pad-bottom-34 {
-  padding-bottom: 34px;
+@media (min-width: 1240px) {
+  .pad-bottom-34 {
+    padding-bottom: 34px;
+  }
 }
+
 .pad-left-5 {
   padding-left: 5px;
 }
