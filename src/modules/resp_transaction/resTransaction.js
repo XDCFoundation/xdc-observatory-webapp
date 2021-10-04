@@ -510,6 +510,7 @@ const Div__ = styled.div`
 }
 @media (min-width: 768px) and (max-width: 1240px){
       width: 41.5rem;
+      height: unset;
     }
   `;
 const MiddleContainerPrivateNote = styled.div`
@@ -667,7 +668,9 @@ const SpacingInputData = styled.div`
     padding: 11px 6px;
     height: 8.75rem;
   }
- 
+  @media (min-width: 768px) and (max-width: 1240px){
+      height: 6.25rem;
+    }
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;

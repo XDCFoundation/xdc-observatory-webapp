@@ -426,6 +426,16 @@
   font-size: 12px;
   font-weight: 600 !important;
 }
+@media (min-width: 0px) and (max-width: 767px) {
+  .linkTableDetails {
+    font-size: 0.875rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .linkTableDetails {
+    font-size: 0.875rem;
+  }
+}
 
 .table_1 {
   padding-top: 70px;

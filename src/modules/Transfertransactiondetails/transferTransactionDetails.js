@@ -465,7 +465,7 @@ export default function TransferTransaction({ _handleChange }) {
               </MiddleContainer>
             </Spacing>
             <SpacingInputData>
-              <Container className="mar-bottom-45 mar-bottom-15">
+              <Container className="mar-bottom-45 mar-bottom-15 mar-bottom-40">
                 <Tooltip align="right" title={input}>
                   <ImageView
                     src={require("../../../src/assets/images/questionmark.svg")}
@@ -662,6 +662,7 @@ const PrivateBox = styled.div`
   margin-left: 88px;
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 28.125rem;
+    font-size: 0.875rem;
   }
   @media (min-width: 0px) and (max-width: 767px) {
    margin-left: unset;
