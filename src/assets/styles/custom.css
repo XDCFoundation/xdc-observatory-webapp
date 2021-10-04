@@ -3200,6 +3200,13 @@ body {
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
+@media (min-width:0px) and (max-width:767px){
+  #container-table th {
+    padding: 16px 48px 0px 27px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+}
 
 #container-table td {
   padding: 12px;
@@ -3217,6 +3224,13 @@ body {
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+}
+@media (min-width:0px) and (max-width:767px){
+  #container-table td {
+    padding: 16px 0px 0px 25px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
 }
 
 #container-table-token th {
