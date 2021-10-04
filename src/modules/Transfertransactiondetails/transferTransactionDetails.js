@@ -26,19 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
     width: "100%",
 
-    "@media (min-width: 300px) and (max-width: 567px)": {
-      maxWidth: "300px",
+    "@media (min-width: 0px) and (max-width: 767px)": {
+      maxWidth: "22.563rem",
+      marginTop: "130px",
+    },
+    "@media (min-width: 768px) and (max-width: 1239px)": {
+      marginTop: "130px",
+      maxWidth: "41.5rem",
+    }
 
-      marginTop: "155px",
-    },
-    "@media (min-width: 567px) and (max-width: 767px)": {
-      maxWidth: "500px",
-      marginTop: "160px",
-    },
-    "@media (min-width: 768px) and (max-width: 1040px)": {
-      maxWidth: "700px",
-      marginTop: "140px",
-    },
   },
   rowDiv: {
     width: "100%",
@@ -156,9 +152,9 @@ export default function TransferTransaction({ _handleChange }) {
                 <Hash>Hash ID</Hash>
               </Container>
               <MiddleContainer isTextArea={false}>
-                <Content>{address}</Content>
-              </MiddleContainer>
-              <SecondContainer>
+                <Content>{address}
+              
+            
                 <CopyToClipboard
                   text={address}
                   onCopy={() => setCopiedText(address)}
@@ -182,7 +178,8 @@ export default function TransferTransaction({ _handleChange }) {
                     </button>
                   </Tooltip>
                 </CopyToClipboard>
-              </SecondContainer>
+                </Content>
+                </MiddleContainer>
             </HashDiv>
           </Div>
 
@@ -468,7 +465,7 @@ export default function TransferTransaction({ _handleChange }) {
               </MiddleContainer>
             </Spacing>
             <SpacingInputData>
-              <Container className="mar-bottom-45 ">
+              <Container className="mar-bottom-45 mar-bottom-15">
                 <Tooltip align="right" title={input}>
                   <ImageView
                     src={require("../../../src/assets/images/questionmark.svg")}
@@ -523,11 +520,25 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
-  @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
     word-break: break-all;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+  }
+  @media (min-width: 1241px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -551,8 +562,10 @@ const TextArea = styled.textarea`
   float: left;
   padding: 14px;
   overflow-y: auto;
-
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 109%;
+  }
+  @media (min-width: 1241px) {
     width: 59.125rem;
     height: 5.813rem;
     opacity: 0.33;
@@ -565,12 +578,21 @@ const TextArea = styled.textarea`
 
 const Div__ = styled.div`
   height: auto;
-  border-radius: 12px;
+  border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   padding: 9px;
 
-  @media (min-width: 1024px) {
+    @media(min-width:0px) and (max-width:767px){
+   width:22.563rem;
+   padding-left:10px;
+  padding-right:10px;
+}
+@media (min-width: 768px) and (max-width: 1240px){
+      width: 41.5rem;
+      padding: 13px;
+    }
+  @media (min-width: 1241px) {
     height: 64.06rem;
     width: 75.125rem;
     border-radius: 7px;
@@ -590,19 +612,29 @@ const MiddleContainer = styled.div`
   margin-left: 100px;
   width: 100%;
 
-  @media (max-width: 768px) {
-    font-size: 12px;
-    margin-left: unset;
-    margin-top: 10px;
-    width: 100%;
-    // max-width: 232px;
+ 
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+    word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
+    margin-left: 2px;
+    margin-top: 10px;
   }
-  // @media (max-width: 1024px) {
-  //   width: 100%;
-  //   max-width: 340px;
-  // }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+  }
+
+  @media (min-width: 1241px) {
     font-family: Inter;
     font-size: 0.938rem;
     font-weight: normal;
@@ -621,7 +653,6 @@ const MiddleContainerPrivateNote = styled.div`
   text-align: left;
   color: #3a3a3a;
   height: 2.313rem;
- 
 `;
 const PrivateBox = styled.div`
   border-radius: 4px;
@@ -629,6 +660,14 @@ const PrivateBox = styled.div`
   width: 59.125rem;
   padding: 7px;
   margin-left: 88px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 28.125rem;
+  }
+  @media (min-width: 0px) and (max-width: 767px) {
+   margin-left: unset;
+   width: 100%;
+   margin-top: 10px;
+  }
 `;
 const MiddleContainerInputData = styled.div`
   font-family: Inter;
@@ -636,8 +675,10 @@ const MiddleContainerInputData = styled.div`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
- 
   width: 100%;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 88px;
+  }
 `;
 const InputContainer = styled.div`
   font-family: Inter;
@@ -657,12 +698,25 @@ const Hash = styled.span`
   font-size: 13px;
   letter-spacing: 0.5px;
   color: #2a2a2a;
-  @media (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 0.75rem;
+    text-align: left;
+    letter-spacing: 0.029rem;
+    color: #2A2A2A;
+    opacity: 1;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #2A2A2A;
+    opacity: 1;
+  }
+  @media (min-width: 1241px) {
     font-family: Inter;
     font-size: 0.938rem;
     font-weight: 600;
@@ -688,10 +742,12 @@ const Spacing = styled.div`
   width: 100%;
   height: 4.063rem;
   align-items: center;
+  border-bottom: solid 1px #e3e7eb;
 
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
+    height: auto;
   }
 `;
 const SpacingInputData = styled.div`
@@ -703,6 +759,13 @@ const SpacingInputData = styled.div`
   padding-right: 2.313rem;
   border-bottom: solid 1px #e3e7eb;
   height: 7.75rem;
+  @media (max-width: 767px) {
+    display: block;
+    padding: 11px 6px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px){
+      height: 6.25rem;
+    }
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;
@@ -713,6 +776,12 @@ const SpacingPrivateNode = styled.div`
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
   padding-right: 2.313rem;
+  @media (max-width: 767px) {
+    display: block;
+    padding: 11px 6px;
+    height: 6.5rem;
+    border-bottom:none;
+  }
 `;
 const HashDiv = styled.div`
   display: flex;
@@ -727,6 +796,9 @@ const HashDiv = styled.div`
     display: block;
     padding: 16px 6px;
   }
+  @media (min-width: 768px) and (max-width: 1240px){
+    padding-left:5px;
+    }
 `;
 const Container = styled.div`
   display: flex;
@@ -744,11 +816,19 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: 4.125rem;
-  border-radius: 12px;
+  border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-bottom: 15px;
   padding: 6px;
+
+  @media(min-width:0px) and (max-width:767px){
+   width:22.563rem;
+   height: 6.813rem;
+}
+  @media (min-width: 768px) and (max-width: 1240px){
+      width: 41.5rem;
+    }
 `;
 
 const Heading = styled.span`
@@ -760,8 +840,29 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 1.5rem;
   margin-left: -21px;
-  @media (min-width: 300px) and (max-width: 767px) {
-    margin-left: unset;
+  @media  (min-width: 0px) and  (max-width: 767px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2a2a2a;
+  }
+  @media  (min-width: 768px) and  (max-width:1240px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2a2a2a;
   }
   @media (min-width: 1024px) {
     font-family: Inter;
@@ -779,8 +880,20 @@ const Heading = styled.span`
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  @media  (min-width: 0px) and  (max-width: 767px) {
+   width: 0.688rem;
+   height: 0.688rem;
+  }
+  @media  (min-width: 768px) and  (max-width: 1240px) {
+   width: 0.875rem;
+   height:0.875rem;
+  }
 `;
 const ImgView = styled.img`
   width: 20px;
   height: 20px;
+  @media  (min-width: 0px) and  (max-width: 767px) {
+   width:1rem;
+   height:1rem;
+  }
 `;

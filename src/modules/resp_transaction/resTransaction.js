@@ -468,7 +468,7 @@ const Content = styled.span`
     opacity: 1;
     word-break: break-all;
   }
-  @media (min-width: 768px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1241px) {
     font-size:0.875rem;
     word-break: break-all;
     text-align: left;
@@ -667,6 +667,7 @@ const SpacingInputData = styled.div`
     padding: 11px 6px;
     height: 8.75rem;
   }
+ 
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;
