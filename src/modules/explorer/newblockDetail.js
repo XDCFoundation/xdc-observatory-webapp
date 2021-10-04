@@ -126,9 +126,9 @@ export default function BlockDetails() {
                 </Container>
       
                 <MiddleContainerHash>
-                  <Content >{height.hash}</Content>
-                </MiddleContainerHash>
-                <SecondContainer>
+                  <Content >{height.hash}
+               
+             
                   <CopyToClipboard
                     text={height.hash}
                     onCopy={() => setCopiedText(height.hash)}
@@ -154,7 +154,8 @@ export default function BlockDetails() {
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
-                </SecondContainer>
+                  </Content>
+                  </MiddleContainerHash>
               </HashDiv>
             </Div>
             <Div__>

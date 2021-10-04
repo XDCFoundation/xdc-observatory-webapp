@@ -5848,13 +5848,6 @@ button {
   margin-bottom: 0;
 }
 
-@media (max-width: 1023px) {
-  .block_details_heading_left {
-    margin-top: 45px;
-    padding-left: 15px;
-  }
-}
-
 .block_details_heading_left_transaction {
   font-size: 1.5rem;
   font-family: Inter;
@@ -7026,4 +7019,8 @@ button {
   .pad-left-7 {
     padding-left: 7px;
   }
+}
+.copy-icon {
+  width: 20px;
+  height: 20px;
 }

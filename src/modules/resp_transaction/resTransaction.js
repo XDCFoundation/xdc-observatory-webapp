@@ -24,19 +24,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "auto",
 
     width: "100%",
-    "@media (min-width: 300px) and (max-width: 567px)": {
-      maxWidth: "300px",
-
+    "@media (min-width: 0px) and (max-width: 767px)": {
+      maxWidth: "22.563rem",
       marginTop: "155px",
     },
-    "@media (min-width: 567px) and (max-width: 767px)": {
-      maxWidth: "500px",
-      marginTop: "160px",
-    },
-    "@media (min-width: 768px) and (max-width: 1040px)": {
-      maxWidth: "700px",
-      marginTop: "140px",
-    },
+    "@media (min-width: 768px) and (max-width: 1239px)": {
+      marginTop: "130px",
+      maxWidth: "41.5rem",
+    }
   },
   rowDiv: {
     width: "100%",
@@ -153,10 +148,10 @@ export default function Transaction({ _handleChange }) {
 
                 <Hash>Hash ID</Hash>
               </Container>
-              <MiddleContainer isTextArea={false}>
-                <Content>{hash}</Content>
-              </MiddleContainer>
-              <SecondContainer>
+             <MiddleContainer isTextArea={false}>
+                <Content>{hash}
+              
+         
                 <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
                   <Tooltip
                     title={copiedText === hash ? "Copied" : "Copy To Clipboard"}
@@ -176,7 +171,8 @@ export default function Transaction({ _handleChange }) {
                     </button>
                   </Tooltip>
                 </CopyToClipboard>
-              </SecondContainer>
+                </Content>
+                </MiddleContainer>
             </HashDiv>
           </Div>
 
@@ -257,7 +253,7 @@ export default function Transaction({ _handleChange }) {
                           color: "blue",
                           backgroundColor: "white",
                           fontSize: 14,
-                          marginLeft: "25px",
+                          // marginLeft: "25px",
                         }}
                       >
                         <img
@@ -305,7 +301,7 @@ export default function Transaction({ _handleChange }) {
                           color: "blue",
                           backgroundColor: "white",
                           fontSize: 14,
-                          marginLeft: "10px",
+                          // marginLeft: "10px",
                         }}
                       >
                         <img
@@ -463,9 +459,22 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
-  @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
     word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+    word-break: break-all;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
   }
 `;
 const TextArea = styled.textarea`
@@ -479,6 +488,9 @@ const TextArea = styled.textarea`
   float: left;
   padding: 14px;
   overflow-y: auto;
+  @media (min-width: 768px) and (max-width: 1240px){
+      width: 110%
+    }
 `;
 
 const Div__ = styled.div`
@@ -490,7 +502,16 @@ const Div__ = styled.div`
   padding: 0.563rem;
   padding-left: 2.188rem;
   padding-right: 2.188rem;
-`;
+@media(min-width:0px) and (max-width:767px){
+   width:22.563rem;
+   height: 56.06rem;
+   padding-left:10px;
+  padding-right:10px;
+}
+@media (min-width: 768px) and (max-width: 1240px){
+      width: 41.5rem;
+    }
+  `;
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
@@ -503,6 +524,22 @@ const MiddleContainerPrivateNote = styled.div`
   border: solid 1px #9fa9ba;
   height: 2.313rem;
   padding: 7px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    opacity: 1;
+    word-break: break-all;
+    margin-left: unset;
+    height: auto;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    height: 3.25rem;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    opacity: 1;
+  }
 `;
 const MiddleContainerInputData = styled.div`
   font-family: Inter;
@@ -512,6 +549,21 @@ const MiddleContainerInputData = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    opacity: 1;
+    word-break: break-all;
+    margin-left: unset;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    opacity: 1;
+  }
 `;
 
 const MiddleContainer = styled.div`
@@ -522,19 +574,27 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
-
-  @media (max-width: 767px) {
-    font-size: 12px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
     margin-left: unset;
     margin-top: 10px;
-    width: 100%;
-    // max-width: 232px;
-    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
   }
-  // @media (max-width: 1024px) {
-  //   width: 100%;
-  //   max-width: 340px;
-  // }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+  }
+
 `;
 const HashInputData = styled.span`
   color: var(--unnamed-color-2a2a2a);
@@ -545,6 +605,25 @@ const HashInputData = styled.span`
   letter-spacing: 0.5px;
   color: #2a2a2a;
   padding-bottom: 30px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-align: left;
+    letter-spacing: 0.029rem;
+    color: #2A2A2A;
+    opacity: 1;
+    padding-bottom: 20px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #2A2A2A;
+    opacity: 1;
+  }
 `;
 
 const Hash = styled.span`
@@ -555,10 +634,23 @@ const Hash = styled.span`
   font-size: 13px;
   letter-spacing: 0.5px;
   color: #2a2a2a;
-  @media (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 0.75rem;
+    text-align: left;
+    letter-spacing: 0.029rem;
+    color: #2A2A2A;
+    opacity: 1;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #2A2A2A;
+    opacity: 1;
   }
 `;
 const SpacingInputData = styled.div`
@@ -570,6 +662,11 @@ const SpacingInputData = styled.div`
   padding-right: 2.313rem;
   border-bottom: solid 1px #e3e7eb;
   height: 7.75rem;
+  @media (max-width: 767px) {
+    display: block;
+    padding: 11px 6px;
+    height: 8.75rem;
+  }
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;
@@ -580,6 +677,15 @@ const SpacingPrivateNode = styled.div`
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
   padding-right: 2.313rem;
+  @media (max-width: 767px) {
+    display: block;
+    padding: 11px 6px;
+    border-bottom: none;
+    padding-right:unset;
+  }
+  @media (min-width: 768px)  and (max-width: 1240px){
+    padding-right:unset;
+  }
 `;
 const Spacing = styled.div`
   display: flex;
@@ -593,6 +699,7 @@ const Spacing = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
+    
   }
 `;
 const HashDiv = styled.div`
@@ -606,7 +713,7 @@ const HashDiv = styled.div`
 
   @media (max-width: 767px) {
     display: block;
-    padding: 16px 6px;
+    padding-left: 10px;
   }
 `;
 const Container = styled.div`
@@ -628,10 +735,16 @@ const Div = styled.div`
   width: 75.125rem;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
-  // border: solid 1px #e3e7eb;
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
+  @media(min-width:0px) and (max-width:767px){
+   width:22.563rem;
+   height: 6.813rem;
+}
+  @media (min-width: 768px) and (max-width: 1240px){
+      width: 41.5rem;
+    }
 `;
 
 const Heading = styled.span`
@@ -641,16 +754,53 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  @media (min-width: 300px) and (max-width: 767px) {
-    margin-left: unset;
+  @media  (min-width: 0px) and  (max-width: 767px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2a2a2a;
+  }
+  @media  (min-width: 768px) and  (max-width:1240px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2a2a2a;
   }
 `;
 const ImageViewInputData = styled.img`
   width: 15px;
   margin-right: 15px;
   padding-bottom: 30px;
+  @media  (min-width: 0px) and  (max-width: 767px) {
+   width:11px;
+   padding-bottom: 17px;
+  
+  }
+  @media  (min-width: 768px) and  (max-width: 1240px) {
+   width: 0.875rem;
+  }
 `;
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  @media  (min-width: 0px) and  (max-width: 767px) {
+   width: 0.688rem;
+   height: 0.688rem;
+  }
+  @media  (min-width: 768px) and  (max-width: 1240px) {
+   width: 0.875rem;
+   height:0.875rem;
+  }
 `;
