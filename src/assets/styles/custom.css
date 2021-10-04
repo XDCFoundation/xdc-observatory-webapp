@@ -2159,7 +2159,7 @@ p {
   color: #686868;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .TableHeaders {
     margin-top: 10px;
     font-family: Inter;
@@ -3035,6 +3035,11 @@ body {
   padding: 0 1.875rem;
 }
 
+@media (min-width:0px) and (max-width:767px){
+  .container{
+    padding: 0 0.75rem;
+  }
+}
 .source-code-unverified {
   display: flex;
   flex-direction: column;
