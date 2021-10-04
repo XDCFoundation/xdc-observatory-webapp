@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.b36b6a91.chunk.css",
-    "main.js": "/static/js/main.07898d11.chunk.js",
-    "main.js.map": "/static/js/main.07898d11.chunk.js.map",
+    "main.css": "/static/css/main.2581bb34.chunk.css",
+    "main.js": "/static/js/main.d694e87c.chunk.js",
+    "main.js.map": "/static/js/main.d694e87c.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c9145c61.js",
     "runtime-main.js.map": "/static/js/runtime-main.c9145c61.js.map",
     "static/css/2.c8b4a6df.chunk.css": "/static/css/2.c8b4a6df.chunk.css",
-    "static/js/2.10191210.chunk.js": "/static/js/2.10191210.chunk.js",
-    "static/js/2.10191210.chunk.js.map": "/static/js/2.10191210.chunk.js.map",
+    "static/js/2.6e911a28.chunk.js": "/static/js/2.6e911a28.chunk.js",
+    "static/js/2.6e911a28.chunk.js.map": "/static/js/2.6e911a28.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.b5542ca1fcd6ee9f292ca3b9916a046a.js": "/precache-manifest.b5542ca1fcd6ee9f292ca3b9916a046a.js",
+    "precache-manifest.eccdcbe8597736e9db13974e42b5ef49.js": "/precache-manifest.eccdcbe8597736e9db13974e42b5ef49.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.c8b4a6df.chunk.css.map": "/static/css/2.c8b4a6df.chunk.css.map",
-    "static/css/main.b36b6a91.chunk.css.map": "/static/css/main.b36b6a91.chunk.css.map",
-    "static/js/2.10191210.chunk.js.LICENSE.txt": "/static/js/2.10191210.chunk.js.LICENSE.txt",
+    "static/css/main.2581bb34.chunk.css.map": "/static/css/main.2581bb34.chunk.css.map",
+    "static/js/2.6e911a28.chunk.js.LICENSE.txt": "/static/js/2.6e911a28.chunk.js.LICENSE.txt",
     "static/media/Accounts.svg": "/static/media/Accounts.153a6952.svg",
     "static/media/Block Height.svg": "/static/media/Block Height.14cdccf6.svg",
     "static/media/Current Max_TPS.svg": "/static/media/Current Max_TPS.af38a2ad.svg",
@@ -31,7 +31,6 @@
     "static/media/XDC icon.svg": "/static/media/XDC icon.ff44eab2.svg",
     "static/media/XDC-Icon.svg": "/static/media/XDC-Icon.ff44eab2.svg",
     "static/media/abi.svg": "/static/media/abi.4f4ea5be.svg",
-    "static/media/arrow.gif": "/static/media/arrow.2f63b52f.gif",
     "static/media/back.svg": "/static/media/back.60964c93.svg",
     "static/media/bytecode.svg": "/static/media/bytecode.672dcd99.svg",
     "static/media/code.svg": "/static/media/code.eb37611a.svg",
@@ -47,8 +46,8 @@
   "entrypoints": [
     "static/js/runtime-main.c9145c61.js",
     "static/css/2.c8b4a6df.chunk.css",
-    "static/js/2.10191210.chunk.js",
-    "static/css/main.b36b6a91.chunk.css",
-    "static/js/main.07898d11.chunk.js"
+    "static/js/2.6e911a28.chunk.js",
+    "static/css/main.2581bb34.chunk.css",
+    "static/js/main.d694e87c.chunk.js"
   ]
 }

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import { ResponsiveLine } from '@nivo/line';
-// import { IoTriangleSharp } from 'react-icons/io'
 import '../../assets/styles/custom.css';
 import styled from "styled-components";
-
+import Utils from '../../utility'
+import TokenData from "../../services/token";
+import moment from "moment";
 const GraphSize = styled.div`
 height: 8.75rem;
 width: auto;
@@ -13,22 +15,7 @@ margin-top: 1rem;
 }
 `
 
-const data = [
-    {
-        "id": "japan",
-        "color": "hsl(262, 70%, 50%)",
-        "data": [
-            {
-                "x": "plane",
-                "y": 137
-            },
-            {
-                "x": "helicopter",
-                "y": 31
-            }
-        ]
-    }
-]
+
 const toolTipElement = (props) => {
     console.log(props.point?.data?.x, "<<prop")
     console.log(props, "<<")
@@ -112,16 +99,52 @@ const MyResponsiveLine = ({ data }) => (
 )
 
 export default function App() {
+    const [data, setData] = useState([])
+    const [graphTransactions, setGraphTransactions] = useState([]);
+    console.log(graphTransactions, ":}")
+    const { address } = useParams();
+    useEffect(async () => {
+        let urlPath = `${address}`;
+        console.log(urlPath, "|||")
+        let [error, transactionGraph] = await Utils.parseResponse(TokenData.getSomeDaysHolders(urlPath, {}))
+        if (error || !transactionGraph)
+            return
+        setGraphTransactions(transactionGraph)
+        console.log(transactionGraph, "tee")
+        var arr = [{
+            id: "Transaction",
+            color: "hsl(248, 70%, 50%)",
+            data: []
+        }]
 
 
+        var resultData = []
+        transactionGraph.map(items => {
+            let age = moment(items.date).format('D MMM YYYY')
+            resultData.push({
+                x: age,
+                y: items.count
+            })
 
+        })
+
+
+        arr[0].data = resultData
+        setData(arr)
+    }, [])
+
+
+    let length = graphTransactions?.length;
+    const firstDate = graphTransactions.length == 0 ? "" : (moment(graphTransactions[length - 1]?.date).format('D MMM'))
+    const lastDate = graphTransactions.length == 0 ? "" : (moment(graphTransactions[0]?.date).format('D MMM'))
     return (
         <GraphSize >
-            {/* <div style={{ height: 120, width: 390 }}> */}
+
             <MyResponsiveLine data={data} />
             <div className="dates">
-                <p>5 Aug</p>
-                <p>19 Aug</p>
+                <p>{lastDate}</p>
+                <p>{firstDate}</p>
+
             </div>
 
             {/* </div> */}
