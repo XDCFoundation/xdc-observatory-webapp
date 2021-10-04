@@ -106,6 +106,9 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
     padding: "0 px",
+    "@media (min-width: 0px) and (max-width: 1240px)": {
+      height: "12.563rem"
+    }
   },
 
 
@@ -211,13 +214,13 @@ export default function StickyHeadTable() {
                   <span className={"tableheaders_Transfer-table-age"}>Age</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"Tableheaders"}>Block</span>
+                  <span className={"tableheaders_Transfer-table-block"}>Block</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"Tableheaders"}>From</span>
+                  <span className={"tableheaders_Transfer-table-from"}>From</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"Tableheaders"}>To</span>
+                  <span className={"tableheaders_Transfer-table-to"}>To</span>
                 </TableCell>
               </TableRow>
             </TableHead>
