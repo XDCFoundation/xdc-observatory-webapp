@@ -10,7 +10,7 @@ import "../../assets/styles/custom.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import AddressTableComponent from "./holderTable";
+import HolderTableComponent from "./holderTable";
 import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
 import { Grid, TableContainer } from "@material-ui/core";
@@ -240,7 +240,7 @@ export default function HoldersDetails(props) {
                   }
                 >
 
-                  <AddressTableComponent
+                  <HolderTableComponent
                   />
 
 
@@ -254,7 +254,7 @@ export default function HoldersDetails(props) {
                   }
                 >
 
-                  <AddressTableComponent
+                  <HolderTableComponent
                     trans={transactions}
                   />
                 </div>
@@ -369,9 +369,8 @@ export default function HoldersDetails(props) {
                   }
                 >
 
-                  <AddressTableComponent
+                  <HolderTableComponent
                   />
-
 
                 </div>
 
@@ -383,7 +382,7 @@ export default function HoldersDetails(props) {
                   }
                 >
 
-                  <AddressTableComponent
+                  <HolderTableComponent
                     trans={transactions}
                   />
                 </div>
