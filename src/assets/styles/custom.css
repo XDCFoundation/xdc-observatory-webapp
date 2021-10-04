@@ -7024,6 +7024,11 @@ button {
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
+  .mar-bottom-40 {
+    margin-bottom: 40px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
   .pad-left-7 {
     padding-left: 7px;
   }
