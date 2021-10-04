@@ -134,7 +134,7 @@
   color: #252525;
   opacity: 0.8;
 }
-@media (min-width: 1024px) {
+@media (min-width: 0px) and (max-width:1240px) {
   .table-headers {
     height: 1.063rem;
     font-family: Inter;
@@ -146,6 +146,7 @@
     text-align: center;
     color: #252525;
     font-weight: 500;
+    margin-right: 130px;
   }
 }
 .tableheaders-hash {
@@ -432,9 +433,18 @@
   margin: auto;
   width: 75.125rem;
 }
-@media (max-width: 1023px) {
+@media(min-width:0px) and (max-width: 767px) {
   .table_1 {
     margin-top: 80px !important;
+    width: 22.563rem;
+    margin: auto;
+  }
+}
+@media(min-width:767px) and (max-width: 1240px) {
+  .table_1 {
+    margin-top: 80px !important;
+    width: 41.5rem;
+    margin: auto;
   }
 }
 
@@ -562,13 +572,6 @@
     margin-right: 17%;
     width: auto;
   } */
-
-  .table_1 {
-    width: 75.125rem;
-    margin-right: auto;
-    margin-left: auto;
-    padding-top: 90px;
-  }
 
   .w-1 {
     width: 23%;
