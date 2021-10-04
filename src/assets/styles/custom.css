@@ -3358,6 +3358,22 @@ body {
   display: flex;
   align-items: center;
 }
+@media(min-width:0px) and (max-width:767px){
+
+.contract-source {
+  font-family: "Inter";
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  margin-top: 1.66rem;
+  color: #2a2a2a;
+  display: flex;
+  align-items: center;
+  }
+}
 
 .contract-source-2 {
   flex-grow: 1;
@@ -3372,6 +3388,22 @@ body {
   color: #2a2a2a;
   display: flex;
   align-items: center;
+}
+@media(min-width:0px) and (max-width:767px){
+  .contract-source-2 {
+    flex-grow: 1;
+    font-family: "Inter";
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.62px;
+    color: #2a2a2a;
+    color: #2a2a2a;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .contract-name {
@@ -6419,10 +6451,24 @@ button {
   letter-spacing: 00.55px;
   font-family: inter;
 }
+@media(min-width:0px) and (max-width:767px){
+  .source-code-content-heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 00.55px;
+    font-family: inter;
+  }
+}
 
 .source-code-content-value {
   font-size: 0.938rem;
   margin-left: 40px;
+}
+@media(min-width:0px) and (max-width:767px){
+  .source-code-content-value {
+    font-size: 0.875rem;
+    margin-left: 40px;
+  }
 }
 
 .source-code-line {
@@ -6436,11 +6482,25 @@ button {
   font-size: 0.938rem;
   margin-left: 44px;
 }
+@media(min-width:0px) and (max-width:767px){
+  .source-code-content-value-optimization {
+    font-size: 0.875rem;
+    margin-left: 44px;
+  }
+}
 
 .source-code-content-value-name {
   font-size: 0.938rem;
   margin-left: 53px;
 }
+@media(min-width:0px) and (max-width:767px){
+  .source-code-content-value-name {
+    font-size: 0.875rem;
+    margin-left: 53px;
+  }
+
+}
+
 .left-table-contract-last {
   font-weight: 600 !important;
   letter-spacing: 0.55px !important;
@@ -7084,5 +7144,11 @@ button {
 @media (max-width: 767px) {
   .overflow {
     overflow-x: scroll;
+  }
+}
+@media (max-width:767px){
+  .copy-icon-svg{
+    height: 16px;
+    width: 16px;
   }
 }
