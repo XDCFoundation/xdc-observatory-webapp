@@ -183,6 +183,7 @@ export default function BlockDetails() {
                         borderRadius: "5px",
                         border: "1px #2149b9",
                         lineHeight: "1rem",
+                        verticalAlign:"bottom",
                       }}
                       onClick={decrement}
                     />
@@ -199,6 +200,7 @@ export default function BlockDetails() {
                         borderRadius: "5px",
                         border: "1px #2149b9",
                         lineHeight: "1rem",
+                        verticalAlign:"bottom",
                       }}
                       onClick={increment}
                     />
