@@ -7614,13 +7614,13 @@ button {
   }
 } */
 
-@media (min-width: 508px) and (max-width: 760px) {
+/* @media (min-width: 508px) and (max-width: 760px) {
   .grid-block-table {
     margin: 28px auto auto auto !important;
     width: 100% !important;
     max-width: 34.063rem !important;
   }
-}
+} */
 
 @media (min-width: 1024px) and (max-width: 1240px) {
   .searchelement-div {
