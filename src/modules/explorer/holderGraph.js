@@ -8,8 +8,12 @@ const GraphSize = styled.div`
 height: 8.75rem;
 width: auto;
 margin-top: 1rem;
-@media (max-width:640px){
-    height: 80px;
+@media (max-width:767px){
+    height: 102px;
+    
+}
+@media (min-width:767px) and (max-width:1240px){
+    margin-top: 2rem;
 }
 `
 
