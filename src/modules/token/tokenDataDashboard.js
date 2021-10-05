@@ -48,7 +48,7 @@ const MainContainer = styled.div`
     height: 32.063rem;
     padding: 0 1.875rem;
     margin: 0 auto;
-    margin-top: 140px;
+    margin-top: 165px;
   }
 `;
 const MobileScreen = styled.div`
