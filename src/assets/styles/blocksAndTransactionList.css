@@ -289,8 +289,9 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  height: 2.188rem;
-  width: 3.8rem;
+  MARGIN-TOP: -6px;
+  height: 35px;
+  width: 66px;
   font-size: 0.875rem !important;
   padding: 9px 10px 9px 6px;
   border-radius: 4px;
@@ -515,9 +516,11 @@
     text-align: left;
     color: #252525;
   }
+
   .select-amount {
-    width: 3.125rem;
-    height: 2.188rem;
+    width: 65px;
+    height: 34px;
+    margin: -7px 13px 0 11px;
   }
   .Pagination {
     display: flex;
@@ -527,6 +530,7 @@
     flex-grow: 0 !important;
     max-width: 70% !important;
     flex-basis: 25% !important;
+    padding-bottom: 11px !important;
   }
   .Pagination_2 {
     flex-grow: 0 !important;
@@ -624,4 +628,11 @@
 
 .fc-2149b9 {
   color: #2149b9;
+}
+@media (min-width: 300px) and (max-width: 1300px) {
+  .table_12 {
+    width: auto !important;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+  }
 }

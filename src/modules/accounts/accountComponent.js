@@ -45,7 +45,7 @@ export default function AccountComponent(props) {
     return (
         <div>
             <Tokensearchbar />
-            <Grid className="table_1">
+            <Grid className="table_1 table_12">
                 <Grid class="tabletop-header">{state.tableName}</Grid>
                 <div className="searchelement-input2">
                     <img style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
@@ -124,17 +124,17 @@ export default function AccountComponent(props) {
                     </Grid>
 
                     <Grid item className="Pagination_2">
-                        <button style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img
+                        <button id="btn_12" style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
+                        <button id="btn_12" onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img
                   className="back-arrow"
                   src={require("../../assets/images/back.svg")}
                 /></button>
-                        <button className="btn">Page {Math.round(state.totalAccounts / state.amount) + 1 - Math.round((state.totalAccounts - state.from) / state.amount)} of {Math.round(state.totalAccounts / state.amount)}</button>
-                        <button onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
+                        <button id="btn_12" className="btn">Page {Math.round(state.totalAccounts / state.amount) + 1 - Math.round((state.totalAccounts - state.from) / state.amount)} of {Math.round(state.totalAccounts / state.amount)}</button>
+                        <button id="btn_12" onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
                   className="back-arrow"
                   src={require("../../assets/images/next.svg")}
                 /></button>
-                        <button onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}>Last</button>
+                        <button id="btn_12" onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
                 </Grid>
