@@ -4459,7 +4459,7 @@ button {
 }
 @media (min-width: 1024px) and (max-width: 1239px) {
   .mainhead_child2 {
-    padding-left: 47px;
+    padding-left: 51px;
   }
 }
 
@@ -4599,7 +4599,7 @@ button {
 }
 @media (min-width: 1024px) and (max-width: 1239px) {
   .pad-lef-height {
-    padding-left: 25px;
+    padding-left: 2px;
   }
 }
 .tippy-tooltip.custom-theme {
@@ -6866,7 +6866,7 @@ button {
     width: 18%;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1241px) {
   .pad-lef-18 {
     padding-left: 18px;
   }
@@ -7018,5 +7018,10 @@ button {
 @media (max-width: 767px) {
   .overflow {
     overflow-x: scroll;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .pad-left-27 {
+    padding-left: 27px;
   }
 }
