@@ -153,33 +153,33 @@ export default function TransferTransaction({ _handleChange }) {
               </Container>
               <MiddleContainer isTextArea={false}>
                 <Content>{address}
-              
-            
-                <CopyToClipboard
-                  text={address}
-                  onCopy={() => setCopiedText(address)}
-                >
-                  <Tooltip
-                    title={
-                      copiedText === address ? "Copied" : "Copy To Clipboard"
-                    }
-                    placement="top"
+
+
+                  <CopyToClipboard
+                    text={address}
+                    onCopy={() => setCopiedText(address)}
                   >
-                    <button
-                      style={{
-                        color: "#2149b9",
-                        backgroundColor: "white",
-                        fontSize: 14,
-                      }}
+                    <Tooltip
+                      title={
+                        copiedText === address ? "Copied" : "Copy To Clipboard"
+                      }
+                      placement="top"
                     >
-                      <ImgView
-                        src={require("../../../src/assets/images/copy.svg")}
-                      />
-                    </button>
-                  </Tooltip>
-                </CopyToClipboard>
+                      <button
+                        style={{
+                          color: "#2149b9",
+                          backgroundColor: "white",
+                          fontSize: 14,
+                        }}
+                      >
+                        <ImgView
+                          src={require("../../../src/assets/images/copy.svg")}
+                        />
+                      </button>
+                    </Tooltip>
+                  </CopyToClipboard>
                 </Content>
-                </MiddleContainer>
+              </MiddleContainer>
             </HashDiv>
           </Div>
 
@@ -847,6 +847,7 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
+    margin-top: 62px;
   }
   @media  (min-width: 768px) and  (max-width:1240px) {
     height: 1rem;

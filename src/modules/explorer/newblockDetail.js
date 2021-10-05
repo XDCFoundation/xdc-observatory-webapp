@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "130px",
       maxWidth: "41.5rem",
     }
- 
+
   },
   rowDiv: {
     width: "100%",
@@ -124,38 +124,38 @@ export default function BlockDetails() {
                   </Tooltip>
                   <Hash>Hash ID</Hash>
                 </Container>
-      
+
                 <MiddleContainerHash>
                   <Content >{height.hash}
-               
-             
-                  <CopyToClipboard
-                    text={height.hash}
-                    onCopy={() => setCopiedText(height.hash)}
-                  >
-                    <Tooltip
-                      title={
-                        copiedText === height.hash
-                          ? "Copied"
-                          : "Copy To Clipboard"
-                      }
-                      placement="top"
+
+
+                    <CopyToClipboard
+                      text={height.hash}
+                      onCopy={() => setCopiedText(height.hash)}
                     >
-                      <button
-                        style={{
-                          color: "blue",
-                          backgroundColor: "white",
-                          fontSize: 14,
-                        }}
+                      <Tooltip
+                        title={
+                          copiedText === height.hash
+                            ? "Copied"
+                            : "Copy To Clipboard"
+                        }
+                        placement="top"
                       >
-                        <ImgView
-                          src={require("../../../src/assets/images/copy.svg")}
-                        />
-                      </button>
-                    </Tooltip>
-                  </CopyToClipboard>
+                        <button
+                          style={{
+                            color: "blue",
+                            backgroundColor: "white",
+                            fontSize: 14,
+                          }}
+                        >
+                          <ImgView
+                            src={require("../../../src/assets/images/copy.svg")}
+                          />
+                        </button>
+                      </Tooltip>
+                    </CopyToClipboard>
                   </Content>
-                  </MiddleContainerHash>
+                </MiddleContainerHash>
               </HashDiv>
             </Div>
             <Div__>
@@ -183,7 +183,7 @@ export default function BlockDetails() {
                         borderRadius: "5px",
                         border: "1px #2149b9",
                         lineHeight: "1rem",
-                        verticalAlign:"bottom",
+                        verticalAlign: "bottom",
                       }}
                       onClick={decrement}
                     />
@@ -200,7 +200,7 @@ export default function BlockDetails() {
                         borderRadius: "5px",
                         border: "1px #2149b9",
                         lineHeight: "1rem",
-                        verticalAlign:"bottom",
+                        verticalAlign: "bottom",
                       }}
                       onClick={increment}
                     />
@@ -684,6 +684,7 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
+    margin-top: 62px;
   }
   @media  (min-width: 768px) and  (max-width:1240px) {
     height: 1rem;
