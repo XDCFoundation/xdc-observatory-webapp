@@ -152,7 +152,7 @@ export default function AddressDetailsData() {
       <Grid className="table-grid-block ">
         <div
           className="block_details_heading b-h1"
-          style={{ display: "flex", flexDirection: "row" }}
+          style={{ display: "flex", flexDirection: "row"}}
         >
           <p className="contract_details_heading_left">Address <span className="AddressTitle addtitle">{addressNumber}</span></p>
         </div>
@@ -189,6 +189,7 @@ export default function AddressDetailsData() {
                 </TableContainer>
               </div>
             </div>
+
             <div className="contractSummary">
               <div className="latest">
                 <h1>Contract-Summary</h1>
@@ -230,6 +231,7 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
+          <div>
           <div className="block_sec sec-block">
             <div className="bloc-tabs_sec">
               <button
@@ -250,6 +252,7 @@ export default function AddressDetailsData() {
                 Contract Source
               </button>
             </div>
+          </div>
           </div>
 
           <div className="content-tabs_sec">
