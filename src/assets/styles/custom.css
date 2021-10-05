@@ -2767,7 +2767,7 @@ p {
     justify-content: space-between;
     /* width: 80vw; */
   }
- 
+
   .mobile-navbartab1 {
     display: flex;
   }
@@ -5824,7 +5824,7 @@ button {
   margin-top: 10px;
   margin-left: 15px;
 }
-.wordTruncating{
+.wordTruncating {
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
@@ -6680,17 +6680,17 @@ button {
     width: 12.5rem;
     padding-bottom: 6px;
   }
-  .mobFilter{
+  .mobFilter {
     margin-top: -2px;
   }
-  .select-td{
+  .select-td {
     margin-left: 0px;
     background-color: white !important;
   }
   .Shape-XDC {
     margin-top: -0.9rem;
   }
-  
+
   .Shape-XDC:hover {
     margin-top: -0.9rem;
   }
@@ -6705,7 +6705,6 @@ button {
   .Network-explorer-internal {
     margin: 1.5rem 2.5rem 0.188rem 0.4rem;
     padding-top: 0rem;
-   
   }
   .Network-explorer-internal:hover {
     margin: 1.5rem 2.5rem 0.188rem 0.4rem;
@@ -6714,17 +6713,17 @@ button {
 
   .Token-internal {
     padding-top: 0rem;
-   margin: 1.5rem 2.5rem 0.188rem 10rem;
+    margin: 1.5rem 2.5rem 0.188rem 10rem;
   }
   .Token-internal:hover {
     padding-top: 0rem;
-   margin: 1.5rem 2.5rem 0.188rem 10rem;
+    margin: 1.5rem 2.5rem 0.188rem 10rem;
   }
 
-  .parentCenterbox{
-      display: flex;
-      justify-content: center;
-      margin-top: 3.75rem;
+  .parentCenterbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.75rem;
   }
   .centerbox-td {
     width: 21.4375rem;
@@ -6751,7 +6750,7 @@ button {
     color: #2a2a2a;
   }
 
-  .vc-header-child{
+  .vc-header-child {
     width: 23rem;
   }
 
@@ -6796,7 +6795,7 @@ button {
   .contract_details_heading_left {
     letter-spacing: 0px;
     font-size: 17px;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
     margin-top: 7.25rem;
   }
@@ -6838,8 +6837,7 @@ button {
     width: 10.5rem;
   }
   #contract-btn {
-      width: 10.5rem;
-
+    width: 10.5rem;
   }
   .active-content_sec {
     display: block;
@@ -6852,7 +6850,7 @@ button {
     width: 23rem;
     /* justify-content: space-between; */
   }
-  .csvDownloadParent{
+  .csvDownloadParent {
     display: flex;
     justify-content: flex-end;
   }
@@ -6887,7 +6885,7 @@ button {
   .main-input-td {
     width: 31rem;
   }
-  .select-td{
+  .select-td {
     margin-left: 0px;
     background-color: white !important;
   }
@@ -6900,7 +6898,7 @@ button {
     margin-top: 0.2rem;
     margin-bottom: 1.125rem;
   }
-  
+
   .Shape-XDC:hover {
     margin-top: 0.2rem;
     margin-bottom: 1.125rem;
@@ -6916,7 +6914,6 @@ button {
   .Network-explorer-internal {
     margin: 0.6rem 2.5rem 0rem 1.563rem;
     padding-top: 0rem;
-   
   }
   .Network-explorer-internal:hover {
     margin: 0.6rem 2.5rem 0rem 1.563rem;
@@ -6931,10 +6928,10 @@ button {
     padding-top: 0rem;
     margin: 0.6rem 2.5rem 0rem 11.563rem;
   }
-  .parentCenterbox{
-      display: flex;
-      justify-content: center;
-      /* background-color: green; */
+  .parentCenterbox {
+    display: flex;
+    justify-content: center;
+    /* background-color: green; */
   }
   .centerbox-td {
     width: 38.9375rem;
@@ -6962,7 +6959,7 @@ button {
     color: #2a2a2a;
   }
 
-  .vc-header-child{
+  .vc-header-child {
     width: 41.5rem;
   }
 
@@ -6994,7 +6991,7 @@ button {
   }
   .contract_details_heading_left {
     letter-spacing: 0px;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
     margin-left: -9.18rem;
     margin-top: 2.12rem;
@@ -7030,8 +7027,7 @@ button {
     width: 10.5rem;
   }
   #contract-btn {
-      width: 10.5rem;
-
+    width: 10.5rem;
   }
   .active-content_sec {
     display: block;
