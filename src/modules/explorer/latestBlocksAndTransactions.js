@@ -318,7 +318,7 @@ class LatestBlocks extends Component {
                 <div className="data_heading">
                   <div className="main_head main-head">
                     <div className="mainhead_child1 wid-42">Hash</div>
-                    <div className="mainhead_child2 wid-40 pad-lef-28 ">Amount</div>
+                    <div className="mainhead_child2 wid-40 pad-lef-28 pad-left-27">Amount</div>
                     <div className="mainhead_child3 wid-24 pad-left-38 ">Age</div>
                     <div>{" "}</div>
                   </div>
