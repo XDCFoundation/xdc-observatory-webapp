@@ -450,10 +450,25 @@
 
 /* Extra small devices (phones, 600px and down) */
 
-@media only screen and (max-width: 665px) {
+.tableheaders_Transfer-table-age {
+  font-family: "Fira Sans";
+  font-size: 0.875rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  padding-left: 10px;
+  margin-right: 50px;
+}
+
+@media only screen and (max-width: 1240px) {
   .tableheaders {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -466,7 +481,7 @@
   }
   .tableheaders_Transfer-table-hash {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -476,11 +491,11 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 60px;
+    margin-right: 120px;
   }
   .tableheaders_Transfer-table-age {
     font-family: "Fira Sans";
-    font-size: 13px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -490,7 +505,49 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 50px;
+    margin-right: 120px;
+  }
+  .tableheaders_Transfer-table-block {
+    font-family: "Fira Sans";
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    padding-left: 10px;
+    margin-right: 120px;
+  }
+  .tableheaders_Transfer-table-from {
+    font-family: "Fira Sans";
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    padding-left: 10px;
+    margin-right: 120px;
+  }
+  .tableheaders_Transfer-table-to {
+    font-family: "Fira Sans";
+    font-size: 0.875rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    text-align: center;
+    color: #252525;
+    opacity: 0.8;
+    padding-left: 10px;
+    margin-right: 120px;
   }
   .tableheaders_1 {
     font-family: "Fira Sans";

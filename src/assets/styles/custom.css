@@ -1523,6 +1523,22 @@ p {
   font-weight: 500px !important;
 }
 
+.p-pagination{
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 8px !important;
+ 
+}
+@media(max-width:767px){
+  .p-pagination{
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 6px;
+    margin: 0 0 0rem;
+   
+  }
+}
+
 .selectbox {
   width: 60px;
   height: 35px;
@@ -1534,10 +1550,10 @@ p {
   background-color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .selectbox {
-    width: 60px;
-    height: 27px;
+    width: 3.063rem;
+    height: 2.125rem;
     margin-top: 0px;
     margin-left: 6px;
     margin-right: 6px;
@@ -1564,9 +1580,12 @@ p {
   background-color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+
+
+@media (max-width: 1240px) {
   .firstbox {
-    height: 27px;
+    width: 3.063rem;
+    height:2.125rem;
     margin: 0px;
     padding: 2px;
     border-radius: 4px;
@@ -1589,7 +1608,6 @@ p {
   text-align: center;
   color: #4f4f4f;
 }
-
 .previousbox {
   width: 35px;
   height: 27px;
@@ -1600,10 +1618,10 @@ p {
   background-color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .previousbox {
-    width: 35px;
-    height: 27px;
+    width: 3.063rem;
+    height:2.125rem;
     padding: 12px;
     margin: 0px;
     border-radius: 4px;
@@ -1618,6 +1636,15 @@ p {
   margin-top: -8px;
   font-weight: 600;
 }
+@media (max-width: 1240px){
+  .path {
+    color: #252525;
+    font-size: 10px;
+    margin-top: -3px;
+    font-weight: 600;
+  }
+}
+
 
 .path-2 {
   display: flex;
@@ -1653,11 +1680,11 @@ p {
   background-color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .pagebox {
     width: 100%;
-    height: 27px;
-    padding: 6px 8px;
+    height:2.125rem;
+    padding: 10px 8px;
     border-radius: 4px;
     margin: 0px;
     border: solid 1px #e5e8f0;
@@ -1687,10 +1714,10 @@ p {
   background-color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .nextbox {
-    width: 35px;
-    height: 27px;
+    width: 3.063rem;
+    height:2.125rem;
     padding: 12px;
     border-radius: 4px;
     margin: 0px;
@@ -1709,10 +1736,10 @@ p {
   background-color: #ffffff;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .lastbox {
-    width: 50px;
-    height: 27px;
+    width: 3.063rem;
+    height:2.125rem;
     padding: 2px;
     border-radius: 4px;
     margin: 0px;
@@ -1805,7 +1832,14 @@ p {
   margin-top: -8px;
   font-weight: 600;
 }
-
+@media (max-width:1240px){
+  .path-2 {
+    color: #252525;
+    font-size: 10px;
+    margin-top: -3px;
+    font-weight: 600;
+  }
+}
 .Last-contract {
   width: 37px;
   height: 17px;
@@ -2126,7 +2160,7 @@ p {
   color: #686868;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .TableHeaders {
     margin-top: 10px;
     font-family: Inter;
@@ -2968,6 +3002,11 @@ body {
   letter-spacing: 0.036rem;
   text-align: center;
 }
+@media (max-width:1240px){
+  .tabs-data{
+    font-size: 0.875rem;
+  }
+}
 
 .verified-logo {
   height: 18px;
@@ -2995,6 +3034,11 @@ body {
   padding: 0 1.875rem;
 }
 
+@media (min-width:0px) and (max-width:767px){
+  .container{
+    padding: 0 0.75rem;
+  }
+}
 .source-code-unverified {
   display: flex;
   flex-direction: column;
@@ -5662,12 +5706,34 @@ button {
   width: 75.125rem;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 0px) and (max-width:767px) {
   .table-grid-block3 {
     width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin: auto; 
   }
+}
+@media (min-width: 767px) and (max-width:1240px) {
+  .table-grid-block3 {
+    width: auto;
+    margin: auto; 
+  }
+}
+
+.Token-res-table {
+  border-radius: "14px";
+}
+@media (max-width: 767px) {
+  .Token-res-table {
+      width:360px;
+      margin:auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width:1240px)  {
+  .Token-res-table {
+      width:664px;
+      margin:auto;
+    }
 }
 
 .table-block {
