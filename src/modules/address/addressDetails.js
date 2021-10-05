@@ -364,7 +364,7 @@ export default function AddressDetails(props) {
             <div
               className={
                 toggleState === 1
-                  ? "content_sec  active-content_sec"
+                  ? "content_sec  active-content_sec sec-active"
                   : "content_sec"
               }
             >
