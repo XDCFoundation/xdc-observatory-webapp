@@ -1523,19 +1523,17 @@ p {
   font-weight: 500px !important;
 }
 
-.p-pagination{
+.p-pagination {
   font-size: 11px;
   font-weight: 600;
   margin-top: 8px !important;
- 
 }
-@media(max-width:767px){
-  .p-pagination{
+@media (max-width: 767px) {
+  .p-pagination {
     font-size: 11px;
     font-weight: 600;
     margin-top: 6px;
     margin: 0 0 0rem;
-   
   }
 }
 
@@ -1580,12 +1578,10 @@ p {
   background-color: #ffffff;
 }
 
-
-
 @media (max-width: 1240px) {
   .firstbox {
     width: 3.063rem;
-    height:2.125rem;
+    height: 2.125rem;
     margin: 0px;
     padding: 2px;
     border-radius: 4px;
@@ -1621,7 +1617,7 @@ p {
 @media (max-width: 1240px) {
   .previousbox {
     width: 3.063rem;
-    height:2.125rem;
+    height: 2.125rem;
     padding: 12px;
     margin: 0px;
     border-radius: 4px;
@@ -1636,7 +1632,7 @@ p {
   margin-top: -8px;
   font-weight: 600;
 }
-@media (max-width: 1240px){
+@media (max-width: 1240px) {
   .path {
     color: #252525;
     font-size: 10px;
@@ -1644,7 +1640,6 @@ p {
     font-weight: 600;
   }
 }
-
 
 .path-2 {
   display: flex;
@@ -1683,7 +1678,7 @@ p {
 @media (max-width: 1240px) {
   .pagebox {
     width: 100%;
-    height:2.125rem;
+    height: 2.125rem;
     padding: 10px 8px;
     border-radius: 4px;
     margin: 0px;
@@ -1717,7 +1712,7 @@ p {
 @media (max-width: 1240px) {
   .nextbox {
     width: 3.063rem;
-    height:2.125rem;
+    height: 2.125rem;
     padding: 12px;
     border-radius: 4px;
     margin: 0px;
@@ -1739,7 +1734,7 @@ p {
 @media (max-width: 1240px) {
   .lastbox {
     width: 3.063rem;
-    height:2.125rem;
+    height: 2.125rem;
     padding: 2px;
     border-radius: 4px;
     margin: 0px;
@@ -1832,7 +1827,7 @@ p {
   margin-top: -8px;
   font-weight: 600;
 }
-@media (max-width:1240px){
+@media (max-width: 1240px) {
   .path-2 {
     color: #252525;
     font-size: 10px;
@@ -3002,8 +2997,8 @@ body {
   letter-spacing: 0.036rem;
   text-align: center;
 }
-@media (max-width:1240px){
-  .tabs-data{
+@media (max-width: 1240px) {
+  .tabs-data {
     font-size: 0.875rem;
   }
 }
@@ -3034,8 +3029,8 @@ body {
   padding: 0 1.875rem;
 }
 
-@media (min-width:0px) and (max-width:767px){
-  .container{
+@media (min-width: 0px) and (max-width: 767px) {
+  .container {
     padding: 0 0.75rem;
   }
 }
@@ -3147,7 +3142,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.55px;
 }
-@media(min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .contract-text {
     font-size: 0.875rem;
     font-family: inter;
@@ -3250,7 +3245,7 @@ body {
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
-@media (min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
     padding: 0px 48px 0px 27px !important;
     text-align: left;
@@ -3275,7 +3270,7 @@ body {
   text-align: left;
   color: #252525;
 }
-@media (min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
     padding: 16px 0px 0px 25px !important;
     text-align: left;
@@ -3378,20 +3373,19 @@ body {
   display: flex;
   align-items: center;
 }
-@media(min-width:0px) and (max-width:767px){
-
-.contract-source {
-  font-family: "Inter";
-  font-size: 0.875rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.58px;
-  margin-top: 1.66rem;
-  color: #2a2a2a;
-  display: flex;
-  align-items: center;
+@media (min-width: 0px) and (max-width: 767px) {
+  .contract-source {
+    font-family: "Inter";
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    margin-top: 1.66rem;
+    color: #2a2a2a;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -3409,7 +3403,7 @@ body {
   display: flex;
   align-items: center;
 }
-@media(min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .contract-source-2 {
     flex-grow: 1;
     font-family: "Inter";
@@ -5830,16 +5824,16 @@ button {
   width: 75.125rem;
 }
 
-@media (min-width: 0px) and (max-width:767px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .table-grid-block3 {
     width: auto;
-    margin: auto; 
+    margin: auto;
   }
 }
-@media (min-width: 767px) and (max-width:1240px) {
+@media (min-width: 767px) and (max-width: 1240px) {
   .table-grid-block3 {
     width: auto;
-    margin: auto; 
+    margin: auto;
   }
 }
 
@@ -5848,16 +5842,16 @@ button {
 }
 @media (max-width: 767px) {
   .Token-res-table {
-      width:360px;
-      margin:auto;
-    }
+    width: 360px;
+    margin: auto;
+  }
 }
 
-@media (min-width: 768px) and (max-width:1240px)  {
+@media (min-width: 768px) and (max-width: 1240px) {
   .Token-res-table {
-      width:664px;
-      margin:auto;
-    }
+    width: 664px;
+    margin: auto;
+  }
 }
 
 .table-block {
@@ -6544,7 +6538,7 @@ button {
   letter-spacing: 00.55px;
   font-family: inter;
 }
-@media(min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .source-code-content-heading {
     font-size: 0.875rem;
     font-weight: 600;
@@ -6557,7 +6551,7 @@ button {
   font-size: 0.938rem;
   margin-left: 40px;
 }
-@media(min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .source-code-content-value {
     font-size: 0.875rem;
     margin-left: 40px;
@@ -6575,7 +6569,7 @@ button {
   font-size: 0.938rem;
   margin-left: 44px;
 }
-@media(min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .source-code-content-value-optimization {
     font-size: 0.875rem;
     margin-left: 44px;
@@ -6586,12 +6580,11 @@ button {
   font-size: 0.938rem;
   margin-left: 53px;
 }
-@media(min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .source-code-content-value-name {
     font-size: 0.875rem;
     margin-left: 53px;
   }
-
 }
 
 .left-table-contract-last {
@@ -7582,7 +7575,6 @@ button {
     overflow-x: scroll;
   }
 }
-<<<<<<< HEAD
 @media (min-width: 768px) and (max-width: 1023px) {
   .pad-left-27 {
     padding-left: 27px;
@@ -7601,11 +7593,9 @@ button {
 .word-space-4 {
   word-spacing: -4px;
 }
-=======
-@media (max-width:767px){
-  .copy-icon-svg{
+@media (max-width: 767px) {
+  .copy-icon-svg {
     height: 16px;
     width: 16px;
   }
 }
->>>>>>> b41067bc81d3adcb0c95ac6f22be32fe7a596a7e
