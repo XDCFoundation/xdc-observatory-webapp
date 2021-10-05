@@ -296,7 +296,7 @@ input:focus {
 
 @media (min-width: 641px) and (max-width: 1023px) {
   .qr-code {
-    margin-top: 5px;
+    margin-top: 7px;
   }
 }
 
@@ -1834,8 +1834,8 @@ p {
 
 @media (max-width: 640px) {
   .pagebox-contract {
-    width: auto;
-    height: 27px;
+    width: 115px;
+    height: 35px;
     margin: -6px 6px 0px 0px;
     padding: 6px 8px;
     border-radius: 4px;
@@ -2221,7 +2221,7 @@ p {
   width: 75.125rem;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1300px) {
   .searchelement-div {
     margin-top: 60px !important;
     width: auto;
@@ -5627,7 +5627,7 @@ button {
   align-items: center !important;
 }
 
-.second-row-table_hash {
+.second-row-hash {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
@@ -5648,7 +5648,9 @@ button {
 
 .table-grid-block {
   margin: 110px auto auto auto;
-  width: 75.063rem;
+  /* width: 75.063rem; */
+  width: 100%;
+  max-width: 75.063rem;
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -5920,7 +5922,7 @@ button {
   justify-content: space-between;
   display: flex;
   border-bottom: solid 1px #e3e7eb;
-  width: 75.125rem;
+  /* width: 75.125rem; */
   height: 2.188rem;
 }
 
@@ -6007,7 +6009,7 @@ button {
 
 .active-content_sec {
   display: block;
-  width: 75.188rem;
+  /* width: 75.188rem; */
 }
 
 .container_sec {
@@ -7020,3 +7022,54 @@ button {
     overflow-x: scroll;
   }
 }
+@media (min-width: 0px) and (max-width: 641px) {
+  #btn_12 {
+    padding: 7px 6px 10px 10px !important;
+  }
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  .grid-block-table {
+    margin: 28px auto auto auto !important;
+    width: 100% !important;
+    max-width: 58.063rem !important;
+  }
+
+  /* .sec-block-mb{
+    width: 100% !important;
+    max-width: 19rem!important;
+  } */
+  /* .active-content_sec {
+    display: block !important;
+    width: 19.188rem !important;
+} */
+  .search-input-box {
+    width: 100% !important;
+    max-width: 10rem !important;
+  }
+  .input-box-search {
+    width: 100% !important;
+    max-width: 6rem !important;
+  }
+}
+@media (min-width: 1023px) and (max-width: 1240px) {
+  .grid-block-table {
+    width: 97% !important;
+  }
+}
+@media (min-width: 508px) and (max-width: 760px) {
+  .grid-block-table {
+    margin: 28px auto auto auto !important;
+    width: 100% !important;
+    max-width: 34.063rem !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+.input_12 input {
+  margin-top: 9px;
+}
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .input_12 input {
+    margin-top: 6px;
+  }
+  }
