@@ -407,10 +407,15 @@
   margin: auto;
   width: 100%;
 }
-@media (max-width: 640px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .tablegrid_address {
-    padding-top: 12.5%;
+    padding-top: 4.5%;
     padding-left: 1%;
+    padding-right: 1%;
+  }
+  .select-amount {
+    width: 4rem;
+    height: 2.188rem;
   }
 }
 
@@ -515,10 +520,10 @@
     text-align: left;
     color: #252525;
   }
-  .select-amount {
+  /* .select-amount {
     width: 3.125rem;
     height: 2.188rem;
-  }
+  } */
   .Pagination {
     display: flex;
     flex-direction: column;
@@ -534,6 +539,8 @@
     flex-basis: 33.333333% !important;
   }
 }
+
+
 
 /* Medium devices (landscape tablets, 768px and up) */
 
