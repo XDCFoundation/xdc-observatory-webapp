@@ -132,7 +132,7 @@ export default function AddressDetailsData() {
           transactionlist: responseData.transactionArray
 
         })
-        console.log(responses)
+
       } else {
 
       }
@@ -152,7 +152,7 @@ export default function AddressDetailsData() {
       <Grid className="table-grid-block ">
         <div
           className="block_details_heading b-h1"
-          style={{ display: "flex", flexDirection: "row"}}
+          style={{ display: "flex", flexDirection: "row" }}
         >
           <p className="contract_details_heading_left">Address <span className="AddressTitle addtitle">{addressNumber}</span></p>
         </div>
@@ -232,27 +232,27 @@ export default function AddressDetailsData() {
           <br />
           <br />
           <div>
-          <div className="block_sec sec-block">
-            <div className="bloc-tabs_sec">
-              <button
-                className={
-                  toggleState === 1 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
-                }
-                onClick={() => toggleTab(1)}
-                id="transaction-btn">
-                All Transactions
-              </button>
+            <div className="block_sec sec-block">
+              <div className="bloc-tabs_sec">
+                <button
+                  className={
+                    toggleState === 1 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
+                  }
+                  onClick={() => toggleTab(1)}
+                  id="transaction-btn">
+                  All Transactions
+                </button>
 
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
-                }
-                onClick={() => toggleTab(2)}
-                id="contract-btn">
-                Contract Source
-              </button>
+                <button
+                  className={
+                    toggleState === 2 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
+                  }
+                  onClick={() => toggleTab(2)}
+                  id="contract-btn">
+                  Contract Source
+                </button>
+              </div>
             </div>
-          </div>
           </div>
 
           <div className="content-tabs_sec">

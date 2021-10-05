@@ -25,8 +25,6 @@ async function getMaxTpsCounter() {
                 // if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0) {
                 //     return Promise.reject();
                 // }
-
-                console.log('here is resposne===',response.responseData.maxtps)
                 return Promise.resolve(response.responseData.maxtps);
 
             }

@@ -126,7 +126,6 @@ export default function TransferTransaction({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
-  console.log(transactions, "GTRUH")
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />

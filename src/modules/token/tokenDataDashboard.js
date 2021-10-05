@@ -386,7 +386,7 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     setHolders(tns);
   }
-  console.log(transfer, "<><>")
+
   React.useEffect(() => {
     (async () => {
       let token = 'XDC'
