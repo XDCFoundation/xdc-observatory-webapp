@@ -307,7 +307,13 @@ class Contractlist extends React.Component {
                     src={require("../../assets/images/Search.svg")}
                   />
                   <input
-                    onKeyUp={this.handleKeyUp}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        console.log("Enter key was pressed. Run your function.");
+                        this.handleKeyUp(e)
+                      }
+
+                    }}
                     style={{
                       fontSize: "0.938rem",
                       letterSpacing: 0.62,
@@ -550,7 +556,7 @@ class Contractlist extends React.Component {
                   1 -
                   Math.round(
                     (this.state.totalRecord - this.state.from) /
-                      this.state.amount
+                    this.state.amount
                   )}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
