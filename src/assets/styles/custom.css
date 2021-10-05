@@ -3148,7 +3148,14 @@ body {
   font-weight: 600;
   letter-spacing: 0.55px;
 }
-
+@media(min-width:0px) and (max-width:767px){
+  .contract-text {
+    font-size: 0.875rem;
+    font-family: inter;
+    font-weight: 600;
+    letter-spacing: 0.55px;
+  }
+}
 .hr-line {
   margin-top: 17px;
   margin-bottom: 5px;
