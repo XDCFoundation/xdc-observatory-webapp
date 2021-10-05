@@ -1836,6 +1836,7 @@ p {
 @media (max-width: 640px) {
   .pagebox-contract {
     width: auto;
+    white-space: nowrap;
     height: 35px;
     margin: -6px 6px 0px 0px;
     padding: 6px 8px;

@@ -790,14 +790,14 @@ export default function AddressTableComponent(props) {
             <span className="text">Show</span>
             <Select
               value={rowsPerPage}
-              className="select-amount"
+              className="select-amount amount-select"
               onChange={handleChangeRowsPerPage}
             >
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={25}>25</MenuItem>
               <MenuItem value={50}>50</MenuItem>
               <MenuItem value={100}>100</MenuItem>
-              <MenuItem value={500}>500</MenuItem>
+              {/* <MenuItem value={500}>500</MenuItem> */}
             </Select>
             <span className="text">Records</span>
           </Grid>
