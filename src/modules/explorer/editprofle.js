@@ -141,8 +141,8 @@ const Wrapper = styled.div`
 const Upload = styled.div`
 
 display: block;
-margin-left: auto;
-margin-right: auto;
+cursor:pointer;
+padding-left:11.2rem;
 font-family: Inter;
   font-size: 14px;
   font-weight: 500;
@@ -186,6 +186,7 @@ flex-flow: row nowrap;
 
 
 }`;
+
 
 export default function FormDialog() {
   const classes = useStyles();
@@ -304,15 +305,12 @@ export default function FormDialog() {
                   
                   
                    
-                    <span
-                      style={{
-                        color: "#7D84C0",
-                        cursor: "pointer",
-                      }}
+                    <Upload
+                     
                       onClick={open}
                     >
                       browse
-                    </span>
+                    </Upload>
                  
                 </div>
               ) : (
@@ -320,8 +318,8 @@ export default function FormDialog() {
                  
                   <div>
                    
-                  <img src={files} alt="image is not showing" />
-                   <p className="dragcont" style={{ textAlign: "center" }}>{filepath}</p> 
+                  <img className="paddingLeft-30"src={files} />
+                   {/* <p className="dragcont" style={{ textAlign: "center" }}>{filepath}</p>  */}
                    </div>
               
               )}
@@ -333,7 +331,7 @@ export default function FormDialog() {
               <Input className="inputcss">
                 <input
                   style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border"
+                  className="hide-border w-100"
                   type="text"
                 />
                 <img
@@ -349,8 +347,8 @@ export default function FormDialog() {
 
               <Input className="inputcss">
                 <input
-                  style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border"
+                  style={{ backgroundColor: "#f5f5f5", }}
+                  className="hide-border w-100"
                   type="text"
                 />
                 <img
