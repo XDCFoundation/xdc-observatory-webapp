@@ -50,10 +50,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Transaction({ _handleChange }) {
   const classes = useStyles();
-  function shorten(b, amountL = 25, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
-  }
-
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
   const [amount, setAmount] = useState("");
@@ -98,14 +94,14 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -124,7 +120,7 @@ export default function Transaction({ _handleChange }) {
       <Tokensearchbar />
       <div className={classes.root}>
         <Grid>
-          <Spacing style={{borderBottom:'none'}}>
+          <Spacing style={{ borderBottom: 'none' }}>
             <Container>
               <Heading>Transaction Details</Heading>
               {transactions ? (
@@ -718,6 +714,9 @@ const HashDiv = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding-left: 10px;
+  }
+  @media (min-width: 768px)  and (max-width: 1240px){
+    padding: 6px 30px;
   }
 `;
 const Container = styled.div`

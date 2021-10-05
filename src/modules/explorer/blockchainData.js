@@ -23,37 +23,36 @@ const MainContainer = styled.div`
   height: 18.563rem;
   margin: 0 auto;
   margin-top: 50px;
-  padding-top: 1.9rem;
-  padding-left: 1.75rem;
+  padding: 1.9rem 1.375rem 0;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (min-width:641px) and (max-width: 1023px) {
+  @media (min-width:767px) and (max-width: 1240px) {
     flex-direction: column;
-    width: auto;
-    /* margin-left: 5%;
-    margin-right: 5%; */
-    margin-left: 4.7%;
-    margin-right: 4.7%;
-    height: 400px;
-    //use this height in case of giving height to graph in tablet mode
-    /* height:450px; */
+    /* width: auto; */
+    width: 41.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    height: 38.625rem;
     padding-top: 0px;
   }
-  @media (max-width :640px){
+  @media (min-width:0px) and (max-width :767px){
     flex-direction: column;
-    width: auto;
-    height: 450px;
-    margin-right: 2%;
-    margin-left: 2%;
+    /* width: auto; */
+    width: 22.563rem;
+    height: 32.063rem;
+    margin-right: auto;
+    margin-left: auto;
     padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 `;
 const MobileScreen = styled.div`
 margin-right: 3px;
-@media (min-width:640px){
+@media (min-width:767px){
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -66,9 +65,11 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media (max-width:1023px){
-    padding-left: 10px;
-    padding-right: 10px;
+  @media (min-width:0px) and (max-width:767px){
+    padding: 10px 10px 0;
+  }
+  @media (min-width:767px) and (max-width:1240px){
+    padding: 20px 10px 0 0;
   }
 `;
 const LeftContainer = styled.div`
@@ -81,14 +82,15 @@ const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
   margin-left: 12px;
-  @media (max-width:1023px){
-    margin-left: 0px
-  }
+  
 `;
 
 const LeftSec = styled.div`
   flex: 0.7;
       margin-top: 10px;
+  @media (min-width:335px) and (max-width:767px){
+    padding: 0 3%;
+  }
   
 `;
 const ValueMain = styled.div`
@@ -102,6 +104,10 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 15px;
+  @media (min-width:0px) and (max-width:767px){
+    padding: 10px 10px 0 0;
+    width: 8.625rem;
+  }
 `;
 const TitleIcon = styled.img`
   width: 22%;
@@ -133,6 +139,9 @@ const TitleValue = styled.div`
   line-height: normal;
   letter-spacing: 0.58px;
   color: #252525;
+  @media (max-width:767px){
+    font-size: 0.875rem;
+  }
 `;
 const LeftTop = styled.div`
   display: flex;
@@ -144,6 +153,16 @@ const IconLogo = styled.img`
   width: 2.625rem;
   height: 2.625rem;
   margin-right: 12px;
+  @media (max-width:0px) and (max-width:767px){
+    width: 3.125rem;
+    height: 3.125rem;
+
+  }
+  @media (min-width:768px) and (max-width:1240px){
+    width: 2.625rem;
+   height: 2.625rem;
+
+  }
   
 `;
 const LeftTitle = styled.div`
@@ -156,15 +175,25 @@ const LeftTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.9px;
   color: #252525;
+  @media (max-width:767px){
+    font-size: 1.375rem;
+  }  
+  @media (min-width:768px){
+    font-size: 1.5rem;
+  }
 `;
 const Line1 = styled.hr`
   background-color: #fff;
   width: 100%;
   position: absolute;
   top: 65%;
-  @media (max-width:1023px){
+  @media (min-width:0px) and (max-width:767px){
     width:96%;
-    top: 75%;
+    top: 87%;
+    }
+  @media (min-width:767px) and (max-width:1240px){
+    width:96%;
+    top: 60%;
     }
 `;
 const LeftTopSec = styled.div`
@@ -173,6 +202,10 @@ const LeftTopSec = styled.div`
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px){
+    font-size: 1rem;
+  }
+
 `;
 const LeftTopSecMain = styled.div`
   display: flex;
