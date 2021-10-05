@@ -294,7 +294,13 @@ class Contractlist extends React.Component {
                     src={require("../../assets/images/Search.svg")}
                   />
                   <input
-                    onKeyUp={this.handleKeyUp}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        console.log("Enter key was pressed. Run your function.");
+                        this.handleKeyUp(e)
+                      }
+
+                    }}
                     style={{
                       fontSize: "0.938rem",
                       letterSpacing: 0.62,
@@ -315,13 +321,13 @@ class Contractlist extends React.Component {
         <br />
         <Paper
           className={"responsive-table-width-contract-list"}
-        style={{
-          borderRadius: "14px",
-          // marginLeft: "18%",
-          // marginRight: "18%",
-        }}
-        // className={classes.rootui}
-        elevation={0}
+          style={{
+            borderRadius: "14px",
+            // marginLeft: "18%",
+            // marginRight: "18%",
+          }}
+          // className={classes.rootui}
+          elevation={0}
         >
           <TableContainer
             className={classes.container}
@@ -404,7 +410,7 @@ class Contractlist extends React.Component {
                       <TableCell id="td" style={{ borderBottom: "none" }}>
                         <span
                           className="tabledata"
-                          style={{ marginLeft: "0.188rem", fontSize: 14,}}
+                          style={{ marginLeft: "0.188rem", fontSize: 14, }}
                         >
                           {isToken}
                         </span>
@@ -504,10 +510,10 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("prev")}
             >
-            <img
-                  className="navigation-arrow"
-                  src={require("../../assets/images/back.svg")}
-                />
+              <img
+                className="navigation-arrow"
+                src={require("../../assets/images/back.svg")}
+              />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
             <div className="pagebox-contract">
@@ -529,10 +535,10 @@ class Contractlist extends React.Component {
                   : "nextbox-contract"
               }
             >
-            <img
-                  className="navigation-arrow"
-                  src={require("../../assets/images/next.svg")}
-                />
+              <img
+                className="navigation-arrow"
+                src={require("../../assets/images/next.svg")}
+              />
               {/* <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}

@@ -23,69 +23,69 @@ const dummyData = [
 
     {
 
-id:'1',
+        id: '1',
 
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Age:'1 hrs ago',
+        Age: '1 hrs ago',
 
-Block:'22,650,452',
+        Block: '22,650,452',
 
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Amount:'0 XDC'
-
-    },
-
-    {
-
-id:'2',
-
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-
-Age:'1 hrs ago',
-
-Block:'22,650,452',
-
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-
-Amount:'0 XDC'
+        Amount: '0 XDC'
 
     },
 
     {
 
-id:'3',
+        id: '2',
 
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Age:'1 hrs ago', Block:'22,650,452',
+        Age: '1 hrs ago',
 
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        Block: '22,650,452',
 
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Amount:'0 XDC'
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        Amount: '0 XDC'
 
     },
 
     {
 
-id:'4',
+        id: '3',
 
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Age:'1 hrs ago', Block:'22,650,452',
+        Age: '1 hrs ago', Block: '22,650,452',
 
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Amount:'0 XDC'
+        Amount: '0 XDC'
+
+    },
+
+    {
+
+        id: '4',
+
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        Age: '1 hrs ago', Block: '22,650,452',
+
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        Amount: '0 XDC'
 
     },
 
@@ -387,10 +387,16 @@ export default function TransactionTableComponent(props) {
             <div className="content_input_all cont-tab">
 
                 <div className="searchelement-input3 search-btn">
-                    <img style={{ width: 18, height: 18, marginRight: 5 , marginTop: 5 }}
+                    <img style={{ width: 18, height: 18, marginRight: 5, marginTop: 5 }}
                         src={require('../../assets/images/Search.svg')} />
                     <input
-                        onKeyUp={(event) => props._handleSearch(event)}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                console.log("Enter key was pressed. Run your function.");
+                                handleKeyUp(e)
+                            }
+
+                        }}
                         style={{
                             fontSize: '0.938rem',
                             letterSpacing: 0.62,
@@ -401,15 +407,14 @@ export default function TransactionTableComponent(props) {
                             borderWidth: 0,
                             fontWeight: "600"
                         }} type="text"
-                        placeholder="Search"
-                        onKeyUp={handleKeyUp} />
+                        placeholder="Search" />
 
                 </div>
 
-                {isDownloadActive ? <div className="csv"><img src={require("../../../src/assets/images/rectangle-copy.svg")}/> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                {isDownloadActive ? <div className="csv"><img src={require("../../../src/assets/images/rectangle-copy.svg")} /> <CSVLink className="ActiveDownload" filename={"transactions.csv"} data={downloadaddress}
                 >Download CSV</CSVLink></div>
                     :
-                    <div className="csv-inactive"><img src={require("../../../src/assets/images/rectangle-copy.svg")}/> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
+                    <div className="csv-inactive"><img src={require("../../../src/assets/images/rectangle-copy.svg")} /> <CSVLink className="InactiveDownload" filename={"transactions.csv"} data={downloadaddress}
                     >Download CSV</CSVLink></div>
                 }
 
@@ -424,7 +429,7 @@ export default function TransactionTableComponent(props) {
                         <Table className="table-trans">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className="w-31 w-850" style={{ border: "none"}} align="left">
+                                    <TableCell className="w-31 w-850" style={{ border: "none" }} align="left">
                                         <input
                                             onChange={handleChanged}
                                             type="checkbox"
@@ -647,9 +652,9 @@ export default function TransactionTableComponent(props) {
                     <Grid xs="2"></Grid>
                     <Grid item xs="7" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="page-tab">
                         <button style={{ marginLeft: "0px" }} onClick={() => handleChangePage("first")} className={from === 0 ? "btn disabled" : "btn"}>First</button>
-                        <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/back.svg")}/></button>
+                        <button onClick={() => handleChangePage("prev")} className={from === 0 ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/back.svg")} /></button>
                         <button className="btn">Page {Math.round(totalRecord / amount) + 1 - Math.round((totalRecord - from) / amount)} of {Math.round(totalRecord / amount)}</button>
-                        <button onClick={() => handleChangePage("next")} className={from + amount === totalRecord ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/next.svg")}/></button>
+                        <button onClick={() => handleChangePage("next")} className={from + amount === totalRecord ? "btn disabled" : "btn"}><img src={require("../../../src/assets/images/next.svg")} /></button>
                         <button onClick={() => handleChangePage("last")} className={from + amount === totalRecord ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>

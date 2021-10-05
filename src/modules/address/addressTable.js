@@ -26,69 +26,69 @@ const dummyData = [
 
     {
 
-id:'1',
+        id: '1',
 
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Age:'1 hrs ago',
+        Age: '1 hrs ago',
 
-Block:'22,650,452',
+        Block: '22,650,452',
 
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Amount:'0 XDC'
-
-    },
-
-    {
-
-id:'2',
-
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-
-Age:'1 hrs ago',
-
-Block:'22,650,452',
-
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
-
-Amount:'0 XDC'
+        Amount: '0 XDC'
 
     },
 
     {
 
-id:'3',
+        id: '2',
 
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Age:'1 hrs ago', Block:'22,650,452',
+        Age: '1 hrs ago',
 
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        Block: '22,650,452',
 
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Amount:'0 XDC'
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        Amount: '0 XDC'
 
     },
 
     {
 
-id:'4',
+        id: '3',
 
-TxHash:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Age:'1 hrs ago', Block:'22,650,452',
+        Age: '1 hrs ago', Block: '22,650,452',
 
-From:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-To:'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
 
-Amount:'0 XDC'
+        Amount: '0 XDC'
+
+    },
+
+    {
+
+        id: '4',
+
+        TxHash: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        Age: '1 hrs ago', Block: '22,650,452',
+
+        From: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        To: 'xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60',
+
+        Amount: '0 XDC'
 
     },
 
@@ -462,7 +462,14 @@ export default function AddressTableComponent(props) {
                     <img style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
                         src={require('../../assets/images/Search.svg')} />
                     <input
-                        onKeyUp={(event) => props._handleSearch(event)}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                console.log("Enter key was pressed. Run your function.");
+                                handleKeyUp(e)
+                            };
+
+
+                        }}
                         style={{
                             fontSize: '0.938rem',
                             letterSpacing: 0.62,
@@ -474,16 +481,15 @@ export default function AddressTableComponent(props) {
                             fontWeight: "600",
                             paddingBottom: "0.125rem"
                         }} type="text"
-                        placeholder="Search Txn"
-                        onKeyUp={handleKeyUp} />
+                        placeholder="Search Txn" />
 
                 </div>
 
                 {isDownloadActive ? <CSVLink filename={"transactions.csv"} data={downloadaddress}
                     style={{ fontSize: '0.938rem', color: '#ffffff', textAlign: 'center', backgroundColor: 'rgb(7 125 245)', borderRadius: '0.25rem', width: '5.875rem', height: '1.875rem' }}>Export</CSVLink>
                     :
-                   <CSVLink filename={"transactions.csv"} data={downloadaddress}
-                        style={{ pointerEvents: 'none', fontSize: '0.938rem', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '0.25rem', width: '5.875rem', height: '2.125rem', paddingTop:'0.125rem' }}>Export</CSVLink>
+                    <CSVLink filename={"transactions.csv"} data={downloadaddress}
+                        style={{ pointerEvents: 'none', fontSize: '0.938rem', textAlign: 'center', color: '#ffffff', backgroundColor: '#e3e7eb', borderRadius: '0.25rem', width: '5.875rem', height: '2.125rem', paddingTop: '0.125rem' }}>Export</CSVLink>
                 }
 
 
@@ -497,7 +503,7 @@ export default function AddressTableComponent(props) {
                         <Table className="table-trans">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className="w-31 w-850" style={{ border: "none" , paddingTop: "1.375rem"}} align="left">
+                                    <TableCell className="w-31 w-850" style={{ border: "none", paddingTop: "1.375rem" }} align="left">
                                         <input
                                             onChange={handleChanged}
                                             type="checkbox"
@@ -508,7 +514,7 @@ export default function AddressTableComponent(props) {
                                         <span className={"tableheaders table-hash"}>Txn Hash</span>
                                     </TableCell>
                                     <TableCell className="w-16 w-19"
-                                        style={{ border: "none", paddingLeft: "1.6%", paddingTop: "1.375rem"}}
+                                        style={{ border: "none", paddingLeft: "1.6%", paddingTop: "1.375rem" }}
                                         align="left"
                                     >
                                         <span className={"tableheaders table-age"}>Age</span>
@@ -725,14 +731,14 @@ export default function AddressTableComponent(props) {
                     <Grid item xs="8" style={{ flexBasis: "auto", display: "flex", alignItems: "baseline" }} className="pagination-page">
                         <button style={{ marginLeft: "0rem" }} onClick={() => handleChangePage("first")} className={page === 0 ? "btn disabled" : "btn"}>First</button>
                         <button onClick={() => handleChangePage("prev")} className={page === 0 ? "btn disabled" : "btn"}><img
-                  className="back-arrow"
-                  src={require("../../assets/images/back.svg")}
-                /></button>
+                            className="back-arrow"
+                            src={require("../../assets/images/back.svg")}
+                        /></button>
                         <button className="btn">Page {Math.round(totalRecord / rowsPerPage) + 1 - Math.round((totalRecord - page) / rowsPerPage)} of {Math.round(totalRecord / rowsPerPage)}</button>
                         <button onClick={() => handleChangePage("next")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}><img
-                  className="back-arrow"
-                  src={require("../../assets/images/next.svg")}
-                /></button>
+                            className="back-arrow"
+                            src={require("../../assets/images/next.svg")}
+                        /></button>
                         <button onClick={() => handleChangePage("last")} className={page + rowsPerPage === totalRecord ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>
