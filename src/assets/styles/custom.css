@@ -7015,6 +7015,11 @@ button {
   .table-grid-block {
     width: 23.5rem;
   }
+  .grid-block-table{
+    margin: 56px auto auto auto !important;
+    width: 100% !important;
+    max-width: 22.063rem !important;
+  }
   .container_sec {
     display: flex;
     flex-direction: column;
@@ -7052,11 +7057,19 @@ button {
     width: 22.5625rem;
     margin-left: 0.5rem;
   }
+  .sec-active{
+    margin: 0 auto !important;
+    width: 22.565rem !important;
+  }
   .content_input_all {
     display: flex;
     flex-direction: column;
     width: 23rem;
     /* justify-content: space-between; */
+  }
+  .cont-tab{
+    width: 23rem !important;
+    flex-direction: initial !important;
   }
   .csvDownloadParent {
     display: flex;
@@ -7207,6 +7220,9 @@ button {
   .table-grid-block {
     width: 23.5rem;
   }
+  .grid-block-table{
+    width:45rem !important;
+  }
   .AddressTitle {
     width: 45rem;
     margin-left: 0px;
@@ -7230,6 +7246,14 @@ button {
     width: 41.5rem;
     height: 2.188rem;
     margin-left: -9.18rem;
+  }
+  .sec-block-mb{
+    width: 45rem !important;
+    margin: 0 auto !important;
+  }
+  .sec-active{
+    width: 45rem !important;
+    margin: 0 auto !important;
   }
   #transaction-btn {
     width: 10.5rem;
@@ -7558,6 +7582,11 @@ button {
     width: 100% !important;
     max-width: 58.063rem !important;
   }
+  .grid-block-table{
+  margin: 56px auto auto auto !important;
+    width: 100% !important;
+    max-width: 22.063rem !important;
+  }
   /* .sec-block-mb{
     width: 100% !important;
     max-width: 19rem!important;
@@ -7579,11 +7608,11 @@ button {
   }
 }
 
-@media (min-width: 1023px) and (max-width: 1240px) {
+/* @media (min-width: 1023px) and (max-width: 1240px) {
   .grid-block-table {
     width: 97% !important;
   }
-}
+} */
 
 @media (min-width: 508px) and (max-width: 760px) {
   .grid-block-table {
