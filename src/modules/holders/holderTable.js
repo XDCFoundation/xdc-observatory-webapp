@@ -361,7 +361,6 @@ export default function HolderTableComponent(props) {
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked: checked };
       });
-      console.log(tempAddress, "<<")
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -425,7 +424,7 @@ export default function HolderTableComponent(props) {
             src={require("../../assets/images/Search.svg")}
           />
           <input
-            onKeyUp={(event) => props._handleSearch(event)}
+
             style={{
               fontSize: "0.938rem",
               letterSpacing: 0.62,
@@ -438,7 +437,14 @@ export default function HolderTableComponent(props) {
             }}
             type="text"
             placeholder="Search Txn"
-            onKeyUp={handleKeyUp}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                console.log("Enter key was pressed. Run your function.");
+                handleKeyUp(e)
+              };
+
+
+            }}
           />
         </div>
 
@@ -490,8 +496,7 @@ export default function HolderTableComponent(props) {
                       type="checkbox"
                       name="allselect"
                       checked={
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
+                        address.filter((addr) => addr?.isChecked == true).length == address.length
                       }
                       style={{ marginRight: "8px" }}
                     />
