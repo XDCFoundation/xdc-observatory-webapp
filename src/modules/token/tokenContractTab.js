@@ -8,7 +8,6 @@ import bytecod from '../../assets/images/bytecod.png';
 import Tooltip from "@material-ui/core/Tooltip";
 export default function TokenContracttab(props) {
     let verifiedData = props?.contractData
-    console.log(verifiedData, "::::")
     const [copiedText, setCopiedText] = useState("");
     return (
 

@@ -149,7 +149,6 @@ export default function StickyHeadTable() {
     let values = { addr: address, pageNum: 0, perpage: event.target.value };
     listOfHolders(values);
   };
-  console.log(rowsPerPage, "???");
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
@@ -157,7 +156,7 @@ export default function StickyHeadTable() {
     )}`;
   }
 
-  console.log(holders, "HIIII")
+
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>

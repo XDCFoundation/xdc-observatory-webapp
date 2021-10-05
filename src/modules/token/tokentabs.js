@@ -56,13 +56,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     "@media (min-width:0px) and (max-width:767px)": {
       minWidth: 280,
-      width:"22.563rem",
-      margin:"auto",
+      width: "22.563rem",
+      margin: "auto",
     },
     "@media (min-width:767px) and (max-width:1240px)": {
       minWidth: 280,
-      width:"41.5rem",
-      margin:"auto",
+      width: "41.5rem",
+      margin: "auto",
     },
   },
 }));
@@ -92,7 +92,7 @@ export default function SimpleTabs(props) {
     setToggleState(index);
   };
 
-  console.log(props, ">>>>")
+
   return (
     <div>
 

@@ -34,8 +34,6 @@ const data = [
     }
 ]
 const toolTipElement = (props) => {
-    console.log(props.point?.data?.x, "<<prop")
-    console.log(props, "<<")
     return (
         <div>
             <div className="Tooltip-graph">

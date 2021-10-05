@@ -198,11 +198,9 @@ export default function StickyHeadTable() {
       b.length
     )}`;
   }
-  console.log(transfer, "LLLL")
-  console.log(noData, "OOOO")
   return (
     <>
-      <Paper  elevation={0}>
+      <Paper elevation={0}>
         <TableContainer className={classes.container} id="container-table">
           <Table>
             <TableHead>

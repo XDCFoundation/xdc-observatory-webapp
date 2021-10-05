@@ -152,7 +152,6 @@ export default function TransactionTableComponent(props) {
       if (responseData.transactionArray.length > 0) {
         setAddress(responseData.transactionArray);
         setTotalRecord(responseData.transactionCount);
-        console.log(responseData);
       } else {
         setNoData(true);
         setTotalRecord(0);
