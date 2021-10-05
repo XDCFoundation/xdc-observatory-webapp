@@ -223,9 +223,7 @@ class BlockChainDataComponent extends Component {
       totalAccount: [],
       someDayAccount: [],
       coinMarketPrice: [],
-      tpsCounts: {
-        totalTransactions: 0,
-      },
+      tpsCounts: 0,
       Maxtps: 0,
       blockdataNumber: [],
       transactionDataDetails: [],
@@ -392,6 +390,7 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
+    
     if (error || !tpsCount) return;
 
     this.setState({ tpsCounts: tpsCount });
@@ -399,6 +398,7 @@ class BlockChainDataComponent extends Component {
       let [error, tpsCount] = await Utils.parseResponse(
         TpsService.getTpsCounter()
       );
+
       this.setState({ tpsCounts: tpsCount });
     }, 90000);
   }
@@ -407,14 +407,14 @@ class BlockChainDataComponent extends Component {
     let [error, MaxtpsCount] = await Utils.parseResponse(
       TpsService.getMaxTpsCounter()
     );
-
+    
     if (error || !MaxtpsCount) return;
-    this.setState({ Maxtps: MaxtpsCount?.responseData });
+    this.setState({ Maxtps: MaxtpsCount });
     const interval = setInterval(async () => {
       let [error, MaxtpsCount] = await Utils.parseResponse(
         TpsService.getMaxTpsCounter()
       );
-      this.setState({ Maxtps: MaxtpsCount?.responseData });
+      this.setState({ Maxtps: MaxtpsCount });
     }, 90000);
   }
 
@@ -491,9 +491,8 @@ class BlockChainDataComponent extends Component {
     let txhash = this.state.transactionDataDetails[0]?.hash;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
-    let currentTp = this.state.tpsCounts?.totalTransactions
-      ? (this.state.tpsCounts?.totalTransactions / 60).toFixed(2)
-      : 0;
+    let currentTp = this.state.tpsCounts
+      
     return (
       <MainContainer>
         <LeftContainer>

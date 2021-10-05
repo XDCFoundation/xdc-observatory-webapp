@@ -26,8 +26,8 @@ async function getMaxTpsCounter() {
                 //     return Promise.reject();
                 // }
 
-                // alert(response)
-                return Promise.resolve(response);
+                console.log('here is resposne===',response.responseData.maxtps)
+                return Promise.resolve(response.responseData.maxtps);
 
             }
         ).catch(function (err) {
