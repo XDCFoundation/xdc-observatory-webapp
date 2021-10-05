@@ -332,8 +332,6 @@ export default function AddressTableComponent(props) {
       })
     );
 
-    console.log(address, "<>");
-
     setReportaddress(
       dummyData.map((d) => {
         return {
@@ -487,7 +485,6 @@ export default function AddressTableComponent(props) {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr
       );
-      console.log(tempAddress, ">>>>");
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
