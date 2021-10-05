@@ -865,7 +865,7 @@ const Heading = styled.span`
     text-align: left;
     color: #2a2a2a;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1241px) {
     font-family: Inter;
     font-size: 1.5rem;
     font-weight: bold;
