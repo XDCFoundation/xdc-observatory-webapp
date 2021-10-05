@@ -151,7 +151,7 @@ export default function AddressDetails(props) {
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
-      <Grid className="table-grid-block ">
+      <Grid className="table-grid-block grid-block-table">
         <div className={classes.mainContainer}>
           <div className={classes.root}>
             <Grid style={{ width: "75.125rem" }}>
@@ -346,7 +346,7 @@ export default function AddressDetails(props) {
         </Paper> */}
 
         <div className="container_sec sec-contain">
-          <div className="block_sec sec-block">
+          <div className="block_sec sec-block sec-block-mb">
             <div className="bloc-tabs_sec">
               <button
                 className={
