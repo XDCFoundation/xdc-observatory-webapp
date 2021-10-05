@@ -2865,7 +2865,7 @@ body {
 }
 @media (max-width: 767px) {
   .bloc-tabs {
-    width: 100%;
+    width: 107%;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
