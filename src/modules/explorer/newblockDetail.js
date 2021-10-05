@@ -17,21 +17,17 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    // maxWidth: "970px",
     marginTop: "100px",
     width: "75.125rem",
-    "@media (min-width: 300px) and (max-width: 567px)": {
+    "@media (min-width: 0px) and (max-width: 767px)": {
       marginTop: "130px",
-      maxWidth: "300px",
+      maxWidth: "22.563rem",
     },
-    "@media (min-width: 567px) and (max-width: 767px)": {
-      marginTop: "140px",
-      maxWidth: "540px",
-    },
-    "@media (min-width: 767px) and (max-width: 1040px)": {
-      marginTop: "140px",
-      maxWidth: "700px",
-    },
+    "@media (min-width: 768px) and (max-width: 1239px)": {
+      marginTop: "130px",
+      maxWidth: "41.5rem",
+    }
+ 
   },
   rowDiv: {
     width: "100%",
@@ -120,7 +116,7 @@ export default function BlockDetails() {
 
             <Div>
               <HashDiv>
-                <Container className="pad-left-6">
+                <Container className="pad-left-6 pad-left-7">
                   <Tooltip align="right" title={hashid}>
                     <ImageView
                       src={require("../../../src/assets/images/question-mark.svg")}
@@ -128,10 +124,11 @@ export default function BlockDetails() {
                   </Tooltip>
                   <Hash>Hash ID</Hash>
                 </Container>
+      
                 <MiddleContainerHash>
-                  <Content className="pad-left-5">{height.hash}</Content>
-                </MiddleContainerHash>
-                <SecondContainer>
+                  <Content >{height.hash}
+               
+             
                   <CopyToClipboard
                     text={height.hash}
                     onCopy={() => setCopiedText(height.hash)}
@@ -157,7 +154,8 @@ export default function BlockDetails() {
                       </button>
                     </Tooltip>
                   </CopyToClipboard>
-                </SecondContainer>
+                  </Content>
+                  </MiddleContainerHash>
               </HashDiv>
             </Div>
             <Div__>
@@ -185,6 +183,7 @@ export default function BlockDetails() {
                         borderRadius: "5px",
                         border: "1px #2149b9",
                         lineHeight: "1rem",
+                        verticalAlign:"bottom",
                       }}
                       onClick={decrement}
                     />
@@ -201,6 +200,7 @@ export default function BlockDetails() {
                         borderRadius: "5px",
                         border: "1px #2149b9",
                         lineHeight: "1rem",
+                        verticalAlign:"bottom",
                       }}
                       onClick={increment}
                     />
@@ -438,11 +438,23 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
-  @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 10px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size:0.875rem;
     word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+  }
+  @media (min-width: 1241px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -492,7 +504,6 @@ const Div__ = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
-  /* padding: 9px; */
   padding: 19px;
 `;
 const MiddleContainer = styled.div`
@@ -503,12 +514,26 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
-  @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
+  @media (min-width: 0px) and (max-width: 767px) {
     margin-left: unset;
-    margin-top: 8px;
+    margin-top: 8px; 
+    font-size:0.875rem;
+     word-break: break-all; 
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width:1240px) {
+    font-size:0.875rem;
+    word-break: break-all;
+    text-align: left;
+   letter-spacing: 0.034rem;
+    color: #3A3A3A;
+    opacity: 1;
+
+  }
+  @media (min-width: 1241px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -530,10 +555,9 @@ const MiddleContainerHash = styled.div`
   margin-left: 100px;
   width: 100%;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 12px;
     margin-left: unset;
     margin-top: 8px;
-    padding-right: 84px;
+    padding-right: 53px;
   }
 `;
 const Hash = styled.span`
@@ -544,12 +568,25 @@ const Hash = styled.span`
   font-size: 13px;
   letter-spacing: 0.5px;
   color: #2a2a2a;
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 0.75rem;
+    text-align: left;
+    letter-spacing: 0.029rem;
+    color: #2A2A2A;
+    opacity: 1;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #2A2A2A;
+    opacity: 1;
+  }
+  @media  (min-width: 1241px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -568,13 +605,13 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  /* padding: 11px 6px; */
   padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
   height:4.063rem;
 
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: block;
+    height: unset;
   }
 `;
 const HashDiv = styled.div`
@@ -586,8 +623,9 @@ const HashDiv = styled.div`
   align-items: center;
   padding: 11px 6px;
 
-  @media (min-width: 300px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: block;
+    padding: 15px;
   }
 `;
 const Container = styled.div`
@@ -623,7 +661,7 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 18px;
 
-  @media (min-width: 1024px) {
+  @media  (min-width: 1241px) {
     height: 1.813rem;
     font-family: Inter;
     font-size: 1.5rem;
@@ -635,12 +673,47 @@ const Heading = styled.span`
     text-align: left;
     color: #2a2a2a;
   }
+  @media  (min-width: 0px) and  (max-width: 767px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2a2a2a;
+  }
+  @media  (min-width: 768px) and  (max-width:1240px) {
+    height: 1rem;
+    font-family: Inter;
+    font-size: 1rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #2a2a2a;
+  }
 `;
 
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  
+    @media  (min-width: 0px) and  (max-width: 767px) {
+   width: 0.688rem;
+   height: 0.688rem;
+  }
+   
+  @media  (min-width: 768px) and  (max-width: 1240px) {
+   width: 0.875rem;
+   height:0.875rem;
+  }
 `;
 const ImgView = styled.img`
   width: 20px;
+    
 `;
