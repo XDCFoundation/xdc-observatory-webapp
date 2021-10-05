@@ -519,6 +519,9 @@
     width: 3.125rem;
     height: 2.188rem;
   }
+  .amount-select{
+    width:67px !important;
+  }
   .Pagination {
     display: flex;
     flex-direction: column;
