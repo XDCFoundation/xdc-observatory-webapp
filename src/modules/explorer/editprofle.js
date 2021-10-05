@@ -1,21 +1,14 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+
 import { makeStyles, mergeClasses } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
-import AccountProfile from "./accountProfile";
-import { NavLink } from "react-router-dom";
+
 import { history } from "../../managers/history";
-import { Link } from "@material-ui/core";
+
 import styled from 'styled-components';
 
 
@@ -110,6 +103,23 @@ display:flex;
 flex-direction:row;
 justify-content:space-between;
 padding-top:20px;`;
+const Upload=styled.div`
+
+display: block;
+margin-left: auto;
+margin-right: auto;
+font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2149b9;
+}
+HTML
+`;
+
 
 const Title=styled.div`
 font-family: Inter;
@@ -117,20 +127,18 @@ font-size: 22px;
 font-weight: 600;
 text-align: center;
   color: #2a2a2a;
-  
+  padding-left:32px;
+
  
   
  
 `;
-const UserImg=styled.div`
-height:50px;
-width:50px;
-border-radius:50%;
+
   
  
   
  
-`;
+
 
 const Cut =styled.div`
 
@@ -139,6 +147,12 @@ padding-right: 25px;
     
     display:flex;
     align-content: flex-end;
+}`;
+const Input =styled.div`
+display:flex;
+flex-flow: row nowrap;
+
+
 }`;
 
 export default function FormDialog() {
@@ -177,7 +191,10 @@ export default function FormDialog() {
 
           onClick={handleClickOpen}
         >
-          <img className="Shape2" src={require("../../../src/assets/images/Profile.svg")}></img>
+           <div className="edit">
+                        Edit Profile
+                    </div>
+         
         </button>
 
         <div>
@@ -196,25 +213,44 @@ export default function FormDialog() {
                 X{" "}
               </Cut>
               </Wrapper>
-              <UserImg src="images/user.svg"/>
-           
+              
+              <img className="dialogeUser center"src={require("../../../src/assets/images/Profile.svg")}/>
+             {/* <Upload input type="file">Upload Photo</Upload> */}
+             <span
+              style={{
+                color: "#2149b9",
+                cursor: "pointer",
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              onClick={open}
+            >
+          Upload Photo
+            </span>
+             {/* <input type="file" id="myFile" name="filename"> */}
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Username</b>
               </DialogContentText>
-              <input className={classes.input}></input>
+              <Input className="inputcss">
+              <input style={{  backgroundColor: "#f5f5f5"}} className="hide-border"type="text"/ >
+              <img className="imgcss"src={require("../../../src/assets/images/edit.svg")}/> 
+              </Input>
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Email</b>
+              
                
               </DialogContentText>
 
-              <input type="password" type={passwordShown ? "text" : "password"} className={classes.input}></input>
-              <span>
-                {passwordShown ? <VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} /> : <VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} />}
-               
-              </span>
+            
+              <Input className="inputcss">
+              <input style={{  backgroundColor: "#f5f5f5"}}className="hide-border"type="text"/ >
+              <img className="imgcss"src={require("../../../src/assets/images/edit.svg")}/> 
+              </Input>          
+            
             </DialogContent>
             <DialogActions>
               <button className={classes.addbtn} onClick={handleLogin}

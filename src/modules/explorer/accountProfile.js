@@ -263,7 +263,7 @@ export default function SimpleTabs(props) {
                         <span className="welcome">Welcome, CrytoAlex</span><span ><img className="noticon" src={require("../../assets/images/notification.png")} ></img></span>
                     </div>
                     <div className="edit">
-                    <Editprofile/> 
+                        <Editprofile/>
                     </div>
 
                 </span>
