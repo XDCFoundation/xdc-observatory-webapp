@@ -567,7 +567,7 @@ export default function TransactionTableComponent(props) {
                 //     })}
                 // </TableBody>
                 <TableBody>
-                  {dummyData.map((row, index) => {
+                  {address.map((row, index) => {
                     const currentTime = new Date();
                     const previousTime = new Date(row.timestamp * 1000);
                     const TimeAge = timeDiff(currentTime, previousTime);
