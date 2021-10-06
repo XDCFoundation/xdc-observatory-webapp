@@ -74,28 +74,14 @@ export default function AddressDetailsData() {
   }
   const [data, setData] = React.useState(initialState);
   const [responses, setResponses] = React.useState([]);
-  const [contractStatus, setContractStatus] = useState("")
-  useEffect(() => {
-    verifiedStatus();
-  }, []);
 
-
-  const verifiedStatus = async (values) => {
-
-    let urlPath = `${addressNumber}`;
-    let [error, contractStatus] = await Utils.parseResponse(
-      ContractData.getContractDetailsUsingAddress(urlPath, {})
-    );
-    if (error || !contractStatus) return;
-    setContractStatus(contractStatus);
-  };
 
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
         ContractData.getContractDetails(values)
       );
-
+      console.log(responseData, "787")
       if (responseData.address != '') {
         setResponses(responseData)
         let activeCurrency = window.localStorage.getItem('currency')
@@ -274,9 +260,9 @@ export default function AddressDetailsData() {
               }
             >
 
-              {/* {!contractStatus ? "" : contractStatus.status === "verified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />} */}
+              {!responses ? "" : responses.status === "verified" ? <TokenUnverifiedContract contractData={responses} /> : <TokenContracttab contractData={responses} />}
               {/* <TokenUnverifiedContract contractData={contractStatus} /> */}
-              <TokenContracttab contractData={contractStatus} />
+              {/* <TokenContracttab contractData={contractStatus} /> */}
             </div>
             {/* <div
               className={

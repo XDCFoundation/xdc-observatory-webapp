@@ -102,37 +102,37 @@ export default function AddressDetails(props) {
       );
 
       if (responseData) {
-        setBalance((responseData.balance / 1000000000000000000).toFixed(2));
+        setBalance((responseData.balance / 1000000000000000000).toFixed(18));
         let activeCurrency = window.localStorage.getItem("currency");
         let convertedCurrency = "";
         if (activeCurrency == "USD") {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
           setCoinValue(
-            (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         } else if (activeCurrency == "EUR") {
           convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
           setCoinValue(
-            (responseData.balanceInEUR / 1000000000000000000).toFixed(2)
+            (responseData.balanceInEUR / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         } else if (activeCurrency == "INR") {
           convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
           setCoinValue(
-            (responseData.balanceInINR / 1000000000000000000).toFixed(2)
+            (responseData.balanceInINR / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         } else {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
           setCoinValue(
-            (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         }
         setLoading(false);
       } else {
-        setBalance(parseFloat(0).toFixed(2));
+        setBalance(parseFloat(0).toFixed(18));
         setLoading(false);
       }
     } catch (error) {

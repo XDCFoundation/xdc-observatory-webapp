@@ -71,7 +71,7 @@ export default function TokenContracttab(props) {
                     </div>
 
                     <div>
-                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-3" value="Contract-source Code Verified" />
+                        <textarea style={{ borderLeftWidth: '6px', borderLeftColor: '#2149b9', outline: "none" }} readOnly className="input-area-3" value={verifiedData.sourceCode} />
                     </div>
 
                     <br />
