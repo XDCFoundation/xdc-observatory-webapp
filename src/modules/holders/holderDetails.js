@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
     borderBottom: 'none',
     background: '#fff',
-    width: "75.125rem"
+    // width: "75.125rem"
   },
 
 });
@@ -102,7 +102,7 @@ export default function HoldersDetails(props) {
       <DeskTopView>
         <div style={{ backgroundColor: '#fff' }}>
           <Tokensearchbar />
-          <Grid className="table-grid-block">
+          <Grid className="table-grid-block grid-block-table_11">
             <div
               className="block_details_heading"
               style={{ display: "flex", flexDirection: "row" }}
