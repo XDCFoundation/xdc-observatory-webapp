@@ -1,55 +1,60 @@
 import React from "react";
-import BaseComponent from '../baseComponent'
-import LoginComponent from './loginComponent'
+import BaseComponent from "../baseComponent";
+import LoginComponent from "./loginDialog";
 import Utils from "../../utility";
 
 class Login extends BaseComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            emailError: "",
-            password: "",
-            passwordError: "",
-            isPasswordVisible: false,
-        }
-    }
-
-    componentDidMount() {
-
-    }
-
-    onChangeEvent = (event) => {
-        this.setState({[event.target.id]: event.target.value});
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      emailError: "",
+      password: "",
+      passwordError: "",
+      isPasswordVisible: false,
     };
+  }
 
-    togglePassword = (event) => {
-        this.setState({isPasswordVisible: !this.state.isPasswordVisible});
-    };
+  componentDidMount() {}
 
+  onChangeEvent = (event) => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
 
-    validateLoginForm = () => {
-        this.setState({
-            emailError: Utils.validateEmail(this.state.email) ? "" : "Invalid email address",
-            passwordError: Utils.isPasswordValid(this.state.password) ? "" : "Password should contain 1 special character"
-        });
-        return Utils.validateEmail(this.state.email) && Utils.isPasswordValid(this.state.password);
-    };
+  togglePassword = (event) => {
+    this.setState({ isPasswordVisible: !this.state.isPasswordVisible });
+  };
 
-    onLoginClicked = (event) => {
-        event.preventDefault();
-        if (this.validateLoginForm())
-            Utils.basicAlert("Badhiyaaaa")
-    };
+  validateLoginForm = () => {
+    this.setState({
+      emailError: Utils.validateEmail(this.state.email)
+        ? ""
+        : "Invalid email address",
+      passwordError: Utils.isPasswordValid(this.state.password)
+        ? ""
+        : "Password should contain 1 special character",
+    });
+    return (
+      Utils.validateEmail(this.state.email) &&
+      Utils.isPasswordValid(this.state.password)
+    );
+  };
 
-    render() {
-        return (
-            <LoginComponent state={this.state}
-                            onChangeEvent={this.onChangeEvent}
-                            togglePassword={this.togglePassword}
-                            onLoginClicked={this.onLoginClicked}/>
-        );
-    }
+  onLoginClicked = (event) => {
+    event.preventDefault();
+    if (this.validateLoginForm()) Utils.basicAlert("Badhiyaaaa");
+  };
+
+  render() {
+    return (
+      <LoginComponent
+        state={this.state}
+        onChangeEvent={this.onChangeEvent}
+        togglePassword={this.togglePassword}
+        onLoginClicked={this.onLoginClicked}
+      />
+    );
+  }
 }
 
 export default Login;
