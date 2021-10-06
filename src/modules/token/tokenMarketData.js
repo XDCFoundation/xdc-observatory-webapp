@@ -3,21 +3,21 @@ import "../../assets/styles/custom.css";
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 const DeskTopView = styled.div`
-  @media (min-width: 0px) and (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: none;
   }
 
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
     display: visible;
   }
 `;
 
 const MobileView = styled.div`
-  @media (min-width: 0px) and (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: visible;
   }
 
-  @media (min-width: 641px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;
@@ -286,7 +286,7 @@ export default function TokenMarketDataTable(props) {
       <MobileView>
         <div className="second_mid">
           <div className="second_cont">
-            <div className="w-50-per">
+            <div className="w-54-per">
               <p>Market Cap</p>{" "}
             </div>
             <div className="mid_cont ">
@@ -318,7 +318,7 @@ export default function TokenMarketDataTable(props) {
                 </div> */}
           </div>
           <div className="second_cont">
-            <div className="w-50-per">
+            <div className="w-54-per">
               {" "}
               <p>Fully Diluted Market Cap</p>
             </div>
@@ -351,7 +351,7 @@ export default function TokenMarketDataTable(props) {
                 </div>*/}
           </div>
           <div className="second_cont">
-            <div className="w-50-per">
+            <div className="w-54-per">
               {" "}
               <p>Volume (24hr)</p>
             </div>
@@ -383,7 +383,7 @@ export default function TokenMarketDataTable(props) {
                 </div>*/}
           </div>
           <div className="second_cont">
-            <div className="w-50-per">
+            <div className="w-54-per">
               {" "}
               <p>Circulating Supply</p>
             </div>
@@ -395,7 +395,7 @@ export default function TokenMarketDataTable(props) {
           </div>
 
           <div className="second_cont">
-            <div className="w-50-per">
+            <div className="w-54-per">
               <p>Total Supply</p>
             </div>
             <div className="mid_cont">

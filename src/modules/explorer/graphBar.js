@@ -101,26 +101,18 @@ export default function App() {
         arr[0].data = resultData
         setData(arr)
     }, [])
-    var d = new Date();
-    var n = d.getFullYear();
-    let length = data[0]?.data.length;
+    let length = graphTransactions.length;
+    const firstDate = graphTransactions.length == 0 ? "" : (moment(graphTransactions[length - 1]?.day).format('D MMM'))
+    const lastDate = graphTransactions.length == 0 ? "" : (moment(graphTransactions[0]?.day).format('D MMM'))
 
-    let value1 = data[0]?.data[0]?.x
-    const colonIndex1 = value1?.indexOf(n);
-    const atIndex1 = value1?.indexOf("");
-    let firstDate = value1?.slice(atIndex1, colonIndex1);
-
-    let value2 = data[0]?.data[length - 1]?.x
-    const colonIndex2 = value2?.indexOf(n);
-    const atIndex2 = value2?.indexOf("");
-    let lastDate = value2?.slice(atIndex2, colonIndex2);
-
+    console.log(length, graphTransactions, firstDate, "ASD")
     return (
         <GraphSize >
             <MyResponsiveLine data={data} />
             <div className="dates">
                 <p>{firstDate}</p>
                 <p>{lastDate}</p>
+
             </div>
 
         </GraphSize>

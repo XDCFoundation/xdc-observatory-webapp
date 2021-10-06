@@ -12,6 +12,7 @@ import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
 import { useParams } from "react-router";
+import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 let li = 0;
 
 function TabPanel(props) {
@@ -53,8 +54,15 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    "@media (max-width: 1023px)": {
+    "@media (min-width:0px) and (max-width:767px)": {
       minWidth: 280,
+      width: "22.563rem",
+      margin: "auto",
+    },
+    "@media (min-width:767px) and (max-width:1240px)": {
+      minWidth: 280,
+      width: "41.5rem",
+      margin: "auto",
     },
   },
 }));
@@ -84,7 +92,7 @@ export default function SimpleTabs(props) {
     setToggleState(index);
   };
 
-  console.log(props, ">>>>")
+
   return (
     <div>
 

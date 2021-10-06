@@ -24,13 +24,13 @@ const Pagination = styled.div`
     width: 75.125rem;
     margin: 0 auto;
 
-    @media (max-width:640px){
+    @media (max-width:767px){
       display: flex;
       flex-direction:column;
     }  
-    @media (max-width:1023px){
+    @media (max-width:1240px){
       width: auto;
-    }       
+    }      
   `;
 const RightPagination = styled.div`
   display:flex ;  
@@ -38,9 +38,11 @@ const RightPagination = styled.div`
   flex-direction: row;
   
 
-    @media(max-width:640px){
-    margin-top: 10px;
-    /* margin-right: 5%; */
+  @media(max-width:767px){
+    margin-top: 24px;
+    }
+    @media (min-width:767px) and (max-width:1240px){
+    margin-top: 31px;
     }
     
 `
@@ -49,9 +51,8 @@ display: flex;
 flex-direction: row;
 margin-top: 39px;
 
-@media (max-width:1023px){
-  /* margin-left: 5%; */
-  margin-top: 20px;
+@media (max-width:1240px){
+  margin-top: 31px;
 }
 `;
 const StyledTableRow = withStyles((theme) => ({
@@ -74,6 +75,9 @@ const useStyles = makeStyles({
     borderBottomColor: "white",
     borderBottom: "none",
     background: "#fff",
+    "@media (min-width: 0px) and (max-width: 1240px)": {
+      height: "12.563rem"
+    }
   },
 
 
@@ -145,7 +149,6 @@ export default function StickyHeadTable() {
     let values = { addr: address, pageNum: 0, perpage: event.target.value };
     listOfHolders(values);
   };
-  console.log(rowsPerPage, "???");
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
@@ -153,7 +156,7 @@ export default function StickyHeadTable() {
     )}`;
   }
 
-  console.log(holders, "HIIII")
+
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -187,7 +190,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
                       <a
-                        style={{ color: "blue", fontSize: 11 }} href={"/holder-details/" + row.Address}>
+                        style={{ color: "blue", fontSize: 11 }} href={"/holder-details/" + row[0].Address}>
 
                         <span className="tabledata table-data">{row[0].Address}</span>
                       </a>
@@ -228,11 +231,7 @@ export default function StickyHeadTable() {
         <LeftPagination
         >
           <p
-            style={{
-              fontSize: "11px",
-              fontWeight: "600",
-              marginTop: "6px"
-            }}
+            className="p-pagination"
           >
             Show
           </p>
@@ -244,11 +243,7 @@ export default function StickyHeadTable() {
             <option>100</option>
           </select>
           <p
-            style={{
-              fontSize: "11px",
-              fontWeight: "600",
-              marginTop: "6px"
-            }}
+            className="p-pagination"
           >
             {" "}
             Records
