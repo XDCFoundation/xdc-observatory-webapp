@@ -53,11 +53,11 @@ export default function TokenContracttab(props) {
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/code.svg")} />Contract Source Code Verified </div>
                         <div>
-                            <CopyToClipboard text="Contract-source Code Verified"
-                                onCopy={() => setCopiedText("Contract-source Code Verified")}>
+                            <CopyToClipboard text={verifiedData.sourceCode}
+                                onCopy={() => setCopiedText(verifiedData.sourceCode)}>
                                 <Tooltip
                                     title={
-                                        copiedText === "Contract-source Code Verified"
+                                        copiedText === verifiedData.sourceCode
                                             ? "Copied"
                                             : "Copy To Clipboard"
                                     }
