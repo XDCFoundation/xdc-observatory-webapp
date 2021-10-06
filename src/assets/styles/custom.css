@@ -474,6 +474,7 @@ input:focus {
 }
 
 .table-trans {
+  white-space: nowrap !important;
   overflow: scroll !important;
   min-width: 768px !important;
 }
@@ -1864,7 +1865,8 @@ p {
 @media (max-width: 640px) {
   .pagebox-contract {
     width: auto;
-    height: 27px;
+    white-space: nowrap;
+    height: 35px;
     margin: -6px 6px 0px 0px;
     padding: 6px 8px;
     border-radius: 4px;
@@ -2283,7 +2285,7 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  width: 15.625rem;
+  width: 16.625rem;
   padding: 7.7px 43px 10px 10px;
   border-radius: 0.25rem;
   outline-color: #e3e7eb;
@@ -2301,7 +2303,7 @@ p {
 .searchelement-input2 {
   display: flex;
   flex-direction: row;
-  width: 15.625rem;
+  width: 16.625rem;
   padding: 7.7px 43px 10px 10px;
   border-radius: 0.25rem;
   outline-color: #e3e7eb;
@@ -3234,6 +3236,7 @@ body {
     border: 1px solid black;
     border-collapse: collapse;
     background-color: #ffffff; */
+  white-space: nowrap !important;
   border-collapse: collapse;
   width: 100%;
   border-bottom: transparent;
@@ -5808,7 +5811,7 @@ button {
 }
 
 .table-grid-block {
-  margin: 110px auto auto auto;
+  margin: 130px auto auto auto;
   width: 75.063rem;
 }
 /* 
@@ -6106,7 +6109,7 @@ button {
   justify-content: space-between;
   display: flex;
   border-bottom: solid 1px #e3e7eb;
-  width: 75.125rem;
+  /* width: 75.125rem; */
   height: 2.188rem;
 }
 /* 
@@ -6193,7 +6196,7 @@ button {
 
 .active-content_sec {
   display: block;
-  width: 75.188rem;
+  /* width: 75.188rem; */
 }
 
 .container_sec {
@@ -7001,7 +7004,7 @@ button {
     font-size: 17px;
     color: #2a2a2a;
     opacity: 1;
-    margin-top: 7.25rem;
+    margin-top: 5.25rem;
   }
   .AddressTitle {
     margin-top: -2px;
@@ -7575,6 +7578,7 @@ button {
     overflow-x: scroll;
   }
 }
+<<<<<<< HEAD
 @media (min-width: 768px) and (max-width: 1023px) {
   .pad-left-27 {
     padding-left: 27px;
@@ -7593,9 +7597,74 @@ button {
 .word-space-4 {
   word-spacing: -4px;
 }
+=======
+>>>>>>> 60e32c6f1ad8337cd96afa0da62c407bb7e5332c
 @media (max-width: 767px) {
   .copy-icon-svg {
     height: 16px;
     width: 16px;
+  }
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  .grid-block-table {
+    margin: 28px auto auto auto !important;
+    width: 100% !important;
+    max-width: 58.063rem !important;
+  }
+  /* .sec-block-mb{
+    width: 100% !important;
+    max-width: 19rem!important;
+  } */
+  /* .active-content_sec {
+    display: block !important;
+    width: 19.188rem !important;
+} */
+  .search-input-box {
+    width: 100% !important;
+    max-width: 10rem !important;
+  }
+  .input-box-search {
+    width: 100% !important;
+    max-width: 6rem !important;
+  }
+  .btn {
+    padding: 7px 6px 10px 10px !important;
+  }
+}
+
+@media (min-width: 1023px) and (max-width: 1240px) {
+  .grid-block-table {
+    width: 97% !important;
+  }
+}
+
+@media (min-width: 508px) and (max-width: 760px) {
+  .grid-block-table {
+    margin: 28px auto auto auto !important;
+    width: 100% !important;
+    max-width: 34.063rem !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .searchelement-div {
+    margin-top: 40px !important;
+    width: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+  .responsive-table-width-contract-list {
+    border-radius: 14px;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: auto;
+  }
+  .searchelement-token {
+    margin-top: 90px !important;
+    margin-left: 5% !important;
+  }
+  .searchelement-input {
+    margin-left: 5% !important;
   }
 }

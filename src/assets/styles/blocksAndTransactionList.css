@@ -20,7 +20,7 @@
   margin-bottom: 15px;
   margin-top: 2.813rem;
 }
-@media (min-width: 0px) and (max-width:1240px) {
+@media (min-width: 0px) and (max-width: 1240px) {
   .table-top-header {
     height: 1.813rem;
     font-family: Inter;
@@ -154,7 +154,7 @@
   color: #252525;
   opacity: 0.8;
 }
-@media (min-width: 0px) and (max-width:1240px) {
+@media (min-width: 0px) and (max-width: 1240px) {
   .table-headers {
     height: 1.063rem;
     font-family: Inter;
@@ -387,9 +387,8 @@
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
-@media (min-width:0px) and (max-width:1240px) {
+@media (min-width: 0px) and (max-width: 1240px) {
   .first-block-details {
-
     height: 1.063rem;
     font-family: Inter;
     font-size: 0.875rem;
@@ -398,17 +397,15 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: 0.034rem;
-    text-align: left;    
-    letter-spacing: 0.54px;    
+    text-align: left;
+    letter-spacing: 0.54px;
     opacity: 0.7;
     padding-left: 2px;
     animation: fadeInAnimation ease 2s;
     animation-iteration-count: inherit;
     animation-fill-mode: forwards;
   }
-  
 }
-
 
 .second-block-details {
   color: #2149b9;
@@ -445,7 +442,7 @@
   font-weight: bold;
   opacity: 0.8;
 }
-@media(max-width:767px){
+@media (max-width: 767px) {
   .text {
     margin-left: 6px;
   }
@@ -541,19 +538,16 @@
   margin: auto;
   width: 75.125rem;
 }
-@media(min-width:0px) and (max-width: 767px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .table_1 {
     width: 22.563rem;
     margin: 2rem auto;
-    
-    
   }
 }
-@media(min-width:767px) and (max-width: 1240px) {
+@media (min-width: 767px) and (max-width: 1240px) {
   .table_1 {
     width: 41.5rem;
     margin: 2rem auto;
-   
   }
 }
 
@@ -680,6 +674,10 @@
     width: 3.125rem;
     height: 2.188rem;
   } */
+
+  .amount-select {
+    width: 67px !important;
+  }
   .Pagination {
     display: flex;
     flex-direction: column;
