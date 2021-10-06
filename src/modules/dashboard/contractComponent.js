@@ -38,22 +38,15 @@ const Pagination = styled.div`
   width: 75.125rem;
   /* margin-right: 18%;
    margin-left: 18%; */
-  @media (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
-    width: auto;
-    margin-right: 0%;
-    margin-left: 0%;
+    width: 22.563rem;
+    margin: 0 auto;
   }
-  @media (max-width: 1023px) {
-    width: auto;
-    margin-right: 0%;
-    margin-left: 0%;
-  }
-  @media (min-width: 1024px) and (max-width: 1240px) {
-    width: auto;
-    margin-right: 0%;
-    margin-left: 5%;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+    margin: 0 auto;
   }
 `;
 const RightPagination = styled.div`
@@ -61,11 +54,8 @@ const RightPagination = styled.div`
 
   margin-top: 2.188rem;
   flex-direction: row;
-  @media (max-width: 1023px) {
-    margin-right: 5%;
-  }
-  @media (min-width: 1024px) and (max-width: 1240px) {
-    margin-right: 5%;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-right: 0%;
   }
 `;
 const LeftPagination = styled.div`
@@ -73,9 +63,6 @@ const LeftPagination = styled.div`
   flex-direction: row;
 
   margin-top: 2.188rem;
-  @media (max-width: 1023px) {
-    margin-left: 5%;
-  }
   @media (min-width: 1024px) and (max-width: 1240px) {
     margin-right: 5%;
   }
@@ -294,9 +281,9 @@ class Contractlist extends React.Component {
                 e.preventDefault();
               }}
             >
-              <div className="searchelement-div">
-                <p className="searchelement-token">Contracts</p>
-                <div className="searchelement-input">
+              <div className="searchelement-div div-searchelement">
+                <p className="searchelement-token token-searchelement">Contracts</p>
+                <div className="searchelement-input input-searchelement">
                   <img
                     style={{
                       width: 20,
@@ -333,7 +320,7 @@ class Contractlist extends React.Component {
         </div>
         <br />
         <Paper
-          className={"responsive-table-width-contract-list"}
+          className={"responsive-table-width-contract-list contact-list-tab"}
           style={{
             borderRadius: "14px",
             // marginLeft: "18%",
@@ -523,7 +510,7 @@ class Contractlist extends React.Component {
             <div
               className={
                 this.state.from === 0
-                  ? "firstbox-contract disabled"
+                  ? "firstbox-contract disabled boxfirst"
                   : "firstbox-contract"
               }
               onClick={() => this.handleChangePage("first")}

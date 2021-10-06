@@ -542,6 +542,7 @@ const Div = styled.div`
   padding: 0.313rem;
   margin-top: 0.625rem;
     @media (min-width: 300px) and (max-width: 767px) {
+    width: 22.563rem;
     margin-top: 0rem;
   }
 `;
