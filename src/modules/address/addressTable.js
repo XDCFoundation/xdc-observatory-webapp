@@ -496,7 +496,7 @@ export default function AddressTableComponent(props) {
         <Paper
           style={{ borderRadius: "0.75rem" }}
           elevation={0}
-          className="table-paper"
+          className="table-paper paper-table"
         >
           <TableContainer
             className={classes.container}
