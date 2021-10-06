@@ -7020,3 +7020,20 @@ button {
     overflow-x: scroll;
   }
 }
+
+
+.profileDropdown{
+  align-items: flex-start;
+  justify-content: center;
+  
+
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: transparent;
+  color: #ffffff;
+  background-color: #102e84;
+}

@@ -15,6 +15,8 @@ import { NavLink } from "react-router-dom";
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility, { dispatchAction } from "../../utility";
+import Popover from "./popover";
+import ChangePassword from "./changePassword";
 
 
 const drawerWidth = 240;
@@ -115,6 +117,7 @@ export default function Navbar() {
   const theme = useTheme();
   const history = useHistory();
 
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -127,6 +130,14 @@ export default function Navbar() {
   const ref = React.useRef(null);
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
+
+  
+  const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
+
+  const openChangePassword = () => {
+    setOpenPasswordBox(!openPasswordBox)
+  }
+
   const handleSearch = (event) => {
     if (event.key === "Enter") {
       var selectOptType = SelectOptRef.current?.value;
@@ -706,10 +717,10 @@ export default function Navbar() {
             </div>
           </div>
           <div className="right-nav-div">
-            <img
-              className="Shape2-internal"
-              src={require("../../../src/assets/images/Profile.svg")}
-            ></img>
+
+
+        {openPasswordBox && <ChangePassword openChangePassword={openChangePassword}/>}
+              <Popover openChangePassword={openChangePassword}/>
 
             <React.Fragment className="rigt-line" key={"right"}>
               <IconButton

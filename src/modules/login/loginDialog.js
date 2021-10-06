@@ -8,15 +8,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
-import AccountProfile from "./accountProfile";
+import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
+import AccountProfile from "../explorer/accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
 import { Link } from "@material-ui/core";
-
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     // fontFamily: "Roboto",
     // fontStyle: "normal",
     backgroundColor: "#2149b9",
-    marginLeft: "90px"
+    marginLeft: "90px",
   },
   btn: {
     // border: "none !important",
@@ -43,14 +42,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "25px",
     marginLeft: "40px",
     fontWeight: "500",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   dialog: {
     marginLeft: "10%",
     marginTop: "2px",
     width: "80% !important",
     height: "80% !important",
-    borderRadius: "50px !important"
+    borderRadius: "50px !important",
   },
   input: {
     width: "340px",
@@ -77,11 +76,11 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "14px",
     fontweight: "500",
     border: "none !important",
-    outline: "none"
+    outline: "none",
   },
   forgotpass: {
     color: "#2149b9",
-    marginLeft: "123px"
+    marginLeft: "123px",
   },
   createaccount: {
     color: "#2149b9",
@@ -90,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "14px",
   },
   icon: {
-    marginLeft: "-30px"
+    marginLeft: "-30px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -101,8 +100,8 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginLeft: "60px",
     fontfamily: "Inter",
-    fontweight: "600"
-  }
+    fontweight: "600",
+  },
 }));
 
 export default function FormDialog() {
@@ -112,7 +111,6 @@ export default function FormDialog() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
-
   };
 
   const classes = useStyles();
@@ -125,23 +123,19 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-
   const handleLogin = () => {
-    history.push("/loginprofile")
+    history.push("/loginprofile");
     // window.location("/loginprofile")
-
-  }
+  };
 
   return (
     <div>
-
       <div className={classes.add}>
-        <button
-          className="login-button"
-
-          onClick={handleClickOpen}
-        >
-          <img className="Shape2" src={require("../../../src/assets/images/Profile.svg")}></img>
+        <button className="login-button" onClick={handleClickOpen}>
+          <img
+            className="Shape2"
+            src={require("../../../src/assets/images/Profile.svg")}
+          ></img>
         </button>
 
         <div>
@@ -152,7 +146,9 @@ export default function FormDialog() {
             aria-labelledby="form-dialog-title"
           >
             <Row>
-              <DialogTitle className={classes.heading} id="form-dialog-title">Log in to your account</DialogTitle>
+              <DialogTitle className={classes.heading} id="form-dialog-title">
+                Log in to your account
+              </DialogTitle>
               <span onClick={handleClose} className={classes.cross}>
                 {" "}
                 X{" "}
@@ -167,14 +163,30 @@ export default function FormDialog() {
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Password</b>
-                <span className={classes.forgotpass}>
-                  Forgot Password?
-                </span>
+                <span className={classes.forgotpass}>Forgot Password?</span>
               </DialogContentText>
 
-              <input type="password" type={passwordShown ? "text" : "password"} className={classes.input}></input>
+              <input
+                type="password"
+                type={passwordShown ? "text" : "password"}
+                className={classes.input}
+              ></input>
               <span>
-                {passwordShown ? <VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} /> : <VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} />}
+                {passwordShown ? (
+                  <VisibilityIcon
+                    className={classes.icon}
+                    fontSize="small"
+                    style={{ color: "#b9b9b9" }}
+                    onClick={togglePasswordVisiblity}
+                  />
+                ) : (
+                  <VisibilityOff
+                    className={classes.icon}
+                    fontSize="small"
+                    style={{ color: "#b9b9b9" }}
+                    onClick={togglePasswordVisiblity}
+                  />
+                )}
                 {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
@@ -183,20 +195,23 @@ export default function FormDialog() {
               </span>
             </DialogContent>
             <DialogActions>
-              <button className={classes.addbtn} onClick={handleLogin}
-                onClick={event => window.location.href = 'loginprofile'}
-
-              >Log in </button>
+              <button
+                className={classes.addbtn}
+                onClick={handleLogin}
+                onClick={(event) => (window.location.href = "loginprofile")}
+              >
+                Log in{" "}
+              </button>
               {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
             </DialogActions>
             <div className={classes.value}></div>
             <DialogContentText className={classes.xdc}>
-              New to XDC Explorer? <span className={classes.createaccount}> Create an account</span>
+              New to XDC Explorer?{" "}
+              <span className={classes.createaccount}> Create an account</span>
             </DialogContentText>
           </Dialog>
         </div>
       </div>
-
     </div>
   );
 }

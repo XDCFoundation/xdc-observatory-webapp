@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,7 +13,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import { NavLink } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
-import Login from "./loginDialog";
+import Login from "../login";
+
 import Utility, { dispatchAction } from "../../utility";
 import SearchData from "../../services/search";
 import searchIcon from "../../assets/images/Search.svg";
@@ -78,15 +79,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
-    '&::-webkit-scrollbar': {
-      display: 'none',
+    "&::-webkit-scrollbar": {
+      display: "none",
     },
-    '&::-webkit-scrollbar-track': {
-      display: 'none'
+    "&::-webkit-scrollbar-track": {
+      display: "none",
     },
-    '&::-webkit-scrollbar-thumb': {
-      display: 'none'
-    }
+    "&::-webkit-scrollbar-thumb": {
+      display: "none",
+    },
   },
   content: {
     flexGrow: 1,
@@ -116,7 +117,6 @@ const useStyles = makeStyles((theme) => ({
       width: "13.313rem",
       backgroundColor: "#102e84",
       height: "100%",
-
     },
   },
   fullList: {
@@ -207,9 +207,7 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className="menu-sidebar-top">
-        <div className="browse-text-sidebar">
-          Browse
-        </div>
+        <div className="browse-text-sidebar">Browse</div>
         <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
@@ -293,9 +291,7 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div
-            className="menubar-contract"
-          >
+          <div className="menubar-contract">
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpencontracts(false)}
@@ -373,8 +369,7 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div className="menubar-contract"
-          >
+          <div className="menubar-contract">
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpen(false)}
@@ -600,34 +595,54 @@ export default function Navbar() {
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <Toolbar>
             <Typography className="Header">
-
-              <a className="logo_tokensearch" href={'/'}>
-                <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.svg")}></img>
+              <a className="logo_tokensearch" href={"/"}>
+                <img
+                  className="Shape"
+                  src={require("../../../src/assets/images/XDC-Icon.svg")}
+                ></img>
               </a>
-              <a className="XDC" href="/"> XDC </a>
+              <a className="XDC" href="/">
+                {" "}
+                XDC{" "}
+              </a>
 
               <div>
-                <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network
-                  Explorer</NavLink>
+                <NavLink
+                  exact
+                  activeClassName="active-t"
+                  to={"/"}
+                  className="Network-explorer"
+                >
+                  Network Explorer
+                </NavLink>
 
                 {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
-
               </div>
               <div>
-                <NavLink exact activeClassName="active-t" to={'/tokens'} className="Token">Tokens</NavLink>
+                <NavLink
+                  exact
+                  activeClassName="active-t"
+                  to={"/tokens"}
+                  className="Token"
+                >
+                  Tokens
+                </NavLink>
 
-                <a href='/'>
-                  <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
+                <a href="/">
+                  <p className="Network-explorer" id="Network-explorer">
+                    Network Explorer
+                  </p>
                 </a>
               </div>
               <div>
-                <a href='/token-details'>
-                  <div className="Token" id="Token">Tokens</div>
+                <a href="/token-details">
+                  <div className="Token" id="Token">
+                    Tokens
+                  </div>
                 </a>
               </div>
             </Typography>
             <Login />
-
 
             <React.Fragment key={"right"}>
               <IconButton
@@ -663,25 +678,46 @@ export default function Navbar() {
           </Toolbar>
         </AppBar>
       </DeskTopView>
-      <MobileView><AppBar elevation={0} className={clsx(classes.appBar)}>
-        <Toolbar>
-          <Typography className="Header">
-            <div className="header-mobile-top">
+      <MobileView>
+        <AppBar elevation={0} className={clsx(classes.appBar)}>
+          <Toolbar>
+            <Typography className="Header">
+              <div className="header-mobile-top">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <a className="logo_tokensearch" href={"/"}>
+                    <img
+                      className="Shape"
+                      src={require("../../../src/assets/images/XDC-Icon.svg")}
+                    ></img>
+                  </a>
+                  <a className="XDC" href="/">
+                    {" "}
+                    XDC{" "}
+                  </a>
+                </div>
+                &nbsp;
+                <div className="header-responsive">
+                  <div>
+                    <NavLink
+                      exact
+                      activeClassName="active-t"
+                      to={"/"}
+                      className="Network-explorer"
+                    >
+                      Network Explorer
+                    </NavLink>
+                  </div>
 
-              <div style={{ display: "flex", alignItems: "center" }} >
-                <a className="logo_tokensearch" href={"/"}>
-                  <img
-                    className="Shape"
-                    src={require("../../../src/assets/images/XDC-Icon.svg")}
-                  ></img>
-                </a>
-                <a className="XDC" href="/"> XDC </a>
-
+                  <div>
+                    <a href="/token-details">
+                      <div className="Token" id="Token">
+                        Tokens
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
-              &nbsp;
-              <div
-                className="header-responsive"
-              >
+              <div className="header-responsive-desktop">
                 <div>
                   <NavLink
                     exact
@@ -693,7 +729,6 @@ export default function Navbar() {
                   </NavLink>
                 </div>
 
-
                 <div>
                   <a href="/token-details">
                     <div className="Token" id="Token">
@@ -702,64 +737,40 @@ export default function Navbar() {
                   </a>
                 </div>
               </div>
-            </div>
-            <div
-              className="header-responsive-desktop"
-            >
-              <div>
-                <NavLink
-                  exact
-                  activeClassName="active-t"
-                  to={"/"}
-                  className="Network-explorer"
-                >
-                  Network Explorer
-                </NavLink>
-              </div>
+            </Typography>
+            <Login />
 
+            <React.Fragment key={"right"}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="end"
+                onClick={toggleDrawer("right", true)}
+              >
+                <MenuIcon class="menu-sidebar" />
+              </IconButton>
 
-              <div>
-                <a href="/token-details">
-                  <div className="Token" id="Token">
-                    Tokens
-                  </div>
-                </a>
-              </div>
-            </div>
-          </Typography>
-          <Login />
-
-
-          <React.Fragment key={"right"}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={toggleDrawer("right", true)}
-            >
-              <MenuIcon class="menu-sidebar" />
-            </IconButton>
-
-            <Drawer
-              className={classes.drawer}
-              anchor={"right"}
-              open={state["right"]}
-            >
-              {lists("right")}
-            </Drawer>
-            <Drawer className={classes.drawer} anchor={"right"} open={open}>
-              {items("right")}
-            </Drawer>
-            <Drawer
-              className={classes.drawer}
-              anchor={"right"}
-              open={opencontracts}
-            >
-              {contracts("right")}
-            </Drawer>
-          </React.Fragment>
-        </Toolbar>
-      </AppBar></MobileView>
+              <Drawer
+                className={classes.drawer}
+                anchor={"right"}
+                open={state["right"]}
+              >
+                {lists("right")}
+              </Drawer>
+              <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                {items("right")}
+              </Drawer>
+              <Drawer
+                className={classes.drawer}
+                anchor={"right"}
+                open={opencontracts}
+              >
+                {contracts("right")}
+              </Drawer>
+            </React.Fragment>
+          </Toolbar>
+        </AppBar>
+      </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
           <img
@@ -773,7 +784,6 @@ export default function Navbar() {
         <div className="centerbox-parent">
           <div className="centerbox">
             <div className="main-form-container">
-
               <form
                 method="post"
                 onSubmit={(e) => {
@@ -782,7 +792,10 @@ export default function Navbar() {
               >
                 <div className="search-dashboard">
                   <div className="search-dashboard-input">
-                    <img className="search-dashboard-icon" src={searchIcon}></img>
+                    <img
+                      className="search-dashboard-icon"
+                      src={searchIcon}
+                    ></img>
                     <input
                       defaultValue={filter}
                       onClick={(event) => handleSearch(event)}
@@ -841,7 +854,7 @@ export default function Navbar() {
         {/* <div>
                     <MarketTable />
                 </div> */}
-      </main >
-    </div >
+      </main>
+    </div>
   );
 }
