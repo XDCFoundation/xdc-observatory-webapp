@@ -406,7 +406,7 @@ const Content = styled.span`
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 0.625rem;
+    font-size: 0.875rem;
     word-break: break-all;
   }
 `;
@@ -541,6 +541,9 @@ const Div = styled.div`
   margin-bottom: 0.938rem;
   padding: 0.313rem;
   margin-top: 0.625rem;
+    @media (min-width: 300px) and (max-width: 767px) {
+    margin-top: 0rem;
+  }
 `;
 
 const Heading = styled.span`
@@ -551,7 +554,7 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.25rem;
 `;
 
 const ImageView = styled.img`
