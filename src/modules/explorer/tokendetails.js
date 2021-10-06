@@ -236,15 +236,15 @@ export default function StickyHeadTable() {
     }
   };
   const handleSearchKeyUp = (event) => {
-    let searchkeyword = event.target.value;
+    let searchkeyword = event?.target?.value;
 
-    if (searchkeyword.length > 2) {
+    if (searchkeyword?.length > 2) {
       setKeywords(searchkeyword);
       setLoading(false);
       let data = { pageNum: from, perpage: amount, searchkey: searchkeyword };
       SearchTokens(data);
     }
-    if (searchkeyword.length == 0) {
+    if (searchkeyword?.length == 0) {
       setKeywords("");
       setLoading(false);
       setNoData(0);
@@ -310,7 +310,7 @@ export default function StickyHeadTable() {
     getTokenList(data);
     getTotalTokenList();
   }, []);
-
+  console.log((totalToken / amount), totalToken, amount, "++")
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
@@ -319,8 +319,12 @@ export default function StickyHeadTable() {
         <div>
           <form
             method="post"
-            onSubmit={(e) => {
-              e.preventDefault();
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+
+                e.preventDefault();
+              }
+
             }}
           >
             <div className="searchelement-div">
@@ -331,7 +335,13 @@ export default function StickyHeadTable() {
                   src={require("../../assets/images/Search.svg")}
                 />
                 <input
-                  onChange={handleSearchKeyUp}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      console.log("Enter key was pressed. Run your function.");
+                      handleSearchKeyUp(e);
+                    }
+
+                  }}
                   style={{
                     fontSize: '0.938rem',
                     letterSpacing: 0.62,
@@ -466,22 +476,8 @@ export default function StickyHeadTable() {
         {/* <Divider className={classes.divider}/>*/}
       </Paper>
 
-      <Pagination
-      // style={{
-      //     display: "flex",
-      //     justifyContent: "space-between",
-      //     flexDirection: "row",
-      // }}
-      >
-        <LeftPagination
-        // style={{
-        //     display: "flex",
-        //     flexDirection: "row",
-        //     marginLeft: "18%",
-        //     marginTop: "20px",
-
-        // }}
-        >
+      <Pagination>
+        <LeftPagination>
           <p
             style={{
               fontSize: "0.875rem",
@@ -513,14 +509,7 @@ export default function StickyHeadTable() {
           </p>
         </LeftPagination>
 
-        <RightPagination
-        // style={{
-        //     display: "flex",
-        //     flexDirection: "row",
-        //     marginRight: "17.5%",
-        //     marginTop: "20px",
-        // }}
-        >
+        <RightPagination>
           <div
             className={
               from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
@@ -565,17 +554,13 @@ export default function StickyHeadTable() {
                 ? "nextbox-contract disabled"
                 : "nextbox-contract"
             }
+            onClick={() => handleChangePage("next")}
           >
             <img
               className="navigation-arrow"
               src={require("../../assets/images/next.svg")}
+
             />
-            {/* <p
-              className="path-2-contract"
-              onClick={() => handleChangePage("next")}
-            >
-              {">"}
-            </p> */}
           </div>
           <div
             className={
@@ -596,6 +581,6 @@ export default function StickyHeadTable() {
       </Pagination>
 
       <FooterComponent />
-    </div>
+    </div >
   );
 }

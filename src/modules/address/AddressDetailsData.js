@@ -132,7 +132,7 @@ export default function AddressDetailsData() {
           transactionlist: responseData.transactionArray
 
         })
-        console.log(responses)
+
       } else {
 
       }
@@ -189,6 +189,7 @@ export default function AddressDetailsData() {
                 </TableContainer>
               </div>
             </div>
+
             <div className="contractSummary">
               <div className="latest">
                 <h1>Contract-Summary</h1>
@@ -230,25 +231,27 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
-          <div className="block_sec sec-block">
-            <div className="bloc-tabs_sec">
-              <button
-                className={
-                  toggleState === 1 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
-                }
-                onClick={() => toggleTab(1)}
-                id="transaction-btn">
-                All Transactions
-              </button>
+          <div>
+            <div className="block_sec sec-block">
+              <div className="bloc-tabs_sec">
+                <button
+                  className={
+                    toggleState === 1 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
+                  }
+                  onClick={() => toggleTab(1)}
+                  id="transaction-btn">
+                  All Transactions
+                </button>
 
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
-                }
-                onClick={() => toggleTab(2)}
-                id="contract-btn">
-                Contract Source
-              </button>
+                <button
+                  className={
+                    toggleState === 2 ? "tabs_sec_contract active-tabs_sec_contract" : "tabs_sec_contract"
+                  }
+                  onClick={() => toggleTab(2)}
+                  id="contract-btn">
+                  Contract Source
+                </button>
+              </div>
             </div>
           </div>
 
