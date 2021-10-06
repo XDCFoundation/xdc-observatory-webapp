@@ -7015,7 +7015,7 @@ button {
   .table-grid-block {
     width: 23.5rem;
   }
-  .grid-block-table{
+  .grid-block-table {
     margin: 56px auto auto auto !important;
     width: 100% !important;
     max-width: 22.063rem !important;
@@ -7057,7 +7057,7 @@ button {
     width: 22.5625rem;
     margin-left: 0.5rem;
   }
-  .sec-active{
+  .sec-active {
     margin: 0 auto !important;
     width: 22.565rem !important;
   }
@@ -7067,7 +7067,7 @@ button {
     width: 23rem;
     /* justify-content: space-between; */
   }
-  .cont-tab{
+  .cont-tab {
     width: 23rem !important;
     flex-direction: initial !important;
   }
@@ -7220,8 +7220,8 @@ button {
   .table-grid-block {
     width: 23.5rem;
   }
-  .grid-block-table{
-    width:45rem !important;
+  .grid-block-table {
+    width: 45rem !important;
   }
   .AddressTitle {
     width: 45rem;
@@ -7247,11 +7247,11 @@ button {
     height: 2.188rem;
     margin-left: -9.18rem;
   }
-  .sec-block-mb{
+  .sec-block-mb {
     width: 45rem !important;
     margin: 0 auto !important;
   }
-  .sec-active{
+  .sec-active {
     width: 45rem !important;
     margin: 0 auto !important;
   }
@@ -7582,15 +7582,15 @@ button {
     width: 100% !important;
     max-width: 58.063rem !important;
   }
-  .grid-block-table{
-  margin: 56px auto auto auto !important;
+  .grid-block-table {
+    margin: 56px auto auto auto !important;
     width: 100% !important;
     max-width: 22.063rem !important;
   }
-  /* .sec-block-mb{
-    width: 100% !important;
-    max-width: 19rem!important;
-  } */
+  .sec-block-mb {
+    margin-left: 0rem !important;
+    padding: 0px !important;
+  }
   /* .active-content_sec {
     display: block !important;
     width: 19.188rem !important;
