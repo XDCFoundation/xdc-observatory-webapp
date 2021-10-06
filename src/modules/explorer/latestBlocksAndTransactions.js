@@ -119,7 +119,7 @@ class LatestBlocks extends Component {
         };
         this.setState({ hashAnimation: hashAnimationClass });
         let amountAnimationClass = {
-          [transactionData.hash]: "second-transaction-amount",
+          [transactionData.hash]: "second-transaction-amount margin-left-38",
         };
         this.setState({ amountAnimation: amountAnimationClass });
         let ageAnimationClass = {
