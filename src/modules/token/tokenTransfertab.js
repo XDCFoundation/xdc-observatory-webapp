@@ -56,11 +56,11 @@ const Pagination = styled.div`
     width: 75.125rem;
     margin:auto;
 
-    @media (max-width:640px){
+    @media (max-width:767px){
       display: flex;
       flex-direction:column;
     }  
-    @media (max-width:1023px){
+    @media (max-width:1240px){
       width: auto;
     }       
   `;
@@ -69,9 +69,11 @@ const RightPagination = styled.div`
   flex-direction: row;
   
 
-    @media(max-width:640px){
-    margin-top: 10px;
-    /* margin-right: 5%; */
+    @media(max-width:767px){
+    margin-top: 24px;
+    }
+    @media (min-width:767px) and (max-width:1240px){
+    margin-top: 31px;
     }
     
 `
@@ -80,9 +82,8 @@ display: flex;
 flex-direction: row;
 margin-top: 39px;
 
-@media (max-width:1023px){
-  /* margin-left: 5%; */
-  margin-top: 20px;
+@media (max-width:1240px){
+  margin-top: 31px;
 }
 `;
 
@@ -105,6 +106,9 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
     padding: "0 px",
+    "@media (min-width: 0px) and (max-width: 1240px)": {
+      height: "12.563rem"
+    }
   },
 
 
@@ -194,11 +198,9 @@ export default function StickyHeadTable() {
       b.length
     )}`;
   }
-  console.log(transfer, "LLLL")
-  console.log(noData, "OOOO")
   return (
     <>
-      <Paper style={{ borderRadius: "14px" }} elevation={0}>
+      <Paper elevation={0}>
         <TableContainer className={classes.container} id="container-table">
           <Table>
             <TableHead>
@@ -210,13 +212,13 @@ export default function StickyHeadTable() {
                   <span className={"tableheaders_Transfer-table-age"}>Age</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"Tableheaders"}>Block</span>
+                  <span className={"tableheaders_Transfer-table-block"}>Block</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"Tableheaders"}>From</span>
+                  <span className={"tableheaders_Transfer-table-from"}>From</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"Tableheaders"}>To</span>
+                  <span className={"tableheaders_Transfer-table-to"}>To</span>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -293,11 +295,7 @@ export default function StickyHeadTable() {
       <Pagination>
         <LeftPagination>
           <p
-            style={{
-              fontSize: "11px",
-              fontWeight: "600",
-              marginTop: "6px"
-            }}
+            className="p-pagination"
           >
             Show
           </p>
@@ -308,11 +306,7 @@ export default function StickyHeadTable() {
             <option>100</option>
           </select>
           <p
-            style={{
-              fontSize: "11px",
-              fontWeight: "600",
-              marginTop: "6px"
-            }}
+            className="p-pagination"
           >
 
             Records
