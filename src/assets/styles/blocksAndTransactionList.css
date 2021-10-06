@@ -154,7 +154,21 @@
   color: #252525;
   opacity: 0.8;
 }
-@media (min-width: 0px) and (max-width: 1240px) {
+@media (min-width: 0px) and (max-width: 767px) {
+  .table-headers {
+    height: 1.063rem;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.034rem;
+    text-align: center;
+    color: #252525;
+    font-weight: 500;
+  }
+}
+@media (min-width: 767px) and (max-width: 1240px) {
   .table-headers {
     height: 1.063rem;
     font-family: Inter;
@@ -584,7 +598,7 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 120px;
+    margin-right: 50px;
   }
   .tableheaders_Transfer-table-age {
     font-family: "Fira Sans";
@@ -598,7 +612,7 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 120px;
+    margin-right: 50px;
   }
   .tableheaders_Transfer-table-block {
     font-family: "Fira Sans";
@@ -612,7 +626,7 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 120px;
+    margin-right: 50px;
   }
   .tableheaders_Transfer-table-from {
     font-family: "Fira Sans";
@@ -626,7 +640,7 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 120px;
+    margin-right: 50px;
   }
   .tableheaders_Transfer-table-to {
     font-family: "Fira Sans";
@@ -640,7 +654,7 @@
     color: #252525;
     opacity: 0.8;
     padding-left: 10px;
-    margin-right: 120px;
+    margin-right: 50px;
   }
   .tableheaders_1 {
     font-family: "Fira Sans";
