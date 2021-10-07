@@ -133,7 +133,7 @@ height: 61px;
 margin: 50px 15px 28px 20px;
 background-color: #ffffff; */
   display: flex;
-  width: 12025px;
+  width: 1250px;
   margin-left: auto;
   margin-right: auto;
   /* margin: 53px -319px -18px -237px; */
@@ -355,7 +355,7 @@ background-color: #4878ff; */
 
 @media screen and (max-width: 1920px) {
   .heading {
-    max-width: 1202px;
+    max-width: 1250px;
     width: 100%;
   }
   .divbox {
@@ -452,7 +452,7 @@ background-color: #4878ff; */
     overflow-x: scroll;
   }
   .tablegrid_address {
-    width: 1200px;
+    width: 1300px;
   }
 }
 @media screen and (max-width: 714px) {
@@ -470,5 +470,30 @@ background-color: #4878ff; */
   .line {
     max-width: 375px;
     width: 95%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .heading {
+    margin-top: 197px;
+    margin-bottom: -13px;
+  }
+  .tablegrid_address {
+    width: 750px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .heading{
+    margin-left: -17px;
+  }
+  .searchBar{
+    margin-left: 7px;
+  }
+  .griddiv {
+    width: 361px;
+    margin-left: -17px;
+  }
+  .tablegrid_address {
+    width: 750px;
   }
 }

@@ -34,11 +34,16 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width:1023px)": {
     appBar: {
       backgroundColor: "#2149b9",
-      height: "128px !important",
+      height: "134px !important",
       transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+    },
+  },
+  "@media (max-width:450px)":{
+    appBar:{
+      height: "199px !important",
     },
   },
   appBarShift: {
@@ -719,7 +724,7 @@ export default function Navbar() {
                 onClick={toggleDrawer("right", true)}
               >
                 <img
-                  className="Shape2-internal"
+                  className="Shape2-internal1"
                   src={require("../../../src/assets/images/Menu.svg")}
                 ></img>
                 {/* <MenuIcon /> */}
