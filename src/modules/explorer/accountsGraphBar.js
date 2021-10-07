@@ -59,7 +59,7 @@ height: 8.75rem;
 width: auto;
 margin-top: 3.19rem;
 
-@media (max-width:640px){
+@media (max-width:767px){
     height: 80px;
 }
 `
@@ -107,19 +107,23 @@ export default function App() {
 
 
     }, []);
-    var d = new Date();
-    var n = d.getFullYear();
-    let length = data[0]?.data.length;
+    // var d = new Date();
+    // var n = d.getFullYear();
+    // let length = data[0]?.data.length;
 
-    let value1 = data[0]?.data[0]?.x
-    const colonIndex1 = value1?.indexOf(n);
-    const atIndex1 = value1?.indexOf("");
-    let firstDate = value1?.slice(atIndex1, colonIndex1);
+    // let value1 = data[0]?.data[0]?.x
+    // const colonIndex1 = value1?.indexOf(n);
+    // const atIndex1 = value1?.indexOf("");
+    // let firstDate = value1?.slice(atIndex1, colonIndex1);
 
-    let value2 = data[0]?.data[length - 1]?.x
-    const colonIndex2 = value2?.indexOf(n);
-    const atIndex2 = value2?.indexOf("");
-    let lastDate = value2?.slice(atIndex2, colonIndex2);
+    // let value2 = data[0]?.data[length - 1]?.x
+    // const colonIndex2 = value2?.indexOf(n);
+    // const atIndex2 = value2?.indexOf("");
+    // let lastDate = value2?.slice(atIndex2, colonIndex2);
+    let length = graphAccounts.length;
+    const firstDate = graphAccounts.length == 0 ? "" : (moment(graphAccounts[length - 1]?.day).format('D MMM'))
+    const lastDate = graphAccounts.length == 0 ? "" : (moment(graphAccounts[0]?.day).format('D MMM'))
+
     return (
         <GraphSize >
 

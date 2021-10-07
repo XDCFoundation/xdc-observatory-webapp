@@ -50,7 +50,7 @@ export default function TokenUnverifiedContract(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
