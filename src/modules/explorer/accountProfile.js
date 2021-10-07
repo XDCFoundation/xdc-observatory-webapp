@@ -20,6 +20,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Tokensearchbar from './tokensearchBar';
 import FooterComponent from '../common/footerComponent';
+import NotificationDrawer from "./NotificationBar"
 
 // import React from 'react';
 import PropTypes from 'prop-types';
@@ -258,7 +259,10 @@ export default function SimpleTabs(props) {
                 </span>
                 <span >
                     <div className="nameicon">
-                        <span className="welcome">Welcome, CrytoAlex</span><span ><img className="noticon" src={require("../../assets/images/notification.png")} ></img></span>
+                        <span className="welcome">Welcome, CrytoAlex</span>
+                        <span> <NotificationDrawer/> </span>
+                        {/* <span ><img className="noticon" src={require("../../assets/images/notification.png")}  ></img> </span> */}
+                        
                     </div>
                     <div className="edit">
                         Edit Profile
