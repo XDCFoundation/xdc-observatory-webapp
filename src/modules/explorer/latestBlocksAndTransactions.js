@@ -198,7 +198,6 @@ class LatestBlocks extends Component {
   }
 
   render() {
-    console.log(this.props.socket, "<<<<");
     return (
       <>
         <div>
@@ -215,7 +214,7 @@ class LatestBlocks extends Component {
                   <div className="block_child">
                     <p>Age</p>
                   </div>
-                  <div className="block_child">
+                  <div className="block_child pad-lef-height">
                     <p>Height</p>
                   </div>
                   <div className="block_child">
@@ -314,19 +313,19 @@ class LatestBlocks extends Component {
                   View All
                 </a>
               </div>
-              <div className="data">
+              <div className="data overflow">
                 <div className="data_heading">
-                  <div className="main_head">
-                    <div className="mainhead_child1">Hash</div>
-                    <div className="mainhead_child2">Amount</div>
-                    <div className="mainhead_child3">Age</div>
+                  <div className="main_head main-head">
+                    <div className="mainhead_child1 wid-42">Hash</div>
+                    <div className="mainhead_child2 wid-40 pad-lef-28 ">Amount</div>
+                    <div className="mainhead_child3 wid-24 pad-left-38 ">Age</div>
                     <div>{" "}</div>
                   </div>
                   {/* <div className="age">
                  
                 </div> */}
                 </div>
-                <div className="data_value data_margin">
+                <div className="data_value data_margin mar-top-20 mar-top-15">
                   {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
                 <div className="value_main_main">
                   <div className="value_main main_val">
@@ -369,19 +368,19 @@ class LatestBlocks extends Component {
                         this.state.detailAnimation?.[hash];
                       return (
                         <div className="value_main_main">
-                          <div className="main_vaa">
-                            <div className="latest_child w-34 mar-top-6">
+                          <div className="main_vaa wid-114">
+                            <div className="latest_child w-34 mar_child wid-40 mar-left-15">
                               <Tooltip placement="top" title={e.hash}>
                                 <a
                                   className={
-                                    hashanimationClass ? hashanimationClass : "bttn"
+                                    hashanimationClass ? hashanimationClass : "bttn pad-lef-5"
                                   }
                                   href={"/transaction-details/" + e.hash}
                                 >
                                   {this.shorten(e.hash)}
                                 </a>
                               </Tooltip></div>
-                            <div className="latest_child w-25">
+                            <div className="latest_child w-25 wid-20 margin-left-20">
                               <p
                                 className={
                                   amountanimationclass
@@ -395,7 +394,7 @@ class LatestBlocks extends Component {
                                 XDC
                               </p>
                             </div>
-                            <div className="latest_child w-34">
+                            <div className="latest_child w-34 w-25-per margin-left-38">
                               <p
                                 className={
                                   ageanimationclass ? ageanimationclass : "value_main"
@@ -404,12 +403,12 @@ class LatestBlocks extends Component {
                                 {age}
                               </p>
                             </div>
-                            <div className="latest_child w-18 mar-top-6 ">
+                            <div className="latest_child w-18 mar_child wid-15 ">
                               <a
                                 className={
                                   detailanimationclass
                                     ? detailanimationclass
-                                    : "details"
+                                    : "details pad-lef-70"
                                 }
                                 href={"/transaction-details/" + e.hash}
                               >

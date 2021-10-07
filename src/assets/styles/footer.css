@@ -17,13 +17,13 @@ label {
   padding-right: 7%;
   padding-left: 7%;
 }
-@media (min-width: 1024px) {
+@media (min-width: 1241px) {
   .footer_base {
     padding-right: 0%;
     padding-left: 0%;
   }
 }
-@media (max-width: 1023px) {
+@media (max-width: 1240px) {
   .footer_base {
     padding: 0px;
   }
@@ -31,10 +31,22 @@ label {
 .footer {
   padding-left: 10px;
   background: transparent;
-
   padding-right: 10px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 0px) and (max-width: 767px) {
+  .footer {
+    width: 375px !important;
+    margin: auto;  
+  }
+}
+@media (min-width: 768px) and (max-width:1240px) {
+  .footer {
+    width: 768px !important;
+    margin: auto;  
+  }
+}
+
+@media (min-width: 1241px) {
   .footer {
     width: 75.125rem !important;
     margin: 0 auto;
@@ -45,15 +57,17 @@ label {
     padding-right: 0px !important;
   }
 }
-@media (min-width: 1024px) {
-  .footer-line {
-    margin-top: 15px;
 
-    padding-left: 8px !important;
-    background: transparent;
-    padding-right: 8px !important;
-    width: 75.125rem;
-    margin: 0 auto;
+@media (min-width: 0px) and (max-width: 767px) {
+  .footer-line {
+    width: 375px;
+    margin: auto;  
+  }
+}
+@media (min-width: 768px) and (max-width:1240px) {
+  .footer-line {
+    width: 768px;
+    margin: auto;  
   }
 }
 
@@ -66,14 +80,16 @@ label {
   padding-right: 2%;
 }
 
-@media (max-width: 1023px) {
+@media (min-width:1241px) {
   .footer-line {
-    padding: 3%;
-    padding: 3%;
+    width: 75.125rem;
+    margin: auto;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }
 
-@media (max-width: 640px) {
+@media (min-width:0px) and (max-width: 767px) {
   .for-button {
     display: flex;
   }
@@ -114,7 +130,6 @@ ul {
   letter-spacing: 0.5px;
   color: #81b4ff;
   opacity: 0.8;
-
   padding-top: 15px !important;
 }
 
@@ -146,6 +161,16 @@ ul {
   letter-spacing: 0.54px;
   color: #ffffff;
   margin-left: 4px;
+}
+@media(min-width:0px) and (max-width:767px){
+  .USD{
+    font-size: 0.813rem;
+  }
+}
+@media(min-width:767px) and (max-width:1240px){
+  .USD{
+    font-size: 0.875rem;
+  }
 }
 
 .USD:hover {
@@ -186,6 +211,11 @@ ul {
   color: #ffffff;
   opacity: 0.8;
 }
+@media(max-width: 767px){
+  .Table-Header {
+  font-size: 0.75rem;
+  }
+}
 
 .Table-Comp {
   margin-left: -40px;
@@ -203,6 +233,20 @@ a {
   color: #81b4ff;
 }
 
+@media (max-width:767px){
+  a {
+    font-size: 0.75rem;
+    letter-spacing:0.029rem;
+
+  }
+}
+@media (min-width:767px) and (max-width:1240px){
+  a {
+    font-size: 0.875rem;
+    letter-spacing: 0.034rem;
+
+  }
+}
 a:hover {
   font-size: 0.875rem;
   color: white;
@@ -249,6 +293,12 @@ a:hover {
   height: 1.875rem;
   width: 1.875rem;
 }
+@media (min-width:0px) and (max-width:767px){
+  .Shape-footer {
+  height: 1.1rem;
+  width: 1.1rem;
+  }
+}
 
 .Top-Header {
   margin-top: -15px;
@@ -260,7 +310,7 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
-@media (max-width: 1023px) {
+@media (max-width: 1241px) {
   .Top-Header {
     margin-top: 24px;
   }
@@ -289,20 +339,30 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
+@media (min-width:0px) and (max-width: 767px) {
+  .XDC-Header {
+    margin-left: 25px;
+    font-size: 0.875rem;
+    margin-top: -17px;
+  }
+}
+@media (min-width:767px) and (max-width: 1240px) {
+  .XDC-Header {
+    margin-left: 30px;
+    font-size: 1.188rem;
+    margin-top: -26px;
+  }
+}
 .XDC-Block-Width-tablet {
   margin: 7px !important;
 }
-@media (min-width: 640px) and (max-width: 1023px) {
+@media (min-width: 767px) and (max-width: 1240px) {
   .XDC-Block-Width-tablet {
     margin-left: 20px !important;
     margin-top: 7px !important;
   }
 }
-@media (max-width: 1023px) {
-  .XDC-Header {
-    margin-left: 30px;
-  }
-}
+
 /* .MuiMenu-list {
   outline: 0;
   background-color: #2149b9;
@@ -357,9 +417,10 @@ a:hover {
    color: #81b4ff; */
 }
 
-@media (max-width: 640px) {
+@media (min-width:0px) and (max-width: 767px) {
   .xdc-desc {
     width: 50%;
+    font-size: 0.75rem;
   }
 
   .button-Padding-Mobile {

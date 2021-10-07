@@ -28,24 +28,25 @@ const Pagination = styled.div`
   width: 75.125rem;
   margin: 1.25rem auto;
 
-  @media (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
-    margin: 0.625rem auto;
+    width: 22.563rem;
+    margin: 0 auto;
   }
-  @media (max-width: 1023px) {
-    width: auto;
-    margin: 0.625rem auto;
-  }
+@media (min-width: 768px) and (max-width: 1240px) {
+  width: 41.5rem;
+  margin: 0 auto;
+}
 `;
 const RightPagination = styled.div`
   display: flex;
   margin-top: 1.75rem;
   flex-direction: row;
 
-  @media (max-width: 1023px) {
-    margin-top: 0.625rem;
-    margin-right: 5%;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    
+    margin-right: 0%;
   }
 `;
 const LeftPagination = styled.div`
@@ -53,9 +54,9 @@ const LeftPagination = styled.div`
   flex-direction: row;
   margin-top: 1.75rem;
 
-  @media (max-width: 1023px) {
-    margin-left: 5%;
-    margin-top: 0.625rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    
+    margin-right: 5%;
   }
 `;
 
@@ -236,15 +237,15 @@ export default function StickyHeadTable() {
     }
   };
   const handleSearchKeyUp = (event) => {
-    let searchkeyword = event.target.value;
+    let searchkeyword = event?.target?.value;
 
-    if (searchkeyword.length > 2) {
+    if (searchkeyword?.length > 2) {
       setKeywords(searchkeyword);
       setLoading(false);
       let data = { pageNum: from, perpage: amount, searchkey: searchkeyword };
       SearchTokens(data);
     }
-    if (searchkeyword.length == 0) {
+    if (searchkeyword?.length == 0) {
       setKeywords("");
       setLoading(false);
       setNoData(0);
@@ -310,7 +311,7 @@ export default function StickyHeadTable() {
     getTokenList(data);
     getTotalTokenList();
   }, []);
-
+  console.log((totalToken / amount), totalToken, amount, "++")
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
@@ -319,19 +320,29 @@ export default function StickyHeadTable() {
         <div>
           <form
             method="post"
-            onSubmit={(e) => {
-              e.preventDefault();
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+
+                e.preventDefault();
+              }
+
             }}
           >
-            <div className="searchelement-div">
-              <p className="searchelement-token">Tokens</p>
-              <div className="searchelement-input">
+            <div className="searchelement-div div-searchelement_11">
+              <p className="searchelement-token token-searchelement_11">Tokens</p>
+              <div className="searchelement-input input-searchelement_11">
                 <img
                   style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
                   src={require("../../assets/images/Search.svg")}
                 />
                 <input
-                  onChange={handleSearchKeyUp}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      console.log("Enter key was pressed. Run your function.");
+                      handleSearchKeyUp(e);
+                    }
+
+                  }}
                   style={{
                     fontSize: '0.938rem',
                     letterSpacing: 0.62,
@@ -353,7 +364,7 @@ export default function StickyHeadTable() {
 
       <br />
       <Paper
-        className={"responsive-table-width-token-list"}
+        className={"responsive-table-width-token-list token-list-tab_11"}
         style={{
           borderRadius: "0.875rem",
           // marginLeft: "18%",
@@ -371,24 +382,9 @@ export default function StickyHeadTable() {
           }}
         >
           <Table
-            // stickyHeader
-            // aria-label="sticky table"
+
             style={{ borderBottom: "none" }}
           >
-            {/* <TableHead>
-                            <TableRow> 
-                                {columns.map((column) => (
-                                    <TableCell id="th"
-                                        key={column.id}
-                                        align={column.align}
-                        
-                                        style={{ backgroundColor: 'white' }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead> */}
 
             <TableHead
               style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
@@ -430,21 +426,6 @@ export default function StickyHeadTable() {
                       >
                         {index + 1}
                       </TableCell>
-
-                      {/* {row.src ?
-                                                <TableCell style={{ width: '1px' }} id="td"> <img
-                                                    style={{ width: 25, height: 25, borderRadius: '15px' }}
-                                                    src={row.src} /></TableCell>
-                                                :
-                                                <TableCell style={{ width: '1px' }} id="td">
-                                                    {row.tokenName ?
-                                                        <span style={{ width: 25, height: 25, borderRadius: '15px', border: '1px solid', padding: '5px' }}
-                                                        >{row.tokenName ? row.tokenName.slice(0, 2).toUpperCase() : ''}</span>
-                                                        :
-                                                        ''
-                                                    }
-                                                </TableCell>
-                                            } */}
                       <TableCell
                         id="td"
                       //    style={{ width: "110px" }}
@@ -496,22 +477,8 @@ export default function StickyHeadTable() {
         {/* <Divider className={classes.divider}/>*/}
       </Paper>
 
-      <Pagination
-      // style={{
-      //     display: "flex",
-      //     justifyContent: "space-between",
-      //     flexDirection: "row",
-      // }}
-      >
-        <LeftPagination
-        // style={{
-        //     display: "flex",
-        //     flexDirection: "row",
-        //     marginLeft: "18%",
-        //     marginTop: "20px",
-
-        // }}
-        >
+      <Pagination>
+        <LeftPagination>
           <p
             style={{
               fontSize: "0.875rem",
@@ -543,17 +510,10 @@ export default function StickyHeadTable() {
           </p>
         </LeftPagination>
 
-        <RightPagination
-        // style={{
-        //     display: "flex",
-        //     flexDirection: "row",
-        //     marginRight: "17.5%",
-        //     marginTop: "20px",
-        // }}
-        >
+        <RightPagination>
           <div
             className={
-              from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
+              from === 0 ? "firstbox-contract disabled box-first" : "firstbox-contract"
             }
             onClick={() => handleChangePage("first")}
           >
@@ -595,17 +555,13 @@ export default function StickyHeadTable() {
                 ? "nextbox-contract disabled"
                 : "nextbox-contract"
             }
+            onClick={() => handleChangePage("next")}
           >
             <img
               className="navigation-arrow"
               src={require("../../assets/images/next.svg")}
+
             />
-            {/* <p
-              className="path-2-contract"
-              onClick={() => handleChangePage("next")}
-            >
-              {">"}
-            </p> */}
           </div>
           <div
             className={
@@ -626,6 +582,6 @@ export default function StickyHeadTable() {
       </Pagination>
 
       <FooterComponent />
-    </div>
+    </div >
   );
 }
