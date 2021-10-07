@@ -2898,7 +2898,7 @@ body {
 }
 @media (max-width: 767px) {
   .bloc-tabs {
-    width: 100%;
+    width: 107%;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -3253,7 +3253,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 14px 48px 12px 51px !important;
+    padding: 17px 48px 15px 27px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -3278,7 +3278,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
-    padding: 16px 0px 0px 25px !important;
+    padding: 16px 0px 10px 25px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
