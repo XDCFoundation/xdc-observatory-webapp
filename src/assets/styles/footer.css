@@ -35,13 +35,13 @@ label {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .footer {
-    width: 375px !important;
+    width: 23.438rem !important;
     margin: auto;  
   }
 }
 @media (min-width: 768px) and (max-width:1240px) {
   .footer {
-    width: 768px !important;
+    width: 45.313rem !important;
     margin: auto;  
   }
 }
@@ -60,13 +60,15 @@ label {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .footer-line {
-    width: 375px;
+    width: 23.438rem;  
+    height: 3.75rem;  
     margin: auto;  
   }
 }
 @media (min-width: 768px) and (max-width:1240px) {
   .footer-line {
-    width: 768px;
+    width: 45.313rem ;
+    height: 4.125rem;
     margin: auto;  
   }
 }
@@ -295,8 +297,8 @@ a:hover {
 }
 @media (min-width:0px) and (max-width:767px){
   .Shape-footer {
-  height: 1.1rem;
-  width: 1.1rem;
+  height: 1.238rem;
+  width: 1.238rem;
   }
 }
 
@@ -348,7 +350,7 @@ a:hover {
 }
 @media (min-width:767px) and (max-width: 1240px) {
   .XDC-Header {
-    margin-left: 30px;
+    margin-left: 34px;
     font-size: 1.188rem;
     margin-top: -26px;
   }
