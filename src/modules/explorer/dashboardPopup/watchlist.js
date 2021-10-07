@@ -215,7 +215,7 @@ export default function FormDialog() {
                      Create Watchlist
                     </div>
                     <div className="paradiv1">
-                     An Email notification can be sent to you when an address on your watchlist recieves an incoming notifications
+                     An Email notification can be sent to you when an address on your watch list recieves an incoming notifications
                     </div>
                     
                 </div>
