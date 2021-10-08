@@ -21,7 +21,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-
+import Utils from "../../utility";
+import TokenData from "../../services/token";
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 1023px) {
     display: none;
@@ -112,17 +113,18 @@ const useStyles = makeStyles({
     background: "#fff",
   },
 });
-export default function AddressTableComponent(props) {
+export default function HolderTableComponent(props) {
   const { state } = props;
   const classes = useStyles();
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
       b.length
     )}`;
   }
   let { addr } = useParams();
   const [address, setAddress] = useState([]);
+  console.log(address, ";;;;")
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
@@ -131,10 +133,8 @@ export default function AddressTableComponent(props) {
 
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
-  //const [exports, exportAddress] = useState({});
-  //const [toggle, handleToggle] = useState(false);
+  console.log(downloadaddress, "kkk")
   const [page, setPage] = React.useState(0);
-  //const [checkAll, setCheckAll] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
   let showPerPage = 50;
@@ -142,81 +142,25 @@ export default function AddressTableComponent(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
 
   const history = useHistory();
-
-  const dummyData = [
-    {
-      id: "1",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "2",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "3",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "4",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "5",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-    {
-      id: "6",
-      TxHash: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Age: "1 hrs ago",
-      Block: "22,650,452",
-      From: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      To: "xe60sgbk5238hscabxe60sgbk5238hsc2432383xe60",
-      Amount: "0 XDC",
-    },
-  ];
-
   const handleChangePage = (action) => {
     if (action == "first") {
       if (keywords) {
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
-          addrr: addr,
+          addr: addr,
           keywords: keywords,
         };
         getTransactionSearch(datas);
       } else {
+        let pageValue = 0
+        setPage(pageValue);
         datas = {
-          pageNum: 0,
+          pageNum: page,
           perpage: rowsPerPage,
-          addrr: addr,
+          addr: addr,
         };
-        getAddressDetails(datas);
+        getHolderDetails(datas);
       }
     }
     if (action === "last") {
@@ -226,7 +170,7 @@ export default function AddressTableComponent(props) {
         datas = {
           pageNum: pagecount,
           perpage: rowsPerPage,
-          addrr: addr,
+          addr: addr,
           keywords: keywords,
         };
         getTransactionSearch(datas);
@@ -234,9 +178,9 @@ export default function AddressTableComponent(props) {
         datas = {
           pageNum: pagecount,
           perpage: rowsPerPage,
-          addrr: addr,
+          addr: addr,
         };
-        getAddressDetails(datas);
+        getHolderDetails(datas);
       }
     }
 
@@ -248,13 +192,13 @@ export default function AddressTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
-            addrr: addr,
+            addr: addr,
             keywords: keywords,
           };
           getTransactionSearch(datas);
         } else {
-          let datas = { pageNum: pagecount, perpage: rowsPerPage, addrr: addr };
-          getAddressDetails(datas);
+          let datas = { pageNum: pagecount, perpage: rowsPerPage, addr: addr };
+          getHolderDetails(datas);
         }
       }
     }
@@ -267,7 +211,7 @@ export default function AddressTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
-            addrr: addr,
+            addr: addr,
             keywords: keywords,
           };
           getTransactionSearch(datas);
@@ -275,9 +219,9 @@ export default function AddressTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
-            addrr: addr,
+            addr: addr,
           };
-          getAddressDetails(datas);
+          getHolderDetails(datas);
         }
       }
     }
@@ -289,17 +233,18 @@ export default function AddressTableComponent(props) {
     datas = {
       pageNum: 0,
       perpage: event.target.value,
-      addrr: addr,
+      addr: addr,
     };
-    getAddressDetails(datas);
+    getHolderDetails(datas);
   };
-  const getAddressDetails = async (data) => {
+  const getHolderDetails = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetailWithlimit(data)
+        TokenData.getHolderDetailsUsingAddressforToken(data)
       );
+      console.log(JSON.parse(responseData[0].Transfers), "kjkj")
+      if (responseData[0].Total_transfes_transactions_Count > 0) {
 
-      if (responseData.totalTransactionCount > 0) {
         setNoData(false);
         parseResponseData(responseData, 1);
       } else {
@@ -311,54 +256,12 @@ export default function AddressTableComponent(props) {
     }
   };
   useEffect(() => {
-    //let address =props.trans
-    // datas = {
-    //     pageNum: page,
-    //     perpage: rowsPerPage,
-    //     addrr: addr
-    // }
-
-    setAddress(
-      dummyData.map((d) => {
-        return {
-          id: d.id,
-          TxHash: d.TxHash,
-          Age: d.Age,
-          Block: d.Block,
-          From: d.From,
-          To: d.To,
-          Amount: d.Amount,
-        };
-      })
-    );
-
-    console.log(address, "<>");
-
-    setReportaddress(
-      dummyData.map((d) => {
-        return {
-          TxHash: d.TxHash,
-          Age: d.Age,
-          From: d.From,
-          To: d.To,
-          Amount: d.Amount,
-        };
-      })
-    );
-    setDownloadaddress(
-      address.map((d) => {
-        return {
-          id: d.id,
-          TxHash: d.TxHash,
-          Age: d.Age,
-          Block: d.Block,
-          From: d.From,
-          To: d.To,
-          Amount: d.Amount,
-        };
-      })
-    );
-    // getAddressDetails(datas);
+    datas = {
+      pageNum: page,
+      perpage: rowsPerPage,
+      addr: addr,
+    };
+    getHolderDetails(datas);
   }, []);
 
   const getTransactionSearch = async (data) => {
@@ -382,51 +285,51 @@ export default function AddressTableComponent(props) {
   const parseResponseData = async (Recdata, type) => {
     let trxn = [];
     if (type == 1) {
-      trxn = Recdata.transaction;
-      setTotalRecord(Recdata.totalTransactionCount);
+      trxn = JSON.parse(Recdata[0].Transfers);
+      setTotalRecord(Recdata[0].Total_transfes_transactions_Count);
     } else {
       trxn = Recdata.responseTransaction;
       setTotalRecord(Recdata.total);
     }
 
-    // setAddress(
-    //     trxn.map((d) => {
+    setAddress(
+      trxn.map((d) => {
 
-    //         return {
-    //             Txn_Hash: d.hash,
-    //             Age: d.timestamp,
-    //             Block: d.blockNumber,
-    //             From: d.from,
-    //             To: d.to,
-    //             Value: d.value,
-    //             id: d._id,
-    //         };
-    //     })
-    // );
+        return {
+          Txn_Hash: d.hash,
+          Age: d.timestamp,
+          Block: d.blockNumber,
+          From: d.from,
+          To: d.to,
+          Value: d.value,
+          id: d._id,
+        };
+      })
+    );
 
-    // setReportaddress(
-    //     trxn.map((d) => {
+    setReportaddress(
+      trxn.map((d) => {
 
-    //         return {
-    //             Txn_Hash: d.hash,
-    //             Age: d.timestamp,
-    //             Block: d.blockNumber,
-    //             From: d.from,
-    //             To: d.to,
-    //             Value: (d.value / 1000000000000000000)
-    //         };
-    //     })
-    // );
-    // setDownloadaddress(trxn.map((d) => {
-    //     return {
-    //         Txn_Hash: d.hash,
-    //         Age: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
-    //         Block: d.blockNumber,
-    //         From: d.from,
-    //         To: d.to,
-    //         Value: (d.value / 1000000000000000000)
-    //     };
-    // }))
+        return {
+          Txn_Hash: d.hash,
+          Age: d.timestamp,
+          Block: d.blockNumber,
+          From: d.from,
+          To: d.to,
+          Value: (d.value / 1000000000000000000)
+        };
+      })
+    );
+    setDownloadaddress(trxn.map((d) => {
+      return {
+        Txn_Hash: d.hash,
+        Age: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
+        Block: d.blockNumber,
+        From: d.from,
+        To: d.to,
+        Value: (d.value / 1000000000000000000)
+      };
+    }))
   };
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value;
@@ -436,7 +339,7 @@ export default function AddressTableComponent(props) {
       datas = {
         pageNum: 0,
         perpage: rowsPerPage,
-        addrr: addr,
+        addr: addr,
         keywords: searchkeyword,
       };
       getTransactionSearch(datas);
@@ -446,9 +349,9 @@ export default function AddressTableComponent(props) {
       datas = {
         pageNum: 0,
         perpage: rowsPerPage,
-        addrr: addr,
+        addr: addr,
       };
-      getAddressDetails(datas);
+      getHolderDetails(datas);
     }
   };
 
@@ -458,7 +361,6 @@ export default function AddressTableComponent(props) {
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked: checked };
       });
-      // console.log(tempAddress, "<<")
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -474,28 +376,25 @@ export default function AddressTableComponent(props) {
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
-            TxHash: d.TxHash,
-            Age: d.Age,
+            TxHash: d.Txn_Hash,
+            Age: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
+            Block: d.Block,
             From: d.From,
             To: d.To,
-            Amount: d.Amount,
+            Amount: d.Value,
           };
         })
       );
     } else {
-      // alert("hiiii")
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr
       );
-      console.log(tempAddress, ">>>>");
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
           return addr;
         }
       });
-
-      //
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -504,11 +403,12 @@ export default function AddressTableComponent(props) {
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
-            TxHash: d.TxHash,
-            Age: d.Age, //moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss')
+            TxHash: d.Txn_Hash,
+            Age: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
+            Block: d.Block,
             From: d.From,
             To: d.To,
-            Amount: d.Amount,
+            Amount: d.Value,
           };
         })
       );
@@ -524,7 +424,7 @@ export default function AddressTableComponent(props) {
             src={require("../../assets/images/Search.svg")}
           />
           <input
-            onKeyUp={(event) => props._handleSearch(event)}
+
             style={{
               fontSize: "0.938rem",
               letterSpacing: 0.62,
@@ -537,7 +437,14 @@ export default function AddressTableComponent(props) {
             }}
             type="text"
             placeholder="Search Txn"
-            onKeyUp={handleKeyUp}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                console.log("Enter key was pressed. Run your function.");
+                handleKeyUp(e)
+              };
+
+
+            }}
           />
         </div>
 
@@ -589,43 +496,27 @@ export default function AddressTableComponent(props) {
                       type="checkbox"
                       name="allselect"
                       checked={
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
+                        address.filter((addr) => addr?.isChecked == true).length == address.length
                       }
                       style={{ marginRight: "8px" }}
                     />
                     <span className={"tableheader"}>Txn Hash</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader mar-right-45 mar-right-40"}>
                       Age
                     </span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>Block</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>From</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>To</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>Amount</span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
@@ -649,7 +540,7 @@ export default function AddressTableComponent(props) {
                           style={{ border: "none", width: "22%" }}
                           margin-left="5px"
                         >
-                          <div className="dis-flex">
+                          <div className="dis-flex input_12">
                             {" "}
                             <input
                               key={row.id}
@@ -663,9 +554,9 @@ export default function AddressTableComponent(props) {
                               className="linkTable"
                               href={"/transaction-details/" + row.Txn_Hash}
                             >
-                              <Tooltip placement="top" title={row.TxHash}>
+                              <Tooltip placement="top" title={row.Txn_Hash}>
                                 <span className="tabledata">
-                                  {shorten(row.TxHash)}{" "}
+                                  {shorten(row.Txn_Hash)}{" "}
                                 </span>
                               </Tooltip>
                             </a>
@@ -675,7 +566,7 @@ export default function AddressTableComponent(props) {
                           style={{ border: "none", width: "17%" }}
                           align="left"
                         >
-                          <span className="tabledata">{row.Age}</span>
+                          <span className="tabledata">{TimeAge}</span>
                         </TableCell>
                         <TableCell
                           style={{ border: "none", width: "15%" }}
@@ -711,6 +602,7 @@ export default function AddressTableComponent(props) {
                           )}
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
+
                           {row.To != addr ? (
                             <a
                               className="linkTable"
@@ -731,7 +623,7 @@ export default function AddressTableComponent(props) {
                           )}
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className="tabledata">{row.Amount}</span>
+                          <span className="tabledata">{row.Value}</span>
                         </TableCell>
                       </TableRow>
                     );
@@ -792,9 +684,8 @@ export default function AddressTableComponent(props) {
                 <button className="btn">
                   Page{" "}
                   {Math.round(totalRecord / rowsPerPage) +
-                    1 -
-                    Math.round((totalRecord - page) / rowsPerPage)}{" "}
-                  of {Math.round(totalRecord / rowsPerPage)}
+                    1 - Math.round((totalRecord - page) / rowsPerPage)}
+                  &nbsp;of {Math.round(totalRecord / rowsPerPage)}
                 </button>
                 <button
                   onClick={() => handleChangePage("next")}
@@ -834,8 +725,9 @@ export default function AddressTableComponent(props) {
               <span className="text">Records</span>
             </LeftPagination>
 
-            <RightPagination>
+            <RightPagination className="pagiantion-11">
               <button
+                id="btn_12"
                 style={{ marginLeft: "0px" }}
                 onClick={() => handleChangePage("first")}
                 className={page === 0 ? "btn disabled" : "btn"}
@@ -843,22 +735,22 @@ export default function AddressTableComponent(props) {
                 First
               </button>
               <button
+                id="btn_12"
                 onClick={() => handleChangePage("prev")}
                 className={page === 0 ? "btn disabled" : "btn"}
               >
                 {"<"}
               </button>
-              <button className="btn w-100">
+              <button id="btn_12" className="btn w-100">
                 <div className="txt-center">
-                  {" "}
-                  Page{" "}
+                  Page
                   {Math.round(totalRecord / rowsPerPage) +
                     1 -
-                    Math.round((totalRecord - page) / rowsPerPage)}{" "}
-                  of {Math.round(totalRecord / rowsPerPage)}
+                    Math.round((totalRecord - page) / rowsPerPage)} &nbsp;of {Math.round(totalRecord / rowsPerPage)}
                 </div>
               </button>
               <button
+                id="btn_12"
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
@@ -867,6 +759,7 @@ export default function AddressTableComponent(props) {
                 {">"}
               </button>
               <button
+                id="btn_12"
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ? "btn disabled" : "btn"

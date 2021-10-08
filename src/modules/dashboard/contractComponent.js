@@ -28,50 +28,45 @@ const useStyles = makeStyles({
     marginLeft: "18%",
     width: "65%",
     backgroundColor: "white",
-
   },
 });
 const Pagination = styled.div`
-
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin:auto;
-    width: 75.125rem;
-   /* margin-right: 18%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: auto;
+  width: 75.125rem;
+  /* margin-right: 18%;
    margin-left: 18%; */
-    @media (max-width:640px){
-      display: flex;
-      flex-direction:column;
-      width: auto;
-      margin-right: 0%;
-      margin-left: 0%;
-    }  
-    @media (max-width:1023px){
-      width: auto;
-      margin-right: 0%;
-      margin-left: 0%;
-    }       
-  `;
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    width: 22.563rem;
+    margin: 0 auto;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+    margin: 0 auto;
+  }
+`;
 const RightPagination = styled.div`
-  display:flex ;
-  
+  display: flex;
+
   margin-top: 2.188rem;
   flex-direction: row;
-  @media(max-width:1023px){
-    margin-right: 5%;
-    }
-`
-const LeftPagination = styled.div`
-display: flex;
-flex-direction: row;
-
-margin-top: 2.188rem;
-@media (max-width:1023px){
-  margin-left: 5%;
-}
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-right: 0%;
+  }
 `;
+const LeftPagination = styled.div`
+  display: flex;
+  flex-direction: row;
 
+  margin-top: 2.188rem;
+  @media (min-width: 1024px) and (max-width: 1240px) {
+    margin-right: 5%;
+  }
+`;
 
 class Contractlist extends React.Component {
   constructor(props) {
@@ -286,15 +281,26 @@ class Contractlist extends React.Component {
                 e.preventDefault();
               }}
             >
-              <div className="searchelement-div">
-                <p className="searchelement-token">Contracts</p>
-                <div className="searchelement-input">
+              <div className="searchelement-div div-searchelement">
+                <p className="searchelement-token token-searchelement">Contracts</p>
+                <div className="searchelement-input input-searchelement">
                   <img
-                    style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      marginRight: 6,
+                      marginTop: 3,
+                    }}
                     src={require("../../assets/images/Search.svg")}
                   />
                   <input
-                    onKeyUp={this.handleKeyUp}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        console.log("Enter key was pressed. Run your function.");
+                        this.handleKeyUp(e)
+                      }
+
+                    }}
                     style={{
                       fontSize: "0.938rem",
                       letterSpacing: 0.62,
@@ -314,14 +320,14 @@ class Contractlist extends React.Component {
         </div>
         <br />
         <Paper
-          className={"responsive-table-width-contract-list"}
-        style={{
-          borderRadius: "14px",
-          // marginLeft: "18%",
-          // marginRight: "18%",
-        }}
-        // className={classes.rootui}
-        elevation={0}
+          className={"responsive-table-width-contract-list contact-list-tab"}
+          style={{
+            borderRadius: "14px",
+            // marginLeft: "18%",
+            // marginRight: "18%",
+          }}
+          // className={classes.rootui}
+          elevation={0}
         >
           <TableContainer
             className={classes.container}
@@ -340,16 +346,36 @@ class Contractlist extends React.Component {
                     style={{ border: "none", paddingLeft: "3%" }}
                     align="left"
                   >
-                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Address</span>
+                    <span
+                      style={{ fontSize: "14px" }}
+                      className={"tableheaders"}
+                    >
+                      Address
+                    </span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
-                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Token Name</span>
+                    <span
+                      style={{ fontSize: "14px" }}
+                      className={"tableheaders"}
+                    >
+                      Token Name
+                    </span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
-                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Contract Name</span>
+                    <span
+                      style={{ fontSize: "14px" }}
+                      className={"tableheaders"}
+                    >
+                      Contract Name
+                    </span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
-                    <span style={{ fontSize: "14px" }} className={"tableheaders"}>Is Token</span>
+                    <span
+                      style={{ fontSize: "14px" }}
+                      className={"tableheaders"}
+                    >
+                      Is Token
+                    </span>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -404,7 +430,7 @@ class Contractlist extends React.Component {
                       <TableCell id="td" style={{ borderBottom: "none" }}>
                         <span
                           className="tabledata"
-                          style={{ marginLeft: "0.188rem", fontSize: 14,}}
+                          style={{ marginLeft: "0.188rem", fontSize: 14 }}
                         >
                           {isToken}
                         </span>
@@ -484,7 +510,7 @@ class Contractlist extends React.Component {
             <div
               className={
                 this.state.from === 0
-                  ? "firstbox-contract disabled"
+                  ? "firstbox-contract disabled boxfirst"
                   : "firstbox-contract"
               }
               onClick={() => this.handleChangePage("first")}
@@ -504,10 +530,10 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("prev")}
             >
-            <img
-                  className="navigation-arrow"
-                  src={require("../../assets/images/back.svg")}
-                />
+              <img
+                className="navigation-arrow"
+                src={require("../../assets/images/back.svg")}
+              />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
             <div className="pagebox-contract">
@@ -529,10 +555,10 @@ class Contractlist extends React.Component {
                   : "nextbox-contract"
               }
             >
-            <img
-                  className="navigation-arrow"
-                  src={require("../../assets/images/next.svg")}
-                />
+              <img
+                className="navigation-arrow"
+                src={require("../../assets/images/next.svg")}
+              />
               {/* <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}

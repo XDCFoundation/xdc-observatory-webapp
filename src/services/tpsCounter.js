@@ -25,9 +25,7 @@ async function getMaxTpsCounter() {
                 // if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0) {
                 //     return Promise.reject();
                 // }
-
-                // alert(response)
-                return Promise.resolve(response);
+                return Promise.resolve(response.responseData.maxtps);
 
             }
         ).catch(function (err) {
