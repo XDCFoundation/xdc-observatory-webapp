@@ -43,8 +43,9 @@ const useStyles = makeStyles((theme) => ({
     width: "400px !important",
   },
   main_div: {
-    lineHeight: "-100px !important",
-    backgoundColor: "red"
+    // lineHeight: "-100px !important",
+    // backgoundColor: "red",
+    marginTop: "4px",
 },
   radio :{
     // backgroundColor: "blue",
@@ -63,12 +64,13 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px"
   },
   input: {
-    width: "400px",
+    width: "503px",
     height: "3px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    marginBottom: "21px",
   },
   // addbtn: {
   //   width: "110px",
@@ -117,11 +119,11 @@ const useStyles = makeStyles((theme) => ({
 
   },
   buttons: {
-    padding: "1px 35px 15px 0px"
+    padding: "15px 35px 20px 0px"
       },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
+    marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
@@ -148,9 +150,29 @@ const useStyles = makeStyles((theme) => ({
   fontsize: "5px",
   },
   heading: {
-      marginLeft: "10px",
+      marginTop: "7px",
+      marginBottom: "7px",
       fontfamily: "Inter",
       fontweight: "600"
+  },
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
+  },
+  "@media (max-width: 768px)":{
+    dialogBox: {
+      maxWidth: "553px",
+      width: "100%",
+      position: "absolute",
+      top: "157px",
+      
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    }
   }
 }));
 
@@ -232,6 +254,7 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
+          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
@@ -297,8 +320,8 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
 
           </DialogContent>
           <DialogActions className={classes.buttons}>
-          <span><button className={classes.cnlbtn} onClick={handleLogin} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={handleLogin} >Add</button></span>
+          <span><button className={classes.cnlbtn} onClick={handleClose} >Cancel</button></span>
+            <span><button className={classes.addbtn}>Add</button></span>
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
