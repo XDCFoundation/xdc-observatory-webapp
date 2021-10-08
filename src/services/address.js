@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../images/constants";
+import { httpConstants } from "../common/constants";
 
 export default { getAddressDetail , getAddressDetailWithlimit , getTransactionSearch }
 async function getAddressDetail(address) { 
