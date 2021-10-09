@@ -28,24 +28,25 @@ const Pagination = styled.div`
   width: 75.125rem;
   margin: 1.25rem auto;
 
-  @media (max-width: 640px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
-    margin: 0.625rem auto;
+    width: 22.563rem;
+    margin: 0 auto;
   }
-  @media (max-width: 1023px) {
-    width: auto;
-    margin: 0.625rem auto;
-  }
+@media (min-width: 768px) and (max-width: 1240px) {
+  width: 41.5rem;
+  margin: 0 auto;
+}
 `;
 const RightPagination = styled.div`
   display: flex;
   margin-top: 1.75rem;
   flex-direction: row;
 
-  @media (max-width: 1023px) {
-    margin-top: 0.625rem;
-    margin-right: 5%;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    
+    margin-right: 0%;
   }
 `;
 const LeftPagination = styled.div`
@@ -53,9 +54,9 @@ const LeftPagination = styled.div`
   flex-direction: row;
   margin-top: 1.75rem;
 
-  @media (max-width: 1023px) {
-    margin-left: 5%;
-    margin-top: 0.625rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    
+    margin-right: 5%;
   }
 `;
 
@@ -327,9 +328,9 @@ export default function StickyHeadTable() {
 
             }}
           >
-            <div className="searchelement-div">
-              <p className="searchelement-token">Tokens</p>
-              <div className="searchelement-input">
+            <div className="searchelement-div div-searchelement_11">
+              <p className="searchelement-token token-searchelement_11">Tokens</p>
+              <div className="searchelement-input input-searchelement_11">
                 <img
                   style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
                   src={require("../../assets/images/Search.svg")}
@@ -363,7 +364,7 @@ export default function StickyHeadTable() {
 
       <br />
       <Paper
-        className={"responsive-table-width-token-list"}
+        className={"responsive-table-width-token-list token-list-tab_11"}
         style={{
           borderRadius: "0.875rem",
           // marginLeft: "18%",
@@ -512,7 +513,7 @@ export default function StickyHeadTable() {
         <RightPagination>
           <div
             className={
-              from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
+              from === 0 ? "firstbox-contract disabled box-first" : "firstbox-contract"
             }
             onClick={() => handleChangePage("first")}
           >

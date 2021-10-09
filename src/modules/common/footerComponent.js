@@ -390,7 +390,7 @@ export default function FooterComponent(props) {
 
             <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
               <div className="Table-Header">
-                Tweets
+                Tweet
                 <hr style={{ marginRight: "2px" }}></hr>
               </div>
               <div className={"twitter"}>

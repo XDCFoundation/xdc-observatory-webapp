@@ -52,6 +52,9 @@ const MainContainer = styled.div`
 `;
 const MobileScreen = styled.div`
 margin-right: 3px;
+@media (max-width:767px){
+  margin-top: 3px;
+}
 @media (min-width:767px){
   display: flex;
   justify-content: space-between;
@@ -105,14 +108,22 @@ const Value = styled.div`
   width: 10.625rem;
   padding-bottom: 15px;
   @media (min-width:0px) and (max-width:767px){
-    padding: 10px 10px 0 0;
-    width: 8.625rem;
+    padding: 10px 0px 0 0;
+    width: 9.75rem;
   }
 `;
 const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
   margin-bottom: 36px;
+  @media (max-width:767px){
+    width: 18%;
+    margin-right: 9px;
+    margin-left: -8px;
+    margin-top: 8px;
+    margin-bottom: 28px;
+}
+  
 `;
 
 const ValueName = styled.div`

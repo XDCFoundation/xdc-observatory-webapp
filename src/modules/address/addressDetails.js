@@ -102,37 +102,37 @@ export default function AddressDetails(props) {
       );
 
       if (responseData) {
-        setBalance((responseData.balance / 1000000000000000000).toFixed(2));
+        setBalance((responseData.balance / 1000000000000000000).toFixed(18));
         let activeCurrency = window.localStorage.getItem("currency");
         let convertedCurrency = "";
         if (activeCurrency == "USD") {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
           setCoinValue(
-            (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         } else if (activeCurrency == "EUR") {
           convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
           setCoinValue(
-            (responseData.balanceInEUR / 1000000000000000000).toFixed(2)
+            (responseData.balanceInEUR / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         } else if (activeCurrency == "INR") {
           convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
           setCoinValue(
-            (responseData.balanceInINR / 1000000000000000000).toFixed(2)
+            (responseData.balanceInINR / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         } else {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
           setCoinValue(
-            (responseData.balanceInUSD / 1000000000000000000).toFixed(2)
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
           );
           setConvertCurrency(convertedCurrency);
         }
         setLoading(false);
       } else {
-        setBalance(parseFloat(0).toFixed(2));
+        setBalance(parseFloat(0).toFixed(18));
         setLoading(false);
       }
     } catch (error) {
@@ -364,7 +364,7 @@ export default function AddressDetails(props) {
             <div
               className={
                 toggleState === 1
-                  ? "content_sec  active-content_sec"
+                  ? "content_sec  active-content_sec sec-active"
                   : "content_sec"
               }
             >
@@ -406,7 +406,7 @@ const Content = styled.span`
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 0.625rem;
+    font-size: 0.875rem;
     word-break: break-all;
   }
 `;
@@ -541,6 +541,10 @@ const Div = styled.div`
   margin-bottom: 0.938rem;
   padding: 0.313rem;
   margin-top: 0.625rem;
+    @media (min-width: 300px) and (max-width: 767px) {
+    width: 22.563rem;
+    margin-top: 0rem;
+  }
 `;
 
 const Heading = styled.span`
@@ -551,7 +555,7 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.25rem;
 `;
 
 const ImageView = styled.img`
