@@ -35,6 +35,7 @@ const MobileView = styled.div`
     display: none;
   }
 `;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -187,6 +188,13 @@ export default function Navbar() {
     }
   };
 
+  // const  DrawerNav = document.querySelector(".Drawer")
+  // document.addEventListener('click',()=>{
+  //   console.log(DrawerNav)
+  //   if(DrawerNav){
+  //       setOpen(false)
+  //   }
+  // })
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -232,6 +240,7 @@ export default function Navbar() {
           <p
             className="xinfin_api_button"
             onClick={() => setOpencontracts(true)}
+
             style={{ cursor: "pointer" }}
           >
             {" "}

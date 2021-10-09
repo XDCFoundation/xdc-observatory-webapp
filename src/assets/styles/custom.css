@@ -296,7 +296,7 @@ input:focus {
 
 @media (min-width: 641px) and (max-width: 1023px) {
   .qr-code {
-    margin-top: 5px;
+    margin-top: 7px;
   }
 }
 
@@ -857,7 +857,7 @@ input:focus {
   .cont-tab {
     /* display:flex !important;
     flex-direction: column !important; */
-    padding: 0 12px 0 0px !important;
+    padding: 0 0px 0 0px !important;
   }
   .search-btn {
     max-width: 180px;
@@ -938,11 +938,14 @@ input:focus {
   .cont-tab {
     /* display:flex !important;
     flex-direction: column !important; */
-    padding: 0 12px 0 0px !important;
+    padding: 0 0px 0 0px !important;
   }
   .search-btn {
     max-width: 180px;
     width: 100% !important;
+  }
+  .search-input-box {
+    width: 10.625rem !important;
   }
   /* .csv{
     padding: 11px 8px 9px 0 !important;
@@ -2253,7 +2256,7 @@ p {
   width: 75.125rem;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1300px) {
   .searchelement-div {
     margin-top: 60px !important;
     width: auto;
@@ -2316,7 +2319,7 @@ p {
 .searchelement-input3 {
   display: flex;
   flex-direction: row;
-  height: 2.375rem;
+  height: 2.125rem;
   width: 13.875rem;
   padding: 5px 43px 2px 10px;
   border-radius: 0.5rem;
@@ -2895,7 +2898,7 @@ body {
 }
 @media (max-width: 767px) {
   .bloc-tabs {
-    width: 100%;
+    width: 107%;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -3250,7 +3253,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 0px 48px 0px 27px !important;
+    padding: 17px 48px 15px 27px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -3275,7 +3278,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
-    padding: 16px 0px 0px 25px !important;
+    padding: 16px 0px 10px 25px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4556,7 +4559,7 @@ button {
 }
 @media (min-width: 1024px) and (max-width: 1239px) {
   .mainhead_child2 {
-    padding-left: 26px;
+    padding-left: 25px;
   }
 }
 @media (min-width: 1241px) {
@@ -5796,7 +5799,7 @@ button {
   align-items: center !important;
 }
 
-.second-row-table_hash {
+.second-row-hash {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
@@ -7017,7 +7020,13 @@ button {
     padding-left: 1.25rem;
   }
   .table-grid-block {
+    padding-top: 25%;
     width: 23.5rem;
+  }
+  .grid-block-table {
+    margin: 56px auto auto auto !important;
+    /* width: 100% !important; */
+    width: 22.563rem !important;
   }
   .container_sec {
     display: flex;
@@ -7056,11 +7065,20 @@ button {
     width: 22.5625rem;
     margin-left: 0.5rem;
   }
+  .sec-active {
+    margin: 0 auto !important;
+    width: 22.563rem !important;
+  }
   .content_input_all {
     display: flex;
-    flex-direction: column;
-    width: 23rem;
+    /* flex-direction: column; */
+    width: 22.5rem;
     /* justify-content: space-between; */
+  }
+  .cont-tab {
+    width: 22.563rem !important;
+    flex-direction: initial !important;
+    padding: 0 11px 0 2px !important;
   }
   .csvDownloadParent {
     display: flex;
@@ -7078,6 +7096,9 @@ button {
   }
   .source-code-second-container {
     margin-left: 0rem;
+  }
+  .paper-table {
+    padding: 0 0 0 0 !important;
   }
 }
 
@@ -7209,7 +7230,11 @@ button {
     margin-top: 2.12rem;
   }
   .table-grid-block {
-    width: 23.5rem;
+    width: 22.563rem;
+  }
+  .grid-block-table {
+    margin: 149px auto auto auto !important;
+    width: 41.5rem !important;
   }
   .AddressTitle {
     width: 45rem;
@@ -7233,7 +7258,15 @@ button {
   .block_sec {
     width: 41.5rem;
     height: 2.188rem;
-    margin-left: -9.18rem;
+    /* margin-left: -9.18rem; */
+  }
+  .sec-block-mb {
+    width: 41.5rem !important;
+    margin: 0 auto !important;
+  }
+  .sec-active {
+    width: 41.5rem !important;
+    margin: 0 auto !important;
   }
   #transaction-btn {
     width: 10.5rem;
@@ -7243,8 +7276,8 @@ button {
   }
   .active-content_sec {
     display: block;
-    margin-left: -9.18rem;
-    width: 41.5rem;
+    /* margin-left: -9.18rem;
+    width: 41.5rem; */
   }
   .source-code-second-container {
     margin-left: 0rem;
@@ -7601,6 +7634,11 @@ button {
 .word-space-4 {
   word-spacing: -4px;
 }
+@media (min-width: 0px) and (max-width: 641px) {
+  #btn_12 {
+    padding: 7px 6px 10px 10px !important;
+  }
+}
 @media (max-width: 767px) {
   .copy-icon-svg {
     height: 16px;
@@ -7608,22 +7646,36 @@ button {
   }
 }
 @media (min-width: 0px) and (max-width: 766px) {
-  .grid-block-table {
+  /* .grid-block-table {
     margin: 28px auto auto auto !important;
     width: 100% !important;
     max-width: 58.063rem !important;
+  .grid-block-table_11 {
+    padding-top: 24%;
+    max-width: 22.563rem !important;
+  }
+  .block_details_heading_left {
+    margin-left: 8px;
   }
   /* .sec-block-mb{
     width: 100% !important;
     max-width: 19rem!important;
   } */
+  .grid-block-table {
+    margin: 56px auto auto auto !important;
+    width: 22.563rem !important;
+  }
+  .sec-block-mb {
+    margin-left: 0rem !important;
+    padding: 0px !important;
+  }
   /* .active-content_sec {
     display: block !important;
     width: 19.188rem !important;
 } */
   .search-input-box {
-    width: 100% !important;
-    max-width: 10rem !important;
+    width: 15.25rem !important;
+    /* max-width: 10rem !important; */
   }
   .input-box-search {
     width: 100% !important;
@@ -7632,26 +7684,102 @@ button {
   .btn {
     padding: 7px 6px 10px 10px !important;
   }
-}
-
-@media (min-width: 1023px) and (max-width: 1240px) {
-  .grid-block-table {
-    width: 97% !important;
+  .div-searchelement {
+    margin-top: 130px !important;
+    width: 22.563rem !important;
+  }
+  .input-searchelement {
+    margin-left: 0% !important;
+  }
+  .token-searchelement {
+    margin-left: 0% !important;
+  }
+  .contact-list-tab {
+    width: 22.563rem !important;
+    margin: 0 auto;
+  }
+  .div-searchelement_11 {
+    margin-top: 130px !important;
+    width: 22.563rem !important;
+  }
+  .input-searchelement_11 {
+    margin-left: 0% !important;
+  }
+  .token-searchelement_11 {
+    margin-left: 0% !important;
+  }
+  .token-list-tab_11 {
+    width: 22.563rem !important;
+    margin: 0 auto;
+  }
+  .box-first {
+    margin-left: 0% !important;
+  }
+  .boxfirst {
+    margin-left: 0% !important;
   }
 }
 
-@media (min-width: 508px) and (max-width: 760px) {
+/* @media (min-width: 1023px) and (max-width: 1240px) {
+  .grid-block-table {
+    width: 97% !important;
+*/
+@media (min-width: 767px) and (max-width: 1240px) {
+  .grid-block-table_11 {
+    padding-top: 7% !important;
+    width: 41.5rem !important;
+  }
+  .div-searchelement_11 {
+    width: 41.5rem !important;
+    /* margin: 0 auto !important; */
+  }
+  .token-list-tab_11 {
+    width: 41.5rem !important;
+    margin: 0 auto !important;
+  }
+  .input-searchelement_11 {
+    margin-left: 0% !important;
+  }
+  .token-searchelement_11 {
+    margin-left: 0% !important;
+  }
+}
+
+/* @media (min-width: 508px) and (max-width: 760px) {
   .grid-block-table {
     margin: 28px auto auto auto !important;
     width: 100% !important;
     max-width: 34.063rem !important;
+@media (min-width: 768px) and (max-width: 1023px) {
+  .input_12 input {
+    margin-top: 9px;
+  }
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .input_12 input {
+    margin-top: 6px;
+  }
+} */
+@media (min-width: 768px) and (max-width: 1240px) {
+  .div-searchelement {
+    width: 41.5rem !important;
+  }
+  .contact-list-tab {
+    width: 41.5rem !important;
+    margin: 0 auto !important;
+  }
+  .input-searchelement {
+    margin-left: 0% !important;
+  }
+  .token-searchelement {
+    margin-left: 0% !important;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1240px) {
   .searchelement-div {
-    margin-top: 40px !important;
-    width: auto !important;
+    margin-top: 58px !important;
+    width: 41.5rem !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
@@ -7660,13 +7788,13 @@ button {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
-    width: auto;
+    width: 41.5rem;
   }
   .searchelement-token {
     margin-top: 90px !important;
-    margin-left: 5% !important;
+    margin-left: 0% !important;
   }
   .searchelement-input {
-    margin-left: 5% !important;
+    margin-left: 0% !important;
   }
 }
