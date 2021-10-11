@@ -434,13 +434,21 @@ input:focus {
 }
 .inputcss{
   height:40px;
-  width:95%;
+  width:100%;
   border-radius:7px;
   background-color: #f5f5f5;
-
-
-  
+  outline: none; 
  
+}
+.cross-icon{
+  width: 16px;
+  height: 15px;
+}
+.inputOutlineNone{
+  outline: none;
+}
+.ProfilePicContainer{
+  width: 503px;
 }
 .imgcss{
   margin-left:auto;
