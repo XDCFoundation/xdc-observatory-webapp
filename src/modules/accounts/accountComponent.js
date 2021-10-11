@@ -53,7 +53,6 @@ export default function AccountComponent(props) {
                     <input
                         onKeyPress={(e) => {
                             if (e.key === "Enter") {
-                                console.log("Enter key was pressed. Run your function.");
                                 props._handleSearch(e)
                             }
 

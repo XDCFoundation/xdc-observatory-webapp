@@ -158,7 +158,6 @@ export default function Navbar() {
     };
     BlockChainSearch(requestdata);
   };
-
   const BlockChainSearch = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -166,6 +165,7 @@ export default function Navbar() {
       );
 
       if (responseData) {
+        console.log(responseData, "KIu")
         if (responseData.redirect == "block") {
           let blockurl = "/block-details/" + responseData.block.number;
           window.location.href = blockurl;
@@ -186,6 +186,7 @@ export default function Navbar() {
       console.error(error);
     }
   };
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (

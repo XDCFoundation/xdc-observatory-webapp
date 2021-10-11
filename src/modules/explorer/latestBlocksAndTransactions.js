@@ -3,6 +3,7 @@ import "../../assets/styles/custom.css";
 import { BlockService, TransactionService } from "../../services";
 import Utils from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
+import Loader from "../../assets/loader"
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -54,6 +55,8 @@ class LatestBlocks extends Component {
       ageeAnimation: {},
       amountAnimation: {},
       detailAnimation: {},
+      isLoading: true,
+      isLoadingTransaction: true,
     };
   }
 
@@ -157,6 +160,7 @@ class LatestBlocks extends Component {
     if (error || !latestBlocks) return;
 
     this.setState({ latestBlocksData: latestBlocks });
+    this.setState({ isLoading: false });
     // blocks = latestBlocks;
 
     const interval = setInterval(async () => {
@@ -165,6 +169,7 @@ class LatestBlocks extends Component {
           BlockService.getLatestBlock(urlPath, {})
         );
         this.setState({ latestBlocksData: latestBlocks });
+        this.setState({ isLoading: false });
       }
 
       // blocks = latestBlocks;
@@ -180,12 +185,14 @@ class LatestBlocks extends Component {
     );
     if (error || !latestTransactions) return;
     this.setState({ latestTransactionData: latestTransactions });
+    this.setState({ isLoadingTransaction: false });
     const interval = setInterval(async () => {
       if (!this.state.transactionSocketConnected) {
         let [error, latestTransactions] = await Utils.parseResponse(
           TransactionService.getLatestTransaction(urlPath, {})
         );
         this.setState({ latestTransactionData: latestTransactions });
+        this.setState({ isLoadingTransaction: false });
       }
     }, 90000);
   }
@@ -222,26 +229,11 @@ class LatestBlocks extends Component {
                   </div>
                 </div>
                 <div className="data_value">
-                  {/* {this.state.socketBlock &&
-                Object.keys(this.state.socketBlock).length >= 1 ? (
-                  <div className="value_main_main">
-                    <div className="main_vaa">
-                      <p className="first-block-age">hiii</p>
-                      <a
-                        className="height2"
-                        href={"/block-details/" + this.state.socketBlock.number}
-                      >
-                        {this.state.socketBlock.number.toLocaleString()}
-                      </a>
-                      <p className="last-block-transaction">
-                        {this.state.socketBlock.transactions}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )} */}
-                  {this.state.latestBlocksData &&
+                  {(this.state.isLoading == true) ?
+
+                    <div className="loader-circular"><Loader /></div>
+                    :
+                    this.state.latestBlocksData &&
                     this.state.latestBlocksData.length >= 1 &&
                     this.state.latestBlocksData.map((z, index) => {
                       const currentTime = Date.now();
@@ -321,39 +313,13 @@ class LatestBlocks extends Component {
                     <div className="mainhead_child3 wid-24 pad-left-38 ">Age</div>
                     <div>{" "}</div>
                   </div>
-                  {/* <div className="age">
-                 
-                </div> */}
                 </div>
                 <div className="data_value data_margin mar-top-20 mar-top-15">
-                  {/* {transactiondata && Object.keys(transactiondata).length >= 1 ? (
-                <div className="value_main_main">
-                  <div className="value_main main_val">
-                    <Tooltip placement="top" title={transactiondata.hash}>
-                      <a
-                        className="bttn2"
-                        href={"/transaction-details/" + transactiondata.hash}
-                      >
-                        {shorten(transactiondata.hash)}
-                      </a>
-                    </Tooltip>
-                    <p className="amount-table">
-                      {shortenBalance(transactiondata.value)} XDC
-                    </p>
-                    <p className="age-table">{transactionAge}</p>
-                    <a
-                      className="details2"
-                      href={"/transaction-details/" + transactiondata.hash}
-                    >
-                      Details
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )} */}
 
-                  {this.state.latestTransactionData &&
+                  {(this.state.isLoadingTransaction == true) ?
+
+                    <div className="loader-circular"><Loader /></div>
+                    : this.state.latestTransactionData &&
                     this.state.latestTransactionData.length >= 1 &&
                     this.state.latestTransactionData.map((e, index) => {
                       const currentTime = new Date();
