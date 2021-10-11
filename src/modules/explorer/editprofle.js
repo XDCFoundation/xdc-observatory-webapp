@@ -3,13 +3,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import React, { useMemo, useEffect, useState, useRef } from "react";
-
+import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
-
 import { useDropzone } from "react-dropzone";
-
 import { history } from "../../managers/history";
-
 import styled from "styled-components";
 
 const acceptStyle = {
@@ -34,22 +31,10 @@ const thumb = {
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
-  btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
-  },
+  btn: {},
   value: {
     width: "400px !important",
   },
@@ -75,18 +60,17 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
   },
   addbtn: {
-    width: "340px",
+    width: "390px",
     height: "35px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "10px 30px 20px 20.5px",
+    margin: "10px 10px 20px 10px",
     color: "white",
   },
   subCategory: {
     marginTop: "4px",
     marginBottom: "4px",
-    // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
     fontweight: "500",
@@ -139,11 +123,10 @@ const Wrapper = styled.div`
   padding-top: 20px;
 `;
 const Upload = styled.div`
-
-display: block;
-cursor:pointer;
-padding-left:11.2rem;
-font-family: Inter;
+  display: block;
+  cursor: pointer;
+  padding-left: 11.2rem;
+  font-family: Inter;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -151,8 +134,6 @@ font-family: Inter;
   line-height: normal;
   letter-spacing: normal;
   color: #2149b9;
-}
-HTML
 `;
 const Image = styled.img`
   width: 100%;
@@ -171,22 +152,21 @@ const Title = styled.div`
   color: #2a2a2a;
   padding-left: 32px;
 `;
+const ProfilePicContainer = styled.div`
+  width: 503px;
+`;
 
 const Cut = styled.div`
+  padding-right: 25px;
+  padding-top: 7px;
 
-padding-right: 25px;
-    padding-top: 7px;
-    
-    display:flex;
-    align-content: flex-end;
-}`;
+  display: flex;
+  align-content: flex-end;
+`;
 const Input = styled.div`
-display:flex;
-flex-flow: row nowrap;
-
-
-}`;
-
+  display: flex;
+  flex-flow: row nowrap;
+`;
 
 export default function FormDialog() {
   const classes = useStyles();
@@ -251,8 +231,8 @@ export default function FormDialog() {
 
   useEffect(
     () => () => {
-      console.log("file",files);
-      console.log("accept",acceptedFiles);
+      console.log("file", files);
+      console.log("accept", acceptedFiles);
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
@@ -261,7 +241,6 @@ export default function FormDialog() {
 
   const filepath = acceptedFiles.map((file) => (
     <li key={file.path}>
-      
       {file.path} - {file.size} bytes
     </li>
   ));
@@ -271,6 +250,8 @@ export default function FormDialog() {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
+  const [usernameDisable, setUsernameUnable] = React.useState(true);
+  const [emailDisable, setEmailUnable] = React.useState(true);
 
   return (
     <div>
@@ -279,8 +260,8 @@ export default function FormDialog() {
           <div className="edit">Edit Profile</div>
         </button>
 
-        <div>
-          <Dialog
+        <ProfilePicContainer>
+          <Dialog 
             className={classes.dialog}
             open={opens}
             onClose={handleClose}
@@ -290,40 +271,16 @@ export default function FormDialog() {
               <div></div>
               <Title>Edit Profile</Title>
 
-              <Cut onClick={handleClose}> X </Cut>
+              <Cut onClick={handleClose}>
+                {" "}
+                <img
+                  className="cross-icon"
+                  src={require("../../../src/assets/images/XDC-Cross.svg")}
+                />{" "}
+              </Cut>
             </Wrapper>
-           
-            <div className="">
-              {filepath.length === 0 ? (
-                <div className="upload-box">
-                   <img
-              className="dialogeUser center"
-              src={require("../../../src/assets/images/Profile.svg")}
-            />
-                  <input {...getInputProps()} />
+            <AvatarUpload />
 
-                  
-                  
-                   
-                    <Upload
-                     
-                      onClick={open}
-                    >
-                      browse
-                    </Upload>
-                 
-                </div>
-              ) : (
-                
-                 
-                  <div>
-                   
-                  <img className="paddingLeft-30"src={files} />
-                   {/* <p className="dragcont" style={{ textAlign: "center" }}>{filepath}</p>  */}
-                   </div>
-              
-              )}
-            </div>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Username</b>
@@ -331,12 +288,15 @@ export default function FormDialog() {
               <Input className="inputcss">
                 <input
                   style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border w-100"
+                  className="hide-border w-100 inputOutlineNone"
                   type="text"
+                  id="username"
+                  disabled={usernameDisable}
                 />
                 <img
                   className="imgcss"
                   src={require("../../../src/assets/images/edit.svg")}
+                  onClick={() => setUsernameUnable(false)}
                 />
               </Input>
             </DialogContent>
@@ -347,13 +307,16 @@ export default function FormDialog() {
 
               <Input className="inputcss">
                 <input
-                  style={{ backgroundColor: "#f5f5f5", }}
-                  className="hide-border w-100"
+                  style={{ backgroundColor: "#f5f5f5" }}
+                  className="hide-border w-100 inputOutlineNone "
                   type="text"
+                  id="email"
+                  disabled={emailDisable}
                 />
                 <img
                   className="imgcss"
                   src={require("../../../src/assets/images/edit.svg")}
+                  onClick={() => setEmailUnable(false)}
                 />
               </Input>
             </DialogContent>
@@ -369,7 +332,7 @@ export default function FormDialog() {
             </DialogActions>
             <div className={classes.value}></div>
           </Dialog>
-        </div>
+        </ProfilePicContainer>
       </div>
     </div>
   );
