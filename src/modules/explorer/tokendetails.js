@@ -20,7 +20,7 @@ import { Grid } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
-
+import Loader from "../../assets/loader"
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -370,6 +370,8 @@ export default function StickyHeadTable() {
           // marginRight: "18%",
         }} elevation={0}
       >
+        {/* {isLoading == true ?
+          <div className="loader-circular-token"><Loader /></div> : */}
         <TableContainer
           className={classes.container}
           id="container-table-token"
@@ -377,7 +379,7 @@ export default function StickyHeadTable() {
             borderRadius: "0.75rem",
             border: "solid 0.063rem #e3e7eb",
             backgroundColor: "#ffffff",
-            boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
+            boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
           }}
         >
           <Table
