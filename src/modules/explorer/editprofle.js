@@ -51,6 +51,12 @@ const useStyles = makeStyles((theme) => ({
     height: "80% !important",
     borderRadius: "50px !important",
   },
+  paper: {
+    width: '31.438rem',
+    height:"35.063rem",
+    alignSelf: "flex-start",
+    margin: "100px auto",
+  },
   input: {
     width: "340px",
     height: "40px",
@@ -60,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
   },
   addbtn: {
-    width: "390px",
+    width: "100%",
     height: "35px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
@@ -262,6 +268,7 @@ export default function FormDialog() {
 
         <ProfilePicContainer>
           <Dialog 
+            classes={{ paper: classes.paper }}
             className={classes.dialog}
             open={opens}
             onClose={handleClose}
