@@ -13,6 +13,7 @@ import FooterComponent from "../common/footerComponent";
 import Utility, { dispatchAction } from "../../utility";
 import ContractData from "../../services/contract";
 import styled from "styled-components";
+import Loader from '../../assets/loader'
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -87,11 +88,11 @@ class Contractlist extends React.Component {
     this.state = {
       from: 0,
       amount: 10,
-      isLoading: 1,
       rows: [],
       totalRecord: 0,
       keywords: "",
       noData: false,
+      isLoading: true,
     };
   }
   componentDidMount = async () => {
@@ -109,13 +110,15 @@ class Contractlist extends React.Component {
     this.setState({ from: 0 });
     if (searchkeyword.length > 2) {
       this.setState({ keywords: searchkeyword });
-      this.setState({ isLoading: 0 });
+      this.setState({ isLoading: false });
       let data = {
         pageNum: this.state.from,
         perpage: this.state.amount,
         keywords: searchkeyword,
       };
+      // window.location.reload();
       await this.getContractSearch(data);
+
     }
     if (searchkeyword.length == 0) {
       this.setState({ from: 0 });
@@ -224,7 +227,7 @@ class Contractlist extends React.Component {
     );
 
     if (responseData) {
-      this.setState({ isLoading: 0 });
+      this.setState({ isLoading: false });
       this.setState({ rows: responseData });
       this.setState({ noData: false });
     } else {
@@ -259,7 +262,7 @@ class Contractlist extends React.Component {
       this.setState({ noData: true });
     }
     if (responseData) {
-      this.setState({ isLoading: 0 });
+      this.setState({ isLoading: false });
       this.setState({ totalRecord: responseData });
       this.setState({ noData: false });
     } else {
@@ -392,66 +395,77 @@ class Contractlist extends React.Component {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {this.state.rows.map((row, index) => {
-                  let isToken = "";
-                  if (row.ERC == 0) {
-                    isToken = "No";
-                  } else {
-                    isToken = "Yes";
-                  }
-                  return (
-                    <TableRow
-                      key={row.name}
-                      style={
-                        index % 2 !== 1
-                          ? { background: "#f9f9f9" }
-                          : { background: "white" }
-                      }
-                    >
-                      <TableCell
-                        id="td"
-                        style={{ width: "46%", borderBottom: "none" }}
+              {this.state.isLoading == true ? (
+                <TableBody>
+                  <TableRow>
+                    <TableCell style={{ border: 'none' }} colspan="6">
+                      <div className="loader-block-list">
+                        <Loader />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ) :
+                <TableBody>
+                  {this.state.rows.map((row, index) => {
+                    let isToken = "";
+                    if (row.ERC == 0) {
+                      isToken = "No";
+                    } else {
+                      isToken = "Yes";
+                    }
+                    return (
+                      <TableRow
+                        key={row.name}
+                        style={
+                          index % 2 !== 1
+                            ? { background: "#f9f9f9" }
+                            : { background: "white" }
+                        }
                       >
-                        <a
-                          style={{
-                            color: "#2149b9",
-                            fontSize: 14,
-                            marginLeft: "1.375rem",
-                          }}
-                          href={`/address/${row.address}`}
+                        <TableCell
+                          id="td"
+                          style={{ width: "46%", borderBottom: "none" }}
                         >
-                          <span className="tabledata">{row.address} </span>
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ borderBottom: "none" }}>
-                        <span
-                          className="tabledata"
-                          style={{ marginLeft: "5px" }}
-                        >
-                          {row.tokenName}
-                        </span>
-                      </TableCell>
-                      <TableCell id="td" style={{ borderBottom: "none" }}>
-                        <span
-                          className="tabledata"
-                          style={{ marginLeft: "5px" }}
-                        >
-                          {row.contractName}
-                        </span>
-                      </TableCell>
-                      <TableCell id="td" style={{ borderBottom: "none" }}>
-                        <span
-                          className="tabledata"
-                          style={{ marginLeft: "0.188rem", fontSize: 14 }}
-                        >
-                          {isToken}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
+                          <a
+                            style={{
+                              color: "#2149b9",
+                              fontSize: 14,
+                              marginLeft: "1.375rem",
+                            }}
+                            href={`/address/${row.address}`}
+                          >
+                            <span className="tabledata">{row.address} </span>
+                          </a>
+                        </TableCell>
+                        <TableCell id="td" style={{ borderBottom: "none" }}>
+                          <span
+                            className="tabledata"
+                            style={{ marginLeft: "5px" }}
+                          >
+                            {row.tokenName}
+                          </span>
+                        </TableCell>
+                        <TableCell id="td" style={{ borderBottom: "none" }}>
+                          <span
+                            className="tabledata"
+                            style={{ marginLeft: "5px" }}
+                          >
+                            {row.contractName}
+                          </span>
+                        </TableCell>
+                        <TableCell id="td" style={{ borderBottom: "none" }}>
+                          <span
+                            className="tabledata"
+                            style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                          >
+                            {isToken}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>}
               <TableBody className={msgStatus}>
                 <TableCell id="td" style={{ border: "none" }}>
                   <span
