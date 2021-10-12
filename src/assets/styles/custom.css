@@ -7621,9 +7621,41 @@ button {
 }
 .loader-circular-token {
   margin: auto;
-  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%);
-  align-items: center;
-  height: 200px;
-  border-radius: 0.875rem;
-  display: grid;
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 1241px) {
+  .loader-token-list {
+    display: grid;
+    height: 250px;
+    margin-top: 120px;
+  }
+  .loader-block-list {
+    display: grid;
+    height: 250px;
+    margin-top: 120px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .loader-token-list {
+    display: grid;
+    margin-top: 120px;
+  }
+  .loader-block-list {
+    display: flex;
+    margin-top: 175px;
+    margin-left: 300px;
+  }
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  .loader-token-list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 135px;
+  }
+  .loader-block-list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 135px;
+  }
 }
