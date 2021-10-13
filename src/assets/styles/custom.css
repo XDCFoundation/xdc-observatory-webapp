@@ -7635,6 +7635,26 @@ button {
     height: 250px;
     margin-top: 120px;
   }
+  .loader-contract-list {
+    display: grid;
+    height: 250px;
+    margin-top: 120px;
+  }
+  .loader-transfer-list {
+    margin-top: 75px;
+    display: grid;
+    height: 155px;
+  }
+  .loader-holder-list {
+    display: grid;
+    height: 250px;
+    margin-top: 120px;
+  }
+  .loader-address-details-list {
+    margin-top: 75px;
+    display: grid;
+    height: 155px;
+  }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .loader-token-list {
@@ -7642,6 +7662,20 @@ button {
     margin-top: 120px;
   }
   .loader-block-list {
+    display: flex;
+    margin-top: 175px;
+    margin-left: 300px;
+  }
+  .loader-contract-list {
+    display: grid;
+    height: 250px;
+    margin-top: 120px;
+  }
+  .loader-holder-list {
+    display: flex;
+    margin-left: 300px;
+  }
+  .loader-address-details-list {
     display: flex;
     margin-top: 175px;
     margin-left: 300px;
@@ -7657,5 +7691,28 @@ button {
     display: flex;
     justify-content: flex-start;
     margin: 135px;
+  }
+  .loader-transfer-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 47px;
+    margin-left: 135px;
+  }
+  .loader-contract-list {
+    display: flex;
+    justify-content: flex-start;
+    margin: 135px;
+  }
+  .loader-holder-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 47px;
+    margin-left: 135px;
+  }
+  .loader-address-details-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 47px;
+    margin-left: 135px;
   }
 }
