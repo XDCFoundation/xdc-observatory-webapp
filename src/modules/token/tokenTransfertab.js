@@ -15,6 +15,8 @@ import { useParams } from "react-router";
 import styled from "styled-components";
 import back from '../../assets/images/back.svg';
 import next from '../../assets/images/next.svg';
+import Loader from '../../assets/loader'
+import TableBody from '@material-ui/core/TableBody'
 
 
 function timeDiff(curr, prev) {
@@ -126,6 +128,7 @@ export default function StickyHeadTable() {
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState({});
   const [noData, setNoData] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const { address } = useParams();
 
   useEffect(() => {
@@ -139,10 +142,12 @@ export default function StickyHeadTable() {
     );
     if (error || !tns) return;
     settransfer(tns);
+    setLoading(false)
     if (tns.totalTransactions.length == 0) {
       setNoData(false)
     }
     setTotalToken(tns.totalTransactionCount);
+
     const interval = setInterval(async () => {
       let [error, tns] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(values)
@@ -150,6 +155,7 @@ export default function StickyHeadTable() {
       settransfer(tns);
 
       setTotalToken(tns.totalTransactionCount);
+      setLoading(false)
     }, 90000);
   };
 
@@ -222,8 +228,18 @@ export default function StickyHeadTable() {
                 </TableCell>
               </TableRow>
             </TableHead>
+            {isLoading == true ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell style={{ border: 'none' }} colspan="5">
+                    <div className="loader-transfer-list">
+                      <Loader />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) :
 
-            {
               transfer.totalTransactions &&
               transfer.totalTransactions.length >= 1 &&
               transfer.totalTransactions.map((row) => {

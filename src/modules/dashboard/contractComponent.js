@@ -395,11 +395,11 @@ class Contractlist extends React.Component {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              {this.state.isLoading == true ? (
+              {this.state.isLoading == false ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: 'none' }} colspan="6">
-                      <div className="loader-block-list">
+                      <div className="loader-contract-list">
                         <Loader />
                       </div>
                     </TableCell>
