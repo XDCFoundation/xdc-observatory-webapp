@@ -4269,7 +4269,6 @@ button {
     opacity: 1;
     height: 1.063rem;
     font-weight: normal;
-    padding-left: 70px;
   }
 }
 @media (min-width: 768px) and (max-width: 1239px) {
@@ -4497,7 +4496,11 @@ button {
     margin-top: 15px;
   }
 }
-
+@media (min-width: 0px) and (max-width: 767px) {
+  .amount-left-43 {
+    padding-left: 43px !important;
+  }
+}
 .mainhead_child1 {
   width: 32%;
   font-size: 12px;
@@ -7518,8 +7521,8 @@ button {
   }
 }
 @media (max-width: 767px) {
-  .wid-15 {
-    width: 20% !important;
+  .wid-14 {
+    width: 14% !important;
   }
 }
 
@@ -7614,13 +7617,9 @@ button {
     margin-left: 0rem !important;
     padding: 0px !important;
   }
-  /* .active-content_sec {
-    display: block !important;
-    width: 19.188rem !important;
-} */
+
   .search-input-box {
     width: 15.25rem !important;
-    /* max-width: 10rem !important; */
   }
   .input-box-search {
     width: 100% !important;
@@ -7737,5 +7736,16 @@ button {
   }
   .searchelement-input {
     margin-left: 0% !important;
+  }
+    
+}
+@media (max-width: 767px) {
+  .details-margin-30 {
+    margin-left: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .w-118 {
+    width: 118%;
   }
 }
