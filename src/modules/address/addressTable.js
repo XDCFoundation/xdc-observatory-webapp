@@ -641,9 +641,9 @@ export default function AddressTableComponent(props) {
             display: "flex",
             justifyContent: "space-between",
           }}
-          className="page-container"
+          className="page-container-address"
         >
-          <Grid item xs="4" className="pagination-tab">
+          <Grid item xs="4" className="pagination-tab-address">
             <span className="text">Show</span>
             <Select
               value={rowsPerPage}
