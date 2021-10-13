@@ -504,13 +504,7 @@ input:focus {
   .MuiTableCell-root {
     padding: 8px !important;
   }
-  /* .address_block_main {
-    margin-top: 8% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    width: 95% !important;
-    max-width: 1202px !important;
-  } */
+
   .add {
     display: flex !important;
   }
@@ -549,13 +543,7 @@ input:focus {
   .MuiTableCell-root {
     padding: 8px !important;
   }
-  /* .address_block_main {
-    margin-top: 8% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    width: 95% !important;
-    max-width: 481px !important;
-  } */
+
   .add {
     display: flex !important;
   }
@@ -624,7 +612,7 @@ input:focus {
     flex-direction: column !important;
     padding: 0 0 0 12px !important;
   }
-   .page-container-address {
+  .page-container-address {
     display: flex !important;
     flex-direction: column !important;
     padding: 0 0 0 0px !important;
@@ -815,13 +803,7 @@ input:focus {
     margin-left: 0 !important;
     width: 100% !important;
   }
-  /* .address_block_main {
-    margin-top: 8% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    max-width: 1020px !important;
-  } */
+
   .add {
     display: flex !important;
   }
@@ -5837,6 +5819,10 @@ button {
   margin: 130px auto auto auto;
   width: 75.063rem;
 }
+.table-grid-block-contract {
+  margin: 130px auto auto auto;
+  width: 75.063rem;
+}
 /* 
 @media (min-width: 641px) and (max-width: 1023px) {
   .table-grid-block {
@@ -6132,15 +6118,16 @@ button {
   justify-content: space-between;
   display: flex;
   border-bottom: solid 1px #e3e7eb;
-  /* width: 75.125rem; */
+  width: 75.125rem;
   height: 2.188rem;
 }
-/* 
-@media (max-width: 640px) {
-  .block_sec {
-    margin-top: 25px;
-  }
-} */
+.block_sec_contract {
+  justify-content: space-between;
+  display: flex;
+  border-bottom: solid 1px #e3e7eb;
+  width: 75.125rem;
+  height: 2.188rem;
+}
 
 .bloc-tabs_sec {
   width: 100%;
@@ -6957,16 +6944,12 @@ button {
   }
   .centerbox-td {
     width: 21.4375rem;
-    /* width: 100%; */
     height: 1.9375rem;
     margin-right: -20px;
-    /* margin-top: 0px; */
     margin-left: 3.0625rem;
   }
 
   .vc-header {
-    /* width: 96%; */
-    /* margin: 218px auto 3%; */
     display: flex;
     justify-content: center;
     margin: 14rem 0rem 0rem 0rem;
@@ -7035,7 +7018,10 @@ button {
     padding-left: 1.25rem;
   }
   .table-grid-block {
-    padding-top: 25%;
+    margin-top: 25%;
+    width: 23.5rem;
+  }
+  .table-grid-block-contract {
     width: 23.5rem;
   }
   .grid-block-table {
@@ -7065,6 +7051,11 @@ button {
     flex-direction: column !important;
   }
   .block_sec {
+    width: 22rem;
+    height: 2.188rem;
+    margin-left: 1rem;
+  }
+  .block_sec_contract {
     width: 22rem;
     height: 2.188rem;
     margin-left: 1rem;
@@ -7252,6 +7243,9 @@ button {
   .table-grid-block {
     width: 22.563rem;
   }
+  .table-grid-block-contract {
+    width: 22.563rem;
+  }
   .grid-block-table {
     margin: 149px auto auto auto !important;
     width: 41.5rem !important;
@@ -7278,7 +7272,11 @@ button {
   .block_sec {
     width: 41.5rem;
     height: 2.188rem;
-    /* margin-left: -9.18rem; */
+  }
+  .block_sec_contract {
+    width: 41.5rem;
+    height: 2.188rem;
+    margin-left: -9.18rem;
   }
   .sec-block-mb {
     width: 41.5rem !important;
