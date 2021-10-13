@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
       height: '11.4375rem !important',
     },
   },
+  "@media (min-width: 768px) and (max-width:1240px)": {
+    appBar: {
+      height: '8.25rem !important',
+    },
+  },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["margin", "width"], {
