@@ -7684,10 +7684,6 @@ button {
   }
 }
 
-/* @media (min-width: 1023px) and (max-width: 1240px) {
-  .grid-block-table {
-    width: 97% !important;
-*/
 @media (min-width: 767px) and (max-width: 1240px) {
   .grid-block-table_11 {
     padding-top: 7% !important;
