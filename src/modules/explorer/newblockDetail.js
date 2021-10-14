@@ -86,7 +86,6 @@ export default function BlockDetails() {
     let updatedCount = Number(count) - 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
-    setLoading(true)
     getLatestaccount(updatedCount);
   }
 
