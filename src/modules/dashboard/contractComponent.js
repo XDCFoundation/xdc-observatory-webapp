@@ -395,7 +395,7 @@ class Contractlist extends React.Component {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              {this.state.isLoading == false ? (
+              {this.state.isLoading == true ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: 'none' }} colspan="6">
