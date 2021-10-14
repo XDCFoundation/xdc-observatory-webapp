@@ -310,7 +310,7 @@ export default function StickyHeadTable() {
     getTokenList(data)
     getTotalTokenList()
   }, [])
-  console.log(totalToken / amount, totalToken, amount, '++')
+
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />

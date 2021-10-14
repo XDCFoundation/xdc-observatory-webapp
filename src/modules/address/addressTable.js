@@ -364,7 +364,7 @@ export default function AddressTableComponent(props) {
       )
     }
   }
-  console.log(downloadaddress, address, '525')
+
   return (
     <div>
       <div className="content_input_all cont-tab">
@@ -518,7 +518,7 @@ export default function AddressTableComponent(props) {
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {isLoading == false ? (
+              {isLoading == true ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: 'none' }} colspan="6">

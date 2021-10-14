@@ -23,6 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Utils from "../../utility";
 import TokenData from "../../services/token";
+import Loader from '../../assets/loader';
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 1023px) {
     display: none;
@@ -133,10 +134,10 @@ export default function HolderTableComponent(props) {
 
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
-  console.log(downloadaddress, "kkk")
   const [page, setPage] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
+  const [isLoading, setLoading] = useState(true)
   let showPerPage = 50;
   let datas = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
@@ -242,12 +243,12 @@ export default function HolderTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getHolderDetailsUsingAddressforToken(data)
       );
-      console.log(JSON.parse(responseData[0].Transfers), "kjkj")
       if (responseData[0].Total_transfes_transactions_Count > 0) {
-
+        setLoading(false)
         setNoData(false);
         parseResponseData(responseData, 1);
       } else {
+        setLoading(false)
         setNoData(true);
         setBalance(parseFloat(0).toFixed(2));
       }
@@ -537,113 +538,125 @@ export default function HolderTableComponent(props) {
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {noData == false && (
+              {isLoading == true ? (
                 <TableBody>
-                  {address.map((row, index) => {
-                    const currentTime = new Date();
-                    const previousTime = new Date(row.Age * 1000);
-                    const TimeAge = timeDiff(currentTime, previousTime);
-                    return (
-                      <TableRow
-                        style={
-                          index % 2 !== 1
-                            ? { background: "#f9f9f9" }
-                            : { background: "white" }
-                        }
-                      >
-                        <TableCell
-                          style={{ border: "none", width: "22%" }}
-                          margin-left="5px"
+                  <TableRow>
+                    <TableCell style={{ border: 'none' }} colspan="6">
+                      <div className="loader-address-details-list">
+                        <Loader />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ) : (
+                noData == false && (
+                  <TableBody>
+                    {address.map((row, index) => {
+                      const currentTime = new Date();
+                      const previousTime = new Date(row.Age * 1000);
+                      const TimeAge = timeDiff(currentTime, previousTime);
+                      return (
+                        <TableRow
+                          style={
+                            index % 2 !== 1
+                              ? { background: "#f9f9f9" }
+                              : { background: "white" }
+                          }
                         >
-                          <div className="dis-flex">
-                            {" "}
-                            <input
-                              key={row.id}
-                              name={row.id}
-                              onChange={handleChanged}
-                              type="checkbox"
-                              checked={row?.isChecked || false}
-                              style={{ marginRight: "8px" }}
-                            />
-                            <a
-                              className="linkTable"
-                              href={"/transaction-details/" + row.Txn_Hash}
-                            >
-                              <Tooltip placement="top" title={row.Txn_Hash}>
-                                <span className="tabledata">
-                                  {shorten(row.Txn_Hash)}{" "}
-                                </span>
-                              </Tooltip>
-                            </a>
-                          </div>
-                        </TableCell>
-                        <TableCell
-                          style={{ border: "none", width: "17%" }}
-                          align="left"
-                        >
-                          <span className="tabledata">{TimeAge}</span>
-                        </TableCell>
-                        <TableCell
-                          style={{ border: "none", width: "15%" }}
-                          align="left"
-                        >
-                          <a
-                            className="linkTable"
-                            href={"/block-details/" + row.Block}
+                          <TableCell
+                            style={{ border: "none", width: "22%" }}
+                            margin-left="5px"
                           >
-                            <span className="tabledata">{row.Block}</span>
-                          </a>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          {row.From != addr ? (
+                            <div className="dis-flex">
+                              {" "}
+                              <input
+                                key={row.id}
+                                name={row.id}
+                                onChange={handleChanged}
+                                type="checkbox"
+                                checked={row?.isChecked || false}
+                                style={{ marginRight: "8px" }}
+                              />
+                              <a
+                                className="linkTable"
+                                href={"/transaction-details/" + row.Txn_Hash}
+                              >
+                                <Tooltip placement="top" title={row.Txn_Hash}>
+                                  <span className="tabledata">
+                                    {shorten(row.Txn_Hash)}{" "}
+                                  </span>
+                                </Tooltip>
+                              </a>
+                            </div>
+                          </TableCell>
+                          <TableCell
+                            style={{ border: "none", width: "17%" }}
+                            align="left"
+                          >
+                            <span className="tabledata">{TimeAge}</span>
+                          </TableCell>
+                          <TableCell
+                            style={{ border: "none", width: "15%" }}
+                            align="left"
+                          >
                             <a
                               className="linkTable"
-                              href={"/address-details/" + row.From}
+                              href={"/block-details/" + row.Block}
                             >
+                              <span className="tabledata">{row.Block}</span>
+                            </a>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            {row.From != addr ? (
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.From}
+                              >
+                                <Tooltip placement="top" title={row.From}>
+                                  <span className="tabledata">
+                                    {" "}
+                                    {shorten(row.From)}
+                                  </span>
+                                </Tooltip>
+                              </a>
+                            ) : (
                               <Tooltip placement="top" title={row.From}>
                                 <span className="tabledata">
                                   {" "}
                                   {shorten(row.From)}
                                 </span>
                               </Tooltip>
-                            </a>
-                          ) : (
-                            <Tooltip placement="top" title={row.From}>
-                              <span className="tabledata">
-                                {" "}
-                                {shorten(row.From)}
-                              </span>
-                            </Tooltip>
-                          )}
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
+                            )}
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
 
-                          {row.To != addr ? (
-                            <a
-                              className="linkTable"
-                              href={"/address-details/" + row.To}
-                            >
+                            {row.To != addr ? (
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.To}
+                              >
+                                <Tooltip placement="top" title={row.To}>
+                                  <span className="tabledata">
+                                    {shorten(row.To)}
+                                  </span>
+                                </Tooltip>
+                              </a>
+                            ) : (
                               <Tooltip placement="top" title={row.To}>
                                 <span className="tabledata">
                                   {shorten(row.To)}
                                 </span>
                               </Tooltip>
-                            </a>
-                          ) : (
-                            <Tooltip placement="top" title={row.To}>
-                              <span className="tabledata">
-                                {shorten(row.To)}
-                              </span>
-                            </Tooltip>
-                          )}
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className="tabledata">{row.Value}</span>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
+                            )}
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className="tabledata">{row.Value}</span>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                )
               )}
               {noData == true && (
                 <TableBody>
