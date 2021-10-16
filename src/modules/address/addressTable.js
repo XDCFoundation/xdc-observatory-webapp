@@ -434,7 +434,7 @@ export default function AddressTableComponent(props) {
         <Paper
           style={{ borderRadius: '0.75rem' }}
           elevation={0}
-          className="table-paper"
+          className="table-paper paper-table"
         >
           <TableContainer
             className={classes.container}
@@ -655,9 +655,9 @@ export default function AddressTableComponent(props) {
             display: 'flex',
             justifyContent: 'space-between',
           }}
-          className="page-container"
+          className="page-container-address"
         >
-          <Grid item xs="4" className="pagination-tab">
+          <Grid item xs="4" className="pagination-tab-address">
             <span className="text">Show</span>
             <Select
               value={rowsPerPage}
