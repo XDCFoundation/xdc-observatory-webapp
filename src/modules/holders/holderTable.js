@@ -23,7 +23,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Utils from "../../utility";
 import TokenData from "../../services/token";
-import Loader from '../../assets/loader';
+import Loader from "../../assets/loader"
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 1023px) {
     display: none;
@@ -134,10 +134,11 @@ export default function HolderTableComponent(props) {
 
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
+  console.log(downloadaddress, "kkk")
   const [page, setPage] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true);
   let showPerPage = 50;
   let datas = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
@@ -243,6 +244,7 @@ export default function HolderTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getHolderDetailsUsingAddressforToken(data)
       );
+      console.log(JSON.parse(responseData[0].Transfers), "kjkj")
       if (responseData[0].Total_transfes_transactions_Count > 0) {
         setLoading(false)
         setNoData(false);
@@ -503,36 +505,21 @@ export default function HolderTableComponent(props) {
                     />
                     <span className={"tableheader"}>Txn Hash</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader mar-right-45 mar-right-40"}>
                       Age
                     </span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>Block</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>From</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>To</span>
                   </TableCell>
-                  <TableCell
-                    style={{ border: "none" }}
-                    align="left"
-                  >
+                  <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader"}>Amount</span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
@@ -565,9 +552,9 @@ export default function HolderTableComponent(props) {
                         >
                           <TableCell
                             style={{ border: "none", width: "22%" }}
-                            margin-left="5px"
+                            marginleft="5px"
                           >
-                            <div className="dis-flex">
+                            <div className="dis-flex input_12">
                               {" "}
                               <input
                                 key={row.id}
@@ -753,8 +740,9 @@ export default function HolderTableComponent(props) {
               <span className="text">Records</span>
             </LeftPagination>
 
-            <RightPagination>
+            <RightPagination className="pagiantion-11">
               <button
+                id="btn_12"
                 style={{ marginLeft: "0px" }}
                 onClick={() => handleChangePage("first")}
                 className={page === 0 ? "btn disabled" : "btn"}
@@ -762,12 +750,13 @@ export default function HolderTableComponent(props) {
                 First
               </button>
               <button
+                id="btn_12"
                 onClick={() => handleChangePage("prev")}
                 className={page === 0 ? "btn disabled" : "btn"}
               >
                 {"<"}
               </button>
-              <button className="btn w-100">
+              <button id="btn_12" className="btn w-100">
                 <div className="txt-center">
                   Page
                   {Math.round(totalRecord / rowsPerPage) +
@@ -776,6 +765,7 @@ export default function HolderTableComponent(props) {
                 </div>
               </button>
               <button
+                id="btn_12"
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
@@ -784,6 +774,7 @@ export default function HolderTableComponent(props) {
                 {">"}
               </button>
               <button
+                id="btn_12"
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
@@ -794,7 +785,7 @@ export default function HolderTableComponent(props) {
             </RightPagination>
           </Pagination>
         </MobileView>
-      </Grid>
+      </      Grid>
     </div>
   );
 }
