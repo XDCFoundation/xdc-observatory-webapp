@@ -159,7 +159,6 @@ export default function Navbar() {
     };
     BlockChainSearch(requestdata);
   };
-
   const BlockChainSearch = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -167,6 +166,7 @@ export default function Navbar() {
       );
 
       if (responseData) {
+        console.log(responseData, "KIu")
         if (responseData.redirect == "block") {
           let blockurl = "/block-details/" + responseData.block.number;
           window.location.href = blockurl;
@@ -188,13 +188,6 @@ export default function Navbar() {
     }
   };
 
-  // const  DrawerNav = document.querySelector(".Drawer")
-  // document.addEventListener('click',()=>{
-  //   console.log(DrawerNav)
-  //   if(DrawerNav){
-  //       setOpen(false)
-  //   }
-  // })
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
