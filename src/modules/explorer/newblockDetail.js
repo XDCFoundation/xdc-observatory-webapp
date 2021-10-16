@@ -61,9 +61,7 @@ export default function BlockDetails() {
   useEffect(() => {
     getLatestaccount(blockNumber);
     setcount(blockNumber);
-    setInterval(() => {
-      getLatestaccount(count);
-    }, 90000);
+
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
@@ -76,6 +74,7 @@ export default function BlockDetails() {
     setLoading(false)
   };
   function increment() {
+    setLoading(true)
     let updatedCount = Number(count) + 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
@@ -83,6 +82,7 @@ export default function BlockDetails() {
   }
 
   function decrement() {
+    setLoading(true)
     let updatedCount = Number(count) - 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
@@ -100,7 +100,6 @@ export default function BlockDetails() {
   const gasL = `Total gas limit provided by all transactions in the block`;
   const nonc = `Block nonce is a value used during mining to demonstrate proof of work for a block.`;
   const extrad = `Any data that can be included by the miner in the block.`;
-  var isActive = false;
   return (
     <div>
       <Tokensearchbar />
@@ -113,10 +112,6 @@ export default function BlockDetails() {
                   <Container>
                     <Heading>Block Details</Heading>
                   </Container>
-
-                  {/* <SecondContainer>
-              <Leftcontainer>122 Votes</Leftcontainer>
-            </SecondContainer> */}
                 </Spacing>
 
                 <Div>
@@ -253,9 +248,7 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>
                       <Content>
-                        {" "}
-                        <a onClick={decrement} style={{ cursor: "pointer", color: "#2149b9" }}>
-                          {" "}
+                        <a onClick={decrement} className="parent_hash" style={{ cursor: "pointer" }}>
                           {height.parentHash}
                         </a>
                         <CopyToClipboard
