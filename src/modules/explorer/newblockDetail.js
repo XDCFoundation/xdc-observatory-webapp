@@ -56,12 +56,12 @@ export default function BlockDetails() {
   const [count, setcount] = useState(0);
   const [copiedText, setCopiedText] = useState("");
   const { blockNumber } = useParams();
+  const [isLoading, setLoading] = useState(true)
+
   useEffect(() => {
     getLatestaccount(blockNumber);
     setcount(blockNumber);
-    setInterval(() => {
-      getLatestaccount(count);
-    }, 90000);
+
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
@@ -71,8 +71,10 @@ export default function BlockDetails() {
     );
     if (error || !blockDetailsUsingHeight) return;
     setHeight(blockDetailsUsingHeight);
+    setLoading(false)
   };
   function increment() {
+    setLoading(true)
     let updatedCount = Number(count) + 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
@@ -80,6 +82,7 @@ export default function BlockDetails() {
   }
 
   function decrement() {
+    setLoading(true)
     let updatedCount = Number(count) - 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
@@ -97,322 +100,319 @@ export default function BlockDetails() {
   const gasL = `Total gas limit provided by all transactions in the block`;
   const nonc = `Block nonce is a value used during mining to demonstrate proof of work for a block.`;
   const extrad = `Any data that can be included by the miner in the block.`;
-  var isActive = false;
   return (
     <div>
       <Tokensearchbar />
       <div className={classes.mainContainer}>
         <div className={classes.root}>
           <Grid item xs={12}>
-            <Spacing style={{ borderBottom: "none" }}>
-              <Container>
-                <Heading>Block Details</Heading>
-              </Container>
+            <div className={isLoading == true ? "cover-spin-2" : ""}>
+              <div className={isLoading == true ? "cover-spin" : ""}>
+                <Spacing style={{ borderBottom: "none" }}>
+                  <Container>
+                    <Heading>Block Details</Heading>
+                  </Container>
+                </Spacing>
 
-              {/* <SecondContainer>
-              <Leftcontainer>122 Votes</Leftcontainer>
-            </SecondContainer> */}
-            </Spacing>
-
-            <Div>
-              <HashDiv>
-                <Container className="pad-left-6 pad-left-7">
-                  <Tooltip align="right" title={hashid}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Hash ID</Hash>
-                </Container>
-
-                <MiddleContainerHash>
-                  <Content >{height.hash}
-
-
-                    <CopyToClipboard
-                      text={height.hash}
-                      onCopy={() => setCopiedText(height.hash)}
-                    >
-                      <Tooltip
-                        title={
-                          copiedText === height.hash
-                            ? "Copied"
-                            : "Copy To Clipboard"
-                        }
-                        placement="top"
-                      >
-                        <button
-                          style={{
-                            color: "blue",
-                            backgroundColor: "white",
-                            fontSize: 14,
-                          }}
-                        >
-                          <ImgView
-                            src={require("../../../src/assets/images/copy.svg")}
-                          />
-                        </button>
+                <Div>
+                  <HashDiv>
+                    <Container className="pad-left-6 pad-left-7">
+                      <Tooltip align="right" title={hashid}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
                       </Tooltip>
-                    </CopyToClipboard>
-                  </Content>
-                </MiddleContainerHash>
-              </HashDiv>
-            </Div>
-            <Div__>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={blockheight}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
+                      <Hash>Hash ID</Hash>
+                    </Container>
 
-                  <Hash>Block Height</Hash>
-                </Container>
-                <MiddleContainer>
-                  <Content>
-                    <ArrowBackIosIcon
-                      style={{
-                        marginRight: "10px",
-                        color: "white",
-                        backgroundColor: "#2149b9",
-                        width: "20px",
-                        height: "20px",
-                        padding: "3px",
-                        paddingLeft: "6px",
-                        borderRadius: "5px",
-                        border: "1px #2149b9",
-                        lineHeight: "1rem",
-                        verticalAlign: "bottom",
+                    <MiddleContainerHash>
+                      <Content >{height.hash}
+
+
+                        <CopyToClipboard
+                          text={height.hash}
+                          onCopy={() => setCopiedText(height.hash)}
+                        >
+                          <Tooltip
+                            title={
+                              copiedText === height.hash
+                                ? "Copied"
+                                : "Copy To Clipboard"
+                            }
+                            placement="top"
+                          >
+                            <button
+                              style={{
+                                color: "blue",
+                                backgroundColor: "white",
+                                fontSize: 14,
+                              }}
+                            >
+                              <ImgView
+                                src={require("../../../src/assets/images/copy.svg")}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </Content>
+                    </MiddleContainerHash>
+                  </HashDiv>
+                </Div>
+                <Div__>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={blockheight}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+
+                      <Hash>Block Height</Hash>
+                    </Container>
+                    <MiddleContainer>
+                      <Content>
+                        <ArrowBackIosIcon
+                          style={{
+                            marginRight: "10px",
+                            color: "white",
+                            backgroundColor: "#2149b9",
+                            width: "20px",
+                            height: "20px",
+                            padding: "3px",
+                            paddingLeft: "6px",
+                            borderRadius: "5px",
+                            border: "1px #2149b9",
+                            lineHeight: "1rem",
+                            verticalAlign: "bottom",
+                          }}
+                          onClick={decrement}
+                        />
+                        {count}
+                        <ArrowForwardIosIcon
+                          style={{
+                            marginLeft: "10px",
+                            color: "white",
+                            backgroundColor: "#2149b9",
+                            width: "20px",
+                            height: "20px",
+                            padding: "3px",
+                            paddingLeft: "6px",
+                            borderRadius: "5px",
+                            border: "1px #2149b9",
+                            lineHeight: "1rem",
+                            verticalAlign: "bottom",
+                          }}
+                          onClick={increment}
+                        />
+                      </Content>
+                    </MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={hashid}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Transaction</Hash>
+                    </Container>
+                    <MiddleContainer>
+                      {height.transactions && height.transactions.length
+                        ? height.transactions.length
+                        : 0}
+                    </MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={timestamp}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Time Stamp</Hash>
+                    </Container>
+                    <MiddleContainer>
+                      {moment(height.timestamp * 1000).format(
+                        "MMMM Do YYYY, h:mm:ss a"
+                      )}
+                    </MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={parenthash}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Parent Hash</Hash>
+                    </Container>
+                    <MiddleContainer>
+                      <Content>
+                        <a onClick={decrement} className="parent_hash" style={{ cursor: "pointer" }}>
+                          {height.parentHash}
+                        </a>
+                        <CopyToClipboard
+                          text={height.hash}
+                          onCopy={() => setCopiedText(height.hash)}
+                        >
+                          <Tooltip
+                            title={
+                              copiedText === height.hash
+                                ? "Copied"
+                                : "Copy To Clipboard"
+                            }
+                            placement="top"
+                          >
+                            <button
+                              style={{
+                                color: "blue",
+                                backgroundColor: "white",
+                                fontSize: 14,
+                              }}
+                            >
+                              <ImgView
+                                src={require("../../../src/assets/images/copy.svg")}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </Content>
+                    </MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={sha3uncles}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Sha3Uncles</Hash>
+                    </Container>
+                    <MiddleContainer>
+                      <Content className="fc-2149b9">
+                        {" "}
+                        <a
+                          className="parent_hash"
+                          onClick={decrement}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {" "}
+                          {height.sha3Uncles}
+                        </a>
+                        <CopyToClipboard
+                          text={height.hash}
+                          onCopy={() => setCopiedText(height.hash)}
+                        >
+                          <Tooltip
+                            title={
+                              copiedText === height.hash
+                                ? "Copied"
+                                : "Copy To Clipboard"
+                            }
+                            placement="top"
+                          >
+                            <button
+                              style={{
+                                color: "blue",
+                                backgroundColor: "white",
+                                fontSize: 14,
+                              }}
+                            >
+                              <ImgView
+                                src={require("../../../src/assets/images/copy.svg")}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </Content>
+                    </MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={diffi}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Difficulty</Hash>
+                    </Container>
+                    <MiddleContainer>{height.difficulty}</MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={tdiffi}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Total Difficulty</Hash>
+                    </Container>
+                    <MiddleContainer>{height.totalDifficulty}</MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={gasU}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Gas Used</Hash>
+                    </Container>
+                    <MiddleContainer>{height.gasUsed}</MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={gasL}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Gas Limit</Hash>
+                    </Container>
+                    <MiddleContainer>{height.gasLimit}</MiddleContainer>
+                  </Spacing>
+                  <Spacing>
+                    <Container>
+                      <Tooltip align="right" title={nonc}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Nonce</Hash>
+                    </Container>
+                    <MiddleContainer>{height.nonce}</MiddleContainer>
+                  </Spacing>
+                  <Spacing style={{ borderBottom: 'none', marginTop: '30px' }}>
+                    <Container className="pad-bottom-34">
+                      <Tooltip align="right" title={extrad}>
+                        <ImageView
+                          src={require("../../../src/assets/images/question-mark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Extra Data</Hash>
+                    </Container>
+                    <MiddleContainer style={{ height: '60px', width: '100%' }}>
+
+                      <textarea style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "4px",
+                        outline: "transparent",
+                        border: "solid 1px #9fa9ba",
+                        backgroundColor: "#dee0e3",
+                        color: "#3a3a3a",
+                        marginLeft: "0px"
                       }}
-                      onClick={decrement}
-                    />
-                    {count}
-                    <ArrowForwardIosIcon
-                      style={{
-                        marginLeft: "10px",
-                        color: "white",
-                        backgroundColor: "#2149b9",
-                        width: "20px",
-                        height: "20px",
-                        padding: "3px",
-                        paddingLeft: "6px",
-                        borderRadius: "5px",
-                        border: "1px #2149b9",
-                        lineHeight: "1rem",
-                        verticalAlign: "bottom",
-                      }}
-                      onClick={increment}
-                    />
-                  </Content>
-                </MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={hashid}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Transaction</Hash>
-                </Container>
-                <MiddleContainer>
-                  {height.transactions && height.transactions.length
-                    ? height.transactions.length
-                    : 0}
-                </MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={timestamp}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Time Stamp</Hash>
-                </Container>
-                <MiddleContainer>
-                  {moment(height.timestamp * 1000).format(
-                    "MMMM Do YYYY, h:mm:ss a"
-                  )}
-                </MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={parenthash}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Parent Hash</Hash>
-                </Container>
-                <MiddleContainer>
-                  <Content>
-                    {" "}
-                    <a onClick={decrement} style={{ cursor: "pointer", color: "#2149b9" }}>
-                      {" "}
-                      {height.parentHash}
-                    </a>
-                    <CopyToClipboard
-                      text={height.hash}
-                      onCopy={() => setCopiedText(height.hash)}
-                    >
-                      <Tooltip
-                        title={
-                          copiedText === height.hash
-                            ? "Copied"
-                            : "Copy To Clipboard"
-                        }
-                        placement="top"
-                      >
-                        <button
-                          style={{
-                            color: "blue",
-                            backgroundColor: "white",
-                            fontSize: 14,
-                          }}
-                        >
-                          <ImgView
-                            src={require("../../../src/assets/images/copy.svg")}
-                          />
-                        </button>
-                      </Tooltip>
-                    </CopyToClipboard>
-                  </Content>
-                </MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={sha3uncles}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Sha3Uncles</Hash>
-                </Container>
-                <MiddleContainer>
-                  <Content className="fc-2149b9">
-                    {" "}
-                    <a
-                      className="parent_hash"
-                      onClick={decrement}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {" "}
-                      {height.sha3Uncles}
-                    </a>
-                    <CopyToClipboard
-                      text={height.hash}
-                      onCopy={() => setCopiedText(height.hash)}
-                    >
-                      <Tooltip
-                        title={
-                          copiedText === height.hash
-                            ? "Copied"
-                            : "Copy To Clipboard"
-                        }
-                        placement="top"
-                      >
-                        <button
-                          style={{
-                            color: "blue",
-                            backgroundColor: "white",
-                            fontSize: 14,
-                          }}
-                        >
-                          <ImgView
-                            src={require("../../../src/assets/images/copy.svg")}
-                          />
-                        </button>
-                      </Tooltip>
-                    </CopyToClipboard>
-                  </Content>
-                </MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={diffi}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Difficulty</Hash>
-                </Container>
-                <MiddleContainer>{height.difficulty}</MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={tdiffi}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Total Difficulty</Hash>
-                </Container>
-                <MiddleContainer>{height.totalDifficulty}</MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={gasU}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Gas Used</Hash>
-                </Container>
-                <MiddleContainer>{height.gasUsed}</MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={gasL}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Gas Limit</Hash>
-                </Container>
-                <MiddleContainer>{height.gasLimit}</MiddleContainer>
-              </Spacing>
-              <Spacing>
-                <Container>
-                  <Tooltip align="right" title={nonc}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Nonce</Hash>
-                </Container>
-                <MiddleContainer>{height.nonce}</MiddleContainer>
-              </Spacing>
-              <Spacing style={{ borderBottom: 'none', marginTop: '30px' }}>
-                <Container className="pad-bottom-34">
-                  <Tooltip align="right" title={extrad}>
-                    <ImageView
-                      src={require("../../../src/assets/images/question-mark.svg")}
-                    />
-                  </Tooltip>
-                  <Hash>Extra Data</Hash>
-                </Container>
-                <MiddleContainer style={{ height: '60px', width: '100%' }}>
+                        className="text-area"
+                        readOnly
+                        value={height.extraData}
+                      />
 
-                  <textarea style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "4px",
-                    outline: "transparent",
-                    border: "solid 1px #9fa9ba",
-                    backgroundColor: "#dee0e3",
-                    color: "#3a3a3a",
-                    marginLeft: "0px"
-                  }}
-                    className="text-area"
-                    readOnly
-                    value={height.extraData}
-                  />
-
-                </MiddleContainer>
-              </Spacing>
-            </Div__>
+                    </MiddleContainer>
+                  </Spacing>
+                </Div__>
+              </div>
+            </div>
           </Grid>
         </div>
       </div>
