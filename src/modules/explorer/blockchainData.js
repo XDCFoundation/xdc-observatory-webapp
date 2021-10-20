@@ -133,7 +133,7 @@ const ValueName = styled.div`
   // margin-left: 2px;
 `;
 const Title = styled.div`
-  color: #a09e9e;
+  color: #686868;
   font-size: 0.875rem;
   font-family: "Inter";
   font-weight: normal;
@@ -401,7 +401,7 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
-    
+
     if (error || !tpsCount) return;
 
     this.setState({ tpsCounts: tpsCount });
@@ -418,7 +418,7 @@ class BlockChainDataComponent extends Component {
     let [error, MaxtpsCount] = await Utils.parseResponse(
       TpsService.getMaxTpsCounter()
     );
-    
+
     if (error || !MaxtpsCount) return;
     this.setState({ Maxtps: MaxtpsCount });
     const interval = setInterval(async () => {
@@ -503,7 +503,7 @@ class BlockChainDataComponent extends Component {
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts
-      
+
     return (
       <MainContainer>
         <LeftContainer>
