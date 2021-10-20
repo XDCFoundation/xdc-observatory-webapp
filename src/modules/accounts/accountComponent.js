@@ -131,26 +131,26 @@ export default function AccountComponent(props) {
                 <Grid container style={{ marginTop: "35px" }} className="Pagination">
                     <Grid item className="Pagination_1">
                         <span className="text">Show</span>
-                        <Select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
-                            <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={25}>25</MenuItem>
-                            <MenuItem value={50}>50</MenuItem>
-                            <MenuItem value={100}>100</MenuItem>
-                        </Select>
+                        <select value={props.state.amount} className="select-amount" onChange={(event) => props._handleChange(event)} >
+                            <option value={10}>10</option>
+                            <option value={25}>25</option>
+                            <option value={50}>50</option>
+                            <option value={100}>100</option>
+                        </select>
                         <span className="text">Records</span>
                     </Grid>
 
                     <Grid item className="Pagination_2">
                         <button id="btn_12" style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
                         <button id="btn_12" onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img
-                  className="back-arrow"
-                  src={require("../../assets/images/back.svg")}
-                /></button>
+                            className="back-arrow"
+                            src={require("../../assets/images/back.svg")}
+                        /></button>
                         <button id="btn_12" className="btn">Page {Math.round(state.totalAccounts / state.amount) + 1 - Math.round((state.totalAccounts - state.from) / state.amount)} of {Math.round(state.totalAccounts / state.amount)}</button>
                         <button id="btn_12" onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
-                  className="back-arrow"
-                  src={require("../../assets/images/next.svg")}
-                /></button>
+                            className="back-arrow"
+                            src={require("../../assets/images/next.svg")}
+                        /></button>
                         <button id="btn_12" onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}>Last</button>
 
                     </Grid>

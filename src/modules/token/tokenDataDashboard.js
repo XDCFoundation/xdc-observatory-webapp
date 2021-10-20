@@ -515,7 +515,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={transactionLogo} /> */}
                     <ValueName>
                       <Title>Contract</Title>
-                      <ContractButton> {shorten(address)}</ContractButton>
+                      <ContractButton> <a className="token-link" href={`/address/${address}`}> {shorten(address)}</a></ContractButton>
                     </ValueName>
                   </Value>
                 </MobileScreen>

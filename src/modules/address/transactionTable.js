@@ -54,7 +54,7 @@ export default function TransactionTableComponent(props) {
   const { state } = props
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${'.'.repeat(stars)}${b.slice(
+    return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
       b.length - 3,
       b.length,
     )}`
@@ -300,7 +300,7 @@ export default function TransactionTableComponent(props) {
   }, [])
   const classes = useStyles()
   const history = useHistory()
-
+  console.log(address, "?<>?")
   return (
     <div>
       <div className="content_input_all cont-tab">
@@ -568,17 +568,17 @@ export default function TransactionTableComponent(props) {
           <Grid item xs="4" className="pagination-tab">
             <span className="text">Show</span>
             {
-              <Select
+              <select
                 value={amount}
                 className="select-amount"
                 onChange={handleChangeRowsPerPage}
               >
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={25}>25</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={100}>100</MenuItem>
-                <MenuItem value={500}>500</MenuItem>
-              </Select>
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={75}>75</option>
+                <option value={100}>100</option>
+              </select>
             }
             <span className="text">Records</span>
           </Grid>

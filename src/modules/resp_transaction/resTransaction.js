@@ -133,8 +133,8 @@ export default function Transaction({ _handleChange }) {
 
       <div className={classes.root}>
         <Grid>
-          <div className={isLoading == true ? "cover-spin-2" : ""}>
-            <div className={isLoading == true ? "cover-spin" : ""}>
+          <div className={isLoading == false ? "cover-spin-2" : ""}>
+            <div className={isLoading == false ? "cover-spin" : ""}>
 
               <Spacing style={{ borderBottom: 'none' }}>
                 <Container>
@@ -426,7 +426,14 @@ export default function Transaction({ _handleChange }) {
                     <HashInputData>Input Data</HashInputData>
                   </Container>
                   <MiddleContainerInputData isTextArea={true}>
-                    <TextArea readOnly value={transactions.input} />
+                    <div className="transaction-details-input-data">
+
+                      <textarea
+                        className="text-area-transaction"
+                        readOnly
+                        value={transactions.input}
+                      />
+                    </div>
                   </MiddleContainerInputData>
                 </SpacingInputData>
                 <SpacingPrivateNode>
@@ -675,7 +682,7 @@ const SpacingInputData = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding-right: 2.313rem;
+  
   border-bottom: solid 1px #e3e7eb;
   height: 7.75rem;
   @media (max-width: 767px) {
@@ -695,7 +702,7 @@ const SpacingPrivateNode = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
-  padding-right: 2.313rem;
+  
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
@@ -787,6 +794,7 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
+        margin-top: 27px;
   }
   @media  (min-width: 768px) and  (max-width:1240px) {
     height: 1rem;
