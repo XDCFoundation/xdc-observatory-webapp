@@ -656,8 +656,7 @@ export default function Navbar() {
                           style={{
                             width: 16,
                             height: 16,
-                            marginRight: 3,
-                            marginTop: 2,
+                            marginRight: 3
                           }}
                           src={require("../../assets/images/Search.svg")}
                         />
