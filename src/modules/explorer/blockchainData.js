@@ -54,6 +54,7 @@ const MobileScreen = styled.div`
 margin-right: 3px;
 @media (max-width:767px){
   margin-top: 3px;
+  margin-right:-24px ;
 }
 @media (min-width:767px){
   display: flex;
@@ -563,6 +564,24 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
+                  <TitleIcon src={transactionLogo} />
+                  <ValueName>
+                    <Title>Transactions</Title>
+                    <TitleValue>{this.state.totalTransaction}</TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Current/Max TPS</Title>
+                    <TitleValue>
+                      {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
+                    </TitleValue>
+                  </ValueName>
+                </Value>
+              </MobileScreen>
+              <MobileScreen>
+                <Value>
                   <TitleIcon src={priceLogo} />
                   <ValueName>
                     <Title>Gas Price</Title>
@@ -574,29 +593,11 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
-                  <TitleIcon src={transactionLogo} />
-                  <ValueName>
-                    <Title>Transactions</Title>
-                    <TitleValue>{this.state.totalTransaction}</TitleValue>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
-              <MobileScreen>
-                <Value>
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
                     <Title>Difficulty</Title>
                     <TitleValue className={animationClass ? animationClass : ""}>
                       {this.state.blockdataNumber[0]?.totalDifficulty}
-                    </TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={maxLogo} />
-                  <ValueName>
-                    <Title>Current/Max TPS</Title>
-                    <TitleValue>
-                      {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
                     </TitleValue>
                   </ValueName>
                 </Value>

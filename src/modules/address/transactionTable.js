@@ -306,7 +306,7 @@ export default function TransactionTableComponent(props) {
       <div className="content_input_all cont-tab">
         <div className="searchelement-input3 search-btn">
           <img
-            style={{ width: 18, height: 18, marginRight: 5, marginTop: 5 }}
+            style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
             src={require('../../assets/images/Search.svg')}
           />
           <input

@@ -13,10 +13,8 @@ export default function VerifyContract() {
 
                     <div className="verify-contracts-head">Verify and Publish Contract Source Code</div><br />
                     <div className="textarea-verify-contract">
-                        <p className="verify-contract-first-div">Enter Contract Source Code below.
-                            <br />
-
-                            If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
+                        <p className="verify-contract-first-div">Enter Contract Source Code below.</p>
+                        <p className="verify-contract-first-div-text">If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
                     </div>
                     <br /><br />
                     <div className="flex-row">

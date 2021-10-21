@@ -727,7 +727,21 @@
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
-
+.tableheaders_Transfer-table-hash {
+  font-weight: bold !important;
+}
+.tableheaders_Transfer-table-age {
+  font-weight: bold !important;
+}
+.tableheaders_Transfer-table-block {
+  font-weight: bold !important;
+}
+.tableheaders_Transfer-table-from {
+  font-weight: bold !important;
+}
+.tableheaders_Transfer-table-to {
+  font-weight: bold !important;
+}
 @media only screen and (min-width: 767px) {
   .container-table {
     overflow: auto;

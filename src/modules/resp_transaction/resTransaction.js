@@ -174,6 +174,7 @@ export default function Transaction({ _handleChange }) {
                               color: "#2149b9",
                               backgroundColor: "white",
                               fontSize: 14,
+                              marginLeft: 3
                             }}
                           >
                             <img
