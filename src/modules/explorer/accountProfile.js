@@ -222,6 +222,15 @@ export default function SimpleTabs(props) {
     setAddress(response);
   }
 
+  getUserWatchlist();
+  async function getUserWatchlist() {   
+    console.log("tuhsar")
+      //the user id has to be change from 
+    const data = "BP1006";
+    const response = await UserService.getUserWatchlist(data);    
+    setAddress(response);
+  }
+
   // const [search, setSearch] = React.useState("");
 
   // const filteredProducts = address.filter((product) => {
