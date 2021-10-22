@@ -1330,7 +1330,30 @@ p {
   background-color: #02c227;
   margin-top: 15px;
 }
-
+@media (min-width: 0px) and (max-width: 766px) {
+  .Success-rectangle {
+    height: 24px;
+    margin-left: 15px;
+    color: white;
+    font-size: 12px;
+    padding: 3px 12px 3px 12px;
+    border-radius: 4px;
+    background-color: #02c227;
+    margin-top: 25px;
+  }
+}
+@media (min-width: 767px) and (max-width: 1240px) {
+  .Success-rectangle {
+    height: 24px;
+    margin-left: 15px;
+    color: white;
+    font-size: 12px;
+    padding: 3px 12px 3px 12px;
+    border-radius: 4px;
+    background-color: #02c227;
+    margin-top: 21px;
+  }
+}
 .Failed-rectangle {
   height: 24px;
   margin-left: 15px;
@@ -1339,6 +1362,31 @@ p {
   padding: 3px 12px 3px 12px;
   border-radius: 4px;
   background-color: red;
+  margin-top: 15px;
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  .Failed-rectangle {
+    height: 24px;
+    margin-left: 15px;
+    color: white;
+    font-size: 12px;
+    padding: 3px 12px 3px 12px;
+    border-radius: 4px;
+    background-color: red;
+    margin-top: 21px;
+  }
+}
+@media (min-width: 767px) and (max-width: 1240px) {
+  .Failed-rectangle {
+    height: 24px;
+    margin-left: 15px;
+    color: white;
+    font-size: 12px;
+    padding: 3px 12px 3px 12px;
+    border-radius: 4px;
+    background-color: red;
+    margin-top: 21px;
+  }
 }
 
 .transaction-box {
@@ -3359,6 +3407,22 @@ body {
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  #container-table-token td {
+    padding: 12px;
+    text-align: left;
+    margin: 19px 49px 1.8px 69px;
+    font-family: "Inter" !important;
+    font-size: 0.875rem !important;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.58px;
+    text-align: left;
+    color: #252525;
+  }
 }
 
 .input-area {
@@ -7815,6 +7879,7 @@ button {
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
+    font-size: 1rem !important;
   }
   .token-list-tab_11 {
     width: 22.563rem !important;

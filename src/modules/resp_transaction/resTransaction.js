@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "@media (min-width: 0px) and (max-width: 767px)": {
       maxWidth: "22.563rem",
-      marginTop: "155px",
+      marginTop: "200px",
     },
     "@media (min-width: 768px) and (max-width: 1239px)": {
       marginTop: "130px",
@@ -447,8 +447,8 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
-                    {/* <Input /> */}
-                    To access the Private Note feature, you must be{" "}
+
+                    <PrivateText>To access the Private Note feature, you must be</PrivateText>
                     <a className="linkTableDetails">Logged In</a>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
@@ -515,7 +515,17 @@ const TextArea = styled.textarea`
       width: 110%
     }
 `;
-
+const PrivateText = styled.p`
+display: contents;
+@media (min-width: 0px) and (max-width: 767px) {
+display: contents;
+}
+ @media (min-width: 768px) and (max-width: 1240px){
+     display:block;
+     margin-bottom: -5px
+;
+    }
+`;
 const Div__ = styled.div`
   height: 56.06rem;
   width: 75.125rem;
@@ -539,7 +549,7 @@ const Div__ = styled.div`
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.2px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -549,19 +559,21 @@ const MiddleContainerPrivateNote = styled.div`
   height: 2.313rem;
   padding: 7px;
   @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 10px;
     font-size:0.875rem;
     text-align: left;
-   letter-spacing: 0.034rem;
+   letter-spacing: 0.2px;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
+    line-height: 0.5px;
     height: auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size:0.875rem;
     height: 3.25rem;
     text-align: left;
-   letter-spacing: 0.034rem;
+   letter-spacing: 0.2px;
     opacity: 1;
   }
 `;
@@ -795,7 +807,6 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
-        margin-top: 27px;
   }
   @media  (min-width: 768px) and  (max-width:1240px) {
     height: 1rem;
