@@ -282,7 +282,26 @@ export default function Navbar() {
     "Nodes",
     "Tokens",
   ];
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState(""); const childToggle = (subanchor, open) => (event) => {
+
+    if (
+
+      event.type === "keydown" &&
+
+      (event.key === "Tab" || event.key === "Shift")
+
+    ) {
+
+      return;
+
+    }
+
+    setOpencontracts(false)
+
+    setState({ ...state, [subanchor]: open });
+
+  };
+
 
   const contracts = (subanchor) => (
     <div
@@ -303,6 +322,7 @@ export default function Navbar() {
                 onClick={() => setOpencontracts(false)}
                 style={{ color: "white", fontSize: 17 }}
               >
+
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
             </div>
@@ -321,7 +341,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={() => setOpencontracts(false)}
+                onClick={childToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
