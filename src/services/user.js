@@ -52,7 +52,8 @@ async function postUserPrivateNote(data) {
 }
 
 async function getUserWatchlist(data) {
-  let url = `http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/getAddress/${data}`;
+  // let url = `http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/getAddress/${data}`;
+  let url = `http://localhost:3000/getAddress/${data}`
   console.log("url ",url)
   console.log("infunction")
   return httpService(
