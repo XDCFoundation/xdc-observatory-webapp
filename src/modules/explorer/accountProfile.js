@@ -163,6 +163,7 @@ export default function SimpleTabs(props) {
   }
 
   const [address, setAddress] = React.useState([]);
+  const [watchlist, setWatchlist] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
 
@@ -197,6 +198,22 @@ export default function SimpleTabs(props) {
         id: 3,
       },
     ];
+    getUserWatchlist();
+    async function getUserWatchlist() {
+      console.log("tuhsar");
+      //the user id has to be change from
+      const data = "12345";
+      const response = await UserService.getUserWatchlist(data);
+      console.log("url response", response);
+      setWatchlist(response);
+    }
+    getuserdata();
+    async function getuserdata() {
+      //the user id has to be change from
+      const data = "12345";
+      const response = await UserService.getUserPrivateNote(data);
+      setAddress(response);
+    }
 
     // setAddress(
     //   address.map((d) => {
@@ -213,23 +230,6 @@ export default function SimpleTabs(props) {
     //   })
     // );
   }, []);
-
-  getuserdata();
-  async function getuserdata() {   
-      //the user id has to be change from 
-    const data = "12345";
-    const response = await UserService.getUserPrivateNote(data);    
-    setAddress(response);
-  }
-
-  getUserWatchlist();
-  async function getUserWatchlist() {   
-    console.log("tuhsar")
-      //the user id has to be change from 
-    const data = "BP1006";
-    const response = await UserService.getUserWatchlist(data);    
-    setAddress(response);
-  }
 
   // const [search, setSearch] = React.useState("");
 
@@ -401,8 +401,8 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             onChange={(e) => {
                               let checked = e.target.checked;
-                              setAddress(
-                                address.map((d) => {
+                              setWatchlist(
+                                watchlist.map((d) => {
                                   d.select = checked;
 
                                   return d;
@@ -464,7 +464,7 @@ export default function SimpleTabs(props) {
                     <TableBody>
                       {/* {filteredProducts.map((product)=>{ */}
 
-                      {address.map((row, index) => {
+                      {watchlist.map((row, index) => {
                         // const currentTime = new Date();
                         // const previousTime = new Date(row.timestamp * 1000);
                         // const ti = timeDiff(currentTime, previousTime);
@@ -525,29 +525,26 @@ export default function SimpleTabs(props) {
                                 style={{ marginRight: "8px" }}
                               />
                               <a className="linkTable" href="/">
-                                <Tooltip
-                                  placement="top"
-                                  title={row.transactionHash}
-                                >
+                                <Tooltip placement="top" title={row.address}>
                                   <span className="tabledata">
-                                    {shorten(row.transactionHash)}{" "}
+                                    {shorten(row.address)}{" "}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className="tabledata">
-                                {row.Description}
+                                {row.description}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata">{row.Balance}</span>
+                              <span className="tabledata">{row.balance}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.AddedOn}</span>
+                              <span className="tabledata"> {row.addedOn}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
