@@ -10,6 +10,7 @@
     "@nivo/line": "^0.70.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@tippyjs/react": "^4.2.5",
+    "auth0-js": "^9.17.0",
     "aws-sdk": "^2.481.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.1.3",
