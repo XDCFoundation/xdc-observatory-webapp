@@ -135,7 +135,7 @@ export default function AddressDetailsData() {
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <Tokensearchbar />
-      <Grid className="table-grid-block ">
+      <Grid className="table-grid-block-contract ">
         <div
           className="block_details_heading b-h1"
           style={{ display: "flex", flexDirection: "row" }}
@@ -218,7 +218,7 @@ export default function AddressDetailsData() {
           <br />
           <br />
           <div>
-            <div className="block_sec sec-block">
+            <div className="block_sec_contract sec-block">
               <div className="bloc-tabs_sec">
                 <button
                   className={
@@ -261,8 +261,6 @@ export default function AddressDetailsData() {
             >
 
               {!responses ? "" : responses.status === "verified" ? <TokenUnverifiedContract contractData={responses} /> : <TokenContracttab contractData={responses} />}
-              {/* <TokenUnverifiedContract contractData={contractStatus} /> */}
-              {/* <TokenContracttab contractData={contractStatus} /> */}
             </div>
             {/* <div
               className={

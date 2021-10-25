@@ -37,9 +37,6 @@ const useStyles = makeStyles({
 });
 
 export default function TransactionsDetailsData({ _handleChange }) {
-  function shorten(b, amountL = 25, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)} ${".".repeat(stars)} ${b.slice(b.length)} `;
-  }
 
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
@@ -55,6 +52,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
     if (error || !transactiondetailusinghash) return;
+    
     setTransactions(transactiondetailusinghash);
   };
 
@@ -118,6 +116,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
   // let zero = value1?.slice(10, 74);
   // let one = value1?.slice(74, 138);
   // console.log(charCount, "<<<")
+ 
   return (
     <div>
       <Tokensearchbar />

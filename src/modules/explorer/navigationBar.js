@@ -36,6 +36,7 @@ const MobileView = styled.div`
     display: none;
   }
 `;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -158,7 +159,6 @@ export default function Navbar() {
     };
     BlockChainSearch(requestdata);
   };
-
   const BlockChainSearch = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -166,6 +166,7 @@ export default function Navbar() {
       );
 
       if (responseData) {
+        console.log(responseData, "KIu")
         if (responseData.redirect == "block") {
           let blockurl = "/block-details/" + responseData.block.number;
           window.location.href = blockurl;
@@ -230,6 +231,7 @@ export default function Navbar() {
           <p
             className="xinfin_api_button"
             onClick={() => setOpencontracts(true)}
+
             style={{ cursor: "pointer" }}
           >
             {" "}
