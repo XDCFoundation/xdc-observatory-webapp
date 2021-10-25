@@ -303,7 +303,7 @@ export default function TransactionTableComponent(props) {
   console.log(address, "?<>?")
   return (
     <div>
-      <div className="content_input_all cont-tab">
+      <div className="content_input_all cont-tab-contract">
         <div className="searchelement-input3 search-btn">
           <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
@@ -361,13 +361,13 @@ export default function TransactionTableComponent(props) {
         <Paper
           style={{ borderRadius: '14px' }}
           elevation={0}
-          className="table-paper"
+          className="table-paper-contract"
         >
           <TableContainer
             className={classes.container}
             id="container-table table-cont"
           >
-            <Table className="table-trans">
+            <Table className="table-trans-contract">
               <TableHead>
                 <TableRow>
                   <TableCell
@@ -596,17 +596,17 @@ export default function TransactionTableComponent(props) {
             <button
               style={{ marginLeft: '0px' }}
               onClick={() => handleChangePage('first')}
-              className={from === 0 ? 'btn disabled' : 'btn'}
+              className={from === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               First
             </button>
             <button
               onClick={() => handleChangePage('prev')}
-              className={from === 0 ? 'btn disabled' : 'btn'}
+              className={from === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/back.svg')} />
             </button>
-            <button className="btn">
+            <button className="btn-contract">
               Page{' '}
               {Math.round(totalRecord / amount) +
                 1 -
@@ -615,13 +615,13 @@ export default function TransactionTableComponent(props) {
             </button>
             <button
               onClick={() => handleChangePage('next')}
-              className={from + amount === totalRecord ? 'btn disabled' : 'btn'}
+              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/next.svg')} />
             </button>
             <button
               onClick={() => handleChangePage('last')}
-              className={from + amount === totalRecord ? 'btn disabled' : 'btn'}
+              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               Last
             </button>
