@@ -259,13 +259,13 @@ export default function FormDialog() {
           </DialogActions> */}
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>
-              <button className={classes.cnlbtn} onClick={handleLogin}>
+              <button className={classes.cnlbtn} onClick={handleClose}>
                 {" "}
                 Cancel
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata}>
+              <button className={classes.addbtn} onClick={postuserdata,handleClose}>
                 Add
               </button>
             </span>

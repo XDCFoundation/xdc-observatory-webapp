@@ -12,9 +12,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+import { UserService } from "../../../services";
 // import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
-// import { history } from "../../managers/history";
+import { history } from "../../../managers/history";
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -142,11 +143,24 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
+  const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [nameTag, setNameTag] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
 
   };
+
+  async function postTaggedAddress() {
+    const data = {
+      userId: "12345",
+      address: privateAddress,
+      tagName: nameTag,
+    };
+    const response = await UserService.addPrivateTagToAddress(data);
+  }
+  console.log("address",privateAddress)
+  console.log("note",nameTag)
 
   const classes = useStyles();
 
@@ -160,7 +174,7 @@ export default function FormDialog() {
 
 
   const handleLogin =() => {
-    //   history.push("/loginprofile")
+      history.push("/loginprofile")
       
   }
 
@@ -212,7 +226,8 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Address</b>
             </DialogContentText>
-            <input className={classes.input}></input>
+            <input className={classes.input}
+            onChange={(e) => setPrivateAddress(e.target.value)}></input>
           </DialogContent>
          <DialogContent>
           <DialogContentText className={classes.subCategory}>
@@ -222,7 +237,7 @@ export default function FormDialog() {
             </span> */}
             </DialogContentText>
             
-            <input type="password" type={passwordShown ? "text" : "password"}  className={classes.input}></input>
+            <input type="password" type={passwordShown ? "text" : "password"}  className={classes.input} onChange={(e) => setNameTag(e.target.value)}></input>
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
@@ -233,8 +248,8 @@ export default function FormDialog() {
             {/* </span> */} 
           </DialogContent>
           <DialogActions className={classes.buttons}>
-          <span><button className={classes.cnlbtn} onClick={handleLogin} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={handleLogin} >Add</button></span>
+          <span><button className={classes.cnlbtn} onClick={handleClose} >Cancel</button></span>
+            <span><button className={classes.addbtn} onClick={postTaggedAddress,handleClose} >Add</button></span>
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
