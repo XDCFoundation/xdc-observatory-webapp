@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -15,6 +15,9 @@ import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
+import BaseComponent from "../baseComponent"
+// import { UserSignUpService } from "../../../services/";
+import userSignUp from "../../services/userSignUp";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -257,32 +260,103 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
+  const [userName, setUserName] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+
   const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
-
-  const handleClickOpenSignup = () => {
-    setValue(1);
-  };
-
-  const handleClickOpenSignin = () => {
-    setValue(0);
-  };
-
-  const handleOpenForgetPassword = () => {
-    setValue(2);
   };
   const handleClose = () => {
     setValue(0);
     setOpen(false);
   };
 
+
+  // <-----------------------------------------------------login functionality------------------------------------------------------>
+  const handleClickOpenSignup = () => {
+    setValue(1);
+  };
+  const handleOpenForgetPassword = () => {
+    setValue(2);
+  };
   const handleLogin = () => {
     history.push("/loginprofile");
     // window.location("/loginprofile")
   };
+
+
+  // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
+  async function postSignUp() {
+        const data = {
+          userName: userName,
+          email: email,
+          password: password,
+        };
+        const response = await userSignUp.postSignUp(data);
+        console.log("response:",response)
+        console.log("faraz")
+      }
+    
+     console.log("userName:",userName);
+     console.log("email:",email);
+     console.log("password:",password);
+
+
+  // const [signUp, setSignUp] = useState({
+  //   userName: "",
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  // });
+
+  // const inputEventSignUp = (event) => {
+
+  //   const { value, name} = event.target;
+
+  //   setSignUp((preValue) =>{
+  //     if(name === "userName") {
+  //       return {
+  //         userName: value,
+  //         email: preValue.email,
+  //         password: preValue.password,
+  //         confirmPassword: preValue.confirmPassword,
+  //       };
+  //     } else if(name === "email") {
+  //       return {
+  //         userName: preValue.userName,
+  //         email: value,
+  //         password: preValue.password,
+  //         confirmPassword: preValue.confirmPassword,
+  //       };
+  //     } else if(name === "password") {
+  //       return {
+  //         userName: preValue.userName,
+  //         email: preValue.email,
+  //         password: value,
+  //         confirmPassword: preValue.confirmPassword,
+  //       };
+  //     } else if(name === "confirmPassword") {
+  //       return {
+  //         userName: preValue.userName,
+  //         email: preValue.email,
+  //         password: preValue.password,
+  //         confirmPassword: value,
+  //       };
+  //     }
+  //   })
+  // };
+  // const submitSignUp = (event) => {
+  //   event.preventDefault();
+  //   alert("signup successfull")
+  // }
+
+  const handleClickOpenSignin = () => {
+    setValue(0);
+  };
+
 
   return (
     <div>
@@ -415,6 +489,10 @@ export default function FormDialog() {
                   <input
                     className={classes.input}
                     placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                    // name="userName"
+                    // value={signUp.userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    // onChange={inputEventSignUp}
                   ></input>
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
@@ -425,6 +503,11 @@ export default function FormDialog() {
                     type="email"
                     placeholder="A confirmation code will be sent to this email"
                     className={classes.input}
+                    // name="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    // value={signUp.email}
+
+                    // onChange={inputEventSignUp}
                   ></input>
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
@@ -435,6 +518,10 @@ export default function FormDialog() {
                     type="password"
                     placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                     className={classes.input}
+                    onChange={(e) => setPassword(e.target.value)}
+                    // name="password"
+                    // value={signUp.password}
+                    // onChange={inputEventSignUp}
                   ></input>
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
@@ -445,6 +532,9 @@ export default function FormDialog() {
                     type="password"
                     placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                     className={classes.input}
+                    // name="confirmPassword"
+                    // value={signUp.confirmPassword}
+                    // onChange={inputEventSignUp}
                   ></input>
                 </DialogContent>
                 <div className={classes.termsContainer}>
@@ -472,7 +562,7 @@ export default function FormDialog() {
                   </div>
                 </div>
 
-                <button className={classes.createAccountbtn}>
+                <button className={classes.createAccountbtn} onClick={ postSignUp }>
                   Create an Account{" "}
                 </button>
 
