@@ -9,4 +9,5 @@ export { default as AccountService } from "./accounts"
 export { default as CoinMarketService } from "./coinMarket"
 export { default as BlockService } from "./blocks"
 export { default as TpsService } from './tpsCounter'
+export { default as UserService } from './user'
 // export { default as TokenService } from './token'
