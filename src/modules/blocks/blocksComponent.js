@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import back from "../../assets/images/back.svg";
 import next from "../../assets/images/next.svg";
+import Loader from '../../assets/loader'
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -109,55 +110,82 @@ export default function BlocksComponent(props) {
                 {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {props.state.blocksList &&
-                props.state.blocksList.length >= 1 &&
-                props.state.blocksList.map((row, index) => {
-                  const currentTime = new Date();
-                  const previousTime = new Date(row.timestamp * 1000);
-                  const ti = timeDiff(currentTime, previousTime);
-                  const blockNumber = row.number;
-                  let animationClass =
-                    props.state.blockAnimation?.[blockNumber];
-                  return (
-                    <TableRow
-                      key={row.name}
-                      style={
-                        index % 2 !== 1
-                          ? { background: "#f9f9f9" }
-                          : { background: "white" }
-                      }
-                    >
-                      <TableCell
-                        style={{ border: "none" }}
-                        className="w-1"
-                        margin-left="5px"
+            {props.state.isLoading == true ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell style={{ border: 'none' }} colspan="6">
+                    <div className="loader-block-list">
+                      <Loader />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) :
+              <TableBody>
+                {props.state.blocksList &&
+                  props.state.blocksList.length >= 1 &&
+                  props.state.blocksList.map((row, index) => {
+                    const currentTime = new Date();
+                    const previousTime = new Date(row.timestamp * 1000);
+                    const ti = timeDiff(currentTime, previousTime);
+                    const blockNumber = row.number;
+                    let animationClass =
+                      props.state.blockAnimation?.[blockNumber];
+                    return (
+                      <TableRow
+                        key={row.name}
+                        style={
+                          index % 2 !== 1
+                            ? { background: "#f9f9f9" }
+                            : { background: "white" }
+                        }
                       >
-                        <Tooltip placement="right" title={row.hash}>
-                          <VisibilityIcon
-                            fontSize="small"
-                            style={{ color: "#b9b9b9", marginRight: "7px" }}
-                          />
-                        </Tooltip>
-
-                        <span
-                          className={
-                            animationClass
-                              ? animationClass
-                              : "tabledata table-data"
-                          }
+                        <TableCell
+                          style={{ border: "none" }}
+                          className="w-1"
+                          margin-left="5px"
                         >
-                          {shorten(row.hash)}{" "}
-                        </span>
-                      </TableCell>
-                      <TableCell
-                        style={{ border: "none" }}
-                        className="w-2"
-                        align="left"
-                      >
-                        <a
-                          className="linkTable"
-                          href={"/block-details/" + row.number}
+                          <Tooltip placement="right" title={row.hash}>
+                            <VisibilityIcon
+                              fontSize="small"
+                              style={{ color: "#b9b9b9", marginRight: "7px" }}
+                            />
+                          </Tooltip>
+
+                          <span
+                            className={
+                              animationClass
+                                ? animationClass
+                                : "tabledata table-data"
+                            }
+                          >
+                            {shorten(row.hash)}{" "}
+                          </span>
+                        </TableCell>
+                        <TableCell
+                          style={{ border: "none" }}
+                          className="w-2"
+                          align="left"
+                        >
+                          <a
+                            className="linkTable"
+                            href={"/block-details/" + row.number}
+                          >
+                            <span
+                              className={
+                                animationClass
+                                  ? animationClass
+                                  : "tabledata table-data "
+                              }
+                            >
+                              {row.number}
+                            </span>
+                          </a>
+                        </TableCell>
+                        <TableCell
+                          style={{ border: "none" }}
+                          className="w-3"
+                          align="left"
                         >
                           <span
                             className={
@@ -166,72 +194,56 @@ export default function BlocksComponent(props) {
                                 : "tabledata table-data "
                             }
                           >
-                            {row.number}
+                            {ti < 0 ? "0 secs ago" : ti}
                           </span>
-                        </a>
-                      </TableCell>
-                      <TableCell
-                        style={{ border: "none" }}
-                        className="w-3"
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass
-                              ? animationClass
-                              : "tabledata table-data "
-                          }
+                        </TableCell>
+                        <TableCell
+                          style={{ border: "none" }}
+                          className="w-4"
+                          align="left"
                         >
-                          {ti < 0 ? "0 secs ago" : ti}
-                        </span>
-                      </TableCell>
-                      <TableCell
-                        style={{ border: "none" }}
-                        className="w-4"
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass
-                              ? animationClass
-                              : "tabledata table-data pad-left-6"
-                          }
+                          <span
+                            className={
+                              animationClass
+                                ? animationClass
+                                : "tabledata table-data pad-left-6"
+                            }
+                          >
+                            {" "}
+                            {row.transactions.length}
+                          </span>
+                        </TableCell>
+                        <TableCell
+                          style={{ border: "none" }}
+                          className="w-5"
+                          align="left"
                         >
-                          {" "}
-                          {row.transactions.length}
-                        </span>
-                      </TableCell>
-                      <TableCell
-                        style={{ border: "none" }}
-                        className="w-5"
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass
-                              ? animationClass
-                              : "tabledata table-data pad-left-4"
-                          }
-                        >
-                          {row.difficulty}
-                        </span>
-                      </TableCell>
-                      <TableCell style={{ border: "none" }} align="left">
-                        <span
-                          className={
-                            animationClass
-                              ? animationClass
-                              : "tabledata pad-left-7"
-                          }
-                        >
-                          {row.gasUsed}
-                        </span>
-                      </TableCell>
-                      {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
+                          <span
+                            className={
+                              animationClass
+                                ? animationClass
+                                : "tabledata table-data pad-left-4"
+                            }
+                          >
+                            {row.difficulty}
+                          </span>
+                        </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span
+                            className={
+                              animationClass
+                                ? animationClass
+                                : "tabledata pad-left-7"
+                            }
+                          >
+                            {row.gasUsed}
+                          </span>
+                        </TableCell>
+                        {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>}
           </Table>
         </TableContainer>
       </Paper>
@@ -255,7 +267,7 @@ export default function BlocksComponent(props) {
           <button
             onClick={(event) => props._FirstPage(event)}
             className={props.state.from === 0 ? "btn disabled btn-first"
-            : "btn btn-first"}
+              : "btn btn-first"}
           >
             First
           </button>
@@ -276,8 +288,8 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._NextPage(event)}
             className={
               props.state.from + props.state.amount === props.state.totalblocks
-              ? "btn disabled"
-              : "btn btn-next"
+                ? "btn disabled"
+                : "btn btn-next"
             }
           >
             <img src={next} width="10px" />
@@ -286,8 +298,8 @@ export default function BlocksComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount === props.state.totalblocks
-              ? "btn disabled"
-              : "btn btn-last"
+                ? "btn disabled"
+                : "btn btn-last"
             }
           >
             Last

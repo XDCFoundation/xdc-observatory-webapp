@@ -19,7 +19,8 @@ export default class LatestBlocksList extends BaseComponent {
             blocksList: [],
             totalblocks: 0,
             showDropDown: true,
-            blockAnimation: {}, ageAnimation: {}
+            blockAnimation: {}, ageAnimation: {},
+            isLoading: true
         }
     }
     componentWillUnmount() {
@@ -74,6 +75,7 @@ export default class LatestBlocksList extends BaseComponent {
         if (error || !listOfBlocks)
             return
         this.setState({ blocksList: listOfBlocks })
+        this.setState({ isLoading: false })
 
 
     }

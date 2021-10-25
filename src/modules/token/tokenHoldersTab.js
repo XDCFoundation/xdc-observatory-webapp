@@ -15,6 +15,7 @@ import Utils from "../../utility";
 import styled from "styled-components";
 import back from '../../assets/images/back.svg';
 import next from '../../assets/images/next.svg';
+import Loader from '../../assets/loader'
 
 const Pagination = styled.div`
 
@@ -95,6 +96,7 @@ export default function StickyHeadTable() {
   const [totalHolder, setTotalHolder] = useState({});
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
+  const [isLoading, setLoading] = useState(true);
   const history = useHistory();
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
@@ -106,6 +108,7 @@ export default function StickyHeadTable() {
     );
     if (error || !tns) return;
     setHolders(tns);
+    setLoading(false)
     if (tns.data == 0) {
       setNoData(false)
     }
@@ -181,48 +184,60 @@ export default function StickyHeadTable() {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {holders?.data?.map((row, index) => {
-                return (
-                  <StyledTableRow hover role="checkbox" tabIndex={-1}>
-                    <TableCell id="td" style={{ border: "none" }}>
-                      <span className="tabledata table-data">{row[0].Rank}</span>
-                    </TableCell>
-                    <TableCell id="td" style={{ border: "none" }}>
-                      <a
-                        style={{ color: "blue", fontSize: 11 }} href={"/holder-details/" + row[0].Address}>
+            {isLoading == true ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell style={{ border: 'none' }} colspan="5">
+                    <div className="loader-holder-list">
+                      <Loader />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) :
 
-                        <span className="tabledata table-data">{row[0].Address}</span>
-                      </a>
-                    </TableCell>
-                    <TableCell id="td" style={{ border: "none" }}>
-                      <span className="tabledata table-data mar-lef-3">{row[0].Quantity}</span>
-                    </TableCell>
-                    <TableCell id="td" style={{ border: "none" }}>
-                      {" "}
-                      <span className="tabledata table-data mar-lef-3">  {!(row[0].Percentage) ? "------" : (row[0].Percentage).toFixed(2)}</span>
-                    </TableCell>
-                    <TableCell id="td" style={{ border: "none" }}>
-                      {" "}
-                      <span className="tabledata table-data mar-lef-2">  {row[0].Value}</span>{" "}
-                    </TableCell>
-                  </StyledTableRow>
-                );
-              })}
-              {
-                noData == false && (
+              <TableBody>
+                {holders?.data?.map((row, index) => {
+                  return (
+                    <StyledTableRow hover role="checkbox" tabIndex={-1}>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        <span className="tabledata table-data">{row[0].Rank}</span>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        <a
+                          style={{ color: "blue", fontSize: 11 }} href={"/holder-details/" + row[0].Address}>
 
-                  <div className="No-data-found">
-                    <span
-                      style={{ textAlign: "center", color: "#2a2a2a" }}
-                      className="tabledata"
-                    >
-                      No Holders Found
-                    </span>
-                  </div>
-                )
-              }
-            </TableBody>
+                          <span className="tabledata table-data">{row[0].Address}</span>
+                        </a>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        <span className="tabledata table-data mar-lef-3">{row[0].Quantity}</span>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        {" "}
+                        <span className="tabledata table-data mar-lef-3">  {!(row[0].Percentage) ? "------" : (row[0].Percentage).toFixed(2)}</span>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        {" "}
+                        <span className="tabledata table-data mar-lef-2">  {row[0].Value}</span>{" "}
+                      </TableCell>
+                    </StyledTableRow>
+                  );
+                })}
+                {
+                  noData == false && (
+
+                    <div className="No-data-found">
+                      <span
+                        style={{ textAlign: "center", color: "#2a2a2a" }}
+                        className="tabledata"
+                      >
+                        No Holders Found
+                      </span>
+                    </div>
+                  )
+                }
+              </TableBody>}
           </Table>
         </TableContainer>
       </Paper>
