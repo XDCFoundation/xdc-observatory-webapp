@@ -1,242 +1,244 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import "../../../src/assets/styles/blocksAndTransactionList.css";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Tooltip from "@material-ui/core/Tooltip";
-import { Grid, TableContainer } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { CSVLink, CSVDownload } from "react-csv";
-import SearchIcon from "@material-ui/icons/Search";
-import moment from "moment";
-import Utility, { dispatchAction } from "../../utility";
-import AddressData from "../../services/address";
-import { useParams } from "react-router-dom";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles } from "@material-ui/core/styles";
+import '../../../src/assets/styles/blocksAndTransactionList.css'
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Tooltip from '@material-ui/core/Tooltip'
+import { Grid, TableContainer } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import { CSVLink, CSVDownload } from 'react-csv'
+import SearchIcon from '@material-ui/icons/Search'
+import moment from 'moment'
+import Utility, { dispatchAction } from '../../utility'
+import AddressData from '../../services/address'
+import { useParams } from 'react-router-dom'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { makeStyles } from '@material-ui/core/styles'
+import Loader from '../../assets/loader'
 
 function timeDiff(curr, prev) {
-  var ms_Min = 60 * 1000; // milliseconds in Minute
-  var ms_Hour = ms_Min * 60; // milliseconds in Hour
-  var ms_Day = ms_Hour * 24; // milliseconds in day
-  var ms_Mon = ms_Day * 30; // milliseconds in Month
-  var ms_Yr = ms_Day * 365; // milliseconds in Year
-  var diff = curr - prev; //difference between dates.
+  var ms_Min = 60 * 1000 // milliseconds in Minute
+  var ms_Hour = ms_Min * 60 // milliseconds in Hour
+  var ms_Day = ms_Hour * 24 // milliseconds in day
+  var ms_Mon = ms_Day * 30 // milliseconds in Month
+  var ms_Yr = ms_Day * 365 // milliseconds in Year
+  var diff = curr - prev //difference between dates.
   // If the diff is less then milliseconds in a minute
   if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + " secs ago";
+    return Math.abs(Math.round(diff / 1000)) + ' secs ago'
 
     // If the diff is less then milliseconds in a Hour
   } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
+    return Math.abs(Math.round(diff / ms_Min)) + ' mins ago'
 
     // If the diff is less then milliseconds in a day
   } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
+    return Math.abs(Math.round(diff / ms_Hour)) + ' hrs ago'
 
     // If the diff is less then milliseconds in a Month
   } else if (diff < ms_Mon) {
-    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
+    return Math.abs(Math.round(diff / ms_Day)) + ' days ago'
 
     // If the diff is less then milliseconds in a year
   } else if (diff < ms_Yr) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
+    return Math.abs(Math.round(diff / ms_Mon)) + ' months ago'
   } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
+    return Math.abs(Math.round(diff / ms_Yr)) + ' years ago'
   }
 }
 
 const useStyles = makeStyles({
   container: {
-    borderRadius: "0.875rem",
-    boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
-    borderBottom: "none",
-    background: "#fff",
+    borderRadius: '0.875rem',
+    boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
+    borderBottom: 'none',
+    background: '#fff',
   },
-});
+})
 export default function AddressTableComponent(props) {
-  const { state } = props;
-  const classes = useStyles();
+  const { state } = props
+  const classes = useStyles()
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
+    return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
       b.length - 3,
-      b.length
-    )}`;
+      b.length,
+    )}`
   }
-  let { addr } = useParams();
-  const [address, setAddress] = useState([]);
-  const [txtAddress, setTxtAddress] = useState("");
-  const [balance, setBalance] = useState(0);
-  const [transactions, setTransactions] = useState([]);
-  const [totalRecord, setTotalRecord] = useState(0);
-  const [keywords, setKeywords] = useState("");
-
-  const [reportaddress, setReportaddress] = useState([]);
-  const [downloadaddress, setDownloadaddress] = useState([]);
+  let { addr } = useParams()
+  const [address, setAddress] = useState([])
+  const [txtAddress, setTxtAddress] = useState('')
+  const [balance, setBalance] = useState(0)
+  const [transactions, setTransactions] = useState([])
+  const [totalRecord, setTotalRecord] = useState(0)
+  const [keywords, setKeywords] = useState('')
+  const [isLoading, setLoading] = useState(true)
+  const [reportaddress, setReportaddress] = useState([])
+  const [downloadaddress, setDownloadaddress] = useState([])
   //const [exports, exportAddress] = useState({});
   //const [toggle, handleToggle] = useState(false);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(0)
   //const [checkAll, setCheckAll] = React.useState(0);
-  const [isDownloadActive, setDownloadActive] = useState(0);
-  const [noData, setNoData] = useState(false);
-  let showPerPage = 50;
-  let datas = {};
-  const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
+  const [isDownloadActive, setDownloadActive] = useState(0)
+  const [noData, setNoData] = useState(false)
+  let showPerPage = 50
+  let datas = {}
+  const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage)
 
-  const history = useHistory();
+  const history = useHistory()
   const handleChangePage = (action) => {
-    if (action == "first") {
+    if (action == 'first') {
       if (keywords) {
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
           addrr: addr,
           keywords: keywords,
-        };
-        getTransactionSearch(datas);
+        }
+        getTransactionSearch(datas)
       } else {
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
           addrr: addr,
-        };
-        getAddressDetails(datas);
+        }
+        getAddressDetails(datas)
       }
     }
-    if (action === "last") {
-      let pagecount = totalRecord - rowsPerPage;
-      setPage(pagecount);
+    if (action === 'last') {
+      let pagecount = totalRecord - rowsPerPage
+      setPage(pagecount)
       if (keywords) {
         datas = {
           pageNum: pagecount,
           perpage: rowsPerPage,
           addrr: addr,
           keywords: keywords,
-        };
-        getTransactionSearch(datas);
+        }
+        getTransactionSearch(datas)
       } else {
         datas = {
           pageNum: pagecount,
           perpage: rowsPerPage,
           addrr: addr,
-        };
-        getAddressDetails(datas);
+        }
+        getAddressDetails(datas)
       }
     }
 
-    if (action === "next") {
+    if (action === 'next') {
       if (rowsPerPage + page < totalRecord) {
-        let pagecount = rowsPerPage + page;
-        setPage(pagecount);
+        let pagecount = rowsPerPage + page
+        setPage(pagecount)
         if (keywords) {
           datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
             addrr: addr,
             keywords: keywords,
-          };
-          getTransactionSearch(datas);
+          }
+          getTransactionSearch(datas)
         } else {
-          let datas = { pageNum: pagecount, perpage: rowsPerPage, addrr: addr };
-          getAddressDetails(datas);
+          let datas = { pageNum: pagecount, perpage: rowsPerPage, addrr: addr }
+          getAddressDetails(datas)
         }
       }
     }
 
-    if (action === "prev") {
+    if (action === 'prev') {
       if (page - rowsPerPage >= 0) {
-        let pagecount = page - rowsPerPage;
-        setPage(pagecount);
+        let pagecount = page - rowsPerPage
+        setPage(pagecount)
         if (keywords) {
           datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
             addrr: addr,
             keywords: keywords,
-          };
-          getTransactionSearch(datas);
+          }
+          getTransactionSearch(datas)
         } else {
           datas = {
             pageNum: pagecount,
             perpage: rowsPerPage,
             addrr: addr,
-          };
-          getAddressDetails(datas);
+          }
+          getAddressDetails(datas)
         }
       }
     }
-  };
+  }
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    setPage(0);
+    setRowsPerPage(event.target.value)
+    setPage(0)
     datas = {
       pageNum: 0,
       perpage: event.target.value,
       addrr: addr,
-    };
-    getAddressDetails(datas);
-  };
+    }
+    getAddressDetails(datas)
+  }
   const getAddressDetails = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetailWithlimit(data)
-      );
+        AddressData.getAddressDetailWithlimit(data),
+      )
 
       if (responseData.totalTransactionCount > 0) {
-        setNoData(false);
-        parseResponseData(responseData, 1);
+        setNoData(false)
+        setLoading(false)
+
+        parseResponseData(responseData, 1)
       } else {
-        setNoData(true);
-        setBalance(parseFloat(0).toFixed(2));
+        setNoData(true)
+        setBalance(parseFloat(0).toFixed(2))
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
   useEffect(() => {
     //let address =props.trans
     datas = {
       pageNum: page,
       perpage: rowsPerPage,
       addrr: addr,
-    };
-    getAddressDetails(datas);
-  }, []);
+    }
+    getAddressDetails(datas)
+  }, [])
 
   const getTransactionSearch = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getTransactionSearch(data)
-      );
-
+        AddressData.getTransactionSearch(data),
+      )
       if (responseData.responseTransaction.length > 0) {
-        setNoData(false);
-        parseResponseData(responseData, 2);
+        setNoData(false)
+        parseResponseData(responseData, 2)
       } else {
-        setNoData(true);
-        setBalance(parseFloat(0).toFixed(2));
+        setNoData(true)
+        setBalance(parseFloat(0).toFixed(2))
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const parseResponseData = async (Recdata, type) => {
-    let trxn = [];
+    let trxn = []
     if (type == 1) {
-      trxn = Recdata.transaction;
-      setTotalRecord(Recdata.totalTransactionCount);
+      trxn = Recdata.transaction
+      setTotalRecord(Recdata.totalTransactionCount)
     } else {
-      trxn = Recdata.responseTransaction;
-      setTotalRecord(Recdata.total);
+      trxn = Recdata.responseTransaction
+      setTotalRecord(Recdata.total)
     }
 
     setAddress(
@@ -249,9 +251,9 @@ export default function AddressTableComponent(props) {
           To: d.to,
           Value: d.value,
           id: d._id,
-        };
-      })
-    );
+        }
+      }),
+    )
 
     setReportaddress(
       trxn.map((d) => {
@@ -262,128 +264,128 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value: d.value / 1000000000000000000,
-        };
-      })
-    );
+        }
+      }),
+    )
     setDownloadaddress(
       trxn.map((d) => {
         return {
           Txn_Hash: d.hash,
-          Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
+          Date: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
           Value: d.value / 1000000000000000000,
-        };
-      })
-    );
-  };
+        }
+      }),
+    )
+  }
   const handleKeyUp = (event) => {
-    let searchkeyword = event.target.value;
-    setPage(0);
+    let searchkeyword = event.target.value
+    setPage(0)
     if (searchkeyword.length > 2) {
-      setKeywords(searchkeyword);
+      setKeywords(searchkeyword)
       datas = {
         pageNum: 0,
         perpage: rowsPerPage,
         addrr: addr,
         keywords: searchkeyword,
-      };
-      getTransactionSearch(datas);
+      }
+      getTransactionSearch(datas)
     }
     if (searchkeyword.length == 0) {
-      setPage(0);
+      setPage(0)
       datas = {
         pageNum: 0,
         perpage: rowsPerPage,
         addrr: addr,
-      };
-      getAddressDetails(datas);
+      }
+      getAddressDetails(datas)
     }
-  };
+  }
 
   const handleChanged = (event) => {
-    const { name, checked } = event.target;
-    if (name === "allselect") {
+    const { name, checked } = event.target
+    if (name === 'allselect') {
       let tempAddress = address.map((addr) => {
-        return { ...addr, isChecked: checked };
-      });
+        return { ...addr, isChecked: checked }
+      })
 
-      setAddress(tempAddress);
+      setAddress(tempAddress)
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
-          return addr;
+          return addr
         }
-      });
+      })
       if (tempAddr.length > 0) {
-        setDownloadActive(1);
+        setDownloadActive(1)
       } else {
-        setDownloadActive(0);
+        setDownloadActive(0)
       }
 
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
             Txn_Hash: d.Txn_Hash,
-            Date: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            Date: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
             Block: d.Block,
             From: d.From,
             To: d.To,
             Value: d.Value / 1000000000000000000,
-          };
-        })
-      );
+          }
+        }),
+      )
     } else {
       let tempAddress = address.map((addr) =>
-        addr.id === name ? { ...addr, isChecked: checked } : addr
-      );
-      setAddress(tempAddress);
+        addr.id === name ? { ...addr, isChecked: checked } : addr,
+      )
+      setAddress(tempAddress)
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
-          return addr;
+          return addr
         }
-      });
+      })
       if (tempAddr.length > 0) {
-        setDownloadActive(1);
+        setDownloadActive(1)
       } else {
-        setDownloadActive(0);
+        setDownloadActive(0)
       }
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
             Txn_Hash: d.Txn_Hash,
-            Date: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
+            Date: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
             Block: d.Block,
             From: d.From,
             To: d.To,
             Value: d.Value / 1000000000000000000,
-          };
-        })
-      );
+          }
+        }),
+      )
     }
-  };
-  console.log(downloadaddress, address, "525")
+  }
+
   return (
     <div>
       <div className="content_input_all cont-tab">
         <div className="searchelement-input3 search-input-box">
           <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
-            src={require("../../assets/images/Search.svg")}
+            src={require('../../assets/images/Search.svg')}
           />
           <input
             className="input-box-search"
             onKeyUp={(event) => props._handleSearch(event)}
             style={{
-              fontSize: "0.938rem",
+              fontSize: '0.938rem',
               letterSpacing: 0.62,
-              width: "8.438rem",
-              color: "#2a2a2a",
-              fontFamily: "Inter",
-              outlineColor: "transparent",
+              width: '8.438rem',
+              color: '#2a2a2a',
+              fontFamily: 'Inter',
+              outlineColor: 'transparent',
               borderWidth: 0,
-              fontWeight: "600",
-              paddingBottom: "0.125rem",
+              fontWeight: '600',
+              paddingBottom: '0.125rem',
             }}
             type="text"
             placeholder="Search Txn"
@@ -393,34 +395,34 @@ export default function AddressTableComponent(props) {
 
         {isDownloadActive ? (
           <CSVLink
-            filename={"transactions.csv"}
+            filename={'transactions.csv'}
             data={downloadaddress}
             style={{
-              fontSize: "0.938rem",
-              color: "#ffffff",
-              textAlign: "center",
-              backgroundColor: "rgb(7 125 245)",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "1.875rem",
+              fontSize: '0.938rem',
+              color: '#ffffff',
+              textAlign: 'center',
+              backgroundColor: 'rgb(7 125 245)',
+              borderRadius: '0.25rem',
+              width: '5.875rem',
+              height: '1.875rem',
             }}
           >
             Export
           </CSVLink>
         ) : (
           <CSVLink
-            filename={"transactions.csv"}
+            filename={'transactions.csv'}
             data={downloadaddress}
             style={{
-              pointerEvents: "none",
-              fontSize: "0.938rem",
-              textAlign: "center",
-              color: "#ffffff",
-              backgroundColor: "#e3e7eb",
-              borderRadius: "0.25rem",
-              width: "5.875rem",
-              height: "2.125rem",
-              paddingTop: "0.125rem",
+              pointerEvents: 'none',
+              fontSize: '0.938rem',
+              textAlign: 'center',
+              color: '#ffffff',
+              backgroundColor: '#e3e7eb',
+              borderRadius: '0.25rem',
+              width: '5.875rem',
+              height: '2.125rem',
+              paddingTop: '0.125rem',
             }}
           >
             Export
@@ -430,7 +432,7 @@ export default function AddressTableComponent(props) {
 
       <Grid lg={13} className="tablegrid_address">
         <Paper
-          style={{ borderRadius: "0.75rem" }}
+          style={{ borderRadius: '0.75rem' }}
           elevation={0}
           className="table-paper paper-table"
         >
@@ -443,7 +445,7 @@ export default function AddressTableComponent(props) {
                 <TableRow>
                   <TableCell
                     className="w-31 w-850"
-                    style={{ border: "none", paddingTop: "1.375rem" }}
+                    style={{ border: 'none', paddingTop: '1.375rem' }}
                     align="left"
                   >
                     <input
@@ -454,167 +456,179 @@ export default function AddressTableComponent(props) {
                         address.filter((addr) => addr?.isChecked == true)
                           .length == address.length
                       }
-                      style={{ marginRight: "0.5rem" }}
+                      style={{ marginRight: '0.5rem' }}
                     />
-                    <span className={"tableheaders table-hash"}>Txn Hash</span>
+                    <span className={'tableheaders table-hash'}>Txn Hash</span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
                     style={{
-                      border: "none",
-                      paddingLeft: "1.6%",
-                      paddingTop: "1.375rem",
+                      border: 'none',
+                      paddingLeft: '1.6%',
+                      paddingTop: '1.375rem',
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-age"}>Age</span>
+                    <span className={'tableheaders table-age'}>Age</span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
                     style={{
-                      border: "none",
-                      paddingLeft: "1.6%",
-                      paddingTop: "1.375rem",
+                      border: 'none',
+                      paddingLeft: '1.6%',
+                      paddingTop: '1.375rem',
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block"}>Block</span>
+                    <span className={'tableheaders table-block'}>Block</span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
                     style={{
-                      border: "none",
-                      paddingLeft: "1.5%",
-                      paddingTop: "1.375rem",
+                      border: 'none',
+                      paddingLeft: '1.5%',
+                      paddingTop: '1.375rem',
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-from"}>From</span>
+                    <span className={'tableheaders table-from'}>From</span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
                     style={{
-                      border: "none",
-                      paddingLeft: "1.5%",
-                      paddingTop: "1.375rem",
+                      border: 'none',
+                      paddingLeft: '1.5%',
+                      paddingTop: '1.375rem',
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-to"}>To</span>
+                    <span className={'tableheaders table-to'}>To</span>
                   </TableCell>
                   <TableCell
                     className="w-450 "
                     style={{
-                      border: "none",
-                      paddingLeft: "1.5%",
-                      paddingTop: "1.375rem",
+                      border: 'none',
+                      paddingLeft: '1.5%',
+                      paddingTop: '1.375rem',
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-value"}>Value</span>
+                    <span className={'tableheaders table-value'}>Value</span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {noData == false && (
+              {isLoading == true ? (
                 <TableBody>
-                  {address.map((row, index) => {
-                    const currentTime = new Date();
-                    const previousTime = new Date(row.Age * 1000);
-                    const TimeAge = timeDiff(currentTime, previousTime);
-                    return (
-                      <TableRow
-                        style={
-                          index % 2 !== 1
-                            ? { background: "#f9f9f9" }
-                            : { background: "white" }
-                        }
-                      >
-                        <TableCell
-                          style={{ border: "none" }}
-                          margin-left="0.313rem"
+                  <TableRow>
+                    <TableCell style={{ border: 'none' }} colspan="6">
+                      <div className="loader-address-details-list">
+                        <Loader />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ) : (
+                noData == false && (
+                  <TableBody>
+                    {address.map((row, index) => {
+                      const currentTime = new Date()
+                      const previousTime = new Date(row.Age * 1000)
+                      const TimeAge = timeDiff(currentTime, previousTime)
+                      return (
+                        <TableRow
+                          style={
+                            index % 2 !== 1
+                              ? { background: '#f9f9f9' }
+                              : { background: 'white' }
+                          }
                         >
-                          <input
-                            key={row.id}
-                            name={row.id}
-                            onChange={handleChanged}
-                            type="checkbox"
-                            checked={row?.isChecked || false}
-                            //checked={checkAll}
-                            style={{ marginRight: "0.5rem" }}
-                          />
+                          <TableCell
+                            style={{ border: 'none' }}
+                            margin-left="0.313rem"
+                          >
+                            <input
+                              key={row.id}
+                              name={row.id}
+                              onChange={handleChanged}
+                              type="checkbox"
+                              checked={row?.isChecked || false}
+                              //checked={checkAll}
+                              style={{ marginRight: '0.5rem' }}
+                            />
 
-                          <a
-                            className="linkTable"
-                            href={"/transaction-details/" + row.hash}
-                          >
-                            <Tooltip placement="top" title={row.TxHash}>
-                              <span className="tabledata">
-                                {shorten(row.Txn_Hash)}{" "}
-                              </span>
-                            </Tooltip>
-                          </a>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className="tabledata">{TimeAge}</span>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <a
-                            className="linkTable"
-                            href={"/block-details/" + row.Block}
-                          >
-                            <span className="tabledata">{row.Block}</span>
-                          </a>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          {row.From != addr ? (
                             <a
                               className="linkTable"
-                              href={"/address-details/" + row.from}
+                              href={'/transaction-details/' + row.hash}
                             >
-                              <Tooltip placement="top" title={row.From}>
+                              <Tooltip placement="top" title={row.TxHash}>
                                 <span className="tabledata">
-                                  {" "}
-                                  {shorten(row.From)}
+                                  {shorten(row.Txn_Hash)}{' '}
                                 </span>
                               </Tooltip>
                             </a>
-                          ) : (
-                            <Tooltip placement="top" title={row.From}>
-                              <span className="tabledata">
-                                {" "}
-                                {shorten(row.From)}
-                              </span>
-                            </Tooltip>
-                          )}
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          {row.To != addr ? (
+                          </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
+                            <span className="tabledata">{TimeAge}</span>
+                          </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={"/address-details/" + row.To}
+                              href={'/block-details/' + row.Block}
                             >
+                              <span className="tabledata">{row.Block}</span>
+                            </a>
+                          </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
+                            {row.From != addr ? (
+                              <a
+                                className="linkTable"
+                                href={'/address-details/' + row.from}
+                              >
+                                <Tooltip placement="top" title={row.From}>
+                                  <span className="tabledata">
+                                    {' '}
+                                    {shorten(row.From)}
+                                  </span>
+                                </Tooltip>
+                              </a>
+                            ) : (
+                              <Tooltip placement="top" title={row.From}>
+                                <span className="tabledata">
+                                  {' '}
+                                  {shorten(row.From)}
+                                </span>
+                              </Tooltip>
+                            )}
+                          </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
+                            {row.To != addr ? (
+                              <a
+                                className="linkTable"
+                                href={'/address-details/' + row.To}
+                              >
+                                <Tooltip placement="top" title={row.To}>
+                                  <span className="tabledata">
+                                    {shorten(row.To)}
+                                  </span>
+                                </Tooltip>
+                              </a>
+                            ) : (
                               <Tooltip placement="top" title={row.To}>
                                 <span className="tabledata">
                                   {shorten(row.To)}
                                 </span>
                               </Tooltip>
-                            </a>
-                          ) : (
-                            <Tooltip placement="top" title={row.To}>
-                              <span className="tabledata">
-                                {shorten(row.To)}
-                              </span>
-                            </Tooltip>
-                          )}
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className="tabledata">{row.Value}</span>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
+                            )}
+                          </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
+                            <span className="tabledata">{row.Value}</span>
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                )
               )}
               {noData == true && (
                 <TableBody>
@@ -622,9 +636,9 @@ export default function AddressTableComponent(props) {
                     <TableCell
                       id="td"
                       colspan="6"
-                      style={{ borderBottom: "none" }}
+                      style={{ borderBottom: 'none' }}
                     >
-                      <span className="tabledata" style={{ color: "red" }}>
+                      <span className="tabledata" style={{ color: 'red' }}>
                         No transaction found.
                       </span>
                     </TableCell>
@@ -637,13 +651,13 @@ export default function AddressTableComponent(props) {
         <Grid
           container
           style={{
-            marginTop: "1.75rem",
-            display: "flex",
-            justifyContent: "space-between",
+            marginTop: '1.75rem',
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
-          className="page-container"
+          className="page-container-address"
         >
-          <Grid item xs="4" className="pagination-tab">
+          <Grid item xs="4" className="pagination-tab-address">
             <span className="text">Show</span>
             <Select
               value={rowsPerPage}
@@ -663,50 +677,50 @@ export default function AddressTableComponent(props) {
             item
             xs="7"
             style={{
-              flexBasis: "auto",
-              display: "flex",
-              alignItems: "baseline",
+              flexBasis: 'auto',
+              display: 'flex',
+              alignItems: 'baseline',
             }}
             className="pagination-page"
           >
             <button
-              style={{ marginLeft: "0rem" }}
-              onClick={() => handleChangePage("first")}
-              className={page === 0 ? "btn disabled" : "btn"}
+              style={{ marginLeft: '0rem' }}
+              onClick={() => handleChangePage('first')}
+              className={page === 0 ? 'btn disabled' : 'btn'}
             >
               First
             </button>
             <button
-              onClick={() => handleChangePage("prev")}
-              className={page === 0 ? "btn disabled" : "btn"}
+              onClick={() => handleChangePage('prev')}
+              className={page === 0 ? 'btn disabled' : 'btn'}
             >
               <img
                 className="back-arrow"
-                src={require("../../assets/images/back.svg")}
+                src={require('../../assets/images/back.svg')}
               />
             </button>
             <button className="btn">
-              Page{" "}
+              Page{' '}
               {Math.round(totalRecord / rowsPerPage) +
                 1 -
-                Math.round((totalRecord - page) / rowsPerPage)}{" "}
+                Math.round((totalRecord - page) / rowsPerPage)}{' '}
               of {Math.round(totalRecord / rowsPerPage)}
             </button>
             <button
-              onClick={() => handleChangePage("next")}
+              onClick={() => handleChangePage('next')}
               className={
-                page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                page + rowsPerPage === totalRecord ? 'btn disabled' : 'btn'
               }
             >
               <img
                 className="back-arrow"
-                src={require("../../assets/images/next.svg")}
+                src={require('../../assets/images/next.svg')}
               />
             </button>
             <button
-              onClick={() => handleChangePage("last")}
+              onClick={() => handleChangePage('last')}
               className={
-                page + rowsPerPage === totalRecord ? "btn disabled" : "btn"
+                page + rowsPerPage === totalRecord ? 'btn disabled' : 'btn'
               }
             >
               Last
@@ -715,5 +729,5 @@ export default function AddressTableComponent(props) {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 }
