@@ -7808,7 +7808,7 @@ button {
     margin-left: 0% !important;
   }
 }
-<<<<<<< HEAD
+
 .Notification-header-color {
   color: #ffffff;
   font-size: 0.875rem;
@@ -7844,17 +7844,20 @@ button {
   font-size: 0.938rem !important;
     color: #ffffff;
     margin-bottom: 10px;
-=======
+  }
 @media (max-width: 767px) {
   .details-margin-30 {
     margin-left: 30px;
   }
 }
+
 @media (max-width: 767px) {
   .w-118 {
     width: 118%;
   }
 }
+
+
 .loader-circular {
   margin: auto;
   margin-top: 100px;
@@ -8007,5 +8010,4 @@ button {
   border-width: 4px;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
->>>>>>> d26bf4caa70e35d587256e92f7f68e70bb00f5cc
 }
