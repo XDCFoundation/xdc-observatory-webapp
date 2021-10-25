@@ -164,40 +164,41 @@ export default function SimpleTabs(props) {
 
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
+  const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
 
   React.useEffect(() => {
-    let address = [
-      {
-        Adress: "xdcc4e699581116412965b5e7c",
-        Description: "My wallet",
-        Balance: "800 XDC ($38.56)",
-        AddedOn: "8:12 PM, 6 Jun 2021",
-        Notification: "Off",
-        Value: "45000.00XDC",
-        id: 1,
-      },
-      {
-        Adress: "xdcc4e699581116412965b5e7c",
-        // xdcc4e699581116412965b…5e7c
-        Description: "My wallet",
-        Balance: "800 XDC ($38.56)",
-        AddedOn: "8:12 PM, 6 Jun 2021",
-        Notification: "Email",
-        Value: "45000.00XDC",
-        id: 2,
-      },
-      {
-        Adress: "xdcc4e699581116412965b5e7c",
-        Description: "My wallet",
-        Balance: "800 XDC ($38.56)",
-        AddedOn: "8:12 PM, 6 Jun 2021",
-        Notification: "Email",
-        Value: "45000.00XDC",
-        id: 3,
-      },
-    ];
+    // let address = [
+    //   {
+    //     Adress: "xdcc4e699581116412965b5e7c",
+    //     Description: "My wallet",
+    //     Balance: "800 XDC ($38.56)",
+    //     AddedOn: "8:12 PM, 6 Jun 2021",
+    //     Notification: "Off",
+    //     Value: "45000.00XDC",
+    //     id: 1,
+    //   },
+    //   {
+    //     Adress: "xdcc4e699581116412965b5e7c",
+    //     // xdcc4e699581116412965b…5e7c
+    //     Description: "My wallet",
+    //     Balance: "800 XDC ($38.56)",
+    //     AddedOn: "8:12 PM, 6 Jun 2021",
+    //     Notification: "Email",
+    //     Value: "45000.00XDC",
+    //     id: 2,
+    //   },
+    //   {
+    //     Adress: "xdcc4e699581116412965b5e7c",
+    //     Description: "My wallet",
+    //     Balance: "800 XDC ($38.56)",
+    //     AddedOn: "8:12 PM, 6 Jun 2021",
+    //     Notification: "Email",
+    //     Value: "45000.00XDC",
+    //     id: 3,
+    //   },
+    // ];
     getUserWatchlist();
     async function getUserWatchlist() {
       console.log("tuhsar");
@@ -213,6 +214,14 @@ export default function SimpleTabs(props) {
       const data = "12345";
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
+    }
+
+    getPvtTagAddress();
+    async function getPvtTagAddress() {
+      //the user id has to be change from
+      const data = "12345";
+      const response = await UserService.getPrivateTagToAddress(data);
+      setPrivateAddress(response);
     }
 
     // setAddress(
@@ -783,8 +792,8 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             onChange={(e) => {
                               let checked = e.target.checked;
-                              setAddress(
-                                address.map((d) => {
+                              setPrivateAddress(
+                                privateAddress.map((d) => {
                                   d.select = checked;
 
                                   return d;
@@ -841,7 +850,7 @@ export default function SimpleTabs(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {address.map((row, index) => {
+                      {privateAddress.map((row, index) => {
                         // const currentTime = new Date();
                         // const previousTime = new Date(row.timestamp * 1000);
                         // const ti = timeDiff(currentTime, previousTime);
@@ -893,16 +902,16 @@ export default function SimpleTabs(props) {
                               <a className="linkTable" href="/">
                                 <Tooltip
                                   placement="top"
-                                  title={row.transactionHash}
+                                  title={row.address}
                                 >
                                   <span className="tabledata">
-                                    {shorten(row.transactionHash)}
+                                    {shorten(row.address)}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">Comapny</span>
+                              <span className="tabledata">{row.tagName}</span>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
                                         
@@ -911,7 +920,7 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.AddedOn}</span>
+                              <span className="tabledata"> {row.addedOn}</span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
