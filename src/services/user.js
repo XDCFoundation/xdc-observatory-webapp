@@ -54,7 +54,6 @@ async function postUserPrivateNote(data) {
 async function getUserWatchlist(data) {
   let url = `http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/getAddress/${data}`;
   // console.log("url ",url)
-  console.log("infunction")
   return httpService(
     "GET",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -79,7 +78,7 @@ async function getUserWatchlist(data) {
 async function addPrivateTagToAddress(data) {
   let url =
     "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/add-address-tag/";
-  console.log("url ", url);
+  // console.log("url ", url);
   return httpService(
     "POST",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },

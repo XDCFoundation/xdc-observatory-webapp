@@ -158,6 +158,7 @@ export default function FormDialog() {
   };
 
   async function postuserdata() {
+    setOpen(false);
     const data = {
       userId: "12345",
       trxLable: PrivateNote,
@@ -265,7 +266,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata,handleClose}>
+              <button className={classes.addbtn} onClick={postuserdata}>
                 Add
               </button>
             </span>

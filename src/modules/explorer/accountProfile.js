@@ -204,7 +204,7 @@ export default function SimpleTabs(props) {
       //the user id has to be change from
       const data = "12345";
       const response = await UserService.getUserWatchlist(data);
-      console.log("url response", response);
+      // console.log("url response", response);
       setWatchlist(response);
     }
     getuserdata();

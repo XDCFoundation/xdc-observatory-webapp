@@ -152,12 +152,14 @@ export default function FormDialog() {
   };
 
   async function postTaggedAddress() {
+    setOpen(false);
     const data = {
       userId: "12345",
       address: privateAddress,
       tagName: nameTag,
     };
     const response = await UserService.addPrivateTagToAddress(data);
+    
   }
   console.log("address",privateAddress)
   console.log("note",nameTag)
@@ -249,7 +251,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogActions className={classes.buttons}>
           <span><button className={classes.cnlbtn} onClick={handleClose} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={postTaggedAddress,handleClose} >Add</button></span>
+            <span><button className={classes.addbtn} onClick={postTaggedAddress} >Add</button></span>
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
