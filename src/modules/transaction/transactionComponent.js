@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useHistory } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
+import Loader from '../../assets/loader'
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -58,7 +59,7 @@ const useStyles = makeStyles({
     container: {
       height: "48.375rem",
     },
-    
+
   },
 });
 const Pagination = styled.div`
@@ -154,170 +155,181 @@ export default function TransactionComponent(props) {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {props.state.transactionList &&
-                props.state.transactionList.length >= 1 &&
-                props.state.transactionList.map((row, index) => {
-                  const currentTime = new Date();
-                  const previousTime = new Date(row.timestamp * 1000);
-                  const ti = timeDiff(currentTime, previousTime);
-                  const txFee = (
-                    row.transactionFee / 100000000000000000
-                  ).toFixed(9);
-                  let amt = (row.value / 1000000000000000000).toFixed(4);
-                  const Hash = row.hash;
-                  let animationClass = props.state.hashAnimation?.[Hash];
-                  return (
-                    <TableRow
-                      key={row.name}
-                      style={
-                        index % 2 !== 1
-                          ? { background: "#f9f9f9" }
-                          : { background: "white" }
-                      }
-                    >
-                      <TableCell style={{ border: "none", width: "190px" }}>
-                        <Tooltip placement="right" title={row.hash}>
-                          <VisibilityIcon
-                            fontSize="small"
-                            style={{ color: "#b9b9b9", marginRight: "3px" }}
-                          />
-                        </Tooltip>
-                        <a
-                          className="linkTable"
-                          href={"/transaction-details/" + row.hash}
-                        >
-                          {" "}
-                          <span
-                            className={
-                              animationClass ? animationClass : "tabledata"
-                            }
+            {props.state.isLoading == true ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell style={{ border: 'none' }} colspan="7">
+                    <div className="loader-block-list">
+                      <Loader />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) :
+              <TableBody>
+                {props.state.transactionList &&
+                  props.state.transactionList.length >= 1 &&
+                  props.state.transactionList.map((row, index) => {
+                    const currentTime = new Date();
+                    const previousTime = new Date(row.timestamp * 1000);
+                    const ti = timeDiff(currentTime, previousTime);
+                    const txFee = (
+                      row.transactionFee / 100000000000000000
+                    ).toFixed(9);
+                    let amt = (row.value / 1000000000000000000).toFixed(4);
+                    const Hash = row.hash;
+                    let animationClass = props.state.hashAnimation?.[Hash];
+                    return (
+                      <TableRow
+                        key={row.name}
+                        style={
+                          index % 2 !== 1
+                            ? { background: "#f9f9f9" }
+                            : { background: "white" }
+                        }
+                      >
+                        <TableCell style={{ border: "none", width: "190px" }}>
+                          <Tooltip placement="right" title={row.hash}>
+                            <VisibilityIcon
+                              fontSize="small"
+                              style={{ color: "#b9b9b9", marginRight: "3px" }}
+                            />
+                          </Tooltip>
+                          <a
+                            className="linkTable"
+                            href={"/transaction-details/" + row.hash}
                           >
                             {" "}
-                            {shorten(row.hash)}
-                          </span>{" "}
-                        </a>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "100px",
-                          paddingLeft: "2.813rem",
-                        }}
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass ? animationClass : "tabledata"
-                          }
-                        >
-                          {amt >= 0.0001 ? amt : 0}
-                        </span>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "120px",
-                          paddingLeft: "2.813rem",
-                        }}
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass ? animationClass : "tabledata"
-                          }
-                        >
-                          {ti}
-                        </span>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "120px",
-                          paddingLeft: "2.813rem",
-                        }}
-                        align="left"
-                      >
-                        {" "}
-                        <a
-                          className="linkTable"
-                          href={"/block-details/" + row.blockNumber}
-                        >
-                          {" "}
-                          <span
-                            className={
-                              animationClass ? animationClass : "tabledata"
-                            }
-                          >
-                            {" "}
-                            {row.blockNumber}
-                          </span>{" "}
-                        </a>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "160px",
-                          paddingLeft: "2.813rem",
-                        }}
-                        align="left"
-                      >
-                        {" "}
-                        <a
-                          className="linkTable"
-                          href={"/address-details/" + row.from}
-                        >
-                          <Tooltip placement="top" title={row.from}>
                             <span
                               className={
                                 animationClass ? animationClass : "tabledata"
                               }
                             >
-                              {shorten(row.from)}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "155px",
-                          paddingLeft: "2.813rem",
-                        }}
-                        align="left"
-                      >
-                        {" "}
-                        <a
-                          className="linkTable"
-                          href={"/address-details/" + row.to}
+                              {" "}
+                              {shorten(row.hash)}
+                            </span>{" "}
+                          </a>
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "100px",
+                            paddingLeft: "2.813rem",
+                          }}
+                          align="left"
                         >
-                          <Tooltip placement="top" title={row.to}>
+                          <span
+                            className={
+                              animationClass ? animationClass : "tabledata"
+                            }
+                          >
+                            {amt >= 0.0001 ? amt : 0}
+                          </span>
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "120px",
+                            paddingLeft: "2.813rem",
+                          }}
+                          align="left"
+                        >
+                          <span
+                            className={
+                              animationClass ? animationClass : "tabledata"
+                            }
+                          >
+                            {ti}
+                          </span>
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "120px",
+                            paddingLeft: "2.813rem",
+                          }}
+                          align="left"
+                        >
+                          {" "}
+                          <a
+                            className="linkTable"
+                            href={"/block-details/" + row.blockNumber}
+                          >
+                            {" "}
                             <span
                               className={
                                 animationClass ? animationClass : "tabledata"
                               }
                             >
-                              {!row.to ? "------------------" : shorten(row.to)}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      <TableCell
-                        style={{ border: "none", paddingLeft: "2.813rem" }}
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass ? animationClass : "tabledata"
-                          }
+                              {" "}
+                              {row.blockNumber}
+                            </span>{" "}
+                          </a>
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "160px",
+                            paddingLeft: "2.813rem",
+                          }}
+                          align="left"
                         >
-                          {txFee == 0 ? 0 : txFee} XDC
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
+                          {" "}
+                          <a
+                            className="linkTable"
+                            href={"/address-details/" + row.from}
+                          >
+                            <Tooltip placement="top" title={row.from}>
+                              <span
+                                className={
+                                  animationClass ? animationClass : "tabledata"
+                                }
+                              >
+                                {shorten(row.from)}
+                              </span>
+                            </Tooltip>
+                          </a>
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "155px",
+                            paddingLeft: "2.813rem",
+                          }}
+                          align="left"
+                        >
+                          {" "}
+                          <a
+                            className="linkTable"
+                            href={"/address-details/" + row.to}
+                          >
+                            <Tooltip placement="top" title={row.to}>
+                              <span
+                                className={
+                                  animationClass ? animationClass : "tabledata"
+                                }
+                              >
+                                {!row.to ? "------------------" : shorten(row.to)}
+                              </span>
+                            </Tooltip>
+                          </a>
+                        </TableCell>
+                        <TableCell
+                          style={{ border: "none", paddingLeft: "2.813rem" }}
+                          align="left"
+                        >
+                          <span
+                            className={
+                              animationClass ? animationClass : "tabledata"
+                            }
+                          >
+                            {txFee == 0 ? 0 : txFee} XDC
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>}
           </Table>
         </TableContainer>
       </Paper>
@@ -371,7 +383,7 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._NextPage(event)}
             className={
               props.state.from + props.state.amount ===
-              props.state.totalTransaction
+                props.state.totalTransaction
                 ? "btn disabled"
                 : "btn btn-next"
             }
@@ -382,7 +394,7 @@ export default function TransactionComponent(props) {
             onClick={(event) => props._LastPage(event)}
             className={
               props.state.from + props.state.amount ===
-              props.state.totalTransaction
+                props.state.totalTransaction
                 ? "btn disabled"
                 : "btn btn-last"
             }

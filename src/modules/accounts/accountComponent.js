@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Tokensearchbar from '../explorer/tokensearchBar';
 import FooterComponent from '../common/footerComponent';
 import { makeStyles } from '@material-ui/core/styles';
+import Loader from '../../assets/loader'
 
 const useStyles = makeStyles({
 
@@ -53,7 +54,6 @@ export default function AccountComponent(props) {
                     <input
                         onKeyPress={(e) => {
                             if (e.key === "Enter") {
-                                console.log("Enter key was pressed. Run your function.");
                                 props._handleSearch(e)
                             }
 
@@ -84,7 +84,18 @@ export default function AccountComponent(props) {
                                     <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
                                 </TableRow>
                             </TableHead>
-                            {props.state.noData == 1 &&
+                            {props.state.isLoading == true ? (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell style={{ border: 'none' }} colspan="6">
+                                            <div className="loader-block-list">
+                                                <Loader />
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            ) :
+                                props.state.noData == 1 &&
                                 <TableBody>
                                     {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                                         let num = row.balance;
