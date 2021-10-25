@@ -15,24 +15,17 @@ import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
-import BaseComponent from "../baseComponent"
-// import { UserSignUpService } from "../../../services/";
+import BaseComponent from "../baseComponent";
 import userSignUp from "../../services/userSignUp";
+import userSignIn from "../../services/userSignIn";
+import userForgotPass from "../../services/userForgotPass";
 
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
-  // btn: {
-  // border: "none !important",
-  // color: "black",
-  // textTransform: "unset",
-  // backgroundColor: "#f5f8fa",
-  // marginLeft: "-60px",
-  // "&:hover":{backgroundColor: "#f5f8fa"}
-  // marginLeft: "90px"
-  // },
+  
   value: {
     width: "400px !important",
   },
@@ -53,13 +46,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
-    // "& ::placeholder": {
-    //   color: "red",
-    // },
   },
-  // "@media (max-width: 768px)": {
-  //  },
-
+ 
   addbtn: {
     width: "433px",
     height: "44px",
@@ -260,9 +248,10 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const [userName, setUserName] = React.useState("")
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const [userName, setUserName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const classes = useStyles();
 
@@ -274,89 +263,59 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-
   // <-----------------------------------------------------login functionality------------------------------------------------------>
+
+  async function handleSignIn() {
+    const data = {
+      email: email,
+      password: password,
+    };
+    const response = await userSignIn.postSignIn(data);
+    console.log("Myresponse:",response.email)
+    
+  }
+
   const handleClickOpenSignup = () => {
     setValue(1);
   };
-  const handleOpenForgetPassword = () => {
+  const handleOpenForgotPassword = () => {
     setValue(2);
   };
-  const handleLogin = () => {
-    history.push("/loginprofile");
+  // const handleLogin = () => {
+    // history.push("/loginprofile");
     // window.location("/loginprofile")
-  };
-
+  // };
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
-  async function postSignUp() {
-        const data = {
-          userName: userName,
-          email: email,
-          password: password,
-        };
-        const response = await userSignUp.postSignUp(data);
-        console.log("response:",response)
-        console.log("faraz")
-      }
-    
-     console.log("userName:",userName);
-     console.log("email:",email);
-     console.log("password:",password);
+  
 
-
-  // const [signUp, setSignUp] = useState({
-  //   userName: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  // });
-
-  // const inputEventSignUp = (event) => {
-
-  //   const { value, name} = event.target;
-
-  //   setSignUp((preValue) =>{
-  //     if(name === "userName") {
-  //       return {
-  //         userName: value,
-  //         email: preValue.email,
-  //         password: preValue.password,
-  //         confirmPassword: preValue.confirmPassword,
-  //       };
-  //     } else if(name === "email") {
-  //       return {
-  //         userName: preValue.userName,
-  //         email: value,
-  //         password: preValue.password,
-  //         confirmPassword: preValue.confirmPassword,
-  //       };
-  //     } else if(name === "password") {
-  //       return {
-  //         userName: preValue.userName,
-  //         email: preValue.email,
-  //         password: value,
-  //         confirmPassword: preValue.confirmPassword,
-  //       };
-  //     } else if(name === "confirmPassword") {
-  //       return {
-  //         userName: preValue.userName,
-  //         email: preValue.email,
-  //         password: preValue.password,
-  //         confirmPassword: value,
-  //       };
-  //     }
-  //   })
-  // };
-  // const submitSignUp = (event) => {
-  //   event.preventDefault();
-  //   alert("signup successfull")
-  // }
+  async function handleSignUp() {
+    const data = {
+      userName: userName,
+      email: email,
+      password: password,
+    };
+    if(password !== confirmPassword) {
+      alert("Password doesn't match");
+    }
+    const response = await userSignUp.postSignUp(data);
+    console.log("response:",response);
+  }
 
   const handleClickOpenSignin = () => {
     setValue(0);
   };
 
+
+  // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
+  async function handleForgotPassword() {
+    const data = {
+      email: email,
+    };
+    const response = await userForgotPass.postForgotPass(data);
+    console.log("response:",response)
+    
+  }
 
   return (
     <div>
@@ -399,14 +358,14 @@ export default function FormDialog() {
                   <DialogContentText className={classes.subCategory}>
                     <b>Username</b>
                   </DialogContentText>
-                  <input className={classes.input}></input>
+                  <input className={classes.input} onChange={(e) => setEmail(e.target.value)}></input>
                 </DialogContent>
                 <DialogContent className={classes.passwordContainer}>
                   <DialogContentText className={classes.subCategory}>
                     <b>Password</b>
                     <span
                       className={classes.forgotPassword}
-                      onClick={handleOpenForgetPassword}
+                      onClick={handleOpenForgotPassword}
                     >
                       Forgot Password?
                     </span>
@@ -416,6 +375,7 @@ export default function FormDialog() {
                     type="password"
                     type={passwordShown ? "text" : "password"}
                     className={classes.input}
+                    onChange={(e) => setPassword(e.target.value)}
                   ></input>
                   <span>
                     {passwordShown ? (
@@ -443,8 +403,9 @@ export default function FormDialog() {
                 <DialogActions>
                   <button
                     className={classes.addbtn}
-                    onClick={handleLogin}
-                    onClick={(event) => (window.location.href = "loginprofile")}
+                    // onClick={handleLogin}
+                    onClick={handleSignIn}
+                    // onClick={(event) => (window.location.href = "loginprofile")}
                   >
                     Log in{" "}
                   </button>
@@ -532,6 +493,7 @@ export default function FormDialog() {
                     type="password"
                     placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                     className={classes.input}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     // name="confirmPassword"
                     // value={signUp.confirmPassword}
                     // onChange={inputEventSignUp}
@@ -562,7 +524,10 @@ export default function FormDialog() {
                   </div>
                 </div>
 
-                <button className={classes.createAccountbtn} onClick={ postSignUp }>
+                <button
+                  className={classes.createAccountbtn}
+                  onClick={handleSignUp}
+                >
                   Create an Account{" "}
                 </button>
 
@@ -608,7 +573,7 @@ export default function FormDialog() {
                   <DialogContentText className={classes.subCategory}>
                     <b>Email Address</b>
                   </DialogContentText>
-                  <input type="email" className={classes.input}></input>
+                  <input type="email" className={classes.input} onChange={(e) => setEmail(e.target.value)} ></input>
                 </DialogContent>
                 {/* <div className={classes.termsContainer}>
               <input className={classes.checkbox} type="checkbox"></input>
@@ -630,7 +595,7 @@ export default function FormDialog() {
                   </div>
                 </div>
 
-                <button className={classes.createAccountbtn}>
+                <button className={classes.createAccountbtn} onClick={handleForgotPassword}>
                   Reset Password
                 </button>
 
