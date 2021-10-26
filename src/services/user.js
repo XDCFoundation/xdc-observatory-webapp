@@ -3,7 +3,8 @@ import { httpConstants } from "../images/constants";
 
 export default { getUserPrivateNote, postUserPrivateNote ,getUserWatchlist,addPrivateTagToAddress,getPrivateTagToAddress};
 async function getUserPrivateNote(data) {
-  let url = `http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/transaction-private-note/${data}`;
+ 
+  let url = process.env.REACT_APP_GET_TOTAL_TRANSACTION+"transaction-private-note/"+data;
   // console.log("url ",url)
   return httpService(
     "GET",
@@ -27,8 +28,7 @@ async function getUserPrivateNote(data) {
 }
 
 async function postUserPrivateNote(data) {
-  let url =
-    "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/add-transaction-label";
+  let url =process.env.REACT_APP_GET_TOTAL_TRANSACTION+"add-transaction-label";
 //   console.log("url ", url);
   return httpService(
     "POST",
@@ -52,7 +52,7 @@ async function postUserPrivateNote(data) {
 }
 
 async function getUserWatchlist(data) {
-  let url = `http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/getAddress/${data}`;
+  let url = process.env.REACT_APP_GET_TOTAL_TRANSACTION+"getAddress/"+data;
   // console.log("url ",url)
   return httpService(
     "GET",
@@ -76,8 +76,7 @@ async function getUserWatchlist(data) {
 }
 
 async function addPrivateTagToAddress(data) {
-  let url =
-    "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/add-address-tag/";
+  let url =    process.env.REACT_APP_GET_TOTAL_TRANSACTION+"add-address-tag";
   // console.log("url ", url);
   return httpService(
     "POST",
@@ -100,7 +99,7 @@ async function addPrivateTagToAddress(data) {
     });
 }
 async function getPrivateTagToAddress(data) {
-  let url = `http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3002/get-address-tag/${data}`;
+  let url = process.env.REACT_APP_GET_TOTAL_TRANSACTION+"get-address-tag/"+data;
   // console.log("url ",url)
   return httpService(
     "GET",
