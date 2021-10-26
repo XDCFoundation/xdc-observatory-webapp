@@ -20,6 +20,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import NotificationDrawer from "./NotificationBar";
+import { UserService } from "../../services";
 
 // import React from 'react';
 import PropTypes from "prop-types";
@@ -164,67 +165,82 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  const { editAddress, userDetails } = props
-
-  const tagAddress = async () => {
-    const request = {
-      UserId: "12345",
-      address: "address",
-      tagName: "tagname",
-    };
-    const response = await TagAddressService.tagAddress(request);
-  };
-
   const [address, setAddress] = React.useState([]);
+  const [watchlist, setWatchlist] = React.useState([]);
+  const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
 
   React.useEffect(() => {
-    let address = [
-      {
-        Adress: "xdcc4e699581116412965b5e7c",
-        Description: "My wallet",
-        Balance: "800 XDC ($38.56)",
-        AddedOn: "8:12 PM, 6 Jun 2021",
-        Notification: "Off",
-        Value: "45000.00XDC",
-        id: 1,
-      },
-      {
-        Adress: "xdcc4e699581116412965b5e7c",
-        // xdcc4e699581116412965b…5e7c
-        Description: "My wallet",
-        Balance: "800 XDC ($38.56)",
-        AddedOn: "8:12 PM, 6 Jun 2021",
-        Notification: "Email",
-        Value: "45000.00XDC",
-        id: 2,
-      },
-      {
-        Adress: "xdcc4e699581116412965b5e7c",
-        Description: "My wallet",
-        Balance: "800 XDC ($38.56)",
-        AddedOn: "8:12 PM, 6 Jun 2021",
-        Notification: "Email",
-        Value: "45000.00XDC",
-        id: 3,
-      },
-    ];
+    // let address = [
+    //   {
+    //     Adress: "xdcc4e699581116412965b5e7c",
+    //     Description: "My wallet",
+    //     Balance: "800 XDC ($38.56)",
+    //     AddedOn: "8:12 PM, 6 Jun 2021",
+    //     Notification: "Off",
+    //     Value: "45000.00XDC",
+    //     id: 1,
+    //   },
+    //   {
+    //     Adress: "xdcc4e699581116412965b5e7c",
+    //     // xdcc4e699581116412965b…5e7c
+    //     Description: "My wallet",
+    //     Balance: "800 XDC ($38.56)",
+    //     AddedOn: "8:12 PM, 6 Jun 2021",
+    //     Notification: "Email",
+    //     Value: "45000.00XDC",
+    //     id: 2,
+    //   },
+    //   {
+    //     Adress: "xdcc4e699581116412965b5e7c",
+    //     Description: "My wallet",
+    //     Balance: "800 XDC ($38.56)",
+    //     AddedOn: "8:12 PM, 6 Jun 2021",
+    //     Notification: "Email",
+    //     Value: "45000.00XDC",
+    //     id: 3,
+    //   },
+    // ];
+    getUserWatchlist();
+    async function getUserWatchlist() {
+      console.log("tuhsar");
+      //the user id has to be change from
+      const data = "12345";
+      const response = await UserService.getUserWatchlist(data);
+      // console.log("url response", response);
+      setWatchlist(response);
+    }
+    getuserdata();
+    async function getuserdata() {
+      //the user id has to be change from
+      const data = "12345";
+      const response = await UserService.getUserPrivateNote(data);
+      setAddress(response);
+    }
 
-    setAddress(
-      address.map((d) => {
-        return {
-          select: false,
-          Adress: d.Adress,
-          Description: d.Description,
-          Balance: d.Balance,
-          AddedOn: d.AddedOn,
-          Notification: d.Notification,
-          Value: d.Value,
-          id: d.id,
-        };
-      })
-    );
+    getPvtTagAddress();
+    async function getPvtTagAddress() {
+      //the user id has to be change from
+      const data = "12345";
+      const response = await UserService.getPrivateTagToAddress(data);
+      setPrivateAddress(response);
+    }
+
+    // setAddress(
+    //   address.map((d) => {
+    //     return {
+    //       select: false,
+    //       Adress: d.Adress,
+    //       Description: d.Description,
+    //       Balance: d.Balance,
+    //       AddedOn: d.AddedOn,
+    //       Notification: d.Notification,
+    //       Value: d.Value,
+    //       id: d.id,
+    //     };
+    //   })
+    // );
   }, []);
 
   // const [search, setSearch] = React.useState("");
@@ -267,10 +283,11 @@ export default function SimpleTabs(props) {
             <div className="nameicon">
               <span className="welcome">Welcome, CrytoAlex</span>
               <span>
-                {" "}
-                <NotificationDrawer />{" "}
+                <img
+                  className="noticon"
+                  src={require("../../assets/images/notification.png")}
+                ></img>
               </span>
-              {/* <span ><img className="noticon" src={require("../../assets/images/notification.png")}  ></img> </span> */}
             </div>
             <div className="edit">Edit Profile</div>
           </span>
@@ -396,8 +413,8 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             onChange={(e) => {
                               let checked = e.target.checked;
-                              setAddress(
-                                address.map((d) => {
+                              setWatchlist(
+                                watchlist.map((d) => {
                                   d.select = checked;
 
                                   return d;
@@ -459,7 +476,7 @@ export default function SimpleTabs(props) {
                     <TableBody>
                       {/* {filteredProducts.map((product)=>{ */}
 
-                      {address.map((row, index) => {
+                      {watchlist.map((row, index) => {
                         // const currentTime = new Date();
                         // const previousTime = new Date(row.timestamp * 1000);
                         // const ti = timeDiff(currentTime, previousTime);
@@ -520,26 +537,26 @@ export default function SimpleTabs(props) {
                                 style={{ marginRight: "8px" }}
                               />
                               <a className="linkTable" href="/">
-                                <Tooltip placement="top" title={row.Adress}>
+                                <Tooltip placement="top" title={row.address}>
                                   <span className="tabledata">
-                                    {shorten(row.Adress)}{" "}
+                                    {shorten(row.address)}{" "}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className="tabledata">
-                                {row.Description}
+                                {row.description}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata">{row.Balance}</span>
+                              <span className="tabledata">{row.balance}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.AddedOn}</span>
+                              <span className="tabledata"> {row.addedOn}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -705,17 +722,19 @@ export default function SimpleTabs(props) {
                                 style={{ marginRight: "8px" }}
                               />
                               <a className="linkTable" href="/">
-                                <Tooltip placement="top" title={row.Adress}>
+                                <Tooltip
+                                  placement="top"
+                                  title={row.transactionHash}
+                                >
                                   <span className="tabledata">
-                                    {shorten(row.Adress)}{" "}
+                                    {shorten(row.transactionHash)}{" "}
+                                    {/* {row.transactionHash} */}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
-                                Payment for web hosting
-                              </span>
+                              <span className="tabledata">{row.trxLable}</span>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
                                         
@@ -724,7 +743,7 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.AddedOn}</span>
+                              <span className="tabledata"> {row.addedOn}</span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
@@ -776,8 +795,8 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             onChange={(e) => {
                               let checked = e.target.checked;
-                              setAddress(
-                                address.map((d) => {
+                              setPrivateAddress(
+                                privateAddress.map((d) => {
                                   d.select = checked;
 
                                   return d;
@@ -834,7 +853,7 @@ export default function SimpleTabs(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {address.map((row, index) => {
+                      {privateAddress.map((row, index) => {
                         // const currentTime = new Date();
                         // const previousTime = new Date(row.timestamp * 1000);
                         // const ti = timeDiff(currentTime, previousTime);
@@ -884,15 +903,18 @@ export default function SimpleTabs(props) {
                                 style={{ marginRight: "8px" }}
                               />
                               <a className="linkTable" href="/">
-                                <Tooltip placement="top" title={row.Adress}>
+                                <Tooltip
+                                  placement="top"
+                                  title={row.address}
+                                >
                                   <span className="tabledata">
-                                    {shorten(row.Adress)}
+                                    {shorten(row.address)}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">Comapny</span>
+                              <span className="tabledata">{row.tagName}</span>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
                                         
@@ -901,7 +923,7 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.AddedOn}</span>
+                              <span className="tabledata"> {row.addedOn}</span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
@@ -911,9 +933,7 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               <a className="linkTable" href="/">
-                                <span className="tabledata" onClick={() => editAddress(userDetails.userId)}>
-                                  Edit
-                                </span>
+                                <span className="tabledata">Edit</span>
                               </a>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
