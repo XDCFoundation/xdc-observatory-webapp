@@ -20,6 +20,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import NotificationDrawer from "./NotificationBar";
+import { UserService } from "../../services";
 
 // import React from 'react';
 import PropTypes from "prop-types";
@@ -30,7 +31,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/styles";
-import TagAddressService from "../../services/tagAddress";
+// import TagAddressService from "../../services/tagAddress";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -164,16 +165,16 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  const { editAddress, userDetails } = props
+  // const { editAddress, userDetails } = props;
 
-  const tagAddress = async () => {
-    const request = {
-      UserId: "12345",
-      address: "address",
-      tagName: "tagname",
-    };
-    const response = await TagAddressService.tagAddress(request);
-  };
+  // const tagAddress = async () => {
+  //   const request = {
+  //     UserId: "12345",
+  //     address: "address",
+  //     tagName: "tagname",
+  //   };
+  //   const response = await TagAddressService.tagAddress(request);
+  // };
 
   const [address, setAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
@@ -270,7 +271,12 @@ export default function SimpleTabs(props) {
                 {" "}
                 <NotificationDrawer />{" "}
               </span>
-              {/* <span ><img className="noticon" src={require("../../assets/images/notification.png")}  ></img> </span> */}
+              {/* <span>
+                <img
+                  className="noticon"
+                  src={require("../../assets/images/notification.png")}
+                ></img>
+              </span> */}
             </div>
             <div className="edit">Edit Profile</div>
           </span>
@@ -911,7 +917,12 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               <a className="linkTable" href="/">
-                                <span className="tabledata" onClick={() => editAddress(userDetails.userId)}>
+                                <span
+                                  className="tabledata"
+                                  // onClick={() =>
+                                  //   // editAddress(userDetails.userId)
+                                  // }
+                                >
                                   Edit
                                 </span>
                               </a>

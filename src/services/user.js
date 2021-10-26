@@ -7,6 +7,7 @@ export default {
   getUserWatchlist,
   addPrivateTagToAddress,
   getPrivateTagToAddress,
+  addWatchlist,
 };
 async function getUserPrivateNote(data) {
   let url =
@@ -129,6 +130,32 @@ async function getPrivateTagToAddress(data) {
         !response.responseData ||
         response.responseData.length === 0
       )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+
+async function addWatchlist(data) {
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "addWatchList";
+    console.log("url ", data);
+  return httpService(
+    "POST",
+    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    data,
+    url
+  )
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+
         return Promise.reject();
       return Promise.resolve(response.responseData);
     })
