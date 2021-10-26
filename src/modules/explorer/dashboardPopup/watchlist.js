@@ -21,6 +21,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import WatchListService from "../../../services/watchlist";
+
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -184,6 +187,21 @@ export default function FormDialog() {
       
   }
 
+  const [address, setAddress] = React.useState([]);
+  const [description, setDescription] = React.useState([]);
+
+
+  const postWatchlist = async () => {
+    const request = {
+      UserId: "12345",
+      address: address,
+      description: description,
+    };
+    const response = await WatchListService.postWatchlist(request);
+  };
+
+
+
   return (
     <div >
 
@@ -298,7 +316,7 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
           </DialogContent>
           <DialogActions className={classes.buttons}>
           <span><button className={classes.cnlbtn} onClick={handleLogin} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={handleLogin} >Add</button></span>
+            <span><button className={classes.addbtn} onClick={ postWatchlist, handleLogin} >Add</button></span>
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>

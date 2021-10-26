@@ -7634,7 +7634,6 @@ button {
     overflow-x: scroll;
   }
 }
-<<<<<<< HEAD
 
 
 .profileDropdown{
@@ -7653,7 +7652,6 @@ button {
   background-color: #102e84;
 }
 
-=======
 @media (min-width: 768px) and (max-width: 1023px) {
   .pad-left-27 {
     padding-left: 27px;
@@ -7672,7 +7670,6 @@ button {
 .word-space-4 {
   word-spacing: -4px;
 }
->>>>>>> d26bf4caa70e35d587256e92f7f68e70bb00f5cc
 @media (min-width: 0px) and (max-width: 641px) {
   #btn_12 {
     padding: 7px 6px 10px 10px !important;
@@ -7992,4 +7989,40 @@ button {
   border-width: 4px;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+}
+.Notification-header-color {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-family: Inter;
+  margin-left: 14px !important;
+  margin-top: 20px;
+}
+.Notification-header-text-color-fade {
+  color: #0099f9;
+  font-size: 0.875rem;
+  font-family: Inter;
+  margin-left: 14px !important;
+  margin-top: 20px;
+}
+.Notification-text-color-fade {
+  color: #0099f9;
+  font-size: 0.75rem;
+  font-family: Inter;
+  
+}
+.notification-hr {
+  width: 95%;
+  left: 0%;
+  border: solid 0.1px #4867c1;
+  margin-left: 0%;
+}
+.Notification_details_button {
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+.Notificationtext {
+  font-size: 0.938rem !important;
+    color: #ffffff;
+    margin-bottom: 10px;
 }

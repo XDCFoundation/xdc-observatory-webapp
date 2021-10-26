@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChangePassword(props) {
 
-  console.log(props)
   const classes = useStyles();
 
   const handleLogin = () => {
