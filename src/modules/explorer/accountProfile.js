@@ -1,5 +1,6 @@
 import { mergeClasses, withTheme } from "@material-ui/styles";
 import React, { Component } from "react";
+import moment from "moment";
 import "../../assets/styles/profile.css";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
@@ -169,36 +170,6 @@ export default function SimpleTabs(props) {
   const [toggle, handleToggle] = React.useState(false);
 
   React.useEffect(() => {
-    // let address = [
-    //   {
-    //     Adress: "xdcc4e699581116412965b5e7c",
-    //     Description: "My wallet",
-    //     Balance: "800 XDC ($38.56)",
-    //     AddedOn: "8:12 PM, 6 Jun 2021",
-    //     Notification: "Off",
-    //     Value: "45000.00XDC",
-    //     id: 1,
-    //   },
-    //   {
-    //     Adress: "xdcc4e699581116412965b5e7c",
-    //     // xdcc4e699581116412965b…5e7c
-    //     Description: "My wallet",
-    //     Balance: "800 XDC ($38.56)",
-    //     AddedOn: "8:12 PM, 6 Jun 2021",
-    //     Notification: "Email",
-    //     Value: "45000.00XDC",
-    //     id: 2,
-    //   },
-    //   {
-    //     Adress: "xdcc4e699581116412965b5e7c",
-    //     Description: "My wallet",
-    //     Balance: "800 XDC ($38.56)",
-    //     AddedOn: "8:12 PM, 6 Jun 2021",
-    //     Notification: "Email",
-    //     Value: "45000.00XDC",
-    //     id: 3,
-    //   },
-    // ];
     getUserWatchlist();
     async function getUserWatchlist() {
       console.log("tuhsar");
@@ -223,21 +194,6 @@ export default function SimpleTabs(props) {
       const response = await UserService.getPrivateTagToAddress(data);
       setPrivateAddress(response);
     }
-
-    // setAddress(
-    //   address.map((d) => {
-    //     return {
-    //       select: false,
-    //       Adress: d.Adress,
-    //       Description: d.Description,
-    //       Balance: d.Balance,
-    //       AddedOn: d.AddedOn,
-    //       Notification: d.Notification,
-    //       Value: d.Value,
-    //       id: d.id,
-    //     };
-    //   })
-    // );
   }, []);
 
   // const [search, setSearch] = React.useState("");
@@ -474,9 +430,6 @@ export default function SimpleTabs(props) {
                       {/* {filteredProducts.map((product)=>{ */}
 
                       {watchlist.map((row, index) => {
-                        // const currentTime = new Date();
-                        // const previousTime = new Date(row.timestamp * 1000);
-                        // const ti = timeDiff(currentTime, previousTime);
                         return (
                           <TableRow
                             style={
@@ -553,7 +506,9 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.addedOn}</span>
+
+                              <span className="tabledata">
+                                {moment(row.addedOn).format("hh:mm A , D MMMM YYYY ")}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -740,7 +695,9 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.addedOn}</span>
+                              <span className="tabledata">
+                                {" "}
+                                {moment(row.addedOn).format("hh:mm A , D MMMM YYYY ")} </span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
@@ -900,10 +857,7 @@ export default function SimpleTabs(props) {
                                 style={{ marginRight: "8px" }}
                               />
                               <a className="linkTable" href="/">
-                                <Tooltip
-                                  placement="top"
-                                  title={row.address}
-                                >
+                                <Tooltip placement="top" title={row.address}>
                                   <span className="tabledata">
                                     {shorten(row.address)}
                                   </span>
@@ -920,7 +874,8 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata"> {row.addedOn}</span>
+                              <span className="tabledata">
+                                {moment(row.addedOn).format("hh:mm A , D MMMM YYYY ")} </span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
