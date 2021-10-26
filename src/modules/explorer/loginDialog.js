@@ -19,13 +19,15 @@ import BaseComponent from "../baseComponent";
 import userSignUp from "../../services/userSignUp";
 import userSignIn from "../../services/userSignIn";
 import userForgotPass from "../../services/userForgotPass";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
-  
+
   value: {
     width: "400px !important",
   },
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
   },
- 
+
   addbtn: {
     width: "433px",
     height: "44px",
@@ -259,8 +261,10 @@ export default function FormDialog() {
     setOpen(true);
   };
   const handleClose = () => {
-    setValue(0);
     setOpen(false);
+    setTimeout(() => {
+      setValue(0);
+    }, 1000);
   };
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
@@ -271,8 +275,7 @@ export default function FormDialog() {
       password: password,
     };
     const response = await userSignIn.postSignIn(data);
-    console.log("Myresponse:",response.email)
-    
+    console.log("Myresponse:", response);
   }
 
   const handleClickOpenSignup = () => {
@@ -282,12 +285,11 @@ export default function FormDialog() {
     setValue(2);
   };
   // const handleLogin = () => {
-    // history.push("/loginprofile");
-    // window.location("/loginprofile")
+  // history.push("/loginprofile");
+  // window.location("/loginprofile")
   // };
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
-  
 
   async function handleSignUp() {
     const data = {
@@ -295,17 +297,30 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
-    if(password !== confirmPassword) {
-      alert("Password doesn't match");
+    if (!userName || !email || !password) {
+      toast.error("Enter required field", {
+        position: "top-center",
+      });
+    } else if (password !== confirmPassword) {
+      toast.error("Password doesn't match", {
+        position: "top-center",
+      });
+    } else {
+      toast.success("Sign-up success, check your email", {
+        position: "top-center",
+      });
+      setOpen(false);
+      setTimeout(() => {
+        setValue(0);
+      }, 1000);
+      const response = await userSignUp.postSignUp(data);
+      console.log("response:", response);
     }
-    const response = await userSignUp.postSignUp(data);
-    console.log("response:",response);
   }
 
   const handleClickOpenSignin = () => {
     setValue(0);
   };
-
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
   async function handleForgotPassword() {
@@ -313,8 +328,7 @@ export default function FormDialog() {
       email: email,
     };
     const response = await userForgotPass.postForgotPass(data);
-    console.log("response:",response)
-    
+    console.log("response:", response);
   }
 
   return (
@@ -358,7 +372,10 @@ export default function FormDialog() {
                   <DialogContentText className={classes.subCategory}>
                     <b>Username</b>
                   </DialogContentText>
-                  <input className={classes.input} onChange={(e) => setEmail(e.target.value)}></input>
+                  <input
+                    className={classes.input}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></input>
                 </DialogContent>
                 <DialogContent className={classes.passwordContainer}>
                   <DialogContentText className={classes.subCategory}>
@@ -573,7 +590,11 @@ export default function FormDialog() {
                   <DialogContentText className={classes.subCategory}>
                     <b>Email Address</b>
                   </DialogContentText>
-                  <input type="email" className={classes.input} onChange={(e) => setEmail(e.target.value)} ></input>
+                  <input
+                    type="email"
+                    className={classes.input}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></input>
                 </DialogContent>
                 {/* <div className={classes.termsContainer}>
               <input className={classes.checkbox} type="checkbox"></input>
@@ -595,7 +616,10 @@ export default function FormDialog() {
                   </div>
                 </div>
 
-                <button className={classes.createAccountbtn} onClick={handleForgotPassword}>
+                <button
+                  className={classes.createAccountbtn}
+                  onClick={handleForgotPassword}
+                >
                   Reset Password
                 </button>
 
@@ -615,6 +639,7 @@ export default function FormDialog() {
           </Dialog>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
