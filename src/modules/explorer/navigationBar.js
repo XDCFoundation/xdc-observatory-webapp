@@ -282,7 +282,8 @@ export default function Navbar() {
     "Nodes",
     "Tokens",
   ];
-  const [filter, setFilter] = useState(""); const childToggle = (subanchor, open) => (event) => {
+  const [filter, setFilter] = useState("");
+  const childToggle = (subanchor, open) => (event) => {
 
     if (
 
