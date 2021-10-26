@@ -352,11 +352,11 @@ export default function StickyHeadTable() {
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
-              Page
+              Page&nbsp;
               {Math.round(totalToken / rowsPerPage) +
                 1 -
                 Math.round((totalToken - page) / rowsPerPage)}
-              of {Math.round(totalToken / rowsPerPage)}
+              &nbsp;of {Math.round(totalToken / rowsPerPage)}
             </p>
           </div>
           <div
