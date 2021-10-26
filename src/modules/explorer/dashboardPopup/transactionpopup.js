@@ -240,8 +240,8 @@ export default function FormDialog() {
             </DialogContentText>
 
             <input
-              type="password"
-              type={passwordShown ? "text" : "password"}
+              type="text"
+              
               className={classes.input1}
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>

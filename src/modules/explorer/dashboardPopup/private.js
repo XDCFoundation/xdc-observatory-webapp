@@ -239,7 +239,7 @@ export default function FormDialog() {
             </span> */}
             </DialogContentText>
             
-            <input type="password" type={passwordShown ? "text" : "password"}  className={classes.input} onChange={(e) => setNameTag(e.target.value)}></input>
+            <input type="text"   className={classes.input} onChange={(e) => setNameTag(e.target.value)}></input>
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
