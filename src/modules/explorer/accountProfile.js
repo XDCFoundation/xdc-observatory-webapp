@@ -511,7 +511,7 @@ export default function SimpleTabs(props) {
 
                               <span className="tabledata">
                                 {moment(row.addedOn).format(
-                                  "hh:mm A , D MMMM YYYY "
+                                  "hh:mm A, D MMMM YYYY "
                                 )}
                               </span>
                               {/* </a> */}
@@ -701,7 +701,7 @@ export default function SimpleTabs(props) {
                               <span className="tabledata">
                                 {" "}
                                 {moment(row.addedOn).format(
-                                  "hh:mm A , D MMMM YYYY "
+                                  "hh:mm A, D MMMM YYYY "
                                 )}{" "}
                               </span>
                               {/* </a> */}
@@ -880,7 +880,7 @@ export default function SimpleTabs(props) {
                               {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">
                                 {moment(row.addedOn).format(
-                                  "hh:mm A , D MMMM YYYY "
+                                  "hh:mm A, D MMMM YYYY "
                                 )}{" "}
                               </span>
                               {/* </a> */}
