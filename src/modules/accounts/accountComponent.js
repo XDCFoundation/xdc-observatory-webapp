@@ -57,16 +57,8 @@ export default function AccountComponent(props) {
                                 props._handleSearch(e)
                             }
 
-                        }}
-                        style={{
-                            fontSize: '0.938rem',
-                            letterSpacing: 0.62,
-                            color: '#2a2a2a',
-                            fontFamily: 'Inter',
-                            outlineColor: 'transparent',
-                            borderWidth: 0,
-                            fontWeight: "600"
-                        }} type="text"
+                        }} className="account-searchbar"
+                        type="text"
                         placeholder="Search Accounts" />
                     {/* name="NAME" */}
                 </div>
@@ -78,7 +70,7 @@ export default function AccountComponent(props) {
 
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left" ><span className={"tableheaders_1"}>Address</span></TableCell>
+                                    <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left" ><span className={"tableheaders_1_address"}>Address</span></TableCell>
                                     <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
                                     <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
                                     <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>

@@ -428,16 +428,7 @@ export default function HolderTableComponent(props) {
           />
           <input
 
-            style={{
-              fontSize: "0.938rem",
-              letterSpacing: 0.62,
-              width: "105px",
-              color: "#2a2a2a",
-              fontFamily: "Inter",
-              outlineColor: "transparent",
-              borderWidth: 0,
-              fontWeight: "600",
-            }}
+            className="account-searchbar"
             type="text"
             placeholder="Search Txn"
             onKeyPress={(e) => {

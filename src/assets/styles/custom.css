@@ -2067,7 +2067,8 @@ p {
   border-color: transparent;
   border-left-color: #9fa9ba;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
+  opacity: 0.8;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -3752,6 +3753,10 @@ button {
 .arrow_up {
   color: #02c227;
   /* margin-right: 2px; */
+}
+.arrow_up_token {
+  color: #02c227;
+  margin-top: -2px;
 }
 
 .arrow_down {
@@ -8253,4 +8258,15 @@ button {
 .main-input-td::placeholder {
   color: #9fa8b1;
   font-weight: 500 !important;
+}
+.account-searchbar {
+  font-size: 0.938rem;
+  letter-spacing: 0.62;
+  color: #2a2a2a;
+  font-family: "Inter";
+  outline-color: transparent;
+  border-width: 0;
+}
+.account-searchbar::placeholder {
+  color: #9fa8b1 !important;
 }

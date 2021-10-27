@@ -133,8 +133,8 @@ export default function Transaction({ _handleChange }) {
 
       <div className={classes.root}>
         <Grid>
-          <div className={isLoading == false ? "cover-spin-2" : ""}>
-            <div className={isLoading == false ? "cover-spin" : ""}>
+          <div className={isLoading == true ? "cover-spin-2" : ""}>
+            <div className={isLoading == true ? "cover-spin" : ""}>
 
               <Spacing style={{ borderBottom: 'none' }}>
                 <Container>
@@ -203,7 +203,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       <a
-                        className="linkTableDetails"
+                        className="linkTableDetails-transaction"
                         href={"/block-details/" + transactions.blockNumber}
                       >
                         {" "}
@@ -230,7 +230,7 @@ export default function Transaction({ _handleChange }) {
                     )}
                   </MiddleContainer>
                 </Spacing>
-                <Spacing>
+                <SpacingHash>
                   <Container>
                     <Tooltip title={from}>
                       <ImageView
@@ -241,10 +241,10 @@ export default function Transaction({ _handleChange }) {
                     <Hash>From</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
+                    <Content >
                       {" "}
                       <a
-                        className="linkTableDetails"
+                        className="linkTableDetails-transaction"
                         href={"/address-details/" + transactions.from}
                       >
                         {transactions.from}{" "}
@@ -278,8 +278,8 @@ export default function Transaction({ _handleChange }) {
                       </CopyToClipboard>
                     </Content>
                   </MiddleContainer>
-                </Spacing>
-                <Spacing>
+                </SpacingHash>
+                <SpacingHash>
                   <Container>
                     <Tooltip title={to}>
                       <ImageView
@@ -292,7 +292,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       <a
-                        className="linkTableDetails"
+                        className="linkTableDetails-transaction"
                         href={"/address-details/" + transactions.to}
                       >
                         {transactions.to}
@@ -326,7 +326,7 @@ export default function Transaction({ _handleChange }) {
                       </CopyToClipboard>
                     </Content>
                   </MiddleContainer>
-                </Spacing>
+                </SpacingHash>
                 <Spacing>
                   <Container>
                     <Tooltip title={value}>
@@ -449,7 +449,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainerPrivateNote>
 
                     <PrivateText>To access the Private Note feature, you must be</PrivateText>
-                    <a className="linkTableDetails">Logged In</a>
+                    <a className="linkTableDetails-transaction" style={{ marginLeft: "5px" }}>Logged In</a>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Div__>
@@ -537,7 +537,7 @@ const Div__ = styled.div`
   padding-right: 2.188rem;
 @media(min-width:0px) and (max-width:767px){
    width:22.563rem;
-   height: 56.06rem;
+   height: 61rem;
    padding-left:10px;
   padding-right:10px;
 }
@@ -556,7 +556,7 @@ const MiddleContainerPrivateNote = styled.div`
   width: 100%;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
-  height: 2.313rem;
+  height: auto;
   padding: 7px;
   @media (min-width: 0px) and (max-width: 767px) {
     margin-top: 10px;
@@ -566,7 +566,7 @@ const MiddleContainerPrivateNote = styled.div`
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
-    line-height: 0.5px;
+    line-height: 1.5;
     height: auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -738,6 +738,22 @@ const Spacing = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
+    
+  }
+`;
+const SpacingHash = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 4.063rem;
+
+  @media (max-width: 767px) {
+    display: block;
+    padding: 11px 6px;
+    height: auto;
     
   }
 `;
