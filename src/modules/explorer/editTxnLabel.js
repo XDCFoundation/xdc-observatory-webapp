@@ -106,7 +106,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
@@ -116,11 +115,10 @@ export default function FormDialog(props) {
   };
 
   useEffect(() => {
-    if(props.row.transactionHash)
-    setTransactionsHash(props.row.transactionHash)
-    setPrivateNote(props.row.trxLable)
-    
-  }, [])
+    if (props.row.transactionHash)
+      setTransactionsHash(props.row.transactionHash);
+    setPrivateNote(props.row.trxLable);
+  }, []);
 
   async function editTransactionLable() {
     setOpen(false);
@@ -139,7 +137,7 @@ export default function FormDialog(props) {
   };
 
   const handleClose = () => {
-    setTransactionsHash(props.row.transactionHash)   
+    setTransactionsHash(props.row.transactionHash);
     setOpen(false);
   };
 

@@ -30,8 +30,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/styles";
 
-import EditWatchList from  "./editWatchlist";
-import EditTagAddress from "./editTagAddress"
+import EditWatchList from "./editWatchlist";
+import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -186,7 +186,7 @@ export default function SimpleTabs(props) {
       const data = "12345";
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
-      console.log("tttt",response)
+      console.log("tttt", response);
     }
 
     getPvtTagAddress();
@@ -484,7 +484,6 @@ export default function SimpleTabs(props) {
                                   exportAddress(event.row);
                                   handleToggle(checked);
                                 }}
-
                                 type="checkbox"
                                 checked={toggle}
                                 style={{ marginRight: "8px" }}
@@ -511,7 +510,10 @@ export default function SimpleTabs(props) {
                               {/* <a className="linkTable" href="/"> */}
 
                               <span className="tabledata">
-                                {moment(row.addedOn).format("hh:mm A , D MMMM YYYY ")}</span>
+                                {moment(row.addedOn).format(
+                                  "hh:mm A , D MMMM YYYY "
+                                )}
+                              </span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -522,7 +524,7 @@ export default function SimpleTabs(props) {
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                            <EditWatchList />
+                              <EditWatchList />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
@@ -698,7 +700,10 @@ export default function SimpleTabs(props) {
                               {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">
                                 {" "}
-                                {moment(row.addedOn).format("hh:mm A , D MMMM YYYY ")} </span>
+                                {moment(row.addedOn).format(
+                                  "hh:mm A , D MMMM YYYY "
+                                )}{" "}
+                              </span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
@@ -707,7 +712,7 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                            <EditTxnLabel row={row}/>
+                              <EditTxnLabel row={row} />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
@@ -874,7 +879,10 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">
-                                {moment(row.addedOn).format("hh:mm A , D MMMM YYYY ")} </span>
+                                {moment(row.addedOn).format(
+                                  "hh:mm A , D MMMM YYYY "
+                                )}{" "}
+                              </span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
@@ -883,7 +891,7 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                            <EditTagAddress />
+                              <EditTagAddress />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>

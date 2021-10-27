@@ -10,7 +10,7 @@ export default {
   addWatchlist,
   putWatchlist,
   putTaggedAddress,
-  editUserPrivateNote
+  editUserPrivateNote,
 };
 async function getUserPrivateNote(data) {
   let url =
@@ -144,7 +144,7 @@ async function getPrivateTagToAddress(data) {
 async function addWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "addWatchList";
-    console.log("url ", data);
+  console.log("url ", data);
   return httpService(
     "POST",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -158,7 +158,6 @@ async function addWatchlist(data) {
         !response.responseData ||
         response.responseData.length === 0
       )
-
         return Promise.reject();
       return Promise.resolve(response.responseData);
     })
@@ -167,12 +166,10 @@ async function addWatchlist(data) {
     });
 }
 
-
 async function putWatchlist(data) {
   let url =
-    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
-    "editWatchList";
-    console.log("url ", data);
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "editWatchList";
+  console.log("url ", data);
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -194,12 +191,10 @@ async function putWatchlist(data) {
     });
 }
 
-
 async function putTaggedAddress(data) {
   let url =
-    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
-    "edit-address-tag";
-    console.log("url ", data);
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-address-tag";
+  console.log("url ", data);
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -225,7 +220,7 @@ async function editUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "edit-transaction-Private-note";
-    console.log("url ", data);
+  console.log("url ", data);
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
