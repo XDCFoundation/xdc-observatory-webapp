@@ -167,15 +167,12 @@ export default function FormDialog() {
       transactionHash: TransactionsHash,
     };
     const response = await UserService.postUserPrivateNote(data);
-    console.log("tttt",response)
-      if(response){
-        utility.apiSuccessToast("Transaction Added")
-        setTransactionsHash("")
-        setPrivateNote("")
 
-      }
-        
-
+    if (response) {
+      utility.apiSuccessToast("Transaction Added");
+      setTransactionsHash("");
+      setPrivateNote("");
+    }
   }
 
   console.log("hash", TransactionsHash);
@@ -252,7 +249,6 @@ export default function FormDialog() {
 
             <input
               type="text"
-              
               className={classes.input1}
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
