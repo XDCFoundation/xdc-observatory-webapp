@@ -8,33 +8,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
-import { UserService } from "../../../services";
-// import AccountProfile from "./accountProfile";
-import { NavLink } from "react-router-dom";
-import { history } from "../../../managers/history";
-
+import PutTagAddress from "../../services/user";
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px"
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
   },
   value: {
     width: "400px !important",
@@ -66,42 +47,18 @@ const useStyles = makeStyles((theme) => ({
   addbtn: {
     width: "110px",
   height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
   margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
   borderRadius: "4px",
   backgroundColor: "#3763dd",
   color: "white"
   },
-  // addbtn: {
-  //   width: "110px",
-  // height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  // borderRadius: "4px",
-  // backgroundColor: "#3763dd",
-  // },
-  // cnlbtn: {
-  //   width: "94px",
-  // height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  // borderRadius: "4px",
-  // backgroundColor: "#9fa9ba",
-
-  // },
   cnlbtn: {
     width: "94px",
   height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
   borderRadius: "4px",
   backgroundColor: "#9fa9ba",
   color: "white",
-
-  
-    
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
 
@@ -109,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
   subCategory: {
     marginTop: "-12px",
     marginBottom: "-2px",
-    // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
     fontweight: "500",
@@ -153,14 +109,14 @@ export default function FormDialog() {
 
   };
 
-  async function postTaggedAddress() {
+  async function editTaggedAddress() {
     setOpen(false);
     const data = {
       userId: "12345",
       address: privateAddress,
       tagName: nameTag,
     };
-    const response = await UserService.addPrivateTagToAddress(data);
+    const response = await PutTagAddress.putTaggedAddress(data);
     
   }
   console.log("address",privateAddress)
@@ -178,40 +134,23 @@ export default function FormDialog() {
 
 
   const handleLogin =() => {
-      history.push("/loginprofile")
+      // history.push("/loginprofile")
       
   }
 
   return (
     <div >
-
-
-
-
-<div className="div3" onClick={handleClickOpen}>
-                <div >
-                <img className="imagediv3" src={require("../../../assets/images/private.png")}></img>
-                    </div>
-                    <div className="headingdiv3">
-                    Add private tag to an address
-                    </div>
-                    <div className="paradiv3">
-                     Add a short memo or private tag to the address of interest
-                    </div>
-                    
-                </div>
-
-
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
-
+       <div onClick={handleClickOpen}>
+       <Button
+    color="primary"
+    style={{margin: "-7px 0px 0px 0px"}}
+     >
+      <a className="linkTable" >
+        <span className="tabledata">Edit</span>
+      </a>
+      </Button>
+      </div>
+      
       <div>
         <Dialog
           className={classes.dialog}
@@ -220,11 +159,7 @@ export default function FormDialog() {
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">Add a new Address Tag</DialogTitle>
-            {/* <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span> */}
+            <DialogTitle className={classes.heading} id="form-dialog-title">Edit Address Tag</DialogTitle>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
@@ -236,29 +171,15 @@ export default function FormDialog() {
          <DialogContent>
           <DialogContentText className={classes.subCategory}>
               <b>Name Tag</b>
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
             
             <input type="password" type={passwordShown ? "text" : "password"}  className={classes.input} onChange={(e) => setNameTag(e.target.value)}></input>
-            {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */} 
+          
           </DialogContent>
           <DialogActions className={classes.buttons}>
           <span><button className={classes.cnlbtn} onClick={handleClose} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={postTaggedAddress} >Add</button></span>
+            <span><button className={classes.addbtn} onClick={editTaggedAddress} >Edit</button></span>
           </DialogActions>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
         </Dialog>
       </div>
     </div>
