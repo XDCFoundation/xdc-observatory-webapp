@@ -31,6 +31,10 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/styles";
+
+import EditWatchList from  "./editWatchlist";
+import EditTagAddress from "./editTagAddress"
+import EditTxnLabel from "./editTxnLabel";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -519,9 +523,7 @@ export default function SimpleTabs(props) {
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <a className="linkTable" href="/">
-                                <span className="tabledata">Edit</span>
-                              </a>
+                            <EditWatchList />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
@@ -706,9 +708,7 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <a className="linkTable" href="/">
-                                <span className="tabledata">Edit</span>
-                              </a>
+                            <EditTxnLabel />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
@@ -884,9 +884,7 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <a className="linkTable" href="/">
-                                <span className="tabledata">Edit</span>
-                              </a>
+                            <EditTagAddress />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
