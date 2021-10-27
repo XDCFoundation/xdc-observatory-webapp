@@ -16,11 +16,12 @@ import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
 import BaseComponent from "../baseComponent";
-import userSignUp from "../../services/userSignUp";
-import userSignIn from "../../services/userSignIn";
-import userForgotPass from "../../services/userForgotPass";
+import userSignUp from "../../services/createUser";
+import userSignIn from "../../services/createUser";
+import userForgotPass from "../../services/createUser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ImageCenterFocusStrong from "material-ui/svg-icons/image/center-focus-strong";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -65,6 +66,10 @@ const useStyles = makeStyles((theme) => ({
   },
   passwordContainer: {
     marginTop: "15px",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
   },
 
   subCategory: {
@@ -224,6 +229,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
+
   "@media (max-width: 376px)": {
     createAccountbtn: {
       maxWidth: "433px",
@@ -254,6 +260,14 @@ export default function FormDialog() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [errorMessage1, setErrorMessage1] = React.useState("");
+  const [errorMessage2, setErrorMessage2] = React.useState("");
+  const [errorMessage3, setErrorMessage3] = React.useState("");
+  const [errorMessage4, setErrorMessage4] = React.useState("");
+
+  console.log("UserName",userName)
+  console.log("Email",email)
+  console.log("Password",password)
 
   const classes = useStyles();
 
@@ -265,18 +279,27 @@ export default function FormDialog() {
     setTimeout(() => {
       setValue(0);
     }, 1000);
+    setUserName("")
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setErrorMessage1("")
+    setErrorMessage2("")
+    setErrorMessage3("")
+    setErrorMessage4("")
   };
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
 
-  async function handleSignIn() {
+  const handleSignIn = async () => {
+    // history.push("/loginprofile");
     const data = {
       email: email,
       password: password,
     };
     const response = await userSignIn.postSignIn(data);
     console.log("Myresponse:", response);
-  }
+  };
 
   const handleClickOpenSignup = () => {
     setValue(1);
@@ -290,21 +313,38 @@ export default function FormDialog() {
   // };
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
-
-  async function handleSignUp() {
+  
+  const handleSignUp = async (e) => {
+    e.preventDefault();
     const data = {
       userName: userName,
       email: email,
       password: password,
     };
-    if (!userName || !email || !password) {
-      toast.error("Enter required field", {
-        position: "top-center",
-      });
-    } else if (password !== confirmPassword) {
-      toast.error("Password doesn't match", {
-        position: "top-center",
-      });
+    var regExAlphaNum = /^[0-9a-zA-Z]+$/;
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
+    // if (!userName || !email || !password) {
+    //   toast.error("Enter required field", {
+    //     position: "top-center",
+    //   });
+    // } else
+    setErrorMessage1("")
+    setErrorMessage2("")
+    setErrorMessage3("")
+    setErrorMessage4("")
+    if(!userName.match(regExAlphaNum)) {
+      setErrorMessage1("Enter valid Username")
+
+    } else if (!email.match(mailformat)) {
+      setErrorMessage2("Enter valid Email")
+      
+    } else if (!password.match(regExPass)) {
+      setErrorMessage3("Password must be atleast 5 character long with Uppercase, Lowercase and Number")
+    }
+    else if (password !== confirmPassword) {
+      setErrorMessage4("Password doesn't match")
+
     } else {
       toast.success("Sign-up success, check your email", {
         position: "top-center",
@@ -313,9 +353,15 @@ export default function FormDialog() {
       setTimeout(() => {
         setValue(0);
       }, 1000);
+      setUserName("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
       const response = await userSignUp.postSignUp(data);
       console.log("response:", response);
+      
     }
+    
   }
 
   const handleClickOpenSignin = () => {
@@ -422,7 +468,7 @@ export default function FormDialog() {
                     className={classes.addbtn}
                     // onClick={handleLogin}
                     onClick={handleSignIn}
-                    // onClick={(event) => (window.location.href = "loginprofile")}
+                    onClick={(event) => (window.location.href = "loginprofile")}
                   >
                     Log in{" "}
                   </button>
@@ -472,6 +518,7 @@ export default function FormDialog() {
                     onChange={(e) => setUserName(e.target.value)}
                     // onChange={inputEventSignUp}
                   ></input>
+                  <div className={classes.error}>{errorMessage1}</div>
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
                   <DialogContentText className={classes.subCategory}>
@@ -487,6 +534,7 @@ export default function FormDialog() {
 
                     // onChange={inputEventSignUp}
                   ></input>
+                  <div className={classes.error}>{errorMessage2}</div>
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
                   <DialogContentText className={classes.subCategory}>
@@ -501,6 +549,7 @@ export default function FormDialog() {
                     // value={signUp.password}
                     // onChange={inputEventSignUp}
                   ></input>
+                  <div className={classes.error}>{errorMessage3}</div>
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
                   <DialogContentText className={classes.subCategory}>
@@ -515,6 +564,7 @@ export default function FormDialog() {
                     // value={signUp.confirmPassword}
                     // onChange={inputEventSignUp}
                   ></input>
+                  <div className={classes.error}>{errorMessage4}</div>
                 </DialogContent>
                 <div className={classes.termsContainer}>
                   <input className={classes.checkbox} type="checkbox"></input>
@@ -540,7 +590,6 @@ export default function FormDialog() {
                     ></img>
                   </div>
                 </div>
-
                 <button
                   className={classes.createAccountbtn}
                   onClick={handleSignUp}
