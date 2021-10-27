@@ -17,6 +17,8 @@ import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import { NavLink } from "react-router-dom";
 // import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
+import utility from "../../../utility";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -157,7 +159,7 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function postuserdata() {
+  async function transactionLable() {
     setOpen(false);
     const data = {
       userId: "12345",
@@ -165,6 +167,15 @@ export default function FormDialog() {
       transactionHash: TransactionsHash,
     };
     const response = await UserService.postUserPrivateNote(data);
+    console.log("tttt",response)
+      if(response){
+        utility.apiSuccessToast("Transaction Added")
+        setTransactionsHash("")
+        setPrivateNote("")
+
+      }
+        
+
   }
 
   console.log("hash", TransactionsHash);
@@ -266,7 +277,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata}>
+              <button className={classes.addbtn} onClick={transactionLable}>
                 Add
               </button>
             </span>
