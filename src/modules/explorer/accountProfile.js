@@ -4,7 +4,7 @@ import moment from "moment";
 import "../../assets/styles/profile.css";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import Transaction from "./dashboardPopup/transactionpopup";
+import Transaction from "./dashboardPopup/transactionLable";
 import Watchlist from "./dashboardPopup/watchlist";
 import Private from "./dashboardPopup/private";
 import Grid from "@material-ui/core/Grid";
@@ -21,8 +21,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import { UserService } from "../../services";
-
-// import React from 'react';
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -176,7 +174,6 @@ export default function SimpleTabs(props) {
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
-      console.log("tuhsar");
       //the user id has to be change from
       const data = "12345";
       const response = await UserService.getUserWatchlist(data);
@@ -189,6 +186,7 @@ export default function SimpleTabs(props) {
       const data = "12345";
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
+      console.log("tttt",response)
     }
 
     getPvtTagAddress();
@@ -486,6 +484,7 @@ export default function SimpleTabs(props) {
                                   exportAddress(event.row);
                                   handleToggle(checked);
                                 }}
+
                                 type="checkbox"
                                 checked={toggle}
                                 style={{ marginRight: "8px" }}
@@ -708,7 +707,7 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                            <EditTxnLabel />
+                            <EditTxnLabel row={row}/>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>

@@ -16,6 +16,7 @@ import { UserService } from "../../../services";
 // import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../../managers/history";
+import utility from "../../../utility";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -153,7 +154,7 @@ export default function FormDialog() {
 
   };
 
-  async function postTaggedAddress() {
+  async function TaggedAddress() {
     setOpen(false);
     const data = {
       userId: "12345",
@@ -161,6 +162,9 @@ export default function FormDialog() {
       tagName: nameTag,
     };
     const response = await UserService.addPrivateTagToAddress(data);
+
+    if(response)
+        utility.apiSuccessToast("Tag Added")
     
   }
   console.log("address",privateAddress)
@@ -253,7 +257,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogActions className={classes.buttons}>
           <span><button className={classes.cnlbtn} onClick={handleClose} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={postTaggedAddress} >Add</button></span>
+            <span><button className={classes.addbtn} onClick={TaggedAddress} >Add</button></span>
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
