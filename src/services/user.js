@@ -197,8 +197,8 @@ async function putWatchlist(data) {
 async function putTaggedAddress(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
-    "editTaggedAddress";
-  //   console.log("url ", url);
+    "edit-address-tag";
+    console.log("url ", data);
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
