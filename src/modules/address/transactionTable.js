@@ -311,16 +311,7 @@ export default function TransactionTableComponent(props) {
           />
           <input
             onKeyUp={(event) => props._handleSearch(event)}
-            style={{
-              fontSize: '0.938rem',
-              letterSpacing: 0.62,
-              width: '138px',
-              color: '#2a2a2a',
-              fontFamily: 'Inter',
-              outlineColor: 'transparent',
-              borderWidth: 0,
-              fontWeight: '600',
-            }}
+            className="account-searchbar"
             type="text"
             placeholder="Search"
             onKeyUp={handleKeyUp}

@@ -280,7 +280,25 @@ export default function Navbar() {
     "Tokens",
   ];
   const [filter, setFilter] = useState("");
+  const childToggle = (subanchor, open) => (event) => {
 
+    if (
+
+      event.type === "keydown" &&
+
+      (event.key === "Tab" || event.key === "Shift")
+
+    ) {
+
+      return;
+
+    }
+
+    setOpencontracts(false)
+
+    setState({ ...state, [subanchor]: open });
+
+  };
   const contracts = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -319,7 +337,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={() => setOpencontracts(false)}
+                onClick={childToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -360,7 +378,16 @@ export default function Navbar() {
       </List>
     </div>
   );
-
+  const childToolsToggle = (subanchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setOpen(false)
+    setState({ ...state, [subanchor]: open });
+  };
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -397,7 +424,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "14rem" }}
-                onClick={() => setOpen(false)}
+                onClick={childToolsToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>

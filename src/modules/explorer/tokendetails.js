@@ -345,19 +345,10 @@ export default function StickyHeadTable() {
                       handleSearchKeyUp(e)
                     }
                   }}
-                  style={{
-                    fontSize: '0.938rem',
-                    letterSpacing: 0.62,
-                    fontWeight: 600,
-
-                    color: '#2a2a2a',
-                    outlineColor: 'transparent',
-                    borderWidth: 0,
-                  }}
+                  className="account-searchbar"
                   type="text"
                   placeholder="Search Tokens"
                 />
-                {/* name="NAME" */}
               </div>
             </div>
           </form>
@@ -502,7 +493,7 @@ export default function StickyHeadTable() {
             className="selectbox-contract"
             onChange={(event) => handleChangeRowsPerPage(event)}
           >
-            <option value={10}>10</option>
+            <option value={10} >10</option>
             <option value={25}>25</option>
             <option value={50}>50</option>
             <option value={75}>75</option>
