@@ -7808,16 +7808,56 @@ button {
     margin-left: 0% !important;
   }
 }
+
+.Notification-header-color {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-family: Inter;
+  margin-left: 14px !important;
+  margin-top: 20px;
+}
+.Notification-header-text-color-fade {
+  color: #0099f9;
+  font-size: 0.875rem;
+  font-family: Inter;
+  margin-left: 14px !important;
+  margin-top: 20px;
+}
+.Notification-text-color-fade {
+  color: #0099f9;
+  font-size: 0.75rem;
+  font-family: Inter;
+  
+}
+.notification-hr {
+  width: 95%;
+  left: 0%;
+  border: solid 0.1px #4867c1;
+  margin-left: 0%;
+}
+.Notification_details_button {
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+.Notificationtext {
+  font-size: 0.938rem !important;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
 @media (max-width: 767px) {
   .details-margin-30 {
     margin-left: 30px;
   }
 }
+
 @media (max-width: 767px) {
   .w-118 {
     width: 118%;
   }
 }
+
+
 .loader-circular {
   margin: auto;
   margin-top: 100px;
