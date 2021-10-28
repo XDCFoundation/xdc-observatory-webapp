@@ -23,6 +23,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import AddWatchList from "../../../services/user";
 
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -71,8 +72,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    outline: "none",
+
   },
-  // addbtn: {
+
+
+    // addbtn: {
   //   width: "110px",
   // height: "34px",
   // margin: "33px 0 0 21px",
@@ -150,6 +155,8 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontweight: "600",
   },
+  
+
 }));
 
 export default function FormDialog() {
@@ -247,7 +254,7 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Address</b>
             </DialogContentText>
-            <input
+            <input 
               className={classes.input}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
