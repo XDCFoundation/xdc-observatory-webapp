@@ -29,6 +29,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/styles";
+import NotificationBar from "./NotificationBar"
 
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
@@ -238,10 +239,7 @@ export default function SimpleTabs(props) {
             <div className="nameicon">
               <span className="welcome">Welcome, CrytoAlex</span>
               <span>
-                <img
-                  className="noticon"
-                  src={require("../../assets/images/notification.png")}
-                ></img>
+              <NotificationBar/>
               </span>
             </div>
             <div className="edit">Edit Profile</div>

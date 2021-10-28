@@ -166,17 +166,23 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const response = await UserService.postUserPrivateNote(data);
+    const [error, response] = await utility.parseResponse(
+      UserService.postUserPrivateNote(data)
+    );
 
-    if (response) {
+    if (error) {
+      
+        utility.apiFailureToast("Error");
+        return;
+      }
       utility.apiSuccessToast("Transaction Added");
       setTransactionsHash("");
       setPrivateNote("");
-    }
+    
   }
 
-  console.log("hash", TransactionsHash);
-  console.log("NOTE", PrivateNote);
+  // console.log("hash", TransactionsHash);
+  // console.log("NOTE", PrivateNote);
 
   const classes = useStyles();
 
