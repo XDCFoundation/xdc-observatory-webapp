@@ -1,9 +1,10 @@
 import { mergeClasses, withTheme } from "@material-ui/styles";
 import React, { Component } from "react";
+import moment from "moment";
 import "../../assets/styles/profile.css";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import Transaction from "./dashboardPopup/transactionpopup";
+import Transaction from "./dashboardPopup/transactionLable";
 import Watchlist from "./dashboardPopup/watchlist";
 import Private from "./dashboardPopup/private";
 import Grid from "@material-ui/core/Grid";
@@ -20,10 +21,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import { UserService } from "../../services";
-
-import moment from "moment";
-
-// import React from 'react';
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -32,6 +29,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/styles";
+import NotificationBar from "./NotificationBar"
 
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
@@ -88,10 +86,12 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     backgroundColor: "#f8f9fa00",
-    marginLeft: "115px",
+    marginLeft: "auto",
+    marginRight: "auto",
     borderRadius: "0px",
-
-    width: "55vw",
+    width: "1202px",
+    alignItems: "flex-start",
+    // paddingLeft: "26px",
   },
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
@@ -158,6 +158,70 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#6b7482",
   },
+  "@media (max-width: 1920px)": {
+    appbar: {
+      maxWidth: "1248px",
+      width: "100%",
+      padding: "0 24px",
+    }
+  },
+  "@media (max-width: 828px)": {
+    appbar: {
+      maxWidth: "710px",
+      width: "100%",
+      padding: "0 24px",
+    }
+  },
+  "@media (max-width: 714px)":{
+    appbar: {
+      maxWidth: "375px",
+      width: "100%",
+      padding: "0 7px",
+    },
+  mywatch: {
+    /* width: 100px; */
+    height: "19px",
+    /* margin: 65px 56.5px 10.5px 200px; */
+    paddingLeft: "6px",
+    fontFamily: "Inter",
+    fontSize: "13px",
+    fontWeight: "500",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "-0.5px",
+    textAlign: "center",
+    // color: "#2149b9",
+  },
+    txnprivate: {
+      height: "19px",
+      /* margin: 65px 67.5px 10.5px 8.5px; */
+      paddingLeft: "6px",
+      fontFamily: "Inter",
+      fontSize: "13px",
+      fontWeight: "normal",
+      fontStretch: "normal",
+      fontStyle: "normal",
+      lineHeight: "normal",
+      letterSpacing: "-0.5px",
+      textAlign: "center",
+      color: "#6b7482",
+    },
+  address :{
+    height: "19px",
+    /* margin: 65px 314px 10.5px 2px; */
+    paddingLeft: "0px",
+    fontFamily: "Inter",
+    fontSize: "13px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "-0.5px",
+    textAlign: "center",
+    color: "#6b7482",
+    }
+  }
 }));
 
 export default function SimpleTabs(props) {
@@ -175,39 +239,8 @@ export default function SimpleTabs(props) {
   const [toggle, handleToggle] = React.useState(false);
 
   React.useEffect(() => {
-    // let address = [
-    //   {
-    //     Adress: "xdcc4e699581116412965b5e7c",
-    //     Description: "My wallet",
-    //     Balance: "800 XDC ($38.56)",
-    //     AddedOn: "8:12 PM, 6 Jun 2021",
-    //     Notification: "Off",
-    //     Value: "45000.00XDC",
-    //     id: 1,
-    //   },
-    //   {
-    //     Adress: "xdcc4e699581116412965b5e7c",
-    //     // xdcc4e699581116412965b…5e7c
-    //     Description: "My wallet",
-    //     Balance: "800 XDC ($38.56)",
-    //     AddedOn: "8:12 PM, 6 Jun 2021",
-    //     Notification: "Email",
-    //     Value: "45000.00XDC",
-    //     id: 2,
-    //   },
-    //   {
-    //     Adress: "xdcc4e699581116412965b5e7c",
-    //     Description: "My wallet",
-    //     Balance: "800 XDC ($38.56)",
-    //     AddedOn: "8:12 PM, 6 Jun 2021",
-    //     Notification: "Email",
-    //     Value: "45000.00XDC",
-    //     id: 3,
-    //   },
-    // ];
     getUserWatchlist();
     async function getUserWatchlist() {
-      console.log("tuhsar");
       //the user id has to be change from
       const data = "12345";
       const response = await UserService.getUserWatchlist(data);
@@ -220,6 +253,7 @@ export default function SimpleTabs(props) {
       const data = "12345";
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
+      console.log("tttt", response);
     }
 
     getPvtTagAddress();
@@ -229,21 +263,6 @@ export default function SimpleTabs(props) {
       const response = await UserService.getPrivateTagToAddress(data);
       setPrivateAddress(response);
     }
-
-    // setAddress(
-    //   address.map((d) => {
-    //     return {
-    //       select: false,
-    //       Adress: d.Adress,
-    //       Description: d.Description,
-    //       Balance: d.Balance,
-    //       AddedOn: d.AddedOn,
-    //       Notification: d.Notification,
-    //       Value: d.Value,
-    //       id: d.id,
-    //     };
-    //   })
-    // );
   }, []);
 
   // const [search, setSearch] = React.useState("");
@@ -286,10 +305,7 @@ export default function SimpleTabs(props) {
             <div className="nameicon">
               <span className="welcome">Welcome, CrytoAlex</span>
               <span>
-                <img
-                  className="noticon"
-                  src={require("../../assets/images/notification.png")}
-                ></img>
+              <NotificationBar/>
               </span>
             </div>
             <div className="edit">Edit Profile</div>
@@ -353,14 +369,11 @@ export default function SimpleTabs(props) {
           </AppBar>
           <div className="line"></div>
           <div className="searchdiv">
-            <span>
+            <span className="searchBar">
               <span className="searchiccon">
                 <SearchIcon
                   style={{
                     color: "#9fa9ba",
-                    marginRight: "-4px",
-                    position: "relative",
-                    left: "20px",
                   }}
                 />
               </span>
@@ -381,6 +394,9 @@ export default function SimpleTabs(props) {
                 color: "white",
                 borderRadius: "4px",
                 backgroundColor: "#9fa9ba",
+                width: "94px",
+                height: "34px",
+                marginRight: "24px",
               }}
             >
               {" "}
@@ -480,9 +496,6 @@ export default function SimpleTabs(props) {
                       {/* {filteredProducts.map((product)=>{ */}
 
                       {watchlist.map((row, index) => {
-                        // const currentTime = new Date();
-                        // const previousTime = new Date(row.timestamp * 1000);
-                        // const ti = timeDiff(currentTime, previousTime);
                         return (
                           <TableRow
                             style={
@@ -559,11 +572,11 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
+
                               <span className="tabledata">
-                                {" "}
                                 {moment(row.addedOn).format(
-                                  "hh:mm A , D MMMM YYYY "
-                                )}{" "}
+                                  "hh:mm A, D MMMM YYYY "
+                                )}
                               </span>
                               {/* </a> */}
                             </TableCell>
@@ -749,7 +762,12 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata">  {moment(row.addedOn).format( "hh:mm A , D MMMM YYYY " )}</span>
+                              <span className="tabledata">
+                                {" "}
+                                {moment(row.addedOn).format(
+                                  "hh:mm A, D MMMM YYYY "
+                                )}{" "}
+                              </span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
@@ -758,7 +776,7 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTxnLabel />
+                              <EditTxnLabel row={row} />
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
@@ -924,7 +942,11 @@ export default function SimpleTabs(props) {
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
                               {/* <a className="linkTable" href="/"> */}
-                              <span className="tabledata">  {moment(row.addedOn).format( "hh:mm A , D MMMM YYYY " )}</span>
+                              <span className="tabledata">
+                                {moment(row.addedOn).format(
+                                  "hh:mm A, D MMMM YYYY "
+                                )}{" "}
+                              </span>
                               {/* </a> */}
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">

@@ -17,6 +17,8 @@ import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import { NavLink } from "react-router-dom";
 // import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
+import utility from "../../../utility";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+padding: "10px 35px 20px 0px"
   },
   value: {
     width: "400px !important",
@@ -75,16 +77,17 @@ const useStyles = makeStyles((theme) => ({
   // },
 
   input: {
-    width: "380px",
+    width: "503px",
     height: "10px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     outline:"none",
     padding: "20px",
+    marginBottom: "21px"
   },
   input1: {
-    width: "380px",
+    width: "503px",
     height: "90px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
@@ -116,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
+    marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "10px",
@@ -143,10 +146,34 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginLeft: "8px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "7px",
+    marginBottom: "7px",
+      fontfamily: "Inter",
+      fontweight: "600"
   },
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
+  },
+  "@media (max-width: 768px)":{
+    dialogBox: {
+      maxWidth: "553px",
+      width: "100%",
+      position: "absolute",
+      top: "157px",
+      
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    },
+    input1: {
+      maxWidth: "503px",
+      width: "100%",
+    }
+  }
 }));
 
 export default function FormDialog() {
@@ -159,18 +186,30 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function postuserdata() {
+  async function transactionLable() {
     setOpen(false);
     const data = {
       userId: "12345",
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const response = await UserService.postUserPrivateNote(data);
+    const [error, response] = await utility.parseResponse(
+      UserService.postUserPrivateNote(data)
+    );
+
+    if (error) {
+      
+        utility.apiFailureToast("Error");
+        return;
+      }
+      utility.apiSuccessToast("Transaction Added");
+      setTransactionsHash("");
+      setPrivateNote("");
+    
   }
 
-  console.log("hash", TransactionsHash);
-  console.log("NOTE", PrivateNote);
+  // console.log("hash", TransactionsHash);
+  // console.log("NOTE", PrivateNote);
 
   const classes = useStyles();
 
@@ -214,6 +253,7 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
+          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
@@ -242,8 +282,7 @@ export default function FormDialog() {
             </DialogContentText>
 
             <input
-              type="password"
-              type={passwordShown ? "text" : "password"}
+              type="text"
               className={classes.input1}
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
@@ -268,7 +307,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata}>
+              <button className={classes.addbtn} onClick={transactionLable}>
                 Add
               </button>
             </span>
