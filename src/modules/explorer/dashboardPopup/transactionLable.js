@@ -17,6 +17,8 @@ import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import { NavLink } from "react-router-dom";
 // import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
+import utility from "../../../utility";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -184,18 +186,30 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function postuserdata() {
+  async function transactionLable() {
     setOpen(false);
     const data = {
       userId: "12345",
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const response = await UserService.postUserPrivateNote(data);
+    const [error, response] = await utility.parseResponse(
+      UserService.postUserPrivateNote(data)
+    );
+
+    if (error) {
+      
+        utility.apiFailureToast("Error");
+        return;
+      }
+      utility.apiSuccessToast("Transaction Added");
+      setTransactionsHash("");
+      setPrivateNote("");
+    
   }
 
-  console.log("hash", TransactionsHash);
-  console.log("NOTE", PrivateNote);
+  // console.log("hash", TransactionsHash);
+  // console.log("NOTE", PrivateNote);
 
   const classes = useStyles();
 
@@ -268,8 +282,7 @@ export default function FormDialog() {
             </DialogContentText>
 
             <input
-              type="password"
-              type={passwordShown ? "text" : "password"}
+              type="text"
               className={classes.input1}
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
@@ -294,7 +307,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata}>
+              <button className={classes.addbtn} onClick={transactionLable}>
                 Add
               </button>
             </span>
