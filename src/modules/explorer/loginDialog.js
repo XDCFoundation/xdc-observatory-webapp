@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
+import userSignUp from "../../services/createUser"
 import { Row } from "simple-flexbox";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -16,12 +17,13 @@ import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../managers/history";
 import BaseComponent from "../baseComponent";
-import userSignUp from "../../services/createUser";
-import userSignIn from "../../services/createUser";
-import userForgotPass from "../../services/createUser";
+import AuthService from "../../services/userLogin";
+import Utility from "../../utility";
+import { sessionManager } from "../../managers/sessionManager";
+import { reduxEvent } from "../../constants";
+import { genericConstants, eventConstants } from "../../constants";
+import validator from "validator";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ImageCenterFocusStrong from "material-ui/svg-icons/image/center-focus-strong";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -264,10 +266,14 @@ export default function FormDialog() {
   const [errorMessage2, setErrorMessage2] = React.useState("");
   const [errorMessage3, setErrorMessage3] = React.useState("");
   const [errorMessage4, setErrorMessage4] = React.useState("");
+  
+  
+  const [emailError, setEmailError] = useState("");
+  const [inputError, setInputError] = useState("");
 
-  console.log("UserName",userName)
-  console.log("Email",email)
-  console.log("Password",password)
+  console.log("UserName", userName);
+  console.log("Email", email);
+  console.log("Password", password);
 
   const classes = useStyles();
 
@@ -279,18 +285,18 @@ export default function FormDialog() {
     setTimeout(() => {
       setValue(0);
     }, 1000);
-    setUserName("")
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
-    setErrorMessage1("")
-    setErrorMessage2("")
-    setErrorMessage3("")
-    setErrorMessage4("")
+    setUserName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setErrorMessage1("");
+    setErrorMessage2("");
+    setErrorMessage3("");
+    setErrorMessage4("");
   };
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
-
+  
 
   const handleClickOpenSignup = () => {
     setValue(1);
@@ -298,13 +304,47 @@ export default function FormDialog() {
   const handleOpenForgotPassword = () => {
     setValue(2);
   };
-  const handleSignIn = () => {
-  history.push("/loginprofile");
-  window.location("/loginprofile")
+
+  const login = async () => {
+    const reqObj = {
+      email: email,
+      password: password,
+    };
+
+    if (!email || !password) {
+      Utility.apiFailureToast(genericConstants.INCORRECT_USERNAME_PASS);
+      return;
+    }
+
+    console.log("onLoginClicked===========================");
+    // const [error, authResponse] = await Utility.parseResponse(
+    //   new AuthService().signin(email, password)
+    // );
+    const authObject = new AuthService();
+    let [error, authResponse] = await Utility.parseResponse(
+      authObject.signin(email, password)
+    );
+
+    console.log("responseeee", authResponse, email, password);
+    if (error || !authResponse) {
+      Utility.apiFailureToast("Wrong email or password");
+      // setislogged(true)
+    } else {
+      sessionManager.setDataInCookies(reqObj);
+      sessionManager.setDataInCookies(authResponse);
+      sessionManager.setDataInCookies("isLoggedIn", true);
+      sessionManager.setDataInLocalStorage("requestBody", reqObj);
+      sessionManager.setDataInLocalStorage("userInfo", authResponse);
+      sessionManager.setDataInLocalStorage("isLoggedIn", true);
+      //props.dispatch({ type: reduxEvent.LOGGED_IN, data: authResponse });
+      console.log("responseeee", authResponse);
+      Utility.apiSuccessToast("Sign in successfull");
+      (window.location.href = "loginprofile")
+    }
   };
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
-  
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     const data = {
@@ -320,22 +360,20 @@ export default function FormDialog() {
     //     position: "top-center",
     //   });
     // } else
-    setErrorMessage1("")
-    setErrorMessage2("")
-    setErrorMessage3("")
-    setErrorMessage4("")
-    if(!userName.match(regExAlphaNum)) {
-      setErrorMessage1("Enter valid Username")
-
+    setErrorMessage1("");
+    setErrorMessage2("");
+    setErrorMessage3("");
+    setErrorMessage4("");
+    if (!userName.match(regExAlphaNum)) {
+      setErrorMessage1("Enter valid Username");
     } else if (!email.match(mailformat)) {
-      setErrorMessage2("Enter valid Email")
-      
+      setErrorMessage2("Enter valid Email");
     } else if (!password.match(regExPass)) {
-      setErrorMessage3("Password must be atleast 5 character long with Uppercase, Lowercase and Number")
-    }
-    else if (password !== confirmPassword) {
-      setErrorMessage4("Password doesn't match")
-
+      setErrorMessage3(
+        "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+      );
+    } else if (password !== confirmPassword) {
+      setErrorMessage4("Password doesn't match");
     } else {
       toast.success("Sign-up success, check your email", {
         position: "top-center",
@@ -344,26 +382,40 @@ export default function FormDialog() {
       setTimeout(() => {
         setValue(0);
       }, 1000);
-      setUserName("")
-      setEmail("")
-      setPassword("")
-      setConfirmPassword("")
+      setUserName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
       const response = await userSignUp.postSignUp(data);
       console.log("response:", response);
-      
     }
-    
-  }
+  };
 
   const handleClickOpenSignin = () => {
     setValue(0);
   };
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
-  const handleForgotPassword = () => {
 
-  }
+  const forgotpassword = async () => {
+    const reqObj = {
+      email: email,
+    };
 
+    const authObject = new AuthService();
+    let [error, authResponse] = await Utility.parseResponse(
+      authObject.forgotPassword(email)
+    );
+
+    if (error || !authResponse) {
+      setEmailError("Please enter a valid email address");
+      Utility.apiFailureToast("Wrong email");
+    } else if (validator.isEmail(email)) {
+      // history.push("/email-sent");
+    }
+  };
+
+  //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
@@ -407,7 +459,12 @@ export default function FormDialog() {
                   </DialogContentText>
                   <input
                     className={classes.input}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setEmailError("");
+                      setInputError(" ");
+                    }}
+                    type="text"
                   ></input>
                 </DialogContent>
                 <DialogContent className={classes.passwordContainer}>
@@ -443,19 +500,22 @@ export default function FormDialog() {
                         onClick={togglePasswordVisiblity}
                       />
                     )}
-                    {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
                   </span>
                 </DialogContent>
                 <DialogActions>
                   <button
                     className={classes.addbtn}
                     // onClick={handleLogin}
-                    onClick={handleSignIn}
-                    onClick={(event) => (window.location.href = "loginprofile")}
+                    onClick={() => {
+                      // setPasswordValid("");
+                      // validateEmail();
+                      {
+                        !password || !email
+                          ? setInputError("Please Enter Input Fields")
+                          : login();
+                      }
+                    }}
+                    // onClick={(event) => (window.location.href = "loginprofile")}
                   >
                     Log in{" "}
                   </button>
@@ -629,13 +689,14 @@ export default function FormDialog() {
                   <input
                     type="email"
                     className={classes.input}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setEmailError("");
+                      setInputError(" ");
+                    }}
                   ></input>
                 </DialogContent>
-                {/* <div className={classes.termsContainer}>
-              <input className={classes.checkbox} type="checkbox"></input>
-              <span>I agree to the <span href="#" className={classes.agreeTerms}>Terms and Conditions</span></span>
-            </div> */}
+
                 <div className={classes.robotContainerForgotPass}>
                   <div className={classes.robotContainer1}>
                     <div className={classes.robotContainer2}>
@@ -654,7 +715,11 @@ export default function FormDialog() {
 
                 <button
                   className={classes.createAccountbtn}
-                  onClick={handleForgotPassword}
+                  onClick={() => {
+                    // validateEmail();
+                    forgotpassword();
+                  }}
+                  disabled={!email}
                 >
                   Reset Password
                 </button>
