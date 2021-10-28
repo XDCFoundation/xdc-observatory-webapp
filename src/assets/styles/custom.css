@@ -6337,6 +6337,7 @@ button {
   align-items: center;
   border-radius: 10px;
   box-shadow: black;
+  padding-top: 1.25rem;
 }
 
 .second-row-table-block {
