@@ -6,6 +6,7 @@ import EUR from "../../assets/images/Euro.svg";
 import USD from "../../assets/images/dollar.svg";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
+import DownArrow from '@material-ui/icons/KeyboardArrowDown';
 import { MenuItem } from "material-ui";
 import { useSelector, useDispatch } from "react-redux";
 import { usdCurrency, eurCurrency, inrCurrency } from "../../actions/index";
@@ -130,6 +131,7 @@ export default function FooterComponent(props) {
                   defaultValue="USD"
                   onChange={(event) => props._handleChange(event)}
                   value={CurrencyNow}
+                  IconComponent = {DownArrow}
                 >
                   {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
                   <MenuItem
