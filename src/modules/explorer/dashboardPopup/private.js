@@ -55,12 +55,13 @@ const useStyles = makeStyles((theme) => ({
     padding: "1px 35px 15px 0px",
   },
   input: {
-    width: "400px",
+    width: "503px",
     height: "15px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    marginBottom: "21px",
     outline: "none"
   },
 
@@ -106,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
+    marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
@@ -133,10 +134,30 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginLeft: "10px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "7px",
+    marginBottom: "7px",
+      fontfamily: "Inter",
+      fontweight: "600"
   },
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
+  },
+  "@media (max-width: 768px)":{
+    dialogBox: {
+      maxWidth: "553px",
+      width: "100%",
+      position: "absolute",
+      top: "157px",
+      
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    }
+  }
 }));
 
 export default function FormDialog() {
@@ -211,6 +232,7 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
+          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
