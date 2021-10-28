@@ -175,11 +175,6 @@ export default function FormDialog() {
               <input type="password" type={passwordShown ? "text" : "password"} className={classes.input}></input>
               <span>
                 {passwordShown ? <VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} /> : <VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity} />}
-                {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
               </span>
             </DialogContent>
             <DialogActions>
