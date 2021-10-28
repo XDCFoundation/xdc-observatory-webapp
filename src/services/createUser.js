@@ -5,7 +5,7 @@ export default { postSignIn, postSignUp, postForgotPass}
 
 async function postSignIn(data) {
 
-    let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/login";
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "login";
     console.log("url ",url)
     return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
@@ -22,7 +22,7 @@ async function postSignIn(data) {
 
 async function postSignUp(data) {
     
-    let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/sign-up";
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "sign-up";
     console.log("url ",url)
     return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
