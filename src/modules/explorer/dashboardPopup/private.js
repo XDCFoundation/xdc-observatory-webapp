@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     marginBottom: "21px",
+    outline: "none"
   },
 
   addbtn: {

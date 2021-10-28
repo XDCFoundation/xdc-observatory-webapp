@@ -59,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    outline: "none",
+
   },
   input1: {
     width: "380px",
@@ -67,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    outline: "none",
+
   },
 
   addbtn: {
