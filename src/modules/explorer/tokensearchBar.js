@@ -16,7 +16,6 @@ import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility, { dispatchAction } from "../../utility";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -25,13 +24,18 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: "#2149b9",
-    height: "4.875rem",
+    height: '4.875rem',
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  "@media (max-width:1023px)": {
+  "@media (min-width: 0px) and (max-width:767px)": {
+    appBar: {
+      height: '11.4375rem !important',
+    },
+  },
+  "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
       backgroundColor: "#2149b9",
       height: "134px !important",
@@ -107,7 +111,6 @@ const useStyles = makeStyles((theme) => ({
       width: 180,
       backgroundColor: "#102e84",
       height: "100%",
-
     },
   },
   fullList: {
@@ -198,7 +201,13 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
         <p
           style={{
             color: "#4666c4",
@@ -596,117 +605,130 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar className="mob-height" elevation={0} className={clsx(classes.appBar)}>
+      <AppBar
+        className="mob-height"
+        elevation={0}
+        className={clsx(classes.appBar)}
+      >
         <Toolbar>
-
           <div className="tab-search">
-            <Typography className="Header">
-              <div className="mobile-navbartab">
-                <div className="mobile-navbartab1">
-                  <a href={"/"}>
-                    <img
-                      className="Shape-XDC"
-                      src={require("../../../src/assets/images/XDC icon.svg")}
-                    ></img>
-                  </a>
-                  <a className="XDC-internal" href="/">
-                    {" "}
-                    XDC{" "}
-                  </a>
+            {/* <Typography className="Header"> */}
+            <div className="mobile-navbartab">
+              <div className="mobile-navbartab1">
+                <a href={"/"}>
+                  <img
+                    className="Shape-XDC"
+                    src={require("../../../src/assets/images/XDC icon.svg")}
+                  ></img>
+                </a>
+                <a className="XDC-internal" href="/">
+                  {" "}
+                  XDC{" "}
+                </a>
+              </div>
+              <div>
+                <div>
+                  <NavLink
+                    exact
+                    activeClassName="active-t"
+                    to={"/"}
+                    className="Network-explorer-internal"
+                  >
+                    Network Explorer
+                  </NavLink>
                 </div>
                 <div>
-                  <div>
-                    <NavLink
-                      exact
-                      activeClassName="active-t"
-                      to={"/"}
-                      className="Network-explorer-internal"
-                    >
-                      Network Explorer
-                    </NavLink>
-                  </div>
-                  <div>
-                    <NavLink
-                      exact
-                      activeClassName="active-t"
-                      to={"/token-details"}
-                      className="Token-internal"
-                    >
-                      Tokens
-                    </NavLink>
-                  </div>
+                  <NavLink
+                    exact
+                    activeClassName="active-t"
+                    to={"/token-details"}
+                    className="Token-internal"
+                  >
+                    Tokens
+                  </NavLink>
                 </div>
               </div>
-            </Typography>
-            <div className="centerbox-td">
-              {/* <p className="description"></p> */}
-              <div className="main-form-container-td">
-                <form
-                  method="post"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                  }}
-                >
-                  <div>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <img
-                        style={{ width: 16, height: 16, marginRight: 3, marginTop: 2 }}
-                        src={require("../../assets/images/Search.svg")}
-                      />
-                      <div className="search-responsive">
-                        <div>
-                          <input
-                            defaultValue={filter}
-                            type="text"
-                            onClick={(event) => handleSearch(event)}
-                            ref={SearchDataRef}
-                            onKeyPress={(event) => {
-                              if (event.key === "Enter") {
-                                handleSearch(event);
-                              }
-                            }}
-                            className="main-input-td"
-                            src={require("../../images/Search.png")}
-                            placeholder="Search for an address, a transaction or a block number"
-                          />
-                        </div>
-                        {/* name="NAME" */}
-                        <div>
-
-                          <select
-                            className="select-td"
-                            onChange={(event) => handleSearchOption(event)}
-                            ref={SelectOptRef}
-                          >
-                            <option value="All filters" selected>
-                              All Filters
-                            </option>
-                            <option value="Address">Addresses</option>
-                            <option value="Blocks">Blocks</option>
-                            <option value="Tokens">Tokens</option>
-                            <option value="Transaction">Transaction</option>
-                            {/* <option value="Nametags">Nametags</option>
+            </div>
+            {/* </Typography> */}
+            <div className="parentCenterbox">
+              <div className="centerbox-td">
+                {/* <p className="description"></p> */}
+                <div className="main-form-container-td">
+                  <form
+                    method="post"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
+                    <div>
+                      <div style={{ display: "flex", flexDirection: "row" }}>
+                        <img
+                          style={{
+                            width: 16,
+                            height: 16,
+                            marginRight: 3,
+                            marginTop: 2,
+                          }}
+                          src={require("../../assets/images/Search.svg")}
+                        />
+                        <div className="search-responsive">
+                          <div>
+                            <input
+                              defaultValue={filter}
+                              type="text"
+                              onClick={(event) => handleSearch(event)}
+                              ref={SearchDataRef}
+                              onKeyPress={(event) => {
+                                if (event.key === "Enter") {
+                                  handleSearch(event);
+                                }
+                              }}
+                              className="main-input-td"
+                              src={require("../../images/Search.png")}
+                              placeholder="Search for an address, a transaction or a block number"
+                            />
+                          </div>
+                          {/* name="NAME" */}
+                          <div className='mobFilter'>
+                            <select
+                              className="select-td"
+                              onChange={(event) => handleSearchOption(event)}
+                              ref={SelectOptRef}
+                            >
+                              <option value="All filters" selected>
+                                All Filters
+                              </option>
+                              <option value="Address">Addresses</option>
+                              <option value="Blocks">Blocks</option>
+                              <option value="Tokens">Tokens</option>
+                              <option value="Transaction">Transaction</option>
+                              {/* <option value="Nametags">Nametags</option>
                       <option value="Labels">Labels</option>
                       <option value="Websites">Websites</option> */}
-                          </select>
+                            </select>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <ul style={{ color: "black" }}>
-                    {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-                    <li>
-                      {list.map((name) => {
-                        if (filter.length !== 0) {
-                          if (name.toLowerCase().startsWith(filter.toLowerCase()))
-                            return <li>{name}</li>;
-                        } else {
-                          return null;
-                        }
-                      })}
-                    </li>
-                  </ul>
-                </form>
+                    <ul style={{ color: "black" }}>
+                      {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+                      <li>
+                        {list.map((name) => {
+                          if (filter.length !== 0) {
+                            if (
+                              name
+                                .toLowerCase()
+                                .startsWith(filter.toLowerCase())
+                            )
+                              return <li>{name}</li>;
+                          } else {
+                            return null;
+                          }
+                        })}
+                      </li>
+                    </ul>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -749,9 +771,7 @@ export default function Navbar() {
               </Drawer>
             </React.Fragment>
           </div>
-
         </Toolbar>
-
       </AppBar>
     </div>
   );

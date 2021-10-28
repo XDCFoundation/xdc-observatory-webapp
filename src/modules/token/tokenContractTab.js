@@ -8,7 +8,6 @@ import bytecod from '../../assets/images/bytecod.png';
 import Tooltip from "@material-ui/core/Tooltip";
 export default function TokenContracttab(props) {
     let verifiedData = props?.contractData
-    console.log(verifiedData, "::::")
     const [copiedText, setCopiedText] = useState("");
     return (
 
@@ -65,7 +64,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
@@ -91,7 +90,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
@@ -117,7 +116,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={require("../../../src/assets/images/copy.svg")} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
