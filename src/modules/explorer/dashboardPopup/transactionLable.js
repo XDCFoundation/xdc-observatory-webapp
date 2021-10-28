@@ -12,10 +12,11 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
-import { UserService } from "../../../services";
+// import Transaction from './accountProfile';
 // import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
-import { history } from "../../../managers/history";
+// import { history } from "../../../managers/history";
+import { UserService } from "../../../services";
 import utility from "../../../utility";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,63 +37,6 @@ const useStyles = makeStyles((theme) => ({
     // "&:hover":{backgroundColor: "#f5f8fa"}
     // marginLeft: "90px"
   },
-  value: {
-    width: "400px !important",
-  },
-  cross: {
-    marginTop: "25px",
-    marginLeft: "40px",
-    fontWeight: "500",
-  },
-  dialog: {
-    marginLeft: "10%",
-    marginTop: "2px",
-    width: "80% !important",
-    height: "70% !important",
-    borderRadius: "50px !important",
-  },
-  buttons: {
-    padding: "1px 35px 15px 0px",
-  },
-  input: {
-    width: "503px",
-    height: "15px",
-    border: "solid 1px #c6c8ce",
-    backgroundColor: "#ffffff",
-    borderRadius: "7px",
-    padding: "20px",
-    marginBottom: "21px",
-    outline: "none"
-  },
-
-  addbtn: {
-    width: "110px",
-    height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
-    margin: "14px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
-    borderRadius: "4px",
-    backgroundColor: "#3763dd",
-    color: "white",
-  },
-  // addbtn: {
-  //   width: "110px",
-  // height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  // borderRadius: "4px",
-  // backgroundColor: "#3763dd",
-  // },
-  // cnlbtn: {
-  //   width: "94px",
-  // height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  // borderRadius: "4px",
-  // backgroundColor: "#9fa9ba",
-
-  // },
   cnlbtn: {
     width: "94px",
     height: "34px",
@@ -105,13 +49,81 @@ const useStyles = makeStyles((theme) => ({
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
   },
+  buttons: {
+padding: "10px 35px 20px 0px"
+  },
+  value: {
+    width: "400px !important",
+  },
+  cross: {
+    marginTop: "25px",
+    marginLeft: "40px",
+    fontWeight: "500",
+  },
+  dialog: {
+    marginLeft: "10%",
+    marginTop: "6px",
+    width: "80% !important",
+    height: "67% !important",
+    borderRadius: "50px !important",
+  },
+  // input: {
+  //   width: "506px",
+  // height: "38px",
+  // margin: "3px 0 21px",
+  // borderRadius: "8px",
+  // border: "solid 1px #9fa9ba",
+  // backgroundColor: "#ffffff",
+  // },
+
+  input: {
+    width: "503px",
+    height: "10px",
+    border: "solid 1px #c6c8ce",
+    backgroundColor: "#ffffff",
+    borderRadius: "7px",
+    outline:"none",
+    padding: "20px",
+    marginBottom: "21px"
+  },
+  input1: {
+    width: "503px",
+    height: "90px",
+    border: "solid 1px #c6c8ce",
+    backgroundColor: "#ffffff",
+    borderRadius: "7px",
+    padding: "20px",
+    outline: "none"
+  },
+
+  // input1: {
+  //   width: "506px",
+  // height: "113px",
+  // margin: "3px 0 33px",
+  // padding: "12px 96px 67px 93px",
+  // borderRadius: "8px",
+  // border: "solid 1px #9fa9ba",
+  // backgroundColor: "#ffffff",
+
+  // },
+  addbtn: {
+    width: "110px",
+    height: "34px",
+    // margin: "33px 0 0 21px",
+    // padding: "8px 30px 7px 32px",
+    margin: "14px -8px 15px 2px",
+    padding: "6px 19px 3px 20px",
+    borderRadius: "4px",
+    backgroundColor: "#3763dd",
+    color: "white",
+  },
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    fontsize: "10px",
+    fontweight: "200",
     border: "none !important",
   },
   forgotpass: {
@@ -156,40 +168,48 @@ const useStyles = makeStyles((theme) => ({
     input: {
       maxWidth: "503px",
       width: "100%",
+    },
+    input1: {
+      maxWidth: "503px",
+      width: "100%",
     }
   }
 }));
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
-
+  const [TransactionsHash, setTransactionsHash] = React.useState("");
+  const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
-  const [privateAddress, setPrivateAddress] = React.useState(false);
-  const [nameTag, setNameTag] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function TaggedAddress() {
+  async function transactionLable() {
     setOpen(false);
     const data = {
       userId: "12345",
-      address: privateAddress,
-      tagName: nameTag,
+      trxLable: PrivateNote,
+      transactionHash: TransactionsHash,
     };
     const [error, response] = await utility.parseResponse(
-      UserService.addPrivateTagToAddress(data)
+      UserService.postUserPrivateNote(data)
     );
 
     if (error) {
-      utility.apiFailureToast("error");
-      return;
-    }
-    utility.apiSuccessToast("Tag Added");
+      
+        utility.apiFailureToast("Error");
+        return;
+      }
+      utility.apiSuccessToast("Transaction Added");
+      setTransactionsHash("");
+      setPrivateNote("");
+    
   }
-  // console.log("address",privateAddress)
-  // console.log("note",nameTag)
+
+  // console.log("hash", TransactionsHash);
+  // console.log("NOTE", PrivateNote);
 
   const classes = useStyles();
 
@@ -202,21 +222,21 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-    history.push("/loginprofile");
+    // history.push("/loginprofile")
   };
 
   return (
     <div>
-      <div className="div3" onClick={handleClickOpen}>
+      <div className="div2" onClick={handleClickOpen}>
         <div>
           <img
-            className="imagediv3"
-            src={require("../../../assets/images/private.png")}
+            className="imagediv2"
+            src={require("../../../assets/images/transaction.png")}
           ></img>
         </div>
-        <div className="headingdiv3">Add private tag to an address</div>
-        <div className="paradiv3">
-          Add a short memo or private tag to the address of interest
+        <div className="headingdiv2">Add Transaction label</div>
+        <div className="paradiv2">
+          Add a personal note to transacton hash to track it in future
         </div>
       </div>
 
@@ -226,6 +246,7 @@ export default function FormDialog() {
         color="primary"
         onClick={handleClickOpen}
       >
+          
           <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
       </Button> */}
 
@@ -239,25 +260,22 @@ export default function FormDialog() {
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new Address Tag
+              Add Transaction label
             </DialogTitle>
-            {/* <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span> */}
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              <b>Transaction Hash</b>
             </DialogContentText>
             <input
+              type="text"
               className={classes.input}
-              onChange={(e) => setPrivateAddress(e.target.value)}
+              onChange={(e) => setTransactionsHash(e.target.value)}
             ></input>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
+              <b>Transaction Label/Note</b>
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
@@ -265,9 +283,10 @@ export default function FormDialog() {
 
             <input
               type="text"
-              className={classes.input}
-              onChange={(e) => setNameTag(e.target.value)}
+              className={classes.input1}
+              onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
+
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
@@ -277,14 +296,18 @@ export default function FormDialog() {
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </DialogContent>
+          {/* <DialogActions>
+            <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
+          </DialogActions> */}
           <DialogActions className={classes.buttons}>
-            <span>
+            <span style={{ color: "white" }}>
               <button className={classes.cnlbtn} onClick={handleClose}>
+                {" "}
                 Cancel
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={TaggedAddress}>
+              <button className={classes.addbtn} onClick={transactionLable}>
                 Add
               </button>
             </span>

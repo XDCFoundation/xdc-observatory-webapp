@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,38 +7,19 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
-// import Transaction from './accountProfile';
-// import AccountProfile from "./accountProfile";
-import { NavLink } from "react-router-dom";
-// import { history } from "../../../managers/history";
-import { UserService } from "../../../services";
+import { UserService } from "../../services";
+import utility from "../../utility";
+import { useEffect } from "react";
+
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
-  btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
-  },
+  btn: {},
   cnlbtn: {
     width: "94px",
     height: "34px",
-    // margin: "33px 21px 0 87px",
-    // padding: "8px 19px 7px 21px",
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
@@ -65,15 +45,6 @@ const useStyles = makeStyles((theme) => ({
     height: "67% !important",
     borderRadius: "50px !important",
   },
-  // input: {
-  //   width: "506px",
-  // height: "38px",
-  // margin: "3px 0 21px",
-  // borderRadius: "8px",
-  // border: "solid 1px #9fa9ba",
-  // backgroundColor: "#ffffff",
-  // },
-
   input: {
     width: "380px",
     height: "10px",
@@ -81,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    outline: "none",
+
   },
   input1: {
     width: "380px",
@@ -89,23 +62,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    outline: "none",
+
   },
 
-  // input1: {
-  //   width: "506px",
-  // height: "113px",
-  // margin: "3px 0 33px",
-  // padding: "12px 96px 67px 93px",
-  // borderRadius: "8px",
-  // border: "solid 1px #9fa9ba",
-  // backgroundColor: "#ffffff",
-
-  // },
   addbtn: {
     width: "110px",
     height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
@@ -115,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
   subCategory: {
     marginTop: "-12px",
     marginBottom: "-2px",
-    // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "10px",
     fontweight: "200",
@@ -147,29 +109,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function postuserdata() {
+  useEffect(() => {
+    if (props.row.transactionHash)
+      setTransactionsHash(props.row.transactionHash);
+    setPrivateNote(props.row.trxLable);
+  }, []);
+
+  async function editTransactionLable() {
     setOpen(false);
     const data = {
-      userId: "12345",
+      _id: props.row._id,
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const response = await UserService.postUserPrivateNote(data);
+    const [error,response] = await utility.parseResponse( UserService.editUserPrivateNote(data));
+    if (error) {
+      utility.apiSuccessToast("Error");
+    return}
+    utility.apiSuccessToast("Transaction Edited")
   }
-
-  console.log("hash", TransactionsHash);
-  console.log("NOTE", PrivateNote);
-
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -177,37 +144,19 @@ export default function FormDialog() {
   };
 
   const handleClose = () => {
+    setTransactionsHash(props.row.transactionHash);
     setOpen(false);
-  };
-
-  const handleLogin = () => {
-    // history.push("/loginprofile")
   };
 
   return (
     <div>
-      <div className="div2" onClick={handleClickOpen}>
-        <div>
-          <img
-            className="imagediv2"
-            src={require("../../../assets/images/transaction.png")}
-          ></img>
-        </div>
-        <div className="headingdiv2">Add Transaction label</div>
-        <div className="paradiv2">
-          Add a personal note to transacton hash to track it in future
-        </div>
+      <div onClick={handleClickOpen}>
+        <Button color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
+          <a className="linkTable">
+            <span className="tabledata">Edit</span>
+          </a>
+        </Button>
       </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
 
       <div>
         <Dialog
@@ -218,7 +167,7 @@ export default function FormDialog() {
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add Transaction label
+              Edit Transaction label
             </DialogTitle>
           </Row>
           <DialogContent>
@@ -228,53 +177,35 @@ export default function FormDialog() {
             <input
               type="text"
               className={classes.input}
+              value={TransactionsHash}
               onChange={(e) => setTransactionsHash(e.target.value)}
             ></input>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               <b>Transaction Label/Note</b>
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <input
-              type="password"
-              type={passwordShown ? "text" : "password"}
+              type="text"
               className={classes.input1}
+              value={PrivateNote}
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
-
-            {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
           </DialogContent>
-          {/* <DialogActions>
-            <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
-          </DialogActions> */}
+
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>
               <button className={classes.cnlbtn} onClick={handleClose}>
-                {" "}
                 Cancel
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata}>
-                Add
+              <button className={classes.addbtn} onClick={editTransactionLable}>
+                Edit
               </button>
             </span>
           </DialogActions>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
         </Dialog>
       </div>
     </div>

@@ -361,7 +361,7 @@ export default function FormDialog() {
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
   const handleForgotPassword = () => {
-    
+
   }
 
   return (
