@@ -238,7 +238,7 @@ export default function AddressDetails(props) {
                                 </div>
                                 <QRCode
                                   size={320}
-                                  style={{ height: 400, width: 400 }}
+                                  style={{ height: 400, width: 400, marginTop: '0.625rem' }}
                                   value={addr}
                                 />
                               </div>
