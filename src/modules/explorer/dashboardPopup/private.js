@@ -8,14 +8,16 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import { UserService } from "../../../services";
 // import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 import { history } from "../../../managers/history";
+import utility from "../../../utility";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     // fontFamily: "Roboto",
     // fontStyle: "normal",
     backgroundColor: "#2149b9",
-    marginLeft: "90px"
+    marginLeft: "90px",
   },
   btn: {
     // border: "none !important",
@@ -47,30 +49,32 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "2px",
     width: "80% !important",
     height: "70% !important",
-    borderRadius: "50px !important"
+    borderRadius: "50px !important",
   },
   buttons: {
-    padding: "1px 35px 15px 0px"
-      },
+    padding: "1px 35px 15px 0px",
+  },
   input: {
-    width: "400px",
+    width: "503px",
     height: "15px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    marginBottom: "21px",
+    outline: "none"
   },
 
   addbtn: {
     width: "110px",
-  height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  margin: "14px -8px 15px 2px",
+    height: "34px",
+    // margin: "33px 0 0 21px",
+    // padding: "8px 30px 7px 32px",
+    margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
-  borderRadius: "4px",
-  backgroundColor: "#3763dd",
-  color: "white"
+    borderRadius: "4px",
+    backgroundColor: "#3763dd",
+    color: "white",
   },
   // addbtn: {
   //   width: "110px",
@@ -91,51 +95,68 @@ const useStyles = makeStyles((theme) => ({
   // },
   cnlbtn: {
     width: "94px",
-  height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  borderRadius: "4px",
-  backgroundColor: "#9fa9ba",
-  color: "white",
+    height: "34px",
+    // margin: "33px 21px 0 87px",
+    // padding: "8px 19px 7px 21px",
+    borderRadius: "4px",
+    backgroundColor: "#9fa9ba",
+    color: "white",
 
-  
-    
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
-
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
+    marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
     fontweight: "500",
-    border: "none !important"
+    border: "none !important",
   },
   forgotpass: {
-      color: "#2149b9",
-      marginLeft: "123px"
+    color: "#2149b9",
+    marginLeft: "123px",
   },
   createaccount: {
     color: "#2149b9",
     marginLeft: "32px",
     fontfamily: "Inter",
-  fontsize: "14px",
+    fontsize: "14px",
   },
   icon: {
-      marginLeft: "-30px"
+    marginLeft: "-30px",
   },
   xdc: {
     color: "#2a2a2a",
     marginLeft: "30px",
     fontfamily: "Inter",
-  fontsize: "5px",
+    fontsize: "5px",
   },
   heading: {
-      marginLeft: "10px",
+    marginTop: "7px",
+    marginBottom: "7px",
       fontfamily: "Inter",
       fontweight: "600"
+  },
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
+  },
+  "@media (max-width: 768px)":{
+    dialogBox: {
+      maxWidth: "553px",
+      width: "100%",
+      position: "absolute",
+      top: "157px",
+      
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    }
   }
 }));
 
@@ -148,21 +169,27 @@ export default function FormDialog() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
-
   };
 
-  async function postTaggedAddress() {
+  async function TaggedAddress() {
     setOpen(false);
     const data = {
       userId: "12345",
       address: privateAddress,
       tagName: nameTag,
     };
-    const response = await UserService.addPrivateTagToAddress(data);
-    
+    const [error, response] = await utility.parseResponse(
+      UserService.addPrivateTagToAddress(data)
+    );
+
+    if (error) {
+      utility.apiFailureToast("error");
+      return;
+    }
+    utility.apiSuccessToast("Tag Added");
   }
-  console.log("address",privateAddress)
-  console.log("note",nameTag)
+  // console.log("address",privateAddress)
+  // console.log("note",nameTag)
 
   const classes = useStyles();
 
@@ -174,32 +201,24 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-
-  const handleLogin =() => {
-      history.push("/loginprofile")
-      
-  }
+  const handleLogin = () => {
+    history.push("/loginprofile");
+  };
 
   return (
-    <div >
-
-
-
-
-<div className="div3" onClick={handleClickOpen}>
-                <div >
-                <img className="imagediv3" src={require("../../../assets/images/private.png")}></img>
-                    </div>
-                    <div className="headingdiv3">
-                    Add private tag to an address
-                    </div>
-                    <div className="paradiv3">
-                     Add a short memo or private tag to the address of interest
-                    </div>
-                    
-                </div>
-
-
+    <div>
+      <div className="div3" onClick={handleClickOpen}>
+        <div>
+          <img
+            className="imagediv3"
+            src={require("../../../assets/images/private.png")}
+          ></img>
+        </div>
+        <div className="headingdiv3">Add private tag to an address</div>
+        <div className="paradiv3">
+          Add a short memo or private tag to the address of interest
+        </div>
+      </div>
 
       {/* <Button
         className={classes.btn}
@@ -213,12 +232,15 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
+          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">Add a new Address Tag</DialogTitle>
+            <DialogTitle className={classes.heading} id="form-dialog-title">
+              Add a new Address Tag
+            </DialogTitle>
             {/* <span onClick={handleClose} className={classes.cross}>
               {" "}
               X{" "}
@@ -228,18 +250,24 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Address</b>
             </DialogContentText>
-            <input className={classes.input}
-            onChange={(e) => setPrivateAddress(e.target.value)}></input>
+            <input
+              className={classes.input}
+              onChange={(e) => setPrivateAddress(e.target.value)}
+            ></input>
           </DialogContent>
-         <DialogContent>
-          <DialogContentText className={classes.subCategory}>
+          <DialogContent>
+            <DialogContentText className={classes.subCategory}>
               <b>Name Tag</b>
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
             </DialogContentText>
-            
-            <input type="password" type={passwordShown ? "text" : "password"}  className={classes.input} onChange={(e) => setNameTag(e.target.value)}></input>
+
+            <input
+              type="text"
+              className={classes.input}
+              onChange={(e) => setNameTag(e.target.value)}
+            ></input>
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
@@ -247,11 +275,19 @@ export default function FormDialog() {
 
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */} 
+            {/* </span> */}
           </DialogContent>
           <DialogActions className={classes.buttons}>
-          <span><button className={classes.cnlbtn} onClick={handleClose} >Cancel</button></span>
-            <span><button className={classes.addbtn} onClick={postTaggedAddress} >Add</button></span>
+            <span>
+              <button className={classes.cnlbtn} onClick={handleClose}>
+                Cancel
+              </button>
+            </span>
+            <span>
+              <button className={classes.addbtn} onClick={TaggedAddress}>
+                Add
+              </button>
+            </span>
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>

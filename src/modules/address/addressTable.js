@@ -54,7 +54,7 @@ function timeDiff(curr, prev) {
   }
 }
 
-const useStyles = makeStyles({
+const useStyles = ({
   container: {
     borderRadius: '0.875rem',
     boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
