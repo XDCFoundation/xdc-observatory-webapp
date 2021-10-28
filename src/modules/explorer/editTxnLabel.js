@@ -127,8 +127,11 @@ export default function FormDialog(props) {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const response = await UserService.editUserPrivateNote(data);
-    if (response) utility.apiSuccessToast("Transaction Edited");
+    const [error,response] = await utility.parseResponse( UserService.editUserPrivateNote(data));
+    if (error) {
+      utility.apiSuccessToast("Error");
+    return}
+    utility.apiSuccessToast("Transaction Edited")
   }
   const classes = useStyles();
 
