@@ -86,10 +86,12 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     backgroundColor: "#f8f9fa00",
-    marginLeft: "115px",
+    marginLeft: "auto",
+    marginRight: "auto",
     borderRadius: "0px",
-
-    width: "55vw",
+    width: "1202px",
+    alignItems: "flex-start",
+    // paddingLeft: "26px",
   },
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
@@ -156,6 +158,70 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#6b7482",
   },
+  "@media (max-width: 1920px)": {
+    appbar: {
+      maxWidth: "1248px",
+      width: "100%",
+      padding: "0 24px",
+    }
+  },
+  "@media (max-width: 828px)": {
+    appbar: {
+      maxWidth: "710px",
+      width: "100%",
+      padding: "0 24px",
+    }
+  },
+  "@media (max-width: 714px)":{
+    appbar: {
+      maxWidth: "375px",
+      width: "100%",
+      padding: "0 7px",
+    },
+  mywatch: {
+    /* width: 100px; */
+    height: "19px",
+    /* margin: 65px 56.5px 10.5px 200px; */
+    paddingLeft: "6px",
+    fontFamily: "Inter",
+    fontSize: "13px",
+    fontWeight: "500",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "-0.5px",
+    textAlign: "center",
+    // color: "#2149b9",
+  },
+    txnprivate: {
+      height: "19px",
+      /* margin: 65px 67.5px 10.5px 8.5px; */
+      paddingLeft: "6px",
+      fontFamily: "Inter",
+      fontSize: "13px",
+      fontWeight: "normal",
+      fontStretch: "normal",
+      fontStyle: "normal",
+      lineHeight: "normal",
+      letterSpacing: "-0.5px",
+      textAlign: "center",
+      color: "#6b7482",
+    },
+  address :{
+    height: "19px",
+    /* margin: 65px 314px 10.5px 2px; */
+    paddingLeft: "0px",
+    fontFamily: "Inter",
+    fontSize: "13px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "-0.5px",
+    textAlign: "center",
+    color: "#6b7482",
+    }
+  }
 }));
 
 export default function SimpleTabs(props) {
@@ -303,14 +369,11 @@ export default function SimpleTabs(props) {
           </AppBar>
           <div className="line"></div>
           <div className="searchdiv">
-            <span>
+            <span className="searchBar">
               <span className="searchiccon">
                 <SearchIcon
                   style={{
                     color: "#9fa9ba",
-                    marginRight: "-4px",
-                    position: "relative",
-                    left: "20px",
                   }}
                 />
               </span>
@@ -331,6 +394,9 @@ export default function SimpleTabs(props) {
                 color: "white",
                 borderRadius: "4px",
                 backgroundColor: "#9fa9ba",
+                width: "94px",
+                height: "34px",
+                marginRight: "24px",
               }}
             >
               {" "}
