@@ -42,6 +42,10 @@ input:focus {
   border: solid 1px #0099ff;
 }
 
+input:focus {
+  border: solid 1px #c6c8ce !important;
+}
+
 .display-none {
   display: none !important;
 }

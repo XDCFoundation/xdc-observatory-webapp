@@ -80,6 +80,7 @@ padding: "10px 35px 20px 0px"
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
+    outline:"none",
     padding: "20px",
     marginBottom: "21px"
   },
@@ -90,6 +91,7 @@ padding: "10px 35px 20px 0px"
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    outline: "none"
   },
 
   // input1: {
