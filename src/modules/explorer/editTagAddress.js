@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
+    outline: "none",
     padding: "20px",
   },
 
