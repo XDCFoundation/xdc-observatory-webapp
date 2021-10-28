@@ -291,15 +291,6 @@ export default function FormDialog() {
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
 
-  const handleSignIn = async () => {
-    // history.push("/loginprofile");
-    const data = {
-      email: email,
-      password: password,
-    };
-    const response = await userSignIn.postSignIn(data);
-    console.log("Myresponse:", response);
-  };
 
   const handleClickOpenSignup = () => {
     setValue(1);
@@ -307,10 +298,10 @@ export default function FormDialog() {
   const handleOpenForgotPassword = () => {
     setValue(2);
   };
-  // const handleLogin = () => {
-  // history.push("/loginprofile");
-  // window.location("/loginprofile")
-  // };
+  const handleSignIn = () => {
+  history.push("/loginprofile");
+  window.location("/loginprofile")
+  };
 
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
   
@@ -369,12 +360,8 @@ export default function FormDialog() {
   };
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
-  async function handleForgotPassword() {
-    const data = {
-      email: email,
-    };
-    const response = await userForgotPass.postForgotPass(data);
-    console.log("response:", response);
+  const handleForgotPassword = () => {
+    
   }
 
   return (
