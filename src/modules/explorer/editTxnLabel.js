@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,22 +7,16 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
-import { NavLink } from "react-router-dom";
-// import { history } from "../../../managers/history";
-// import { UserService } from "../../../services";
-
+import { UserService } from "../../services";
+import utility from "../../utility";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
-  btn: {
-  },
+  btn: {},
   cnlbtn: {
     width: "94px",
     height: "34px",
@@ -116,29 +109,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function edituserdata() {
+  useEffect(() => {
+    if (props.row.transactionHash)
+      setTransactionsHash(props.row.transactionHash);
+    setPrivateNote(props.row.trxLable);
+  }, []);
+
+  async function editTransactionLable() {
     setOpen(false);
     const data = {
-      userId: "12345",
+      _id: props.row._id,
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    // const response = await UserService.postUserPrivateNote(data);
+    const [error,response] = await utility.parseResponse( UserService.editUserPrivateNote(data));
+    if (error) {
+      utility.apiSuccessToast("Error");
+    return}
+    utility.apiSuccessToast("Transaction Edited")
   }
-
-  console.log("hash", TransactionsHash);
-  console.log("NOTE", PrivateNote);
-
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -146,24 +144,18 @@ export default function FormDialog() {
   };
 
   const handleClose = () => {
+    setTransactionsHash(props.row.transactionHash);
     setOpen(false);
-  };
-
-  const handleLogin = () => {
-    // history.push("/loginprofile")
   };
 
   return (
     <div>
       <div onClick={handleClickOpen}>
-      <Button
-    color="primary"
-    style={{margin: "-7px 0px 0px 0px"}}
-     >
-      <a className="linkTable" >
-        <span className="tabledata">Edit</span>
-      </a>
-      </Button>
+        <Button color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
+          <a className="linkTable">
+            <span className="tabledata">Edit</span>
+          </a>
+        </Button>
       </div>
 
       <div>
@@ -185,6 +177,7 @@ export default function FormDialog() {
             <input
               type="text"
               className={classes.input}
+              value={TransactionsHash}
               onChange={(e) => setTransactionsHash(e.target.value)}
             ></input>
           </DialogContent>
@@ -194,23 +187,21 @@ export default function FormDialog() {
             </DialogContentText>
 
             <input
-              type="password"
-              type={passwordShown ? "text" : "password"}
+              type="text"
               className={classes.input1}
+              value={PrivateNote}
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
-
           </DialogContent>
-       
+
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>
               <button className={classes.cnlbtn} onClick={handleClose}>
-                {" "}
                 Cancel
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={edituserdata}>
+              <button className={classes.addbtn} onClick={editTransactionLable}>
                 Edit
               </button>
             </span>
