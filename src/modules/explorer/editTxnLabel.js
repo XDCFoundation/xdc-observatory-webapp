@@ -12,34 +12,21 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
-// import Transaction from './accountProfile';
-// import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 // import { history } from "../../../managers/history";
-import { UserService } from "../../../services";
+// import { UserService } from "../../../services";
+
+
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
   },
   cnlbtn: {
     width: "94px",
     height: "34px",
-    // margin: "33px 21px 0 87px",
-    // padding: "8px 19px 7px 21px",
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
@@ -48,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-padding: "10px 35px 20px 0px"
+    padding: "1px 35px 15px 0px",
   },
   value: {
     width: "400px !important",
@@ -65,26 +52,16 @@ padding: "10px 35px 20px 0px"
     height: "67% !important",
     borderRadius: "50px !important",
   },
-  // input: {
-  //   width: "506px",
-  // height: "38px",
-  // margin: "3px 0 21px",
-  // borderRadius: "8px",
-  // border: "solid 1px #9fa9ba",
-  // backgroundColor: "#ffffff",
-  // },
-
   input: {
-    width: "503px",
+    width: "380px",
     height: "10px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    marginBottom: "21px"
   },
   input1: {
-    width: "503px",
+    width: "380px",
     height: "90px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
@@ -92,21 +69,9 @@ padding: "10px 35px 20px 0px"
     padding: "20px",
   },
 
-  // input1: {
-  //   width: "506px",
-  // height: "113px",
-  // margin: "3px 0 33px",
-  // padding: "12px 96px 67px 93px",
-  // borderRadius: "8px",
-  // border: "solid 1px #9fa9ba",
-  // backgroundColor: "#ffffff",
-
-  // },
   addbtn: {
     width: "110px",
     height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
@@ -115,8 +80,7 @@ padding: "10px 35px 20px 0px"
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "2px",
-    // fontWeight: "50px",
+    marginBottom: "-2px",
     fontfamily: "Inter",
     fontsize: "10px",
     fontweight: "200",
@@ -142,34 +106,10 @@ padding: "10px 35px 20px 0px"
     fontsize: "5px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginLeft: "8px",
+    fontfamily: "Inter",
+    fontweight: "600",
   },
-  dialogBox: {
-    width: "553px",
-    position: "absolute",
-    top: "111px",
-    borderRadius: "12px",
-  },
-  "@media (max-width: 768px)":{
-    dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
-      
-    },
-    input: {
-      maxWidth: "503px",
-      width: "100%",
-    },
-    input1: {
-      maxWidth: "503px",
-      width: "100%",
-    }
-  }
 }));
 
 export default function FormDialog() {
@@ -182,14 +122,14 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  async function postuserdata() {
+  async function edituserdata() {
     setOpen(false);
     const data = {
       userId: "12345",
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const response = await UserService.postUserPrivateNote(data);
+    // const response = await UserService.postUserPrivateNote(data);
   }
 
   console.log("hash", TransactionsHash);
@@ -211,40 +151,27 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div className="div2" onClick={handleClickOpen}>
-        <div>
-          <img
-            className="imagediv2"
-            src={require("../../../assets/images/transaction.png")}
-          ></img>
-        </div>
-        <div className="headingdiv2">Add Transaction label</div>
-        <div className="paradiv2">
-          Add a personal note to transacton hash to track it in future
-        </div>
+      <div onClick={handleClickOpen}>
+      <Button
+    color="primary"
+    style={{margin: "-7px 0px 0px 0px"}}
+     >
+      <a className="linkTable" >
+        <span className="tabledata">Edit</span>
+      </a>
+      </Button>
       </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
 
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add Transaction label
+              Edit Transaction label
             </DialogTitle>
           </Row>
           <DialogContent>
@@ -260,9 +187,6 @@ export default function FormDialog() {
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               <b>Transaction Label/Note</b>
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <input
@@ -272,18 +196,8 @@ export default function FormDialog() {
               onChange={(e) => setPrivateNote(e.target.value)}
             ></input>
 
-            {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
           </DialogContent>
-          {/* <DialogActions>
-            <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
-          </DialogActions> */}
+       
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>
               <button className={classes.cnlbtn} onClick={handleClose}>
@@ -292,15 +206,11 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={postuserdata}>
-                Add
+              <button className={classes.addbtn} onClick={edituserdata}>
+                Edit
               </button>
             </span>
           </DialogActions>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
         </Dialog>
       </div>
     </div>

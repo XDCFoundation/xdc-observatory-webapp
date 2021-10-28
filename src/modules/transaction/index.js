@@ -18,7 +18,8 @@ export default class LatestTransactionList extends BaseComponent {
             transactionList: [],
             totalTransaction: 0,
             isLoader: false,
-            hashAnimation: {}
+            hashAnimation: {},
+            isLoading: true
         }
     }
     componentWillUnmount() {
@@ -51,7 +52,7 @@ export default class LatestTransactionList extends BaseComponent {
         let [error, listOfTransactions] = await Utils.parseResponse(TransactionService.getLatestTransaction(urlPath, {}))
         if (error || !listOfTransactions)
             return this.setState({ isLoader: false })
-        this.setState({ transactionList: listOfTransactions, isLoader: false })
+        this.setState({ transactionList: listOfTransactions, isLoading: false })
 
 
     }

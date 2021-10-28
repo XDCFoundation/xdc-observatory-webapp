@@ -8,20 +8,12 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
-// import AccountProfile from "./accountProfile";
-import { NavLink } from "react-router-dom";
-// import { history } from "../../../managers/history";
-
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import AddWatchList from "../../../services/user";
+import PutWatchlist from "../../services/user";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -45,11 +37,10 @@ const useStyles = makeStyles((theme) => ({
     width: "400px !important",
   },
   main_div: {
-    // lineHeight: "-100px !important",
-    // backgoundColor: "red",
-    marginTop: "4px",
-},
-  radio :{
+    lineHeight: "-100px !important",
+    backgoundColor: "red",
+  },
+  radio: {
     // backgroundColor: "blue",
   },
   cross: {
@@ -66,13 +57,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px",
   },
   input: {
-    width: "503px",
+    width: "400px",
     height: "3px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    marginBottom: "21px",
   },
   // addbtn: {
   //   width: "110px",
@@ -117,11 +107,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "15px 35px 20px 0px"
-      },
+    padding: "1px 35px 15px 0px",
+  },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "2px",
+    marginBottom: "-2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
@@ -148,30 +138,10 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-      marginTop: "7px",
-      marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginLeft: "10px",
+    fontfamily: "Inter",
+    fontweight: "600",
   },
-  dialogBox: {
-    width: "553px",
-    position: "absolute",
-    top: "111px",
-    borderRadius: "12px",
-  },
-  "@media (max-width: 768px)":{
-    dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
-      
-    },
-    input: {
-      maxWidth: "503px",
-      width: "100%",
-    }
-  }
 }));
 
 export default function FormDialog() {
@@ -181,7 +151,6 @@ export default function FormDialog() {
   const [description, setDescription] = React.useState("");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
- 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
@@ -203,7 +172,7 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-      // history.push("/loginprofile")
+    //   history.push("/loginprofile")
   };
 
   const watchListService = async () => {
@@ -212,58 +181,29 @@ export default function FormDialog() {
       address: address,
       description: description,
     };
-    const response = AddWatchList.addWatchlist(request);
+    const response = PutWatchlist.putWatchlist(request);
   };
 
   return (
     <div>
-      {/* <div className="div2" onClick={handleClickOpen}>
-                <div >
-                <img className="imagediv2" src={require("../../../assets/images/transaction.png")}></img>
-                    </div>
-                    <div className="headingdiv2">
-                    Add Transaction label
-                    </div>
-                    <div className="paradiv2">
-                     Add a personal note to transacton hash to track it in future
-                    </div>
-                    
-                </div> */}
-
-      <div className="div1" onClick={handleClickOpen}>
-        <div>
-          <img
-            className="imagediv1"
-            src={require("../../../assets/images/watchlist.png")}
-          ></img>
-        </div>
-        <div className="headingdiv1">Create Watchlist</div>
-        <div className="paradiv1">
-          An Email notification can be sent to you when an address on your
-          watchlist recieves an incoming notifications
-        </div>
+      <div onClick={handleClickOpen}>
+        <Button color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
+          <a className="linkTable">
+            <span className="tabledata">Edit</span>
+          </a>
+        </Button>
       </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
 
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new address to your watchlist
+              Edit address to your watchlist
             </DialogTitle>
           </Row>
           <DialogContent>
@@ -278,9 +218,6 @@ export default function FormDialog() {
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               <b>Description</b>
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <input
@@ -288,36 +225,16 @@ export default function FormDialog() {
               className={classes.input}
               onChange={(e) => setDescription(e.target.value)}
             ></input>
-            {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-            </span> */}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               <b>Notifications</b>
             </DialogContentText>
-            {/* <input className={classes.input}></input> */}
-            {/* 
-            import React from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel'; */}
-
-            {/* export default function RadioButtonsGroup() { */}
-            {/* //   const [value, setValue] = React.useState('female');
-
-//   const handleChange = (event) => {
-//     setValue(event.target.value);
-//   }; */}
-
             <FormControl
               component="fieldset"
               style={{ backgoundColor: "red !important" }}
               className={classes.main_div}
             >
-              {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
               <RadioGroup
                 aria-label="gender"
                 name="gender1"
@@ -354,22 +271,18 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
               </RadioGroup>
             </FormControl>
           </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <span onClick={handleClose}>
+          <DialogActions className={classes.buttons} onClick={handleClose}>
+            <span>
               <button className={classes.cnlbtn} onClick={handleLogin}>
                 Cancel
               </button>
             </span>
-            <span onClick={handleClose}>
+            <span>
               <button className={classes.addbtn} onClick={watchListService}>
-                Add
+                Edit
               </button>
             </span>
           </DialogActions>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
         </Dialog>
       </div>
     </div>
