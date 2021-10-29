@@ -15,8 +15,9 @@ export default class LatestAccountsList extends BaseComponent {
             tableName: "Accounts",
             accountList: [],
             totalAccounts: 0,
-            totalSupply:0,
-            noData:1
+            totalSupply: 0,
+            noData: 1,
+            isLoading: true
 
         }
     }
@@ -29,30 +30,34 @@ export default class LatestAccountsList extends BaseComponent {
     }
 
 
-    async getListOfAccounts(from, amount,keywords='') {
+    async getListOfAccounts(from, amount, keywords = '') {
         from = from || from === 0 ? from : this.state.from;
         amount = amount ? amount : this.state.amount;
         let urlPath = ''
-        if(keywords){
-             urlPath = `?skip=${from}&limit=${amount}&keywords=${keywords}`
-        }else{
-             urlPath = `?skip=${from}&limit=${amount}`
+        if (keywords) {
+            urlPath = `?skip=${from}&limit=${amount}&keywords=${keywords}`
+        } else {
+            urlPath = `?skip=${from}&limit=${amount}`
         }
-        
+
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
         if (error || !listOfAccounts)
             return
-        if(listOfAccounts.newResponse.length > 0){
-            this.setState({noData:1})
-        }else{
-            this.setState({noData:0})
+        if (listOfAccounts.newResponse.length > 0) {
+            this.setState({ noData: 1 })
+            this.setState({ isLoading: false })
+        } else {
+            this.setState({ noData: 0 })
+            this.setState({ isLoading: false })
         }
         this.setState({ accountList: listOfAccounts.newResponse })
         this.setState({ totalSupply: listOfAccounts.totalSupply })
-        if(keywords){
+        this.setState({ isLoading: false })
+        if (keywords) {
             this.setState({ totalAccounts: listOfAccounts.totalRecord })
-        }else{
-            this.getTotalAccounts() 
+            this.setState({ isLoading: false })
+        } else {
+            this.getTotalAccounts()
         }
     }
 
@@ -64,11 +69,11 @@ export default class LatestAccountsList extends BaseComponent {
         this.setState({ totalAccounts: totalNumberAccounts })
     }
 
-    _handleSearch = (event) =>{
+    _handleSearch = (event) => {
         let searchkeyword = event.target.value
         if (searchkeyword.length > 2) {
-            this.getListOfAccounts(0, this.state.amount,searchkeyword)
-        }else{
+            this.getListOfAccounts(0, this.state.amount, searchkeyword)
+        } else {
             this.getListOfAccounts(0, this.state.amount)
         }
     }

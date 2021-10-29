@@ -1,10 +1,13 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../images/constants";
 
-export default { getAddressDetail, getAddressDetailWithlimit, getTransactionSearch }
-async function getAddressDetail(address) {
-    let url = process.env.REACT_APP_GET_ADDRESS_DETAILS + address + '?skip=0&limit=50';
-    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
+export default { postSignIn, postSignUp, postForgotPass}
+
+async function postSignIn(data) {
+
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "login";
+    console.log("url ",url)
+    return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
                 if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
@@ -17,9 +20,11 @@ async function getAddressDetail(address) {
         });
 }
 
-async function getTransactionSearch(data) {
-    let url = process.env.REACT_APP_GET_TRANSACTION_SEARCH + data.addrr + '/' + data.keywords + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;
-    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
+async function postSignUp(data) {
+    
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "sign-up";
+    console.log("url ",url)
+    return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
                 if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
@@ -31,9 +36,12 @@ async function getTransactionSearch(data) {
             return Promise.reject(err);
         });
 }
-async function getAddressDetailWithlimit(data) {
-    let url = process.env.REACT_APP_GET_ADDRESS_DETAILS + data.addrr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;
-    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
+
+async function postForgotPass(data) {
+    
+    let url = "";
+    console.log("url ",url)
+    return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
                 if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
