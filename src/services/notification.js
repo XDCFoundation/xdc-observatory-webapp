@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../common/constants";
+import { httpConstants } from "../constants";
 
 export async function proposalList(reqObj) {
   const url = process.env.REACT_APP_GET_NOTIFICATION + "get notification";

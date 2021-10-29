@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../common/constants";
+import { httpConstants } from "../constants";
 
 export default { searchData}
 async function searchData(data) { 
