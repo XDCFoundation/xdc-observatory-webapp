@@ -241,7 +241,7 @@ class MarketDatatable extends Component {
             <div className="second_cont">
               <div className="w-54-per"><p>Market Cap</p></div>
               <div className="mid_cont ">
-                <p>
+                <p className="word-space-4">
                   {currencySymbol}
                   {MarketCapValue ? MarketCapValue : 0}
                 </p>
@@ -280,7 +280,7 @@ class MarketDatatable extends Component {
 
             <div className="second_cont">
               <div className="w-54-per">  <p>Fully Diluted Market Cap</p></div>
-              <div className="mid_cont ">  <p>
+              <div className="mid_cont ">  <p className="word-space-4">
                 {currencySymbol}
                 {FullyDilutedMarketCapValue ? FullyDilutedMarketCapValue : 0}
               </p>
@@ -323,7 +323,7 @@ class MarketDatatable extends Component {
 
             <div className="second_cont">
               <div className="w-54-per"> <p>Volume (24hr)</p></div>
-              <div className="mid_cont "> <p>
+              <div className="mid_cont "> <p className="word-space-4">
                 {currencySymbol}
                 {volumeValue ? volumeValue : 0}
               </p>

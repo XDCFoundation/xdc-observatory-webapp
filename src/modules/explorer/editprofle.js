@@ -31,8 +31,8 @@ const thumb = {
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    backgroundColor: "#2149b9",
-    marginLeft: "90px",
+    // backgroundColor: "#2149b9",
+    marginLeft: "-6px",
   },
   btn: {},
   value: {
@@ -176,7 +176,7 @@ const Input = styled.div`
 
 export default function FormDialog() {
   const classes = useStyles();
-  const [opens, setOpen] = useState(true);
+  const [opens, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
