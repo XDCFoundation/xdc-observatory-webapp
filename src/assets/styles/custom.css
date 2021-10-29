@@ -7440,7 +7440,7 @@ button {
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: 40px;
   padding-right: 50px;
   letter-spacing: 0.034rem;
   text-align: center;
