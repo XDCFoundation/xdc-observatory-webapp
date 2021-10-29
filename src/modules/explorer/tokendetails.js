@@ -522,7 +522,7 @@ export default function StickyHeadTable() {
         <RightPagination>
           <div
             className={
-              from === 0 ? "firstbox-contract disabled box-first" : "firstbox-contract"
+              from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
             }
             onClick={() => handleChangePage('first')}
           >
