@@ -6525,6 +6525,18 @@ button {
   text-decoration: none;
 }
 
+.qrcode-label{
+  height: 400px; 
+  width: 400px;
+  margin-top: 0.625rem;
+}
+
+.header-popup{
+  font-size: 0.875rem;
+  padding-top: 0.313rem;
+  padding-bottom: 3.75rem;
+}
+
 .source-code-verified-container {
   display: flex;
   justify-content: space-between;
@@ -6534,6 +6546,24 @@ button {
   .source-code-verified-container {
     display: block;
     justify-content: space-between;
+  }
+  .header-popup{
+    font-size: 0.75rem;
+    padding-top: 0.313rem;
+    padding-bottom: 3.75rem;
+  }
+  .popup-content {
+    margin: 4.438rem 15.688rem 0 3.406rem;
+    background: rgb(255, 255, 255);
+    width: 21.888rem;
+    height: 27.5rem;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .qrcode-label{
+    height: 12.5rem; 
+    width: 12.5rem;
+    margin-top: -1.25rem;
   }
 }
 .source-code-second-container {
