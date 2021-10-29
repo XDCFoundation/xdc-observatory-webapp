@@ -226,19 +226,20 @@ export default function AddressDetails(props) {
                                   &times;
                                 </button>
                                 <div
-                                  className="header"
-                                  style={{
-                                    fontSize: "0.875rem",
-                                    paddingTop: "0.313rem",
-                                    paddingBottom: "3.75rem",
-                                  }}
+                                  className="header-popup"
+                                  // style={{
+                                  //   fontSize: "0.875rem",
+                                  //   paddingTop: "0.313rem",
+                                  //   paddingBottom: "3.75rem",
+                                  // }}
                                 >
                                   {" "}
                                   {addr}{" "}
                                 </div>
                                 <QRCode
                                   size={320}
-                                  style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                  className="qrcode-label"
+                                  //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
                                   value={addr}
                                 />
                               </div>
@@ -368,7 +369,7 @@ export default function AddressDetails(props) {
                   : "content_sec"
               }
             >
-              <AddressTableComponent trans={transactions} coinadd={addr} />
+              {/* <AddressTableComponent trans={transactions} coinadd={addr} /> */}
             </div>
 
             <div
@@ -378,7 +379,7 @@ export default function AddressDetails(props) {
                   : "content_sec"
               }
             >
-              <AddressTableComponent trans={transactions} />
+              {/* <AddressTableComponent trans={transactions} /> */}
             </div>
           </div>
         </div>
