@@ -647,7 +647,7 @@ export default function Navbar() {
 
               </div>
               <div>
-                <NavLink exact activeClassName="active-t" to={'/tokens'} className="Token">Tokens</NavLink>
+                <NavLink exact activeClassName="active-t" to={'/token-details'} className="Token">Tokens</NavLink>
 
                 <a href='/'>
                   <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
