@@ -12,17 +12,12 @@ import { spacing } from "@material-ui/system";
 import React, { createRef, useState } from "react";
 import styled from "styled-components";
 
-//   const Button = styled(MuiButton)(spacing);
 const Button = styled.span`
   width: 91px;
   height: 17px;
   font-family: Inter;
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: #2149b9;
 `;
 
