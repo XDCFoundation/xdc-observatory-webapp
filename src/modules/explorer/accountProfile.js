@@ -2,15 +2,12 @@ import { mergeClasses, withTheme } from "@material-ui/styles";
 import React, { Component } from "react";
 import moment from "moment";
 import "../../assets/styles/profile.css";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Transaction from "./dashboardPopup/transactionLable";
 import Watchlist from "./dashboardPopup/watchlist";
 import Private from "./dashboardPopup/private";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
-import watchlistComponent from "./table/watchlistTable";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { Tooltip } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
@@ -20,8 +17,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import NotificationDrawer from "./NotificationBar";
-import { UserService } from "../../services";
+import Editprofile from "./editprofle";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -29,9 +25,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { withStyles } from "@material-ui/styles";
-import NotificationBar from "./NotificationBar"
-
+import { UserService } from "../../services";
+import NotificationBar from "./NotificationBar";
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
@@ -164,65 +159,54 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "1248px",
       width: "100%",
       padding: "0 24px",
-    }
+    },
   },
   "@media (max-width: 828px)": {
     appbar: {
       maxWidth: "710px",
       width: "100%",
       padding: "0 24px",
-    }
+    },
   },
-  "@media (max-width: 714px)":{
+  "@media (max-width: 714px)": {
     appbar: {
       maxWidth: "375px",
       width: "100%",
       padding: "0 7px",
     },
-  mywatch: {
-    /* width: 100px; */
-    height: "19px",
-    /* margin: 65px 56.5px 10.5px 200px; */
-    paddingLeft: "6px",
-    fontFamily: "Inter",
-    fontSize: "13px",
-    fontWeight: "500",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
-    letterSpacing: "-0.5px",
-    textAlign: "center",
-    // color: "#2149b9",
-  },
+    mywatch: {
+      /* width: 100px; */
+      height: "19px",
+      /* margin: 65px 56.5px 10.5px 200px; */
+      paddingLeft: "6px",
+      fontFamily: "Inter",
+      fontSize: "13px",
+      fontWeight: "500",
+      letterSpacing: "-0.5px",
+      textAlign: "center",
+      // color: "#2149b9",
+    },
     txnprivate: {
       height: "19px",
       /* margin: 65px 67.5px 10.5px 8.5px; */
       paddingLeft: "6px",
       fontFamily: "Inter",
       fontSize: "13px",
-      fontWeight: "normal",
-      fontStretch: "normal",
-      fontStyle: "normal",
-      lineHeight: "normal",
       letterSpacing: "-0.5px",
       textAlign: "center",
       color: "#6b7482",
     },
-  address :{
-    height: "19px",
-    /* margin: 65px 314px 10.5px 2px; */
-    paddingLeft: "0px",
-    fontFamily: "Inter",
-    fontSize: "13px",
-    fontWeight: "normal",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
-    letterSpacing: "-0.5px",
-    textAlign: "center",
-    color: "#6b7482",
-    }
-  }
+    address: {
+      height: "19px",
+      /* margin: 65px 314px 10.5px 2px; */
+      paddingLeft: "0px",
+      fontFamily: "Inter",
+      fontSize: "13px",
+      letterSpacing: "-0.5px",
+      textAlign: "center",
+      color: "#6b7482",
+    },
+  },
 }));
 
 export default function SimpleTabs(props) {
@@ -306,10 +290,13 @@ export default function SimpleTabs(props) {
             <div className="nameicon">
               <span className="welcome">Welcome, CrytoAlex</span>
               <span>
-              <NotificationBar/>
+                <NotificationBar />
               </span>
             </div>
-            <div className="edit">Edit Profile</div>
+            <div className="edit">
+            <Editprofile/>
+            </div>
+            
           </span>
         </div>
         <div className="divbox">
