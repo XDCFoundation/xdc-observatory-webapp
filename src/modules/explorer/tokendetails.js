@@ -11,7 +11,7 @@ import { Divider } from '@material-ui/core'
 import Tokensearchbar from './tokensearchBar'
 import '../../assets/styles/custom.css'
 import FooterComponent from '../common/footerComponent'
-import { useHistory } from 'react-router-dom'
+import { history } from '../../managers/history'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import Utility, { dispatchAction } from '../../utility'
@@ -157,7 +157,7 @@ export default function StickyHeadTable() {
   const [totalToken, setTotalToken] = React.useState(0)
   const [keywords, setKeywords] = React.useState('')
   const [rows, setRows] = React.useState([])
-  const history = useHistory()
+
   const [noData, setNoData] = React.useState(0)
   const handleChangePage = (action) => {
     if (action == 'first') {
@@ -307,9 +307,11 @@ export default function StickyHeadTable() {
   }
 
   React.useEffect(() => {
+    let unmounted = false;
     let data = { pageNum: from, perpage: amount }
     getTokenList(data)
     getTotalTokenList()
+    return () => { unmounted = true };
   }, [])
 
   return (
@@ -418,9 +420,7 @@ export default function StickyHeadTable() {
                         role="checkbox"
                         tabIndex={-1}
                         key={row._id}
-                        onClick={() =>
-                          history.push('/token-data/' + row.address)
-                        }
+
                       >
                         <TableCell
                           //    style={{ width: "1px" }}
@@ -443,7 +443,8 @@ export default function StickyHeadTable() {
                         <TableCell>
                           <a
                             style={{ fontSize: 15, color: '#2149b9' }}
-                            href={'/token-data/' + row.address}
+                            href={"/token-data/" + row.address}
+
                           >
                             {' '}
                             {row.address}
