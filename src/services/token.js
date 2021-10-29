@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../common/constants";
+import { httpConstants } from "../constants";
 
 export default { CoinMarketExchangeForToken, getTokenLists, getTotalToken, getSomeDaysHolders, getTokenSearch, getHolderDetailsUsingAddressforToken, getTransferTransactionDetailsUsingHash, getTotalTransferTransactionsForToken, getListOfHoldersForToken }
 

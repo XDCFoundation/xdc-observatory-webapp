@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../common/constants";
+import { httpConstants } from "../constants";
 
 export default { getLatestBlock, getTotalBlocks, getDetailsOfBlock }
 async function getLatestBlock(path, data) {
