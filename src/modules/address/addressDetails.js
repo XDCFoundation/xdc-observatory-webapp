@@ -369,7 +369,7 @@ export default function AddressDetails(props) {
                   : "content_sec"
               }
             >
-              {/* <AddressTableComponent trans={transactions} coinadd={addr} /> */}
+              <AddressTableComponent trans={transactions} coinadd={addr} />
             </div>
 
             <div
@@ -379,7 +379,7 @@ export default function AddressDetails(props) {
                   : "content_sec"
               }
             >
-              {/* <AddressTableComponent trans={transactions} /> */}
+              <AddressTableComponent trans={transactions} />
             </div>
           </div>
         </div>
