@@ -1,8 +1,7 @@
-import auth0 from 'auth0-js';
+
 import { httpService } from "../utility/httpService";
 import { cookiesConstants, httpConstants } from "../constants";
-import { sessionManager } from "../managers/sessionManager";
-import { history } from '../managers/history';
+
 
 export default class Auth0Service {
 
@@ -17,7 +16,7 @@ export default class Auth0Service {
         }
         console.log("autheeee",reqObj);
      //let url = process.env.REACT_APP_USER_SERVICE_URL + "login";
-        let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/login"
+        let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/sign-in"
         return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
             .then(
                 response => {
@@ -42,22 +41,27 @@ export default class Auth0Service {
             'Access-Control-Allow-Origin': '*'
         }
     }
-    async forgotPassword(requestData) {
-        // let url = process.env.REACT_APP_USER_SERVICE_URL + httpConstants.API_END_POINT.FORGOT_PASSWORD
-        let url = "http://localhost:3001/forgot-password"
-        return httpService(httpConstants.METHOD_TYPE.POST, this.getHeaders(), requestData, url)
+    async forgotPassword(email) {
+        const reqObj = {
+            email
+        }
+        console.log("autheeee",reqObj);
+     //let url = process.env.REACT_APP_USER_SERVICE_URL + "login";
+        let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/forgot-password"
+        return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
             .then(
                 response => {
                     if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
-                        return Promise.reject(response);
-                        console.log("responseeee",response.responseData)
+                    return Promise.reject();
+                    console.log("authresponseee",response.responseData)
                     return Promise.resolve(response.responseData);
-                }
-            ).catch((err) => {
-                return Promise.reject(err);
-            });
-    };
 
+                }
+            ).catch(function (err) {
+                    return Promise.reject(err);
+                },
+            );
+    }
     async  signUp(requestData) {
         let url = process.env.REACT_APP_USER_SERVICE_URL + httpConstants.API_END_POINT.ADD_USER
         return httpService(httpConstants.METHOD_TYPE.POST, this.getHeaders(), requestData, url)
