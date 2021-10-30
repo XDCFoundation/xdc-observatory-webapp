@@ -406,12 +406,15 @@ export default function FormDialog() {
     let [error, authResponse] = await Utility.parseResponse(
       authObject.forgotPassword(email)
     );
-
+    console.log("responseeee", authResponse, email);
     if (error || !authResponse) {
       setEmailError("Please enter a valid email address");
       Utility.apiFailureToast("Wrong email");
-    } else if (validator.isEmail(email)) {
-      // history.push("/email-sent");
+    }else {
+      
+      console.log("responseeee", authResponse);
+      Utility.apiSuccessToast("We haveve just sent you an email to reset your password.");
+      (window.location.href = "/")
     }
   };
 
