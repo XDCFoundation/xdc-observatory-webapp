@@ -26,6 +26,7 @@ import TokenContracttab from './tokenContractTab'
 import ReactHtmlParser from "react-html-parser";
 import Utils from "../../utility";
 
+
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -74,7 +75,6 @@ export default function AddressDetailsData() {
   }
   const [data, setData] = React.useState(initialState);
   const [responses, setResponses] = React.useState([]);
-
 
   const getContractDetails = async (values) => {
     try {

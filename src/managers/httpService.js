@@ -1,4 +1,4 @@
-import { httpConstants } from "../images/constants";
+import { httpConstants } from "../constants";
 
 export const httpService = (method, headers, data, url) => {
     const requestOptions = {
