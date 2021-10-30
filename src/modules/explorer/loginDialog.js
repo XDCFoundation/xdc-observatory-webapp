@@ -11,18 +11,10 @@ import userSignUp from "../../services/createUser"
 import { Row } from "simple-flexbox";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
-import AccountProfile from "./accountProfile";
-import { NavLink } from "react-router-dom";
-import { history } from "../../managers/history";
-import BaseComponent from "../baseComponent";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
-import { reduxEvent } from "../../constants";
-import { genericConstants, eventConstants } from "../../constants";
-import validator from "validator";
+import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
@@ -315,17 +307,10 @@ export default function FormDialog() {
       Utility.apiFailureToast(genericConstants.INCORRECT_USERNAME_PASS);
       return;
     }
-
-    console.log("onLoginClicked===========================");
-    // const [error, authResponse] = await Utility.parseResponse(
-    //   new AuthService().signin(email, password)
-    // );
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(email, password)
     );
-
-    console.log("responseeee", authResponse, email, password);
     if (error || !authResponse) {
       Utility.apiFailureToast("Wrong email or password");
       // setislogged(true)
@@ -336,7 +321,6 @@ export default function FormDialog() {
       sessionManager.setDataInLocalStorage("requestBody", reqObj);
       sessionManager.setDataInLocalStorage("userInfo", authResponse);
       sessionManager.setDataInLocalStorage("isLoggedIn", true);
-      //props.dispatch({ type: reduxEvent.LOGGED_IN, data: authResponse });
       console.log("responseeee", authResponse);
       Utility.apiSuccessToast("Sign in successfull");
       (window.location.href = "loginprofile")
@@ -406,13 +390,10 @@ export default function FormDialog() {
     let [error, authResponse] = await Utility.parseResponse(
       authObject.forgotPassword(email)
     );
-    console.log("responseeee", authResponse, email);
     if (error || !authResponse) {
       setEmailError("Please enter a valid email address");
       Utility.apiFailureToast("Wrong email");
     }else {
-      
-      console.log("responseeee", authResponse);
       Utility.apiSuccessToast("We haveve just sent you an email to reset your password.");
       (window.location.href = "/")
     }
