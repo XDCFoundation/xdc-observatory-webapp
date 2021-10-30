@@ -1,5 +1,5 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../images/constants";
+import { httpConstants } from "../constants";
 
 export default { getTotalAccount, getSomeDaysAccount, getLatestAccount }
 async function getTotalAccount() {

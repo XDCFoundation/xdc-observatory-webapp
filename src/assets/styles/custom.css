@@ -7778,6 +7778,7 @@ button {
     padding: 7px 6px 10px 10px !important;
   }
 }
+
 @media (max-width: 767px) {
   .copy-icon-svg {
     height: 16px;
