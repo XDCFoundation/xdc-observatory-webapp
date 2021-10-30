@@ -1,6 +1,6 @@
 
 import { httpService } from "../utility/httpService";
-import { cookiesConstants, httpConstants } from "../constants";
+import { httpConstants } from "../modules/constants";
 
 
 export default class Auth0Service {
@@ -14,15 +14,12 @@ export default class Auth0Service {
             email: username,
             password
         }
-        console.log("autheeee",reqObj);
-     //let url = process.env.REACT_APP_USER_SERVICE_URL + "login";
         let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/sign-in"
         return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
             .then(
                 response => {
-                    if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+                    if (!response.message || response.success !== 200 || !response.responseData || response.responseData.length === 0)
                     return Promise.reject();
-                    console.log("authresponseee",response.responseData)
                     return Promise.resolve(response.responseData);
 
                 }
@@ -46,14 +43,12 @@ export default class Auth0Service {
             email
         }
         console.log("autheeee",reqObj);
-     //let url = process.env.REACT_APP_USER_SERVICE_URL + "login";
-        let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/forgot-password"
+       let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/forgot-password"
         return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
             .then(
                 response => {
                     if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
                     return Promise.reject();
-                    console.log("authresponseee",response.responseData)
                     return Promise.resolve(response.responseData);
 
                 }
