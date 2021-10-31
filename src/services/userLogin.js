@@ -10,14 +10,11 @@ export default class Auth0Service {
         this.signin = this.signin.bind(this);
     }
 
-    async signin(username, password) {
-        const reqObj = {
-            email: username,
-            password
-        }
+    async signin(reqObj) {
+       
         console.log("autheeee",reqObj);
      //let url = process.env.REACT_APP_USER_SERVICE_URL + "login";
-        let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/login"
+        let url = "http://localhost:3001/sign-in"
         return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
             .then(
                 response => {
@@ -38,8 +35,9 @@ export default class Auth0Service {
 
     getHeaders() {
         return {
-            'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON, 'skip': true,
-            'Access-Control-Allow-Origin': '*'
+            'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON,
+            //  'skip': true,
+            // 'Access-Control-Allow-Origin': '*'
         }
     }
     async forgotPassword(requestData) {
