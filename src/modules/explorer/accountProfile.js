@@ -223,13 +223,19 @@ export default function SimpleTabs(props) {
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
 
+  const { state } = props;
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+  const [addedOnToggle, setAddedOnToggle] = React.useState(0);
+  const [balanceToggle, setBalanceToggle] = React.useState(0);
+  const [nameToggle, setNameToggle] = React.useState(0);
+
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
       //the user id has to be change from
       const data = "12345";
       const response = await UserService.getUserWatchlist(data);
-      // console.log("url response", response);
       setWatchlist(response);
     }
     getuserdata();
@@ -238,7 +244,7 @@ export default function SimpleTabs(props) {
       const data = "12345";
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
-      console.log("tttt", response);
+      // console.log("tttt", response);
     }
 
     getPvtTagAddress();
@@ -262,18 +268,49 @@ export default function SimpleTabs(props) {
   //   }
   // });
 
-  const { state } = props;
-
-  // 765876778994489048984589865
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  // const a11yProps(() => {
-  //     underlineStyle: {borderColor: '#f65857'}
-  // });
+
+  const sortByAddedOn = () => {
+    let oldData = address;
+    let newData;
+    if (addedOnToggle === 0) {
+      newData = oldData.sort((index1, index2) => index2?.addedOn - index1?.addedOn);
+      setAddedOnToggle(1);
+    } else {
+      newData = oldData.sort((index1, index2) => index1?.addedOn - index2?.addedOn);
+      setAddedOnToggle(0);
+    }
+    setAddress(newData);
+  };
+
+  const sortByBalance = () => {
+    let oldData = watchlist;
+    let newData;
+    if (balanceToggle === 0) {
+      newData = oldData.sort((index1, index2) => index1?.balance - index2?.balance);
+      setBalanceToggle(1);
+    } else {
+      newData = oldData.sort((index1, index2) => index2?.balance - index1?.balance);
+      setBalanceToggle(0);
+    }
+    setWatchlist(newData);
+  };
+
+  const sortByTagName = () => {
+    let oldData = privateAddress;
+    let newData;
+    if (nameToggle === 0) {
+      newData = oldData.sort((index1, index2) => index1.tagName.localeCompare(index2.tagName));
+      setNameToggle(1);
+    } else {
+      newData = oldData.sort((index1, index2) => index2.tagName.localeCompare(index1.tagName));
+      setNameToggle(0);
+    }
+    setPrivateAddress(newData);
+  };
+
   return (
     <div>
       <Tokensearchbar />
@@ -294,9 +331,8 @@ export default function SimpleTabs(props) {
               </span>
             </div>
             <div className="edit">
-            <Editprofile/>
+              <Editprofile />
             </div>
-            
           </span>
         </div>
         <div className="divbox">
@@ -305,22 +341,6 @@ export default function SimpleTabs(props) {
           <Transaction />
           <Private />
         </div>
-
-        {/* <div className="innerdiv">
-                    <span className="mywatch" >
-                        My Watchlist
-                    </span>
-                    <span className="txnprivate" >
-                        Txn Private Note
-
-                    </span>
-                    <span className="address">
-                        Tagged Adresses
-
-                    </span>
-                </div> */}
-
-        {/* <div className="line" ></div> */}
 
         <div className={classes.root}>
           <AppBar
@@ -357,25 +377,23 @@ export default function SimpleTabs(props) {
           </AppBar>
           <div className="line"></div>
           <div className="searchdiv">
-            <span className="searchBar">
-              <span className="searchiccon">
-                <SearchIcon
-                  style={{
-                    color: "#9fa9ba",
-                  }}
-                />
-              </span>
-              <span>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  // onChange={(e) => {
-                  //     setSearch(e.target.value.toLowerCase());
-                  //   }}
-                  className="searchinput"
-                ></input>
-              </span>
-            </span>
+            <div className="searchBar">
+              <SearchIcon
+                style={{
+                  color: "#9fa9ba",
+                }}
+              />
+
+              <input
+                type="text"
+                placeholder="Search"
+                className="searchinput"
+
+                // onChange={(e) => {
+                //     setSearch(e.target.value.toLowerCase());
+                //   }}
+              />
+            </div>
 
             <button
               style={{
@@ -450,6 +468,7 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Balance</span>
                           <span>
                             <ArrowUpwardIcon
+                              onClick={sortByBalance}
                               style={{
                                 color: "#3763dd",
                                 height: "20px",
@@ -554,13 +573,10 @@ export default function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">{row.balance}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              {/* <a className="linkTable" href="/"> */}
-
                               <span className="tabledata">
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
@@ -569,20 +585,16 @@ export default function SimpleTabs(props) {
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">
                                 {row.Notification}
                               </span>
-                              {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <EditWatchList />
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
                         );
                       })}
-                      {/* })} */}
                     </TableBody>
                   </Table>
                 </Grid>
@@ -654,6 +666,7 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>AddedOn</span>
                           <span>
                             <ArrowUpwardIcon
+                              onClick={sortByAddedOn}
                               style={{
                                 color: "#3763dd",
                                 height: "20px",
@@ -680,9 +693,6 @@ export default function SimpleTabs(props) {
                     </TableHead>
                     <TableBody>
                       {address.map((row, index) => {
-                        // const currentTime = new Date();
-                        // const previousTime = new Date(row.timestamp * 1000);
-                        // const ti = timeDiff(currentTime, previousTime);
                         return (
                           <TableRow
                             style={
@@ -735,7 +745,6 @@ export default function SimpleTabs(props) {
                                 >
                                   <span className="tabledata">
                                     {shorten(row.transactionHash)}{" "}
-                                    {/* {row.transactionHash} */}
                                   </span>
                                 </Tooltip>
                               </a>
@@ -749,7 +758,6 @@ export default function SimpleTabs(props) {
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">
                                 {" "}
                                 {moment(row.addedOn).format(
@@ -826,6 +834,7 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Name Tag</span>
                           <span>
                             <ArrowUpwardIcon
+                              onClick={sortByTagName}
                               style={{
                                 color: "#3763dd",
                                 height: "20px",
@@ -864,9 +873,9 @@ export default function SimpleTabs(props) {
                     </TableHead>
                     <TableBody>
                       {privateAddress.map((row, index) => {
-                        // const currentTime = new Date();
-                        // const previousTime = new Date(row.timestamp * 1000);
-                        // const ti = timeDiff(currentTime, previousTime);
+                        let tag = row.tagName;
+                        let name = tag?.charAt(0).toUpperCase() + tag.slice(1);
+
                         return (
                           <TableRow
                             style={
@@ -921,15 +930,10 @@ export default function SimpleTabs(props) {
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{row.tagName}</span>
+                              <span className="tabledata">{name}</span>
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="left">
-                                        
-                                            <span className="tabledata">{row.Balance}</span>
-                                        
-                                    </TableCell> */}
+
                             <TableCell style={{ border: "none" }} align="left">
-                              {/* <a className="linkTable" href="/"> */}
                               <span className="tabledata">
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
@@ -937,15 +941,10 @@ export default function SimpleTabs(props) {
                               </span>
                               {/* </a> */}
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="left">
-                                        
-                                            <span className="tabledata">{row.Notification}</span>
-                                        
-                                    </TableCell> */}
+
                             <TableCell style={{ border: "none" }} align="left">
                               <EditTagAddress />
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
                         );
                       })}
