@@ -91,7 +91,6 @@ export default function ChangePassword(props) {
   const updatepassword = async () => {
     let userInfo = sessionManager.getDataFromLocalStorage("userInfo");
     userInfo = JSON.parse(userInfo);
-    console.log(userInfo, "localdata");
     const reqObj = {
       email: userInfo.email,
       userId: userInfo.sub,
