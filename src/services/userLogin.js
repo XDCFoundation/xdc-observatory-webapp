@@ -50,9 +50,7 @@ export default class Auth0Service {
     
     }
     
-    console.log("autheeee",reqObj);
-    
-    let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/forgot-password"
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"forgot-password"
     
     return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
     
