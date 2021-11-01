@@ -12,6 +12,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
+import { sessionManager } from "../../../managers/sessionManager";
 // import Transaction from './accountProfile';
 // import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
@@ -189,7 +190,7 @@ export default function FormDialog() {
   async function transactionLable() {
     setOpen(false);
     const data = {
-      userId: "12345",
+      userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };

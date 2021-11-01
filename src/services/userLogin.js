@@ -10,10 +10,7 @@ export default class Auth0Service {
   }
 
   async signin(reqObj) {
-    console.log("autheeee", reqObj);
-    //let url = process.env.REACT_APP_USER_SERVICE_URL + "login";
-    let url =
-      "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/sign-in";
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "sign-in";
     return httpService(
       httpConstants.METHOD_TYPE.POST,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },

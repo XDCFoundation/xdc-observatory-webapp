@@ -30,6 +30,9 @@ import NotificationBar from "./NotificationBar";
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
+import { sessionManager } from "../../managers/sessionManager";
+
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -234,14 +237,16 @@ export default function SimpleTabs(props) {
     getUserWatchlist();
     async function getUserWatchlist() {
       //the user id has to be change from
-      const data = "12345";
+      const data = sessionManager.getDataFromCookies("userId");
+      console.log("userId",data)
+
       const response = await UserService.getUserWatchlist(data);
       setWatchlist(response);
     }
     getuserdata();
     async function getuserdata() {
       //the user id has to be change from
-      const data = "12345";
+      const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
       // console.log("tttt", response);
@@ -250,7 +255,7 @@ export default function SimpleTabs(props) {
     getPvtTagAddress();
     async function getPvtTagAddress() {
       //the user id has to be change from
-      const data = "12345";
+      const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getPrivateTagToAddress(data);
       setPrivateAddress(response);
     }
