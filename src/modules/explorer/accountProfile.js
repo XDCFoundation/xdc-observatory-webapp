@@ -30,6 +30,43 @@ import NotificationBar from "./NotificationBar";
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
+import ReactPaginate from "react-paginate";
+import styled from "styled-components";
+import Utils from "../../utility";
+
+const PaginationDiv = styled.div`
+  margin-left: auto;
+  margin-right: 0;
+  & .paginationBttns {
+    list-style: none;
+    display: flex;
+    max-width: 1450px;
+    min-width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+  & .paginationBttns a {
+    padding: 7px;
+    font-size: 10px;
+    margin: 6px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    color: skyblue;
+    cursor: pointer;
+  }
+  & .paginationActive a {
+    color: white !important;
+    background: #009fe0;
+  }
+  & .next a {
+    border: none;
+  }
+  & .previous a {
+    border: none;
+  }
+`;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -223,57 +260,61 @@ export default function SimpleTabs(props) {
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
 
-  React.useEffect(() => {
-    getUserWatchlist();
-    async function getUserWatchlist() {
-      //the user id has to be change from
-      const data = "12345";
-      const response = await UserService.getUserWatchlist(data);
-      // console.log("url response", response);
-      setWatchlist(response);
-    }
-    getuserdata();
-    async function getuserdata() {
-      //the user id has to be change from
-      const data = "12345";
-      const response = await UserService.getUserPrivateNote(data);
-      setAddress(response);
-      console.log("tttt", response);
-    }
-
-    getPvtTagAddress();
-    async function getPvtTagAddress() {
-      //the user id has to be change from
-      const data = "12345";
-      const response = await UserService.getPrivateTagToAddress(data);
-      setPrivateAddress(response);
-    }
-  }, []);
-
-  // const [search, setSearch] = React.useState("");
-
-  // const filteredProducts = address.filter((product) => {
-  //   if (
-  //     product.tags.toLowerCase().includes(search) ||
-  //     product.title.toLowerCase().includes(search) ||
-  //     product.category.toLowerCase().includes(search)
-  //   ) {
-  //     return product;
-  //   }
-  // });
-
-  const { state } = props;
-
-  // 765876778994489048984589865
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  // const a11yProps(() => {
-  //     underlineStyle: {borderColor: '#f65857'}
-  // });
+
+  const [list, setList] = React.useState({});
+  const [totalCount, setTotalCount] = React.useState(5);
+
+  const onChangeWatchlistPage = async (value) => {
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfWatchlist({ skip: list, limit: "5" });
+  };
+
+  const onChangeTxnLabelPage = async (value) => {
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfTxnLabel({ skip: list, limit: "5" });
+  };
+
+  const onChangeTagAddressPage = async (value) => {
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfTagAddress({ skip: list, limit: "5" });
+  };
+
+  const getListOfWatchlist = async (requestData) => {
+    const request = {
+      limit: requestData.limit,
+      skip: requestData.skip,
+    };
+    const response = await UserService.getWatchlistList(request);
+    setWatchlist(response.watchlistContent);
+    setTotalCount(response.totalCount);
+  };
+
+  const getListOfTxnLabel = async (requestData) => {
+    const request = {
+      limit: requestData.limit,
+      skip: requestData.skip,
+    };
+    const response = await UserService.getTxnLabelList(request);
+    setAddress(response.txnLabelContent);
+    setTotalCount(response.totalCount);
+  };
+
+  const getListOfTagAddress = async (requestData) => {
+    const request = {
+      limit: requestData.limit,
+      skip: requestData.skip,
+    };
+    const response = await UserService.getTagAddresstList(request);
+    setPrivateAddress(response.tagAddressContent);
+    setTotalCount(response.totalCount);
+  };
+
   return (
     <div>
       <Tokensearchbar />
@@ -294,9 +335,8 @@ export default function SimpleTabs(props) {
               </span>
             </div>
             <div className="edit">
-            <Editprofile/>
+              <Editprofile />
             </div>
-            
           </span>
         </div>
         <div className="divbox">
@@ -305,22 +345,6 @@ export default function SimpleTabs(props) {
           <Transaction />
           <Private />
         </div>
-
-        {/* <div className="innerdiv">
-                    <span className="mywatch" >
-                        My Watchlist
-                    </span>
-                    <span className="txnprivate" >
-                        Txn Private Note
-
-                    </span>
-                    <span className="address">
-                        Tagged Adresses
-
-                    </span>
-                </div> */}
-
-        {/* <div className="line" ></div> */}
 
         <div className={classes.root}>
           <AppBar
@@ -427,7 +451,6 @@ export default function SimpleTabs(props) {
                                   return d;
                                 })
                               );
-                              // let checked = e.target.checked;
                               exportAddress(e.row);
                               handleToggle(checked);
                             }}
@@ -481,8 +504,6 @@ export default function SimpleTabs(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {/* {filteredProducts.map((product)=>{ */}
-
                       {watchlist.map((row, index) => {
                         return (
                           <TableRow
@@ -588,6 +609,19 @@ export default function SimpleTabs(props) {
                 </Grid>
               </Grid>
             </div>
+            <PaginationDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={totalCount / 5}
+                breakLabel={"..."}
+                initialPage={0}
+                onPageChange={onChangeWatchlistPage}
+                containerClassName={"paginationBttns"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </PaginationDiv>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
@@ -622,10 +656,11 @@ export default function SimpleTabs(props) {
                               setAddress(
                                 address.map((d) => {
                                   d.select = checked;
-
                                   return d;
                                 })
                               );
+                              exportAddress(e.row);
+                              handleToggle(checked);
                             }}
                             style={{
                               marginRight: "10px",
@@ -680,9 +715,6 @@ export default function SimpleTabs(props) {
                     </TableHead>
                     <TableBody>
                       {address.map((row, index) => {
-                        // const currentTime = new Date();
-                        // const previousTime = new Date(row.timestamp * 1000);
-                        // const ti = timeDiff(currentTime, previousTime);
                         return (
                           <TableRow
                             style={
@@ -721,7 +753,7 @@ export default function SimpleTabs(props) {
                               <input
                                 onChange={(event) => {
                                   let checked = event.target.checked;
-                                  exportAddress(row);
+                                  exportAddress(event.row);
                                   handleToggle(checked);
                                 }}
                                 type="checkbox"
@@ -775,6 +807,19 @@ export default function SimpleTabs(props) {
                 </Grid>
               </Grid>
             </div>
+            <PaginationDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={totalCount / 5}
+                breakLabel={"..."}
+                initialPage={0}
+                onPageChange={onChangeTxnLabelPage}
+                containerClassName={"paginationBttns"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </PaginationDiv>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
@@ -812,6 +857,9 @@ export default function SimpleTabs(props) {
                                   return d;
                                 })
                               );
+
+                              exportAddress(e.row);
+                              handleToggle(checked);
                             }}
                             style={{
                               marginRight: "10px",
@@ -954,6 +1002,19 @@ export default function SimpleTabs(props) {
                 </Grid>
               </Grid>
             </div>
+            <PaginationDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={totalCount / 5}
+                breakLabel={"..."}
+                initialPage={0}
+                onPageChange={onChangeTagAddressPage}
+                containerClassName={"paginationBttns"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </PaginationDiv>
           </TabPanel>
         </div>
 

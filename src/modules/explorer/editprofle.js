@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   paper: {
-    width: '31.438rem',
-    height:"35.063rem",
+    width: "31.438rem",
+    height: "35.063rem",
     alignSelf: "flex-start",
     margin: "100px auto",
   },
@@ -233,8 +233,6 @@ export default function FormDialog() {
 
   useEffect(
     () => () => {
-      console.log("file", files);
-      console.log("accept", acceptedFiles);
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
@@ -263,7 +261,7 @@ export default function FormDialog() {
         </button>
 
         <ProfilePicContainer>
-          <Dialog 
+          <Dialog
             classes={{ paper: classes.paper }}
             className={classes.dialog}
             open={opens}

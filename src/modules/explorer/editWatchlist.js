@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-
   },
   // addbtn: {
   //   width: "110px",
@@ -149,6 +148,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
+  const [_id, setId] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
 
@@ -177,12 +177,15 @@ export default function FormDialog() {
     //   history.push("/loginprofile")
   };
 
+  const [edit, setEdit] = React.useState();
+
   const watchListService = async () => {
     const request = {
-      UserId: "12345",
+      _id: "617a354c8bbde30029960cb1",
       address: address,
       description: description,
     };
+
     const response = PutWatchlist.putWatchlist(request);
   };
 

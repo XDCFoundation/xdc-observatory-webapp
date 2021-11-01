@@ -71,63 +71,67 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ChangePassword(props) {
-
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   const handleLogin = () => {
     history.push("/changePassword");
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-      <Dialog
-          className={classes.dialog}
-          open
-          onClose={() => props.handleClose()}
-          aria-labelledby="form-dialog-title"
+    <Dialog
+      className={classes.dialog}
+      open
+      onClose={handleClose}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogContent className={classes.heading}>
+        <Row>
+          <DialogContentText className={classes.text}>
+            <b>Change Password</b>
+          </DialogContentText>
+          <CloseIcon onClick={props.openChangePassword} />
+        </Row>
+        <DialogContentText className={classes.subCategory}>
+          <b>Current Password</b>
+        </DialogContentText>
+        <input
+          type="password"
+          placeholder="&bull; &bull; &bull; &bull; &bull;"
+          className={classes.input}
+        ></input>
+        <DialogContentText className={classes.subCategory}>
+          <b>New Password</b>
+        </DialogContentText>
+        <input
+          type="password"
+          placeholder="&bull; &bull; &bull; &bull; &bull;"
+          className={classes.input}
+        ></input>
+        <DialogContentText className={classes.subCategory}>
+          <b>Config Password</b>
+        </DialogContentText>
+        <input
+          type="password"
+          placeholder="&bull; &bull; &bull; &bull; &bull;"
+          className={classes.input}
+        ></input>
+        <DialogActions
+          style={{ alignItems: "center", justifyContent: "center" }}
         >
-          <DialogContent className={classes.heading}>
-            <Row>
-              <DialogContentText className={classes.text}>
-                <b>Change Password</b>
-              </DialogContentText>
-              <CloseIcon onClick={props.openChangePassword} />
-            </Row>
-            <DialogContentText className={classes.subCategory}>
-              <b>Current Password</b>
-            </DialogContentText>
-            <input
-              type="password"
-              placeholder="&bull; &bull; &bull; &bull; &bull;"
-              className={classes.input}
-            ></input>
-            <DialogContentText className={classes.subCategory}>
-              <b>New Password</b>
-            </DialogContentText>
-            <input
-              type="password"
-              placeholder="&bull; &bull; &bull; &bull; &bull;"
-              className={classes.input}
-            ></input>
-            <DialogContentText className={classes.subCategory}>
-              <b>Config Password</b>
-            </DialogContentText>
-            <input
-              type="password"
-              placeholder="&bull; &bull; &bull; &bull; &bull;"
-              className={classes.input}
-            ></input>
-            <DialogActions
-              style={{ alignItems: "center", justifyContent: "center" }}
-            >
-              <button
-                className={classes.addbtn}
-                onClick={handleLogin}
-                onClick={(event) => alert("Successfully changed password ")}
-              >
-                Update Password{" "}
-              </button>
-            </DialogActions>
-          </DialogContent>
-        </Dialog>
+          <button
+            className={classes.addbtn}
+            onClick={handleLogin}
+            onClick={(event) => alert("Successfully changed password ")}
+          >
+            Update Password{" "}
+          </button>
+        </DialogActions>
+      </DialogContent>
+    </Dialog>
   );
 }
