@@ -42,30 +42,33 @@ export default class Auth0Service {
       "Access-Control-Allow-Origin": "*",
     };
   }
-  async forgotPassword(requestData) {
-    // let url = process.env.REACT_APP_USER_SERVICE_URL + httpConstants.API_END_POINT.FORGOT_PASSWORD
-    let url = "http://localhost:3001/forgot-password";
-    return httpService(
-      httpConstants.METHOD_TYPE.POST,
-      this.getHeaders(),
-      requestData,
-      url
-    )
-      .then((response) => {
-        if (
-          !response.success ||
-          response.responseCode !== 200 ||
-          !response.responseData ||
-          response.responseData.length === 0
-        )
-          return Promise.reject(response);
-        console.log("responseeee", response.responseData);
-        return Promise.resolve(response.responseData);
-      })
-      .catch((err) => {
-        return Promise.reject(err);
-      });
-  }
+  async forgotPassword(email) {
+
+    const reqObj = {
+    
+    email
+    
+    }
+    
+    console.log("autheeee",reqObj);
+    
+    let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/forgot-password"
+    
+    return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
+    
+    .then(
+    
+    response => {
+    
+    if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+    return Promise.reject();
+    return Promise.resolve(response.responseData);
+    }
+    ).catch(function (err) {
+    return Promise.reject(err);
+    },
+    );
+    }
 
   async signUp(requestData) {
     let url =
