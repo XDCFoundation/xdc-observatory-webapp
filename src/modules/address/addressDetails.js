@@ -239,7 +239,7 @@ export default function AddressDetails(props) {
                                 <QRCode
                                   size={320}
                                   style={{ height: 400, width: 400 }}
-                                  value={addr}
+                                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
                                 />
                               </div>
                             </p>

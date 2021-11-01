@@ -53,7 +53,6 @@ class Routes extends BaseComponent {
               path={"/transfer-transaction-details/:address"}
               component={TransferDetailsUi}
             />
-            {/* <Route exact path={'/tokens'} component={TokenDetails} /> */}
 
             <Route exact path={'/block-details/:blockNumber'} component={BlockDetails} />
             <Route exact path={'/account-details'} component={LatestAccountsList} />

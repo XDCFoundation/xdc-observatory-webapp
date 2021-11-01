@@ -244,6 +244,7 @@ class BlockChainDataComponent extends Component {
       animationBlock: {},
       animationTransaction: {},
       gasPrice: 0,
+      loading: true,
     };
   }
   componentWillUnmount() {
@@ -422,6 +423,7 @@ class BlockChainDataComponent extends Component {
 
     if (error || !MaxtpsCount) return;
     this.setState({ Maxtps: MaxtpsCount });
+    this.setState({ loading: false });
     const interval = setInterval(async () => {
       let [error, MaxtpsCount] = await Utils.parseResponse(
         TpsService.getMaxTpsCounter()
@@ -506,8 +508,9 @@ class BlockChainDataComponent extends Component {
     let currentTp = this.state.tpsCounts
 
     return (
-      <MainContainer>
-        <LeftContainer>
+      <MainContainer className={this.state.loading == true ? "cover-spin-3" : ""}>
+
+        <LeftContainer className={this.state.loading == true ? "cover-spin" : ""}>
           <LeftFirst>
             <LeftTop>
               <IconLogo src={logo} />
@@ -646,10 +649,10 @@ class BlockChainDataComponent extends Component {
           </LeftSec>
         </LeftContainer>
 
-        <RightContainer>
+        <RightContainer className={this.state.loading == true ? "cover-spin" : ""}>
           <Tab />
         </RightContainer>
-      </MainContainer>
+      </MainContainer >
     );
   }
 }
