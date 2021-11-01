@@ -7,7 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
-import userSignUp from "../../services/createUser"
+import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -16,7 +16,7 @@ import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginLeft: "auto",
     marginTop: "4px",
-    fontSize : "22px",
+    fontSize: "22px",
   },
   paperWidthSm: {
     position: "absolute",
@@ -183,9 +183,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#2149b9",
     cursor: "pointer",
   },
-  fieldName : {
-    fontSize : "14px",
-    fontWeight : "500",
+  fieldName: {
+    fontSize: "14px",
+    fontWeight: "500",
   },
 
   forgotText: {
@@ -256,7 +256,6 @@ export default function FormDialog() {
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
   const [userName, setUserName] = React.useState("");
@@ -267,14 +266,9 @@ export default function FormDialog() {
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
-  
+
   const [emailError, setEmailError] = useState("");
   const [inputError, setInputError] = useState("");
-
-  console.log("UserName", userName);
-  console.log("Email", email);
-  console.log("Password", password);
-  console.log("Confirm Password", confirmPassword);
 
   const classes = useStyles();
 
@@ -303,7 +297,6 @@ export default function FormDialog() {
   var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
-  
 
   const handleClickOpenSignup = () => {
     setValue(1);
@@ -353,7 +346,7 @@ export default function FormDialog() {
       );
       return;
     }
-    
+
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(reqObj)
@@ -368,12 +361,11 @@ export default function FormDialog() {
       sessionManager.setDataInLocalStorage("requestBody", reqObj);
       sessionManager.setDataInLocalStorage("userInfo", authResponse);
       sessionManager.setDataInLocalStorage("isLoggedIn", true);
-      console.log("responseeee", authResponse);
       setUserName("");
       setEmail("");
       setPassword("");
       Utility.apiSuccessToast("Sign in successfull");
-      (window.location.href = "loginprofile")
+      window.location.href = "loginprofile";
     }
   };
 
@@ -386,15 +378,14 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
-    
+
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
-    } else
-    if (!userName.match(regExAlphaNum)) {
+    } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
@@ -417,7 +408,6 @@ export default function FormDialog() {
       setPassword("");
       setConfirmPassword("");
       const response = await userSignUp.postSignUp(data);
-      console.log("response:", response);
     }
   };
 
@@ -449,9 +439,11 @@ export default function FormDialog() {
     if (error || !authResponse) {
       setEmailError("Please enter a valid email address");
       Utility.apiFailureToast("Wrong email");
-    }else {
-      Utility.apiSuccessToast("We haveve just sent you an email to reset your password.");
-      (window.location.href = "/")
+    } else {
+      Utility.apiSuccessToast(
+        "We haveve just sent you an email to reset your password."
+      );
+      window.location.href = "/";
     }
   };
 
@@ -547,19 +539,14 @@ export default function FormDialog() {
                 <DialogActions>
                   <button
                     className={classes.addbtn}
-                    // onClick={handleLogin}
                     onClick={() => {
-                      // setPasswordValid("");
-                      // validateEmail();
                       {
                         login();
                       }
                     }}
-                    // onClick={(event) => (window.location.href = "loginprofile")}
                   >
                     Log in{" "}
                   </button>
-                  {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
                 </DialogActions>
                 <div className={classes.value}></div>
                 <DialogContentText className={classes.xdc}>
