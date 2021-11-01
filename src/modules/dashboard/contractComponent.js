@@ -13,7 +13,7 @@ import FooterComponent from "../common/footerComponent";
 import Utility, { dispatchAction } from "../../utility";
 import ContractData from "../../services/contract";
 import styled from "styled-components";
-import Loader from '../../assets/loader'
+import Loader from "../../assets/loader";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -105,7 +105,6 @@ class Contractlist extends React.Component {
       };
       // window.location.reload();
       await this.getContractSearch(data);
-
     }
     if (searchkeyword.length == 0) {
       this.setState({ from: 0 });
@@ -285,7 +284,9 @@ class Contractlist extends React.Component {
               }}
             >
               <div className="searchelement-div div-searchelement">
-                <p className="searchelement-token token-searchelement">Contracts</p>
+                <p className="searchelement-token token-searchelement">
+                  Contracts
+                </p>
                 <div className="searchelement-input input-searchelement">
                   <img
                     style={{
@@ -299,10 +300,16 @@ class Contractlist extends React.Component {
                   <input
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
-                        console.log("Enter key was pressed. Run your function.");
-                        this.handleKeyUp(e)
+                        console.log(
+                          "Enter key was pressed. Run your function."
+                        );
+                        this.handleKeyUp(e);
                       }
-
+                    }}
+                    onChange={(e) => {
+                      if (e.target.value == "") {
+                        this.handleKeyUp(e);
+                      }
                     }}
                     style={{
                       fontSize: "0.938rem",
@@ -385,14 +392,14 @@ class Contractlist extends React.Component {
               {this.state.isLoading == true ? (
                 <TableBody>
                   <TableRow>
-                    <TableCell style={{ border: 'none' }} colspan="6">
+                    <TableCell style={{ border: "none" }} colspan="6">
                       <div className="loader-contract-list">
                         <Loader />
                       </div>
                     </TableCell>
                   </TableRow>
                 </TableBody>
-              ) :
+              ) : (
                 <TableBody>
                   {this.state.rows.map((row, index) => {
                     let isToken = "";
@@ -452,7 +459,8 @@ class Contractlist extends React.Component {
                       </TableRow>
                     );
                   })}
-                </TableBody>}
+                </TableBody>
+              )}
               <TableBody className={msgStatus}>
                 <TableCell id="td" style={{ border: "none" }}>
                   <span
@@ -557,7 +565,7 @@ class Contractlist extends React.Component {
                   1 -
                   Math.round(
                     (this.state.totalRecord - this.state.from) /
-                    this.state.amount
+                      this.state.amount
                   )}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>

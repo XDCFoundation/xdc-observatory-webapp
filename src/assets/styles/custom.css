@@ -6486,6 +6486,31 @@ button {
   background-color: #fff;
 }
 
+.outer-oval{
+  width: 14px;
+  height: 14px;
+  margin: 12px 2px 18px 0;
+  padding: 5px 4px 4px 5px;
+  background-color: rgba(55, 99, 221, 0.1);
+  border-radius:10px;
+  margin-bottom:-20px;
+  margin-left:61px;
+}
+
+.Oval{
+  width: 5px;
+  height: 5px;
+  background-color: #3763dd;
+  border-radius:10px;
+  margin-bottom:-20px;
+  text-align:center;
+}
+
+.dot-point{
+  margin-bottom:-20px;
+  text-align:center;
+}
+
 .Tooltip-graph-date {
   width: 100%;
   margin: 0 53px 1px 0;
