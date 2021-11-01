@@ -345,6 +345,12 @@ export default function StickyHeadTable() {
                       handleSearchKeyUp(e)
                     }
                   }}
+                  onChange={(e) => {
+                    if(e.target.value=="")
+                    {
+                      handleSearchKeyUp(e)
+                    }
+                  }}
                   style={{
                     fontSize: '0.938rem',
                     letterSpacing: 0.62,
