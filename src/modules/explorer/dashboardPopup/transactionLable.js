@@ -194,6 +194,7 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
+    console.log("data",data)
     const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
