@@ -66,19 +66,22 @@
   background-color: #ffffff;
   width: 172px;
   height: 35px;
+  outline: none;
   margin-left: 24px;
 }
 .searchinput {
   width: 144px;
   height: 33px;
   border-radius: 4px;
-  /* padding-left: 25px;
-  border-radius: 8px;
-  border: solid 1px #e3e7eb;
-  background-color: #ffffff; */
-  outline: none;
+  outline-color: #e3e7eb;
   border: none;
 }
+
+/* input:focus {
+  border: none !important;
+  outline: none !important;
+} */
+
 .line {
   width: 1202px;
   height: 1px;
