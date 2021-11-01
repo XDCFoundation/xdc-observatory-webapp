@@ -17,6 +17,7 @@ import { UserService } from "../../../services";
 import { NavLink } from "react-router-dom";
 import { history } from "../../../managers/history";
 import utility from "../../../utility";
+import { sessionManager } from "../../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -174,7 +175,7 @@ export default function FormDialog() {
   async function TaggedAddress() {
     setOpen(false);
     const data = {
-      userId: "12345",
+      userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: nameTag,
     };

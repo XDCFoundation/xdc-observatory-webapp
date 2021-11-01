@@ -355,12 +355,10 @@ export default function FormDialog() {
       Utility.apiFailureToast("Wrong email or password");
       // setislogged(true)
     } else {
-      sessionManager.setDataInCookies(reqObj);
-      sessionManager.setDataInCookies(authResponse);
-      sessionManager.setDataInCookies("isLoggedIn", true);
-      sessionManager.setDataInLocalStorage("requestBody", reqObj);
-      sessionManager.setDataInLocalStorage("userInfo", authResponse);
-      sessionManager.setDataInLocalStorage("isLoggedIn", true);
+      console.log("response", authResponse)
+      sessionManager.setDataInCookies(authResponse, "userInfo");
+      sessionManager.setDataInCookies(true, "isLoggedIn",);
+      sessionManager.setDataInCookies(authResponse?.sub, "userId");
       setUserName("");
       setEmail("");
       setPassword("");

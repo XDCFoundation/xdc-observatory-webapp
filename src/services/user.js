@@ -43,7 +43,7 @@ async function postUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "add-transaction-label";
-  //   console.log("url ", url);
+    console.log("url ", url);
   return httpService(
     "POST",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
