@@ -231,7 +231,6 @@ export default function SimpleTabs(props) {
   const [nameToggle, setNameToggle] = React.useState(0);
 
   React.useEffect(() => {
-    setPrivateAddress(privateAddress.sort((a, b) => b?.addedOn - a?.addedOn));
     getUserWatchlist();
     async function getUserWatchlist() {
       //the user id has to be change from
@@ -277,10 +276,10 @@ export default function SimpleTabs(props) {
     let oldData = address;
     let newData;
     if (addedOnToggle === 0) {
-      newData = oldData.sort((a, b) => b?.addedOn - a?.addedOn);
+      newData = oldData.sort((index1, index2) => index2?.addedOn - index1?.addedOn);
       setAddedOnToggle(1);
     } else {
-      newData = oldData.sort((a, b) => a?.addedOn - b?.addedOn);
+      newData = oldData.sort((index1, index2) => index1?.addedOn - index2?.addedOn);
       setAddedOnToggle(0);
     }
     setAddress(newData);
@@ -290,10 +289,10 @@ export default function SimpleTabs(props) {
     let oldData = watchlist;
     let newData;
     if (balanceToggle === 0) {
-      newData = oldData.sort((a, b) => a?.balance - b?.balance);
+      newData = oldData.sort((index1, index2) => index1?.balance - index2?.balance);
       setBalanceToggle(1);
     } else {
-      newData = oldData.sort((a, b) => b?.balance - a?.balance);
+      newData = oldData.sort((index1, index2) => index2?.balance - index1?.balance);
       setBalanceToggle(0);
     }
     setWatchlist(newData);
@@ -303,10 +302,10 @@ export default function SimpleTabs(props) {
     let oldData = privateAddress;
     let newData;
     if (nameToggle === 0) {
-      newData = oldData.sort((a, b) => a.tagName.localeCompare(b.tagName));
+      newData = oldData.sort((index1, index2) => index1.tagName.localeCompare(index2.tagName));
       setNameToggle(1);
     } else {
-      newData = oldData.sort((a, b) => b.tagName.localeCompare(a.tagName));
+      newData = oldData.sort((index1, index2) => index2.tagName.localeCompare(index1.tagName));
       setNameToggle(0);
     }
     setPrivateAddress(newData);
