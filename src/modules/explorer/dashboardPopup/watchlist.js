@@ -23,6 +23,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import AddWatchList from "../../../services/user";
+import utility from "../../../utility";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -219,6 +220,7 @@ export default function FormDialog() {
       description: description,
     };
     const response = AddWatchList.addWatchlist(request);
+    utility.apiSuccessToast("Address added to watchlist");
   };
 
   return (
