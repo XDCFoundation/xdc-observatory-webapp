@@ -38,16 +38,10 @@ export default function BasicPopover(props) {
   };
 
   const logOut = async() => {
-    let userInfo = sessionManager.getDataFromLocalStorage("userInfo");
-    userInfo = JSON.parse(userInfo);
-    console.log(userInfo, "localdata");
-    const reqObj = {
-      userId: userInfo.sub,
-    };
     Utility.apiSuccessToast("Logout Successfully");
-    sessionManager.removeDataFromLocalStorage("requestBody");
-    sessionManager.removeDataFromLocalStorage("userInfo");
-    sessionManager.removeDataFromLocalStorage("isLoggedIn");
+    sessionManager.removeDataFromCookies("userId");
+    sessionManager.removeDataFromCookies("userInfo");
+    sessionManager.removeDataFromCookies("isLoggedIn");
     (window.location.href = "/dashboard")
   };
   const open = Boolean(anchorEl);

@@ -12,6 +12,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
+import { sessionManager } from "../../../managers/sessionManager";
 // import AccountProfile from "./accountProfile";
 import { NavLink } from "react-router-dom";
 // import { history } from "../../../managers/history";
@@ -22,6 +23,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import AddWatchList from "../../../services/user";
+import utility from "../../../utility";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -213,11 +215,12 @@ export default function FormDialog() {
 
   const watchListService = async () => {
     const request = {
-      UserId: "12345",
+      UserId: sessionManager.getDataFromCookies("userId"),
       address: address,
       description: description,
     };
     const response = AddWatchList.addWatchlist(request);
+    utility.apiSuccessToast("Address added to watchlist");
   };
 
   return (
