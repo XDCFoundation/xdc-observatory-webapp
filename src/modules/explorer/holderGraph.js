@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { ResponsiveLine } from "@nivo/line";
-import { linearGradientDef } from '@nivo/core'
+import { linearGradientDef } from "@nivo/core";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import Utils from "../../utility";
@@ -12,8 +12,8 @@ const GraphSize = styled.div`
   width: auto;
   margin-top: 1rem;
   [stroke="url(#someGradientId)"] {
-  stroke: #c16c17;
-}
+    stroke: #c16c17;
+  }
   @media (max-width: 767px) {
     height: 102px;
   }
@@ -23,14 +23,14 @@ const GraphSize = styled.div`
 `;
 
 const height = 140;
-const width = 'none';
+const width = "none";
 
 const gradProps = {
-  gradientUnits: 'userSpaceOnUse',
-  x1: '0',
-  y1: '0',
-  x2: '0',
-  y2: height
+  gradientUnits: "userSpaceOnUse",
+  x1: "0",
+  y1: "0",
+  x2: "0",
+  y2: height,
 };
 
 const toolTipElement = (props) => {
@@ -48,85 +48,85 @@ const toolTipElement = (props) => {
   );
 };
 const MyResponsiveLine = ({ data }) => (
-    <GraphSize>
-  <ResponsiveLine
-    data={data}
-    tooltip={toolTipElement}
-    margin={{ top: 10 }}
-    xScale={{ type: "point" }}
-    yScale={{
-      type: "linear",
-      min: "auto",
-      max: "auto",
-      stacked: true,
-      reverse: false,
-    }}
-    yFormat=" >-.2f"
-    curve="basis"
-    axisTop={null}
-    axisRight={null}
-    axisBottom={{
-      orient: "bottom",
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      legend: "transportation",
-      legendOffset: 36,
-      legendPosition: "middle",
-    }}
-    axisLeft={{
-      orient: "left",
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      legend: "count",
-      legendOffset: -40,
-      legendPosition: "middle",
-    }}
-    enableGridX={false}
-    enableGridY={false}
-    enablePoints={false}
-    pointSize={10}
-    pointColor={{ theme: "background" }}
-    pointBorderWidth={2}
-    pointBorderColor={{ from: "serieColor" }}
-    pointLabelYOffset={-12}
-    enableArea={true}
-    areaOpacity={0.1}
-    //colors={{ scheme: 'nivo' }}
-    colors={['url(#someGradientId)']}
-    enableCrosshair={false}
-    useMesh={true}
-    legends={[
-      {
-        anchor: "bottom-right",
-        direction: "column",
-        justify: false,
-        translateX: 100,
-        translateY: 0,
-        itemsSpacing: 0,
-        itemDirection: "left-to-right",
-        itemWidth: 80,
-        itemHeight: 20,
-        itemOpacity: 0.75,
-        symbolSize: 12,
-        symbolShape: "circle",
-        symbolBorderColor: "rgba(0, 0, 0, .5)",
-        effects: [
-          {
-            on: "hover",
-            style: {
-              itemBackground: "rgba(0, 0, 0, .03)",
-              itemOpacity: 1,
+  <GraphSize>
+    <ResponsiveLine
+      data={data}
+      tooltip={toolTipElement}
+      margin={{ top: 10 }}
+      xScale={{ type: "point" }}
+      yScale={{
+        type: "linear",
+        min: "auto",
+        max: "auto",
+        stacked: true,
+        reverse: false,
+      }}
+      yFormat=" >-.2f"
+      curve="basis"
+      axisTop={null}
+      axisRight={null}
+      axisBottom={{
+        orient: "bottom",
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: "transportation",
+        legendOffset: 36,
+        legendPosition: "middle",
+      }}
+      axisLeft={{
+        orient: "left",
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: "count",
+        legendOffset: -40,
+        legendPosition: "middle",
+      }}
+      enableGridX={false}
+      enableGridY={false}
+      enablePoints={false}
+      pointSize={10}
+      pointColor={{ theme: "background" }}
+      pointBorderWidth={2}
+      pointBorderColor={{ from: "serieColor" }}
+      pointLabelYOffset={-12}
+      enableArea={true}
+      areaOpacity={0.1}
+      //colors={{ scheme: 'nivo' }}
+      colors={["url(#someGradientId)"]}
+      enableCrosshair={false}
+      useMesh={true}
+      legends={[
+        {
+          anchor: "bottom-right",
+          direction: "column",
+          justify: false,
+          translateX: 100,
+          translateY: 0,
+          itemsSpacing: 0,
+          itemDirection: "left-to-right",
+          itemWidth: 80,
+          itemHeight: 20,
+          itemOpacity: 0.75,
+          symbolSize: 12,
+          symbolShape: "circle",
+          symbolBorderColor: "rgba(0, 0, 0, .5)",
+          effects: [
+            {
+              on: "hover",
+              style: {
+                itemBackground: "rgba(0, 0, 0, .03)",
+                itemOpacity: 1,
+              },
             },
-          },
-        ],
-      },
-    ]}
-  />
-  <svg>
+          ],
+        },
+      ]}
+    />
+    <svg>
       <defs>
-        <linearGradient id="someGradientId" {...gradProps} >
+        <linearGradient id="someGradientId" {...gradProps}>
           <stop offset="50%" stopColor="#c16c17" />
           <stop offset="100%" stopColor="rgba(255,255,255,0)" />
         </linearGradient>
@@ -182,10 +182,10 @@ export default function App() {
   return (
     <div>
       <MyResponsiveLine data={data} />
-     <div className="dates">
+      <div className="dates">
         <p>{lastDate}</p>
-         <p>{firstDate}</p>
-       </div>
+        <p>{firstDate}</p>
+      </div>
 
       {/* </div> */}
     </div>
