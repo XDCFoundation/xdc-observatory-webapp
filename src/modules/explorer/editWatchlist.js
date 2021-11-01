@@ -192,11 +192,11 @@ export default function FormDialog() {
   return (
     <div>
       <div onClick={handleClickOpen}>
-        <Button color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
+        <div color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
           <a className="linkTable">
             <span className="tabledata">Edit</span>
           </a>
-        </Button>
+        </div>
       </div>
 
       <div>
