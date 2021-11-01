@@ -322,7 +322,7 @@ export default function FormDialog() {
     // );
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
-      authObject.signin(email, password)
+      authObject.signin(reqObj)
     );
 
     console.log("responseeee", authResponse, email, password);

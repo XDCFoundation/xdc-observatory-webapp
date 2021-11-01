@@ -1,9 +1,4 @@
-/**
- * Created by Ayush Kulshrestha on 18/09/2019.
- */
-
-
- export const httpConstants = {
+export const httpConstants = {
     METHOD_TYPE: {
         POST: 'POST',
         PUT: 'PUT',
@@ -96,4 +91,3 @@ export const reduxEvent = {
     LOGGED_IN: 'LOGGED_IN',
     LOGGED_OUT: 'LOGGED_OUT'
 }
-
