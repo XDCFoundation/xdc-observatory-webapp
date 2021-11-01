@@ -356,7 +356,7 @@ export default function FormDialog() {
     
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
-      authObject.signin(email, password)
+      authObject.signin(reqObj)
     );
     if (error || !authResponse) {
       Utility.apiFailureToast("Wrong email or password");
