@@ -64,7 +64,7 @@ const useStyles = ({
 })
 export default function AddressTableComponent(props) {
   const { state } = props
-  const classes = useStyles()
+  const classes = useStyles();
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
       b.length - 3,

@@ -172,6 +172,10 @@ export default function Navbar() {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
+      if (!responseData)
+      {
+        Utility.apiFailureToast("No details found.");
+      }
 
       if (responseData) {
         console.log(responseData, "KIu");
