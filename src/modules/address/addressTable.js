@@ -659,17 +659,17 @@ export default function AddressTableComponent(props) {
         >
           <Grid item xs="4" className="pagination-tab-address">
             <span className="text">Show</span>
-            <Select
+            <select
               value={rowsPerPage}
               className="select-amount amount-select"
               onChange={handleChangeRowsPerPage}
             >
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={25}>25</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={100}>100</MenuItem>
-              {/* <MenuItem value={500}>500</MenuItem> */}
-            </Select>
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+
+              <option value={100}>100</option>
+            </select>
             <span className="text">Records</span>
           </Grid>
           <Grid xs="1"></Grid>

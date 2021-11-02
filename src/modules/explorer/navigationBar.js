@@ -140,14 +140,22 @@ export default function Navbar() {
   });
   const [open, setOpen] = useState(false);
   const [opencontracts, setOpencontracts] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
+    if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
-      var selectOptType = SelectOptRef.current?.value;
-      let requestdata = {
-        filter: selectOptType,
-        data: event.target.value,
-      };
-      BlockChainSearch(requestdata);
+      var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+      if (format.test(event.target.value)) {
+        setErrorMessage("Special characters are not allowed.");
+      } else {
+        var selectOptType = SelectOptRef.current?.value;
+        let requestdata = {
+          filter: selectOptType,
+          data: event.target.value,
+        };
+        BlockChainSearch(requestdata);
+      }
     }
   };
   const handleSearchOption = (event) => {
@@ -166,7 +174,7 @@ export default function Navbar() {
       );
 
       if (responseData) {
-        console.log(responseData, "KIu")
+        console.log(responseData, "KIu");
         if (responseData.redirect == "block") {
           let blockurl = "/block-details/" + responseData.block.number;
           window.location.href = blockurl;
@@ -192,7 +200,7 @@ export default function Navbar() {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
-    ) { 
+    ) {
       return;
     }
 
@@ -231,7 +239,6 @@ export default function Navbar() {
           <p
             className="xinfin_api_button"
             onClick={() => setOpencontracts(true)}
-
             style={{ cursor: "pointer" }}
           >
             {" "}
@@ -281,6 +288,18 @@ export default function Navbar() {
     "Tokens",
   ];
   const [filter, setFilter] = useState("");
+  const childToggle = (subanchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpencontracts(false);
+
+    setState({ ...state, [subanchor]: open });
+  };
 
   const contracts = (subanchor) => (
     <div
@@ -317,7 +336,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={() => setOpencontracts(false)}
+                onClick={childToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -360,6 +379,16 @@ export default function Navbar() {
   );
 
   // ..................
+  const childToolsToggle = (subanchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setOpen(false);
+    setState({ ...state, [subanchor]: open });
+  };
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -393,7 +422,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "14rem" }}
-                onClick={() => setOpen(false)}
+                onClick={childToolsToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -624,7 +653,7 @@ export default function Navbar() {
                 <NavLink
                   exact
                   activeClassName="active-t"
-                  to={"/tokens"}
+                  to={"/token-details"}
                   className="Token"
                 >
                   Tokens
@@ -800,7 +829,7 @@ export default function Navbar() {
                     ></img>
                     <input
                       defaultValue={filter}
-                      onClick={(event) => handleSearch(event)}
+                      onKeyUp={(event) => handleSearch(event)}
                       type="text"
                       ref={SearchDataRef}
                       className="main-input"
@@ -846,16 +875,11 @@ export default function Navbar() {
                 })}
               </ul>
             </div>
+            <div className="error-message-div">
+              <span className="error-message">{errorMessage}</span>
+            </div>
           </div>
         </div>
-
-        {/* <button type="button" id="main-submit-mobile">Search</button>
-
-                {/* ------------ Search bar ----------------- */}
-
-        {/* <div>
-                    <MarketTable />
-                </div> */}
       </main>
     </div>
   );

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "@media (min-width: 0px) and (max-width: 767px)": {
       maxWidth: "22.563rem",
-      marginTop: "155px",
+      marginTop: "200px",
     },
     "@media (min-width: 768px) and (max-width: 1239px)": {
       marginTop: "130px",
@@ -174,6 +174,7 @@ export default function Transaction({ _handleChange }) {
                               color: "#2149b9",
                               backgroundColor: "white",
                               fontSize: 14,
+                              marginLeft: 3
                             }}
                           >
                             <img
@@ -202,7 +203,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       <a
-                        className="linkTableDetails"
+                        className="linkTableDetails-transaction"
                         href={"/block-details/" + transactions.blockNumber}
                       >
                         {" "}
@@ -229,7 +230,7 @@ export default function Transaction({ _handleChange }) {
                     )}
                   </MiddleContainer>
                 </Spacing>
-                <Spacing>
+                <SpacingHash>
                   <Container>
                     <Tooltip title={from}>
                       <ImageView
@@ -240,10 +241,10 @@ export default function Transaction({ _handleChange }) {
                     <Hash>From</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
+                    <Content >
                       {" "}
                       <a
-                        className="linkTableDetails"
+                        className="linkTableDetails-transaction"
                         href={"/address-details/" + transactions.from}
                       >
                         {transactions.from}{" "}
@@ -277,8 +278,8 @@ export default function Transaction({ _handleChange }) {
                       </CopyToClipboard>
                     </Content>
                   </MiddleContainer>
-                </Spacing>
-                <Spacing>
+                </SpacingHash>
+                <SpacingHash>
                   <Container>
                     <Tooltip title={to}>
                       <ImageView
@@ -291,7 +292,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       <a
-                        className="linkTableDetails"
+                        className="linkTableDetails-transaction"
                         href={"/address-details/" + transactions.to}
                       >
                         {transactions.to}
@@ -325,7 +326,7 @@ export default function Transaction({ _handleChange }) {
                       </CopyToClipboard>
                     </Content>
                   </MiddleContainer>
-                </Spacing>
+                </SpacingHash>
                 <Spacing>
                   <Container>
                     <Tooltip title={value}>
@@ -426,7 +427,14 @@ export default function Transaction({ _handleChange }) {
                     <HashInputData>Input Data</HashInputData>
                   </Container>
                   <MiddleContainerInputData isTextArea={true}>
-                    <TextArea readOnly value={transactions.input} />
+                    <div className="transaction-details-input-data">
+
+                      <textarea
+                        className="text-area-transaction"
+                        readOnly
+                        value={transactions.input}
+                      />
+                    </div>
                   </MiddleContainerInputData>
                 </SpacingInputData>
                 <SpacingPrivateNode>
@@ -439,9 +447,9 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
-                    {/* <Input /> */}
-                    To access the Private Note feature, you must be{" "}
-                    <a className="linkTableDetails">Logged In</a>
+
+                    <PrivateText>To access the Private Note feature, you must be</PrivateText>
+                    <a className="linkTableDetails-transaction" style={{ marginLeft: "5px" }}>Logged In</a>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Div__>
@@ -507,7 +515,17 @@ const TextArea = styled.textarea`
       width: 110%
     }
 `;
-
+const PrivateText = styled.p`
+display: contents;
+@media (min-width: 0px) and (max-width: 767px) {
+display: contents;
+}
+ @media (min-width: 768px) and (max-width: 1240px){
+     display:block;
+     margin-bottom: -5px
+;
+    }
+`;
 const Div__ = styled.div`
   height: 56.06rem;
   width: 75.125rem;
@@ -519,7 +537,7 @@ const Div__ = styled.div`
   padding-right: 2.188rem;
 @media(min-width:0px) and (max-width:767px){
    width:22.563rem;
-   height: 56.06rem;
+   height: 61rem;
    padding-left:10px;
   padding-right:10px;
 }
@@ -531,29 +549,31 @@ const Div__ = styled.div`
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0.2px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
-  height: 2.313rem;
+  height: auto;
   padding: 7px;
   @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 10px;
     font-size:0.875rem;
     text-align: left;
-   letter-spacing: 0.034rem;
+   letter-spacing: 0.2px;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
+    line-height: 1.5;
     height: auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size:0.875rem;
     height: 3.25rem;
     text-align: left;
-   letter-spacing: 0.034rem;
+   letter-spacing: 0.2px;
     opacity: 1;
   }
 `;
@@ -675,7 +695,7 @@ const SpacingInputData = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding-right: 2.313rem;
+  
   border-bottom: solid 1px #e3e7eb;
   height: 7.75rem;
   @media (max-width: 767px) {
@@ -695,7 +715,7 @@ const SpacingPrivateNode = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
-  padding-right: 2.313rem;
+  
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
@@ -718,6 +738,22 @@ const Spacing = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
+    
+  }
+`;
+const SpacingHash = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  border-bottom: solid 1px #e3e7eb;
+  height: 4.063rem;
+
+  @media (max-width: 767px) {
+    display: block;
+    padding: 11px 6px;
+    height: auto;
     
   }
 `;
