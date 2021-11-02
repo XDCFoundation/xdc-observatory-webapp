@@ -304,14 +304,7 @@ class Contractlist extends React.Component {
                       }
 
                     }}
-                    style={{
-                      fontSize: "0.938rem",
-                      letterSpacing: 0.62,
-                      fontWeight: 600,
-                      color: "#2a2a2a",
-                      outlineColor: "transparent",
-                      borderWidth: 0,
-                    }}
+                    className="account-searchbar"
                     type="text"
                     placeholder="Search Contracts"
                   />
@@ -351,7 +344,7 @@ class Contractlist extends React.Component {
                   >
                     <span
                       style={{ fontSize: "14px" }}
-                      className={"tableheaders"}
+                      className={"tableheaders-contract"}
                     >
                       Address
                     </span>

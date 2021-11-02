@@ -252,24 +252,24 @@ export default function StickyHeadTable() {
                     key={row.code}
                   >
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a style={{ color: "blue", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
+                      <a style={{ color: "#2149b9", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
                         <span className="tabledata table-data">
                           {shorten(row.hash)}
                         </span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      <span className="tabledata table-data">{ti}</span>
+                      <span style={{ color: "#2a2a2a" }} className="tabledata table-data">{ti}</span>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
 
-                      <a style={{ color: "blue", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
+                      <a style={{ color: "#2149b9", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
                         <span className="tabledata table-data"> {row.blockNumber}</span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
 
-                      <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                      <a style={{ color: "#2149b9", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.from}>
                           <span className="tabledata table-data">
 
@@ -280,7 +280,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
 
-                      <a style={{ color: "blue", fontSize: 11 }} href="#text">
+                      <a style={{ color: "#2419b9", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.to}>
                           <span className="tabledata table-data">
 
@@ -352,11 +352,11 @@ export default function StickyHeadTable() {
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
-              Page
+              Page&nbsp;
               {Math.round(totalToken / rowsPerPage) +
                 1 -
                 Math.round((totalToken - page) / rowsPerPage)}
-              of {Math.round(totalToken / rowsPerPage)}
+              &nbsp;of {Math.round(totalToken / rowsPerPage)}
             </p>
           </div>
           <div

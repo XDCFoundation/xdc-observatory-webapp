@@ -205,7 +205,7 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         <a
-                          style={{ color: "blue", fontSize: 11 }} href={"/holder-details/" + row[0].Address}>
+                          style={{ color: "#2149b9", fontSize: 11 }} href={"/holder-details/" + row[0].Address}>
 
                           <span className="tabledata table-data">{row[0].Address}</span>
                         </a>
