@@ -687,7 +687,7 @@ export default function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditWatchList />
+                              <EditWatchList row={row} />
                             </TableCell>
                           </TableRow>
                         );
@@ -1070,7 +1070,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTagAddress />
+                              <EditTagAddress row={row} />
                             </TableCell>
                           </TableRow>
                         );
