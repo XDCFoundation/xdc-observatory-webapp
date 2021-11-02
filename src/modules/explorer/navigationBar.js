@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -79,15 +79,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
-    '&::-webkit-scrollbar': {
-      display: 'none',
+    "&::-webkit-scrollbar": {
+      display: "none",
     },
-    '&::-webkit-scrollbar-track': {
-      display: 'none'
+    "&::-webkit-scrollbar-track": {
+      display: "none",
     },
-    '&::-webkit-scrollbar-thumb': {
-      display: 'none'
-    }
+    "&::-webkit-scrollbar-thumb": {
+      display: "none",
+    },
   },
   content: {
     flexGrow: 1,
@@ -117,7 +117,6 @@ const useStyles = makeStyles((theme) => ({
       width: "13.313rem",
       backgroundColor: "#102e84",
       height: "100%",
-
     },
   },
   fullList: {
@@ -140,14 +139,22 @@ export default function Navbar() {
   });
   const [open, setOpen] = useState(false);
   const [opencontracts, setOpencontracts] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
+    if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
-      var selectOptType = SelectOptRef.current?.value;
-      let requestdata = {
-        filter: selectOptType,
-        data: event.target.value,
-      };
-      BlockChainSearch(requestdata);
+      var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+      if (format.test(event.target.value)) {
+        setErrorMessage("Special characters are not allowed.");
+      } else {
+        var selectOptType = SelectOptRef.current?.value;
+        let requestdata = {
+          filter: selectOptType,
+          data: event.target.value,
+        };
+        BlockChainSearch(requestdata);
+      }
     }
   };
   const handleSearchOption = (event) => {
@@ -166,7 +173,7 @@ export default function Navbar() {
       );
 
       if (responseData) {
-        console.log(responseData, "KIu")
+        console.log(responseData, "KIu");
         if (responseData.redirect == "block") {
           let blockurl = "/block-details/" + responseData.block.number;
           window.location.href = blockurl;
@@ -208,9 +215,7 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div className="menu-sidebar-top">
-        <div className="browse-text-sidebar">
-          Browse
-        </div>
+        <div className="browse-text-sidebar">Browse</div>
         <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
@@ -233,7 +238,6 @@ export default function Navbar() {
           <p
             className="xinfin_api_button"
             onClick={() => setOpencontracts(true)}
-
             style={{ cursor: "pointer" }}
           >
             {" "}
@@ -284,25 +288,17 @@ export default function Navbar() {
   ];
   const [filter, setFilter] = useState("");
   const childToggle = (subanchor, open) => (event) => {
-
     if (
-
       event.type === "keydown" &&
-
       (event.key === "Tab" || event.key === "Shift")
-
     ) {
-
       return;
-
     }
 
-    setOpencontracts(false)
+    setOpencontracts(false);
 
     setState({ ...state, [subanchor]: open });
-
   };
-
 
   const contracts = (subanchor) => (
     <div
@@ -315,15 +311,12 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div
-            className="menubar-contract"
-          >
+          <div className="menubar-contract">
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpencontracts(false)}
                 style={{ color: "white", fontSize: 17 }}
               >
-
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
             </div>
@@ -392,7 +385,7 @@ export default function Navbar() {
     ) {
       return;
     }
-    setOpen(false)
+    setOpen(false);
     setState({ ...state, [subanchor]: open });
   };
   const items = (subanchor) => (
@@ -406,8 +399,7 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div className="menubar-contract"
-          >
+          <div className="menubar-contract">
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpen(false)}
@@ -633,34 +625,54 @@ export default function Navbar() {
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <Toolbar>
             <Typography className="Header">
-
-              <a className="logo_tokensearch" href={'/'}>
-                <img className="Shape" src={require("../../../src/assets/images/XDC-Icon.svg")}></img>
+              <a className="logo_tokensearch" href={"/"}>
+                <img
+                  className="Shape"
+                  src={require("../../../src/assets/images/XDC-Icon.svg")}
+                ></img>
               </a>
-              <a className="XDC" href="/"> XDC </a>
+              <a className="XDC" href="/">
+                {" "}
+                XDC{" "}
+              </a>
 
               <div>
-                <NavLink exact activeClassName="active-t" to={'/'} className="Network-explorer">Network
-                  Explorer</NavLink>
+                <NavLink
+                  exact
+                  activeClassName="active-t"
+                  to={"/"}
+                  className="Network-explorer"
+                >
+                  Network Explorer
+                </NavLink>
 
                 {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
-
               </div>
               <div>
-                <NavLink exact activeClassName="active-t" to={'/token-details'} className="Token">Tokens</NavLink>
+                <NavLink
+                  exact
+                  activeClassName="active-t"
+                  to={"/token-details"}
+                  className="Token"
+                >
+                  Tokens
+                </NavLink>
 
-                <a href='/'>
-                  <p className="Network-explorer" id="Network-explorer">Network Explorer</p>
+                <a href="/">
+                  <p className="Network-explorer" id="Network-explorer">
+                    Network Explorer
+                  </p>
                 </a>
               </div>
               <div>
-                <a href='/token-details'>
-                  <div className="Token" id="Token">Tokens</div>
+                <a href="/token-details">
+                  <div className="Token" id="Token">
+                    Tokens
+                  </div>
                 </a>
               </div>
             </Typography>
             <Login />
-
 
             <React.Fragment key={"right"}>
               <IconButton
@@ -696,25 +708,46 @@ export default function Navbar() {
           </Toolbar>
         </AppBar>
       </DeskTopView>
-      <MobileView><AppBar elevation={0} className={clsx(classes.appBar)}>
-        <Toolbar>
-          <Typography className="Header">
-            <div className="header-mobile-top">
+      <MobileView>
+        <AppBar elevation={0} className={clsx(classes.appBar)}>
+          <Toolbar>
+            <Typography className="Header">
+              <div className="header-mobile-top">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <a className="logo_tokensearch" href={"/"}>
+                    <img
+                      className="Shape"
+                      src={require("../../../src/assets/images/XDC-Icon.svg")}
+                    ></img>
+                  </a>
+                  <a className="XDC" href="/">
+                    {" "}
+                    XDC{" "}
+                  </a>
+                </div>
+                &nbsp;
+                <div className="header-responsive">
+                  <div>
+                    <NavLink
+                      exact
+                      activeClassName="active-t"
+                      to={"/"}
+                      className="Network-explorer"
+                    >
+                      Network Explorer
+                    </NavLink>
+                  </div>
 
-              <div style={{ display: "flex", alignItems: "center" }} >
-                <a className="logo_tokensearch" href={"/"}>
-                  <img
-                    className="Shape"
-                    src={require("../../../src/assets/images/XDC-Icon.svg")}
-                  ></img>
-                </a>
-                <a className="XDC" href="/"> XDC </a>
-
+                  <div>
+                    <a href="/token-details">
+                      <div className="Token" id="Token">
+                        Tokens
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
-              &nbsp;
-              <div
-                className="header-responsive"
-              >
+              <div className="header-responsive-desktop">
                 <div>
                   <NavLink
                     exact
@@ -726,7 +759,6 @@ export default function Navbar() {
                   </NavLink>
                 </div>
 
-
                 <div>
                   <a href="/token-details">
                     <div className="Token" id="Token">
@@ -735,64 +767,40 @@ export default function Navbar() {
                   </a>
                 </div>
               </div>
-            </div>
-            <div
-              className="header-responsive-desktop"
-            >
-              <div>
-                <NavLink
-                  exact
-                  activeClassName="active-t"
-                  to={"/"}
-                  className="Network-explorer"
-                >
-                  Network Explorer
-                </NavLink>
-              </div>
+            </Typography>
+            <Login />
 
+            <React.Fragment key={"right"}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="end"
+                onClick={toggleDrawer("right", true)}
+              >
+                <MenuIcon class="menu-sidebar" />
+              </IconButton>
 
-              <div>
-                <a href="/token-details">
-                  <div className="Token" id="Token">
-                    Tokens
-                  </div>
-                </a>
-              </div>
-            </div>
-          </Typography>
-          <Login />
-
-
-          <React.Fragment key={"right"}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="end"
-              onClick={toggleDrawer("right", true)}
-            >
-              <MenuIcon class="menu-sidebar" />
-            </IconButton>
-
-            <Drawer
-              className={classes.drawer}
-              anchor={"right"}
-              open={state["right"]}
-            >
-              {lists("right")}
-            </Drawer>
-            <Drawer className={classes.drawer} anchor={"right"} open={open}>
-              {items("right")}
-            </Drawer>
-            <Drawer
-              className={classes.drawer}
-              anchor={"right"}
-              open={opencontracts}
-            >
-              {contracts("right")}
-            </Drawer>
-          </React.Fragment>
-        </Toolbar>
-      </AppBar></MobileView>
+              <Drawer
+                className={classes.drawer}
+                anchor={"right"}
+                open={state["right"]}
+              >
+                {lists("right")}
+              </Drawer>
+              <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                {items("right")}
+              </Drawer>
+              <Drawer
+                className={classes.drawer}
+                anchor={"right"}
+                open={opencontracts}
+              >
+                {contracts("right")}
+              </Drawer>
+            </React.Fragment>
+          </Toolbar>
+        </AppBar>
+      </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
           <img
@@ -806,7 +814,6 @@ export default function Navbar() {
         <div className="centerbox-parent">
           <div className="centerbox">
             <div className="main-form-container">
-
               <form
                 method="post"
                 onSubmit={(e) => {
@@ -815,10 +822,13 @@ export default function Navbar() {
               >
                 <div className="search-dashboard">
                   <div className="search-dashboard-input">
-                    <img className="search-dashboard-icon" src={searchIcon}></img>
+                    <img
+                      className="search-dashboard-icon"
+                      src={searchIcon}
+                    ></img>
                     <input
                       defaultValue={filter}
-                      onClick={(event) => handleSearch(event)}
+                      onKeyUp={(event) => handleSearch(event)}
                       type="text"
                       ref={SearchDataRef}
                       className="main-input"
@@ -864,17 +874,12 @@ export default function Navbar() {
                 })}
               </ul>
             </div>
+            <div className="error-message-div">
+              <span className="error-message">{errorMessage}</span>
+            </div>
           </div>
         </div>
-
-        {/* <button type="button" id="main-submit-mobile">Search</button>
-
-                {/* ------------ Search bar ----------------- */}
-
-        {/* <div>
-                    <MarketTable />
-                </div> */}
-      </main >
-    </div >
+      </main>
+    </div>
   );
 }

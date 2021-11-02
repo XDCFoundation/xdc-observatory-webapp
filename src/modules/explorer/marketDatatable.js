@@ -64,7 +64,7 @@ class MarketDatatable extends Component {
   }
   async getMarketData() {
     let [error, totalcoinMarketData] = await Utils.parseResponse(
-      CoinMarketService.getCoinMarketData(this.props.currency, {})
+      CoinMarketService?.getCoinMarketData(this.props.currency, {})
     );
 
     if (error || !totalcoinMarketData) return;
@@ -77,7 +77,7 @@ class MarketDatatable extends Component {
     this.setState({ loading: false });
     const interval = setInterval(async () => {
       let [error, totalcoinMarketData] = await Utils.parseResponse(
-        CoinMarketService.getCoinMarketData(this.props.currency, {})
+        CoinMarketService?.getCoinMarketData(this.props.currency, {})
       );
       if (error || !totalcoinMarketData) return;
       this.setState({ postLatestMarket: totalcoinMarketData[1] });

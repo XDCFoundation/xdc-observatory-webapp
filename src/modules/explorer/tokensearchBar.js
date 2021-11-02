@@ -125,15 +125,22 @@ export default function Navbar() {
   const ref = React.useRef(null);
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
+  const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
+    if (event.target.value.length == 0) setErrorMessage("");
     if (event.key === "Enter") {
-      var selectOptType = SelectOptRef.current?.value;
+      var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+      if (format.test(event.target.value)) {
+        setErrorMessage("Special characters are not allowed.");
+      } else {
+        var selectOptType = SelectOptRef.current?.value;
 
-      let requestdata = {
-        filter: selectOptType,
-        data: event.target.value,
-      };
-      BlockChainSearch(requestdata);
+        let requestdata = {
+          filter: selectOptType,
+          data: event.target.value,
+        };
+        BlockChainSearch(requestdata);
+      }
     }
   };
   const handleSearchOption = (event) => {
@@ -692,7 +699,7 @@ export default function Navbar() {
                             <input
                               defaultValue={filter}
                               type="text"
-                              onClick={(event) => handleSearch(event)}
+                              onKeyUp={(event) => handleSearch(event)}
                               ref={SearchDataRef}
                               onKeyPress={(event) => {
                                 if (event.key === "Enter") {
@@ -744,6 +751,9 @@ export default function Navbar() {
                       </li>
                     </ul>
                   </form>
+                </div>
+                <div className="token-error-message-div">
+                  <span className="token-error-message">{errorMessage}</span>
                 </div>
               </div>
             </div>

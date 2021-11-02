@@ -380,8 +380,8 @@ class BlockChainDataComponent extends Component {
   /* FETCHING GET COIN MARKET CAP API*/
 
   async coinMarketCapDetails() {
-    let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-      CoinMarketService.getCoinMarketData(this.props.currency, {})
+    let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
+      CoinMarketService?.getCoinMarketData(this.props.currency, {})
     );
     if (error || !totalcoinMarketPrice) return;
     totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
@@ -390,8 +390,8 @@ class BlockChainDataComponent extends Component {
 
     this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     const interval = setInterval(async () => {
-      let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-        CoinMarketService.getCoinMarketData(this.props.currency, {})
+      let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
+        CoinMarketService?.getCoinMarketData(this.props.currency, {})
       );
       this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     }, 90000);
