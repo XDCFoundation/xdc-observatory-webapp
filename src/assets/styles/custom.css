@@ -7095,6 +7095,7 @@ button {
   .main-input-td {
     width: 12.5rem;
     padding-bottom: 6px;
+    font-size: 12px !important;
   }
   .mobFilter {
     margin-top: -2px;
@@ -8334,4 +8335,46 @@ button {
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
+}
+.error-message-div {
+  margin-top: -8px;
+}
+.error-message {
+  margin-left: 16px;
+  color: red;
+  font-weight: normal;
+}
+@media (min-width: 767px) and (max-width: 1240px) {
+  .error-message {
+    margin-left: -5px;
+    font-size: 10px;
+    color: red;
+    font-weight: normal;
+  }
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  .error-message {
+    margin-left: -5px;
+    font-size: 10px;
+    color: red;
+    font-weight: normal;
+  }
+}
+@media (min-width: 0px) and (max-width: 766px) {
+  .token-error-message-div {
+    margin-top: -29px !important;
+  }
+  .token-error-message {
+    color: red;
+    margin-left: 20px;
+    font-size: 9px;
+  }
+}
+.token-error-message-div {
+  margin-top: -22px;
+}
+.token-error-message {
+  color: red;
+  margin-left: 20px;
+  font-size: 11px;
 }
