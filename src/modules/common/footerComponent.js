@@ -6,6 +6,7 @@ import EUR from "../../assets/images/Euro.svg";
 import USD from "../../assets/images/dollar.svg";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
+import DownArrow from "@material-ui/icons/KeyboardArrowDown";
 import { MenuItem } from "material-ui";
 import { useSelector, useDispatch } from "react-redux";
 import { usdCurrency, eurCurrency, inrCurrency } from "../../actions/index";
@@ -32,70 +33,60 @@ export default function FooterComponent(props) {
     display: flex;
     justify-content: flex-end;
 
-    @media (min-width:1241px){
-        width: 40%;
-        display: contents;
+    @media (min-width: 1241px) {
+      width: 40%;
+      display: contents;
     }
   `;
-
 
   const FirstCloumn = styled.div`
     display: flex;
     /* flex-direction: column; */
     width: 20%;
-    
-    @media(min-width:0px) and (max-width:767px){
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-    
-    }
-    @media(min-width:767px) and (max-width: 1240px) {
+
+    @media (min-width: 0px) and (max-width: 767px) {
       display: flex;
-      flex-direction:column;
+      flex-direction: row;
+      width: 100%;
+    }
+    @media (min-width: 767px) and (max-width: 1240px) {
+      display: flex;
+      flex-direction: column;
       width: 33%;
     }
-    
   `;
   const SecondCloumn = styled.div`
-    
     /* width: 100%; */
     display: flex;
     /* flex-direction: column; */
     width: auto;
-    @media(min-width:0px) and (max-width:767px){
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        
-    }
-    @media(min-width:767px) and (max-width: 1240px) {
+    @media (min-width: 0px) and (max-width: 767px) {
       display: flex;
       flex-direction: row;
-      width: 66%;  
-      padding-top   : 40px ;
+      width: 100%;
     }
-    
+    @media (min-width: 767px) and (max-width: 1240px) {
+      display: flex;
+      flex-direction: row;
+      width: 66%;
+      padding-top: 40px;
+    }
   `;
   const ThirdCloumn = styled.div`
     display: flex;
     width: 40%;
-    
-    
+
     /* width: 100%; */
-    @media(min-width:0px) and (max-width:767px){
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-    }
-    @media(min-width:767px) and (max-width: 1240px) {
+    @media (min-width: 0px) and (max-width: 767px) {
       display: flex;
-      flex-direction:row;
-      width: 66%;
-      
-      
+      flex-direction: row;
+      width: 100%;
     }
-    
+    @media (min-width: 767px) and (max-width: 1240px) {
+      display: flex;
+      flex-direction: row;
+      width: 66%;
+    }
   `;
 
   let CurrencyNow = window.localStorage.getItem("currency");
@@ -103,20 +94,24 @@ export default function FooterComponent(props) {
     <div className={"footer_base"}>
       <Grid className="footer" container alignContent="center" justify="center">
         <FirstCloumn>
-          <Grid alignContent="center" item xs={12} className="XDC-Block-Width-tablet" >
+          <Grid
+            alignContent="center"
+            item
+            xs={12}
+            className="XDC-Block-Width-tablet"
+          >
             <div className="for-button">
               <div>
                 <div className="Top-Header">
                   <img
-
                     className="Shape-footer"
                     src={require("../../../src/assets/images/XDC-Icon.svg")}
                   ></img>
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                  XinFinScan is a Block Explorer and Analytics Platform for XDC, a
-                  decentralized smart contracts platform.
+                  XinFinScan is a Block Explorer and Analytics Platform for XDC,
+                  a decentralized smart contracts platform.
                 </p>
               </div>
               <div className="button-Padding-Mobile">
@@ -130,6 +125,18 @@ export default function FooterComponent(props) {
                   defaultValue="USD"
                   onChange={(event) => props._handleChange(event)}
                   value={CurrencyNow}
+                  IconComponent={DownArrow}
+                  MenuProps={{
+                    anchorOrigin: {
+                      vertical: "bottom",
+                      horizontal: "left",
+                    },
+                    transformOrigin: {
+                      vertical: "top",
+                      horizontal: "left",
+                    },
+                    getContentAnchorEl: null,
+                  }}
                 >
                   {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
                   <MenuItem
@@ -312,7 +319,6 @@ export default function FooterComponent(props) {
         <BlankSpaceDiv>
           <div></div>
           <ThirdCloumn>
-
             <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
               <div className="Table-Header">
                 Follow Us
@@ -326,7 +332,9 @@ export default function FooterComponent(props) {
                     rel="nofollow"
                     target="_blank"
                   >
-                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    <span
+                      style={{ paddingLeft: "3px", marginRight: "3px" }}
+                    ></span>
                     Twitter
                   </a>
                 </li>
@@ -337,7 +345,9 @@ export default function FooterComponent(props) {
                     rel="nofollow"
                     target="_blank"
                   >
-                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    <span
+                      style={{ paddingLeft: "3px", marginRight: "3px" }}
+                    ></span>
                     Facebook
                   </a>
                 </li>
@@ -348,7 +358,9 @@ export default function FooterComponent(props) {
                     rel="nofollow"
                     target="_blank"
                   >
-                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    <span
+                      style={{ paddingLeft: "3px", marginRight: "3px" }}
+                    ></span>
                     Github
                   </a>
                 </li>
@@ -359,7 +371,9 @@ export default function FooterComponent(props) {
                     rel="nofollow"
                     target="_blank"
                   >
-                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    <span
+                      style={{ paddingLeft: "3px", marginRight: "3px" }}
+                    ></span>
                     LinkedIn
                   </a>
                 </li>
@@ -370,7 +384,9 @@ export default function FooterComponent(props) {
                     rel="nofollow"
                     target="_blank"
                   >
-                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    <span
+                      style={{ paddingLeft: "3px", marginRight: "3px" }}
+                    ></span>
                     Telegram
                   </a>
                 </li>
@@ -381,7 +397,9 @@ export default function FooterComponent(props) {
                     rel="nofollow"
                     target="_blank"
                   >
-                    <span style={{ paddingLeft: "3px", marginRight: "3px" }}></span>
+                    <span
+                      style={{ paddingLeft: "3px", marginRight: "3px" }}
+                    ></span>
                     Reddit
                   </a>
                 </li>
@@ -403,7 +421,6 @@ export default function FooterComponent(props) {
                 ></a>
               </div>
             </Grid>
-
           </ThirdCloumn>
         </BlankSpaceDiv>
       </Grid>

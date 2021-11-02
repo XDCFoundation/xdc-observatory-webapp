@@ -370,11 +370,11 @@ export default function TransactionTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked !== true)
-                          .length <=
-                        address.length + 1
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked !== true)
+                      //     .length <=
+                      //   address.length + 1
+                      // }
                       style={{ marginRight: '8px' }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>
