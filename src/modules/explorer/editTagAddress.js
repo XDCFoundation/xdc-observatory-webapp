@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import PutTagAddress from "../../services/user";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
@@ -107,10 +108,15 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
+  useEffect(() => {
+    if (props.row.address) setPrivateAddress(props.row.privateAddress);
+    setNameTag(props.row.nameTag);
+  });
+
   async function editTaggedAddress() {
     setOpen(false);
     const data = {
-      _id: "617d4c188bbde300299611e4",
+      _id: props.row._id,
       address: privateAddress,
       tagName: nameTag,
     };
@@ -158,6 +164,7 @@ export default function FormDialog() {
               <b>Address</b>
             </DialogContentText>
             <input
+              value={privateAddress}
               className={classes.input}
               onChange={(e) => setPrivateAddress(e.target.value)}
             ></input>
@@ -168,6 +175,7 @@ export default function FormDialog() {
             </DialogContentText>
 
             <input
+              value={nameTag}
               type="password"
               type={passwordShown ? "text" : "password"}
               className={classes.input}

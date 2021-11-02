@@ -14,6 +14,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -145,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const [_id, setId] = React.useState("");
@@ -157,6 +158,11 @@ export default function FormDialog() {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
+
+  useEffect(() => {
+    if (props.row.address) setAddress(props.row.address);
+    setDescription(props.row.description);
+  }, []);
 
   const classes = useStyles();
 
@@ -181,7 +187,7 @@ export default function FormDialog() {
 
   const watchListService = async () => {
     const request = {
-      _id: "617a354c8bbde30029960cb1",
+      _id: props.row._id,
       address: address,
       description: description,
     };
@@ -216,6 +222,7 @@ export default function FormDialog() {
               <b>Address</b>
             </DialogContentText>
             <input
+              value={address}
               className={classes.input}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
@@ -227,6 +234,7 @@ export default function FormDialog() {
 
             <input
               type="text"
+              value={description}
               className={classes.input}
               onChange={(e) => setDescription(e.target.value)}
             ></input>
