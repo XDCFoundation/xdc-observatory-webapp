@@ -287,7 +287,7 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Description</b>
               {/* <span  className={classes.forgotpass}>
-              Forgot Password?
+              Forgot ?
             </span> */}
             </DialogContentText>
 

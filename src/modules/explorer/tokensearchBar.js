@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: "#2149b9",
-    height: '4.875rem',
+    height: "4.875rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
-      height: '11.4375rem !important',
+      height: "11.4375rem !important",
     },
-    toolBar:{
-      width: '98%'
-    }
+    toolBar: {
+      width: "98%",
+    },
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
@@ -128,7 +128,6 @@ export default function Navbar() {
   const theme = useTheme();
   const history = useHistory();
 
-
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -142,12 +141,11 @@ export default function Navbar() {
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
 
-
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
 
   const openChangePassword = () => {
-    setOpenPasswordBox(!openPasswordBox)
-  }
+    setOpenPasswordBox(!openPasswordBox);
+  };
 
   const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
@@ -312,23 +310,16 @@ export default function Navbar() {
   ];
   const [filter, setFilter] = useState("");
   const childToggle = (subanchor, open) => (event) => {
-
     if (
-
       event.type === "keydown" &&
-
       (event.key === "Tab" || event.key === "Shift")
-
     ) {
-
       return;
-
     }
 
-    setOpencontracts(false)
+    setOpencontracts(false);
 
     setState({ ...state, [subanchor]: open });
-
   };
   const contracts = (subanchor) => (
     <div
@@ -416,7 +407,7 @@ export default function Navbar() {
     ) {
       return;
     }
-    setOpen(false)
+    setOpen(false);
     setState({ ...state, [subanchor]: open });
   };
   const items = (subanchor) => (
@@ -658,8 +649,7 @@ export default function Navbar() {
         elevation={0}
         className={clsx(classes.appBar)}
       >
-        <Toolbar
-        className={clsx(classes.toolBar)}>
+        <Toolbar className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
             <div className="mobile-navbartab">
@@ -715,7 +705,7 @@ export default function Navbar() {
                           style={{
                             width: 16,
                             height: 16,
-                            marginRight: 3
+                            marginRight: 3,
                           }}
                           src={require("../../assets/images/Search.svg")}
                         />
@@ -737,7 +727,7 @@ export default function Navbar() {
                             />
                           </div>
                           {/* name="NAME" */}
-                          <div className='mobFilter'>
+                          <div className="mobFilter">
                             <select
                               className="select-td"
                               onChange={(event) => handleSearchOption(event)}
@@ -784,9 +774,9 @@ export default function Navbar() {
             </div>
           </div>
           <div className="right-nav-div">
-
-
-            {openPasswordBox && <ChangePassword openChangePassword={openChangePassword} />}
+            {openPasswordBox && (
+              <ChangePassword openChangePassword={openChangePassword} />
+            )}
             <Popover openChangePassword={openChangePassword} />
 
             <React.Fragment className="rigt-line" key={"right"}>
