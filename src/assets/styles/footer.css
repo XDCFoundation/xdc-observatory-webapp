@@ -36,13 +36,13 @@ label {
 @media (min-width: 0px) and (max-width: 767px) {
   .footer {
     width: 23.438rem !important;
-    margin: auto;  
+    margin: auto;
   }
 }
-@media (min-width: 768px) and (max-width:1240px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   .footer {
     width: 45.313rem !important;
-    margin: auto;  
+    margin: auto;
   }
 }
 
@@ -60,16 +60,16 @@ label {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .footer-line {
-    width: 23.438rem;  
-    height: 3.75rem;  
-    margin: auto;  
+    width: 23.438rem;
+    height: 3.75rem;
+    margin: auto;
   }
 }
-@media (min-width: 768px) and (max-width:1240px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   .footer-line {
-    width: 45.313rem ;
+    width: 45.313rem;
     height: 4.125rem;
-    margin: auto;  
+    margin: auto;
   }
 }
 
@@ -82,7 +82,7 @@ label {
   padding-right: 2%;
 }
 
-@media (min-width:1241px) {
+@media (min-width: 1241px) {
   .footer-line {
     width: 75.125rem;
     margin: auto;
@@ -91,17 +91,21 @@ label {
   }
 }
 
-@media (min-width:0px) and (max-width: 767px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .for-button {
     display: flex;
   }
 }
 .twitter {
   font-size: 0px !important;
+  min-width: 162px !important;
   width: 100%;
   border-radius: 12px;
   background-color: #ffffff;
   border: none !important;
+}
+.twitter-timeline {
+  min-width: 162px !important;
 }
 
 .footer-items {
@@ -164,13 +168,13 @@ ul {
   color: #ffffff;
   margin-left: 4px;
 }
-@media(min-width:0px) and (max-width:767px){
-  .USD{
+@media (min-width: 0px) and (max-width: 767px) {
+  .USD {
     font-size: 0.813rem;
   }
 }
-@media(min-width:767px) and (max-width:1240px){
-  .USD{
+@media (min-width: 767px) and (max-width: 1240px) {
+  .USD {
     font-size: 0.875rem;
   }
 }
@@ -213,9 +217,9 @@ ul {
   color: #ffffff;
   opacity: 0.8;
 }
-@media(max-width: 767px){
+@media (max-width: 767px) {
   .Table-Header {
-  font-size: 0.75rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -235,18 +239,16 @@ a {
   color: #81b4ff;
 }
 
-@media (max-width:767px){
+@media (max-width: 767px) {
   a {
     font-size: 0.75rem;
-    letter-spacing:0.029rem;
-
+    letter-spacing: 0.029rem;
   }
 }
-@media (min-width:767px) and (max-width:1240px){
+@media (min-width: 767px) and (max-width: 1240px) {
   a {
     font-size: 0.875rem;
     letter-spacing: 0.034rem;
-
   }
 }
 a:hover {
@@ -295,10 +297,10 @@ a:hover {
   height: 1.875rem;
   width: 1.875rem;
 }
-@media (min-width:0px) and (max-width:767px){
+@media (min-width: 0px) and (max-width: 767px) {
   .Shape-footer {
-  height: 1.238rem;
-  width: 1.238rem;
+    height: 1.238rem;
+    width: 1.238rem;
   }
 }
 
@@ -341,14 +343,14 @@ a:hover {
   letter-spacing: 0.54px;
   color: #ffffff;
 }
-@media (min-width:0px) and (max-width: 767px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .XDC-Header {
     margin-left: 25px;
     font-size: 0.875rem;
     margin-top: -17px;
   }
 }
-@media (min-width:767px) and (max-width: 1240px) {
+@media (min-width: 767px) and (max-width: 1240px) {
   .XDC-Header {
     margin-left: 34px;
     font-size: 1.188rem;
@@ -419,7 +421,7 @@ a:hover {
    color: #81b4ff; */
 }
 
-@media (min-width:0px) and (max-width: 767px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .xdc-desc {
     width: 50%;
     font-size: 0.75rem;

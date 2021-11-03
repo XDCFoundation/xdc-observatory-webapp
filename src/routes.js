@@ -28,7 +28,13 @@ let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000
 );
 
 class Routes extends BaseComponent {
+  componentWillMount() {
+    console.log(this.props?.params?.id);
+  }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps?.params?.id);
+  }
 
   render() {
     return (
@@ -40,14 +46,13 @@ class Routes extends BaseComponent {
             <Route exact path={'/view-all-blocks'} component={() => <LatestBlocksList socketblock={socket} />} />
             <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
 
-            <Route exact path={'/token-data'} component={TokenDataComponent} />
+            {/* <Route exact path={'/token-data'} component={TokenDataComponent} /> */}
             <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
             <Route
               exact
               path={"/transfer-transaction-details/:address"}
               component={TransferDetailsUi}
             />
-            <Route exact path={'/tokens'} component={TokenDetails} />
 
             <Route exact path={'/block-details/:blockNumber'} component={BlockDetails} />
             <Route exact path={'/account-details'} component={LatestAccountsList} />
