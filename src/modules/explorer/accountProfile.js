@@ -261,7 +261,39 @@ export default function SimpleTabs(props) {
     }
   }, []);
 
-  // const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState("");
+  async function searchData() {
+    if (value == 0) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["description", "address"],
+        search: value,
+      };
+      const response = await UserService.Search(data);
+      setWatchlist(response);
+    }
+    if (value == 1) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["transactionHash", "trxLable"],
+        search: value,
+      };
+      const response = await UserService.Search(data);
+      setAddress(response);
+    }
+    if (value == 2) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["address", "tagName"],
+        search: value,
+      };
+      const response = await UserService.Search(data);
+      setPrivateAddress(response);
+    }
+  }
 
   // const filteredProducts = address.filter((product) => {
   //   if (
@@ -393,10 +425,11 @@ export default function SimpleTabs(props) {
                 type="text"
                 placeholder="Search"
                 className="searchinput"
+                onClick={searchData}
 
-                // onChange={(e) => {
-                //     setSearch(e.target.value.toLowerCase());
-                //   }}
+                onChange={(e) => {
+                    setSearch(e.target.value.toLowerCase());
+                  }}
               />
             </div>
 
