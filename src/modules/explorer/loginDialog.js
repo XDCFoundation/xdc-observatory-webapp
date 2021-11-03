@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
+    outline: "none",
   },
 
   addbtn: {
@@ -103,12 +104,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
   },
   heading: {
-    fontFamily: "Inter",
-    fontWeight: "500",
+    fontWeight: "600",
     marginRight: "auto",
     marginLeft: "auto",
-    marginTop: "4px",
+    marginTop: "22px",
     fontSize: "22px",
+    color: "#2a2a2a"
   },
   paperWidthSm: {
     position: "absolute",
@@ -195,6 +196,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     letterSpacing: "0.58px",
     color: "#4c4c4c",
+    marginTop: "20px",
     marginBottom: "39px",
   },
   robotContainerForgotPass: {
@@ -393,18 +395,24 @@ export default function FormDialog() {
       );
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
+    }else if(termsCheckbox === false){
+      Utility.apiFailureToast("Please agree to the terms and conditions")
+    }else if(captchaCheckbox === false){
+      Utility.apiFailureToast("please verify captcha")
     } else {
-      toast.success("Sign-up success, check your email", {
-        position: "top-center",
-      });
+      Utility.apiSuccessToast("Sign-up success, check your email");
+
       setOpen(false);
       setTimeout(() => {
         setValue(0);
       }, 1000);
+
       setUserName("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      setTermsCheckbox(false);
+      setCaptchaCheckbox(false);
       const response = await userSignUp.postSignUp(data);
     }
   };
@@ -416,11 +424,14 @@ export default function FormDialog() {
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+    setTermsCheckbox(false);
+    setCaptchaCheckbox(false);
 
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
+    
   };
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
@@ -429,7 +440,9 @@ export default function FormDialog() {
     const reqObj = {
       email: email,
     };
-
+    if(captchaCheckbox === false){
+      Utility.apiFailureToast("please verify captcha")
+    } else {
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.forgotPassword(email)
@@ -438,12 +451,33 @@ export default function FormDialog() {
       setEmailError("Please enter a valid email address");
       Utility.apiFailureToast("Wrong email");
     } else {
+      setEmail("");
+      setCaptchaCheckbox(false);
       Utility.apiSuccessToast(
-        "We haveve just sent you an email to reset your password."
+        "We have just sent you an email to reset your password."
       );
       window.location.href = "/";
     }
+  }
   };
+  //--------------------------------------------------checkbox functionality--------------------------------------------------->
+  const [termsCheckbox, setTermsCheckbox] = React.useState(false)
+  const handleTermsCheckbox = () => {
+    if(termsCheckbox === true){
+      setTermsCheckbox(false);
+    } else {
+      setTermsCheckbox(true);
+    }
+  }
+
+  const [captchaCheckbox, setCaptchaCheckbox] = React.useState(false)
+  const handleCaptchaCheckbox = () => {
+    if(captchaCheckbox === true){
+      setCaptchaCheckbox(false);
+    } else {
+      setCaptchaCheckbox(true);
+    }
+  }
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
@@ -467,12 +501,12 @@ export default function FormDialog() {
               <div>
                 {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
                 <Row>
-                  <DialogTitle
+                  <div
                     className={classes.heading}
                     id="form-dialog-title"
                   >
                     Log in to your account
-                  </DialogTitle>
+                  </div>
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -562,12 +596,13 @@ export default function FormDialog() {
               <div>
                 {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
                 <Row>
-                  <DialogTitle
+                  <div
                     className={classes.heading}
-                    id="form-dialog-title"
-                  >
+                    id="form-dialog-title">
+                  
                     Setup a New Account
-                  </DialogTitle>
+                    </div>
+                  
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -614,7 +649,8 @@ export default function FormDialog() {
                   </DialogContentText>
                   <input
                     type="password"
-                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                    id="password"
+                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
                     // name="password"
@@ -629,7 +665,8 @@ export default function FormDialog() {
                   </DialogContentText>
                   <input
                     type="password"
-                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                    id="password"
+                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     // name="confirmPassword"
@@ -639,7 +676,7 @@ export default function FormDialog() {
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
                 <div className={classes.termsContainer}>
-                  <input className={classes.checkbox} type="checkbox"></input>
+                  <input className={classes.checkbox} onClick={handleTermsCheckbox} type="checkbox"></input>
                   <span>
                     I agree to the{" "}
                     <span href="#" className={classes.agreeTerms}>
@@ -653,6 +690,7 @@ export default function FormDialog() {
                       <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
+                        onClick={handleCaptchaCheckbox}
                       ></input>
                       <span className={classes.robotText}>I'm not a robot</span>
                     </div>
@@ -685,12 +723,12 @@ export default function FormDialog() {
               // <------------------------------------------Forgot Password------------------------------------------------->
               <div>
                 <Row>
-                  <DialogTitle
+                  <div
                     className={classes.heading}
                     id="form-dialog-title"
                   >
                     Forgot Password
-                  </DialogTitle>
+                  </div>
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -728,6 +766,7 @@ export default function FormDialog() {
                       <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
+                        onClick={handleCaptchaCheckbox}
                       ></input>
                       <span className={classes.robotText}>I'm not a robot</span>
                     </div>
