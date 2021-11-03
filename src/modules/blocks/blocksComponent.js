@@ -9,7 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
@@ -146,7 +146,8 @@ export default function BlocksComponent(props) {
                           margin-left="5px"
                         >
                           <Tooltip placement="right" title={row.hash}>
-                            <VisibilityIcon
+                            <VisibilityOutlinedIcon
+
                               fontSize="small"
                               style={{ color: "#b9b9b9", marginRight: "7px" }}
                             />
@@ -250,16 +251,16 @@ export default function BlocksComponent(props) {
       <Grid container style={{ marginTop: "25px" }} className="Pagination">
         <Grid item className="Pagination_1">
           <span className="text">Show</span>
-          <Select
+          <select
             value={props.state.amount}
             className="select-amount"
             onChange={(event) => props._handleChange(event)}
           >
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={25}>25</MenuItem>
-            <MenuItem value={50}>50</MenuItem>
-            <MenuItem value={100}>100</MenuItem>
-          </Select>
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
           <span className="text">Records</span>
         </Grid>
 

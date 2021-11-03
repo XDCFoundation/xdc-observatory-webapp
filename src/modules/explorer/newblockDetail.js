@@ -11,6 +11,7 @@ import { BlockService } from "../../services";
 import Tooltip from "@material-ui/core/Tooltip";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import moment from "moment";
+import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 
 const useStyles = makeStyles((theme) => ({
@@ -382,7 +383,7 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>{height.nonce}</MiddleContainer>
                   </Spacing>
-                  <Spacing style={{ borderBottom: 'none', marginTop: '30px' }}>
+                  <Spacing style={{ height: "unset" }}>
                     <Container className="pad-bottom-34">
                       <Tooltip align="right" title={extrad}>
                         <ImageView
@@ -391,24 +392,16 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Extra Data</Hash>
                     </Container>
-                    <MiddleContainer style={{ height: '60px', width: '100%' }}>
+                    <div className="block-details-extraData">
 
-                      <textarea style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "4px",
-                        outline: "transparent",
-                        border: "solid 1px #9fa9ba",
-                        backgroundColor: "#dee0e3",
-                        color: "#3a3a3a",
-                        marginLeft: "0px"
-                      }}
+                      <textarea
                         className="text-area"
                         readOnly
                         value={height.extraData}
                       />
+                    </div>
 
-                    </MiddleContainer>
+
                   </Spacing>
                 </Div__>
               </div>
@@ -500,11 +493,15 @@ const Blocks = styled.span`
 `;
 const Div__ = styled.div`
   height: auto;
-  border-radius: 12px;
+  border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
-  padding: 19px;
+  padding: 0rem 2.188rem 0.563rem 2.188rem;
+   @media (min-width: 0px) and (max-width: 767px) {
+     padding-right:10px;
+     padding-left:10px;
+   }
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
@@ -612,6 +609,7 @@ const Spacing = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
     height: unset;
+    padding: 11px 6px;
   }
 `;
 const HashDiv = styled.div`
@@ -621,11 +619,11 @@ const HashDiv = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 11px 6px;
+  padding: 15px 24px;
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
-    padding: 15px;
+    padding-left: 10px;
   }
 `;
 const Container = styled.div`
@@ -644,7 +642,7 @@ const SecondContainer = styled.div`
 
 const Div = styled.div`
   height: auto;
-  border-radius: 12px;
+  border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #fff;
