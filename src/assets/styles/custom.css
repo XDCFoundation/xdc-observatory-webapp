@@ -19,6 +19,23 @@ label {
 input[placeholder] {
   text-overflow: ellipsis;
 }
+
+input#password{
+  width: 433px;
+  height: 40px;
+  padding-left: 15px;
+  padding-top: 9px;
+  border-radius: 6px;
+  border: solid 1px #9fa9ba;
+  background-color: #fff;
+}
+input#password[placeholder] {
+  text-overflow: ellipsis;
+  font-size: 22px;
+}
+::placeholder {
+  color: #9fa9ba;
+}
 html,
 body {
   width: 100%;
@@ -41,6 +58,7 @@ label {
 input:focus {
   border: solid 1px #0099ff;
 }
+
 
 input:focus {
   border: solid 1px #c6c8ce !important;
