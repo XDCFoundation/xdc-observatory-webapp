@@ -15,7 +15,7 @@ import AuthService from "../../services/userLogin";
 
 const useStyles = makeStyles((theme) => ({
   text: {
-    width: "406px",
+    width: "330px",
     fontFamily: "Inter",
     fontSize: "22px",
     fontWeight: "600",
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
     lineHeight: "normal",
     letterSpacing: "0.85px",
-    textAlign: "center",
+    textAlign: "end",
     color: "#2a2a2a",
   },
   add: {
@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
   dialog: {
     marginLeft: "30%",
-    paddingTop: "20px",
-    width: "573px",
+    paddingTop: "70px",
+    width: "570px",
     alignItems: "center",
     justifyContent: "center",
     height: "575px",
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   subCategory: {
-    margin: "10px 5px 10px 15px",
+    margin: "10px 5px 10px 12px",
     fontFamily: "Inter",
     fontSize: "14px",
     fontWeight: "500",
