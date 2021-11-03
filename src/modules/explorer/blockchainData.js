@@ -54,6 +54,7 @@ const MobileScreen = styled.div`
 margin-right: 3px;
 @media (max-width:767px){
   margin-top: 3px;
+  margin-right:-24px ;
 }
 @media (min-width:767px){
   display: flex;
@@ -133,7 +134,7 @@ const ValueName = styled.div`
   // margin-left: 2px;
 `;
 const Title = styled.div`
-  color: #a09e9e;
+  color: #686868;
   font-size: 0.875rem;
   font-family: "Inter";
   font-weight: normal;
@@ -243,6 +244,7 @@ class BlockChainDataComponent extends Component {
       animationBlock: {},
       animationTransaction: {},
       gasPrice: 0,
+      loading: true,
     };
   }
   componentWillUnmount() {
@@ -378,8 +380,8 @@ class BlockChainDataComponent extends Component {
   /* FETCHING GET COIN MARKET CAP API*/
 
   async coinMarketCapDetails() {
-    let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-      CoinMarketService.getCoinMarketData(this.props.currency, {})
+    let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
+      CoinMarketService?.getCoinMarketData(this.props.currency, {})
     );
     if (error || !totalcoinMarketPrice) return;
     totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
@@ -388,8 +390,8 @@ class BlockChainDataComponent extends Component {
 
     this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     const interval = setInterval(async () => {
-      let [error, totalcoinMarketPrice] = await Utils.parseResponse(
-        CoinMarketService.getCoinMarketData(this.props.currency, {})
+      let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
+        CoinMarketService?.getCoinMarketData(this.props.currency, {})
       );
       this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     }, 90000);
@@ -401,7 +403,7 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
-    
+
     if (error || !tpsCount) return;
 
     this.setState({ tpsCounts: tpsCount });
@@ -418,9 +420,10 @@ class BlockChainDataComponent extends Component {
     let [error, MaxtpsCount] = await Utils.parseResponse(
       TpsService.getMaxTpsCounter()
     );
-    
+
     if (error || !MaxtpsCount) return;
     this.setState({ Maxtps: MaxtpsCount });
+    this.setState({ loading: false });
     const interval = setInterval(async () => {
       let [error, MaxtpsCount] = await Utils.parseResponse(
         TpsService.getMaxTpsCounter()
@@ -503,10 +506,11 @@ class BlockChainDataComponent extends Component {
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts
-      
+
     return (
-      <MainContainer>
-        <LeftContainer>
+      <MainContainer className={this.state.loading == true ? "cover-spin-3" : ""}>
+
+        <LeftContainer className={this.state.loading == true ? "cover-spin" : ""}>
           <LeftFirst>
             <LeftTop>
               <IconLogo src={logo} />
@@ -563,6 +567,24 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
+                  <TitleIcon src={transactionLogo} />
+                  <ValueName>
+                    <Title>Transactions</Title>
+                    <TitleValue>{this.state.totalTransaction}</TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Current/Max TPS</Title>
+                    <TitleValue>
+                      {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
+                    </TitleValue>
+                  </ValueName>
+                </Value>
+              </MobileScreen>
+              <MobileScreen>
+                <Value>
                   <TitleIcon src={priceLogo} />
                   <ValueName>
                     <Title>Gas Price</Title>
@@ -574,29 +596,11 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
-                  <TitleIcon src={transactionLogo} />
-                  <ValueName>
-                    <Title>Transactions</Title>
-                    <TitleValue>{this.state.totalTransaction}</TitleValue>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
-              <MobileScreen>
-                <Value>
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
                     <Title>Difficulty</Title>
                     <TitleValue className={animationClass ? animationClass : ""}>
                       {this.state.blockdataNumber[0]?.totalDifficulty}
-                    </TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={maxLogo} />
-                  <ValueName>
-                    <Title>Current/Max TPS</Title>
-                    <TitleValue>
-                      {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
                     </TitleValue>
                   </ValueName>
                 </Value>
@@ -645,10 +649,10 @@ class BlockChainDataComponent extends Component {
           </LeftSec>
         </LeftContainer>
 
-        <RightContainer>
+        <RightContainer className={this.state.loading == true ? "cover-spin" : ""}>
           <Tab />
         </RightContainer>
-      </MainContainer>
+      </MainContainer >
     );
   }
 }
