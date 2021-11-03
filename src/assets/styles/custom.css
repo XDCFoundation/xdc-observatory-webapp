@@ -424,10 +424,9 @@ input:focus {
     margin-top: 48px;
   }
 }
-.paddingLeft-30{
+.paddingLeft-30 {
   padding-left: 11.1rem;
   cursor: pointer;
-  
 }
 
 .side-arrow-contract-tab {
@@ -441,41 +440,38 @@ input:focus {
   width: 1.5rem;
   height: 1.5rem;
 }
-.inputcss{
-  height:40px;
-  width:100%;
-  border-radius:7px;
+.inputcss {
+  height: 40px;
+  width: 100%;
+  border-radius: 7px;
   background-color: #f5f5f5;
-  outline: none; 
- 
+  outline: none;
 }
-.cross-icon{
+.cross-icon {
   width: 16px;
   height: 15px;
 }
-.inputOutlineNone{
+.inputOutlineNone {
   outline: none;
 }
-.ProfilePicContainer{
+.ProfilePicContainer {
   width: 503px;
 }
-.imgcss{
-  margin-left:auto;
-  padding-right:10px;
-  height:20px;
-  margin-top:10px;
+.imgcss {
+  margin-left: auto;
+  padding-right: 10px;
+  height: 20px;
+  margin-top: 10px;
 }
-.hide-border{
-  border:none !important;
+.hide-border {
+  border: none !important;
 }
-.dialogeUser{
+.dialogeUser {
   width: 4.5rem;
   height: 4.5rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
-
-
 }
 
 .Shape2-internal {
@@ -649,7 +645,7 @@ input:focus {
     align-self: flex-end !important;
   }
   .csv-inactive {
-    padding: 11px 8px 9px 0 !important;
+    padding: 11px 0px 9px 0px !important;
     align-self: flex-end !important;
   }
   .page-container {
@@ -2784,7 +2780,7 @@ p {
     margin-top: 40px !important;
     margin-left: 5px !important;
   }*/
-} 
+}
 
 @media (max-width: 767px) {
   /* .mobile-navbartab {
@@ -6705,29 +6701,29 @@ button {
   background-color: #fff;
 }
 
-.outer-oval{
+.outer-oval {
   width: 14px;
   height: 14px;
   margin: 12px 2px 18px 0;
   padding: 5px 4px 4px 5px;
   background-color: rgba(55, 99, 221, 0.1);
-  border-radius:10px;
-  margin-bottom:-20px;
-  margin-left:61px;
+  border-radius: 10px;
+  margin-bottom: -20px;
+  margin-left: 61px;
 }
 
-.Oval{
+.Oval {
   width: 5px;
   height: 5px;
   background-color: #3763dd;
-  border-radius:10px;
-  margin-bottom:-20px;
-  text-align:center;
+  border-radius: 10px;
+  margin-bottom: -20px;
+  text-align: center;
 }
 
-.dot-point{
-  margin-bottom:-20px;
-  text-align:center;
+.dot-point {
+  margin-bottom: -20px;
+  text-align: center;
 }
 
 .Tooltip-graph-date {
@@ -6769,13 +6765,13 @@ button {
   text-decoration: none;
 }
 
-.qrcode-label{
-  height: 400px; 
+.qrcode-label {
+  height: 400px;
   width: 400px;
   margin-top: 0.625rem;
 }
 
-.header-popup{
+.header-popup {
   font-size: 0.875rem;
   padding-top: 0.313rem;
   padding-bottom: 3.75rem;
@@ -6791,7 +6787,7 @@ button {
     display: block;
     justify-content: space-between;
   }
-  .header-popup{
+  .header-popup {
     font-size: 0.75rem;
     padding-top: 0.313rem;
     padding-bottom: 3.75rem;
@@ -6804,8 +6800,8 @@ button {
     padding: 5px;
     border-radius: 10px;
   }
-  .qrcode-label{
-    height: 12.5rem; 
+  .qrcode-label {
+    height: 12.5rem;
     width: 12.5rem;
     margin-top: -1.25rem;
   }
@@ -7966,13 +7962,9 @@ button {
     overflow-x: scroll;
   }
 }
-@media (max-width: 690px) {
-  .main-input-td {
-    width: 130px !important;
-  }
-}
+
 @media (max-width: 450px) {
-  .mobile-navbartab1{
+  .mobile-navbartab1 {
     margin-top: 63px;
   }
   .Shape-XDC {
@@ -8009,31 +8001,24 @@ button {
   .Network-explorer-internal {
     margin-left: 0px !important;
   }
-  .select-td {
-    margin-left: 90px !important;
 }
 
-}
-
-@media (max-width: 1024px){
-  .XDC-internal{
+@media (max-width: 1024px) {
+  .XDC-internal {
     margin-top: 4px;
   }
-  .Shape-XDC{
+  .Shape-XDC {
     margin-top: 0px;
   }
-  .Network-explorer-internal{
+  .Network-explorer-internal {
     margin-top: 0px;
   }
-  .Token-internal{
+  .Token-internal {
     margin-top: 0px;
   }
-  .right-nav-div {
-    /* margin-top: -4px; */
-  }
-  .Shape2-internal{
+
+  .Shape2-internal {
     margin-top: 0px;
-    
   }
   .Shape2-internal1 {
     margin-top: -6px;
@@ -8237,7 +8222,6 @@ button {
   color: #0099f9;
   font-size: 0.75rem;
   font-family: Inter;
-  
 }
 .notification-hr {
   width: 95%;
@@ -8252,9 +8236,9 @@ button {
 }
 .Notificationtext {
   font-size: 0.938rem !important;
-    color: #ffffff;
-    margin-bottom: 10px;
-  }
+  color: #ffffff;
+  margin-bottom: 10px;
+}
 @media (max-width: 767px) {
   .details-margin-30 {
     margin-left: 30px;
@@ -8266,7 +8250,6 @@ button {
     width: 118%;
   }
 }
-
 
 .loader-circular {
   margin: auto;
@@ -8433,7 +8416,7 @@ button {
   display: block;
   position: absolute;
   left: 50%;
-  top: 80%;
+  top: 100%;
   width: 40px;
   height: 40px;
   margin-left: -10px;
@@ -8456,7 +8439,7 @@ button {
   display: block;
   position: absolute;
   left: 50%;
-  bottom: -14%;
+  bottom: -276px;
   width: 40px;
   height: 40px;
   margin-left: -10px;
@@ -8472,8 +8455,8 @@ button {
     content: "";
     display: block;
     position: absolute;
-    left: 50%;
-    top: 176% !important;
+    left: 48%;
+    top: 162% !important;
     bottom: 0% !important;
     width: 40px;
     height: 40px;
@@ -8484,6 +8467,12 @@ button {
     border-width: 4px;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .cover-spin-4::after {
+    top: 176% !important;
+    bottom: 0% !important;
   }
 }
 .token-link {
@@ -8595,4 +8584,14 @@ button {
   color: red;
   margin-left: 20px;
   font-size: 11px;
+}
+.token-details-address-link {
+  color: #2149b9;
+  font-size: 15px;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .token-details-address-link {
+    color: #2149b9;
+    font-size: 14px;
+  }
 }

@@ -268,7 +268,7 @@ export default function FooterComponent(props) {
           <Grid justify="left" item xs={12} style={{ margin: "7px" }}>
             <div className="Table-Header">
               Other Links
-              <hr style={{ marginRight: "20px" }}></hr>
+              <hr></hr>
             </div>
             <ul>
               <li className="Table-Comp">
