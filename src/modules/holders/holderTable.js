@@ -244,7 +244,7 @@ export default function HolderTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getHolderDetailsUsingAddressforToken(data)
       );
-      console.log(JSON.parse(responseData[0].Transfers), "kjkj")
+
       if (responseData[0].Total_transfes_transactions_Count > 0) {
         setLoading(false)
         setNoData(false);
@@ -428,16 +428,7 @@ export default function HolderTableComponent(props) {
           />
           <input
 
-            style={{
-              fontSize: "0.938rem",
-              letterSpacing: 0.62,
-              width: "105px",
-              color: "#2a2a2a",
-              fontFamily: "Inter",
-              outlineColor: "transparent",
-              borderWidth: 0,
-              fontWeight: "600",
-            }}
+            className="account-searchbar"
             type="text"
             placeholder="Search Txn"
             onKeyPress={(e) => {
@@ -668,17 +659,17 @@ export default function HolderTableComponent(props) {
             <PaginationInLine>
               <Grid item style={{ width: "12.5rem" }}>
                 <span className="text">Show</span>
-                <Select
+                <select
                   value={rowsPerPage}
                   className="select-amount"
                   onChange={handleChangeRowsPerPage}
                 >
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={25}>25</MenuItem>
-                  <MenuItem value={50}>50</MenuItem>
-                  <MenuItem value={100}>100</MenuItem>
-                  <MenuItem value={500}>500</MenuItem>
-                </Select>
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={75}>75</option>
+                  <option value={100}>100</option>
+                </select>
                 <span className="text">Records</span>
               </Grid>
 
@@ -726,17 +717,17 @@ export default function HolderTableComponent(props) {
           <Pagination>
             <LeftPagination>
               <span className="text">Show</span>
-              <Select
+              <select
                 value={rowsPerPage}
                 className="select-amount"
                 onChange={handleChangeRowsPerPage}
               >
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={25}>25</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={100}>100</MenuItem>
-                <MenuItem value={500}>500</MenuItem>
-              </Select>
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={75}>75</option>
+                <option value={100}>100</option>
+              </select>
               <span className="text">Records</span>
             </LeftPagination>
 

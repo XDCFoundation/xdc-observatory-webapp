@@ -128,7 +128,7 @@ const ValueName = styled.div`
   align-items: flex-start;
 `;
 const Title = styled.div`
-  color: #a09e9e;
+  color: #686868;
   font-size: 0.875rem;
   font-family: "Inter";
   font-weight: normal;
@@ -489,7 +489,7 @@ export default function TokenDataComponent() {
                           >
                             <div className="value_p">
                               {changeHolders >= 0 ? (
-                                <div className="arrow_up">
+                                <div className="arrow_up_token">
                                   <BsFillCaretUpFill size={10} />
                                 </div>
                               ) : (
@@ -515,7 +515,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={transactionLogo} /> */}
                     <ValueName>
                       <Title>Contract</Title>
-                      <ContractButton> {shorten(address)}</ContractButton>
+                      <ContractButton> <a className="token-link" href={`/address/${address}`}> {shorten(address)}</a></ContractButton>
                     </ValueName>
                   </Value>
                 </MobileScreen>
