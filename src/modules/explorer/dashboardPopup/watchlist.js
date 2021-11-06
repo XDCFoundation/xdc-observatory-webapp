@@ -215,7 +215,7 @@ export default function FormDialog() {
 
   const watchListService = async () => {
     const request = {
-      UserId: sessionManager.getDataFromCookies("userId"),
+      userId: sessionManager.getDataFromCookies("userId"),
       address: address,
       description: description,
     };
