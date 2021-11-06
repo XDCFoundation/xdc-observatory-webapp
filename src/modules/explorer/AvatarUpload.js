@@ -25,6 +25,7 @@ const UploadIcon = styled(MuiCloudUpload)(spacing);
 
 const CenteredContent = styled.div`
   text-align: center;
+  height: 200px;
 `;
 
 const useStyles = makeStyles((theme) => ({
