@@ -263,34 +263,38 @@ export default function SimpleTabs(props) {
 
   const [search, setSearch] = React.useState("");
   async function searchData() {
-    if (value == 0) {
+    if (value === 0) {
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
-        searchKeys: ["description", "address"],
-        search: value,
+        searchKeys: ["description","address"],
+        search: value.toString(),
       };
       const response = await UserService.Search(data);
+      
+      console.log("value",response)
       setWatchlist(response);
     }
-    if (value == 1) {
+    if (value === 1) {
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
         searchKeys: ["transactionHash", "trxLable"],
-        search: value,
+        search:value.toString(),
       };
       const response = await UserService.Search(data);
+      console.log("value",response)
       setAddress(response);
     }
-    if (value == 2) {
+    if (value === 2) {
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
         searchKeys: ["address", "tagName"],
-        search: value,
+        search: value.toString(),
       };
       const response = await UserService.Search(data);
+      console.log("value",response)
       setPrivateAddress(response);
     }
   }
@@ -424,6 +428,7 @@ export default function SimpleTabs(props) {
               <input
                 type="text"
                 placeholder="Search"
+                
                 className="searchinput"
                 onClick={searchData}
 
