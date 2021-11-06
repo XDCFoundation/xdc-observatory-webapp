@@ -15,6 +15,14 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
 import { useEffect } from "react";
+import styled from "styled-components";
+
+const DialogBox = styled.div`
+  width: 553px;
+  height: 492px;
+  border-radius: 10%;
+  justify-content: space-between;
+`;
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -58,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px",
   },
   input: {
-    width: "400px",
+    width: "506px",
     height: "3px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
@@ -84,15 +92,22 @@ const useStyles = makeStyles((theme) => ({
 
   // },
 
-  addbtn: {
+  updatebtn: {
     width: "110px",
     height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
+    color: "white",
+  },
+  deletebtn: {
+    width: "110px",
+    height: "34px",
+    margin: "14px 0px 15px 20px",
+    padding: "6px 19px 3px 20px",
+    borderRadius: "4px",
+    backgroundColor: "Red",
     color: "white",
   },
 
@@ -109,7 +124,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    justifyContent: "space-between",
+    padding: "10px 35px 15px 0px",
   },
   subCategory: {
     marginTop: "-12px",
@@ -118,6 +134,8 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "14px",
     fontweight: "500",
+    padding: "10px 0px 2px 0px",
+
     border: "none !important",
   },
   forgotpass: {
@@ -140,7 +158,6 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginLeft: "10px",
     fontfamily: "Inter",
     fontweight: "600",
   },
@@ -212,90 +229,104 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Edit address to your watchlist
-            </DialogTitle>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
-            </DialogContentText>
-            <input
-              value={address}
-              className={classes.input}
-              onChange={(e) => setAddress(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Description</b>
-            </DialogContentText>
+          <DialogBox>
+            <Row>
+              <DialogTitle className={classes.heading} id="form-dialog-title">
+                Edit Watchlist
+              </DialogTitle>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Address</b>
+              </DialogContentText>
+              <input
+                value={address}
+                className={classes.input}
+                onChange={(e) => setAddress(e.target.value)}
+              ></input>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Description</b>
+              </DialogContentText>
 
-            <input
-              type="text"
-              value={description}
-              className={classes.input}
-              onChange={(e) => setDescription(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Notifications</b>
-            </DialogContentText>
-            <FormControl
-              component="fieldset"
-              style={{ backgoundColor: "red !important" }}
-              className={classes.main_div}
-            >
-              <RadioGroup
-                aria-label="gender"
-                name="gender1"
-                className={classes.radio}
-                style={{ margin: "-5px 28px -3px -10px" }}
-                value={value}
-                onChange={handleChange}
+              <input
+                type="text"
+                value={description}
+                className={classes.input}
+                onChange={(e) => setDescription(e.target.value)}
+              ></input>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Notifications</b>
+              </DialogContentText>
+              <FormControl
+                component="fieldset"
+                style={{ backgoundColor: "red !important" }}
+                className={classes.main_div}
               >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "5px 2px -5px -5px" }}
-                  label="No Notifications"
-                />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Incoming & Outgoing Txns"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Incoming (Recieve) Txns Only"
-                />
-                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
-                <FormControlLabel
-                  value="disabled"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Outgoing (Sent) Txns Only"
-                />
-              </RadioGroup>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className={classes.buttons} onClick={handleClose}>
-            <span>
-              <button className={classes.cnlbtn} onClick={handleLogin}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={watchListService}>
-                Edit
-              </button>
-            </span>
-          </DialogActions>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  className={classes.radio}
+                  style={{ margin: "-5px 28px -3px -10px" }}
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio style={{ color: "#2149b9" }} />}
+                    style={{ margin: "5px 2px -5px -5px" }}
+                    label="No Notifications"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio style={{ color: "#2149b9" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    label="Notify on Incoming & Outgoing Txns"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio style={{ color: "#2149b9" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    label="Notify on Incoming (Recieve) Txns Only"
+                  />
+                  {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
+                  <FormControlLabel
+                    value="disabled"
+                    control={<Radio style={{ color: "#2149b9" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    label="Notify on Outgoing (Sent) Txns Only"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </DialogContent>
+            <DialogActions className={classes.buttons} onClick={handleClose}>
+              <div>
+                <span>
+                  <button className={classes.deletebtn} onClick={handleLogin}>
+                    Delete
+                  </button>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <button className={classes.cnlbtn} onClick={handleLogin}>
+                    Cancel
+                  </button>
+                </span>
+                <span>
+                  <button
+                    className={classes.updatebtn}
+                    onClick={watchListService}
+                  >
+                    Update
+                  </button>
+                </span>
+              </div>
+            </DialogActions>
+          </DialogBox>
         </Dialog>
       </div>
     </div>

@@ -10,6 +10,14 @@ import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import PutTagAddress from "../../services/user";
 import { useEffect } from "react";
+import styled from "styled-components";
+
+const DialogBox = styled.div`
+  width: 553px;
+  height: 316px;
+  border-radius: 10%;
+  justify-content: space-between;
+`;
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -33,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    justifyContent: "space-between",
+    padding: "10px 35px 15px 0px",
   },
   input: {
-    width: "400px",
+    width: "506px",
     height: "15px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
@@ -44,8 +53,16 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     padding: "20px",
   },
-
-  addbtn: {
+  deletebtn: {
+    width: "110px",
+    height: "34px",
+    margin: "14px 0px 15px 20px",
+    padding: "6px 19px 3px 20px",
+    borderRadius: "4px",
+    backgroundColor: "Red",
+    color: "white",
+  },
+  updatebtn: {
     width: "110px",
     height: "34px",
     margin: "14px -8px 15px 2px",
@@ -70,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "14px",
     fontweight: "500",
     border: "none !important",
+    padding: "10px 0px 2px 0px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -154,46 +172,58 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Edit Address Tag
-            </DialogTitle>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
-            </DialogContentText>
-            <input
-              value={privateAddress}
-              className={classes.input}
-              onChange={(e) => setPrivateAddress(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
-            </DialogContentText>
+          <DialogBox>
+            <Row>
+              <DialogTitle className={classes.heading} id="form-dialog-title">
+                Edit Address Tag
+              </DialogTitle>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Address</b>
+              </DialogContentText>
+              <input
+                value={privateAddress}
+                className={classes.input}
+                onChange={(e) => setPrivateAddress(e.target.value)}
+              ></input>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Name Tag</b>
+              </DialogContentText>
 
-            <input
-              value={nameTag}
-              type="password"
-              type={passwordShown ? "text" : "password"}
-              className={classes.input}
-              onChange={(e) => setNameTag(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <span>
-              <button className={classes.cnlbtn} onClick={handleClose}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={editTaggedAddress}>
-                Edit
-              </button>
-            </span>
-          </DialogActions>
+              <input
+                value={nameTag}
+                type="password"
+                type={passwordShown ? "text" : "password"}
+                className={classes.input}
+                onChange={(e) => setNameTag(e.target.value)}
+              ></input>
+            </DialogContent>
+            <DialogActions className={classes.buttons}>
+              <div>
+                <span>
+                  <button className={classes.deletebtn}>Delete</button>
+                </span>
+              </div>
+              <div>
+                <span>
+                  <button className={classes.cnlbtn} onClick={handleClose}>
+                    Cancel
+                  </button>
+                </span>
+                <span>
+                  <button
+                    className={classes.updatebtn}
+                    onClick={editTaggedAddress}
+                  >
+                    Update
+                  </button>
+                </span>
+              </div>
+            </DialogActions>
+          </DialogBox>
         </Dialog>
       </div>
     </div>

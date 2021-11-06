@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   paper: {
-    width: "31.438rem",
-    height: "35.063rem",
+    width: "503px",
+    height: "561px",
     alignSelf: "flex-start",
     margin: "100px auto",
   },
@@ -67,11 +67,12 @@ const useStyles = makeStyles((theme) => ({
   },
   addbtn: {
     width: "100%",
-    height: "35px",
+    maxWidth: "432px",
+    height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "10px 10px 20px 10px",
+    margin: "22px 29px 40px 0px",
     color: "white",
   },
   subCategory: {
@@ -82,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     fontweight: "500",
     border: "none !important",
     outline: "none",
+    color: "#2a2a2a",
   },
   forgotpass: {
     color: "#2149b9",
@@ -269,7 +271,6 @@ export default function FormDialog() {
             aria-labelledby="form-dialog-title"
           >
             <Wrapper>
-              <div></div>
               <Title>Edit Profile</Title>
 
               <Cut onClick={handleClose}>
@@ -282,7 +283,7 @@ export default function FormDialog() {
             </Wrapper>
             <AvatarUpload />
 
-            <DialogContent>
+            <DialogContent style={{ padding: "0px 35px 0px 35px" }}>
               <DialogContentText className={classes.subCategory}>
                 <b>Username</b>
               </DialogContentText>
@@ -301,7 +302,7 @@ export default function FormDialog() {
                 />
               </Input>
             </DialogContent>
-            <DialogContent>
+            <DialogContent style={{ padding: "0px 35px 0px 35px" }}>
               <DialogContentText className={classes.subCategory}>
                 <b>Email</b>
               </DialogContentText>

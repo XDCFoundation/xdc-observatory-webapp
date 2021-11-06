@@ -114,7 +114,10 @@ export default function TemporaryDrawer() {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+          <Button
+            onClick={toggleDrawer(anchor, true)}
+            style={{ padding: "0px" }}
+          >
             <img
               className="noticon"
               src={require("../../assets/images/notification.png")}
