@@ -13,6 +13,7 @@ import { Tooltip } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import { CSVLink, CSVDownload } from "react-csv";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
@@ -31,7 +32,6 @@ import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
 import { sessionManager } from "../../managers/sessionManager";
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -221,6 +221,7 @@ export default function SimpleTabs(props) {
   }
 
   const [address, setAddress] = React.useState([]);
+  const [downloadAddress, setDownloadAddress] = React.useState({});
   const [watchlist, setWatchlist] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
@@ -232,16 +233,19 @@ export default function SimpleTabs(props) {
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState(0);
   const [nameToggle, setNameToggle] = React.useState(0);
+  const [tableValue, setTablevalue] = React.useState(1);
 
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-      console.log("userId",data)
+      console.log("userId", data);
 
       const response = await UserService.getUserWatchlist(data);
+      console.log("dasdasdas ", response);
       setWatchlist(response);
+      setTablevalue(1);
     }
     getuserdata();
     async function getuserdata() {
@@ -249,7 +253,19 @@ export default function SimpleTabs(props) {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
-      // console.log("tttt", response);
+      console.log("tttt", response);
+      // setDownloadAddress(address.map(data => {
+      //   return {
+      //     Txn_Hash: data.transactionHash,
+      //     Date: moment(row.addedOn).format("hh:mm A, D MMMM YYYY "),
+      //     Note: data.trxLable,
+      // From: d.from,
+      // To: d.to,
+      // Value: d.value / 1000000000000000000,
+      //     }
+      //   }
+      //   ),
+      // )
     }
 
     getPvtTagAddress();
@@ -258,6 +274,7 @@ export default function SimpleTabs(props) {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getPrivateTagToAddress(data);
       setPrivateAddress(response);
+      console.log("ccccc", response);
     }
   }, []);
 
@@ -281,10 +298,14 @@ export default function SimpleTabs(props) {
     let oldData = address;
     let newData;
     if (addedOnToggle === 0) {
-      newData = oldData.sort((index1, index2) => index2?.addedOn - index1?.addedOn);
+      newData = oldData.sort(
+        (index1, index2) => index2?.addedOn - index1?.addedOn
+      );
       setAddedOnToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) => index1?.addedOn - index2?.addedOn);
+      newData = oldData.sort(
+        (index1, index2) => index1?.addedOn - index2?.addedOn
+      );
       setAddedOnToggle(0);
     }
     setAddress(newData);
@@ -294,10 +315,14 @@ export default function SimpleTabs(props) {
     let oldData = watchlist;
     let newData;
     if (balanceToggle === 0) {
-      newData = oldData.sort((index1, index2) => index1?.balance - index2?.balance);
+      newData = oldData.sort(
+        (index1, index2) => index1?.balance - index2?.balance
+      );
       setBalanceToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) => index2?.balance - index1?.balance);
+      newData = oldData.sort(
+        (index1, index2) => index2?.balance - index1?.balance
+      );
       setBalanceToggle(0);
     }
     setWatchlist(newData);
@@ -307,13 +332,26 @@ export default function SimpleTabs(props) {
     let oldData = privateAddress;
     let newData;
     if (nameToggle === 0) {
-      newData = oldData.sort((index1, index2) => index1.tagName.localeCompare(index2.tagName));
+      newData = oldData.sort((index1, index2) =>
+        index1.tagName.localeCompare(index2.tagName)
+      );
       setNameToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) => index2.tagName.localeCompare(index1.tagName));
+      newData = oldData.sort((index1, index2) =>
+        index2.tagName.localeCompare(index1.tagName)
+      );
       setNameToggle(0);
     }
     setPrivateAddress(newData);
+  };
+  const handleWatchlist = () => {
+    setTablevalue(1);
+  };
+  const handlePrivateNote = () => {
+    setTablevalue(2);
+  };
+  const handleTagAddress = () => {
+    setTablevalue(3);
   };
 
   return (
@@ -367,16 +405,19 @@ export default function SimpleTabs(props) {
                 label="My Watchlist"
                 className={classes.mywatch}
                 {...a11yProps(0)}
+                onClick={handleWatchlist}
               />
               <Tab
                 label="Txn Private Note"
                 className={classes.txnprivate}
                 {...a11yProps(1)}
+                onClick={handlePrivateNote}
               />
               <Tab
                 label="Tagged Adresses"
                 className={classes.address}
                 {...a11yProps(2)}
+                onClick={handleTagAddress}
               />
             </Tabs>
           </AppBar>
@@ -399,20 +440,61 @@ export default function SimpleTabs(props) {
                 //   }}
               />
             </div>
-
-            <button
-              style={{
-                color: "white",
-                borderRadius: "4px",
-                backgroundColor: "#9fa9ba",
-                width: "94px",
-                height: "34px",
-                marginRight: "24px",
-              }}
-            >
-              {" "}
-              Export
-            </button>
+            {tableValue === 1 ? (
+              <CSVLink
+                filename={"watchlist.csv"}
+                data={watchlist}
+                style={{
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#ffffff",
+                  backgroundColor: "#9fa9ba",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  marginRight: "1.5rem",
+                  paddingTop: "0.125rem",
+                }}
+              >
+                Export
+              </CSVLink>
+            ) : tableValue === 2 ? (
+              <CSVLink
+                filename={"private_note.csv"}
+                data={address}
+                style={{
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#ffffff",
+                  backgroundColor: "#9fa9ba",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  marginRight: "1.5rem",
+                  paddingTop: "0.125rem",
+                }}
+              >
+                Export
+              </CSVLink>
+            ) : (
+              <CSVLink
+                filename={"tag_address.csv"}
+                data={privateAddress}
+                style={{
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#ffffff",
+                  backgroundColor: "#9fa9ba",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  marginRight: "1.5rem",
+                  paddingTop: "0.125rem",
+                }}
+              >
+                Export
+              </CSVLink>
+            )}
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
