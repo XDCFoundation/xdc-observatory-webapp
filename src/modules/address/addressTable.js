@@ -267,6 +267,7 @@ export default function AddressTableComponent(props) {
         }
       }),
     )
+    
     setDownloadaddress(
       trxn.map((d) => {
         return {
