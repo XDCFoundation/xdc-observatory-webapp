@@ -25,7 +25,6 @@ import FormLabel from "@material-ui/core/FormLabel";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
 
-
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -51,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
     // lineHeight: "-100px !important",
     // backgoundColor: "red",
     marginTop: "4px",
-},
-  radio :{
+  },
+  radio: {
     // backgroundColor: "blue",
   },
   cross: {
@@ -77,11 +76,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
-
   },
 
-
-    // addbtn: {
+  // addbtn: {
   //   width: "110px",
   // height: "34px",
   // margin: "33px 0 0 21px",
@@ -124,8 +121,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "15px 35px 20px 0px"
-      },
+    padding: "15px 35px 20px 0px",
+  },
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
@@ -155,10 +152,10 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-      marginTop: "7px",
-      marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginTop: "7px",
+    marginBottom: "7px",
+    fontfamily: "Inter",
+    fontweight: "600",
   },
   dialogBox: {
     width: "553px",
@@ -166,19 +163,18 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 768px)": {
     dialogBox: {
       maxWidth: "553px",
       width: "100%",
       position: "absolute",
       top: "157px",
-      
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+  },
 }));
 
 export default function FormDialog() {
@@ -188,7 +184,7 @@ export default function FormDialog() {
   const [description, setDescription] = React.useState("");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
- 
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
@@ -210,7 +206,7 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-      // history.push("/loginprofile")
+    // history.push("/loginprofile")
   };
 
   const watchListService = async () => {
@@ -218,9 +214,22 @@ export default function FormDialog() {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
       description: description,
+      type: value,
+      isEnabled: true,
     };
-    const response = AddWatchList.addWatchlist(request);
+    if (value === "NO") request["isEnabled"] = false;
+
+    const [error, response] = await utility.parseResponse(
+      AddWatchList.addWatchlist(request)
+    );
+
+    if (error) {
+      utility.apiFailureToast("Error");
+      return;
+    }
     utility.apiSuccessToast("Address added to watchlist");
+    setAddress("");
+    setDescription("");
   };
 
   return (
@@ -264,7 +273,7 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
@@ -278,7 +287,7 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Address</b>
             </DialogContentText>
-            <input 
+            <input
               className={classes.input}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
@@ -335,26 +344,26 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
                 onChange={handleChange}
               >
                 <FormControlLabel
-                  value="female"
+                  value="NO"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "5px 2px -5px -5px" }}
                   label="No Notifications"
                 />
                 <FormControlLabel
-                  value="male"
+                  value="INOUT"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Incoming & Outgoing Txns"
                 />
                 <FormControlLabel
-                  value="other"
+                  value="IN"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Incoming (Recieve) Txns Only"
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
-                  value="disabled"
+                  value="OUT"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Outgoing (Sent) Txns Only"
