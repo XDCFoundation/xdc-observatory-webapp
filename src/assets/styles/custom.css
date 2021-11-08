@@ -1564,7 +1564,7 @@ p {
 }
 
 .centerbox-td {
-  width: 33.438rem;
+  /* width: 33.438rem; */
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
@@ -2107,14 +2107,14 @@ p {
 }
 
 .select-td {
-  width: 5.313rem;
+  /* width: 5.313rem; */
   margin-top: -0.188rem;
   background-color: white !important;
   outline-color: #858585;
   border-color: transparent;
   border-left-color: #9fa9ba;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: bold;
   opacity: 0.8;
   font-stretch: normal;
   font-style: normal;
@@ -8540,6 +8540,7 @@ button {
   font-family: "Inter";
   outline-color: transparent;
   border-width: 0;
+  width: 11.25rem;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
