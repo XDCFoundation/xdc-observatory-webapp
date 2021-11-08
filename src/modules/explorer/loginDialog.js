@@ -94,7 +94,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   icon: {
-    marginLeft: "-30px",
+    marginLeft: "-48px",
+    marginBottom: "4px"
   },
   xdc: {
     color: "#2a2a2a",
@@ -546,17 +547,15 @@ export default function FormDialog() {
                   ></input>
                   <span>
                     {passwordShown ? (
-                      <VisibilityIcon
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
                         className={classes.icon}
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
                         onClick={togglePasswordVisiblity}
                       />
                     ) : (
-                      <VisibilityOff
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
                         className={classes.icon}
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
                         onClick={togglePasswordVisiblity}
                       />
                     )}
