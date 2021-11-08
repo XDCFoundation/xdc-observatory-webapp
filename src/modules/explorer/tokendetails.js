@@ -442,7 +442,7 @@ export default function StickyHeadTable() {
                         </TableCell>
                         <TableCell>
                           <a
-                            style={{ fontSize: 15, color: '#2149b9' }}
+                            className="token-details-address-link"
                             href={"/token-data/" + row.address}
 
                           >
