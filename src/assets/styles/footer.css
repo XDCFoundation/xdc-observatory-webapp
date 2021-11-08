@@ -60,7 +60,7 @@ label {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .footer-line {
-    width: 23.438rem;
+    width: 22rem;
     height: 3.75rem;
     margin: auto;
   }
