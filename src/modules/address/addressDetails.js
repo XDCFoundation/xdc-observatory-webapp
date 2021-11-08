@@ -226,20 +226,21 @@ export default function AddressDetails(props) {
                                   &times;
                                 </button>
                                 <div
-                                  className="header"
-                                  style={{
-                                    fontSize: "0.875rem",
-                                    paddingTop: "0.313rem",
-                                    paddingBottom: "3.75rem",
-                                  }}
+                                  className="header-popup"
+                                // style={{
+                                //   fontSize: "0.875rem",
+                                //   paddingTop: "0.313rem",
+                                //   paddingBottom: "3.75rem",
+                                // }}
                                 >
                                   {" "}
                                   {addr}{" "}
                                 </div>
                                 <QRCode
                                   size={320}
-                                  style={{ height: 400, width: 400 }}
-                                  value={addr}
+                                  className="qrcode-label"
+                                  //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
                                 />
                               </div>
                             </p>
@@ -360,27 +361,27 @@ export default function AddressDetails(props) {
             </div>
           </div>
 
-          <div className="content-tabs_sec">
-            <div
-              className={
-                toggleState === 1
-                  ? "content_sec  active-content_sec sec-active"
-                  : "content_sec"
-              }
-            >
-              <AddressTableComponent trans={transactions} coinadd={addr} />
-            </div>
 
-            <div
-              className={
-                toggleState === 2
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <AddressTableComponent trans={transactions} />
-            </div>
+          <div
+            className={
+              toggleState === 1
+                ? "content_sec  active-content_sec sec-active"
+                : "content_sec"
+            }
+          >
+            <AddressTableComponent trans={transactions} coinadd={addr} />
           </div>
+
+          <div
+            className={
+              toggleState === 2
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <AddressTableComponent trans={transactions} />
+          </div>
+
         </div>
       </Grid>
       <FooterComponent />

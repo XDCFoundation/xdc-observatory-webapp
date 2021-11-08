@@ -26,6 +26,7 @@ import TokenContracttab from './tokenContractTab'
 import ReactHtmlParser from "react-html-parser";
 import Utils from "../../utility";
 
+
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -74,7 +75,6 @@ export default function AddressDetailsData() {
   }
   const [data, setData] = React.useState(initialState);
   const [responses, setResponses] = React.useState([]);
-
 
   const getContractDetails = async (values) => {
     try {
@@ -178,32 +178,36 @@ export default function AddressDetailsData() {
 
             <div className="contractSummary">
               <div className="latest">
-                <h1>Contract-Summary</h1>
+                <h1>Contract Summary</h1>
               </div>
               <div className="data">
                 <TableContainer component={Paper} elevation={0} style={{ padding: '0 1.5rem' }}>
                   <Table className={classes.table} aria-label="simple table">
                     <TableBody>
                       <TableRow>
-                        <TableCell className="left-table-contract">Creator</TableCell>
-                        <TableCell className="left-table-contract-data">
-                          {data.creator != '' &&
-                            <a className="linkTable" href={'/address-details/' + data.creator}>
-                              <span className="tabledata">{shorten(data.creator)}</span>
-                            </a>
-                          }
-                        </TableCell>
+                        <div className="contract-summary-mobile">
+                          <TableCell className="left-table-contract-mobile">Creator</TableCell>
+                          <TableCell className="left-table-contract-data-mobile">
+                            {data.creator != '' &&
+                              <a className="linkTable" href={'/address-details/' + data.creator}>
+                                <span className="tabledata">{shorten(data.creator)}</span>
+                              </a>
+                            }
+                          </TableCell>
+                        </div>
                       </TableRow>
                       <TableRow>
-                        <TableCell className="left-table-contract">Transactions</TableCell>
-                        <TableCell className="left-table-contract-data">
-                          {data.transaction != '' &&
-                            <a className="linkTable" href={'/transaction-details/' + data.transaction}>
-                              <span className="tabledata">{shorten(data.transaction)}</span>
-                            </a>
-                          }
+                        <div className="contract-summary-mobile">
+                          <TableCell className="left-table-contract-mobile">Transactions</TableCell>
+                          <TableCell className="left-table-contract-data-mobile">
+                            {data.transaction != '' &&
+                              <a className="linkTable" href={'/transaction-details/' + data.transaction}>
+                                <span className="tabledata">{shorten(data.transaction)}</span>
+                              </a>
+                            }
 
-                        </TableCell>
+                          </TableCell>
+                        </div>
                       </TableRow>
 
 
@@ -218,7 +222,7 @@ export default function AddressDetailsData() {
           <br />
           <br />
           <div>
-            <div className="block_sec_contract sec-block">
+            <div className="block_sec_contract sec-block-contract">
               <div className="bloc-tabs_sec">
                 <button
                   className={
