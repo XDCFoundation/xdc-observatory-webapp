@@ -6533,6 +6533,7 @@ button {
   font-weight: bold;
   opacity: 0.5;
   cursor: text;
+  margin-left:0px;
 }
 
 .checkmark {
