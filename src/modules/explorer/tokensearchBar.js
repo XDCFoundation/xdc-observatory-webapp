@@ -15,6 +15,8 @@ import { NavLink } from "react-router-dom";
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility, { dispatchAction } from "../../utility";
+import Popover from "./popover";
+import ChangePassword from "./changePassword";
 
 const drawerWidth = 240;
 
@@ -34,10 +36,23 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
       height: '11.4375rem !important',
     },
+    toolBar:{
+      width: '98%'
+    }
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
-      height: '8.25rem !important',
+      backgroundColor: "#2149b9",
+      height: "134px !important",
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+  },
+  "@media (max-width:450px)": {
+    appBar: {
+      height: "199px !important",
     },
   },
   appBarShift: {
@@ -113,6 +128,7 @@ export default function Navbar() {
   const theme = useTheme();
   const history = useHistory();
 
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -125,15 +141,30 @@ export default function Navbar() {
   const ref = React.useRef(null);
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
-  const handleSearch = (event) => {
-    if (event.key === "Enter") {
-      var selectOptType = SelectOptRef.current?.value;
 
-      let requestdata = {
-        filter: selectOptType,
-        data: event.target.value,
-      };
-      BlockChainSearch(requestdata);
+
+  const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
+
+  const openChangePassword = () => {
+    setOpenPasswordBox(!openPasswordBox)
+  }
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleSearch = (event) => {
+    if (event.target.value.length == 0) setErrorMessage("");
+    if (event.key === "Enter") {
+      var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+      if (format.test(event.target.value)) {
+        setErrorMessage("Special characters are not allowed.");
+      } else {
+        var selectOptType = SelectOptRef.current?.value;
+
+        let requestdata = {
+          filter: selectOptType,
+          data: event.target.value,
+        };
+        BlockChainSearch(requestdata);
+      }
     }
   };
   const handleSearchOption = (event) => {
@@ -280,7 +311,25 @@ export default function Navbar() {
     "Tokens",
   ];
   const [filter, setFilter] = useState("");
+  const childToggle = (subanchor, open) => (event) => {
 
+    if (
+
+      event.type === "keydown" &&
+
+      (event.key === "Tab" || event.key === "Shift")
+
+    ) {
+
+      return;
+
+    }
+
+    setOpencontracts(false)
+
+    setState({ ...state, [subanchor]: open });
+
+  };
   const contracts = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -319,7 +368,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={() => setOpencontracts(false)}
+                onClick={childToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -360,7 +409,16 @@ export default function Navbar() {
       </List>
     </div>
   );
-
+  const childToolsToggle = (subanchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setOpen(false)
+    setState({ ...state, [subanchor]: open });
+  };
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -397,7 +455,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "14rem" }}
-                onClick={() => setOpen(false)}
+                onClick={childToolsToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -600,7 +658,8 @@ export default function Navbar() {
         elevation={0}
         className={clsx(classes.appBar)}
       >
-        <Toolbar>
+        <Toolbar
+        className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
             <div className="mobile-navbartab">
@@ -656,8 +715,7 @@ export default function Navbar() {
                           style={{
                             width: 16,
                             height: 16,
-                            marginRight: 3,
-                            marginTop: 2,
+                            marginRight: 3
                           }}
                           src={require("../../assets/images/Search.svg")}
                         />
@@ -666,7 +724,7 @@ export default function Navbar() {
                             <input
                               defaultValue={filter}
                               type="text"
-                              onClick={(event) => handleSearch(event)}
+                              onKeyUp={(event) => handleSearch(event)}
                               ref={SearchDataRef}
                               onKeyPress={(event) => {
                                 if (event.key === "Enter") {
@@ -719,14 +777,17 @@ export default function Navbar() {
                     </ul>
                   </form>
                 </div>
+                <div className="token-error-message-div">
+                  <span className="token-error-message">{errorMessage}</span>
+                </div>
               </div>
             </div>
           </div>
           <div className="right-nav-div">
-            <img
-              className="Shape2-internal"
-              src={require("../../../src/assets/images/Profile.svg")}
-            ></img>
+
+
+            {openPasswordBox && <ChangePassword openChangePassword={openChangePassword} />}
+            <Popover openChangePassword={openChangePassword} />
 
             <React.Fragment className="rigt-line" key={"right"}>
               <IconButton
@@ -736,7 +797,7 @@ export default function Navbar() {
                 onClick={toggleDrawer("right", true)}
               >
                 <img
-                  className="Shape2-internal"
+                  className="Shape2-internal1"
                   src={require("../../../src/assets/images/Menu.svg")}
                 ></img>
                 {/* <MenuIcon /> */}

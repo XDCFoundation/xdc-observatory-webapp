@@ -54,7 +54,7 @@ export default function TransactionTableComponent(props) {
   const { state } = props
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${'.'.repeat(stars)}${b.slice(
+    return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
       b.length - 3,
       b.length,
     )}`
@@ -300,27 +300,18 @@ export default function TransactionTableComponent(props) {
   }, [])
   const classes = useStyles()
   const history = useHistory()
-
+  console.log(address, "?<>?")
   return (
     <div>
-      <div className="content_input_all cont-tab">
+      <div className="content_input_all cont-tab-contract">
         <div className="searchelement-input3 search-btn">
           <img
-            style={{ width: 18, height: 18, marginRight: 5, marginTop: 5 }}
+            style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
             src={require('../../assets/images/Search.svg')}
           />
           <input
             onKeyUp={(event) => props._handleSearch(event)}
-            style={{
-              fontSize: '0.938rem',
-              letterSpacing: 0.62,
-              width: '138px',
-              color: '#2a2a2a',
-              fontFamily: 'Inter',
-              outlineColor: 'transparent',
-              borderWidth: 0,
-              fontWeight: '600',
-            }}
+            className="account-searchbar"
             type="text"
             placeholder="Search"
             onKeyUp={handleKeyUp}
@@ -361,13 +352,13 @@ export default function TransactionTableComponent(props) {
         <Paper
           style={{ borderRadius: '14px' }}
           elevation={0}
-          className="table-paper"
+          className="table-paper-contract"
         >
           <TableContainer
             className={classes.container}
             id="container-table table-cont"
           >
-            <Table className="table-trans">
+            <Table className="table-trans-contract">
               <TableHead>
                 <TableRow>
                   <TableCell
@@ -379,11 +370,11 @@ export default function TransactionTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked !== true)
-                          .length <=
-                        address.length + 1
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked !== true)
+                      //     .length <=
+                      //   address.length + 1
+                      // }
                       style={{ marginRight: '8px' }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>
@@ -568,17 +559,17 @@ export default function TransactionTableComponent(props) {
           <Grid item xs="4" className="pagination-tab">
             <span className="text">Show</span>
             {
-              <Select
+              <select
                 value={amount}
                 className="select-amount"
                 onChange={handleChangeRowsPerPage}
               >
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={25}>25</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={100}>100</MenuItem>
-                <MenuItem value={500}>500</MenuItem>
-              </Select>
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={75}>75</option>
+                <option value={100}>100</option>
+              </select>
             }
             <span className="text">Records</span>
           </Grid>
@@ -596,17 +587,17 @@ export default function TransactionTableComponent(props) {
             <button
               style={{ marginLeft: '0px' }}
               onClick={() => handleChangePage('first')}
-              className={from === 0 ? 'btn disabled' : 'btn'}
+              className={from === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               First
             </button>
             <button
               onClick={() => handleChangePage('prev')}
-              className={from === 0 ? 'btn disabled' : 'btn'}
+              className={from === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/back.svg')} />
             </button>
-            <button className="btn">
+            <button className="btn-contract">
               Page{' '}
               {Math.round(totalRecord / amount) +
                 1 -
@@ -615,13 +606,13 @@ export default function TransactionTableComponent(props) {
             </button>
             <button
               onClick={() => handleChangePage('next')}
-              className={from + amount === totalRecord ? 'btn disabled' : 'btn'}
+              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/next.svg')} />
             </button>
             <button
               onClick={() => handleChangePage('last')}
-              className={from + amount === totalRecord ? 'btn disabled' : 'btn'}
+              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               Last
             </button>
