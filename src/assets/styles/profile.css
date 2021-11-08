@@ -358,6 +358,33 @@ background-color: #4878ff; */
   color: #d3dfff;
 }
 
+.tabledata {
+  width: 10%;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  opacity: 0.7;
+  padding-left: 2rem;
+}
+.tableheaders {
+  font-family: "Fira Sans";
+  font-size: 0.875rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  text-align: center;
+  color: #252525;
+  opacity: 0.8;
+  padding-left: 2rem;
+}
+
 @media screen and (max-width: 1920px) {
   .heading {
     max-width: 1250px;
