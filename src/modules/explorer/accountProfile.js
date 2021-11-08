@@ -465,13 +465,13 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Address</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1.8%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Description</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "2%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Balance</span>
@@ -488,19 +488,19 @@ export default function SimpleTabs(props) {
                           </span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Notification</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
@@ -657,7 +657,7 @@ export default function SimpleTabs(props) {
                           </span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1.8%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}>Note</span>
@@ -669,7 +669,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Balance</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
@@ -692,7 +692,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Notification</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
@@ -837,7 +837,7 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Address</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "-6.4%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Name Tag</span>
@@ -860,7 +860,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Balance</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
@@ -872,7 +872,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Notification</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>

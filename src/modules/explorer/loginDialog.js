@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginTop: "22px",
     fontSize: "22px",
-    color: "#2a2a2a"
+    color: "#2a2a2a",
   },
   paperWidthSm: {
     position: "absolute",
@@ -123,10 +123,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginLeft: "24px",
     marginTop: "20px",
-  },
-  agreeTerms: {
-    color: "#2A2A2A",
-    textDecoration: "underline",
   },
   checkbox: {
     width: "17px",
@@ -162,6 +158,7 @@ const useStyles = makeStyles((theme) => ({
   robotText: {
     marginTop: "24px",
     fontWeight: "bold",
+    marginLeft: "-50px"
   },
   recaptcha: {
     marginTop: "12px",
@@ -357,9 +354,9 @@ export default function FormDialog() {
       Utility.apiFailureToast("Wrong email or password");
       // setislogged(true)
     } else {
-      console.log("response", authResponse)
+      console.log("response", authResponse);
       sessionManager.setDataInCookies(authResponse, "userInfo");
-      sessionManager.setDataInCookies(true, "isLoggedIn",);
+      sessionManager.setDataInCookies(true, "isLoggedIn");
       sessionManager.setDataInCookies(authResponse?.sub, "userId");
       setUserName("");
       setEmail("");
@@ -395,10 +392,10 @@ export default function FormDialog() {
       );
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
-    }else if(termsCheckbox === false){
-      Utility.apiFailureToast("Please agree to the terms and conditions")
-    }else if(captchaCheckbox === false){
-      Utility.apiFailureToast("please verify captcha")
+    } else if (termsCheckbox === false) {
+      Utility.apiFailureToast("Please agree to the terms and conditions");
+    } else if (captchaCheckbox === false) {
+      Utility.apiFailureToast("please verify captcha");
     } else {
       Utility.apiSuccessToast("Sign-up success, check your email");
 
@@ -431,7 +428,6 @@ export default function FormDialog() {
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
-    
   };
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
@@ -440,44 +436,46 @@ export default function FormDialog() {
     const reqObj = {
       email: email,
     };
-    if(captchaCheckbox === false){
-      Utility.apiFailureToast("please verify captcha")
+    if (captchaCheckbox === false) {
+      Utility.apiFailureToast("please verify captcha");
     } else {
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.forgotPassword(email)
-    );
-    if (error || !authResponse) {
-      setEmailError("Please enter a valid email address");
-      Utility.apiFailureToast("Wrong email");
-    } else {
-      setEmail("");
-      setCaptchaCheckbox(false);
-      Utility.apiSuccessToast(
-        "We have just sent you an email to reset your password."
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.forgotPassword(email)
       );
-      window.location.href = "/";
+      if (error || !authResponse) {
+        setEmailError("Please enter a valid email address");
+        Utility.apiFailureToast("Wrong email");
+      } else {
+        setEmail("");
+        setCaptchaCheckbox(false);
+        Utility.apiSuccessToast(
+          "We have just sent you an email to reset your password."
+        );
+        window.location.href = "/";
+      }
     }
-  }
   };
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
-  const [termsCheckbox, setTermsCheckbox] = React.useState(false)
+  const [termsCheckbox, setTermsCheckbox] = React.useState(false);
   const handleTermsCheckbox = () => {
-    if(termsCheckbox === true){
+    if (termsCheckbox === true) {
       setTermsCheckbox(false);
     } else {
       setTermsCheckbox(true);
     }
-  }
+  };
 
-  const [captchaCheckbox, setCaptchaCheckbox] = React.useState(false)
+  const [captchaCheckbox, setCaptchaCheckbox] = React.useState(false);
   const handleCaptchaCheckbox = () => {
-    if(captchaCheckbox === true){
+    if (captchaCheckbox === true) {
       setCaptchaCheckbox(false);
+      console.log("captcha",captchaCheckbox)
     } else {
       setCaptchaCheckbox(true);
+      console.log("captcha",captchaCheckbox)
     }
-  }
+  };
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
@@ -501,10 +499,7 @@ export default function FormDialog() {
               <div>
                 {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
                 <Row>
-                  <div
-                    className={classes.heading}
-                    id="form-dialog-title"
-                  >
+                  <div className={classes.heading} id="form-dialog-title">
                     Log in to your account
                   </div>
                   <span
@@ -596,13 +591,10 @@ export default function FormDialog() {
               <div>
                 {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
                 <Row>
-                  <div
-                    className={classes.heading}
-                    id="form-dialog-title">
-                  
+                  <div className={classes.heading} id="form-dialog-title">
                     Setup a New Account
-                    </div>
-                  
+                  </div>
+
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -676,24 +668,32 @@ export default function FormDialog() {
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
                 <div className={classes.termsContainer}>
-                  <input className={classes.checkbox} onClick={handleTermsCheckbox} type="checkbox"></input>
+                  <input
+                    className={classes.checkbox}
+                    onClick={handleTermsCheckbox}
+                    type="checkbox"
+                  ></input>
                   <span>
                     I agree to the{" "}
-                    <span href="#" className={classes.agreeTerms}>
+                    <a href="https://www.facebook.com" className="termsLink">
                       Terms and Conditions
-                    </span>
+                    </a>
                   </span>
                 </div>
                 <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
-                    <div className={classes.robotContainer2}>
-                      <input
+                    {/* <div className={classes.robotContainer2}> */}
+                    {/* <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
                         onClick={handleCaptchaCheckbox}
-                      ></input>
-                      <span className={classes.robotText}>I'm not a robot</span>
-                    </div>
+                      ></input> */}
+                    {/* </div> */}
+                    <label class="container1">
+                      <input type="checkbox"></input>
+                      <span class="checkmark1" onClick={handleCaptchaCheckbox}></span>
+                    </label>
+                    <span className={classes.robotText}>I'm not a robot</span>
                     <img
                       className={classes.recaptcha}
                       src={require("../../../src/assets/images/recaptcha.svg")}
@@ -723,10 +723,7 @@ export default function FormDialog() {
               // <------------------------------------------Forgot Password------------------------------------------------->
               <div>
                 <Row>
-                  <div
-                    className={classes.heading}
-                    id="form-dialog-title"
-                  >
+                  <div className={classes.heading} id="form-dialog-title">
                     Forgot Password
                   </div>
                   <span
@@ -762,14 +759,19 @@ export default function FormDialog() {
 
                 <div className={classes.robotContainerForgotPass}>
                   <div className={classes.robotContainer1}>
-                    <div className={classes.robotContainer2}>
+                    {/* <div className={classes.robotContainer2}>
                       <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
                         onClick={handleCaptchaCheckbox}
                       ></input>
                       <span className={classes.robotText}>I'm not a robot</span>
-                    </div>
+                    </div> */}
+                    <label class="container1">
+                      <input type="checkbox"></input>
+                      <span class="checkmark1" onClick={handleCaptchaCheckbox}></span>
+                    </label>
+                    <span className={classes.robotText}>I'm not a robot</span>
                     <img
                       className={classes.recaptcha}
                       src={require("../../../src/assets/images/recaptcha.svg")}
