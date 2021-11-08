@@ -480,6 +480,12 @@ input:focus {
   margin-top: 0.625rem;
   /* margin-left: 0.313rem; */
 }
+.name-internal{
+  margin-top: 25px;
+}
+.down-arrow-internal{
+  margin-top: 10px;
+}
 .Shape2-internal1 {
   width: 1.563rem;
   height: 1.563rem;
@@ -2765,7 +2771,8 @@ p {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .select-td {
-    margin-left: 21px !important;
+    margin-left: 15px !important;
+    font-size: 12px;
   }
 }
 
@@ -2915,8 +2922,10 @@ p {
     align-items: baseline !important;
   }
   .right-nav-div {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
+    position: absolute;
+    right: 16px;
   }
   /* .MuiAppBar-colorPrimary{
   height: 130px;
@@ -7244,7 +7253,7 @@ button {
     margin-top: 3.75rem;
   }
   .centerbox-td {
-    width: 21.4375rem;
+    /* width: 21.4375rem; */
     height: 1.9375rem;
     margin-right: -20px;
     margin-left: 3.0625rem;
@@ -7463,6 +7472,7 @@ button {
   .mobile-navbartab {
     display: flex;
     height: 2.5rem;
+    margin-top: 10px;
   }
 
   .Shape-XDC {
@@ -7505,7 +7515,7 @@ button {
     /* background-color: green; */
   }
   .centerbox-td {
-    width: 38.9375rem;
+    /* width: 38.9375rem; */
     /* background-color: red; */
     /* width: 100%; */
     height: 2.4375rem;
@@ -8011,10 +8021,18 @@ button {
   .Shape-XDC {
     margin-top: 0px;
   }
-  .Network-explorer-internal {
+  /* .Network-explorer-internal {
     margin-top: 0px;
   }
   .Token-internal {
+    margin-top: 0px;
+  } */
+
+  .name-internal{
+    margin-top: 15px;
+  }
+
+  .down-arrow-internal{
     margin-top: 0px;
   }
 
