@@ -2560,6 +2560,7 @@ p {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .verify-contract-first-div-text {
+    margin-left: 10px !important;
     margin: 15px;
     font-family: Inter;
     font-size: 14px;
@@ -7268,11 +7269,14 @@ button {
   }
 
   .verify-contract-first-div {
-    margin-left: 15px;
     font-size: 0.875rem;
+    margin-left: 10px;
+    margin-top: 20px;
   }
   .textarea-verify-contract {
     height: 8.8125rem;
+    line-height: 17px !important;
+    padding-left: 0px !important;
   }
 
   .vc-tab-all {
