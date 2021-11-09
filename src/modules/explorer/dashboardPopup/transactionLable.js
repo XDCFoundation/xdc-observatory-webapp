@@ -236,9 +236,9 @@ export default function FormDialog() {
             src={require("../../../assets/images/transaction.png")}
           ></img>
         </div>
-        <div className="headingdiv2">Add Transaction label</div>
+        <div className="headingdiv2">Add transaction label</div>
         <div className="paradiv2">
-          Add a personal note to transacton hash to track it in future
+          Add a personal note to a transacton hash to track it in future.
         </div>
       </div>
 

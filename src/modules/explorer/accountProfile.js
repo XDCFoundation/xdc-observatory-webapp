@@ -127,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
+    textTransform: "none",
     // color: "#2149b9",
   },
   txnprivate: {
@@ -142,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#6b7482",
+    textTransform: "none",
   },
   address: {
     height: "19px",
@@ -156,6 +158,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#6b7482",
+    textTransform: "none",
   },
   "@media (max-width: 1920px)": {
     appbar: {
@@ -261,7 +264,43 @@ export default function SimpleTabs(props) {
     }
   }, []);
 
-  // const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState("");
+  async function searchData() {
+    if (value === 0) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["description","address"],
+        search: value.toString(),
+      };
+      const response = await UserService.Search(data);
+      
+      console.log("value",response)
+      setWatchlist(response);
+    }
+    if (value === 1) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["transactionHash", "trxLable"],
+        search:value.toString(),
+      };
+      const response = await UserService.Search(data);
+      console.log("value",response)
+      setAddress(response);
+    }
+    if (value === 2) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["address", "tagName"],
+        search: value.toString(),
+      };
+      const response = await UserService.Search(data);
+      console.log("value",response)
+      setPrivateAddress(response);
+    }
+  }
 
   // const filteredProducts = address.filter((product) => {
   //   if (
@@ -386,17 +425,20 @@ export default function SimpleTabs(props) {
               <SearchIcon
                 style={{
                   color: "#9fa9ba",
+                  marginLeft: "6px",
                 }}
               />
 
               <input
                 type="text"
                 placeholder="Search"
+                
                 className="searchinput"
+                onClick={searchData}
 
-                // onChange={(e) => {
-                //     setSearch(e.target.value.toLowerCase());
-                //   }}
+                onChange={(e) => {
+                    setSearch(e.target.value.toLowerCase());
+                  }}
               />
             </div>
 
@@ -461,13 +503,13 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Address</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1.8%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Description</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "2%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Balance</span>
@@ -484,19 +526,19 @@ export default function SimpleTabs(props) {
                           </span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Notification</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
@@ -653,7 +695,7 @@ export default function SimpleTabs(props) {
                           </span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1.8%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}>Note</span>
@@ -665,7 +707,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Balance</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
@@ -688,7 +730,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Notification</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
@@ -833,7 +875,7 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Address</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "-6.4%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Name Tag</span>
@@ -856,7 +898,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Balance</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
@@ -868,7 +910,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Notification</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
