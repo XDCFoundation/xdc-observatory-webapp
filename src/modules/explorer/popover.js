@@ -6,6 +6,7 @@ import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
+import { cookiesConstants } from "../../constants";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ export default function BasicPopover(props) {
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
     sessionManager.removeDataFromCookies("isLoggedIn");
+    sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     (window.location.href = "/dashboard")
   };
   const open = Boolean(anchorEl);
