@@ -213,13 +213,25 @@ export default function FormDialog() {
 
   const watchListService = async () => {
     const request = {
-      UserId: sessionManager.getDataFromCookies("userId"),
+      userId: sessionManager.getDataFromCookies("userId"),
       address: address,
       description: description,
-      notification: notification,
+      type: value,
+      isEnabled: true,
     };
-    const response = AddWatchList.addWatchlist(request);
+    if (value === "NO") request["isEnabled"] = false;
+
+    const [error, response] = await utility.parseResponse(
+      AddWatchList.addWatchlist(request)
+    );
+
+    if (error) {
+      utility.apiFailureToast("Error");
+      return;
+    }
     utility.apiSuccessToast("Address added to watchlist");
+    setAddress("");
+    setDescription("");
   };
 
   return (

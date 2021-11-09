@@ -75,25 +75,29 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     height: "445px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+  },
 }));
 
 export default function ChangePassword(props) {
   const classes = useStyles();
   const [newInput, setNewInput] = React.useState("");
-  const [proposal, setProposal] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [currentInput, setCurrentInput] = React.useState("");
   const [isError, setIsError] = React.useState("");
+  const [errorPassword, setErrorPassword] = React.useState("");
+  const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
 
-  const handleLogin = () => {
-    history.push("/changePassword");
-  };
+  var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
 
   const handleClose = () => {
     history.push("/loginprofile");
   };
+
   const updatepassword = async () => {
-    let userInfo = sessionManager.getDataFromLocalStorage("userInfo");
-    userInfo = JSON.parse(userInfo);
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
     const reqObj = {
       email: userInfo.email,
       userId: userInfo.sub,
@@ -101,18 +105,31 @@ export default function ChangePassword(props) {
       newPassword: newInput,
     };
 
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.changePassword(reqObj)
-    );
-    if (error || !authResponse) {
-      utility.apiFailureToast("failed");
+    setErrorPassword("");
+    setErrorConfirmPassword("");
+
+    if (!newInput || !confirmPassword || !currentInput) {
+      utility.apiFailureToast("Please enter required field");
+    } else if (!newInput.match(regExPass)) {
+      setErrorPassword(
+        "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+      );
+    } else if (newInput !== confirmPassword) {
+      setErrorConfirmPassword("Password doesn't match");
     } else {
-      history.push("/dashboard");
-      utility.apiSuccessToast("password changed successfully");
-      let pass = sessionManager.setDataInLocalStorage("requestBody");
-      sessionManager.setDataInLocalStorage("requestBody", reqObj);
-      sessionManager.setDataInLocalStorage("userInfo", authResponse);
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.changePassword(reqObj)
+      );
+      if (error || !authResponse) {
+        utility.apiFailureToast("failed");
+      } else {
+        history.push("/dashboard");
+        utility.apiSuccessToast("Password  changed successfully");
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse?.sub, "userId");
+      }
     }
   };
 
@@ -137,12 +154,9 @@ export default function ChangePassword(props) {
               type="password"
               placeholder="&bull; &bull; &bull; &bull; &bull;"
               className={classes.input}
-              required="true"
-              value={currentInput}
               onChange={(e) => {
                 {
                   setCurrentInput(e.target.value);
-                  setIsError("");
                 }
               }}
             ></input>
@@ -153,15 +167,13 @@ export default function ChangePassword(props) {
               type="password"
               placeholder="&bull; &bull; &bull; &bull; &bull;"
               className={classes.input}
-              required="true"
-              value={newInput}
               onChange={(e) => {
                 {
                   setNewInput(e.target.value);
-                  setIsError("");
                 }
               }}
             ></input>
+            <div className={classes.error}>{errorPassword}</div>
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
             <b>Confirm Password</b>
@@ -169,15 +181,13 @@ export default function ChangePassword(props) {
               type="password"
               placeholder="&bull; &bull; &bull; &bull; &bull;"
               className={classes.input}
-              value={proposal}
-              required="true"
               onChange={(e) => {
                 {
-                  setProposal(e.target.value);
-                  setIsError("");
+                  setConfirmPassword(e.target.value);
                 }
               }}
             ></input>
+            <div className={classes.error}>{errorConfirmPassword}</div>
           </DialogContentText>
 
           <DialogActions
@@ -190,16 +200,9 @@ export default function ChangePassword(props) {
             <div style={{ color: "red" }}> {isError}</div>
             <button
               className={classes.addbtn}
-              onClick={handleLogin}
-              onClick={(event) => alert("Successfully changed password ")}
               onClick={() => {
-                setNewInput("");
-                setCurrentInput("");
-                setProposal("");
-                // checkValidationPassword();
                 updatepassword();
               }}
-              disabled={!newInput || !proposal || !currentInput}
               type="button"
             >
               Update Password{" "}

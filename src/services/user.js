@@ -14,6 +14,7 @@ export default {
   getWatchlistList,
   getTxnLabelList,
   getTagAddresstList,
+  Search,
 };
 
 function getHeaders() {
@@ -176,7 +177,8 @@ async function addWatchlist(data) {
 }
 
 async function putWatchlist(data) {
-  let url = "http://localhost:3000" + "/edit-watchlist";
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "/edit-watchlist";
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -199,7 +201,8 @@ async function putWatchlist(data) {
 }
 
 async function putTaggedAddress(data) {
-  let url = "http://localhost:3000" + "/edit-address-tag";
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "/edit-address-tag";
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -222,7 +225,9 @@ async function putTaggedAddress(data) {
 }
 
 async function editUserPrivateNote(data) {
-  let url = "http://localhost:3000" + "/edit-transaction-Private-note";
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
+    "/edit-transaction-Private-note";
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -243,9 +248,35 @@ async function editUserPrivateNote(data) {
       return Promise.reject(err);
     });
 }
+async function Search(data) {
+  let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "search";
+  console.log("url ", data);
+  return httpService(
+    "POST",
+    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    data,
+    url
+  )
+    .then((response) => {
+      console.log("data 1", response);
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
 
 async function getWatchlistList(requestData) {
-  let url = "http://localhost:3000" + "/get-content-watchlist";
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
+    "get-content-watchlist";
 
   let headers = getHeaders();
   return httpService(httpConstants.METHOD_TYPE.POST, headers, requestData, url)
@@ -265,7 +296,9 @@ async function getWatchlistList(requestData) {
 }
 
 async function getTxnLabelList(requestData) {
-  let url = "http://localhost:3000" + "/get-content-txn-label";
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
+    "/get-content-txn-label";
 
   let headers = getHeaders();
   return httpService(httpConstants.METHOD_TYPE.POST, headers, requestData, url)
@@ -285,7 +318,9 @@ async function getTxnLabelList(requestData) {
 }
 
 async function getTagAddresstList(requestData) {
-  let url = "http://localhost:3000" + "/get-content-tag-address";
+  let url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
+    "/get-content-tag-address";
 
   let headers = getHeaders();
   return httpService(httpConstants.METHOD_TYPE.POST, headers, requestData, url)
