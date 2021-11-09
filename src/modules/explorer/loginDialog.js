@@ -17,6 +17,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { cookiesConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -359,6 +360,8 @@ export default function FormDialog() {
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn",);
       sessionManager.setDataInCookies(authResponse?.sub, "userId");
+      sessionManager.setDataInCookies(authResponse?.sub, cookiesConstants.USER_ID);
+
       setUserName("");
       setEmail("");
       setPassword("");
