@@ -12027,6 +12027,13 @@
     "react-transition-group" "^2.2.0"
     "warning" "^3.0.0"
 
+"react-paginate@^7.1.5":
+  "integrity" "sha512-CpyWSwsIIsFhWAQvmXDWuEl+yzfzisgvsUoZTj2IR1mFvm9oPTmeNBFc1wg8/i6ASmETeOmOnc78/U/MXyjd0w=="
+  "resolved" "https://registry.npmjs.org/react-paginate/-/react-paginate-7.1.5.tgz"
+  "version" "7.1.5"
+  dependencies:
+    "prop-types" "^15.6.1"
+
 "react-prop-types@^0.4.0":
   "integrity" "sha1-+ZsL+0AGkpya8gUefBQUpcdbk9A="
   "resolved" "https://registry.npmjs.org/react-prop-types/-/react-prop-types-0.4.0.tgz"
