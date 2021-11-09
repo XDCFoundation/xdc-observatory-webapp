@@ -11,6 +11,7 @@ export default {
   putWatchlist,
   putTaggedAddress,
   editUserPrivateNote,
+  Search
 };
 async function getUserPrivateNote(data) {
   let url =
@@ -143,7 +144,7 @@ async function getPrivateTagToAddress(data) {
 
 async function addWatchlist(data) {
   let url =
-    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "addWatchList";
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-watchlist";
   console.log("url ", data);
   return httpService(
     "POST",
@@ -229,6 +230,31 @@ async function editUserPrivateNote(data) {
   )
     .then((response) => {
       if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+async function Search(data) {
+  let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +"search";
+    console.log("url ", data);
+  return httpService(
+    "POST",
+    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    data,
+    url
+  )
+    .then((response) => {
+      console.log("data 1",response)
+      if (
+        
         !response.success ||
         response.responseCode !== 200 ||
         !response.responseData ||
