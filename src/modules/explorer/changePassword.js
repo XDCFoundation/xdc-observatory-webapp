@@ -4,7 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
+import { Row, Column } from "simple-flexbox";
 import { history } from "../../managers/history";
 import CloseIcon from "@material-ui/icons/Close";
 import utility from "../../utility";
@@ -15,7 +15,7 @@ import AuthService from "../../services/userLogin";
 
 const useStyles = makeStyles((theme) => ({
   text: {
-    width: "406px",
+    width: "330px",
     fontFamily: "Inter",
     fontSize: "22px",
     fontWeight: "600",
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
     lineHeight: "normal",
     letterSpacing: "0.85px",
-    textAlign: "center",
+    textAlign: "end",
     color: "#2a2a2a",
   },
   add: {
@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   dialog: {
-    marginLeft: "25%",
-    marginTop: "20px",
-    width: "603px",
+    marginLeft: "30%",
+    paddingTop: "70px",
+    width: "570px",
     alignItems: "center",
     justifyContent: "center",
-    height: "545px",
-    borderRadius: "50px !important",
+    height: "575px",
+    borderRadius: "70px !important",
   },
   input: {
     width: "433px",
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
+    marginTop: "5px",
   },
   addbtn: {
     width: "432px",
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   subCategory: {
-    marginTop: "5px",
+    margin: "10px 5px 10px 12px",
     fontFamily: "Inter",
     fontSize: "14px",
     fontWeight: "500",
@@ -72,25 +73,31 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     alignItems: "center",
     justifyContent: "center",
+    height: "445px",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
   },
 }));
 
 export default function ChangePassword(props) {
   const classes = useStyles();
   const [newInput, setNewInput] = React.useState("");
-  const [proposal, setProposal] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [currentInput, setCurrentInput] = React.useState("");
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
   const [isError, setIsError] = React.useState("");
+  const [errorPassword, setErrorPassword] = React.useState("");
+  const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
 
-  const handleLogin = () => {
-    history.push("/changePassword");
+  var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
+
+  const handleClose = () => {
+    history.push("/loginprofile");
   };
 
   const updatepassword = async () => {
-    let userInfo = sessionManager.getDataFromLocalStorage("userInfo");
-    userInfo = JSON.parse(userInfo);
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
     const reqObj = {
       email: userInfo.email,
       userId: userInfo.sub,
@@ -98,111 +105,110 @@ export default function ChangePassword(props) {
       newPassword: newInput,
     };
 
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.changePassword(reqObj)
-    );
-    if (error || !authResponse) {
-      utility.apiFailureToast("failed");
-    }
-    
-   
-    else {
-      history.push("/dashboard");
-      utility.apiSuccessToast("password changed successfully");
-      let pass = sessionManager.setDataInLocalStorage("requestBody");
-      sessionManager.setDataInLocalStorage("requestBody", reqObj);
-      sessionManager.setDataInLocalStorage("userInfo", authResponse);
+    setErrorPassword("");
+    setErrorConfirmPassword("");
 
+    if (!newInput || !confirmPassword || !currentInput) {
+      utility.apiFailureToast("Please enter required field");
+    } else if (!newInput.match(regExPass)) {
+      setErrorPassword(
+        "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+      );
+    } else if (newInput !== confirmPassword) {
+      setErrorConfirmPassword("Password doesn't match");
+    } else {
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.changePassword(reqObj)
+      );
+      if (error || !authResponse) {
+        utility.apiFailureToast("failed");
+      } else {
+        history.push("/dashboard");
+        utility.apiSuccessToast("Password  changed successfully");
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse?.sub, "userId");
+      }
     }
-
-    
   };
 
   return (
     <Dialog
       className={classes.dialog}
       open
-      onClose={() => props.handleClose()}
+      onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
       <DialogContent className={classes.heading}>
-        <Row>
+        <Row justifyContent="space-between" marginTop="8px">
           <DialogContentText className={classes.text}>
             <b>Change Password</b>
           </DialogContentText>
           <CloseIcon onClick={props.openChangePassword} />
         </Row>
-        <DialogContentText className={classes.subCategory}>
-          <b>Current Password</b>
-          <input
-            type="password"
-            placeholder="&bull; &bull; &bull; &bull; &bull;"
-            className={classes.input}
-            required="true"
-            placeholder="Enter Password"
-            value={currentInput}
-            onChange={(e) => {
-              {
-                setCurrentInput(e.target.value);
-                setIsError("");
-              }
+        <Column>
+          <DialogContentText className={classes.subCategory}>
+            <b>Current Password</b>
+            <input
+              type="password"
+              placeholder="&bull; &bull; &bull; &bull; &bull;"
+              className={classes.input}
+              onChange={(e) => {
+                {
+                  setCurrentInput(e.target.value);
+                }
+              }}
+            ></input>
+          </DialogContentText>
+          <DialogContentText className={classes.subCategory}>
+            <b>New Password</b>
+            <input
+              type="password"
+              placeholder="&bull; &bull; &bull; &bull; &bull;"
+              className={classes.input}
+              onChange={(e) => {
+                {
+                  setNewInput(e.target.value);
+                }
+              }}
+            ></input>
+            <div className={classes.error}>{errorPassword}</div>
+          </DialogContentText>
+          <DialogContentText className={classes.subCategory}>
+            <b>Confirm Password</b>
+            <input
+              type="password"
+              placeholder="&bull; &bull; &bull; &bull; &bull;"
+              className={classes.input}
+              onChange={(e) => {
+                {
+                  setConfirmPassword(e.target.value);
+                }
+              }}
+            ></input>
+            <div className={classes.error}>{errorConfirmPassword}</div>
+          </DialogContentText>
+
+          <DialogActions
+            style={{
+              alignItems: "center",
+              justifyContent: "start",
+              marginTop: "15px",
             }}
-          ></input>
-        </DialogContentText>
-        <DialogContentText className={classes.subCategory}>
-          <b>New Password</b>
-          <input
-            type="password"
-            placeholder="&bull; &bull; &bull; &bull; &bull;"
-            className={classes.input}
-            required="true"
-            value={newInput}
-            onChange={(e) => {
-              {
-                setNewInput(e.target.value);
-                setIsError("");
-              }
-            }}
-          ></input>
-        </DialogContentText>
-        <DialogContentText className={classes.subCategory}>
-          <b>Confirm Password</b>
-          <input
-            type="password"
-            placeholder="&bull; &bull; &bull; &bull; &bull;"
-            className={classes.input}
-            value={proposal}
-            required="true"
-            onChange={(e) => {
-              {
-                setProposal(e.target.value);
-                setIsError("");
-              }
-            }}
-          ></input>
-        </DialogContentText>
-        <DialogActions
-          style={{ alignItems: "center", justifyContent: "center" }}
-        >
-        <div style={{ marginLeft: "17px", color: "red" }}> {isError}</div>
-          <button
-            className={classes.addbtn}
-            onClick={handleLogin}
-            onClick={(event) => alert("Successfully changed password ")}
-            onClick={() => {
-              setNewInput("");
-              setCurrentInput("");
-              setProposal("");
-              // checkValidationPassword();
-              updatepassword();
-            }}
-            disabled={!newInput || !proposal || !currentInput}
-            type="button"
           >
-            Update Password{" "}
-          </button>
-        </DialogActions>
+            <div style={{ color: "red" }}> {isError}</div>
+            <button
+              className={classes.addbtn}
+              onClick={() => {
+                updatepassword();
+              }}
+              type="button"
+            >
+              Update Password{" "}
+            </button>
+          </DialogActions>
+        </Column>
       </DialogContent>
     </Dialog>
   );
