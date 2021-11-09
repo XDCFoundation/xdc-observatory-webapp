@@ -245,6 +245,13 @@ const useStyles = makeStyles((theme) => ({
       color: "#6b7482",
     },
   },
+  btn: {
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
 }));
 
 export default function SimpleTabs(props) {
@@ -565,7 +572,7 @@ export default function SimpleTabs(props) {
                           align="left"
                         >
                           <span className={"tableheaders"}>Balance</span>
-                          <span>
+                          <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByBalance}
                               style={{
@@ -575,13 +582,13 @@ export default function SimpleTabs(props) {
                                 marginLeft: "5px",
                               }}
                             />
-                          </span>
+                          </button>
                         </TableCell>
                         <TableCell
                           style={{ border: "none", paddingLeft: "1%" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}>AddedOn</span>
+                          <span className={"tableheaders"}>Added On</span>
                         </TableCell>
                         <TableCell
                           style={{ border: "none", paddingLeft: "1%" }}
@@ -774,8 +781,9 @@ export default function SimpleTabs(props) {
                           style={{ border: "none", paddingLeft: "1%" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}>AddedOn</span>
-                          <span>
+                          <span className={"tableheaders"}>Added On</span>
+                          {/* <span> */}
+                          <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByAddedOn}
                               style={{
@@ -785,7 +793,8 @@ export default function SimpleTabs(props) {
                                 marginLeft: "5px",
                               }}
                             />
-                          </span>
+                          </button>
+                          {/* </span> */}
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
@@ -959,7 +968,7 @@ export default function SimpleTabs(props) {
                           align="left"
                         >
                           <span className={"tableheaders"}>Name Tag</span>
-                          <span>
+                          <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByTagName}
                               style={{
@@ -969,7 +978,7 @@ export default function SimpleTabs(props) {
                                 marginLeft: "5px",
                               }}
                             />
-                          </span>
+                          </button>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
@@ -981,7 +990,7 @@ export default function SimpleTabs(props) {
                           style={{ border: "none", paddingLeft: "1%" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}>AddedOn</span>
+                          <span className={"tableheaders"}>Added On</span>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}

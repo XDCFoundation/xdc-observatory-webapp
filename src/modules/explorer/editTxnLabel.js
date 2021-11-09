@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
+  btn: {
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
   cnlbtn: {
     width: "94px",
     height: "34px",
@@ -171,11 +176,11 @@ export default function FormDialog(props) {
   return (
     <div>
       <div onClick={handleClickOpen}>
-        <div color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
+        <button className={classes.btn}>
           <a className="linkTable">
             <span className="tabledata">Edit</span>
           </a>
-        </div>
+        </button>
       </div>
 
       <div>

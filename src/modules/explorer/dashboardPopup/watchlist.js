@@ -35,13 +35,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -129,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
+    color: "#2a2a2a",
     fontweight: "500",
     border: "none !important",
   },
@@ -245,11 +244,13 @@ export default function FormDialog() {
             src={require("../../../assets/images/watchlist.png")}
           ></img>
         </div>
-        <div className="headingdiv1">Create Watchlist</div>
-        <div className="paradiv1">
-          An Email notification can be sent to you when an address on your
-          watchlist recieves an incoming notifications
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv1">Create Watchlist</div>
+          <div className="paradiv1">
+            An Email notification can be sent to you when an address on your
+            watchlist recieves an incoming notifications
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -271,7 +272,7 @@ export default function FormDialog() {
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new address to your watchlist
+              Add a New Address to your Watchlist
             </DialogTitle>
           </Row>
           <DialogContent>

@@ -34,6 +34,10 @@ const Text = styled.button`
   color: #2a2a2a;
 `;
 
+const Profile = styled.button`
+  background: none;
+`;
+
 export default function BasicPopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -62,17 +66,25 @@ export default function BasicPopover(props) {
 
   return (
     <div>
-      <ProfileContainer onClick={handleClick} Open Popover>
-        <img
-          className="Shape2-internal"
-          src={require("../../../src/assets/images/Profile.svg")}
-        />
-        <Typography style={{ marginTop: "13px" }}>CryptoAlex</Typography>
-        <img
-          style={{ marginTop: "13px" }}
-          src={require("../../../src/assets/images/Dropdown.svg")}
-        ></img>
-      </ProfileContainer>
+      <button
+        style={{
+          background: "none",
+        }}
+      >
+        <ProfileContainer onClick={handleClick} Open Popover>
+          <img
+            className="Shape2-internal"
+            src={require("../../../src/assets/images/Profile.svg")}
+          />
+          <Typography style={{ marginTop: "13px", color: "#ffffff" }}>
+            CryptoAlex
+          </Typography>
+          <img
+            style={{ marginTop: "13px" }}
+            src={require("../../../src/assets/images/Dropdown.svg")}
+          ></img>
+        </ProfileContainer>
+      </button>
       <Popover
         style={{ top: "20px", left: "-40px", borderRadius: "30px" }}
         id={id}
