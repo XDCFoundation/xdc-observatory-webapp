@@ -160,7 +160,6 @@ export default function AddressDetails(props) {
                   <Heading>Address Details</Heading>
                 </Container>
               </Spacing>
-
               <Div>
                 <Spacing>
                   <HashDiv>
@@ -216,7 +215,7 @@ export default function AddressDetails(props) {
                                 <button
                                   style={{
                                     outline: "none",
-                                    width: "0rem",
+                                    // width: "0rem",
                                     height: "0rem",
                                     marginLeft: "0rem",
                                   }}
@@ -236,12 +235,19 @@ export default function AddressDetails(props) {
                                   {" "}
                                   {addr}{" "}
                                 </div>
+                                {window.innerWidth > 767 ? 
+                                  <QRCode
+                                  size={320}
+                                  style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                                />:
                                 <QRCode
+                                // style={{window.innerWidth > 768 ? '800px' : '400px'}}
                                   size={320}
                                   className="qrcode-label"
                                   //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
                                   value={process.env.REACT_APP_QR_CODE_LINK + addr}
-                                />
+                                />}
                               </div>
                             </p>
                           </div>

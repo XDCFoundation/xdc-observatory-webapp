@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (min-width: 768px) and (max-width: 1239px)": {
       marginTop: "130px",
       maxWidth: "41.5rem",
-    }
+    },
   },
   rowDiv: {
     width: "100%",
@@ -55,7 +55,7 @@ export default function Transaction({ _handleChange }) {
   const [transactions, setTransactions] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     transactionDetail();
@@ -68,8 +68,7 @@ export default function Transaction({ _handleChange }) {
     );
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
-    setLoading(false)
-
+    setLoading(false);
   };
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
@@ -99,14 +98,14 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-        ? transactions.valueUSD
-        : transactions.valueEUR;
+      ? transactions.valueUSD
+      : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-        ? transactions.transactionFeeUSD
-        : transactions.transactionFeeEUR;
+      ? transactions.transactionFeeUSD
+      : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -120,7 +119,6 @@ export default function Transaction({ _handleChange }) {
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
 
-
   // if (isLoading == true) {
   //   return (
   //     <div><Loader /></div>
@@ -128,15 +126,15 @@ export default function Transaction({ _handleChange }) {
   // }
   return (
     <div className={classes.mainContainer}>
-
       <Tokensearchbar />
 
       <div className={classes.root}>
         <Grid>
-          <div className={isLoading == true ? "cover-spin-2" : ""}>
-            <div className={isLoading == true ? "cover-spin" : ""}>
-
-              <Spacing style={{ borderBottom: 'none' }}>
+          {/* <div className={isLoading == true ? "cover-spin-2" : ""}>
+            <div className={isLoading == true ? "cover-spin" : ""}> */}
+          <div>
+            <div>
+              <Spacing style={{ borderBottom: "none" }}>
                 <Container>
                   <Heading>Transaction Details</Heading>
                   {transactions ? (
@@ -161,12 +159,17 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Hash ID</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>{hash}
+                    <Content>
+                      {hash}
 
-
-                      <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
+                      <CopyToClipboard
+                        text={hash}
+                        onCopy={() => setCopiedText(hash)}
+                      >
                         <Tooltip
-                          title={copiedText === hash ? "Copied" : "Copy To Clipboard"}
+                          title={
+                            copiedText === hash ? "Copied" : "Copy To Clipboard"
+                          }
                           placement="top"
                         >
                           <button
@@ -174,7 +177,7 @@ export default function Transaction({ _handleChange }) {
                               color: "#2149b9",
                               backgroundColor: "white",
                               fontSize: 14,
-                              marginLeft: 3
+                              marginLeft: 3,
                             }}
                           >
                             <img
@@ -241,7 +244,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>From</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content >
+                    <Content>
                       {" "}
                       <a
                         className="linkTableDetails-transaction"
@@ -428,7 +431,6 @@ export default function Transaction({ _handleChange }) {
                   </Container>
                   <MiddleContainerInputData isTextArea={true}>
                     <div className="transaction-details-input-data">
-
                       <textarea
                         className="text-area-transaction"
                         readOnly
@@ -447,9 +449,15 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
-
-                    <PrivateText>To access the Private Note feature, you must be</PrivateText>
-                    <a className="linkTableDetails-transaction" style={{ marginLeft: "5px" }}>Logged In</a>
+                    <PrivateText>
+                      To access the Private Note feature, you must be
+                    </PrivateText>
+                    <a
+                      className="linkTableDetails-transaction"
+                      style={{ marginLeft: "5px" }}
+                    >
+                      Logged In
+                    </a>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Div__>
@@ -461,7 +469,6 @@ export default function Transaction({ _handleChange }) {
       </div>
 
       <FooterComponent _handleChange={_handleChange} currency={amount} />
-
     </div>
   );
 }
@@ -483,20 +490,20 @@ const Content = styled.span`
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
   }
   @media (min-width: 768px) and (max-width: 1241px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
 `;
@@ -511,20 +518,19 @@ const TextArea = styled.textarea`
   float: left;
   padding: 14px;
   overflow-y: auto;
-  @media (min-width: 768px) and (max-width: 1240px){
-      width: 110%
-    }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 110%;
+  }
 `;
 const PrivateText = styled.p`
-display: contents;
-@media (min-width: 0px) and (max-width: 767px) {
-display: contents;
-}
- @media (min-width: 768px) and (max-width: 1240px){
-     display:block;
-     margin-bottom: -5px
-;
-    }
+  display: contents;
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: contents;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    display: block;
+    margin-bottom: -5px;
+  }
 `;
 const Div__ = styled.div`
   height: 56.06rem;
@@ -535,17 +541,17 @@ const Div__ = styled.div`
   padding: 0.563rem;
   padding-left: 2.188rem;
   padding-right: 2.188rem;
-@media(min-width:0px) and (max-width:767px){
-   width:22.563rem;
-   height: 61rem;
-   padding-left:10px;
-  padding-right:10px;
-}
-@media (min-width: 768px) and (max-width: 1240px){
-      width: 41.5rem;
-      height: unset;
-    }
-  `;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    height: 61rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+    height: unset;
+  }
+`;
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
@@ -560,9 +566,9 @@ const MiddleContainerPrivateNote = styled.div`
   padding: 7px;
   @media (min-width: 0px) and (max-width: 767px) {
     margin-top: 10px;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     text-align: left;
-   letter-spacing: 0.2px;
+    letter-spacing: 0.2px;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
@@ -570,10 +576,10 @@ const MiddleContainerPrivateNote = styled.div`
     height: auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     height: 3.25rem;
     text-align: left;
-   letter-spacing: 0.2px;
+    letter-spacing: 0.2px;
     opacity: 1;
   }
 `;
@@ -586,18 +592,18 @@ const MiddleContainerInputData = styled.div`
   margin-left: 100px;
   width: 100%;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     text-align: left;
-   letter-spacing: 0.034rem;
+    letter-spacing: 0.034rem;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
+    letter-spacing: 0.034rem;
     opacity: 1;
   }
 `;
@@ -611,11 +617,11 @@ const MiddleContainer = styled.div`
   margin-left: 100px;
   width: 100%;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
@@ -623,14 +629,13 @@ const MiddleContainer = styled.div`
     margin-top: 10px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
-
 `;
 const HashInputData = styled.span`
   color: var(--unnamed-color-2a2a2a);
@@ -647,7 +652,7 @@ const HashInputData = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
     padding-bottom: 20px;
   }
@@ -657,7 +662,7 @@ const HashInputData = styled.span`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.034rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
 `;
@@ -676,7 +681,7 @@ const Hash = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -685,7 +690,7 @@ const Hash = styled.span`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.034rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
 `;
@@ -695,7 +700,7 @@ const SpacingInputData = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  
+
   border-bottom: solid 1px #e3e7eb;
   height: 7.75rem;
   @media (max-width: 767px) {
@@ -703,9 +708,9 @@ const SpacingInputData = styled.div`
     padding: 11px 6px;
     height: 8.75rem;
   }
-  @media (min-width: 768px) and (max-width: 1240px){
-      height: 6.25rem;
-    }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    height: 6.25rem;
+  }
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;
@@ -715,15 +720,15 @@ const SpacingPrivateNode = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
-  
+
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
     border-bottom: none;
-    padding-right:unset;
+    padding-right: unset;
   }
-  @media (min-width: 768px)  and (max-width: 1240px){
-    padding-right:unset;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    padding-right: unset;
   }
 `;
 const Spacing = styled.div`
@@ -738,7 +743,6 @@ const Spacing = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
-    
   }
 `;
 const SpacingHash = styled.div`
@@ -754,7 +758,6 @@ const SpacingHash = styled.div`
     display: block;
     padding: 11px 6px;
     height: auto;
-    
   }
 `;
 const HashDiv = styled.div`
@@ -770,7 +773,7 @@ const HashDiv = styled.div`
     display: block;
     padding-left: 10px;
   }
-  @media (min-width: 768px)  and (max-width: 1240px){
+  @media (min-width: 768px) and (max-width: 1240px) {
     padding: 6px 30px;
   }
 `;
@@ -796,13 +799,13 @@ const Div = styled.div`
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
-  @media(min-width:0px) and (max-width:767px){
-   width:22.563rem;
-   height: 6.813rem;
-}
-  @media (min-width: 768px) and (max-width: 1240px){
-      width: 41.5rem;
-    }
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    height: 6.813rem;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+  }
 `;
 
 const Heading = styled.span`
@@ -812,7 +815,7 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  @media  (min-width: 0px) and  (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -824,7 +827,7 @@ const Heading = styled.span`
     text-align: left;
     color: #2a2a2a;
   }
-  @media  (min-width: 768px) and  (max-width:1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -841,24 +844,23 @@ const ImageViewInputData = styled.img`
   width: 15px;
   margin-right: 15px;
   padding-bottom: 30px;
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width:11px;
-   padding-bottom: 17px;
-  
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 11px;
+    padding-bottom: 17px;
   }
-  @media  (min-width: 768px) and  (max-width: 1240px) {
-   width: 0.875rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 0.875rem;
   }
 `;
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width: 0.688rem;
-   height: 0.688rem;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.688rem;
+    height: 0.688rem;
   }
-  @media  (min-width: 768px) and  (max-width: 1240px) {
-   width: 0.875rem;
-   height:0.875rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 0.875rem;
+    height: 0.875rem;
   }
 `;
