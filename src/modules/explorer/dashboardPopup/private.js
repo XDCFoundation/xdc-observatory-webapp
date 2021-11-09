@@ -215,9 +215,9 @@ export default function FormDialog() {
             src={require("../../../assets/images/private.png")}
           ></img>
         </div>
-        <div className="headingdiv3">Add private tag to an address</div>
+        <div className="headingdiv3">Add private tag to an Address</div>
         <div className="paradiv3">
-          Add a short memo or private tag to the address of interest
+          Add a short memo or private tag to the address of interest.
         </div>
       </div>
 

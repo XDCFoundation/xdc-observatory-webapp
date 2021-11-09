@@ -245,10 +245,10 @@ export default function FormDialog() {
             src={require("../../../assets/images/watchlist.png")}
           ></img>
         </div>
-        <div className="headingdiv1">Create Watchlist</div>
+        <div className="headingdiv1">Create watchlist</div>
         <div className="paradiv1">
           An Email notification can be sent to you when an address on your
-          watchlist recieves an incoming notifications
+          watchlist recieves an incoming notifications.
         </div>
       </div>
 

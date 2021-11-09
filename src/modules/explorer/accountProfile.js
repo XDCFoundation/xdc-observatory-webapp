@@ -127,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
+    textTransform: "none",
     // color: "#2149b9",
   },
   txnprivate: {
@@ -142,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#6b7482",
+    textTransform: "none",
   },
   address: {
     height: "19px",
@@ -156,6 +158,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#6b7482",
+    textTransform: "none",
   },
   "@media (max-width: 1920px)": {
     appbar: {
@@ -386,6 +389,7 @@ export default function SimpleTabs(props) {
               <SearchIcon
                 style={{
                   color: "#9fa9ba",
+                  marginLeft: "6px",
                 }}
               />
 
@@ -461,13 +465,13 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Address</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1.8%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Description</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "2%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Balance</span>
@@ -484,19 +488,19 @@ export default function SimpleTabs(props) {
                           </span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Notification</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
@@ -653,7 +657,7 @@ export default function SimpleTabs(props) {
                           </span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1.8%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}>Note</span>
@@ -665,7 +669,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Balance</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
@@ -688,7 +692,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Notification</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
@@ -833,7 +837,7 @@ export default function SimpleTabs(props) {
                           <span className={"tableheaders"}>Address</span>
                         </TableCell>
                         <TableCell
-                          style={{ border: "none", paddingLeft: "-6.4%" }}
+                          style={{ border: "none" }}
                           align="left"
                         >
                           <span className={"tableheaders"}>Name Tag</span>
@@ -856,7 +860,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Balance</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}>AddedOn</span>
@@ -868,7 +872,7 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders"}>Notification</span>
                             </TableCell> */}
                         <TableCell
-                          style={{ border: "none", paddingLeft: "1%" }}
+                          style={{ border: "none"}}
                           align="left"
                         >
                           <span className={"tableheaders"}></span>
