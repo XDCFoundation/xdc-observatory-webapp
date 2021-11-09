@@ -33,6 +33,7 @@
     "react-loading": "^2.0.3",
     "react-material-toast": "^16.1.7",
     "react-onesignal": "^2.0.1",
+    "react-paginate": "^7.1.5",
     "react-redux": "^7.2.4",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.2.0",
