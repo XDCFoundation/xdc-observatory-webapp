@@ -19,11 +19,97 @@ label {
 input[placeholder] {
   text-overflow: ellipsis;
 }
+
+input#password {
+  width: 433px;
+  height: 40px;
+  padding-left: 15px;
+  padding-top: 9px;
+  border-radius: 6px;
+  border: solid 1px #9fa9ba;
+  background-color: #fff;
+}
+input#password[placeholder] {
+  text-overflow: ellipsis;
+  font-size: 22px;
+}
+::placeholder {
+  color: #9fa9ba;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   input[placeholder] {
     text-overflow: unset !important;
   }
 }
+/* The container */
+.container1 {
+  display: block;
+  position: relative;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: 15px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container1 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #ffffff;
+  border: 2px solid #d8d8d8;
+}
+
+/* On mouse-over, add a grey background color */
+.container1:hover input ~ .checkmark1 {
+  background-color: #ffffff;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container1 input:checked ~ .checkmark1 {
+  background-color: #ffffff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark1:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container1 input:checked ~ .checkmark1:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container1 .checkmark1:after {
+  left: 6px;
+  top: -1px;
+  width: 10px;
+  height: 19px;
+  border: solid #03be46;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 html,
 body {
   width: 100%;
@@ -645,7 +731,7 @@ input:focus {
     align-self: flex-end !important;
   }
   .csv-inactive {
-    padding: 11px 8px 9px 0 !important;
+    padding: 11px 0px 9px 0px !important;
     align-self: flex-end !important;
   }
   .page-container {
@@ -7962,11 +8048,7 @@ button {
     overflow-x: scroll;
   }
 }
-@media (max-width: 690px) {
-  .main-input-td {
-    width: 130px !important;
-  }
-}
+
 @media (max-width: 450px) {
   .mobile-navbartab1 {
     margin-top: 63px;
@@ -8022,9 +8104,6 @@ button {
   }
   .Token-internal {
     margin-top: 0px;
-  }
-  .right-nav-div {
-    /* margin-top: -4px; */
   }
   .Shape2-internal {
     margin-top: 0px;
@@ -8425,7 +8504,7 @@ button {
   display: block;
   position: absolute;
   left: 50%;
-  top: 80%;
+  top: 100%;
   width: 40px;
   height: 40px;
   margin-left: -10px;
@@ -8448,7 +8527,7 @@ button {
   display: block;
   position: absolute;
   left: 50%;
-  bottom: -14%;
+  bottom: -276px;
   width: 40px;
   height: 40px;
   margin-left: -10px;
@@ -8464,8 +8543,8 @@ button {
     content: "";
     display: block;
     position: absolute;
-    left: 50%;
-    top: 176% !important;
+    left: 48%;
+    top: 162% !important;
     bottom: 0% !important;
     width: 40px;
     height: 40px;
@@ -8476,6 +8555,12 @@ button {
     border-width: 4px;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .cover-spin-4::after {
+    top: 176% !important;
+    bottom: 0% !important;
   }
 }
 .token-link {
@@ -8587,4 +8672,22 @@ button {
   color: red;
   margin-left: 20px;
   font-size: 11px;
+}
+.termsLink {
+  color: #2a2a2a;
+  text-decoration: underline;
+}
+.termsLink:hover {
+  color: #2a2a2a;
+  text-decoration: underline;
+}
+.token-details-address-link {
+  color: #2149b9;
+  font-size: 15px;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .token-details-address-link {
+    color: #2149b9;
+    font-size: 14px;
+  }
 }
