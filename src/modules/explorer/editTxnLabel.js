@@ -10,13 +10,25 @@ import { Row } from "simple-flexbox";
 import { UserService } from "../../services";
 import utility from "../../utility";
 import { useEffect } from "react";
+import styled from "styled-components";
+
+const DialogBox = styled.div`
+  width: 553px;
+  height: 394px;
+  border-radius: 10%;
+  justify-content: space-between;
+`;
 
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
-  btn: {},
+  btn: {
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
   cnlbtn: {
     width: "94px",
     height: "34px",
@@ -28,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    justifyContent: "space-between",
+    padding: "10px 35px 15px 0px",
   },
   value: {
     width: "400px !important",
@@ -46,33 +59,41 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   input: {
-    width: "380px",
+    width: "506px",
     height: "10px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-
   },
   input1: {
-    width: "380px",
-    height: "90px",
+    width: "506px",
+    height: "113px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-
   },
 
-  addbtn: {
+  updatebtn: {
     width: "110px",
     height: "34px",
     margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
+    color: "white",
+  },
+
+  deletebtn: {
+    width: "110px",
+    height: "34px",
+    margin: "14px 0px 15px 20px",
+    padding: "6px 19px 3px 20px",
+    borderRadius: "4px",
+    backgroundColor: "Red",
     color: "white",
   },
   subCategory: {
@@ -82,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "10px",
     fontweight: "200",
     border: "none !important",
+    padding: "10px 0px 2px 0px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -131,11 +153,14 @@ export default function FormDialog(props) {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const [error,response] = await utility.parseResponse( UserService.editUserPrivateNote(data));
+    const [error, response] = await utility.parseResponse(
+      UserService.editUserPrivateNote(data)
+    );
     if (error) {
       utility.apiSuccessToast("Error");
-    return}
-    utility.apiSuccessToast("Transaction Edited")
+      return;
+    }
+    utility.apiSuccessToast("Transaction Edited");
   }
   const classes = useStyles();
 
@@ -151,11 +176,11 @@ export default function FormDialog(props) {
   return (
     <div>
       <div onClick={handleClickOpen}>
-        <div color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
+        <button className={classes.btn}>
           <a className="linkTable">
             <span className="tabledata">Edit</span>
           </a>
-        </div>
+        </button>
       </div>
 
       <div>
@@ -165,47 +190,59 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Edit Transaction label
-            </DialogTitle>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Transaction Hash</b>
-            </DialogContentText>
-            <input
-              type="text"
-              className={classes.input}
-              value={TransactionsHash}
-              onChange={(e) => setTransactionsHash(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Transaction Label/Note</b>
-            </DialogContentText>
+          <DialogBox>
+            <Row>
+              <DialogTitle className={classes.heading} id="form-dialog-title">
+                Edit Transaction label
+              </DialogTitle>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Transaction Hash</b>
+              </DialogContentText>
+              <input
+                type="text"
+                className={classes.input}
+                value={TransactionsHash}
+                onChange={(e) => setTransactionsHash(e.target.value)}
+              ></input>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                <b>Transaction Label/Note</b>
+              </DialogContentText>
 
-            <input
-              type="text"
-              className={classes.input1}
-              value={PrivateNote}
-              onChange={(e) => setPrivateNote(e.target.value)}
-            ></input>
-          </DialogContent>
+              <input
+                type="text"
+                className={classes.input1}
+                value={PrivateNote}
+                onChange={(e) => setPrivateNote(e.target.value)}
+              ></input>
+            </DialogContent>
 
-          <DialogActions className={classes.buttons}>
-            <span style={{ color: "white" }}>
-              <button className={classes.cnlbtn} onClick={handleClose}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={editTransactionLable}>
-                Edit
-              </button>
-            </span>
-          </DialogActions>
+            <DialogActions className={classes.buttons}>
+              <div>
+                <span>
+                  <button className={classes.deletebtn}>Delete</button>
+                </span>
+              </div>
+              <div>
+                <span style={{ color: "white" }}>
+                  <button className={classes.cnlbtn} onClick={handleClose}>
+                    Cancel
+                  </button>
+                </span>
+                <span>
+                  <button
+                    className={classes.updatebtn}
+                    onClick={editTransactionLable}
+                  >
+                    Update
+                  </button>
+                </span>
+              </div>
+            </DialogActions>
+          </DialogBox>
         </Dialog>
       </div>
     </div>

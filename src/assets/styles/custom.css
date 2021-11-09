@@ -20,7 +20,7 @@ input[placeholder] {
   text-overflow: ellipsis;
 }
 
-input#password{
+input#password {
   width: 433px;
   height: 40px;
   padding-left: 15px;
@@ -110,7 +110,6 @@ input#password[placeholder] {
   transform: rotate(45deg);
 }
 
-
 html,
 body {
   width: 100%;
@@ -133,7 +132,6 @@ label {
 input:focus {
   border: solid 1px #0099ff;
 }
-
 
 input:focus {
   border: solid 1px #c6c8ce !important;
@@ -8089,6 +8087,9 @@ button {
   .Network-explorer-internal {
     margin-left: 0px !important;
   }
+  .select-td {
+    margin-left: 90px !important;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -8104,7 +8105,6 @@ button {
   .Token-internal {
     margin-top: 0px;
   }
-
   .Shape2-internal {
     margin-top: 0px;
   }
@@ -8674,11 +8674,11 @@ button {
   font-size: 11px;
 }
 .termsLink {
-  color: #2A2A2A;
+  color: #2a2a2a;
   text-decoration: underline;
 }
 .termsLink:hover {
-  color: #2A2A2A;
+  color: #2a2a2a;
   text-decoration: underline;
 }
 .token-details-address-link {

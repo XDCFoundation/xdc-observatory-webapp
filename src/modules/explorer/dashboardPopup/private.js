@@ -29,13 +29,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -63,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     marginBottom: "21px",
-    outline: "none"
+    outline: "none",
   },
 
   addbtn: {
@@ -111,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
+    color: "#2a2a2a",
     fontsize: "14px",
     fontweight: "500",
     border: "none !important",
@@ -137,8 +136,8 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "7px",
     marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    fontfamily: "Inter",
+    fontweight: "600",
   },
   dialogBox: {
     width: "553px",
@@ -146,19 +145,18 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 768px)": {
     dialogBox: {
       maxWidth: "553px",
       width: "100%",
       position: "absolute",
       top: "157px",
-      
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+  },
 }));
 
 export default function FormDialog() {
@@ -215,10 +213,12 @@ export default function FormDialog() {
             src={require("../../../assets/images/private.png")}
           ></img>
         </div>
-        <div className="headingdiv3">Add private tag to an Address</div>
-        <div className="paradiv3">
-          Add a short memo or private tag to the address of interest.
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv3">Add private tag to an address</div>
+          <div className="paradiv3">
+            Add a short memo or private tag to the address of interest
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -233,7 +233,7 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"

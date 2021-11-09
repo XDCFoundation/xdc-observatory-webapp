@@ -7,19 +7,36 @@ import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
+import { NavLink } from "react-router-dom";
 
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 140px;
+  border-radius: 5%;
+  margin-left: 20px;
 `;
 const Contents = styled.div`
-  padding: 10px 40px 10px 20px;
+  padding: 10px 20px 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: left;
   flex-direction: column;
+`;
+
+const Text = styled.button`
+  background: none;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  color: #2a2a2a;
+`;
+
+const Profile = styled.button`
+  background: none;
 `;
 
 export default function BasicPopover(props) {
@@ -38,7 +55,7 @@ export default function BasicPopover(props) {
     setAnchorEl(null);
   };
 
-  const logOut = async() => {
+  const logOut = async () => {
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
@@ -51,17 +68,25 @@ export default function BasicPopover(props) {
 
   return (
     <div>
-      <ProfileContainer onClick={handleClick} Open Popover>
-        <img
-          className="Shape2-internal"
-          src={require("../../../src/assets/images/Profile.svg")}
-        />
-        <Typography style={{ marginTop: "13px" }}>CryptoAlex</Typography>
-        <img
-          style={{ marginTop: "13px" }}
-          src={require("../../../src/assets/images/Dropdown.svg")}
-        ></img>
-      </ProfileContainer>
+      <button
+        style={{
+          background: "none",
+        }}
+      >
+        <ProfileContainer onClick={handleClick} Open Popover>
+          <img
+            className="Shape2-internal"
+            src={require("../../../src/assets/images/Profile.svg")}
+          />
+          <Typography style={{ marginTop: "13px", color: "#ffffff" }}>
+            CryptoAlex
+          </Typography>
+          <img
+            style={{ marginTop: "13px" }}
+            src={require("../../../src/assets/images/Dropdown.svg")}
+          ></img>
+        </ProfileContainer>
+      </button>
       <Popover
         style={{ top: "20px", left: "-40px", borderRadius: "30px" }}
         id={id}
@@ -74,12 +99,10 @@ export default function BasicPopover(props) {
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Typography onClick={props.openChangePassword}>
-            Change Password
-          </Typography>
+          <Text onClick={props.openChangePassword}>Change Password</Text>
         </Contents>
         <Contents>
-          <Typography onClick={() => logOut()}>LogOut</Typography>
+          <Text onClick={() => logOut()}>LogOut</Text>
         </Contents>
       </Popover>
     </div>
