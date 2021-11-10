@@ -18,7 +18,7 @@ function App() {
         if(sessionManager.getDataFromCookies(cookiesConstants.USER_ID)){
             OneSignal.init(
               {
-                appId: process.env.ONE_SIGNAL_APP_ID
+                appId: process.env.REACT_APP_ONE_SIGNAL_APP_ID
               }
             )
             OneSignal.setExternalUserId(sessionManager.getDataFromCookies(cookiesConstants.USER_ID));
