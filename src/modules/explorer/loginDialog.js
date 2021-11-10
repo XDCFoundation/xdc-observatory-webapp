@@ -398,7 +398,12 @@ export default function FormDialog() {
     } else if (captchaCheckbox === false) {
       Utility.apiFailureToast("please verify captcha");
     } else {
-      Utility.apiSuccessToast("Sign-up success, check your email");
+
+      const [error, response] = await Utility.parseResponse(userSignUp.postSignUp(data));
+      if (error || !response) {
+        Utility.apiFailureToast("User already exists");
+      } else {
+        Utility.apiSuccessToast("Sign-up success, check your email");
 
       setOpen(false);
       setTimeout(() => {
@@ -411,7 +416,7 @@ export default function FormDialog() {
       setConfirmPassword("");
       setTermsCheckbox(false);
       setCaptchaCheckbox(false);
-      const response = await userSignUp.postSignUp(data);
+      }
     }
   };
 
