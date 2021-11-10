@@ -265,8 +265,10 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
+
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
+ // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
@@ -292,9 +294,13 @@ export default function SimpleTabs(props) {
     async function getuserdata() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
+      const userName= sessionManager.getDataFromCookies("userInfo");
+      
       const response = await UserService.getUserPrivateNote(data);
+      const responsee = await UserService.getUserPrivateNote(userName);
       setAddress(response);
-      // console.log("tttt", response);
+
+     
     }
 
     getPvtTagAddress();
@@ -456,6 +462,11 @@ export default function SimpleTabs(props) {
     }
     setPrivateAddress(newData);
   };
+  const setUserName=()=>{
+    let name=sessionManager.getDataFromCookies("userInfo")
+    let userName = name.name
+    return userName
+  }
 
   return (
     <div>
@@ -471,7 +482,7 @@ export default function SimpleTabs(props) {
           </span>
           <span>
             <div className="nameicon">
-              <span className="welcome">Welcome, CrytoAlex</span>
+              <span className="welcome">Welcome, {setUserName()}</span>
               <span>
                 <NotificationBar />
               </span>
