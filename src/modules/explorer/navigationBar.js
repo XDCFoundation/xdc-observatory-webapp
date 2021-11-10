@@ -165,7 +165,14 @@ export default function Navbar() {
       filter: selectOptType,
       data: SearchDataInput,
     };
-    BlockChainSearch(requestdata);
+    if(SearchDataInput==="")
+    {
+      return;
+    }
+    else
+    {
+      BlockChainSearch(requestdata);
+    }
   };
   const BlockChainSearch = async (data) => {
     try {
