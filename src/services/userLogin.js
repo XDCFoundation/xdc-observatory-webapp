@@ -1,8 +1,7 @@
-import auth0 from "auth0-js";
+
 import { httpService } from "../utility/httpService";
 import { httpConstants } from "../constants";
-import { sessionManager } from "../managers/sessionManager";
-import { history } from "../managers/history";
+
 
 export default class Auth0Service {
   constructor() {
@@ -173,6 +172,35 @@ export default class Auth0Service {
     // let url = process.env.REACT_APP_AUTH_SERVICE_BASE_URL + "change-password";
     let url =
       "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/change-password";
+    console.log("autheeee", reqObj);
+    return httpService(
+      httpConstants.METHOD_TYPE.POST,
+      { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+      reqObj,
+      url
+    )
+      .then((response) => {
+        if (
+          !response.success ||
+          response.responseCode !== 200 ||
+          !response.responseData ||
+          response.responseData.length === 0
+        )
+          return Promise.reject();
+        console.log("responseeee", response.responseData);
+        return Promise.resolve(response.responseData);
+      })
+      .catch(
+        function (err) {
+          return Promise.reject(err);
+        }
+        // console.log("respposne",response);
+      );
+  }
+  async updateUser(reqObj) {
+    
+    let url =
+      "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/update-user";
     console.log("autheeee", reqObj);
     return httpService(
       httpConstants.METHOD_TYPE.POST,

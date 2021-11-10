@@ -1,3 +1,9 @@
+import utility from "../../utility";
+import Utility from "../../utility";
+import { sessionManager } from "../../managers/sessionManager";
+import AuthService from "../../services/userLogin";
+import AwsService from "../../services/awsService";
+import Utils from "../../utility";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,6 +14,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
+const { extname } = require("path");
 
 const acceptStyle = {
   borderColor: "#00e676",
@@ -52,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   paper: {
-    width: "503px",
-    height: "561px",
+    width: "31.438rem",
+    height: "35.063rem",
     alignSelf: "flex-start",
     margin: "100px auto",
   },
@@ -67,12 +74,11 @@ const useStyles = makeStyles((theme) => ({
   },
   addbtn: {
     width: "100%",
-    maxWidth: "432px",
-    height: "44px",
+    height: "35px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "22px 29px 40px 0px",
+    margin: "10px 10px 20px 10px",
     color: "white",
   },
   subCategory: {
@@ -83,7 +89,6 @@ const useStyles = makeStyles((theme) => ({
     fontweight: "500",
     border: "none !important",
     outline: "none",
-    color: "#2a2a2a",
   },
   forgotpass: {
     color: "#2149b9",
@@ -175,6 +180,67 @@ const Input = styled.div`
 export default function FormDialog() {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
+  const [userName, setUserName] = React.useState("");
+  console.log("valueee", userName);
+  const [uploadFile, setUploadFile] = React.useState("");
+  const [profilePicture, setProfilePicture] = React.useState("");
+  console.log("fileee", uploadFile);
+  const [email, setEmail] = React.useState("");
+  const fileData = (event) => {
+    console.log(event, "Eventee");
+    setUploadFile(event.target.files[0]);
+  };
+  const updateUser = async (url) => {
+    console.log("clicked-------");
+    let userInfo = sessionManager.getDataFromCookies("userId");
+    //  userInfo = JSON.parse(userInfo);
+    console.log(userInfo, "localdata");
+    const reqObj = {
+      name: userName,
+      userId: userInfo,
+      email: email,
+      profilePic: url?url:profilePicture
+    };
+    console.log(reqObj, "reqeee");
+    
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.updateUser(reqObj)
+      );
+      console.log("authresponseeee", authResponse);
+      if (error || !authResponse) {
+        utility.apiFailureToast("failed");
+      } else {
+
+        utility.apiSuccessToast("upadated successfully");
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse.userId, "userId");
+        return authResponse
+      }
+    
+  };
+  
+  const uploadFileToS3 = async () => {
+    let formdata = new FormData();
+    console.log(uploadFile, "filee");
+    formdata.append("file", uploadFile);
+    formdata.append("path", "profilePic");
+    const awsObject = new AwsService();
+    let [error, awsResponse] = await Utility.parseResponse(
+      awsObject.updateUser(formdata)
+    );
+    console.log("awsresponseeee", awsResponse);
+    if (error || !awsResponse) {
+      utility.apiFailureToast(" Upload failed");
+      return false;
+      
+    } else {
+      utility.apiSuccessToast("Pic uploaded successfully");
+      return awsResponse
+    }
+    
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -235,6 +301,8 @@ export default function FormDialog() {
 
   useEffect(
     () => () => {
+      console.log("file", files);
+      console.log("accept", acceptedFiles);
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
@@ -255,6 +323,19 @@ export default function FormDialog() {
   const [usernameDisable, setUsernameUnable] = React.useState(true);
   const [emailDisable, setEmailUnable] = React.useState(true);
 
+  
+
+  const profileUrl=async()=>{
+   let response = await uploadFileToS3()
+   if(!response)
+   return 
+    console.log("url",response[0].url)
+    setProfilePicture(response[0].url)
+    
+    let upadteUser=await updateUser(response[0].url)
+  }
+
+
   return (
     <div>
       <div className={classes.add}>
@@ -271,7 +352,11 @@ export default function FormDialog() {
             aria-labelledby="form-dialog-title"
           >
             <Wrapper>
-              <Title>Edit Profile</Title>
+              <div></div>
+              <Title>
+                Edit Profile
+                
+              </Title>
 
               <Cut onClick={handleClose}>
                 {" "}
@@ -281,9 +366,9 @@ export default function FormDialog() {
                 />{" "}
               </Cut>
             </Wrapper>
-            <AvatarUpload />
+            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} />
 
-            <DialogContent style={{ padding: "0px 35px 0px 35px" }}>
+            <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Username</b>
               </DialogContentText>
@@ -294,6 +379,13 @@ export default function FormDialog() {
                   type="text"
                   id="username"
                   disabled={usernameDisable}
+                  value={userName}
+                  placeholder="change here"
+                  onChange={(e) => {
+                    {
+                      setUserName(e.target.value);
+                    }
+                  }}
                 />
                 <img
                   className="imgcss"
@@ -302,7 +394,7 @@ export default function FormDialog() {
                 />
               </Input>
             </DialogContent>
-            <DialogContent style={{ padding: "0px 35px 0px 35px" }}>
+            <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Email</b>
               </DialogContentText>
@@ -313,7 +405,14 @@ export default function FormDialog() {
                   className="hide-border w-100 inputOutlineNone "
                   type="text"
                   id="email"
+                  value={email}
+                  placeholder="email"
                   disabled={emailDisable}
+                  onChange={(e) => {
+                    {
+                      setEmail(e.target.value);
+                    }
+                  }}
                 />
                 <img
                   className="imgcss"
@@ -325,8 +424,15 @@ export default function FormDialog() {
             <DialogActions>
               <button
                 className={classes.addbtn}
-                onClick={handleLogin}
-                onClick={(event) => (window.location.href = "loginprofile")}
+                onClick={() => {
+                 
+                 profileUrl()
+                  
+
+                  // checkValidationPassword();
+                }}
+                //onClick={handleLogin}
+                //  onClick={(event) => (window.location.href = "loginprofile")}
               >
                 Update Profile{" "}
               </button>
