@@ -199,7 +199,7 @@ export default function FormDialog() {
 
     if (error) {
       
-        utility.apiFailureToast("Error");
+        utility.apiFailureToast("Transaction private note not added");
         return;
       }
       utility.apiSuccessToast("Transaction Added");
