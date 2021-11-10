@@ -206,6 +206,7 @@ export default function AddressDetails(props) {
                             }}
                           />
                         }
+                        lockScroll
                         modal
                       >
                         {(close) => (
