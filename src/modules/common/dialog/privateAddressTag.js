@@ -1,39 +1,20 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles, mergeClasses } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeIcon from "@material-ui/icons/RemoveRedEye";
 import { UserService } from "../../../services";
-// import AccountProfile from "./accountProfile";
-import { NavLink } from "react-router-dom";
 import { history } from "../../../managers/history";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
-  },
-  btn: {
-    textAlign: "start",
-    padding: "0px",
-    border: "none !important",
-    background: "none",
-    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -61,42 +42,20 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     marginBottom: "21px",
-    outline: "none",
+    outline: "none"
   },
-
   addbtn: {
     width: "110px",
     height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
   },
-  // addbtn: {
-  //   width: "110px",
-  // height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  // borderRadius: "4px",
-  // backgroundColor: "#3763dd",
-  // },
-  // cnlbtn: {
-  //   width: "94px",
-  // height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  // borderRadius: "4px",
-  // backgroundColor: "#9fa9ba",
-
-  // },
   cnlbtn: {
     width: "94px",
     height: "34px",
-    // margin: "33px 21px 0 87px",
-    // padding: "8px 19px 7px 21px",
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
@@ -107,9 +66,7 @@ const useStyles = makeStyles((theme) => ({
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
-    // fontWeight: "50px",
     fontfamily: "Inter",
-    color: "#2a2a2a",
     fontsize: "14px",
     fontweight: "500",
     border: "none !important",
@@ -136,8 +93,8 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "7px",
     marginBottom: "7px",
-    fontfamily: "Inter",
-    fontweight: "600",
+      fontfamily: "Inter",
+      fontweight: "600"
   },
   dialogBox: {
     width: "553px",
@@ -145,30 +102,25 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 768px)":{
     dialogBox: {
       maxWidth: "553px",
       width: "100%",
       position: "absolute",
       top: "157px",
+      
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    },
-  },
+    }
+  }
 }));
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
-
-  const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
   const [nameTag, setNameTag] = React.useState(false);
-  const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
-  };
 
   async function TaggedAddress() {
     setOpen(false);
@@ -186,55 +138,21 @@ export default function FormDialog() {
       return;
     }
     utility.apiSuccessToast("Tag Added");
-    window.location.href = "loginprofile";
   }
-  // console.log("address",privateAddress)
-  // console.log("note",nameTag)
 
   const classes = useStyles();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleLogin = () => {
-    history.push("/loginprofile");
-  };
-
   return (
-    <div>
-      <div className="div3" onClick={handleClickOpen}>
-        <div>
-          <img
-            className="imagediv3"
-            src={require("../../../assets/images/private.png")}
-          ></img>
-        </div>
-        <button className={classes.btn}>
-          <div className="headingdiv3">Add private tag to an address</div>
-          <div className="paradiv3">
-            Add a short memo or private tag to the address of interest
-          </div>
-        </button>
-      </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
-
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
+          classes={{paperWidthSm:classes.dialogBox}}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
@@ -243,10 +161,6 @@ export default function FormDialog() {
             <DialogTitle className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
             </DialogTitle>
-            {/* <span onClick={handleClose} className={classes.cross}>
-              {" "}
-              X{" "}
-            </span> */}
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
@@ -259,10 +173,6 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
-              {/* <span  className={classes.forgotpass}>
-              Forgot Password?
-            </span> */}
             </DialogContentText>
 
             <input
@@ -270,14 +180,6 @@ export default function FormDialog() {
               className={classes.input}
               onChange={(e) => setNameTag(e.target.value)}
             ></input>
-            {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
-            {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
-
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
-            fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
           </DialogContent>
           <DialogActions className={classes.buttons}>
             <span>
@@ -291,12 +193,7 @@ export default function FormDialog() {
               </button>
             </span>
           </DialogActions>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
         </Dialog>
       </div>
-    </div>
   );
 }
