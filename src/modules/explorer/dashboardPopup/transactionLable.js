@@ -198,12 +198,15 @@ export default function FormDialog() {
     );
 
     if (error) {
-      utility.apiFailureToast("Error");
-      return;
-    }
-    utility.apiSuccessToast("Transaction Added");
-    setTransactionsHash("");
-    setPrivateNote("");
+      
+        utility.apiFailureToast("Error");
+        return;
+      }
+      utility.apiSuccessToast("Transaction Added");
+      window.location.href = "loginprofile";
+      setTransactionsHash("");
+      setPrivateNote("");
+    
   }
 
   // console.log("hash", TransactionsHash);

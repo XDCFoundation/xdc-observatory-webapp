@@ -19,8 +19,8 @@ export default class Auth0Service {
     )
       .then((response) => {
         if (
-          !response.message ||
-          response.success !== 200 ||
+          !response.success ||
+          response.responseCode !== 200 ||
           !response.responseData ||
           response.responseData.length === 0
         )

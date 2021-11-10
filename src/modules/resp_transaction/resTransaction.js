@@ -14,6 +14,7 @@ import FooterComponent from "../common/footerComponent";
 import { Row, Column } from "simple-flexbox";
 import moment from "moment";
 import Loader from "../../assets/loader";
+import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,11 @@ export default function Transaction({ _handleChange }) {
   const [transactions, setTransactions] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -62,7 +68,7 @@ export default function Transaction({ _handleChange }) {
   }, [amount]);
 
   const transactionDetail = async () => {
-    let urlPath = `/${hash}`;
+    let urlPath = `${hash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
@@ -159,13 +165,10 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Hash ID</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
-                      {hash}
-
-                      <CopyToClipboard
-                        text={hash}
-                        onCopy={() => setCopiedText(hash)}
-                      >
+                    <Content>{hash}
+                    </Content>
+                    <span className="copyEditContainer">
+                      <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
                         <Tooltip
                           title={
                             copiedText === hash ? "Copied" : "Copy To Clipboard"
@@ -177,7 +180,8 @@ export default function Transaction({ _handleChange }) {
                               color: "#2149b9",
                               backgroundColor: "white",
                               fontSize: 14,
-                              marginLeft: 3,
+                              marginLeft: "10px",
+                              marginRight: "5px",
                             }}
                           >
                             <img
@@ -187,7 +191,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                    </Content>
+                      <img className="edit-icon" src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                      </span>
                   </MiddleContainer>
                 </HashDiv>
               </Div>
@@ -246,6 +251,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       {" "}
+                      <span style={{display: "flex"}}>
                       <a
                         className="linkTableDetails-transaction"
                         href={"/address-details/" + transactions.from}
@@ -269,7 +275,8 @@ export default function Transaction({ _handleChange }) {
                               color: "blue",
                               backgroundColor: "white",
                               fontSize: 14,
-                              // marginLeft: "25px",
+                              marginLeft: "10px",
+                              marginRight: "5px",
                             }}
                           >
                             <img
@@ -279,7 +286,10 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
+                      <div className="nameLabel">Alex</div>
+                      </span>
                     </Content>
+                    
                   </MiddleContainer>
                 </SpacingHash>
                 <SpacingHash>
@@ -317,7 +327,8 @@ export default function Transaction({ _handleChange }) {
                               color: "blue",
                               backgroundColor: "white",
                               fontSize: 14,
-                              // marginLeft: "10px",
+                              marginLeft: "10px",
+                              marginRight: "5px",
                             }}
                           >
                             <img
@@ -327,6 +338,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
+                      {open && <PrivateAddressTag/>}
+                      <img className="edit-icon" onClick={handleClickOpen} src={require("../../../src/assets/images/XDC-Edit.svg")} />
                     </Content>
                   </MiddleContainer>
                 </SpacingHash>
@@ -489,6 +502,7 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
+  line-height: 28px;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -616,6 +630,8 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
