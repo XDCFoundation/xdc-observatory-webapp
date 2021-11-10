@@ -356,9 +356,9 @@ export default function FormDialog() {
       // setislogged(true)
     } else {
       console.log("response", authResponse);
-      sessionManager.setDataInCookies(authResponse, "userInfo");
+      sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
-      sessionManager.setDataInCookies(authResponse?.sub, "userId");
+      sessionManager.setDataInCookies(authResponse?.userInfoRes?.sub, "userId");
       setUserName("");
       setEmail("");
       setPassword("");
