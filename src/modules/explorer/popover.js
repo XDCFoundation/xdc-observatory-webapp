@@ -6,6 +6,7 @@ import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
+import { cookiesConstants } from "../../constants";
 import { NavLink } from "react-router-dom";
 
 const ProfileContainer = styled.div`
@@ -59,7 +60,8 @@ export default function BasicPopover(props) {
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
     sessionManager.removeDataFromCookies("isLoggedIn");
-    window.location.href = "/dashboard";
+    sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
+    (window.location.href = "/dashboard")
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
