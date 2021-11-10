@@ -11,7 +11,7 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 140px;
+  width: 115px;
 `;
 const Contents = styled.div`
   padding: 10px 40px 10px 20px;
@@ -54,9 +54,9 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={require("../../../src/assets/images/Profile.svg")}
         />
-        <Typography style={{ marginTop: "13px" }}>CryptoAlex</Typography>
+        <p className="name-internal">CryptoAlex</p>
         <img
-          style={{ marginTop: "13px" }}
+          className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}
         ></img>
       </ProfileContainer>

@@ -62,7 +62,7 @@ const MyResponsiveLine = ({ data }) => (
         reverse: false,
       }}
       yFormat=" >-.2f"
-      curve="basis"
+      curve="monotoneX"
       axisTop={null}
       axisRight={null}
       axisBottom={{
