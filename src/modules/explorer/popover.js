@@ -6,6 +6,8 @@ import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
+import { cookiesConstants } from "../../constants";
+import { NavLink } from "react-router-dom";
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -14,11 +16,25 @@ const ProfileContainer = styled.div`
   width: 115px;
 `;
 const Contents = styled.div`
-  padding: 10px 40px 10px 20px;
+  padding: 10px 20px 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: left;
   flex-direction: column;
+`;
+
+const Text = styled.button`
+  background: none;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  color: #2a2a2a;
+`;
+
+const Profile = styled.button`
+  background: none;
 `;
 
 export default function BasicPopover(props) {
@@ -37,11 +53,12 @@ export default function BasicPopover(props) {
     setAnchorEl(null);
   };
 
-  const logOut = async() => {
+  const logOut = async () => {
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
     sessionManager.removeDataFromCookies("isLoggedIn");
+    sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     (window.location.href = "/dashboard")
   };
   const open = Boolean(anchorEl);
@@ -72,12 +89,10 @@ export default function BasicPopover(props) {
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Typography onClick={props.openChangePassword}>
-            Change Password
-          </Typography>
+          <Text onClick={props.openChangePassword}>Change Password</Text>
         </Contents>
         <Contents>
-          <Typography onClick={() => logOut()}>LogOut</Typography>
+          <Text onClick={() => logOut()}>LogOut</Text>
         </Contents>
       </Popover>
     </div>

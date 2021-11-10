@@ -17,6 +17,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { cookiesConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
+    outline: "none",
   },
 
   addbtn: {
@@ -93,7 +95,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   icon: {
-    marginLeft: "-30px",
+    marginLeft: "-48px",
+    marginBottom: "4px"
   },
   xdc: {
     color: "#2a2a2a",
@@ -103,12 +106,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
   },
   heading: {
-    fontFamily: "Inter",
-    fontWeight: "500",
+    fontWeight: "600",
     marginRight: "auto",
     marginLeft: "auto",
-    marginTop: "4px",
+    marginTop: "22px",
     fontSize: "22px",
+    color: "#2a2a2a",
   },
   paperWidthSm: {
     position: "absolute",
@@ -122,10 +125,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginLeft: "24px",
     marginTop: "20px",
-  },
-  agreeTerms: {
-    color: "#2A2A2A",
-    textDecoration: "underline",
   },
   checkbox: {
     width: "17px",
@@ -161,6 +160,7 @@ const useStyles = makeStyles((theme) => ({
   robotText: {
     marginTop: "24px",
     fontWeight: "bold",
+    marginLeft: "-50px"
   },
   recaptcha: {
     marginTop: "12px",
@@ -195,6 +195,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     letterSpacing: "0.58px",
     color: "#4c4c4c",
+    marginTop: "20px",
     marginBottom: "39px",
   },
   robotContainerForgotPass: {
@@ -355,10 +356,12 @@ export default function FormDialog() {
       Utility.apiFailureToast("Wrong email or password");
       // setislogged(true)
     } else {
-      console.log("response", authResponse)
+      console.log("response", authResponse);
       sessionManager.setDataInCookies(authResponse, "userInfo");
-      sessionManager.setDataInCookies(true, "isLoggedIn",);
+      sessionManager.setDataInCookies(true, "isLoggedIn");
       sessionManager.setDataInCookies(authResponse?.sub, "userId");
+      sessionManager.setDataInCookies(authResponse?.sub, cookiesConstants.USER_ID);
+
       setUserName("");
       setEmail("");
       setPassword("");
@@ -393,18 +396,24 @@ export default function FormDialog() {
       );
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
+    } else if (termsCheckbox === false) {
+      Utility.apiFailureToast("Please agree to the terms and conditions");
+    } else if (captchaCheckbox === false) {
+      Utility.apiFailureToast("please verify captcha");
     } else {
-      toast.success("Sign-up success, check your email", {
-        position: "top-center",
-      });
+      Utility.apiSuccessToast("Sign-up success, check your email");
+
       setOpen(false);
       setTimeout(() => {
         setValue(0);
       }, 1000);
+
       setUserName("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      setTermsCheckbox(false);
+      setCaptchaCheckbox(false);
       const response = await userSignUp.postSignUp(data);
     }
   };
@@ -416,6 +425,8 @@ export default function FormDialog() {
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+    setTermsCheckbox(false);
+    setCaptchaCheckbox(false);
 
     setErrorUserName("");
     setErrorEmail("");
@@ -429,19 +440,44 @@ export default function FormDialog() {
     const reqObj = {
       email: email,
     };
-
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.forgotPassword(email)
-    );
-    if (error || !authResponse) {
-      setEmailError("Please enter a valid email address");
-      Utility.apiFailureToast("Wrong email");
+    if (captchaCheckbox === false) {
+      Utility.apiFailureToast("please verify captcha");
     } else {
-      Utility.apiSuccessToast(
-        "We haveve just sent you an email to reset your password."
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.forgotPassword(email)
       );
-      window.location.href = "/";
+      if (error || !authResponse) {
+        setEmailError("Please enter a valid email address");
+        Utility.apiFailureToast("Wrong email");
+      } else {
+        setEmail("");
+        setCaptchaCheckbox(false);
+        Utility.apiSuccessToast(
+          "We have just sent you an email to reset your password."
+        );
+        window.location.href = "/";
+      }
+    }
+  };
+  //--------------------------------------------------checkbox functionality--------------------------------------------------->
+  const [termsCheckbox, setTermsCheckbox] = React.useState(false);
+  const handleTermsCheckbox = () => {
+    if (termsCheckbox === true) {
+      setTermsCheckbox(false);
+    } else {
+      setTermsCheckbox(true);
+    }
+  };
+
+  const [captchaCheckbox, setCaptchaCheckbox] = React.useState(false);
+  const handleCaptchaCheckbox = () => {
+    if (captchaCheckbox === true) {
+      setCaptchaCheckbox(false);
+      console.log("captcha",captchaCheckbox)
+    } else {
+      setCaptchaCheckbox(true);
+      console.log("captcha",captchaCheckbox)
     }
   };
 
@@ -467,12 +503,9 @@ export default function FormDialog() {
               <div>
                 {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
                 <Row>
-                  <DialogTitle
-                    className={classes.heading}
-                    id="form-dialog-title"
-                  >
+                  <div className={classes.heading} id="form-dialog-title">
                     Log in to your account
-                  </DialogTitle>
+                  </div>
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -517,17 +550,15 @@ export default function FormDialog() {
                   ></input>
                   <span>
                     {passwordShown ? (
-                      <VisibilityIcon
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
                         className={classes.icon}
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
                         onClick={togglePasswordVisiblity}
                       />
                     ) : (
-                      <VisibilityOff
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
                         className={classes.icon}
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
                         onClick={togglePasswordVisiblity}
                       />
                     )}
@@ -562,12 +593,10 @@ export default function FormDialog() {
               <div>
                 {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
                 <Row>
-                  <DialogTitle
-                    className={classes.heading}
-                    id="form-dialog-title"
-                  >
+                  <div className={classes.heading} id="form-dialog-title">
                     Setup a New Account
-                  </DialogTitle>
+                  </div>
+
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -614,7 +643,8 @@ export default function FormDialog() {
                   </DialogContentText>
                   <input
                     type="password"
-                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                    id="password"
+                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
                     // name="password"
@@ -629,7 +659,8 @@ export default function FormDialog() {
                   </DialogContentText>
                   <input
                     type="password"
-                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                    id="password"
+                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     // name="confirmPassword"
@@ -639,23 +670,32 @@ export default function FormDialog() {
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
                 <div className={classes.termsContainer}>
-                  <input className={classes.checkbox} type="checkbox"></input>
+                  <input
+                    className={classes.checkbox}
+                    onClick={handleTermsCheckbox}
+                    type="checkbox"
+                  ></input>
                   <span>
                     I agree to the{" "}
-                    <span href="#" className={classes.agreeTerms}>
+                    <a href="https://www.facebook.com" className="termsLink">
                       Terms and Conditions
-                    </span>
+                    </a>
                   </span>
                 </div>
                 <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
-                    <div className={classes.robotContainer2}>
-                      <input
+                    {/* <div className={classes.robotContainer2}> */}
+                    {/* <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
-                      ></input>
-                      <span className={classes.robotText}>I'm not a robot</span>
-                    </div>
+                        onClick={handleCaptchaCheckbox}
+                      ></input> */}
+                    {/* </div> */}
+                    <label class="container1">
+                      <input type="checkbox"></input>
+                      <span class="checkmark1" onClick={handleCaptchaCheckbox}></span>
+                    </label>
+                    <span className={classes.robotText}>I'm not a robot</span>
                     <img
                       className={classes.recaptcha}
                       src={require("../../../src/assets/images/recaptcha.svg")}
@@ -685,12 +725,9 @@ export default function FormDialog() {
               // <------------------------------------------Forgot Password------------------------------------------------->
               <div>
                 <Row>
-                  <DialogTitle
-                    className={classes.heading}
-                    id="form-dialog-title"
-                  >
+                  <div className={classes.heading} id="form-dialog-title">
                     Forgot Password
-                  </DialogTitle>
+                  </div>
                   <span
                     onClick={handleClose}
                     className={classes.closeContainer}
@@ -724,13 +761,19 @@ export default function FormDialog() {
 
                 <div className={classes.robotContainerForgotPass}>
                   <div className={classes.robotContainer1}>
-                    <div className={classes.robotContainer2}>
+                    {/* <div className={classes.robotContainer2}>
                       <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
+                        onClick={handleCaptchaCheckbox}
                       ></input>
                       <span className={classes.robotText}>I'm not a robot</span>
-                    </div>
+                    </div> */}
+                    <label class="container1">
+                      <input type="checkbox"></input>
+                      <span class="checkmark1" onClick={handleCaptchaCheckbox}></span>
+                    </label>
+                    <span className={classes.robotText}>I'm not a robot</span>
                     <img
                       className={classes.recaptcha}
                       src={require("../../../src/assets/images/recaptcha.svg")}
