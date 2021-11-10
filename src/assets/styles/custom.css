@@ -2120,7 +2120,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #2a2a2a;
+  color: #2a2a2a !important;
 }
 
 .side-box {
@@ -2560,6 +2560,7 @@ p {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .verify-contract-first-div-text {
+    margin-left: 10px !important;
     margin: 15px;
     font-family: Inter;
     font-size: 14px;
@@ -3399,6 +3400,7 @@ body {
 #container-table th {
   padding: 15px;
   padding-top: 25px;
+  font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -5355,7 +5357,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0.5px;
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -7268,11 +7270,14 @@ button {
   }
 
   .verify-contract-first-div {
-    margin-left: 15px;
     font-size: 0.875rem;
+    margin-left: 10px;
+    margin-top: 20px;
   }
   .textarea-verify-contract {
     height: 8.8125rem;
+    line-height: 17px !important;
+    padding-left: 0px !important;
   }
 
   .vc-tab-all {
@@ -7357,9 +7362,9 @@ button {
     margin-left: 1rem;
   }
   .block_sec_contract {
-    width: 22rem;
+    width: 22.5625rem;
     height: 2.188rem;
-    margin-left: 1rem;
+    margin: 0 auto;
   }
   #transaction-btn {
     width: 10.5rem;
@@ -7388,9 +7393,9 @@ button {
     padding: 0 11px 0 2px !important;
   }
   .cont-tab-contract {
-    width: 22.563rem !important;
+    width: 22.5625rem !important;
     flex-direction: column !important;
-    padding: 0 11px 0 2px !important;
+    padding: 0px !important;
   }
   .csvDownloadParent {
     display: flex;
