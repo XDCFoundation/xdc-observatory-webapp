@@ -228,6 +228,7 @@ export default function FormDialog() {
       return;
     }
     utility.apiSuccessToast("Address added to watchlist");
+    window.location.href = "loginprofile";
     setAddress("");
     setDescription("");
   };

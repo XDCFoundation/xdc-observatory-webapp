@@ -149,20 +149,6 @@ export default function FormDialog() {
   };
 
   return (
-    <div>
-      <div className="div3" onClick={handleClickOpen}>
-        <div>
-          <img
-            className="imagediv3"
-            src={require("../../../assets/images/private.png")}
-          ></img>
-        </div>
-        <div className="headingdiv3">Add private tag to an Address</div>
-        <div className="paradiv3">
-          Add a short memo or private tag to the address of interest.
-        </div>
-      </div>
-
       <div>
         <Dialog
           className={classes.dialog}
@@ -209,6 +195,5 @@ export default function FormDialog() {
           </DialogActions>
         </Dialog>
       </div>
-    </div>
   );
 }

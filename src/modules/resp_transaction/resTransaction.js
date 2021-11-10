@@ -14,6 +14,7 @@ import FooterComponent from "../common/footerComponent";
 import { Row, Column } from "simple-flexbox";
 import moment from "moment";
 import Loader from "../../assets/loader";
+import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,13 +57,18 @@ export default function Transaction({ _handleChange }) {
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
   const [isLoading, setLoading] = useState(true)
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   useEffect(() => {
     transactionDetail();
   }, [amount]);
 
   const transactionDetail = async () => {
-    let urlPath = `/${hash}`;
+    let urlPath = `${hash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
@@ -332,7 +338,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      <img className="edit-icon" src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                      {open && <PrivateAddressTag/>}
+                      <img className="edit-icon" onClick={handleClickOpen} src={require("../../../src/assets/images/XDC-Edit.svg")} />
                     </Content>
                   </MiddleContainer>
                 </SpacingHash>
