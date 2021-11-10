@@ -46,6 +46,11 @@ export default function BasicPopover(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const setUserName=()=>{
+    let name=sessionManager.getDataFromCookies("userInfo")
+    let userName = name.name
+    return userName
+  }                        
 
   return (
     <div>
@@ -54,7 +59,7 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={require("../../../src/assets/images/Profile.svg")}
         />
-        <Typography style={{ marginTop: "13px" }}>CryptoAlex</Typography>
+        <Typography style={{ marginTop: "13px" }}>{setUserName()}</Typography>
         <img
           style={{ marginTop: "13px" }}
           src={require("../../../src/assets/images/Dropdown.svg")}

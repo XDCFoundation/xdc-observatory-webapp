@@ -220,8 +220,10 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
+
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
+ // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
@@ -247,9 +249,13 @@ export default function SimpleTabs(props) {
     async function getuserdata() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
+      const userName= sessionManager.getDataFromCookies("userInfo");
+      
       const response = await UserService.getUserPrivateNote(data);
+      const responsee = await UserService.getUserPrivateNote(userName);
       setAddress(response);
-      // console.log("tttt", response);
+
+     
     }
 
     getPvtTagAddress();
@@ -261,7 +267,43 @@ export default function SimpleTabs(props) {
     }
   }, []);
 
-  // const [search, setSearch] = React.useState("");
+  const [search, setSearch] = React.useState("");
+  async function searchData() {
+    if (value === 0) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["description","address"],
+        search: value.toString(),
+      };
+      const response = await UserService.Search(data);
+      
+      console.log("value",response)
+      setWatchlist(response);
+    }
+    if (value === 1) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["transactionHash", "trxLable"],
+        search:value.toString(),
+      };
+      const response = await UserService.Search(data);
+      console.log("value",response)
+      setAddress(response);
+    }
+    if (value === 2) {
+      const data = {
+        userId: sessionManager.getDataFromCookies("userId"),
+        searchValue: search,
+        searchKeys: ["address", "tagName"],
+        search: value.toString(),
+      };
+      const response = await UserService.Search(data);
+      console.log("value",response)
+      setPrivateAddress(response);
+    }
+  }
 
   // const filteredProducts = address.filter((product) => {
   //   if (
@@ -315,6 +357,11 @@ export default function SimpleTabs(props) {
     }
     setPrivateAddress(newData);
   };
+  const setUserName=()=>{
+    let name=sessionManager.getDataFromCookies("userInfo")
+    let userName = name.name
+    return userName
+  }
 
   return (
     <div>
@@ -330,7 +377,7 @@ export default function SimpleTabs(props) {
           </span>
           <span>
             <div className="nameicon">
-              <span className="welcome">Welcome, CrytoAlex</span>
+              <span className="welcome">Welcome, {setUserName()}</span>
               <span>
                 <NotificationBar />
               </span>
@@ -392,11 +439,13 @@ export default function SimpleTabs(props) {
               <input
                 type="text"
                 placeholder="Search"
+                
                 className="searchinput"
+                onClick={searchData}
 
-                // onChange={(e) => {
-                //     setSearch(e.target.value.toLowerCase());
-                //   }}
+                onChange={(e) => {
+                    setSearch(e.target.value.toLowerCase());
+                  }}
               />
             </div>
 

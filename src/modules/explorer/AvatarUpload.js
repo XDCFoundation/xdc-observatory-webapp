@@ -49,7 +49,8 @@ const BigAvatar = styled(MuiAvatar)`
   box-shadow: 0 0 1px 0 ${grey[500]} inset, 0 0 1px 0 ${grey[500]};
 `;
 
-const AvatarUpload = () => {
+const AvatarUpload = (props) => {
+  console.log(props,"propseee")
   const classes = useStyles();
 
   const [image, _setImage] = useState(null);
@@ -72,6 +73,7 @@ const AvatarUpload = () => {
 
     if (newImage) {
       setImage(URL.createObjectURL(newImage));
+      props.filedata(event)
     }
   };
 
