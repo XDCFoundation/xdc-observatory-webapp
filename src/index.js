@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './routes';
 import store from './store.js';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './assets/styles/custom.css';
+import {sessionManager} from "./managers/sessionManager";
+import { cookiesConstants } from './constants';
 
+window.OneSignal = window.OneSignal || [];
+const OneSignal = window.OneSignal;
 
 function App() {
-
+  
+    useEffect (()=>{
+        OneSignal.push(()=> {
+        if(sessionManager.getDataFromCookies(cookiesConstants.USER_ID)){
+            OneSignal.init(
+              {
+                appId: process.env.REACT_APP_ONE_SIGNAL_APP_ID
+              }
+            )
+            OneSignal.setExternalUserId(sessionManager.getDataFromCookies(cookiesConstants.USER_ID));
+    }  
+        }) 
+    })
     return (
         <BrowserRouter>
             <Provider store={store}>

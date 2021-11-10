@@ -30,13 +30,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   cnlbtn: {
     width: "94px",
@@ -51,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-padding: "10px 35px 20px 0px"
+    padding: "10px 35px 20px 0px",
   },
   value: {
     width: "400px !important",
@@ -83,9 +81,9 @@ padding: "10px 35px 20px 0px"
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
-    outline:"none",
+    outline: "none",
     padding: "20px",
-    marginBottom: "21px"
+    marginBottom: "21px",
   },
   input1: {
     width: "503px",
@@ -94,7 +92,7 @@ padding: "10px 35px 20px 0px"
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    outline: "none"
+    outline: "none",
   },
 
   // input1: {
@@ -125,6 +123,7 @@ padding: "10px 35px 20px 0px"
     fontfamily: "Inter",
     fontsize: "10px",
     fontweight: "200",
+    color: "#2a2a2a",
     border: "none !important",
   },
   forgotpass: {
@@ -149,8 +148,8 @@ padding: "10px 35px 20px 0px"
   heading: {
     marginTop: "7px",
     marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    fontfamily: "Inter",
+    fontweight: "600",
   },
   dialogBox: {
     width: "553px",
@@ -158,13 +157,12 @@ padding: "10px 35px 20px 0px"
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 768px)": {
     dialogBox: {
       maxWidth: "553px",
       width: "100%",
       position: "absolute",
       top: "157px",
-      
     },
     input: {
       maxWidth: "503px",
@@ -173,8 +171,8 @@ padding: "10px 35px 20px 0px"
     input1: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+  },
 }));
 
 export default function FormDialog() {
@@ -194,17 +192,18 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    console.log("data",data)
+    console.log("data", data);
     const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
 
     if (error) {
       
-        utility.apiFailureToast("Error");
+        utility.apiFailureToast("Transaction private note not added");
         return;
       }
       utility.apiSuccessToast("Transaction Added");
+      window.location.href = "loginprofile";
       setTransactionsHash("");
       setPrivateNote("");
     
@@ -236,10 +235,12 @@ export default function FormDialog() {
             src={require("../../../assets/images/transaction.png")}
           ></img>
         </div>
-        <div className="headingdiv2">Add Transaction label</div>
-        <div className="paradiv2">
-          Add a personal note to transacton hash to track it in future
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv2">Add transaction private note</div>
+          <div className="paradiv2">
+            Add a personal note to transacton hash to track it in future
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -255,7 +256,7 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
