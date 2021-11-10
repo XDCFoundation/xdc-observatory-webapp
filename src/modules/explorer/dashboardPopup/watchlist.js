@@ -25,7 +25,6 @@ import FormLabel from "@material-ui/core/FormLabel";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
 
-
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -36,13 +35,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -51,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
     // lineHeight: "-100px !important",
     // backgoundColor: "red",
     marginTop: "4px",
-},
-  radio :{
+  },
+  radio: {
     // backgroundColor: "blue",
   },
   cross: {
@@ -77,11 +74,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
     outline: "none",
-
   },
 
-
-    // addbtn: {
+  // addbtn: {
   //   width: "110px",
   // height: "34px",
   // margin: "33px 0 0 21px",
@@ -124,14 +119,15 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "15px 35px 20px 0px"
-      },
+    padding: "15px 35px 20px 0px",
+  },
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
+    color: "#2a2a2a",
     fontweight: "500",
     border: "none !important",
   },
@@ -155,10 +151,10 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-      marginTop: "7px",
-      marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginTop: "7px",
+    marginBottom: "7px",
+    fontfamily: "Inter",
+    fontweight: "600",
   },
   dialogBox: {
     width: "553px",
@@ -166,29 +162,31 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 768px)": {
     dialogBox: {
       maxWidth: "553px",
       width: "100%",
       position: "absolute",
       top: "157px",
-      
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+  },
 }));
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
   const [address, setAddress] = React.useState("");
+
   const [description, setDescription] = React.useState("");
 
+  const [notification, setNotification] = React.useState(false);
+
   const [passwordShown, setPasswordShown] = React.useState(false);
- 
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
@@ -210,17 +208,30 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-      // history.push("/loginprofile")
+    // history.push("/loginprofile")
   };
 
   const watchListService = async () => {
     const request = {
-      UserId: sessionManager.getDataFromCookies("userId"),
+      userId: sessionManager.getDataFromCookies("userId"),
       address: address,
       description: description,
+      type: value,
+      isEnabled: true,
     };
-    const response = AddWatchList.addWatchlist(request);
+    if (value === "NO") request["isEnabled"] = false;
+
+    const [error, response] = await utility.parseResponse(
+      AddWatchList.addWatchlist(request)
+    );
+
+    if (error) {
+      utility.apiFailureToast("Error");
+      return;
+    }
     utility.apiSuccessToast("Address added to watchlist");
+    setAddress("");
+    setDescription("");
   };
 
   return (
@@ -245,11 +256,13 @@ export default function FormDialog() {
             src={require("../../../assets/images/watchlist.png")}
           ></img>
         </div>
-        <div className="headingdiv1">Create Watchlist</div>
-        <div className="paradiv1">
-          An Email notification can be sent to you when an address on your
-          watchlist recieves an incoming notifications
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv1">Create Watchlist</div>
+          <div className="paradiv1">
+            An Email notification can be sent to you when an address on your
+            watchlist recieves an incoming notifications
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -264,21 +277,21 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new address to your watchlist
+              Add a New Address to your Watchlist
             </DialogTitle>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
               <b>Address</b>
             </DialogContentText>
-            <input 
+            <input
               className={classes.input}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
@@ -287,7 +300,7 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Description</b>
               {/* <span  className={classes.forgotpass}>
-              Forgot Password?
+              Forgot ?
             </span> */}
             </DialogContentText>
 
@@ -327,37 +340,39 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
             >
               {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
               <RadioGroup
-                aria-label="gender"
-                name="gender1"
                 className={classes.radio}
                 style={{ margin: "-5px 28px -3px -10px" }}
                 value={value}
                 onChange={handleChange}
               >
                 <FormControlLabel
-                  value="female"
+                  value="NO"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "5px 2px -5px -5px" }}
                   label="No Notifications"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
-                  value="male"
+                  value="INOUT"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Incoming & Outgoing Txns"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
-                  value="other"
+                  value="IN"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Incoming (Recieve) Txns Only"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
-                  value="disabled"
+                  value="OUT"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Outgoing (Sent) Txns Only"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
               </RadioGroup>
             </FormControl>
