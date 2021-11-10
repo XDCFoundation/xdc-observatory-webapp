@@ -35,9 +35,6 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: '11.4375rem !important',
-    },
-    toolBar:{
-      width: '98%'
     }
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
@@ -659,7 +656,7 @@ export default function Navbar() {
         className={clsx(classes.appBar)}
       >
         <Toolbar
-        className={clsx(classes.toolBar)}>
+          className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
             <div className="mobile-navbartab">
