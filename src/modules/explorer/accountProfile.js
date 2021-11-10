@@ -30,8 +30,43 @@ import NotificationBar from "./NotificationBar";
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
+import ReactPaginate from "react-paginate";
+import styled from "styled-components";
+import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 
+const PaginationDiv = styled.div`
+  margin-left: auto;
+  margin-right: 0;
+  & .paginationBttns {
+    list-style: none;
+    display: flex;
+    max-width: 1450px;
+    min-width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+  & .paginationBttns a {
+    padding: 7px;
+    font-size: 10px;
+    margin: 6px;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    color: skyblue;
+    cursor: pointer;
+  }
+  & .paginationActive a {
+    color: white !important;
+    background: #009fe0;
+  }
+  & .next a {
+    border: none;
+  }
+  & .previous a {
+    border: none;
+  }
+`;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -213,6 +248,13 @@ const useStyles = makeStyles((theme) => ({
       color: "#6b7482",
     },
   },
+  btn: {
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
 }));
 
 export default function SimpleTabs(props) {
@@ -229,9 +271,9 @@ export default function SimpleTabs(props) {
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
 
-  const { state } = props;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState(0);
   const [nameToggle, setNameToggle] = React.useState(0);
@@ -241,7 +283,7 @@ export default function SimpleTabs(props) {
     async function getUserWatchlist() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-      console.log("userId",data)
+      console.log("userId", data);
 
       const response = await UserService.getUserWatchlist(data);
       setWatchlist(response);
@@ -316,14 +358,66 @@ export default function SimpleTabs(props) {
     setValue(newValue);
   };
 
+  const [list, setList] = React.useState({});
+  const [totalCount, setTotalCount] = React.useState(5);
+
+  const onChangeWatchlistPage = async (value) => {
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfWatchlist({ skip: list, limit: "5" });
+  };
+
+  const onChangeTxnLabelPage = async (value) => {
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfTxnLabel({ skip: list, limit: "5" });
+  };
+
+  const onChangeTagAddressPage = async (value) => {
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfTagAddress({ skip: list, limit: "5" });
+  };
+
+  const getListOfWatchlist = async (requestData) => {
+    const request = {
+      limit: requestData.limit,
+      skip: requestData.skip,
+    };
+    const response = await UserService.getWatchlistList(request);
+    setWatchlist(response.watchlistContent);
+    setTotalCount(response.totalCount);
+  };
+
+  const getListOfTxnLabel = async (requestData) => {
+    const request = {
+      limit: requestData.limit,
+      skip: requestData.skip,
+    };
+    const response = await UserService.getTxnLabelList(request);
+    setAddress(response.txnLabelContent);
+    setTotalCount(response.totalCount);
+  };
+
+  const getListOfTagAddress = async (requestData) => {
+    const request = {
+      limit: requestData.limit,
+      skip: requestData.skip,
+    };
+    const response = await UserService.getTagAddresstList(request);
+    setPrivateAddress(response.tagAddressContent);
+    setTotalCount(response.totalCount);
+  };
+
   const sortByAddedOn = () => {
     let oldData = address;
     let newData;
     if (addedOnToggle === 0) {
-      newData = oldData.sort((index1, index2) => index2?.addedOn - index1?.addedOn);
+      newData = oldData.sort(
+        (index1, index2) => index2?.addedOn - index1?.addedOn
+      );
       setAddedOnToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) => index1?.addedOn - index2?.addedOn);
+      newData = oldData.sort(
+        (index1, index2) => index1?.addedOn - index2?.addedOn
+      );
       setAddedOnToggle(0);
     }
     setAddress(newData);
@@ -333,10 +427,14 @@ export default function SimpleTabs(props) {
     let oldData = watchlist;
     let newData;
     if (balanceToggle === 0) {
-      newData = oldData.sort((index1, index2) => index1?.balance - index2?.balance);
+      newData = oldData.sort(
+        (index1, index2) => index1?.balance - index2?.balance
+      );
       setBalanceToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) => index2?.balance - index1?.balance);
+      newData = oldData.sort(
+        (index1, index2) => index2?.balance - index1?.balance
+      );
       setBalanceToggle(0);
     }
     setWatchlist(newData);
@@ -346,10 +444,14 @@ export default function SimpleTabs(props) {
     let oldData = privateAddress;
     let newData;
     if (nameToggle === 0) {
-      newData = oldData.sort((index1, index2) => index1.tagName.localeCompare(index2.tagName));
+      newData = oldData.sort((index1, index2) =>
+        index1.tagName.localeCompare(index2.tagName)
+      );
       setNameToggle(1);
     } else {
-      newData = oldData.sort((index1, index2) => index2.tagName.localeCompare(index1.tagName));
+      newData = oldData.sort((index1, index2) =>
+        index2.tagName.localeCompare(index1.tagName)
+      );
       setNameToggle(0);
     }
     setPrivateAddress(newData);
@@ -492,7 +594,6 @@ export default function SimpleTabs(props) {
                                   return d;
                                 })
                               );
-                              // let checked = e.target.checked;
                               exportAddress(e.row);
                               handleToggle(checked);
                             }}
@@ -513,7 +614,7 @@ export default function SimpleTabs(props) {
                           align="left"
                         >
                           <span className={"tableheaders"}>Balance</span>
-                          <span>
+                          <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByBalance}
                               style={{
@@ -523,13 +624,13 @@ export default function SimpleTabs(props) {
                                 marginLeft: "5px",
                               }}
                             />
-                          </span>
+                          </button>
                         </TableCell>
                         <TableCell
                           style={{ border: "none" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}>AddedOn</span>
+                          <span className={"tableheaders"}>Added On</span>
                         </TableCell>
                         <TableCell
                           style={{ border: "none" }}
@@ -547,8 +648,6 @@ export default function SimpleTabs(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {/* {filteredProducts.map((product)=>{ */}
-
                       {watchlist.map((row, index) => {
                         return (
                           <TableRow
@@ -637,7 +736,7 @@ export default function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditWatchList />
+                              <EditWatchList row={row} />
                             </TableCell>
                           </TableRow>
                         );
@@ -647,6 +746,19 @@ export default function SimpleTabs(props) {
                 </Grid>
               </Grid>
             </div>
+            <PaginationDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={totalCount / 5}
+                breakLabel={"..."}
+                initialPage={0}
+                onPageChange={onChangeWatchlistPage}
+                containerClassName={"paginationBttns"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </PaginationDiv>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
@@ -681,10 +793,11 @@ export default function SimpleTabs(props) {
                               setAddress(
                                 address.map((d) => {
                                   d.select = checked;
-
                                   return d;
                                 })
                               );
+                              exportAddress(e.row);
+                              handleToggle(checked);
                             }}
                             style={{
                               marginRight: "10px",
@@ -710,8 +823,9 @@ export default function SimpleTabs(props) {
                           style={{ border: "none" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}>AddedOn</span>
-                          <span>
+                          <span className={"tableheaders"}>Added On</span>
+                          {/* <span> */}
+                          <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByAddedOn}
                               style={{
@@ -721,7 +835,8 @@ export default function SimpleTabs(props) {
                                 marginLeft: "5px",
                               }}
                             />
-                          </span>
+                          </button>
+                          {/* </span> */}
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
@@ -778,7 +893,7 @@ export default function SimpleTabs(props) {
                               <input
                                 onChange={(event) => {
                                   let checked = event.target.checked;
-                                  exportAddress(row);
+                                  exportAddress(event.row);
                                   handleToggle(checked);
                                 }}
                                 type="checkbox"
@@ -830,6 +945,19 @@ export default function SimpleTabs(props) {
                 </Grid>
               </Grid>
             </div>
+            <PaginationDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={totalCount / 5}
+                breakLabel={"..."}
+                initialPage={0}
+                onPageChange={onChangeTxnLabelPage}
+                containerClassName={"paginationBttns"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </PaginationDiv>
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
@@ -867,6 +995,9 @@ export default function SimpleTabs(props) {
                                   return d;
                                 })
                               );
+
+                              exportAddress(e.row);
+                              handleToggle(checked);
                             }}
                             style={{
                               marginRight: "10px",
@@ -879,7 +1010,7 @@ export default function SimpleTabs(props) {
                           align="left"
                         >
                           <span className={"tableheaders"}>Name Tag</span>
-                          <span>
+                          <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByTagName}
                               style={{
@@ -889,7 +1020,7 @@ export default function SimpleTabs(props) {
                                 marginLeft: "5px",
                               }}
                             />
-                          </span>
+                          </button>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
@@ -901,7 +1032,7 @@ export default function SimpleTabs(props) {
                           style={{ border: "none"}}
                           align="left"
                         >
-                          <span className={"tableheaders"}>AddedOn</span>
+                          <span className={"tableheaders"}>Added On</span>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
@@ -990,7 +1121,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTagAddress />
+                              <EditTagAddress row={row} />
                             </TableCell>
                           </TableRow>
                         );
@@ -1000,6 +1131,19 @@ export default function SimpleTabs(props) {
                 </Grid>
               </Grid>
             </div>
+            <PaginationDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={totalCount / 5}
+                breakLabel={"..."}
+                initialPage={0}
+                onPageChange={onChangeTagAddressPage}
+                containerClassName={"paginationBttns"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </PaginationDiv>
           </TabPanel>
         </div>
 

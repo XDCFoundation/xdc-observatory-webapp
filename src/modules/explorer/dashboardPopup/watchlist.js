@@ -35,13 +35,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -129,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     // fontWeight: "50px",
     fontfamily: "Inter",
     fontsize: "14px",
+    color: "#2a2a2a",
     fontweight: "500",
     border: "none !important",
   },
@@ -181,7 +180,10 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
   const [address, setAddress] = React.useState("");
+
   const [description, setDescription] = React.useState("");
+
+  const [notification, setNotification] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
 
@@ -255,11 +257,13 @@ export default function FormDialog() {
             src={require("../../../assets/images/watchlist.png")}
           ></img>
         </div>
-        <div className="headingdiv1">Create watchlist</div>
-        <div className="paradiv1">
-          An Email notification can be sent to you when an address on your
-          watchlist recieves an incoming notifications.
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv1">Create Watchlist</div>
+          <div className="paradiv1">
+            An Email notification can be sent to you when an address on your
+            watchlist recieves an incoming notifications
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -281,7 +285,7 @@ export default function FormDialog() {
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new address to your watchlist
+              Add a New Address to your Watchlist
             </DialogTitle>
           </Row>
           <DialogContent>
@@ -297,7 +301,7 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Description</b>
               {/* <span  className={classes.forgotpass}>
-              Forgot Password?
+              Forgot ?
             </span> */}
             </DialogContentText>
 
@@ -337,8 +341,6 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
             >
               {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
               <RadioGroup
-                aria-label="gender"
-                name="gender1"
                 className={classes.radio}
                 style={{ margin: "-5px 28px -3px -10px" }}
                 value={value}
@@ -349,18 +351,21 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "5px 2px -5px -5px" }}
                   label="No Notifications"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
                   value="INOUT"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Incoming & Outgoing Txns"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
                   value="IN"
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Incoming (Recieve) Txns Only"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
@@ -368,6 +373,7 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
                   control={<Radio style={{ color: "#2149b9" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   label="Notify on Outgoing (Sent) Txns Only"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
               </RadioGroup>
             </FormControl>

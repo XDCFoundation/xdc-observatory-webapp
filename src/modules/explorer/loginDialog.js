@@ -17,6 +17,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { cookiesConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {

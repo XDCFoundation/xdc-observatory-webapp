@@ -114,20 +114,23 @@ export default function TemporaryDrawer() {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+          <Button
+            onClick={toggleDrawer(anchor, true)}
+            style={{ padding: "0px", background: "none" }}
+          >
             <img
               className="noticon"
               src={require("../../assets/images/notification.png")}
             ></img>
+            <Drawer
+              classes={{ paper: classes.paper }}
+              anchor={anchor}
+              open={state[anchor]}
+              // onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
           </Button>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            anchor={anchor}
-            open={state[anchor]}
-            // onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
         </React.Fragment>
       ))}
     </div>
