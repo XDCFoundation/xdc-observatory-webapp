@@ -110,7 +110,6 @@ input#password[placeholder] {
   transform: rotate(45deg);
 }
 
-
 html,
 body {
   width: 100%;
@@ -7930,6 +7929,10 @@ button {
   }
 }
 .copy-icon {
+  width: 25px;
+  height: 25px;
+}
+.edit-icon {
   width: 20px;
   height: 20px;
 }

@@ -162,8 +162,8 @@ export default function Transaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>{hash}
-
-
+                    </Content>
+                    <span className="copyEditContainer">
                       <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
                         <Tooltip
                           title={copiedText === hash ? "Copied" : "Copy To Clipboard"}
@@ -174,7 +174,8 @@ export default function Transaction({ _handleChange }) {
                               color: "#2149b9",
                               backgroundColor: "white",
                               fontSize: 14,
-                              marginLeft: 3
+                              marginLeft: "10px",
+                              marginRight: "5px",
                             }}
                           >
                             <img
@@ -184,7 +185,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                    </Content>
+                      <img className="edit-icon" src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                      </span>
                   </MiddleContainer>
                 </HashDiv>
               </Div>
@@ -243,6 +245,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content >
                       {" "}
+                      <span style={{display: "flex"}}>
                       <a
                         className="linkTableDetails-transaction"
                         href={"/address-details/" + transactions.from}
@@ -266,7 +269,8 @@ export default function Transaction({ _handleChange }) {
                               color: "blue",
                               backgroundColor: "white",
                               fontSize: 14,
-                              // marginLeft: "25px",
+                              marginLeft: "10px",
+                              marginRight: "5px",
                             }}
                           >
                             <img
@@ -276,7 +280,10 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
+                      <div className="nameLabel">Alex</div>
+                      </span>
                     </Content>
+                    
                   </MiddleContainer>
                 </SpacingHash>
                 <SpacingHash>
@@ -314,7 +321,8 @@ export default function Transaction({ _handleChange }) {
                               color: "blue",
                               backgroundColor: "white",
                               fontSize: 14,
-                              // marginLeft: "10px",
+                              marginLeft: "10px",
+                              marginRight: "5px",
                             }}
                           >
                             <img
@@ -324,6 +332,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
+                      <img className="edit-icon" src={require("../../../src/assets/images/XDC-Edit.svg")} />
                     </Content>
                   </MiddleContainer>
                 </SpacingHash>
@@ -482,6 +491,7 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
+  line-height: 28px;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size:0.875rem;
     word-break: break-all;
@@ -610,6 +620,8 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size:0.875rem;
     word-break: break-all;
