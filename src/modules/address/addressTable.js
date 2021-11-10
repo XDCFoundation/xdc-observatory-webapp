@@ -54,7 +54,7 @@ function timeDiff(curr, prev) {
   }
 }
 
-const useStyles = ({
+const useStyles = makeStyles({
   container: {
     borderRadius: '0.875rem',
     boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
@@ -64,7 +64,7 @@ const useStyles = ({
 })
 export default function AddressTableComponent(props) {
   const { state } = props
-  const classes = useStyles();
+  const classes = useStyles()
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
       b.length - 3,
@@ -452,10 +452,10 @@ export default function AddressTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked == true)
+                      //     .length == address.length
+                      // }
                       style={{ marginRight: '0.5rem' }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>

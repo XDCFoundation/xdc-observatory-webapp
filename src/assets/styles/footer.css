@@ -60,7 +60,7 @@ label {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .footer-line {
-    width: 23.438rem;
+    width: 22rem;
     height: 3.75rem;
     margin: auto;
   }
@@ -302,8 +302,15 @@ a:hover {
     height: 1.238rem;
     width: 1.238rem;
   }
+  /* .MuiPopover-paper {
+    left: 295px !important;
+  } */
 }
-
+/* @media (min-width: 1240px) {
+  .MuiPopover-paper {
+    left: 78px !important;
+  }
+} */
 .Top-Header {
   margin-top: -15px;
   font-size: 10px;
