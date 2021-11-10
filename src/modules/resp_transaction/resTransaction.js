@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginTop: "90px",
     marginLeft: "auto",
-    marginBottom: "auto",
+    marginBottom: "-39px",
 
     width: "100%",
     "@media (min-width: 0px) and (max-width: 767px)": {

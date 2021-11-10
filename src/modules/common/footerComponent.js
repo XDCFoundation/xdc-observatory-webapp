@@ -129,11 +129,11 @@ export default function FooterComponent(props) {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "left",
+                      horizontal: "center",
                     },
                     transformOrigin: {
                       vertical: "top",
-                      horizontal: "left",
+                      horizontal: "center",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -142,16 +142,6 @@ export default function FooterComponent(props) {
                   <MenuItem
                     value="USD"
                     selected="selected"
-                    anchorReference="anchorPosition"
-                    anchorPosition={{ top: 435, left: 600 }}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
                     style={{
                       outline: "0",
                       backgroundColor: "#2149b9",
@@ -166,16 +156,6 @@ export default function FooterComponent(props) {
                   </MenuItem>
                   <MenuItem
                     value="EUR"
-                    anchorReference="anchorPosition"
-                    anchorPosition={{ top: 435, left: 600 }}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
                     style={{
                       outline: "0",
                       backgroundColor: "#2149b9",
@@ -186,16 +166,7 @@ export default function FooterComponent(props) {
                   </MenuItem>
                   <MenuItem
                     value="INR"
-                    anchorReference="anchorPosition"
-                    anchorPosition={{ top: 435, left: 600 }}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
+
                     style={{
                       outline: "0",
                       backgroundColor: "#2149b9",
