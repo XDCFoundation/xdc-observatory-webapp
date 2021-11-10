@@ -90,11 +90,11 @@ export default function TransactionComponent(props) {
             <TableHead>
               <TableRow>
                 <TableCell
-                  style={{ border: "none", paddingLeft: "2.5rem" }}
+                  style={{ border: "none", paddingLeft: "2.60rem" }}
                   className="table-head-hash"
                   align="left"
                 >
-                  <span className={("tableheaders", "tableheaders-hash")}>
+                  <span className={("tableheaders-hash", "tableheaders")}>
                     Hash
                   </span>
                 </TableCell>
