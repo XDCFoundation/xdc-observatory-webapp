@@ -117,13 +117,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+export default function FormDialog(props) {
+  const {open, onClose} = props
+  // const [open, setOpen] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
   const [nameTag, setNameTag] = React.useState(false);
 
   async function TaggedAddress() {
-    setOpen(false);
+    // setOpen(false);
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
@@ -142,10 +143,10 @@ export default function FormDialog() {
 
   const classes = useStyles();
   const handleClickOpen = () => {
-    setOpen(true);
+    // setOpen(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    // setOpen(false);75
   };
 
   return (
@@ -154,7 +155,8 @@ export default function FormDialog() {
           className={classes.dialog}
           classes={{paperWidthSm:classes.dialogBox}}
           open={open}
-          onClose={handleClose}
+          // onClose={onClose}
+          // onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
@@ -183,7 +185,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogActions className={classes.buttons}>
             <span>
-              <button className={classes.cnlbtn} onClick={handleClose}>
+              <button className={classes.cnlbtn} onClick={onClose}>
                 Cancel
               </button>
             </span>
