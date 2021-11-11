@@ -8,7 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-
+import { NotificationService } from "../../services";
+import utility from "../../utility";
+import { sessionManager } from "../../managers/sessionManager";
+import { cookiesConstants } from "../../constants";
 const NoticationClear = styled.div`
   display: flex;
 `;
@@ -34,16 +37,32 @@ export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     right: false,
   });
+  const [notifications , setNotifications] = React.useState([]);
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open) => async(event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }
-
+    console.log("asxdcvbn", anchor , open);
     setState({ ...state, [anchor]: open });
+    if(open){
+    const request = {
+      "queryObj": {
+          "isRead": "false",
+          "userID": sessionManager.getDataFromCookies(cookiesConstants.USER_ID)
+      },
+      "selectionString": ["description" , "payload"]
+      
+  }
+  const [error ,response] = await utility.parseResponse(NotificationService.getNotificationList(request));
+  console.log("test", response);
+  setNotifications(response)
+}
+   
+
   };
 
   const list = (anchor) => (
@@ -60,29 +79,33 @@ export default function TemporaryDrawer() {
           <div className="Notification-header-text-color-fade">Clear</div>
         </NoticationClear>
         <div className={classes.drawerHeader}>
+        {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}
           <IconButton
             style={{ color: "White" }}
             onClick={toggleDrawer(anchor, false)}
           >
-            {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
+            {theme.direction === "rtl" ? <CloseIcon  /> : <CloseIcon />}
           </IconButton>
         </div>
       </ListItems>
-      <List className="side-box">
-        <ul className="inside-side-box">
-          <a className="Notification_details_button ">
-            <div className="Notificationtext">
-              10,000 XDC received in My Wallet
-            </div>
-          </a>
-          <div className="Notification-text-color-fade">
-            10:30 AM, 9 Jun 2021
-          </div>
-          <hr className="notification-hr" />
-        </ul>
-      </List>
+      {notifications && notifications.length && notifications.map((notification)=>(
+         <List className="side-box">
+         <ul className="inside-side-box">
+           <a className="Notification_details_button ">
+             <div className="Notificationtext">
+               {notification.description}
+             </div>
+           </a>
+           <div className="Notification-text-color-fade">
+           {notification?.payload?.timestamp}
+           </div>
+           <hr className="notification-hr" />
+         </ul>
+       </List>
+      ))}
+     
 
-      <List className="side-box">
+      {/* <List className="side-box">
         <ul className="inside-side-box">
           <a className="Notification_details_button ">
             <div className="Notificationtext">500 XDC sent from JohnB</div>
@@ -106,7 +129,7 @@ export default function TemporaryDrawer() {
           </div>
           <hr className="notification-hr" />
         </ul>
-      </List>
+      </List> */}
     </div>
   );
 
@@ -115,18 +138,19 @@ export default function TemporaryDrawer() {
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button
-            onClick={toggleDrawer(anchor, true)}
             style={{ padding: "0px", background: "none" }}
           >
             <img
               className="noticon"
               src={require("../../assets/images/notification.png")}
+              onClick={toggleDrawer(anchor, true)}
+
             ></img>
             <Drawer
               classes={{ paper: classes.paper }}
               anchor={anchor}
               open={state[anchor]}
-              // onClose={toggleDrawer(anchor, false)}
+              onClose={toggleDrawer(anchor, false)}
             >
               {list(anchor)}
             </Drawer>
