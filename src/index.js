@@ -21,6 +21,7 @@ function App() {
               }
             )
             OneSignal.setExternalUserId(sessionManager.getDataFromCookies(cookiesConstants.USER_ID));
+            const userInfo = sessionManager.getDataFromCookies("userInfo")
             OneSignal.setEmail(userInfo?.email)  
     }  
         }) 
