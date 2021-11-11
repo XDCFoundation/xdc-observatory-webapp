@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { NotificationService } from "../../services";
 import utility, { dispatchAction } from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
-import { cookiesConstants, eventConstants } from "../../constants";
+import { cookiesConstants, eventConstants, genericConstants, httpConstants } from "../../constants";
 import moment from "moment";
 import { connect } from "react-redux";
 
@@ -49,7 +49,6 @@ function TemporaryDrawer(props) {
     ) {
       return;
     }
-    console.log("asxdcvbn", anchor, open);
     setState({ ...state, [anchor]: open });
     if (open) {
       await getNotificationList();
@@ -58,7 +57,7 @@ function TemporaryDrawer(props) {
   const getNotificationList = async () => {
     const request = {
       "queryObj": {
-        "isCleared": "false",
+        "isCleared": false,
         "userID": sessionManager.getDataFromCookies(cookiesConstants.USER_ID)
       },
       "selectionString": ["description", "payload"]
@@ -69,7 +68,7 @@ function TemporaryDrawer(props) {
     props.dispatchAction(eventConstants.HIDE_LOADER, true)
 
     if (error) {
-      utility.apiFailureToast("Can't get notifications");
+      utility.apiFailureToast(error?.message ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
       return;
     }
     const parseRes = response.map((notification) => {
@@ -90,10 +89,9 @@ function TemporaryDrawer(props) {
     const [error, response] = await utility.parseResponse(NotificationService.markNotificationCleared({ notificationIDArray: notificationIdArray }));
     props.dispatchAction(eventConstants.HIDE_LOADER, true)
     if (error) {
-      utility.apiFailureToast("Can't clear notifications");
+      utility.apiFailureToast(error?.message ? error.message : genericConstants.CANNOT_CLEAR_NOTIFICATIONS);
       return;
     }
-    console.log("clearNotification", response);
     await getNotificationList();
   }
 
