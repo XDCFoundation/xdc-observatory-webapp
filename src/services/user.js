@@ -153,7 +153,7 @@ async function getPrivateTagToAddress(data) {
 
 async function addWatchlist(data) {
   let url =
-    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "addWatchList";
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-watchlist";
   console.log("url", data);
   return httpService(
     "POST",
@@ -178,7 +178,7 @@ async function addWatchlist(data) {
 
 async function putWatchlist(data) {
   let url =
-    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "/edit-watchlist";
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-watchlist";
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -202,7 +202,7 @@ async function putWatchlist(data) {
 
 async function putTaggedAddress(data) {
   let url =
-    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "/edit-address-tag";
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-address-tag";
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -227,7 +227,7 @@ async function putTaggedAddress(data) {
 async function editUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
-    "/edit-transaction-Private-note";
+    "edit-transaction-Private-note";
   return httpService(
     "PUT",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -298,7 +298,7 @@ async function getWatchlistList(requestData) {
 async function getTxnLabelList(requestData) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
-    "/get-content-txn-label";
+    "get-content-txn-label";
 
   let headers = getHeaders();
   return httpService(httpConstants.METHOD_TYPE.POST, headers, requestData, url)
@@ -320,7 +320,7 @@ async function getTxnLabelList(requestData) {
 async function getTagAddresstList(requestData) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
-    "/get-content-tag-address";
+    "get-content-tag-address";
 
   let headers = getHeaders();
   return httpService(httpConstants.METHOD_TYPE.POST, headers, requestData, url)
