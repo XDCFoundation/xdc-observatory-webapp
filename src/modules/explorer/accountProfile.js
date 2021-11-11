@@ -265,8 +265,10 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
+
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
+ // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
@@ -283,7 +285,6 @@ export default function SimpleTabs(props) {
     async function getUserWatchlist() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-      console.log("userId", data);
 
       const response = await UserService.getUserWatchlist(data);
       setWatchlist(response);
@@ -294,7 +295,6 @@ export default function SimpleTabs(props) {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
-      // console.log("tttt", response);
     }
 
     getPvtTagAddress();
@@ -380,6 +380,8 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData.limit,
       skip: requestData.skip,
+      userId: sessionManager.getDataFromCookies("userId"),
+      "isWatchlistAddress":true
     };
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
@@ -390,6 +392,7 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData.limit,
       skip: requestData.skip,
+      userId: sessionManager.getDataFromCookies("userId")
     };
     const response = await UserService.getTxnLabelList(request);
     setAddress(response.txnLabelContent);
@@ -400,6 +403,8 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData.limit,
       skip: requestData.skip,
+      userId: sessionManager.getDataFromCookies("userId"),
+      "isTaggedAddress":true
     };
     const response = await UserService.getTagAddresstList(request);
     setPrivateAddress(response.tagAddressContent);
@@ -456,6 +461,11 @@ export default function SimpleTabs(props) {
     }
     setPrivateAddress(newData);
   };
+  const setUserName=()=>{
+    let name=sessionManager.getDataFromCookies("userInfo")
+    let userName = name.name
+    return userName
+  }
 
   return (
     <div>
@@ -467,11 +477,11 @@ export default function SimpleTabs(props) {
             <img
               className="icon"
               src={require("../../assets/images/Profile.png")}
-            ></img>
+            />
           </span>
           <span>
             <div className="nameicon">
-              <span className="welcome">Welcome, CrytoAlex</span>
+              <span className="welcome">Welcome, {setUserName()}</span>
               <span>
                 <NotificationBar />
               </span>
@@ -642,7 +652,7 @@ export default function SimpleTabs(props) {
                           style={{ border: "none" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}></span>
+                          <span className={"tableheaders"}/>
                         </TableCell>
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                       </TableRow>

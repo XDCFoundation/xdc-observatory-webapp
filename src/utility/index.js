@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 import React from "react";
 import ToastService from 'react-material-toast';
 import aws from "aws-sdk";
-
+import AwsService  from "../services/awsService";
 const toast = ToastService.new({
     place: 'topRight',
     duration: 1,
@@ -58,7 +58,8 @@ const utility = {
     secondsToTime,
     getDateFormat,
     changeDateFormat,
-    getAggregatedPercWercQueryObject
+    getAggregatedPercWercQueryObject,
+    uploadImage
 };
 export default utility;
 
@@ -77,6 +78,20 @@ function trackEvent(event, eventData) {
     //     console.log(err)
     // }
 }
+
+
+async function uploadImage(request) {
+    try {
+        let [error, response] = await parseResponse(new AwsService().updateUser(request))
+        if (error) {
+            throw error && error.message ? error.message : error ? error : 'Upload file Failed'
+        }
+        return response.responseData[0]
+    } catch (error) {
+        throw error
+    }
+}
+
 
 function getDateFormat() {
     var my_date = new Date(2019, 0, 31);
