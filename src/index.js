@@ -12,7 +12,6 @@ window.OneSignal = window.OneSignal || [];
 const OneSignal = window.OneSignal;
 
 function App() {
-  
     useEffect (()=>{
         OneSignal.push(()=> {
         if(sessionManager.getDataFromCookies(cookiesConstants.USER_ID)){
@@ -22,6 +21,7 @@ function App() {
               }
             )
             OneSignal.setExternalUserId(sessionManager.getDataFromCookies(cookiesConstants.USER_ID));
+            OneSignal.setEmail(userInfo?.email)  
     }  
         }) 
     })
