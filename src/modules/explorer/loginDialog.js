@@ -357,11 +357,9 @@ export default function FormDialog() {
       // setislogged(true)
     } else {
       console.log("response", authResponse);
-      sessionManager.setDataInCookies(authResponse, "userInfo");
+      sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
-      sessionManager.setDataInCookies(authResponse?.sub, "userId");
-      sessionManager.setDataInCookies(authResponse?.sub, cookiesConstants.USER_ID);
-
+      sessionManager.setDataInCookies(authResponse?.userInfoRes?.sub, "userId");
       setUserName("");
       setEmail("");
       setPassword("");
@@ -401,7 +399,12 @@ export default function FormDialog() {
     } else if (captchaCheckbox === false) {
       Utility.apiFailureToast("please verify captcha");
     } else {
-      Utility.apiSuccessToast("Sign-up success, check your email");
+
+      const [error, response] = await Utility.parseResponse(userSignUp.postSignUp(data));
+      if (error || !response) {
+        Utility.apiFailureToast("User already exists");
+      } else {
+        Utility.apiSuccessToast("Sign-up success, check your email");
 
       setOpen(false);
       setTimeout(() => {
@@ -414,7 +417,7 @@ export default function FormDialog() {
       setConfirmPassword("");
       setTermsCheckbox(false);
       setCaptchaCheckbox(false);
-      const response = await userSignUp.postSignUp(data);
+      }
     }
   };
 

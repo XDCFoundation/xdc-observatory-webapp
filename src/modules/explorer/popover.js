@@ -13,9 +13,7 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 140px;
-  border-radius: 5%;
-  margin-left: 20px;
+  width: 115px;
 `;
 const Contents = styled.div`
   padding: 10px 20px 10px 20px;
@@ -65,28 +63,25 @@ export default function BasicPopover(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const setUserName=()=>{
+    let name=sessionManager.getDataFromCookies("userInfo")
+    let userName = name.name
+    return userName
+  }                        
 
   return (
     <div>
-      <button
-        style={{
-          background: "none",
-        }}
-      >
-        <ProfileContainer onClick={handleClick} Open Popover>
-          <img
-            className="Shape2-internal"
-            src={require("../../../src/assets/images/Profile.svg")}
-          />
-          <Typography style={{ marginTop: "13px", color: "#ffffff" }}>
-            CryptoAlex
-          </Typography>
-          <img
-            style={{ marginTop: "13px" }}
-            src={require("../../../src/assets/images/Dropdown.svg")}
-          ></img>
-        </ProfileContainer>
-      </button>
+      <ProfileContainer onClick={handleClick} Open Popover>
+        <img
+          className="Shape2-internal"
+          src={require("../../../src/assets/images/Profile.svg")}
+        />
+        <Typography style={{ marginTop: "13px" }}>{setUserName()}</Typography>
+        <img
+          className="down-arrow-internal"
+          src={require("../../../src/assets/images/Dropdown.svg")}
+        ></img>
+      </ProfileContainer>
       <Popover
         style={{ top: "20px", left: "-40px", borderRadius: "30px" }}
         id={id}

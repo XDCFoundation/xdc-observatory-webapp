@@ -15,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import back from "../../assets/images/back.svg";
 import next from "../../assets/images/next.svg";
-import Loader from '../../assets/loader'
+import Loader from "../../assets/loader";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -81,10 +81,7 @@ export default function BlocksComponent(props) {
             <TableHead>
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span
-                    style={{ border: "none", paddingLeft: "10%" }}
-                    className={"tableheaders table-headers"}
-                  >
+                  <span className={"tableheaders table-headers block-list-all"}>
                     Hash
                   </span>
                 </TableCell>
@@ -113,14 +110,14 @@ export default function BlocksComponent(props) {
             {props.state.isLoading == true ? (
               <TableBody>
                 <TableRow>
-                  <TableCell style={{ border: 'none' }} colspan="6">
+                  <TableCell style={{ border: "none" }} colspan="6">
                     <div className="loader-block-list">
                       <Loader />
                     </div>
                   </TableCell>
                 </TableRow>
               </TableBody>
-            ) :
+            ) : (
               <TableBody>
                 {props.state.blocksList &&
                   props.state.blocksList.length >= 1 &&
@@ -147,7 +144,6 @@ export default function BlocksComponent(props) {
                         >
                           <Tooltip placement="right" title={row.hash}>
                             <VisibilityOutlinedIcon
-
                               fontSize="small"
                               style={{ color: "#b9b9b9", marginRight: "7px" }}
                             />
@@ -244,7 +240,8 @@ export default function BlocksComponent(props) {
                       </TableRow>
                     );
                   })}
-              </TableBody>}
+              </TableBody>
+            )}
           </Table>
         </TableContainer>
       </Paper>
@@ -267,14 +264,19 @@ export default function BlocksComponent(props) {
         <Grid item className="Pagination_2">
           <button
             onClick={(event) => props._FirstPage(event)}
-            className={props.state.from === 0 ? "btn disabled btn-first"
-              : "btn btn-first"}
+            className={
+              props.state.from === 0
+                ? "btn disabled btn-first"
+                : "btn btn-first"
+            }
           >
             First
           </button>
           <button
             onClick={(event) => props._PrevPage(event)}
-            className={props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"}
+            className={
+              props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
+            }
           >
             <img src={back} width="10px" />
           </button>

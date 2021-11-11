@@ -566,6 +566,12 @@ input:focus {
   margin-top: 0.625rem;
   /* margin-left: 0.313rem; */
 }
+.name-internal{
+  margin-top: 25px;
+}
+.down-arrow-internal{
+  margin-top: 10px;
+}
 .Shape2-internal1 {
   width: 1.563rem;
   height: 1.563rem;
@@ -1650,7 +1656,7 @@ p {
 }
 
 .centerbox-td {
-  width: 33.438rem;
+  /* width: 33.438rem; */
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
@@ -2193,20 +2199,20 @@ p {
 }
 
 .select-td {
-  width: 5.313rem;
+  /* width: 5.313rem; */
   margin-top: -0.188rem;
   background-color: white !important;
   outline-color: #858585;
   border-color: transparent;
   border-left-color: #9fa9ba;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: bold;
   opacity: 0.8;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #2a2a2a;
+  color: #2a2a2a !important;
 }
 
 .side-box {
@@ -2646,6 +2652,7 @@ p {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .verify-contract-first-div-text {
+    margin-left: 10px !important;
     margin: 15px;
     font-family: Inter;
     font-size: 14px;
@@ -2851,7 +2858,8 @@ p {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .select-td {
-    margin-left: 21px !important;
+    margin-left: 15px !important;
+    font-size: 12px;
   }
 }
 
@@ -3001,8 +3009,10 @@ p {
     align-items: baseline !important;
   }
   .right-nav-div {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
+    position: absolute;
+    right: 16px;
   }
   /* .MuiAppBar-colorPrimary{
   height: 130px;
@@ -3485,6 +3495,7 @@ body {
 #container-table th {
   padding: 15px;
   padding-top: 25px;
+  font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -5441,7 +5452,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0.5px;
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -6619,6 +6630,7 @@ button {
   font-weight: bold;
   opacity: 0.5;
   cursor: text;
+  margin-left:0px;
 }
 
 .checkmark {
@@ -6796,6 +6808,17 @@ button {
   border-radius: 10px;
   margin-bottom: -20px;
   margin-left: 61px;
+}
+
+.outer-oval-trans {
+  width: 14px;
+  height: 14px;
+  margin: 12px 2px 18px 0;
+  padding: 5px 4px 4px 5px;
+  background-color: rgba(55, 99, 221, 0.1);
+  border-radius: 10px;
+  margin-bottom: -20px;
+  margin-left: 80px;
 }
 
 .Oval {
@@ -7329,7 +7352,7 @@ button {
     margin-top: 3.75rem;
   }
   .centerbox-td {
-    width: 21.4375rem;
+    /* width: 21.4375rem; */
     height: 1.9375rem;
     margin-right: -20px;
     margin-left: 3.0625rem;
@@ -7354,11 +7377,14 @@ button {
   }
 
   .verify-contract-first-div {
-    margin-left: 15px;
     font-size: 0.875rem;
+    margin-left: 10px;
+    margin-top: 20px;
   }
   .textarea-verify-contract {
     height: 8.8125rem;
+    line-height: 17px !important;
+    padding-left: 0px !important;
   }
 
   .vc-tab-all {
@@ -7443,9 +7469,9 @@ button {
     margin-left: 1rem;
   }
   .block_sec_contract {
-    width: 22rem;
+    width: 22.5625rem;
     height: 2.188rem;
-    margin-left: 1rem;
+    margin: 0 auto;
   }
   #transaction-btn {
     width: 10.5rem;
@@ -7474,9 +7500,9 @@ button {
     padding: 0 11px 0 2px !important;
   }
   .cont-tab-contract {
-    width: 22.563rem !important;
+    width: 22.5625rem !important;
     flex-direction: column !important;
-    padding: 0 11px 0 2px !important;
+    padding: 0px !important;
   }
   .csvDownloadParent {
     display: flex;
@@ -7548,6 +7574,7 @@ button {
   .mobile-navbartab {
     display: flex;
     height: 2.5rem;
+    margin-top: 10px;
   }
 
   .Shape-XDC {
@@ -7590,7 +7617,7 @@ button {
     /* background-color: green; */
   }
   .centerbox-td {
-    width: 38.9375rem;
+    /* width: 38.9375rem; */
     /* background-color: red; */
     /* width: 100%; */
     height: 2.4375rem;
@@ -7928,6 +7955,10 @@ button {
   }
 }
 .copy-icon {
+  width: 25px;
+  height: 25px;
+}
+.edit-icon {
   width: 20px;
   height: 20px;
 }
@@ -8099,10 +8130,18 @@ button {
   .Shape-XDC {
     margin-top: 0px;
   }
-  .Network-explorer-internal {
+  /* .Network-explorer-internal {
     margin-top: 0px;
   }
   .Token-internal {
+    margin-top: 0px;
+  } */
+
+  .name-internal{
+    margin-top: 15px;
+  }
+
+  .down-arrow-internal{
     margin-top: 0px;
   }
   .Shape2-internal {
@@ -8627,6 +8666,7 @@ button {
   font-family: "Inter";
   outline-color: transparent;
   border-width: 0;
+  width: 11.25rem;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
