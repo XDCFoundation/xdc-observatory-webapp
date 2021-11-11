@@ -285,7 +285,6 @@ export default function SimpleTabs(props) {
     async function getUserWatchlist() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-      console.log("userId", data);
 
       const response = await UserService.getUserWatchlist(data);
       setWatchlist(response);
@@ -294,13 +293,8 @@ export default function SimpleTabs(props) {
     async function getuserdata() {
       //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-      const userName= sessionManager.getDataFromCookies("userInfo");
-      
       const response = await UserService.getUserPrivateNote(data);
-      const responsee = await UserService.getUserPrivateNote(userName);
       setAddress(response);
-
-     
     }
 
     getPvtTagAddress();
@@ -386,6 +380,8 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData.limit,
       skip: requestData.skip,
+      userId: sessionManager.getDataFromCookies("userId"),
+      "isWatchlistAddress":true
     };
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
@@ -396,6 +392,7 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData.limit,
       skip: requestData.skip,
+      userId: sessionManager.getDataFromCookies("userId")
     };
     const response = await UserService.getTxnLabelList(request);
     setAddress(response.txnLabelContent);
@@ -406,6 +403,8 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData.limit,
       skip: requestData.skip,
+      userId: sessionManager.getDataFromCookies("userId"),
+      "isTaggedAddress":true
     };
     const response = await UserService.getTagAddresstList(request);
     setPrivateAddress(response.tagAddressContent);
@@ -478,7 +477,7 @@ export default function SimpleTabs(props) {
             <img
               className="icon"
               src={require("../../assets/images/Profile.png")}
-            ></img>
+            />
           </span>
           <span>
             <div className="nameicon">
@@ -653,7 +652,7 @@ export default function SimpleTabs(props) {
                           style={{ border: "none" }}
                           align="left"
                         >
-                          <span className={"tableheaders"}></span>
+                          <span className={"tableheaders"}/>
                         </TableCell>
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                       </TableRow>
