@@ -21,7 +21,9 @@ import socketClient from "socket.io-client";
 import AccountProfile from "./modules/explorer/accountProfile";
 import Transaction from "./modules/resp_transaction/resTransaction";
 import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
-import BlockDetails from './modules/explorer/newblockDetail'
+import BlockDetails from './modules/explorer/newblockDetail';
+import LoaderComponent from "./common/components/loader";
+
 let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
   transports: ["websocket"],
 }
@@ -37,10 +39,15 @@ class Routes extends BaseComponent {
   }
 
   render() {
+    let loader =
+    this.props && this.props.user && this.props.user.loading ? (
+        <LoaderComponent />
+    ) : null;
     return (
 
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router history={history}>
+        {loader}
           <Switch>
             <Route exact path={'/view-all-transaction'} component={() => <LatestTransactionList socketTrans={socket} />} />
             <Route exact path={'/view-all-blocks'} component={() => <LatestBlocksList socketblock={socket} />} />
