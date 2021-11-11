@@ -24,6 +24,7 @@ export default class Auth0Service {
           response.responseData.length === 0
         )
           return Promise.reject();
+          console.log(response,"resseeeee")
         return Promise.resolve(response.responseData);
       })
       .catch(function (err) {

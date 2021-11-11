@@ -215,6 +215,7 @@ export default function FormDialog() {
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
       sessionManager.setDataInCookies(authResponse.userId, "userId");
+      window.location.href = "loginprofile";
       return authResponse;
     }
   };
@@ -333,6 +334,12 @@ export default function FormDialog() {
     console.log("namees", userName);
     return userName;
   };
+  const getEmail = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.email;
+    console.log("namees", userName);
+    return userName;
+  };
   
 
   return (
@@ -405,7 +412,7 @@ export default function FormDialog() {
                   type="text"
                   id="email"
                   value={email}
-                  placeholder="email"
+                  placeholder={getEmail()}
                   disabled={emailDisable}
                   onChange={(e) => {
                     {

@@ -76,7 +76,7 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={require("../../../src/assets/images/Profile.svg")}
         />
-        <Typography style={{ marginTop: "13px" }}>{setUserName()}</Typography>
+        <Typography style={{ marginTop: "13px"}}>{setUserName()}</Typography>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}
