@@ -199,28 +199,26 @@ export default function FormDialog() {
       name: userName,
       userId: userInfo,
       email: email,
-      profilePic: url?url:profilePicture
+      profilePic: url ? url : profilePicture,
     };
     console.log(reqObj, "reqeee");
-    
-      const authObject = new AuthService();
-      let [error, authResponse] = await Utility.parseResponse(
-        authObject.updateUser(reqObj)
-      );
-      console.log("authresponseeee", authResponse);
-      if (error || !authResponse) {
-        utility.apiFailureToast("failed");
-      } else {
 
-        utility.apiSuccessToast("upadated successfully");
-        sessionManager.setDataInCookies(authResponse, "userInfo");
-        sessionManager.setDataInCookies(true, "isLoggedIn");
-        sessionManager.setDataInCookies(authResponse.userId, "userId");
-        return authResponse
-      }
-    
+    const authObject = new AuthService();
+    let [error, authResponse] = await Utility.parseResponse(
+      authObject.updateUser(reqObj)
+    );
+    console.log("authresponseeee", authResponse);
+    if (error || !authResponse) {
+      utility.apiFailureToast("failed");
+    } else {
+      utility.apiSuccessToast("upadated successfully");
+      sessionManager.setDataInCookies(authResponse, "userInfo");
+      sessionManager.setDataInCookies(true, "isLoggedIn");
+      sessionManager.setDataInCookies(authResponse.userId, "userId");
+      return authResponse;
+    }
   };
-  
+
   const uploadFileToS3 = async () => {
     let formdata = new FormData();
     console.log(uploadFile, "filee");
@@ -234,12 +232,10 @@ export default function FormDialog() {
     if (error || !awsResponse) {
       utility.apiFailureToast(" Upload failed");
       return false;
-      
     } else {
       utility.apiSuccessToast("Pic uploaded successfully");
-      return awsResponse
+      return awsResponse;
     }
-    
   };
 
   const handleClickOpen = () => {
@@ -323,18 +319,21 @@ export default function FormDialog() {
   const [usernameDisable, setUsernameUnable] = React.useState(true);
   const [emailDisable, setEmailUnable] = React.useState(true);
 
+  const profileUrl = async () => {
+    let response = await uploadFileToS3();
+    if (!response) return;
+    console.log("url", response[0].url);
+    setProfilePicture(response[0].url);
+
+    let upadteUser = await updateUser(response[0].url);
+  };
+  const getUserNamee = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.name;
+    console.log("namees", userName);
+    return userName;
+  };
   
-
-  const profileUrl=async()=>{
-   let response = await uploadFileToS3()
-   if(!response)
-   return 
-    console.log("url",response[0].url)
-    setProfilePicture(response[0].url)
-    
-    let upadteUser=await updateUser(response[0].url)
-  }
-
 
   return (
     <div>
@@ -353,10 +352,7 @@ export default function FormDialog() {
           >
             <Wrapper>
               <div></div>
-              <Title>
-                Edit Profile
-                
-              </Title>
+              <Title>Edit Profile</Title>
 
               <Cut onClick={handleClose}>
                 {" "}
@@ -380,7 +376,8 @@ export default function FormDialog() {
                   id="username"
                   disabled={usernameDisable}
                   value={userName}
-                  placeholder="change here"
+             placeholder= {getUserNamee()}
+                 
                   onChange={(e) => {
                     {
                       setUserName(e.target.value);
@@ -393,6 +390,8 @@ export default function FormDialog() {
                   onClick={() => setUsernameUnable(false)}
                 />
               </Input>
+            
+              
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
@@ -425,9 +424,7 @@ export default function FormDialog() {
               <button
                 className={classes.addbtn}
                 onClick={() => {
-                 
-                 profileUrl()
-                  
+                  profileUrl();
 
                   // checkValidationPassword();
                 }}
