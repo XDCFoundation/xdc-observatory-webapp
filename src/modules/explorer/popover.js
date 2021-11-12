@@ -96,8 +96,8 @@ export default function BasicPopover(props) {
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text onClick={props.openChangePassword}>Change Password</Text>
         </Contents>
-        <Contents>
-          <Text onClick={() => logOut()}>LogOut</Text>
+        <Contents >
+          <Text style={{ marginLeft: "0px" }}onClick={() => logOut()}>Log out</Text>
         </Contents>
       </Popover>
     </div>
