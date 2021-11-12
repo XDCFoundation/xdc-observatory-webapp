@@ -5,7 +5,7 @@ export default class AwsService {
 
 async  updateUser(requestData) {
 
-  let url = "https://lmeqebp7fj.execute-api.us-east-1.amazonaws.com/testnet/upload-file"
+  let url = process.env.REACT_APP_AWS_FILE_UPLPOADER
   const config = {
     headers: {
       "content-type": "multipart/form-data",

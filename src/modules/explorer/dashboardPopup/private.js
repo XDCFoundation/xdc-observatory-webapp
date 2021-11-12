@@ -204,7 +204,17 @@ export default function FormDialog() {
   const handleLogin = () => {
     history.push("/loginprofile");
   };
-
+  const validateAddress = () => {
+  
+    if (
+      (privateAddress && privateAddress.length === 43) ||
+      privateAddress.slice(0, 2) == "xdc"
+    ) {
+      TaggedAddress();
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    }
+  };
   return (
     <div>
       <div className="div3" onClick={handleClickOpen}>
@@ -286,7 +296,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={TaggedAddress}>
+              <button className={classes.addbtn} onClick={TaggedAddress,validateAddress}>
                 Add
               </button>
             </span>

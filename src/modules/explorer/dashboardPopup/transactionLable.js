@@ -225,7 +225,17 @@ export default function FormDialog() {
   const handleLogin = () => {
     // history.push("/loginprofile")
   };
-
+  const validateTransaction = () => {
+  
+    if (
+      (TransactionsHash && TransactionsHash.length === 66) ||
+      TransactionsHash.slice(0, 1) == "0x"
+    ) {
+      transactionLable();
+    } else {
+      utility.apiFailureToast("Address should start with 0x & 66 characters");
+    }
+  };
   return (
     <div>
       <div className="div2" onClick={handleClickOpen}>
@@ -310,7 +320,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={transactionLable}>
+              <button className={classes.addbtn} onClick={transactionLable,validateTransaction}>
                 Add
               </button>
             </span>
