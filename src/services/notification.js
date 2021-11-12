@@ -6,7 +6,7 @@ export default{
    getNotificationList,
    markNotificationCleared
   }
-  
+
  async function proposalList(reqObj) {
   const url = process.env.REACT_APP_GET_NOTIFICATION + "get notification";
   return httpService(
@@ -31,7 +31,7 @@ export default{
 }
 
  async function getNotificationList(reqObj) {
-  const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "/notification-list";
+  const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "notification-list";
   console.log("response1");
   return httpService(
     httpConstants.METHOD_TYPE.POST,
@@ -59,7 +59,7 @@ export default{
 }
 
 async function markNotificationCleared(reqObj) {
-  const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "/mark-bulk-notification-clear";
+  const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "mark-bulk-notification-clear";
 
   return httpService(
     httpConstants.METHOD_TYPE.POST,
