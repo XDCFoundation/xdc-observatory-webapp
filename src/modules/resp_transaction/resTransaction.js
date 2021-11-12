@@ -15,6 +15,7 @@ import { Row, Column } from "simple-flexbox";
 import moment from "moment";
 import Loader from "../../assets/loader";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
+import { sessionManager } from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,17 +55,26 @@ export default function Transaction({ _handleChange }) {
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [privateNote, setPrivateNote] = useState("")
+  const [addressTag, setAddressTag] = useState("")
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const openDialog = () => setDialogIsOpen(true)
+  const closeDialog = () => setDialogIsOpen(false)
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     transactionDetail();
+    privateNoteUsingHash();
+    tagUsingAddressHash();
   }, [amount]);
 
   const transactionDetail = async () => {
@@ -76,6 +86,33 @@ export default function Transaction({ _handleChange }) {
     setTransactions(transactiondetailusinghash);
     setLoading(false);
   };
+
+  const privateNoteUsingHash = async () => {
+    const data ={
+      transactionHash : `${hash}`,
+      userId : sessionManager.getDataFromCookies("userId")
+    }
+    let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserTransactionPrivateNoteUsingHash(data)
+    );
+    if (error || !privateNoteUsingHashResponse) return;
+    setPrivateNote(privateNoteUsingHashResponse);
+    setLoggedIn(true);
+  }
+
+  const tagUsingAddressHash = async () => {
+    const data ={
+      // address : `${transactions.from}`,
+      address : "xdc5c47ced4f9f89991053c6ed05ffcb6ae0ea37a9e",
+      userId : sessionManager.getDataFromCookies("userId")
+    }
+    console.log("data",data)
+    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (error || !tagUsingAddressHashResponse) return;
+    setAddressTag(tagUsingAddressHashResponse);
+  }
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
   const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
@@ -286,7 +323,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      <div className="nameLabel">Alex</div>
+                      <div className="nameLabel">{addressTag[0]?.tagName}</div>
                       </span>
                     </Content>
                     
@@ -338,8 +375,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      {open && <PrivateAddressTag/>}
-                      <img className="edit-icon" onClick={handleClickOpen} src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                      {<PrivateAddressTag open={dialogIsOpen} onClose={closeDialog}/>}
+                      <img className="edit-icon" onClick={openDialog} src={require("../../../src/assets/images/XDC-Edit.svg")} />
                     </Content>
                   </MiddleContainer>
                 </SpacingHash>
@@ -462,15 +499,17 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
-                    <PrivateText>
+                    {!isLoggedIn ? ( <PrivateText>
                       To access the Private Note feature, you must be
-                    </PrivateText>
+                    
                     <a
                       className="linkTableDetails-transaction"
                       style={{ marginLeft: "5px" }}
                     >
                       Logged In
                     </a>
+                    </PrivateText>) :
+                    (<span>{privateNote[0]?.trxLable}</span>)}
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Div__>
