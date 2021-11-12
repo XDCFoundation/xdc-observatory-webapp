@@ -76,7 +76,7 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={require("../../../src/assets/images/Profile.svg")}
         />
-        <Typography style={{ marginTop: "13px" }}>{setUserName()}</Typography>
+        <Typography style={{ marginTop: "13px"}}>{setUserName()}</Typography>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}
@@ -96,8 +96,8 @@ export default function BasicPopover(props) {
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text onClick={props.openChangePassword}>Change Password</Text>
         </Contents>
-        <Contents>
-          <Text onClick={() => logOut()}>LogOut</Text>
+        <Contents >
+          <Text style={{ marginLeft: "0px" }}onClick={() => logOut()}>Log out</Text>
         </Contents>
       </Popover>
     </div>

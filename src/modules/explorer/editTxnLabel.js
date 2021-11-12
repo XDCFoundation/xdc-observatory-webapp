@@ -172,6 +172,17 @@ export default function FormDialog(props) {
     setTransactionsHash(props.row.transactionHash);
     setOpen(false);
   };
+  const validateTransaction = () => {
+  
+    if (
+      (TransactionsHash && TransactionsHash.length === 66) ||
+      TransactionsHash.slice(0, 1) == "0x"
+    ) {
+      editTransactionLable();
+    } else {
+      utility.apiFailureToast("Address should start with 0x & 66 characters");
+    }
+  };
 
   return (
     <div>
@@ -235,7 +246,7 @@ export default function FormDialog(props) {
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTransactionLable}
+                    onClick={editTransactionLable,validateTransaction}
                   >
                     Update
                   </button>
