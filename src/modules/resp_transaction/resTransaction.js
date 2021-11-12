@@ -74,7 +74,7 @@ export default function Transaction({ _handleChange }) {
   useEffect(() => {
     transactionDetail();
     privateNoteUsingHash();
-    // tagUsingAddressHash();
+    tagUsingAddressHash();
   }, [amount]);
 
   const transactionDetail = async () => {
@@ -102,7 +102,8 @@ export default function Transaction({ _handleChange }) {
 
   const tagUsingAddressHash = async () => {
     const data ={
-      address : `${transactions.from}`,
+      // address : `${transactions.from}`,
+      address : "xdc5c47ced4f9f89991053c6ed05ffcb6ae0ea37a9e",
       userId : sessionManager.getDataFromCookies("userId")
     }
     console.log("data",data)
@@ -322,7 +323,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      <div className="nameLabel">Alex</div>
+                      <div className="nameLabel">{addressTag[0]?.tagName}</div>
                       </span>
                     </Content>
                     
