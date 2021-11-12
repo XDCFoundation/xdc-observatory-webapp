@@ -182,6 +182,7 @@ export default function FormDialog(props) {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
   const [userName, setUserName] = React.useState("");
+  const [isEditPicture, setIsEditPicture] = React.useState(false);
 
   //console.log("valueee", userName);
   const [uploadFile, setUploadFile] = React.useState("");
@@ -190,6 +191,7 @@ export default function FormDialog(props) {
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
     console.log(event, "Eventee");
+    setIsEditPicture(true)
     setUploadFile(event.target.files[0]);
   };
   
@@ -324,12 +326,16 @@ export default function FormDialog(props) {
   const [emailDisable, setEmailUnable] = React.useState(true);
 
   const profileUrl = async () => {
-    let response = await uploadFileToS3();
-    if (!response) return;
-    console.log("url", response[0].url);
-    setProfilePicture(response[0].url);
+    let response ={}
+    if(isEditPicture){
 
-    let upadteUser = await updateUser(response[0].url);
+       response = await uploadFileToS3();
+      if (!response) return;
+      console.log("url", response[0].url);
+      setProfilePicture(response[0].url);
+    }
+
+    let upadteUser = await updateUser(response[0]?.url);
   };
   const getUserName = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
@@ -345,8 +351,10 @@ export default function FormDialog(props) {
     return userName;
   };
   useEffect(() => {
-    if (userName) 
-    setUserName(userName);
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    if (userInfo && userInfo.name)
+    setUserName(userInfo.name);
+    setProfilePicture(userInfo.picture);
   }, []);
 
   return (
