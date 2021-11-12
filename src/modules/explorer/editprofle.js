@@ -337,24 +337,15 @@ export default function FormDialog(props) {
 
     let upadteUser = await updateUser(response[0]?.url);
   };
-  const getUserName = () => {
-    let name = sessionManager.getDataFromCookies("userInfo");
-    let userName = name.name;
-    console.log("namees", userName);
-    return userName;
-  };
+  
 
-  const getEmail = () => {
-    let name = sessionManager.getDataFromCookies("userInfo");
-    let userName = name.email;
-    console.log("namees", userName);
-    return userName;
-  };
+  
   useEffect(() => {
     let userInfo = sessionManager.getDataFromCookies("userInfo");
     if (userInfo && userInfo.name)
     setUserName(userInfo.name);
     setProfilePicture(userInfo.picture);
+    setEmail(userInfo.email);
   }, []);
 
   return (
@@ -398,7 +389,7 @@ export default function FormDialog(props) {
                     id="username"
                     disabled={usernameDisable}
                     //placeholder= {getUserName()}
-                    value={getUserName()}
+                   
 
                     value={userName}
                     
@@ -428,7 +419,7 @@ export default function FormDialog(props) {
                   type="text"
                   id="email"
                   value={email}
-                  placeholder={getEmail()}
+                 
                   disabled={emailDisable}
                   onChange={(e) => {
                     {
