@@ -910,7 +910,7 @@ export default function SimpleTabs(props) {
                                 checked={toggle}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href="/">
+                              <a className="linkTable" href={"/transaction-details/" + row.transactionHash}>
                                 <Tooltip
                                   placement="top"
                                   title={row.transactionHash}
@@ -1109,7 +1109,7 @@ export default function SimpleTabs(props) {
                                 checked={toggle}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href="/">
+                              <a className="linkTable" href={"/transaction-details/" + row.address}>
                                 <Tooltip placement="top" title={row.address}>
                                   <span className="tabledata">
                                     {shorten(row.address)}
