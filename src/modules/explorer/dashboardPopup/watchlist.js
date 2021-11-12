@@ -182,6 +182,7 @@ export default function FormDialog() {
   const [address, setAddress] = React.useState("");
 
   const [description, setDescription] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const [notification, setNotification] = React.useState(false);
 
@@ -233,6 +234,17 @@ export default function FormDialog() {
     window.location.href = "loginprofile";
     setAddress("");
     setDescription("");
+  };
+  const validateAddress = () => {
+  
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      watchListService();
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    }
   };
 
   return (
@@ -294,7 +306,10 @@ export default function FormDialog() {
             </DialogContentText>
             <input
               className={classes.input}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) => {setAddress(e.target.value)
+                setError("")
+              }}
+              
             ></input>
           </DialogContent>
           <DialogContent>
@@ -318,21 +333,6 @@ export default function FormDialog() {
             <DialogContentText className={classes.subCategory}>
               <b>Notifications</b>
             </DialogContentText>
-            {/* <input className={classes.input}></input> */}
-            {/* 
-            import React from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel'; */}
-
-            {/* export default function RadioButtonsGroup() { */}
-            {/* //   const [value, setValue] = React.useState('female');
-
-//   const handleChange = (event) => {
-//     setValue(event.target.value);
-//   }; */}
 
             <FormControl
               component="fieldset"
@@ -385,7 +385,7 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
               </button>
             </span>
             <span onClick={handleClose}>
-              <button className={classes.addbtn} onClick={watchListService}>
+              <button className={classes.addbtn} onClick={watchListService, validateAddress}>
                 Add
               </button>
             </span>

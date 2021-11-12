@@ -16,6 +16,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
 import { useEffect } from "react";
 import styled from "styled-components";
+import utility from "../../utility";
+
 
 const DialogBox = styled.div`
   width: 553px;
@@ -207,6 +209,17 @@ export default function FormDialog(props) {
 
     const response = PutWatchlist.putWatchlist(request);
   };
+  const validateAddress = () => {
+  
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      watchListService();
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    }
+  };
 
   return (
     <div>
@@ -315,7 +328,7 @@ export default function FormDialog(props) {
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={watchListService}
+                    onClick={watchListService,validateAddress}
                   >
                     Update
                   </button>

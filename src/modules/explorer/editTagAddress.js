@@ -11,6 +11,7 @@ import { Row } from "simple-flexbox";
 import PutTagAddress from "../../services/user";
 import { useEffect } from "react";
 import styled from "styled-components";
+import utility from "../../utility";
 
 const DialogBox = styled.div`
   width: 553px;
@@ -122,8 +123,8 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
-  const [passwordShown, setPasswordShown] = React.useState(false);
-  const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [passwordShown, setPasswordShown] = React.useState("");
+  const [privateAddress, setPrivateAddress] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -157,6 +158,17 @@ export default function FormDialog(props) {
 
   const handleLogin = () => {
     // history.push("/loginprofile")
+  };
+  const validateAddress = () => {
+  
+    if (
+      (privateAddress && privateAddress.length === 43) ||
+      privateAddress.slice(0, 2) == "xdc"
+    ) {
+      editTaggedAddress();
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    }
   };
 
   return (
@@ -220,7 +232,7 @@ export default function FormDialog(props) {
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTaggedAddress}
+                    onClick={editTaggedAddress,validateAddress}
                   >
                     Update
                   </button>
