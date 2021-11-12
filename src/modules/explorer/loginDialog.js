@@ -18,6 +18,7 @@ import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
+import Loader from '../../assets/loader'
 
 const useStyles = makeStyles((theme) => ({
   add: {
