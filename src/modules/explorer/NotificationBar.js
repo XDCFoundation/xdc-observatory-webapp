@@ -58,7 +58,8 @@ function TemporaryDrawer(props) {
     const request = {
       "queryObj": {
         "isCleared": false,
-        "userID": sessionManager.getDataFromCookies(cookiesConstants.USER_ID)
+        "userID": sessionManager.getDataFromCookies("userId"),
+        "type":"push"
       },
       "selectionString": ["description", "payload"]
 
@@ -67,8 +68,9 @@ function TemporaryDrawer(props) {
     const [error, response] = await utility.parseResponse(NotificationService.getNotificationList(request));
     props.dispatchAction(eventConstants.HIDE_LOADER, true)
 
-    if (error) {
-      utility.apiFailureToast(error?.message ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
+    if (error || !response) {
+      console.log("error",error);
+      utility.apiFailureToast(error?.message  && typeof(error.message)==="string" ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
       return;
     }
     const parseRes = response.map((notification) => {
