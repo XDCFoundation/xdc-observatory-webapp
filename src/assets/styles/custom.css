@@ -566,6 +566,31 @@ input:focus {
   margin-top: 0.625rem;
   /* margin-left: 0.313rem; */
 }
+
+.nameLabel {
+  font-size: 14px;
+  font-family: Inter;
+  color: #2a2a2a;
+  background-color: #e4e5e6;
+  border-radius: 4px;
+  height: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-top: 6px;
+  line-height: 19px;
+}
+.nameLabel1 {
+  font-size: 14px;
+  font-family: Inter;
+  color: #2a2a2a;
+  background-color: #e4e5e6;
+  border-radius: 4px;
+  height: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-left: 18px;
+  line-height: 19px;
+}
 .name-internal{
   margin-top: 25px;
 }
@@ -2507,11 +2532,11 @@ p {
   display: flex;
   flex-direction: row;
   height: 2.125rem;
-  width: 13.875rem;
+  width: 10.625rem;
   padding: 5px 43px 2px 10px;
   border-radius: 0.5rem;
   outline-color: #e3e7eb;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1); */
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
 }
@@ -6439,16 +6464,15 @@ button {
 
 .tabs_sec {
   padding-bottom: 0.438rem;
-  color: #b5bac7;
+  color: #6b7482;
   background-color: transparent;
-  width: 12%;
+  width: 14%;
   display: flex;
   cursor: pointer;
   position: relative;
   font-size: 0.938rem;
   cursor: pointer;
   padding-left: 1.188rem;
-  font-weight: 600;
   letter-spacing: 0.044rem;
 }
 
@@ -7954,6 +7978,9 @@ button {
     padding-left: 7px;
   }
 }
+.copyEditContainer {
+  display: flex;
+}
 .copy-icon {
   width: 25px;
   height: 25px;
@@ -7961,6 +7988,12 @@ button {
 .edit-icon {
   width: 20px;
   height: 20px;
+  margin-top: 4px;
+}
+.edit1-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 6px;
 }
 @media (max-width: 767px) {
   .wid-42 {

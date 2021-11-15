@@ -268,7 +268,6 @@ export default function SimpleTabs(props) {
 
 
   const [address, setAddress] = React.useState([]);
-  const [downloadAddress, setDownloadAddress] = React.useState({});
   const [watchlist, setWatchlist] = React.useState([]);
  // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
@@ -282,33 +281,73 @@ export default function SimpleTabs(props) {
   const [balanceToggle, setBalanceToggle] = React.useState(0);
   const [nameToggle, setNameToggle] = React.useState(0);
   const [tableValue, setTablevalue] = React.useState(1);
+  const [downloadWatchlist, setDownloadWatchlist] = React.useState([]);
+  const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
+  const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
 
   React.useEffect(() => {
+
+    function downloadMyWatchlist (response) {
+      return response && response.map((item) => {
+        let address = {
+          Address : item.address,
+          Description: item.description,
+          Balance : item.balance,
+          AddedOn : moment(item.addedOn).format('h:mm a, Do MMMM YYYY '),
+          Notification : item.notification
+        };
+        return address
+      })
+    }
     getUserWatchlist();
     async function getUserWatchlist() {
-      //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-
       const response = await UserService.getUserWatchlist(data);
-      console.log("dasdasdas ", response);
       setWatchlist(response);
       setTablevalue(1);
+      
+      const address = downloadMyWatchlist(response);
+      setDownloadWatchlist(address)
+    }
+
+    function downloadTxnPvtNote (response) {
+      return response && response.map((item) => {
+        let address = {
+          TransactionHash : item.transactionHash,
+          Note : item.trxLable,
+          AddedOn : moment(item.addedOn).format('h:mm a, Do MMMM YYYY ')
+        };
+        return address
+      })
     }
     getuserdata();
     async function getuserdata() {
-      //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
-      setAddress(response);
+      setAddress(response)
+      
+      const address = downloadTxnPvtNote(response);
+      setDownloadTxnPvtNote(address)
     }
 
+    function downloadPvtTaggedAddress (response) {
+      return response && response.map((item) => {
+        let address = {
+          Address : item.address,
+          NameTag : item.tagName,
+          AddedOn : moment(item.addedOn).format('h:mm a, Do MMMM YYYY ')  
+        };
+        return address
+      })
+    }
     getPvtTagAddress();
     async function getPvtTagAddress() {
-      //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getPrivateTagToAddress(data);
       setPrivateAddress(response);
-      console.log("ccccc", response);
+      
+      const address = downloadPvtTaggedAddress(response);
+      setDownloadTagAddress(address)
     }
   }, []);
 
@@ -574,7 +613,7 @@ export default function SimpleTabs(props) {
             {tableValue === 1 ? (
               <CSVLink
                 filename={"watchlist.csv"}
-                data={watchlist}
+                data={downloadWatchlist}
                 style={{
                   fontSize: "0.938rem",
                   textAlign: "center",
@@ -592,7 +631,7 @@ export default function SimpleTabs(props) {
             ) : tableValue === 2 ? (
               <CSVLink
                 filename={"private_note.csv"}
-                data={address}
+                data={downloadTxnPvtNote}
                 style={{
                   fontSize: "0.938rem",
                   textAlign: "center",
@@ -610,7 +649,7 @@ export default function SimpleTabs(props) {
             ) : (
               <CSVLink
                 filename={"tag_address.csv"}
-                data={privateAddress}
+                data={downloadTagAddress}
                 style={{
                   fontSize: "0.938rem",
                   textAlign: "center",
@@ -923,7 +962,7 @@ export default function SimpleTabs(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {address.map((row, index) => {
+                      {address && address.map((row, index) => {
                         return (
                           <TableRow
                             style={
@@ -1168,7 +1207,7 @@ export default function SimpleTabs(props) {
                                 checked={toggle}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href={"/transaction-details/" + row.address}>
+                              <a className="linkTable" href={"/address-details/" + row.address}>
                                 <Tooltip placement="top" title={row.address}>
                                   <span className="tabledata">
                                     {shorten(row.address)}
