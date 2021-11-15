@@ -658,7 +658,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
                   <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Confrim Password</span>
+                    <span className={classes.fieldName}>Confirm Password</span>
                   </DialogContentText>
                   <input
                     type="password"
