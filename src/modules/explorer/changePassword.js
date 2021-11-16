@@ -48,11 +48,20 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "433px",
     height: "40px",
+<<<<<<< HEAD
     padding: "12px 19px 11px 19px",
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
     outline: "none",
+=======
+    border: "solid 1px #c6c8ce",
+    backgroundColor: "#ffffff",
+    borderRadius: "7px",
+    padding: "20px",
+    outline: "none",
+    marginTop: "5px",
+>>>>>>> 94d688568d251f13983e82fa3411142875c8c5a2
   },
   addbtn: {
     width: "432px",

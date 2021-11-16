@@ -8,6 +8,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import { Row } from "simple-flexbox";
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
@@ -177,19 +178,23 @@ const Input = styled.div`
   flex-flow: row nowrap;
 `;
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
   const [userName, setUserName] = React.useState("");
-  console.log("valueee", userName);
+  const [isEditPicture, setIsEditPicture] = React.useState(false);
+
+  //console.log("valueee", userName);
   const [uploadFile, setUploadFile] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState("");
   console.log("fileee", uploadFile);
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
     console.log(event, "Eventee");
+    setIsEditPicture(true)
     setUploadFile(event.target.files[0]);
   };
+  
   const updateUser = async (url) => {
     console.log("clicked-------");
     let userInfo = sessionManager.getDataFromCookies("userId");
@@ -199,28 +204,27 @@ export default function FormDialog() {
       name: userName,
       userId: userInfo,
       email: email,
-      profilePic: url?url:profilePicture
+      profilePic: url ? url : profilePicture,
     };
     console.log(reqObj, "reqeee");
-    
-      const authObject = new AuthService();
-      let [error, authResponse] = await Utility.parseResponse(
-        authObject.updateUser(reqObj)
-      );
-      console.log("authresponseeee", authResponse);
-      if (error || !authResponse) {
-        utility.apiFailureToast("failed");
-      } else {
 
-        utility.apiSuccessToast("upadated successfully");
-        sessionManager.setDataInCookies(authResponse, "userInfo");
-        sessionManager.setDataInCookies(true, "isLoggedIn");
-        sessionManager.setDataInCookies(authResponse.userId, "userId");
-        return authResponse
-      }
-    
+    const authObject = new AuthService();
+    let [error, authResponse] = await Utility.parseResponse(
+      authObject.updateUser(reqObj)
+    );
+    console.log("authresponseeee", authResponse);
+    if (error || !authResponse) {
+      utility.apiFailureToast("failed");
+    } else {
+      utility.apiSuccessToast("upadated successfully");
+      sessionManager.setDataInCookies(authResponse, "userInfo");
+      sessionManager.setDataInCookies(true, "isLoggedIn");
+      sessionManager.setDataInCookies(authResponse.userId, "userId");
+      window.location.href = "loginprofile";
+      return authResponse;
+    }
   };
-  
+
   const uploadFileToS3 = async () => {
     let formdata = new FormData();
     console.log(uploadFile, "filee");
@@ -234,12 +238,10 @@ export default function FormDialog() {
     if (error || !awsResponse) {
       utility.apiFailureToast(" Upload failed");
       return false;
-      
     } else {
       utility.apiSuccessToast("Pic uploaded successfully");
-      return awsResponse
+      return awsResponse;
     }
-    
   };
 
   const handleClickOpen = () => {
@@ -323,18 +325,37 @@ export default function FormDialog() {
   const [usernameDisable, setUsernameUnable] = React.useState(true);
   const [emailDisable, setEmailUnable] = React.useState(true);
 
-  
+  const profileUrl = async () => {
+    let response ={}
+    if(isEditPicture){
 
-  const profileUrl=async()=>{
-   let response = await uploadFileToS3()
-   if(!response)
-   return 
-    console.log("url",response[0].url)
-    setProfilePicture(response[0].url)
-    
-    let upadteUser=await updateUser(response[0].url)
-  }
+       response = await uploadFileToS3();
+      if (!response) return;
+      console.log("url", response[0].url);
+      setProfilePicture(response[0].url);
+    }
 
+    let upadteUser = await updateUser(response[0]?.url);
+  };
+  const getUserName = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.name;
+    console.log("namees", userName);
+    return userName;
+  };
+
+  const getEmail = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.email;
+    console.log("namees", userName);
+    return userName;
+  };
+  useEffect(() => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    if (userInfo && userInfo.name)
+    setUserName(userInfo.name);
+    setProfilePicture(userInfo.picture);
+  }, []);
 
   return (
     <div>
@@ -353,10 +374,7 @@ export default function FormDialog() {
           >
             <Wrapper>
               <div></div>
-              <Title>
-                Edit Profile
-                
-              </Title>
+              <Title>Edit Profile</Title>
 
               <Cut onClick={handleClose}>
                 {" "}
@@ -367,33 +385,37 @@ export default function FormDialog() {
               </Cut>
             </Wrapper>
             <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} />
+            <Row>
+              <DialogContent>
+                <DialogContentText className={classes.subCategory}>
+                  <b>Username</b>
+                </DialogContentText>
+                <Input className="inputcss">
+                  <input
+                    style={{ backgroundColor: "#f5f5f5" }}
+                    className="hide-border w-100 inputOutlineNone"
+                    type="text"
+                    id="username"
+                    disabled={usernameDisable}
+                    //placeholder= {getUserName()}
+                    value={getUserName()}
 
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                <b>Username</b>
-              </DialogContentText>
-              <Input className="inputcss">
-                <input
-                  style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border w-100 inputOutlineNone"
-                  type="text"
-                  id="username"
-                  disabled={usernameDisable}
-                  value={userName}
-                  placeholder="change here"
-                  onChange={(e) => {
-                    {
-                      setUserName(e.target.value);
-                    }
-                  }}
-                />
-                <img
-                  className="imgcss"
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setUsernameUnable(false)}
-                />
-              </Input>
-            </DialogContent>
+                    value={userName}
+                    
+                    onChange={(e) => {
+                      {
+                        setUserName(e.target.value);
+                      }
+                    }}
+                  />
+                  <img
+                    className="imgcss"
+                    src={require("../../../src/assets/images/edit.svg")}
+                    onClick={() => setUsernameUnable(false)}
+                  />
+                </Input>
+              </DialogContent>
+            </Row>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Email</b>
@@ -406,7 +428,7 @@ export default function FormDialog() {
                   type="text"
                   id="email"
                   value={email}
-                  placeholder="email"
+                  placeholder={getEmail()}
                   disabled={emailDisable}
                   onChange={(e) => {
                     {
@@ -425,9 +447,7 @@ export default function FormDialog() {
               <button
                 className={classes.addbtn}
                 onClick={() => {
-                 
-                 profileUrl()
-                  
+                  profileUrl();
 
                   // checkValidationPassword();
                 }}
