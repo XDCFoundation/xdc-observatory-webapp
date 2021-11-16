@@ -15,7 +15,9 @@ import { Row, Column } from "simple-flexbox";
 import moment from "moment";
 import Loader from "../../assets/loader";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
+import PrivateNote from "../../modules/common/dialog/privateNote"
 import { sessionManager } from "../../managers/sessionManager";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,28 +57,36 @@ export default function Transaction({ _handleChange }) {
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isPvtNote , setIsPvtNote ] = useState(false);
   const [privateNote, setPrivateNote] = useState("")
   const [addressTag, setAddressTag] = useState("")
+  const [addressTagTo, setAddressTagTo] = useState("")
+  const [isTag, setIsTag] = useState(false)
+  const [isTagTo, setIsTagTo] = useState(false)
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
+  const [fromAddress, setFromAddress] = useState("");
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
 
-  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const openDialog = () => setDialogIsOpen(true)
-  const closeDialog = () => setDialogIsOpen(false)
+  const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false)
+  const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false)
+
+  const openDialogPvtTag = () => setDialogPvtTagIsOpen(true)
+  const closeDialogPvtTag = () => setDialogPvtTagIsOpen(false)
+  const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true)
+  const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     transactionDetail();
     privateNoteUsingHash();
-    tagUsingAddressHash();
   }, [amount]);
 
+let formdata = {};
   const transactionDetail = async () => {
     let urlPath = `${hash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
@@ -85,6 +95,9 @@ export default function Transaction({ _handleChange }) {
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
     setLoading(false);
+
+    tagUsingAddressFrom(transactiondetailusinghash);
+    tagUsingAddressTo(transactiondetailusinghash);
   };
 
   const privateNoteUsingHash = async () => {
@@ -97,21 +110,34 @@ export default function Transaction({ _handleChange }) {
     );
     if (error || !privateNoteUsingHashResponse) return;
     setPrivateNote(privateNoteUsingHashResponse);
-    setLoggedIn(true);
+    setIsPvtNote(true);
   }
 
-  const tagUsingAddressHash = async () => {
-    const data ={
-      // address : `${transactions.from}`,
-      address : "xdc5c47ced4f9f89991053c6ed05ffcb6ae0ea37a9e",
+  
+  const tagUsingAddressFrom = async (response) => {
+    const data = {
+      address : response.from,
       userId : sessionManager.getDataFromCookies("userId")
     }
-    console.log("data",data)
-    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+    let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
-    if (error || !tagUsingAddressHashResponse) return;
+    if (errors || !tagUsingAddressHashResponse) return;
     setAddressTag(tagUsingAddressHashResponse);
+    setIsTag(true);
+  }
+
+  const tagUsingAddressTo = async (response) => {
+    const data = {
+      address : response.to,
+      userId : sessionManager.getDataFromCookies("userId")
+    }
+    let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (errors || !tagUsingAddressHashResponse) return;
+    setAddressTagTo(tagUsingAddressHashResponse);
+    setIsTagTo(true);
   }
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
@@ -228,7 +254,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      <img className="edit-icon" src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                      {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote}/>}
+                      <img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />
                       </span>
                   </MiddleContainer>
                 </HashDiv>
@@ -323,7 +350,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      <div className="nameLabel">{addressTag[0]?.tagName}</div>
+                      {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>):("")}
                       </span>
                     </Content>
                     
@@ -375,8 +402,8 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      {<PrivateAddressTag open={dialogIsOpen} onClose={closeDialog}/>}
-                      <img className="edit-icon" onClick={openDialog} src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                      {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag}/>}
+                      {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>):(<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                     </Content>
                   </MiddleContainer>
                 </SpacingHash>
@@ -499,7 +526,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
-                    {!isLoggedIn ? ( <PrivateText>
+                    {!isPvtNote ? ( <PrivateText>
                       To access the Private Note feature, you must be
                     
                     <a
@@ -542,6 +569,7 @@ const Content = styled.span`
   color: #3a3a3a;
   word-break: break-all;
   line-height: 28px;
+  display: flex;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;

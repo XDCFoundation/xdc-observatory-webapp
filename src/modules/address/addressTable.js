@@ -240,7 +240,7 @@ export default function AddressTableComponent(props) {
       trxn = Recdata.responseTransaction
       setTotalRecord(Recdata.total)
     }
-
+    
     setAddress(
       trxn.map((d) => {
         return {
@@ -304,6 +304,7 @@ export default function AddressTableComponent(props) {
       getAddressDetails(datas)
     }
   }
+
 
   const handleChanged = (event) => {
     const { name, checked } = event.target
@@ -383,13 +384,12 @@ export default function AddressTableComponent(props) {
               width: '8.438rem',
               color: '#2a2a2a',
               fontFamily: 'Inter',
-              outlineColor: 'transparent',
+              outlineColor: '#fff',
               borderWidth: 0,
-              fontWeight: '600',
               paddingBottom: '0.125rem',
             }}
             type="text"
-            placeholder="Search Txn"
+            placeholder="Search"
             onKeyUp={handleKeyUp}
           />
         </div>
@@ -590,6 +590,7 @@ export default function AddressTableComponent(props) {
                                   <span className="tabledata">
                                     {' '}
                                     {shorten(row.From)}
+                                    {/* {let fromAddress = row.From} */}
                                   </span>
                                 </Tooltip>
                               </a>

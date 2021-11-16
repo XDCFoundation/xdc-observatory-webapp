@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
     top: "65px",
     width: "503px",
     padding: "0 11px",
-    borderRadius: "8px",
+    borderRadius: "12px",
   },
   termsContainer: {
     flexFlow: "row nowrap",
@@ -699,7 +699,7 @@ export default function FormDialog() {
                 </DialogContent>
                 <DialogContent className={classes.userContainerSignup}>
                   <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Confrim Password</span>
+                    <span className={classes.fieldName}>Confirm Password</span>
                   </DialogContentText>
                   <input
                     type="password"
