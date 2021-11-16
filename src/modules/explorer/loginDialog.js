@@ -18,6 +18,7 @@ import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
+import Loader from '../../assets/loader'
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -96,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     marginLeft: "-48px",
-    marginBottom: "4px"
+    marginBottom: "4px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -160,7 +161,7 @@ const useStyles = makeStyles((theme) => ({
   robotText: {
     marginTop: "24px",
     fontWeight: "bold",
-    marginLeft: "-50px"
+    marginLeft: "-50px",
   },
   recaptcha: {
     marginTop: "12px",
@@ -352,19 +353,26 @@ export default function FormDialog() {
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(reqObj)
     );
-    if (error || !authResponse) {
-      Utility.apiFailureToast("Wrong email or password");
-      // setislogged(true)
+    if (authResponse?.userInfoRes?.email_verified === false) {
+      Utility.apiFailureToast("You have got an email from XDC explorer. Please verify your email.");
     } else {
-      console.log("response", authResponse);
-      sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
-      sessionManager.setDataInCookies(true, "isLoggedIn");
-      sessionManager.setDataInCookies(authResponse?.userInfoRes?.sub, "userId");
-      setUserName("");
-      setEmail("");
-      setPassword("");
-      Utility.apiSuccessToast("Sign in successfull");
-      window.location.href = "loginprofile";
+      if (error || !authResponse) {
+        Utility.apiFailureToast("Wrong email or password");
+        // setislogged(true)
+      } else {
+        console.log("response", authResponse);
+        sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(
+          authResponse?.userInfoRes?.sub,
+          "userId"
+        );
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        Utility.apiSuccessToast("Sign in successfull");
+        window.location.href = "loginprofile";
+      }
     }
   };
 
@@ -399,24 +407,25 @@ export default function FormDialog() {
     } else if (captchaCheckbox === false) {
       Utility.apiFailureToast("please verify captcha");
     } else {
-
-      const [error, response] = await Utility.parseResponse(userSignUp.postSignUp(data));
+      const [error, response] = await Utility.parseResponse(
+        userSignUp.postSignUp(data)
+      );
       if (error || !response) {
         Utility.apiFailureToast("User already exists");
       } else {
         Utility.apiSuccessToast("Sign-up success, check your email");
 
-      setOpen(false);
-      setTimeout(() => {
-        setValue(0);
-      }, 1000);
+        setOpen(false);
+        setTimeout(() => {
+          setValue(0);
+        }, 1000);
 
-      setUserName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setTermsCheckbox(false);
-      setCaptchaCheckbox(false);
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setTermsCheckbox(false);
+        setCaptchaCheckbox(false);
       }
     }
   };
@@ -477,10 +486,10 @@ export default function FormDialog() {
   const handleCaptchaCheckbox = () => {
     if (captchaCheckbox === true) {
       setCaptchaCheckbox(false);
-      console.log("captcha",captchaCheckbox)
+      console.log("captcha", captchaCheckbox);
     } else {
       setCaptchaCheckbox(true);
-      console.log("captcha",captchaCheckbox)
+      console.log("captcha", captchaCheckbox);
     }
   };
 
@@ -696,7 +705,10 @@ export default function FormDialog() {
                     {/* </div> */}
                     <label class="container1">
                       <input type="checkbox"></input>
-                      <span class="checkmark1" onClick={handleCaptchaCheckbox}></span>
+                      <span
+                        class="checkmark1"
+                        onClick={handleCaptchaCheckbox}
+                      ></span>
                     </label>
                     <span className={classes.robotText}>I'm not a robot</span>
                     <img
@@ -774,7 +786,10 @@ export default function FormDialog() {
                     </div> */}
                     <label class="container1">
                       <input type="checkbox"></input>
-                      <span class="checkmark1" onClick={handleCaptchaCheckbox}></span>
+                      <span
+                        class="checkmark1"
+                        onClick={handleCaptchaCheckbox}
+                      ></span>
                     </label>
                     <span className={classes.robotText}>I'm not a robot</span>
                     <img

@@ -596,6 +596,7 @@ input:focus {
   margin-top: 25px;
 }
 .down-arrow-internal{
+  
   margin-top: 10px;
 }
 .Shape2-internal1 {
@@ -603,6 +604,9 @@ input:focus {
   height: 1.563rem;
   margin-top: 0.625rem;
   margin-left: 0.313rem;
+}
+.down-arrow-internal:hover{
+  cursor: pointer;
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
