@@ -139,8 +139,6 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-
-  console.log("props1",props)
   useEffect(() => {
     if (props.row.transactionHash)
       setTransactionsHash(props.row.transactionHash);

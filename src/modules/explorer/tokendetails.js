@@ -345,7 +345,6 @@ export default function StickyHeadTable() {
                 <input
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
-                      console.log("Enter key was pressed. Run your function.");
                       handleSearchKeyUp(e);
                     }
                   }}

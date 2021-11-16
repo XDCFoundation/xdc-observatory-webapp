@@ -71,7 +71,7 @@ class Login extends BaseComponent {
   // let [getUserError, getUserResponse] = await Utils.parseResponse(
   //   UserService.getUserDetails(res?.userDetails?.sub)
   // );
-  // console.log("userdetails...", getUserResponse)
+  
   // if (getUserError) {
   //   Utils.apiFailureToast(genericConstants.CANT_GET_USER_DETAILS);
   //   this.setState({ disableButton: false })
