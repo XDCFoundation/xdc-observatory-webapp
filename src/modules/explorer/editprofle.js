@@ -15,7 +15,8 @@ import { makeStyles } from "@material-ui/styles";
 import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
-const { extname } = require("path");
+import Loader from "../../assets/loader";
+
 
 const acceptStyle = {
   borderColor: "#00e676",
@@ -79,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
+    //backgroundColor: "red",
     margin: "10px 10px 20px 10px",
     color: "white",
   },
@@ -181,41 +183,49 @@ const Input = styled.div`
 export default function FormDialog(props) {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
+  const [color, setColor] = useState("");
   const [userName, setUserName] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
   const [isEditPicture, setIsEditPicture] = React.useState(false);
 
   //console.log("valueee", userName);
   const [uploadFile, setUploadFile] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState("");
-  console.log("fileee", uploadFile);
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
     console.log(event, "Eventee");
     setIsEditPicture(true)
     setUploadFile(event.target.files[0]);
   };
+  // const changeColor =async()=>{
+    
+  //   setColor({backgroundColor:"red"})
+
+  // }
   
   const updateUser = async (url) => {
-    console.log("clicked-------");
     let userInfo = sessionManager.getDataFromCookies("userId");
-    //  userInfo = JSON.parse(userInfo);
-    console.log(userInfo, "localdata");
+    setLoading(true)
+   
     const reqObj = {
       name: userName,
       userId: userInfo,
       email: email,
       profilePic: url ? url : profilePicture,
     };
-    console.log(reqObj, "reqeee");
+  
 
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.updateUser(reqObj)
     );
-    console.log("authresponseeee", authResponse);
+    if (authResponse?.email.length > 2) {
+      setLoading(false);
+     }
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
+      console.log("passedirt",authResponse);
       utility.apiSuccessToast("upadated successfully");
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
@@ -226,6 +236,7 @@ export default function FormDialog(props) {
   };
 
   const uploadFileToS3 = async () => {
+    setLoading(true)
     let formdata = new FormData();
     console.log(uploadFile, "filee");
     formdata.append("file", uploadFile);
@@ -234,7 +245,9 @@ export default function FormDialog(props) {
     let [error, awsResponse] = await Utility.parseResponse(
       awsObject.updateUser(formdata)
     );
-    console.log("awsresponseeee", awsResponse);
+    if (awsResponse[0].url.length > 2) {
+      setLoading(false);
+     }
     if (error || !awsResponse) {
       utility.apiFailureToast(" Upload failed");
       return false;
@@ -303,8 +316,6 @@ export default function FormDialog(props) {
 
   useEffect(
     () => () => {
-      console.log("file", files);
-      console.log("accept", acceptedFiles);
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
@@ -340,14 +351,12 @@ export default function FormDialog(props) {
   const getUserName = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
     let userName = name.name;
-    console.log("namees", userName);
     return userName;
   };
 
   const getEmail = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
     let userName = name.email;
-    console.log("namees", userName);
     return userName;
   };
   useEffect(() => {
@@ -355,6 +364,7 @@ export default function FormDialog(props) {
     if (userInfo && userInfo.name)
     setUserName(userInfo.name);
     setProfilePicture(userInfo.picture);
+    setEmail(userInfo.email);
   }, []);
 
   return (
@@ -410,6 +420,7 @@ export default function FormDialog(props) {
                   />
                   <img
                     className="imgcss"
+                    
                     src={require("../../../src/assets/images/edit.svg")}
                     onClick={() => setUsernameUnable(false)}
                   />
@@ -449,15 +460,22 @@ export default function FormDialog(props) {
                 onClick={() => {
                   profileUrl();
 
-                  // checkValidationPassword();
+                
                 }}
-                //onClick={handleLogin}
-                //  onClick={(event) => (window.location.href = "loginprofile")}
+               
               >
                 Update Profile{" "}
               </button>
-              {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
+             
             </DialogActions>
+            {isLoading == true ? (
+                        <div >
+                          <Loader />
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )}
             <div className={classes.value}></div>
           </Dialog>
         </ProfilePicContainer>
