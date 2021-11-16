@@ -31,7 +31,8 @@ input#password {
 }
 input#password[placeholder] {
   text-overflow: ellipsis;
-  font-size: 22px;
+  font-size: 20px;
+  letter-spacing: 2px;
 }
 ::placeholder {
   color: #9fa9ba;

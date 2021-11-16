@@ -813,7 +813,7 @@ export default function SimpleTabs(props) {
                                 checked={toggle}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href="/">
+                              <a className="linkTable" href={"/address-details/" + row.address}>
                                 <Tooltip placement="top" title={row.address}>
                                   <span className="tabledata">
                                     {shorten(row.address)}{" "}
