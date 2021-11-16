@@ -51,7 +51,6 @@ const BigAvatar = styled(MuiAvatar)`
 `;
 
 const AvatarUpload = (props) => {
-  console.log(props,"propseee")
   const classes = useStyles();
 
   const [image, _setImage] = useState(null);
@@ -106,7 +105,7 @@ const AvatarUpload = (props) => {
         onChange={handleOnChange}
       />
       <label htmlFor="avatar-image-upload">
-        <Button onClick={handleClick}>{"Upload Photo"}</Button>
+        <Button className = "imgcss" onClick={handleClick}>{"Upload Photo"}</Button>
       </label>
     </CenteredContent>
   );
