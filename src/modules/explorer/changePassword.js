@@ -32,23 +32,27 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
-  dialog: {
-    marginLeft: "30%",
-    paddingTop: "70px",
-    width: "570px",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "575px",
-    borderRadius: "70px !important",
+  dialogBox: {
+    position: "absolute",
+    top: "65px",
+    width: "503px",
+    borderRadius: "12px",
+  },
+  closeContainer: {
+    top: "26px",
+    fontWeight: "500",
+    position: "absolute",
+    right: "30px",
+    cursor: "pointer",
   },
   input: {
     width: "433px",
     height: "40px",
-    border: "solid 1px #c6c8ce",
-    backgroundColor: "#ffffff",
-    borderRadius: "7px",
-    padding: "20px",
-    marginTop: "5px",
+    padding: "12px 19px 11px 19px",
+    borderRadius: "6px",
+    border: "solid 1px #9fa9ba",
+    backgroundColor: "#fff",
+    outline: "none",
   },
   addbtn: {
     width: "432px",
@@ -66,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "500",
     fontStretch: "normal",
     fontStyle: "normal",
-    lineHeight: "normal",
     letterSpacing: "0.54px",
     color: "#2a2a2a",
   },
@@ -135,7 +138,8 @@ export default function ChangePassword(props) {
 
   return (
     <Dialog
-      className={classes.dialog}
+      // className={classes.dialog}
+      classes={{ paperWidthSm: classes.dialogBox }}
       open
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
@@ -145,14 +149,23 @@ export default function ChangePassword(props) {
           <DialogContentText className={classes.text}>
             <b>Change Password</b>
           </DialogContentText>
-          <CloseIcon onClick={props.openChangePassword} />
+          <span
+                    onClick={props.openChangePassword}
+                    className={classes.closeContainer}
+                  >
+                    <img
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    ></img>
+                  </span>
         </Row>
         <Column>
           <DialogContentText className={classes.subCategory}>
             <b>Current Password</b>
             <input
               type="password"
-              placeholder="&bull; &bull; &bull; &bull; &bull;"
+              id="password"
+              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
               className={classes.input}
               onChange={(e) => {
                 {
@@ -165,7 +178,8 @@ export default function ChangePassword(props) {
             <b>New Password</b>
             <input
               type="password"
-              placeholder="&bull; &bull; &bull; &bull; &bull;"
+              id="password"
+              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
               className={classes.input}
               onChange={(e) => {
                 {
@@ -179,7 +193,8 @@ export default function ChangePassword(props) {
             <b>Confirm Password</b>
             <input
               type="password"
-              placeholder="&bull; &bull; &bull; &bull; &bull;"
+              id="password"
+              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
               className={classes.input}
               onChange={(e) => {
                 {

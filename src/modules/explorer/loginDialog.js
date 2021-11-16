@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     top: "65px",
     width: "503px",
     padding: "0 11px",
-    borderRadius: "8px",
+    borderRadius: "12px",
   },
   termsContainer: {
     flexFlow: "row nowrap",
