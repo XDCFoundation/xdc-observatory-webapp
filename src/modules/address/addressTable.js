@@ -190,7 +190,7 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data),
       )
-
+      console.log("addressDetails:",responseData)
       if (responseData.totalTransactionCount > 0) {
         setNoData(false)
         setLoading(false)
