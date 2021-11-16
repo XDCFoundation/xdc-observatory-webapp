@@ -550,6 +550,9 @@ input:focus {
   height: 20px;
   margin-top: 10px;
 }
+.imgcss:hover{
+  cursor: pointer;
+}
 .hide-border {
   border: none !important;
 }

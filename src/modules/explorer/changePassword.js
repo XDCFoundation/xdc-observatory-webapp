@@ -12,6 +12,7 @@ import Utils from "../../utility";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
+import Loader from "../../assets/loader";
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -90,6 +91,7 @@ export default function ChangePassword(props) {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [currentInput, setCurrentInput] = React.useState("");
   const [isError, setIsError] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
 
@@ -107,31 +109,40 @@ export default function ChangePassword(props) {
       oldPassword: currentInput,
       newPassword: newInput,
     };
-
+    console.log(userInfo.sub,"ideeee",userInfo.userId);
+    setLoading(true)
     setErrorPassword("");
     setErrorConfirmPassword("");
 
     if (!newInput || !confirmPassword || !currentInput) {
+      setLoading(false);
       utility.apiFailureToast("Please enter required field");
     } else if (!newInput.match(regExPass)) {
       setErrorPassword(
+        
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
+      setLoading(false);
     } else if (newInput !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
+      setLoading(false);
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.changePassword(reqObj)
       );
       if (error || !authResponse) {
+        setLoading(false);
         utility.apiFailureToast("failed");
+        console.log("pass",authResponse);
       } else {
         history.push("/dashboard");
+        console.log("pass",authResponse);
         utility.apiSuccessToast("Password  changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse?.sub, "userId");
+        setLoading(false);
       }
     }
   };
@@ -223,6 +234,15 @@ export default function ChangePassword(props) {
               Update Password{" "}
             </button>
           </DialogActions>
+          {isLoading == true ? (
+                        <div >
+                          
+                          <Loader/>
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )}
         </Column>
       </DialogContent>
     </Dialog>
