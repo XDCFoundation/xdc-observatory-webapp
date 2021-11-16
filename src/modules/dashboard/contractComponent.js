@@ -89,7 +89,6 @@ class Contractlist extends React.Component {
   };
 
   componentDidUpdate() {
-    //console.log(this.state)
   }
 
   handleKeyUp = async (event) => {
@@ -300,9 +299,7 @@ class Contractlist extends React.Component {
                   <input
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
-                        console.log(
-                          "Enter key was pressed. Run your function."
-                        );
+                        
                         this.handleKeyUp(e);
                       }
                     }}

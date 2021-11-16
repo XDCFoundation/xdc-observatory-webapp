@@ -102,7 +102,6 @@ class LatestBlocks extends Component {
         this.setState({ latestBlocksData: blocks });
 
         if (error) {
-          console.log("hello error");
         }
       }
     });
@@ -144,7 +143,6 @@ class LatestBlocks extends Component {
         this.setState({ latestTransactionData: transactions });
 
         if (error) {
-          console.log("hello error");
         }
       }
     });
@@ -249,7 +247,7 @@ class LatestBlocks extends Component {
                         this.state.ageAnimation?.[blockNumber];
                       let transAnimationClass =
                         this.state.transactionsAnimation?.[blockNumber];
-                      // console.log(animationClass, blockNumber);
+                     
                       return (
                         <div className="value_main_main">
                           <div className="main_vaa">

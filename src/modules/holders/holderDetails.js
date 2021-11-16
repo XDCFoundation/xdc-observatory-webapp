@@ -90,8 +90,6 @@ export default function HoldersDetails(props) {
     setToggleState(index);
   };
   const classes = useStyles();
-
-  console.log(holder[0]?.Total_transfes_transactions_Count, "ttt")
   const options = {
     htmlparser2: {
       lowerCaseTags: false

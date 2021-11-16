@@ -361,8 +361,6 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
-      
-      console.log("value",response)
       setWatchlist(response);
     }
     if (value === 1) {
@@ -373,7 +371,6 @@ export default function SimpleTabs(props) {
         search:value.toString(),
       };
       const response = await UserService.Search(data);
-      console.log("value",response)
       setAddress(response);
     }
     if (value === 2) {
@@ -384,7 +381,6 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
-      console.log("value",response)
       setPrivateAddress(response);
     }
   }
