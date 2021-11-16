@@ -18,7 +18,10 @@ import { genericConstants } from "../constants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
-import Loader from '../../assets/loader'
+import Loader from "../../assets/loader";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -265,6 +268,7 @@ export default function FormDialog() {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorUserName, setErrorUserName] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
@@ -332,7 +336,7 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
-
+     setLoading(true)
     setErrorEmail("");
     setErrorPassword("");
 
@@ -353,25 +357,35 @@ export default function FormDialog() {
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(reqObj)
     );
+    
+    if (authResponse?.userInfoRes?.email.length.name > 2) {
+      setLoading(false);
+     }
+
     if (authResponse?.userInfoRes?.email_verified === false) {
-      Utility.apiFailureToast("You have got an email from XDC explorer. Please verify your email.");
+      Utility.apiFailureToast(
+        "You have got an email from XDC explorer. Please verify your email."
+        );
+        setLoading(false);
     } else {
       if (error || !authResponse) {
+        setLoading(false);
         Utility.apiFailureToast("Wrong email or password");
         // setislogged(true)
       } else {
-        console.log("response", authResponse);
+        console.log("responselogin", authResponse);
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
         );
+        setLoading(false);
         setUserName("");
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        window.location.href = "loginprofile";
+       window.location.href = "loginprofile";
       }
     }
   };
@@ -385,7 +399,7 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
-
+    setLoading(true)
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
@@ -394,26 +408,34 @@ export default function FormDialog() {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
+      setLoading(false);
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
     } else if (!password.match(regExPass)) {
       setErrorPassword(
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
+      setLoading(false);
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
+      setLoading(false);
     } else if (termsCheckbox === false) {
       Utility.apiFailureToast("Please agree to the terms and conditions");
+      setLoading(false);
     } else if (captchaCheckbox === false) {
       Utility.apiFailureToast("please verify captcha");
+      setLoading(false);
     } else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
+      console.log("responseeee",response);
       if (error || !response) {
         Utility.apiFailureToast("User already exists");
+        setLoading(false);
       } else {
         Utility.apiSuccessToast("Sign-up success, check your email");
+        setLoading(false);
 
         setOpen(false);
         setTimeout(() => {
@@ -577,18 +599,28 @@ export default function FormDialog() {
                   </span>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
-                <DialogActions>
-                  <button
-                    className={classes.addbtn}
-                    onClick={() => {
-                      {
-                        login();
-                      }
-                    }}
-                  >
-                    Log in{" "}
-                  </button>
-                </DialogActions>
+                {isLoading == true ? (
+                        <div >
+                          
+                          <Loader/>
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )}
+                  <DialogActions>
+                    <button
+                      className={classes.addbtn}
+                      onClick={() => {
+                        {
+                          {login()};
+                        }
+                      }}
+                    >
+                      Log in{" "}
+                    </button>
+                  </DialogActions>
+                  
                 <div className={classes.value}></div>
                 <DialogContentText className={classes.xdc}>
                   New to XDC Explorer?{" "}
@@ -723,6 +755,15 @@ export default function FormDialog() {
                 >
                   Create an Account{" "}
                 </button>
+                {isLoading == true ? (
+                        <div >
+                          
+                          <Loader/>
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )}
 
                 <div className={classes.alreadyAccount}>
                   <div>
