@@ -423,8 +423,8 @@ export default function SimpleTabs(props) {
 
   const getListOfWatchlist = async (requestData) => {
     const request = {
-      limit: requestData.limit,
-      skip: requestData.skip,
+      limit: requestData?.limit || "5",
+      skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       "isWatchlistAddress":true
     };
@@ -435,8 +435,8 @@ export default function SimpleTabs(props) {
 
   const getListOfTxnLabel = async (requestData) => {
     const request = {
-      limit: requestData.limit,
-      skip: requestData.skip,
+      limit: requestData?.limit || "5",
+      skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId")
     };
     const response = await UserService.getTxnLabelList(request);
@@ -446,8 +446,8 @@ export default function SimpleTabs(props) {
 
   const getListOfTagAddress = async (requestData) => {
     const request = {
-      limit: requestData.limit,
-      skip: requestData.skip,
+      limit: requestData?.limit || "5",
+      skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       "isTaggedAddress":true
     };
@@ -756,7 +756,7 @@ export default function SimpleTabs(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {watchlist.map((row, index) => {
+                      {watchlist && watchlist.length>0  && watchlist.map((row, index) => {
                         return (
                           <TableRow
                             style={
@@ -844,7 +844,7 @@ export default function SimpleTabs(props) {
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditWatchList row={row} />
+                              <EditWatchList row={row}  getWatchlistList ={getListOfWatchlist}/>
                             </TableCell>
                           </TableRow>
                         );
@@ -975,30 +975,7 @@ export default function SimpleTabs(props) {
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
-                              {/* <Tooltip placement="right" title={row.Adress}>
-                      <VisibilityIcon
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
-                      />
-                    </Tooltip> */}
-
-                              {/* <input
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        let checked = e.target.checked;
-                                        setAddress(
-                                            address.map((d) => {
-                                                d.select = checked;
-
-                                                return d;
-                                            })
-                                        );
-                                    }}
-                                    style={{
-                                        marginRight: "10px",
-                                    }}
-                                /> */}
-                              <input
+                          <input
                                 onChange={(event) => {
                                   let checked = event.target.checked;
                                   exportAddress(event.row);
@@ -1034,17 +1011,10 @@ export default function SimpleTabs(props) {
                                   "hh:mm A, D MMMM YYYY "
                                 )}{" "}
                               </span>
-                              {/* </a> */}
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="left">
-                                        
-                                            <span className="tabledata">{row.Notification}</span>
-                                        
-                                    </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTxnLabel row={row} />
+                              <EditTxnLabel row={row} getListOfTxnLabel={getListOfTxnLabel} />
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
                         );
                       })}
@@ -1229,7 +1199,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTagAddress row={row} />
+                              <EditTagAddress row={row} getListOfTagAddress={getListOfTagAddress} />
                             </TableCell>
                           </TableRow>
                         );
