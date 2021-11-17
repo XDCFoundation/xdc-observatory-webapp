@@ -246,9 +246,9 @@ export default function FormDialog() {
           ></img>
         </div>
         <button className={classes.btn}>
-          <div className="headingdiv2">Add transaction private note</div>
+          <div className="headingdiv2">Add transaction label</div>
           <div className="paradiv2">
-            Add a personal note to transacton hash to track it in future
+            Add a personal note to a transacton hash to track it in future.
           </div>
         </button>
       </div>

@@ -341,6 +341,7 @@ export default function AddressTableComponent(props) {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr,
       )
+      console.log("address",tempAddress)
       setAddress(tempAddress)
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -557,6 +558,7 @@ export default function AddressTableComponent(props) {
                               //checked={checkAll}
                               style={{ marginRight: '0.5rem' }}
                             />
+                            {console.log("checked",row?.isChecked)}
 
                             <a
                               className="linkTable"
