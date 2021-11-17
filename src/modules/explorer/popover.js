@@ -13,7 +13,8 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 115px;
+  width: max-content;
+  cursor: pointer;
 `;
 const Contents = styled.div`
   padding: 10px 20px 10px 20px;
@@ -44,6 +45,14 @@ export default function BasicPopover(props) {
     setAnchorEl(event.currentTarget);
   };
 
+
+  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 0,
+        b.length
+    )}`;
+}
+
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
 
   const openChangePassword = () => {
@@ -65,8 +74,13 @@ export default function BasicPopover(props) {
   const id = open ? "simple-popover" : undefined;
   const setUserName=()=>{
     let name=sessionManager.getDataFromCookies("userInfo")
+    if(!name){
+      let userName = ""
+      return userName
+    } else {
     let userName = name.name
     return userName
+    }
   }                        
 
   return (
@@ -76,11 +90,11 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={require("../../../src/assets/images/Profile.svg")}
         />
-        <Typography style={{ marginTop: "13px"}}>{setUserName()}</Typography>
+        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(shortenUserName(setUserName()))}</span>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}
-        ></img>
+        />
       </ProfileContainer>
       <Popover
         style={{ top: "20px", left: "-40px", borderRadius: "30px" }}
