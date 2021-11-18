@@ -45,14 +45,6 @@ export default function BasicPopover(props) {
     setAnchorEl(event.currentTarget);
   };
 
-
-  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-        b.length - 0,
-        b.length
-    )}`;
-}
-
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
 
   const openChangePassword = () => {
@@ -90,7 +82,7 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
         />
-        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(shortenUserName(setUserName()))}</span>
+        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(Utility.shortenUserName(setUserName()))}</span>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}

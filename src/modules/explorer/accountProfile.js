@@ -267,12 +267,12 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
+  // function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
@@ -674,7 +674,7 @@ export default function SimpleTabs(props) {
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {shortenUserName(setUserName())}
+                Welcome, {Utils.shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">
