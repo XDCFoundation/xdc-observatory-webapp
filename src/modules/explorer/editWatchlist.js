@@ -16,7 +16,10 @@ import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
 import { useEffect } from "react";
 import styled from "styled-components";
-import utility from "../../utility";
+import utility , {dispatchAction} from "../../utility";
+import { WatchListService } from "../../services";
+import { eventConstants, genericConstants } from "../../constants";
+import {connect} from "react-redux";
 
 
 const DialogBox = styled.div`
@@ -161,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog(props) {
+ function EditWatchList(props) {
   const [open, setOpen] = React.useState(false);
 
   const [_id, setId] = React.useState("");
@@ -177,6 +180,7 @@ export default function FormDialog(props) {
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
+    setId(props.row._id)
   }, []);
 
   const classes = useStyles();
@@ -185,7 +189,7 @@ export default function FormDialog(props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose =async () => {
     setOpen(false);
   };
   const [value, setValue] = React.useState("female");
@@ -220,7 +224,21 @@ export default function FormDialog(props) {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
     }
   };
-
+const handleDelete = async (watchlist) =>{
+ console.log("WatchList", watchlist , props.row);
+ if(props?.row?._id){
+   props.dispatchAction(eventConstants.SHOW_LOADER, true)
+   const [ error , response] =await utility.parseResponse(WatchListService.deleteWatchlist({_id:props.row._id}))
+   props.dispatchAction(eventConstants.HIDE_LOADER, true)
+   if(error || !response){
+    utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_WATCHLIST);
+    return;
+   }
+  await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
+  await handleClose();
+   await props.getWatchlistList()
+ }
+}
   return (
     <div>
       <div onClick={handleClickOpen}>
@@ -314,7 +332,7 @@ export default function FormDialog(props) {
             <DialogActions className={classes.buttons} onClick={handleClose}>
               <div>
                 <span>
-                  <button className={classes.deletebtn} onClick={handleLogin}>
+                  <button className={classes.deletebtn} onClick={handleDelete}>
                     Delete
                   </button>
                 </span>
@@ -341,3 +359,8 @@ export default function FormDialog(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+export default connect(mapStateToProps, { dispatchAction })(EditWatchList);
