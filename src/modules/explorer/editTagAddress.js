@@ -11,7 +11,10 @@ import { Row } from "simple-flexbox";
 import PutTagAddress from "../../services/user";
 import { useEffect } from "react";
 import styled from "styled-components";
-import utility from "../../utility";
+import utility , {dispatchAction} from "../../utility";
+import { TagAddressService } from "../../services";
+import { eventConstants, genericConstants } from "../../constants";
+import { connect } from "react-redux";
 
 const DialogBox = styled.div`
   width: 553px;
@@ -120,12 +123,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog(props) {
+ function EditTaggedAddress(props) {
   const [open, setOpen] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState("");
   const [privateAddress, setPrivateAddress] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
+  const [id, setId] = React.useState("");
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
@@ -134,6 +139,7 @@ export default function FormDialog(props) {
   useEffect(() => {
     if (props.row.address) setPrivateAddress(props.row.privateAddress);
     setNameTag(props.row.nameTag);
+    setId(props.row._id)
   });
 
   async function editTaggedAddress() {
@@ -170,6 +176,20 @@ export default function FormDialog(props) {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
     }
   };
+  const handleDelete = async () =>{
+    if(props?.row?._id){
+      props.dispatchAction(eventConstants.SHOW_LOADER , true)
+      const [ error , response] =await utility.parseResponse(TagAddressService.deleteTagAddress({_id:props.row._id}))
+      props.dispatchAction(eventConstants.HIDE_LOADER , true)
+      if(error || !response){
+       utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_TAGGED_ADDRESS);
+       return;
+      }
+      await utility.apiSuccessToast(genericConstants.TAGGED_ADDRESS_DELETED);
+      await handleClose();
+      await props.getListOfTagAddress();
+    }
+   }
 
   return (
     <div>
@@ -220,7 +240,7 @@ export default function FormDialog(props) {
             <DialogActions className={classes.buttons}>
               <div>
                 <span>
-                  <button className={classes.deletebtn}>Delete</button>
+                  <button className={classes.deletebtn} onClick={handleDelete}>Delete</button>
                 </span>
               </div>
               <div>
@@ -245,3 +265,8 @@ export default function FormDialog(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+export default connect(mapStateToProps, { dispatchAction })(EditTaggedAddress);

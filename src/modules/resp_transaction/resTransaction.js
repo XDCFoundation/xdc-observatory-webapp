@@ -86,7 +86,6 @@ export default function Transaction({ _handleChange }) {
     privateNoteUsingHash();
   }, [amount]);
 
-let formdata = {};
   const transactionDetail = async () => {
     let urlPath = `${hash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
@@ -350,7 +349,8 @@ let formdata = {};
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>):("")}
+                      {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag}/>}
+                      {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>):(<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                       </span>
                     </Content>
                     
