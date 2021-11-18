@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import { dispatchAction } from '../../utility';
 
 const LoaderComponent = (props) => {
-    let topValue = props.top ? props.top : "25px" ;
+    let topValue = props.top ? props.top : "30px" ;
     let marginValue = props.user && props.user.loaderMargin ? props.user.loaderMargin : '50%';
     return (
         <div style={{position: 'absolute', width: '100%', height: '100%', top: topValue, zIndex: 100000}}>
