@@ -188,8 +188,7 @@ export default function FormDialog() {
     utility.apiSuccessToast("Tag Added");
     window.location.href = "loginprofile";
   }
-  // console.log("address",privateAddress)
-  // console.log("note",nameTag)
+
 
   const classes = useStyles();
 

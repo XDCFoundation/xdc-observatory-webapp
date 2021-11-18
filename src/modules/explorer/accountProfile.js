@@ -35,6 +35,7 @@ import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
+import {cookiesConstants} from "../constants"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -266,12 +267,12 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
+  // function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
@@ -470,6 +471,7 @@ export default function SimpleTabs(props) {
     if (!name) {
       window.location.href = "/";
     } else {
+      console.log("name", name);
       let userName = name.name;
       return userName;
     }
@@ -665,13 +667,14 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              src={require("../../assets/images/Profile.png")}
+              src={
+                sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
             />
           </span>
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {(setUserName().length>12) ? shortenUserName(setUserName()):(setUserName())}
+                Welcome, {Utils.shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">

@@ -292,7 +292,6 @@ class BlockChainDataComponent extends Component {
         this.setState({ blockdataNumber: blocks });
 
         if (error) {
-          console.log("hello error");
         }
       }
     });
@@ -323,7 +322,6 @@ class BlockChainDataComponent extends Component {
         }
 
         if (error) {
-          console.log("hello error");
         }
       }
     });

@@ -21,7 +21,6 @@ export default class BlockChainClass extends BaseComponent {
     _handleChange = (event) => {
         this.setState({ amount: event.target.value })
         window.localStorage.setItem('currency', event.target.value)
-        // alert(event.target.value)
     }
 
     render() {

@@ -58,7 +58,8 @@ const utility = {
     getDateFormat,
     changeDateFormat,
     getAggregatedPercWercQueryObject,
-    uploadImage
+    uploadImage,
+    shortenUserName
 };
 export default utility;
 
@@ -74,7 +75,7 @@ function trackEvent(event, eventData) {
     //     else
     //         mixpanel.track(event, eventData);
     // } catch (err) {
-    //     console.log(err)
+    //     
     // }
 }
 
@@ -91,6 +92,15 @@ async function uploadImage(request) {
     }
 }
 
+
+function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+    if(b.length >12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 0,
+        b.length
+    )}`;
+    else return b;
+}
 
 function getDateFormat() {
     var my_date = new Date(2019, 0, 31);
@@ -319,7 +329,7 @@ function getActivityDateEpochRange(activityDate) {
             start.setMonth(start.getMonth() - 3);
             return { start: start.getTime(), end: startDayEpochOfCurrentQuarter };
         case "Last Year":
-            console.log(startDayEpochOfCurrentYear)
+            
             start = new Date(startDayEpochOfCurrentYear);
             start.setFullYear(start.getFullYear() - 1);
             return { start: start.getTime(), end: startDayEpochOfCurrentYear };
@@ -481,7 +491,6 @@ function getCompanyObject(propsOfComponent) {
 
 function isCompanyBalanceLow(company) {
     if (!company || !company.tokenEconomy || !company.tokenEconomy) {
-        console.log('return false')
         return false;
     }
     let remainingMonth = (new Date(company.tokenEconomy.endDate)).getMonth() - (new Date()).getMonth() +
@@ -661,7 +670,6 @@ function getTimestampFromDate(year, month, date = 0) {
 }
 
 function extractDate(date, getType) {
-    console.log("date", typeof date, "getType", getType);
     switch (getType) {
         case "DAY":
             return new Date(date.toString()).getDate();
@@ -684,7 +692,6 @@ function changeDateFormat(date, newFormat) {
 }
 
 function getAggregatedPercWercQueryObject(start, end, skip, id) {
-    console.log(start, end, skip, id);
     return [
         {
             "$match": {
