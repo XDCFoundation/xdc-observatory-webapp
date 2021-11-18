@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     height: "35.063rem",
     alignSelf: "flex-start",
     margin: "100px auto",
+    borderRadius: "12px",
   },
   input: {
     width: "340px",
@@ -76,12 +77,11 @@ const useStyles = makeStyles((theme) => ({
   },
   addbtn: {
     width: "100%",
-    height: "35px",
-    borderRadius: "4.4px",
-    border: "solid 0.6px #00a1ed",
+    height: "40px",
+    borderRadius: "4px",
     backgroundColor: "#3763dd",
     //backgroundColor: "red",
-    margin: "10px 10px 20px 10px",
+    margin: "0px 14px 35px 14px",
     color: "white",
   },
   subCategory: {
@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
     fontweight: "500",
     border: "none !important",
     outline: "none",
+    color: "#2a2a2a",
   },
   forgotpass: {
     color: "#2149b9",
@@ -187,13 +188,10 @@ export default function FormDialog(props) {
   const [userName, setUserName] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [isEditPicture, setIsEditPicture] = React.useState(false);
-
-  //console.log("valueee", userName);
   const [uploadFile, setUploadFile] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState("");
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
-    console.log(event, "Eventee");
     setIsEditPicture(true)
     setUploadFile(event.target.files[0]);
   };
@@ -225,7 +223,6 @@ export default function FormDialog(props) {
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
-      console.log("passedirt",authResponse);
       utility.apiSuccessToast("upadated successfully");
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
@@ -238,7 +235,6 @@ export default function FormDialog(props) {
   const uploadFileToS3 = async () => {
     setLoading(true)
     let formdata = new FormData();
-    console.log(uploadFile, "filee");
     formdata.append("file", uploadFile);
     formdata.append("path", "profilePic");
     const awsObject = new AwsService();
@@ -342,7 +338,6 @@ export default function FormDialog(props) {
 
        response = await uploadFileToS3();
       if (!response) return;
-      console.log("url", response[0].url);
       setProfilePicture(response[0].url);
     }
 
@@ -402,7 +397,7 @@ export default function FormDialog(props) {
                 </DialogContentText>
                 <Input className="inputcss">
                   <input
-                    style={{ backgroundColor: "#f5f5f5" }}
+                    style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px" }}
                     className="hide-border w-100 inputOutlineNone"
                     type="text"
                     id="username"
@@ -434,7 +429,7 @@ export default function FormDialog(props) {
 
               <Input className="inputcss">
                 <input
-                  style={{ backgroundColor: "#f5f5f5" }}
+                  style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px" }}
                   className="hide-border w-100 inputOutlineNone "
                   type="text"
                   id="email"

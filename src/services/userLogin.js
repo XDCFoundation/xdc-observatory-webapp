@@ -24,7 +24,6 @@ export default class Auth0Service {
           response.responseData.length === 0
         )
           return Promise.reject();
-          console.log(response,"resseeeee")
         return Promise.resolve(response.responseData);
       })
       .catch(function (err) {
@@ -91,7 +90,6 @@ export default class Auth0Service {
   }
   async  logout(reqObj) {
     let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"log-out"
-    console.log(reqObj,url,"autheee")
     return httpService(
       httpConstants.METHOD_TYPE.GET,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -106,14 +104,13 @@ export default class Auth0Service {
            response.responseData.length === 0
         )
           return Promise.reject();
-          console.log("responseeee", response.responseData);
         return Promise.resolve(response.responseData);
       })
       .catch(
         function (err) {
           return Promise.reject(err);
         }
-        // console.log("respposne",response);
+        
       );
   }
 

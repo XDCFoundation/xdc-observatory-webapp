@@ -81,7 +81,6 @@ export default function AddressDetailsData() {
       const [error, responseData] = await Utility.parseResponse(
         ContractData.getContractDetails(values)
       );
-      console.log(responseData, "787")
       if (responseData.address != '') {
         setResponses(responseData)
         let activeCurrency = window.localStorage.getItem('currency')

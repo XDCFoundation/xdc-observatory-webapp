@@ -134,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
     width: "17px",
     height: "17px",
     marginRight: "8px",
-    marginTop: "1px",
+    marginTop: "5px",
   },
   robotContainer: {
     width: "299px",
@@ -373,7 +373,6 @@ export default function FormDialog() {
         Utility.apiFailureToast("Wrong email or password");
         // setislogged(true)
       } else {
-        console.log("responselogin", authResponse);
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(
@@ -429,7 +428,6 @@ export default function FormDialog() {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
-      console.log("responseeee",response);
       if (error || !response) {
         Utility.apiFailureToast("User already exists");
         setLoading(false);
@@ -508,10 +506,8 @@ export default function FormDialog() {
   const handleCaptchaCheckbox = () => {
     if (captchaCheckbox === true) {
       setCaptchaCheckbox(false);
-      console.log("captcha", captchaCheckbox);
     } else {
       setCaptchaCheckbox(true);
-      console.log("captcha", captchaCheckbox);
     }
   };
 

@@ -10,7 +10,6 @@ let initialState = {
 export default function user(state = initialState, action) {
     switch (action.type) {
      case eventConstants.SHOW_LOADER:
-         console.log("dispatched show loader");
       return {
         ...state,
         loading: true,

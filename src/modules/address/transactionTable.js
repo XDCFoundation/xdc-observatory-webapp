@@ -300,7 +300,6 @@ export default function TransactionTableComponent(props) {
   }, [])
   const classes = useStyles()
   const history = useHistory()
-  console.log(address, "?<>?")
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
