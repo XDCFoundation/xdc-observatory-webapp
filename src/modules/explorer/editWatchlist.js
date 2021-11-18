@@ -210,7 +210,8 @@ const useStyles = makeStyles((theme) => ({
       address: address,
       description: description,
     };
-
+    if(validateAddress()){
+// validateAddress();
     const [error,response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
     if(error || !response) {
       utility.apiFailureToast("Error");
@@ -219,17 +220,31 @@ const useStyles = makeStyles((theme) => ({
       window.location.href = "loginprofile";
     }
   };
+}
   const validateAddress = () => {
   
     if (
       (address && address.length === 43) ||
       address.slice(0, 2) == "xdc"
     ) {
-      watchListService();
+      return true;
+     // watchListService();
     } else {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
+      return false;
     }
   };
+  // const watchListService = async () => {
+  //   const request = {
+  //     _id: props.row._id,
+  //     address: address,
+  //     description: description,
+  //   };
+  //   validateAddress();
+  //   const response = PutWatchlist.putWatchlist(request);
+  //   utility.apiSuccessToast("Changes updated successfully")
+  //   window.location.reload();
+  // };
 const handleDelete = async (watchlist) =>{
  console.log("WatchList", watchlist , props.row);
  if(props?.row?._id){
@@ -352,7 +367,7 @@ const handleDelete = async (watchlist) =>{
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={watchListService,validateAddress}
+                    onClick={watchListService}
                   >
                     Update
                   </button>
