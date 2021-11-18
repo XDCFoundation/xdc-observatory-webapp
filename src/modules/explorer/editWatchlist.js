@@ -204,28 +204,47 @@ const useStyles = makeStyles((theme) => ({
 
   const [edit, setEdit] = React.useState();
 
-  const validateAddress = () => {
-  
-    if (
-      (address && address.length === 43) ||
-      address.slice(0, 2) == "xdc"
-    ) {
-      watchListService();
-    } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
-    }
-  };
   const watchListService = async () => {
     const request = {
       _id: props.row._id,
       address: address,
       description: description,
     };
-    validateAddress();
-    const response = PutWatchlist.putWatchlist(request);
-    utility.apiSuccessToast("Changes updated successfully")
-    window.location.reload();
+    if(validateAddress()){
+// validateAddress();
+    const [error,response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
+    if(error || !response) {
+      utility.apiFailureToast("Error");
+    } else {
+      utility.apiSuccessToast("Address Updated");
+      window.location.href = "loginprofile";
+    }
   };
+}
+  const validateAddress = () => {
+  
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      return true;
+     // watchListService();
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+      return false;
+    }
+  };
+  // const watchListService = async () => {
+  //   const request = {
+  //     _id: props.row._id,
+  //     address: address,
+  //     description: description,
+  //   };
+  //   validateAddress();
+  //   const response = PutWatchlist.putWatchlist(request);
+  //   utility.apiSuccessToast("Changes updated successfully")
+  //   window.location.reload();
+  // };
 const handleDelete = async (watchlist) =>{
  console.log("WatchList", watchlist , props.row);
  if(props?.row?._id){
@@ -246,7 +265,7 @@ const handleDelete = async (watchlist) =>{
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable">
-            <span className="tabledata">Edit</span>
+            <span className="tabledata1">Edit</span>
           </a>
         </button>
       </div>

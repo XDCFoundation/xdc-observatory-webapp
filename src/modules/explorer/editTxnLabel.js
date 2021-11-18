@@ -160,11 +160,11 @@ const useStyles = makeStyles((theme) => ({
       UserService.editUserPrivateNote(data)
     );
     if (error) {
-      utility.apiSuccessToast("Error");
+      utility.apiFailureToast("Error");
       return;
     }
-    utility.apiSuccessToast("Transaction Edited");
-    window.location.reload();
+    utility.apiSuccessToast("Private Note Updated");
+    window.location.href = "loginprofile"
   }
   const classes = useStyles();
 
@@ -209,7 +209,7 @@ const useStyles = makeStyles((theme) => ({
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable">
-            <span className="tabledata">Edit</span>
+            <span className="tabledata1">Edit</span>
           </a>
         </button>
       </div>
