@@ -170,8 +170,6 @@ background-color: #ffffff; */
   width: 0px;
 }
 .welcome {
-  width: 190px;
-  height: 21px;
   margin: 29px 15px 3px;
   font-family: Inter;
   font-size: 18px;
@@ -192,10 +190,13 @@ height: 22px;
 margin: 30px 74px 1px 15px;
 background-color: #4878ff; */
 
-  width: 19px;
-  height: 21.6px;
-  margin: 30px 0px 0px -90px;
+  width: 21px;
+  height: 22px;
   /* background-color: #4878ff; */
+}
+.notificationBell {
+  margin-top: 31px;
+  margin-left: -28px;
 }
 .edit {
   width: 78px;
@@ -358,7 +359,7 @@ background-color: #4878ff; */
   color: #d3dfff;
 }
 
-.tabledata {
+.tabledata1 {
   width: 10%;
   font-family: Inter;
   font-size: 0.875rem;
@@ -371,6 +372,20 @@ background-color: #4878ff; */
   opacity: 0.7;
   padding-left: 2rem;
 }
+.tabledata {
+  width: 10%;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  opacity: 0.7;
+  padding-left: 2rem;
+  color: #2a2a2a;
+}
 .tableheaders {
   font-family: "Fira Sans";
   font-size: 0.875rem;
@@ -380,7 +395,7 @@ background-color: #4878ff; */
   line-height: normal;
   letter-spacing: 0.034rem;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
   opacity: 0.8;
   padding-left: 2rem;
 }

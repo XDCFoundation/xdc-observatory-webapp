@@ -249,18 +249,6 @@ export default function FormDialog() {
 
   return (
     <div>
-      {/* <div className="div2" onClick={handleClickOpen}>
-                <div >
-                <img className="imagediv2" src={require("../../../assets/images/transaction.png")}></img>
-                    </div>
-                    <div className="headingdiv2">
-                    Add Transaction label
-                    </div>
-                    <div className="paradiv2">
-                     Add a personal note to transacton hash to track it in future
-                    </div>
-                    
-                </div> */}
 
       <div className="div1" onClick={handleClickOpen}>
         <div>
@@ -270,10 +258,10 @@ export default function FormDialog() {
           ></img>
         </div>
         <button className={classes.btn}>
-          <div className="headingdiv1">Create Watchlist</div>
+          <div className="headingdiv1">Create watchlist</div>
           <div className="paradiv1">
             An Email notification can be sent to you when an address on your
-            watchlist recieves an incoming notifications
+            watch list recieves an incoming transaction.
           </div>
         </button>
       </div>
