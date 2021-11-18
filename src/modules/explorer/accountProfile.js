@@ -36,6 +36,7 @@ import styled from "styled-components";
 import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import Loader from "../../assets/loader";
+import {cookiesConstants} from "../constants"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -267,12 +268,12 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
+  // function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
@@ -378,8 +379,8 @@ export default function SimpleTabs(props) {
   };
 
   const onChangeTxnLabelPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
-    await getListOfTxnLabel({ skip: list, limit: "5" });
+    setList(Math.ceil(value.selected * 5));
+    getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
@@ -478,6 +479,7 @@ export default function SimpleTabs(props) {
     if (!name) {
       window.location.href = "/";
     } else {
+      console.log("name", name);
       let userName = name.name;
       return userName;
     }
@@ -528,7 +530,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -554,7 +556,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -680,14 +682,14 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              src={setUserImage()}
               style={{borderRadius:"50px"}}
+              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
             />
           </span>
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {shortenUserName(setUserName())}
+                Welcome, {Utils.shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">
@@ -954,7 +956,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className="tabledata">
-                                {row.Notification}
+                                {row.notification.type==="NO" ? "Off": "Email"}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">

@@ -149,9 +149,13 @@ const useStyles = makeStyles((theme) => ({
       address: privateAddress,
       tagName: nameTag,
     };
-    const response = await PutTagAddress.putTaggedAddress(data);
-    utility.apiSuccessToast("Changes updated successfully")
-    window.location.reload();
+    const [error,response] = await utility.parseResponse(PutTagAddress.putTaggedAddress(data));
+    if(error || !response) {
+      utility.apiFailureToast("Address already exists");
+    } else {
+      utility.apiSuccessToast("Address tag Updated");
+      window.location.href = "loginprofile";
+    }
   }
 
   const classes = useStyles();
@@ -205,7 +209,7 @@ const useStyles = makeStyles((theme) => ({
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable">
-            <span className="tabledata">Edit</span>
+            <span className="tabledata1">Edit</span>
           </a>
         </button>
       </div>

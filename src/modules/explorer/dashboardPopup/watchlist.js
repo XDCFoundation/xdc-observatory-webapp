@@ -227,7 +227,7 @@ export default function FormDialog() {
     );
 
     if (error) {
-      utility.apiFailureToast("Address is already in use");
+      utility.apiFailureToast("Address already exists");
       return;
     }
     utility.apiSuccessToast("Address added to watchlist");

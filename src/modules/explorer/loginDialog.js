@@ -379,6 +379,7 @@ export default function FormDialog() {
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -402,6 +403,7 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
+    console.log("dataaaa",data);
     setLoading(true)
     setErrorUserName("");
     setErrorEmail("");
@@ -585,7 +587,7 @@ export default function FormDialog() {
                   <span>
                     {passwordShown ? (
                       <img
-                        src={require("../../../src/assets/images/hide.svg")}
+                        src={require("../../../src/assets/images/show .svg")}
                         className={classes.icon}
                         onClick={togglePasswordVisiblity}
                       />
