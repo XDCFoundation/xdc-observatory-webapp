@@ -181,7 +181,7 @@ export default function StickyHeadTable() {
     if (searchkeyword?.length > 2) {
       setKeywords(searchkeyword);
       setLoading(false);
-      let data = { pageNum: from, perpage: amount, searchkey: searchkeyword };
+      let data = { pageNum: 0, perpage: amount, searchkey: searchkeyword };
       SearchTokens(data);
     }
     if (searchkeyword?.length == 0) {
