@@ -1,8 +1,10 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../constants";
 
-export default { getTotalTransaction, getLatestTransaction, getSomeDaysTransaction, getTransactionDetailsUsingHash, getUserTransactionPrivateNoteUsingHash, getUserAddressTagUsingAddressHash,
-    deleteTransactionPrivateNote }
+export default {
+    getTotalTransaction, getLatestTransaction, getSomeDaysTransaction, getTransactionDetailsUsingHash, getUserTransactionPrivateNoteUsingHash, getUserAddressTagUsingAddressHash,
+    deleteTransactionPrivateNote
+}
 async function getTotalTransaction() {
     let url = process.env.REACT_APP_GET_TOTAL_TRANSACTION;
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
@@ -63,7 +65,7 @@ async function getTransactionDetailsUsingHash(path, data) {
 }
 
 async function getUserTransactionPrivateNoteUsingHash(data) {
-    let url = process.env.REACT_APP_GET_USER_TRANSACTION_PRIVATE_NOTE_USING_HASH ;
+    let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "get-user-transaction-private-note-using-hash";
     return httpService(httpConstants.METHOD_TYPE.POST, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
@@ -78,7 +80,7 @@ async function getUserTransactionPrivateNoteUsingHash(data) {
 }
 
 async function getUserAddressTagUsingAddressHash(data) {
-    let url = process.env.REACT_APP_GET_USER_ADDRESS_TAG_USING_ADDRESS_HASH ;
+    let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "get-user-address-tag-using-address-hash";
     return httpService(httpConstants.METHOD_TYPE.POST, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
@@ -93,7 +95,7 @@ async function getUserAddressTagUsingAddressHash(data) {
 }
 
 async function deleteTransactionPrivateNote(data) {
-    let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "delete-transaction-Private-note" ;
+    let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "delete-transaction-Private-note";
     return httpService(httpConstants.METHOD_TYPE.PUT, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {

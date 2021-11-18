@@ -190,7 +190,7 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data),
       )
-      console.log("addressDetails:",responseData)
+
       if (responseData.totalTransactionCount > 0) {
         setNoData(false)
         setLoading(false)
@@ -240,7 +240,7 @@ export default function AddressTableComponent(props) {
       trxn = Recdata.responseTransaction
       setTotalRecord(Recdata.total)
     }
-    
+
     setAddress(
       trxn.map((d) => {
         return {
@@ -267,7 +267,7 @@ export default function AddressTableComponent(props) {
         }
       }),
     )
-    
+
     setDownloadaddress(
       trxn.map((d) => {
         return {
@@ -341,7 +341,7 @@ export default function AddressTableComponent(props) {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr,
       )
-      console.log("address",tempAddress)
+
       setAddress(tempAddress)
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -558,7 +558,7 @@ export default function AddressTableComponent(props) {
                               //checked={checkAll}
                               style={{ marginRight: '0.5rem' }}
                             />
-                            {console.log("checked",row?.isChecked)}
+
 
                             <a
                               className="linkTable"

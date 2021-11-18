@@ -35,8 +35,6 @@ import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
-import Loader from "../../assets/loader";
-import {cookiesConstants} from "../constants"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -228,7 +226,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "500",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      color: "#2149b9"
+      // color: "#2149b9",
     },
     txnprivate: {
       height: "19px",
@@ -268,12 +266,12 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  // function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-  //     b.length - 0,
-  //     b.length
-  //   )}`;
-  // }
+  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 0,
+      b.length
+    )}`;
+  }
 
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
@@ -281,7 +279,6 @@ export default function SimpleTabs(props) {
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
-  const [isLoading, setLoading] = React.useState(false);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -300,7 +297,6 @@ export default function SimpleTabs(props) {
     async function getUserWatchlist() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserWatchlist(data);
-     // console.log(response,"reseeee")
       setWatchlist(response);
       setTablevalue(1);
     }
@@ -308,7 +304,6 @@ export default function SimpleTabs(props) {
     async function getuserdata() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
-      //console.log(response,"dateee")
       setAddress(response);
     }
     getPvtTagAddress();
@@ -321,7 +316,6 @@ export default function SimpleTabs(props) {
 
   const [search, setSearch] = React.useState("");
   async function searchData() {
-    setLoading(true)
     if (value === 0) {
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
@@ -330,7 +324,6 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
-      console.log(response,"reseeee")
       setWatchlist(response);
     }
     if (value === 1) {
@@ -341,7 +334,6 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
-      console.log(response,"reseeee1")
       setAddress(response);
     }
     if (value === 2) {
@@ -379,8 +371,8 @@ export default function SimpleTabs(props) {
   };
 
   const onChangeTxnLabelPage = async (value) => {
-    setList(Math.ceil(value.selected * 5));
-    getListOfTxnLabel({ skip: list, limit: "5" });
+    await setList(Math.ceil(value.selected * 5));
+    await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
@@ -396,7 +388,6 @@ export default function SimpleTabs(props) {
       isWatchlistAddress: true,
     };
     const response = await UserService.getWatchlistList(request);
-    console.log(response,"reseeee55")
     setWatchlist(response.watchlistContent);
     setTotalCount(response.totalCount);
   };
@@ -479,17 +470,9 @@ export default function SimpleTabs(props) {
     if (!name) {
       window.location.href = "/";
     } else {
-      console.log("name", name);
       let userName = name.name;
       return userName;
     }
-  };
-  const setUserImage = () => {
-    let name = sessionManager.getDataFromCookies("userInfo");
-    
-      let userName = name.profilePic;
-      return userName;
-    
   };
   const handleWatchlist = () => {
     setTablevalue(1);
@@ -530,7 +513,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification.type==="NO" ? "Off": "Email",
+            Notification: item.notification,
           };
         })
       );
@@ -556,7 +539,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification.type==="NO" ? "Off": "Email",
+            Notification: item.notification,
           };
         })
       );
@@ -682,14 +665,13 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              style={{borderRadius:"50px"}}
-              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
+              src={require("../../assets/images/Profile.png")}
             />
           </span>
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {Utils.shortenUserName(setUserName())}
+                Welcome, {shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">
@@ -852,15 +834,6 @@ export default function SimpleTabs(props) {
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
-                  {/* {isLoading == true ? (
-                        <div >
-                          
-                          <Loader/>
-                        </div>
-                   
-                ):(
-                  <div></div>
-                )} */}
                     <TableHead>
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
@@ -872,13 +845,13 @@ export default function SimpleTabs(props) {
                               marginRight: "10px",
                             }}
                           />
-                          <span className={"tableheaders"}>Address</span>
+                          <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Description</span>
+                          <span className={"tableheaders-1"}>Description</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Balance</span>
+                          <span className={"tableheaders-1"}>Balance</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByBalance}
@@ -892,20 +865,19 @@ export default function SimpleTabs(props) {
                           </button>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Added On</span>
+                          <span className={"tableheaders-1"}>Added On</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Notification</span>
+                          <span className={"tableheaders-1"}>Notification</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"} />
+                          <span className={"tableheaders-1"} />
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    
                     <TableBody>
-                      {watchlist && watchlist.length>0  && watchlist.map((row, index) => {
+                      {watchlist && watchlist.length > 0 && watchlist.map((row, index) => {
                         return (
                           <TableRow
                             style={
@@ -938,16 +910,16 @@ export default function SimpleTabs(props) {
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {row.description}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{row.balance}</span>
+                              <span className="tabledata-1">{row.balance}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
                                 )}
@@ -955,12 +927,12 @@ export default function SimpleTabs(props) {
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
-                                {row.notification.type==="NO" ? "Off": "Email"}
+                              <span className="tabledata-1">
+                                {row.Notification}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditWatchList row={row}  getWatchlistList ={getListOfWatchlist}/>
+                              <EditWatchList row={row} getWatchlistList={getListOfWatchlist} />
                             </TableCell>
                           </TableRow>
                         );
@@ -1008,21 +980,21 @@ export default function SimpleTabs(props) {
                               marginRight: "10px",
                             }}
                           />
-                          <span className={"tableheaders"}>
+                          <span className={"tableheaders-1"}>
                             Transaction Hash
                           </span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Note</span>
+                          <span className={"tableheaders-1"}>Note</span>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Balance</span>
+                                <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Added On</span>
+                          <span className={"tableheaders-1"}>Added On</span>
                           {/* <span> */}
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
@@ -1041,12 +1013,12 @@ export default function SimpleTabs(props) {
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Notification</span>
+                                <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}></span>
+                          <span className={"tableheaders-1"}></span>
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -1088,15 +1060,15 @@ export default function SimpleTabs(props) {
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{row.trxLable}</span>
+                              <span className="tabledata-1">{row.trxLable}</span>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
                                         
-                                            <span className="tabledata">{row.Balance}</span>
+                                            <span className="tabledata-1">{row.Balance}</span>
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {" "}
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
@@ -1151,10 +1123,10 @@ export default function SimpleTabs(props) {
                               marginRight: "10px",
                             }}
                           />
-                          <span className={"tableheaders"}>Address</span>
+                          <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Name Tag</span>
+                          <span className={"tableheaders-1"}>Name Tag</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByTagName}
@@ -1171,21 +1143,21 @@ export default function SimpleTabs(props) {
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Balance</span>
+                                <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}>Added On</span>
+                          <span className={"tableheaders-1"}>Added On</span>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Notification</span>
+                                <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders"}></span>
+                          <span className={"tableheaders-1"}></span>
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -1225,14 +1197,14 @@ export default function SimpleTabs(props) {
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{name}</span>
+                              <span className="tabledata-1">{name}</span>
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
-                                )}{" "}
+                                )}
                               </span>
                               {/* </a> */}
                             </TableCell>

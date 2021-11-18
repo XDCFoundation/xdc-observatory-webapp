@@ -8,11 +8,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { TransactionService, UserService } from "../../services";
-import utility,{dispatchAction} from "../../utility";
+import utility, { dispatchAction } from "../../utility";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { eventConstants, genericConstants } from "../../constants";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 const DialogBox = styled.div`
   width: 553px;
@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function EditTxnLabel(props) {
+function EditTxnLabel(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
@@ -172,12 +172,12 @@ const useStyles = makeStyles((theme) => ({
     setOpen(true);
   };
 
-  const handleClose =async () => {
+  const handleClose = async () => {
     setTransactionsHash(props.row.transactionHash);
     setOpen(false);
   };
   const validateTransaction = () => {
-  
+
     if (
       (TransactionsHash && TransactionsHash.length === 66) ||
       TransactionsHash.slice(0, 1) == "0x"
@@ -187,23 +187,22 @@ const useStyles = makeStyles((theme) => ({
       utility.apiFailureToast("Address should start with 0x & 66 characters");
     }
   };
-  const handleDelete = async () =>{
-    console.log("propppppp",props.row._id, id);
-    if(props?.row?._id){
+  const handleDelete = async () => {
+    if (props?.row?._id) {
       props.dispatchAction(eventConstants.SHOW_LOADER, true)
-      const [ error , response] =await utility.parseResponse(TransactionService.deleteTransactionPrivateNote({_id:props.row._id}))
+      const [error, response] = await utility.parseResponse(TransactionService.deleteTransactionPrivateNote({ _id: props.row._id }))
       props.dispatchAction(eventConstants.HIDE_LOADER, true)
-       
-      if(error || !response){
-       utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_TXN_PRIVATE_NOTE);
-       return;
-       
+
+      if (error || !response) {
+        utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_TXN_PRIVATE_NOTE);
+        return;
+
       }
-     await utility.apiSuccessToast(genericConstants.TXN_PRIVATE_NOTE_DELETED);
-     await handleClose();
+      await utility.apiSuccessToast(genericConstants.TXN_PRIVATE_NOTE_DELETED);
+      await handleClose();
       await props.getListOfTxnLabel();
     }
-   }
+  }
   return (
     <div>
       <div onClick={handleClickOpen}>
@@ -266,7 +265,7 @@ const useStyles = makeStyles((theme) => ({
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTransactionLable,validateTransaction}
+                    onClick={editTransactionLable, validateTransaction}
                   >
                     Update
                   </button>

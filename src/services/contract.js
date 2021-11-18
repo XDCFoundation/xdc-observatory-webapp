@@ -126,7 +126,8 @@ async function getContractSearch(data) {
     });
 }
 async function getContractDetailsUsingAddress(path, data) {
-  let url = process.env.REACT_APP_GET_CONTRACT_DETAIL_USING_ADDRESS + path;
+  let url = process.env.REACT_APP_GET_CONTRACT_DETAIL_USING_ADDRESS + path + "?skip=0" +
+    "&limit=40";
   return httpService(
     httpConstants.METHOD_TYPE.GET,
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },

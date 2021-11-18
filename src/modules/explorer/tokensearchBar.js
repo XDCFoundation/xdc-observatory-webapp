@@ -684,6 +684,11 @@ export default function Navbar() {
                     Tokens
                   </NavLink>
                 </div>
+                <div>
+                  <a href='/token-details'>
+                    <div className="Token-internal" >Tokens</div>
+                  </a>
+                </div>
               </div>
             </div>
             {/* </Typography> */}

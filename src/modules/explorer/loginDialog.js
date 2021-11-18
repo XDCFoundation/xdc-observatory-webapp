@@ -336,7 +336,7 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
-     setLoading(true)
+    setLoading(true)
     setErrorEmail("");
     setErrorPassword("");
 
@@ -350,7 +350,7 @@ export default function FormDialog() {
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-        
+
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false)
@@ -361,16 +361,16 @@ export default function FormDialog() {
     let [error, authResponse] = await Utility.parseResponse(
       authObject.signin(reqObj)
     );
-    
+
     if (authResponse?.userInfoRes?.email.length.name > 2) {
       setLoading(false);
-     }
+    }
 
     if (authResponse?.userInfoRes?.email_verified === false) {
       Utility.apiFailureToast(
         "You have got an email from XDC explorer. Please verify your email."
-        );
-        setLoading(false);
+      );
+      setLoading(false);
     } else {
       if (error || !authResponse) {
         setLoading(false);
@@ -389,7 +389,7 @@ export default function FormDialog() {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-       window.location.href = "loginprofile";
+        window.location.href = "loginprofile";
       }
     }
   };
@@ -403,7 +403,6 @@ export default function FormDialog() {
       email: email,
       password: password,
     };
-    console.log("dataaaa",data);
     setLoading(true)
     setErrorUserName("");
     setErrorEmail("");
@@ -602,27 +601,27 @@ export default function FormDialog() {
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
-                        <div >
-                          
-                          <Loader/>
-                        </div>
-                   
-                ):(
+                  <div >
+
+                    <Loader />
+                  </div>
+
+                ) : (
                   <div></div>
                 )}
-                  <DialogActions>
-                    <button
-                      className={classes.addbtn}
-                      onClick={() => {
-                        {
-                          {login()};
-                        }
-                      }}
-                    >
-                      Log in{" "}
-                    </button>
-                  </DialogActions>
-                  
+                <DialogActions>
+                  <button
+                    className={classes.addbtn}
+                    onClick={() => {
+                      {
+                        { login() };
+                      }
+                    }}
+                  >
+                    Log in{" "}
+                  </button>
+                </DialogActions>
+
                 <div className={classes.value}></div>
                 <DialogContentText className={classes.xdc}>
                   New to XDC Explorer?{" "}
@@ -663,7 +662,7 @@ export default function FormDialog() {
                     // name="userName"
                     // value={signUp.userName}
                     onChange={(e) => setUserName(e.target.value)}
-                    // onChange={inputEventSignUp}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorUserName}</div>
                 </DialogContent>
@@ -677,9 +676,9 @@ export default function FormDialog() {
                     className={classes.input}
                     // name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    // value={signUp.email}
+                  // value={signUp.email}
 
-                    // onChange={inputEventSignUp}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorEmail}</div>
                 </DialogContent>
@@ -693,9 +692,9 @@ export default function FormDialog() {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
-                    // name="password"
-                    // value={signUp.password}
-                    // onChange={inputEventSignUp}
+                  // name="password"
+                  // value={signUp.password}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
@@ -709,9 +708,9 @@ export default function FormDialog() {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    // name="confirmPassword"
-                    // value={signUp.confirmPassword}
-                    // onChange={inputEventSignUp}
+                  // name="confirmPassword"
+                  // value={signUp.confirmPassword}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
@@ -752,12 +751,12 @@ export default function FormDialog() {
                   </div>
                 </div>
                 {isLoading == true ? (
-                        <div >
-                          
-                          <Loader/>
-                        </div>
-                   
-                ):(
+                  <div >
+
+                    <Loader />
+                  </div>
+
+                ) : (
                   <div></div>
                 )}
                 <button
@@ -766,7 +765,7 @@ export default function FormDialog() {
                 >
                   Create an Account{" "}
                 </button>
-                
+
 
                 <div className={classes.alreadyAccount}>
                   <div>
