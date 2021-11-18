@@ -211,7 +211,13 @@ const useStyles = makeStyles((theme) => ({
       description: description,
     };
 
-    const response = PutWatchlist.putWatchlist(request);
+    const [error,response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
+    if(error || !response) {
+      utility.apiFailureToast("Error");
+    } else {
+      utility.apiSuccessToast("Address Updated");
+      window.location.href = "loginprofile";
+    }
   };
   const validateAddress = () => {
   
@@ -244,7 +250,7 @@ const handleDelete = async (watchlist) =>{
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable">
-            <span className="tabledata">Edit</span>
+            <span className="tabledata1">Edit</span>
           </a>
         </button>
       </div>
