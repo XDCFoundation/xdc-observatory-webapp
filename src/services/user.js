@@ -154,7 +154,6 @@ async function getPrivateTagToAddress(data) {
 async function addWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-watchlist";
-  console.log("url", data);
   return httpService(
     "POST",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -250,7 +249,6 @@ async function editUserPrivateNote(data) {
 }
 async function Search(data) {
   let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "search";
-  console.log("url ", data);
   return httpService(
     "POST",
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -258,7 +256,6 @@ async function Search(data) {
     url
   )
     .then((response) => {
-      console.log("data 1", response);
       if (
         !response.success ||
         response.responseCode !== 200 ||

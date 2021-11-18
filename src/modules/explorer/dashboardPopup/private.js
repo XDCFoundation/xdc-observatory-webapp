@@ -188,8 +188,7 @@ export default function FormDialog() {
     utility.apiSuccessToast("Tag Added");
     window.location.href = "loginprofile";
   }
-  // console.log("address",privateAddress)
-  // console.log("note",nameTag)
+
 
   const classes = useStyles();
 
@@ -225,9 +224,9 @@ export default function FormDialog() {
           ></img>
         </div>
         <button className={classes.btn}>
-          <div className="headingdiv3">Add private tag to an address</div>
+          <div className="headingdiv3">Add private tag to an Address</div>
           <div className="paradiv3">
-            Add a short memo or private tag to the address of interest
+            Add a short memo or private tag to the address of interest.
           </div>
         </button>
       </div>

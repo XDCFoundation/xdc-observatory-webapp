@@ -31,13 +31,11 @@ export const httpService = (method, headers, data, url) => {
                         }) || response.statusText);
 
                 } catch (err) {
-                    console.log('Class: httpService, Function: fetch ==', err);
                     return Promise.reject(err)
                 }
                 return data;
             });
         }).catch(function (err) {
-            console.log('Class: httpService, Function: fetch ==', err);
             return Promise.reject(err);
         })
 
@@ -59,13 +57,11 @@ export const httpGetService = (method, headers, data, url) => {
                 try {
                     data = typeof responseText === 'object' ? responseText : JSON.parse(responseText);
                 } catch (err) {
-                    console.log('Class: httpService, Function: fetch ==', err);
                     return Promise.reject(err)
                 }
                 return data;
             });
         }).catch(function (err) {
-            console.log('Class: httpService, Function: fetch ==', err);
             return Promise.reject(err);
         })
 

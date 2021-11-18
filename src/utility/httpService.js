@@ -22,7 +22,6 @@ export const httpService = (method, headers, data, url, contentHeader = true, to
 
     return fetch(url, requestOptions)
         .then(function handleResponse(response) {
-            //console.log("RESPONSE TEXT",response.text())
 
             //in case API is down-
             if (!response || !response.ok)
@@ -40,13 +39,11 @@ export const httpService = (method, headers, data, url, contentHeader = true, to
                         return Promise.reject((data && data.responseCode) === 404 ? data : (data && { message: data.message, responseCode: data.responseCode }) || response.statusText);
 
                 } catch (err) {
-                    console.log('Class: httpService, Function: fetch ==', err);
                     return Promise.reject(err)
                 }
                 return data;
             });
         }).catch(function (err) {
-            console.log('Class: httpService, Function: fetch ==', err);
             return Promise.reject(err);
         })
 

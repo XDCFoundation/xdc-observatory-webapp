@@ -69,7 +69,6 @@ function TemporaryDrawer(props) {
     props.dispatchAction(eventConstants.HIDE_LOADER, true)
 
     if (error || !response) {
-      console.log("error",error);
       utility.apiFailureToast(error?.message  && typeof(error.message)==="string" ? error.message : genericConstants.CANNOT_GET_NOTIFICATIONS);
       return;
     }
