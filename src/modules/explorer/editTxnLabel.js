@@ -164,6 +164,7 @@ const useStyles = makeStyles((theme) => ({
       return;
     }
     utility.apiSuccessToast("Transaction Edited");
+    window.location.reload();
   }
   const classes = useStyles();
 

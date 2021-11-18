@@ -213,6 +213,15 @@ export default function ChangePassword(props) {
             ></input>
             <div className={classes.error}>{errorConfirmPassword}</div>
           </DialogContentText>
+          {isLoading == true ? (
+                        <div >
+                          
+                          <Loader/>
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )}
 
           <DialogActions
             style={{
@@ -232,15 +241,7 @@ export default function ChangePassword(props) {
               Update Password{" "}
             </button>
           </DialogActions>
-          {isLoading == true ? (
-                        <div >
-                          
-                          <Loader/>
-                        </div>
-                   
-                ):(
-                  <div></div>
-                )}
+          
         </Column>
       </DialogContent>
     </Dialog>

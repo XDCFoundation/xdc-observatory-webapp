@@ -204,15 +204,6 @@ const useStyles = makeStyles((theme) => ({
 
   const [edit, setEdit] = React.useState();
 
-  const watchListService = async () => {
-    const request = {
-      _id: props.row._id,
-      address: address,
-      description: description,
-    };
-
-    const response = PutWatchlist.putWatchlist(request);
-  };
   const validateAddress = () => {
   
     if (
@@ -223,6 +214,17 @@ const useStyles = makeStyles((theme) => ({
     } else {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
     }
+  };
+  const watchListService = async () => {
+    const request = {
+      _id: props.row._id,
+      address: address,
+      description: description,
+    };
+    validateAddress();
+    const response = PutWatchlist.putWatchlist(request);
+    utility.apiSuccessToast("Changes updated successfully")
+    window.location.reload();
   };
 const handleDelete = async (watchlist) =>{
  console.log("WatchList", watchlist , props.row);
@@ -346,7 +348,7 @@ const handleDelete = async (watchlist) =>{
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={watchListService,validateAddress}
+                    onClick={watchListService}
                   >
                     Update
                   </button>

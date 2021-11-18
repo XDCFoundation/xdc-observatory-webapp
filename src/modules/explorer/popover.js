@@ -81,14 +81,22 @@ export default function BasicPopover(props) {
     let userName = name.name
     return userName
     }
-  }                        
+  }   
+  const setUserImage = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    
+      let userName = name.profilePic;
+      return userName;
+    
+  };                     
 
   return (
     <div>
       <ProfileContainer onClick={handleClick} Open Popover>
         <img
           className="Shape2-internal"
-          src={require("../../../src/assets/images/Profile.svg")}
+          src={setUserImage()}
+          style={{borderRadius:"50px"}}
         />
         <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(shortenUserName(setUserName()))}</span>
         <img

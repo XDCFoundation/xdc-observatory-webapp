@@ -150,6 +150,8 @@ const useStyles = makeStyles((theme) => ({
       tagName: nameTag,
     };
     const response = await PutTagAddress.putTaggedAddress(data);
+    utility.apiSuccessToast("Changes updated successfully")
+    window.location.reload();
   }
 
   const classes = useStyles();
@@ -166,15 +168,22 @@ const useStyles = makeStyles((theme) => ({
     // history.push("/loginprofile")
   };
   const validateAddress = () => {
+    if (nameTag && nameTag.length >= 20){
+      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+      
+    }else{
+      validateTagName()
+    }
+  }
+  const validateTagName = () => {
   
-    if (
-      (privateAddress && privateAddress.length === 43) ||
-      privateAddress.slice(0, 2) == "xdc"
-    ) {
-      editTaggedAddress();
+    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
+      editTaggedAddress()
+      
     } else {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
     }
+
   };
   const handleDelete = async () =>{
     if(props?.row?._id){
