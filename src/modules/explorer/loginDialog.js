@@ -134,7 +134,7 @@ const useStyles = makeStyles((theme) => ({
     width: "17px",
     height: "17px",
     marginRight: "8px",
-    marginTop: "1px",
+    marginTop: "5px",
   },
   robotContainer: {
     width: "299px",
