@@ -185,7 +185,6 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        console.log(responseData, "KIu");
         if (responseData.redirect == "block") {
           let blockurl = "/block-details/" + responseData.block.number;
           window.location.href = blockurl;

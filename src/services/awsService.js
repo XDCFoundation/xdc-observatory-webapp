@@ -40,8 +40,6 @@ async  updateUser(requestData) {
 
       // Utils.apiFailureToast(err && err.message || "Unable to upload selected file")
 
-      console.log(err);
-
     });
 }
 }

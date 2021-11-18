@@ -60,7 +60,6 @@ export default class LatestBlocksList extends BaseComponent {
                 this.setState({ blocksList: blocks });
 
                 if (error) {
-                    console.log("hello error");
                 }
             }
 

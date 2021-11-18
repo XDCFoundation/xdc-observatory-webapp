@@ -188,13 +188,10 @@ export default function FormDialog(props) {
   const [userName, setUserName] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [isEditPicture, setIsEditPicture] = React.useState(false);
-
-  //console.log("valueee", userName);
   const [uploadFile, setUploadFile] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState("");
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
-    console.log(event, "Eventee");
     setIsEditPicture(true)
     setUploadFile(event.target.files[0]);
   };
@@ -226,7 +223,6 @@ export default function FormDialog(props) {
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
-      console.log("passedirt",authResponse);
       utility.apiSuccessToast("upadated successfully");
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
@@ -239,7 +235,6 @@ export default function FormDialog(props) {
   const uploadFileToS3 = async () => {
     setLoading(true)
     let formdata = new FormData();
-    console.log(uploadFile, "filee");
     formdata.append("file", uploadFile);
     formdata.append("path", "profilePic");
     const awsObject = new AwsService();
@@ -343,7 +338,6 @@ export default function FormDialog(props) {
 
        response = await uploadFileToS3();
       if (!response) return;
-      console.log("url", response[0].url);
       setProfilePicture(response[0].url);
     }
 

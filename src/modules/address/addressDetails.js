@@ -156,7 +156,7 @@ export default function AddressDetails(props) {
       address : addr,
       userId : sessionManager.getDataFromCookies("userId")
     }
-    console.log("data",data)
+    
     let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
