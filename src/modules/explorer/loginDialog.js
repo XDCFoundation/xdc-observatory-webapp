@@ -375,6 +375,7 @@ export default function FormDialog() {
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -394,10 +395,11 @@ export default function FormDialog() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const data = {
-      userName: userName,
+      name: userName,
       email: email,
       password: password,
     };
+    console.log("dataaaa",data);
     setLoading(true)
     setErrorUserName("");
     setErrorEmail("");

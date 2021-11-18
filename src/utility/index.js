@@ -58,7 +58,8 @@ const utility = {
     getDateFormat,
     changeDateFormat,
     getAggregatedPercWercQueryObject,
-    uploadImage
+    uploadImage,
+    shortenUserName
 };
 export default utility;
 
@@ -91,6 +92,15 @@ async function uploadImage(request) {
     }
 }
 
+
+function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+    if(b.length >12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 0,
+        b.length
+    )}`;
+    else return b;
+}
 
 function getDateFormat() {
     var my_date = new Date(2019, 0, 31);
