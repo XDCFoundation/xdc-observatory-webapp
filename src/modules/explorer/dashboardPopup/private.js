@@ -172,6 +172,7 @@ export default function FormDialog() {
 
   async function TaggedAddress() {
     setOpen(false);
+    
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
@@ -182,7 +183,7 @@ export default function FormDialog() {
     );
 
     if (error) {
-      utility.apiFailureToast("error");
+      utility.apiFailureToast("Address is already in use");
       return;
     }
     utility.apiSuccessToast("Tag Added");
@@ -204,16 +205,28 @@ export default function FormDialog() {
     history.push("/loginprofile");
   };
   const validateAddress = () => {
+    if (nameTag && nameTag.length >= 20){
+      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+      
+    }else{
+      validateTagName()
+    }
+  }
   
-    if (
-      (privateAddress && privateAddress.length === 43) ||
-      privateAddress.slice(0, 2) == "xdc"
-    ) {
+  
+  
+  const validateTagName = () => {
+  
+    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
       TaggedAddress();
+      
     } else {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
     }
+
   };
+  
+  
   return (
     <div>
       <div className="div3" onClick={handleClickOpen}>

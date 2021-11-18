@@ -198,7 +198,7 @@ export default function FormDialog() {
 
     if (error) {
       
-        utility.apiFailureToast("Transaction private note not added");
+        utility.apiFailureToast("Transaction private note is already in use");
         return;
       }
       utility.apiSuccessToast("Transaction Added");
