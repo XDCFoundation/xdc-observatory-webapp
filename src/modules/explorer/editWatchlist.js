@@ -16,10 +16,10 @@ import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
 import { useEffect } from "react";
 import styled from "styled-components";
-import utility , {dispatchAction} from "../../utility";
+import utility, { dispatchAction } from "../../utility";
 import { WatchListService } from "../../services";
 import { eventConstants, genericConstants } from "../../constants";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 
 const DialogBox = styled.div`
@@ -164,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function EditWatchList(props) {
+function EditWatchList(props) {
   const [open, setOpen] = React.useState(false);
 
   const [_id, setId] = React.useState("");
@@ -189,7 +189,7 @@ const useStyles = makeStyles((theme) => ({
     setOpen(true);
   };
 
-  const handleClose =async () => {
+  const handleClose = async () => {
     setOpen(false);
   };
   const [value, setValue] = React.useState("female");
@@ -210,25 +210,25 @@ const useStyles = makeStyles((theme) => ({
       address: address,
       description: description,
     };
-    if(validateAddress()){
-// validateAddress();
-    const [error,response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
-    if(error || !response) {
-      utility.apiFailureToast("Error");
-    } else {
-      utility.apiSuccessToast("Address Updated");
-      window.location.href = "loginprofile";
-    }
-  };
-}
+    if (validateAddress()) {
+      // validateAddress();
+      const [error, response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
+      if (error || !response) {
+        utility.apiFailureToast("Error");
+      } else {
+        utility.apiSuccessToast("Address Updated");
+        window.location.href = "loginprofile";
+      }
+    };
+  }
   const validateAddress = () => {
-  
+
     if (
       (address && address.length === 43) ||
       address.slice(0, 2) == "xdc"
     ) {
       return true;
-     // watchListService();
+      // watchListService();
     } else {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
       return false;
@@ -245,21 +245,20 @@ const useStyles = makeStyles((theme) => ({
   //   utility.apiSuccessToast("Changes updated successfully")
   //   window.location.reload();
   // };
-const handleDelete = async (watchlist) =>{
- console.log("WatchList", watchlist , props.row);
- if(props?.row?._id){
-   props.dispatchAction(eventConstants.SHOW_LOADER, true)
-   const [ error , response] =await utility.parseResponse(WatchListService.deleteWatchlist({_id:props.row._id}))
-   props.dispatchAction(eventConstants.HIDE_LOADER, true)
-   if(error || !response){
-    utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_WATCHLIST);
-    return;
-   }
-  await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
-  await handleClose();
-   await props.getWatchlistList()
- }
-}
+  const handleDelete = async (watchlist) => {
+    if (props?.row?._id) {
+      props.dispatchAction(eventConstants.SHOW_LOADER, true)
+      const [error, response] = await utility.parseResponse(WatchListService.deleteWatchlist({ _id: props.row._id }))
+      props.dispatchAction(eventConstants.HIDE_LOADER, true)
+      if (error || !response) {
+        utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_WATCHLIST);
+        return;
+      }
+      await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
+      await handleClose();
+      await props.getWatchlistList()
+    }
+  }
   return (
     <div>
       <div onClick={handleClickOpen}>

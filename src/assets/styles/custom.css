@@ -551,7 +551,7 @@ input:focus {
   height: 20px;
   margin-top: 10px;
 }
-.imgcss:hover{
+.imgcss:hover {
   cursor: pointer;
 }
 .hide-border {
@@ -596,10 +596,10 @@ input:focus {
   margin-left: 18px;
   line-height: 19px;
 }
-.name-internal{
+.name-internal {
   margin-top: 25px;
 }
-.down-arrow-internal{
+.down-arrow-internal {
   margin-top: 14px;
   cursor: pointer;
 }
@@ -6663,7 +6663,7 @@ button {
   font-weight: bold;
   opacity: 0.5;
   cursor: text;
-  margin-left:0px;
+  margin-left: 0px;
 }
 
 .checkmark {
@@ -8179,7 +8179,7 @@ button {
     margin-top: 0px;
   } */
 
-  .name-internal{
+  .name-internal {
     margin-top: 15px;
   }
 
@@ -8764,6 +8764,10 @@ button {
   text-decoration: underline;
 }
 .token-details-address-link {
+  color: #2149b9;
+  font-size: 15px;
+}
+.token-details-address-link:hover {
   color: #2149b9;
   font-size: 15px;
 }

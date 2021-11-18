@@ -31,29 +31,29 @@ let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000
 
 class Routes extends BaseComponent {
   componentWillMount() {
-    console.log(this.props?.params?.id);
+
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps?.params?.id);
+
   }
 
   render() {
     let loader =
-    this.props && this.props.user && this.props.user.loading ? (
+      this.props && this.props.user && this.props.user.loading ? (
         <LoaderComponent />
-    ) : null;
+      ) : null;
     return (
 
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router history={history}>
-        {loader}
+          {loader}
           <Switch>
             <Route exact path={'/view-all-transaction'} component={() => <LatestTransactionList socketTrans={socket} />} />
             <Route exact path={'/view-all-blocks'} component={() => <LatestBlocksList socketblock={socket} />} />
             <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
 
-            {}
+            { }
             <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
             <Route
               exact
@@ -65,7 +65,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/account-details'} component={LatestAccountsList} />
             <Route exact path={'/address-details/:addr'} component={AddressDetails} />
             <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
-            <Route exact path={'/token-data/:address'} component={TokenDataComponent} />
+            <Route exact path={'/token-data/:address/:tn'} component={TokenDataComponent} />
             <Route exact path={'/token-details'} component={TokenDetails} />
             <Route exact path={'/transaction-details/:hash'} component={Transaction} />
             <Route exact path={'/contracts'} component={ContractComponent} />

@@ -58,66 +58,6 @@ const LeftPagination = styled.div`
     margin-right: 5%;
   }
 `;
-
-const columns = [
-  {
-    id: "S",
-    label: "#",
-    align: "left",
-
-    backgroundColor: "white",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "src",
-    label: "",
-    align: "left",
-    backgroundColor: "white",
-  },
-  {
-    id: "Token",
-    label: "Token",
-    align: "left",
-    backgroundColor: "white",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-
-  {
-    id: "Type",
-    label: "Type",
-    align: "left",
-    backgroundColor: "white",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Contract",
-    label: "Contract",
-    align: "left",
-    backgroundColor: "white",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Holder",
-    label: "Holder",
-    minWidth: 10,
-    align: "left",
-    minHeight: 10,
-    backgroundColor: "white",
-    format: (value) => value.toFixed(2),
-  },
-
-  {
-    id: "Status",
-    label: "Status",
-    align: "left",
-    backgroundColor: "white",
-    format: (value) => value.toFixed(2),
-  },
-];
-
-function createData(S, src, Token, Type, Contract, Holder, Status) {
-  return { S, src, Token, Type, Contract, Holder, Status };
-}
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
@@ -430,20 +370,21 @@ export default function StickyHeadTable() {
                         </TableCell>
                         <TableCell
                           id="td"
-                          //    style={{ width: "110px" }}
+                        //    style={{ width: "110px" }}
                         >
                           {row.tokenName}
                         </TableCell>
                         <TableCell
                           id="td"
-                          //   style={{ width: "130px" }}
+                        //   style={{ width: "130px" }}
                         >
                           {row.type}
                         </TableCell>
                         <TableCell>
                           <a
                             className="token-details-address-link"
-                            href={"/token-data/" + row.address}
+                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                              }`}
                           >
                             {" "}
                             {row.address}

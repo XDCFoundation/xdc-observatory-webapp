@@ -193,27 +193,26 @@ export default function FormDialog(props) {
   const [profilePicture, setProfilePicture] = React.useState("");
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
-    console.log("event", event);
     setIsEditPicture(true)
     setUploadFile(event);
   };
   // const changeColor =async()=>{
-    
+
   //   setColor({backgroundColor:"red"})
 
   // }
-  
+
   const updateUser = async (url) => {
     let userInfo = sessionManager.getDataFromCookies("userId");
     setLoading(true)
-   
+
     const reqObj = {
       name: userName,
       userId: userInfo,
       email: email,
       profilePic: url ? url : profilePicture,
     };
-  
+
 
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
@@ -221,7 +220,7 @@ export default function FormDialog(props) {
     );
     if (authResponse?.email.length > 2) {
       setLoading(false);
-     }
+    }
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
@@ -247,13 +246,13 @@ export default function FormDialog(props) {
     );
     if (awsResponse[0].url.length > 2) {
       setLoading(false);
-     }
+    }
     if (error || !awsResponse) {
       utility.apiFailureToast(" Upload failed");
       return false;
     } else {
       utility.apiSuccessToast("Pic uploaded successfully");
-      sessionManager.setDataInCookies( awsResponse[0].url,cookiesConstants.USER_PICTURE);
+      sessionManager.setDataInCookies(awsResponse[0].url, cookiesConstants.USER_PICTURE);
       setProfilePicture(awsResponse[0].url)
       return awsResponse;
     }
@@ -339,10 +338,10 @@ export default function FormDialog(props) {
   const [emailDisable, setEmailUnable] = React.useState(true);
 
   const profileUrl = async () => {
-    let response ={}
-    if(isEditPicture){
+    let response = {}
+    if (isEditPicture) {
 
-       response = await uploadFileToS3();
+      response = await uploadFileToS3();
       if (!response) return;
       setProfilePicture(response[0].url);
     }
@@ -363,7 +362,7 @@ export default function FormDialog(props) {
   useEffect(() => {
     let userInfo = sessionManager.getDataFromCookies("userInfo");
     if (userInfo && userInfo.name)
-    setUserName(userInfo.name);
+      setUserName(userInfo.name);
     setProfilePicture(sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE));
     setEmail(userInfo.email);
   }, []);
@@ -395,7 +394,7 @@ export default function FormDialog(props) {
                 />{" "}
               </Cut>
             </Wrapper>
-            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} profilePicture ={profilePicture} />
+            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} profilePicture={profilePicture} />
             <Row>
               <DialogContent>
                 <DialogContentText className={classes.subCategory}>
@@ -412,7 +411,7 @@ export default function FormDialog(props) {
                     value={getUserName()}
 
                     value={userName}
-                    
+
                     onChange={(e) => {
                       {
                         setUserName(e.target.value);
@@ -421,7 +420,7 @@ export default function FormDialog(props) {
                   />
                   <img
                     className="imgcss"
-                    
+
                     src={require("../../../src/assets/images/edit.svg")}
                     onClick={() => setUsernameUnable(false)}
                   />
@@ -456,28 +455,28 @@ export default function FormDialog(props) {
               </Input>
             </DialogContent>
             {isLoading == true ? (
-                        <div >
-                          <Loader />
-                        </div>
-                   
-                ):(
-                  <div></div>
-                )}
+              <div >
+                <Loader />
+              </div>
+
+            ) : (
+              <div></div>
+            )}
             <DialogActions>
               <button
                 className={classes.addbtn}
                 onClick={() => {
                   profileUrl();
 
-                
+
                 }}
-               
+
               >
                 Update Profile{" "}
               </button>
-             
+
             </DialogActions>
-            
+
             <div className={classes.value}></div>
           </Dialog>
         </ProfilePicContainer>
