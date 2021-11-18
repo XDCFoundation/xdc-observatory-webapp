@@ -273,7 +273,7 @@ export default function FormDialog() {
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add Transaction label
+              Add Transaction Label
             </DialogTitle>
           </Row>
           <DialogContent>
