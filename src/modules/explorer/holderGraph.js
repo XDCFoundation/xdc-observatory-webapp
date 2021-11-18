@@ -138,17 +138,14 @@ const MyResponsiveLine = ({ data }) => (
 export default function App() {
   const [data, setData] = useState([]);
   const [graphTransactions, setGraphTransactions] = useState([]);
-  console.log(graphTransactions, ":}");
   const { address } = useParams();
   useEffect(async () => {
     let urlPath = `${address}`;
-    console.log(urlPath, "|||");
     let [error, transactionGraph] = await Utils.parseResponse(
       TokenData.getSomeDaysHolders(urlPath, {})
     );
     if (error || !transactionGraph) return;
     setGraphTransactions(transactionGraph);
-    console.log(transactionGraph, "tee");
     var arr = [
       {
         id: "Transaction",

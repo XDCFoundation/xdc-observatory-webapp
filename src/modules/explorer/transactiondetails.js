@@ -115,7 +115,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
   // let MethodID = value1?.slice(0, 10);
   // let zero = value1?.slice(10, 74);
   // let one = value1?.slice(74, 138);
-  // console.log(charCount, "<<<")
+  
  
   return (
     <div>
