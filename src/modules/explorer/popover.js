@@ -88,7 +88,7 @@ export default function BasicPopover(props) {
       <ProfileContainer onClick={handleClick} Open Popover>
         <img
           className="Shape2-internal"
-          src={require("../../../src/assets/images/Profile.svg")}
+          src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
         />
         <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(shortenUserName(setUserName()))}</span>
         <img
