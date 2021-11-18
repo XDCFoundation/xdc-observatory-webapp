@@ -342,14 +342,18 @@ export default function FormDialog() {
 
     if (!email || !password) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false)
       return;
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
+      setLoading(false)
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
+        
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
+      setLoading(false)
       return;
     }
 
@@ -550,7 +554,7 @@ export default function FormDialog() {
                 </Row>
                 <DialogContent className={classes.userContainer}>
                   <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Username</span>
+                    <span className={classes.fieldName}>Email</span>
                   </DialogContentText>
                   <input
                     className={classes.input}
@@ -747,12 +751,6 @@ export default function FormDialog() {
                     ></img>
                   </div>
                 </div>
-                <button
-                  className={classes.createAccountbtn}
-                  onClick={handleSignUp}
-                >
-                  Create an Account{" "}
-                </button>
                 {isLoading == true ? (
                         <div >
                           
@@ -762,6 +760,13 @@ export default function FormDialog() {
                 ):(
                   <div></div>
                 )}
+                <button
+                  className={classes.createAccountbtn}
+                  onClick={handleSignUp}
+                >
+                  Create an Account{" "}
+                </button>
+                
 
                 <div className={classes.alreadyAccount}>
                   <div>

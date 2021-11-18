@@ -455,6 +455,14 @@ export default function FormDialog(props) {
                 />
               </Input>
             </DialogContent>
+            {isLoading == true ? (
+                        <div >
+                          <Loader />
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )}
             <DialogActions>
               <button
                 className={classes.addbtn}
@@ -469,14 +477,7 @@ export default function FormDialog(props) {
               </button>
              
             </DialogActions>
-            {isLoading == true ? (
-                        <div >
-                          <Loader />
-                        </div>
-                   
-                ):(
-                  <div></div>
-                )}
+            
             <div className={classes.value}></div>
           </Dialog>
         </ProfilePicContainer>

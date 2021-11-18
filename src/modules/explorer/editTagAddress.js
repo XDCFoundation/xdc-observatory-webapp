@@ -137,10 +137,10 @@ const useStyles = makeStyles((theme) => ({
   };
 
   useEffect(() => {
-    if (props.row.address) setPrivateAddress(props.row.privateAddress);
-    setNameTag(props.row.nameTag);
+    if (props.row.address) setPrivateAddress(props.row.address);
+    setNameTag(props.row.tagName);
     setId(props.row._id)
-  });
+  }, []);
 
   async function editTaggedAddress() {
     setOpen(false);
@@ -151,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
     };
     const [error,response] = await utility.parseResponse(PutTagAddress.putTaggedAddress(data));
     if(error || !response) {
-      utility.apiFailureToast("Error");
+      utility.apiFailureToast("Address already exists");
     } else {
       utility.apiSuccessToast("Address tag Updated");
       window.location.href = "loginprofile";
@@ -172,15 +172,22 @@ const useStyles = makeStyles((theme) => ({
     // history.push("/loginprofile")
   };
   const validateAddress = () => {
+    if (nameTag && nameTag.length >= 20){
+      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+      
+    }else{
+      validateTagName()
+    }
+  }
+  const validateTagName = () => {
   
-    if (
-      (privateAddress && privateAddress.length === 43) ||
-      privateAddress.slice(0, 2) == "xdc"
-    ) {
-      editTaggedAddress();
+    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
+      editTaggedAddress()
+      
     } else {
       utility.apiFailureToast("Address should start with xdc & 43 characters");
     }
+
   };
   const handleDelete = async () =>{
     if(props?.row?._id){
@@ -237,8 +244,7 @@ const useStyles = makeStyles((theme) => ({
 
               <input
                 value={nameTag}
-                type="password"
-                type={passwordShown ? "text" : "password"}
+               // type="text"
                 className={classes.input}
                 onChange={(e) => setNameTag(e.target.value)}
               ></input>

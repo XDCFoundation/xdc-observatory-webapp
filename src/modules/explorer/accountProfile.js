@@ -35,6 +35,7 @@ import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
+import Loader from "../../assets/loader";
 import {cookiesConstants} from "../constants"
 
 const PaginationDiv = styled.div`
@@ -227,7 +228,7 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "500",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      // color: "#2149b9",
+      color: "#2149b9"
     },
     txnprivate: {
       height: "19px",
@@ -280,6 +281,7 @@ export default function SimpleTabs(props) {
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -298,6 +300,7 @@ export default function SimpleTabs(props) {
     async function getUserWatchlist() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserWatchlist(data);
+     // console.log(response,"reseeee")
       setWatchlist(response);
       setTablevalue(1);
     }
@@ -305,6 +308,7 @@ export default function SimpleTabs(props) {
     async function getuserdata() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
+      //console.log(response,"dateee")
       setAddress(response);
     }
     getPvtTagAddress();
@@ -317,6 +321,7 @@ export default function SimpleTabs(props) {
 
   const [search, setSearch] = React.useState("");
   async function searchData() {
+    setLoading(true)
     if (value === 0) {
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
@@ -325,6 +330,7 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
+      console.log(response,"reseeee")
       setWatchlist(response);
     }
     if (value === 1) {
@@ -335,6 +341,7 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
+      console.log(response,"reseeee1")
       setAddress(response);
     }
     if (value === 2) {
@@ -389,6 +396,7 @@ export default function SimpleTabs(props) {
       isWatchlistAddress: true,
     };
     const response = await UserService.getWatchlistList(request);
+    console.log(response,"reseeee55")
     setWatchlist(response.watchlistContent);
     setTotalCount(response.totalCount);
   };
@@ -475,6 +483,13 @@ export default function SimpleTabs(props) {
       let userName = name.name;
       return userName;
     }
+  };
+  const setUserImage = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    
+      let userName = name.profilePic;
+      return userName;
+    
   };
   const handleWatchlist = () => {
     setTablevalue(1);
@@ -667,8 +682,8 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              src={
-                sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
+              style={{borderRadius:"50px"}}
+              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
             />
           </span>
           <span>
@@ -837,6 +852,15 @@ export default function SimpleTabs(props) {
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
+                  {/* {isLoading == true ? (
+                        <div >
+                          
+                          <Loader/>
+                        </div>
+                   
+                ):(
+                  <div></div>
+                )} */}
                     <TableHead>
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
@@ -879,6 +903,7 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
+                    
                     <TableBody>
                       {watchlist && watchlist.length>0  && watchlist.map((row, index) => {
                         return (
