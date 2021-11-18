@@ -137,10 +137,10 @@ const useStyles = makeStyles((theme) => ({
   };
 
   useEffect(() => {
-    if (props.row.address) setPrivateAddress(props.row.privateAddress);
-    setNameTag(props.row.nameTag);
+    if (props.row.address) setPrivateAddress(props.row.address);
+    setNameTag(props.row.tagName);
     setId(props.row._id)
-  });
+  }, []);
 
   async function editTaggedAddress() {
     setOpen(false);
@@ -231,8 +231,7 @@ const useStyles = makeStyles((theme) => ({
 
               <input
                 value={nameTag}
-                type="password"
-                type={passwordShown ? "text" : "password"}
+               // type="text"
                 className={classes.input}
                 onChange={(e) => setNameTag(e.target.value)}
               ></input>
