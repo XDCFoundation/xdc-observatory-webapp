@@ -480,6 +480,12 @@ input:focus {
   margin-top: 0.625rem;
   /* margin-left: 0.313rem; */
 }
+.name-internal {
+  margin-top: 25px;
+}
+.down-arrow-internal {
+  margin-top: 10px;
+}
 .Shape2-internal1 {
   width: 1.563rem;
   height: 1.563rem;
@@ -1564,7 +1570,7 @@ p {
 }
 
 .centerbox-td {
-  width: 33.438rem;
+  /* width: 33.438rem; */
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
@@ -2107,14 +2113,14 @@ p {
 }
 
 .select-td {
-  width: 5.313rem;
+  /* width: 5.313rem; */
   margin-top: -0.188rem;
   background-color: white !important;
   outline-color: #858585;
   border-color: transparent;
   border-left-color: #9fa9ba;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: bold;
   opacity: 0.8;
   font-stretch: normal;
   font-style: normal;
@@ -2766,7 +2772,8 @@ p {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .select-td {
-    margin-left: 21px !important;
+    margin-left: 15px !important;
+    font-size: 12px;
   }
 }
 
@@ -2916,8 +2923,10 @@ p {
     align-items: baseline !important;
   }
   .right-nav-div {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
+    position: absolute;
+    right: 16px;
   }
   /* .MuiAppBar-colorPrimary{
   height: 130px;
@@ -6535,6 +6544,7 @@ button {
   font-weight: bold;
   opacity: 0.5;
   cursor: text;
+  margin-left: 0px;
 }
 
 .checkmark {
@@ -6712,6 +6722,17 @@ button {
   border-radius: 10px;
   margin-bottom: -20px;
   margin-left: 61px;
+}
+
+.outer-oval-trans {
+  width: 14px;
+  height: 14px;
+  margin: 12px 2px 18px 0;
+  padding: 5px 4px 4px 5px;
+  background-color: rgba(55, 99, 221, 0.1);
+  border-radius: 10px;
+  margin-bottom: -20px;
+  margin-left: 80px;
 }
 
 .Oval {
@@ -7245,7 +7266,7 @@ button {
     margin-top: 3.75rem;
   }
   .centerbox-td {
-    width: 21.4375rem;
+    /* width: 21.4375rem; */
     height: 1.9375rem;
     margin-right: -20px;
     margin-left: 3.0625rem;
@@ -7467,6 +7488,7 @@ button {
   .mobile-navbartab {
     display: flex;
     height: 2.5rem;
+    margin-top: 10px;
   }
 
   .Shape-XDC {
@@ -7509,7 +7531,7 @@ button {
     /* background-color: green; */
   }
   .centerbox-td {
-    width: 38.9375rem;
+    /* width: 38.9375rem; */
     /* background-color: red; */
     /* width: 100%; */
     height: 2.4375rem;
@@ -8015,10 +8037,18 @@ button {
   .Shape-XDC {
     margin-top: 0px;
   }
-  .Network-explorer-internal {
+  /* .Network-explorer-internal {
     margin-top: 0px;
   }
   .Token-internal {
+    margin-top: 0px;
+  } */
+
+  .name-internal {
+    margin-top: 15px;
+  }
+
+  .down-arrow-internal {
     margin-top: 0px;
   }
 
@@ -8544,6 +8574,7 @@ button {
   font-family: "Inter";
   outline-color: transparent;
   border-width: 0;
+  width: 11.25rem;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
@@ -8591,6 +8622,10 @@ button {
   font-size: 11px;
 }
 .token-details-address-link {
+  color: #2149b9;
+  font-size: 15px;
+}
+.token-details-address-link:hover {
   color: #2149b9;
   font-size: 15px;
 }
