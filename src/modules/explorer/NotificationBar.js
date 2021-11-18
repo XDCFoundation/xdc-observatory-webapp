@@ -129,7 +129,7 @@ function TemporaryDrawer(props) {
               </div>
             </a>
             <div className="Notification-text-color-fade">
-              {notification && notification.timestamp && moment.unix(notification.timestamp).format("HH:mm A DD MMM YYYY")}
+              {notification && notification.timestamp && moment.unix(notification.timestamp).format("HH:mm A, DD MMM YYYY")}
 
             </div>
             <hr className="notification-hr" />

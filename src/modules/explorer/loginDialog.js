@@ -585,7 +585,7 @@ export default function FormDialog() {
                   <span>
                     {passwordShown ? (
                       <img
-                        src={require("../../../src/assets/images/hide.svg")}
+                        src={require("../../../src/assets/images/show .svg")}
                         className={classes.icon}
                         onClick={togglePasswordVisiblity}
                       />

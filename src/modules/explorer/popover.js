@@ -90,7 +90,7 @@ export default function BasicPopover(props) {
           className="Shape2-internal"
           src={require("../../../src/assets/images/Profile.svg")}
         />
-        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(shortenUserName(setUserName()))}</span>
+        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName().length>12 ? (setUserName()==="" ? (""):(shortenUserName(setUserName()))):(setUserName())}</span>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}

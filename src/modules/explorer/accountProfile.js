@@ -371,8 +371,8 @@ export default function SimpleTabs(props) {
   };
 
   const onChangeTxnLabelPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
-    await getListOfTxnLabel({ skip: list, limit: "5" });
+    setList(Math.ceil(value.selected * 5));
+    getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
@@ -513,7 +513,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -539,7 +539,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -671,7 +671,7 @@ export default function SimpleTabs(props) {
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {shortenUserName(setUserName())}
+                Welcome, {(setUserName().length>12) ? shortenUserName(setUserName()):(setUserName())}
               </span>
             </div>
             <div className="edit">
@@ -928,7 +928,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className="tabledata">
-                                {row.Notification}
+                                {row.notification.type==="NO" ? "Off": "Email"}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
