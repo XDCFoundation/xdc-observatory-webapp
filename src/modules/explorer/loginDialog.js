@@ -373,9 +373,9 @@ export default function FormDialog() {
         Utility.apiFailureToast("Wrong email or password");
         // setislogged(true)
       } else {
-        console.log("responselogin", authResponse);
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -395,10 +395,11 @@ export default function FormDialog() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const data = {
-      userName: userName,
+      name: userName,
       email: email,
       password: password,
     };
+    console.log("dataaaa",data);
     setLoading(true)
     setErrorUserName("");
     setErrorEmail("");
@@ -429,7 +430,6 @@ export default function FormDialog() {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
-      console.log("responseeee",response);
       if (error || !response) {
         Utility.apiFailureToast("User already exists");
         setLoading(false);
@@ -508,10 +508,8 @@ export default function FormDialog() {
   const handleCaptchaCheckbox = () => {
     if (captchaCheckbox === true) {
       setCaptchaCheckbox(false);
-      console.log("captcha", captchaCheckbox);
     } else {
       setCaptchaCheckbox(true);
-      console.log("captcha", captchaCheckbox);
     }
   };
 

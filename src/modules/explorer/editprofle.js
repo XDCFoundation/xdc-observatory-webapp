@@ -16,6 +16,7 @@ import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
+import { cookiesConstants } from "../../constants";
 
 
 const acceptStyle = {
@@ -188,15 +189,13 @@ export default function FormDialog(props) {
   const [userName, setUserName] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [isEditPicture, setIsEditPicture] = React.useState(false);
-
-  //console.log("valueee", userName);
   const [uploadFile, setUploadFile] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState("");
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
-    console.log(event, "Eventee");
+    console.log("event", event);
     setIsEditPicture(true)
-    setUploadFile(event.target.files[0]);
+    setUploadFile(event);
   };
   // const changeColor =async()=>{
     
@@ -226,12 +225,13 @@ export default function FormDialog(props) {
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
-      console.log("passedirt",authResponse);
       utility.apiSuccessToast("upadated successfully");
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
       sessionManager.setDataInCookies(authResponse.userId, "userId");
-      window.location.href = "loginprofile";
+      history.push("loginProfile")
+      handleClose();
+      // window.location.href = "loginprofile";
       return authResponse;
     }
   };
@@ -239,7 +239,6 @@ export default function FormDialog(props) {
   const uploadFileToS3 = async () => {
     setLoading(true)
     let formdata = new FormData();
-    console.log(uploadFile, "filee");
     formdata.append("file", uploadFile);
     formdata.append("path", "profilePic");
     const awsObject = new AwsService();
@@ -254,6 +253,8 @@ export default function FormDialog(props) {
       return false;
     } else {
       utility.apiSuccessToast("Pic uploaded successfully");
+      sessionManager.setDataInCookies( awsResponse[0].url,cookiesConstants.USER_PICTURE);
+      setProfilePicture(awsResponse[0].url)
       return awsResponse;
     }
   };
@@ -343,7 +344,6 @@ export default function FormDialog(props) {
 
        response = await uploadFileToS3();
       if (!response) return;
-      console.log("url", response[0].url);
       setProfilePicture(response[0].url);
     }
 
@@ -364,7 +364,7 @@ export default function FormDialog(props) {
     let userInfo = sessionManager.getDataFromCookies("userInfo");
     if (userInfo && userInfo.name)
     setUserName(userInfo.name);
-    setProfilePicture(userInfo.picture);
+    setProfilePicture(sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE));
     setEmail(userInfo.email);
   }, []);
 
@@ -395,7 +395,7 @@ export default function FormDialog(props) {
                 />{" "}
               </Cut>
             </Wrapper>
-            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} />
+            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} profilePicture ={profilePicture} />
             <Row>
               <DialogContent>
                 <DialogContentText className={classes.subCategory}>

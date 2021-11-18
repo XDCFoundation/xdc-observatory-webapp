@@ -23,8 +23,6 @@ export default class Auth0Service {
           if(err) {
             return reject(err);
           }
-
-          console.log(authResult, "")
           sessionManager.setDataInCookies(authResult.accessToken)
           sessionManager.setDataInCookies(authResult.idToken)
           let userDetail = await _this.getUserInfo(authResult.idToken)

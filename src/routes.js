@@ -53,7 +53,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/view-all-blocks'} component={() => <LatestBlocksList socketblock={socket} />} />
             <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
 
-            {/* <Route exact path={'/token-data'} component={TokenDataComponent} /> */}
+            {}
             <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
             <Route
               exact

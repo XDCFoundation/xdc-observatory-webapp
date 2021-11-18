@@ -109,7 +109,7 @@ export default function ChangePassword(props) {
       oldPassword: currentInput,
       newPassword: newInput,
     };
-    console.log(userInfo.sub,"ideeee",userInfo.userId);
+    
     setLoading(true)
     setErrorPassword("");
     setErrorConfirmPassword("");
@@ -134,10 +134,8 @@ export default function ChangePassword(props) {
       if (error || !authResponse) {
         setLoading(false);
         utility.apiFailureToast("failed");
-        console.log("pass",authResponse);
       } else {
         history.push("/dashboard");
-        console.log("pass",authResponse);
         utility.apiSuccessToast("Password  changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");

@@ -32,7 +32,6 @@ export default{
 
  async function getNotificationList(reqObj) {
   const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "notification-list";
-  console.log("response1");
   return httpService(
     httpConstants.METHOD_TYPE.POST,
     { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -46,11 +45,11 @@ export default{
         response.responseData.length === 0
       )
       {
-        console.log("errrr");
+        
       return Promise.reject();
       }
 
-      console.log("response", response);
+      
       return Promise.resolve(response.responseData);
     })
     .catch(function (err) {

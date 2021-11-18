@@ -110,8 +110,6 @@ export default function App() {
     graphTransactions.length == 0
       ? ""
       : moment(graphTransactions[0]?.day).format("D MMM");
-
-  console.log(length, graphTransactions, firstDate, "ASD");
   return (
     <GraphSize>
       <MyResponsiveLine data={data} />
