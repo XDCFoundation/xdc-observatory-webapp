@@ -2901,13 +2901,6 @@ p {
   .mobile-navbartab {
     display: block !important;
   }
-  /* .centerbox-td {
-    width: 100% !important;
-    height: 35px;
-    margin-right: 0px !important;
-    margin-top: 40px !important;
-    margin-left: 5px !important;
-  }*/
 }
 
 @media (max-width: 767px) {
@@ -7385,10 +7378,10 @@ button {
     margin-top: 3.75rem;
   }
   .centerbox-td {
-    /* width: 21.4375rem; */
+    width: 21.3rem;
     height: 1.9375rem;
-    margin-right: -20px;
-    margin-left: 3.0625rem;
+    margin-right: -12px;
+    margin-left: 3rem;
   }
 
   .vc-header {
@@ -8159,9 +8152,6 @@ button {
 
   .Network-explorer-internal {
     margin-left: 0px !important;
-  }
-  .select-td {
-    margin-left: 90px !important;
   }
 }
 
