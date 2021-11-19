@@ -11,6 +11,10 @@ import { Row } from "simple-flexbox";
 import PutTagAddress from "../../services/user";
 import { useEffect } from "react";
 import styled from "styled-components";
+import utility , {dispatchAction} from "../../utility";
+import { TagAddressService } from "../../services";
+import { eventConstants, genericConstants } from "../../constants";
+import { connect } from "react-redux";
 
 const DialogBox = styled.div`
   width: 553px;
@@ -119,21 +123,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog(props) {
+ function EditTaggedAddress(props) {
   const [open, setOpen] = React.useState(false);
 
-  const [passwordShown, setPasswordShown] = React.useState(false);
-  const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [passwordShown, setPasswordShown] = React.useState("");
+  const [privateAddress, setPrivateAddress] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
+  const [id, setId] = React.useState("");
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
   useEffect(() => {
-    if (props.row.address) setPrivateAddress(props.row.privateAddress);
-    setNameTag(props.row.nameTag);
-  });
+    if (props.row.address) setPrivateAddress(props.row.address);
+    setNameTag(props.row.tagName);
+    setId(props.row._id)
+  }, []);
 
   async function editTaggedAddress() {
     setOpen(false);
@@ -142,7 +149,13 @@ export default function FormDialog(props) {
       address: privateAddress,
       tagName: nameTag,
     };
-    const response = await PutTagAddress.putTaggedAddress(data);
+    const [error,response] = await utility.parseResponse(PutTagAddress.putTaggedAddress(data));
+    if(error || !response) {
+      utility.apiFailureToast("Address already exists");
+    } else {
+      utility.apiSuccessToast("Address tag Updated");
+      window.location.href = "loginprofile";
+    }
   }
 
   const classes = useStyles();
@@ -158,13 +171,45 @@ export default function FormDialog(props) {
   const handleLogin = () => {
     // history.push("/loginprofile")
   };
+  const validateAddress = () => {
+    if (nameTag && nameTag.length >= 20){
+      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+      
+    }else{
+      validateTagName()
+    }
+  }
+  const validateTagName = () => {
+  
+    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
+      editTaggedAddress()
+      
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    }
+
+  };
+  const handleDelete = async () =>{
+    if(props?.row?._id){
+      props.dispatchAction(eventConstants.SHOW_LOADER , true)
+      const [ error , response] =await utility.parseResponse(TagAddressService.deleteTagAddress({_id:props.row._id}))
+      props.dispatchAction(eventConstants.HIDE_LOADER , true)
+      if(error || !response){
+       utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_TAGGED_ADDRESS);
+       return;
+      }
+      await utility.apiSuccessToast(genericConstants.TAGGED_ADDRESS_DELETED);
+      await handleClose();
+      await props.getListOfTagAddress();
+    }
+   }
 
   return (
     <div>
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable">
-            <span className="tabledata">Edit</span>
+            <span className="tabledata1">Edit</span>
           </a>
         </button>
       </div>
@@ -199,8 +244,7 @@ export default function FormDialog(props) {
 
               <input
                 value={nameTag}
-                type="password"
-                type={passwordShown ? "text" : "password"}
+               // type="text"
                 className={classes.input}
                 onChange={(e) => setNameTag(e.target.value)}
               ></input>
@@ -208,7 +252,7 @@ export default function FormDialog(props) {
             <DialogActions className={classes.buttons}>
               <div>
                 <span>
-                  <button className={classes.deletebtn}>Delete</button>
+                  <button className={classes.deletebtn} onClick={handleDelete}>Delete</button>
                 </span>
               </div>
               <div>
@@ -220,7 +264,7 @@ export default function FormDialog(props) {
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTaggedAddress}
+                    onClick={editTaggedAddress,validateAddress}
                   >
                     Update
                   </button>
@@ -233,3 +277,8 @@ export default function FormDialog(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+export default connect(mapStateToProps, { dispatchAction })(EditTaggedAddress);

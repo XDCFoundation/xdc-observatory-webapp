@@ -584,7 +584,10 @@
 .linkTableDetails-transaction {
   color: #2149b9;
   font-size: 15px;
-  font-weight: 600 !important;
+}
+.linkTableDetails-transaction:hover {
+  color: #2149b9;
+  font-size: 15px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .linkTableDetails-transaction {

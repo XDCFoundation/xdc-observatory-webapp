@@ -332,6 +332,8 @@ export default function TokenDataComponent() {
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({})
   const { address } = useParams();
+  const { tn } = useParams();
+
   function shorten(b, amountL = 14, amountR = 0, stars = 3) {
     return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(b.length)} `;
   }
@@ -390,7 +392,7 @@ export default function TokenDataComponent() {
   React.useEffect(() => {
     (async () => {
       let token = 'XDC'
-      await CoinMarketExchangeForToken(tokenName)
+      await CoinMarketExchangeForToken(tn)
     })();
   }, []);
   let activeCurrency = window.localStorage.getItem('currency')
@@ -434,7 +436,7 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
+                <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
 
               <LeftTopSecMain>

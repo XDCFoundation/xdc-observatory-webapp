@@ -192,22 +192,23 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    console.log("data", data);
     const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
 
     if (error) {
-      utility.apiFailureToast("Error");
-      return;
-    }
-    utility.apiSuccessToast("Transaction Added");
-    setTransactionsHash("");
-    setPrivateNote("");
+      
+        utility.apiFailureToast("Transaction private note is already in use");
+        return;
+      }
+      utility.apiSuccessToast("Transaction Added");
+      window.location.href = "loginprofile";
+      setTransactionsHash("");
+      setPrivateNote("");
+    
   }
 
-  // console.log("hash", TransactionsHash);
-  // console.log("NOTE", PrivateNote);
+
 
   const classes = useStyles();
 
@@ -222,7 +223,17 @@ export default function FormDialog() {
   const handleLogin = () => {
     // history.push("/loginprofile")
   };
-
+  const validateTransaction = () => {
+  
+    if (
+      (TransactionsHash && TransactionsHash.length === 66) ||
+      TransactionsHash.slice(0, 1) == "0x"
+    ) {
+      transactionLable();
+    } else {
+      utility.apiFailureToast("Address should start with 0x & 66 characters");
+    }
+  };
   return (
     <div>
       <div className="div2" onClick={handleClickOpen}>
@@ -233,9 +244,9 @@ export default function FormDialog() {
           ></img>
         </div>
         <button className={classes.btn}>
-          <div className="headingdiv2">Add transaction private note</div>
+          <div className="headingdiv2">Add transaction label</div>
           <div className="paradiv2">
-            Add a personal note to transacton hash to track it in future
+            Add a personal note to a transacton hash to track it in future.
           </div>
         </button>
       </div>
@@ -260,7 +271,7 @@ export default function FormDialog() {
         >
           <Row>
             <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add Transaction label
+              Add Transaction Label
             </DialogTitle>
           </Row>
           <DialogContent>
@@ -307,7 +318,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={transactionLable}>
+              <button className={classes.addbtn} onClick={transactionLable,validateTransaction}>
                 Add
               </button>
             </span>

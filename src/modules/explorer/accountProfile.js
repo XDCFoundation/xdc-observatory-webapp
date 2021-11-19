@@ -13,6 +13,7 @@ import { Tooltip } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import { CSVLink, CSVDownload } from "react-csv";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
@@ -265,8 +266,16 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
+  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 0,
+      b.length
+    )}`;
+  }
+
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
+  // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
@@ -277,29 +286,28 @@ export default function SimpleTabs(props) {
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState(0);
   const [nameToggle, setNameToggle] = React.useState(0);
+  const [tableValue, setTablevalue] = React.useState(1);
+  const [downloadWatchlist, setDownloadWatchlist] = React.useState([]);
+  const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
+  const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
+  const [isDownloadActive, setDownloadActive] = React.useState(0);
 
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
-      //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
-      console.log("userId", data);
-
       const response = await UserService.getUserWatchlist(data);
       setWatchlist(response);
+      setTablevalue(1);
     }
     getuserdata();
     async function getuserdata() {
-      //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
       setAddress(response);
-      // console.log("tttt", response);
     }
-
     getPvtTagAddress();
     async function getPvtTagAddress() {
-      //the user id has to be change from
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getPrivateTagToAddress(data);
       setPrivateAddress(response);
@@ -312,12 +320,10 @@ export default function SimpleTabs(props) {
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
-        searchKeys: ["description","address"],
+        searchKeys: ["description", "address"],
         search: value.toString(),
       };
       const response = await UserService.Search(data);
-      
-      console.log("value",response)
       setWatchlist(response);
     }
     if (value === 1) {
@@ -325,10 +331,9 @@ export default function SimpleTabs(props) {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
         searchKeys: ["transactionHash", "trxLable"],
-        search:value.toString(),
+        search: value.toString(),
       };
       const response = await UserService.Search(data);
-      console.log("value",response)
       setAddress(response);
     }
     if (value === 2) {
@@ -339,7 +344,6 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
-      console.log("value",response)
       setPrivateAddress(response);
     }
   }
@@ -378,8 +382,10 @@ export default function SimpleTabs(props) {
 
   const getListOfWatchlist = async (requestData) => {
     const request = {
-      limit: requestData.limit,
-      skip: requestData.skip,
+      limit: requestData?.limit || "5",
+      skip: requestData?.skip || list,
+      userId: sessionManager.getDataFromCookies("userId"),
+      isWatchlistAddress: true,
     };
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
@@ -388,8 +394,9 @@ export default function SimpleTabs(props) {
 
   const getListOfTxnLabel = async (requestData) => {
     const request = {
-      limit: requestData.limit,
-      skip: requestData.skip,
+      limit: requestData?.limit || "5",
+      skip: requestData?.skip || list,
+      userId: sessionManager.getDataFromCookies("userId")
     };
     const response = await UserService.getTxnLabelList(request);
     setAddress(response.txnLabelContent);
@@ -398,8 +405,10 @@ export default function SimpleTabs(props) {
 
   const getListOfTagAddress = async (requestData) => {
     const request = {
-      limit: requestData.limit,
-      skip: requestData.skip,
+      limit: requestData?.limit || "5",
+      skip: requestData?.skip || list,
+      userId: sessionManager.getDataFromCookies("userId"),
+      isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
     setPrivateAddress(response.tagAddressContent);
@@ -456,6 +465,196 @@ export default function SimpleTabs(props) {
     }
     setPrivateAddress(newData);
   };
+  const setUserName = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    if (!name) {
+      window.location.href = "/";
+    } else {
+      let userName = name.name;
+      return userName;
+    }
+  };
+  const handleWatchlist = () => {
+    setTablevalue(1);
+    setDownloadActive(0);
+  };
+  const handlePrivateNote = () => {
+    setTablevalue(2);
+    setDownloadActive(0);
+  };
+  const handleTagAddress = () => {
+    setTablevalue(3);
+    setDownloadActive(0);
+  };
+
+  const handleWatchlistCheckbox = (event) => {
+    const { name, checked } = event.target;
+    if (name === "allselect") {
+      let tempAddress = watchlist.map((addr) => {
+        return { ...addr, isChecked1: checked };
+      });
+
+      setWatchlist(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked1 === true) {
+          return addr;
+        }
+      });
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+
+      setDownloadWatchlist(
+        tempAddress.map((item) => {
+          return {
+            Address: item.address,
+            Description: item.description,
+            Balance: item.balance,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            Notification: item.notification,
+          };
+        })
+      );
+    } else {
+      let tempAddress = watchlist.map((addr) =>
+        addr._id === name ? { ...addr, isChecked1: checked } : addr
+      );
+      setWatchlist(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked1 === true) {
+          return addr;
+        }
+      });
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+      setDownloadWatchlist(
+        tempAddr.map((item) => {
+          return {
+            Address: item.address,
+            Description: item.description,
+            Balance: item.balance,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            Notification: item.notification,
+          };
+        })
+      );
+    }
+  };
+
+  const handlePvtNoteCheckbox = (event) => {
+    const { name, checked } = event.target;
+    if (name === "allselect") {
+      let tempAddress = address.map((addr) => {
+        return { ...addr, isChecked2: checked };
+      });
+
+      setAddress(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked2 === true) {
+          return addr;
+        }
+      });
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+
+      setDownloadTxnPvtNote(
+        tempAddress.map((item) => {
+          return {
+            TransactionHash: item.transactionHash,
+            Note: item.trxLable,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+          };
+        })
+      );
+    } else {
+      let tempAddress = address.map((addr) =>
+        addr._id === name ? { ...addr, isChecked2: checked } : addr
+      );
+      setAddress(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked2 === true) {
+          return addr;
+        }
+      });
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+      setDownloadTxnPvtNote(
+        tempAddr.map((item) => {
+          return {
+            TransactionHash: item.transactionHash,
+            Note: item.trxLable,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+          };
+        })
+      );
+    }
+  };
+
+  const handleTagAddressCheckbox = (event) => {
+    const { name, checked } = event.target;
+    if (name === "allselect") {
+      let tempAddress = privateAddress.map((addr) => {
+        return { ...addr, isChecked3: checked };
+      });
+
+      setPrivateAddress(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked3 === true) {
+          return addr;
+        }
+      });
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+
+      setDownloadTagAddress(
+        tempAddress.map((item) => {
+          return {
+            Address: item.address,
+            NameTag: item.tagName,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+          };
+        })
+      );
+    } else {
+      let tempAddress = privateAddress.map((addr) =>
+        addr._id === name ? { ...addr, isChecked3: checked } : addr
+      );
+      setPrivateAddress(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked3 === true) {
+          return addr;
+        }
+      });
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+      setDownloadTagAddress(
+        tempAddr.map((item) => {
+          return {
+            Address: item.address,
+            NameTag: item.tagName,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+          };
+        })
+      );
+    }
+  };
 
   return (
     <div>
@@ -467,18 +666,20 @@ export default function SimpleTabs(props) {
             <img
               className="icon"
               src={require("../../assets/images/Profile.png")}
-            ></img>
+            />
           </span>
           <span>
             <div className="nameicon">
-              <span className="welcome">Welcome, CrytoAlex</span>
-              <span>
-                <NotificationBar />
+              <span className="welcome">
+                Welcome, {shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">
               <Editprofile />
             </div>
+          </span>
+          <span className="notificationBell">
+            <NotificationBar />
           </span>
         </div>
         <div className="divbox">
@@ -508,16 +709,19 @@ export default function SimpleTabs(props) {
                 label="My Watchlist"
                 className={classes.mywatch}
                 {...a11yProps(0)}
+                onClick={handleWatchlist}
               />
               <Tab
                 label="Txn Private Note"
                 className={classes.txnprivate}
                 {...a11yProps(1)}
+                onClick={handlePrivateNote}
               />
               <Tab
                 label="Tagged Adresses"
                 className={classes.address}
                 {...a11yProps(2)}
+                onClick={handleTagAddress}
               />
             </Tabs>
           </AppBar>
@@ -534,29 +738,89 @@ export default function SimpleTabs(props) {
               <input
                 type="text"
                 placeholder="Search"
-                
                 className="searchinput"
                 onClick={searchData}
-
                 onChange={(e) => {
-                    setSearch(e.target.value.toLowerCase());
-                  }}
+                  setSearch(e.target.value.toLowerCase());
+                }}
               />
             </div>
-
-            <button
-              style={{
-                color: "white",
-                borderRadius: "4px",
-                backgroundColor: "#9fa9ba",
-                width: "94px",
-                height: "34px",
-                marginRight: "24px",
-              }}
-            >
-              {" "}
-              Export
-            </button>
+            {isDownloadActive ? (
+              tableValue === 1 ? (
+                <CSVLink
+                  filename={"watchlist.csv"}
+                  data={downloadWatchlist}
+                  style={{
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "rgb(7 125 245)",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    marginRight: "1.5rem",
+                    paddingTop: "0.125rem",
+                  }}
+                >
+                  Export
+                </CSVLink>
+              ) : tableValue === 2 ? (
+                <CSVLink
+                  filename={"private_note.csv"}
+                  data={downloadTxnPvtNote}
+                  style={{
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "rgb(7 125 245)",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    marginRight: "1.5rem",
+                    paddingTop: "0.125rem",
+                  }}
+                >
+                  Export
+                </CSVLink>
+              ) : (
+                <CSVLink
+                  filename={"tag_address.csv"}
+                  data={downloadTagAddress}
+                  style={{
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "rgb(7 125 245)",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    marginRight: "1.5rem",
+                    paddingTop: "0.125rem",
+                  }}
+                >
+                  Export
+                </CSVLink>
+              )
+            ) : (
+              <CSVLink
+                filename={"tag_address.csv"}
+                data={downloadTagAddress}
+                style={{
+                  pointerEvents: "none",
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#ffffff",
+                  backgroundColor: "#9fa9ba",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  marginRight: "1.5rem",
+                  paddingTop: "0.125rem",
+                }}
+              >
+                Export
+              </CSVLink>
+            )}
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
@@ -573,47 +837,21 @@ export default function SimpleTabs(props) {
                     <TableHead>
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
-                          {/* <input
-                                            onChange={(event) => {
-                                                let checked = event.target.checked;
-                                                exportAddress(event.row);
-                                                handleToggle(checked);
-                                            }}
-                                            type="checkbox"
-                                            checked={toggle}
-                                            style={{ marginRight: "8px" }}
-                                        /> */}
                           <input
+                            onChange={handleWatchlistCheckbox}
                             type="checkbox"
-                            onChange={(e) => {
-                              let checked = e.target.checked;
-                              setWatchlist(
-                                watchlist.map((d) => {
-                                  d.select = checked;
-
-                                  return d;
-                                })
-                              );
-                              exportAddress(e.row);
-                              handleToggle(checked);
-                            }}
+                            name="allselect"
                             style={{
                               marginRight: "10px",
                             }}
                           />
-                          <span className={"tableheaders"}>Address</span>
+                          <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Description</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Description</span>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Balance</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Balance</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByBalance}
@@ -626,29 +864,20 @@ export default function SimpleTabs(props) {
                             />
                           </button>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Added On</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Added On</span>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Notification</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Notification</span>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}></span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"} />
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {watchlist.map((row, index) => {
+                      {watchlist && watchlist.length > 0 && watchlist.map((row, index) => {
                         return (
                           <TableRow
                             style={
@@ -661,69 +890,36 @@ export default function SimpleTabs(props) {
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
-                              {/* <Tooltip placement="right" title={row.Adress}>
-                      <VisibilityIcon
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
-                      />
-                    </Tooltip> */}
-
-                              {/* <input
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        let checked = e.target.checked;
-                                        setAddress(
-                                            address.map((d) => {
-                                                d.select = checked;
-
-                                                return d;
-                                            })
-                                        );
-                                    }}
-                                    style={{
-                                        marginRight: "10px",
-                                    }}
-                                /> */}
                               <input
-                                onChange={(event) => {
-                                  // let checked = event.target.checked;
-                                  // exportAddress(row);
-                                  // handleToggle(checked);
-                                  //         let checked = event.target.checked;
-                                  // setAddress(
-                                  //     address.map((d) => {
-                                  //         d.select = checked;
-
-                                  //         return d;
-                                  //     })
-                                  // );
-                                  let checked = event.target.checked;
-                                  exportAddress(event.row);
-                                  handleToggle(checked);
-                                }}
+                                key={row._id}
+                                name={row._id}
+                                onChange={handleWatchlistCheckbox}
                                 type="checkbox"
-                                checked={toggle}
+                                checked={row?.isChecked1 || false}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href="/">
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.address}
+                              >
                                 <Tooltip placement="top" title={row.address}>
-                                  <span className="tabledata">
+                                  <span className="tabledata1">
                                     {shorten(row.address)}{" "}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {row.description}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{row.balance}</span>
+                              <span className="tabledata-1">{row.balance}</span>
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
                                 )}
@@ -731,12 +927,12 @@ export default function SimpleTabs(props) {
                               {/* </a> */}
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {row.Notification}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditWatchList row={row} />
+                              <EditWatchList row={row} getWatchlistList={getListOfWatchlist} />
                             </TableCell>
                           </TableRow>
                         );
@@ -776,54 +972,29 @@ export default function SimpleTabs(props) {
                     <TableHead>
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
-                          {/* <input
-                                            onChange={(event) => {
-                                                let checked = event.target.checked;
-                                                exportAddress(event.row);
-                                                handleToggle(checked);
-                                            }}
-                                            type="checkbox"
-                                            checked={toggle}
-                                            style={{ marginRight: "8px" }}
-                                        /> */}
                           <input
+                            onChange={handlePvtNoteCheckbox}
                             type="checkbox"
-                            onChange={(e) => {
-                              let checked = e.target.checked;
-                              setAddress(
-                                address.map((d) => {
-                                  d.select = checked;
-                                  return d;
-                                })
-                              );
-                              exportAddress(e.row);
-                              handleToggle(checked);
-                            }}
+                            name="allselect"
                             style={{
                               marginRight: "10px",
                             }}
                           />
-                          <span className={"tableheaders"}>
+                          <span className={"tableheaders-1"}>
                             Transaction Hash
                           </span>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none"}}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Note</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Note</span>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Balance</span>
+                                <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Added On</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Added On</span>
                           {/* <span> */}
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
@@ -842,15 +1013,12 @@ export default function SimpleTabs(props) {
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Notification</span>
+                                <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}></span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}></span>
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -867,76 +1035,49 @@ export default function SimpleTabs(props) {
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
-                              {/* <Tooltip placement="right" title={row.Adress}>
-                      <VisibilityIcon
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
-                      />
-                    </Tooltip> */}
-
-                              {/* <input
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        let checked = e.target.checked;
-                                        setAddress(
-                                            address.map((d) => {
-                                                d.select = checked;
-
-                                                return d;
-                                            })
-                                        );
-                                    }}
-                                    style={{
-                                        marginRight: "10px",
-                                    }}
-                                /> */}
                               <input
-                                onChange={(event) => {
-                                  let checked = event.target.checked;
-                                  exportAddress(event.row);
-                                  handleToggle(checked);
-                                }}
+                                key={row._id}
+                                name={row._id}
+                                onChange={handlePvtNoteCheckbox}
                                 type="checkbox"
-                                checked={toggle}
+                                checked={row?.isChecked2 || false}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href="/">
+                              <a
+                                className="linkTable"
+                                href={
+                                  "/transaction-details/" + row.transactionHash
+                                }
+                              >
                                 <Tooltip
                                   placement="top"
                                   title={row.transactionHash}
                                 >
-                                  <span className="tabledata">
+                                  <span className="tabledata1">
                                     {shorten(row.transactionHash)}{" "}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{row.trxLable}</span>
+                              <span className="tabledata-1">{row.trxLable}</span>
                             </TableCell>
                             {/* <TableCell style={{ border: "none" }} align="left">
                                         
-                                            <span className="tabledata">{row.Balance}</span>
+                                            <span className="tabledata-1">{row.Balance}</span>
                                         
                                     </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {" "}
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
                                 )}{" "}
                               </span>
-                              {/* </a> */}
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="left">
-                                        
-                                            <span className="tabledata">{row.Notification}</span>
-                                        
-                                    </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTxnLabel row={row} />
+                              <EditTxnLabel row={row} getListOfTxnLabel={getListOfTxnLabel} />
                             </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="right"><span className="tabledata">0.00000000005 XDC</span></TableCell> */}
                           </TableRow>
                         );
                       })}
@@ -974,42 +1115,18 @@ export default function SimpleTabs(props) {
                     <TableHead>
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
-                          {/* <input
-                                            onChange={(event) => {
-                                                let checked = event.target.checked;
-                                                exportAddress(event.row);
-                                                handleToggle(checked);
-                                            }}
-                                            type="checkbox"
-                                            checked={toggle}
-                                            style={{ marginRight: "8px" }}
-                                        /> */}
                           <input
+                            onChange={handleTagAddressCheckbox}
                             type="checkbox"
-                            onChange={(e) => {
-                              let checked = e.target.checked;
-                              setPrivateAddress(
-                                privateAddress.map((d) => {
-                                  d.select = checked;
-
-                                  return d;
-                                })
-                              );
-
-                              exportAddress(e.row);
-                              handleToggle(checked);
-                            }}
+                            name="allselect"
                             style={{
                               marginRight: "10px",
                             }}
                           />
-                          <span className={"tableheaders"}>Address</span>
+                          <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
-                        <TableCell
-                          style={{ border: "none" }}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Name Tag</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Name Tag</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
                               onClick={sortByTagName}
@@ -1026,27 +1143,21 @@ export default function SimpleTabs(props) {
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Balance</span>
+                                <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
-                        <TableCell
-                          style={{ border: "none"}}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}>Added On</span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}>Added On</span>
                         </TableCell>
                         {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
-                                <span className={"tableheaders"}>Notification</span>
+                                <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
-                        <TableCell
-                          style={{ border: "none"}}
-                          align="left"
-                        >
-                          <span className={"tableheaders"}></span>
+                        <TableCell style={{ border: "none" }} align="left">
+                          <span className={"tableheaders-1"}></span>
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
+                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -1066,62 +1177,40 @@ export default function SimpleTabs(props) {
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
-                              {/* <Tooltip placement="right" title={row.Adress}>
-                      <VisibilityIcon
-                        fontSize="small"
-                        style={{ color: "#b9b9b9" }}
-                      />
-                    </Tooltip> */}
-
-                              {/* <input
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        let checked = e.target.checked;
-                                        setAddress(
-                                            address.map((d) => {
-                                                d.select = checked;
-
-                                                return d;
-                                            })
-                                        );
-                                    }}
-                                    style={{
-                                        marginRight: "10px",
-                                    }}
-                                /> */}
                               <input
-                                onChange={(event) => {
-                                  let checked = event.target.checked;
-                                  exportAddress(row);
-                                  handleToggle(checked);
-                                }}
+                                key={row._id}
+                                name={row._id}
+                                onChange={handleTagAddressCheckbox}
                                 type="checkbox"
-                                checked={toggle}
+                                checked={row?.isChecked3 || false}
                                 style={{ marginRight: "8px" }}
                               />
-                              <a className="linkTable" href="/">
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.address}
+                              >
                                 <Tooltip placement="top" title={row.address}>
-                                  <span className="tabledata">
+                                  <span className="tabledata1">
                                     {shorten(row.address)}
                                   </span>
                                 </Tooltip>
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">{name}</span>
+                              <span className="tabledata-1">{name}</span>
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata">
+                              <span className="tabledata-1">
                                 {moment(row.addedOn).format(
                                   "hh:mm A, D MMMM YYYY "
-                                )}{" "}
+                                )}
                               </span>
                               {/* </a> */}
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
-                              <EditTagAddress row={row} />
+                              <EditTagAddress row={row} getListOfTagAddress={getListOfTagAddress} />
                             </TableCell>
                           </TableRow>
                         );

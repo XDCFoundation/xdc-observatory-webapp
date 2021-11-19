@@ -125,7 +125,6 @@ export default function HolderTableComponent(props) {
   }
   let { addr } = useParams();
   const [address, setAddress] = useState([]);
-  console.log(address, ";;;;")
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
@@ -134,7 +133,6 @@ export default function HolderTableComponent(props) {
 
   const [reportaddress, setReportaddress] = useState([]);
   const [downloadaddress, setDownloadaddress] = useState([]);
-  console.log(downloadaddress, "kkk")
   const [page, setPage] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
@@ -433,7 +431,6 @@ export default function HolderTableComponent(props) {
             placeholder="Search Txn"
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                console.log("Enter key was pressed. Run your function.");
                 handleKeyUp(e)
               };
 

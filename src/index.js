@@ -12,18 +12,30 @@ window.OneSignal = window.OneSignal || [];
 const OneSignal = window.OneSignal;
 
 function App() {
-
     useEffect(() => {
         OneSignal.push(() => {
-            if (sessionManager.getDataFromCookies(cookiesConstants.USER_ID)) {
+            if (sessionManager.getDataFromCookies("userId")) {
                 OneSignal.init(
                     {
                         appId: process.env.REACT_APP_ONE_SIGNAL_APP_ID
                     }
                 )
-                OneSignal.setExternalUserId(sessionManager.getDataFromCookies(cookiesConstants.USER_ID));
+                OneSignal.setExternalUserId(sessionManager.getDataFromCookies("userId"));
+                const userInfo = sessionManager.getDataFromCookies("userInfo")
+                OneSignal.setEmail(userInfo?.email)
             }
         })
+
+        OneSignal.push(() => {
+            if (sessionManager.getDataFromCookies("userId")) {
+                OneSignal.setExternalUserId(sessionManager.getDataFromCookies("userId"));
+                const userInfo = sessionManager.getDataFromCookies("userInfo")
+                OneSignal.setEmail(userInfo?.email)
+            }
+        })
+
+
+
     })
     return (
         <BrowserRouter>
