@@ -35,6 +35,8 @@ import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
+import Loader from "../../assets/loader";
+import {cookiesConstants} from "../constants"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -279,6 +281,7 @@ export default function SimpleTabs(props) {
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -291,26 +294,30 @@ export default function SimpleTabs(props) {
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
+  
 
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserWatchlist(data);
-      setWatchlist(response);
+      // setWatchlist(response);
+      setTotalCount1(response.length);
       setTablevalue(1);
     }
     getuserdata();
     async function getuserdata() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
-      setAddress(response);
+      // setAddress(response);
+      setTotalCount2(response.length);
     }
     getPvtTagAddress();
     async function getPvtTagAddress() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getPrivateTagToAddress(data);
-      setPrivateAddress(response);
+      // setPrivateAddress(response);
+      setTotalCount3(response.length);
     }
   }, []);
 
@@ -362,34 +369,38 @@ export default function SimpleTabs(props) {
     setValue(newValue);
   };
 
-  const [list, setList] = React.useState({});
-  const [totalCount, setTotalCount] = React.useState(5);
+  const list = {}
+  const [totalCount1, setTotalCount1] = React.useState(5);
+  const [totalCount2, setTotalCount2] = React.useState(5);
+  const [totalCount3, setTotalCount3] = React.useState(5);
 
   const onChangeWatchlistPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
+    console.log("value", value)
+    const list = Math.ceil((value.selected) * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
 
   const onChangeTxnLabelPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
+    const list = Math.ceil((value.selected) * 5);
     await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
+    const list = Math.ceil((value.selected) * 5);
     await getListOfTagAddress({ skip: list, limit: "5" });
   };
 
   const getListOfWatchlist = async (requestData) => {
+    console.log(requestData);
     const request = {
       limit: requestData?.limit || "5",
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
+    console.log("request Watchlist",request)
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
-    setTotalCount(response.totalCount);
   };
 
   const getListOfTxnLabel = async (requestData) => {
@@ -400,7 +411,6 @@ export default function SimpleTabs(props) {
     };
     const response = await UserService.getTxnLabelList(request);
     setAddress(response.txnLabelContent);
-    setTotalCount(response.totalCount);
   };
 
   const getListOfTagAddress = async (requestData) => {
@@ -412,7 +422,6 @@ export default function SimpleTabs(props) {
     };
     const response = await UserService.getTagAddresstList(request);
     setPrivateAddress(response.tagAddressContent);
-    setTotalCount(response.totalCount);
   };
 
   const sortByAddedOn = () => {
@@ -513,7 +522,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -539,7 +548,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -665,13 +674,14 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              src={require("../../assets/images/Profile.png")}
+              style={{borderRadius:"50px"}}
+              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
             />
           </span>
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {shortenUserName(setUserName())}
+                Welcome, {Utils.shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">
@@ -928,7 +938,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className="tabledata-1">
-                                {row.Notification}
+                              {row.notification.type==="NO" ? "Off": "Email"}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -944,9 +954,9 @@ export default function SimpleTabs(props) {
             </div>
             <PaginationDiv>
               <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={totalCount / 5}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                pageCount={totalCount1/ 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeWatchlistPage}
@@ -1088,9 +1098,9 @@ export default function SimpleTabs(props) {
             </div>
             <PaginationDiv>
               <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={totalCount / 5}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                pageCount={totalCount2 / 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeTxnLabelPage}
@@ -1218,13 +1228,14 @@ export default function SimpleTabs(props) {
                     </TableBody>
                   </Table>
                 </Grid>
+                
               </Grid>
             </div>
             <PaginationDiv>
               <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={totalCount / 5}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                pageCount={totalCount3 / 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeTagAddressPage}
