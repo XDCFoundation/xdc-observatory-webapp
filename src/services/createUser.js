@@ -6,7 +6,6 @@ export default { postSignIn, postSignUp, postForgotPass}
 async function postSignIn(data) {
 
     let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "login";
-    console.log("url ",url)
     return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
@@ -23,7 +22,6 @@ async function postSignIn(data) {
 async function postSignUp(data) {
     
     let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "sign-up";
-    console.log("url ",url)
     return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
@@ -40,7 +38,6 @@ async function postSignUp(data) {
 async function postForgotPass(data) {
     
     let url = "";
-    console.log("url ",url)
     return httpService("POST", { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {

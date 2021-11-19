@@ -9,7 +9,7 @@ import {
   Delete as MuiDelete,
 } from "@material-ui/icons";
 import { spacing } from "@material-ui/system";
-import React, { createRef, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Button = styled.span`
@@ -50,7 +50,8 @@ const BigAvatar = styled(MuiAvatar)`
   box-shadow: 0 0 1px 0 ${grey[500]} inset, 0 0 1px 0 ${grey[500]};
 `;
 
-const AvatarUpload = () => {
+const AvatarUpload = (props) => {
+
   const classes = useStyles();
 
   const [image, _setImage] = useState(null);
@@ -73,17 +74,20 @@ const AvatarUpload = () => {
 
     if (newImage) {
       setImage(URL.createObjectURL(newImage));
+      props.filedata(newImage)
     }
   };
-
+  useEffect(() => {
+    _setImage(props.profilePicture);
+  }, []);
   /**
    *
    * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event
    */
   const handleClick = (event) => {
     if (image) {
-      event.preventDefault();
-      setImage(null);
+      // event.preventDefault();
+      // setImage(null);
     }
   };
 
@@ -104,7 +108,7 @@ const AvatarUpload = () => {
         onChange={handleOnChange}
       />
       <label htmlFor="avatar-image-upload">
-        <Button onClick={handleClick}>{"Upload Photo"}</Button>
+        <Button className="imgcss" onClick={handleClick}>{"Upload Photo"}</Button>
       </label>
     </CenteredContent>
   );

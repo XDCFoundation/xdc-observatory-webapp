@@ -21,32 +21,39 @@ import socketClient from "socket.io-client";
 import AccountProfile from "./modules/explorer/accountProfile";
 import Transaction from "./modules/resp_transaction/resTransaction";
 import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
-import BlockDetails from './modules/explorer/newblockDetail'
-let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
+import BlockDetails from './modules/explorer/newblockDetail';
+import LoaderComponent from "./common/components/loader";
+
+let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
   transports: ["websocket"],
 }
 );
 
 class Routes extends BaseComponent {
   componentWillMount() {
-    console.log(this.props?.params?.id);
+
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps?.params?.id);
+
   }
 
   render() {
+    let loader =
+      this.props && this.props.user && this.props.user.loading ? (
+        <LoaderComponent />
+      ) : null;
     return (
 
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router history={history}>
+          {loader}
           <Switch>
             <Route exact path={'/view-all-transaction'} component={() => <LatestTransactionList socketTrans={socket} />} />
             <Route exact path={'/view-all-blocks'} component={() => <LatestBlocksList socketblock={socket} />} />
             <Route exact path={'/'} component={() => <BlockChainClass socket={socket} />} />
 
-            {/* <Route exact path={'/token-data'} component={TokenDataComponent} /> */}
+            { }
             <Route exact path={'/view-all-transaction'} component={LatestTransactionList} />
             <Route
               exact
@@ -58,7 +65,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/account-details'} component={LatestAccountsList} />
             <Route exact path={'/address-details/:addr'} component={AddressDetails} />
             <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
-            <Route exact path={'/token-data/:address'} component={TokenDataComponent} />
+            <Route exact path={'/token-data/:address/:tn'} component={TokenDataComponent} />
             <Route exact path={'/token-details'} component={TokenDetails} />
             <Route exact path={'/transaction-details/:hash'} component={Transaction} />
             <Route exact path={'/contracts'} component={ContractComponent} />

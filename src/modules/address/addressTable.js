@@ -267,6 +267,7 @@ export default function AddressTableComponent(props) {
         }
       }),
     )
+
     setDownloadaddress(
       trxn.map((d) => {
         return {
@@ -304,6 +305,7 @@ export default function AddressTableComponent(props) {
     }
   }
 
+
   const handleChanged = (event) => {
     const { name, checked } = event.target
     if (name === 'allselect') {
@@ -339,6 +341,7 @@ export default function AddressTableComponent(props) {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr,
       )
+
       setAddress(tempAddress)
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -382,13 +385,12 @@ export default function AddressTableComponent(props) {
               width: '8.438rem',
               color: '#2a2a2a',
               fontFamily: 'Inter',
-              outlineColor: 'transparent',
+              outlineColor: '#fff',
               borderWidth: 0,
-              fontWeight: '600',
               paddingBottom: '0.125rem',
             }}
             type="text"
-            placeholder="Search Txn"
+            placeholder="Search"
             onKeyUp={handleKeyUp}
           />
         </div>
@@ -557,6 +559,7 @@ export default function AddressTableComponent(props) {
                               style={{ marginRight: '0.5rem' }}
                             />
 
+
                             <a
                               className="linkTable"
                               href={'/transaction-details/' + row.hash}
@@ -589,6 +592,7 @@ export default function AddressTableComponent(props) {
                                   <span className="tabledata">
                                     {' '}
                                     {shorten(row.From)}
+                                    {/* {let fromAddress = row.From} */}
                                   </span>
                                 </Tooltip>
                               </a>

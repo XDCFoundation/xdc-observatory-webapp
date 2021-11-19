@@ -1,13 +1,23 @@
+import utility from "../../utility";
+import Utility from "../../utility";
+import { sessionManager } from "../../managers/sessionManager";
+import AuthService from "../../services/userLogin";
+import AwsService from "../../services/awsService";
+import Utils from "../../utility";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import { Row } from "simple-flexbox";
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
 import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
+import Loader from "../../assets/loader";
+import { cookiesConstants } from "../../constants";
+
 
 const acceptStyle = {
   borderColor: "#00e676",
@@ -52,10 +62,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   paper: {
-    width: "503px",
-    height: "561px",
+    width: "31.438rem",
+    height: "35.063rem",
     alignSelf: "flex-start",
     margin: "100px auto",
+    borderRadius: "12px",
   },
   input: {
     width: "340px",
@@ -67,12 +78,11 @@ const useStyles = makeStyles((theme) => ({
   },
   addbtn: {
     width: "100%",
-    maxWidth: "432px",
-    height: "44px",
-    borderRadius: "4.4px",
-    border: "solid 0.6px #00a1ed",
+    height: "40px",
+    borderRadius: "4px",
     backgroundColor: "#3763dd",
-    margin: "22px 29px 40px 0px",
+    //backgroundColor: "red",
+    margin: "0px 14px 35px 14px",
     color: "white",
   },
   subCategory: {
@@ -172,9 +182,81 @@ const Input = styled.div`
   flex-flow: row nowrap;
 `;
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
+  const [color, setColor] = useState("");
+  const [userName, setUserName] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
+  const [isEditPicture, setIsEditPicture] = React.useState(false);
+  const [uploadFile, setUploadFile] = React.useState("");
+  const [profilePicture, setProfilePicture] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const fileData = (event) => {
+    setIsEditPicture(true)
+    setUploadFile(event);
+  };
+  // const changeColor =async()=>{
+
+  //   setColor({backgroundColor:"red"})
+
+  // }
+
+  const updateUser = async (url) => {
+    let userInfo = sessionManager.getDataFromCookies("userId");
+    setLoading(true)
+
+    const reqObj = {
+      name: userName,
+      userId: userInfo,
+      email: email,
+      profilePic: url ? url : profilePicture,
+    };
+
+
+    const authObject = new AuthService();
+    let [error, authResponse] = await Utility.parseResponse(
+      authObject.updateUser(reqObj)
+    );
+    if (authResponse?.email.length > 2) {
+      setLoading(false);
+    }
+    if (error || !authResponse) {
+      utility.apiFailureToast("failed");
+    } else {
+      utility.apiSuccessToast("upadated successfully");
+      sessionManager.setDataInCookies(authResponse, "userInfo");
+      sessionManager.setDataInCookies(true, "isLoggedIn");
+      sessionManager.setDataInCookies(authResponse.userId, "userId");
+      history.push("loginProfile")
+      handleClose();
+      // window.location.href = "loginprofile";
+      return authResponse;
+    }
+  };
+
+  const uploadFileToS3 = async () => {
+    setLoading(true)
+    let formdata = new FormData();
+    formdata.append("file", uploadFile);
+    formdata.append("path", "profilePic");
+    const awsObject = new AwsService();
+    let [error, awsResponse] = await Utility.parseResponse(
+      awsObject.updateUser(formdata)
+    );
+    if (awsResponse[0].url.length > 2) {
+      setLoading(false);
+    }
+    if (error || !awsResponse) {
+      utility.apiFailureToast(" Upload failed");
+      return false;
+    } else {
+      utility.apiSuccessToast("Pic uploaded successfully");
+      sessionManager.setDataInCookies(awsResponse[0].url, cookiesConstants.USER_PICTURE);
+      setProfilePicture(awsResponse[0].url)
+      return awsResponse;
+    }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -255,6 +337,36 @@ export default function FormDialog() {
   const [usernameDisable, setUsernameUnable] = React.useState(true);
   const [emailDisable, setEmailUnable] = React.useState(true);
 
+  const profileUrl = async () => {
+    let response = {}
+    if (isEditPicture) {
+
+      response = await uploadFileToS3();
+      if (!response) return;
+      setProfilePicture(response[0].url);
+    }
+
+    let upadteUser = await updateUser(response[0]?.url);
+  };
+  const getUserName = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.name;
+    return userName;
+  };
+
+  const getEmail = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.email;
+    return userName;
+  };
+  useEffect(() => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    if (userInfo && userInfo.name)
+      setUserName(userInfo.name);
+    setProfilePicture(sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE));
+    setEmail(userInfo.email);
+  }, []);
+
   return (
     <div>
       <div className={classes.add}>
@@ -271,6 +383,7 @@ export default function FormDialog() {
             aria-labelledby="form-dialog-title"
           >
             <Wrapper>
+              <div></div>
               <Title>Edit Profile</Title>
 
               <Cut onClick={handleClose}>
@@ -281,39 +394,58 @@ export default function FormDialog() {
                 />{" "}
               </Cut>
             </Wrapper>
-            <AvatarUpload />
+            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} profilePicture={profilePicture} />
+            <Row>
+              <DialogContent>
+                <DialogContentText className={classes.subCategory}>
+                  <b>Username</b>
+                </DialogContentText>
+                <Input className="inputcss">
+                  <input
+                    style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px" }}
+                    className="hide-border w-100 inputOutlineNone"
+                    type="text"
+                    id="username"
+                    disabled={usernameDisable}
+                    //placeholder= {getUserName()}
+                    value={getUserName()}
 
-            <DialogContent style={{ padding: "0px 35px 0px 35px" }}>
-              <DialogContentText className={classes.subCategory}>
-                <b>Username</b>
-              </DialogContentText>
-              <Input className="inputcss">
-                <input
-                  style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border w-100 inputOutlineNone"
-                  type="text"
-                  id="username"
-                  disabled={usernameDisable}
-                />
-                <img
-                  className="imgcss"
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setUsernameUnable(false)}
-                />
-              </Input>
-            </DialogContent>
-            <DialogContent style={{ padding: "0px 35px 0px 35px" }}>
+                    value={userName}
+
+                    onChange={(e) => {
+                      {
+                        setUserName(e.target.value);
+                      }
+                    }}
+                  />
+                  <img
+                    className="imgcss"
+
+                    src={require("../../../src/assets/images/edit.svg")}
+                    onClick={() => setUsernameUnable(false)}
+                  />
+                </Input>
+              </DialogContent>
+            </Row>
+            <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Email</b>
               </DialogContentText>
 
               <Input className="inputcss">
                 <input
-                  style={{ backgroundColor: "#f5f5f5" }}
+                  style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px" }}
                   className="hide-border w-100 inputOutlineNone "
                   type="text"
                   id="email"
+                  value={email}
+                  placeholder={getEmail()}
                   disabled={emailDisable}
+                  onChange={(e) => {
+                    {
+                      setEmail(e.target.value);
+                    }
+                  }}
                 />
                 <img
                   className="imgcss"
@@ -322,16 +454,29 @@ export default function FormDialog() {
                 />
               </Input>
             </DialogContent>
+            {isLoading == true ? (
+              <div >
+                <Loader />
+              </div>
+
+            ) : (
+              <div></div>
+            )}
             <DialogActions>
               <button
                 className={classes.addbtn}
-                onClick={handleLogin}
-                onClick={(event) => (window.location.href = "loginprofile")}
+                onClick={() => {
+                  profileUrl();
+
+
+                }}
+
               >
                 Update Profile{" "}
               </button>
-              {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
+
             </DialogActions>
+
             <div className={classes.value}></div>
           </Dialog>
         </ProfilePicContainer>

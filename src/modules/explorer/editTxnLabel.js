@@ -7,10 +7,12 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
-import { UserService } from "../../services";
-import utility from "../../utility";
+import { TransactionService, UserService } from "../../services";
+import utility, { dispatchAction } from "../../utility";
 import { useEffect } from "react";
 import styled from "styled-components";
+import { eventConstants, genericConstants } from "../../constants";
+import { connect } from "react-redux";
 
 const DialogBox = styled.div`
   width: 553px;
@@ -131,19 +133,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog(props) {
+function EditTxnLabel(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
+  const [id, setId] = React.useState("")
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-
   useEffect(() => {
     if (props.row.transactionHash)
       setTransactionsHash(props.row.transactionHash);
     setPrivateNote(props.row.trxLable);
+    setId(props.row._id)
   }, []);
 
   async function editTransactionLable() {
@@ -157,10 +160,11 @@ export default function FormDialog(props) {
       UserService.editUserPrivateNote(data)
     );
     if (error) {
-      utility.apiSuccessToast("Error");
+      utility.apiFailureToast("Error");
       return;
     }
-    utility.apiSuccessToast("Transaction Edited");
+    utility.apiSuccessToast("Private Note Updated");
+    window.location.href = "loginprofile"
   }
   const classes = useStyles();
 
@@ -168,17 +172,43 @@ export default function FormDialog(props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setTransactionsHash(props.row.transactionHash);
     setOpen(false);
   };
+  const validateTransaction = () => {
 
+    if (
+      (TransactionsHash && TransactionsHash.length === 66) ||
+      TransactionsHash.slice(0, 1) == "0x"
+    ) {
+      editTransactionLable();
+    } else {
+      utility.apiFailureToast("Address should start with 0x & 66 characters");
+    }
+  };
+  const handleDelete = async () => {
+    if (props?.row?._id) {
+      props.dispatchAction(eventConstants.SHOW_LOADER, true)
+      const [error, response] = await utility.parseResponse(TransactionService.deleteTransactionPrivateNote({ _id: props.row._id }))
+      props.dispatchAction(eventConstants.HIDE_LOADER, true)
+
+      if (error || !response) {
+        utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_TXN_PRIVATE_NOTE);
+        return;
+
+      }
+      await utility.apiSuccessToast(genericConstants.TXN_PRIVATE_NOTE_DELETED);
+      await handleClose();
+      await props.getListOfTxnLabel();
+    }
+  }
   return (
     <div>
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable">
-            <span className="tabledata">Edit</span>
+            <span className="tabledata1">Edit</span>
           </a>
         </button>
       </div>
@@ -223,7 +253,7 @@ export default function FormDialog(props) {
             <DialogActions className={classes.buttons}>
               <div>
                 <span>
-                  <button className={classes.deletebtn}>Delete</button>
+                  <button className={classes.deletebtn} onClick={handleDelete}>Delete</button>
                 </span>
               </div>
               <div>
@@ -235,7 +265,7 @@ export default function FormDialog(props) {
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTransactionLable}
+                    onClick={editTransactionLable, validateTransaction}
                   >
                     Update
                   </button>
@@ -248,3 +278,9 @@ export default function FormDialog(props) {
     </div>
   );
 }
+
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+export default connect(mapStateToProps, { dispatchAction })(EditTxnLabel);

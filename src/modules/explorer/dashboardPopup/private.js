@@ -172,6 +172,7 @@ export default function FormDialog() {
 
   async function TaggedAddress() {
     setOpen(false);
+    
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
@@ -182,13 +183,13 @@ export default function FormDialog() {
     );
 
     if (error) {
-      utility.apiFailureToast("error");
+      utility.apiFailureToast("Address is already in use");
       return;
     }
     utility.apiSuccessToast("Tag Added");
+    window.location.href = "loginprofile";
   }
-  // console.log("address",privateAddress)
-  // console.log("note",nameTag)
+
 
   const classes = useStyles();
 
@@ -203,7 +204,29 @@ export default function FormDialog() {
   const handleLogin = () => {
     history.push("/loginprofile");
   };
+  const validateAddress = () => {
+    if (nameTag && nameTag.length >= 20){
+      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+      
+    }else{
+      validateTagName()
+    }
+  }
+  
+  
+  
+  const validateTagName = () => {
+  
+    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
+      TaggedAddress();
+      
+    } else {
+      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    }
 
+  };
+  
+  
   return (
     <div>
       <div className="div3" onClick={handleClickOpen}>
@@ -214,9 +237,9 @@ export default function FormDialog() {
           ></img>
         </div>
         <button className={classes.btn}>
-          <div className="headingdiv3">Add private tag to an address</div>
+          <div className="headingdiv3">Add private tag to an Address</div>
           <div className="paradiv3">
-            Add a short memo or private tag to the address of interest
+            Add a short memo or private tag to the address of interest.
           </div>
         </button>
       </div>
@@ -285,7 +308,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={TaggedAddress}>
+              <button className={classes.addbtn} onClick={TaggedAddress,validateAddress}>
                 Add
               </button>
             </span>

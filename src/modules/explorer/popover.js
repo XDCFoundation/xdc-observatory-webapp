@@ -13,7 +13,8 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 115px;
+  width: max-content;
+  cursor: pointer;
 `;
 const Contents = styled.div`
   padding: 10px 20px 10px 20px;
@@ -63,19 +64,37 @@ export default function BasicPopover(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const setUserName=()=>{
+    let name=sessionManager.getDataFromCookies("userInfo")
+    if(!name){
+      let userName = ""
+      return userName
+    } else {
+    let userName = name.name
+    return userName
+    }
+  }   
+  const setUserImage = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    
+      let userName = name.profilePic;
+      return userName;
+    
+  };                     
 
   return (
     <div>
       <ProfileContainer onClick={handleClick} Open Popover>
         <img
           className="Shape2-internal"
-          src={require("../../../src/assets/images/Profile.svg")}
+          style={{borderRadius:"50px"}}
+          src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
         />
-        <p className="name-internal">CryptoAlex</p>
+        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(Utility.shortenUserName(setUserName()))}</span>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}
-        ></img>
+        />
       </ProfileContainer>
       <Popover
         style={{ top: "20px", left: "-40px", borderRadius: "30px" }}
@@ -89,10 +108,10 @@ export default function BasicPopover(props) {
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Text onClick={props.openChangePassword}>Change Password</Text>
+          <Text style={{ marginRight: "35px" }} onClick={props.openChangePassword}>Change Password</Text>
         </Contents>
-        <Contents>
-          <Text onClick={() => logOut()}>LogOut</Text>
+        <Contents >
+          <Text style={{ marginRight: "100px" }}onClick={() => logOut()}>Log out</Text>
         </Contents>
       </Popover>
     </div>
