@@ -201,6 +201,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
+    fontSize: "15px",
   },
   robotContainerForgotPass: {
     width: "299px",
