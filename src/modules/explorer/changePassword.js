@@ -56,12 +56,13 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
   },
   addbtn: {
-    width: "432px",
+    width: "440px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "10px 0px 20px 0px",
+    // margin: "10px 0px 20px 0px",
+    margin: "none",
     color: "white",
   },
   subCategory: {
@@ -225,9 +226,10 @@ export default function ChangePassword(props) {
 
           <DialogActions
             style={{
-              alignItems: "center",
-              justifyContent: "start",
+            //  alignItems: "center",
+             // justifyContent: "start",
               marginTop: "15px",
+              marginLeft:"-5px"
             }}
           >
             <div style={{ color: "red" }}> {isError}</div>
