@@ -163,8 +163,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
+    //color: "#6b7482",
     textTransform: "none",
-    // color: "#2149b9",
+    //color: "#2149b9",
   },
   txnprivate: {
     height: "19px",
@@ -226,7 +227,8 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "500",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      // color: "#2149b9",
+    // color: "#2149b9",
+  
     },
     txnprivate: {
       height: "19px",
@@ -236,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      color: "#6b7482",
+     // color: "#6b7482",
     },
     address: {
       height: "19px",
@@ -707,15 +709,17 @@ export default function SimpleTabs(props) {
             >
               <Tab
                 label="My Watchlist"
-                className={classes.mywatch}
+                classes={{ wrapper: classes.mywatch }}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
+                
               />
               <Tab
                 label="Txn Private Note"
                 className={classes.txnprivate}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
+                
               />
               <Tab
                 label="Tagged Adresses"

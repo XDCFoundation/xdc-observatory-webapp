@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
-    margin: "14px -8px 15px 2px",
+    margin: "0px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
@@ -100,8 +100,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
-
-    margin: "14px 8px 15px 2px",
+    margin: "0px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
   },
   subCategory: {

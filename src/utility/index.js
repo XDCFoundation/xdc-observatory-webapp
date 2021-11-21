@@ -8,8 +8,9 @@ import ToastService from 'react-material-toast';
 import AwsService  from "../services/awsService";
 const toast = ToastService.new({
     place: 'topRight',
-    duration: 1,
-    maxCount: 2
+    duration: 3,
+    maxCount: 5,
+    
 });
 let moment = require('moment');
 const cookies = new Cookies();
@@ -197,7 +198,7 @@ function apiFailureToast(message) {
 
 function apiSuccessToast(msg) {
     toast.success(msg ? msg : "apiConstant.API_SUCCESS");
-}
+};
 
 function generateGUID() {
     var nav = window.navigator;

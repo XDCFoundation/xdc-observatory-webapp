@@ -22,6 +22,7 @@ import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import { history } from "../../managers/history";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -277,10 +278,20 @@ export default function FormDialog() {
   const [inputError, setInputError] = useState("");
 
   const classes = useStyles();
+  const urlProfile= () => {
+    const profilePic=sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+      return profilePic;
+      }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+      const userProfile =()=>{
+        if(urlProfile()){
+             window.location.href = "loginprofile";
+                       
+          }else{          
+                setOpen(true);
+              }
+        }
+  
   const handleClose = () => {
     setOpen(false);
     setTimeout(() => {
@@ -306,29 +317,9 @@ export default function FormDialog() {
 
   const handleClickOpenSignup = () => {
     setValue(1);
-
-    setUserName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setErrorUserName("");
-    setErrorEmail("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
   };
   const handleOpenForgotPassword = () => {
     setValue(2);
-
-    setUserName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setErrorUserName("");
-    setErrorEmail("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
   };
 
   const login = async () => {
@@ -515,15 +506,18 @@ export default function FormDialog() {
       setCaptchaCheckbox(true);
     }
   };
+  
+
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
-        <button className="login-button" onClick={handleClickOpen}>
+        <button className="login-button" onClick={userProfile}>
           <img
             className="Shape2"
-            src={require("../../../src/assets/images/Profile.svg")}
+            style={{borderRadius:"50px"}}
+            src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
           ></img>
         </button>
         <div>
