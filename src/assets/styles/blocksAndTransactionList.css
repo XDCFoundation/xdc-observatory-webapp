@@ -175,7 +175,15 @@
     font-weight: 500;
   }
 }
+.hash-transaction-list-all {
+  border: none !important;
+  padding-left: 2.6rem !important;
+}
 @media (min-width: 767px) and (max-width: 1240px) {
+  .hash-transaction-list-all {
+    border: none !important;
+    padding-left: 1rem !important;
+  }
   .table-headers {
     height: 1.063rem;
     font-family: Inter;
@@ -935,6 +943,6 @@
 @media (min-width: 767px) and (max-width: 1240px) {
   .block-list-all {
     border: none !important;
-    padding-left: 16% !important;
+    padding-left: 0% !important;
   }
 }

@@ -3533,6 +3533,13 @@ body {
     border-bottom: 1px solid #ddd;
   }
 }
+@media (min-width: 768px) and (max-width: 1240px) {
+  /* #container-table th {
+    padding: 17px 48px 15px 27px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  } */
+}
 
 #container-table td {
   padding: 12px;
@@ -6676,7 +6683,7 @@ button {
   align-items: center;
   border-radius: 10px;
   box-shadow: black;
-  padding-top: 1.25rem;
+  padding-top: 1.3rem;
 }
 
 .second-row-table-block {
