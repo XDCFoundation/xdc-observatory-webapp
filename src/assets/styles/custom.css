@@ -456,16 +456,16 @@ input:focus {
 
 .Shape-XDC {
   margin-right: 0.625rem;
-  margin-top: 1rem;
-  height: 2.188rem;
-  width: 2.188rem;
+  margin-top: 1.125rem;
+  height: 1.875rem;
+  width: 1.875rem;
 }
 
 .Shape-XDC:hover {
-  margin-right: 0.625rem;
+  /* margin-right: 0.625rem;
   margin-top: 1rem;
   height: 2.188rem;
-  width: 2.188rem;
+  width: 2.188rem; */
 }
 .menubar-contract {
   display: flex;
@@ -496,7 +496,7 @@ input:focus {
     margin-bottom: 10px;
   }
   .inside-side-box {
-    margin-left: -26px !important;
+    margin-left: -17px !important;
   }
   .side-arrow-contract-tab {
     margin-left: 46% !important;
@@ -1280,7 +1280,7 @@ input:focus {
 .Network-explorer-internal {
   padding-bottom: 0.188rem;
   margin: 0.938rem 2.5rem 0.188rem 1.563rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1295,7 +1295,7 @@ input:focus {
 .Network-explorer-internal:hover {
   padding-bottom: 0.188rem;
   margin: 0.938rem 2.5rem 0.188rem 1.563rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1330,6 +1330,9 @@ input:focus {
   .Network-explorer:hover {
     margin: 3px 10px 3px 0px;
     font-size: 0.875rem;
+  }
+  .Network-explorer-internal {
+    margin-left: 0px;
   }
 }
 
@@ -1374,7 +1377,7 @@ input:focus {
 
 .Token-internal {
   padding-bottom: 0.188rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   margin: 0.938rem 2.5rem 0.188rem 11.563rem;
   font-size: 0.938rem;
   font-weight: 500;
@@ -1388,7 +1391,7 @@ input:focus {
 }
 .Token-internal:hover {
   padding-bottom: 0.188rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   margin: 0.938rem 2.5rem 0.188rem 11.563rem;
   font-size: 0.938rem;
   font-weight: 500;
@@ -2297,7 +2300,7 @@ p {
 }
 
 .inside-side-box {
-  margin-left: -20px;
+  margin-left: -17px;
   font-size: 14.5px;
   font-weight: 500;
   font-stretch: normal;
@@ -2892,7 +2895,7 @@ p {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .select-td {
-    margin-left: 15px !important;
+    /* margin-left: 15px !important; */
     font-size: 12px;
   }
 }
@@ -2996,10 +2999,10 @@ p {
     align-items: baseline !important;
     justify-content: space-between !important;
   }
-  .right-nav-div {
+  /* .right-nav-div {
     display: flex;
     align-items: center;
-  }
+  } */
 }
 
 @media (max-width: 1241px) {
@@ -7346,38 +7349,7 @@ button {
     margin-left: 0px;
     background-color: white !important;
   }
-  .Shape-XDC {
-    margin-top: -0.9rem;
-  }
-
-  .Shape-XDC:hover {
-    margin-top: -0.9rem;
-  }
-
-  .XDC-internal {
-    margin-top: -0.5rem;
-  }
-  .XDC-internal:hover {
-    margin-top: -0.5rem;
-  }
-
-  .Network-explorer-internal {
-    margin: 1.5rem 2.5rem 0.188rem 0.4rem;
-    padding-top: 0rem;
-  }
-  .Network-explorer-internal:hover {
-    margin: 1.5rem 2.5rem 0.188rem 0.4rem;
-    padding-top: 0rem;
-  }
-
-  .Token-internal {
-    padding-top: 0rem;
-    margin: 1.5rem 2.5rem 0.188rem 10rem;
-  }
-  .Token-internal:hover {
-    padding-top: 0rem;
-    margin: 1.5rem 2.5rem 0.188rem 10rem;
-  }
+  
 
   .parentCenterbox {
     display: flex;
@@ -7583,7 +7555,7 @@ button {
     letter-spacing: 0.55px !important;
   }
 }
-@media (min-width: 767px) and (max-width: 1240px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   /* .vc-header {
     width: 85%;
     margin: 95px auto 2%;
@@ -7601,8 +7573,10 @@ button {
     width: 31rem;
   }
   .select-td {
-    margin-left: 0px;
+    margin-left: -34px;
     background-color: white !important;
+    font-size: 15px;
+    padding-left: 14px;
   }
   .mobile-navbartab {
     display: flex;
@@ -7610,39 +7584,11 @@ button {
     margin-top: 10px;
   }
 
-  .Shape-XDC {
-    margin-top: 0.2rem;
-    margin-bottom: 1.125rem;
-  }
-
-  .Shape-XDC:hover {
-    margin-top: 0.2rem;
-    margin-bottom: 1.125rem;
-  }
-
-  .XDC-internal {
-    margin-top: 0.4rem;
-  }
-  .XDC-internal:hover {
-    margin-top: 0.4rem;
-  }
-
   .Network-explorer-internal {
-    margin: 0.6rem 2.5rem 0rem 1.563rem;
-    padding-top: 0rem;
+    margin-top: 1rem;
   }
-  .Network-explorer-internal:hover {
-    margin: 0.6rem 2.5rem 0rem 1.563rem;
-    padding-top: 0rem;
-  }
-
   .Token-internal {
-    padding-top: 0rem;
-    margin: 0.6rem 2.5rem 0rem 11.563rem;
-  }
-  .Token-internal:hover {
-    padding-top: 0rem;
-    margin: 0.6rem 2.5rem 0rem 11.563rem;
+    margin-top: 1rem;
   }
   .parentCenterbox {
     display: flex;
@@ -7650,13 +7596,10 @@ button {
     /* background-color: green; */
   }
   .centerbox-td {
-    /* width: 38.9375rem; */
-    /* background-color: red; */
-    /* width: 100%; */
-    height: 2.4375rem;
-    margin-right: -20px;
     margin-top: 22px;
-    margin-left: 3.1875rem;
+    position: absolute;
+    right: 8px;
+    width: 38.938rem;
   }
 
   .vc-header {
@@ -8124,22 +8067,24 @@ button {
 
 @media (max-width: 450px) {
   .mobile-navbartab1 {
-    margin-top: 63px;
+    margin-top: 61px;
   }
   .Shape-XDC {
-    height: 20px;
-    width: 20px;
-    margin-top: 1px;
+    height: 23px;
+    width: 23px;
+    margin-top: 0px;
+    margin-right: 7px;
   }
   .XDC-internal {
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: 4.5px;
   }
   .right-nav-div {
     position: absolute;
-    top: 46px;
+    top: 45px;
     right: 16px;
   }
+
   .Shape2-internal {
     height: 20px;
     width: 20px;
@@ -8150,28 +8095,35 @@ button {
     width: 20px;
     margin-top: 1px;
   }
+  .Network-explorer-internal {
+    font-size: 14px;
+  }
+  .Token-internal {
+    margin-left: 149px;
+    font-size: 14px;
+  }
+
+  .down-arrow-internal{
+    margin-right: -9px;
+  }
   .centerbox-td {
     margin-top: 0px !important;
     /* margin-left: auto !important;
     margin-right: auto !important; */
     height: 34px;
-  }
-
-  .Network-explorer-internal {
-    margin-left: 0px !important;
+    margin-left: 38px;
   }
   .select-td {
-    margin-left: 90px !important;
+    margin-left: 13px;
   }
+
+  /* .select-td {
+    margin-left: 90px !important;
+  } */
 }
 
 @media (max-width: 1024px) {
-  .XDC-internal {
-    margin-top: 4px;
-  }
-  .Shape-XDC {
-    margin-top: 0px;
-  }
+ 
   /* .Network-explorer-internal {
     margin-top: 0px;
   }
@@ -8182,7 +8134,7 @@ button {
   .name-internal {
     margin-top: 15px;
   }
-
+  
   /* .down-arrow-internal{
     margin-top: 0px;
   } */
@@ -8196,6 +8148,9 @@ button {
 @media (min-width: 768px) and (max-width: 1023px) {
   .pad-left-27 {
     padding-left: 27px;
+  }
+  .right-nav-div {
+    top: 4px;
   }
 }
 @media (max-width: 767px) {
@@ -8377,15 +8332,15 @@ button {
   color: #ffffff;
   font-size: 0.875rem;
   font-family: Inter;
-  margin-left: 14px !important;
-  margin-top: 20px;
+  margin-left: 23px !important;
+  margin-top: 23px;
 }
 .Notification-header-text-color-fade {
   color: #0099f9;
   font-size: 0.875rem;
   font-family: Inter;
-  margin-left: 14px !important;
-  margin-top: 20px;
+  margin-left: 15px !important;
+  margin-top: 23px;
 }
 .Notification-text-color-fade {
   color: #0099f9;
@@ -8393,7 +8348,7 @@ button {
   font-family: Inter;
 }
 .notification-hr {
-  width: 95%;
+  width: 93%;
   left: 0%;
   border: solid 0.1px #4867c1;
   margin-left: 0%;
@@ -8763,6 +8718,9 @@ button {
   color: #2a2a2a;
   text-decoration: underline;
 }
+.iAgree {
+  color: #2a2a2a;
+}
 .token-details-address-link {
   color: #2149b9;
   font-size: 15px;
@@ -8771,9 +8729,34 @@ button {
   color: #2149b9;
   font-size: 15px;
 }
+.userName-internal {
+  margin-top: 12px;
+  margin-left: 4px;
+  margin-right: 9px;
+}
+@media (min-width: 0px) and (max-width: 1024px) {
+  .userName-internal {
+    margin-top: 0px;
+  }
+  .down-arrow-internal {
+    margin-top: 0px;
+  }
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .token-details-address-link {
     color: #2149b9;
     font-size: 14px;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1024px) {
+  .mobile-navbartab1 {
+    margin-top: -7px;
+  }
+  .Network-explorer-internal {
+    margin-top: 8px;
+  }
+  .Token-internal {
+    margin-top: 8px;
   }
 }

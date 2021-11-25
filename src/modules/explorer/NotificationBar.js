@@ -112,7 +112,7 @@ function TemporaryDrawer(props) {
         <div className={classes.drawerHeader}>
           {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}
           <IconButton
-            style={{ color: "White" }}
+            style={{ color: "White", margin: "10px 5px -10px 0"}}
             onClick={toggleDrawer(anchor, false)}
           >
             {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -142,7 +142,7 @@ function TemporaryDrawer(props) {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button
+          <div
             style={{ padding: "0px", background: "none" }}
           >
             <img
@@ -159,7 +159,7 @@ function TemporaryDrawer(props) {
             >
               {list(anchor)}
             </Drawer>
-          </Button>
+          </div>
         </React.Fragment>
       ))}
     </div>

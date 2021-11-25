@@ -258,19 +258,20 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
     "&:hover": { background: "none" },
   },
+  tab1: {
+    color: "#2149b9 !important",
+    textTransform: "initial",
+  },
+  tab2: {
+    color: "#6b7482",
+    textTransform: "initial",
+  },
 }));
 
 export default function SimpleTabs(props) {
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
-      b.length
-    )}`;
-  }
-
-  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
       b.length
     )}`;
   }
@@ -694,7 +695,6 @@ export default function SimpleTabs(props) {
         </div>
         <div className="divbox">
           <Watchlist />
-
           <Transaction />
           <Private />
         </div>
@@ -708,28 +708,30 @@ export default function SimpleTabs(props) {
             <Tabs
               value={value}
               onChange={handleChange}
-              style={{ color: "#2149b9" }}
-              tabBarUnderlineStyle={{ backgroundColor: "blue" }}
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-              textTransform="uppercase"
+              TabIndicatorProps={{
+                style: {
+                  backgroundColor: "#2149b9",
+                },
+              }}
             >
               <Tab
                 label="My Watchlist"
-                className={classes.mywatch}
+                // className={classes.mywatch}
+                className={value === 0 ? classes.tab1 : classes.tab2}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
               <Tab
                 label="Txn Private Note"
                 className={classes.txnprivate}
+                className={value === 1 ? classes.tab1 : classes.tab2}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
               />
               <Tab
                 label="Tagged Adresses"
                 className={classes.address}
+                className={value === 2 ? classes.tab1 : classes.tab2}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />
@@ -855,12 +857,14 @@ export default function SimpleTabs(props) {
                               marginRight: "10px",
                             }}
                           />
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Description</span>
                         </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
+                        <TableCell style={{ border: "none", display: "flex", lineHeight: "21px" }} align="left">
                           <span className={"tableheaders-1"}>Balance</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
@@ -906,10 +910,12 @@ export default function SimpleTabs(props) {
                                 onChange={handleWatchlistCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked1 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px" }}
                               />
+                              </TableCell>
+                              <TableCell style={{ border: "none"}} align="left">
                               <a
-                                className="linkTable"
+                                className="linkTable1"
                                 href={"/address-details/" + row.address}
                               >
                                 <Tooltip placement="top" title={row.address}>
@@ -990,6 +996,8 @@ export default function SimpleTabs(props) {
                               marginRight: "10px",
                             }}
                           />
+                          </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>
                             Transaction Hash
                           </span>
@@ -1051,10 +1059,12 @@ export default function SimpleTabs(props) {
                                 onChange={handlePvtNoteCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked2 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px" }}
                               />
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
                               <a
-                                className="linkTable"
+                                className="linkTable1"
                                 href={
                                   "/transaction-details/" + row.transactionHash
                                 }
@@ -1064,7 +1074,7 @@ export default function SimpleTabs(props) {
                                   title={row.transactionHash}
                                 >
                                   <span className="tabledata1">
-                                    {shorten(row.transactionHash)}{" "}
+                                    {Utils.shortenHash(row.transactionHash)}{" "}
                                   </span>
                                 </Tooltip>
                               </a>
@@ -1133,6 +1143,8 @@ export default function SimpleTabs(props) {
                               marginRight: "10px",
                             }}
                           />
+                          </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
@@ -1193,10 +1205,12 @@ export default function SimpleTabs(props) {
                                 onChange={handleTagAddressCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked3 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px" }}
                               />
+                              </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
                               <a
-                                className="linkTable"
+                                className="linkTable1"
                                 href={"/address-details/" + row.address}
                               >
                                 <Tooltip placement="top" title={row.address}>
