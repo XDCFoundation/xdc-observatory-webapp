@@ -263,7 +263,7 @@ function EditWatchList(props) {
     <div>
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
-          <a className="linkTable">
+          <a className="linkTable1">
             <span className="tabledata1">Edit</span>
           </a>
         </button>

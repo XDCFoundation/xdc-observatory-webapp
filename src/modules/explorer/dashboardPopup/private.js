@@ -107,11 +107,10 @@ const useStyles = makeStyles((theme) => ({
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
-    // fontWeight: "50px",
-    fontfamily: "Inter",
+    fontFamily: "Inter",
+    fontSize: "14px",
     color: "#2a2a2a",
-    fontsize: "14px",
-    fontweight: "500",
+    fontWeight: "500",
     border: "none !important",
   },
   forgotpass: {
@@ -134,10 +133,13 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -262,9 +264,9 @@ export default function FormDialog() {
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
+            <div className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
-            </DialogTitle>
+            </div>
             {/* <span onClick={handleClose} className={classes.cross}>
               {" "}
               X{" "}

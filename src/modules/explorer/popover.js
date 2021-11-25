@@ -90,7 +90,7 @@ export default function BasicPopover(props) {
           style={{borderRadius:"50px"}}
           src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
         />
-        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(Utility.shortenUserName(setUserName()))}</span>
+        <span className="userName-internal">{setUserName()==="" ? (""):(Utility.shortenUserName(setUserName()))}</span>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}

@@ -165,6 +165,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "24px",
     fontWeight: "bold",
     marginLeft: "-50px",
+    color: "#2a2a2a",
   },
   recaptcha: {
     marginTop: "12px",
@@ -182,6 +183,7 @@ const useStyles = makeStyles((theme) => ({
   alreadyAccount: {
     textAlign: "center",
     marginBottom: "30px",
+    color: "#2a2a2a"
   },
   signIn: {
     color: "#2149b9",
@@ -721,7 +723,7 @@ export default function FormDialog() {
                     onClick={handleTermsCheckbox}
                     type="checkbox"
                   ></input>
-                  <span>
+                  <span className="iAgree">
                     I agree to the{" "}
                     <a href="https://www.facebook.com" className="termsLink">
                       Terms and Conditions
