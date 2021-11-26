@@ -342,24 +342,27 @@ export default function FormDialog() {
                 onChange={handleChange}
               >
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="NO"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "5px 2px -5px -5px",}}
                   classes={{ label: classes.notifyLabel }}
                   label="No Notifications"
                   onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="INOUT"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming & Outgoing Txns"
                   onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="IN"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming (Recieve) Txns Only"
@@ -367,8 +370,9 @@ export default function FormDialog() {
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="OUT"
-                  control={<Radio className="test" />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
                   label="Notify on Outgoing (Sent) Txns Only"
