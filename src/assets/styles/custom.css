@@ -8760,3 +8760,7 @@ button {
     margin-top: 8px;
   }
 }
+
+.radio-inside-dot > span > span > div > svg ~ svg > path {
+  color: #2149b9;
+}
