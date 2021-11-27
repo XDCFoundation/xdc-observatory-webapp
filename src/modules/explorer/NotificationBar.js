@@ -33,6 +33,23 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
+  "@media (max-width: 1240px)": {
+    paper: {
+      top: "8.375rem",
+    },
+  },
+  "@media (max-width: 767px)": {
+    paper: {
+      top: "11.438rem",
+      width: "13.313rem",
+    },
+  },
+  "@media (max-width: 449px)": {
+    paper: {
+      top: "12.438rem",
+      width: "13.313rem",
+    },
+  },
 }));
 function TemporaryDrawer(props) {
   const classes = useStyles();
@@ -62,7 +79,6 @@ function TemporaryDrawer(props) {
         "type":"push"
       },
       "selectionString": ["description", "payload"]
-
     }
     props.dispatchAction(eventConstants.SHOW_LOADER, true)
     const [error, response] = await utility.parseResponse(NotificationService.getNotificationList(request));

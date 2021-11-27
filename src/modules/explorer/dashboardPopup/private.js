@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Inter",
     fontSize: "14px",
     color: "#2a2a2a",
-    fontWeight: "500",
+    fontWeight: "500 !important",
     border: "none !important",
   },
   forgotpass: {
@@ -147,12 +147,13 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
@@ -274,7 +275,7 @@ export default function FormDialog() {
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
             <input
               className={classes.input}
@@ -283,7 +284,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
+              Name Tag
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}

@@ -169,16 +169,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#2a2a2a",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
+    },
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
     },
   },
 }));
@@ -297,7 +302,7 @@ export default function FormDialog() {
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
             <input
               className={classes.input}
@@ -309,7 +314,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Description</b>
+              Description
               {/* <span  className={classes.forgotpass}>
               Forgot ?
             </span> */}
@@ -326,7 +331,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Notifications</b>
+              Notifications
             </DialogContentText>
 
             <FormControl

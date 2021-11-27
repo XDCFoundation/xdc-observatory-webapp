@@ -104,19 +104,19 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
-      
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+  },
 }));
 
 export default function FormDialog(props) {
@@ -158,7 +158,7 @@ export default function FormDialog(props) {
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
             <input
               className={classes.input}
@@ -167,7 +167,7 @@ export default function FormDialog(props) {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
+              Name Tag
             </DialogContentText>
             <input
               type="text"
