@@ -123,20 +123,21 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
     },
-    input1: {
-      maxWidth: "503px",
-      width: "100%",
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
     },
   },
 }));
@@ -183,7 +184,7 @@ export default function FormDialog(props) {
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Hash</b>
+              Transaction Hash
             </DialogContentText>
             <input
               type="text"
@@ -193,7 +194,7 @@ export default function FormDialog(props) {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Label/Note</b>
+              Transaction Label/Note
             </DialogContentText>
             <input
               type="text"
