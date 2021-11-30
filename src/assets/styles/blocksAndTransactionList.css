@@ -53,6 +53,9 @@
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
+  .percentage-table-accounts {
+    padding-left: 7px !important;
+  }
   .tableresponsive {
     padding-top: 110px;
     margin-top: 50px;
