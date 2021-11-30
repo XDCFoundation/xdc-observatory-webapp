@@ -399,15 +399,6 @@ export default function AddressDetails(props) {
               >
                 Transactions
               </button>
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(2)}
-                id="transaction-btn"
-              >
-                Internal Txn
-              </button>
             </div>
           </div>
 
@@ -420,16 +411,6 @@ export default function AddressDetails(props) {
             }
           >
             <AddressTableComponent trans={transactions} coinadd={addr} />
-          </div>
-
-          <div
-            className={
-              toggleState === 2
-                ? "content_sec  active-content_sec"
-                : "content_sec"
-            }
-          >
-            <AddressTableComponent trans={transactions} />
           </div>
 
         </div>
