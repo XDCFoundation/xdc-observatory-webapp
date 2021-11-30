@@ -143,11 +143,7 @@ export default function BlockDetails() {
                             placement="top"
                           >
                             <button
-                              style={{
-                                color: "blue",
-                                backgroundColor: "white",
-                                fontSize: 14,
-                              }}
+                              className="copy-icon-block-details"
                             >
                               <ImgView
                                 src={require("../../../src/assets/images/copy.svg")}
@@ -549,7 +545,7 @@ const MiddleContainerHash = styled.div`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
-  margin-left: 100px;
+  margin-left: 105px;
   width: 100%;
   @media (min-width: 300px) and (max-width: 767px) {
     margin-left: unset;
@@ -593,7 +589,7 @@ const Hash = styled.span`
     line-height: normal;
     letter-spacing: 0.036rem;
     text-align: left;
-    color: #252525;
+    color: #2a2a2a;
   }
 `;
 const Spacing = styled.div`
@@ -701,8 +697,9 @@ const Heading = styled.span`
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  cursor: pointer;
   
-    @media  (min-width: 0px) and  (max-width: 767px) {
+  @media  (min-width: 0px) and  (max-width: 767px) {
    width: 0.688rem;
    height: 0.688rem;
   }

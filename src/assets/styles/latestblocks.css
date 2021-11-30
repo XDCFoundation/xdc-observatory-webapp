@@ -34,8 +34,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   width: 70%;
   margin-left: 20px;
 }
@@ -74,7 +73,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   font-weight: bold;
   opacity: 0.8;
@@ -89,7 +88,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   margin: 3px;
