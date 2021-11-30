@@ -73,10 +73,27 @@ export default function Transaction({ _handleChange }) {
   // };
 
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false)
+  const [dialogValue, setDailogValue] = React.useState(0)
+  const [dialogValue2, setDailogValue2] = React.useState(0)
+  const [dialogPvtTagIsOpen2, setDialogPvtTagIsOpen2] = React.useState(false)
   const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false)
 
-  const openDialogPvtTag = () => setDialogPvtTagIsOpen(true)
-  const closeDialogPvtTag = () => setDialogPvtTagIsOpen(false)
+  const openDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(true)
+    setDailogValue(1);
+  }
+  const closeDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(false)
+    setDailogValue(0);
+  }
+  const openDialogPvtTag2 = () => {
+    setDialogPvtTagIsOpen2(true)
+    setDailogValue2(1);
+  }
+  const closeDialogPvtTag2 = () => {
+    setDialogPvtTagIsOpen2(false)
+    setDailogValue2(0);
+  }
   const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true)
   const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
   const [isLoading, setLoading] = useState(true);
@@ -253,8 +270,8 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} />}
-                          <img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash}/>}
+                          {isPvtNote ? <img className="edit-icon" style={{pointerEvents: "none"}} src={require("../../../src/assets/images/XDC-Edit.svg")} /> : <img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
                         </span>
                       </MiddleContainer>
                     </HashDiv>
@@ -349,7 +366,7 @@ export default function Transaction({ _handleChange }) {
                                 </button>
                               </Tooltip>
                             </CopyToClipboard>
-                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} />}
+                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} fromAddr={transactions.from} value={dialogValue} hash={hash}/>}
                             {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                           </span>
                         </Content>
@@ -402,8 +419,8 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} />}
-                          {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
+                          {<PrivateAddressTag open={dialogPvtTagIsOpen2} onClose={closeDialogPvtTag2} toAddr={transactions.to} value={dialogValue2} hash={hash}/>}
+                          {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag2} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                         </Content>
                       </MiddleContainer>
                     </SpacingHash>

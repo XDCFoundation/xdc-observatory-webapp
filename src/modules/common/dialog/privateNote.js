@@ -144,14 +144,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormDialog(props) {
     const {open, onClose} = props
-    const [TransactionsHash, setTransactionsHash] = React.useState("");
+    const [transactionsHash, setTransactionsHash] = React.useState("");
     const [privateNote, setPrivateNote] = React.useState("");
 
+    React.useEffect(() => {
+      setTransactionsHash(props.hash)
+    }, [props.hash])
   async function transactionLable() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: privateNote,
-      transactionHash: TransactionsHash,
+      transactionHash: transactionsHash,
     };
     const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
@@ -162,7 +165,7 @@ export default function FormDialog(props) {
         return;
       }
       utility.apiSuccessToast("Transaction Private Note Added");
-      window.location.href = "loginprofile";
+      window.location.reload();
       setTransactionsHash("");
       setPrivateNote("");
     }
@@ -188,6 +191,7 @@ export default function FormDialog(props) {
             </DialogContentText>
             <input
               type="text"
+              value={transactionsHash}
               className={classes.input}
               onChange={(e) => setTransactionsHash(e.target.value)}
             ></input>
