@@ -252,7 +252,7 @@ export default function StickyHeadTable() {
                     key={row.code}
                   >
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a style={{ color: "#2149b9", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
                         <span className="tabledata table-data">
                           {shorten(row.hash)}
                         </span>
@@ -263,13 +263,13 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
 
-                      <a style={{ color: "#2149b9", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
                         <span className="tabledata table-data"> {row.blockNumber}</span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
 
-                      <a style={{ color: "#2149b9", fontSize: 11 }} href="#text">
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.from}>
                           <span className="tabledata table-data">
 

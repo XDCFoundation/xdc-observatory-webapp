@@ -52,7 +52,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
     if (error || !transactiondetailusinghash) return;
-    
+
     setTransactions(transactiondetailusinghash);
   };
 
@@ -115,8 +115,8 @@ export default function TransactionsDetailsData({ _handleChange }) {
   // let MethodID = value1?.slice(0, 10);
   // let zero = value1?.slice(10, 74);
   // let one = value1?.slice(74, 138);
-  
- 
+
+
   return (
     <div>
       <Tokensearchbar />
@@ -220,7 +220,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -272,7 +272,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -319,7 +319,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -395,7 +395,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -469,7 +469,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -519,7 +519,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -566,7 +566,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -612,7 +612,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -658,7 +658,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -704,7 +704,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "1px solid #e3e7eb",
                   }}
                   id="td"
@@ -751,7 +751,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     paddingBottom: "45px",
                     borderBottom: "1px solid #e3e7eb",
                   }}
@@ -790,7 +790,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                     fontStyle: "normal",
                     lineHeight: "1rem",
                     letterSpacing: "0.58px",
-                    color: "#252525",
+                    color: "#2a2a2a",
                     borderBottom: "none",
                   }}
                   id="td"
