@@ -57,6 +57,11 @@ export default function AccountComponent(props) {
                 props._handleSearch(e)
               }
 
+            }}
+            onChange={(e) => {
+              if (e.target.value == "") {
+                props._handleSearch(e)
+              }
             }} className="account-searchbar"
             type="text"
             placeholder="Search Accounts" />
