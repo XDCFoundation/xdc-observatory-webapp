@@ -53,6 +53,9 @@
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
+  .percentage-table-accounts {
+    padding-left: 7px !important;
+  }
   .tableresponsive {
     padding-top: 110px;
     margin-top: 50px;
@@ -112,8 +115,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
 }
 .tableheader-hash {
   font-size: 13px;
@@ -123,8 +125,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   margin-left: 1.56rem;
 }
 .tableheader-age {
@@ -135,8 +136,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   margin-right: 50px;
 }
 .tableheaders {
@@ -147,8 +147,7 @@
   line-height: normal;
   letter-spacing: 0.034rem;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
 }
 .tableheaders-contract {
   font-size: 0.875rem;
@@ -158,8 +157,7 @@
   line-height: normal;
   letter-spacing: 0.034rem;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .table-headers {
@@ -171,11 +169,19 @@
     line-height: normal;
     letter-spacing: 0.034rem;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     font-weight: 500;
   }
 }
+.hash-transaction-list-all {
+  border: none !important;
+  padding-left: 2.6rem !important;
+}
 @media (min-width: 767px) and (max-width: 1240px) {
+  .hash-transaction-list-all {
+    border: none !important;
+    padding-left: 1rem !important;
+  }
   .table-headers {
     height: 1.063rem;
     font-family: Inter;
@@ -185,7 +191,7 @@
     line-height: normal;
     letter-spacing: 0.034rem;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     font-weight: 500;
     margin-right: 130px;
   }
@@ -198,8 +204,7 @@
     line-height: normal;
     letter-spacing: 0.034rem;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
   }
 }
 .tableheaders-hash {
@@ -210,8 +215,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
 }
 .tableheader-all {
   font-size: 13px;
@@ -221,8 +225,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   margin-right: 50px;
 }
 .tableheader-txn-fee {
@@ -233,8 +236,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
 }
 .tableheader-age {
   font-size: 13px;
@@ -244,8 +246,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   margin-right: 50px;
 }
 .tableheaders-all {
@@ -256,8 +257,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   margin-right: 50px;
 }
 @media (max-width: 767px) {
@@ -269,8 +269,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
+
     margin-right: 115px;
   }
   .tableheaders-all {
@@ -281,8 +281,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
   }
 }
 .tableheaders-txn-fee {
@@ -293,8 +292,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .tableheaders-txn-fee {
@@ -305,8 +303,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
     margin-right: 50px;
   }
   .tableheaders-hash {
@@ -317,8 +314,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
+
     margin-right: 115px;
   }
 }
@@ -336,8 +333,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
-  opacity: 0.8;
+  color: #2a2a2a;
   margin-right: 50px;
 }
 
@@ -381,7 +377,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: left;
-  opacity: 0.7;
+  opacity: 1;
   padding-left: 2px;
 }
 @media (min-width: 1240px) {
@@ -441,12 +437,12 @@
 }
 
 .second-block-details:hover {
-  color: #252525;
+  color: #2149b9;
   text-decoration: none;
 }
 
 .linkTable:hover {
-  color: #252525;
+  color: #2149b9;
   text-decoration: none;
 }
 
@@ -463,7 +459,7 @@
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   font-weight: bold;
 }
@@ -484,7 +480,7 @@
   height: 60%;
   padding: 7px 10px 25px 9px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   margin: 2px;
@@ -501,7 +497,7 @@
   height: 60%;
   padding: 7px 10px 25px 9px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   margin: 2px;
@@ -560,7 +556,7 @@
 }
 
 .linkTableDetails:hover {
-  color: #252525;
+  color: #2149b9;
   text-decoration: none;
   font-size: 12px;
   font-weight: 600 !important;
@@ -593,7 +589,7 @@
   .linkTableDetails-transaction {
     font-size: 0.875rem;
     color: #4878ff;
-    line-height: 0;
+    line-height: 1.3;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -636,8 +632,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
     /* margin-right: 164px; */
   }
   .tableheaders-contract {
@@ -649,8 +644,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
+
     /* margin-right: 164px; */
   }
 
@@ -662,9 +657,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
-    padding-left: 10px;
+    color: #2a2a2a;
+
     margin-right: 50px;
   }
   .tableheaders_Transfer-table-age {
@@ -675,9 +669,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
-    padding-left: 10px;
+    color: #2a2a2a;
+
     margin-right: 50px;
   }
   .tableheaders_Transfer-table-block {
@@ -688,9 +681,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
-    padding-left: 10px;
+    color: #2a2a2a;
+
     margin-right: 50px;
   }
   .tableheaders_Transfer-table-from {
@@ -701,9 +693,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
-    padding-left: 10px;
+    color: #2a2a2a;
+
     margin-right: 50px;
   }
   .tableheaders_Transfer-table-to {
@@ -714,9 +705,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
-    padding-left: 10px;
+    color: #2a2a2a;
+
     margin-right: 50px;
   }
   .tableheaders_1 {
@@ -727,8 +717,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
+
     margin-right: 27px;
   }
   #container-table td {
@@ -744,7 +734,7 @@
     line-height: normal;
     letter-spacing: 0.58px;
     text-align: left;
-    color: #252525;
+    color: #2a2a2a;
   }
 
   .select-amount {
@@ -780,18 +770,23 @@
 /* Medium devices (landscape tablets, 768px and up) */
 .tableheaders_Transfer-table-hash {
   font-weight: bold !important;
+  color: #2a2a2a;
 }
 .tableheaders_Transfer-table-age {
   font-weight: bold !important;
+  color: #2a2a2a;
 }
 .tableheaders_Transfer-table-block {
   font-weight: bold !important;
+  color: #2a2a2a;
 }
 .tableheaders_Transfer-table-from {
   font-weight: bold !important;
+  color: #2a2a2a;
 }
 .tableheaders_Transfer-table-to {
   font-weight: bold !important;
+  color: #2a2a2a;
 }
 @media only screen and (min-width: 767px) {
   .container-table {
@@ -902,7 +897,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     opacity: 1;
     margin-right: 27px;
   }
@@ -916,8 +911,8 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #252525;
-    opacity: 0.8;
+    color: #2a2a2a;
+
     margin-right: 27px;
   }
 }
@@ -935,6 +930,6 @@
 @media (min-width: 767px) and (max-width: 1240px) {
   .block-list-all {
     border: none !important;
-    padding-left: 16% !important;
+    padding-left: 0% !important;
   }
 }

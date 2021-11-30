@@ -507,7 +507,7 @@ background-color: #4878ff; */
     width: 100%;
     overflow-x: scroll;
   }
-  .tablegrid_address {
+  .tablegrid_address_contract {
     width: 1300px;
   }
 }
@@ -533,7 +533,7 @@ background-color: #4878ff; */
     margin-top: 197px;
     margin-bottom: -13px;
   }
-  .tablegrid_address {
+  .tablegrid_address_contract {
     width: 750px;
   }
 }
@@ -549,7 +549,7 @@ background-color: #4878ff; */
     width: 361px;
     margin-left: -17px;
   }
-  .tablegrid_address {
+  .tablegrid_address_contract {
     width: 750px;
   }
 }
