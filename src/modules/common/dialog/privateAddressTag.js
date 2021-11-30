@@ -121,9 +121,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormDialog(props) {
   const {open, onClose} = props
-  const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
 
+  React.useEffect(() => {
+    if (props.value===1 && props.fromAddr){ 
+      setPrivateAddress(props.fromAddr);
+      }
+      else if(props.value===1 && props.toAddr)
+      setPrivateAddress(props.toAddr)
+  }, [props])
+  console.log("this",props)
   async function TaggedAddress() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -135,10 +143,11 @@ export default function FormDialog(props) {
     );
 
     if (error) {
-      utility.apiFailureToast("error");
+      utility.apiFailureToast("Address is already in use");
       return;
     }
     utility.apiSuccessToast("Tag Added");
+    history.go(0);
   }
 
   const classes = useStyles();
@@ -161,9 +170,11 @@ export default function FormDialog(props) {
               Address
             </DialogContentText>
             <input
+              value={privateAddress}
+              
               className={classes.input}
               onChange={(e) => setPrivateAddress(e.target.value)}
-            ></input>
+            >{console.log("address",privateAddress)}</input>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
