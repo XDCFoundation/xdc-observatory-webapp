@@ -131,7 +131,6 @@ export default function FormDialog(props) {
       else if(props.value===1 && props.toAddr)
       setPrivateAddress(props.toAddr)
   }, [props])
-  console.log("this",props)
   async function TaggedAddress() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -174,7 +173,7 @@ export default function FormDialog(props) {
               
               className={classes.input}
               onChange={(e) => setPrivateAddress(e.target.value)}
-            >{console.log("address",privateAddress)}</input>
+            ></input>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>

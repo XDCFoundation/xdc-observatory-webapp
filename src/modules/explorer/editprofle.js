@@ -264,6 +264,13 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setTimeout(() => {
+      setUsernameEnable(false);
+      setEmailEnable(false)
+      setUserName(getUserName)
+      setEmail(getEmail)
+    }, 500);
+    
   };
 
   const handleLogin = () => {
@@ -334,8 +341,8 @@ export default function FormDialog(props) {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
-  const [usernameDisable, setUsernameUnable] = React.useState(true);
-  const [emailDisable, setEmailUnable] = React.useState(true);
+  const [usernameEnable, setUsernameEnable] = React.useState(false);
+  const [emailEnable, setEmailEnable] = React.useState(false);
 
   const profileUrl = async () => {
     let response = {}
@@ -361,10 +368,11 @@ export default function FormDialog(props) {
   };
   useEffect(() => {
     let userInfo = sessionManager.getDataFromCookies("userInfo");
-    if (userInfo && userInfo.name)
+    if (userInfo){
       setUserName(userInfo.name);
-    setProfilePicture(sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE));
-    setEmail(userInfo.email);
+      setEmail(userInfo.email);
+      setProfilePicture(sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE));
+    }
   }, []);
 
   return (
@@ -395,7 +403,7 @@ export default function FormDialog(props) {
               </Cut>
             </Wrapper>
             <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} profilePicture={profilePicture} />
-            <Row>
+            {/* <Row>
               <DialogContent>
                 <DialogContentText className={classes.subCategory}>
                   <b>Username</b>
@@ -426,8 +434,35 @@ export default function FormDialog(props) {
                   />
                 </Input>
               </DialogContent>
-            </Row>
-            <DialogContent>
+            </Row> */}
+
+            <DialogContent style={{padding: "8px 35px"}}>
+              <DialogContentText className={classes.subCategory}>
+                <b>Username</b>
+              </DialogContentText>
+              {!usernameEnable ?
+              (<span className="beforeInput">
+                <span className="beforeInputValue">{userName}</span>
+              <img
+                  className="imgcss"
+                  src={require("../../../src/assets/images/edit.svg")}
+                  onClick={() => setUsernameEnable(true)}
+                />
+              </span>) :
+                (<input className="inputcss"
+                  style={{border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
+                  type="text"
+                  id="username"
+                  value={userName}
+                  onChange={(e) => {
+                    {
+                      setUserName(e.target.value);
+                    }
+                  }}
+                />)}
+            </DialogContent>
+            
+            {/* <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 <b>Email</b>
               </DialogContentText>
@@ -453,7 +488,34 @@ export default function FormDialog(props) {
                   onClick={() => setEmailUnable(false)}
                 />
               </Input>
+            </DialogContent> */}
+
+            <DialogContent style={{padding: "8px 35px"}}>
+              <DialogContentText className={classes.subCategory}>
+                <b>Email</b>
+              </DialogContentText>
+              {!emailEnable ?
+              (<span className="beforeInput">
+                <span className="beforeInputValue">{email}</span>
+              <img
+                  className="imgcss"
+                  src={require("../../../src/assets/images/edit.svg")}
+                  onClick={() => setEmailEnable(true)}
+                />
+              </span>) :
+                (<input className="inputcss"
+                  style={{border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
+                  type="text"
+                  id="email"
+                  value={email}
+                  onChange={(e) => {
+                    {
+                      setEmail(e.target.value);
+                    }
+                  }}
+                />)}
             </DialogContent>
+            
             {isLoading == true ? (
               <div >
                 <Loader />

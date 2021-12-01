@@ -22,6 +22,7 @@ import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import { history } from "../../managers/history";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -257,7 +258,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog(props) {
+  const {onOpen, onClose} = props
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [openSignup, setOpenSignup] = React.useState(false);
@@ -265,6 +267,7 @@ export default function FormDialog() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+  console.log("props dialog",props)
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -281,11 +284,18 @@ export default function FormDialog() {
 
   const classes = useStyles();
 
+  React.useEffect(() => {
+    if(open === true){
+      setOpen(false)
+    } else{
+      setOpen(props.open)
+    }
+  }, [props])
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    {!props.hash ? setOpen(false) : props.onClose(onClose)}
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -392,7 +402,7 @@ export default function FormDialog() {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        window.location.href = "loginprofile";
+        {!props.hash ? window.location.href = "loginprofile" : history.go(0)}
       }
     }
   };
@@ -523,17 +533,19 @@ export default function FormDialog() {
   return (
     <div>
       <div className={classes.add}>
+        {!props.hash ?
         <button className="login-button" onClick={handleClickOpen}>
           <img
             className="Shape2"
             src={require("../../../src/assets/images/Profile.svg")}
           ></img>
-        </button>
+        </button> : ""
+        }
         <div>
           <Dialog
             classes={{ paperWidthSm: classes.paperWidthSm }}
             className={classes.dialog}
-            open={open}
+            open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >

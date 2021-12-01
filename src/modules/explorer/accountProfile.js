@@ -497,9 +497,24 @@ export default function SimpleTabs(props) {
     setDownloadActive(0);
   };
 
+
+  const [countWatchlist, setCountWatchlist] = React.useState(-1)
+  const [checkedWatchlist, setCheckedWatchlist] = React.useState(false)
+  let watchlistLength = watchlist.length
+
   const handleWatchlistCheckbox = (event) => {
     const { name, checked } = event.target;
-    if (name === "allselect") {
+    if (name === "allselect" || countWatchlist === watchlistLength) {
+      if(checkedWatchlist === false){
+        setCheckedWatchlist(true)
+      } else {
+        setCheckedWatchlist(false)
+      }
+      if(countWatchlist === watchlistLength) {
+        setCheckedWatchlist(false)
+      }
+      setCountWatchlist(-1)
+      
       let tempAddress = watchlist.map((addr) => {
         return { ...addr, isChecked1: checked };
       });
@@ -537,6 +552,9 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+      setCountWatchlist(tempAddr.length)
+      setCheckedWatchlist(false)
+
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -556,9 +574,23 @@ export default function SimpleTabs(props) {
     }
   };
 
+
+  const [countNote, setCountNote] = React.useState(-1)
+  const [checkedNote, setCheckedNote] = React.useState(false)
+  let pvtNoteLength = address.length
+
   const handlePvtNoteCheckbox = (event) => {
     const { name, checked } = event.target;
-    if (name === "allselect") {
+    if (name === "allselect" || countNote === pvtNoteLength) {
+      if(checkedNote === false){
+        setCheckedNote(true)
+      } else {
+        setCheckedNote(false)
+      }
+      if(countNote === pvtNoteLength) {
+        setCheckedNote(false)
+      }
+      setCountNote(0)
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked2: checked };
       });
@@ -594,6 +626,9 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+      setCountNote(tempAddr.length)
+      setCheckedNote(false)
+
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -611,9 +646,22 @@ export default function SimpleTabs(props) {
     }
   };
 
+  const [countTag, setCountTag] = React.useState(-1)
+  const [checkedTag, setCheckedTag] = React.useState(false)
+  let tagAddrLength = privateAddress.length
+  
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
-    if (name === "allselect") {
+    if (name === "allselect" || countTag === tagAddrLength) {
+      if(checkedTag === false){
+        setCheckedTag(true)
+      } else {
+        setCheckedTag(false)
+      }
+      if(countTag === tagAddrLength) {
+        setCheckedTag(false)
+      }
+      setCountTag(0)
       let tempAddress = privateAddress.map((addr) => {
         return { ...addr, isChecked3: checked };
       });
@@ -649,6 +697,8 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+      setCountTag(tempAddr.length)
+      setCheckedTag(false)
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -754,28 +804,29 @@ export default function SimpleTabs(props) {
                 onClick={searchData}
                 onChange={(e) => {
                   setSearch(e.target.value.toLowerCase());
-                }}
+                }}  
               />
             </div>
-            {isDownloadActive ? (
-              tableValue === 1 ? (
-                <CSVLink
-                  filename={"watchlist.csv"}
-                  data={downloadWatchlist}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
+            {!isDownloadActive && tableValue === 1 ? (""):(
+            isDownloadActive ? (
+              tableValue === 1 ? (""
+                // <CSVLink
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
               ) : tableValue === 2 ? (
                 <CSVLink
                   filename={"private_note.csv"}
@@ -832,7 +883,7 @@ export default function SimpleTabs(props) {
               >
                 Export
               </CSVLink>
-            )}
+            ))}
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
@@ -853,6 +904,7 @@ export default function SimpleTabs(props) {
                             onChange={handleWatchlistCheckbox}
                             type="checkbox"
                             name="allselect"
+                            checked={countWatchlist === watchlistLength || checkedWatchlist == true}
                             style={{
                               marginRight: "10px",
                             }}
@@ -992,6 +1044,7 @@ export default function SimpleTabs(props) {
                             onChange={handlePvtNoteCheckbox}
                             type="checkbox"
                             name="allselect"
+                            checked={countNote === pvtNoteLength || checkedNote == true}
                             style={{
                               marginRight: "10px",
                             }}
@@ -1139,6 +1192,7 @@ export default function SimpleTabs(props) {
                             onChange={handleTagAddressCheckbox}
                             type="checkbox"
                             name="allselect"
+                            checked={countTag === tagAddrLength || checkedTag == true} 
                             style={{
                               marginRight: "10px",
                             }}
