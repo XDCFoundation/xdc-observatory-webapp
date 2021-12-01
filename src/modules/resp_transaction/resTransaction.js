@@ -17,6 +17,7 @@ import Loader from "../../assets/loader";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
 import PrivateNote from "../../modules/common/dialog/privateNote"
 import { sessionManager } from "../../managers/sessionManager";
+import LoginDialog from "../explorer/loginDialog"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,6 +78,7 @@ export default function Transaction({ _handleChange }) {
   const [dialogValue2, setDailogValue2] = React.useState(0)
   const [dialogPvtTagIsOpen2, setDialogPvtTagIsOpen2] = React.useState(false)
   const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false)
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
 
   const openDialogPvtTag = () => {
     setDialogPvtTagIsOpen(true)
@@ -96,7 +98,9 @@ export default function Transaction({ _handleChange }) {
   }
   const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true)
   const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
-  const [isLoading, setLoading] = useState(true);
+  const openLoginDialog = () => setLoginDialogIsOpen(true)
+  const closeLoginDialog = () => setLoginDialogIsOpen(false)
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     transactionDetail();
@@ -116,6 +120,7 @@ export default function Transaction({ _handleChange }) {
     tagUsingAddressTo(transactiondetailusinghash);
   };
 
+  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
   const privateNoteUsingHash = async () => {
     const data = {
       transactionHash: `${hash}`,
@@ -270,8 +275,8 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash}/>}
-                          {isPvtNote ? <img className="edit-icon" style={{pointerEvents: "none"}} src={require("../../../src/assets/images/XDC-Edit.svg")} /> : <img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
+                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash} pvtNote={privateNote[0]?.trxLable}/>}
+                          {<img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
                         </span>
                       </MiddleContainer>
                     </HashDiv>
@@ -543,17 +548,19 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Private Note</Hash>
                       </Container>
                       <MiddleContainerPrivateNote>
-                        {!isPvtNote ? (<PrivateText>
+                        {!isloggedIn ? 
+                        (<PrivateText>
+                          {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} hash={hash}/>}
                           To access the Private Note feature, you must be
-
                           <a
                             className="linkTableDetails-transaction"
-                            style={{ marginLeft: "5px" }}
+                            style={{ marginLeft: "5px", cursor: "pointer" }}
+                            onClick={openLoginDialog}
                           >
                             Logged In
                           </a>
-                        </PrivateText>) :
-                          (<span>{privateNote[0]?.trxLable}</span>)}
+                        </PrivateText>) : (!isPvtNote ? (<span>Add private Note By click on Edit Icon in front of Hash ID</span>):
+                          (<span>{privateNote[0]?.trxLable}</span>))}
                       </MiddleContainerPrivateNote>
                     </SpacingPrivateNode>
                   </Div__>

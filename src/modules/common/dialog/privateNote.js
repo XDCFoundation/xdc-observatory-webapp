@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
   },
-  input1: {
+  textarea: {
     width: "503px",
     height: "90px",
     border: "solid 1px #c6c8ce",
@@ -139,6 +139,11 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       width: "250px",
     },
+    textarea: {
+      maxWidth: "503px",
+      width: "100%",
+      padding: "15px",
+    },
   },
 }));
 
@@ -149,7 +154,8 @@ export default function FormDialog(props) {
 
     React.useEffect(() => {
       setTransactionsHash(props.hash)
-    }, [props.hash])
+      setPrivateNote(props.pvtNote)
+    }, [props])
   async function transactionLable() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -200,12 +206,12 @@ export default function FormDialog(props) {
             <DialogContentText className={classes.subCategory}>
               Transaction Label/Note
             </DialogContentText>
-            <input
+            <textarea
               type="text"
-              className={classes.input1}
+              className={classes.textarea}
               value={privateNote}
               onChange={(e) => setPrivateNote(e.target.value)}
-            ></input>
+            ></textarea>
           </DialogContent>
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>

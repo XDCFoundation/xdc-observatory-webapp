@@ -60,6 +60,7 @@ export default function BasicPopover(props) {
     sessionManager.removeDataFromCookies("userInfo");
     sessionManager.removeDataFromCookies("isLoggedIn");
     sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
+    sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
     (window.location.href = "/dashboard")
   };
   const open = Boolean(anchorEl);
