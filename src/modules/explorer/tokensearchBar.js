@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -14,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import Popover from "./popover";
 import ChangePassword from "./changePassword";
 

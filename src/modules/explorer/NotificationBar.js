@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { NotificationService } from "../../services";
 import utility, { dispatchAction } from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
-import { cookiesConstants, eventConstants, genericConstants, httpConstants } from "../../constants";
+import {  eventConstants, genericConstants } from "../../constants";
 import moment from "moment";
 import { connect } from "react-redux";
 

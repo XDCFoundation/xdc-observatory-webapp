@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
 import Login from "../login";
 
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import SearchData from "../../services/search";
 import searchIcon from "../../assets/images/Search.svg";
 
