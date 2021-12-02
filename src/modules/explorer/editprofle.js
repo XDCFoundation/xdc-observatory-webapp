@@ -224,7 +224,7 @@ export default function FormDialog(props) {
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
-      utility.apiSuccessToast("upadated successfully");
+      utility.apiSuccessToast("upadated successfully",{autoClose:10000});
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
       sessionManager.setDataInCookies(authResponse.userId, "userId");
@@ -410,7 +410,7 @@ export default function FormDialog(props) {
                 </DialogContentText>
                 <Input className="inputcss">
                   <input
-                    style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px" }}
+                    style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px",color: "#42454a",fontWeight: "normal",fontStretch: "normal",fontStyle: "normal" }}
                     className="hide-border w-100 inputOutlineNone"
                     type="text"
                     id="username"
@@ -430,6 +430,7 @@ export default function FormDialog(props) {
                     className="imgcss"
 
                     src={require("../../../src/assets/images/edit.svg")}
+                    style={{height:"14px",margin: "auto"}}
                     onClick={() => setUsernameUnable(false)}
                   />
                 </Input>
@@ -469,7 +470,7 @@ export default function FormDialog(props) {
 
               <Input className="inputcss">
                 <input
-                  style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px" }}
+                  style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px",color: "#42454a"}}
                   className="hide-border w-100 inputOutlineNone "
                   type="text"
                   id="email"
@@ -484,6 +485,7 @@ export default function FormDialog(props) {
                 />
                 <img
                   className="imgcss"
+                  style={{height:"14px",margin: "auto"}}
                   src={require("../../../src/assets/images/edit.svg")}
                   onClick={() => setEmailUnable(false)}
                 />
