@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
   },
-  input1: {
+  textarea: {
     width: "503px",
     height: "90px",
     border: "solid 1px #c6c8ce",
@@ -94,17 +94,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     outline: "none",
   },
-
-  // input1: {
-  //   width: "506px",
-  // height: "113px",
-  // margin: "3px 0 33px",
-  // padding: "12px 96px 67px 93px",
-  // borderRadius: "8px",
-  // border: "solid 1px #9fa9ba",
-  // backgroundColor: "#ffffff",
-
-  // },
   addbtn: {
     width: "110px",
     height: "34px",
@@ -120,10 +109,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "-12px",
     marginBottom: "2px",
     // fontWeight: "50px",
-    fontfamily: "Inter",
-    fontsize: "10px",
-    fontweight: "200",
+    fontFamily: "Inter",
+    fontSize: "14px",
     color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
   },
   forgotpass: {
@@ -146,10 +135,13 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -157,20 +149,22 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
     },
-    input1: {
+    textarea: {
       maxWidth: "503px",
       width: "100%",
+      padding: "15px",
     },
   },
 }));
@@ -270,13 +264,13 @@ export default function FormDialog() {
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
+            <div className={classes.heading} id="form-dialog-title">
               Add Transaction Label
-            </DialogTitle>
+            </div>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Hash</b>
+              Transaction Hash
             </DialogContentText>
             <input
               type="text"
@@ -286,17 +280,17 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Label/Note</b>
+              Transaction Label/Note
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
             </DialogContentText>
 
-            <input
+            <textarea
               type="text"
-              className={classes.input1}
+              className={classes.textarea}
               onChange={(e) => setPrivateNote(e.target.value)}
-            ></input>
+            ></textarea>
 
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}

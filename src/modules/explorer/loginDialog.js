@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
@@ -22,6 +17,7 @@ import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import { history } from "../../managers/history";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -165,6 +161,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "24px",
     fontWeight: "bold",
     marginLeft: "-50px",
+    color: "#2a2a2a",
   },
   recaptcha: {
     marginTop: "12px",
@@ -182,6 +179,7 @@ const useStyles = makeStyles((theme) => ({
   alreadyAccount: {
     textAlign: "center",
     marginBottom: "30px",
+    color: "#2a2a2a"
   },
   signIn: {
     color: "#2149b9",
@@ -201,6 +199,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
+    fontSize: "15px",
   },
   robotContainerForgotPass: {
     width: "299px",
@@ -254,7 +253,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FormDialog() {
+export default function FormDialog(props) {
+  const {onOpen, onClose} = props
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [openSignup, setOpenSignup] = React.useState(false);
@@ -262,6 +262,7 @@ export default function FormDialog() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+  console.log("props dialog",props)
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -277,12 +278,32 @@ export default function FormDialog() {
   const [inputError, setInputError] = useState("");
 
   const classes = useStyles();
+  const urlProfile= () => {
+    const profilePic=sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+      return profilePic;
+      }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  React.useEffect(() => {
+    if(open === true){
+      setOpen(false)
+    } else{
+      setOpen(props.open)
+    }
+  }, [props])
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+      const handleClickOpen =()=>{
+        if(urlProfile()){
+             window.location.href = "loginprofile";
+                       
+          }else{          
+                setOpen(true);
+              }
+        }
+  
   const handleClose = () => {
-    setOpen(false);
+    {!props.hash ? setOpen(false) : props.onClose(onClose)}
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -306,29 +327,9 @@ export default function FormDialog() {
 
   const handleClickOpenSignup = () => {
     setValue(1);
-
-    setUserName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setErrorUserName("");
-    setErrorEmail("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
   };
   const handleOpenForgotPassword = () => {
     setValue(2);
-
-    setUserName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setErrorUserName("");
-    setErrorEmail("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
   };
 
   const login = async () => {
@@ -389,7 +390,7 @@ export default function FormDialog() {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        window.location.href = "loginprofile";
+        {!props.hash ? window.location.href = "loginprofile" : history.go(0)}
       }
     }
   };
@@ -515,22 +516,27 @@ export default function FormDialog() {
       setCaptchaCheckbox(true);
     }
   };
+  
+
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
+        {!props.hash ?
         <button className="login-button" onClick={handleClickOpen}>
           <img
             className="Shape2"
-            src={require("../../../src/assets/images/Profile.svg")}
+            style={{borderRadius:"50px"}}
+            src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
           ></img>
-        </button>
+        </button> : ""
+        }
         <div>
           <Dialog
             classes={{ paperWidthSm: classes.paperWidthSm }}
             className={classes.dialog}
-            open={open}
+            open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
@@ -553,7 +559,7 @@ export default function FormDialog() {
                 </Row>
                 <DialogContent className={classes.userContainer}>
                   <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Email</span>
+                    <span className={classes.fieldName}>Username</span>
                   </DialogContentText>
                   <input
                     className={classes.input}
@@ -720,7 +726,7 @@ export default function FormDialog() {
                     onClick={handleTermsCheckbox}
                     type="checkbox"
                   ></input>
-                  <span>
+                  <span className="iAgree">
                     I agree to the{" "}
                     <a href="https://www.facebook.com" className="termsLink">
                       Terms and Conditions
