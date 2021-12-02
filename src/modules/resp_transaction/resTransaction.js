@@ -100,7 +100,7 @@ export default function Transaction({ _handleChange }) {
   const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
   const openLoginDialog = () => setLoginDialogIsOpen(true)
   const closeLoginDialog = () => setLoginDialogIsOpen(false)
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     transactionDetail();
