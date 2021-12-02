@@ -33,10 +33,10 @@ import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
-import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import Loader from "../../assets/loader";
 import {cookiesConstants} from "../constants"
+import Utils from "../../utility"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -165,8 +165,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
+    //color: "#6b7482",
     textTransform: "none",
-    // color: "#2149b9",
+    //color: "#2149b9",
   },
   txnprivate: {
     height: "19px",
@@ -228,7 +229,8 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "500",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      // color: "#2149b9",
+    // color: "#2149b9",
+  
     },
     txnprivate: {
       height: "19px",
@@ -238,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      color: "#6b7482",
+     // color: "#6b7482",
     },
     address: {
       height: "19px",
@@ -266,6 +268,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "initial",
   },
+  // Rectangle: {
+  //   width: "14px",
+  //   height: "14px",
+  //   margin: "1px 15px 17px 21px",
+  //   borderRadius: "2px",
+  //   border: "solid 1px #e3e7eb",
+  //   backgroundColor: "var(--white-two)"
+  // }
 }));
 
 export default function SimpleTabs(props) {
@@ -323,8 +333,10 @@ export default function SimpleTabs(props) {
   }, []);
 
   const [search, setSearch] = React.useState("");
-  async function searchData() {
+  async function searchData(event) {
     if (value === 0) {
+      const searchValue = event.target.value;
+      setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
@@ -332,9 +344,12 @@ export default function SimpleTabs(props) {
         search: value.toString(),
       };
       const response = await UserService.Search(data);
+      console.log(response,"reseeeee")
       setWatchlist(response);
     }
     if (value === 1) {
+      const searchValue = event.target.value;
+      setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
@@ -345,6 +360,8 @@ export default function SimpleTabs(props) {
       setAddress(response);
     }
     if (value === 2) {
+      const searchValue = event.target.value;
+      setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: search,
@@ -770,6 +787,7 @@ export default function SimpleTabs(props) {
                 className={value === 0 ? classes.tab1 : classes.tab2}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
+                
               />
               <Tab
                 label="Txn Private Note"
@@ -777,6 +795,7 @@ export default function SimpleTabs(props) {
                 className={value === 1 ? classes.tab1 : classes.tab2}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
+                
               />
               <Tab
                 label="Tagged Adresses"
@@ -801,10 +820,11 @@ export default function SimpleTabs(props) {
                 type="text"
                 placeholder="Search"
                 className="searchinput"
-                onClick={searchData}
-                onChange={(e) => {
-                  setSearch(e.target.value.toLowerCase());
-                }}  
+                onChange={searchData}
+                // onChange={(e) => {
+                //   setSearch(e.target.value.toLowerCase());
+                // }}
+                value={search}
               />
             </div>
             {!isDownloadActive && tableValue === 1 ? (""):(
@@ -901,6 +921,7 @@ export default function SimpleTabs(props) {
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
                           <input
+                            // className={classes.Rectangle}
                             onChange={handleWatchlistCheckbox}
                             type="checkbox"
                             name="allselect"
@@ -958,6 +979,7 @@ export default function SimpleTabs(props) {
                             >
                               <input
                                 key={row._id}
+                                // className={classes.Rectangle}
                                 name={row._id}
                                 onChange={handleWatchlistCheckbox}
                                 type="checkbox"
@@ -1041,6 +1063,7 @@ export default function SimpleTabs(props) {
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
                           <input
+                            // className={classes.Rectangle}
                             onChange={handlePvtNoteCheckbox}
                             type="checkbox"
                             name="allselect"
@@ -1112,7 +1135,8 @@ export default function SimpleTabs(props) {
                                 onChange={handlePvtNoteCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked2 || false}
-                                style={{ marginTop: "4px" }}
+                                style={{ marginRight: "8px" }}
+                                // className={classes.Rectangle}
                               />
                               </TableCell>
                               <TableCell style={{ border: "none" }} align="left">
@@ -1193,6 +1217,7 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             name="allselect"
                             checked={countTag === tagAddrLength || checkedTag == true} 
+                            // className={classes.Rectangle}
                             style={{
                               marginRight: "10px",
                             }}
@@ -1257,9 +1282,10 @@ export default function SimpleTabs(props) {
                                 key={row._id}
                                 name={row._id}
                                 onChange={handleTagAddressCheckbox}
+                                // className={classes.Rectangle}
                                 type="checkbox"
                                 checked={row?.isChecked3 || false}
-                                style={{ marginTop: "4px" }}
+                                style={{ marginRight: "8px",border: "solid 1px #e3e7eb" }}
                               />
                               </TableCell>
                         <TableCell style={{ border: "none" }} align="left">

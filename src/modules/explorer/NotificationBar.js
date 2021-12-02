@@ -11,13 +11,15 @@ import styled from "styled-components";
 import { NotificationService } from "../../services";
 import utility, { dispatchAction } from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
-import { cookiesConstants, eventConstants, genericConstants, httpConstants } from "../../constants";
+import {  eventConstants, genericConstants } from "../../constants";
 import moment from "moment";
 import { connect } from "react-redux";
 
 const NoticationClear = styled.div`
   display: flex;
 `;
+
+
 
 const ListItems = styled.div`
   display: flex;
@@ -50,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
       width: "13.313rem",
     },
   },
+  drawerHeader:{
+    marginTop:"8px"
+  }
 }));
 function TemporaryDrawer(props) {
   const classes = useStyles();

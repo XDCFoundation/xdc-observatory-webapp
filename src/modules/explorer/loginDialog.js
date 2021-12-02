@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
@@ -283,6 +278,10 @@ export default function FormDialog(props) {
   const [inputError, setInputError] = useState("");
 
   const classes = useStyles();
+  const urlProfile= () => {
+    const profilePic=sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+      return profilePic;
+      }
 
   React.useEffect(() => {
     if(open === true){
@@ -291,9 +290,18 @@ export default function FormDialog(props) {
       setOpen(props.open)
     }
   }, [props])
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+      const handleClickOpen =()=>{
+        if(urlProfile()){
+             window.location.href = "loginprofile";
+                       
+          }else{          
+                setOpen(true);
+              }
+        }
+  
   const handleClose = () => {
     {!props.hash ? setOpen(false) : props.onClose(onClose)}
     setTimeout(() => {
@@ -319,29 +327,9 @@ export default function FormDialog(props) {
 
   const handleClickOpenSignup = () => {
     setValue(1);
-
-    setUserName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setErrorUserName("");
-    setErrorEmail("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
   };
   const handleOpenForgotPassword = () => {
     setValue(2);
-
-    setUserName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setErrorUserName("");
-    setErrorEmail("");
-    setErrorPassword("");
-    setErrorConfirmPassword("");
   };
 
   const login = async () => {
@@ -528,6 +516,8 @@ export default function FormDialog(props) {
       setCaptchaCheckbox(true);
     }
   };
+  
+
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
@@ -537,7 +527,8 @@ export default function FormDialog(props) {
         <button className="login-button" onClick={handleClickOpen}>
           <img
             className="Shape2"
-            src={require("../../../src/assets/images/Profile.svg")}
+            style={{borderRadius:"50px"}}
+            src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
           ></img>
         </button> : ""
         }
@@ -568,7 +559,7 @@ export default function FormDialog(props) {
                 </Row>
                 <DialogContent className={classes.userContainer}>
                   <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Email</span>
+                    <span className={classes.fieldName}>Username</span>
                   </DialogContentText>
                   <input
                     className={classes.input}
