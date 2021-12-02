@@ -603,6 +603,7 @@ const Content = styled.span`
     letter-spacing: 0.034rem;
     color: #3a3a3a;
     opacity: 1;
+    line-height: 18px !important; 
     word-break: break-all;
   }
   @media (min-width: 768px) and (max-width: 1241px) {
@@ -964,6 +965,7 @@ const ImageViewInputData = styled.img`
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  cursor: pointer;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 0.688rem;
     height: 0.688rem;

@@ -236,7 +236,7 @@ export default function StickyHeadTable() {
         setNoData(0);
         setTotalToken(responseData.total);
         setLoading(false);
-        setRows(responseData.newResponse);
+        setRows(responseData.resultSet);
         //alert(responseData.length)
       }
     } catch (error) {
@@ -285,6 +285,10 @@ export default function StickyHeadTable() {
                 <input
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
+                      handleSearchKeyUp(e);
+                    }
+                  }} onChange={(e) => {
+                    if (e.target.value == "") {
                       handleSearchKeyUp(e);
                     }
                   }}
@@ -354,7 +358,7 @@ export default function StickyHeadTable() {
             ) : (
               noData == false && (
                 <TableBody>
-                  {rows.map((row, index) => {
+                  {rows?.map((row, index) => {
                     return (
                       <TableRow
                         hover
