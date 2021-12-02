@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -14,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import Popover from "./popover";
 import ChangePassword from "./changePassword";
 
@@ -658,10 +657,10 @@ export default function Navbar() {
                     src={require("../../../src/assets/images/XDC icon.svg")}
                   ></img>
                 </a>
-                <a className="XDC-internal" href="/">
-                  {" "}
-                  XDC{" "}
-                </a>
+                <p className="XDC-internal">
+                  
+                  XDC
+                </p>
               </div>
               <div>
                 <div>
@@ -706,8 +705,8 @@ export default function Navbar() {
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
                           style={{
-                            width: 16,
-                            height: 16,
+                            width: 18,
+                            height: 18,
                             marginRight: 3,
                           }}
                           src={require("../../assets/images/Search.svg")}
@@ -726,7 +725,7 @@ export default function Navbar() {
                               }}
                               className="main-input-td"
                               src={require("../../images/Search.png")}
-                              placeholder="Search for an address, a transaction or a block number"
+                              placeholder="Search for an address, a Transaction or a block number"
                             />
                           </div>
                           {/* name="NAME" */}

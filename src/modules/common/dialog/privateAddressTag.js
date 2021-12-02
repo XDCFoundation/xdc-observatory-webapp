@@ -104,26 +104,33 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
-      
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+  },
 }));
 
 export default function FormDialog(props) {
   const {open, onClose} = props
-  const [privateAddress, setPrivateAddress] = React.useState(false);
+  const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
 
+  React.useEffect(() => {
+    if (props.value===1 && props.fromAddr){ 
+      setPrivateAddress(props.fromAddr);
+      }
+      else if(props.value===1 && props.toAddr)
+      setPrivateAddress(props.toAddr)
+  }, [props])
   async function TaggedAddress() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -135,10 +142,11 @@ export default function FormDialog(props) {
     );
 
     if (error) {
-      utility.apiFailureToast("error");
+      utility.apiFailureToast("Address is already in use");
       return;
     }
     utility.apiSuccessToast("Tag Added");
+    history.go(0);
   }
 
   const classes = useStyles();
@@ -158,16 +166,18 @@ export default function FormDialog(props) {
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
             <input
+              value={privateAddress}
+              
               className={classes.input}
               onChange={(e) => setPrivateAddress(e.target.value)}
             ></input>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
+              Name Tag
             </DialogContentText>
             <input
               type="text"

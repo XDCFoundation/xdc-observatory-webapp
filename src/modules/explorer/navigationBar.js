@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
 import Login from "../login";
 
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import SearchData from "../../services/search";
 import searchIcon from "../../assets/images/Search.svg";
 
@@ -642,10 +642,10 @@ export default function Navbar() {
                   src={require("../../../src/assets/images/XDC-Icon.svg")}
                 ></img>
               </a>
-              <a className="XDC" href="/">
-                {" "}
-                XDC{" "}
-              </a>
+              <p className="XDC">
+                
+                XDC
+              </p>
 
               <div>
                 <NavLink
@@ -731,10 +731,10 @@ export default function Navbar() {
                       src={require("../../../src/assets/images/XDC-Icon.svg")}
                     ></img>
                   </a>
-                  <a className="XDC" href="/">
-                    {" "}
-                    XDC{" "}
-                  </a>
+                  <p className="XDC">
+                    
+                    XDC
+                  </p>
                 </div>
                 &nbsp;
                 <div className="header-responsive">
