@@ -152,11 +152,11 @@ export default function AddressDetails(props) {
   };
 
   const tagUsingAddressHash = async () => {
-    const data ={
-      address : addr,
-      userId : sessionManager.getDataFromCookies("userId")
+    const data = {
+      address: addr,
+      userId: sessionManager.getDataFromCookies("userId")
     }
-    
+
     let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
@@ -176,11 +176,11 @@ export default function AddressDetails(props) {
         <div className={classes.mainContainer}>
           <div className={classes.root}>
             <Grid style={{ width: "75.125rem" }}>
-            <AddressPath>
-                  <Explorer>Explorer</Explorer>
-                  <Next src={require("../../../src/assets/images/next.svg")} />
-                  <Address>Address</Address>
-                  </AddressPath>
+              <AddressPath>
+                <Explorer>Explorer</Explorer>
+                <Next src={require("../../../src/assets/images/next.svg")} />
+                <Address>Address</Address>
+              </AddressPath>
               <Spacing style={{ borderBottom: "none" }}>
                 <Container>
                   <Heading>Address Details</Heading>
@@ -190,17 +190,17 @@ export default function AddressDetails(props) {
                 <Spacing>
                   <HashDiv>
                     <Container>
-                    <Tooltip title={addr}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
+                      <Tooltip title="An address is a unique sequence of numbers and letters">
+                        <ImageView
+                          src={require("../../../src/assets/images/questionmark.svg")}
+                        />
+                      </Tooltip>
                       <Hash>Address</Hash>
-                      
+
                     </Container>
                     <MiddleContainerHash>
                       <Content>{addr}</Content>
-                      {isTag ? (<div className="nameLabel1">{addressTag[0]?.tagName}</div>):("")}
+                      {isTag ? (<div className="nameLabel1">{addressTag[0]?.tagName}</div>) : ("")}
                     </MiddleContainerHash>
                     <SecondContainer>
                       <CopyToClipboard
@@ -226,7 +226,7 @@ export default function AddressDetails(props) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      
+
                       <Popup
                         trigger={
                           <ImQrcode
@@ -270,19 +270,19 @@ export default function AddressDetails(props) {
                                   {" "}
                                   {addr}{" "}
                                 </div>
-                                {window.innerWidth > 767 ? 
+                                {window.innerWidth > 767 ?
                                   <QRCode
-                                  size={320}
-                                  style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
-                                />:
-                                <QRCode
-                                // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                  size={320}
-                                  className="qrcode-label"
-                                  //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
-                                />}
+                                    size={320}
+                                    style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                    value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                                  /> :
+                                  <QRCode
+                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                    size={320}
+                                    className="qrcode-label"
+                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                    value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                                  />}
                               </div>
                             </p>
                           </div>
@@ -399,15 +399,6 @@ export default function AddressDetails(props) {
               >
                 Transactions
               </button>
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(2)}
-                id="transaction-btn"
-              >
-                Internal Txn
-              </button>
             </div>
           </div>
 
@@ -420,16 +411,6 @@ export default function AddressDetails(props) {
             }
           >
             <AddressTableComponent trans={transactions} coinadd={addr} />
-          </div>
-
-          <div
-            className={
-              toggleState === 2
-                ? "content_sec  active-content_sec"
-                : "content_sec"
-            }
-          >
-            <AddressTableComponent trans={transactions} />
           </div>
 
         </div>
@@ -551,7 +532,6 @@ const Spacing = styled.div`
   height: auto;
   align-items: center;
   padding: 0.188rem 0.25rem;
-  border-bottom: solid 0.063rem #e3e7eb;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -613,6 +593,7 @@ const Heading = styled.span`
 const ImageView = styled.img`
   width: 0.938rem;
   margin-right: 0.938rem;
+  cursor: pointer;
 `;
 
 const AddressPath = styled.div`

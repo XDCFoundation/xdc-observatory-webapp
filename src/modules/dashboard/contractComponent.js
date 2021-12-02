@@ -225,14 +225,14 @@ class Contractlist extends React.Component {
       ContractData.getContractSearch(data)
     );
 
-    if (responseData.totalRecord == 0) {
+    if (responseData?.totalRecord == 0) {
       this.setState({ noData: true });
       this.setState({ totalRecord: 0 });
-      this.setState({ rows: responseData.response });
+      this.setState({ rows: responseData?.response });
     }
-    if (responseData.totalRecord > 0) {
-      this.setState({ totalRecord: responseData.totalRecord });
-      this.setState({ rows: responseData.response });
+    if (responseData?.totalRecord > 0) {
+      this.setState({ totalRecord: responseData?.totalRecord });
+      this.setState({ rows: responseData?.response });
       this.setState({ noData: false });
     } else {
       //setLoading(false);
@@ -299,7 +299,7 @@ class Contractlist extends React.Component {
                   <input
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
-                        
+
                         this.handleKeyUp(e);
                       }
                     }}
@@ -555,7 +555,7 @@ class Contractlist extends React.Component {
                   1 -
                   Math.round(
                     (this.state.totalRecord - this.state.from) /
-                      this.state.amount
+                    this.state.amount
                   )}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>

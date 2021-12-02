@@ -94,33 +94,33 @@ export default function BasicPopover(props) {
   };
   //const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const setUserName=()=>{
-    let name=sessionManager.getDataFromCookies("userInfo")
-    if(!name){
+  const setUserName = () => {
+    let name = sessionManager.getDataFromCookies("userInfo")
+    if (!name) {
       let userName = ""
       return userName
     } else {
-    let userName = name.name
-    return userName
+      let userName = name.name
+      return userName
     }
-  }   
+  }
   const setUserImage = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
-    
-      let userName = name.profilePic;
-      return userName;
-    
-  };                     
+
+    let userName = name.profilePic;
+    return userName;
+
+  };
 
   return (
     <div>
       <ProfileContainer onClick={userLogin} Open Popover>
         <img
           className="Shape2-internal"
-          style={{borderRadius:"50px"}}
-          src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
+          style={{ borderRadius: "50px" }}
+          src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
         />
-        <span style={{marginTop:"12px", marginLeft:"4px", marginRight:"9px" }}>{setUserName()==="" ? (""):(Utility.shortenUserName(setUserName()))}</span>
+        <span className="profile-name-popover">{setUserName() === "" ? ("") : (Utility.shortenUserName(setUserName()))}</span>
         <img
           className="down-arrow-internal"
           src={require("../../../src/assets/images/Dropdown.svg")}
@@ -148,7 +148,7 @@ export default function BasicPopover(props) {
           <Text style={{ marginRight: "35px" }} onClick={props.openChangePassword}>Change Password</Text>
         </Contents>
         <Contents >
-          <Text style={{ marginRight: "100px" }}onClick={() => logOut()}>Log out</Text>
+          <Text style={{ marginRight: "100px" }} onClick={() => logOut()}>Log out</Text>
         </Contents>
       </Popover>
     </div>

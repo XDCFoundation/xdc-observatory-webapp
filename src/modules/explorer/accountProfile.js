@@ -842,7 +842,7 @@ export default function SimpleTabs(props) {
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address">
+              <Grid lg={13} className="tablegrid_address_contract">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -979,7 +979,7 @@ export default function SimpleTabs(props) {
 
           <TabPanel value={value} index={1}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address">
+              <Grid lg={13} className="tablegrid_address_contract">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -1124,7 +1124,7 @@ export default function SimpleTabs(props) {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address">
+              <Grid lg={13} className="tablegrid_address_contract">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}

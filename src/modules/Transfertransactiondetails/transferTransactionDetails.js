@@ -727,7 +727,7 @@ const Hash = styled.span`
     line-height: normal;
     letter-spacing: 0.036rem;
     text-align: left;
-    color: #252525;
+    color: #2a2a2a;
   }
 `;
 const Spacin = styled.div`
@@ -883,6 +883,7 @@ const Heading = styled.span`
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  cursor: pointer;
   @media  (min-width: 0px) and  (max-width: 767px) {
    width: 0.688rem;
    height: 0.688rem;
