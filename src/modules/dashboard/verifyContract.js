@@ -1,12 +1,41 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import Releases from "./list.json";
+const axios = require('axios');
 export default function VerifyContract() {
     const { address } = useParams();
+    
+    const validationSchema = Yup.object().shape({
+        addr: Yup.string()
+            .required('Contract address is required'),
+        contractname: Yup.string()
+                .required('Contract name is required'),
+        version: Yup.string()
+                .required('Version is required'),
+        code: Yup.string()
+                .required('Contract code is required')               
+    });
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        resolver: yupResolver(validationSchema),
+    });
+    
+    const onSubmitHandler = async (data) => {
+        try {
+            const resp = await axios.post('http://localhost:3050/verify-contract', data);
+            console.log(resp);
+        } catch (err) {
+            console.error(err);
+        }
+      };
+      React.useEffect(() => {
+    }, []); 
 
     return (
         <>
-
+            <form onSubmit={handleSubmit(onSubmitHandler)} onReset={reset}>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
 
                 <div className="paper-verify-contracts" elevation={3}>
@@ -21,26 +50,42 @@ export default function VerifyContract() {
                         <div className="vc-contract-add">Contract Address
                             {
                                 address ? <div>
-                                    <input className="vc-input-contract-add" type="text" placeholder="Contract Address" value={address ? address : ""} />
+                                    <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" defaultValue={address ? address : ""} />
                                 </div> : <div>
-                                    <input className="vc-input-contract-add" type="text" placeholder="Contract Address" />
+                                    <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" />
                                 </div>
                             }
+                            <p>{errors.addr?.message}</p>
                         </div>
                         <div className="vc-contract-name" >Contract Name
                             <div>
-                                <input className="vc-input-contract-name" type="text" placeholder="Contract Name" />
+                                <input {...register("contractname")} name="contractname" className="vc-input-contract-name" type="text" placeholder="Contract Name" />
                             </div>
+                            <p>{errors.contractname?.message}</p>
                         </div>
 
-                        <div className="vc-contract-compiler">Compiler
+                        <div  className="vc-contract-compiler">Compiler
                             <div>
-                                <select className="vc-contract-add-select">
-                                    <option selected>Select compiler</option>
-                                    <option>dummy</option>
-                                    <option>dummy</option>
-                                    <option>duumy</option>
+                                <select {...register("version")} name="version" className="vc-contract-add-select">
+                                    <option value="">Select compiler</option>
+                                    <option value="latest">Latest</option>
+                                    {Releases.builds.map((row, index) => {
+                                        let finalVersion = row.split('-')
+                                        let ver = ''
+                                        if(finalVersion.length > 2){
+                                            let subversion = finalVersion[2].split('+')
+                                            ver = finalVersion[1]+'+'+subversion[1]
+                                        }else{
+                                            ver = finalVersion[1]
+                                        }
+                                        
+                                        return (
+                                            <option value={ver}>{row}</option> 
+                                        )
+                                    })
+                                    }
                                 </select>
+                                <p>{errors.version?.message}</p>
                             </div>
                         </div>
 
@@ -48,12 +93,16 @@ export default function VerifyContract() {
                     </div>
                     <br />
                     <div className="verify-contracts-head">Contract Code</div>
-                    <input readOnly className="textarea-contract-code" />
-
+                    <textarea {...register("code")} name="code" className="textarea-contract-code" ></textarea>
+                    <p>{errors.code?.message}</p> 
                     <br /><br />
-
+                    <div className="verify-contracts-head">
+                        <input type="checkbox" value="1" name="optimise" {...register("optimise")} />
+                    &nbsp;Optimization Enabled</div>
+                    <br />
+                
                     <div className="constructor-arg">Constructor arguments ABI-encoded (OPTIONAL required for certain contracts only)</div>
-                    <input readOnly className="textarea-constructor-arg" placeholder="Constructor Arguments" />
+                    <input {...register("argument")} name="argument" sreadOnly className="textarea-constructor-arg" placeholder="Constructor Arguments" />
                     <br /><br />
 
                     <div>
@@ -63,6 +112,7 @@ export default function VerifyContract() {
 
                 </div>
             </div>
+            </form>  
         </>
     );
 }
