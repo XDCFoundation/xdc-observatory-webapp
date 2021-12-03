@@ -165,12 +165,10 @@ export default function Navbar() {
       filter: selectOptType,
       data: SearchDataInput,
     };
-    if(SearchDataInput==="")
-    {
+    if (SearchDataInput === "") {
       return;
     }
-    else
-    {
+    else {
       BlockChainSearch(requestdata);
     }
   };
@@ -179,8 +177,7 @@ export default function Navbar() {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
-      if (!responseData)
-      {
+      if (!responseData) {
         Utility.apiFailureToast("No details found.");
       }
 
@@ -843,11 +840,11 @@ export default function Navbar() {
                       type="text"
                       ref={SearchDataRef}
                       className="main-input"
-                      onKeyPress={(event) => {
-                        if (event.key === "Enter") {
-                          handleSearch(event);
-                        }
-                      }}
+                      // onKeyPress={(event) => {
+                      //   if (event.key === "Enter") {
+                      //     handleSearch(event);
+                      //   }
+                      // }}
                       placeholder="Search for an address, a Transaction or a block number"
                     />
                   </div>
