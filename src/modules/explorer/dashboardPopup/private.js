@@ -132,6 +132,11 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "5px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+  },
+  
   heading: {
     marginTop: "7px",
     marginBottom: "7px",
@@ -155,6 +160,10 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "503px",
       width: "100%",
     },
+    error: {
+      color: "red",
+      marginLeft: "2px",
+    },
   },
 }));
 
@@ -164,6 +173,7 @@ export default function FormDialog() {
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
   const [nameTag, setNameTag] = React.useState(false);
+  const [error, setError] = React.useState("");
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
@@ -220,7 +230,7 @@ export default function FormDialog() {
       TaggedAddress();
       
     } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
+      setError("Address should start with xdc & 43 characters");
     }
 
   };
@@ -275,8 +285,11 @@ export default function FormDialog() {
             </DialogContentText>
             <input
               className={classes.input}
-              onChange={(e) => setPrivateAddress(e.target.value)}
+              onChange={(e) => {setPrivateAddress(e.target.value)
+              setError("")
+              }}
             ></input>
+            <div className={classes.error}>{error}</div>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
