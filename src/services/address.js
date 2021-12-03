@@ -32,7 +32,7 @@ async function getTransactionSearch(data) {
         });
 }
 async function getAddressDetailWithlimit(data) {
-    let url = process.env.REACT_APP_GET_ADDRESS_DETAILS + data.addrr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;
+    let url = process.env.REACT_APP_GET_TRANSACTIONS_FOR_ADDRESS + data.addrr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
             response => {
