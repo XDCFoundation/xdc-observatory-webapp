@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
@@ -14,7 +19,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
 import Loader from "../../assets/loader";
-
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import { history } from "../../managers/history";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -539,7 +547,7 @@ export default function FormDialog() {
                 </Row>
                 <DialogContent className={classes.userContainer}>
                   <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Username</span>
+                    <span className={classes.fieldName}>Email</span>
                   </DialogContentText>
                   <input
                     className={classes.input}
