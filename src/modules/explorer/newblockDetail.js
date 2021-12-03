@@ -66,7 +66,7 @@ export default function BlockDetails() {
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
-    let urlPath = `/${blockNumber}`;
+    let urlPath = `${blockNumber}`;
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
