@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
-    margin: "14px -8px 15px 2px",
+    margin: "0px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
@@ -100,18 +100,16 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
-
-    margin: "14px 8px 15px 2px",
+    margin: "0px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
   },
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
-    // fontWeight: "50px",
-    fontfamily: "Inter",
+    fontFamily: "Inter",
+    fontSize: "14px",
     color: "#2a2a2a",
-    fontsize: "14px",
-    fontweight: "500",
+    fontWeight: "500 !important",
     border: "none !important",
   },
   forgotpass: {
@@ -134,10 +132,13 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -145,12 +146,13 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
@@ -262,9 +264,9 @@ export default function FormDialog() {
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
+            <div className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
-            </DialogTitle>
+            </div>
             {/* <span onClick={handleClose} className={classes.cross}>
               {" "}
               X{" "}
@@ -272,7 +274,7 @@ export default function FormDialog() {
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
             <input
               className={classes.input}
@@ -281,7 +283,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Name Tag</b>
+              Name Tag
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
