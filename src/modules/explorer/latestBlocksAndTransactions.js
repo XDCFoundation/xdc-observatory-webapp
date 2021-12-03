@@ -63,9 +63,9 @@ class LatestBlocks extends Component {
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
-  async componentDidMount() {
-    await this.blocksLatest();
-    await this.transactionsLatest();
+  componentDidMount() {
+    this.blocksLatest();
+    this.transactionsLatest();
     this.socketData(this.props.socket);
   }
   socketData(socket) {
@@ -247,7 +247,7 @@ class LatestBlocks extends Component {
                         this.state.ageAnimation?.[blockNumber];
                       let transAnimationClass =
                         this.state.transactionsAnimation?.[blockNumber];
-                     
+
                       return (
                         <div className="value_main_main">
                           <div className="main_vaa">
