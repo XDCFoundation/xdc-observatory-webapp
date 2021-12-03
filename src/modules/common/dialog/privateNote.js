@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     marginBottom: "21px",
   },
-  input1: {
+  textarea: {
     width: "503px",
     height: "90px",
     border: "solid 1px #c6c8ce",
@@ -83,10 +83,10 @@ const useStyles = makeStyles((theme) => ({
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
-    fontfamily: "Inter",
-    fontsize: "10px",
-    fontweight: "200",
+    fontFamily: "Inter",
+    fontSize: "14px",
     color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
   },
   forgotpass: {
@@ -109,10 +109,13 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -120,34 +123,44 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
     },
-    input1: {
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
+    },
+    textarea: {
       maxWidth: "503px",
       width: "100%",
+      padding: "15px",
     },
   },
 }));
 
 export default function FormDialog(props) {
     const {open, onClose} = props
-    const [TransactionsHash, setTransactionsHash] = React.useState("");
+    const [transactionsHash, setTransactionsHash] = React.useState("");
     const [privateNote, setPrivateNote] = React.useState("");
 
+    React.useEffect(() => {
+      setTransactionsHash(props.hash)
+      setPrivateNote(props.pvtNote)
+    }, [props])
   async function transactionLable() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: privateNote,
-      transactionHash: TransactionsHash,
+      transactionHash: transactionsHash,
     };
     const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
@@ -158,7 +171,7 @@ export default function FormDialog(props) {
         return;
       }
       utility.apiSuccessToast("Transaction Private Note Added");
-      window.location.href = "loginprofile";
+      window.location.reload();
       setTransactionsHash("");
       setPrivateNote("");
     }
@@ -174,30 +187,31 @@ export default function FormDialog(props) {
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
+            <div className={classes.heading} id="form-dialog-title">
               Add Transaction Label
-            </DialogTitle>
+            </div>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Hash</b>
+              Transaction Hash
             </DialogContentText>
             <input
               type="text"
+              value={transactionsHash}
               className={classes.input}
               onChange={(e) => setTransactionsHash(e.target.value)}
             ></input>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Label/Note</b>
+              Transaction Label/Note
             </DialogContentText>
-            <input
+            <textarea
               type="text"
-              className={classes.input1}
+              className={classes.textarea}
               value={privateNote}
               onChange={(e) => setPrivateNote(e.target.value)}
-            ></input>
+            ></textarea>
           </DialogContent>
           <DialogActions className={classes.buttons}>
             <span style={{ color: "white" }}>
