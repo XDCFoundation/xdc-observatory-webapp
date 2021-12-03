@@ -194,10 +194,10 @@ export default function AddressTableComponent(props) {
       if (responseData.totalTransactionCount > 0) {
         setNoData(false)
         setLoading(false)
-
         parseResponseData(responseData, 1)
       } else {
         setNoData(true)
+        setLoading(false)
         setBalance(parseFloat(0).toFixed(2))
       }
     } catch (error) {
