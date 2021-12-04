@@ -947,6 +947,7 @@ export default function SimpleTabs(props) {
                             checked={countWatchlist === watchlistLength || checkedWatchlist == true}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb"
                             }}
                           />
                           </TableCell> */}
@@ -1002,7 +1003,7 @@ export default function SimpleTabs(props) {
                                 onChange={handleWatchlistCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked1 || false}
-                                style={{ marginTop: "4px" }}
+                                style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
                               </TableCell> */}
                               <TableCell style={{ border: "none"}} align="left">
@@ -1088,6 +1089,7 @@ export default function SimpleTabs(props) {
                             checked={countNote === pvtNoteLength || checkedNote == true}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb"
                             }}
                           />
                           </TableCell>
@@ -1235,9 +1237,11 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             name="allselect"
                             checked={countTag === tagAddrLength || checkedTag == true} 
-                            // className={classes.Rectangle}
+                             className={classes.Rectangle}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb",
+                              backgroundColor:"red"
                             }}
                           />
                           </TableCell>
