@@ -49,12 +49,12 @@ const useStyles = makeStyles((theme) => ({
   },
 
   addbtn: {
-    width: "433px",
+    width: "434px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "15px 15px 30px 15px",
+    margin: "15px 15.5px 30px 15px",
     color: "white",
   },
 
@@ -114,6 +114,13 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   paperWidthSm: {
+    position: "absolute",
+    top: "65px",
+    width: "503px",
+    padding: "0 11px",
+    borderRadius: "12px",
+  },
+  paperWidthSm1: {
     position: "absolute",
     top: "65px",
     width: "503px",
@@ -231,9 +238,22 @@ const useStyles = makeStyles((theme) => ({
       width: "95%",
     },
 
+    paperWidthSm1: {
+      position: "absolute",
+      top: "125px",
+      maxWidth: "503px",
+      width: "95%",
+    },
+    
     input: {
       maxWidth: "433px",
       width: "100%",
+    },
+  },
+  "@media (max-height: 900px)": {
+    paperWidthSm1: {
+      maxHeight: "500px",
+      height: "72%"
     },
   },
 
@@ -534,7 +554,7 @@ export default function FormDialog(props) {
         }
         <div>
           <Dialog
-            classes={{ paperWidthSm: classes.paperWidthSm }}
+            classes={{ paperWidthSm: value ===1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
