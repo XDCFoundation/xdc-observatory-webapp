@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     outline: "none",
     padding: "20px",
-    marginBottom: "21px",
+    marginBottom: "2px",
   },
   textarea: {
     width: "503px",
@@ -114,6 +114,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
     fontWeight: "500",
     border: "none !important",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -172,6 +176,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
+  const [error, setError] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -225,7 +230,7 @@ export default function FormDialog() {
     ) {
       transactionLable();
     } else {
-      utility.apiFailureToast("Address should start with 0x & 66 characters");
+      setError("Address should start with 0x & 66 characters");
     }
   };
   return (
@@ -275,8 +280,11 @@ export default function FormDialog() {
             <input
               type="text"
               className={classes.input}
-              onChange={(e) => setTransactionsHash(e.target.value)}
+              onChange={(e) => {setTransactionsHash(e.target.value)
+              setError("")
+              }}
             ></input>
+             <div className={classes.error}>{error}</div>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>

@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
@@ -229,6 +234,9 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "299px",
       width: "95%",
     },
+    loading:{
+      zIndex:-1
+    }
   },
   "@media (max-width: 768px)": {
     paperWidthSm: {
@@ -354,7 +362,7 @@ export default function FormDialog(props) {
 
   const login = async () => {
     const reqObj = {
-      email: email,
+      name: email,
       password: password,
     };
     setLoading(true)
@@ -365,8 +373,8 @@ export default function FormDialog(props) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false)
       return;
-    } else if (!email.match(mailformat)) {
-      setErrorEmail("Enter valid Email");
+    } else if (!email.match(regExAlphaNum)) {
+      setErrorEmail("Enter valid Username");
       setLoading(false)
       return;
     } else if (!password.match(regExPass)) {
@@ -395,7 +403,7 @@ export default function FormDialog(props) {
     } else {
       if (error || !authResponse) {
         setLoading(false);
-        Utility.apiFailureToast("Wrong email or password");
+        Utility.apiFailureToast("Wrong Username or password");
         // setislogged(true)
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
@@ -627,7 +635,7 @@ export default function FormDialog(props) {
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
-                  <div >
+                  <div className={classes.loading} >
 
                     <Loader />
                   </div>

@@ -150,6 +150,10 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "5px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -205,15 +209,9 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const classes = useStyles();
+  
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
@@ -225,6 +223,7 @@ export default function FormDialog() {
   };
 
   const watchListService = async () => {
+    setOpen(false);
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
@@ -233,6 +232,7 @@ export default function FormDialog() {
       isEnabled: true,
     };
     if (value === "NO") request["isEnabled"] = false;
+    
 
     const [error, response] = await utility.parseResponse(
       AddWatchList.addWatchlist(request)
@@ -243,7 +243,7 @@ export default function FormDialog() {
       return;
     }
     utility.apiSuccessToast("Address added to watchlist");
-    window.location.href = "loginprofile";
+   window.location.href = "loginprofile";
     setAddress("");
     setDescription("");
   };
@@ -255,9 +255,19 @@ export default function FormDialog() {
     ) {
       watchListService();
     } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
+      setError("Address should start with xdc & 43 characters");
     }
   };
+
+  const classes = useStyles();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
 
   return (
     <div>
@@ -311,6 +321,7 @@ export default function FormDialog() {
               }}
               
             ></input>
+            <div className={classes.error}>{error}</div>
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>

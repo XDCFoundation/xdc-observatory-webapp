@@ -133,7 +133,7 @@ function TemporaryDrawer(props) {
         <div className={classes.drawerHeader}>
           {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}
           <IconButton
-            style={{ color: "White", margin: "10px 5px -10px 0"}}
+            style={{ color: "White", margin: "2px 5px -10px 0"}}
             onClick={toggleDrawer(anchor, false)}
           >
             {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
