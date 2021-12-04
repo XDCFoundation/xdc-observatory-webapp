@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: "31.438rem",
-    height: "35.063rem",
+    maxHeight: "35.063rem",
+    height: "100%",
     alignSelf: "flex-start",
     margin: "100px auto",
     borderRadius: "12px",
@@ -82,15 +83,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     //backgroundColor: "red",
-    margin: "0px 14px 35px 14px",
+    margin: "0px 26px 35px 26px",
     color: "white",
   },
   subCategory: {
     marginTop: "4px",
     marginBottom: "4px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    fontWeight: "500",
     border: "none !important",
     outline: "none",
     color: "#2a2a2a",
@@ -224,7 +225,7 @@ export default function FormDialog(props) {
     if (error || !authResponse) {
       utility.apiFailureToast("failed");
     } else {
-      utility.apiSuccessToast("upadated successfully",{autoClose:10000});
+      utility.apiSuccessToast("Profile upadated successfully",{autoClose:10000});
       sessionManager.setDataInCookies(authResponse, "userInfo");
       sessionManager.setDataInCookies(true, "isLoggedIn");
       sessionManager.setDataInCookies(authResponse.userId, "userId");
@@ -251,7 +252,7 @@ export default function FormDialog(props) {
       utility.apiFailureToast(" Upload failed");
       return false;
     } else {
-      utility.apiSuccessToast("Pic uploaded successfully");
+      // utility.apiSuccessToast("Pic uploaded successfully");
       sessionManager.setDataInCookies(awsResponse[0].url, cookiesConstants.USER_PICTURE);
       setProfilePicture(awsResponse[0].url)
       return awsResponse;
@@ -437,9 +438,9 @@ export default function FormDialog(props) {
               </DialogContent>
             </Row> */}
 
-            <DialogContent style={{padding: "8px 35px"}}>
+            <DialogContent style={{padding: "8px 35px", marginBottom: "14px"}}>
               <DialogContentText className={classes.subCategory}>
-                <b>Username</b>
+                Username
               </DialogContentText>
               {!usernameEnable ?
               (<span className="beforeInput">
@@ -451,7 +452,7 @@ export default function FormDialog(props) {
                 />
               </span>) :
                 (<input className="inputcss"
-                  style={{border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
+                  style={{border: "solid 1px #9fa9ba", paddingLeft: "10px" }}
                   type="text"
                   id="username"
                   value={userName}
@@ -492,9 +493,9 @@ export default function FormDialog(props) {
               </Input>
             </DialogContent> */}
 
-            <DialogContent style={{padding: "8px 35px"}}>
+            <DialogContent style={{padding: "8px 35px", marginBottom: "25px"}}>
               <DialogContentText className={classes.subCategory}>
-                <b>Email</b>
+                Email
               </DialogContentText>
               {!emailEnable ?
               (<span className="beforeInput">
