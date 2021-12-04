@@ -705,8 +705,8 @@ export default function Navbar() {
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
                           style={{
-                            width: 16,
-                            height: 16,
+                            width: 18,
+                            height: 18,
                             marginRight: 3,
                           }}
                           src={require("../../assets/images/Search.svg")}
@@ -725,7 +725,7 @@ export default function Navbar() {
                               }}
                               className="main-input-td"
                               src={require("../../images/Search.png")}
-                              placeholder="Search for an address, a transaction or a block number"
+                              placeholder="Search for an address, a Transaction or a block number"
                             />
                           </div>
                           {/* name="NAME" */}

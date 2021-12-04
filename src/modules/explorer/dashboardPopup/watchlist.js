@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "4px",
   },
   radio: {
-    // backgroundColor: "blue",
+    // backgroundColor: "#979797",
   },
   cross: {
     marginTop: "25px",
@@ -125,10 +125,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "-12px",
     marginBottom: "2px",
     // fontWeight: "50px",
-    fontfamily: "Inter",
-    fontsize: "14px",
+    fontFamily: "Inter",
+    fontSize: "14px",
     color: "#2a2a2a",
-    fontweight: "500",
+    fontWeight: "500",
     border: "none !important",
   },
   forgotpass: {
@@ -155,10 +155,13 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -166,16 +169,25 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)": {
+  notifyLabel: {
+    fontSize: "14px",
+    color: "#2a2a2a",
+  },
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
+    },
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
     },
   },
 }));
@@ -294,13 +306,13 @@ export default function FormDialog() {
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
+            <div className={classes.heading} id="form-dialog-title">
               Add a New Address to your Watchlist
-            </DialogTitle>
+            </div>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
             <input
               className={classes.input}
@@ -313,7 +325,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Description</b>
+              Description
               {/* <span  className={classes.forgotpass}>
               Forgot ?
             </span> */}
@@ -330,7 +342,7 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Notifications</b>
+              Notifications
             </DialogContentText>
 
             <FormControl
@@ -346,31 +358,39 @@ export default function FormDialog() {
                 onChange={handleChange}
               >
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="NO"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "5px 2px -5px -5px" }}
+                  control={<Radio style={{ color: "#979797" }} />}
+                  style={{ margin: "5px 2px -5px -5px",}}
+                  classes={{ label: classes.notifyLabel }}
                   label="No Notifications"
                   onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="INOUT"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming & Outgoing Txns"
                   onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="IN"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming (Recieve) Txns Only"
                   onClick={(e) => setNotification(e.target.value)}
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
+                  className="radio-inside-dot"
                   value="OUT"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
                   label="Notify on Outgoing (Sent) Txns Only"
                   onClick={(e) => setNotification(e.target.value)}
                 />

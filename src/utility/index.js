@@ -60,7 +60,8 @@ const utility = {
     changeDateFormat,
     getAggregatedPercWercQueryObject,
     uploadImage,
-    shortenUserName
+    shortenUserName,
+    shortenHash
 };
 export default utility;
 
@@ -98,6 +99,14 @@ function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
     if(b.length >12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
         b.length - 0,
+        b.length
+    )}`;
+    else return b;
+}
+function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
+    if(b.length >12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 4,
         b.length
     )}`;
     else return b;
