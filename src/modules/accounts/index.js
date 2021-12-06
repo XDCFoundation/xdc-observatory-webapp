@@ -3,6 +3,7 @@ import BaseComponent from "../baseComponent";
 import AccountComponent from "./accountComponent"
 import Utils from '../../utility'
 import { AccountService } from '../../services'
+import { CoinMarketService } from '../../services'
 
 
 export default class LatestAccountsList extends BaseComponent {
@@ -23,10 +24,9 @@ export default class LatestAccountsList extends BaseComponent {
     }
 
     componentDidMount() {
-        // this.getListOfBlocks()
         this.getListOfAccounts()
-        // this.getTotalAccount()
         this.getTotalAccounts()
+        this.getCoinMarketTotalSupply()
     }
 
 
@@ -51,7 +51,7 @@ export default class LatestAccountsList extends BaseComponent {
             this.setState({ isLoading: false })
         }
         this.setState({ accountList: listOfAccounts.newResponse })
-        this.setState({ totalSupply: listOfAccounts.totalSupply })
+        // this.setState({ totalSupply: listOfAccounts.totalSupply })
         this.setState({ isLoading: false })
         if (keywords) {
             this.setState({ totalAccounts: listOfAccounts.totalRecord })
@@ -61,6 +61,12 @@ export default class LatestAccountsList extends BaseComponent {
         }
     }
 
+    async getCoinMarketTotalSupply() {
+        let [error, coinMarketTotalSupply] = await Utils.parseResponse(CoinMarketService.getCoinMarketTotalSupply())
+        if (error || !coinMarketTotalSupply)
+            return
+        this.setState({ totalSupply: coinMarketTotalSupply })
+    }
 
     async getTotalAccounts() {
         let [error, totalNumberAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())

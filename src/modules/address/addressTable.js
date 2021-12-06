@@ -54,7 +54,7 @@ function timeDiff(curr, prev) {
   }
 }
 
-const useStyles = ({
+const useStyles = makeStyles({
   container: {
     borderRadius: '0.875rem',
     boxShadow: '0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)',
@@ -64,7 +64,7 @@ const useStyles = ({
 })
 export default function AddressTableComponent(props) {
   const { state } = props
-  const classes = useStyles();
+  const classes = useStyles()
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
       b.length - 3,
@@ -194,10 +194,10 @@ export default function AddressTableComponent(props) {
       if (responseData.totalTransactionCount > 0) {
         setNoData(false)
         setLoading(false)
-
         parseResponseData(responseData, 1)
       } else {
         setNoData(true)
+        setLoading(false)
         setBalance(parseFloat(0).toFixed(2))
       }
     } catch (error) {
@@ -267,6 +267,7 @@ export default function AddressTableComponent(props) {
         }
       }),
     )
+
     setDownloadaddress(
       trxn.map((d) => {
         return {
@@ -304,6 +305,7 @@ export default function AddressTableComponent(props) {
     }
   }
 
+
   const handleChanged = (event) => {
     const { name, checked } = event.target
     if (name === 'allselect') {
@@ -339,6 +341,7 @@ export default function AddressTableComponent(props) {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr,
       )
+
       setAddress(tempAddress)
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
@@ -379,16 +382,15 @@ export default function AddressTableComponent(props) {
             style={{
               fontSize: '0.938rem',
               letterSpacing: 0.62,
-              width: '8.438rem',
+              width: '8.2rem',
               color: '#2a2a2a',
               fontFamily: 'Inter',
-              outlineColor: 'transparent',
+              outlineColor: '#fff',
               borderWidth: 0,
-              fontWeight: '600',
               paddingBottom: '0.125rem',
             }}
             type="text"
-            placeholder="Search Txn"
+            placeholder="Search"
             onKeyUp={handleKeyUp}
           />
         </div>
@@ -452,10 +454,10 @@ export default function AddressTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked == true)
+                      //     .length == address.length
+                      // }
                       style={{ marginRight: '0.5rem' }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>
@@ -557,6 +559,7 @@ export default function AddressTableComponent(props) {
                               style={{ marginRight: '0.5rem' }}
                             />
 
+
                             <a
                               className="linkTable"
                               href={'/transaction-details/' + row.hash}
@@ -568,7 +571,7 @@ export default function AddressTableComponent(props) {
                               </Tooltip>
                             </a>
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: 'none', color: "#2a2a2a" }} align="left">
                             <span className="tabledata">{TimeAge}</span>
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
@@ -589,6 +592,7 @@ export default function AddressTableComponent(props) {
                                   <span className="tabledata">
                                     {' '}
                                     {shorten(row.From)}
+                                    {/* {let fromAddress = row.From} */}
                                   </span>
                                 </Tooltip>
                               </a>
@@ -621,7 +625,7 @@ export default function AddressTableComponent(props) {
                               </Tooltip>
                             )}
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: 'none', color: "#2a2a2a" }} align="left">
                             <span className="tabledata">{row.Value}</span>
                           </TableCell>
                         </TableRow>

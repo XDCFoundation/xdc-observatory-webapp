@@ -30,13 +30,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   cnlbtn: {
     width: "94px",
@@ -51,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-padding: "10px 35px 20px 0px"
+    padding: "10px 35px 20px 0px",
   },
   value: {
     width: "400px !important",
@@ -83,30 +81,19 @@ padding: "10px 35px 20px 0px"
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
-    outline:"none",
+    outline: "none",
     padding: "20px",
-    marginBottom: "21px"
+    marginBottom: "21px",
   },
-  input1: {
+  textarea: {
     width: "503px",
     height: "90px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    outline: "none"
+    outline: "none",
   },
-
-  // input1: {
-  //   width: "506px",
-  // height: "113px",
-  // margin: "3px 0 33px",
-  // padding: "12px 96px 67px 93px",
-  // borderRadius: "8px",
-  // border: "solid 1px #9fa9ba",
-  // backgroundColor: "#ffffff",
-
-  // },
   addbtn: {
     width: "110px",
     height: "34px",
@@ -122,10 +109,16 @@ padding: "10px 35px 20px 0px"
     marginTop: "-12px",
     marginBottom: "2px",
     // fontWeight: "50px",
-    fontfamily: "Inter",
-    fontsize: "10px",
-    fontweight: "200",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px"
   },
   forgotpass: {
     color: "#2149b9",
@@ -147,10 +140,13 @@ padding: "10px 35px 20px 0px"
     fontsize: "5px",
   },
   heading: {
-    marginTop: "7px",
-    marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -158,28 +154,30 @@ padding: "10px 35px 20px 0px"
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
-      
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
     },
-    input1: {
+    textarea: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+      padding: "15px",
+    },
+  },
 }));
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
+  const [error, setError] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -194,24 +192,23 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    console.log("data",data)
     const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
 
     if (error) {
       
-        utility.apiFailureToast("Error");
+        utility.apiFailureToast("Transaction private note is already in use");
         return;
       }
       utility.apiSuccessToast("Transaction Added");
+      window.location.href = "loginprofile";
       setTransactionsHash("");
       setPrivateNote("");
     
   }
 
-  // console.log("hash", TransactionsHash);
-  // console.log("NOTE", PrivateNote);
+
 
   const classes = useStyles();
 
@@ -221,12 +218,23 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setError("");
   };
 
   const handleLogin = () => {
     // history.push("/loginprofile")
   };
-
+  const validateTransaction = () => {
+  
+    if (
+      (TransactionsHash && TransactionsHash.length === 66) ||
+      TransactionsHash.slice(0, 1) == "0x"
+    ) {
+      transactionLable();
+    } else {
+      setError("Address should start with 0x & 66 characters");
+    }
+  };
   return (
     <div>
       <div className="div2" onClick={handleClickOpen}>
@@ -236,10 +244,12 @@ export default function FormDialog() {
             src={require("../../../assets/images/transaction.png")}
           ></img>
         </div>
-        <div className="headingdiv2">Add Transaction label</div>
-        <div className="paradiv2">
-          Add a personal note to transacton hash to track it in future
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv2">Add transaction label</div>
+          <div className="paradiv2">
+            Add a personal note to a transacton hash to track it in future.
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -255,39 +265,42 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add Transaction label
-            </DialogTitle>
+            <div className={classes.heading} id="form-dialog-title">
+              Add Transaction Label
+            </div>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Hash</b>
+              Transaction Hash
             </DialogContentText>
             <input
               type="text"
               className={classes.input}
-              onChange={(e) => setTransactionsHash(e.target.value)}
+              onChange={(e) => {setTransactionsHash(e.target.value)
+              setError("")
+              }}
             ></input>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Transaction Label/Note</b>
+              Transaction Label/Note
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
             </DialogContentText>
 
-            <input
+            <textarea
               type="text"
-              className={classes.input1}
+              className={classes.textarea}
               onChange={(e) => setPrivateNote(e.target.value)}
-            ></input>
+            ></textarea>
 
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
@@ -309,7 +322,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={transactionLable}>
+              <button className={classes.addbtn} onClick={transactionLable,validateTransaction}>
                 Add
               </button>
             </span>

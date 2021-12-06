@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -14,7 +13,7 @@ import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import Popover from "./popover";
 import ChangePassword from "./changePassword";
 
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: "#2149b9",
-    height: '4.875rem',
+    height: "4.875rem",
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -35,9 +34,6 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: '11.4375rem !important',
-    },
-    toolBar:{
-      width: '98%'
     }
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
@@ -128,7 +124,6 @@ export default function Navbar() {
   const theme = useTheme();
   const history = useHistory();
 
-
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -142,12 +137,11 @@ export default function Navbar() {
   const SelectOptRef = React.useRef(null);
   const SearchDataRef = React.useRef(null);
 
-
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
 
   const openChangePassword = () => {
-    setOpenPasswordBox(!openPasswordBox)
-  }
+    setOpenPasswordBox(!openPasswordBox);
+  };
 
   const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
@@ -312,23 +306,16 @@ export default function Navbar() {
   ];
   const [filter, setFilter] = useState("");
   const childToggle = (subanchor, open) => (event) => {
-
     if (
-
       event.type === "keydown" &&
-
       (event.key === "Tab" || event.key === "Shift")
-
     ) {
-
       return;
-
     }
 
-    setOpencontracts(false)
+    setOpencontracts(false);
 
     setState({ ...state, [subanchor]: open });
-
   };
   const contracts = (subanchor) => (
     <div
@@ -416,7 +403,7 @@ export default function Navbar() {
     ) {
       return;
     }
-    setOpen(false)
+    setOpen(false);
     setState({ ...state, [subanchor]: open });
   };
   const items = (subanchor) => (
@@ -659,7 +646,7 @@ export default function Navbar() {
         className={clsx(classes.appBar)}
       >
         <Toolbar
-        className={clsx(classes.toolBar)}>
+          className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
             <div className="mobile-navbartab">
@@ -670,10 +657,10 @@ export default function Navbar() {
                     src={require("../../../src/assets/images/XDC icon.svg")}
                   ></img>
                 </a>
-                <a className="XDC-internal" href="/">
-                  {" "}
-                  XDC{" "}
-                </a>
+                <p className="XDC-internal">
+                  
+                  XDC
+                </p>
               </div>
               <div>
                 <div>
@@ -696,6 +683,11 @@ export default function Navbar() {
                     Tokens
                   </NavLink>
                 </div>
+                <div>
+                  <a href='/token-details'>
+                    <div className="Token-internal" >Tokens</div>
+                  </a>
+                </div>
               </div>
             </div>
             {/* </Typography> */}
@@ -713,9 +705,9 @@ export default function Navbar() {
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
                           style={{
-                            width: 16,
-                            height: 16,
-                            marginRight: 3
+                            width: 18,
+                            height: 18,
+                            marginRight: 3,
                           }}
                           src={require("../../assets/images/Search.svg")}
                         />
@@ -733,11 +725,11 @@ export default function Navbar() {
                               }}
                               className="main-input-td"
                               src={require("../../images/Search.png")}
-                              placeholder="Search for an address, a transaction or a block number"
+                              placeholder="Search for an address, a Transaction or a block number"
                             />
                           </div>
                           {/* name="NAME" */}
-                          <div className='mobFilter'>
+                          <div className="mobFilter">
                             <select
                               className="select-td"
                               onChange={(event) => handleSearchOption(event)}
@@ -784,9 +776,9 @@ export default function Navbar() {
             </div>
           </div>
           <div className="right-nav-div">
-
-
-            {openPasswordBox && <ChangePassword openChangePassword={openChangePassword} />}
+            {openPasswordBox && (
+              <ChangePassword openChangePassword={openChangePassword} />
+            )}
             <Popover openChangePassword={openChangePassword} />
 
             <React.Fragment className="rigt-line" key={"right"}>

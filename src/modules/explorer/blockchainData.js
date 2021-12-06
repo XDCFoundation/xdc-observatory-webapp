@@ -150,7 +150,7 @@ const TitleValue = styled.div`
   font-weight: bold;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
   @media (max-width:767px){
     font-size: 0.875rem;
   }
@@ -186,7 +186,7 @@ const LeftTitle = styled.div`
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.9px;
-  color: #252525;
+  color: #2a2a2a;
   @media (max-width:767px){
     font-size: 1.375rem;
   }  
@@ -213,7 +213,7 @@ const LeftTopSec = styled.div`
   font-weight: 800;
   font-family: Inter;
   letter-spacing: 0.55px;
-  color: #252525;
+  color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px){
     font-size: 1rem;
   }
@@ -292,7 +292,6 @@ class BlockChainDataComponent extends Component {
         this.setState({ blockdataNumber: blocks });
 
         if (error) {
-          console.log("hello error");
         }
       }
     });
@@ -323,7 +322,6 @@ class BlockChainDataComponent extends Component {
         }
 
         if (error) {
-          console.log("hello error");
         }
       }
     });

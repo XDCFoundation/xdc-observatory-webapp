@@ -17,9 +17,6 @@ const GraphSize = styled.div`
   @media (max-width: 767px) {
     height: 102px;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
-    margin-top: -200px;
-  }
 `;
 
 const height = 140;
@@ -62,7 +59,7 @@ const MyResponsiveLine = ({ data }) => (
         reverse: false,
       }}
       yFormat=" >-.2f"
-      curve="basis"
+      curve="monotoneX"
       axisTop={null}
       axisRight={null}
       axisBottom={{
@@ -138,17 +135,14 @@ const MyResponsiveLine = ({ data }) => (
 export default function App() {
   const [data, setData] = useState([]);
   const [graphTransactions, setGraphTransactions] = useState([]);
-  console.log(graphTransactions, ":}");
   const { address } = useParams();
   useEffect(async () => {
     let urlPath = `${address}`;
-    console.log(urlPath, "|||");
     let [error, transactionGraph] = await Utils.parseResponse(
       TokenData.getSomeDaysHolders(urlPath, {})
     );
     if (error || !transactionGraph) return;
     setGraphTransactions(transactionGraph);
-    console.log(transactionGraph, "tee");
     var arr = [
       {
         id: "Transaction",

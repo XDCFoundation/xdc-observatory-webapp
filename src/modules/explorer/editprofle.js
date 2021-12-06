@@ -1,13 +1,22 @@
+import utility from "../../utility";
+import Utility from "../../utility";
+import { sessionManager } from "../../managers/sessionManager";
+import AuthService from "../../services/userLogin";
+import AwsService from "../../services/awsService";
+import Utils from "../../utility";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import { Row } from "simple-flexbox";
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
 import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
+import Loader from "../../assets/loader";
+import { cookiesConstants } from "../../constants";
 
 const acceptStyle = {
   borderColor: "#00e676",
@@ -34,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "#2149b9",
     marginLeft: "-6px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginBottom: "-10px",
+  },
   btn: {},
   value: {
     width: "400px !important",
@@ -52,10 +66,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   paper: {
-    width: '31.438rem',
-    height:"35.063rem",
+    width: "31.438rem",
+    maxHeight: "35.063rem",
+    height: "100%",
     alignSelf: "flex-start",
     margin: "100px auto",
+    borderRadius: "12px",
   },
   input: {
     width: "340px",
@@ -67,21 +83,22 @@ const useStyles = makeStyles((theme) => ({
   },
   addbtn: {
     width: "100%",
-    height: "35px",
-    borderRadius: "4.4px",
-    border: "solid 0.6px #00a1ed",
+    height: "40px",
+    borderRadius: "4px",
     backgroundColor: "#3763dd",
-    margin: "10px 10px 20px 10px",
+    //backgroundColor: "red",
+    margin: "0px 26px 35px 26px",
     color: "white",
   },
   subCategory: {
     marginTop: "4px",
     marginBottom: "4px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    fontWeight: "500",
     border: "none !important",
     outline: "none",
+    color: "#2a2a2a",
   },
   forgotpass: {
     color: "#2149b9",
@@ -170,9 +187,99 @@ const Input = styled.div`
   flex-flow: row nowrap;
 `;
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
+  const [color, setColor] = useState("");
+  const [userName, setUserName] = React.useState("");
+  const [userNameError, setUserNameError] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
+  const [isEditPicture, setIsEditPicture] = React.useState(false);
+  const [uploadFile, setUploadFile] = React.useState("");
+  const [profilePicture, setProfilePicture] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const fileData = (event) => {
+    setIsEditPicture(true);
+    setUploadFile(event);
+  };
+  // const changeColor =async()=>{
+
+  //   setColor({backgroundColor:"red"})
+
+  // }
+  var regExAlphaNum = /^[0-9a-zA-Z]+$/;
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const updateUser = async (url) => {
+    let userInfo = sessionManager.getDataFromCookies("userId");
+    setLoading(true);
+
+    const reqObj = {
+      name: userName,
+      userId: userInfo,
+      email: email,
+      profilePic: url ? url : profilePicture,
+    };
+
+    if (!userName.match(regExAlphaNum)) {
+      setUserNameError("Enter valid Username");
+      setLoading(false);
+      return;
+    } else if (!email.match(mailformat)) {
+      setEmailError("Enter valid Email");
+      setLoading(false);
+    } else {
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.updateUser(reqObj)
+      );
+      if (authResponse?.email.length > 2) {
+        setLoading(false);
+      }
+      if (error || !authResponse) {
+        utility.apiFailureToast("User Exists");
+        setLoading(false);
+      } else {
+        utility.apiSuccessToast("Profile upadated successfully", {
+          autoClose: 10000,
+        });
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse.userId, "userId");
+        history.push("loginProfile");
+        handleClose();
+        // window.location.href = "loginprofile";
+        return authResponse;
+      }
+    }
+  };
+
+  const uploadFileToS3 = async () => {
+    setLoading(true);
+    let formdata = new FormData();
+    formdata.append("file", uploadFile);
+    formdata.append("path", "profilePic");
+    const awsObject = new AwsService();
+    let [error, awsResponse] = await Utility.parseResponse(
+      awsObject.updateUser(formdata)
+    );
+    if (awsResponse[0].url.length > 2) {
+      setLoading(false);
+    }
+    if (error || !awsResponse) {
+      utility.apiFailureToast(" Upload failed");
+      return false;
+    } else {
+      // utility.apiSuccessToast("Pic uploaded successfully");
+      sessionManager.setDataInCookies(
+        awsResponse[0].url,
+        cookiesConstants.USER_PICTURE
+      );
+      setProfilePicture(awsResponse[0].url);
+      return awsResponse;
+    }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -180,6 +287,14 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setUserNameError("");
+    setEmailError("");
+    setTimeout(() => {
+      setUsernameEnable(false);
+      setEmailEnable(false);
+      setUserName(getUserName);
+      setEmail(getEmail);
+    }, 500);
   };
 
   const handleLogin = () => {
@@ -233,8 +348,6 @@ export default function FormDialog() {
 
   useEffect(
     () => () => {
-      console.log("file", files);
-      console.log("accept", acceptedFiles);
       // Make sure to revoke the data uris to avoid memory leaks
       files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
@@ -252,90 +365,156 @@ export default function FormDialog() {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
-  const [usernameDisable, setUsernameUnable] = React.useState(true);
-  const [emailDisable, setEmailUnable] = React.useState(true);
+  const [usernameEnable, setUsernameEnable] = React.useState(false);
+  const [emailEnable, setEmailEnable] = React.useState(false);
+
+  const profileUrl = async () => {
+    let response = {};
+    if (isEditPicture) {
+      response = await uploadFileToS3();
+      if (!response) return;
+      setProfilePicture(response[0].url);
+    }
+
+    let upadteUser = await updateUser(response[0]?.url);
+  };
+  const getUserName = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.name;
+    return userName;
+  };
+
+  const getEmail = () => {
+    let name = sessionManager.getDataFromCookies("userInfo");
+    let userName = name.email;
+    return userName;
+  };
+  useEffect(() => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    if (userInfo) {
+      setUserName(userInfo.name);
+      setEmail(userInfo.email);
+      setProfilePicture(
+        sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+      );
+    }
+  }, []);
 
   return (
     <div>
-      <div className={classes.add}>
-        <button className="login-button" onClick={handleClickOpen}>
-          <div className="edit">Edit Profile</div>
-        </button>
+     
+        <div className={classes.add}>
+          <button className="login-button" onClick={handleClickOpen}>
+            <div className="edit">Edit Profile</div>
+          </button>
+          <ProfilePicContainer>
+            <Dialog
+              classes={{ paper: classes.paper }}
+              className={classes.dialog}
+              open={opens}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+              <Wrapper>
+                <Title>Edit Profile</Title>
 
-        <ProfilePicContainer>
-          <Dialog 
-            classes={{ paper: classes.paper }}
-            className={classes.dialog}
-            open={opens}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <Wrapper>
-              <div></div>
-              <Title>Edit Profile</Title>
+                <Cut onClick={handleClose}>
+                  {" "}
+                  <img
+                    className="cross-icon"
+                    src={require("../../../src/assets/images/XDC-Cross.svg")}
+                  />{" "}
+                </Cut>
+              </Wrapper>
+              <AvatarUpload
+                filedata={fileData}
+                uploadFileToS3={uploadFileToS3}
+                profilePicture={profilePicture}
+              />
 
-              <Cut onClick={handleClose}>
-                {" "}
-                <img
-                  className="cross-icon"
-                  src={require("../../../src/assets/images/XDC-Cross.svg")}
-                />{" "}
-              </Cut>
-            </Wrapper>
-            <AvatarUpload />
-
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                <b>Username</b>
-              </DialogContentText>
-              <Input className="inputcss">
-                <input
-                  style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border w-100 inputOutlineNone"
-                  type="text"
-                  id="username"
-                  disabled={usernameDisable}
-                />
-                <img
-                  className="imgcss"
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setUsernameUnable(false)}
-                />
-              </Input>
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                <b>Email</b>
-              </DialogContentText>
-
-              <Input className="inputcss">
-                <input
-                  style={{ backgroundColor: "#f5f5f5" }}
-                  className="hide-border w-100 inputOutlineNone "
-                  type="text"
-                  id="email"
-                  disabled={emailDisable}
-                />
-                <img
-                  className="imgcss"
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setEmailUnable(false)}
-                />
-              </Input>
-            </DialogContent>
-            <DialogActions>
-              <button
-                className={classes.addbtn}
-                onClick={handleLogin}
-                onClick={(event) => (window.location.href = "loginprofile")}
+              <DialogContent
+                style={{ padding: "8px 35px", marginBottom: "14px" }}
               >
-                Update Profile{" "}
-              </button>
-              {/* <Link to="/loginprofile" className={classes.addbtn} className="btn btn-primary">Log in</Link> */}
-            </DialogActions>
-            <div className={classes.value}></div>
-          </Dialog>
-        </ProfilePicContainer>
+                <DialogContentText className={classes.subCategory}>
+                  Username
+                </DialogContentText>
+                {!usernameEnable ? (
+                  <span className="beforeInput">
+                    <span className="beforeInputValue">{userName}</span>
+                    <img
+                      className="imgcss"
+                      src={require("../../../src/assets/images/edit.svg")}
+                      onClick={() => setUsernameEnable(true)}
+                    />
+                  </span>
+                ) : (
+                  <input
+                    className="inputcss"
+                    style={{ border: "solid 1px #9fa9ba", paddingLeft: "10px" }}
+                    type="text"
+                    id="username"
+                    value={userName}
+                    onChange={(e) => {
+                      {
+                        setUserName(e.target.value);
+                        setUserNameError("");
+                      }
+                    }}
+                  />
+                )}
+                <div className={classes.error}>{userNameError}</div>
+              </DialogContent>
+
+              <DialogContent
+                style={{ padding: "8px 35px", marginBottom: "25px" }}
+              >
+                <DialogContentText className={classes.subCategory}>
+                  Email
+                </DialogContentText>
+                {!emailEnable ? (
+                  <span className="beforeInput">
+                    <span className="beforeInputValue">{email}</span>
+                    <img
+                      className="imgcss"
+                      src={require("../../../src/assets/images/edit.svg")}
+                      onClick={() => setEmailEnable(true)}
+                    />
+                  </span>
+                ) : (
+                  <input
+                    className="inputcss"
+                    style={{ border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
+                    type="text"
+                    id="email"
+                    value={email}
+                    onChange={(e) => {
+                      {
+                        setEmail(e.target.value);
+                        setEmailError("");
+                      }
+                    }}
+                  />
+                )}
+                {emailError ? <div className={classes.error}>{emailError}</div> : <></>}
+              </DialogContent>
+
+              <DialogActions>
+                <button
+                  className={classes.addbtn}
+                  onClick={() => {
+                    profileUrl();
+                  }}
+                >
+                  Update Profile{" "}
+                </button>
+              </DialogActions>
+
+              <div className={classes.value}></div>
+              </div>
+            </Dialog>
+          </ProfilePicContainer>
+        
       </div>
     </div>
   );

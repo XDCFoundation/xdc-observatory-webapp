@@ -1,10 +1,20 @@
-import {httpConstants} from "../modules/constants";
-import {history} from "../managers/history";
+import { httpConstants, cookiesConstants } from "../constants";
+import { sessionManager } from "../managers/sessionManager";
 
-export const httpService = (method, headers, data, url) => {
+export const httpService = (method, headers, data, url, contentHeader = true, token) => {
+
+    let header = new Headers();
+    // const query = window.location.search;
+    // const urlParams = new URLSearchParams(query);
+    token = token ? token : sessionManager.getDataFromCookies(cookiesConstants.AUTH0_ID_TOKEN);
+    if (contentHeader) {
+        header.append("Content-Type", httpConstants.CONTENT_TYPE.APPLICATION_JSON);
+    }
+    header.append("Authorization", "Bearer " + token);
+
     const requestOptions = {
         method: method,
-        headers: headers || {'Content-Type': 'application/json'}
+        headers: header
     };
 
     if (method !== httpConstants.METHOD_TYPE.GET)
@@ -12,23 +22,29 @@ export const httpService = (method, headers, data, url) => {
 
     return fetch(url, requestOptions)
         .then(function handleResponse(response) {
-            return response.text().then(text => {
-                const data = text && JSON.parse(text);
 
-                if (!data.success) {
-                    // if (data.responseCode === 401 || data.responseCode === "401") {
-                    //     history.push(screenPathConstants.LANDING_PAGE);
-                    //     // auto logout if 401 response returned from api
-                    //     // location.reload(true);
-                    // }
-                    const error = data.responseCode === 404 ? data : (data && data.message) || response.statusText;
-                    return Promise.reject(error);
+            //in case API is down-
+            if (!response || !response.ok)
+                return Promise.reject("Unable to fetch data");
+
+            return response.text().then(responseText => {
+
+                if (!responseText)
+                    return Promise.reject(responseText);
+
+                let data;
+                try {
+                    data = typeof responseText === 'object' ? responseText : JSON.parse(responseText);
+                    if (data && !data.success)
+                        return Promise.reject((data && data.responseCode) === 404 ? data : (data && { message: data.message, responseCode: data.responseCode }) || response.statusText);
+
+                } catch (err) {
+                    return Promise.reject(err)
                 }
-
                 return data;
             });
         }).catch(function (err) {
-            return err;
+            return Promise.reject(err);
         })
 
 };

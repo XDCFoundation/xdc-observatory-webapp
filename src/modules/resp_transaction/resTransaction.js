@@ -14,6 +14,11 @@ import FooterComponent from "../common/footerComponent";
 import { Row, Column } from "simple-flexbox";
 import moment from "moment";
 import Loader from "../../assets/loader";
+import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
+import PrivateNote from "../../modules/common/dialog/privateNote"
+import { sessionManager } from "../../managers/sessionManager";
+import LoginDialog from "../explorer/loginDialog"
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     marginTop: "90px",
     marginLeft: "auto",
-    marginBottom: "auto",
+    marginBottom: "-39px",
 
     width: "100%",
     "@media (min-width: 0px) and (max-width: 767px)": {
@@ -32,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (min-width: 768px) and (max-width: 1239px)": {
       marginTop: "130px",
       maxWidth: "41.5rem",
-    }
+    },
   },
   rowDiv: {
     width: "100%",
@@ -53,24 +58,108 @@ export default function Transaction({ _handleChange }) {
   const classes = useStyles();
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
+  const [isPvtNote, setIsPvtNote] = useState(false);
+  const [privateNote, setPrivateNote] = useState("")
+  const [addressTag, setAddressTag] = useState("")
+  const [addressTagTo, setAddressTagTo] = useState("")
+  const [isTag, setIsTag] = useState(false)
+  const [isTagTo, setIsTagTo] = useState(false)
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [isLoading, setLoading] = useState(true)
+  const [fromAddress, setFromAddress] = useState("");
+  // const [open, setOpen] = React.useState(false);
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false)
+  const [dialogValue, setDailogValue] = React.useState(0)
+  const [dialogValue2, setDailogValue2] = React.useState(0)
+  const [dialogPvtTagIsOpen2, setDialogPvtTagIsOpen2] = React.useState(false)
+  const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false)
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
+
+  const openDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(true)
+    setDailogValue(1);
+  }
+  const closeDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(false)
+    setDailogValue(0);
+  }
+  const openDialogPvtTag2 = () => {
+    setDialogPvtTagIsOpen2(true)
+    setDailogValue2(1);
+  }
+  const closeDialogPvtTag2 = () => {
+    setDialogPvtTagIsOpen2(false)
+    setDailogValue2(0);
+  }
+  const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true)
+  const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
+  const openLoginDialog = () => setLoginDialogIsOpen(true)
+  const closeLoginDialog = () => setLoginDialogIsOpen(false)
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     transactionDetail();
+    privateNoteUsingHash();
   }, [amount]);
 
   const transactionDetail = async () => {
-    let urlPath = `/${hash}`;
+    let urlPath = `${hash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
-    setLoading(false)
+    setLoading(false);
 
+    tagUsingAddressFrom(transactiondetailusinghash);
+    tagUsingAddressTo(transactiondetailusinghash);
   };
+
+  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const privateNoteUsingHash = async () => {
+    const data = {
+      transactionHash: `${hash}`,
+      userId: sessionManager.getDataFromCookies("userId")
+    }
+    let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserTransactionPrivateNoteUsingHash(data)
+    );
+    if (error || !privateNoteUsingHashResponse) return;
+    setPrivateNote(privateNoteUsingHashResponse);
+    setIsPvtNote(true);
+  }
+
+
+  const tagUsingAddressFrom = async (response) => {
+    const data = {
+      address: response.from,
+      userId: sessionManager.getDataFromCookies("userId")
+    }
+    let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (errors || !tagUsingAddressHashResponse) return;
+    setAddressTag(tagUsingAddressHashResponse);
+    setIsTag(true);
+  }
+
+  const tagUsingAddressTo = async (response) => {
+    const data = {
+      address: response.to,
+      userId: sessionManager.getDataFromCookies("userId")
+    }
+    let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (errors || !tagUsingAddressHashResponse) return;
+    setAddressTagTo(tagUsingAddressHashResponse);
+    setIsTagTo(true);
+  }
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
   const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
@@ -120,7 +209,6 @@ export default function Transaction({ _handleChange }) {
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
 
-
   // if (isLoading == true) {
   //   return (
   //     <div><Loader /></div>
@@ -128,340 +216,364 @@ export default function Transaction({ _handleChange }) {
   // }
   return (
     <div className={classes.mainContainer}>
-
       <Tokensearchbar />
 
       <div className={classes.root}>
         <Grid>
           <div className={isLoading == true ? "cover-spin-2" : ""}>
             <div className={isLoading == true ? "cover-spin" : ""}>
+              <div>
+                <div>
+                  <Spacing style={{ borderBottom: "none" }}>
+                    <Container>
+                      <Heading>Transaction Details</Heading>
+                      {transactions ? (
+                        transactions.status ? (
+                          <p className="Success-rectangle">Success</p>
+                        ) : (
+                          <p className="Failed-rectangle">Failed</p>
+                        )
+                      ) : null}
+                    </Container>
+                  </Spacing>
 
-              <Spacing style={{ borderBottom: 'none' }}>
-                <Container>
-                  <Heading>Transaction Details</Heading>
-                  {transactions ? (
-                    transactions.status ? (
-                      <p className="Success-rectangle">Success</p>
-                    ) : (
-                      <p className="Failed-rectangle">Failed</p>
-                    )
-                  ) : null}
-                </Container>
-              </Spacing>
-
-              <Div>
-                <HashDiv>
-                  <Container>
-                    <Tooltip align="right" title={hashid}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-
-                    <Hash>Hash ID</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content>{hash}
-
-
-                      <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
-                        <Tooltip
-                          title={copiedText === hash ? "Copied" : "Copy To Clipboard"}
-                          placement="top"
-                        >
-                          <button
-                            style={{
-                              color: "#2149b9",
-                              backgroundColor: "white",
-                              fontSize: 14,
-                              marginLeft: 3
-                            }}
-                          >
-                            <img
-                              className="copy-icon"
-                              src={require("../../../src/assets/images/copy.svg")}
-                            />
-                          </button>
+                  <Div>
+                    <HashDiv>
+                      <Container>
+                        <Tooltip align="right" title={hashid}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
                         </Tooltip>
-                      </CopyToClipboard>
-                    </Content>
-                  </MiddleContainer>
-                </HashDiv>
-              </Div>
 
-              <Div__>
-                <Spacing>
-                  <Container>
-                    <Tooltip title={blocknumber}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
+                        <Hash>Hash ID</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content>{hash}
+                        </Content>
+                        <span className="copyEditContainer">
+                          <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
+                            <Tooltip
+                              title={
+                                copiedText === hash ? "Copied" : "Copy To Clipboard"
+                              }
+                              placement="top"
+                            >
+                              <button
+                                style={{
+                                  color: "#2149b9",
+                                  backgroundColor: "white",
+                                  fontSize: 14,
+                                  marginLeft: "10px",
+                                  marginRight: "5px",
+                                }}
+                              >
+                                <img
+                                  className="copy-icon"
+                                  src={require("../../../src/assets/images/copy.svg")}
+                                />
+                              </button>
+                            </Tooltip>
+                          </CopyToClipboard>
+                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash} pvtNote={privateNote[0]?.trxLable}/>}
+                          {<img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
+                        </span>
+                      </MiddleContainer>
+                    </HashDiv>
+                  </Div>
 
-                    <Hash>Block Number</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content>
-                      <a
-                        className="linkTableDetails-transaction"
-                        href={"/block-details/" + transactions.blockNumber}
-                      >
+                  <Div__>
+                    <Spacing>
+                      <Container>
+                        <Tooltip title={blocknumber}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+
+                        <Hash>Block Number</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content>
+                          <a
+                            className="linkTableDetails-transaction"
+                            href={"/block-details/" + transactions.blockNumber}
+                          >
+                            {" "}
+                            {transactions.blockNumber}{" "}
+                          </a>
+                          - {transactions.blockConfirmation} Blocks Confirmation
+                        </Content>
+                      </MiddleContainer>
+                    </Spacing>
+                    <Spacing>
+                      <Container>
+                        <Tooltip title={timestamp}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+
+                        <Hash>Timestamp</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
                         {" "}
-                        {transactions.blockNumber}{" "}
-                      </a>
-                      - {transactions.blockConfirmation} Blocks Confirmation
-                    </Content>
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing>
-                  <Container>
-                    <Tooltip title={timestamp}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-
-                    <Hash>Timestamp</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    {" "}
-                    {moment(transactions.timestamp * 1000).format(
-                      "MMMM Do YYYY, h:mm:ss a"
-                    )}
-                  </MiddleContainer>
-                </Spacing>
-                <SpacingHash>
-                  <Container>
-                    <Tooltip title={from}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-
-                    <Hash>From</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content >
-                      {" "}
-                      <a
-                        className="linkTableDetails-transaction"
-                        href={"/address-details/" + transactions.from}
-                      >
-                        {transactions.from}{" "}
-                      </a>
-                      <CopyToClipboard
-                        text={transactions.from}
-                        onCopy={() => setCopiedText(transactions.from)}
-                      >
-                        <Tooltip
-                          title={
-                            copiedText === transactions.from
-                              ? "Copied"
-                              : "Copy To Clipboard"
-                          }
-                          placement="top"
-                        >
-                          <button
-                            style={{
-                              color: "blue",
-                              backgroundColor: "white",
-                              fontSize: 14,
-                              // marginLeft: "25px",
-                            }}
-                          >
-                            <img
-                              className="copy-icon"
-                              src={require("../../../src/assets/images/copy.svg")}
-                            />
-                          </button>
+                        {moment(transactions.timestamp * 1000).format(
+                          "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                      </MiddleContainer>
+                    </Spacing>
+                    <SpacingHash>
+                      <Container>
+                        <Tooltip title={from}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
                         </Tooltip>
-                      </CopyToClipboard>
-                    </Content>
-                  </MiddleContainer>
-                </SpacingHash>
-                <SpacingHash>
-                  <Container>
-                    <Tooltip title={to}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
 
-                    <Hash>To</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content>
-                      <a
-                        className="linkTableDetails-transaction"
-                        href={"/address-details/" + transactions.to}
-                      >
-                        {transactions.to}
-                      </a>
-                      <CopyToClipboard
-                        text={transactions.to}
-                        onCopy={() => setCopiedText(transactions.to)}
-                      >
-                        <Tooltip
-                          title={
-                            copiedText === transactions.to
-                              ? "Copied"
-                              : "Copy To Clipboard"
-                          }
-                          placement="top"
-                        >
-                          <button
-                            style={{
-                              color: "blue",
-                              backgroundColor: "white",
-                              fontSize: 14,
-                              // marginLeft: "10px",
-                            }}
-                          >
-                            <img
-                              className="copy-icon"
-                              src={require("../../../src/assets/images/copy.svg")}
-                            />
-                          </button>
+                        <Hash>From</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content>
+                          {" "}
+                          <span style={{ display: "flex" }}>
+                            <a
+                              className="linkTableDetails-transaction"
+                              href={"/address-details/" + transactions.from}
+                            >
+                              {transactions.from}{" "}
+                            </a>
+                            <CopyToClipboard
+                              text={transactions.from}
+                              onCopy={() => setCopiedText(transactions.from)}
+                            >
+                              <Tooltip
+                                title={
+                                  copiedText === transactions.from
+                                    ? "Copied"
+                                    : "Copy To Clipboard"
+                                }
+                                placement="top"
+                              >
+                                <button
+                                  style={{
+                                    color: "blue",
+                                    backgroundColor: "white",
+                                    fontSize: 14,
+                                    marginLeft: "10px",
+                                    marginRight: "5px",
+                                  }}
+                                >
+                                  <img
+                                    className="copy-icon"
+                                    src={require("../../../src/assets/images/copy.svg")}
+                                  />
+                                </button>
+                              </Tooltip>
+                            </CopyToClipboard>
+                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} fromAddr={transactions.from} value={dialogValue} hash={hash}/>}
+                            {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
+                          </span>
+                        </Content>
+
+                      </MiddleContainer>
+                    </SpacingHash>
+                    <SpacingHash>
+                      <Container>
+                        <Tooltip title={to}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
                         </Tooltip>
-                      </CopyToClipboard>
-                    </Content>
-                  </MiddleContainer>
-                </SpacingHash>
-                <Spacing>
-                  <Container>
-                    <Tooltip title={value}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <Hash>Value</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    {" "}
-                    {!transactions?.value
-                      ? 0
-                      : transactions?.value / 1000000000000000000}{" "}
-                    XDC ({currencySymbol}
-                    {valueDiv && valueDiv > 0 ? valueDiv : 0})
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing>
-                  <Container>
-                    <Tooltip title={txnfee}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
 
-                    <Hash>Txn Fee</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content>
-                      {" "}
-                      {txfee} XDC ({currencySymbol}
-                      {fetchtxn})
-                    </Content>
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing>
-                  <Container>
-                    <Tooltip align="right" title={gasprovided}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <Hash>Gas Provided</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    {transactions.gas}
-                    {/* <Content> {transactions.gas}</Content> */}
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing>
-                  <Container>
-                    <Tooltip align="right" title={gasprice}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <Hash>Gas Price</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    {gasP}
-                    {/* <Content> {gasP}</Content> */}
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing>
-                  <Container>
-                    <Tooltip align="right" title={gasused}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <Hash>Gas Used</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content>{transactions.gasUsed}</Content>
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing>
-                  <Container>
-                    <Tooltip align="right" title={nounced}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <Hash>Nounce</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content> {transactions.nonce}</Content>
-                  </MiddleContainer>
-                </Spacing>
-                <SpacingInputData>
-                  <Container>
-                    <Tooltip align="right" title={input}>
-                      <ImageViewInputData
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <HashInputData>Input Data</HashInputData>
-                  </Container>
-                  <MiddleContainerInputData isTextArea={true}>
-                    <div className="transaction-details-input-data">
+                        <Hash>To</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content>
+                          <a
+                            className="linkTableDetails-transaction"
+                            href={"/address-details/" + transactions.to}
+                          >
+                            {transactions.to}
+                          </a>
+                          <CopyToClipboard
+                            text={transactions.to}
+                            onCopy={() => setCopiedText(transactions.to)}
+                          >
+                            <Tooltip
+                              title={
+                                copiedText === transactions.to
+                                  ? "Copied"
+                                  : "Copy To Clipboard"
+                              }
+                              placement="top"
+                            >
+                              <button
+                                style={{
+                                  color: "blue",
+                                  backgroundColor: "white",
+                                  fontSize: 14,
+                                  marginLeft: "10px",
+                                  marginRight: "5px",
+                                }}
+                              >
+                                <img
+                                  className="copy-icon"
+                                  src={require("../../../src/assets/images/copy.svg")}
+                                />
+                              </button>
+                            </Tooltip>
+                          </CopyToClipboard>
+                          {<PrivateAddressTag open={dialogPvtTagIsOpen2} onClose={closeDialogPvtTag2} toAddr={transactions.to} value={dialogValue2} hash={hash}/>}
+                          {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag2} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
+                        </Content>
+                      </MiddleContainer>
+                    </SpacingHash>
+                    <Spacing>
+                      <Container>
+                        <Tooltip title={value}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <Hash>Value</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        {" "}
+                        {!transactions?.value
+                          ? 0
+                          : transactions?.value / 1000000000000000000}{" "}
+                        XDC ({currencySymbol}
+                        {valueDiv && valueDiv > 0 ? valueDiv : 0})
+                      </MiddleContainer>
+                    </Spacing>
+                    <Spacing>
+                      <Container>
+                        <Tooltip title={txnfee}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
 
-                      <textarea
-                        className="text-area-transaction"
-                        readOnly
-                        value={transactions.input}
-                      />
-                    </div>
-                  </MiddleContainerInputData>
-                </SpacingInputData>
-                <SpacingPrivateNode>
-                  <Container>
-                    <Tooltip align="right" title={transferToken}>
-                      <ImageView
-                        src={require("../../../src/assets/images/questionmark.svg")}
-                      />
-                    </Tooltip>
-                    <Hash>Private Note</Hash>
-                  </Container>
-                  <MiddleContainerPrivateNote>
-
-                    <PrivateText>To access the Private Note feature, you must be</PrivateText>
-                    <a className="linkTableDetails-transaction" style={{ marginLeft: "5px" }}>Logged In</a>
-                  </MiddleContainerPrivateNote>
-                </SpacingPrivateNode>
-              </Div__>
-              <br />
-              <br />
+                        <Hash>Txn Fee</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content>
+                          {" "}
+                          {txfee} XDC ({currencySymbol}
+                          {fetchtxn})
+                        </Content>
+                      </MiddleContainer>
+                    </Spacing>
+                    <Spacing>
+                      <Container>
+                        <Tooltip align="right" title={gasprovided}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <Hash>Gas Provided</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        {transactions.gas}
+                        {/* <Content> {transactions.gas}</Content> */}
+                      </MiddleContainer>
+                    </Spacing>
+                    <Spacing>
+                      <Container>
+                        <Tooltip align="right" title={gasprice}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <Hash>Gas Price</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        {gasP}
+                        {/* <Content> {gasP}</Content> */}
+                      </MiddleContainer>
+                    </Spacing>
+                    <Spacing>
+                      <Container>
+                        <Tooltip align="right" title={gasused}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <Hash>Gas Used</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content>{transactions.gasUsed}</Content>
+                      </MiddleContainer>
+                    </Spacing>
+                    <Spacing>
+                      <Container>
+                        <Tooltip align="right" title={nounced}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <Hash>Nounce</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content> {transactions.nonce}</Content>
+                      </MiddleContainer>
+                    </Spacing>
+                    <SpacingInputData>
+                      <Container>
+                        <Tooltip align="right" title={input}>
+                          <ImageViewInputData
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <HashInputData>Input Data</HashInputData>
+                      </Container>
+                      <MiddleContainerInputData isTextArea={true}>
+                        <div className="transaction-details-input-data">
+                          <textarea
+                            className="text-area-transaction"
+                            readOnly
+                            value={transactions.input}
+                          />
+                        </div>
+                      </MiddleContainerInputData>
+                    </SpacingInputData>
+                    <SpacingPrivateNode>
+                      <Container>
+                        <Tooltip align="right" title={transferToken}>
+                          <ImageView
+                            src={require("../../../src/assets/images/questionmark.svg")}
+                          />
+                        </Tooltip>
+                        <Hash>Private Note</Hash>
+                      </Container>
+                      <MiddleContainerPrivateNote>
+                        {!isloggedIn ? 
+                        (<PrivateText>
+                          {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} hash={hash}/>}
+                          To access the Private Note feature, you must be
+                          <a
+                            className="linkTableDetails-transaction"
+                            style={{ marginLeft: "5px", cursor: "pointer" }}
+                            onClick={openLoginDialog}
+                          >
+                            Logged In
+                          </a>
+                        </PrivateText>) : (!isPvtNote ? (<span>Add private Note By click on Edit Icon in front of Hash ID</span>):
+                          (<span>{privateNote[0]?.trxLable}</span>))}
+                      </MiddleContainerPrivateNote>
+                    </SpacingPrivateNode>
+                  </Div__>
+                  <br />
+                  <br />
+                </div>
+              </div>
             </div>
           </div>
         </Grid>
       </div>
 
       <FooterComponent _handleChange={_handleChange} currency={amount} />
-
     </div>
   );
 }
@@ -482,21 +594,24 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
+  line-height: 28px;
+  display: flex;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
+    line-height: 18px !important; 
     word-break: break-all;
   }
   @media (min-width: 768px) and (max-width: 1241px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
 `;
@@ -511,20 +626,19 @@ const TextArea = styled.textarea`
   float: left;
   padding: 14px;
   overflow-y: auto;
-  @media (min-width: 768px) and (max-width: 1240px){
-      width: 110%
-    }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 110%;
+  }
 `;
 const PrivateText = styled.p`
-display: contents;
-@media (min-width: 0px) and (max-width: 767px) {
-display: contents;
-}
- @media (min-width: 768px) and (max-width: 1240px){
-     display:block;
-     margin-bottom: -5px
-;
-    }
+  display: contents;
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: contents;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    display: block;
+    margin-bottom: -5px;
+  }
 `;
 const Div__ = styled.div`
   height: 56.06rem;
@@ -535,17 +649,17 @@ const Div__ = styled.div`
   padding: 0.563rem;
   padding-left: 2.188rem;
   padding-right: 2.188rem;
-@media(min-width:0px) and (max-width:767px){
-   width:22.563rem;
-   height: 61rem;
-   padding-left:10px;
-  padding-right:10px;
-}
-@media (min-width: 768px) and (max-width: 1240px){
-      width: 41.5rem;
-      height: unset;
-    }
-  `;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    height: 61rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+    height: unset;
+  }
+`;
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
@@ -560,9 +674,9 @@ const MiddleContainerPrivateNote = styled.div`
   padding: 7px;
   @media (min-width: 0px) and (max-width: 767px) {
     margin-top: 10px;
-    font-size:0.875rem;
+    font-size: 0.875rem;
     text-align: left;
-   letter-spacing: 0.2px;
+    letter-spacing: 0.2px;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
@@ -570,10 +684,10 @@ const MiddleContainerPrivateNote = styled.div`
     height: auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     height: 3.25rem;
     text-align: left;
-   letter-spacing: 0.2px;
+    letter-spacing: 0.2px;
     opacity: 1;
   }
 `;
@@ -586,18 +700,18 @@ const MiddleContainerInputData = styled.div`
   margin-left: 100px;
   width: 100%;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     text-align: left;
-   letter-spacing: 0.034rem;
+    letter-spacing: 0.034rem;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
+    letter-spacing: 0.034rem;
     opacity: 1;
   }
 `;
@@ -610,12 +724,14 @@ const MiddleContainer = styled.div`
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
@@ -623,14 +739,13 @@ const MiddleContainer = styled.div`
     margin-top: 10px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
-
 `;
 const HashInputData = styled.span`
   color: var(--unnamed-color-2a2a2a);
@@ -647,7 +762,7 @@ const HashInputData = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
     padding-bottom: 20px;
   }
@@ -657,7 +772,7 @@ const HashInputData = styled.span`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.034rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
 `;
@@ -676,7 +791,7 @@ const Hash = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -685,7 +800,7 @@ const Hash = styled.span`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.034rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
 `;
@@ -695,7 +810,7 @@ const SpacingInputData = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  
+
   border-bottom: solid 1px #e3e7eb;
   height: 7.75rem;
   @media (max-width: 767px) {
@@ -703,9 +818,9 @@ const SpacingInputData = styled.div`
     padding: 11px 6px;
     height: 8.75rem;
   }
-  @media (min-width: 768px) and (max-width: 1240px){
-      height: 6.25rem;
-    }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    height: 6.25rem;
+  }
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;
@@ -715,15 +830,15 @@ const SpacingPrivateNode = styled.div`
   align-items: center;
   border-bottom: solid 1px #e3e7eb;
   height: 4.063rem;
-  
+
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
     border-bottom: none;
-    padding-right:unset;
+    padding-right: unset;
   }
-  @media (min-width: 768px)  and (max-width: 1240px){
-    padding-right:unset;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    padding-right: unset;
   }
 `;
 const Spacing = styled.div`
@@ -738,7 +853,6 @@ const Spacing = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
-    
   }
 `;
 const SpacingHash = styled.div`
@@ -754,7 +868,6 @@ const SpacingHash = styled.div`
     display: block;
     padding: 11px 6px;
     height: auto;
-    
   }
 `;
 const HashDiv = styled.div`
@@ -770,7 +883,7 @@ const HashDiv = styled.div`
     display: block;
     padding-left: 10px;
   }
-  @media (min-width: 768px)  and (max-width: 1240px){
+  @media (min-width: 768px) and (max-width: 1240px) {
     padding: 6px 30px;
   }
 `;
@@ -796,13 +909,13 @@ const Div = styled.div`
   background-color: #fff;
   margin-bottom: 15px;
   padding: 5px;
-  @media(min-width:0px) and (max-width:767px){
-   width:22.563rem;
-   height: 6.813rem;
-}
-  @media (min-width: 768px) and (max-width: 1240px){
-      width: 41.5rem;
-    }
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    height: 6.813rem;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+  }
 `;
 
 const Heading = styled.span`
@@ -812,7 +925,7 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  @media  (min-width: 0px) and  (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -824,7 +937,7 @@ const Heading = styled.span`
     text-align: left;
     color: #2a2a2a;
   }
-  @media  (min-width: 768px) and  (max-width:1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -841,24 +954,24 @@ const ImageViewInputData = styled.img`
   width: 15px;
   margin-right: 15px;
   padding-bottom: 30px;
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width:11px;
-   padding-bottom: 17px;
-  
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 11px;
+    padding-bottom: 17px;
   }
-  @media  (min-width: 768px) and  (max-width: 1240px) {
-   width: 0.875rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 0.875rem;
   }
 `;
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width: 0.688rem;
-   height: 0.688rem;
+  cursor: pointer;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.688rem;
+    height: 0.688rem;
   }
-  @media  (min-width: 768px) and  (max-width: 1240px) {
-   width: 0.875rem;
-   height:0.875rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 0.875rem;
+    height: 0.875rem;
   }
 `;

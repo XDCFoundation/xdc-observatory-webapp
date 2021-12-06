@@ -89,7 +89,6 @@ export default class LatestTransactionList extends BaseComponent {
 
 
                 if (error) {
-                    console.log("hello error");
                 }
             }
         });

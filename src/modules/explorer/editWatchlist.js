@@ -14,6 +14,13 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
+import { useEffect } from "react";
+import styled from "styled-components";
+import utility, { dispatchAction } from "../../utility";
+import { WatchListService } from "../../services";
+import { eventConstants, genericConstants } from "../../constants";
+import { connect } from "react-redux";
+
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -24,14 +31,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
+  },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -57,14 +66,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px",
   },
   input: {
-    width: "400px",
+    width: "506px",
     height: "3px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-
+    marginBottom: "21px",
   },
   // addbtn: {
   //   width: "110px",
@@ -84,15 +93,22 @@ const useStyles = makeStyles((theme) => ({
 
   // },
 
-  addbtn: {
+  updatebtn: {
     width: "110px",
     height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
     padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
+    color: "white",
+  },
+  deletebtn: {
+    width: "110px",
+    height: "34px",
+    margin: "14px 0px 15px 20px",
+    padding: "6px 19px 3px 20px",
+    borderRadius: "4px",
+    backgroundColor: "Red",
     color: "white",
   },
 
@@ -109,16 +125,22 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    justifyContent: "space-between",
+    padding: "10px 35px 15px 0px",
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
-    // fontWeight: "50px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    marginBottom: "2px",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px"
   },
   forgotpass: {
     color: "#2149b9",
@@ -140,23 +162,56 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginLeft: "10px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
+  },
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
+    dialogBox: {
+      width: "362px",
+      top: "95px"
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    },
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
+    },
+    flexButton: {
+      display: "flex",
+    }
   },
 }));
 
-export default function FormDialog() {
+function EditWatchList(props) {
   const [open, setOpen] = React.useState(false);
 
+  const [_id, setId] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
+  console.log("check",props);
+
+  useEffect(() => {
+    if (props.row.address) setAddress(props.row.address);
+    setDescription(props.row.description);
+    setId(props.row._id)
+  }, []);
 
   const classes = useStyles();
 
@@ -164,7 +219,7 @@ export default function FormDialog() {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     setOpen(false);
   };
   const [value, setValue] = React.useState("female");
@@ -175,118 +230,199 @@ export default function FormDialog() {
 
   const handleLogin = () => {
     //   history.push("/loginprofile")
+    setOpen(false);
+  };
+
+  const [edit, setEdit] = React.useState();
+  const validateAddress = () => {
+
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      return true;
+      // watchListService();
+    } else {
+      setError("Address should start with xdc & 43 characters");
+      return false;
+    }
   };
 
   const watchListService = async () => {
     const request = {
-      UserId: "12345",
+      _id: props.row._id,
       address: address,
       description: description,
     };
-    const response = PutWatchlist.putWatchlist(request);
-  };
-
+    if (validateAddress()) {
+      // validateAddress();
+      const [error, response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
+      if (error || !response) {
+        utility.apiFailureToast("Error");
+      } else {
+        utility.apiSuccessToast("Address Updated");
+       window.location.href = "loginprofile";
+      }
+    };
+  }
+  
+  // const watchListService = async () => {
+  //   const request = {
+  //     _id: props.row._id,
+  //     address: address,
+  //     description: description,
+  //   };
+  //   validateAddress();
+  //   const response = PutWatchlist.putWatchlist(request);
+  //   utility.apiSuccessToast("Changes updated successfully")
+  //   window.location.reload();
+  // };
+  const handleDelete = async (watchlist) => {
+    if (props?.row?._id) {
+      props.dispatchAction(eventConstants.SHOW_LOADER, true)
+      const [error, response] = await utility.parseResponse(WatchListService.deleteWatchlist({ _id: props.row._id }))
+      props.dispatchAction(eventConstants.HIDE_LOADER, true)
+      if (error || !response) {
+        utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_WATCHLIST);
+        return;
+      }
+      await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
+      await handleClose();
+      await props.getWatchlistList()
+    }
+  }
   return (
     <div>
       <div onClick={handleClickOpen}>
-        <div color="primary" style={{ margin: "-7px 0px 0px 0px" }}>
-          <a className="linkTable">
-            <span className="tabledata">Edit</span>
+        <button className={classes.btn}>
+          <a className="linkTable1">
+            <span className="tabledata1">Edit</span>
           </a>
-        </div>
+        </button>
       </div>
 
       <div>
         <Dialog
-          className={classes.dialog}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Edit address to your watchlist
-            </DialogTitle>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
-            </DialogContentText>
-            <input
-              className={classes.input}
-              onChange={(e) => setAddress(e.target.value)}
+            <Row>
+              <div className={classes.heading} id="form-dialog-title">
+                Edit Watchlist
+              </div>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Address
+              </DialogContentText>
+              <input
+                value={address}
+                className={classes.input}
+                onChange={(e) => {setAddress(e.target.value)
+                setError("")
+              }}
+              
             ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Description</b>
-            </DialogContentText>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Description
+              </DialogContentText>
 
-            <input
-              type="text"
-              className={classes.input}
-              onChange={(e) => setDescription(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              <b>Notifications</b>
-            </DialogContentText>
-            <FormControl
-              component="fieldset"
-              style={{ backgoundColor: "red !important" }}
-              className={classes.main_div}
-            >
-              <RadioGroup
-                aria-label="gender"
-                name="gender1"
-                className={classes.radio}
-                style={{ margin: "-5px 28px -3px -10px" }}
-                value={value}
-                onChange={handleChange}
+              <input
+                type="text"
+                value={description}
+                className={classes.input}
+                onChange={(e) => setDescription(e.target.value)}
+              ></input>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Notifications
+              </DialogContentText>
+              <FormControl
+                component="fieldset"
+                style={{ backgoundColor: "red !important" }}
+                className={classes.main_div}
               >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "5px 2px -5px -5px" }}
-                  label="No Notifications"
-                />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Incoming & Outgoing Txns"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Incoming (Recieve) Txns Only"
-                />
-                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
-                <FormControlLabel
-                  value="disabled"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Outgoing (Sent) Txns Only"
-                />
-              </RadioGroup>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className={classes.buttons} onClick={handleClose}>
-            <span>
-              <button className={classes.cnlbtn} onClick={handleLogin}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={watchListService}>
-                Edit
-              </button>
-            </span>
-          </DialogActions>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  className={classes.radio}
+                  style={{ margin: "-5px 28px -3px -10px" }}
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="female"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    classes={{ label: classes.notifyLabel }}
+                    style={{ margin: "5px 2px -5px -5px" }}
+                    label="No Notifications"
+                  />
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="male"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
+                    label="Notify on Incoming & Outgoing Txns"
+                  />
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="other"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
+                    label="Notify on Incoming (Recieve) Txns Only"
+                  />
+                  {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="disabled"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    classes={{ label: classes.notifyLabel }}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    label="Notify on Outgoing (Sent) Txns Only"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </DialogContent>
+            <DialogActions className={classes.buttons}>
+              <div>
+                <span>
+                  <button className={classes.deletebtn} onClick={handleDelete}>
+                    Delete
+                  </button>
+                </span>
+              </div>
+              <div className={classes.flexButton}>
+                <span>
+                  <button className={classes.cnlbtn} onClick={handleLogin}>
+                    Cancel
+                  </button>
+                </span>
+                <span>
+                  <button
+                    className={classes.updatebtn}
+                    onClick={watchListService}
+                  >
+                    Update
+                  </button>
+                </span>
+              </div>
+            </DialogActions>
         </Dialog>
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+export default connect(mapStateToProps, { dispatchAction })(EditWatchList);
