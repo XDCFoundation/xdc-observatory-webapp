@@ -57,6 +57,11 @@ export default function AccountComponent(props) {
                 props._handleSearch(e)
               }
 
+            }}
+            onChange={(e) => {
+              if (e.target.value == "") {
+                props._handleSearch(e)
+              }
             }} className="account-searchbar"
             type="text"
             placeholder="Search Accounts" />
@@ -73,7 +78,7 @@ export default function AccountComponent(props) {
                   <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left" ><span className={"tableheaders_1_address"}>Address</span></TableCell>
                   <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
                   <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
-                  <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1"}>Percentage</span></TableCell>
+                  <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell>
                 </TableRow>
               </TableHead>
               {props.state.isLoading == true ? (

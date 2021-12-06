@@ -19,6 +19,9 @@ import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import ReactHtmlParser from "react-html-parser";
 import Tooltip from "@material-ui/core/Tooltip";
+import { TransactionService } from "../../services";
+import { sessionManager } from "../../managers/sessionManager";
+import Utils from "../../utility";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -80,6 +83,8 @@ export default function AddressDetails(props) {
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem("currency");
+  const [addressTag, setAddressTag] = useState("")
+  const [isTag, setIsTag] = useState(false)
 
   let { addr } = useParams();
   let addressValue = 0;
@@ -145,8 +150,24 @@ export default function AddressDetails(props) {
       lowerCaseTags: false,
     },
   };
+
+  const tagUsingAddressHash = async () => {
+    const data = {
+      address: addr,
+      userId: sessionManager.getDataFromCookies("userId")
+    }
+
+    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (error || !tagUsingAddressHashResponse) return;
+    setAddressTag(tagUsingAddressHashResponse);
+    setIsTag(true);
+  }
+
   useEffect(() => {
     getAddressDetails();
+    tagUsingAddressHash();
   }, []);
   return (
     <div style={{ backgroundColor: "#fff" }}>
@@ -155,20 +176,31 @@ export default function AddressDetails(props) {
         <div className={classes.mainContainer}>
           <div className={classes.root}>
             <Grid style={{ width: "75.125rem" }}>
+              <AddressPath>
+                <Explorer>Explorer</Explorer>
+                <Next src={require("../../../src/assets/images/next.svg")} />
+                <Address>Address</Address>
+              </AddressPath>
               <Spacing style={{ borderBottom: "none" }}>
                 <Container>
                   <Heading>Address Details</Heading>
                 </Container>
               </Spacing>
-
               <Div>
                 <Spacing>
                   <HashDiv>
                     <Container>
-                      <Hash>Hash ID</Hash>
+                      <Tooltip title="An address is a unique sequence of numbers and letters">
+                        <ImageView
+                          src={require("../../../src/assets/images/questionmark.svg")}
+                        />
+                      </Tooltip>
+                      <Hash>Address</Hash>
+
                     </Container>
                     <MiddleContainerHash>
                       <Content>{addr}</Content>
+                      {isTag ? (<div className="nameLabel1">{addressTag[0]?.tagName}</div>) : ("")}
                     </MiddleContainerHash>
                     <SecondContainer>
                       <CopyToClipboard
@@ -194,6 +226,7 @@ export default function AddressDetails(props) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
+
                       <Popup
                         trigger={
                           <ImQrcode
@@ -207,6 +240,7 @@ export default function AddressDetails(props) {
                             }}
                           />
                         }
+                        lockScroll
                         modal
                       >
                         {(close) => (
@@ -216,7 +250,7 @@ export default function AddressDetails(props) {
                                 <button
                                   style={{
                                     outline: "none",
-                                    width: "0rem",
+                                    // width: "0rem",
                                     height: "0rem",
                                     marginLeft: "0rem",
                                   }}
@@ -236,12 +270,19 @@ export default function AddressDetails(props) {
                                   {" "}
                                   {addr}{" "}
                                 </div>
-                                <QRCode
-                                  size={320}
-                                  className="qrcode-label"
-                                  //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
-                                />
+                                {window.innerWidth > 767 ?
+                                  <QRCode
+                                    size={320}
+                                    style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                    value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                                  /> :
+                                  <QRCode
+                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                    size={320}
+                                    className="qrcode-label"
+                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                    value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                                  />}
                               </div>
                             </p>
                           </div>
@@ -250,7 +291,7 @@ export default function AddressDetails(props) {
                     </SecondContainer>
                   </HashDiv>
                 </Spacing>
-                <Spacing style={{ borderBottom: "none" }}>
+                {/* <Spacing style={{ borderBottom: "none" }}>
                   <HashDiv>
                     <Container>
                       <Hash>Balance</Hash>
@@ -262,7 +303,7 @@ export default function AddressDetails(props) {
                       </Content>
                     </MiddleContainerHash>
                   </HashDiv>
-                </Spacing>
+                </Spacing> */}
               </Div>
             </Grid>
           </div>
@@ -372,16 +413,6 @@ export default function AddressDetails(props) {
             <AddressTableComponent trans={transactions} coinadd={addr} />
           </div>
 
-          <div
-            className={
-              toggleState === 2
-                ? "content_sec  active-content_sec"
-                : "content_sec"
-            }
-          >
-            <AddressTableComponent trans={transactions} />
-          </div>
-
         </div>
       </Grid>
       <FooterComponent />
@@ -472,6 +503,7 @@ const MiddleContainerHash = styled.div`
   color: #3a3a3a;
   margin-left: 6.25rem;
   width: 100%;
+  display: flex;
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.75rem;
     margin-left: unset;
@@ -500,7 +532,6 @@ const Spacing = styled.div`
   height: auto;
   align-items: center;
   padding: 0.188rem 0.25rem;
-  border-bottom: solid 0.063rem #e3e7eb;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -540,7 +571,7 @@ const Div = styled.div`
   border: solid 0.063rem #e3e7eb;
   background-color: #fff;
   margin-bottom: 0.938rem;
-  padding: 0.313rem;
+  // padding: 0.313rem;
   margin-top: 0.625rem;
     @media (min-width: 300px) and (max-width: 767px) {
     width: 22.563rem;
@@ -556,10 +587,35 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 1.125rem;
 `;
 
 const ImageView = styled.img`
   width: 0.938rem;
   margin-right: 0.938rem;
+  cursor: pointer;
+`;
+
+const AddressPath = styled.div`
+  width: 100%;
+  font-size: 0.875rem;
+  display: flex;
+  margin-bottom: 12px;
+  margin-Left: 4px;
+  margin-top: -30px;
+  ;
+`;
+
+const Explorer = styled.div`
+  color: #2149b9;
+`;
+const Address = styled.div`
+  color: #686868;
+`;
+const Next = styled.img`
+  width: 7px;
+  height: 7px;
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 4px;
 `;

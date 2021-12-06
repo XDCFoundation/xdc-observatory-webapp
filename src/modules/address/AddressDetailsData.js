@@ -81,7 +81,6 @@ export default function AddressDetailsData() {
       const [error, responseData] = await Utility.parseResponse(
         ContractData.getContractDetails(values)
       );
-      console.log(responseData, "787")
       if (responseData.address != '') {
         setResponses(responseData)
         let activeCurrency = window.localStorage.getItem('currency')
@@ -264,7 +263,7 @@ export default function AddressDetailsData() {
               }
             >
 
-              {!responses ? "" : responses.status === "verified" ? <TokenUnverifiedContract contractData={responses} /> : <TokenContracttab contractData={responses} />}
+              {!responses ? "" : responses.status === "unverified" ? <TokenUnverifiedContract contractData={responses} /> : <TokenContracttab contractData={responses} />}
             </div>
             {/* <div
               className={

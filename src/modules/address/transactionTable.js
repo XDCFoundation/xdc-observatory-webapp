@@ -300,7 +300,6 @@ export default function TransactionTableComponent(props) {
   }, [])
   const classes = useStyles()
   const history = useHistory()
-  console.log(address, "?<>?")
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
@@ -460,68 +459,68 @@ export default function TransactionTableComponent(props) {
                               className="linkTable"
                               href={'/transaction-details/' + row.hash}
                             >
-                              <Tooltip placement="top" title={row.TxHash}>
+                              <Tooltip placement="top" title={row.hash}>
                                 <span className="tabledata">
-                                  {shorten(row.TxHash)}{' '}
+                                  {shorten(row.hash)}{' '}
                                 </span>
                               </Tooltip>
                             </a>
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
-                            <span className="tabledata">{row.Age}</span>
+                            <span className="tabledata">{TimeAge}</span>
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.Block}
+                              href={'/block-details/' + row.blockNumber}
                             >
-                              <span className="tabledata">{row.Block}</span>
+                              <span className="tabledata">{row.blockNumber}</span>
                             </a>
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
-                            {row.From != addr ? (
+                            {row.from != addr ? (
                               <a
                                 className="linkTable"
                                 href={'/address-details/' + row.from}
                               >
-                                <Tooltip placement="top" title={row.From}>
+                                <Tooltip placement="top" title={row.from}>
                                   <span className="tabledata">
                                     {' '}
-                                    {shorten(row.From)}
+                                    {shorten(row.from)}
                                   </span>
                                 </Tooltip>
                               </a>
                             ) : (
-                              <Tooltip placement="top" title={row.From}>
+                              <Tooltip placement="top" title={row.from}>
                                 <span className="tabledata">
                                   {' '}
-                                  {shorten(row.From)}
+                                  {shorten(row.from)}
                                 </span>
                               </Tooltip>
                             )}
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
-                            {row.To != addr ? (
+                            {row.to != addr ? (
                               <a
                                 className="linkTable"
-                                href={'/address-details/' + row.To}
+                                href={'/address-details/' + row.to}
                               >
-                                <Tooltip placement="top" title={row.To}>
+                                <Tooltip placement="top" title={row.to}>
                                   <span className="tabledata">
-                                    {shorten(row.To)}
+                                    {shorten(row.to)}
                                   </span>
                                 </Tooltip>
                               </a>
                             ) : (
-                              <Tooltip placement="top" title={row.To}>
+                              <Tooltip placement="top" title={row.to}>
                                 <span className="tabledata">
-                                  {shorten(row.To)}
+                                  {shorten(row.to)}
                                 </span>
                               </Tooltip>
                             )}
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
-                            <span className="tabledata">{row.Amount}</span>
+                            <span className="tabledata">{row.value}</span>
                           </TableCell>
                         </TableRow>
                       )

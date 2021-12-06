@@ -25,7 +25,6 @@ import FormLabel from "@material-ui/core/FormLabel";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
 
-
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -36,13 +35,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "90px",
   },
   btn: {
-    // border: "none !important",
-    // color: "black",
-    // textTransform: "unset",
-    // backgroundColor: "#f5f8fa",
-    // marginLeft: "-60px",
-    // "&:hover":{backgroundColor: "#f5f8fa"}
-    // marginLeft: "90px"
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
   },
   value: {
     width: "400px !important",
@@ -51,9 +48,9 @@ const useStyles = makeStyles((theme) => ({
     // lineHeight: "-100px !important",
     // backgoundColor: "red",
     marginTop: "4px",
-},
-  radio :{
-    // backgroundColor: "blue",
+  },
+  radio: {
+    // backgroundColor: "#979797",
   },
   cross: {
     marginTop: "25px",
@@ -75,13 +72,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    marginBottom: "21px",
+    marginBottom: "20px",
     outline: "none",
-
   },
 
-
-    // addbtn: {
+  // addbtn: {
   //   width: "110px",
   // height: "34px",
   // margin: "33px 0 0 21px",
@@ -124,15 +119,16 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "15px 35px 20px 0px"
-      },
+    padding: "15px 35px 20px 0px",
+  },
   subCategory: {
     marginTop: "-12px",
     marginBottom: "2px",
     // fontWeight: "50px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
   },
   forgotpass: {
@@ -154,11 +150,19 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "5px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px",
+  },
   heading: {
-      marginTop: "7px",
-      marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600"
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
   },
   dialogBox: {
     width: "553px",
@@ -166,43 +170,49 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
-  "@media (max-width: 768px)":{
+  notifyLabel: {
+    fontSize: "14px",
+    color: "#2a2a2a",
+  },
+  "@media (max-width: 714px)": {
+    heading: {
+      fontSize: "16px"
+    },
     dialogBox: {
-      maxWidth: "553px",
-      width: "100%",
-      position: "absolute",
-      top: "157px",
-      
+      width: "362px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
       width: "100%",
-    }
-  }
+    },
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
+    },
+  },
 }));
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
   const [address, setAddress] = React.useState("");
+
   const [description, setDescription] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  const [notification, setNotification] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
- 
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const classes = useStyles();
+  
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
@@ -210,33 +220,61 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-      // history.push("/loginprofile")
+    setError("");
   };
 
   const watchListService = async () => {
+    setOpen(false);
     const request = {
-      UserId: sessionManager.getDataFromCookies("userId"),
+      userId: sessionManager.getDataFromCookies("userId"),
       address: address,
       description: description,
+      type: value,
+      isEnabled: true,
     };
-    const response = AddWatchList.addWatchlist(request);
+    if (value === "NO") request["isEnabled"] = false;
+    
+
+    const [error, response] = await utility.parseResponse(
+      AddWatchList.addWatchlist(request)
+    );
+
+    if (error) {
+      utility.apiFailureToast("Address already exists");
+      return;
+    }
     utility.apiSuccessToast("Address added to watchlist");
+   window.location.href = "loginprofile";
+    setAddress("");
+    setDescription("");
   };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const validateAddress = () => {
+  
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      watchListService();
+    } else {
+      setError("Address should start with xdc & 43 characters");
+    }
+    
+  };
+
+  const classes = useStyles();
+
+ 
+  
 
   return (
     <div>
-      {/* <div className="div2" onClick={handleClickOpen}>
-                <div >
-                <img className="imagediv2" src={require("../../../assets/images/transaction.png")}></img>
-                    </div>
-                    <div className="headingdiv2">
-                    Add Transaction label
-                    </div>
-                    <div className="paradiv2">
-                     Add a personal note to transacton hash to track it in future
-                    </div>
-                    
-                </div> */}
 
       <div className="div1" onClick={handleClickOpen}>
         <div>
@@ -245,11 +283,13 @@ export default function FormDialog() {
             src={require("../../../assets/images/watchlist.png")}
           ></img>
         </div>
-        <div className="headingdiv1">Create Watchlist</div>
-        <div className="paradiv1">
-          An Email notification can be sent to you when an address on your
-          watchlist recieves an incoming notifications
-        </div>
+        <button className={classes.btn}>
+          <div className="headingdiv1">Create watchlist</div>
+          <div className="paradiv1">
+            An Email notification can be sent to you when an address on your
+            watch list recieves an incoming transaction.
+          </div>
+        </button>
       </div>
 
       {/* <Button
@@ -264,30 +304,34 @@ export default function FormDialog() {
       <div>
         <Dialog
           className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new address to your watchlist
-            </DialogTitle>
+            <div className={classes.heading} id="form-dialog-title">
+              Add a New Address to your Watchlist
+            </div>
           </Row>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Address</b>
+              Address
             </DialogContentText>
-            <input 
+            <input
               className={classes.input}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) => {setAddress(e.target.value)
+                setError("")
+              }}
+              
             ></input>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Description</b>
+              Description
               {/* <span  className={classes.forgotpass}>
-              Forgot Password?
+              Forgot ?
             </span> */}
             </DialogContentText>
 
@@ -302,23 +346,8 @@ export default function FormDialog() {
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
-              <b>Notifications</b>
+              Notifications
             </DialogContentText>
-            {/* <input className={classes.input}></input> */}
-            {/* 
-            import React from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel'; */}
-
-            {/* export default function RadioButtonsGroup() { */}
-            {/* //   const [value, setValue] = React.useState('female');
-
-//   const handleChange = (event) => {
-//     setValue(event.target.value);
-//   }; */}
 
             <FormControl
               component="fieldset"
@@ -327,37 +356,47 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
             >
               {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
               <RadioGroup
-                aria-label="gender"
-                name="gender1"
                 className={classes.radio}
                 style={{ margin: "-5px 28px -3px -10px" }}
                 value={value}
                 onChange={handleChange}
               >
                 <FormControlLabel
-                  value="female"
-                  control={<Radio style={{ color: "#2149b9" }} />}
-                  style={{ margin: "5px 2px -5px -5px" }}
+                  className="radio-inside-dot"
+                  value="NO"
+                  control={<Radio style={{ color: "#979797" }} />}
+                  style={{ margin: "5px 2px -5px -5px",}}
+                  classes={{ label: classes.notifyLabel }}
                   label="No Notifications"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
-                  value="male"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  className="radio-inside-dot"
+                  value="INOUT"
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming & Outgoing Txns"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 <FormControlLabel
-                  value="other"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  className="radio-inside-dot"
+                  value="IN"
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming (Recieve) Txns Only"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
-                  value="disabled"
-                  control={<Radio style={{ color: "#2149b9" }} />}
+                  className="radio-inside-dot"
+                  value="OUT"
+                  control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
                   label="Notify on Outgoing (Sent) Txns Only"
+                  onClick={(e) => setNotification(e.target.value)}
                 />
               </RadioGroup>
             </FormControl>
@@ -368,8 +407,8 @@ import FormLabel from '@material-ui/core/FormLabel'; */}
                 Cancel
               </button>
             </span>
-            <span onClick={handleClose}>
-              <button className={classes.addbtn} onClick={watchListService}>
+            <span >
+              <button className={classes.addbtn} onClick={watchListService, validateAddress}>
                 Add
               </button>
             </span>

@@ -4,12 +4,13 @@ import swal from "sweetalert";
 import Cookies from "universal-cookie";
 import React from "react";
 import ToastService from 'react-material-toast';
-import aws from "aws-sdk";
 
+import AwsService  from "../services/awsService";
 const toast = ToastService.new({
     place: 'topRight',
-    duration: 1,
-    maxCount: 2
+    duration: 3,
+    maxCount: 5,
+    
 });
 let moment = require('moment');
 const cookies = new Cookies();
@@ -36,8 +37,7 @@ const utility = {
     isEmpty,
     isMenuActive,
     isPasswordValid,
-    getSignedUrl,
-    uploadFileToS3,
+    
     showUnderDevelopment,
     epochToDate,
     getDateAfterOneYear,
@@ -58,7 +58,10 @@ const utility = {
     secondsToTime,
     getDateFormat,
     changeDateFormat,
-    getAggregatedPercWercQueryObject
+    getAggregatedPercWercQueryObject,
+    uploadImage,
+    shortenUserName,
+    shortenHash
 };
 export default utility;
 
@@ -74,8 +77,39 @@ function trackEvent(event, eventData) {
     //     else
     //         mixpanel.track(event, eventData);
     // } catch (err) {
-    //     console.log(err)
+    //     
     // }
+}
+
+
+async function uploadImage(request) {
+    try {
+        let [error, response] = await parseResponse(new AwsService().updateUser(request))
+        if (error) {
+            throw error && error.message ? error.message : error ? error : 'Upload file Failed'
+        }
+        return response.responseData[0]
+    } catch (error) {
+        throw error
+    }
+}
+
+
+function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
+    if(b.length >12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 0,
+        b.length
+    )}`;
+    else return b;
+}
+function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
+    if(b.length >12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+        b.length - 4,
+        b.length
+    )}`;
+    else return b;
 }
 
 function getDateFormat() {
@@ -173,7 +207,7 @@ function apiFailureToast(message) {
 
 function apiSuccessToast(msg) {
     toast.success(msg ? msg : "apiConstant.API_SUCCESS");
-}
+};
 
 function generateGUID() {
     var nav = window.navigator;
@@ -305,7 +339,7 @@ function getActivityDateEpochRange(activityDate) {
             start.setMonth(start.getMonth() - 3);
             return { start: start.getTime(), end: startDayEpochOfCurrentQuarter };
         case "Last Year":
-            console.log(startDayEpochOfCurrentYear)
+            
             start = new Date(startDayEpochOfCurrentYear);
             start.setFullYear(start.getFullYear() - 1);
             return { start: start.getTime(), end: startDayEpochOfCurrentYear };
@@ -452,50 +486,8 @@ function generateCompanyLogoKey() {
     return currentTimeStamp + "_" + generateRandomAlphaNumericString(13);
 }
 
-function uploadFileToS3(fileObject, fileName, mimeType, isPublic = false) {
-    let config = {
-        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY
-    }
-    aws.config.update(config);
-    console.log("config", config);
-    console.log("fileObject", fileObject);
-    const S3 = new aws.S3();
-    const params = {
-        Body: fileObject,
-        Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME,
-        ContentType: mimeType,
-        Key: fileName
-    };
-    if (isPublic)
-        params.ACL = 'public-read';
 
-    return new Promise(function (resolve, reject) {
-        S3.upload(params, function (err, uploadData) {
-            if (err)
-                reject(err);
-            resolve(uploadData);
-        });
-    });
-}
 
-function getSignedUrl(fileName) {
-    if (!fileName)
-        return "";
-    aws.config.update({
-        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
-        secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY
-    });
-    aws.config.region = process.env.REACT_APP_AWS_S3_BUCKET_REGION;
-    const s3 = new aws.S3();
-    const params = {
-        Bucket: process.env.REACT_APP_AWS_S3_BUCKET_NAME,
-        Key: fileName ? fileName : '',
-        Expires: 600000,
-    };
-    let signedUrl = s3.getSignedUrl('getObject', params);
-    return signedUrl;
-}
 
 function showUnderDevelopment() {
     basicAlert("Under Development")
@@ -509,7 +501,6 @@ function getCompanyObject(propsOfComponent) {
 
 function isCompanyBalanceLow(company) {
     if (!company || !company.tokenEconomy || !company.tokenEconomy) {
-        console.log('return false')
         return false;
     }
     let remainingMonth = (new Date(company.tokenEconomy.endDate)).getMonth() - (new Date()).getMonth() +
@@ -689,7 +680,6 @@ function getTimestampFromDate(year, month, date = 0) {
 }
 
 function extractDate(date, getType) {
-    console.log("date", typeof date, "getType", getType);
     switch (getType) {
         case "DAY":
             return new Date(date.toString()).getDate();
@@ -712,7 +702,6 @@ function changeDateFormat(date, newFormat) {
 }
 
 function getAggregatedPercWercQueryObject(start, end, skip, id) {
-    console.log(start, end, skip, id);
     return [
         {
             "$match": {

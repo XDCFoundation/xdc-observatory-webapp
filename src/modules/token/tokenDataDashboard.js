@@ -92,7 +92,7 @@ const LeftFirst = styled.div`
    padding: 1.875rem 0;
   }
   @media (min-width:767px) and (max-width:1240px){
-   padding: 3.125rem 0 1.125rem;
+   padding: 1.5rem 0 1.125rem;
   }
 `;
 const LeftSec = styled.div`
@@ -150,7 +150,7 @@ const TitleValue = styled.div`
   font-weight: bold;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px){
     font-size: 0.875rem;
   }
@@ -179,7 +179,7 @@ const LeftTitle = styled.div`
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.9px;
-  color: #252525;
+  color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px){
     font-size: 1.375rem;
   }
@@ -206,7 +206,7 @@ const LeftTopSec = styled.div`
   font-weight: 800;
   font-family: Inter;
   letter-spacing: 0.55px;
-  color: #252525;
+  color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px){
     font-size: 1rem;
   }
@@ -263,13 +263,13 @@ const RightTitle = styled.div`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.01px;
-    color: #9FA9BA;
+    color: #2a2a2a;
   }
   @media (min-width:767px) and (max-width:1240px){
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.54px;
-    color: #252525;
+    color: #2a2a2a;
   }
   
   `;
@@ -277,7 +277,7 @@ const Line2 = styled.hr`
   background-color: #e3e7eb !important;
   width: 100%;
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 0%;
   @media (max-width:767px){
     width:100%;
@@ -290,7 +290,7 @@ const Line2 = styled.hr`
 `;
 const RightTopSec = styled.div`
   width: 3.938rem;
-    height: 1.375rem;
+    height: 1.15rem;
     font-size: 0.875rem;
     padding: 4.5px;
     color: #2a2a2a;
@@ -300,7 +300,7 @@ const RightTopSec = styled.div`
     background-size: cover;
     font-family: "Inter" !important;
     font-weight: 600;
-    padding-top: 2px;
+    padding-top: 1px;
     @media (min-width:0px) and (max-width:767px){
     font-size: 0.75rem;
     width: 3.438rem;
@@ -309,7 +309,7 @@ const RightTopSec = styled.div`
   @media (min-width:767px) and (max-width:1240px){
     font-size: 0.875rem;
     width: 4.063rem;
-    height: 1.573rem;
+    height: 1.375rem;
     
   }
 `;
@@ -332,6 +332,8 @@ export default function TokenDataComponent() {
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({})
   const { address } = useParams();
+  const { tn } = useParams();
+
   function shorten(b, amountL = 14, amountR = 0, stars = 3) {
     return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(b.length)} `;
   }
@@ -390,7 +392,7 @@ export default function TokenDataComponent() {
   React.useEffect(() => {
     (async () => {
       let token = 'XDC'
-      await CoinMarketExchangeForToken(tokenName)
+      await CoinMarketExchangeForToken(tn)
     })();
   }, []);
   let activeCurrency = window.localStorage.getItem('currency')
@@ -434,7 +436,7 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <LeftTitle>{tokenName.toUpperCase()}</LeftTitle>
+                <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
 
               <LeftTopSecMain>

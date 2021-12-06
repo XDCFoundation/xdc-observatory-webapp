@@ -67,7 +67,15 @@ export const genericConstants = {
     PASSWORD_DID_NOT_MATCH: "Both the passwords did not match",
     PASSWORD_UPDATE_SUCCESS: "Your Password has been updated successfully",
     RESET_PASSWORD_MAIL_SENT: "A reset password mail is sent successfully",
-    PASSWORD_UPDATE_FAILED: "Failed to update your password"
+    PASSWORD_UPDATE_FAILED: "Failed to update your password",
+    CANNOT_GET_NOTIFICATIONS: "Can't get notifications",
+    CANNOT_CLEAR_NOTIFICATIONS : "Can't clear notifications",
+    WATCHLIST_DELETED: "WatchList Deleted Succesfully",
+    CANNOT_DELETE_WATCHLIST:"Cannot delete watchlist",
+    CANNOT_DELETE_TXN_PRIVATE_NOTE:"Cannot delete Txn Private Note",
+    TXN_PRIVATE_NOTE_DELETED:"Txn Private Note Deleted Succesfully",
+    CANNOT_DELETE_TAGGED_ADDRESS:"Cannot delete Tagged Address",
+    TAGGED_ADDRESS_DELETED:"Tagged Address Deleted Succesfully"
 
 }
 

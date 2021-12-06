@@ -10,4 +10,11 @@ export { default as CoinMarketService } from "./coinMarket"
 export { default as BlockService } from "./blocks"
 export { default as TpsService } from './tpsCounter'
 export { default as UserService } from './user'
+export { default as NotificationService } from './notification'
+export { default as WatchListService } from './watchlist'
+export { default as TagAddressService } from './tagAddress'
+
+
+
+
 // export { default as TokenService } from './token'

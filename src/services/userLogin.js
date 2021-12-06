@@ -1,8 +1,7 @@
-import auth0 from "auth0-js";
+
 import { httpService } from "../utility/httpService";
 import { httpConstants } from "../constants";
-import { sessionManager } from "../managers/sessionManager";
-import { history } from "../managers/history";
+
 
 export default class Auth0Service {
   constructor() {
@@ -19,8 +18,8 @@ export default class Auth0Service {
     )
       .then((response) => {
         if (
-          !response.message ||
-          response.success !== 200 ||
+          !response.success ||
+          response.responseCode !== 200 ||
           !response.responseData ||
           response.responseData.length === 0
         )
@@ -90,8 +89,7 @@ export default class Auth0Service {
       });
   }
   async  logout(reqObj) {
-    let url = "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/log-out"
-    console.log(reqObj,url,"autheee")
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"log-out"
     return httpService(
       httpConstants.METHOD_TYPE.GET,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -106,14 +104,13 @@ export default class Auth0Service {
            response.responseData.length === 0
         )
           return Promise.reject();
-          console.log("responseeee", response.responseData);
         return Promise.resolve(response.responseData);
       })
       .catch(
         function (err) {
           return Promise.reject(err);
         }
-        // console.log("respposne",response);
+        
       );
   }
 
@@ -135,7 +132,6 @@ export default class Auth0Service {
           response.responseData.length === 0
         )
           return Promise.reject(response);
-        console.log("getuserresponseeeeee", response.responseData);
         return Promise.resolve(response.responseData);
       })
       .catch((err) => {
@@ -170,10 +166,10 @@ export default class Auth0Service {
       });
   }
   async changePassword(reqObj) {
-    // let url = process.env.REACT_APP_AUTH_SERVICE_BASE_URL + "change-password";
-    let url =
-      "http://xinfin-explorer-elb-944849870.us-east-1.elb.amazonaws.com:3003/change-password";
-    console.log("autheeee", reqObj);
+    
+    
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"change-password"
+   
     return httpService(
       httpConstants.METHOD_TYPE.POST,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -188,14 +184,40 @@ export default class Auth0Service {
           response.responseData.length === 0
         )
           return Promise.reject();
-        console.log("responseeee", response.responseData);
+        
         return Promise.resolve(response.responseData);
       })
       .catch(
         function (err) {
           return Promise.reject(err);
         }
-        // console.log("respposne",response);
+        
+      );
+  }
+  async updateUser(reqObj) {
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"update-user"
+    return httpService(
+      httpConstants.METHOD_TYPE.POST,
+      { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+      reqObj,
+      url
+    )
+      .then((response) => {
+        if (
+          !response.success ||
+          response.responseCode !== 200 ||
+          !response.responseData ||
+          response.responseData.length === 0
+        )
+          return Promise.reject();
+       
+        return Promise.resolve(response.responseData);
+      })
+      .catch(
+        function (err) {
+          return Promise.reject(err);
+        }
+       
       );
   }
 }
