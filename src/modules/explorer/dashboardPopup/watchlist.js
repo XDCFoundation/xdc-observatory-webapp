@@ -153,6 +153,7 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
+    marginTop: "-20px",
   },
   heading: {
     marginTop: "30px",
@@ -321,7 +322,7 @@ export default function FormDialog() {
               }}
               
             ></input>
-            <div className={classes.error}>{error}</div>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>

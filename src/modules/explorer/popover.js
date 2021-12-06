@@ -53,10 +53,12 @@ export default function BasicPopover(props) {
   const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
   const [openLoginBox, setOpenLoginBox] = React.useState(false)
     const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
+    const [openCP, setOpen] = React.useState(false);
     const closeLoginDialog = () => setLoginDialogIsOpen(false)
 
   const openChangePassword = () => {
-    setOpenPasswordBox(true);
+    setOpen(props.openChangePassword);
+    setAnchorEl(null);
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -115,7 +117,7 @@ export default function BasicPopover(props) {
         style={{ top: "55px", marginLeft: "-40px", borderRadius: "30px",width: "100%",height: "100%"}}
         id={id}
         open={open}
-       anchorEl={anchorEl}
+        anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
           vertical: "top",
@@ -124,7 +126,7 @@ export default function BasicPopover(props) {
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Text style={{ marginRight: "20px"}} onClick={props.openChangePassword} >Change Password</Text>
+          <Text style={{ marginRight: "20px"}} onClick={openChangePassword} >Change Password</Text>
         </Contents>
         <Contents >
           <Text style={{ marginRight: "auto" }} onClick={() => logOut()}>Log out</Text>
