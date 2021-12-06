@@ -439,6 +439,7 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false);
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
       setLoading(false);
