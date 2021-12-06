@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    marginBottom: "21px",
+    marginBottom: "20px",
     outline: "none",
   },
 
@@ -220,7 +220,7 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-    // history.push("/loginprofile")
+    setError("");
   };
 
   const watchListService = async () => {
@@ -248,6 +248,13 @@ export default function FormDialog() {
     setAddress("");
     setDescription("");
   };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const validateAddress = () => {
   
     if (
@@ -258,16 +265,12 @@ export default function FormDialog() {
     } else {
       setError("Address should start with xdc & 43 characters");
     }
+    
   };
 
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
   
 
   return (
@@ -404,7 +407,7 @@ export default function FormDialog() {
                 Cancel
               </button>
             </span>
-            <span onClick={handleClose}>
+            <span >
               <button className={classes.addbtn} onClick={watchListService, validateAddress}>
                 Add
               </button>
