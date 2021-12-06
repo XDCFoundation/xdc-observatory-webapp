@@ -194,10 +194,10 @@ export default function AddressTableComponent(props) {
       if (responseData.totalTransactionCount > 0) {
         setNoData(false)
         setLoading(false)
-
         parseResponseData(responseData, 1)
       } else {
         setNoData(true)
+        setLoading(false)
         setBalance(parseFloat(0).toFixed(2))
       }
     } catch (error) {
@@ -382,7 +382,7 @@ export default function AddressTableComponent(props) {
             style={{
               fontSize: '0.938rem',
               letterSpacing: 0.62,
-              width: '8.438rem',
+              width: '8.2rem',
               color: '#2a2a2a',
               fontFamily: 'Inter',
               outlineColor: '#fff',
@@ -571,7 +571,7 @@ export default function AddressTableComponent(props) {
                               </Tooltip>
                             </a>
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: 'none', color: "#2a2a2a" }} align="left">
                             <span className="tabledata">{TimeAge}</span>
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
@@ -625,7 +625,7 @@ export default function AddressTableComponent(props) {
                               </Tooltip>
                             )}
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: 'none', color: "#2a2a2a" }} align="left">
                             <span className="tabledata">{row.Value}</span>
                           </TableCell>
                         </TableRow>

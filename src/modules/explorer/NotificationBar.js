@@ -11,13 +11,15 @@ import styled from "styled-components";
 import { NotificationService } from "../../services";
 import utility, { dispatchAction } from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
-import { cookiesConstants, eventConstants, genericConstants, httpConstants } from "../../constants";
+import {  eventConstants, genericConstants } from "../../constants";
 import moment from "moment";
 import { connect } from "react-redux";
 
 const NoticationClear = styled.div`
   display: flex;
 `;
+
+
 
 const ListItems = styled.div`
   display: flex;
@@ -33,6 +35,26 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
+  "@media (max-width: 1240px)": {
+    paper: {
+      top: "8.375rem",
+    },
+  },
+  "@media (max-width: 767px)": {
+    paper: {
+      top: "11.438rem",
+      width: "13.313rem",
+    },
+  },
+  "@media (max-width: 449px)": {
+    paper: {
+      top: "12.438rem",
+      width: "13.313rem",
+    },
+  },
+  drawerHeader:{
+    marginTop:"8px"
+  }
 }));
 function TemporaryDrawer(props) {
   const classes = useStyles();
@@ -62,7 +84,6 @@ function TemporaryDrawer(props) {
         "type":"push"
       },
       "selectionString": ["description", "payload"]
-
     }
     props.dispatchAction(eventConstants.SHOW_LOADER, true)
     const [error, response] = await utility.parseResponse(NotificationService.getNotificationList(request));
@@ -112,7 +133,7 @@ function TemporaryDrawer(props) {
         <div className={classes.drawerHeader}>
           {/* <CloseIcon  onClick={toggleDrawer(anchor, false)} /> */}
           <IconButton
-            style={{ color: "White" }}
+            style={{ color: "White", margin: "2px 5px -10px 0"}}
             onClick={toggleDrawer(anchor, false)}
           >
             {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
@@ -142,7 +163,7 @@ function TemporaryDrawer(props) {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button
+          <div
             style={{ padding: "0px", background: "none" }}
           >
             <img
@@ -159,7 +180,7 @@ function TemporaryDrawer(props) {
             >
               {list(anchor)}
             </Drawer>
-          </Button>
+          </div>
         </React.Fragment>
       ))}
     </div>

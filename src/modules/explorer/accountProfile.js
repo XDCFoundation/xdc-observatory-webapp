@@ -33,8 +33,10 @@ import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
-import Utils from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
+import Loader from "../../assets/loader";
+import {cookiesConstants} from "../constants"
+import Utils from "../../utility"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -163,8 +165,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
+    //color: "#6b7482",
     textTransform: "none",
-    // color: "#2149b9",
+    //color: "#2149b9",
   },
   txnprivate: {
     height: "19px",
@@ -226,7 +229,8 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "500",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      // color: "#2149b9",
+    // color: "#2149b9",
+  
     },
     txnprivate: {
       height: "19px",
@@ -236,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       letterSpacing: "-0.5px",
       textAlign: "center",
-      color: "#6b7482",
+     // color: "#6b7482",
     },
     address: {
       height: "19px",
@@ -256,6 +260,22 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
     "&:hover": { background: "none" },
   },
+  tab1: {
+    color: "#2149b9 !important",
+    textTransform: "initial",
+  },
+  tab2: {
+    color: "#6b7482",
+    textTransform: "initial",
+  },
+  // Rectangle: {
+  //   width: "14px",
+  //   height: "14px",
+  //   margin: "1px 15px 17px 21px",
+  //   borderRadius: "2px",
+  //   border: "solid 1px #e3e7eb",
+  //   backgroundColor: "var(--white-two)"
+  // }
 }));
 
 export default function SimpleTabs(props) {
@@ -266,19 +286,13 @@ export default function SimpleTabs(props) {
     )}`;
   }
 
-  function shortenUserName(b, amountL = 12, amountR = 0, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
-
   const [address, setAddress] = React.useState([]);
   const [watchlist, setWatchlist] = React.useState([]);
   // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
   const [exports, exportAddress] = React.useState({});
   const [toggle, handleToggle] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -291,60 +305,89 @@ export default function SimpleTabs(props) {
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
+  
 
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserWatchlist(data);
-      setWatchlist(response);
+      // setWatchlist(response);
+      setTotalCount1(response.length);
       setTablevalue(1);
     }
     getuserdata();
     async function getuserdata() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserPrivateNote(data);
-      setAddress(response);
+      // setAddress(response);
+      setTotalCount2(response.length);
     }
     getPvtTagAddress();
     async function getPvtTagAddress() {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getPrivateTagToAddress(data);
-      setPrivateAddress(response);
+      // setPrivateAddress(response);
+      setTotalCount3(response.length);
     }
   }, []);
 
+  const [watchlistPageCount, setWatchlistPageCount] = React.useState({});
+  const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
+  const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
-  async function searchData() {
+
+
+  async function searchData(event) {
     if (value === 0) {
+      const searchValue = event.target.value;
+      setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: search,
+        searchValue: searchValue,
         searchKeys: ["description", "address"],
         search: value.toString(),
       };
-      const response = await UserService.Search(data);
-      setWatchlist(response);
+      if (!searchValue){
+        onChangeWatchlistPage(watchlistPageCount);
+      } else {
+        const response = await UserService.Search(data);
+        setWatchlist(response);
+      }
     }
+
     if (value === 1) {
+      const searchValue = event.target.value;
+      setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: search,
+        searchValue: searchValue,
         searchKeys: ["transactionHash", "trxLable"],
         search: value.toString(),
       };
-      const response = await UserService.Search(data);
-      setAddress(response);
+      if (!searchValue){
+        onChangeTxnLabelPage(pvtNotePageCount);
+      } else {
+        const response = await UserService.Search(data);
+        setAddress(response);
+      }
     }
+
     if (value === 2) {
+      const searchValue = event.target.value;
+      setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: search,
+        searchValue: searchValue,
         searchKeys: ["address", "tagName"],
         search: value.toString(),
       };
-      const response = await UserService.Search(data);
-      setPrivateAddress(response);
+      if (!searchValue){
+        onChangeTagAddressPage(tagPageCount);
+      } else {
+        const response = await UserService.Search(data);
+        setPrivateAddress(response);
+      }
     }
   }
 
@@ -362,34 +405,40 @@ export default function SimpleTabs(props) {
     setValue(newValue);
   };
 
-  const [list, setList] = React.useState({});
-  const [totalCount, setTotalCount] = React.useState(5);
+  const list = {}
+  const [totalCount1, setTotalCount1] = React.useState(5);
+  const [totalCount2, setTotalCount2] = React.useState(5);
+  const [totalCount3, setTotalCount3] = React.useState(5);
 
   const onChangeWatchlistPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
+    setWatchlistPageCount(value)
+    const list = Math.ceil((value.selected) * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
 
   const onChangeTxnLabelPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
+    setPvtNotePageCount(value)
+    const list = Math.ceil((value.selected) * 5);
     await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
-    await setList(Math.ceil(value.selected * 5));
+    setTagPageCount(value)
+    const list = Math.ceil((value.selected) * 5);
     await getListOfTagAddress({ skip: list, limit: "5" });
   };
 
   const getListOfWatchlist = async (requestData) => {
+    console.log(requestData);
     const request = {
       limit: requestData?.limit || "5",
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
+    console.log("request Watchlist",request)
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
-    setTotalCount(response.totalCount);
   };
 
   const getListOfTxnLabel = async (requestData) => {
@@ -400,7 +449,6 @@ export default function SimpleTabs(props) {
     };
     const response = await UserService.getTxnLabelList(request);
     setAddress(response.txnLabelContent);
-    setTotalCount(response.totalCount);
   };
 
   const getListOfTagAddress = async (requestData) => {
@@ -412,7 +460,6 @@ export default function SimpleTabs(props) {
     };
     const response = await UserService.getTagAddresstList(request);
     setPrivateAddress(response.tagAddressContent);
-    setTotalCount(response.totalCount);
   };
 
   const sortByAddedOn = () => {
@@ -487,9 +534,24 @@ export default function SimpleTabs(props) {
     setDownloadActive(0);
   };
 
+
+  const [countWatchlist, setCountWatchlist] = React.useState(-1)
+  const [checkedWatchlist, setCheckedWatchlist] = React.useState(false)
+  let watchlistLength = watchlist.length
+
   const handleWatchlistCheckbox = (event) => {
     const { name, checked } = event.target;
-    if (name === "allselect") {
+    if (name === "allselect" || countWatchlist === watchlistLength) {
+      if(checkedWatchlist === false){
+        setCheckedWatchlist(true)
+      } else {
+        setCheckedWatchlist(false)
+      }
+      if(countWatchlist === watchlistLength) {
+        setCheckedWatchlist(false)
+      }
+      setCountWatchlist(-1)
+      
       let tempAddress = watchlist.map((addr) => {
         return { ...addr, isChecked1: checked };
       });
@@ -513,7 +575,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
@@ -527,6 +589,9 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+      setCountWatchlist(tempAddr.length)
+      setCheckedWatchlist(false)
+
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -539,16 +604,30 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification,
+            Notification: item.notification.type==="NO" ? "Off": "Email",
           };
         })
       );
     }
   };
 
+
+  const [countNote, setCountNote] = React.useState(-1)
+  const [checkedNote, setCheckedNote] = React.useState(false)
+  let pvtNoteLength = address.length
+
   const handlePvtNoteCheckbox = (event) => {
     const { name, checked } = event.target;
-    if (name === "allselect") {
+    if (name === "allselect" || countNote === pvtNoteLength) {
+      if(checkedNote === false){
+        setCheckedNote(true)
+      } else {
+        setCheckedNote(false)
+      }
+      if(countNote === pvtNoteLength) {
+        setCheckedNote(false)
+      }
+      setCountNote(0)
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked2: checked };
       });
@@ -584,6 +663,9 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+      setCountNote(tempAddr.length)
+      setCheckedNote(false)
+
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -601,9 +683,22 @@ export default function SimpleTabs(props) {
     }
   };
 
+  const [countTag, setCountTag] = React.useState(-1)
+  const [checkedTag, setCheckedTag] = React.useState(false)
+  let tagAddrLength = privateAddress.length
+  
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
-    if (name === "allselect") {
+    if (name === "allselect" || countTag === tagAddrLength) {
+      if(checkedTag === false){
+        setCheckedTag(true)
+      } else {
+        setCheckedTag(false)
+      }
+      if(countTag === tagAddrLength) {
+        setCheckedTag(false)
+      }
+      setCountTag(0)
       let tempAddress = privateAddress.map((addr) => {
         return { ...addr, isChecked3: checked };
       });
@@ -639,6 +734,8 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+      setCountTag(tempAddr.length)
+      setCheckedTag(false)
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -665,13 +762,14 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              src={require("../../assets/images/Profile.png")}
+              style={{borderRadius:"50px"}}
+              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
             />
           </span>
           <span>
             <div className="nameicon">
               <span className="welcome">
-                Welcome, {shortenUserName(setUserName())}
+                Welcome, {Utils.shortenUserName(setUserName())}
               </span>
             </div>
             <div className="edit">
@@ -684,7 +782,6 @@ export default function SimpleTabs(props) {
         </div>
         <div className="divbox">
           <Watchlist />
-
           <Transaction />
           <Private />
         </div>
@@ -698,28 +795,32 @@ export default function SimpleTabs(props) {
             <Tabs
               value={value}
               onChange={handleChange}
-              style={{ color: "#2149b9" }}
-              tabBarUnderlineStyle={{ backgroundColor: "blue" }}
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-              textTransform="uppercase"
+              TabIndicatorProps={{
+                style: {
+                  backgroundColor: "#2149b9",
+                },
+              }}
             >
               <Tab
                 label="My Watchlist"
-                className={classes.mywatch}
+                // className={classes.mywatch}
+                className={value === 0 ? classes.tab1 : classes.tab2}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
+                
               />
               <Tab
                 label="Txn Private Note"
                 className={classes.txnprivate}
+                className={value === 1 ? classes.tab1 : classes.tab2}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
+                
               />
               <Tab
                 label="Tagged Adresses"
                 className={classes.address}
+                className={value === 2 ? classes.tab1 : classes.tab2}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />
@@ -739,31 +840,33 @@ export default function SimpleTabs(props) {
                 type="text"
                 placeholder="Search"
                 className="searchinput"
-                onClick={searchData}
-                onChange={(e) => {
-                  setSearch(e.target.value.toLowerCase());
-                }}
+                onChange={searchData}
+                // onChange={(e) => {
+                //   setSearch(e.target.value.toLowerCase());
+                // }}
+                value={search}
               />
             </div>
-            {isDownloadActive ? (
-              tableValue === 1 ? (
-                <CSVLink
-                  filename={"watchlist.csv"}
-                  data={downloadWatchlist}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
+            {!isDownloadActive && tableValue === 1 ? (""):(
+            isDownloadActive ? (
+              tableValue === 1 ? (""
+                // <CSVLink
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
               ) : tableValue === 2 ? (
                 <CSVLink
                   filename={"private_note.csv"}
@@ -820,7 +923,7 @@ export default function SimpleTabs(props) {
               >
                 Export
               </CSVLink>
-            )}
+            ))}
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
@@ -836,21 +939,25 @@ export default function SimpleTabs(props) {
                   >
                     <TableHead>
                       <TableRow>
-                        <TableCell style={{ border: "none" }} align="left">
+                        {/* <TableCell style={{ border: "none" }} align="left">
                           <input
                             onChange={handleWatchlistCheckbox}
                             type="checkbox"
                             name="allselect"
+                            checked={countWatchlist === watchlistLength || checkedWatchlist == true}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb"
                             }}
                           />
+                          </TableCell> */}
+                          <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Description</span>
                         </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
+                        <TableCell style={{ border: "none", display: "flex", lineHeight: "21px" }} align="left">
                           <span className={"tableheaders-1"}>Balance</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
@@ -886,7 +993,7 @@ export default function SimpleTabs(props) {
                                 : { background: "white" }
                             }
                           >
-                            <TableCell
+                            {/* <TableCell
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
@@ -896,10 +1003,12 @@ export default function SimpleTabs(props) {
                                 onChange={handleWatchlistCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked1 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
+                              </TableCell> */}
+                              <TableCell style={{ border: "none"}} align="left">
                               <a
-                                className="linkTable"
+                                className="linkTable1"
                                 href={"/address-details/" + row.address}
                               >
                                 <Tooltip placement="top" title={row.address}>
@@ -928,7 +1037,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className="tabledata-1">
-                                {row.Notification}
+                              {row.notification.type==="NO" ? "Off": "Email"}
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -944,9 +1053,9 @@ export default function SimpleTabs(props) {
             </div>
             <PaginationDiv>
               <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={totalCount / 5}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                pageCount={totalCount1/ 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeWatchlistPage}
@@ -973,13 +1082,18 @@ export default function SimpleTabs(props) {
                       <TableRow>
                         <TableCell style={{ border: "none" }} align="left">
                           <input
+                            // className={classes.Rectangle}
                             onChange={handlePvtNoteCheckbox}
                             type="checkbox"
                             name="allselect"
+                            checked={countNote === pvtNoteLength || checkedNote == true}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb"
                             }}
                           />
+                          </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>
                             Transaction Hash
                           </span>
@@ -1041,10 +1155,13 @@ export default function SimpleTabs(props) {
                                 onChange={handlePvtNoteCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked2 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px" }}
+                                // className={classes.Rectangle}
                               />
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
                               <a
-                                className="linkTable"
+                                className="linkTable1"
                                 href={
                                   "/transaction-details/" + row.transactionHash
                                 }
@@ -1054,7 +1171,7 @@ export default function SimpleTabs(props) {
                                   title={row.transactionHash}
                                 >
                                   <span className="tabledata1">
-                                    {shorten(row.transactionHash)}{" "}
+                                    {Utils.shortenHash(row.transactionHash)}{" "}
                                   </span>
                                 </Tooltip>
                               </a>
@@ -1088,9 +1205,9 @@ export default function SimpleTabs(props) {
             </div>
             <PaginationDiv>
               <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={totalCount / 5}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                pageCount={totalCount2 / 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeTxnLabelPage}
@@ -1119,10 +1236,16 @@ export default function SimpleTabs(props) {
                             onChange={handleTagAddressCheckbox}
                             type="checkbox"
                             name="allselect"
+                            checked={countTag === tagAddrLength || checkedTag == true} 
+                             className={classes.Rectangle}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb",
+                              backgroundColor:"red"
                             }}
                           />
+                          </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
@@ -1181,12 +1304,15 @@ export default function SimpleTabs(props) {
                                 key={row._id}
                                 name={row._id}
                                 onChange={handleTagAddressCheckbox}
+                                // className={classes.Rectangle}
                                 type="checkbox"
                                 checked={row?.isChecked3 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px"}}
                               />
+                              </TableCell>
+                        <TableCell style={{ border: "none" }} align="left">
                               <a
-                                className="linkTable"
+                                className="linkTable1"
                                 href={"/address-details/" + row.address}
                               >
                                 <Tooltip placement="top" title={row.address}>
@@ -1218,13 +1344,14 @@ export default function SimpleTabs(props) {
                     </TableBody>
                   </Table>
                 </Grid>
+                
               </Grid>
             </div>
             <PaginationDiv>
               <ReactPaginate
-                previousLabel={"<"}
-                nextLabel={">"}
-                pageCount={totalCount / 5}
+                previousLabel={"Prev"}
+                nextLabel={"Next"}
+                pageCount={totalCount3 / 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeTagAddressPage}
@@ -1242,5 +1369,5 @@ export default function SimpleTabs(props) {
       </div>
       <FooterComponent />
     </div>
-  );
+  )
 }

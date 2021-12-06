@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
 import Login from "../login";
 
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import SearchData from "../../services/search";
 import searchIcon from "../../assets/images/Search.svg";
 
@@ -165,12 +165,10 @@ export default function Navbar() {
       filter: selectOptType,
       data: SearchDataInput,
     };
-    if(SearchDataInput==="")
-    {
+    if (SearchDataInput === "") {
       return;
     }
-    else
-    {
+    else {
       BlockChainSearch(requestdata);
     }
   };
@@ -179,8 +177,7 @@ export default function Navbar() {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
-      if (!responseData)
-      {
+      if (!responseData) {
         Utility.apiFailureToast("No details found.");
       }
 
@@ -642,10 +639,10 @@ export default function Navbar() {
                   src={require("../../../src/assets/images/XDC-Icon.svg")}
                 ></img>
               </a>
-              <a className="XDC" href="/">
-                {" "}
-                XDC{" "}
-              </a>
+              <p className="XDC">
+                
+                XDC
+              </p>
 
               <div>
                 <NavLink
@@ -731,10 +728,10 @@ export default function Navbar() {
                       src={require("../../../src/assets/images/XDC-Icon.svg")}
                     ></img>
                   </a>
-                  <a className="XDC" href="/">
-                    {" "}
-                    XDC{" "}
-                  </a>
+                  <p className="XDC">
+                    
+                    XDC
+                  </p>
                 </div>
                 &nbsp;
                 <div className="header-responsive">
@@ -843,11 +840,11 @@ export default function Navbar() {
                       type="text"
                       ref={SearchDataRef}
                       className="main-input"
-                      onKeyPress={(event) => {
-                        if (event.key === "Enter") {
-                          handleSearch(event);
-                        }
-                      }}
+                      // onKeyPress={(event) => {
+                      //   if (event.key === "Enter") {
+                      //     handleSearch(event);
+                      //   }
+                      // }}
                       placeholder="Search for an address, a Transaction or a block number"
                     />
                   </div>
