@@ -635,7 +635,7 @@ input:focus {
     cursor: pointer;
   }
   .menu-sidebar {
-    margin-top: 5px;
+    margin-top: 4px;
     fill: white;
     width: 26px;
     height: 30px;
@@ -835,7 +835,7 @@ input:focus {
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .menu-sidebar {
-    margin-top: 7px;
+    margin-top: 4px;
     fill: white;
     width: 1em;
     height: 1em;
@@ -1352,7 +1352,7 @@ input:focus {
     font-size: 0.875rem;
   }
   .Network-explorer-internal {
-    margin-left: 0px;
+    margin-left: 2px;
   }
 }
 
@@ -8180,7 +8180,7 @@ button {
     /* margin-left: auto !important;
     margin-right: auto !important; */
     height: 34px;
-    margin-left: 38px;
+    margin-left: 50px;
   }
   .select-td {
     margin-left: 13px;

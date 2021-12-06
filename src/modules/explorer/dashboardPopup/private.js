@@ -131,6 +131,12 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "5px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px",
+  },
+  
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -158,6 +164,10 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "503px",
       width: "100%",
     },
+    error: {
+      color: "red",
+      marginLeft: "2px",
+    },
   },
 }));
 
@@ -167,19 +177,26 @@ export default function FormDialog() {
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
   const [nameTag, setNameTag] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const [errorTag, setErrorTag] = React.useState("");
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
   async function TaggedAddress() {
-    setOpen(false);
-    
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: nameTag,
     };
+    if (!(privateAddress && privateAddress.length === 43) || !privateAddress.slice(0, 2) === "xdc") {
+      setError("Address should start with xdc & 43 characters")
+      return;
+    } else if (nameTag && nameTag.length >= 20){
+      setErrorTag("Name Tag Minimum length is should be 20");
+      return;
+    } else {
     const [error, response] = await utility.parseResponse(
       UserService.addPrivateTagToAddress(data)
     );
@@ -190,6 +207,8 @@ export default function FormDialog() {
     }
     utility.apiSuccessToast("Tag Added");
     window.location.href = "loginprofile";
+    setOpen(false);
+  }
   }
 
 
@@ -201,33 +220,9 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setError("")
+    setErrorTag("")
   };
-
-  const handleLogin = () => {
-    history.push("/loginprofile");
-  };
-  const validateAddress = () => {
-    if (nameTag && nameTag.length >= 20){
-      utility.apiFailureToast("Name Tag Minimum length is should be 20");
-      
-    }else{
-      validateTagName()
-    }
-  }
-  
-  
-  
-  const validateTagName = () => {
-  
-    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
-      TaggedAddress();
-      
-    } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
-    }
-
-  };
-  
   
   return (
     <div>
@@ -278,8 +273,11 @@ export default function FormDialog() {
             </DialogContentText>
             <input
               className={classes.input}
-              onChange={(e) => setPrivateAddress(e.target.value)}
+              onChange={(e) => {setPrivateAddress(e.target.value)
+              setError("")
+              }}
             ></input>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
@@ -294,6 +292,7 @@ export default function FormDialog() {
               className={classes.input}
               onChange={(e) => setNameTag(e.target.value)}
             ></input>
+            {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
@@ -310,7 +309,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={TaggedAddress,validateAddress}>
+              <button className={classes.addbtn} onClick={TaggedAddress}>
                 Add
               </button>
             </span>
