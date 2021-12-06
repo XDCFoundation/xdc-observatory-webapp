@@ -137,6 +137,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "500",
     border: "none !important",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px"
+  },
   forgotpass: {
     color: "#2149b9",
     marginLeft: "123px",
@@ -193,6 +198,7 @@ function EditWatchList(props) {
   const [_id, setId] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -224,9 +230,23 @@ function EditWatchList(props) {
 
   const handleLogin = () => {
     //   history.push("/loginprofile")
+    setOpen(false);
   };
 
   const [edit, setEdit] = React.useState();
+  const validateAddress = () => {
+
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      return true;
+      // watchListService();
+    } else {
+      setError("Address should start with xdc & 43 characters");
+      return false;
+    }
+  };
 
   const watchListService = async () => {
     const request = {
@@ -241,23 +261,11 @@ function EditWatchList(props) {
         utility.apiFailureToast("Error");
       } else {
         utility.apiSuccessToast("Address Updated");
-        window.location.href = "loginprofile";
+       window.location.href = "loginprofile";
       }
     };
   }
-  const validateAddress = () => {
-
-    if (
-      (address && address.length === 43) ||
-      address.slice(0, 2) == "xdc"
-    ) {
-      return true;
-      // watchListService();
-    } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
-      return false;
-    }
-  };
+  
   // const watchListService = async () => {
   //   const request = {
   //     _id: props.row._id,
@@ -312,8 +320,12 @@ function EditWatchList(props) {
               <input
                 value={address}
                 className={classes.input}
-                onChange={(e) => setAddress(e.target.value)}
-              ></input>
+                onChange={(e) => {setAddress(e.target.value)
+                setError("")
+              }}
+              
+            ></input>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
@@ -380,7 +392,7 @@ function EditWatchList(props) {
                 </RadioGroup>
               </FormControl>
             </DialogContent>
-            <DialogActions className={classes.buttons} onClick={handleClose}>
+            <DialogActions className={classes.buttons}>
               <div>
                 <span>
                   <button className={classes.deletebtn} onClick={handleDelete}>

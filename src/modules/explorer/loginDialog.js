@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
@@ -49,12 +54,12 @@ const useStyles = makeStyles((theme) => ({
   },
 
   addbtn: {
-    width: "433px",
+    width: "434px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "15px 15px 30px 15px",
+    margin: "15px 15.5px 30px 15px",
     color: "white",
   },
 
@@ -114,6 +119,13 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   paperWidthSm: {
+    position: "absolute",
+    top: "65px",
+    width: "503px",
+    padding: "0 11px",
+    borderRadius: "12px",
+  },
+  paperWidthSm1: {
     position: "absolute",
     top: "65px",
     width: "503px",
@@ -222,6 +234,9 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "299px",
       width: "95%",
     },
+    loading:{
+      zIndex:-1
+    }
   },
   "@media (max-width: 768px)": {
     paperWidthSm: {
@@ -231,9 +246,22 @@ const useStyles = makeStyles((theme) => ({
       width: "95%",
     },
 
+    paperWidthSm1: {
+      position: "absolute",
+      top: "125px",
+      maxWidth: "503px",
+      width: "95%",
+    },
+    
     input: {
       maxWidth: "433px",
       width: "100%",
+    },
+  },
+  "@media (max-height: 900px)": {
+    paperWidthSm1: {
+      maxHeight: "500px",
+      height: "72%"
     },
   },
 
@@ -334,7 +362,7 @@ export default function FormDialog(props) {
 
   const login = async () => {
     const reqObj = {
-      email: email,
+      name: email,
       password: password,
     };
     setLoading(true)
@@ -345,8 +373,8 @@ export default function FormDialog(props) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false)
       return;
-    } else if (!email.match(mailformat)) {
-      setErrorEmail("Enter valid Email");
+    } else if (!email.match(regExAlphaNum)) {
+      setErrorEmail("Enter valid Username");
       setLoading(false)
       return;
     } else if (!password.match(regExPass)) {
@@ -375,7 +403,7 @@ export default function FormDialog(props) {
     } else {
       if (error || !authResponse) {
         setLoading(false);
-        Utility.apiFailureToast("Wrong email or password");
+        Utility.apiFailureToast("Wrong Username or password");
         // setislogged(true)
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
@@ -411,6 +439,7 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false);
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
       setLoading(false);
@@ -534,7 +563,7 @@ export default function FormDialog(props) {
         }
         <div>
           <Dialog
-            classes={{ paperWidthSm: classes.paperWidthSm }}
+            classes={{ paperWidthSm: value ===1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
@@ -607,7 +636,7 @@ export default function FormDialog(props) {
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
-                  <div >
+                  <div className={classes.loading} >
 
                     <Loader />
                   </div>
