@@ -467,12 +467,12 @@ input:focus {
   width: 1.875rem;
 }
 
-.Shape-XDC:hover {
+/* .Shape-XDC:hover { */
   /* margin-right: 0.625rem;
   margin-top: 1rem;
   height: 2.188rem;
   width: 2.188rem; */
-}
+/* } */
 .menubar-contract {
   display: flex;
   flex-direction: row;
@@ -635,7 +635,7 @@ input:focus {
     cursor: pointer;
   }
   .menu-sidebar {
-    margin-top: 5px;
+    margin-top: 4px;
     fill: white;
     width: 26px;
     height: 30px;
@@ -835,7 +835,7 @@ input:focus {
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .menu-sidebar {
-    margin-top: 7px;
+    margin-top: 4px;
     fill: white;
     width: 1em;
     height: 1em;
@@ -1245,6 +1245,7 @@ input:focus {
   letter-spacing: 0.039rem;
   color: #ffffff;
   margin-top: 1.25rem;
+  cursor: pointer;
 }
 .XDC-internal:hover {
   margin-left: -0.313rem;
@@ -1256,6 +1257,7 @@ input:focus {
   letter-spacing: 0.039rem;
   color: #ffffff;
   margin-top: 1.25rem;
+  cursor: pointer;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .XDC {
@@ -1352,7 +1354,7 @@ input:focus {
     font-size: 0.875rem;
   }
   .Network-explorer-internal {
-    margin-left: 0px;
+    margin-left: 2px;
   }
 }
 
@@ -7412,7 +7414,6 @@ button {
     margin-left: 0px;
     background-color: white !important;
   }
-  
 
   .parentCenterbox {
     display: flex;
@@ -8172,7 +8173,7 @@ button {
     font-size: 14px;
   }
 
-  .down-arrow-internal{
+  .down-arrow-internal {
     margin-right: -9px;
   }
   .centerbox-td {
@@ -8180,7 +8181,7 @@ button {
     /* margin-left: auto !important;
     margin-right: auto !important; */
     height: 34px;
-    margin-left: 38px;
+    margin-left: 50px;
   }
   .select-td {
     margin-left: 13px;
@@ -8192,7 +8193,6 @@ button {
 }
 
 @media (max-width: 1024px) {
- 
   /* .Network-explorer-internal {
     margin-top: 0px;
   }
@@ -8203,7 +8203,7 @@ button {
   .name-internal {
     margin-top: 15px;
   }
-  
+
   /* .down-arrow-internal{
     margin-top: 0px;
   } */
@@ -8563,6 +8563,29 @@ button {
   top: 0;
   left: 0;
   height: 100%;
+}
+.cover-spin-loginDialog {
+  background-color: transparent;
+
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.cover-spin-loginDialog::after  {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-color: #2149b9;
+  border-top-color: transparent;
+  border-width: 4px;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 @-webkit-keyframes spin {
   from {

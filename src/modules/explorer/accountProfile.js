@@ -332,44 +332,62 @@ export default function SimpleTabs(props) {
     }
   }, []);
 
+  const [watchlistPageCount, setWatchlistPageCount] = React.useState({});
+  const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
+  const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
+
+
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
       setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: search,
+        searchValue: searchValue,
         searchKeys: ["description", "address"],
         search: value.toString(),
       };
-      const response = await UserService.Search(data);
-      console.log(response,"reseeeee")
-      setWatchlist(response);
+      if (!searchValue){
+        onChangeWatchlistPage(watchlistPageCount);
+      } else {
+        const response = await UserService.Search(data);
+        setWatchlist(response);
+      }
     }
+
     if (value === 1) {
       const searchValue = event.target.value;
       setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: search,
+        searchValue: searchValue,
         searchKeys: ["transactionHash", "trxLable"],
         search: value.toString(),
       };
-      const response = await UserService.Search(data);
-      setAddress(response);
+      if (!searchValue){
+        onChangeTxnLabelPage(pvtNotePageCount);
+      } else {
+        const response = await UserService.Search(data);
+        setAddress(response);
+      }
     }
+
     if (value === 2) {
       const searchValue = event.target.value;
       setSearch(searchValue)
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
-        searchValue: search,
+        searchValue: searchValue,
         searchKeys: ["address", "tagName"],
         search: value.toString(),
       };
-      const response = await UserService.Search(data);
-      setPrivateAddress(response);
+      if (!searchValue){
+        onChangeTagAddressPage(tagPageCount);
+      } else {
+        const response = await UserService.Search(data);
+        setPrivateAddress(response);
+      }
     }
   }
 
@@ -393,17 +411,19 @@ export default function SimpleTabs(props) {
   const [totalCount3, setTotalCount3] = React.useState(5);
 
   const onChangeWatchlistPage = async (value) => {
-    console.log("value", value)
+    setWatchlistPageCount(value)
     const list = Math.ceil((value.selected) * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
 
   const onChangeTxnLabelPage = async (value) => {
+    setPvtNotePageCount(value)
     const list = Math.ceil((value.selected) * 5);
     await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
+    setTagPageCount(value)
     const list = Math.ceil((value.selected) * 5);
     await getListOfTagAddress({ skip: list, limit: "5" });
   };
@@ -907,7 +927,7 @@ export default function SimpleTabs(props) {
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address_contract">
+              <Grid lg={13} className="tablegrid_address">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -919,18 +939,18 @@ export default function SimpleTabs(props) {
                   >
                     <TableHead>
                       <TableRow>
-                        <TableCell style={{ border: "none" }} align="left">
+                        {/* <TableCell style={{ border: "none" }} align="left">
                           <input
-                            // className={classes.Rectangle}
                             onChange={handleWatchlistCheckbox}
                             type="checkbox"
                             name="allselect"
                             checked={countWatchlist === watchlistLength || checkedWatchlist == true}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb"
                             }}
                           />
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
@@ -973,20 +993,19 @@ export default function SimpleTabs(props) {
                                 : { background: "white" }
                             }
                           >
-                            <TableCell
+                            {/* <TableCell
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
                               <input
                                 key={row._id}
-                                // className={classes.Rectangle}
                                 name={row._id}
                                 onChange={handleWatchlistCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked1 || false}
-                                style={{ marginTop: "4px" }}
+                                style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
-                              </TableCell>
+                              </TableCell> */}
                               <TableCell style={{ border: "none"}} align="left">
                               <a
                                 className="linkTable1"
@@ -1049,7 +1068,7 @@ export default function SimpleTabs(props) {
 
           <TabPanel value={value} index={1}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address_contract">
+              <Grid lg={13} className="tablegrid_address">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -1070,6 +1089,7 @@ export default function SimpleTabs(props) {
                             checked={countNote === pvtNoteLength || checkedNote == true}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb"
                             }}
                           />
                           </TableCell>
@@ -1135,7 +1155,7 @@ export default function SimpleTabs(props) {
                                 onChange={handlePvtNoteCheckbox}
                                 type="checkbox"
                                 checked={row?.isChecked2 || false}
-                                style={{ marginRight: "8px" }}
+                                style={{ marginTop: "4px" }}
                                 // className={classes.Rectangle}
                               />
                               </TableCell>
@@ -1199,7 +1219,7 @@ export default function SimpleTabs(props) {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address_contract">
+              <Grid lg={13} className="tablegrid_address">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -1217,9 +1237,11 @@ export default function SimpleTabs(props) {
                             type="checkbox"
                             name="allselect"
                             checked={countTag === tagAddrLength || checkedTag == true} 
-                            // className={classes.Rectangle}
+                             className={classes.Rectangle}
                             style={{
                               marginRight: "10px",
+                              border: "solid 1px #e3e7eb",
+                              backgroundColor:"red"
                             }}
                           />
                           </TableCell>
@@ -1285,7 +1307,7 @@ export default function SimpleTabs(props) {
                                 // className={classes.Rectangle}
                                 type="checkbox"
                                 checked={row?.isChecked3 || false}
-                                style={{ marginRight: "8px",border: "solid 1px #e3e7eb" }}
+                                style={{ marginTop: "4px"}}
                               />
                               </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
@@ -1347,5 +1369,5 @@ export default function SimpleTabs(props) {
       </div>
       <FooterComponent />
     </div>
-  );
+  )
 }

@@ -18,7 +18,6 @@ import styled from "styled-components";
 import Loader from "../../assets/loader";
 import { cookiesConstants } from "../../constants";
 
-
 const acceptStyle = {
   borderColor: "#00e676",
 };
@@ -44,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "#2149b9",
     marginLeft: "-6px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginBottom: "-10px",
+  },
   btn: {},
   value: {
     width: "400px !important",
@@ -63,7 +67,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: "31.438rem",
-    height: "35.063rem",
+    maxHeight: "35.063rem",
+    height: "100%",
     alignSelf: "flex-start",
     margin: "100px auto",
     borderRadius: "12px",
@@ -82,15 +87,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     //backgroundColor: "red",
-    margin: "0px 14px 35px 14px",
+    margin: "0px 26px 35px 26px",
     color: "white",
   },
   subCategory: {
     marginTop: "4px",
     marginBottom: "4px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    fontWeight: "500",
     border: "none !important",
     outline: "none",
     color: "#2a2a2a",
@@ -187,13 +192,15 @@ export default function FormDialog(props) {
   const [opens, setOpen] = useState(false);
   const [color, setColor] = useState("");
   const [userName, setUserName] = React.useState("");
+  const [userNameError, setUserNameError] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [isEditPicture, setIsEditPicture] = React.useState(false);
   const [uploadFile, setUploadFile] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState("");
   const [email, setEmail] = React.useState("");
   const fileData = (event) => {
-    setIsEditPicture(true)
+    setIsEditPicture(true);
     setUploadFile(event);
   };
   // const changeColor =async()=>{
@@ -201,10 +208,12 @@ export default function FormDialog(props) {
   //   setColor({backgroundColor:"red"})
 
   // }
+  var regExAlphaNum = /^[0-9a-zA-Z]+$/;
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const updateUser = async (url) => {
     let userInfo = sessionManager.getDataFromCookies("userId");
-    setLoading(true)
+    setLoading(true);
 
     const reqObj = {
       name: userName,
@@ -213,30 +222,41 @@ export default function FormDialog(props) {
       profilePic: url ? url : profilePicture,
     };
 
-
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.updateUser(reqObj)
-    );
-    if (authResponse?.email.length > 2) {
+    if (!userName.match(regExAlphaNum)) {
+      setUserNameError("Enter valid Username");
       setLoading(false);
-    }
-    if (error || !authResponse) {
-      utility.apiFailureToast("failed");
+      return;
+    } else if (!email.match(mailformat)) {
+      setEmailError("Enter valid Email");
+      setLoading(false);
     } else {
-      utility.apiSuccessToast("upadated successfully",{autoClose:10000});
-      sessionManager.setDataInCookies(authResponse, "userInfo");
-      sessionManager.setDataInCookies(true, "isLoggedIn");
-      sessionManager.setDataInCookies(authResponse.userId, "userId");
-      history.push("loginProfile")
-      handleClose();
-      // window.location.href = "loginprofile";
-      return authResponse;
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.updateUser(reqObj)
+      );
+      if (authResponse?.email.length > 2) {
+        setLoading(false);
+      }
+      if (error || !authResponse) {
+        utility.apiFailureToast("User Exists");
+        setLoading(false);
+      } else {
+        utility.apiSuccessToast("Profile upadated successfully", {
+          autoClose: 10000,
+        });
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse.userId, "userId");
+        history.push("loginProfile");
+        handleClose();
+        // window.location.href = "loginprofile";
+        return authResponse;
+      }
     }
   };
 
   const uploadFileToS3 = async () => {
-    setLoading(true)
+    setLoading(true);
     let formdata = new FormData();
     formdata.append("file", uploadFile);
     formdata.append("path", "profilePic");
@@ -251,9 +271,12 @@ export default function FormDialog(props) {
       utility.apiFailureToast(" Upload failed");
       return false;
     } else {
-      utility.apiSuccessToast("Pic uploaded successfully");
-      sessionManager.setDataInCookies(awsResponse[0].url, cookiesConstants.USER_PICTURE);
-      setProfilePicture(awsResponse[0].url)
+      // utility.apiSuccessToast("Pic uploaded successfully");
+      sessionManager.setDataInCookies(
+        awsResponse[0].url,
+        cookiesConstants.USER_PICTURE
+      );
+      setProfilePicture(awsResponse[0].url);
       return awsResponse;
     }
   };
@@ -264,13 +287,14 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setUserNameError("");
+    setEmailError("");
     setTimeout(() => {
       setUsernameEnable(false);
-      setEmailEnable(false)
-      setUserName(getUserName)
-      setEmail(getEmail)
+      setEmailEnable(false);
+      setUserName(getUserName);
+      setEmail(getEmail);
     }, 500);
-    
   };
 
   const handleLogin = () => {
@@ -345,9 +369,8 @@ export default function FormDialog(props) {
   const [emailEnable, setEmailEnable] = React.useState(false);
 
   const profileUrl = async () => {
-    let response = {}
+    let response = {};
     if (isEditPicture) {
-
       response = await uploadFileToS3();
       if (!response) return;
       setProfilePicture(response[0].url);
@@ -368,182 +391,130 @@ export default function FormDialog(props) {
   };
   useEffect(() => {
     let userInfo = sessionManager.getDataFromCookies("userInfo");
-    if (userInfo){
+    if (userInfo) {
       setUserName(userInfo.name);
       setEmail(userInfo.email);
-      setProfilePicture(sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE));
+      setProfilePicture(
+        sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+      );
     }
   }, []);
 
   return (
     <div>
-      <div className={classes.add}>
-        <button className="login-button" onClick={handleClickOpen}>
-          <div className="edit">Edit Profile</div>
-        </button>
+     
+        <div className={classes.add}>
+          <button className="login-button" onClick={handleClickOpen}>
+            <div className="edit">Edit Profile</div>
+          </button>
+          <ProfilePicContainer>
+            <Dialog
+              classes={{ paper: classes.paper }}
+              className={classes.dialog}
+              open={opens}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+              <Wrapper>
+                <Title>Edit Profile</Title>
 
-        <ProfilePicContainer>
-          <Dialog
-            classes={{ paper: classes.paper }}
-            className={classes.dialog}
-            open={opens}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <Wrapper>
-              <div></div>
-              <Title>Edit Profile</Title>
+                <Cut onClick={handleClose}>
+                  {" "}
+                  <img
+                    className="cross-icon"
+                    src={require("../../../src/assets/images/XDC-Cross.svg")}
+                  />{" "}
+                </Cut>
+              </Wrapper>
+              <AvatarUpload
+                filedata={fileData}
+                uploadFileToS3={uploadFileToS3}
+                profilePicture={profilePicture}
+              />
 
-              <Cut onClick={handleClose}>
-                {" "}
-                <img
-                  className="cross-icon"
-                  src={require("../../../src/assets/images/XDC-Cross.svg")}
-                />{" "}
-              </Cut>
-            </Wrapper>
-            <AvatarUpload filedata={fileData} uploadFileToS3={uploadFileToS3} profilePicture={profilePicture} />
-            {/* <Row>
-              <DialogContent>
+              <DialogContent
+                style={{ padding: "8px 35px", marginBottom: "14px" }}
+              >
                 <DialogContentText className={classes.subCategory}>
-                  <b>Username</b>
+                  Username
                 </DialogContentText>
-                <Input className="inputcss">
+                {!usernameEnable ? (
+                  <span className="beforeInput">
+                    <span className="beforeInputValue">{userName}</span>
+                    <img
+                      className="imgcss"
+                      src={require("../../../src/assets/images/edit.svg")}
+                      onClick={() => setUsernameEnable(true)}
+                    />
+                  </span>
+                ) : (
                   <input
-                    style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px",color: "#42454a",fontWeight: "normal",fontStretch: "normal",fontStyle: "normal" }}
-                    className="hide-border w-100 inputOutlineNone"
+                    className="inputcss"
+                    style={{ border: "solid 1px #9fa9ba", paddingLeft: "10px" }}
                     type="text"
                     id="username"
-                    disabled={usernameDisable}
-                    //placeholder= {getUserName()}
-                    value={getUserName()}
-
                     value={userName}
-
                     onChange={(e) => {
                       {
                         setUserName(e.target.value);
+                        setUserNameError("");
                       }
                     }}
                   />
-                  <img
-                    className="imgcss"
-
-                    src={require("../../../src/assets/images/edit.svg")}
-                    style={{height:"14px",margin: "auto"}}
-                    onClick={() => setUsernameUnable(false)}
-                  />
-                </Input>
+                )}
+                <div className={classes.error}>{userNameError}</div>
               </DialogContent>
-            </Row> */}
 
-            <DialogContent style={{padding: "8px 35px"}}>
-              <DialogContentText className={classes.subCategory}>
-                <b>Username</b>
-              </DialogContentText>
-              {!usernameEnable ?
-              (<span className="beforeInput">
-                <span className="beforeInputValue">{userName}</span>
-              <img
-                  className="imgcss"
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setUsernameEnable(true)}
-                />
-              </span>) :
-                (<input className="inputcss"
-                  style={{border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
-                  type="text"
-                  id="username"
-                  value={userName}
-                  onChange={(e) => {
-                    {
-                      setUserName(e.target.value);
-                    }
-                  }}
-                />)}
-            </DialogContent>
-            
-            {/* <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                <b>Email</b>
-              </DialogContentText>
-
-              <Input className="inputcss">
-                <input
-                  style={{ backgroundColor: "#f5f5f5", paddingLeft: "14px",color: "#42454a"}}
-                  className="hide-border w-100 inputOutlineNone "
-                  type="text"
-                  id="email"
-                  value={email}
-                  placeholder={getEmail()}
-                  disabled={emailDisable}
-                  onChange={(e) => {
-                    {
-                      setEmail(e.target.value);
-                    }
-                  }}
-                />
-                <img
-                  className="imgcss"
-                  style={{height:"14px",margin: "auto"}}
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setEmailUnable(false)}
-                />
-              </Input>
-            </DialogContent> */}
-
-            <DialogContent style={{padding: "8px 35px"}}>
-              <DialogContentText className={classes.subCategory}>
-                <b>Email</b>
-              </DialogContentText>
-              {!emailEnable ?
-              (<span className="beforeInput">
-                <span className="beforeInputValue">{email}</span>
-              <img
-                  className="imgcss"
-                  src={require("../../../src/assets/images/edit.svg")}
-                  onClick={() => setEmailEnable(true)}
-                />
-              </span>) :
-                (<input className="inputcss"
-                  style={{border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
-                  type="text"
-                  id="email"
-                  value={email}
-                  onChange={(e) => {
-                    {
-                      setEmail(e.target.value);
-                    }
-                  }}
-                />)}
-            </DialogContent>
-            
-            {isLoading == true ? (
-              <div >
-                <Loader />
-              </div>
-
-            ) : (
-              <div></div>
-            )}
-            <DialogActions>
-              <button
-                className={classes.addbtn}
-                onClick={() => {
-                  profileUrl();
-
-
-                }}
-
+              <DialogContent
+                style={{ padding: "8px 35px", marginBottom: "25px" }}
               >
-                Update Profile{" "}
-              </button>
+                <DialogContentText className={classes.subCategory}>
+                  Email
+                </DialogContentText>
+                {!emailEnable ? (
+                  <span className="beforeInput">
+                    <span className="beforeInputValue">{email}</span>
+                    <img
+                      className="imgcss"
+                      src={require("../../../src/assets/images/edit.svg")}
+                      onClick={() => setEmailEnable(true)}
+                    />
+                  </span>
+                ) : (
+                  <input
+                    className="inputcss"
+                    style={{ border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
+                    type="text"
+                    id="email"
+                    value={email}
+                    onChange={(e) => {
+                      {
+                        setEmail(e.target.value);
+                        setEmailError("");
+                      }
+                    }}
+                  />
+                )}
+                {emailError ? <div className={classes.error}>{emailError}</div> : <></>}
+              </DialogContent>
 
-            </DialogActions>
+              <DialogActions>
+                <button
+                  className={classes.addbtn}
+                  onClick={() => {
+                    profileUrl();
+                  }}
+                >
+                  Update Profile{" "}
+                </button>
+              </DialogActions>
 
-            <div className={classes.value}></div>
-          </Dialog>
-        </ProfilePicContainer>
+              <div className={classes.value}></div>
+              </div>
+            </Dialog>
+          </ProfilePicContainer>
+        
       </div>
     </div>
   );
