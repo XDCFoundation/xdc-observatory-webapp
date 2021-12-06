@@ -467,12 +467,12 @@ input:focus {
   width: 1.875rem;
 }
 
-.Shape-XDC:hover {
+/* .Shape-XDC:hover { */
   /* margin-right: 0.625rem;
   margin-top: 1rem;
   height: 2.188rem;
   width: 2.188rem; */
-}
+/* } */
 .menubar-contract {
   display: flex;
   flex-direction: row;
