@@ -335,7 +335,7 @@ export default function Navbar() {
               {" "}
               <span
                 onClick={() => setOpencontracts(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>{" "}
@@ -424,7 +424,7 @@ export default function Navbar() {
               {" "}
               <span
                 onClick={() => setOpen(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>{" "}
@@ -435,6 +435,7 @@ export default function Navbar() {
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
+                cursor: "pointer"
               }}
             >
               Tools
@@ -658,7 +659,7 @@ export default function Navbar() {
                   ></img>
                 </a>
                 <p className="XDC-internal">
-                  
+
                   XDC
                 </p>
               </div>
