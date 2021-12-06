@@ -118,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     color: "#2a2a2a",
   },
+
   paperWidthSm: {
     position: "absolute",
     top: "65px",
@@ -191,7 +192,7 @@ const useStyles = makeStyles((theme) => ({
   alreadyAccount: {
     textAlign: "center",
     marginBottom: "30px",
-    color: "#2a2a2a"
+    color: "#2a2a2a",
   },
   signIn: {
     color: "#2149b9",
@@ -234,9 +235,9 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "299px",
       width: "95%",
     },
-    loading:{
-      zIndex:-1
-    }
+    loading: {
+      zIndex: -1,
+    },
   },
   "@media (max-width: 768px)": {
     paperWidthSm: {
@@ -252,7 +253,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "503px",
       width: "95%",
     },
-    
+
     input: {
       maxWidth: "433px",
       width: "100%",
@@ -261,7 +262,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-height: 900px)": {
     paperWidthSm1: {
       maxHeight: "500px",
-      height: "72%"
+      height: "72%",
     },
   },
 
@@ -282,7 +283,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const {onOpen, onClose} = props
+  const { onOpen, onClose } = props;
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [openSignup, setOpenSignup] = React.useState(false);
@@ -290,7 +291,7 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-  console.log("props dialog",props)
+  console.log("props dialog", props);
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -306,32 +307,35 @@ export default function FormDialog(props) {
   const [inputError, setInputError] = useState("");
 
   const classes = useStyles();
-  const urlProfile= () => {
-    const profilePic=sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
-      return profilePic;
-      }
+  const urlProfile = () => {
+    const profilePic = sessionManager.getDataFromCookies(
+      cookiesConstants.USER_PICTURE
+    );
+    return profilePic;
+  };
 
   React.useEffect(() => {
-    if(open === true){
-      setOpen(false)
-    } else{
-      setOpen(props.open)
+    if (open === true) {
+      setOpen(false);
+    } else {
+      setOpen(props.open);
     }
-  }, [props])
+  }, [props]);
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
-      const handleClickOpen =()=>{
-        if(urlProfile()){
-             window.location.href = "loginprofile";
-                       
-          }else{          
-                setOpen(true);
-              }
-        }
-  
+  const handleClickOpen = () => {
+    if (urlProfile()) {
+      window.location.href = "loginprofile";
+    } else {
+      setOpen(true);
+    }
+  };
+
   const handleClose = () => {
-    {!props.hash ? setOpen(false) : props.onClose(onClose)}
+    {
+      !props.hash ? setOpen(false) : props.onClose(onClose);
+    }
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -365,24 +369,23 @@ export default function FormDialog(props) {
       name: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorEmail("");
     setErrorPassword("");
 
     if (!email || !password) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
       setErrorEmail("Enter valid Username");
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -408,7 +411,10 @@ export default function FormDialog(props) {
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
-        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
+        sessionManager.setDataInCookies(
+          authResponse?.userInfoRes?.picture,
+          cookiesConstants.USER_PICTURE
+        );
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -418,7 +424,9 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        {!props.hash ? window.location.href = "loginprofile" : history.go(0)}
+        {
+          !props.hash ? (window.location.href = "loginprofile") : history.go(0);
+        }
       }
     }
   };
@@ -432,7 +440,7 @@ export default function FormDialog(props) {
       email: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
@@ -545,32 +553,41 @@ export default function FormDialog(props) {
       setCaptchaCheckbox(true);
     }
   };
-  
-
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
-        {!props.hash ?
-        <button className="login-button" onClick={handleClickOpen}>
-          <img
-            className="Shape2"
-            style={{borderRadius:"50px"}}
-            src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
-          ></img>
-        </button> : ""
-        }
+        {!props.hash ? (
+          <button className="login-button" onClick={handleClickOpen}>
+            <img
+              className="Shape2"
+              style={{ borderRadius: "50px" }}
+              src={
+                sessionManager.getDataFromCookies(
+                  cookiesConstants.USER_PICTURE
+                ) || require("../../../src/assets/images/Profile.svg")
+              }
+            ></img>
+          </button>
+        ) : (
+          ""
+        )}
         <div>
           <Dialog
-            classes={{ paperWidthSm: value ===1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
+            classes={{
+              paperWidthSm:
+                value === 1 ? classes.paperWidthSm1 : classes.paperWidthSm,
+            }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
             {value === 0 ? (
-              <div>
+              <div
+                className={isLoading == true ? "cover-spin-loginDialog" : ""}
+              >
                 {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
                 <Row>
                   <div className={classes.heading} id="form-dialog-title">
@@ -635,7 +652,7 @@ export default function FormDialog(props) {
                   </span>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
-                {isLoading == true ? (
+                {/* {isLoading == true ? (
                   <div className={classes.loading} >
 
                     <Loader />
@@ -643,13 +660,15 @@ export default function FormDialog(props) {
 
                 ) : (
                   <div></div>
-                )}
+                )} */}
                 <DialogActions>
                   <button
                     className={classes.addbtn}
                     onClick={() => {
                       {
-                        { login() };
+                        {
+                          login();
+                        }
                       }
                     }}
                   >
@@ -671,146 +690,143 @@ export default function FormDialog(props) {
               </div>
             ) : value === 1 ? (
               <div>
-                {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
-                <Row>
-                  <div className={classes.heading} id="form-dialog-title">
-                    Setup a New Account
+                <div
+                  className={isLoading == true ? "cover-spin-loginDialog" : ""}
+                >
+                  {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
+                  <Row>
+                    <div className={classes.heading} id="form-dialog-title">
+                      Setup a New Account
+                    </div>
+
+                    <span
+                      onClick={handleClose}
+                      className={classes.closeContainer}
+                    >
+                      <img
+                        className={classes.close}
+                        src={require("../../../src/assets/images/XDC-Cross.svg")}
+                      ></img>
+                    </span>
+                  </Row>
+                  <DialogContent className={classes.userContainerSignup}>
+                    <DialogContentText className={classes.subCategory}>
+                      <span className={classes.fieldName}>Username</span>
+                    </DialogContentText>
+                    <input
+                      className={classes.input}
+                      placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                      // name="userName"
+                      // value={signUp.userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      // onChange={inputEventSignUp}
+                    ></input>
+                    <div className={classes.error}>{errorUserName}</div>
+                  </DialogContent>
+                  <DialogContent className={classes.userContainerSignup}>
+                    <DialogContentText className={classes.subCategory}>
+                      <span className={classes.fieldName}>Email</span>
+                    </DialogContentText>
+                    <input
+                      type="email"
+                      placeholder="A confirmation code will be sent to this email"
+                      className={classes.input}
+                      // name="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      // value={signUp.email}
+
+                      // onChange={inputEventSignUp}
+                    ></input>
+                    <div className={classes.error}>{errorEmail}</div>
+                  </DialogContent>
+                  <DialogContent className={classes.userContainerSignup}>
+                    <DialogContentText className={classes.subCategory}>
+                      <span className={classes.fieldName}>Password</span>
+                    </DialogContentText>
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                      className={classes.input}
+                      onChange={(e) => setPassword(e.target.value)}
+                      // name="password"
+                      // value={signUp.password}
+                      // onChange={inputEventSignUp}
+                    ></input>
+                    <div className={classes.error}>{errorPassword}</div>
+                  </DialogContent>
+                  <DialogContent className={classes.userContainerSignup}>
+                    <DialogContentText className={classes.subCategory}>
+                      <span className={classes.fieldName}>
+                        Confirm Password
+                      </span>
+                    </DialogContentText>
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                      className={classes.input}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      // name="confirmPassword"
+                      // value={signUp.confirmPassword}
+                      // onChange={inputEventSignUp}
+                    ></input>
+                    <div className={classes.error}>{errorConfirmPassword}</div>
+                  </DialogContent>
+                  <div className={classes.termsContainer}>
+                    <input
+                      className={classes.checkbox}
+                      onClick={handleTermsCheckbox}
+                      type="checkbox"
+                    ></input>
+                    <span className="iAgree">
+                      I agree to the{" "}
+                      <a href="https://www.facebook.com" className="termsLink">
+                        Terms and Conditions
+                      </a>
+                    </span>
                   </div>
-
-                  <span
-                    onClick={handleClose}
-                    className={classes.closeContainer}
-                  >
-                    <img
-                      className={classes.close}
-                      src={require("../../../src/assets/images/XDC-Cross.svg")}
-                    ></img>
-                  </span>
-                </Row>
-                <DialogContent className={classes.userContainerSignup}>
-                  <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Username</span>
-                  </DialogContentText>
-                  <input
-                    className={classes.input}
-                    placeholder="5 to 30 characters in length, only alphanumeric allowed"
-                    // name="userName"
-                    // value={signUp.userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                  // onChange={inputEventSignUp}
-                  ></input>
-                  <div className={classes.error}>{errorUserName}</div>
-                </DialogContent>
-                <DialogContent className={classes.userContainerSignup}>
-                  <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Email</span>
-                  </DialogContentText>
-                  <input
-                    type="email"
-                    placeholder="A confirmation code will be sent to this email"
-                    className={classes.input}
-                    // name="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  // value={signUp.email}
-
-                  // onChange={inputEventSignUp}
-                  ></input>
-                  <div className={classes.error}>{errorEmail}</div>
-                </DialogContent>
-                <DialogContent className={classes.userContainerSignup}>
-                  <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Password</span>
-                  </DialogContentText>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                    className={classes.input}
-                    onChange={(e) => setPassword(e.target.value)}
-                  // name="password"
-                  // value={signUp.password}
-                  // onChange={inputEventSignUp}
-                  ></input>
-                  <div className={classes.error}>{errorPassword}</div>
-                </DialogContent>
-                <DialogContent className={classes.userContainerSignup}>
-                  <DialogContentText className={classes.subCategory}>
-                    <span className={classes.fieldName}>Confirm Password</span>
-                  </DialogContentText>
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                    className={classes.input}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  // name="confirmPassword"
-                  // value={signUp.confirmPassword}
-                  // onChange={inputEventSignUp}
-                  ></input>
-                  <div className={classes.error}>{errorConfirmPassword}</div>
-                </DialogContent>
-                <div className={classes.termsContainer}>
-                  <input
-                    className={classes.checkbox}
-                    onClick={handleTermsCheckbox}
-                    type="checkbox"
-                  ></input>
-                  <span className="iAgree">
-                    I agree to the{" "}
-                    <a href="https://www.facebook.com" className="termsLink">
-                      Terms and Conditions
-                    </a>
-                  </span>
-                </div>
-                <div className={classes.robotContainer}>
-                  <div className={classes.robotContainer1}>
-                    {/* <div className={classes.robotContainer2}> */}
-                    {/* <input
+                  <div className={classes.robotContainer}>
+                    <div className={classes.robotContainer1}>
+                      {/* <div className={classes.robotContainer2}> */}
+                      {/* <input
                         type="checkbox"
                         className={classes.captchaCheckbox}
                         onClick={handleCaptchaCheckbox}
                       ></input> */}
-                    {/* </div> */}
-                    <label class="container1">
-                      <input type="checkbox"></input>
+                      {/* </div> */}
+                      <label class="container1">
+                        <input type="checkbox"></input>
+                        <span
+                          class="checkmark1"
+                          onClick={handleCaptchaCheckbox}
+                        ></span>
+                      </label>
+                      <span className={classes.robotText}>I'm not a robot</span>
+                      <img
+                        className={classes.recaptcha}
+                        src={require("../../../src/assets/images/recaptcha.svg")}
+                      ></img>
+                    </div>
+                  </div>
+
+                  <button
+                    className={classes.createAccountbtn}
+                    onClick={handleSignUp}
+                  >
+                    Create an Account{" "}
+                  </button>
+
+                  <div className={classes.alreadyAccount}>
+                    <div>
+                      Already have an account?{" "}
                       <span
-                        class="checkmark1"
-                        onClick={handleCaptchaCheckbox}
-                      ></span>
-                    </label>
-                    <span className={classes.robotText}>I'm not a robot</span>
-                    <img
-                      className={classes.recaptcha}
-                      src={require("../../../src/assets/images/recaptcha.svg")}
-                    ></img>
-                  </div>
-                </div>
-                {isLoading == true ? (
-                  <div >
-
-                    <Loader />
-                  </div>
-
-                ) : (
-                  <div></div>
-                )}
-                <button
-                  className={classes.createAccountbtn}
-                  onClick={handleSignUp}
-                >
-                  Create an Account{" "}
-                </button>
-
-
-                <div className={classes.alreadyAccount}>
-                  <div>
-                    Already have an account?{" "}
-                    <span
-                      className={classes.signIn}
-                      onClick={handleClickOpenSignin}
-                    >
-                      Sign In
-                    </span>
+                        className={classes.signIn}
+                        onClick={handleClickOpenSignin}
+                      >
+                        Sign In
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
