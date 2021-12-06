@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     outline: "none",
     padding: "20px",
-    marginBottom: "2px",
+    marginBottom: "21px",
   },
   textarea: {
     width: "503px",
@@ -118,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
+    marginTop: "-20px"
   },
   forgotpass: {
     color: "#2149b9",
@@ -284,7 +285,7 @@ export default function FormDialog() {
               setError("")
               }}
             ></input>
-             <div className={classes.error}>{error}</div>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
