@@ -27,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
     "&:hover": { background: "none" },
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px",
+  },
   value: {
     width: "400px !important",
   },
@@ -144,6 +149,8 @@ const useStyles = makeStyles((theme) => ({
   const [privateAddress, setPrivateAddress] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
   const [id, setId] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [errorTag, setErrorTag] = React.useState("");
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -157,19 +164,29 @@ const useStyles = makeStyles((theme) => ({
   }, []);
 
   async function editTaggedAddress() {
-    setOpen(false);
+    setError("");
+    setErrorTag("");
     const data = {
       _id: props.row._id,
       address: privateAddress,
       tagName: nameTag,
     };
+    if (!(privateAddress && privateAddress.length === 43) || !privateAddress.slice(0, 2) === "xdc") {
+      setError("Address should start with xdc & 43 characters")
+      return;
+    } else if (nameTag && nameTag.length >= 20){
+      setErrorTag("Name Tag Minimum length is should be 20");
+      return;
+    } else {
     const [error,response] = await utility.parseResponse(PutTagAddress.putTaggedAddress(data));
     if(error || !response) {
       utility.apiFailureToast("Address already exists");
     } else {
       utility.apiSuccessToast("Address tag Updated");
       window.location.href = "loginprofile";
+      setOpen(false);
     }
+  }
   }
 
   const classes = useStyles();
@@ -180,29 +197,31 @@ const useStyles = makeStyles((theme) => ({
 
   const handleClose = () => {
     setOpen(false);
+    setError("");
+    setErrorTag("");
   };
 
   const handleLogin = () => {
     // history.push("/loginprofile")
   };
-  const validateAddress = () => {
-    if (nameTag && nameTag.length >= 20){
-      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+  // const validateAddress = () => {
+  //   if (nameTag && nameTag.length >= 20){
+  //     utility.apiFailureToast("Name Tag Minimum length is should be 20");
       
-    }else{
-      validateTagName()
-    }
-  }
-  const validateTagName = () => {
+  //   }else{
+  //     validateTagName()
+  //   }
+  // }
+  // const validateTagName = () => {
   
-    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
-      editTaggedAddress()
+  //   if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
+  //     editTaggedAddress()
       
-    } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
-    }
+  //   } else {
+  //   setError("Address should start with xdc & 43 characters");
+  //   }
 
-  };
+  // };
   const handleDelete = async () =>{
     if(props?.row?._id){
       props.dispatchAction(eventConstants.SHOW_LOADER , true)
@@ -247,8 +266,11 @@ const useStyles = makeStyles((theme) => ({
               <input
                 value={privateAddress}
                 className={classes.input}
-                onChange={(e) => setPrivateAddress(e.target.value)}
-              ></input>
+                onChange={(e) => {setPrivateAddress(e.target.value)
+              setError("")
+              }}
+            ></input>
+             {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
@@ -261,6 +283,7 @@ const useStyles = makeStyles((theme) => ({
                 className={classes.input}
                 onChange={(e) => setNameTag(e.target.value)}
               ></input>
+              {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
             </DialogContent>
             <DialogActions className={classes.buttons}>
               <div>
@@ -277,7 +300,7 @@ const useStyles = makeStyles((theme) => ({
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTaggedAddress,validateAddress}
+                    onClick={editTaggedAddress}
                   >
                     Update
                   </button>

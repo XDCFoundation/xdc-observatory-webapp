@@ -324,7 +324,7 @@ export default function Navbar() {
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpencontracts(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
@@ -412,7 +412,7 @@ export default function Navbar() {
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpen(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
@@ -423,6 +423,7 @@ export default function Navbar() {
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
+                cursor: "pointer"
               }}
             >
               Tools

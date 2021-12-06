@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    marginBottom: "21px",
+    marginBottom: "20px",
     outline: "none",
   },
 
@@ -150,6 +150,11 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontsize: "5px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px",
+  },
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -205,15 +210,9 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const classes = useStyles();
+  
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
@@ -221,10 +220,11 @@ export default function FormDialog() {
   };
 
   const handleLogin = () => {
-    // history.push("/loginprofile")
+    setError("");
   };
 
   const watchListService = async () => {
+    setOpen(false);
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
@@ -233,6 +233,7 @@ export default function FormDialog() {
       isEnabled: true,
     };
     if (value === "NO") request["isEnabled"] = false;
+    
 
     const [error, response] = await utility.parseResponse(
       AddWatchList.addWatchlist(request)
@@ -243,9 +244,16 @@ export default function FormDialog() {
       return;
     }
     utility.apiSuccessToast("Address added to watchlist");
-    window.location.href = "loginprofile";
+   window.location.href = "loginprofile";
     setAddress("");
     setDescription("");
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
   const validateAddress = () => {
   
@@ -255,9 +263,15 @@ export default function FormDialog() {
     ) {
       watchListService();
     } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
+      setError("Address should start with xdc & 43 characters");
     }
+    
   };
+
+  const classes = useStyles();
+
+ 
+  
 
   return (
     <div>
@@ -311,6 +325,7 @@ export default function FormDialog() {
               }}
               
             ></input>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           <DialogContent>
             <DialogContentText className={classes.subCategory}>
@@ -392,7 +407,7 @@ export default function FormDialog() {
                 Cancel
               </button>
             </span>
-            <span onClick={handleClose}>
+            <span >
               <button className={classes.addbtn} onClick={watchListService, validateAddress}>
                 Add
               </button>
