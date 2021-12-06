@@ -186,7 +186,7 @@ export default function Watch() {
                 style={{ border: "none", paddingLeft: "8.5%" }}
                 align="left"
               >
-                <span className={"tableheaders"}>Description</span>
+                <span className={"tableheaders"}>Descripn</span>
               </TableCell>
               <TableCell
                 style={{ border: "none", paddingLeft: "13%" }}
@@ -256,6 +256,7 @@ export default function Watch() {
                   id="checkboxNoLabel"
                   value=""
                   aria-label="..."
+                  style={{ border: "none" }}
                 ></input>
                 <span className="tabledata">xdcc4e699581116412965b…5e7c</span>
                 {/* <Tooltip placement="right" title={row.hash}><VisibilityIcon fontSize="small" style={{ color: "#b9b9b9" }} /></Tooltip> */}

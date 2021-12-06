@@ -109,10 +109,10 @@ export default function StickyHeadTable() {
     if (error || !tns) return;
     setHolders(tns);
     setLoading(false)
-    if (tns.data == 0) {
-      setNoData(false)
-    }
-    setTotalHolder(tns.responseCount);
+    // if (tns.data == 0) {
+    //   setNoData(false)
+    // }
+    setTotalHolder(tns?.responseCount);
   };
 
   const handleChangePage = (action) => {
@@ -201,25 +201,25 @@ export default function StickyHeadTable() {
                   return (
                     <StyledTableRow hover role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata table-data">{row[0].Rank}</span>
+                        <span className="tabledata table-data">{row[0]?.Rank}</span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         <a
-                          style={{ color: "#2149b9", fontSize: 11 }} href={"/holder-details/" + row[0].Address}>
+                          style={{ color: "#2149b9", fontSize: 11 }} href={"/holder-details/" + row[0]?.Address}>
 
-                          <span className="tabledata table-data">{row[0].Address}</span>
+                          <span className="tabledata table-data">{row[0]?.Address}</span>
                         </a>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata table-data mar-lef-3">{row[0].Quantity}</span>
+                        <span className="tabledata table-data mar-lef-3">{row[0]?.Quantity}</span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-                        <span className="tabledata table-data mar-lef-3">  {!(row[0].Percentage) ? "------" : (row[0].Percentage).toFixed(2)}</span>
+                        <span className="tabledata table-data mar-lef-3">  {!(row[0]?.Percentage) ? "------" : (row[0].Percentage).toFixed(2)}</span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-                        <span className="tabledata table-data mar-lef-2">  {row[0].Value}</span>{" "}
+                        <span className="tabledata table-data mar-lef-2">  {row[0]?.Value}</span>{" "}
                       </TableCell>
                     </StyledTableRow>
                   );

@@ -16,12 +16,6 @@ import { TagAddressService } from "../../services";
 import { eventConstants, genericConstants } from "../../constants";
 import { connect } from "react-redux";
 
-const DialogBox = styled.div`
-  width: 553px;
-  height: 316px;
-  border-radius: 10%;
-  justify-content: space-between;
-`;
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -33,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
     "&:hover": { background: "none" },
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px",
+  },
   value: {
     width: "400px !important",
   },
@@ -41,12 +40,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "40px",
     fontWeight: "500",
   },
-  dialog: {
-    marginLeft: "10%",
-    marginTop: "2px",
-    width: "80% !important",
-    height: "70% !important",
-    borderRadius: "50px !important",
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
   },
   buttons: {
     justifyContent: "space-between",
@@ -54,12 +52,13 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: "506px",
-    height: "15px",
+    height: "10px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
-    outline: "none",
     padding: "20px",
+    outline: "none",
+    marginBottom: "21px"
   },
   deletebtn: {
     width: "110px",
@@ -90,12 +89,12 @@ const useStyles = makeStyles((theme) => ({
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
+    marginBottom: "2px",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
-    padding: "10px 0px 2px 0px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -117,9 +116,29 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginLeft: "10px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
+  },
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
+    dialogBox: {
+      width: "362px",
+      top: "95px"
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    },
+    flexButton: {
+      display: "flex",
+    }
   },
 }));
 
@@ -130,6 +149,8 @@ const useStyles = makeStyles((theme) => ({
   const [privateAddress, setPrivateAddress] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
   const [id, setId] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [errorTag, setErrorTag] = React.useState("");
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -143,19 +164,29 @@ const useStyles = makeStyles((theme) => ({
   }, []);
 
   async function editTaggedAddress() {
-    setOpen(false);
+    setError("");
+    setErrorTag("");
     const data = {
       _id: props.row._id,
       address: privateAddress,
       tagName: nameTag,
     };
+    if (!(privateAddress && privateAddress.length === 43) || !privateAddress.slice(0, 2) === "xdc") {
+      setError("Address should start with xdc & 43 characters")
+      return;
+    } else if (nameTag && nameTag.length >= 20){
+      setErrorTag("Name Tag Minimum length is should be 20");
+      return;
+    } else {
     const [error,response] = await utility.parseResponse(PutTagAddress.putTaggedAddress(data));
     if(error || !response) {
       utility.apiFailureToast("Address already exists");
     } else {
       utility.apiSuccessToast("Address tag Updated");
       window.location.href = "loginprofile";
+      setOpen(false);
     }
+  }
   }
 
   const classes = useStyles();
@@ -166,29 +197,31 @@ const useStyles = makeStyles((theme) => ({
 
   const handleClose = () => {
     setOpen(false);
+    setError("");
+    setErrorTag("");
   };
 
   const handleLogin = () => {
     // history.push("/loginprofile")
   };
-  const validateAddress = () => {
-    if (nameTag && nameTag.length >= 20){
-      utility.apiFailureToast("Name Tag Minimum length is should be 20");
+  // const validateAddress = () => {
+  //   if (nameTag && nameTag.length >= 20){
+  //     utility.apiFailureToast("Name Tag Minimum length is should be 20");
       
-    }else{
-      validateTagName()
-    }
-  }
-  const validateTagName = () => {
+  //   }else{
+  //     validateTagName()
+  //   }
+  // }
+  // const validateTagName = () => {
   
-    if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
-      editTaggedAddress()
+  //   if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
+  //     editTaggedAddress()
       
-    } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
-    }
+  //   } else {
+  //   setError("Address should start with xdc & 43 characters");
+  //   }
 
-  };
+  // };
   const handleDelete = async () =>{
     if(props?.row?._id){
       props.dispatchAction(eventConstants.SHOW_LOADER , true)
@@ -216,30 +249,32 @@ const useStyles = makeStyles((theme) => ({
 
       <div>
         <Dialog
-          className={classes.dialog}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogBox>
             <Row>
-              <DialogTitle className={classes.heading} id="form-dialog-title">
+              <div className={classes.heading} id="form-dialog-title">
                 Edit Address Tag
-              </DialogTitle>
+              </div>
             </Row>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Address</b>
+                Address
               </DialogContentText>
               <input
                 value={privateAddress}
                 className={classes.input}
-                onChange={(e) => setPrivateAddress(e.target.value)}
-              ></input>
+                onChange={(e) => {setPrivateAddress(e.target.value)
+              setError("")
+              }}
+            ></input>
+             {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Name Tag</b>
+                Name Tag
               </DialogContentText>
 
               <input
@@ -248,6 +283,7 @@ const useStyles = makeStyles((theme) => ({
                 className={classes.input}
                 onChange={(e) => setNameTag(e.target.value)}
               ></input>
+              {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
             </DialogContent>
             <DialogActions className={classes.buttons}>
               <div>
@@ -255,7 +291,7 @@ const useStyles = makeStyles((theme) => ({
                   <button className={classes.deletebtn} onClick={handleDelete}>Delete</button>
                 </span>
               </div>
-              <div>
+              <div className={classes.flexButton}>
                 <span>
                   <button className={classes.cnlbtn} onClick={handleClose}>
                     Cancel
@@ -264,14 +300,13 @@ const useStyles = makeStyles((theme) => ({
                 <span>
                   <button
                     className={classes.updatebtn}
-                    onClick={editTaggedAddress,validateAddress}
+                    onClick={editTaggedAddress}
                   >
                     Update
                   </button>
                 </span>
               </div>
             </DialogActions>
-          </DialogBox>
         </Dialog>
       </div>
     </div>

@@ -14,12 +14,6 @@ import styled from "styled-components";
 import { eventConstants, genericConstants } from "../../constants";
 import { connect } from "react-redux";
 
-const DialogBox = styled.div`
-  width: 553px;
-  height: 394px;
-  border-radius: 10%;
-  justify-content: space-between;
-`;
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -53,12 +47,16 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "40px",
     fontWeight: "500",
   },
-  dialog: {
-    marginLeft: "10%",
-    marginTop: "6px",
-    width: "80% !important",
-    height: "67% !important",
-    borderRadius: "50px !important",
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px"
   },
   input: {
     width: "506px",
@@ -68,16 +66,18 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
+    marginBottom: "21px"
   },
-  input1: {
-    width: "506px",
-    height: "113px",
+  textarea: {
+    width: "503px",
+    height: "90px",
     border: "solid 1px #c6c8ce",
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
   },
+  
 
   updatebtn: {
     width: "110px",
@@ -100,12 +100,12 @@ const useStyles = makeStyles((theme) => ({
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
-    fontfamily: "Inter",
-    fontsize: "10px",
-    fontweight: "200",
+    marginBottom: "2px",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
-    padding: "10px 0px 2px 0px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -127,9 +127,34 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    marginLeft: "8px",
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
+  },
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
+    dialogBox: {
+      width: "362px",
+      top: "95px"
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    },
+    textarea: {
+      maxWidth: "503px",
+      width: "100%",
+      padding: "15px",
+    },
+    flexButton: {
+      display: "flex",
+    }
   },
 }));
 
@@ -137,6 +162,7 @@ function EditTxnLabel(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
+  const [error, setError] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [id, setId] = React.useState("")
   const togglePasswordVisiblity = () => {
@@ -184,7 +210,7 @@ function EditTxnLabel(props) {
     ) {
       editTransactionLable();
     } else {
-      utility.apiFailureToast("Address should start with 0x & 66 characters");
+      setError("Address should start with 0x & 66 characters");
     }
   };
   const handleDelete = async () => {
@@ -215,39 +241,41 @@ function EditTxnLabel(props) {
 
       <div>
         <Dialog
-          className={classes.dialog}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogBox>
             <Row>
-              <DialogTitle className={classes.heading} id="form-dialog-title">
+              <div className={classes.heading} id="form-dialog-title">
                 Edit Transaction label
-              </DialogTitle>
+              </div>
             </Row>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Transaction Hash</b>
+                Transaction Hash
               </DialogContentText>
               <input
                 type="text"
                 className={classes.input}
                 value={TransactionsHash}
-                onChange={(e) => setTransactionsHash(e.target.value)}
-              ></input>
+                onChange={(e) => {setTransactionsHash(e.target.value)
+              setError("")
+              }}
+            ></input>
+             {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Transaction Label/Note</b>
+                Transaction Label/Note
               </DialogContentText>
 
-              <input
+              <textarea
                 type="text"
-                className={classes.input1}
+                className={classes.textarea}
                 value={PrivateNote}
                 onChange={(e) => setPrivateNote(e.target.value)}
-              ></input>
+              ></textarea>
             </DialogContent>
 
             <DialogActions className={classes.buttons}>
@@ -256,7 +284,7 @@ function EditTxnLabel(props) {
                   <button className={classes.deletebtn} onClick={handleDelete}>Delete</button>
                 </span>
               </div>
-              <div>
+              <div className={classes.flexButton}>
                 <span style={{ color: "white" }}>
                   <button className={classes.cnlbtn} onClick={handleClose}>
                     Cancel
@@ -272,7 +300,6 @@ function EditTxnLabel(props) {
                 </span>
               </div>
             </DialogActions>
-          </DialogBox>
         </Dialog>
       </div>
     </div>

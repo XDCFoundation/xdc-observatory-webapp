@@ -17,6 +17,7 @@ import Loader from "../../assets/loader";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
 import PrivateNote from "../../modules/common/dialog/privateNote"
 import { sessionManager } from "../../managers/sessionManager";
+import LoginDialog from "../explorer/loginDialog"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -73,12 +74,32 @@ export default function Transaction({ _handleChange }) {
   // };
 
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false)
+  const [dialogValue, setDailogValue] = React.useState(0)
+  const [dialogValue2, setDailogValue2] = React.useState(0)
+  const [dialogPvtTagIsOpen2, setDialogPvtTagIsOpen2] = React.useState(false)
   const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false)
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
 
-  const openDialogPvtTag = () => setDialogPvtTagIsOpen(true)
-  const closeDialogPvtTag = () => setDialogPvtTagIsOpen(false)
+  const openDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(true)
+    setDailogValue(1);
+  }
+  const closeDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(false)
+    setDailogValue(0);
+  }
+  const openDialogPvtTag2 = () => {
+    setDialogPvtTagIsOpen2(true)
+    setDailogValue2(1);
+  }
+  const closeDialogPvtTag2 = () => {
+    setDialogPvtTagIsOpen2(false)
+    setDailogValue2(0);
+  }
   const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true)
   const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
+  const openLoginDialog = () => setLoginDialogIsOpen(true)
+  const closeLoginDialog = () => setLoginDialogIsOpen(false)
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -99,6 +120,7 @@ export default function Transaction({ _handleChange }) {
     tagUsingAddressTo(transactiondetailusinghash);
   };
 
+  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
   const privateNoteUsingHash = async () => {
     const data = {
       transactionHash: `${hash}`,
@@ -253,8 +275,8 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} />}
-                          <img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />
+                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash} pvtNote={privateNote[0]?.trxLable}/>}
+                          {<img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
                         </span>
                       </MiddleContainer>
                     </HashDiv>
@@ -349,7 +371,7 @@ export default function Transaction({ _handleChange }) {
                                 </button>
                               </Tooltip>
                             </CopyToClipboard>
-                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} />}
+                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} fromAddr={transactions.from} value={dialogValue} hash={hash}/>}
                             {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                           </span>
                         </Content>
@@ -402,8 +424,8 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} />}
-                          {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
+                          {<PrivateAddressTag open={dialogPvtTagIsOpen2} onClose={closeDialogPvtTag2} toAddr={transactions.to} value={dialogValue2} hash={hash}/>}
+                          {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag2} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                         </Content>
                       </MiddleContainer>
                     </SpacingHash>
@@ -526,17 +548,19 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Private Note</Hash>
                       </Container>
                       <MiddleContainerPrivateNote>
-                        {!isPvtNote ? (<PrivateText>
+                        {!isloggedIn ? 
+                        (<PrivateText>
+                          {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} hash={hash}/>}
                           To access the Private Note feature, you must be
-
                           <a
                             className="linkTableDetails-transaction"
-                            style={{ marginLeft: "5px" }}
+                            style={{ marginLeft: "5px", cursor: "pointer" }}
+                            onClick={openLoginDialog}
                           >
                             Logged In
                           </a>
-                        </PrivateText>) :
-                          (<span>{privateNote[0]?.trxLable}</span>)}
+                        </PrivateText>) : (!isPvtNote ? (<span>Add private Note By click on Edit Icon in front of Hash ID</span>):
+                          (<span>{privateNote[0]?.trxLable}</span>))}
                       </MiddleContainerPrivateNote>
                     </SpacingPrivateNode>
                   </Div__>
@@ -579,6 +603,7 @@ const Content = styled.span`
     letter-spacing: 0.034rem;
     color: #3a3a3a;
     opacity: 1;
+    line-height: 18px !important; 
     word-break: break-all;
   }
   @media (min-width: 768px) and (max-width: 1241px) {
@@ -940,6 +965,7 @@ const ImageViewInputData = styled.img`
 const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
+  cursor: pointer;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 0.688rem;
     height: 0.688rem;

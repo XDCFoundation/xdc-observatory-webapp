@@ -42,6 +42,12 @@ input#password[placeholder] {
     text-overflow: unset !important;
   }
 }
+@media (min-width: 0) and (max-width: 768px) {
+  input#password {
+    max-width: 433px;
+    width: 100%;
+  }
+}
 /* The container */
 .container1 {
   display: block;
@@ -456,16 +462,16 @@ input:focus {
 
 .Shape-XDC {
   margin-right: 0.625rem;
-  margin-top: 1rem;
-  height: 2.188rem;
-  width: 2.188rem;
+  margin-top: 1.125rem;
+  height: 1.875rem;
+  width: 1.875rem;
 }
 
 .Shape-XDC:hover {
-  margin-right: 0.625rem;
+  /* margin-right: 0.625rem;
   margin-top: 1rem;
   height: 2.188rem;
-  width: 2.188rem;
+  width: 2.188rem; */
 }
 .menubar-contract {
   display: flex;
@@ -496,7 +502,7 @@ input:focus {
     margin-bottom: 10px;
   }
   .inside-side-box {
-    margin-left: -26px !important;
+    margin-left: -17px !important;
   }
   .side-arrow-contract-tab {
     margin-left: 46% !important;
@@ -527,12 +533,22 @@ input:focus {
   width: 1.5rem;
   height: 1.5rem;
 }
+.beforeInput {
+  justify-content: space-between;
+  display: flex;
+  background-color: #fbfbfb;
+  height: 40px;
+  border-radius: 6px;
+}
+.beforeInputValue {
+  padding-top: 10px;
+  padding-left: 14px;
+}
 .inputcss {
   height: 40px;
   width: 100%;
   border-radius: 7px;
-  background-color: #f5f5f5;
-  outline: none;
+  outline: #9fa9ba;
 }
 .cross-icon {
   width: 16px;
@@ -547,9 +563,9 @@ input:focus {
 }
 .imgcss {
   margin-left: auto;
-  padding-right: 10px;
-  height: 20px;
-  margin-top: 10px;
+  padding-right: 15px;
+  height: 14px;
+  margin-top: 13px;
 }
 .imgcss:hover {
   cursor: pointer;
@@ -614,13 +630,17 @@ input:focus {
 } */
 
 @media (min-width: 0px) and (max-width: 767px) {
+  .down-arrow-internal {
+    margin-top: 0px;
+    cursor: pointer;
+  }
   .menu-sidebar {
-    margin-top: 7px;
+    margin-top: 4px;
     fill: white;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 30px;
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 58.5rem;
     transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     flex-shrink: 0;
     user-select: none;
@@ -815,7 +835,7 @@ input:focus {
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .menu-sidebar {
-    margin-top: 7px;
+    margin-top: 4px;
     fill: white;
     width: 1em;
     height: 1em;
@@ -1280,7 +1300,7 @@ input:focus {
 .Network-explorer-internal {
   padding-bottom: 0.188rem;
   margin: 0.938rem 2.5rem 0.188rem 1.563rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1295,7 +1315,7 @@ input:focus {
 .Network-explorer-internal:hover {
   padding-bottom: 0.188rem;
   margin: 0.938rem 2.5rem 0.188rem 1.563rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1330,6 +1350,9 @@ input:focus {
   .Network-explorer:hover {
     margin: 3px 10px 3px 0px;
     font-size: 0.875rem;
+  }
+  .Network-explorer-internal {
+    margin-left: 2px;
   }
 }
 
@@ -1374,7 +1397,7 @@ input:focus {
 
 .Token-internal {
   padding-bottom: 0.188rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   margin: 0.938rem 2.5rem 0.188rem 11.563rem;
   font-size: 0.938rem;
   font-weight: 500;
@@ -1388,7 +1411,7 @@ input:focus {
 }
 .Token-internal:hover {
   padding-bottom: 0.188rem;
-  padding-top: 0.438rem;
+  padding-top: 0.5rem;
   margin: 0.938rem 2.5rem 0.188rem 11.563rem;
   font-size: 0.938rem;
   font-weight: 500;
@@ -1408,6 +1431,9 @@ input:focus {
   .Token:hover {
     margin: 3px 40px 3px 155px;
     font-size: 0.875rem;
+  }
+  .token-link {
+    font-size: 0.813rem !important;
   }
 }
 /* .Token:after {
@@ -1467,6 +1493,11 @@ p {
     border-radius: 6px;
     width: 21.438rem !important;
   }
+  .profile-name-popover {
+    margin-top: 0px !important;
+    margin-left: 4px !important;
+    margin-right: 9px !important;
+  }
 }
 
 .Transaction-display {
@@ -1510,7 +1541,21 @@ p {
     margin-top: 25px;
   }
 }
+.profile-name-popover {
+  margin-top: 12px;
+  margin-left: 4px;
+  margin-right: 9px;
+}
 @media (min-width: 767px) and (max-width: 1240px) {
+  .down-arrow-internal {
+    margin-top: 0px;
+    cursor: pointer;
+  }
+  .profile-name-popover {
+    margin-top: 0px;
+    margin-left: 4px;
+    margin-right: 9px;
+  }
   .Success-rectangle {
     height: 24px;
     margin-left: 15px;
@@ -1609,7 +1654,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .transaction-box-text-1 {
@@ -1768,6 +1813,7 @@ p {
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   background-color: #ffffff;
+  outline: none;
 }
 
 @media (max-width: 1240px) {
@@ -1780,6 +1826,7 @@ p {
     border-radius: 4px;
     border: solid 1px #e5e8f0;
     background-color: #ffffff;
+    outline: none;
   }
 }
 /* .firstbox {
@@ -1849,14 +1896,14 @@ p {
 }
 
 .path {
-  color: #252525;
+  color: #2a2a2a;
   font-size: 10px;
   margin-top: -8px;
   font-weight: 600;
 }
 @media (max-width: 1240px) {
   .path {
-    color: #252525;
+    color: #2a2a2a;
     font-size: 10px;
     margin-top: -3px;
     font-weight: 600;
@@ -1884,7 +1931,7 @@ p {
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .pagebox {
@@ -1918,7 +1965,7 @@ p {
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .nextbox {
@@ -2032,28 +2079,28 @@ p {
 }
 
 .path-contract {
-  color: #252525;
+  color: #2a2a2a;
   font-size: 10px;
   margin-top: -8px;
   font-weight: 600;
 }
 
 .path-2-contract {
-  color: #252525;
+  color: #2a2a2a;
   font-size: 10px;
   margin-top: -8px;
   font-weight: 600;
 }
 
 .path-2 {
-  color: #252525;
+  color: #2a2a2a;
   font-size: 10px;
   margin-top: -8px;
   font-weight: 600;
 }
 @media (max-width: 1240px) {
   .path-2 {
-    color: #252525;
+    color: #2a2a2a;
     font-size: 10px;
     margin-top: -3px;
     font-weight: 600;
@@ -2071,7 +2118,7 @@ p {
   line-height: normal;
   letter-spacing: 0.54px;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
   margin: 4px 0;
 }
 
@@ -2107,7 +2154,7 @@ p {
   line-height: normal;
   letter-spacing: 0.66px;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .Page-1-of-5 {
@@ -2119,14 +2166,14 @@ p {
   line-height: normal;
   letter-spacing: 0.66px;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .last-contract {
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.45px;
-  color: #252525;
+  color: #2a2a2a;
   margin: 4px 0;
 }
 
@@ -2134,7 +2181,7 @@ p {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.45px;
-  color: #252525;
+  color: #2a2a2a;
   cursor: text;
 }
 
@@ -2143,21 +2190,21 @@ p {
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.45px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .last {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.45px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .first {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.45px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .nextbox-contract {
@@ -2297,7 +2344,7 @@ p {
 }
 
 .inside-side-box {
-  margin-left: -20px;
+  margin-left: -17px;
   font-size: 14.5px;
   font-weight: 500;
   font-stretch: normal;
@@ -2407,7 +2454,7 @@ p {
   line-height: normal;
   letter-spacing: 0.62px;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .XDCPriceDropText {
@@ -2729,7 +2776,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .textarea-constructor-arg {
@@ -2786,7 +2833,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .vc-input-contract-add {
@@ -2816,7 +2863,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .vc-input-contract-name {
@@ -2846,7 +2893,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .vc-contract-add-select {
@@ -2892,7 +2939,7 @@ p {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .select-td {
-    margin-left: 15px !important;
+    /* margin-left: 15px !important; */
     font-size: 12px;
   }
 }
@@ -2901,13 +2948,6 @@ p {
   .mobile-navbartab {
     display: block !important;
   }
-  /* .centerbox-td {
-    width: 100% !important;
-    height: 35px;
-    margin-right: 0px !important;
-    margin-top: 40px !important;
-    margin-left: 5px !important;
-  }*/
 }
 
 @media (max-width: 767px) {
@@ -2996,10 +3036,10 @@ p {
     align-items: baseline !important;
     justify-content: space-between !important;
   }
-  .right-nav-div {
+  /* .right-nav-div {
     display: flex;
     align-items: center;
-  }
+  } */
 }
 
 @media (max-width: 1241px) {
@@ -3540,6 +3580,13 @@ body {
     border-bottom: 1px solid #ddd;
   }
 }
+@media (min-width: 768px) and (max-width: 1240px) {
+  /* #container-table th {
+    padding: 17px 48px 15px 27px !important;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  } */
+}
 
 #container-table td {
   padding: 12px;
@@ -3556,7 +3603,7 @@ body {
   line-height: normal;
   letter-spacing: 0.58px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
@@ -3585,7 +3632,7 @@ body {
   line-height: normal;
   letter-spacing: 0.58px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
 }
 @media (min-width: 0px) and (max-width: 766px) {
   #container-table-token td {
@@ -3600,7 +3647,7 @@ body {
     line-height: normal;
     letter-spacing: 0.58px;
     text-align: left;
-    color: #252525;
+    color: #2a2a2a;
   }
 }
 
@@ -3734,7 +3781,7 @@ body {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .Fiat-Token {
@@ -4612,7 +4659,7 @@ button {
   font-weight: bold;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
@@ -4624,7 +4671,7 @@ button {
   font-weight: bold;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 .value_main_main {
@@ -5047,7 +5094,7 @@ button {
 }
 
 .height_2:hover {
-  color: black !important;
+  color: #2149b9;
   list-style: none;
   text-decoration: none;
   font-size: 11px;
@@ -5085,7 +5132,7 @@ button {
 }
 
 .height2:hover {
-  color: black !important;
+  color: #2149b9;
   list-style: none;
   text-decoration: none;
   font-size: 11px;
@@ -5727,7 +5774,7 @@ button {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 .cont-token-data :nth-child(2) {
   font-size: 13px;
@@ -5735,7 +5782,7 @@ button {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #252525;
+  color: #2a2a2a;
 }
 
 @media (min-width: 1240px) {
@@ -5748,7 +5795,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     padding-top: 5px;
   }
 }
@@ -5762,7 +5809,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     padding-top: 5px;
     top: 1041px;
     left: 75px;
@@ -5781,7 +5828,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     padding-top: 5px;
   }
 }
@@ -5795,7 +5842,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #252525;
+    color: #2a2a2a;
     height: 1rem;
     padding-top: 5px;
   }
@@ -5894,7 +5941,7 @@ button {
 }
 
 .mid_cont p {
-  color: #252525;
+  color: #2a2a2a;
   font-weight: 600;
 }
 
@@ -5932,7 +5979,7 @@ button {
 }
 
 .row_cont p {
-  color: #252525;
+  color: #2a2a2a;
   margin-right: 35px;
   /* font-size: 12px; */
 }
@@ -6281,8 +6328,22 @@ button {
   color: #3a3a3a;
   margin-left: 0px;
   resize: none;
+  padding: 14px 0px 14px 14px;
 }
-
+@media (min-width: 0px) and (max-width: 767px) {
+  .text-area-transaction {
+    width: 100%;
+    height: 5rem !important;
+    border-radius: 4px;
+    outline: transparent;
+    border: solid 1px #9fa9ba;
+    background-color: #dee0e3;
+    color: #3a3a3a;
+    margin-left: 0px;
+    resize: none;
+    padding: 0px !important;
+  }
+}
 .input-data-text {
   height: 100%;
 }
@@ -6612,6 +6673,9 @@ button {
   border-radius: 6px;
   color: white;
 }
+.btn:focus {
+  box-shadow: none !important;
+}
 
 .btn_export:disabled {
   height: 30px;
@@ -6635,7 +6699,7 @@ button {
   line-height: normal;
   letter-spacing: 0.45px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   margin: 2px;
@@ -6650,7 +6714,7 @@ button {
   line-height: normal;
   letter-spacing: 0.45px;
   text-align: left;
-  color: #252525;
+  color: #2a2a2a;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
   margin: 2px;
@@ -6683,7 +6747,7 @@ button {
   align-items: center;
   border-radius: 10px;
   box-shadow: black;
-  padding-top: 1.25rem;
+  padding-top: 1.3rem;
 }
 
 .second-row-table-block {
@@ -7026,7 +7090,7 @@ button {
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
-  /* border-bottom: 1px solid rgb(227, 231, 235) !important; */
+  color: #252525 !important;
   border-bottom: none !important;
 }
 
@@ -7044,6 +7108,7 @@ button {
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
+  color: #252525 !important;
   border-bottom: 1px solid rgb(227, 231, 235) !important;
 }
 
@@ -7326,6 +7391,7 @@ button {
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
+    color: #252525 !important;
   }
   .left-table-contract-data-mobile {
     margin-top: -12px;
@@ -7346,38 +7412,7 @@ button {
     margin-left: 0px;
     background-color: white !important;
   }
-  .Shape-XDC {
-    margin-top: -0.9rem;
-  }
-
-  .Shape-XDC:hover {
-    margin-top: -0.9rem;
-  }
-
-  .XDC-internal {
-    margin-top: -0.5rem;
-  }
-  .XDC-internal:hover {
-    margin-top: -0.5rem;
-  }
-
-  .Network-explorer-internal {
-    margin: 1.5rem 2.5rem 0.188rem 0.4rem;
-    padding-top: 0rem;
-  }
-  .Network-explorer-internal:hover {
-    margin: 1.5rem 2.5rem 0.188rem 0.4rem;
-    padding-top: 0rem;
-  }
-
-  .Token-internal {
-    padding-top: 0rem;
-    margin: 1.5rem 2.5rem 0.188rem 10rem;
-  }
-  .Token-internal:hover {
-    padding-top: 0rem;
-    margin: 1.5rem 2.5rem 0.188rem 10rem;
-  }
+  
 
   .parentCenterbox {
     display: flex;
@@ -7385,16 +7420,16 @@ button {
     margin-top: 3.75rem;
   }
   .centerbox-td {
-    /* width: 21.4375rem; */
+    width: 21.3rem;
     height: 1.9375rem;
-    margin-right: -20px;
-    margin-left: 3.0625rem;
+    margin-right: -12px;
+    margin-left: 3rem;
   }
 
   .vc-header {
     display: flex;
     justify-content: center;
-    margin: 14rem 0rem 0rem 0rem;
+    margin: 14rem 0rem 0rem 0.5rem;
     font-family: "Inter" !important;
     font-size: 15px;
     font-weight: bold;
@@ -7563,6 +7598,9 @@ button {
     padding: 0 0 0 0 !important;
   }
 }
+.left-table-contract-mobile {
+  color: #252525 !important;
+}
 @media (min-width: 767px) {
   .contract-summary-mobile {
     display: contents;
@@ -7575,6 +7613,7 @@ button {
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
+    color: #252525 !important;
   }
   .left-table-contract-data-mobile {
     padding: 10px 6px 10px 0px !important;
@@ -7583,7 +7622,7 @@ button {
     letter-spacing: 0.55px !important;
   }
 }
-@media (min-width: 767px) and (max-width: 1240px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   /* .vc-header {
     width: 85%;
     margin: 95px auto 2%;
@@ -7601,8 +7640,10 @@ button {
     width: 31rem;
   }
   .select-td {
-    margin-left: 0px;
+    margin-left: -34px;
     background-color: white !important;
+    font-size: 15px;
+    padding-left: 14px;
   }
   .mobile-navbartab {
     display: flex;
@@ -7610,39 +7651,11 @@ button {
     margin-top: 10px;
   }
 
-  .Shape-XDC {
-    margin-top: 0.2rem;
-    margin-bottom: 1.125rem;
-  }
-
-  .Shape-XDC:hover {
-    margin-top: 0.2rem;
-    margin-bottom: 1.125rem;
-  }
-
-  .XDC-internal {
-    margin-top: 0.4rem;
-  }
-  .XDC-internal:hover {
-    margin-top: 0.4rem;
-  }
-
   .Network-explorer-internal {
-    margin: 0.6rem 2.5rem 0rem 1.563rem;
-    padding-top: 0rem;
+    margin-top: 1rem;
   }
-  .Network-explorer-internal:hover {
-    margin: 0.6rem 2.5rem 0rem 1.563rem;
-    padding-top: 0rem;
-  }
-
   .Token-internal {
-    padding-top: 0rem;
-    margin: 0.6rem 2.5rem 0rem 11.563rem;
-  }
-  .Token-internal:hover {
-    padding-top: 0rem;
-    margin: 0.6rem 2.5rem 0rem 11.563rem;
+    margin-top: 1rem;
   }
   .parentCenterbox {
     display: flex;
@@ -7650,13 +7663,10 @@ button {
     /* background-color: green; */
   }
   .centerbox-td {
-    /* width: 38.9375rem; */
-    /* background-color: red; */
-    /* width: 100%; */
-    height: 2.4375rem;
-    margin-right: -20px;
     margin-top: 22px;
-    margin-left: 3.1875rem;
+    position: absolute;
+    right: 8px;
+    width: 38.938rem;
   }
 
   .vc-header {
@@ -7880,7 +7890,7 @@ button {
   padding-right: 50px;
   letter-spacing: 0.034rem;
   text-align: center;
-  color: #252525;
+  color: #2a2a2a;
   opacity: 0.8;
 }
 @media (min-width: 1241px) {
@@ -7998,11 +8008,13 @@ button {
   width: 20px;
   height: 20px;
   margin-top: 4px;
+  cursor: pointer;
 }
 .edit1-icon {
   width: 20px;
   height: 20px;
   margin-top: 6px;
+  cursor: pointer;
 }
 @media (max-width: 767px) {
   .wid-42 {
@@ -8124,22 +8136,24 @@ button {
 
 @media (max-width: 450px) {
   .mobile-navbartab1 {
-    margin-top: 63px;
+    margin-top: 61px;
   }
   .Shape-XDC {
-    height: 20px;
-    width: 20px;
-    margin-top: 1px;
+    height: 23px;
+    width: 23px;
+    margin-top: 0px;
+    margin-right: 7px;
   }
   .XDC-internal {
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: 4.5px;
   }
   .right-nav-div {
     position: absolute;
-    top: 46px;
+    top: 45px;
     right: 16px;
   }
+
   .Shape2-internal {
     height: 20px;
     width: 20px;
@@ -8150,28 +8164,35 @@ button {
     width: 20px;
     margin-top: 1px;
   }
+  .Network-explorer-internal {
+    font-size: 14px;
+  }
+  .Token-internal {
+    margin-left: 149px;
+    font-size: 14px;
+  }
+
+  .down-arrow-internal{
+    margin-right: -9px;
+  }
   .centerbox-td {
     margin-top: 0px !important;
     /* margin-left: auto !important;
     margin-right: auto !important; */
     height: 34px;
-  }
-
-  .Network-explorer-internal {
-    margin-left: 0px !important;
+    margin-left: 50px;
   }
   .select-td {
-    margin-left: 90px !important;
+    margin-left: 13px;
   }
+
+  /* .select-td {
+    margin-left: 90px !important;
+  } */
 }
 
 @media (max-width: 1024px) {
-  .XDC-internal {
-    margin-top: 4px;
-  }
-  .Shape-XDC {
-    margin-top: 0px;
-  }
+ 
   /* .Network-explorer-internal {
     margin-top: 0px;
   }
@@ -8182,7 +8203,7 @@ button {
   .name-internal {
     margin-top: 15px;
   }
-
+  
   /* .down-arrow-internal{
     margin-top: 0px;
   } */
@@ -8196,6 +8217,9 @@ button {
 @media (min-width: 768px) and (max-width: 1023px) {
   .pad-left-27 {
     padding-left: 27px;
+  }
+  .right-nav-div {
+    top: 4px;
   }
 }
 @media (max-width: 767px) {
@@ -8377,15 +8401,15 @@ button {
   color: #ffffff;
   font-size: 0.875rem;
   font-family: Inter;
-  margin-left: 14px !important;
-  margin-top: 20px;
+  margin-left: 23px !important;
+  margin-top: 23px;
 }
 .Notification-header-text-color-fade {
   color: #0099f9;
   font-size: 0.875rem;
   font-family: Inter;
-  margin-left: 14px !important;
-  margin-top: 20px;
+  margin-left: 15px !important;
+  margin-top: 23px;
 }
 .Notification-text-color-fade {
   color: #0099f9;
@@ -8393,7 +8417,7 @@ button {
   font-family: Inter;
 }
 .notification-hr {
-  width: 95%;
+  width: 93%;
   left: 0%;
   border: solid 0.1px #4867c1;
   margin-left: 0%;
@@ -8714,7 +8738,7 @@ button {
   color: #3a3a3a;
   margin-left: 100px;
   width: 100%;
-  margin-top: 0px;
+  margin-top: 6px;
 }
 @media (min-width: 0px) and (max-width: 766px) {
   .block-details-extraData {
@@ -8757,7 +8781,7 @@ button {
   font-family: "Inter";
   outline-color: transparent;
   border-width: 0;
-  width: 11.25rem;
+  width: 8.25rem;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
@@ -8776,6 +8800,12 @@ button {
     font-size: 10px;
     color: red;
     font-weight: normal;
+  }
+  .copy-icon-block-details {
+    font-size: 14px;
+    background-color: white;
+    color: #4878ff;
+    margin-left: 0px !important;
   }
 }
 @media (min-width: 0px) and (max-width: 766px) {
@@ -8812,6 +8842,9 @@ button {
   color: #2a2a2a;
   text-decoration: underline;
 }
+.iAgree {
+  color: #2a2a2a;
+}
 .token-details-address-link {
   color: #2149b9;
   font-size: 15px;
@@ -8820,9 +8853,50 @@ button {
   color: #2149b9;
   font-size: 15px;
 }
+.userName-internal {
+  margin-top: 12px;
+  margin-left: 4px;
+  margin-right: 9px;
+}
+@media (min-width: 0px) and (max-width: 1024px) {
+  .userName-internal {
+    margin-top: 0px;
+  }
+  .down-arrow-internal {
+    margin-top: 0px;
+  }
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .token-details-address-link {
     color: #2149b9;
     font-size: 14px;
   }
+  .copy-icon-block-details {
+    font-size: 14px;
+    background-color: white;
+    color: #4878ff;
+    margin-left: 0px !important;
+  }
+}
+.copy-icon-block-details {
+  font-size: 14px;
+  background-color: white;
+  color: #4878ff;
+  margin-left: 300px;
+}
+
+@media (min-width: 767px) and (max-width: 1024px) {
+  .mobile-navbartab1 {
+    margin-top: -7px;
+  }
+  .Network-explorer-internal {
+    margin-top: 8px;
+  }
+  .Token-internal {
+    margin-top: 8px;
+  }
+}
+
+.radio-inside-dot > span > span > div > svg ~ svg > path {
+  color: #2149b9;
 }

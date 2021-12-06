@@ -22,13 +22,6 @@ import { eventConstants, genericConstants } from "../../constants";
 import { connect } from "react-redux";
 
 
-const DialogBox = styled.div`
-  width: 553px;
-  height: 492px;
-  border-radius: 10%;
-  justify-content: space-between;
-`;
-
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -37,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
     // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
+  },
+  dialogBox: {
+    width: "553px",
+    position: "absolute",
+    top: "111px",
+    borderRadius: "12px",
   },
   btn: {
     border: "none !important",
@@ -74,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
+    marginBottom: "21px",
   },
   // addbtn: {
   //   width: "110px",
@@ -130,14 +130,17 @@ const useStyles = makeStyles((theme) => ({
   },
   subCategory: {
     marginTop: "-12px",
-    marginBottom: "-2px",
-    // fontWeight: "50px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-    fontweight: "500",
-    padding: "10px 0px 2px 0px",
-
+    marginBottom: "2px",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
     border: "none !important",
+  },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+    marginTop: "-20px"
   },
   forgotpass: {
     color: "#2149b9",
@@ -159,8 +162,33 @@ const useStyles = makeStyles((theme) => ({
     fontsize: "5px",
   },
   heading: {
-    fontfamily: "Inter",
-    fontweight: "600",
+    marginTop: "30px",
+    marginBottom: "30px",
+    marginLeft: "24px",
+    fontFamily: "Inter",
+    fontWeight: "600",
+    fontSize: "18px",
+    color: "#2a2a2a",
+  },
+  "@media (max-width: 714px)": {
+    heading:{
+      fontSize: "16px",
+    },
+    dialogBox: {
+      width: "362px",
+      top: "95px"
+    },
+    input: {
+      maxWidth: "503px",
+      width: "100%",
+    },
+    notifyLabel: {
+      fontSize: "13px",
+      width: "250px",
+    },
+    flexButton: {
+      display: "flex",
+    }
   },
 }));
 
@@ -170,12 +198,14 @@ function EditWatchList(props) {
   const [_id, setId] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
+  console.log("check",props);
 
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
@@ -200,9 +230,23 @@ function EditWatchList(props) {
 
   const handleLogin = () => {
     //   history.push("/loginprofile")
+    setOpen(false);
   };
 
   const [edit, setEdit] = React.useState();
+  const validateAddress = () => {
+
+    if (
+      (address && address.length === 43) ||
+      address.slice(0, 2) == "xdc"
+    ) {
+      return true;
+      // watchListService();
+    } else {
+      setError("Address should start with xdc & 43 characters");
+      return false;
+    }
+  };
 
   const watchListService = async () => {
     const request = {
@@ -217,23 +261,11 @@ function EditWatchList(props) {
         utility.apiFailureToast("Error");
       } else {
         utility.apiSuccessToast("Address Updated");
-        window.location.href = "loginprofile";
+       window.location.href = "loginprofile";
       }
     };
   }
-  const validateAddress = () => {
-
-    if (
-      (address && address.length === 43) ||
-      address.slice(0, 2) == "xdc"
-    ) {
-      return true;
-      // watchListService();
-    } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
-      return false;
-    }
-  };
+  
   // const watchListService = async () => {
   //   const request = {
   //     _id: props.row._id,
@@ -263,7 +295,7 @@ function EditWatchList(props) {
     <div>
       <div onClick={handleClickOpen}>
         <button className={classes.btn}>
-          <a className="linkTable">
+          <a className="linkTable1">
             <span className="tabledata1">Edit</span>
           </a>
         </button>
@@ -271,30 +303,33 @@ function EditWatchList(props) {
 
       <div>
         <Dialog
-          className={classes.dialog}
+          classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogBox>
             <Row>
-              <DialogTitle className={classes.heading} id="form-dialog-title">
+              <div className={classes.heading} id="form-dialog-title">
                 Edit Watchlist
-              </DialogTitle>
+              </div>
             </Row>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Address</b>
+                Address
               </DialogContentText>
               <input
                 value={address}
                 className={classes.input}
-                onChange={(e) => setAddress(e.target.value)}
-              ></input>
+                onChange={(e) => {setAddress(e.target.value)
+                setError("")
+              }}
+              
+            ></input>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Description</b>
+                Description
               </DialogContentText>
 
               <input
@@ -306,7 +341,7 @@ function EditWatchList(props) {
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
-                <b>Notifications</b>
+                Notifications
               </DialogContentText>
               <FormControl
                 component="fieldset"
@@ -322,34 +357,42 @@ function EditWatchList(props) {
                   onChange={handleChange}
                 >
                   <FormControlLabel
+                    className="radio-inside-dot"
                     value="female"
-                    control={<Radio style={{ color: "#2149b9" }} />}
+                    control={<Radio style={{ color: "#979797" }} />}
+                    classes={{ label: classes.notifyLabel }}
                     style={{ margin: "5px 2px -5px -5px" }}
                     label="No Notifications"
                   />
                   <FormControlLabel
+                    className="radio-inside-dot"
                     value="male"
-                    control={<Radio style={{ color: "#2149b9" }} />}
+                    control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
                     label="Notify on Incoming & Outgoing Txns"
                   />
                   <FormControlLabel
+                    className="radio-inside-dot"
                     value="other"
-                    control={<Radio style={{ color: "#2149b9" }} />}
+                    control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
                     label="Notify on Incoming (Recieve) Txns Only"
                   />
                   {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                   <FormControlLabel
+                    className="radio-inside-dot"
                     value="disabled"
-                    control={<Radio style={{ color: "#2149b9" }} />}
+                    control={<Radio style={{ color: "#979797" }} />}
+                    classes={{ label: classes.notifyLabel }}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     label="Notify on Outgoing (Sent) Txns Only"
                   />
                 </RadioGroup>
               </FormControl>
             </DialogContent>
-            <DialogActions className={classes.buttons} onClick={handleClose}>
+            <DialogActions className={classes.buttons}>
               <div>
                 <span>
                   <button className={classes.deletebtn} onClick={handleDelete}>
@@ -357,7 +400,7 @@ function EditWatchList(props) {
                   </button>
                 </span>
               </div>
-              <div>
+              <div className={classes.flexButton}>
                 <span>
                   <button className={classes.cnlbtn} onClick={handleLogin}>
                     Cancel
@@ -373,7 +416,6 @@ function EditWatchList(props) {
                 </span>
               </div>
             </DialogActions>
-          </DialogBox>
         </Dialog>
       </div>
     </div>
