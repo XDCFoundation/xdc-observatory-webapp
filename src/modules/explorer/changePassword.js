@@ -110,8 +110,8 @@ export default function ChangePassword(props) {
       oldPassword: currentInput,
       newPassword: newInput,
     };
-    
-    setLoading(true)
+
+    setLoading(true);
     setErrorPassword("");
     setErrorConfirmPassword("");
 
@@ -120,7 +120,6 @@ export default function ChangePassword(props) {
       utility.apiFailureToast("Please enter required field");
     } else if (!newInput.match(regExPass)) {
       setErrorPassword(
-        
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
@@ -134,10 +133,10 @@ export default function ChangePassword(props) {
       );
       if (error || !authResponse) {
         setLoading(false);
-        utility.apiFailureToast("failed");
+        utility.apiFailureToast("Password is incorrect");
       } else {
         history.push("/dashboard");
-        utility.apiSuccessToast("Password  changed successfully");
+        utility.apiSuccessToast("Password changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse?.sub, "userId");
@@ -154,98 +153,91 @@ export default function ChangePassword(props) {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogContent className={classes.heading}>
-        <Row justifyContent="space-between" marginTop="8px">
-          <DialogContentText className={classes.text}>
-            <b>Change Password</b>
-          </DialogContentText>
-          <span
-                    onClick={props.openChangePassword}
-                    className={classes.closeContainer}
-                  >
-                    <img
-                      className={classes.close}
-                      src={require("../../../src/assets/images/XDC-Cross.svg")}
-                    ></img>
-                  </span>
-        </Row>
-        <Column>
-          <DialogContentText className={classes.subCategory}>
-            <b>Current Password</b>
-            <input
-              type="password"
-              id="password"
-              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-              className={classes.input}
-              onChange={(e) => {
-                {
-                  setCurrentInput(e.target.value);
-                }
-              }}
-            ></input>
-          </DialogContentText>
-          <DialogContentText className={classes.subCategory}>
-            <b>New Password</b>
-            <input
-              type="password"
-              id="password"
-              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-              className={classes.input}
-              onChange={(e) => {
-                {
-                  setNewInput(e.target.value);
-                }
-              }}
-            ></input>
-            <div className={classes.error}>{errorPassword}</div>
-          </DialogContentText>
-          <DialogContentText className={classes.subCategory}>
-            <b>Confirm Password</b>
-            <input
-              type="password"
-              id="password"
-              placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-              className={classes.input}
-              onChange={(e) => {
-                {
-                  setConfirmPassword(e.target.value);
-                }
-              }}
-            ></input>
-            <div className={classes.error}>{errorConfirmPassword}</div>
-          </DialogContentText>
-          {isLoading == true ? (
-                        <div >
-                          
-                          <Loader/>
-                        </div>
-                   
-                ):(
-                  <div></div>
-                )}
-
-          <DialogActions
-            style={{
-            //  alignItems: "center",
-             // justifyContent: "start",
-              marginTop: "15px",
-              marginLeft:"-5px"
-            }}
-          >
-            <div style={{ color: "red" }}> {isError}</div>
-            <button
-              className={classes.addbtn}
-              onClick={() => {
-                updatepassword();
-              }}
-              type="button"
+      <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+        <DialogContent className={classes.heading}>
+          <Row justifyContent="space-between" marginTop="8px">
+            <DialogContentText className={classes.text}>
+              <b>Change Password</b>
+            </DialogContentText>
+            <span
+              onClick={props.openChangePassword}
+              className={classes.closeContainer}
             >
-              Update Password{" "}
-            </button>
-          </DialogActions>
-          
-        </Column>
-      </DialogContent>
+              <img
+                className={classes.close}
+                src={require("../../../src/assets/images/XDC-Cross.svg")}
+              ></img>
+            </span>
+          </Row>
+          <Column>
+            <DialogContentText className={classes.subCategory}>
+              <b>Current Password</b>
+              <input
+                type="password"
+                id="password"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                className={classes.input}
+                onChange={(e) => {
+                  {
+                    setCurrentInput(e.target.value);
+                  }
+                }}
+              ></input>
+            </DialogContentText>
+            <DialogContentText className={classes.subCategory}>
+              <b>New Password</b>
+              <input
+                type="password"
+                id="password"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                className={classes.input}
+                onChange={(e) => {
+                  {
+                    setNewInput(e.target.value);
+                  }
+                }}
+              ></input>
+              <div className={classes.error}>{errorPassword}</div>
+            </DialogContentText>
+            <DialogContentText className={classes.subCategory}>
+              <b>Confirm Password</b>
+              <input
+                type="password"
+                id="password"
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                className={classes.input}
+                onChange={(e) => {
+                  {
+                    setConfirmPassword(e.target.value);
+                  }
+                }}
+              ></input>
+              <div className={classes.error}>{errorConfirmPassword}</div>
+            </DialogContentText>
+            
+
+            <DialogActions
+              style={{
+                //  alignItems: "center",
+                // justifyContent: "start",
+                marginTop: "15px",
+                marginLeft: "-5px",
+              }}
+            >
+              <div style={{ color: "red" }}> {isError}</div>
+              <button
+                className={classes.addbtn}
+                onClick={() => {
+                  updatepassword();
+                }}
+                type="button"
+              >
+                Update Password{" "}
+              </button>
+            </DialogActions>
+          </Column>
+        </DialogContent>
+      </div>
     </Dialog>
   );
 }
