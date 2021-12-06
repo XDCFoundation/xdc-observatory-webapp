@@ -217,6 +217,7 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setError("");
   };
 
   const handleLogin = () => {

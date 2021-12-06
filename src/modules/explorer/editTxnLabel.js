@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+  },
   input: {
     width: "506px",
     height: "10px",
@@ -61,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-    marginBottom: "21px"
+    marginBottom: "2px"
   },
   textarea: {
     width: "503px",
@@ -157,6 +161,7 @@ function EditTxnLabel(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
+  const [error, setError] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [id, setId] = React.useState("")
   const togglePasswordVisiblity = () => {
@@ -204,7 +209,7 @@ function EditTxnLabel(props) {
     ) {
       editTransactionLable();
     } else {
-      utility.apiFailureToast("Address should start with 0x & 66 characters");
+      setError("Address should start with 0x & 66 characters");
     }
   };
   const handleDelete = async () => {
@@ -253,8 +258,11 @@ function EditTxnLabel(props) {
                 type="text"
                 className={classes.input}
                 value={TransactionsHash}
-                onChange={(e) => setTransactionsHash(e.target.value)}
-              ></input>
+                onChange={(e) => {setTransactionsHash(e.target.value)
+              setError("")
+              }}
+            ></input>
+             <div className={classes.error}>{error}</div>
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>

@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     background: "none",
     "&:hover": { background: "none" },
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+  },
   value: {
     width: "400px !important",
   },
@@ -53,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-    marginBottom: "21px"
+    marginBottom: "2px"
   },
   deletebtn: {
     width: "110px",
@@ -144,6 +148,7 @@ const useStyles = makeStyles((theme) => ({
   const [privateAddress, setPrivateAddress] = React.useState("");
   const [nameTag, setNameTag] = React.useState(false);
   const [id, setId] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -199,7 +204,7 @@ const useStyles = makeStyles((theme) => ({
       editTaggedAddress()
       
     } else {
-      utility.apiFailureToast("Address should start with xdc & 43 characters");
+    setError("Address should start with xdc & 43 characters");
     }
 
   };
@@ -247,8 +252,11 @@ const useStyles = makeStyles((theme) => ({
               <input
                 value={privateAddress}
                 className={classes.input}
-                onChange={(e) => setPrivateAddress(e.target.value)}
-              ></input>
+                onChange={(e) => {setPrivateAddress(e.target.value)
+              setError("")
+              }}
+            ></input>
+             <div className={classes.error}>{error}</div>
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
