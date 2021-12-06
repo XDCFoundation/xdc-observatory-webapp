@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "#2149b9",
     marginLeft: "-6px",
   },
+  error: {
+    color: "red",
+    marginLeft: "2px",
+  },
   btn: {},
   value: {
     width: "400px !important",
@@ -187,6 +191,7 @@ export default function FormDialog(props) {
   const [opens, setOpen] = useState(false);
   const [color, setColor] = useState("");
   const [userName, setUserName] = React.useState("");
+  const [userNameError, setUserNameError] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
   const [isEditPicture, setIsEditPicture] = React.useState(false);
   const [uploadFile, setUploadFile] = React.useState("");
@@ -201,6 +206,7 @@ export default function FormDialog(props) {
   //   setColor({backgroundColor:"red"})
 
   // }
+  var regExAlphaNum = /^[0-9a-zA-Z]+$/;
 
   const updateUser = async (url) => {
     let userInfo = sessionManager.getDataFromCookies("userId");
@@ -213,7 +219,11 @@ export default function FormDialog(props) {
       profilePic: url ? url : profilePicture,
     };
 
-
+    if (!userName.match(regExAlphaNum)) {
+      setUserNameError("Enter valid Username");
+      setLoading(false)
+      return;
+    }else{
     const authObject = new AuthService();
     let [error, authResponse] = await Utility.parseResponse(
       authObject.updateUser(reqObj)
@@ -233,6 +243,7 @@ export default function FormDialog(props) {
       // window.location.href = "loginprofile";
       return authResponse;
     }
+  }
   };
 
   const uploadFileToS3 = async () => {
@@ -264,6 +275,7 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setUserNameError("")
     setTimeout(() => {
       setUsernameEnable(false);
       setEmailEnable(false)
@@ -458,9 +470,11 @@ export default function FormDialog(props) {
                   onChange={(e) => {
                     {
                       setUserName(e.target.value);
+                      setUserNameError("")
                     }
                   }}
                 />)}
+                <div className={classes.error}>{userNameError}</div>
             </DialogContent>
             
             {/* <DialogContent>

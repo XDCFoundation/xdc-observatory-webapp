@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff",
     borderRadius: "7px",
     padding: "20px",
-    marginBottom: "21px",
+    marginBottom: "2px",
     outline: "none",
   },
 
@@ -211,10 +211,11 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setError("")
   };
 
   const handleLogin = () => {
-    history.push("/loginprofile");
+    
   };
   const validateAddress = () => {
     if (nameTag && nameTag.length >= 20){
@@ -224,8 +225,6 @@ export default function FormDialog() {
       validateTagName()
     }
   }
-  
-  
   
   const validateTagName = () => {
   
@@ -237,6 +236,8 @@ export default function FormDialog() {
     }
 
   };
+  
+  
   
   
   return (
