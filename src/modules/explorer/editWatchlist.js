@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-    marginBottom: "2px",
+    marginBottom: "21px",
   },
   // addbtn: {
   //   width: "110px",
@@ -140,6 +140,7 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
+    marginTop: "-20px"
   },
   forgotpass: {
     color: "#2149b9",
@@ -324,7 +325,7 @@ function EditWatchList(props) {
               }}
               
             ></input>
-            <div className={classes.error}>{error}</div>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
             <DialogContent>
               <DialogContentText className={classes.subCategory}>
