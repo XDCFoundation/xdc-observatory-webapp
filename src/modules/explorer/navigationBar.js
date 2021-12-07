@@ -182,18 +182,19 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        if (responseData.redirect == "block") {
-          let blockurl = "/block-details/" + responseData.block.number;
+        if (responseData[0].redirect == "block") {
+          let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
-        } else if (responseData.redirect == "account") {
-          let accounturl = "/address-details/" + responseData.account.address;
+        } else if (responseData[0].redirect == "account") {
+          let accounturl = "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
-        } else if (responseData.redirect == "transaction") {
+        } else if (responseData[0].redirect == "transaction") {
           let transactionurl =
-            "/transaction-details/" + responseData.transaction.hash;
+            "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData.redirect == "token") {
-          let tokenurl = "/token-data/" + responseData.token.address;
+        } else if (responseData[0].redirect == "token") {
+
+          let tokenurl = "/token-data/" + responseData[0].token.address;
           window.location.href = tokenurl;
         } else {
         }
@@ -323,7 +324,7 @@ export default function Navbar() {
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpencontracts(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
@@ -411,7 +412,7 @@ export default function Navbar() {
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpen(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
@@ -422,6 +423,7 @@ export default function Navbar() {
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
+                cursor: "pointer"
               }}
             >
               Tools
@@ -640,7 +642,7 @@ export default function Navbar() {
                 ></img>
               </a>
               <p className="XDC">
-                
+
                 XDC
               </p>
 
@@ -729,7 +731,7 @@ export default function Navbar() {
                     ></img>
                   </a>
                   <p className="XDC">
-                    
+
                     XDC
                   </p>
                 </div>
