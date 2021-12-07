@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import { Route, Redirect } from 'react-router'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -24,19 +25,22 @@ export default function VerifyContract() {
         resolver: yupResolver(validationSchema),
     });
     
-    const onSubmitHandler = async (data) => {
+    const onSubmitHandler = async (data) => { 
         try {
             setisLoading(true)
             const resp = await contractverify.getContractVerify(data)
-            if (resp.Error == 0) {
+            if (resp[0].Error == 0) {
+                let url = "/address/" + data.addr
                 setisLoading(false)
-                setMessage(resp.message)
+                window.location.href = url;
             } else {
                 setisLoading(false)
-                setMessage(resp.message)
+                setMessage(resp[0].message)
             }
         } catch (err) {
-            console.error(err);
+            setisLoading(false)
+            //setMessage(err)
+            console.log(err)
         }
       };
       
@@ -53,8 +57,11 @@ export default function VerifyContract() {
                             <div className="textarea-verify-contract">
                                 <p className="verify-contract-first-div">Enter Contract Source Code below.</p>
                                 <p className="verify-contract-first-div-text">If the compiled bytecode matches the Creation Address bytecode, the contract is then Verified and will be published online.</p>
-                            </div>
-                            <br /><br />
+                        </div>
+                       <br />
+                        {msg ? <p className="validation-error-message txt-center">{msg}</p> : ""}
+                        <br /><br />
+                        
                             <div className="flex-row">
                                 <div className="vc-contract-add">Contract Address
                                     {
@@ -64,13 +71,13 @@ export default function VerifyContract() {
                                             <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" />
                                         </div>
                                     }
-                                    <p>{errors.addr?.message}</p>
+                                    <p className="validation-error-message">{errors.addr?.message}</p>
                                 </div>
                                 <div className="vc-contract-name" >Contract Name
                                     <div>
                                         <input {...register("contractname")} name="contractname" className="vc-input-contract-name" type="text" placeholder="Contract Name" />
                                     </div>
-                                    <p>{errors.contractname?.message}</p>
+                                    <p className="validation-error-message">{errors.contractname?.message}</p>
                                 </div>
 
                                 <div className="vc-contract-compiler">Compiler
@@ -94,7 +101,7 @@ export default function VerifyContract() {
                                             })
                                             }
                                         </select>
-                                        <p>{errors.version?.message}</p>
+                                        <p className="validation-error-message">{errors.version?.message}</p>
                                     </div>
                                 </div>
 
@@ -103,7 +110,7 @@ export default function VerifyContract() {
                             <br />
                             <div className="verify-contracts-head">Contract Code</div>
                             <textarea {...register("code")} name="code" className="textarea-contract-code" ></textarea>
-                            <p>{errors.code?.message}</p>
+                            <p className="validation-error-message">{errors.code?.message}</p>
                             <br /><br />
                             <div className="verify-contracts-head">
                                 <input type="checkbox" value="1" name="optimise" {...register("optimise")} />
