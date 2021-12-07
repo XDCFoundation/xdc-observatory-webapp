@@ -135,7 +135,7 @@ export default function ChangePassword(props) {
         setLoading(false);
         utility.apiFailureToast("Password is incorrect");
       } else {
-        history.push("/dashboard");
+        history.push("/loginprofile");
         utility.apiSuccessToast("Password changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");

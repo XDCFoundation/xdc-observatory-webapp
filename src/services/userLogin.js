@@ -88,31 +88,32 @@ export default class Auth0Service {
         return Promise.reject(err);
       });
   }
-  async  logout(reqObj) {
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"log-out"
+  async logout(userId) {
+    console.log("logout", userId);
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"log-out";
+    //let url = "http://localhost:3001/log-out"
+    console.log(url,"logeee")
     return httpService(
       httpConstants.METHOD_TYPE.GET,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-      reqObj,
+      userId,
       url
     )
-      .then((response) => {
-        if (
-          !response.success ||
-          response.responseCode !== 200 ||
-          !response.responseData ||
-           response.responseData.length === 0
-        )
-          return Promise.reject();
-        return Promise.resolve(response.responseData);
-      })
-      .catch(
-        function (err) {
-          return Promise.reject(err);
-        }
-        
-      );
-  }
+        .then(
+            response => {
+              console.log(response,"ponseee")
+                if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+              
+                    return Promise.reject(response);
+                    console.log(response.responseData,"resseeeee")
+                return Promise.resolve(response.responseData);
+            }
+            
+        ).catch((err) => {
+          console.log(err,"ponseee")
+            return Promise.reject(err);
+        });
+};
 
   async getUser(userId) {
     let url =

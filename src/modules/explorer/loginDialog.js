@@ -781,7 +781,7 @@ export default function FormDialog(props) {
                     ></input>
                     <span className="iAgree">
                       I agree to the{" "}
-                      <a href="https://www.facebook.com" className="termsLink">
+                      <a  href="/term-conditions"  className="termsLink">
                         Terms and Conditions
                       </a>
                     </span>
