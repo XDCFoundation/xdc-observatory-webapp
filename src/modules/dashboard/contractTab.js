@@ -88,15 +88,6 @@ export default function SimpleTabs() {
               >
                 Source Code
               </button>
-              <button
-                style={{ whiteSpace: "nowrap" }}
-                className={
-                  toggleState === 2 ? "tabs-vc active-tabs-contract" : "tabs-vc"
-                }
-                onClick={() => toggleTab(2)}
-              >
-                Bytecode and ABI
-              </button>
             </div>
           </div>
         </div>
@@ -105,16 +96,6 @@ export default function SimpleTabs() {
           <div
             className={
               toggleState === 1 ? "content  active-content" : "content"
-            }
-          >
-            <div style={{ marginTop: "10px" }}>
-              <VerifyContract />
-            </div>
-          </div>
-
-          <div
-            className={
-              toggleState === 2 ? "content  active-content" : "content"
             }
           >
             <div style={{ marginTop: "10px" }}>

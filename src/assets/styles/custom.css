@@ -7412,7 +7412,6 @@ button {
     margin-left: 0px;
     background-color: white !important;
   }
-  
 
   .parentCenterbox {
     display: flex;
@@ -8172,7 +8171,7 @@ button {
     font-size: 14px;
   }
 
-  .down-arrow-internal{
+  .down-arrow-internal {
     margin-right: -9px;
   }
   .centerbox-td {
@@ -8192,7 +8191,6 @@ button {
 }
 
 @media (max-width: 1024px) {
- 
   /* .Network-explorer-internal {
     margin-top: 0px;
   }
@@ -8203,7 +8201,7 @@ button {
   .name-internal {
     margin-top: 15px;
   }
-  
+
   /* .down-arrow-internal{
     margin-top: 0px;
   } */
@@ -8789,6 +8787,11 @@ button {
 .error-message-div {
   margin-top: -8px;
 }
+.validation-error-message {
+  margin-left: 0px;
+  color: red;
+  font-weight: normal;
+}
 .error-message {
   margin-left: 16px;
   color: red;
@@ -8797,6 +8800,12 @@ button {
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
     margin-left: -5px;
+    font-size: 10px;
+    color: red;
+    font-weight: normal;
+  }
+  .validation-error-message {
+    margin-left: 0px;
     font-size: 10px;
     color: red;
     font-weight: normal;
