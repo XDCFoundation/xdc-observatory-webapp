@@ -251,12 +251,12 @@ class BlockChainDataComponent extends Component {
     this.props.socket.off("block-socket");
   }
   async componentDidMount() {
-    await this.totalTransactionCount();
-    await this.totalAccountsCount();
-    await this.someDaysAccountCount();
-    await this.coinMarketCapDetails();
-    await this.blocksLatest();
-    await this.transactionsLatest();
+    this.totalTransactionCount();
+    this.totalAccountsCount();
+    this.someDaysAccountCount();
+    this.coinMarketCapDetails();
+    this.blocksLatest();
+    this.transactionsLatest();
     await this.tpsCountDetail();
     await this.CountMaxtps();
 
