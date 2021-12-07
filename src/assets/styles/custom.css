@@ -8812,6 +8812,11 @@ button {
 .error-message-div {
   margin-top: -8px;
 }
+.validation-error-message {
+  margin-left: 0px;
+  color: red;
+  font-weight: normal;
+}
 .error-message {
   margin-left: 16px;
   color: red;
@@ -8820,6 +8825,12 @@ button {
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
     margin-left: -5px;
+    font-size: 10px;
+    color: red;
+    font-weight: normal;
+  }
+  .validation-error-message {
+    margin-left: 0px;
     font-size: 10px;
     color: red;
     font-weight: normal;
