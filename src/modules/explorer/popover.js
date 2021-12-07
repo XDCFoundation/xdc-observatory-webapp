@@ -64,7 +64,19 @@ export default function BasicPopover(props) {
     setAnchorEl(null);
   };
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
+    const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.logout(userId)
+        
+      );
+      console.log(userId,"ideeee")
+      if (error || !authResponse) {
+      console.log(error)
+      console.log(authResponse)
+        Utility.apiFailureToast("Wrong email");
+      } else {
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
@@ -72,6 +84,7 @@ export default function BasicPopover(props) {
     sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
     (window.location.href = "/dashboard")
+      }
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
