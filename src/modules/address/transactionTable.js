@@ -128,6 +128,7 @@ export default function TransactionTableComponent(props) {
   }
   const handleChangePage = (action) => {
     if (action == 'first') {
+      setFrom(0)
       if (keywords) {
         datas = {
           pageNum: 0,
@@ -598,10 +599,9 @@ export default function TransactionTableComponent(props) {
             </button>
             <button className="btn-contract">
               Page{' '}
-              {Math.round(totalRecord / amount) +
-                1 -
-                Math.round((totalRecord - from) / amount)}{' '}
-              of {Math.round(totalRecord / amount)}
+              {Math.ceil(totalRecord / amount)  -
+                Math.ceil((totalRecord - from) / amount) + 1}{' '}
+              of {Math.ceil(totalRecord / amount)}
             </button>
             <button
               onClick={() => handleChangePage('next')}

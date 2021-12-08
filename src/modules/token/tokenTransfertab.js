@@ -163,7 +163,7 @@ export default function StickyHeadTable() {
     if (action == "first") {
       let pageValue = 0
       setPage(pageValue);
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+      let values = { addr: address, pageNum: 0, perpage: rowsPerPage };
       transferDetail(values);
     }
     if (action == "prev") {
@@ -175,7 +175,7 @@ export default function StickyHeadTable() {
       }
     }
     if (action == "next") {
-      if (rowsPerPage + page < totalToken) {
+      if (+rowsPerPage+ + page < totalToken) {
         let pageValue = rowsPerPage + page;
         setPage(pageValue);
         let values = { addr: address, pageNum: page, perpage: rowsPerPage };
@@ -353,10 +353,9 @@ export default function StickyHeadTable() {
           <div className="pagebox">
             <p className="Page-1-of-5">
               Page&nbsp;
-              {Math.round(totalToken / rowsPerPage) +
-                1 -
-                Math.round((totalToken - page) / rowsPerPage)}
-              &nbsp;of {Math.round(totalToken / rowsPerPage)}
+              {Math.ceil(totalToken / rowsPerPage) -
+                Math.ceil((totalToken - page) / rowsPerPage) + 1}
+              &nbsp;of {Math.ceil(totalToken / rowsPerPage)}
             </p>
           </div>
           <div
