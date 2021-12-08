@@ -96,9 +96,9 @@ export default class LatestAccountsList extends BaseComponent {
         this.setState({ from })
         this.getListOfAccounts(from, this.state.amount)
     }
-    _NextPage = async (event) => {
-        if (this.state.amount + this.state.from < this.state.totalAccounts) {
-            let from = this.state.amount + this.state.from
+    _NextPage = async (event) => {    
+        if (+this.state.amount + +this.state.from < this.state.totalAccounts) {
+            let from = +this.state.amount+ + this.state.from
             this.setState({ from })
             this.getListOfAccounts(from, this.state.amount)
         }
