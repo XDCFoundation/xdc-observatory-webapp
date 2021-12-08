@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory ,useLocation } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import styled from "styled-components";
@@ -13,6 +14,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import moment from "moment";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
+import queryString from 'query-string';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,15 +60,24 @@ export default function BlockDetails() {
   const [copiedText, setCopiedText] = useState("");
   const { blockNumber } = useParams();
   const [isLoading, setLoading] = useState(true)
+  const parsed = queryString.parse(useLocation().search);
+  let hashKey = parsed?.hash
 
   useEffect(() => {
+
     getLatestaccount(blockNumber);
     setcount(blockNumber);
 
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
-    let urlPath = `${blockNumber}`;
+    let urlPath;
+    if (typeof hashKey == 'undefined') {
+       urlPath = `${blockNumber}`;
+    } else {
+       urlPath = `${blockNumber}`+"?hash="+hashKey;
+    }
+    
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
