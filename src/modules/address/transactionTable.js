@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import ContractData from '../../services/contract'
+import AddressData from '../../services/address'
 import { makeStyles } from '@material-ui/core/styles'
 import Loader from '../../assets/loader'
 
@@ -84,11 +85,10 @@ export default function TransactionTableComponent(props) {
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        ContractData.getContractDetails(values),
+        AddressData.getAddressDetailWithlimit(values),
       )
-      if (responseData.transactionArray.length > 0) {
-        setAddress(responseData.transactionArray)
-        setTotalRecord(responseData.transactionCount)
+      if (responseData && responseData.length > 0) {
+        setAddress(responseData)
         setLoading(false)
       } else {
         setNoData(true)
@@ -96,6 +96,17 @@ export default function TransactionTableComponent(props) {
         setAddress([])
         setLoading(false)
       }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const getTransactionsCountForAddress = async (data) => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getTransactionsCountForAddress(data),
+      )
+      console.log(responseData, "<< ====")
+      setTotalRecord(responseData)
     } catch (error) {
       console.error(error)
     }
@@ -109,7 +120,7 @@ export default function TransactionTableComponent(props) {
         pageNum: 0,
         perpage: amount,
         keywords: searchkeyword,
-        addr: ContractAddress,
+        addrr: ContractAddress,
       }
       getContractDetails(datas)
     }
@@ -120,7 +131,7 @@ export default function TransactionTableComponent(props) {
       datas = {
         pageNum: 0,
         perpage: amount,
-        addr: ContractAddress,
+        addrr: ContractAddress,
         keywords: '',
       }
       getContractDetails(datas)
@@ -132,7 +143,7 @@ export default function TransactionTableComponent(props) {
         datas = {
           pageNum: 0,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: keywords,
         }
         getContractDetails(datas)
@@ -140,7 +151,7 @@ export default function TransactionTableComponent(props) {
         datas = {
           pageNum: 0,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: '',
         }
         getContractDetails(datas)
@@ -153,7 +164,7 @@ export default function TransactionTableComponent(props) {
         datas = {
           pageNum: pagecount,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: keywords,
         }
         getContractDetails(datas)
@@ -161,7 +172,7 @@ export default function TransactionTableComponent(props) {
         datas = {
           pageNum: pagecount,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: keywords,
         }
         getContractDetails(datas)
@@ -176,7 +187,7 @@ export default function TransactionTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
           getContractDetails(datas)
@@ -184,7 +195,7 @@ export default function TransactionTableComponent(props) {
           let datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
 
@@ -201,7 +212,7 @@ export default function TransactionTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
           getContractDetails(datas)
@@ -209,7 +220,7 @@ export default function TransactionTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
           getContractDetails(datas)
@@ -223,7 +234,7 @@ export default function TransactionTableComponent(props) {
     datas = {
       pageNum: 0,
       perpage: event.target.value,
-      addr: ContractAddress,
+      addrr: ContractAddress,
       keywords: keywords,
     }
     getContractDetails(datas)
@@ -291,12 +302,16 @@ export default function TransactionTableComponent(props) {
   React.useEffect(() => {
     setContractAddress(addressNumber)
     let values = {
-      addr: ContractAddress,
+      addrr: ContractAddress,
       pageNum: from,
       perpage: amount,
       keywords: keywords,
     }
     getContractDetails(values)
+    let data = {
+      addrr: ContractAddress,
+    }
+    getTransactionsCountForAddress(data)
   }, [])
   const classes = useStyles()
   const history = useHistory()

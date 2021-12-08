@@ -89,6 +89,7 @@ export default function AddressTableComponent(props) {
   const [noData, setNoData] = useState(false)
   let showPerPage = 50
   let datas = {}
+  let data = {}
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage)
 
   const history = useHistory()
@@ -133,8 +134,8 @@ export default function AddressTableComponent(props) {
     }
 
     if (action === 'next') {
-      if (rowsPerPage + page < totalRecord) {
-        let pagecount = rowsPerPage + page
+      if (+rowsPerPage + +page < totalRecord) {
+        let pagecount = +rowsPerPage + +page
         setPage(pagecount)
         if (keywords) {
           datas = {
@@ -190,8 +191,8 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data),
       )
-
-      if (responseData.totalTransactionCount > 0) {
+      console.log(responseData, "<< ====")
+      if (responseData && responseData.length > 0) {
         setNoData(false)
         setLoading(false)
         parseResponseData(responseData, 1)
@@ -204,6 +205,17 @@ export default function AddressTableComponent(props) {
       console.error(error)
     }
   }
+  const getTransactionsCountForAddress = async (data) => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getTransactionsCountForAddress(data),
+      )
+      console.log(responseData, "<< ====")
+      setTotalRecord(responseData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   useEffect(() => {
     //let address =props.trans
     datas = {
@@ -211,6 +223,10 @@ export default function AddressTableComponent(props) {
       perpage: rowsPerPage,
       addrr: addr,
     }
+    data = {
+      addrr: addr,
+    }
+    getTransactionsCountForAddress(data)
     getAddressDetails(datas)
   }, [])
 
@@ -234,11 +250,12 @@ export default function AddressTableComponent(props) {
   const parseResponseData = async (Recdata, type) => {
     let trxn = []
     if (type == 1) {
-      trxn = Recdata.transaction
-      setTotalRecord(Recdata.totalTransactionCount)
+      trxn = Recdata
+      console.log(trxn, "<<<<<")
+
     } else {
       trxn = Recdata.responseTransaction
-      setTotalRecord(Recdata.total)
+
     }
 
     setAddress(
