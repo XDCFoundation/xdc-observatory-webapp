@@ -251,7 +251,7 @@ export default function TransactionComponent(props) {
                           {" "}
                           <a
                             className="linkTable"
-                            href={"/block-details/" + row.blockNumber}
+                            href={"/block-details/" + row.blockNumber+"?hash="+row.blockHash}
                           >
                             {" "}
                             <span
