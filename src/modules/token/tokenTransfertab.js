@@ -263,7 +263,7 @@ export default function StickyHeadTable() {
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
 
-                      <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/block-details/" + row.blockNumber+"?hash="+row.blockHash}>
                         <span className="tabledata table-data"> {row.blockNumber}</span>
                       </a>
                     </TableCell>
