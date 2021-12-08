@@ -581,7 +581,7 @@ const Div = styled.div`
 
 const Heading = styled.span`
   white-space: nowrap;
-  color: #2a2a2a;
+  color: #2a2a2a !important;
   box-shadow: none;
   color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;

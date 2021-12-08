@@ -277,7 +277,7 @@ const Line2 = styled.hr`
   background-color: #e3e7eb !important;
   width: 100%;
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 0%;
   @media (max-width:767px){
     width:100%;
@@ -290,7 +290,7 @@ const Line2 = styled.hr`
 `;
 const RightTopSec = styled.div`
   width: 3.938rem;
-    height: 1.15rem;
+    height: 1.3rem;
     font-size: 0.875rem;
     padding: 4.5px;
     color: #2a2a2a;

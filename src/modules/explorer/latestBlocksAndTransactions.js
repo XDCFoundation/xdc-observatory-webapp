@@ -63,9 +63,9 @@ class LatestBlocks extends Component {
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
-  componentDidMount() {
-    this.blocksLatest();
+  async componentDidMount() {
     this.transactionsLatest();
+    await this.blocksLatest();
     this.socketData(this.props.socket);
   }
   socketData(socket) {

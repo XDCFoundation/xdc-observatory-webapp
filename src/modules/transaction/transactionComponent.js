@@ -172,7 +172,7 @@ export default function TransactionComponent(props) {
                     const previousTime = new Date(row.timestamp * 1000);
                     const ti = timeDiff(currentTime, previousTime);
                     const txFee = (
-                      row.transactionFee / 100000000000000000
+                      (row?.gasUsed * row?.gasPrice) / 100000000000000000
                     ).toFixed(9);
                     let amt = (row.value / 1000000000000000000).toFixed(4);
                     const Hash = row.hash;
