@@ -230,14 +230,7 @@ export default function AddressDetails(props) {
                       <Popup
                         trigger={
                           <ImQrcode
-                            style={{
-                              marginLeft: "0.625rem",
-                              marginBottom: "0.125rem",
-                              cursor: "pointer",
-                              color: "#2149b9",
-                              height: "1.063rem",
-                              width: "1.063rem",
-                            }}
+                            className="imQrcode"
                           />
                         }
                         lockScroll
@@ -436,10 +429,10 @@ const Content = styled.span`
   letter-spacing: 0.034rem;
   text-align: left;
   color: #3a3a3a;
-  word-break: break-all;
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
+    margin-left:28px;
   }
 `;
 const TextArea = styled.textarea`
@@ -577,6 +570,10 @@ const Div = styled.div`
     width: 22.563rem;
     margin-top: 0rem;
   }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 664px !important;
+    
+  }
 `;
 
 const Heading = styled.span`
@@ -588,6 +585,12 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 1.5rem;
   margin-bottom: 1.125rem;
+   @media (min-width: 0px) and (max-width: 767px) {
+        margin-top: 25px !important;
+    margin-bottom: 0px !important;
+    
+    font-size: 16px !important;
+  }
 `;
 
 const ImageView = styled.img`

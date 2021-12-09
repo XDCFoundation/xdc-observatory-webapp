@@ -395,7 +395,7 @@ export default function AddressTableComponent(props) {
           />
           <input
             className="input-box-search"
-            onKeyUp={(event) => props._handleSearch(event)}
+            // onKeyUp={(event) => props._handleSearch(event)}
             style={{
               fontSize: '0.938rem',
               letterSpacing: 0.62,
@@ -408,7 +408,18 @@ export default function AddressTableComponent(props) {
             }}
             type="text"
             placeholder="Search"
-            onKeyUp={handleKeyUp}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleKeyUp(e)
+              }
+
+            }}
+            onChange={(e) => {
+              if (e.target.value == "") {
+                handleKeyUp(e)
+              }
+            }}
+          // onKeyUp={handleKeyUp}
           />
         </div>
 
@@ -579,9 +590,9 @@ export default function AddressTableComponent(props) {
 
                             <a
                               className="linkTable"
-                              href={'/transaction-details/' + row.hash}
+                              href={'/transaction-details/' + row.Txn_Hash}
                             >
-                              <Tooltip placement="top" title={row.TxHash}>
+                              <Tooltip placement="top" title={row.Txn_Hash}>
                                 <span className="tabledata">
                                   {shorten(row.Txn_Hash)}{' '}
                                 </span>
