@@ -90,7 +90,7 @@ const useStyles = makeStyles({
 export default function StickyHeadTable() {
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
-  const [amount, setAmount] = React.useState(50);
+  const [amount, setAmount] = React.useState(10);
   const [isLoading, setLoading] = React.useState(true);
   const [totalToken, setTotalToken] = React.useState(0);
   const [keywords, setKeywords] = React.useState("");

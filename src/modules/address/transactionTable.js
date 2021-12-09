@@ -139,6 +139,7 @@ export default function TransactionTableComponent(props) {
   }
   const handleChangePage = (action) => {
     if (action == 'first') {
+      setFrom(0);
       if (keywords) {
         datas = {
           pageNum: 0,
@@ -158,7 +159,7 @@ export default function TransactionTableComponent(props) {
       }
     }
     if (action === 'last') {
-      let pagecount = totalRecord - amount
+      let pagecount = +totalRecord - +amount
       setFrom(pagecount)
       if (keywords) {
         datas = {
@@ -180,8 +181,8 @@ export default function TransactionTableComponent(props) {
     }
 
     if (action === 'next') {
-      if (amount + from < totalRecord) {
-        let pagecount = amount + from
+      if (+amount + +from < totalRecord) {
+        let pagecount = +amount + +from
         setFrom(pagecount)
         if (keywords) {
           datas = {
@@ -205,8 +206,9 @@ export default function TransactionTableComponent(props) {
     }
 
     if (action === 'prev') {
-      if (from - amount >= 0) {
-        let pagecount = from - amount
+      if (+from - +amount >= 0) {
+        let pagecount = +from - +amount
+        console.log(pagecount, "<><>")
         setFrom(pagecount)
         if (keywords) {
           datas = {
@@ -613,20 +615,20 @@ export default function TransactionTableComponent(props) {
             </button>
             <button className="btn-contract">
               Page{' '}
-              {Math.round(totalRecord / amount) +
+              {+Math.round(totalRecord / amount) +
                 1 -
                 Math.round((totalRecord - from) / amount)}{' '}
               of {Math.round(totalRecord / amount)}
             </button>
             <button
               onClick={() => handleChangePage('next')}
-              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
+              className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/next.svg')} />
             </button>
             <button
               onClick={() => handleChangePage('last')}
-              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
+              className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               Last
             </button>

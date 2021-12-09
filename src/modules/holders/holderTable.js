@@ -486,9 +486,9 @@ export default function HolderTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked == true).length == address.length
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked == true).length == address.length
+                      // }
                       style={{ marginRight: "8px" }}
                     />
                     <span className={"tableheader"}>Txn Hash</span>

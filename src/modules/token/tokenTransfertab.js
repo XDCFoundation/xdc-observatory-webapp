@@ -124,9 +124,10 @@ export default function StickyHeadTable() {
   const classes = useStyles();
 
   const [page, setPage] = React.useState(0);
+  console.log(page, "{}}{}{")
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
-  const [totalToken, setTotalToken] = useState({});
+  const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
   const [isLoading, setLoading] = useState(true);
   const { address } = useParams();
@@ -134,35 +135,37 @@ export default function StickyHeadTable() {
   useEffect(() => {
     let values = { addr: address, pageNum: page, perpage: rowsPerPage };
     transferDetail(values);
+    let value = { addr: address };
+    getTotalTransferToken(value)
   }, []);
 
   const transferDetail = async (values) => {
     let [error, tns] = await Utils.parseResponse(
-      TokenData.getTotalTransferTransactionsForToken(values)
+      TokenData.getListOfTransferTransactionsForToken(values)
     );
-    if (error || !tns) return;
-    settransfer(tns);
-    setLoading(false)
-    if (tns.totalTransactions.length == 0) {
+    if (!tns || tns.length == 0) {
       setNoData(false)
-    }
-    setTotalToken(tns.totalTransactionCount);
-
-    const interval = setInterval(async () => {
-      let [error, tns] = await Utils.parseResponse(
-        TokenData.getTotalTransferTransactionsForToken(values)
-      );
-      settransfer(tns);
-
-      setTotalToken(tns.totalTransactionCount);
       setLoading(false)
-    }, 90000);
+    } else {
+      settransfer(tns);
+      setLoading(false)
+    }
   };
-
+  const getTotalTransferToken = async (data) => {
+    try {
+      const [error, responseData] = await Utils.parseResponse(
+        TokenData.getTotalTransferTransactionsForToken(data),
+      )
+      console.log(responseData, "<< ====")
+      setTotalToken(responseData.responseData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const handleChangePage = (action) => {
     if (action == "first") {
-      let pageValue = 0
-      setPage(pageValue);
+
+      setPage(0);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       transferDetail(values);
     }
@@ -175,8 +178,8 @@ export default function StickyHeadTable() {
       }
     }
     if (action == "next") {
-      if (rowsPerPage + page < totalToken) {
-        let pageValue = rowsPerPage + page;
+      if (+rowsPerPage + +page < totalToken) {
+        let pageValue = +rowsPerPage + +page;
         setPage(pageValue);
         let values = { addr: address, pageNum: page, perpage: rowsPerPage };
         transferDetail(values);
@@ -185,6 +188,7 @@ export default function StickyHeadTable() {
 
     if (action == "last") {
       let pageValue = totalToken - rowsPerPage;
+      console.log(pageValue, "???")
       setPage(pageValue);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       transferDetail(values);
@@ -240,9 +244,9 @@ export default function StickyHeadTable() {
               </TableBody>
             ) :
 
-              transfer.totalTransactions &&
-              transfer.totalTransactions.length >= 1 &&
-              transfer.totalTransactions.map((row) => {
+              transfer &&
+              transfer.length >= 1 &&
+              transfer.map((row) => {
                 const currentTime = new Date();
                 const previousTime = new Date(row.timestamp * 1000);
                 const ti = timeDiff(currentTime, previousTime);

@@ -678,7 +678,8 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
-    margin-top: 62px;
+        margin-top: 75px;
+    margin-bottom: 10px;
   }
   @media  (min-width: 768px) and  (max-width:1240px) {
     height: 1rem;

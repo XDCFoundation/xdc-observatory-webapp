@@ -641,10 +641,7 @@ export default function Navbar() {
                   src={require("../../../src/assets/images/XDC-Icon.svg")}
                 ></img>
               </a>
-              <p className="XDC">
-
-                XDC
-              </p>
+              <a className="XDC" href="/"> XDC </a>
 
               <div>
                 <NavLink
@@ -730,10 +727,7 @@ export default function Navbar() {
                       src={require("../../../src/assets/images/XDC-Icon.svg")}
                     ></img>
                   </a>
-                  <p className="XDC">
-
-                    XDC
-                  </p>
+                  <a className="XDC" href="/"> XDC </a>
                 </div>
                 &nbsp;
                 <div className="header-responsive">

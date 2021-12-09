@@ -41,16 +41,17 @@ export default class LatestAccountsList extends BaseComponent {
         }
 
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
+        console.log(listOfAccounts, "lolo")
         if (error || !listOfAccounts)
             return
-        if (listOfAccounts.newResponse.length > 0) {
+        if (listOfAccounts.length > 0) {
             this.setState({ noData: 1 })
             this.setState({ isLoading: false })
         } else {
             this.setState({ noData: 0 })
             this.setState({ isLoading: false })
         }
-        this.setState({ accountList: listOfAccounts.newResponse })
+        this.setState({ accountList: listOfAccounts })
         // this.setState({ totalSupply: listOfAccounts.totalSupply })
         this.setState({ isLoading: false })
         if (keywords) {
