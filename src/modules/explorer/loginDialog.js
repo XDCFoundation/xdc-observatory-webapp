@@ -73,6 +73,17 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
+  error1: {
+    color: "red",
+    marginLeft: "24px",
+  },
+  error2: {
+    color: "red",
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    display: "flex",
+    justifyContent: "center"
+  },
 
   subCategory: {
     marginTop: "5px",
@@ -301,6 +312,8 @@ export default function FormDialog(props) {
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
+  const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
+  const [errorCaptcha, setErrorCaptcha] = React.useState("");
 
   const [emailError, setEmailError] = useState("");
   const [inputError, setInputError] = useState("");
@@ -331,7 +344,7 @@ export default function FormDialog(props) {
         }
   
   const handleClose = () => {
-    {!props.hash ? setOpen(false) : props.onClose(onClose)}
+    {props.verifiedEmail ? (props.onClose(onClose)):(!props.hash ? setOpen(false) : props.onClose(onClose))}
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -345,6 +358,8 @@ export default function FormDialog(props) {
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
+    setErrorTermsCondition("");
+    setErrorCaptcha("");
   };
 
   var regExAlphaNum = /^[0-9a-zA-Z]+$/;
@@ -437,6 +452,8 @@ export default function FormDialog(props) {
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
+    setErrorTermsCondition("");
+    setErrorCaptcha("");
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -454,10 +471,10 @@ export default function FormDialog(props) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
     } else if (termsCheckbox === false) {
-      Utility.apiFailureToast("Please agree to the terms and conditions");
+      setErrorTermsCondition("Please agree to the terms and conditions")
       setLoading(false);
     } else if (captchaCheckbox === false) {
-      Utility.apiFailureToast("please verify captcha");
+      setErrorCaptcha("Please verify captcha")
       setLoading(false);
     } else {
       const [error, response] = await Utility.parseResponse(
@@ -499,6 +516,8 @@ export default function FormDialog(props) {
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
+    setErrorTermsCondition("");
+    setErrorCaptcha("");
   };
 
   // <-----------------------------------------------------Forgot password functionality---------------------------------------------->
@@ -508,7 +527,7 @@ export default function FormDialog(props) {
       email: email,
     };
     if (captchaCheckbox === false) {
-      Utility.apiFailureToast("please verify captcha");
+      setErrorCaptcha("please verify captcha")
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
@@ -552,14 +571,14 @@ export default function FormDialog(props) {
   return (
     <div>
       <div className={classes.add}>
-        {!props.hash ?
+        {props.verifiedEmail ? (""):(!props.hash ?
         <button className="login-button" onClick={handleClickOpen}>
           <img
             className="Shape2"
             style={{borderRadius:"50px"}}
             src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
           ></img>
-        </button> : ""
+        </button> : "")
         }
         <div>
           <Dialog
@@ -762,6 +781,7 @@ export default function FormDialog(props) {
                     </a>
                   </span>
                 </div>
+                <div className={classes.error1}>{errorTermsCondition}</div>
                 <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
                     {/* <div className={classes.robotContainer2}> */}
@@ -785,6 +805,7 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div>
+                <div className={classes.error2}>{errorCaptcha}</div>
                 {isLoading == true ? (
                   <div >
 

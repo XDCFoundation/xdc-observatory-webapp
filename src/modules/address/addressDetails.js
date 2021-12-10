@@ -83,7 +83,7 @@ export default function AddressDetails(props) {
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem("currency");
-  const [addressTag, setAddressTag] = useState("")
+  const [addressTag, setAddressTag] = useState([])
   const [isTag, setIsTag] = useState(false)
 
   let { addr } = useParams();
@@ -160,8 +160,9 @@ export default function AddressDetails(props) {
     let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
+    console.log("tag,",tagUsingAddressHashResponse[0]?.tagName)
     if (error || !tagUsingAddressHashResponse) return;
-    setAddressTag(tagUsingAddressHashResponse);
+    setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
     setIsTag(true);
   }
 
@@ -200,7 +201,7 @@ export default function AddressDetails(props) {
                     </Container>
                     <MiddleContainerHash>
                       <Content>{addr}</Content>
-                      {isTag ? (<div className="nameLabel1">{addressTag[0]?.tagName}</div>) : ("")}
+                      {isTag ? (addressTag.map((item, index)=>{return <div className="nameLabel1" key={index}>{item}</div>})) : ("")}
                     </MiddleContainerHash>
                     <SecondContainer>
                       <CopyToClipboard
