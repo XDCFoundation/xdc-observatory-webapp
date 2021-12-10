@@ -1,7 +1,7 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../constants";
 
-export default { CoinMarketExchangeForToken, getTokenLists, getTotalToken, getSomeDaysHolders, getTokenSearch, getHolderDetailsUsingAddressforToken, getTransferTransactionDetailsUsingHash, getTotalTransferTransactionsForToken, getListOfHoldersForToken }
+export default { CoinMarketExchangeForToken, getTokenLists, getTotalToken, getSomeDaysHolders, getTokenSearch, getHolderDetailsUsingAddressforToken, getTransferTransactionDetailsUsingHash, getTotalTransferTransactionsForToken, getListOfTransferTransactionsForToken, getListOfHoldersForToken }
 
 async function CoinMarketExchangeForToken(data) {
     let url = process.env.REACT_APP_GET_TOKEN_MARKETCAP + '/' + data;
@@ -80,8 +80,8 @@ async function getTotalToken() {
         });
 }
 
-async function getTotalTransferTransactionsForToken(data) {
-    let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;
+async function getListOfTransferTransactionsForToken(data) {
+    let url = process.env.REACT_APP_GET_LIST_OF_TRANSFER_FOR_TOKEN + data.addr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;
 
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
@@ -95,7 +95,21 @@ async function getTotalTransferTransactionsForToken(data) {
             return Promise.reject(err);
         });
 }
+async function getTotalTransferTransactionsForToken(data) {
+    let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr
 
+    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
+        .then(
+            response => {
+                if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+                    return Promise.reject();
+                return Promise.resolve(response);
+
+            }
+        ).catch(function (err) {
+            return Promise.reject(err);
+        });
+}
 async function getListOfHoldersForToken(data) {
     let url = process.env.REACT_APP_GET_LIST_OF_HOLDERS_FOR_TOKEN + data.addr + '?skip=' + Math.ceil((data.pageNum)) + '&limit=' + data.perpage;;
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)

@@ -82,10 +82,10 @@ class Contractlist extends React.Component {
       isLoading: true,
     };
   }
-  componentDidMount = async () => {
+  componentDidMount = () => {
     let data = { pageNum: this.state.from, perpage: this.state.amount };
-    await this.getContractList(data);
-    await this.getTotalContractList();
+    this.getContractList(data);
+    this.getTotalContractList();
   };
 
   componentDidUpdate() {
@@ -113,19 +113,21 @@ class Contractlist extends React.Component {
     }
   };
 
-  handleChangePage = async (action) => {
+  handleChangePage = (action) => {
     if (action == "first") {
-      this.setState({ from: 0 });
+      let page = 0
+      this.setState({ from: page });
       if (this.state.keywords) {
         let data = {
-          pageNum: 0,
+          pageNum: page,
           perpage: this.state.amount,
           keywords: this.state.keywords,
         };
-        await this.getContractSearch(data);
+        this.getContractSearch(data);
       } else {
-        await this.getContractList(0, this.state.amount);
-        await this.getTotalContractList();
+        let data = { pageNum: page, perpage: this.state.amount };
+        this.getContractList(data);
+        this.getTotalContractList();
       }
     }
     if (action === "last") {
@@ -137,17 +139,17 @@ class Contractlist extends React.Component {
           perpage: this.state.amount,
           keywords: this.state.keywords,
         };
-        await this.getContractSearch(data);
+        this.getContractSearch(data);
       } else {
         let data = { pageNum: page, perpage: this.state.amount };
-        await this.getContractList(data);
-        await this.getTotalContractList();
+        this.getContractList(data);
+        this.getTotalContractList();
       }
     }
 
     if (action === "next") {
-      if (this.state.amount + this.state.from < this.state.totalRecord) {
-        let page = this.state.amount + this.state.from;
+      if (+this.state.amount + +this.state.from < this.state.totalRecord) {
+        let page = +this.state.amount + +this.state.from;
         this.setState({ from: page });
         if (this.state.keywords) {
           let data = {
@@ -155,11 +157,11 @@ class Contractlist extends React.Component {
             perpage: this.state.amount,
             keywords: this.state.keywords,
           };
-          await this.getContractSearch(data);
+          this.getContractSearch(data);
         } else {
           let data = { pageNum: page, perpage: this.state.amount };
-          await this.getContractList(data);
-          await this.getTotalContractList();
+          this.getContractList(data);
+          this.getTotalContractList();
         }
       }
     }
@@ -173,11 +175,11 @@ class Contractlist extends React.Component {
             perpage: this.state.amount,
             keywords: this.state.keywords,
           };
-          await this.getContractSearch(data);
+          this.getContractSearch(data);
         } else {
           let data = { pageNum: page, perpage: this.state.amount };
-          await this.getContractList(data);
-          await this.getTotalContractList();
+          this.getContractList(data);
+          this.getTotalContractList();
         }
       }
     }
@@ -551,12 +553,11 @@ class Contractlist extends React.Component {
             <div className="pagebox-contract">
               <p className="Page-1-of-5-contract">
                 Page{" "}
-                {Math.round(this.state.totalRecord / this.state.amount) +
-                  1 -
-                  Math.round(
+                {Math.ceil(this.state.totalRecord / this.state.amount) -
+                  Math.ceil(
                     (this.state.totalRecord - this.state.from) /
                     this.state.amount
-                  )}{" "}
+                  ) + 1}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
             </div>
@@ -566,9 +567,11 @@ class Contractlist extends React.Component {
                   ? "nextbox-contract disabled"
                   : "nextbox-contract"
               }
+              onClick={() => this.handleChangePage("next")}
             >
               <img
                 className="navigation-arrow"
+
                 src={require("../../assets/images/next.svg")}
               />
               {/* <p
@@ -580,7 +583,7 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                this.state.from + this.state.amount === this.state.totalRecord
+                +this.state.from + + this.state.amount === this.state.totalRecord
                   ? "lastbox-contract disabled"
                   : "lastbox-contract"
               }

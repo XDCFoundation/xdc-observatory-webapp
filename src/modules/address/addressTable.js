@@ -89,12 +89,14 @@ export default function AddressTableComponent(props) {
   const [noData, setNoData] = useState(false)
   let showPerPage = 50
   let datas = {}
+  let data = {}
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage)
 
   const history = useHistory()
   const handleChangePage = (action) => {
     if (action == 'first') {
       if (keywords) {
+        setPage(0)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -103,6 +105,7 @@ export default function AddressTableComponent(props) {
         }
         getTransactionSearch(datas)
       } else {
+        setPage(0)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -133,8 +136,8 @@ export default function AddressTableComponent(props) {
     }
 
     if (action === 'next') {
-      if (rowsPerPage + page < totalRecord) {
-        let pagecount = rowsPerPage + page
+      if (+rowsPerPage + +page < totalRecord) {
+        let pagecount = +rowsPerPage + +page
         setPage(pagecount)
         if (keywords) {
           datas = {
@@ -190,8 +193,8 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data),
       )
-
-      if (responseData.totalTransactionCount > 0) {
+      console.log(responseData, "<< ====")
+      if (responseData && responseData.length > 0) {
         setNoData(false)
         setLoading(false)
         parseResponseData(responseData, 1)
@@ -204,6 +207,17 @@ export default function AddressTableComponent(props) {
       console.error(error)
     }
   }
+  const getTransactionsCountForAddress = async (data) => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getTransactionsCountForAddress(data),
+      )
+      console.log(responseData, "<< ====")
+      setTotalRecord(responseData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   useEffect(() => {
     //let address =props.trans
     datas = {
@@ -211,6 +225,10 @@ export default function AddressTableComponent(props) {
       perpage: rowsPerPage,
       addrr: addr,
     }
+    data = {
+      addrr: addr,
+    }
+    getTransactionsCountForAddress(data)
     getAddressDetails(datas)
   }, [])
 
@@ -234,11 +252,12 @@ export default function AddressTableComponent(props) {
   const parseResponseData = async (Recdata, type) => {
     let trxn = []
     if (type == 1) {
-      trxn = Recdata.transaction
-      setTotalRecord(Recdata.totalTransactionCount)
+      trxn = Recdata
+      console.log(trxn, "<<<<<")
+
     } else {
       trxn = Recdata.responseTransaction
-      setTotalRecord(Recdata.total)
+
     }
 
     setAddress(
@@ -247,6 +266,7 @@ export default function AddressTableComponent(props) {
           Txn_Hash: d.hash,
           Age: d.timestamp,
           Block: d.blockNumber,
+          Block_Hash: d.blockHash,
           From: d.from,
           To: d.to,
           Value: d.value,
@@ -378,7 +398,7 @@ export default function AddressTableComponent(props) {
           />
           <input
             className="input-box-search"
-            onKeyUp={(event) => props._handleSearch(event)}
+            // onKeyUp={(event) => props._handleSearch(event)}
             style={{
               fontSize: '0.938rem',
               letterSpacing: 0.62,
@@ -391,7 +411,18 @@ export default function AddressTableComponent(props) {
             }}
             type="text"
             placeholder="Search"
-            onKeyUp={handleKeyUp}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleKeyUp(e)
+              }
+
+            }}
+            onChange={(e) => {
+              if (e.target.value == "") {
+                handleKeyUp(e)
+              }
+            }}
+          // onKeyUp={handleKeyUp}
           />
         </div>
 
@@ -562,9 +593,9 @@ export default function AddressTableComponent(props) {
 
                             <a
                               className="linkTable"
-                              href={'/transaction-details/' + row.hash}
+                              href={'/transaction-details/' + row.Txn_Hash}
                             >
-                              <Tooltip placement="top" title={row.TxHash}>
+                              <Tooltip placement="top" title={row.Txn_Hash}>
                                 <span className="tabledata">
                                   {shorten(row.Txn_Hash)}{' '}
                                 </span>
@@ -577,7 +608,7 @@ export default function AddressTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.Block}
+                              href={'/block-details/' + row.Block + "?hash=" + row.Block_Hash}
                             >
                               <span className="tabledata">{row.Block}</span>
                             </a>
@@ -705,10 +736,9 @@ export default function AddressTableComponent(props) {
             </button>
             <button className="btn">
               Page{' '}
-              {Math.round(totalRecord / rowsPerPage) +
-                1 -
-                Math.round((totalRecord - page) / rowsPerPage)}{' '}
-              of {Math.round(totalRecord / rowsPerPage)}
+              {Math.ceil(totalRecord / rowsPerPage) -
+                Math.ceil((totalRecord - page) / rowsPerPage) + 1}{' '}
+              of {Math.ceil(totalRecord / rowsPerPage)}
             </button>
             <button
               onClick={() => handleChangePage('next')}
