@@ -124,7 +124,6 @@ export default function StickyHeadTable() {
   const classes = useStyles();
 
   const [page, setPage] = React.useState(0);
-  console.log(page, "{}}{}{")
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState([]);
@@ -357,10 +356,9 @@ export default function StickyHeadTable() {
           <div className="pagebox">
             <p className="Page-1-of-5">
               Page&nbsp;
-              {Math.round(totalToken / rowsPerPage) +
-                1 -
-                Math.round((totalToken - page) / rowsPerPage)}
-              &nbsp;of {Math.round(totalToken / rowsPerPage)}
+              {Math.ceil(totalToken / rowsPerPage) -
+                Math.ceil((totalToken - page) / rowsPerPage) + 1}
+              &nbsp;of {Math.ceil(totalToken / rowsPerPage)}
             </p>
           </div>
           <div

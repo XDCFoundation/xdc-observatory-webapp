@@ -98,7 +98,7 @@ export default function AddressDetails(props) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
   function _handleChange(event) {
-    alert("dd");
+    
   }
   const getAddressDetails = async () => {
     try {

@@ -96,6 +96,7 @@ export default function AddressTableComponent(props) {
   const handleChangePage = (action) => {
     if (action == 'first') {
       if (keywords) {
+        setPage(0)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -104,6 +105,7 @@ export default function AddressTableComponent(props) {
         }
         getTransactionSearch(datas)
       } else {
+        setPage(0)
         datas = {
           pageNum: 0,
           perpage: rowsPerPage,
@@ -264,6 +266,7 @@ export default function AddressTableComponent(props) {
           Txn_Hash: d.hash,
           Age: d.timestamp,
           Block: d.blockNumber,
+          Block_Hash: d.blockHash,
           From: d.from,
           To: d.to,
           Value: d.value,
@@ -605,7 +608,7 @@ export default function AddressTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.Block}
+                              href={'/block-details/' + row.Block + "?hash=" + row.Block_Hash}
                             >
                               <span className="tabledata">{row.Block}</span>
                             </a>
@@ -733,10 +736,9 @@ export default function AddressTableComponent(props) {
             </button>
             <button className="btn">
               Page{' '}
-              {Math.round(totalRecord / rowsPerPage) +
-                1 -
-                Math.round((totalRecord - page) / rowsPerPage)}{' '}
-              of {Math.round(totalRecord / rowsPerPage)}
+              {Math.ceil(totalRecord / rowsPerPage) -
+                Math.ceil((totalRecord - page) / rowsPerPage) + 1}{' '}
+              of {Math.ceil(totalRecord / rowsPerPage)}
             </button>
             <button
               onClick={() => handleChangePage('next')}

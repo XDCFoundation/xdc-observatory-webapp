@@ -126,8 +126,8 @@ export default function StickyHeadTable() {
       }
     }
     if (action == "next") {
-      if (amount + from < totalToken) {
-        let page = amount + from;
+      if (+amount+ + from < totalToken) {
+        let page = +amount+ + from;
         setFrom(page);
         if (keywords) {
           let data = { pageNum: page, perpage: amount, searchkey: keywords };
@@ -487,10 +487,9 @@ export default function StickyHeadTable() {
           <div className="pagebox-contract">
             <p className="Page-1-of-5-contract">
               Page{" "}
-              {Math.round(totalToken / amount) +
-                1 -
-                Math.round((totalToken - from) / amount)}{" "}
-              of {Math.round(totalToken / amount)}
+              {Math.ceil(totalToken / amount)  -
+                Math.ceil((totalToken - from) / amount) + 1}{" "}
+              of {Math.ceil(totalToken / amount)}
             </p>
           </div>
           <div
