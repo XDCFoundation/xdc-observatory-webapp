@@ -89,10 +89,10 @@ export default class Auth0Service {
       });
   }
   async logout(userId) {
-    console.log("logout", userId);
-    //let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"log-out" + `/${userId}`
-    let url = "http://localhost:3001/log-out"+`/${userId}`
-    console.log(url,"logeee")
+   
+    let url = process.env.REACT_APP_USER_SERVICE_URL +"log-out" + `/${userId}`
+    
+    
     return httpService(
       httpConstants.METHOD_TYPE.GET,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
