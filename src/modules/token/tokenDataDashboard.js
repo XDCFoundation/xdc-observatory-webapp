@@ -228,7 +228,7 @@ const ContractButton = styled.button`
   letter-spacing: 0.45px;
   border: none;
   color: #2149b9;
-  padding-top: 2.5px;
+  margin-top: -5px;
   padding-left: 0px;
   @media (max-width:767px){
     font-size: 0.875rem;

@@ -638,7 +638,7 @@ export default function Navbar() {
               <a className="logo_tokensearch" href={"/"}>
                 <img
                   className="Shape"
-                  src={require("../../../src/assets/images/XDC-Icon.svg")}
+                  src={require("../../../src/assets/images/XDC-Icon-Logo.svg")}
                 ></img>
               </a>
               <a className="XDC" href="/"> XDC </a>

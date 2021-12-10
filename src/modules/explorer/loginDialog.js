@@ -786,15 +786,9 @@ export default function FormDialog(props) {
                       </a>
                     </span>
                   </div>
-                  <div className={classes.robotContainer}>
+                  {/* <div className={classes.robotContainer}>
                     <div className={classes.robotContainer1}>
-                      {/* <div className={classes.robotContainer2}> */}
-                      {/* <input
-                        type="checkbox"
-                        className={classes.captchaCheckbox}
-                        onClick={handleCaptchaCheckbox}
-                      ></input> */}
-                      {/* </div> */}
+                     
                       <label class="container1">
                         <input type="checkbox"></input>
                         <span
@@ -808,7 +802,7 @@ export default function FormDialog(props) {
                         src={require("../../../src/assets/images/recaptcha.svg")}
                       ></img>
                     </div>
-                  </div>
+                  </div> */}
 
                   <button
                     className={classes.createAccountbtn}
@@ -868,16 +862,9 @@ export default function FormDialog(props) {
                   ></input>
                 </DialogContent>
 
-                <div className={classes.robotContainerForgotPass}>
+                {/* <div className={classes.robotContainerForgotPass}>
                   <div className={classes.robotContainer1}>
-                    {/* <div className={classes.robotContainer2}>
-                      <input
-                        type="checkbox"
-                        className={classes.captchaCheckbox}
-                        onClick={handleCaptchaCheckbox}
-                      ></input>
-                      <span className={classes.robotText}>I'm not a robot</span>
-                    </div> */}
+                   
                     <label class="container1">
                       <input type="checkbox"></input>
                       <span
@@ -891,7 +878,7 @@ export default function FormDialog(props) {
                       src={require("../../../src/assets/images/recaptcha.svg")}
                     ></img>
                   </div>
-                </div>
+                </div> */}
 
                 <button
                   className={classes.createAccountbtn}
