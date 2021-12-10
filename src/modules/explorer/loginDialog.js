@@ -453,6 +453,7 @@ export default function FormDialog(props) {
       setLoading(false);
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
+      setLoading(false);
     } else if (!password.match(regExPass)) {
       setErrorPassword(
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
@@ -781,8 +782,12 @@ export default function FormDialog(props) {
                     ></input>
                     <span className="iAgree">
                       I agree to the{" "}
-                      <a  href="/term-conditions"  className="termsLink">
-                        Terms and Conditions
+                      <a style={{ color: "#2b51bc" }}href="/term-conditions" >
+                        Terms of Use
+                      </a>
+                       {" "}&{" "}
+                      <a style={{ color: "#2b51bc" }} href="/privacy-policy"  >
+                        Privacy Policy
                       </a>
                     </span>
                   </div>

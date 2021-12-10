@@ -75,6 +75,17 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.54px",
     color: "#2a2a2a",
   },
+  passwordText:{
+    
+    fontWeight: "500",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    fontWeight: "500",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    letterSpacing: "0.54px",
+    color: "#2a2a2a",
+  },
   heading: {
     alignItems: "center",
     justifyContent: "center",
@@ -171,7 +182,7 @@ export default function ChangePassword(props) {
           </Row>
           <Column>
             <DialogContentText className={classes.subCategory}>
-              <b>Current Password</b>
+              <b className={classes.passwordText}>Current Password</b>
               <input
                 type="password"
                 id="password"
@@ -185,7 +196,7 @@ export default function ChangePassword(props) {
               ></input>
             </DialogContentText>
             <DialogContentText className={classes.subCategory}>
-              <b>New Password</b>
+              <b className={classes.passwordText}>New Password</b>
               <input
                 type="password"
                 id="password"
@@ -200,7 +211,7 @@ export default function ChangePassword(props) {
               <div className={classes.error}>{errorPassword}</div>
             </DialogContentText>
             <DialogContentText className={classes.subCategory}>
-              <b>Confirm Password</b>
+              <b className={classes.passwordText}>Confirm Password</b>
               <input
                 type="password"
                 id="password"
