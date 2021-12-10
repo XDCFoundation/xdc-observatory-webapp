@@ -387,6 +387,19 @@ background-color: #4878ff; */
   opacity: 1;
   color: #2a2a2a;
 }
+.tabledataWatchlist {
+  width: 10%;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  opacity: 1;
+  padding-left: 12px;
+}
 .tableheaders-1 {
   font-family: Inter !important;
   font-size: 0.875rem;
@@ -399,6 +412,20 @@ background-color: #4878ff; */
   color: #2a2a2a;
   opacity: 1;
   line-height: 2;
+}
+.tableheadersWatchlist {
+  font-family: Inter !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  text-align: center;
+  color: #2a2a2a;
+  opacity: 1;
+  line-height: 2;
+  padding-left: 12px;
 }
 .linkTable1:hover {
   color: #252525;
