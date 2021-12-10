@@ -297,7 +297,7 @@ export default function Transaction({ _handleChange }) {
                         <Content>
                           <a
                             className="linkTableDetails-transaction"
-                            href={"/block-details/" + transactions.blockNumber}
+                            href={"/block-details/" + transactions.blockNumber+"?hash="+transactions.blockHash}
                           >
                             {" "}
                             {transactions.blockNumber}{" "}

@@ -273,7 +273,7 @@ export default function Navbar() {
         </ul>
         <ul className="inside-side-box">
           <p className="xinfin_api_button" style={{ cursor: "pointer" }}>
-            XinFin APIs
+            XDC APIs
           </p>
           <hr className="myhr" />
         </ul>
@@ -291,7 +291,7 @@ export default function Navbar() {
     "Accounts",
     "Contract",
     "Tools",
-    "Xinfin Apis",
+    "XDC Apis",
     "Nodes",
     "Tokens",
   ];
@@ -471,7 +471,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://apidocs.xinfin.network/docs/#xinfin-apis"
           >
-            <div className="xinfin_account_button">XinFin APIs</div>
+            <div className="xinfin_account_button">XDC APIs</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -521,7 +521,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://apidocs.xinfin.network/docs/#xinfin-apis"
           >
-            <div className="xinfin_account_button">XinFin APIs</div>
+            <div className="xinfin_account_button">XDC APIs</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -592,13 +592,13 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
           >
-            <div className="xinfin_account_button">XinPay</div>
+            <div className="xinfin_account_button"> XDCPay</div>
           </a>
           <hr className="myhr" />
         </ul>
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
-            <div className="xinfin_account_button">XinFin Remix</div>
+            <div className="xinfin_account_button">XDC Remix</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -641,10 +641,7 @@ export default function Navbar() {
                   src={require("../../../src/assets/images/XDC-Icon.svg")}
                 ></img>
               </a>
-              <p className="XDC">
-
-                XDC
-              </p>
+              <a className="XDC" href="/"> XDC </a>
 
               <div>
                 <NavLink
@@ -730,10 +727,7 @@ export default function Navbar() {
                       src={require("../../../src/assets/images/XDC-Icon.svg")}
                     ></img>
                   </a>
-                  <p className="XDC">
-
-                    XDC
-                  </p>
+                  <a className="XDC" href="/"> XDC </a>
                 </div>
                 &nbsp;
                 <div className="header-responsive">

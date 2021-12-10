@@ -63,9 +63,9 @@ class LatestBlocks extends Component {
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
-  componentDidMount() {
-    this.blocksLatest();
+  async componentDidMount() {
     this.transactionsLatest();
+    await this.blocksLatest();
     this.socketData(this.props.socket);
   }
   socketData(socket) {
@@ -272,7 +272,7 @@ class LatestBlocks extends Component {
                                 className={
                                   animationClass ? animationClass : "height pad-lef-18"
                                 }
-                                href={"/block-details/" + z.number}
+                                href={"/block-details/" + z.number+"?hash="+z.hash}
                               >
                                 {z.number.toLocaleString()}
                               </a>
