@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import ContractData from '../../services/contract'
+import AddressData from '../../services/address'
 import { makeStyles } from '@material-ui/core/styles'
 import Loader from '../../assets/loader'
 
@@ -84,11 +85,10 @@ export default function TransactionTableComponent(props) {
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        ContractData.getContractDetails(values),
+        AddressData.getAddressDetailWithlimit(values),
       )
-      if (responseData.transactionArray.length > 0) {
-        setAddress(responseData.transactionArray)
-        setTotalRecord(responseData.transactionCount)
+      if (responseData && responseData.length > 0) {
+        setAddress(responseData)
         setLoading(false)
       } else {
         setNoData(true)
@@ -96,6 +96,17 @@ export default function TransactionTableComponent(props) {
         setAddress([])
         setLoading(false)
       }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const getTransactionsCountForAddress = async (data) => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getTransactionsCountForAddress(data),
+      )
+      console.log(responseData, "<< ====")
+      setTotalRecord(responseData)
     } catch (error) {
       console.error(error)
     }
@@ -109,7 +120,7 @@ export default function TransactionTableComponent(props) {
         pageNum: 0,
         perpage: amount,
         keywords: searchkeyword,
-        addr: ContractAddress,
+        addrr: ContractAddress,
       }
       getContractDetails(datas)
     }
@@ -120,7 +131,7 @@ export default function TransactionTableComponent(props) {
       datas = {
         pageNum: 0,
         perpage: amount,
-        addr: ContractAddress,
+        addrr: ContractAddress,
         keywords: '',
       }
       getContractDetails(datas)
@@ -128,11 +139,12 @@ export default function TransactionTableComponent(props) {
   }
   const handleChangePage = (action) => {
     if (action == 'first') {
+      setFrom(0);
       if (keywords) {
         datas = {
           pageNum: 0,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: keywords,
         }
         getContractDetails(datas)
@@ -140,20 +152,20 @@ export default function TransactionTableComponent(props) {
         datas = {
           pageNum: 0,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: '',
         }
         getContractDetails(datas)
       }
     }
     if (action === 'last') {
-      let pagecount = totalRecord - amount
+      let pagecount = +totalRecord - +amount
       setFrom(pagecount)
       if (keywords) {
         datas = {
           pageNum: pagecount,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: keywords,
         }
         getContractDetails(datas)
@@ -161,7 +173,7 @@ export default function TransactionTableComponent(props) {
         datas = {
           pageNum: pagecount,
           perpage: amount,
-          addr: ContractAddress,
+          addrr: ContractAddress,
           keywords: keywords,
         }
         getContractDetails(datas)
@@ -169,14 +181,14 @@ export default function TransactionTableComponent(props) {
     }
 
     if (action === 'next') {
-      if (amount + from < totalRecord) {
-        let pagecount = amount + from
+      if (+amount + +from < totalRecord) {
+        let pagecount = +amount + +from
         setFrom(pagecount)
         if (keywords) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
           getContractDetails(datas)
@@ -184,7 +196,7 @@ export default function TransactionTableComponent(props) {
           let datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
 
@@ -194,14 +206,15 @@ export default function TransactionTableComponent(props) {
     }
 
     if (action === 'prev') {
-      if (from - amount >= 0) {
-        let pagecount = from - amount
+      if (+from - +amount >= 0) {
+        let pagecount = +from - +amount
+        console.log(pagecount, "<><>")
         setFrom(pagecount)
         if (keywords) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
           getContractDetails(datas)
@@ -209,7 +222,7 @@ export default function TransactionTableComponent(props) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
-            addr: ContractAddress,
+            addrr: ContractAddress,
             keywords: keywords,
           }
           getContractDetails(datas)
@@ -223,7 +236,7 @@ export default function TransactionTableComponent(props) {
     datas = {
       pageNum: 0,
       perpage: event.target.value,
-      addr: ContractAddress,
+      addrr: ContractAddress,
       keywords: keywords,
     }
     getContractDetails(datas)
@@ -291,12 +304,16 @@ export default function TransactionTableComponent(props) {
   React.useEffect(() => {
     setContractAddress(addressNumber)
     let values = {
-      addr: ContractAddress,
+      addrr: ContractAddress,
       pageNum: from,
       perpage: amount,
       keywords: keywords,
     }
     getContractDetails(values)
+    let data = {
+      addrr: ContractAddress,
+    }
+    getTransactionsCountForAddress(data)
   }, [])
   const classes = useStyles()
   const history = useHistory()
@@ -472,7 +489,7 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.blockNumber}
+                              href={'/block-details/' + row.blockNumber + "?hash=" + row.blockHash}
                             >
                               <span className="tabledata">{row.blockNumber}</span>
                             </a>
@@ -598,26 +615,25 @@ export default function TransactionTableComponent(props) {
             </button>
             <button className="btn-contract">
               Page{' '}
-              {Math.round(totalRecord / amount) +
-                1 -
-                Math.round((totalRecord - from) / amount)}{' '}
-              of {Math.round(totalRecord / amount)}
-            </button>
+              {Math.ceil(totalRecord / amount) -
+                Math.ceil((totalRecord - from) / amount) + 1}{' '}
+              of {Math.ceil(totalRecord / amount)}
+            </button >
             <button
               onClick={() => handleChangePage('next')}
-              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
+              className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/next.svg')} />
             </button>
             <button
               onClick={() => handleChangePage('last')}
-              className={from + amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
+              className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
             >
               Last
             </button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </div>
+          </Grid >
+        </Grid >
+      </Grid >
+    </div >
   )
 }

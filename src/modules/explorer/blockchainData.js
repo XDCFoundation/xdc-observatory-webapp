@@ -54,7 +54,7 @@ const MobileScreen = styled.div`
 margin-right: 3px;
 @media (max-width:767px){
   margin-top: 3px;
-  margin-right:-24px ;
+  margin-right:-35px ;
 }
 @media (min-width:767px){
   display: flex;
@@ -70,7 +70,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   @media (min-width:0px) and (max-width:767px){
-    padding: 10px 10px 0;
+    padding: 10px 14px 0;
   }
   @media (min-width:767px) and (max-width:1240px){
     padding: 20px 10px 0 0;
@@ -101,6 +101,7 @@ const ValueMain = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 0px 4px;
   /* margin-top: 12px; */
 `;
 
@@ -178,7 +179,6 @@ const IconLogo = styled.img`
   
 `;
 const LeftTitle = styled.div`
-  margin-top: 3px;
   font-size: 1.75rem;
   font-weight: 600;
   font-family: Inter;
@@ -200,11 +200,11 @@ const Line1 = styled.hr`
   position: absolute;
   top: 65%;
   @media (min-width:0px) and (max-width:767px){
-    width:96%;
+    width:90%;
     top: 87%;
     }
   @media (min-width:767px) and (max-width:1240px){
-    width:96%;
+    width:97%;
     top: 60%;
     }
 `;
@@ -224,6 +224,7 @@ const LeftTopSecMain = styled.div`
   flex-direction: column;
   text-align: center;
   margin-right: 5px;
+  margin-top: 7px;
 `;
 
 
@@ -251,12 +252,12 @@ class BlockChainDataComponent extends Component {
     this.props.socket.off("block-socket");
   }
   async componentDidMount() {
-    await this.totalTransactionCount();
-    await this.totalAccountsCount();
-    await this.someDaysAccountCount();
-    await this.coinMarketCapDetails();
-    await this.blocksLatest();
-    await this.transactionsLatest();
+    this.totalTransactionCount();
+    this.totalAccountsCount();
+    this.someDaysAccountCount();
+    this.coinMarketCapDetails();
+    this.blocksLatest();
+    this.transactionsLatest();
     await this.tpsCountDetail();
     await this.CountMaxtps();
 
