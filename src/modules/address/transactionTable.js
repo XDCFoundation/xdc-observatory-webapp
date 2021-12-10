@@ -489,7 +489,7 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.blockNumber}
+                              href={'/block-details/' + row.blockNumber + "?hash=" + row.blockHash}
                             >
                               <span className="tabledata">{row.blockNumber}</span>
                             </a>
@@ -615,11 +615,10 @@ export default function TransactionTableComponent(props) {
             </button>
             <button className="btn-contract">
               Page{' '}
-              {+Math.round(totalRecord / amount) +
-                1 -
-                Math.round((totalRecord - from) / amount)}{' '}
-              of {Math.round(totalRecord / amount)}
-            </button>
+              {Math.ceil(totalRecord / amount) -
+                Math.ceil((totalRecord - from) / amount) + 1}{' '}
+              of {Math.ceil(totalRecord / amount)}
+            </button >
             <button
               onClick={() => handleChangePage('next')}
               className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
@@ -632,9 +631,9 @@ export default function TransactionTableComponent(props) {
             >
               Last
             </button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </div>
+          </Grid >
+        </Grid >
+      </Grid >
+    </div >
   )
 }

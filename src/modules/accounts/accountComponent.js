@@ -143,7 +143,7 @@ export default function AccountComponent(props) {
               className="back-arrow"
               src={require("../../assets/images/back.svg")}
             /></button>
-            <button id="btn_12" className="btn">Page {Math.round(state.totalAccounts / state.amount) + 1 - Math.round((state.totalAccounts - state.from) / state.amount)} of {Math.round(state.totalAccounts / state.amount)}</button>
+            <button id="btn_12" className="btn">Page {Math.ceil(state.totalAccounts / state.amount)  - Math.ceil((state.totalAccounts - state.from) / state.amount) + 1} of {Math.ceil(state.totalAccounts / state.amount)}</button>
             <button id="btn_12" onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
               className="back-arrow"
               src={require("../../assets/images/next.svg")}

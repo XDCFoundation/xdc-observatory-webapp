@@ -553,12 +553,11 @@ class Contractlist extends React.Component {
             <div className="pagebox-contract">
               <p className="Page-1-of-5-contract">
                 Page{" "}
-                {Math.round(this.state.totalRecord / this.state.amount) +
-                  1 -
-                  Math.round(
+                {Math.ceil(this.state.totalRecord / this.state.amount) -
+                  Math.ceil(
                     (this.state.totalRecord - this.state.from) /
                     this.state.amount
-                  )}{" "}
+                  ) + 1}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
             </div>
@@ -584,7 +583,7 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                this.state.from + this.state.amount === this.state.totalRecord
+                +this.state.from + + this.state.amount === this.state.totalRecord
                   ? "lastbox-contract disabled"
                   : "lastbox-contract"
               }
