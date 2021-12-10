@@ -717,8 +717,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #2a2a2a;
-
+    color: #2a2a2a !important;
     margin-right: 27px;
   }
   #container-table td {
@@ -897,7 +896,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #2a2a2a;
+    color: #2a2a2a !important;
     opacity: 1;
     margin-right: 27px;
   }

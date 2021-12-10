@@ -182,18 +182,19 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        if (responseData.redirect == "block") {
-          let blockurl = "/block-details/" + responseData.block.number;
+        if (responseData[0].redirect == "block") {
+          let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
-        } else if (responseData.redirect == "account") {
-          let accounturl = "/address-details/" + responseData.account.address;
+        } else if (responseData[0].redirect == "account") {
+          let accounturl = "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
-        } else if (responseData.redirect == "transaction") {
+        } else if (responseData[0].redirect == "transaction") {
           let transactionurl =
-            "/transaction-details/" + responseData.transaction.hash;
+            "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData.redirect == "token") {
-          let tokenurl = "/token-data/" + responseData.token.address;
+        } else if (responseData[0].redirect == "token") {
+
+          let tokenurl = "/token-data/" + responseData[0].token.address;
           window.location.href = tokenurl;
         } else {
         }
@@ -272,7 +273,7 @@ export default function Navbar() {
         </ul>
         <ul className="inside-side-box">
           <p className="xinfin_api_button" style={{ cursor: "pointer" }}>
-            XinFin APIs
+            XDC APIs
           </p>
           <hr className="myhr" />
         </ul>
@@ -290,7 +291,7 @@ export default function Navbar() {
     "Accounts",
     "Contract",
     "Tools",
-    "Xinfin Apis",
+    "XDC Apis",
     "Nodes",
     "Tokens",
   ];
@@ -323,7 +324,7 @@ export default function Navbar() {
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpencontracts(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
@@ -411,7 +412,7 @@ export default function Navbar() {
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpen(false)}
-                style={{ color: "white", fontSize: 17 }}
+                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
@@ -422,6 +423,7 @@ export default function Navbar() {
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
+                cursor: "pointer"
               }}
             >
               Tools
@@ -469,7 +471,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://apidocs.xinfin.network/docs/#xinfin-apis"
           >
-            <div className="xinfin_account_button">XinFin APIs</div>
+            <div className="xinfin_account_button">XDC APIs</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -519,7 +521,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://apidocs.xinfin.network/docs/#xinfin-apis"
           >
-            <div className="xinfin_account_button">XinFin APIs</div>
+            <div className="xinfin_account_button">XDC APIs</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -590,13 +592,13 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
           >
-            <div className="xinfin_account_button">XinPay</div>
+            <div className="xinfin_account_button"> XDCPay</div>
           </a>
           <hr className="myhr" />
         </ul>
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
-            <div className="xinfin_account_button">XinFin Remix</div>
+            <div className="xinfin_account_button">XDC Remix</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -639,10 +641,7 @@ export default function Navbar() {
                   src={require("../../../src/assets/images/XDC-Icon.svg")}
                 ></img>
               </a>
-              <p className="XDC">
-                
-                XDC
-              </p>
+              <a className="XDC" href="/"> XDC </a>
 
               <div>
                 <NavLink
@@ -728,10 +727,7 @@ export default function Navbar() {
                       src={require("../../../src/assets/images/XDC-Icon.svg")}
                     ></img>
                   </a>
-                  <p className="XDC">
-                    
-                    XDC
-                  </p>
+                  <a className="XDC" href="/"> XDC </a>
                 </div>
                 &nbsp;
                 <div className="header-responsive">

@@ -25,7 +25,7 @@ import BlockDetails from './modules/explorer/newblockDetail';
 import LoaderComponent from "./common/components/loader";
 import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen"
 
-let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
+let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
 }
 );

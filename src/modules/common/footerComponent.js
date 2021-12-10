@@ -224,7 +224,7 @@ export default function FooterComponent(props) {
                 </li>
                 <li className="Table-Comp">
                   <a href="https://xinfin.org/xdc-utility.php" target="_blank">
-                    XDC/XDCe Utility
+                    XDC Utility
                   </a>
                 </li>
                 <li className="Table-Comp">
@@ -257,7 +257,7 @@ export default function FooterComponent(props) {
               </li>
               <li className="Table-Comp">
                 <a href="https://xinfin.io/" target="_blank">
-                  XDC/XDCE Exchange List
+                  XDC Exchange List
                 </a>
               </li>
               <li className="Table-Comp">
