@@ -658,10 +658,7 @@ export default function Navbar() {
                     src={require("../../../src/assets/images/XDC icon.svg")}
                   ></img>
                 </a>
-                <p className="XDC-internal">
-
-                  XDC
-                </p>
+                <a className="XDC-internal" href="/"> XDC </a>
               </div>
               <div>
                 <div>

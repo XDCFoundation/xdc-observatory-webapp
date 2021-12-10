@@ -275,7 +275,7 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash} pvtNote={privateNote[0]?.trxLable}/>}
+                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash} pvtNote={privateNote[0]?.trxLable} />}
                           {<img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
                         </span>
                       </MiddleContainer>
@@ -297,7 +297,7 @@ export default function Transaction({ _handleChange }) {
                         <Content>
                           <a
                             className="linkTableDetails-transaction"
-                            href={"/block-details/" + transactions.blockNumber+"?hash="+transactions.blockHash}
+                            href={"/block-details/" + transactions.blockNumber + "?hash=" + transactions.blockHash}
                           >
                             {" "}
                             {transactions.blockNumber}{" "}
@@ -371,7 +371,7 @@ export default function Transaction({ _handleChange }) {
                                 </button>
                               </Tooltip>
                             </CopyToClipboard>
-                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} fromAddr={transactions.from} value={dialogValue} hash={hash}/>}
+                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} fromAddr={transactions.from} value={dialogValue} hash={hash} />}
                             {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                           </span>
                         </Content>
@@ -424,7 +424,7 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateAddressTag open={dialogPvtTagIsOpen2} onClose={closeDialogPvtTag2} toAddr={transactions.to} value={dialogValue2} hash={hash}/>}
+                          {<PrivateAddressTag open={dialogPvtTagIsOpen2} onClose={closeDialogPvtTag2} toAddr={transactions.to} value={dialogValue2} hash={hash} />}
                           {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag2} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
                         </Content>
                       </MiddleContainer>
@@ -548,19 +548,19 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Private Note</Hash>
                       </Container>
                       <MiddleContainerPrivateNote>
-                        {!isloggedIn ? 
-                        (<PrivateText>
-                          {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} hash={hash}/>}
-                          To access the Private Note feature, you must be
-                          <a
-                            className="linkTableDetails-transaction"
-                            style={{ marginLeft: "5px", cursor: "pointer" }}
-                            onClick={openLoginDialog}
-                          >
-                            Logged In
-                          </a>
-                        </PrivateText>) : (!isPvtNote ? (<span>Add private Note By click on Edit Icon in front of Hash ID</span>):
-                          (<span>{privateNote[0]?.trxLable}</span>))}
+                        {!isloggedIn ?
+                          (<PrivateText>
+                            {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} hash={hash} />}
+                            To access the Private Note feature, you must be
+                            <a
+                              className="linkTableDetails-transaction"
+                              style={{ marginLeft: "5px", cursor: "pointer" }}
+                              onClick={openLoginDialog}
+                            >
+                              Logged In
+                            </a>
+                          </PrivateText>) : (!isPvtNote ? (<span>Add private Note By click on Edit Icon in front of Hash ID</span>) :
+                            (<span>{privateNote[0]?.trxLable}</span>))}
                       </MiddleContainerPrivateNote>
                     </SpacingPrivateNode>
                   </Div__>

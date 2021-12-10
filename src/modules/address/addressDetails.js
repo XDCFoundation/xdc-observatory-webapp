@@ -98,7 +98,7 @@ export default function AddressDetails(props) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
   function _handleChange(event) {
-    
+
   }
   const getAddressDetails = async () => {
     try {
@@ -259,11 +259,11 @@ export default function AddressDetails(props) {
                                 </button>
                                 <div
                                   className="header-popup"
-                                  // style={{
-                                  //   fontSize: "0.875rem",
-                                  //   paddingTop: "0.313rem",
-                                  //   paddingBottom: "3.75rem",
-                                  // }}
+                                // style={{
+                                //   fontSize: "0.875rem",
+                                //   paddingTop: "0.313rem",
+                                //   paddingBottom: "3.75rem",
+                                // }}
                                 >
                                   {" "}
                                   {addr}{" "}
@@ -515,6 +515,9 @@ const MiddleContainerHash = styled.div`
     margin-left: unset;
     margin-top: 0.5rem;
     padding-right: 2.313rem;
+  }
+   @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 4.25rem !important;
   }
 `;
 const Hash = styled.span`

@@ -148,20 +148,17 @@ export default function BlocksComponent(props) {
                               style={{ color: "#b9b9b9", marginRight: "7px" }}
                             />
                           </Tooltip>
-                          <a
-                            className="linkTable"
-                            href={"/transaction-details/" + row.hash}
+
+                          <span
+                            className={
+                              animationClass
+                                ? animationClass
+                                : "tabledata table-data"
+                            }
                           >
-                            <span
-                              className={
-                                animationClass
-                                  ? animationClass
-                                  : "tabledata table-data"
-                              }
-                            >
-                              {shorten(row.hash)}{" "}
-                            </span>
-                          </a>
+                            {shorten(row.hash)}{" "}
+                          </span>
+
                         </TableCell>
                         <TableCell
                           style={{ border: "none" }}
@@ -170,7 +167,7 @@ export default function BlocksComponent(props) {
                         >
                           <a
                             className="linkTable"
-                            href={"/block-details/" + row.number+"?hash="+row.hash}
+                            href={"/block-details/" + row.number + "?hash=" + row.hash}
                           >
                             <span
                               className={
