@@ -103,8 +103,8 @@ export default class LatestBlocksList extends BaseComponent {
         this.getListOfBlocks(from, this.state.amount)
     }
     _NextPage = async (event) => {
-        if (this.state.amount + this.state.from < this.state.totalblocks) {
-            let from = this.state.amount + this.state.from
+        if (+this.state.amount + +this.state.from < this.state.totalblocks) {
+            let from = +this.state.amount + +this.state.from
             this.setState({ from })
             this.getListOfBlocks(from, this.state.amount)
         }

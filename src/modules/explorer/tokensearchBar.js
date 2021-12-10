@@ -282,7 +282,7 @@ export default function Navbar() {
         </ul>
         <ul className="inside-side-box">
           <p className="xinfin_api_button" style={{ cursor: "pointer" }}>
-            XinFin APIs
+            XDC APIs
           </p>
           <hr className="myhr" />
         </ul>
@@ -300,7 +300,7 @@ export default function Navbar() {
     "Accounts",
     "Contract",
     "Tools",
-    "Xinfin Apis",
+    "XDC Apis",
     "Nodes",
     "Tokens",
   ];
@@ -483,7 +483,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://apidocs.xinfin.network/docs/#xinfin-apis"
           >
-            <div className="xinfin_account_button">XinFin APIs</div>
+            <div className="xinfin_account_button">XDC APIs</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -533,7 +533,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://apidocs.xinfin.network/docs/#xinfin-apis"
           >
-            <div className="xinfin_account_button">XinFin APIs</div>
+            <div className="xinfin_account_button">XDC APIs</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -610,7 +610,7 @@ export default function Navbar() {
         </ul>
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
-            <div className="xinfin_account_button">XinFin Remix</div>
+            <div className="xinfin_account_button">XDC Remix</div>
           </a>
           <hr className="myhr" />
         </ul>

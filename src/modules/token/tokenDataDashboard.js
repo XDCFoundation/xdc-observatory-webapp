@@ -277,7 +277,7 @@ const Line2 = styled.hr`
   background-color: #e3e7eb !important;
   width: 100%;
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 0%;
   @media (max-width:767px){
     width:100%;
@@ -290,7 +290,7 @@ const Line2 = styled.hr`
 `;
 const RightTopSec = styled.div`
   width: 3.938rem;
-    height: 1.15rem;
+    height: 1.3rem;
     font-size: 0.875rem;
     padding: 4.5px;
     color: #2a2a2a;
@@ -357,11 +357,13 @@ export default function TokenDataComponent() {
 
 
   useEffect(() => {
-    let values = { addr: address, pageNum: 0, perpage: 50 }
+    let values = { addr: address, pageNum: 0, perpage: 10 }
     listOfHolders(values);
-    transferDetail(values);
+    let value = { addr: address }
+    transferDetail(value);
   }, []);
-  const [transfer, settransfer] = useState({});
+  const [transfer, settransfer] = useState([]);
+  console.log(transfer, "kikkki")
 
 
   const transferDetail = async (values) => {
@@ -370,14 +372,7 @@ export default function TokenDataComponent() {
       TokenData.getTotalTransferTransactionsForToken(values)
     );
     if (error || !tns) return;
-    settransfer(tns);
-
-    const interval = setInterval(async () => {
-      let [error, tns] = await Utils.parseResponse(
-        TokenData.getTotalTransferTransactionsForToken(values)
-      );
-      settransfer(tns);
-    }, 90000);
+    settransfer(tns.responseData);
   };
 
   const listOfHolders = async (values) => {
@@ -480,7 +475,7 @@ export default function TokenDataComponent() {
                     <ValueName>
                       <Title>Holders</Title>
                       <div className="last_value">
-                        <TitleValue>{holders.responseCount}</TitleValue>
+                        <TitleValue>{holders?.responseCount}</TitleValue>
                         <div className="last_value">
                           <div
                             className={
@@ -510,7 +505,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName>
                       <Title>Transfer</Title>
-                      <TitleValue>{transfer.totalTransactionCount}</TitleValue>
+                      <TitleValue>{transfer}</TitleValue>
                     </ValueName>
                   </Value>
                   <Value>

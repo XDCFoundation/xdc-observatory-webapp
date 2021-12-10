@@ -114,8 +114,8 @@ export default class LatestTransactionList extends BaseComponent {
         this.getListOfTransactions(from, this.state.amount)
     }
     _NextPage = async (event) => {
-        if (this.state.amount + this.state.from < this.state.totalTransaction) {
-            let from = this.state.amount + this.state.from
+        if (+this.state.amount + +this.state.from < this.state.totalTransaction) {
+            let from = +this.state.amount + +this.state.from
             this.setState({ from })
             this.getListOfTransactions(from, this.state.amount)
         }

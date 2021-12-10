@@ -110,7 +110,7 @@ export default function FooterComponent(props) {
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                  XinFinScan is a Block Explorer and Analytics Platform for XDC,
+                  XDCScan is a Block Explorer and Analytics Platform for XDC,
                   a decentralized smart contracts platform.
                 </p>
               </div>
@@ -201,7 +201,7 @@ export default function FooterComponent(props) {
                 </li>
                 <li className="Table-Comp">
                   <a href="https://xinfin.network/#stats" target="_blank">
-                    XinFin Network Status
+                    XDC Network Status
                   </a>
                 </li>
                 <li className="Table-Comp">
@@ -224,7 +224,7 @@ export default function FooterComponent(props) {
                 </li>
                 <li className="Table-Comp">
                   <a href="https://xinfin.org/xdc-utility.php" target="_blank">
-                    XDC/XDCe Utility
+                    XDC Utility
                   </a>
                 </li>
                 <li className="Table-Comp">
@@ -257,7 +257,7 @@ export default function FooterComponent(props) {
               </li>
               <li className="Table-Comp">
                 <a href="https://xinfin.io/" target="_blank">
-                  XDC/XDCE Exchange List
+                  XDC Exchange List
                 </a>
               </li>
               <li className="Table-Comp">
@@ -397,7 +397,7 @@ export default function FooterComponent(props) {
       </Grid>
       <div className="footer-line">
         <hr></hr>
-        <span className={"copyright"}>© 2021 XinFin. All Rights Reserved.</span>
+        <span className={"copyright"}>© 2021 XDC. All Rights Reserved.</span>
       </div>
     </div>
   );
