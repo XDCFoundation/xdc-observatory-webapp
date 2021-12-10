@@ -3,28 +3,20 @@ import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from "@material-ui/core/Paper";
 import "../../assets/styles/custom.css";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import SearchIcon from "@material-ui/icons/Search";
-import AddressTableComponent from "./addressTable";
 import TransactionTableComponent from "./transactionTable";
-import { ImQrcode } from "react-icons/im";
 import Utility, { dispatchAction } from "../../utility";
-import Popup from "reactjs-popup";
 import { Grid } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import ContractData from "../../services/contract";
 import TokenUnverifiedContract from './tokenUnverifiedContract'
 import TokenContracttab from './tokenContractTab'
 import ReactHtmlParser from "react-html-parser";
-import Utils from "../../utility";
 
 
 const useStyles = makeStyles({

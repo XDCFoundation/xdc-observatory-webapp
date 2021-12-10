@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import { ResponsiveLine } from "@nivo/line";
-import { linearGradientDef } from "@nivo/core";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router";
+import {ResponsiveLine} from "@nivo/line";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import Utils from "../../utility";
 import TokenData from "../../services/token";
 import moment from "moment";
+
 const GraphSize = styled.div`
   height: 8.75rem;
   width: auto;

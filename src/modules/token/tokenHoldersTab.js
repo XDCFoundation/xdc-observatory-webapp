@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import React, {useEffect, useState} from "react";
+import {makeStyles, withStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,8 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import "../../assets/styles/custom.css";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
