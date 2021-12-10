@@ -97,7 +97,6 @@ export default function StickyHeadTable() {
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const [isLoading, setLoading] = useState(true);
-  const history = useHistory();
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
@@ -116,12 +115,12 @@ export default function StickyHeadTable() {
   };
 
   const handleChangePage = (action) => {
-    if (action == "first") {
+    if (action === "first") {
       setPage(0);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       listOfHolders(values);
     }
-    if (action == "prev") {
+    if (action === "prev") {
       if (page - rowsPerPage >= 0) {
         let pageValue = page - rowsPerPage;
         setPage(pageValue);
@@ -129,7 +128,7 @@ export default function StickyHeadTable() {
         listOfHolders(values);
       }
     }
-    if (action == "next") {
+    if (action === "next") {
       if (rowsPerPage + page < totalHolder) {
         let pageValue = rowsPerPage + page;
         setPage(pageValue);
@@ -138,7 +137,7 @@ export default function StickyHeadTable() {
       }
     }
 
-    if (action == "last") {
+    if (action === "last") {
       let pageValue = totalHolder - rowsPerPage;
       setPage(pageValue);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
