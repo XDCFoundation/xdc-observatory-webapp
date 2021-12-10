@@ -6,13 +6,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
 import { Row, Column } from "simple-flexbox";
 import { history } from "../../managers/history";
-import CloseIcon from "@material-ui/icons/Close";
 import utility from "../../utility";
-import Utils from "../../utility";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
-import Loader from "../../assets/loader";
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -153,7 +150,7 @@ export default function ChangePassword(props) {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+      <div className={isLoading === true ? "cover-spin-loginDialog" : ""}>
         <DialogContent className={classes.heading}>
           <Row justifyContent="space-between" marginTop="8px">
             <DialogContentText className={classes.text}>
@@ -164,6 +161,7 @@ export default function ChangePassword(props) {
               className={classes.closeContainer}
             >
               <img
+                alt="LOGO"
                 className={classes.close}
                 src={require("../../../src/assets/images/XDC-Cross.svg")}
               ></img>

@@ -14,9 +14,6 @@ import HolderTableComponent from "./holderTable";
 import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
 import { Grid, TableContainer } from "@material-ui/core";
-import Utility, { dispatchAction } from "../../utility";
-import AddressData from "../../services/address";
-import ReactHtmlParser from "react-html-parser";
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import Utils from "../../utility";
@@ -60,17 +57,17 @@ const useStyles = makeStyles({
 export default function HoldersDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
-  const [txtAddress, setTxtAddress] = useState('');
-  const [balance, setBalance] = useState(0);
-  const [convertCurrency, setConvertCurrency] = useState('');
-  const [coinValue, setCoinValue] = useState(0);
+  // const [txtAddress, setTxtAddress] = useState('');
+  // const [balance, setBalance] = useState(0);
+  // const [convertCurrency, setConvertCurrency] = useState('');
+  // const [coinValue, setCoinValue] = useState(0);
 
   const [transactions, setTransactions] = useState([]);
 
   const [copiedText, setCopiedText] = useState("");
   // let nowCurrency = window.localStorage.getItem('currency')
   const [holder, setHolderDetail] = useState({})
-  const [totalToken, setTotalToken] = useState({});
+  // const [totalToken, setTotalToken] = useState({});
   const { addr } = useParams();
 
   useEffect(() => {
