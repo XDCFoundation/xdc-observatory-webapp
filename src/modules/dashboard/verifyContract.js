@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Route, Redirect } from 'react-router'
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Releases from "./list.json";
 import contractverify from "../../services/contractverify";
@@ -21,10 +19,11 @@ export default function VerifyContract() {
         code: Yup.string()
                 .required('Contract code is required')               
     });
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
-        resolver: yupResolver(validationSchema),
-    });
-    
+    const register="";
+    const handleSubmit="";
+    const reset="";
+    let errors={};
+
     const onSubmitHandler = async (data) => { 
         try {
             setisLoading(true)
@@ -71,13 +70,13 @@ export default function VerifyContract() {
                                             <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" />
                                         </div>
                                     }
-                                    <p className="validation-error-message">{errors.addr?.message}</p>
+                                    <p className="validation-error-message">{errors?.addr?.message}</p>
                                 </div>
                                 <div className="vc-contract-name" >Contract Name
                                     <div>
                                         <input {...register("contractname")} name="contractname" className="vc-input-contract-name" type="text" placeholder="Contract Name" />
                                     </div>
-                                    <p className="validation-error-message">{errors.contractname?.message}</p>
+                                    <p className="validation-error-message">{errors?.contractname?.message}</p>
                                 </div>
 
                                 <div className="vc-contract-compiler">Compiler
@@ -101,7 +100,7 @@ export default function VerifyContract() {
                                             })
                                             }
                                         </select>
-                                        <p className="validation-error-message">{errors.version?.message}</p>
+                                        <p className="validation-error-message">{errors?.version?.message}</p>
                                     </div>
                                 </div>
 
@@ -110,7 +109,7 @@ export default function VerifyContract() {
                             <br />
                             <div className="verify-contracts-head">Contract Code</div>
                             <textarea {...register("code")} name="code" className="textarea-contract-code" ></textarea>
-                            <p className="validation-error-message">{errors.code?.message}</p>
+                            <p className="validation-error-message">{errors?.code?.message}</p>
                             <br /><br />
                             <div className="verify-contracts-head">
                                 <input type="checkbox" value="1" name="optimise" {...register("optimise")} />
