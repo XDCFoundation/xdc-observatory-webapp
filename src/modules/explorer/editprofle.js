@@ -3,19 +3,16 @@ import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import AwsService from "../../services/awsService";
-import Utils from "../../utility";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import { Row } from "simple-flexbox";
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
 import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
-import Loader from "../../assets/loader";
 import { cookiesConstants } from "../../constants";
 
 const acceptStyle = {
