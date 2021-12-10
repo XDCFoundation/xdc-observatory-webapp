@@ -132,8 +132,8 @@ class MarketDatatable extends Component {
       this.props.currency === "INR"
         ? "₹ "
         : this.props.currency === "USD"
-        ? "$ "
-        : "€ ";
+          ? "$ "
+          : "€ ";
     return (
       <>
         <DeskTopView>
