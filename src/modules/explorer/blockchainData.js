@@ -259,7 +259,7 @@ class BlockChainDataComponent extends Component {
     this.blocksLatest();
     this.transactionsLatest();
     await this.tpsCountDetail();
-    await this.CountMaxtps();
+    // await this.CountMaxtps();
 
     this.socketData(this.props.socket);
   }
@@ -406,6 +406,7 @@ class BlockChainDataComponent extends Component {
     if (error || !tpsCount) return;
 
     this.setState({ tpsCounts: tpsCount });
+    this.setState({ loading: false });
     const interval = setInterval(async () => {
       let [error, tpsCount] = await Utils.parseResponse(
         TpsService.getTpsCounter()
@@ -415,21 +416,21 @@ class BlockChainDataComponent extends Component {
     }, 90000);
   }
 
-  async CountMaxtps() {
-    let [error, MaxtpsCount] = await Utils.parseResponse(
-      TpsService.getMaxTpsCounter()
-    );
+  // async CountMaxtps() {
+  //   let [error, MaxtpsCount] = await Utils.parseResponse(
+  //     TpsService.getMaxTpsCounter()
+  //   );
 
-    if (error || !MaxtpsCount) return;
-    this.setState({ Maxtps: MaxtpsCount });
-    this.setState({ loading: false });
-    const interval = setInterval(async () => {
-      let [error, MaxtpsCount] = await Utils.parseResponse(
-        TpsService.getMaxTpsCounter()
-      );
-      this.setState({ Maxtps: MaxtpsCount });
-    }, 90000);
-  }
+  //   if (error || !MaxtpsCount) return;
+  //   this.setState({ Maxtps: MaxtpsCount });
+  //   this.setState({ loading: false });
+  //   const interval = setInterval(async () => {
+  //     let [error, MaxtpsCount] = await Utils.parseResponse(
+  //       TpsService.getMaxTpsCounter()
+  //     );
+  //     this.setState({ Maxtps: MaxtpsCount });
+  //   }, 90000);
+  // }
 
   /* FETCHING LATEST BLOCKS API */
 
@@ -577,7 +578,7 @@ class BlockChainDataComponent extends Component {
                   <ValueName>
                     <Title>Current/Max TPS</Title>
                     <TitleValue>
-                      {currentTp ? currentTp : 0}/{maxTp ? maxTp : 0}
+                      {currentTp ? currentTp : 0}/2000
                     </TitleValue>
                   </ValueName>
                 </Value>

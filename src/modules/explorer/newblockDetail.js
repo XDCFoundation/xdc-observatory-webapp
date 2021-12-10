@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory ,useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import styled from "styled-components";
@@ -73,11 +73,11 @@ export default function BlockDetails() {
   const getLatestaccount = async (blockNumber) => {
     let urlPath;
     if (typeof hashKey == 'undefined') {
-       urlPath = `${blockNumber}`;
+      urlPath = `${blockNumber}`;
     } else {
-       urlPath = `${blockNumber}`+"?hash="+hashKey;
+      urlPath = `${blockNumber}` + "?hash=" + hashKey;
     }
-    
+
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
@@ -297,16 +297,10 @@ export default function BlockDetails() {
                       <Hash>Sha3Uncles</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content className="fc-2149b9">
-                        {" "}
-                        <a
-                          className="parent_hash"
-                          onClick={decrement}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {" "}
-                          {height.sha3Uncles}
-                        </a>
+                      <Content>
+
+                        {height.sha3Uncles}
+
                         <CopyToClipboard
                           text={height.hash}
                           onCopy={() => setCopiedText(height.hash)}
