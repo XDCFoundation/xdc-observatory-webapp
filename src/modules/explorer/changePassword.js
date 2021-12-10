@@ -55,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     outline: "none",
   },
+  icon: {
+    marginLeft: "-48px",
+    marginBottom: "4px",
+  },
   addbtn: {
     width: "440px",
     height: "44px",
@@ -95,6 +99,18 @@ export default function ChangePassword(props) {
   const [isLoading, setLoading] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
+  const [passwordShown1, setPasswordShown1] = React.useState(false);
+  const togglePasswordVisiblity1 = () => {
+    setPasswordShown1(passwordShown1 ? false : true);
+  };
+  const [passwordShown2, setPasswordShown2] = React.useState(false);
+  const togglePasswordVisiblity2 = () => {
+    setPasswordShown2(passwordShown2 ? false : true);
+  };
+  const [passwordShown3, setPasswordShown3] = React.useState(false);
+  const togglePasswordVisiblity3 = () => {
+    setPasswordShown3(passwordShown3 ? false : true);
+  };
 
   var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
 
@@ -173,7 +189,7 @@ export default function ChangePassword(props) {
           <DialogContentText className={classes.subCategory}>
             <b>Current Password</b>
             <input
-              type="password"
+              type={passwordShown1 ? "text" : "password"}
               id="password"
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
               className={classes.input}
@@ -183,11 +199,24 @@ export default function ChangePassword(props) {
                 }
               }}
             ></input>
+            {passwordShown1 ? (
+                      <img
+                        src={require("../../../src/assets/images/show .svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity1}
+                      />
+                    ) : (
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity1}
+                      />
+                    )}
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
             <b>New Password</b>
             <input
-              type="password"
+              type={passwordShown2 ? "text" : "password"}
               id="password"
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
               className={classes.input}
@@ -197,12 +226,25 @@ export default function ChangePassword(props) {
                 }
               }}
             ></input>
+            {passwordShown2 ? (
+                      <img
+                        src={require("../../../src/assets/images/show .svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity2}
+                      />
+                    ) : (
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity2}
+                      />
+                    )}
             <div className={classes.error}>{errorPassword}</div>
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
             <b>Confirm Password</b>
             <input
-              type="password"
+              type={passwordShown3 ? "text" : "password"}
               id="password"
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
               className={classes.input}
@@ -212,6 +254,19 @@ export default function ChangePassword(props) {
                 }
               }}
             ></input>
+            {passwordShown3 ? (
+                      <img
+                        src={require("../../../src/assets/images/show .svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity3}
+                      />
+                    ) : (
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity3}
+                      />
+                    )}
             <div className={classes.error}>{errorConfirmPassword}</div>
           </DialogContentText>
           {isLoading == true ? (

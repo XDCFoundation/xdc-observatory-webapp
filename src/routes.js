@@ -23,6 +23,7 @@ import Transaction from "./modules/resp_transaction/resTransaction";
 import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
 import BlockDetails from './modules/explorer/newblockDetail';
 import LoaderComponent from "./common/components/loader";
+import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen"
 
 let socket = socketClient("http://ec2-54-160-137-15.compute-1.amazonaws.com:3000/", {
   transports: ["websocket"],
@@ -72,6 +73,7 @@ class Routes extends BaseComponent {
             <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
             <Route exact path={'/loginprofile'} component={AccountProfile} />
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
+            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
             <Redirect exact from='*' to="/" />
           </Switch>
         </Router>

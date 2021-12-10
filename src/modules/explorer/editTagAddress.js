@@ -157,10 +157,12 @@ const useStyles = makeStyles((theme) => ({
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
+  const multipleTag = props.row.tagName
   useEffect(() => {
     if (props.row.address) setPrivateAddress(props.row.address);
     setNameTag(props.row.tagName);
     setId(props.row._id)
+    setTags(multipleTag)
   }, []);
 
   async function editTaggedAddress() {
@@ -169,13 +171,17 @@ const useStyles = makeStyles((theme) => ({
     const data = {
       _id: props.row._id,
       address: privateAddress,
-      tagName: nameTag,
+      tagName: tags,
     };
     if (!(privateAddress && privateAddress.length === 43) || !privateAddress.slice(0, 2) === "xdc") {
       setError("Address should start with xdc & 43 characters")
       return;
-    } else if (nameTag && nameTag.length >= 20){
-      setErrorTag("Name Tag Minimum length is should be 20");
+    }else if (tags.length === 0){
+      setErrorTag("Use comma(,) to add multiple tag");
+      return;
+    }
+    else if (tags && tags.length > 5){
+      setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
     const [error,response] = await utility.parseResponse(PutTagAddress.putTaggedAddress(data));
@@ -201,27 +207,6 @@ const useStyles = makeStyles((theme) => ({
     setErrorTag("");
   };
 
-  const handleLogin = () => {
-    // history.push("/loginprofile")
-  };
-  // const validateAddress = () => {
-  //   if (nameTag && nameTag.length >= 20){
-  //     utility.apiFailureToast("Name Tag Minimum length is should be 20");
-      
-  //   }else{
-  //     validateTagName()
-  //   }
-  // }
-  // const validateTagName = () => {
-  
-  //   if ((privateAddress && privateAddress.length === 43) || privateAddress.slice(0, 2) == "xdc") {
-  //     editTaggedAddress()
-      
-  //   } else {
-  //   setError("Address should start with xdc & 43 characters");
-  //   }
-
-  // };
   const handleDelete = async () =>{
     if(props?.row?._id){
       props.dispatchAction(eventConstants.SHOW_LOADER , true)
@@ -236,6 +221,51 @@ const useStyles = makeStyles((theme) => ({
       await props.getListOfTagAddress();
     }
    }
+
+  const [input, setInput] = React.useState('');
+  const [tags, setTags] = React.useState([]);
+  const [isKeyReleased, setIsKeyReleased] = React.useState(false);
+
+  const onChange = (e) => {
+    setErrorTag("");
+    const { value } = e.target;
+    setInput(value);
+  };
+
+  const onKeyDown = (e) => {
+    const { key } = e;
+    const trimmedInput = input.trim();
+  
+    if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
+      e.preventDefault();
+      setTags(prevState => [...prevState, trimmedInput]);
+      setInput('');
+      setErrorTag("");
+    }
+  
+    if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
+      const tagsCopy = [...tags];
+      const poppedTag = tagsCopy.pop();
+      e.preventDefault();
+      setTags(tagsCopy);
+      setInput(poppedTag);
+    }
+  
+    setIsKeyReleased(false);
+  };
+  
+  const onKeyUp = () => {
+    setIsKeyReleased(true);
+  }
+
+  const deleteTag = (index) => {
+    setTags(prevState => prevState.filter((tag, i) => i !== index))
+  }
+
+
+
+
+
 
   return (
     <div>
@@ -272,7 +302,7 @@ const useStyles = makeStyles((theme) => ({
             ></input>
              {error ? <div className={classes.error}>{error}</div> : <></>}
             </DialogContent>
-            <DialogContent>
+            {/* <DialogContent>
               <DialogContentText className={classes.subCategory}>
                 Name Tag
               </DialogContentText>
@@ -284,7 +314,33 @@ const useStyles = makeStyles((theme) => ({
                 onChange={(e) => setNameTag(e.target.value)}
               ></input>
               {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
+            </DialogContent> */}
+
+
+            {/* <------------------------------------------------------------------------------------------------------------------> */}
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Name Tag
+              </DialogContentText>
+
+              <div className="containerTag">
+                {tags.map((tag, index) => (<div className="tag">
+                  {tag}
+                  <button onClick={() => deleteTag(index)}>x</button>
+                  </div>))}
+                <input
+                  value={input}
+                  placeholder="Enter a tag"
+                  onKeyDown={onKeyDown}
+                  onKeyUp={onKeyUp}
+                  onChange={onChange}
+                />
+              </div>
+              {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
             </DialogContent>
+            {/* <------------------------------------------------------------------------------------------------------------------> */}
+
+
             <DialogActions className={classes.buttons}>
               <div>
                 <span>
