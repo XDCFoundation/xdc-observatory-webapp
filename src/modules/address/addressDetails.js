@@ -154,8 +154,8 @@ export default function AddressDetails(props) {
   const tagUsingAddressHash = async () => {
     const data = {
       address: addr,
-      userId: sessionManager.getDataFromCookies("userId")
-    }
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
 
     let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
@@ -164,7 +164,7 @@ export default function AddressDetails(props) {
     if (error || !tagUsingAddressHashResponse) return;
     setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
     setIsTag(true);
-  }
+  };
 
   useEffect(() => {
     getAddressDetails();
@@ -197,7 +197,6 @@ export default function AddressDetails(props) {
                         />
                       </Tooltip>
                       <Hash>Address</Hash>
-
                     </Container>
                     <MiddleContainerHash>
                       <Content>{addr}</Content>
@@ -255,28 +254,38 @@ export default function AddressDetails(props) {
                                 </button>
                                 <div
                                   className="header-popup"
-                                // style={{
-                                //   fontSize: "0.875rem",
-                                //   paddingTop: "0.313rem",
-                                //   paddingBottom: "3.75rem",
-                                // }}
+                                  // style={{
+                                  //   fontSize: "0.875rem",
+                                  //   paddingTop: "0.313rem",
+                                  //   paddingBottom: "3.75rem",
+                                  // }}
                                 >
                                   {" "}
                                   {addr}{" "}
                                 </div>
-                                {window.innerWidth > 767 ?
+                                {window.innerWidth > 767 ? (
                                   <QRCode
                                     size={320}
-                                    style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={process.env.REACT_APP_QR_CODE_LINK + addr}
-                                  /> :
+                                    style={{
+                                      height: 400,
+                                      width: 400,
+                                      marginTop: "0.625rem",
+                                    }}
+                                    value={
+                                      process.env.REACT_APP_QR_CODE_LINK + addr
+                                    }
+                                  />
+                                ) : (
                                   <QRCode
                                     // style={{window.innerWidth > 768 ? '800px' : '400px'}}
                                     size={320}
                                     className="qrcode-label"
                                     //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={process.env.REACT_APP_QR_CODE_LINK + addr}
-                                  />}
+                                    value={
+                                      process.env.REACT_APP_QR_CODE_LINK + addr
+                                    }
+                                  />
+                                )}
                               </div>
                             </p>
                           </div>
@@ -396,7 +405,6 @@ export default function AddressDetails(props) {
             </div>
           </div>
 
-
           <div
             className={
               toggleState === 1
@@ -406,7 +414,6 @@ export default function AddressDetails(props) {
           >
             <AddressTableComponent trans={transactions} coinadd={addr} />
           </div>
-
         </div>
       </Grid>
       <FooterComponent />
@@ -567,7 +574,7 @@ const Div = styled.div`
   margin-bottom: 0.938rem;
   // padding: 0.313rem;
   margin-top: 0.625rem;
-    @media (min-width: 300px) and (max-width: 767px) {
+  @media (min-width: 300px) and (max-width: 767px) {
     width: 22.563rem;
     margin-top: 0rem;
   }
@@ -605,9 +612,8 @@ const AddressPath = styled.div`
   font-size: 0.875rem;
   display: flex;
   margin-bottom: 12px;
-  margin-Left: 4px;
-  margin-top: -30px;
-  ;
+  margin-left: 4px;
+  margin-top: -30px; ;
 `;
 
 const Explorer = styled.div`

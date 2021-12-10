@@ -274,7 +274,7 @@ export default function FormDialog() {
   return (
     <div>
 
-      <div className="div1" onClick={handleClickOpen}>
+      <div style={{marginLeft:"10px"}} className="div1" onClick={handleClickOpen}>
         <div>
           <img
             className="imagediv1"

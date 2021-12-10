@@ -14,6 +14,8 @@ import TokenDetails from "./modules/explorer/tokendetails";
 import LatestAccountsList from "./modules/accounts";
 import AddressDetails from "./modules/address/addressDetails";
 import HolderDetails from "./modules/holders/holderDetails";
+import PolicyDetails from "./modules/explorer/privacyPolicy";
+import TermsCondition from "./modules/explorer/termsCondition";
 import AddressDetailsData from "./modules/address/AddressDetailsData";
 import ContractComponent from "./modules/dashboard/contractComponent";
 import ContractTab from "./modules/dashboard/contractTab";
@@ -72,6 +74,8 @@ class Routes extends BaseComponent {
             <Route exact path={'/contracts'} component={ContractComponent} />
             <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
             <Route exact path={'/loginprofile'} component={AccountProfile} />
+            <Route exact path={'/privacy-policy'} component={PolicyDetails} />
+            <Route exact path={'/term-conditions'} component={TermsCondition} />
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
             <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
             <Redirect exact from='*' to="/" />
