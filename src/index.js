@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './assets/styles/custom.css';
 import { sessionManager } from "./managers/sessionManager";
-import { cookiesConstants } from './constants';
 
 window.OneSignal = window.OneSignal || [];
 const OneSignal = window.OneSignal;

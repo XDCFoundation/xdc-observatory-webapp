@@ -76,8 +76,9 @@ export default function App() {
             return
         setGraphAccounts(AccountGraph)
         // alert(JSON.stringify(AccountGraph))
-        const interval = setInterval(async () => {
+         setInterval(async () => {
             let [error, AccountGraph] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
+            if(error) return;
             setGraphAccounts
                 (AccountGraph);
             // alert(JSON.stringify(AccountGraph))
@@ -95,6 +96,7 @@ export default function App() {
                 x: items.day,
                 y: items.accountCount
             })
+            return true;
 
             // moment(items.timestamp * 1000).format("MMMM Do YYYY"),moment(items.timestamp * 1000).format("MMMM Do YYYY"),
 
@@ -121,8 +123,8 @@ export default function App() {
     // const atIndex2 = value2?.indexOf("");
     // let lastDate = value2?.slice(atIndex2, colonIndex2);
     let length = graphAccounts.length;
-    const firstDate = graphAccounts.length == 0 ? "" : (moment(graphAccounts[length - 1]?.day).format('D MMM'))
-    const lastDate = graphAccounts.length == 0 ? "" : (moment(graphAccounts[0]?.day).format('D MMM'))
+    const firstDate = graphAccounts.length === 0 ? "" : (moment(graphAccounts[length - 1]?.day).format('D MMM'))
+    const lastDate = graphAccounts.length === 0 ? "" : (moment(graphAccounts[0]?.day).format('D MMM'))
 
     return (
         <GraphSize >

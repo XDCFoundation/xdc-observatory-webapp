@@ -1,16 +1,9 @@
-
-
-
 import * as React from "react";
 import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
-import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
-import { NavLink } from "react-router-dom";
 import LoginDialog from "../explorer/loginDialog"
 
 const ProfileContainer = styled.div`
@@ -18,7 +11,7 @@ const ProfileContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: max-content;
-  cursor: pointer;
+  cursor: pointer;warning
 `;
 const Contents = styled.div`
   padding: 10px 2px 10px 2px;
@@ -39,9 +32,7 @@ const Text = styled.button`
 `;
 
 
-const Profile = styled.button`
-  background: none;
-`;
+
 
 export default function BasicPopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -50,8 +41,8 @@ export default function BasicPopover(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
-  const [openLoginBox, setOpenLoginBox] = React.useState(false)
+  // const [openPasswordBox, setOpenPasswordBox] = React.useState(false);
+  // const [openLoginBox, setOpenLoginBox] = React.useState(false)
     const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
     const [openCP, setOpen] = React.useState(false);
     const closeLoginDialog = () => setLoginDialogIsOpen(false)
