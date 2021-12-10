@@ -1,14 +1,11 @@
-import { Paper } from 'material-ui';
-import React, { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import verified from '../../assets/images/verified.png';
-import code from '../../assets/images/code.png';
-import abi from '../../assets/images/abi.png';
-import bytecod from '../../assets/images/bytecod.png';
+import {Paper} from 'material-ui';
+import React, {useState} from 'react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tooltip from "@material-ui/core/Tooltip";
-import { IoIosWarning } from "react-icons/io"
-import { FaShieldAlt } from "react-icons/fa"
-import { useHistory } from 'react-router-dom';
+import {IoIosWarning} from "react-icons/io"
+import {FaShieldAlt} from "react-icons/fa"
+import {useHistory} from 'react-router-dom';
+
 export default function TokenUnverifiedContract(props) {
 
     let unverifiedData = props?.contractData

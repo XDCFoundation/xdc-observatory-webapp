@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { ResponsiveLine } from '@nivo/line';
+import React, {useEffect, useState} from "react";
+import {ResponsiveLine} from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
-import { AccountService } from '../../services'
+import {AccountService} from '../../services'
 import Utils from '../../utility'
 import styled from "styled-components";
 

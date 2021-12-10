@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,18 +7,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Divider } from "@material-ui/core";
 import Tokensearchbar from "./tokensearchBar";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
-import { history } from "../../managers/history";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import TokenData from "../../services/token";
-import { Grid } from "@material-ui/core";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
 

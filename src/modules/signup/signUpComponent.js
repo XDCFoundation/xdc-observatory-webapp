@@ -3,7 +3,6 @@ import {Column, Row} from "simple-flexbox";
 import {Button} from "@material-ui/core";
 import CustomInput from "../../common/components/CustomInput";
 import {history} from "../../managers/history";
-import Divider from "@material-ui/core/Divider/Divider";
 
 
 function SubscriptionTypeComponent(props) {

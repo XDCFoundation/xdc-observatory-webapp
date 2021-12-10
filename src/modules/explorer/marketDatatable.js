@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "../../assets/styles/custom.css";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
-import { CoinMarketService } from "../../services";
+import {CoinMarketService} from "../../services";
 import styled from "styled-components";
 import Utils from "../../utility";
 import arrowUp from "../../assets/images/Up.svg";
