@@ -79,6 +79,17 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.54px",
     color: "#2a2a2a",
   },
+  passwordText:{
+    
+    fontWeight: "500",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    fontWeight: "500",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    letterSpacing: "0.54px",
+    color: "#2a2a2a",
+  },
   heading: {
     alignItems: "center",
     justifyContent: "center",
@@ -152,8 +163,8 @@ export default function ChangePassword(props) {
         setLoading(false);
         utility.apiFailureToast("failed");
       } else {
-        history.push("/dashboard");
-        utility.apiSuccessToast("Password  changed successfully");
+        history.push("/loginprofile");
+        utility.apiSuccessToast("Password changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse?.sub, "userId");
