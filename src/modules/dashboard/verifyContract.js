@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { Route, Redirect } from 'react-router'
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Releases from "./list.json";
 import contractverify from "../../services/contractverify";
-import Loader from "../../assets/loader"
 export default function VerifyContract() {
     const { address } = useParams();
     const [isLoading, setisLoading] = useState(false)
@@ -19,10 +20,8 @@ export default function VerifyContract() {
         code: Yup.string()
                 .required('Contract code is required')               
     });
-    const register="";
-    const handleSubmit="";
-    const reset="";
-    let errors={};
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+         resolver: yupResolver(validationSchema)});
 
     const onSubmitHandler = async (data) => { 
         try {
