@@ -64,7 +64,15 @@ export default function BasicPopover(props) {
     setAnchorEl(null);
   };
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
+    const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.logout(userId)
+        
+      );
+      
+       
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
     sessionManager.removeDataFromCookies("userInfo");
@@ -72,6 +80,7 @@ export default function BasicPopover(props) {
     sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
     sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
     (window.location.href = "/dashboard")
+      
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
