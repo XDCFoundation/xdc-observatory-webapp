@@ -380,6 +380,7 @@
   opacity: 1;
   padding-left: 2px;
 }
+
 @media (min-width: 1240px) {
   .table-data {
     height: 1.063rem;
