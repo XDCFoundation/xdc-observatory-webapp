@@ -11,7 +11,7 @@ const ProfileContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: max-content;
-  cursor: pointer;warning
+  cursor: pointer;
 `;
 const Contents = styled.div`
   padding: 10px 2px 10px 2px;
