@@ -262,7 +262,7 @@ const useStyles = makeStyles((theme) => ({
     paperWidthSm: {
       position: "absolute",
       // top: "102px",
-      maxWidth: "503px",
+      maxWidth: "767px",
       width: "100%",
       height: "100%",
       borderRadius: "0px",
