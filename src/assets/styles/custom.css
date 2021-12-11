@@ -1,4 +1,4 @@
-@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+/* @import "../../../node_modules/bootstrap/dist/css/bootstrap.css"; */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
@@ -9091,3 +9091,5 @@ button {
 .radio-inside-dot > span > span > div > svg ~ svg > path {
   color: #2149b9;
 }
+
+
