@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,7 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import {NavLink, useHistory} from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import "../../assets/styles/custom.css";
 import SearchData from "../../services/search";
 import Utility from "../../utility";
@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
-      height: '11.4375rem !important',
-    }
+      height: "11.4375rem !important",
+    },
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
@@ -175,18 +175,19 @@ export default function Navbar() {
       );
 
       if (responseData) {
-        if (responseData.redirect == "block") {
-          let blockurl = "/block-details/" + responseData.block.number;
+        if (responseData[0].redirect == "block") {
+          let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
-        } else if (responseData.redirect == "account") {
-          let accounturl = "/address-details/" + responseData.account.address;
+        } else if (responseData[0].redirect == "account") {
+          let accounturl =
+            "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
-        } else if (responseData.redirect == "transaction") {
+        } else if (responseData[0].redirect == "transaction") {
           let transactionurl =
-            "/transaction-details/" + responseData.transaction.hash;
+            "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData.redirect == "token") {
-          let tokenurl = "/token-data/" + responseData.token.address;
+        } else if (responseData[0].redirect == "token") {
+          let tokenurl = "/token-data/" + responseData[0].token.address;
           window.location.href = tokenurl;
         } else {
         }
@@ -294,14 +295,7 @@ export default function Navbar() {
     </div>
   );
 
-  const list = [
-    "Accounts",
-    "Contract",
-    "Tools",
-    "XDC Apis",
-    "Nodes",
-    "Tokens",
-  ];
+  const list = ["Accounts", "Contract", "Tools", "XDC Apis", "Nodes", "Tokens"];
   const [filter, setFilter] = useState("");
   const childToggle = (subanchor, open) => (event) => {
     if (
@@ -433,7 +427,7 @@ export default function Navbar() {
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               Tools
@@ -644,8 +638,7 @@ export default function Navbar() {
         elevation={0}
         className={clsx(classes.appBar)}
       >
-        <Toolbar
-          className={clsx(classes.toolBar)}>
+        <Toolbar className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
             <div className="mobile-navbartab">
@@ -656,7 +649,10 @@ export default function Navbar() {
                     src={require("../../../src/assets/images/XDC icon.svg")}
                   ></img>
                 </a>
-                <a className="XDC-internal" href="/"> XDC </a>
+                <a className="XDC-internal" href="/">
+                  {" "}
+                  XDC{" "}
+                </a>
               </div>
               <div>
                 <div>
@@ -680,8 +676,8 @@ export default function Navbar() {
                   </NavLink>
                 </div>
                 <div>
-                  <a href='/token-details'>
-                    <div className="Token-internal" >Tokens</div>
+                  <a href="/token-details">
+                    <div className="Token-internal">Tokens</div>
                   </a>
                 </div>
               </div>
@@ -779,7 +775,7 @@ export default function Navbar() {
 
             <React.Fragment className="rigt-line" key={"right"}>
               <IconButton
-              // className="icon-tab"
+                // className="icon-tab"
                 color="inherit"
                 aria-label="open drawer"
                 edge="end"
