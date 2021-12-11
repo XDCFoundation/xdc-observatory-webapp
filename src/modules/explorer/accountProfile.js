@@ -1154,8 +1154,8 @@ export default function SimpleTabs(props) {
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
                 >
-                  <Table
-                    className="table"
+                 <Table
+                    className="table w-700-a w-1500-a"
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
