@@ -1,13 +1,15 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+// import div from "@material-ui/core/div";
+// import p from "@material-ui/core/p";
 import {makeStyles} from "@material-ui/styles";
 import {Row} from "simple-flexbox";
 import {sessionManager} from "../../../managers/sessionManager";
 import {UserService} from "../../../services";
 import utility from "../../../utility";
+import Tokensearchbar from "../tokensearchBar";
+import FooterComponent from "../../common/footerComponent";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -36,7 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
     margin: "14px 8px 15px 2px",
     padding: "6px 19px 3px 20px",
-  },
+  },    createWatchlistMobile: {
+    paddingLeft: "2em",
+    paddingRight: "2em",
+    paddingTop: "15em"  
+},
   buttons: {
     padding: "10px 35px 20px 0px",
   },
@@ -50,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dialog: {
     marginLeft: "10%",
-    marginTop: "6px",
+    // marginTop: "6px",
     width: "80% !important",
     height: "67% !important",
     borderRadius: "50px !important",
@@ -220,72 +226,22 @@ export default function FormDialog() {
     setPrivateNote("");
     setError("");
     setPrivateNoteError("");
-  };
-  function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height
     };
-  }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
-
-  React.useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  // console.log({ width } = windowDimensions)
-  const { width } = windowDimensions
 
   return (
-    <div>
-      <div className="div2" onClick={width >= 760 ? handleClickOpen:()=>{window.location.href="/testTrancation"}}>
-        <div>
-          <img
-            className="imagediv2"
-            src={require("../../../assets/images/transaction.png")}
-          ></img>
-        </div>
-        <button className={classes.btn}>
-          <div className="headingdiv2">Add transaction label</div>
-          <div className="paradiv2">
-            Add a personal note to a transacton hash to track it in future.
-          </div>
-        </button>
-      </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
-
       <div>
-        <Dialog
-          className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
+      <Tokensearchbar />
+      <div className={classes.createWatchlistMobile}>
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Add Transaction Label
             </div>
           </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          <div>
+            <p className={classes.subCategory}>
               Transaction Hash
-            </DialogContentText>
+            </p>
             <input
               type="text"
               className={classes.input}
@@ -294,14 +250,14 @@ export default function FormDialog() {
               }}
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          </div>
+          <div>
+            <p className={classes.subCategory}>
               Transaction Label/Note
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
-            </DialogContentText>
+            </p>
 
             <textarea
               type="text"
@@ -318,7 +274,7 @@ export default function FormDialog() {
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
-          </DialogContent>
+          </div>
           {privateNoteError ? <div className={classes.error1}>{privateNoteError}</div> : <></>}
           {/* <DialogActions>
             <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
@@ -337,11 +293,12 @@ export default function FormDialog() {
             </span>
           </DialogActions>
           {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
+          <p className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
-        </Dialog>
-      </div>
+            </p> */}
+             
+          </div>
+          <FooterComponent/>
     </div>
   );
 }

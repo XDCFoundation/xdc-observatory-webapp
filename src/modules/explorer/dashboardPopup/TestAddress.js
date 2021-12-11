@@ -1,20 +1,16 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
+import Tokensearchbar from "../tokensearchBar";
+import FooterComponent from "../../common/footerComponent";
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
@@ -41,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    padding: "10px 35px 15px 0px",
   },
   input: {
     width: "503px",
@@ -146,6 +142,11 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
+  createWatchlistMobile: {
+    paddingLeft: "2em",
+    paddingRight: "2em",
+    paddingTop: "15em"  
+},
   "@media (max-width: 714px)": {
     heading:{
       fontSize: "16px",
@@ -267,60 +268,13 @@ export default function FormDialog() {
     setTags(prevState => prevState.filter((tag, i) => i !== index))
   }
 
-  function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height
-    };
-  }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
-
-  React.useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  const { width } = windowDimensions
   
   return (
     <div>
-      <div className="div3" onClick={width >= 760 ? handleClickOpen:()=>{window.location.href="/test-address"}}>
-        <div>
-          <img
-            className="imagediv3"
-            src={require("../../../assets/images/private.png")}
-          ></img>
-        </div>
-        <button className={classes.btn}>
-          <div className="headingdiv3">Add private tag to an Address</div>
-          <div className="paradiv3">
-            Add a short memo or private tag to the address of interest.
-          </div>
-        </button>
-      </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
-
-      <div>
-        <Dialog
-          className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
+       <Tokensearchbar />
+      <div className={classes.createWatchlistMobile}>
+  
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Add a new Address Tag
@@ -330,10 +284,10 @@ export default function FormDialog() {
               X{" "}
             </span> */}
           </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          <div>
+            <p className={classes.subCategory}>
               Address
-            </DialogContentText>
+            </p>
             <input
               className={classes.input}
               onChange={(e) => {setPrivateAddress(e.target.value)
@@ -341,14 +295,14 @@ export default function FormDialog() {
               }}
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          </div>
+          <div>
+            <p className={classes.subCategory}>
               Name Tag
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
-            </DialogContentText>
+            </p>
 
             <div className="containerTag">
                 {tags.map((tag, index) => (<div className="tag">
@@ -378,7 +332,7 @@ export default function FormDialog() {
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
-          </DialogContent>
+          </div>
           <DialogActions className={classes.buttons}>
             <span>
               <button className={classes.cnlbtn} onClick={handleClose}>
@@ -392,11 +346,11 @@ export default function FormDialog() {
             </span>
           </DialogActions>
           {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
+          <p className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
-        </Dialog>
+            </p> */} 
       </div>
+      <FooterComponent/>
     </div>
   );
 }
