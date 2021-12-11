@@ -307,6 +307,7 @@ const RightTopSec = styled.div`
     font-size: 0.75rem;
     width: 3.438rem;
     height: 1.375rem;
+    white-space: nowrap;
   }
   @media (min-width:767px) and (max-width:1240px){
     font-size: 0.875rem;
