@@ -9092,4 +9092,7 @@ button {
   color: #2149b9;
 }
 
-
+.inputIconCntr{
+  display: flex;
+  align-items: center;
+}
