@@ -9087,3 +9087,8 @@ button {
 .radio-inside-dot > span > span > div > svg ~ svg > path {
   color: #2149b9;
 }
+@media (min-width:0px) and (max-width:768px){
+  .MuiBackdrop-root{
+    background-color:rgb(169 147 147 / 0%) !important;
+  }
+}
