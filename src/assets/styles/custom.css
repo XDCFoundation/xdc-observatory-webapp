@@ -8537,6 +8537,17 @@ button {
   font-family: Inter;
   margin-left: 23px !important;
   margin-top: 23px;
+  
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .Notification-header-color {
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-family: Inter;
+    margin-left: 2px !important;
+    margin-top: 23px;
+    
+  }
 }
 .Notification-header-text-color-fade {
   color: #0099f9;

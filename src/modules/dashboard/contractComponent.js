@@ -288,7 +288,7 @@ class Contractlist extends React.Component {
                 <p className="searchelement-token token-searchelement">
                   Contracts
                 </p>
-                <div className="searchelement-input input-searchelement">
+                {/* <div className="searchelement-input input-searchelement">
                   <img
                     style={{
                       width: 20,
@@ -314,8 +314,8 @@ class Contractlist extends React.Component {
                     type="text"
                     placeholder="Search Contracts"
                   />
-                  {/* name="NAME" */}
-                </div>
+                  
+                </div> */}
               </div>
             </form>
           </div>

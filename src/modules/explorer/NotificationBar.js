@@ -26,7 +26,17 @@ const ListItems = styled.div`
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 20px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    
+   margin-top:4rem;
+    
+   
+  }
+    
+  
 `;
+
+
 
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
@@ -46,15 +56,16 @@ const useStyles = makeStyles((theme) => ({
       marginTop:"0px"
     }
   },
-  "@media (max-width: 767px)": {
+  "@media (min-width: 0px) and (max-width: 767px)": {
     paper: {
-      top: "11.438rem",
+      top:"0",
+      height: "50.75",
       width: "13.313rem",
     },
   },
   "@media (max-width: 449px)": {
     paper: {
-      top: "12.438rem",
+      
       width: "13.313rem",
     },
   },

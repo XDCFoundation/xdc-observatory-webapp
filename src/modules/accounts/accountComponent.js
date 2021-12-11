@@ -48,7 +48,7 @@ export default function AccountComponent(props) {
       <Tokensearchbar />
       <Grid className="table_1 ">
         <Grid class="tabletop-header">{state.tableName}</Grid>
-        <div className="searchelement-input2">
+        {/* <div className="searchelement-input2">
           <img style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
             src={require('../../assets/images/Search.svg')} />
           <input
@@ -65,8 +65,8 @@ export default function AccountComponent(props) {
             }} className="account-searchbar"
             type="text"
             placeholder="Search Accounts" />
-          {/* name="NAME" */}
-        </div>
+          
+        </div> */}
         <br />
 
         <Paper style={{ borderRadius: '0.875rem' }} elevation={0}>
@@ -76,9 +76,9 @@ export default function AccountComponent(props) {
               <TableHead>
                 <TableRow>
                   <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left" ><span className={"tableheaders_1_address"}>Address</span></TableCell>
-                  <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
+                  <TableCell style={{ border: "none", paddingLeft: "2%" }} align="left"><span className={"tableheaders_1 pl--1"}>Type</span></TableCell>
                   <TableCell style={{ border: "none", paddingLeft: "2.2%" }} align="left"><span className={"tableheaders_1"}>Balance</span></TableCell>
-                  <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell>
+                  {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
                 </TableRow>
               </TableHead>
               {props.state.isLoading == true ? (
@@ -108,7 +108,7 @@ export default function AccountComponent(props) {
                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
                         <TableCell className="w-2" style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
                         <TableCell className="w-3" style={{ border: "none", paddingLeft: "2%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
-                        <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell>
+                        {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                       </TableRow>
                     );
                   })}

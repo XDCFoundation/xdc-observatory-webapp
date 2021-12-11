@@ -425,7 +425,7 @@ export default function TokenDataComponent() {
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
-        <Tokensearchbar />
+       <Tokensearchbar />
         <br />
         <br />
         <MainContainer>
