@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "26px",
     fontSize: "14px",
   },
-  "@media(max-width:720px)": {
+  "@media(max-width:767px)": {
     forgotContent: {
       width: "68px",
       height: "14px",
@@ -258,7 +258,7 @@ const useStyles = makeStyles((theme) => ({
       zIndex: -1,
     },
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
       // top: "102px",
