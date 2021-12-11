@@ -83,8 +83,8 @@ export default function AddressDetails(props) {
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem("currency");
-  const [addressTag, setAddressTag] = useState("");
-  const [isTag, setIsTag] = useState(false);
+  const [addressTag, setAddressTag] = useState([])
+  const [isTag, setIsTag] = useState(false)
 
   let { addr } = useParams();
   let addressValue = 0;
@@ -161,7 +161,7 @@ export default function AddressDetails(props) {
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
     if (error || !tagUsingAddressHashResponse) return;
-    setAddressTag(tagUsingAddressHashResponse);
+    setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
     setIsTag(true);
   };
 
@@ -199,13 +199,7 @@ export default function AddressDetails(props) {
                     </Container>
                     <MiddleContainerHash>
                       <Content>{addr}</Content>
-                      {isTag ? (
-                        <div className="nameLabel1">
-                          {addressTag[0]?.tagName}
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                      {isTag ? (addressTag.map((item, index)=>{return <div className="nameLabel1" key={index}>{item}</div>})) : ("")}
                     </MiddleContainerHash>
                     <SecondContainer>
                       <CopyToClipboard
@@ -417,7 +411,8 @@ export default function AddressDetails(props) {
                 : "content_sec"
             }
           >
-            <AddressTableComponent trans={transactions} coinadd={addr} />
+            {isTag ?
+            <AddressTableComponent trans={transactions} coinadd={addr} tag={addressTag}/> : <AddressTableComponent trans={transactions} coinadd={addr}/>}
           </div>
         </div>
       </Grid>

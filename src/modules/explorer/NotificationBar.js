@@ -26,7 +26,17 @@ const ListItems = styled.div`
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 20px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    
+   margin-top:4rem;
+    
+   
+  }
+    
+  
 `;
+
+
 
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
@@ -35,26 +45,30 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
+  drawerHeader:{
+    marginTop:"8px"
+  },
   "@media (max-width: 1240px)": {
     paper: {
       top: "8.375rem",
     },
+    drawerHeader:{
+      marginTop:"0px"
+    }
   },
-  "@media (max-width: 767px)": {
+  "@media (min-width: 0px) and (max-width: 767px)": {
     paper: {
-      top: "11.438rem",
+      top:"0",
+      height: "50.75",
       width: "13.313rem",
     },
   },
   "@media (max-width: 449px)": {
     paper: {
-      top: "12.438rem",
+      
       width: "13.313rem",
     },
   },
-  drawerHeader:{
-    marginTop:"8px"
-  }
 }));
 function TemporaryDrawer(props) {
   const classes = useStyles();
@@ -81,6 +95,7 @@ function TemporaryDrawer(props) {
       "queryObj": {
         "isCleared": false,
         "userID": sessionManager.getDataFromCookies("userId"),
+        // "userID": "auth0|618df53538dad1006f2c6163",
         "type":"push"
       },
       "selectionString": ["description", "payload"]

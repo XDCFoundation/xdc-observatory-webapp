@@ -136,6 +136,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
     marginTop: "-20px",
   },
+  error1: {
+    color: "red",
+    marginLeft: "2px",
+  },
   
   heading: {
     marginTop: "30px",
@@ -185,16 +189,22 @@ export default function FormDialog() {
   };
 
   async function TaggedAddress() {
+    setError("")
+    setErrorTag("")
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
-      tagName: nameTag,
+      tagName: tags,
     };
-    if (!(privateAddress && privateAddress.length === 43) || !privateAddress.slice(0, 2) === "xdc") {
+    if (!(privateAddress && privateAddress.length === 43) || !(privateAddress.slice(0,3) === "xdc")) {
       setError("Address should start with xdc & 43 characters")
       return;
-    } else if (nameTag && nameTag.length >= 20){
-      setErrorTag("Name Tag Minimum length is should be 20");
+    }else if (tags.length === 0){
+      setErrorTag("Use comma(,) to add multiple tag");
+      return;
+    }
+    else if (tags && tags.length > 5){
+      setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
     const [error, response] = await utility.parseResponse(
@@ -222,7 +232,52 @@ export default function FormDialog() {
     setOpen(false);
     setError("")
     setErrorTag("")
+    setPrivateAddress("");
+    setTags([]);
   };
+
+
+  const [input, setInput] = React.useState('');
+  const [tags, setTags] = React.useState([]);
+  const [isKeyReleased, setIsKeyReleased] = React.useState(false);
+
+  const onChange = (e) => {
+    setErrorTag("");
+    const { value } = e.target;
+    setInput(value);
+  };
+
+  const onKeyDown = (e) => {
+    const { key } = e;
+    const trimmedInput = input.trim();
+  
+    if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
+      e.preventDefault();
+      setTags(prevState => [...prevState, trimmedInput]);
+      setInput('');
+      setErrorTag("");
+    }
+  
+    if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
+      const tagsCopy = [...tags];
+      const poppedTag = tagsCopy.pop();
+      e.preventDefault();
+      setTags(tagsCopy);
+      setInput(poppedTag);
+    }
+  
+    setIsKeyReleased(false);
+  };
+  
+  const onKeyUp = () => {
+    setIsKeyReleased(true);
+  }
+
+  const deleteTag = (index) => {
+    setTags(prevState => prevState.filter((tag, i) => i !== index))
+  }
+
+
   
   return (
     <div>
@@ -287,12 +342,26 @@ export default function FormDialog() {
             </span> */}
             </DialogContentText>
 
-            <input
+            <div className="containerTag">
+                {tags.map((tag, index) => (<div className="tag">
+                  {tag}
+                  <button onClick={() => deleteTag(index)}>x</button>
+                  </div>))}
+                <input
+                  value={input}
+                  placeholder="Enter a tag"
+                  onKeyDown={onKeyDown}
+                  onKeyUp={onKeyUp}
+                  onChange={onChange}
+                />
+              </div>
+              {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
+            {/* <input
               type="text"
               className={classes.input}
               onChange={(e) => setNameTag(e.target.value)}
-            ></input>
-            {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
+            ></input> */}
+            {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
