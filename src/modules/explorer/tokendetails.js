@@ -352,9 +352,6 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none", whiteSpace: "nowrap" }} align="left">
                   <span className={"tablehead-token-details"}>Total Holders</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Transfer</span>
-                </TableCell>
 
               </TableRow>
             </TableHead>
@@ -414,12 +411,6 @@ export default function StickyHeadTable() {
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {row.tokenHolders}
                         </TableCell>
-                        <TableCell
-                          id="td"
-                        >
-                          Transfer
-                        </TableCell>
-
                       </TableRow>
                     );
                   })}
