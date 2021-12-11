@@ -253,6 +253,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundImage:"none",
       opacity:"0px",
     },
+    closeContainer: {
+      display: "none",
+
+
+    },
     
 
     paperWidthSm1: {
