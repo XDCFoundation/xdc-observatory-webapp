@@ -120,6 +120,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
     marginTop: "-20px"
   },
+  error1: {
+    color: "red",
+    marginLeft: "24px",
+    marginTop: "-14px"
+  },
   forgotpass: {
     color: "#2149b9",
     marginLeft: "123px",
@@ -178,6 +183,7 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [error, setError] = React.useState("");
+  const [privateNoteError, setPrivateNoteError] = React.useState("");
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -186,17 +192,21 @@ export default function FormDialog() {
   };
 
   async function transactionLable() {
-    setOpen(false);
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    const [error, response] = await utility.parseResponse(
+    if (!(TransactionsHash && TransactionsHash.length === 66) || !(TransactionsHash.slice(0,2) == "0x")) {
+      setError("Address should start with 0x & 66 characters");
+    } else if(!PrivateNote) {
+      setPrivateNoteError("Private Note is required")
+    } else {
+      const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
 
-    if (error) {
+    if (error || !response) {
       
         utility.apiFailureToast("Transaction private note is already in use");
         return;
@@ -205,11 +215,10 @@ export default function FormDialog() {
       window.location.href = "loginprofile";
       setTransactionsHash("");
       setPrivateNote("");
+      setOpen(false);
+    }
     
   }
-
-
-
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -218,23 +227,12 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setTransactionsHash("");
+    setPrivateNote("");
     setError("");
+    setPrivateNoteError("");
   };
 
-  const handleLogin = () => {
-    // history.push("/loginprofile")
-  };
-  const validateTransaction = () => {
-  
-    if (
-      (TransactionsHash && TransactionsHash.length === 66) ||
-      TransactionsHash.slice(0, 1) == "0x"
-    ) {
-      transactionLable();
-    } else {
-      setError("Address should start with 0x & 66 characters");
-    }
-  };
   return (
     <div>
       <div className="div2" onClick={handleClickOpen}>
@@ -299,9 +297,10 @@ export default function FormDialog() {
             <textarea
               type="text"
               className={classes.textarea}
-              onChange={(e) => setPrivateNote(e.target.value)}
+              onChange={(e) => {setPrivateNote(e.target.value)
+              setPrivateNoteError("");
+              }}
             ></textarea>
-
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
@@ -311,6 +310,7 @@ export default function FormDialog() {
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </DialogContent>
+          {privateNoteError ? <div className={classes.error1}>{privateNoteError}</div> : <></>}
           {/* <DialogActions>
             <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
           </DialogActions> */}
@@ -322,7 +322,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span>
-              <button className={classes.addbtn} onClick={transactionLable,validateTransaction}>
+              <button className={classes.addbtn} onClick={transactionLable}>
                 Add
               </button>
             </span>

@@ -200,6 +200,7 @@ export default function FormDialog() {
 
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
+  const [descriptionError, setDescriptionError] = React.useState("");
 
   const [notification, setNotification] = React.useState(false);
 
@@ -221,10 +222,10 @@ export default function FormDialog() {
 
   const handleLogin = () => {
     setError("");
+
   };
 
   const watchListService = async () => {
-    setOpen(false);
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
@@ -232,42 +233,39 @@ export default function FormDialog() {
       type: value,
       isEnabled: true,
     };
+    if(!(address && address.length === 43) || !(address.slice(0,3) === "xdc")) {
+      setError("Address should start with xdc & 43 characters");
+    } else if(!description){
+      setDescriptionError("Description is required")
+    } else{
     if (value === "NO") request["isEnabled"] = false;
-    
-
     const [error, response] = await utility.parseResponse(
       AddWatchList.addWatchlist(request)
     );
 
-    if (error) {
+    if (error || !response) {
       utility.apiFailureToast("Address already exists");
       return;
     }
     utility.apiSuccessToast("Address added to watchlist");
-   window.location.href = "loginprofile";
+    window.location.href = "loginprofile";
     setAddress("");
     setDescription("");
+    setOpen(false);
   };
+}
 
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setAddress("");
+    setDescription("");
+    setError("");
+    setDescriptionError("")
   };
-  const validateAddress = () => {
   
-    if (
-      (address && address.length === 43) ||
-      address.slice(0, 2) == "xdc"
-    ) {
-      watchListService();
-    } else {
-      setError("Address should start with xdc & 43 characters");
-    }
-    
-  };
-
   const classes = useStyles();
 
  
@@ -276,7 +274,7 @@ export default function FormDialog() {
   return (
     <div>
 
-      <div className="div1" onClick={handleClickOpen}>
+      <div style={{marginLeft:"10px"}} className="div1" onClick={handleClickOpen}>
         <div>
           <img
             className="imagediv1"
@@ -338,8 +336,11 @@ export default function FormDialog() {
             <input
               type="text"
               className={classes.input}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {setDescription(e.target.value)
+              setDescriptionError("")
+            }}
             ></input>
+            {descriptionError ? <div className={classes.error}>{descriptionError}</div> : <></>}
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
             </span> */}
@@ -408,7 +409,7 @@ export default function FormDialog() {
               </button>
             </span>
             <span >
-              <button className={classes.addbtn} onClick={watchListService, validateAddress}>
+              <button className={classes.addbtn} onClick={watchListService}>
                 Add
               </button>
             </span>

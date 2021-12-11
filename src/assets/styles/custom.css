@@ -565,6 +565,7 @@ input:focus {
 .beforeInputValue {
   padding-top: 10px;
   padding-left: 14px;
+  color: #42454a
 }
 .inputcss {
   height: 40px;
@@ -635,6 +636,78 @@ input:focus {
   margin-left: 18px;
   line-height: 19px;
 }
+.nameLabel2 {
+  display: flex;
+  font-size: 14px;
+  font-family: Inter;
+  color: #2a2a2a;
+  background-color: #e4e5e6;
+  border-radius: 4px;
+  height: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  line-height: 19px;
+  margin-right: 14px;
+}
+.tabledata-2 {
+  display: flex;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  opacity: 1;
+  color: #2a2a2a;
+}
+
+.containerTag {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 14px;
+  border: 1px #9fa9ba solid;
+  border-radius: 8px;
+  height: "42px"
+}
+
+.containerTag input {
+  width: 100%;
+  height: 40px;
+  min-width: 50%;
+  border: none;
+  border-radius: 8px;
+  outline-color: #fff;
+  margin-top: 4px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  margin: 7px 0;
+  margin-right: 10px;
+  padding: 0 7px;
+  padding-right: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e4e5e6;
+  white-space: nowrap;
+  color: #2a2a2a;
+  opacity: 1
+}
+
+.tag button {
+  display: flex;
+  padding: 6px;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+  color: #2a2a2a;
+}
+
 .name-internal {
   margin-top: 25px;
 }
@@ -869,7 +942,7 @@ input:focus {
     user-select: none;
   }
 }
-@media (min-width: 1023px) {
+/* @media (min-width: 1023px) {
   .menu-sidebar {
     fill: white;
     width: 1em;
@@ -880,7 +953,7 @@ input:focus {
     flex-shrink: 0;
     user-select: none;
   }
-}
+} */
 @media (min-width: 567px) and (max-width: 767px) {
   /* contract start */
   .b-h1 {
@@ -1594,7 +1667,7 @@ p {
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .down-arrow-internal {
-    margin-top: 0px;
+    margin-top: 14px;
     cursor: pointer;
   }
   .profile-name-popover {
@@ -8951,7 +9024,7 @@ button {
     margin-top: 0px;
   }
   .down-arrow-internal {
-    margin-top: 0px;
+    margin-top: 3px;
   }
 }
 @media (min-width: 0px) and (max-width: 767px) {

@@ -35,10 +35,16 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: "#102e84",
   },
+  drawerHeader:{
+    marginTop:"8px"
+  },
   "@media (max-width: 1240px)": {
     paper: {
       top: "8.375rem",
     },
+    drawerHeader:{
+      marginTop:"0px"
+    }
   },
   "@media (max-width: 767px)": {
     paper: {
@@ -52,9 +58,6 @@ const useStyles = makeStyles((theme) => ({
       width: "13.313rem",
     },
   },
-  drawerHeader:{
-    marginTop:"8px"
-  }
 }));
 function TemporaryDrawer(props) {
   const classes = useStyles();
@@ -81,6 +84,7 @@ function TemporaryDrawer(props) {
       "queryObj": {
         "isCleared": false,
         "userID": sessionManager.getDataFromCookies("userId"),
+        // "userID": "auth0|618df53538dad1006f2c6163",
         "type":"push"
       },
       "selectionString": ["description", "payload"]
