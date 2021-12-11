@@ -399,7 +399,7 @@ export default function StickyHeadTable() {
                           {row.type}
                         </TableCell>
                         <TableCell id="td" style={{ paddingleft: "15" }}>
-                          Total Supply
+                          {row.totalSupply}
                         </TableCell>
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {row.tokenHolders}
