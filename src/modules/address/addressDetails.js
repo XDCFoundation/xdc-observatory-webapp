@@ -160,7 +160,6 @@ export default function AddressDetails(props) {
     let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
-    console.log("tag,",tagUsingAddressHashResponse[0]?.tagName)
     if (error || !tagUsingAddressHashResponse) return;
     setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
     setIsTag(true);
@@ -412,7 +411,8 @@ export default function AddressDetails(props) {
                 : "content_sec"
             }
           >
-            <AddressTableComponent trans={transactions} coinadd={addr} />
+            {isTag ?
+            <AddressTableComponent trans={transactions} coinadd={addr} tag={addressTag}/> : <AddressTableComponent trans={transactions} coinadd={addr}/>}
           </div>
         </div>
       </Grid>
