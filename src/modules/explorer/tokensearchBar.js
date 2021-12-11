@@ -662,8 +662,13 @@ export default function Navbar() {
                     to={"/"}
                     className="Network-explorer-internal"
                   >
-                    Network Explorer
+                   Network Explorer
                   </NavLink>
+                </div>
+                <div>
+                  <a href="/">
+                    <div className="Network-explorer-internal">Network Explorer</div>
+                  </a>
                 </div>
                 <div>
                   <NavLink
