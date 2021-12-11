@@ -83,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
   },
+ 
   content: {
     flexGrow: 1,
     transition: theme.transitions.create("margin", {
@@ -103,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    
   },
 
   "@media (min-width: 0px) and (max-width: 640px)": {
@@ -110,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
       width: 180,
       backgroundColor: "#102e84",
       height: "100%",
-    },
+    }
   },
   fullList: {
     width: "auto",
@@ -232,10 +234,11 @@ export default function Navbar() {
         >
           Browse
         </p>
-        <div style={{ marginLeft: 120 }} className={classes.drawerHeader}>
+        <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
             onClick={toggleDrawer(anchor, false)}
+           
           >
             {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
           </IconButton>
