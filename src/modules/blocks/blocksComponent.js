@@ -10,8 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import back from "../../assets/images/back.svg";
 import next from "../../assets/images/next.svg";

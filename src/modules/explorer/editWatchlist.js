@@ -1,25 +1,19 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import React, {useEffect} from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles, mergeClasses } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
+import {makeStyles} from "@material-ui/styles";
+import {Row} from "simple-flexbox";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import PutWatchlist from "../../services/user";
-import { useEffect } from "react";
-import styled from "styled-components";
-import utility, { dispatchAction } from "../../utility";
-import { WatchListService } from "../../services";
-import { eventConstants, genericConstants } from "../../constants";
-import { connect } from "react-redux";
+import utility, {dispatchAction} from "../../utility";
+import {WatchListService} from "../../services";
+import {eventConstants, genericConstants} from "../../constants";
+import {connect} from "react-redux";
 
 
 const useStyles = makeStyles((theme) => ({

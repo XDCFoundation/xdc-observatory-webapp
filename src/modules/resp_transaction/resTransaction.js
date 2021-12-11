@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import {Grid} from "@material-ui/core";
 import styled from "styled-components";
 // import "tippy.js/dist/tippy.css";
 import "../../assets/styles/custom.css";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
-import { useParams } from "react-router";
-import { TransactionService } from "../../services";
+import {useParams} from "react-router";
+import {TransactionService} from "../../services";
 import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
-import { Row, Column } from "simple-flexbox";
 import moment from "moment";
-import Loader from "../../assets/loader";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
 import PrivateNote from "../../modules/common/dialog/privateNote"
-import { sessionManager } from "../../managers/sessionManager";
+import {sessionManager} from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog"
 
 

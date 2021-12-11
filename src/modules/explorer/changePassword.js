@@ -6,14 +6,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
 import { Row, Column } from "simple-flexbox";
 import { history } from "../../managers/history";
-import CloseIcon from "@material-ui/icons/Close";
 import utility from "../../utility";
-import Utils from "../../utility";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
-import Loader from "../../assets/loader";
-
+import Loader from '../../assets/loader'
 const useStyles = makeStyles((theme) => ({
   text: {
     width: "330px",
@@ -79,8 +76,8 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.54px",
     color: "#2a2a2a",
   },
-  passwordText:{
-    
+  passwordText: {
+
     fontWeight: "500",
     fontFamily: "Inter",
     fontSize: "14px",
@@ -137,7 +134,7 @@ export default function ChangePassword(props) {
       oldPassword: currentInput,
       newPassword: newInput,
     };
-    
+
     setLoading(true)
     setErrorPassword("");
     setErrorConfirmPassword("");
@@ -147,7 +144,7 @@ export default function ChangePassword(props) {
       utility.apiFailureToast("Please enter required field");
     } else if (!newInput.match(regExPass)) {
       setErrorPassword(
-        
+
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
@@ -187,14 +184,14 @@ export default function ChangePassword(props) {
             <b>Change Password</b>
           </DialogContentText>
           <span
-                    onClick={props.openChangePassword}
-                    className={classes.closeContainer}
-                  >
-                    <img
-                      className={classes.close}
-                      src={require("../../../src/assets/images/XDC-Cross.svg")}
-                    ></img>
-                  </span>
+            onClick={props.openChangePassword}
+            className={classes.closeContainer}
+          >
+            <img
+              className={classes.close}
+              src={require("../../../src/assets/images/XDC-Cross.svg")}
+            ></img>
+          </span>
         </Row>
         <Column>
           <DialogContentText className={classes.subCategory}>
@@ -211,18 +208,18 @@ export default function ChangePassword(props) {
               }}
             ></input>
             {passwordShown1 ? (
-                      <img
-                        src={require("../../../src/assets/images/show .svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity1}
-                      />
-                    ) : (
-                      <img
-                        src={require("../../../src/assets/images/hide.svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity1}
-                      />
-                    )}
+              <img
+                src={require("../../../src/assets/images/show .svg")}
+                className={classes.icon}
+                onClick={togglePasswordVisiblity1}
+              />
+            ) : (
+              <img
+                src={require("../../../src/assets/images/hide.svg")}
+                className={classes.icon}
+                onClick={togglePasswordVisiblity1}
+              />
+            )}
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
             <b>New Password</b>
@@ -238,18 +235,18 @@ export default function ChangePassword(props) {
               }}
             ></input>
             {passwordShown2 ? (
-                      <img
-                        src={require("../../../src/assets/images/show .svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity2}
-                      />
-                    ) : (
-                      <img
-                        src={require("../../../src/assets/images/hide.svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity2}
-                      />
-                    )}
+              <img
+                src={require("../../../src/assets/images/show .svg")}
+                className={classes.icon}
+                onClick={togglePasswordVisiblity2}
+              />
+            ) : (
+              <img
+                src={require("../../../src/assets/images/hide.svg")}
+                className={classes.icon}
+                onClick={togglePasswordVisiblity2}
+              />
+            )}
             <div className={classes.error}>{errorPassword}</div>
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
@@ -266,36 +263,36 @@ export default function ChangePassword(props) {
               }}
             ></input>
             {passwordShown3 ? (
-                      <img
-                        src={require("../../../src/assets/images/show .svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity3}
-                      />
-                    ) : (
-                      <img
-                        src={require("../../../src/assets/images/hide.svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity3}
-                      />
-                    )}
+              <img
+                src={require("../../../src/assets/images/show .svg")}
+                className={classes.icon}
+                onClick={togglePasswordVisiblity3}
+              />
+            ) : (
+              <img
+                src={require("../../../src/assets/images/hide.svg")}
+                className={classes.icon}
+                onClick={togglePasswordVisiblity3}
+              />
+            )}
             <div className={classes.error}>{errorConfirmPassword}</div>
           </DialogContentText>
           {isLoading == true ? (
-                        <div >
-                          
-                          <Loader/>
-                        </div>
-                   
-                ):(
-                  <div></div>
-                )}
+            <div >
+
+              <Loader />
+            </div>
+
+          ) : (
+            <div></div>
+          )}
 
           <DialogActions
             style={{
-            //  alignItems: "center",
-             // justifyContent: "start",
+              //  alignItems: "center",
+              // justifyContent: "start",
               marginTop: "15px",
-              marginLeft:"-5px"
+              marginLeft: "-5px"
             }}
           >
             <div style={{ color: "red" }}> {isError}</div>
@@ -309,7 +306,7 @@ export default function ChangePassword(props) {
               Update Password{" "}
             </button>
           </DialogActions>
-          
+
         </Column>
       </DialogContent>
     </Dialog>

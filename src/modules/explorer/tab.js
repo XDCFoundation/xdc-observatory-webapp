@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-import React from "react";
+import React, {useState} from "react";
 import "../../assets/styles/custom.css";
 import Graphbar from './graphBar';
 import Accountsgraphbar from './accountsGraphBar';
 import Gasgraphbar from './gasGraphBar';
-import { TransactionService, AccountService } from '../../services'
-import Utils from '../../utility'
 
 function Tab() {
     const [toggleState, setToggleState] = useState(1);

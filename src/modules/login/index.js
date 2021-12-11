@@ -3,13 +3,9 @@ import BaseComponent from "../baseComponent";
 import LoginComponent from "../explorer/loginDialog";
 import Utils from "../../utility";
 import AuthService from "../../services/auth0";
-import { history } from "../../managers/history";
-import {
-  eventConstants,
-  cookiesConstants,
-  genericConstants,
-} from "../../constants";
+import {cookiesConstants, eventConstants, genericConstants,} from "../../constants";
 import {sessionManager} from "../../managers/sessionManager"
+
 // import UserService from "../../services/"
 
 class Login extends BaseComponent {
