@@ -41,28 +41,28 @@ export default class Auth0Service {
   async forgotPassword(email) {
 
     const reqObj = {
-    
-    email
-    
+
+      email
+
     }
-    
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"forgot-password"
-    
-    return httpService(httpConstants.METHOD_TYPE.POST, {'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON}, reqObj, url)
-    
-    .then(
-    
-    response => {
-    
-    if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
-    return Promise.reject();
-    return Promise.resolve(response.responseData);
-    }
-    ).catch(function (err) {
-    return Promise.reject(err);
-    },
-    );
-    }
+
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "forgot-password"
+
+    return httpService(httpConstants.METHOD_TYPE.POST, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, reqObj, url)
+
+      .then(
+
+        response => {
+
+          if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+            return Promise.reject();
+          return Promise.resolve(response.responseData);
+        }
+      ).catch(function (err) {
+        return Promise.reject(err);
+      },
+      );
+  }
 
   async signUp(requestData) {
     let url =
@@ -89,31 +89,29 @@ export default class Auth0Service {
       });
   }
   async logout(userId) {
-   
-    let url = process.env.REACT_APP_USER_SERVICE_URL +"log-out" + `/${userId}`
-    
-    
+
+    let url = process.env.REACT_APP_USER_SERVICE_URL + "log-out" + `/${userId}`
+
+
     return httpService(
       httpConstants.METHOD_TYPE.GET,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
       userId,
       url
     )
-        .then(
-            response => {
-              console.log(response,"ponseee")
-                if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
-              
-                    return Promise.reject(response);
-                    console.log(response.responseData,"resseeeee")
-                return Promise.resolve(response.responseData);
-            }
-            
-        ).catch((err) => {
-          console.log(err,"ponseee")
-            return Promise.reject(err);
-        });
-};
+      .then(
+        response => {
+          if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+
+            return Promise.reject(response);
+          return Promise.resolve(response.responseData);
+        }
+
+      ).catch((err) => {
+        console.log(err)
+        return Promise.reject(err);
+      });
+  };
 
   async getUser(userId) {
     let url =
@@ -167,10 +165,10 @@ export default class Auth0Service {
       });
   }
   async changePassword(reqObj) {
-    
-    
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"change-password"
-   
+
+
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "change-password"
+
     return httpService(
       httpConstants.METHOD_TYPE.POST,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -185,18 +183,18 @@ export default class Auth0Service {
           response.responseData.length === 0
         )
           return Promise.reject();
-        
+
         return Promise.resolve(response.responseData);
       })
       .catch(
         function (err) {
           return Promise.reject(err);
         }
-        
+
       );
   }
   async updateUser(reqObj) {
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION +"update-user"
+    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "update-user"
     return httpService(
       httpConstants.METHOD_TYPE.POST,
       { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
@@ -211,14 +209,14 @@ export default class Auth0Service {
           response.responseData.length === 0
         )
           return Promise.reject();
-       
+
         return Promise.resolve(response.responseData);
       })
       .catch(
         function (err) {
           return Promise.reject(err);
         }
-       
+
       );
   }
 }
