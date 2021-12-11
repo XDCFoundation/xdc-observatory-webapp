@@ -8,32 +8,32 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import {Tooltip} from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import {CSVLink} from "react-csv";
+import { CSVLink } from "react-csv";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Editprofile from "./editprofle";
 import PropTypes from "prop-types";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import {UserService} from "../../services";
+import { UserService } from "../../services";
 import NotificationBar from "./NotificationBar";
 import EditWatchList from "./editWatchlist";
 import EditTagAddress from "./editTagAddress";
 import EditTxnLabel from "./editTxnLabel";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
-import {sessionManager} from "../../managers/sessionManager";
-import {cookiesConstants} from "../constants"
+import { sessionManager } from "../../managers/sessionManager";
+import { cookiesConstants } from "../constants"
 import Utils from "../../utility"
 import { red } from "@material-ui/core/colors";
 
@@ -236,8 +236,8 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: "500",
       letterSpacing: "-0.5px",
       textAlign: "center",
-    // color: "#2149b9",
-  
+      // color: "#2149b9",
+
     },
     txnprivate: {
       height: "19px",
@@ -247,7 +247,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       letterSpacing: "-0.5px",
       textAlign: "center",
-     // color: "#6b7482",
+      // color: "#6b7482",
     },
     address: {
       height: "19px",
@@ -312,7 +312,7 @@ export default function SimpleTabs(props) {
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
-  
+
 
   React.useEffect(() => {
     getUserWatchlist();
@@ -357,15 +357,14 @@ export default function SimpleTabs(props) {
         searchKeys: ["description", "address"],
         search: value.toString(),
       };
-      if (!searchValue){
+      if (!searchValue) {
         onChangeWatchlistPage(watchlistPageCount);
       } else {
         const [error, response] = await Utils.parseResponse(UserService.Search(data));
-        console.log("search-res",response)
-        if(error || !response) {
+        if (error || !response) {
           setDataNotFound("Data not found")
-        }else{
-        setWatchlist(response);
+        } else {
+          setWatchlist(response);
         }
       }
     }
@@ -380,14 +379,14 @@ export default function SimpleTabs(props) {
         searchKeys: ["transactionHash", "trxLable"],
         search: value.toString(),
       };
-      if (!searchValue){
+      if (!searchValue) {
         onChangeTxnLabelPage(pvtNotePageCount);
       } else {
         const [error, response] = await Utils.parseResponse(UserService.Search(data));
-        console.log("search-res",response)
-        if(error || !response) {
+
+        if (error || !response) {
           setDataNotFound("Data not found")
-        }else{
+        } else {
           setAddress(response);
         }
       }
@@ -403,15 +402,14 @@ export default function SimpleTabs(props) {
         searchKeys: ["address", "tagName"],
         search: value.toString(),
       };
-      if (!searchValue){
+      if (!searchValue) {
         onChangeTagAddressPage(tagPageCount);
       } else {
         const [error, response] = await Utils.parseResponse(UserService.Search(data));
-        console.log("search-res",response)
-        if(error || !response) {
+        if (error || !response) {
           setDataNotFound("Data not found")
-        }else{
-        setPrivateAddress(response);
+        } else {
+          setPrivateAddress(response);
         }
       }
     }
@@ -432,8 +430,8 @@ export default function SimpleTabs(props) {
   };
 
   function handleMultipleTag(tag) {
-    let tagWords=[]
-      tagWords=tag.split(',');
+    let tagWords = []
+    tagWords = tag.split(',');
     return tagWords;
   }
 
@@ -461,14 +459,12 @@ export default function SimpleTabs(props) {
   };
 
   const getListOfWatchlist = async (requestData) => {
-    console.log(requestData);
     const request = {
       limit: requestData?.limit || "5",
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
-    console.log("request Watchlist",request)
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
   };
@@ -491,7 +487,6 @@ export default function SimpleTabs(props) {
       isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
-    console.log("response", response)
     setPrivateAddress(response.tagAddressContent);
   };
 
@@ -575,16 +570,16 @@ export default function SimpleTabs(props) {
   const handleWatchlistCheckbox = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect" || countWatchlist === watchlistLength) {
-      if(checkedWatchlist === false){
+      if (checkedWatchlist === false) {
         setCheckedWatchlist(true)
       } else {
         setCheckedWatchlist(false)
       }
-      if(countWatchlist === watchlistLength) {
+      if (countWatchlist === watchlistLength) {
         setCheckedWatchlist(false)
       }
       setCountWatchlist(-1)
-      
+
       let tempAddress = watchlist.map((addr) => {
         return { ...addr, isChecked1: checked };
       });
@@ -608,7 +603,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification.type==="NO" ? "Off": "Email",
+            Notification: item.notification.type === "NO" ? "Off" : "Email",
           };
         })
       );
@@ -637,7 +632,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-            Notification: item.notification.type==="NO" ? "Off": "Email",
+            Notification: item.notification.type === "NO" ? "Off" : "Email",
           };
         })
       );
@@ -652,12 +647,12 @@ export default function SimpleTabs(props) {
   const handlePvtNoteCheckbox = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect" || countNote === pvtNoteLength) {
-      if(checkedNote === false){
+      if (checkedNote === false) {
         setCheckedNote(true)
       } else {
         setCheckedNote(false)
       }
-      if(countNote === pvtNoteLength) {
+      if (countNote === pvtNoteLength) {
         setCheckedNote(false)
       }
       setCountNote(0)
@@ -719,16 +714,16 @@ export default function SimpleTabs(props) {
   const [countTag, setCountTag] = React.useState(-1)
   const [checkedTag, setCheckedTag] = React.useState(false)
   let tagAddrLength = privateAddress.length
-  
+
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect" || countTag === tagAddrLength) {
-      if(checkedTag === false){
+      if (checkedTag === false) {
         setCheckedTag(true)
       } else {
         setCheckedTag(false)
       }
-      if(countTag === tagAddrLength) {
+      if (countTag === tagAddrLength) {
         setCheckedTag(false)
       }
       setCountTag(0)
@@ -795,7 +790,7 @@ export default function SimpleTabs(props) {
           <span>
             <img
               className="icon"
-              style={{borderRadius:"50px"}}
+              style={{ borderRadius: "50px" }}
               src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
             />
           </span>
@@ -840,7 +835,7 @@ export default function SimpleTabs(props) {
                 className={value === 0 ? classes.tab1 : classes.tab2}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
-                
+
               />
               <Tab
                 label="Txn Private Note"
@@ -848,7 +843,7 @@ export default function SimpleTabs(props) {
                 className={value === 1 ? classes.tab1 : classes.tab2}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
-                
+
               />
               <Tab
                 label="Tagged Adresses"
@@ -880,53 +875,73 @@ export default function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            {!isDownloadActive && tableValue === 1 ? (""):(
-            isDownloadActive ? (
-              tableValue === 1 ? (""
-                // <CSVLink
-                //   filename={"watchlist.csv"}
-                //   data={downloadWatchlist}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export
-                // </CSVLink>
-              ) : tableValue === 2 ? (
-                <CSVLink
-                  filename={"private_note.csv"}
-                  data={downloadTxnPvtNote}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
+            {!isDownloadActive && tableValue === 1 ? ("") : (
+              isDownloadActive ? (
+                tableValue === 1 ? (""
+                  // <CSVLink
+                  //   filename={"watchlist.csv"}
+                  //   data={downloadWatchlist}
+                  //   style={{
+                  //     fontSize: "0.938rem",
+                  //     textAlign: "center",
+                  //     color: "#ffffff",
+                  //     backgroundColor: "rgb(7 125 245)",
+                  //     borderRadius: "0.25rem",
+                  //     width: "5.875rem",
+                  //     height: "2.125rem",
+                  //     marginRight: "1.5rem",
+                  //     paddingTop: "0.125rem",
+                  //   }}
+                  // >
+                  //   Export
+                  // </CSVLink>
+                ) : tableValue === 2 ? (
+                  <CSVLink
+                    filename={"private_note.csv"}
+                    data={downloadTxnPvtNote}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                ) : (
+                  <CSVLink
+                    filename={"tag_address.csv"}
+                    data={downloadTagAddress}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                )
               ) : (
                 <CSVLink
                   filename={"tag_address.csv"}
                   data={downloadTagAddress}
                   style={{
+                    pointerEvents: "none",
                     fontSize: "0.938rem",
                     textAlign: "center",
                     color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
+                    backgroundColor: "#9fa9ba",
                     borderRadius: "0.25rem",
                     width: "5.875rem",
                     height: "2.125rem",
@@ -936,27 +951,7 @@ export default function SimpleTabs(props) {
                 >
                   Export
                 </CSVLink>
-              )
-            ) : (
-              <CSVLink
-                filename={"tag_address.csv"}
-                data={downloadTagAddress}
-                style={{
-                  pointerEvents: "none",
-                  fontSize: "0.938rem",
-                  textAlign: "center",
-                  color: "#ffffff",
-                  backgroundColor: "#9fa9ba",
-                  borderRadius: "0.25rem",
-                  width: "5.875rem",
-                  height: "2.125rem",
-                  marginRight: "1.5rem",
-                  paddingTop: "0.125rem",
-                }}
-              >
-                Export
-              </CSVLink>
-            ))}
+              ))}
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv">
@@ -984,7 +979,7 @@ export default function SimpleTabs(props) {
                             }}
                           />
                           </TableCell> */}
-                          <TableCell style={{ border: "none" }} align="left">
+                        <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheadersWatchlist"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
@@ -1016,18 +1011,18 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    {dataNotFound ? (<div className={classes.error}>{dataNotFound}</div>):(
-                    <TableBody>
-                      {watchlist && watchlist.length > 0 && watchlist.map((row, index) => {
-                        return (
-                          <TableRow
-                            style={
-                              index % 2 !== 1
-                                ? { background: "#f9f9f9" }
-                                : { background: "white" }
-                            }
-                          >
-                            {/* <TableCell
+                    {dataNotFound ? (<div className={classes.error}>{dataNotFound}</div>) : (
+                      <TableBody>
+                        {watchlist && watchlist.length > 0 && watchlist.map((row, index) => {
+                          return (
+                            <TableRow
+                              style={
+                                index % 2 !== 1
+                                  ? { background: "#f9f9f9" }
+                                  : { background: "white" }
+                              }
+                            >
+                              {/* <TableCell
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
@@ -1040,47 +1035,47 @@ export default function SimpleTabs(props) {
                                 style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
                               </TableCell> */}
-                              <TableCell style={{ border: "none"}} align="left">
-                              <a
-                                className="linkTable1"
-                                href={"/address-details/" + row.address}
-                              >
-                                <Tooltip placement="top" title={row.address}>
-                                  <span className="tabledataWatchlist">
-                                    {shorten(row.address)}{" "}
-                                  </span>
-                                </Tooltip>
-                              </a>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">
-                                {row.description}
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">{row.balance}</span>
-                              {/* </a> */}
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">
-                                {moment(row.addedOn).format(
-                                  "hh:mm A, D MMMM YYYY "
-                                )}
-                              </span>
-                              {/* </a> */}
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">
-                              {row.notification.type==="NO" ? "Off": "Email"}
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <EditWatchList row={row} getWatchlistList={getListOfWatchlist} />
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>)}
+                              <TableCell style={{ border: "none" }} align="left">
+                                <a
+                                  className="linkTable1"
+                                  href={"/address-details/" + row.address}
+                                >
+                                  <Tooltip placement="top" title={row.address}>
+                                    <span className="tabledataWatchlist">
+                                      {shorten(row.address)}{" "}
+                                    </span>
+                                  </Tooltip>
+                                </a>
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">
+                                  {row.description}
+                                </span>
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">{row.balance}</span>
+                                {/* </a> */}
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">
+                                  {moment(row.addedOn).format(
+                                    "hh:mm A, D MMMM YYYY "
+                                  )}
+                                </span>
+                                {/* </a> */}
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">
+                                  {row.notification.type === "NO" ? "Off" : "Email"}
+                                </span>
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <EditWatchList row={row} getWatchlistList={getListOfWatchlist} />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>)}
                   </Table>
                 </Grid>
               </Grid>
@@ -1089,7 +1084,7 @@ export default function SimpleTabs(props) {
               <ReactPaginate
                 previousLabel={"Prev"}
                 nextLabel={"Next"}
-                pageCount={totalCount1/ 5}
+                pageCount={totalCount1 / 5}
                 breakLabel={"..."}
                 initialPage={0}
                 onPageChange={onChangeWatchlistPage}
@@ -1126,7 +1121,7 @@ export default function SimpleTabs(props) {
                               border: "solid 1px #e3e7eb"
                             }}
                           />
-                          </TableCell>
+                        </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>
                             Transaction Hash
@@ -1169,71 +1164,71 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }}/><div className={classes.error1}>{dataNotFound}</div></TableRow>):(
-                    <TableBody>
-                      {address.map((row, index) => {
-                        return (
-                          <TableRow
-                            style={
-                              index % 2 !== 1
-                                ? { background: "#f9f9f9" }
-                                : { background: "white" }
-                            }
-                          >
-                            <TableCell
-                              style={{ border: "none" }}
-                              margin-left="5px"
+                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }} /><div className={classes.error1}>{dataNotFound}</div></TableRow>) : (
+                      <TableBody>
+                        {address.map((row, index) => {
+                          return (
+                            <TableRow
+                              style={
+                                index % 2 !== 1
+                                  ? { background: "#f9f9f9" }
+                                  : { background: "white" }
+                              }
                             >
-                              <input
-                                key={row._id}
-                                name={row._id}
-                                onChange={handlePvtNoteCheckbox}
-                                type="checkbox"
-                                checked={row?.isChecked2 || false}
-                                style={{ marginTop: "4px" }}
+                              <TableCell
+                                style={{ border: "none" }}
+                                margin-left="5px"
+                              >
+                                <input
+                                  key={row._id}
+                                  name={row._id}
+                                  onChange={handlePvtNoteCheckbox}
+                                  type="checkbox"
+                                  checked={row?.isChecked2 || false}
+                                  style={{ marginTop: "4px" }}
                                 // className={classes.Rectangle}
-                              />
+                                />
                               </TableCell>
                               <TableCell style={{ border: "none" }} align="left">
-                              <a
-                                className="linkTable1"
-                                href={
-                                  "/transaction-details/" + row.transactionHash
-                                }
-                              >
-                                <Tooltip
-                                  placement="top"
-                                  title={row.transactionHash}
+                                <a
+                                  className="linkTable1"
+                                  href={
+                                    "/transaction-details/" + row.transactionHash
+                                  }
                                 >
-                                  <span className="tabledata1">
-                                    {Utils.shortenHash(row.transactionHash)}{" "}
-                                  </span>
-                                </Tooltip>
-                              </a>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">{row.trxLable}</span>
-                            </TableCell>
-                            {/* <TableCell style={{ border: "none" }} align="left">
+                                  <Tooltip
+                                    placement="top"
+                                    title={row.transactionHash}
+                                  >
+                                    <span className="tabledata1">
+                                      {Utils.shortenHash(row.transactionHash)}{" "}
+                                    </span>
+                                  </Tooltip>
+                                </a>
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">{row.trxLable}</span>
+                              </TableCell>
+                              {/* <TableCell style={{ border: "none" }} align="left">
                                         
                                             <span className="tabledata-1">{row.Balance}</span>
                                         
                                     </TableCell> */}
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">
-                                {" "}
-                                {moment(row.addedOn).format(
-                                  "hh:mm A, D MMMM YYYY "
-                                )}{" "}
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <EditTxnLabel row={row} getListOfTxnLabel={getListOfTxnLabel} />
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>)}
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">
+                                  {" "}
+                                  {moment(row.addedOn).format(
+                                    "hh:mm A, D MMMM YYYY "
+                                  )}{" "}
+                                </span>
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <EditTxnLabel row={row} getListOfTxnLabel={getListOfTxnLabel} />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>)}
                   </Table>
                 </Grid>
               </Grid>
@@ -1271,15 +1266,15 @@ export default function SimpleTabs(props) {
                             onChange={handleTagAddressCheckbox}
                             type="checkbox"
                             name="allselect"
-                            checked={countTag === tagAddrLength || checkedTag == true} 
-                             className={classes.Rectangle}
+                            checked={countTag === tagAddrLength || checkedTag == true}
+                            className={classes.Rectangle}
                             style={{
                               marginRight: "10px",
                               border: "solid 1px #e3e7eb",
-                              backgroundColor:"red"
+                              backgroundColor: "red"
                             }}
                           />
-                          </TableCell>
+                        </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Address</span>
                         </TableCell>
@@ -1318,69 +1313,69 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }}/><div className={classes.error}>{dataNotFound}</div></TableRow>):(
-                    <TableBody>
-                      {privateAddress.map((row, index) => {
-                        let tag = row.tagName;
-                        // const multipleTag = handleMultipleTag(tag);
+                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }} /><div className={classes.error}>{dataNotFound}</div></TableRow>) : (
+                      <TableBody>
+                        {privateAddress.map((row, index) => {
+                          let tag = row.tagName;
+                          // const multipleTag = handleMultipleTag(tag);
 
-                        return (
-                          <TableRow
-                            style={
-                              index % 2 !== 1
-                                ? { background: "#f9f9f9" }
-                                : { background: "white" }
-                            }
-                          >
-                            <TableCell
-                              style={{ border: "none" }}
-                              margin-left="5px"
+                          return (
+                            <TableRow
+                              style={
+                                index % 2 !== 1
+                                  ? { background: "#f9f9f9" }
+                                  : { background: "white" }
+                              }
                             >
-                              <input
-                                key={row._id}
-                                name={row._id}
-                                onChange={handleTagAddressCheckbox}
-                                // className={classes.Rectangle}
-                                type="checkbox"
-                                checked={row?.isChecked3 || false}
-                                style={{ marginTop: "4px"}}
-                              />
-                              </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                              <a
-                                className="linkTable1"
-                                href={"/address-details/" + row.address}
+                              <TableCell
+                                style={{ border: "none" }}
+                                margin-left="5px"
                               >
-                                <Tooltip placement="top" title={row.address}>
-                                  <span className="tabledata1">
-                                    {shorten(row.address)}
-                                  </span>
-                                </Tooltip>
-                              </a>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-2">{tag.map((item, index)=>{return <div className="nameLabel2" key={index}>{item}</div>})}</span>
-                            </TableCell>
+                                <input
+                                  key={row._id}
+                                  name={row._id}
+                                  onChange={handleTagAddressCheckbox}
+                                  // className={classes.Rectangle}
+                                  type="checkbox"
+                                  checked={row?.isChecked3 || false}
+                                  style={{ marginTop: "4px" }}
+                                />
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <a
+                                  className="linkTable1"
+                                  href={"/address-details/" + row.address}
+                                >
+                                  <Tooltip placement="top" title={row.address}>
+                                    <span className="tabledata1">
+                                      {shorten(row.address)}
+                                    </span>
+                                  </Tooltip>
+                                </a>
+                              </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-2">{tag.map((item, index) => { return <div className="nameLabel2" key={index}>{item}</div> })}</span>
+                              </TableCell>
 
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">
-                                {moment(row.addedOn).format(
-                                  "hh:mm A, D MMMM YYYY "
-                                )}
-                              </span>
-                              {/* </a> */}
-                            </TableCell>
+                              <TableCell style={{ border: "none" }} align="left">
+                                <span className="tabledata-1">
+                                  {moment(row.addedOn).format(
+                                    "hh:mm A, D MMMM YYYY "
+                                  )}
+                                </span>
+                                {/* </a> */}
+                              </TableCell>
 
-                            <TableCell style={{ border: "none" }} align="left">
-                              <EditTagAddress row={row} getListOfTagAddress={getListOfTagAddress} />
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>)}
+                              <TableCell style={{ border: "none" }} align="left">
+                                <EditTagAddress row={row} getListOfTagAddress={getListOfTagAddress} />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>)}
                   </Table>
                 </Grid>
-                
+
               </Grid>
             </div>
             <PaginationDiv>

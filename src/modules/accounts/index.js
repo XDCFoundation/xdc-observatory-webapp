@@ -41,7 +41,7 @@ export default class LatestAccountsList extends BaseComponent {
         }
 
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
-        console.log(listOfAccounts, "lolo")
+
         if (error || !listOfAccounts)
             return
         if (listOfAccounts.length > 0) {
