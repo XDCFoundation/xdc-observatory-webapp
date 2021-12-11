@@ -465,10 +465,12 @@ export default function FormDialog(props) {
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions")
       setLoading(false);
-    } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha")
-      setLoading(false);
-    } else {
+    }
+    //  else if (captchaCheckbox === false) {
+    //   setErrorCaptcha("Please verify captcha")
+    //   setLoading(false);
+    // } 
+    else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
@@ -795,7 +797,7 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                <div className={classes.error2}>{errorCaptcha}</div>
+                {/* <div className={classes.error2}>{errorCaptcha}</div> */}
                 {isLoading == true ? (
                   <div >
 
