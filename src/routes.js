@@ -14,6 +14,8 @@ import TokenDetails from "./modules/explorer/tokendetails";
 import LatestAccountsList from "./modules/accounts";
 import AddressDetails from "./modules/address/addressDetails";
 import HolderDetails from "./modules/holders/holderDetails";
+import PolicyDetails from "./modules/explorer/privacyPolicy";
+import TermsCondition from "./modules/explorer/termsCondition";
 import AddressDetailsData from "./modules/address/AddressDetailsData";
 import ContractComponent from "./modules/dashboard/contractComponent";
 import ContractTab from "./modules/dashboard/contractTab";
@@ -23,6 +25,7 @@ import Transaction from "./modules/resp_transaction/resTransaction";
 import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
 import BlockDetails from './modules/explorer/newblockDetail';
 import LoaderComponent from "./common/components/loader";
+import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen"
 
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
@@ -71,7 +74,10 @@ class Routes extends BaseComponent {
             <Route exact path={'/contracts'} component={ContractComponent} />
             <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
             <Route exact path={'/loginprofile'} component={AccountProfile} />
+            <Route exact path={'/privacy-policy'} component={PolicyDetails} />
+            <Route exact path={'/term-conditions'} component={TermsCondition} />
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
+            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
             <Redirect exact from='*' to="/" />
           </Switch>
         </Router>
