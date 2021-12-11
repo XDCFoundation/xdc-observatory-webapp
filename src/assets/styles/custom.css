@@ -3268,6 +3268,9 @@ body {
   .content-tabs {
     margin-top: 10px;
   }
+  .MuiBackdrop-root{
+    opacity: 0 !important;
+  }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .content-tabs_sec {
@@ -7184,6 +7187,7 @@ button {
     font-family: inter;
   }
 }
+
 
 .source-code-content-value {
   font-size: 0.938rem;
