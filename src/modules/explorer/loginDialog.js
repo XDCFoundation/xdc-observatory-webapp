@@ -465,10 +465,12 @@ export default function FormDialog(props) {
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions")
       setLoading(false);
-    } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha")
-      setLoading(false);
-    } else {
+    }
+    //  else if (captchaCheckbox === false) {
+    //   setErrorCaptcha("Please verify captcha")
+    //   setLoading(false);
+    // }
+     else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
@@ -518,9 +520,9 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha")
-    } else {
+    // if (captchaCheckbox === false) {
+    //   setErrorCaptcha("please verify captcha")
+    // } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
@@ -536,7 +538,7 @@ export default function FormDialog(props) {
         );
         window.location.href = "/";
       }
-    }
+    // }
   };
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
   const [termsCheckbox, setTermsCheckbox] = React.useState(false);
@@ -795,7 +797,7 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                <div className={classes.error2}>{errorCaptcha}</div>
+                {/* <div className={classes.error2}>{errorCaptcha}</div> */}
                 {isLoading == true ? (
                   <div >
 
