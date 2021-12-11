@@ -106,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
+    marginTop:"5px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -242,7 +243,7 @@ const useStyles = makeStyles((theme) => ({
       zIndex: -1
     }
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
       top: "102px",
@@ -636,6 +637,7 @@ export default function FormDialog(props) {
                       Forgot Password?
                     </span>
                   </DialogContentText>
+                  <div className="inputIconCntr">
 
                   <input
                     type="password"
@@ -658,6 +660,7 @@ export default function FormDialog(props) {
                       />
                     )}
                   </span>
+                  </div>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
