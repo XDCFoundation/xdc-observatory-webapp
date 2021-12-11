@@ -22,7 +22,9 @@ export default function VerifyContract() {
                 .required('Contract code is required')               
     });
     const { register, handleSubmit, formState: { errors }, reset } = {}
-        
+    // useForm({
+    //     resolver: yupResolver(validationSchema),
+    // });
     
     const onSubmitHandler = async (data) => { 
         try {

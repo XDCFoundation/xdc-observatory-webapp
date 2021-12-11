@@ -37,6 +37,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import Loader from "../../assets/loader";
 import {cookiesConstants} from "../constants"
 import Utils from "../../utility"
+import { red } from "@material-ui/core/colors";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -129,6 +130,14 @@ const useStyles = makeStyles((theme) => ({
     width: "1202px",
     alignItems: "flex-start",
     // paddingLeft: "26px",
+  },
+  error: {
+    color: "red",
+    paddingLeft: "24px",
+  },
+  error1: {
+    color: "red",
+    paddingLeft: "12px"
   },
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
@@ -336,12 +345,14 @@ export default function SimpleTabs(props) {
   const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
   const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
+  const [dataNotFound, setDataNotFound] = React.useState("");
 
 
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
       setSearch(searchValue)
+      setDataNotFound("")
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -351,14 +362,20 @@ export default function SimpleTabs(props) {
       if (!searchValue){
         onChangeWatchlistPage(watchlistPageCount);
       } else {
-        const response = await UserService.Search(data);
+        const [error, response] = await Utils.parseResponse(UserService.Search(data));
+        console.log("search-res",response)
+        if(error || !response) {
+          setDataNotFound("Data not found")
+        }else{
         setWatchlist(response);
+        }
       }
     }
 
     if (value === 1) {
       const searchValue = event.target.value;
       setSearch(searchValue)
+      setDataNotFound("")
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -368,14 +385,20 @@ export default function SimpleTabs(props) {
       if (!searchValue){
         onChangeTxnLabelPage(pvtNotePageCount);
       } else {
-        const response = await UserService.Search(data);
-        setAddress(response);
+        const [error, response] = await Utils.parseResponse(UserService.Search(data));
+        console.log("search-res",response)
+        if(error || !response) {
+          setDataNotFound("Data not found")
+        }else{
+          setAddress(response);
+        }
       }
     }
 
     if (value === 2) {
       const searchValue = event.target.value;
       setSearch(searchValue)
+      setDataNotFound("")
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -385,8 +408,13 @@ export default function SimpleTabs(props) {
       if (!searchValue){
         onChangeTagAddressPage(tagPageCount);
       } else {
-        const response = await UserService.Search(data);
+        const [error, response] = await Utils.parseResponse(UserService.Search(data));
+        console.log("search-res",response)
+        if(error || !response) {
+          setDataNotFound("Data not found")
+        }else{
         setPrivateAddress(response);
+        }
       }
     }
   }
@@ -404,6 +432,12 @@ export default function SimpleTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  function handleMultipleTag(tag) {
+    let tagWords=[]
+      tagWords=tag.split(',');
+    return tagWords;
+  }
 
   const list = {}
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -459,6 +493,7 @@ export default function SimpleTabs(props) {
       isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
+    console.log("response", response)
     setPrivateAddress(response.tagAddressContent);
   };
 
@@ -952,7 +987,7 @@ export default function SimpleTabs(props) {
                           />
                           </TableCell> */}
                           <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Address</span>
+                          <span className={"tableheadersWatchlist"}>Address</span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Description</span>
@@ -983,6 +1018,7 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
+                    {dataNotFound ? (<div className={classes.error}>{dataNotFound}</div>):(
                     <TableBody>
                       {watchlist && watchlist.length > 0 && watchlist.map((row, index) => {
                         return (
@@ -1012,7 +1048,7 @@ export default function SimpleTabs(props) {
                                 href={"/address-details/" + row.address}
                               >
                                 <Tooltip placement="top" title={row.address}>
-                                  <span className="tabledata1">
+                                  <span className="tabledataWatchlist">
                                     {shorten(row.address)}{" "}
                                   </span>
                                 </Tooltip>
@@ -1046,7 +1082,7 @@ export default function SimpleTabs(props) {
                           </TableRow>
                         );
                       })}
-                    </TableBody>
+                    </TableBody>)}
                   </Table>
                 </Grid>
               </Grid>
@@ -1135,6 +1171,7 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
+                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }}/><div className={classes.error1}>{dataNotFound}</div></TableRow>):(
                     <TableBody>
                       {address.map((row, index) => {
                         return (
@@ -1198,7 +1235,7 @@ export default function SimpleTabs(props) {
                           </TableRow>
                         );
                       })}
-                    </TableBody>
+                    </TableBody>)}
                   </Table>
                 </Grid>
               </Grid>
@@ -1283,10 +1320,11 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
+                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }}/><div className={classes.error}>{dataNotFound}</div></TableRow>):(
                     <TableBody>
                       {privateAddress.map((row, index) => {
                         let tag = row.tagName;
-                        let name = tag?.charAt(0).toUpperCase() + tag.slice(1);
+                        // const multipleTag = handleMultipleTag(tag);
 
                         return (
                           <TableRow
@@ -1323,7 +1361,7 @@ export default function SimpleTabs(props) {
                               </a>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className="tabledata-1">{name}</span>
+                              <span className="tabledata-2">{tag.map((item, index)=>{return <div className="nameLabel2" key={index}>{item}</div>})}</span>
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
@@ -1341,7 +1379,7 @@ export default function SimpleTabs(props) {
                           </TableRow>
                         );
                       })}
-                    </TableBody>
+                    </TableBody>)}
                   </Table>
                 </Grid>
                 

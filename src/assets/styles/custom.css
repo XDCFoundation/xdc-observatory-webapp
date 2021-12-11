@@ -81,6 +81,9 @@ input#password[placeholder] {
   background-color: #ffffff;
   border: 2px solid #d8d8d8;
 }
+/* .icon-tab{
+  margin-top: 10px;
+} */
 
 /* On mouse-over, add a grey background color */
 .container1:hover input ~ .checkmark1 {
@@ -550,6 +553,7 @@ input:focus {
 .Shape2 {
   width: 1.5rem;
   height: 1.5rem;
+  /* margin-top: 10px; */
 }
 .beforeInput {
   justify-content: space-between;
@@ -561,6 +565,7 @@ input:focus {
 .beforeInputValue {
   padding-top: 10px;
   padding-left: 14px;
+  color: #42454a;
 }
 .inputcss {
   height: 40px;
@@ -603,6 +608,7 @@ input:focus {
   width: 1.563rem;
   height: 1.563rem;
   margin-top: 0.75rem;
+  /* margin-top: 10px; */
   /* margin-left: 0.313rem; */
 }
 
@@ -630,6 +636,78 @@ input:focus {
   margin-left: 18px;
   line-height: 19px;
 }
+.nameLabel2 {
+  display: flex;
+  font-size: 14px;
+  font-family: Inter;
+  color: #2a2a2a;
+  background-color: #e4e5e6;
+  border-radius: 4px;
+  height: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  line-height: 19px;
+  margin-right: 14px;
+}
+.tabledata-2 {
+  display: flex;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  opacity: 1;
+  color: #2a2a2a;
+}
+
+.containerTag {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 14px;
+  border: 1px #9fa9ba solid;
+  border-radius: 8px;
+  height: "42px";
+}
+
+.containerTag input {
+  width: 100%;
+  height: 40px;
+  min-width: 50%;
+  border: none;
+  border-radius: 8px;
+  outline-color: #fff;
+  margin-top: 4px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  margin: 7px 0;
+  margin-right: 10px;
+  padding: 0 7px;
+  padding-right: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e4e5e6;
+  white-space: nowrap;
+  color: #2a2a2a;
+  opacity: 1;
+}
+
+.tag button {
+  display: flex;
+  padding: 6px;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+  color: #2a2a2a;
+}
+
 .name-internal {
   margin-top: 25px;
 }
@@ -647,6 +725,11 @@ input:focus {
   cursor: pointer;
 } */
 
+@media (min-width: 0px) and (max-width: 1024px) {
+  .Shape2 {
+    margin-top: 0px;
+  }
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .down-arrow-internal {
     margin-top: 0px;
@@ -666,6 +749,7 @@ input:focus {
   .Shape2 {
     height: 20px;
     width: 20px;
+    margin-top: -2px;
   }
   .Shape3 {
     width: 3.5rem !important;
@@ -864,7 +948,7 @@ input:focus {
     user-select: none;
   }
 }
-@media (min-width: 1023px) {
+/* @media (min-width: 1023px) {
   .menu-sidebar {
     fill: white;
     width: 1em;
@@ -875,7 +959,7 @@ input:focus {
     flex-shrink: 0;
     user-select: none;
   }
-}
+} */
 @media (min-width: 567px) and (max-width: 767px) {
   /* contract start */
   .b-h1 {
@@ -1589,7 +1673,7 @@ p {
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .down-arrow-internal {
-    margin-top: 0px;
+    margin-top: 14px;
     cursor: pointer;
   }
   .profile-name-popover {
@@ -1780,7 +1864,7 @@ p {
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
-  margin-top: 15px;
+  margin-top: 21px;
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
@@ -2550,6 +2634,7 @@ p {
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+  flex-flow: nowrap;
 }
 
 @media (max-width: 1023px) {
@@ -6461,7 +6546,7 @@ button {
   letter-spacing: 0.45px;
   color: #2149b9;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 8px;
   margin-left: 15px;
 }
 .wordTruncating {
@@ -7230,6 +7315,7 @@ button {
 .login-button {
   padding-right: 0px;
   background-color: transparent;
+  /* margin-top: 10px; */
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
@@ -8461,6 +8547,15 @@ button {
   margin-left: 23px !important;
   margin-top: 23px;
 }
+@media (min-width: 0px) and (max-width: 767px) {
+  .Notification-header-color {
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-family: Inter;
+    margin-left: 2px !important;
+    margin-top: 23px;
+  }
+}
 .Notification-header-text-color-fade {
   color: #0099f9;
   font-size: 0.875rem;
@@ -8862,7 +8957,7 @@ button {
   font-family: "Inter";
   outline-color: transparent;
   border-width: 0;
-  width: 13.25rem;
+  padding-top: 3px;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
@@ -8955,7 +9050,7 @@ button {
     margin-top: 0px;
   }
   .down-arrow-internal {
-    margin-top: 0px;
+    margin-top: 3px;
   }
 }
 @media (min-width: 0px) and (max-width: 767px) {

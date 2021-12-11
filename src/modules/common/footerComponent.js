@@ -105,7 +105,7 @@ export default function FooterComponent(props) {
                 <div className="Top-Header">
                   <img
                     className="Shape-footer"
-                    src={require("../../../src/assets/images/XDC icon.svg")}
+                    src={require("../../../src/assets/images/XDC-Icon-Logo.svg")}
                   ></img>
                   <p className="XDC-Header">XDC</p>
                 </div>
