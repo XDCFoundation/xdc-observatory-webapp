@@ -1,29 +1,20 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles, mergeClasses } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import userSignUp from "../../services/createUser";
 import { Row } from "simple-flexbox";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AuthService from "../../services/userLogin";
 import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import { genericConstants } from "../constants";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
-import Loader from "../../assets/loader";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
 import { history } from "../../managers/history";
-
+import Loader from '../../assets/loader'
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -245,8 +236,8 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "299px",
       width: "95%",
     },
-    loading:{
-      zIndex:-1
+    loading: {
+      zIndex: -1
     }
   },
   "@media (max-width: 768px)": {
@@ -263,7 +254,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "503px",
       width: "95%",
     },
-    
+
     input: {
       maxWidth: "433px",
       width: "100%",
@@ -293,7 +284,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const {onOpen, onClose} = props
+  const { onOpen, onClose } = props
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [openSignup, setOpenSignup] = React.useState(false);
@@ -301,7 +292,7 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-  console.log("props dialog",props)
+  console.log("props dialog", props)
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -319,32 +310,32 @@ export default function FormDialog(props) {
   const [inputError, setInputError] = useState("");
 
   const classes = useStyles();
-  const urlProfile= () => {
-    const profilePic=sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
-      return profilePic;
-      }
+  const urlProfile = () => {
+    const profilePic = sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+    return profilePic;
+  }
 
   React.useEffect(() => {
-    if(open === true){
+    if (open === true) {
       setOpen(false)
-    } else{
+    } else {
       setOpen(props.open)
     }
   }, [props])
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
-      const handleClickOpen =()=>{
-        if(urlProfile()){
-             window.location.href = "loginprofile";
-                       
-          }else{          
-                setOpen(true);
-              }
-        }
-  
+  const handleClickOpen = () => {
+    if (urlProfile()) {
+      window.location.href = "loginprofile";
+
+    } else {
+      setOpen(true);
+    }
+  }
+
   const handleClose = () => {
-    {props.verifiedEmail ? (props.onClose(onClose)):(!props.hash ? setOpen(false) : props.onClose(onClose))}
+    { props.verifiedEmail ? (props.onClose(onClose)) : (!props.hash ? setOpen(false) : props.onClose(onClose)) }
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -433,7 +424,7 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        {!props.hash ? window.location.href = "loginprofile" : history.go(0)}
+        { !props.hash ? window.location.href = "loginprofile" : history.go(0) }
       }
     }
   };
@@ -565,25 +556,25 @@ export default function FormDialog(props) {
       setCaptchaCheckbox(true);
     }
   };
-  
+
 
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
-        {props.verifiedEmail ? (""):(!props.hash ?
-        <button className="login-button" onClick={handleClickOpen}>
-          <img
-            className="Shape2"
-            style={{borderRadius:"50px"}}
-            src={ sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
-          ></img>
-        </button> : "")
+        {props.verifiedEmail ? ("") : (!props.hash ?
+          <button className="login-button" onClick={handleClickOpen}>
+            <img
+              className="Shape2"
+              style={{ borderRadius: "50px" }}
+              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
+            ></img>
+          </button> : "")
         }
         <div>
           <Dialog
-            classes={{ paperWidthSm: value ===1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
+            classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
@@ -777,13 +768,13 @@ export default function FormDialog(props) {
                   ></input>
                   <span className="iAgree">
                     I agree to the{" "}
-                    <a style={{ color: "#2b51bc" }}href="/term-conditions" >
-                        Terms of Use
-                      </a>
-                       {" "}&{" "}
-                      <a style={{ color: "#2b51bc" }} href="/privacy-policy"  >
-                        Privacy Policy
-                       </a>
+                    <a style={{ color: "#2b51bc" }} href="/term-conditions" >
+                      Terms of Use
+                    </a>
+                    {" "}&{" "}
+                    <a style={{ color: "#2b51bc" }} href="/privacy-policy"  >
+                      Privacy Policy
+                    </a>
                   </span>
                 </div>
                 <div className={classes.error1}>{errorTermsCondition}</div>

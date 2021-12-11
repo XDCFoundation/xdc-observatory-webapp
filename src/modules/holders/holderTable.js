@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../../src/assets/styles/blocksAndTransactionList.css";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -7,23 +7,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from "@material-ui/core/Tooltip";
-import { Grid, TableContainer } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { CSVLink, CSVDownload } from "react-csv";
-import SearchIcon from "@material-ui/icons/Search";
+import {Grid, TableContainer} from "@material-ui/core";
+import {useHistory, useParams} from "react-router-dom";
+import {CSVLink} from "react-csv";
 import moment from "moment";
-import Utility, { dispatchAction } from "../../utility";
+import Utility from "../../utility";
 import AddressData from "../../services/address";
-import { useParams } from "react-router-dom";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import styled from "styled-components";
-import Utils from "../../utility";
 import TokenData from "../../services/token";
 import Loader from "../../assets/loader"
+
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 1023px) {
     display: none;

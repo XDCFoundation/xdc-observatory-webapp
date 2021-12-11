@@ -1,10 +1,6 @@
 import { Paper } from 'material-ui';
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import verified from '../../assets/images/verified.png';
-import code from '../../assets/images/code.png';
-import abi from '../../assets/images/abi.png';
-import bytecod from '../../assets/images/bytecod.png';
 import Tooltip from "@material-ui/core/Tooltip";
 export default function TokenContracttab(props) {
     let verifiedData = props?.contractData

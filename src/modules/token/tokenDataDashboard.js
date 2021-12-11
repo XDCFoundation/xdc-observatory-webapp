@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import logo from "../../assets/images/usdc.png";
 
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { BsFillCaretUpFill } from "react-icons/bs";
-import { FaFacebookF } from "react-icons/fa";
-import { GrMail } from "react-icons/gr";
-import { FaReddit } from "react-icons/fa";
-import { AiOutlineTwitter } from "react-icons/ai";
-import { FaFileAlt } from 'react-icons/fa'
+import {BsFillCaretDownFill, BsFillCaretUpFill} from "react-icons/bs";
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import TokenData from "../../services/token";
-import Utility, { dispatchAction } from "../../utility";
-import ReactHtmlParser from "react-html-parser";
+import Utility from "../../utility";
 import Utils from "../../utility";
+import ReactHtmlParser from "react-html-parser";
 
 
 const MainContainer = styled.div`

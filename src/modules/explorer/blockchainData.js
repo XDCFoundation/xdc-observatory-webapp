@@ -402,17 +402,15 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
-
     if (error || !tpsCount) return;
 
-    this.setState({ tpsCounts: tpsCount });
+    this.setState({ tpsCounts: tpsCount?.currenttps });
     this.setState({ loading: false });
     const interval = setInterval(async () => {
       let [error, tpsCount] = await Utils.parseResponse(
         TpsService.getTpsCounter()
       );
-
-      this.setState({ tpsCounts: tpsCount });
+      this.setState({ tpsCounts: tpsCount?.currenttps });
     }, 90000);
   }
 

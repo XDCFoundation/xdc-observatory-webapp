@@ -1,15 +1,8 @@
-import {
-  Avatar as MuiAvatar,
-  Button as MuiButton,
-  makeStyles,
-} from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
-import {
-  CloudUpload as MuiCloudUpload,
-  Delete as MuiDelete,
-} from "@material-ui/icons";
-import { spacing } from "@material-ui/system";
-import React, { createRef, useEffect, useState } from "react";
+import {Avatar as MuiAvatar, makeStyles,} from "@material-ui/core";
+import {grey} from "@material-ui/core/colors";
+import {CloudUpload as MuiCloudUpload,} from "@material-ui/icons";
+import {spacing} from "@material-ui/system";
+import React, {createRef, useEffect, useState} from "react";
 import styled from "styled-components";
 
 const Button = styled.span`

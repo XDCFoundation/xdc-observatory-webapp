@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import React, {useEffect, useState} from "react";
+import {makeStyles, withStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,8 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import "../../assets/styles/custom.css";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
@@ -97,7 +96,6 @@ export default function StickyHeadTable() {
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const [isLoading, setLoading] = useState(true);
-  const history = useHistory();
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
@@ -116,12 +114,12 @@ export default function StickyHeadTable() {
   };
 
   const handleChangePage = (action) => {
-    if (action == "first") {
+    if (action === "first") {
       setPage(0);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       listOfHolders(values);
     }
-    if (action == "prev") {
+    if (action === "prev") {
       if (page - rowsPerPage >= 0) {
         let pageValue = page - rowsPerPage;
         setPage(pageValue);
@@ -129,7 +127,7 @@ export default function StickyHeadTable() {
         listOfHolders(values);
       }
     }
-    if (action == "next") {
+    if (action === "next") {
       if (rowsPerPage + page < totalHolder) {
         let pageValue = rowsPerPage + page;
         setPage(pageValue);
@@ -138,7 +136,7 @@ export default function StickyHeadTable() {
       }
     }
 
-    if (action == "last") {
+    if (action === "last") {
       let pageValue = totalHolder - rowsPerPage;
       setPage(pageValue);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };

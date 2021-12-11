@@ -1,18 +1,17 @@
-import React from 'react';
-import { useState, useEffect } from "react";
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TokenTransfertab from './tokenTransfertab';
 import TokenHoldertab from './tokenHoldersTab';
 import TokenContracttab from './tokenContractTab';
 import TokenUnverifiedContract from './tokenUnverifiedContract'
-import { Grid } from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
-import { useParams } from "react-router";
-import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
+import {useParams} from "react-router";
+
 let li = 0;
 
 function TabPanel(props) {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import styled from "styled-components";
