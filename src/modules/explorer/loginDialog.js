@@ -305,6 +305,11 @@ export default function FormDialog(props) {
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
+  // const [time, setTime] = React.useState();
+  // const [seconds, setSeconds] = React.useState(300);
+  // let timer = 0;minute
+  const [sec, setSec] = React.useState();
+  const [minute, setMinute] = React.useState();
 
   const [emailError, setEmailError] = useState("");
   const [inputError, setInputError] = useState("");
@@ -363,7 +368,7 @@ export default function FormDialog(props) {
     setValue(1);
   };
   const handleOpenForgotPassword = () => {
-    setValue(2);
+    setValue(3);
   };
 
   const login = async () => {
@@ -518,25 +523,46 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha")
-    } else {
-      const authObject = new AuthService();
-      let [error, authResponse] = await Utility.parseResponse(
-        authObject.forgotPassword(email)
-      );
-      if (error || !authResponse) {
-        setEmailError("Please enter a valid email address");
-        Utility.apiFailureToast("Wrong email");
-      } else {
-        setEmail("");
-        setCaptchaCheckbox(false);
-        Utility.apiSuccessToast(
-          "We have just sent you an email to reset your password."
-        );
-        window.location.href = "/";
-      }
+    setValue(2);
+    // startTimer();
+    window.onload = function () {
+      var minute = 5;
+      var sec = 60;
+      setInterval(function () {
+        console.log("rahul", minute, sec)
+        setSec(sec)
+        setMinute(minute)
+        sec--;
+        if (sec === 0) {
+          minute--;
+          sec = 60;
+          if (minute == 0) {
+            minute = 5;
+          }
+        }
+      }, 1000);
     }
+    
+
+    // if (captchaCheckbox === false) {
+    //   setErrorCaptcha("please verify captcha")
+    // } else {
+    //   const authObject = new AuthService();
+    //   let [error, authResponse] = await Utility.parseResponse(
+    //     authObject.forgotPassword(email)
+    //   );
+    //   if (error || !authResponse) {
+    //     setEmailError("Please enter a valid email address");
+    //     Utility.apiFailureToast("Wrong email");
+    //   } else {
+    //     setEmail("");
+    //     setCaptchaCheckbox(false);
+    //     Utility.apiSuccessToast(
+    //       "We have just sent you an email to reset your password."
+    //     );
+    //     window.location.href = "/";
+    //   }
+    // }
   };
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
   const [termsCheckbox, setTermsCheckbox] = React.useState(false);
@@ -556,6 +582,52 @@ export default function FormDialog(props) {
       setCaptchaCheckbox(true);
     }
   };
+
+
+  // const secondsToTime = (secs) => {
+  //   let hours = Math.floor(secs / (60 * 60));
+
+  //   let divisor_for_minutes = secs % (60 * 60);
+  //   let minutes = Math.floor(divisor_for_minutes / 60);
+
+  //   let divisor_for_seconds = divisor_for_minutes % 60;
+  //   let seconds = Math.ceil(divisor_for_seconds);
+
+  //   let obj = {
+  //     "h": hours,
+  //     "m": minutes,
+  //     "s": seconds
+  //   };
+  //   return obj;
+  // }
+
+  // const componentDidMount = () => {
+  //   let timeLeftVar = secondsToTime(seconds);
+  //   setTime(timeLeftVar);
+  // }
+
+  // const startTimer = () => {
+  //   if (timer == 0 && seconds > 0) {
+  //     timer = setInterval(countDown, 1000);
+  //   }
+  // }
+
+  // const countDown = () => {
+  //   // Remove one second, set state so a re-render happens.
+  //   let second = seconds - 1;
+  //   setTime(
+  //     secondsToTime(seconds),
+  //     setSeconds(second),
+  //   );
+
+  //   // Check if we're at zero.
+  //   if (seconds == 0) {
+  //     clearInterval(timer);
+  //   }
+  //   console.log("Rahul ....", time)
+  // }
+
+
 
 
 
@@ -825,6 +897,52 @@ export default function FormDialog(props) {
                   </div>
                 </div>
               </div>
+            ) : value === 2 ? (
+              //<------------------------------------Forgot success -------------------------------------------->
+              <div className="forgot-success">
+                <Row>
+                  {/* <div className={classes.heading} id="form-dialog-title"> */}
+                  <div className="forgot-success-title">
+                    You,ve successfully request a Forgot Password.
+                  </div>
+                  <span
+                    onClick={handleClose}
+                    className="forgot-success-close"
+                  >
+                    <img
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    ></img>
+                  </span>
+                </Row>
+                <div className="forgot-success-box">
+                  <div className="forgot-success-text">
+                    If the email address belongs to a known account, a recovery password will be sent to you within the next few minutes.
+                  </div>
+                  <div className="forgot-success-text margin-top-20-px">
+                    If you have not received the email, you can make another request after 5 minutes
+                  </div>
+                </div>
+                <div className="forgot-success-time-div">
+                  <span className="forgot-success-time">
+                    {/* {time.m} : {time.s} */}
+                    {/* time */}
+                    {minute}:{sec}
+                  </span>
+                </div>
+                <div className={classes.alreadyAccount}>
+                  <div>
+                    Back to{" "}
+                    <span
+                      className={classes.signIn}
+                      onClick={handleClickOpenSignin}
+                    >
+                      Sign In
+                    </span>
+                  </div>
+                </div>
+              </div>
+
             ) : (
               // <------------------------------------------Forgot Password------------------------------------------------->
               <div>
