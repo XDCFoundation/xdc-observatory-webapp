@@ -4,16 +4,17 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {makeStyles} from "@material-ui/styles";
-import {Row, typeOf} from "simple-flexbox";
+import {Row} from "simple-flexbox";
 import {sessionManager} from "../../../managers/sessionManager";
-import Test from './Test'
-import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
+import Tokensearchbar from "../tokensearchBar";
+import FooterComponent from "../../common/footerComponent";
+
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -37,7 +38,13 @@ const useStyles = makeStyles((theme) => ({
   main_div: {
     // lineHeight: "-100px !important",
     // backgoundColor: "red",
-    marginTop: "4px",
+      marginTop: "4px",
+     
+    },
+    createWatchlistMobile: {
+        paddingLeft: "2em",
+        paddingRight: "2em",
+        paddingTop: "15em"  
   },
   radio: {
     // backgroundColor: "#979797",
@@ -81,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
   // padding: "8px 19px 7px 21px",
   // borderRadius: "4px",
   // backgroundColor: "#9fa9ba",
+
   // },
 
   addbtn: {
@@ -205,11 +213,8 @@ export default function FormDialog() {
  
   const [value, setValue] = React.useState("female");
   const [isSize, setisSize] = React.useState(false)
-const screenSize = window.innerHeight 
-  if (screenSize=== "626") {
-    console.log(screenSize);
-    setisSize(false);
- }
+  const screenSize = window.innerHeight 
+
 
 
   const handleChange = (event) => {
@@ -220,10 +225,6 @@ const screenSize = window.innerHeight
     setError("");
 
   };
-
-
-
-
   const watchListService = async () => {
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
@@ -255,7 +256,7 @@ const screenSize = window.innerHeight
 }
 
   const handleClickOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -264,73 +265,29 @@ const screenSize = window.innerHeight
     setError("");
     setDescriptionError("")
   };
+  
   const classes = useStyles();
 
-  function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height
-    };
-  }
-
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
-
-  React.useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  const { width } = windowDimensions
   return (
-    <div>
-
-      <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{window.location.href="/test"}}>
-        <div>
-          <img
-            className="imagediv1"
-            src={require("../../../assets/images/watchlist.png")}
-          ></img>
-        </div>
-        <button className={classes.btn}>
-          <div className="headingdiv1">Create watchlist</div>
-          <div className="paradiv1">
-            An Email notification can be sent to you when an address on your
-            watch list recieves an incoming transaction.
-          </div>
-        </button>
-      </div>
-
-      {/* <Button
-        className={classes.btn}
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-      >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
-      </Button> */}
-    {isSize===false
-        ?(
-      <div className={classes.createWatchlist}>
-        <Dialog
+      <div>
+          <Tokensearchbar />
+<div className={classes.createWatchlistMobile}>
+        {/* <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
-        >
+        > */}
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Add a New Address to your Watchlist
             </div>
           </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          <div>
+            <p className={classes.subCategory}>
               Address
-            </DialogContentText>
+            </p>
             <input
               className={classes.input}
               onChange={(e) => {setAddress(e.target.value)
@@ -339,14 +296,14 @@ const screenSize = window.innerHeight
               
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          </div>
+          <p>
+            <p className={classes.subCategory}>
               Description
               {/* <span  className={classes.forgotpass}>
               Forgot ?
             </span> */}
-            </DialogContentText>
+            </p>
 
             <input
               type="text"
@@ -359,11 +316,11 @@ const screenSize = window.innerHeight
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
             </span> */}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
+          </p>
+          <p>
+            <p className={classes.subCategory}>
               Notifications
-            </DialogContentText>
+            </p>
 
             <FormControl
               component="fieldset"
@@ -416,7 +373,7 @@ const screenSize = window.innerHeight
                 />
               </RadioGroup>
             </FormControl>
-          </DialogContent>
+          </p>
           <DialogActions className={classes.buttons}>
             <span onClick={handleClose}>
               <button className={classes.cnlbtn} onClick={handleLogin}>
@@ -429,14 +386,8 @@ const screenSize = window.innerHeight
               </button>
             </span>
           </DialogActions>
-          {/* <div className={classes.value}></div>
-          <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </DialogContentText> */}
-        </Dialog>
-      </div>)
-        : <Test />
-      }
+          </div>
+          <FooterComponent/>
     </div>
   );
 }
