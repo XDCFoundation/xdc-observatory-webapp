@@ -617,7 +617,7 @@ export default function AddressTableComponent(props) {
                             {row.From != addr ? (
                               <a
                                 className="linkTable"
-                                href={'/address-details/' + row.from}
+                                href={'/address-details/' + row.From}
                               >
                                 <Tooltip placement="top" title={row.From}>
                                   <span className="tabledata">
@@ -629,9 +629,10 @@ export default function AddressTableComponent(props) {
                               </a>
                             ) : (
                               <Tooltip placement="top" title={row.From}>
-                                <span className="tabledata">
-                                  {' '}
-                                  {shorten(row.From)}
+                                <span className="tabledata-2">
+                                  
+                                  {/* {shorten(row.From)} */}
+                                  {props.tag ? props.tag.map((item, index)=>{return <div className="nameLabel2" key={index}>{item}</div>}) : shorten(row.From)}
                                 </span>
                               </Tooltip>
                             )}
@@ -650,8 +651,9 @@ export default function AddressTableComponent(props) {
                               </a>
                             ) : (
                               <Tooltip placement="top" title={row.To}>
-                                <span className="tabledata">
-                                  {shorten(row.To)}
+                                <span className="tabledata-2">
+                                  {/* {shorten(row.To)} */}
+                                  {props.tag ? props.tag.map((item, index)=>{return <div className="nameLabel2" key={index}>{item}</div>}): shorten(row.To)}
                                 </span>
                               </Tooltip>
                             )}

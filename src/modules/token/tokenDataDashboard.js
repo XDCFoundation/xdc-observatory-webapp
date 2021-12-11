@@ -88,6 +88,7 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding-bottom: 1.125rem;
   @media (max-width:767px){
    padding: 1.875rem 0;
   }
@@ -228,8 +229,9 @@ const ContractButton = styled.button`
   letter-spacing: 0.45px;
   border: none;
   color: #2149b9;
-  margin-top: -5px;
+  padding-top: 0px;
   padding-left: 0px;
+  margin-top: -8px;
   @media (max-width:767px){
     font-size: 0.875rem;
   }
@@ -305,6 +307,7 @@ const RightTopSec = styled.div`
     font-size: 0.75rem;
     width: 3.438rem;
     height: 1.375rem;
+    white-space: nowrap;
   }
   @media (min-width:767px) and (max-width:1240px){
     font-size: 0.875rem;
@@ -334,8 +337,11 @@ export default function TokenDataComponent() {
   const { address } = useParams();
   const { tn } = useParams();
 
-  function shorten(b, amountL = 14, amountR = 0, stars = 3) {
-    return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(b.length)} `;
+  function shorten(b, amountL = 10, amountR = 3, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 3,
+      b.length
+    )}`;
   }
   const CoinMarketExchangeForToken = async (data) => {
     try {

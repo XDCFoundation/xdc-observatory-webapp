@@ -565,7 +565,7 @@ input:focus {
 .beforeInputValue {
   padding-top: 10px;
   padding-left: 14px;
-  color: #42454a
+  color: #42454a;
 }
 .inputcss {
   height: 40px;
@@ -671,7 +671,7 @@ input:focus {
   padding-left: 14px;
   border: 1px #9fa9ba solid;
   border-radius: 8px;
-  height: "42px"
+  height: "42px";
 }
 
 .containerTag input {
@@ -696,7 +696,7 @@ input:focus {
   background-color: #e4e5e6;
   white-space: nowrap;
   color: #2a2a2a;
-  opacity: 1
+  opacity: 1;
 }
 
 .tag button {
@@ -725,6 +725,11 @@ input:focus {
   cursor: pointer;
 } */
 
+@media (min-width: 0px) and (max-width: 1024px) {
+  .Shape2 {
+    margin-top: 0px;
+  }
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .down-arrow-internal {
     margin-top: 0px;
@@ -744,6 +749,7 @@ input:focus {
   .Shape2 {
     height: 20px;
     width: 20px;
+    margin-top: -2px;
   }
   .Shape3 {
     width: 3.5rem !important;
@@ -1858,7 +1864,7 @@ p {
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
-  margin-top: 15px;
+  margin-top: 21px;
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
@@ -2628,6 +2634,7 @@ p {
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+  flex-flow: nowrap;
 }
 
 @media (max-width: 1023px) {
@@ -8931,7 +8938,7 @@ button {
   font-family: "Inter";
   outline-color: transparent;
   border-width: 0;
-  width: 8.25rem;
+  padding-top: 3px;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
