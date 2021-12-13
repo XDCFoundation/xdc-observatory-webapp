@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
   userContainer: {
     marginTop: "12px",
   },
- 
-  
+
+
   passwordContainer: {
     marginTop: "15px",
   },
@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
-    marginTop:"5px",
+    marginTop: "5px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -249,20 +249,20 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
-      top: "102px",
-      height:"100%",
+      // top: "102px",
+      height: "100%",
       width: "100%",
       borderRadius: "0px",
       marginTop: "0px",
-      backgroundImage:"none",
-      opacity:"0px",
+      backgroundImage: "none",
+      opacity: "0px",
     },
     closeContainer: {
       display: "none",
 
 
     },
-    
+
 
     paperWidthSm1: {
       position: "absolute",
@@ -461,7 +461,7 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
-    if(reCaptcha===""){
+    if (reCaptcha === "") {
       setCaptchaError(genericConstants.RECAPTCHA_ERROR);
       setLoading(false);
     } else {
@@ -579,7 +579,7 @@ export default function FormDialog(props) {
   };
 
   // Google Recaptcha Handlers
-  const [reCaptcha , setReCaptcha] = React.useState("");
+  const [reCaptcha, setReCaptcha] = React.useState("");
   const [captchaError, setCaptchaError] = React.useState("");
 
   function handleReCaptcha(value) {
@@ -608,7 +608,7 @@ export default function FormDialog(props) {
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
-          
+
           >
             {value === 0 ? (
               <div>
@@ -627,7 +627,7 @@ export default function FormDialog(props) {
                     ></img>
                   </span>
                 </Row>
-                
+
                 <DialogContent className={classes.userContainer}>
                   <DialogContentText className={classes.subCategory}>
                     <span className={classes.fieldName}>Username</span>
@@ -655,27 +655,27 @@ export default function FormDialog(props) {
                   </DialogContentText>
                   <div className="inputIconCntr">
 
-                  <input
-                    type="password"
-                    type={passwordShown ? "text" : "password"}
-                    className={classes.input}
-                    onChange={(e) => setPassword(e.target.value)}
-                  ></input>
-                  <span>
-                    {passwordShown ? (
-                      <img
-                        src={require("../../../src/assets/images/show .svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity}
-                      />
-                    ) : (
-                      <img
-                        src={require("../../../src/assets/images/hide.svg")}
-                        className={classes.icon}
-                        onClick={togglePasswordVisiblity}
-                      />
-                    )}
-                  </span>
+                    <input
+                      type="password"
+                      type={passwordShown ? "text" : "password"}
+                      className={classes.input}
+                      onChange={(e) => setPassword(e.target.value)}
+                    ></input>
+                    <span>
+                      {passwordShown ? (
+                        <img
+                          src={require("../../../src/assets/images/show .svg")}
+                          className={classes.icon}
+                          onClick={togglePasswordVisiblity}
+                        />
+                      ) : (
+                        <img
+                          src={require("../../../src/assets/images/hide.svg")}
+                          className={classes.icon}
+                          onClick={togglePasswordVisiblity}
+                        />
+                      )}
+                    </span>
                   </div>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
@@ -810,7 +810,7 @@ export default function FormDialog(props) {
                     sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
                     onChange={handleReCaptcha}
                   />
-                <div style={{marginLeft: 0}} className={classes.error1}>{captchaError}</div>
+                  <div style={{ marginLeft: 0 }} className={classes.error1}>{captchaError}</div>
                 </div>
                 <div className={classes.termsContainer}>
                   <input
