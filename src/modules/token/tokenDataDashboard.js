@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 
-import {BsFillCaretDownFill, BsFillCaretUpFill} from "react-icons/bs";
+import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
 import Utility from "../../utility";
 import Utils from "../../utility";
@@ -339,11 +339,11 @@ export default function TokenDataComponent() {
   const CoinMarketExchangeForToken = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        TokenData.CoinMarketExchangeForToken(data)
+        TokenData?.CoinMarketExchangeForToken(data)
       );
 
-      if (responseData) {
-
+      if (responseData && responseData?.responseCode !== 400) {
+        console.log(responseData, "?>")
         setMarketCapValue(responseData)
 
       }
@@ -360,9 +360,9 @@ export default function TokenDataComponent() {
     listOfHolders(values);
     let value = { addr: address }
     transferDetail(value);
+    // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
-  console.log(transfer, "kikkki")
 
 
   const transferDetail = async (values) => {
@@ -418,7 +418,7 @@ export default function TokenDataComponent() {
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
-       <Tokensearchbar />
+        <Tokensearchbar />
         <br />
         <br />
         <MainContainer>

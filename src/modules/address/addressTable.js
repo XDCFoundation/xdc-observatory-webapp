@@ -188,7 +188,6 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data),
       )
-      console.log(responseData, "<< ====")
       if (responseData && responseData.length > 0) {
         setNoData(false)
         setLoading(false)
@@ -207,7 +206,6 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getTransactionsCountForAddress(data),
       )
-      console.log(responseData, "<< ====")
       setTotalRecord(responseData)
     } catch (error) {
       console.error(error)
@@ -248,7 +246,6 @@ export default function AddressTableComponent(props) {
     let trxn = []
     if (type == 1) {
       trxn = Recdata
-      console.log(trxn, "<<<<<")
 
     } else {
       trxn = Recdata.responseTransaction
@@ -625,9 +622,9 @@ export default function AddressTableComponent(props) {
                             ) : (
                               <Tooltip placement="top" title={row.From}>
                                 <span className="tabledata-2">
-                                  
+
                                   {/* {shorten(row.From)} */}
-                                  {props.tag ? props.tag.map((item, index)=>{return <div className="nameLabel2" key={index}>{item}</div>}) : shorten(row.From)}
+                                  {props.tag ? props.tag.map((item, index) => { return <div className="nameLabel2" key={index}>{item}</div> }) : shorten(row.From)}
                                 </span>
                               </Tooltip>
                             )}
@@ -648,7 +645,7 @@ export default function AddressTableComponent(props) {
                               <Tooltip placement="top" title={row.To}>
                                 <span className="tabledata-2">
                                   {/* {shorten(row.To)} */}
-                                  {props.tag ? props.tag.map((item, index)=>{return <div className="nameLabel2" key={index}>{item}</div>}): shorten(row.To)}
+                                  {props.tag ? props.tag.map((item, index) => { return <div className="nameLabel2" key={index}>{item}</div> }) : shorten(row.To)}
                                 </span>
                               </Tooltip>
                             )}

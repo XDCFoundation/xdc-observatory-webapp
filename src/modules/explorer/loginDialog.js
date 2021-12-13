@@ -15,6 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
 import Loader from '../../assets/loader'
+import ReCAPTCHA from "react-google-recaptcha";
+
+
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -57,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
   userContainer: {
     marginTop: "12px",
   },
+
+
   passwordContainer: {
     marginTop: "15px",
   },
@@ -104,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
+    marginTop: "5px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -247,13 +253,23 @@ const useStyles = makeStyles((theme) => ({
       zIndex: -1
     }
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
-      top: "125px",
-      maxWidth: "503px",
-      width: "95%",
+      // top: "102px",
+      height: "100%",
+      width: "100%",
+      borderRadius: "0px",
+      marginTop: "0px",
+      backgroundImage: "none",
+      opacity: "0px",
     },
+    closeContainer: {
+      display: "none",
+
+
+    },
+
 
     paperWidthSm1: {
       position: "absolute",
@@ -454,6 +470,12 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
+    if (reCaptcha === "") {
+      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+      setLoading(false);
+    } else {
+      setCaptchaError("");
+    }
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -487,7 +509,6 @@ export default function FormDialog(props) {
       } else {
         Utility.apiSuccessToast("Sign-up success, check your email");
         setLoading(false);
-
         setOpen(false);
         setTimeout(() => {
           setValue(0);
@@ -570,6 +591,14 @@ export default function FormDialog(props) {
     }
   };
 
+  // Google Recaptcha Handlers
+  const [reCaptcha, setReCaptcha] = React.useState("");
+  const [captchaError, setCaptchaError] = React.useState("");
+
+  function handleReCaptcha(value) {
+    setReCaptcha(value)
+  }
+
 
   const Ref = useRef(null);
 
@@ -629,13 +658,14 @@ export default function FormDialog(props) {
             ></img>
           </button> : "")
         }
-        <div>
+        <div className="dialogboxModal">
           <Dialog
             classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : value === 4 ? classes.paperWidthSm2 : classes.paperWidthSm }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
+
           >
             {value === 4 ? (
               <div className="main-box">
@@ -1058,8 +1088,8 @@ export default function FormDialog(props) {
               )}
           </Dialog>
         </div>
-      </div>
+      </div >
       <ToastContainer />
-    </div>
+    </div >
   );
 }

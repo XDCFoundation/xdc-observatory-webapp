@@ -72,7 +72,8 @@ export const genericConstants = {
     PASSWORD_DID_NOT_MATCH: "Both the passwords did not match",
     PASSWORD_UPDATE_SUCCESS: "Your Password has been updated successfully",
     RESET_PASSWORD_MAIL_SENT: "A reset password mail is sent successfully",
-    PASSWORD_UPDATE_FAILED: "Failed to update your password"
+    PASSWORD_UPDATE_FAILED: "Failed to update your password",
+    RECAPTCHA_ERROR: "Before you proceed, please complete the captcha"
 
 }
 
