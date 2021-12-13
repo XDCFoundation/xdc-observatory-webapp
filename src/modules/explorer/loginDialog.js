@@ -14,9 +14,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
-import Loader from '../../assets/loader'
+import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
-
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -61,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "12px",
   },
 
-
   passwordContainer: {
     marginTop: "15px",
   },
@@ -78,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: "auto",
     // marginRight: "auto",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   subCategory: {
@@ -199,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
   alreadyAccount: {
     textAlign: "center",
     marginBottom: "30px",
-    color: "#2a2a2a"
+    color: "#2a2a2a",
   },
   signIn: {
     color: "#2149b9",
@@ -243,8 +241,8 @@ const useStyles = makeStyles((theme) => ({
       width: "95%",
     },
     loading: {
-      zIndex: -1
-    }
+      zIndex: -1,
+    },
   },
   "@media (max-width: 767px)": {
     paperWidthSm: {
@@ -253,16 +251,12 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
       width: "100%",
       borderRadius: "0px",
-      marginTop: "0px",
       backgroundImage: "none",
       opacity: "0px",
     },
     closeContainer: {
       display: "none",
-
-
     },
-
 
     paperWidthSm1: {
       position: "absolute",
@@ -279,7 +273,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-height: 900px)": {
     paperWidthSm1: {
       maxHeight: "500px",
-      height: "72%"
+      height: "72%",
     },
   },
 
@@ -300,7 +294,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const { onOpen, onClose } = props
+  const { onOpen, onClose } = props;
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [openSignup, setOpenSignup] = React.useState(false);
@@ -308,7 +302,7 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-  console.log("props dialog", props)
+  console.log("props dialog", props);
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -327,31 +321,38 @@ export default function FormDialog(props) {
 
   const classes = useStyles();
   const urlProfile = () => {
-    const profilePic = sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+    const profilePic = sessionManager.getDataFromCookies(
+      cookiesConstants.USER_PICTURE
+    );
     return profilePic;
-  }
+  };
 
   React.useEffect(() => {
     if (open === true) {
-      setOpen(false)
+      setOpen(false);
     } else {
-      setOpen(props.open)
+      setOpen(props.open);
     }
-  }, [props])
+  }, [props]);
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
   const handleClickOpen = () => {
     if (urlProfile()) {
       window.location.href = "loginprofile";
-
     } else {
       setOpen(true);
     }
-  }
+  };
 
   const handleClose = () => {
-    { props.verifiedEmail ? (props.onClose(onClose)) : (!props.hash ? setOpen(false) : props.onClose(onClose)) }
+    {
+      props.verifiedEmail
+        ? props.onClose(onClose)
+        : !props.hash
+        ? setOpen(false)
+        : props.onClose(onClose);
+    }
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -387,24 +388,23 @@ export default function FormDialog(props) {
       name: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorEmail("");
     setErrorPassword("");
 
     if (!email || !password) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
       setErrorEmail("Enter valid Username");
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -430,7 +430,10 @@ export default function FormDialog(props) {
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
-        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
+        sessionManager.setDataInCookies(
+          authResponse?.userInfoRes?.picture,
+          cookiesConstants.USER_PICTURE
+        );
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -440,7 +443,9 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        { !props.hash ? window.location.href = "loginprofile" : history.go(0) }
+        {
+          !props.hash ? (window.location.href = "loginprofile") : history.go(0);
+        }
       }
     }
   };
@@ -454,7 +459,7 @@ export default function FormDialog(props) {
       email: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
@@ -485,10 +490,10 @@ export default function FormDialog(props) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
     } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to the terms and conditions")
+      setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
     } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha")
+      setErrorCaptcha("Please verify captcha");
       setLoading(false);
     } else {
       const [error, response] = await Utility.parseResponse(
@@ -540,7 +545,7 @@ export default function FormDialog(props) {
       email: email,
     };
     if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha")
+      setErrorCaptcha("please verify captcha");
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
@@ -583,32 +588,40 @@ export default function FormDialog(props) {
   const [captchaError, setCaptchaError] = React.useState("");
 
   function handleReCaptcha(value) {
-    setReCaptcha(value)
+    setReCaptcha(value);
   }
-
-
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
-        {props.verifiedEmail ? ("") : (!props.hash ?
+        {props.verifiedEmail ? (
+          ""
+        ) : !props.hash ? (
           <button className="login-button" onClick={handleClickOpen}>
             <img
               className="Shape2"
               style={{ borderRadius: "50px" }}
-              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
+              src={
+                sessionManager.getDataFromCookies(
+                  cookiesConstants.USER_PICTURE
+                ) || require("../../../src/assets/images/Profile.svg")
+              }
             ></img>
-          </button> : "")
-        }
+          </button>
+        ) : (
+          ""
+        )}
         <div className="dialogboxModal">
           <Dialog
-            classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
+            classes={{
+              paperWidthSm:
+                value === 1 ? classes.paperWidthSm1 : classes.paperWidthSm,
+            }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
-
           >
             {value === 0 ? (
               <div>
@@ -654,7 +667,6 @@ export default function FormDialog(props) {
                     </span>
                   </DialogContentText>
                   <div className="inputIconCntr">
-
                     <input
                       type="password"
                       type={passwordShown ? "text" : "password"}
@@ -680,29 +692,26 @@ export default function FormDialog(props) {
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
-                  <div className={classes.loading} >
-
+                  <div className={classes.loading}>
                     <Loader />
                   </div>
-
                 ) : (
-                  <div>
-
-                  </div>
+                  <div></div>
                 )}
                 <DialogActions>
                   <button
                     className={classes.addbtn}
                     onClick={() => {
                       {
-                        { login() };
+                        {
+                          login();
+                        }
                       }
                     }}
                   >
                     Log in{" "}
                   </button>
                 </DialogActions>
-
 
                 <div className={classes.value}></div>
                 <DialogContentText className={classes.xdc}>
@@ -715,9 +724,7 @@ export default function FormDialog(props) {
                     Create an account
                   </span>
                 </DialogContentText>
-                <div className="loginMoView">
-
-                </div>
+                <div className="loginMoView"></div>
               </div>
             ) : value === 1 ? (
               <div>
@@ -747,7 +754,7 @@ export default function FormDialog(props) {
                     // name="userName"
                     // value={signUp.userName}
                     onChange={(e) => setUserName(e.target.value)}
-                  // onChange={inputEventSignUp}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorUserName}</div>
                 </DialogContent>
@@ -761,9 +768,9 @@ export default function FormDialog(props) {
                     className={classes.input}
                     // name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                  // value={signUp.email}
+                    // value={signUp.email}
 
-                  // onChange={inputEventSignUp}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorEmail}</div>
                 </DialogContent>
@@ -777,9 +784,9 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
-                  // name="password"
-                  // value={signUp.password}
-                  // onChange={inputEventSignUp}
+                    // name="password"
+                    // value={signUp.password}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
@@ -793,24 +800,28 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                  // name="confirmPassword"
-                  // value={signUp.confirmPassword}
-                  // onChange={inputEventSignUp}
+                    // name="confirmPassword"
+                    // value={signUp.confirmPassword}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
-                <div style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  marginTop: "4px",
-                  flexDirection: "column"
-                }}>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "4px",
+                    flexDirection: "column",
+                  }}
+                >
                   <ReCAPTCHA
                     sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
                     onChange={handleReCaptcha}
                   />
-                  <div style={{ marginLeft: 0 }} className={classes.error1}>{captchaError}</div>
+                  <div style={{ marginLeft: 0 }} className={classes.error1}>
+                    {captchaError}
+                  </div>
                 </div>
                 <div className={classes.termsContainer}>
                   <input
@@ -820,11 +831,11 @@ export default function FormDialog(props) {
                   ></input>
                   <span className="iAgree">
                     I agree to the{" "}
-                    <a style={{ color: "#2b51bc" }} href="/term-conditions" >
+                    <a style={{ color: "#2b51bc" }} href="/term-conditions">
                       Terms of Use
-                    </a>
-                    {" "}&{" "}
-                    <a style={{ color: "#2b51bc" }} href="/privacy-policy"  >
+                    </a>{" "}
+                    &{" "}
+                    <a style={{ color: "#2b51bc" }} href="/privacy-policy">
                       Privacy Policy
                     </a>
                   </span>
@@ -850,11 +861,9 @@ export default function FormDialog(props) {
                 </div> */}
                 <div className={classes.error2}>{errorCaptcha}</div>
                 {isLoading == true ? (
-                  <div >
-
+                  <div>
                     <Loader />
                   </div>
-
                 ) : (
                   <div></div>
                 )}
@@ -864,7 +873,6 @@ export default function FormDialog(props) {
                 >
                   Create an Account{" "}
                 </button>
-
 
                 <div className={classes.alreadyAccount}>
                   <div>
@@ -960,8 +968,8 @@ export default function FormDialog(props) {
             )}
           </Dialog>
         </div>
-      </div >
+      </div>
       <ToastContainer />
-    </div >
+    </div>
   );
 }
