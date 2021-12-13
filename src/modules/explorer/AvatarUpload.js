@@ -33,6 +33,16 @@ const useStyles = makeStyles((theme) => ({
     height: "108px",
     marginTop: "35px",
   },
+  "@media (min-width: 300px) and (max-width: 767px)": {
+    avtar:{
+      marginTop: "25px",
+      height: "160px"
+      
+    }
+    
+   
+  },
+  
 }));
 
 const BigAvatar = styled(MuiAvatar)`
@@ -85,7 +95,7 @@ const AvatarUpload = (props) => {
   };
 
   return (
-    <CenteredContent>
+    <CenteredContent className={classes.avtar}>
       <BigAvatar
         className={classes.large}
         $withBorder

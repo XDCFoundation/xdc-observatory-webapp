@@ -9,7 +9,7 @@ import FooterComponent from "../common/footerComponent";
 import AddressTableComponent from "./addressTable";
 import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
-import { Grid} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -63,6 +63,11 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     width: "100%",
+    "@media (min-width: 300px) and (max-width: 767px)": {
+      marginTop: "6.800rem",
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
+    },
   },
 });
 export default function AddressDetails(props) {
@@ -77,8 +82,8 @@ export default function AddressDetails(props) {
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
   let nowCurrency = window.localStorage.getItem("currency");
-  const [addressTag, setAddressTag] = useState([])
-  const [isTag, setIsTag] = useState(false)
+  const [addressTag, setAddressTag] = useState([]);
+  const [isTag, setIsTag] = useState(false);
 
   let { addr } = useParams();
   let addressValue = 0;
@@ -91,9 +96,7 @@ export default function AddressDetails(props) {
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
-  function _handleChange(event) {
-
-  }
+  function _handleChange(event) {}
   const getAddressDetails = async () => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -193,7 +196,15 @@ export default function AddressDetails(props) {
                     </Container>
                     <MiddleContainerHash>
                       <Content>{addr}</Content>
-                      {isTag ? (addressTag.map((item, index)=>{return <div className="nameLabel1" key={index}>{item}</div>})) : ("")}
+                      {isTag
+                        ? addressTag.map((item, index) => {
+                            return (
+                              <div className="nameLabel1" key={index}>
+                                {item}
+                              </div>
+                            );
+                          })
+                        : ""}
                     </MiddleContainerHash>
                     <SecondContainer>
                       <CopyToClipboard
@@ -221,11 +232,7 @@ export default function AddressDetails(props) {
                       </CopyToClipboard>
 
                       <Popup
-                        trigger={
-                          <ImQrcode
-                            className="imQrcode"
-                          />
-                        }
+                        trigger={<ImQrcode className="imQrcode" />}
                         lockScroll
                         modal
                       >
@@ -247,11 +254,11 @@ export default function AddressDetails(props) {
                                 </button>
                                 <div
                                   className="header-popup"
-                                // style={{
-                                //   fontSize: "0.875rem",
-                                //   paddingTop: "0.313rem",
-                                //   paddingBottom: "3.75rem",
-                                // }}
+                                  // style={{
+                                  //   fontSize: "0.875rem",
+                                  //   paddingTop: "0.313rem",
+                                  //   paddingBottom: "3.75rem",
+                                  // }}
                                 >
                                   {" "}
                                   {addr}{" "}
@@ -405,8 +412,15 @@ export default function AddressDetails(props) {
                 : "content_sec"
             }
           >
-            {isTag ?
-            <AddressTableComponent trans={transactions} coinadd={addr} tag={addressTag}/> : <AddressTableComponent trans={transactions} coinadd={addr}/>}
+            {isTag ? (
+              <AddressTableComponent
+                trans={transactions}
+                coinadd={addr}
+                tag={addressTag}
+              />
+            ) : (
+              <AddressTableComponent trans={transactions} coinadd={addr} />
+            )}
           </div>
         </div>
       </Grid>
@@ -434,7 +448,7 @@ const Content = styled.span`
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
-    margin-left:28px;
+    margin-left: 28px;
   }
 `;
 const TextArea = styled.textarea`
@@ -505,7 +519,7 @@ const MiddleContainerHash = styled.div`
     margin-top: 0.5rem;
     padding-right: 2.313rem;
   }
-   @media (min-width: 768px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
   }
 `;
@@ -573,11 +587,10 @@ const Div = styled.div`
   margin-top: 0.625rem;
   @media (min-width: 300px) and (max-width: 767px) {
     width: 22.563rem;
-    margin-top: 0rem;
+    margin-top: 0.625rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 664px !important;
-    
   }
 `;
 
@@ -590,10 +603,10 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 1.5rem;
   margin-bottom: 1.125rem;
-   @media (min-width: 0px) and (max-width: 767px) {
-        margin-top: 25px !important;
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 10px !important;
     margin-bottom: 0px !important;
-    
+
     font-size: 16px !important;
   }
 `;
@@ -609,12 +622,14 @@ const AddressPath = styled.div`
   font-size: 0.875rem;
   display: flex;
   margin-bottom: 12px;
-  margin-left: 4px;
-  margin-top: -30px; ;
+  margin-left: 4px; 
+  margin-top: -30px;  
+
 `;
 
 const Explorer = styled.div`
   color: #2149b9;
+  border: "1px solid red";
 `;
 const Address = styled.div`
   color: #686868;

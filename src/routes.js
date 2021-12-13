@@ -26,6 +26,7 @@ import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTran
 import BlockDetails from './modules/explorer/newblockDetail';
 import LoaderComponent from "./common/components/loader";
 import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen"
+import EditProfile from "./modules/explorer/editProfileResponsive"
 
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
@@ -77,7 +78,8 @@ class Routes extends BaseComponent {
             <Route exact path={'/privacy-policy'} component={PolicyDetails} />
             <Route exact path={'/term-conditions'} component={TermsCondition} />
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
-            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
+            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent}/>
+            <Route exact path={'/edit-profile'} component={EditProfile} />
             <Redirect exact from='*' to="/" />
           </Switch>
         </Router>
