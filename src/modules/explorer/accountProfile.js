@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
   },
   error1: {
     color: "red",
-    paddingLeft: "12px"
+    paddingLeft: "12px",
   },
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
@@ -237,7 +237,6 @@ const useStyles = makeStyles((theme) => ({
       letterSpacing: "-0.5px",
       textAlign: "center",
       // color: "#2149b9",
-
     },
     txnprivate: {
       height: "19px",
@@ -313,7 +312,6 @@ export default function SimpleTabs(props) {
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
 
-
   React.useEffect(() => {
     getUserWatchlist();
     async function getUserWatchlist() {
@@ -345,12 +343,11 @@ export default function SimpleTabs(props) {
   const [search, setSearch] = React.useState("");
   const [dataNotFound, setDataNotFound] = React.useState("");
 
-
   async function searchData(event) {
     if (value === 0) {
       const searchValue = event.target.value;
-      setSearch(searchValue)
-      setDataNotFound("")
+      setSearch(searchValue);
+      setDataNotFound("");
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -371,8 +368,8 @@ export default function SimpleTabs(props) {
 
     if (value === 1) {
       const searchValue = event.target.value;
-      setSearch(searchValue)
-      setDataNotFound("")
+      setSearch(searchValue);
+      setDataNotFound("");
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -394,8 +391,8 @@ export default function SimpleTabs(props) {
 
     if (value === 2) {
       const searchValue = event.target.value;
-      setSearch(searchValue)
-      setDataNotFound("")
+      setSearch(searchValue);
+      setDataNotFound("");
       const data = {
         userId: sessionManager.getDataFromCookies("userId"),
         searchValue: searchValue,
@@ -435,26 +432,26 @@ export default function SimpleTabs(props) {
     return tagWords;
   }
 
-  const list = {}
+  const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
   const [totalCount2, setTotalCount2] = React.useState(5);
   const [totalCount3, setTotalCount3] = React.useState(5);
 
   const onChangeWatchlistPage = async (value) => {
-    setWatchlistPageCount(value)
-    const list = Math.ceil((value.selected) * 5);
+    setWatchlistPageCount(value);
+    const list = Math.ceil(value.selected * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
 
   const onChangeTxnLabelPage = async (value) => {
-    setPvtNotePageCount(value)
-    const list = Math.ceil((value.selected) * 5);
+    setPvtNotePageCount(value);
+    const list = Math.ceil(value.selected * 5);
     await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
   const onChangeTagAddressPage = async (value) => {
-    setTagPageCount(value)
-    const list = Math.ceil((value.selected) * 5);
+    setTagPageCount(value);
+    const list = Math.ceil(value.selected * 5);
     await getListOfTagAddress({ skip: list, limit: "5" });
   };
 
@@ -473,7 +470,7 @@ export default function SimpleTabs(props) {
     const request = {
       limit: requestData?.limit || "5",
       skip: requestData?.skip || list,
-      userId: sessionManager.getDataFromCookies("userId")
+      userId: sessionManager.getDataFromCookies("userId"),
     };
     const response = await UserService.getTxnLabelList(request);
     setAddress(response.txnLabelContent);
@@ -562,10 +559,9 @@ export default function SimpleTabs(props) {
     setDownloadActive(0);
   };
 
-
-  const [countWatchlist, setCountWatchlist] = React.useState(-1)
-  const [checkedWatchlist, setCheckedWatchlist] = React.useState(false)
-  let watchlistLength = watchlist.length
+  const [countWatchlist, setCountWatchlist] = React.useState(-1);
+  const [checkedWatchlist, setCheckedWatchlist] = React.useState(false);
+  let watchlistLength = watchlist.length;
 
   const handleWatchlistCheckbox = (event) => {
     const { name, checked } = event.target;
@@ -573,7 +569,7 @@ export default function SimpleTabs(props) {
       if (checkedWatchlist === false) {
         setCheckedWatchlist(true)
       } else {
-        setCheckedWatchlist(false)
+        setCheckedWatchlist(false);
       }
       if (countWatchlist === watchlistLength) {
         setCheckedWatchlist(false)
@@ -617,8 +613,8 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
-      setCountWatchlist(tempAddr.length)
-      setCheckedWatchlist(false)
+      setCountWatchlist(tempAddr.length);
+      setCheckedWatchlist(false);
 
       if (tempAddr.length > 0) {
         setDownloadActive(1);
@@ -639,10 +635,9 @@ export default function SimpleTabs(props) {
     }
   };
 
-
-  const [countNote, setCountNote] = React.useState(-1)
-  const [checkedNote, setCheckedNote] = React.useState(false)
-  let pvtNoteLength = address.length
+  const [countNote, setCountNote] = React.useState(-1);
+  const [checkedNote, setCheckedNote] = React.useState(false);
+  let pvtNoteLength = address.length;
 
   const handlePvtNoteCheckbox = (event) => {
     const { name, checked } = event.target;
@@ -650,12 +645,12 @@ export default function SimpleTabs(props) {
       if (checkedNote === false) {
         setCheckedNote(true)
       } else {
-        setCheckedNote(false)
+        setCheckedNote(false);
       }
       if (countNote === pvtNoteLength) {
         setCheckedNote(false)
       }
-      setCountNote(0)
+      setCountNote(0);
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked2: checked };
       });
@@ -691,8 +686,8 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
-      setCountNote(tempAddr.length)
-      setCheckedNote(false)
+      setCountNote(tempAddr.length);
+      setCheckedNote(false);
 
       if (tempAddr.length > 0) {
         setDownloadActive(1);
@@ -721,12 +716,12 @@ export default function SimpleTabs(props) {
       if (checkedTag === false) {
         setCheckedTag(true)
       } else {
-        setCheckedTag(false)
+        setCheckedTag(false);
       }
       if (countTag === tagAddrLength) {
         setCheckedTag(false)
       }
-      setCountTag(0)
+      setCountTag(0);
       let tempAddress = privateAddress.map((addr) => {
         return { ...addr, isChecked3: checked };
       });
@@ -762,8 +757,8 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
-      setCountTag(tempAddr.length)
-      setCheckedTag(false)
+      setCountTag(tempAddr.length);
+      setCheckedTag(false);
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -835,7 +830,6 @@ export default function SimpleTabs(props) {
                 className={value === 0 ? classes.tab1 : classes.tab2}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
-
               />
               <Tab
                 label="Txn Private Note"
@@ -843,7 +837,6 @@ export default function SimpleTabs(props) {
                 className={value === 1 ? classes.tab1 : classes.tab2}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
-
               />
               <Tab
                 label="Tagged Adresses"
@@ -954,14 +947,14 @@ export default function SimpleTabs(props) {
               ))}
           </div>
           <TabPanel value={value} index={0}>
-            <div className="griddiv">
+            <div className="griddiv add-root">
               <Grid lg={13} className="tablegrid_address">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
                 >
                   <Table
-                    className="table"
+                    className="table w-700-a w-1500-a"
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
@@ -985,7 +978,14 @@ export default function SimpleTabs(props) {
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Description</span>
                         </TableCell>
-                        <TableCell style={{ border: "none", display: "flex", lineHeight: "21px" }} align="left">
+                        <TableCell
+                          style={{
+                            border: "none",
+                            display: "flex",
+                            lineHeight: "21px",
+                          }}
+                          align="left"
+                        >
                           <span className={"tableheaders-1"}>Balance</span>
                           <button className={classes.btn}>
                             <ArrowUpwardIcon
@@ -1102,8 +1102,8 @@ export default function SimpleTabs(props) {
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
                 >
-                  <Table
-                    className="table"
+                 <Table
+                    className="table w-700-a w-1500-a"
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
@@ -1115,10 +1115,12 @@ export default function SimpleTabs(props) {
                             onChange={handlePvtNoteCheckbox}
                             type="checkbox"
                             name="allselect"
-                            checked={countNote === pvtNoteLength || checkedNote == true}
+                            checked={
+                              countNote === pvtNoteLength || checkedNote == true
+                            }
                             style={{
                               marginRight: "10px",
-                              border: "solid 1px #e3e7eb"
+                              border: "solid 1px #e3e7eb",
                             }}
                           />
                         </TableCell>
@@ -1400,5 +1402,5 @@ export default function SimpleTabs(props) {
       </div>
       <FooterComponent />
     </div>
-  )
+  );
 }
