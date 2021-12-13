@@ -1,4 +1,4 @@
-/* @import "../../../node_modules/bootstrap/dist/css/bootstrap.css"; */
+@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
@@ -3270,6 +3270,9 @@ body {
 @media (max-width: 768px) {
   .content-tabs {
     margin-top: 10px;
+  }
+  .MuiBackdrop-root {
+    opacity: 0 !important;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -9082,7 +9085,7 @@ button {
   .Network-explorer-internal {
     margin-top: 8px;
   }
-  .Network-explorer-internal:hover{
+  .Network-explorer-internal:hover {
     margin-top: 8px;
   }
   .Token-internal {
@@ -9108,4 +9111,12 @@ button {
   color: #2149b9;
 }
 
-
+.inputIconCntr {
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .MuiBackdrop-root {
+    background-color: rgb(169 147 147 / 0%) !important;
+  }
+}

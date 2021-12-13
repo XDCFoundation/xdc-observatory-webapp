@@ -943,11 +943,10 @@ export default function SimpleTabs(props) {
                 filename={"tag_address.csv"}
                 data={downloadTagAddress}
                 style={{
-                  pointerEvents: "none",
                   fontSize: "0.938rem",
                   textAlign: "center",
                   color: "#ffffff",
-                  backgroundColor: "#9fa9ba",
+                  backgroundColor: "rgb(7 125 245)",
                   borderRadius: "0.25rem",
                   width: "5.875rem",
                   height: "2.125rem",
@@ -1151,7 +1150,7 @@ export default function SimpleTabs(props) {
                   style={{ boxShadow: "0px 0px 0px 0px" }}
                 >
                   <Table
-                    className="table"
+                    className="table w-700-a w-1500-a"
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
