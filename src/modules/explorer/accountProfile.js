@@ -33,13 +33,14 @@ import EditTxnLabel from "./editTxnLabel";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
-import { cookiesConstants } from "../constants"
-import Utils from "../../utility"
+import { cookiesConstants } from "../constants";
+import Utils from "../../utility";
 import { red } from "@material-ui/core/colors";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
+}
   & .paginationBttns {
     list-style: none;
     display: flex;
@@ -357,9 +358,11 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeWatchlistPage(watchlistPageCount);
       } else {
-        const [error, response] = await Utils.parseResponse(UserService.Search(data));
+        const [error, response] = await Utils.parseResponse(
+          UserService.Search(data)
+        );
         if (error || !response) {
-          setDataNotFound("Data not found")
+          setDataNotFound("Data not found");
         } else {
           setWatchlist(response);
         }
@@ -379,10 +382,12 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTxnLabelPage(pvtNotePageCount);
       } else {
-        const [error, response] = await Utils.parseResponse(UserService.Search(data));
+        const [error, response] = await Utils.parseResponse(
+          UserService.Search(data)
+        );
 
         if (error || !response) {
-          setDataNotFound("Data not found")
+          setDataNotFound("Data not found");
         } else {
           setAddress(response);
         }
@@ -402,9 +407,11 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTagAddressPage(tagPageCount);
       } else {
-        const [error, response] = await Utils.parseResponse(UserService.Search(data));
+        const [error, response] = await Utils.parseResponse(
+          UserService.Search(data)
+        );
         if (error || !response) {
-          setDataNotFound("Data not found")
+          setDataNotFound("Data not found");
         } else {
           setPrivateAddress(response);
         }
@@ -427,8 +434,8 @@ export default function SimpleTabs(props) {
   };
 
   function handleMultipleTag(tag) {
-    let tagWords = []
-    tagWords = tag.split(',');
+    let tagWords = [];
+    tagWords = tag.split(",");
     return tagWords;
   }
 
@@ -567,14 +574,14 @@ export default function SimpleTabs(props) {
     const { name, checked } = event.target;
     if (name === "allselect" || countWatchlist === watchlistLength) {
       if (checkedWatchlist === false) {
-        setCheckedWatchlist(true)
+        setCheckedWatchlist(true);
       } else {
         setCheckedWatchlist(false);
       }
       if (countWatchlist === watchlistLength) {
-        setCheckedWatchlist(false)
+        setCheckedWatchlist(false);
       }
-      setCountWatchlist(-1)
+      setCountWatchlist(-1);
 
       let tempAddress = watchlist.map((addr) => {
         return { ...addr, isChecked1: checked };
@@ -643,12 +650,12 @@ export default function SimpleTabs(props) {
     const { name, checked } = event.target;
     if (name === "allselect" || countNote === pvtNoteLength) {
       if (checkedNote === false) {
-        setCheckedNote(true)
+        setCheckedNote(true);
       } else {
         setCheckedNote(false);
       }
       if (countNote === pvtNoteLength) {
-        setCheckedNote(false)
+        setCheckedNote(false);
       }
       setCountNote(0);
       let tempAddress = address.map((addr) => {
@@ -706,20 +713,20 @@ export default function SimpleTabs(props) {
     }
   };
 
-  const [countTag, setCountTag] = React.useState(-1)
-  const [checkedTag, setCheckedTag] = React.useState(false)
-  let tagAddrLength = privateAddress.length
+  const [countTag, setCountTag] = React.useState(-1);
+  const [checkedTag, setCheckedTag] = React.useState(false);
+  let tagAddrLength = privateAddress.length;
 
   const handleTagAddressCheckbox = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect" || countTag === tagAddrLength) {
       if (checkedTag === false) {
-        setCheckedTag(true)
+        setCheckedTag(true);
       } else {
         setCheckedTag(false);
       }
       if (countTag === tagAddrLength) {
-        setCheckedTag(false)
+        setCheckedTag(false);
       }
       setCountTag(0);
       let tempAddress = privateAddress.map((addr) => {
@@ -786,7 +793,11 @@ export default function SimpleTabs(props) {
             <img
               className="icon"
               style={{ borderRadius: "50px" }}
-              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../assets/images/Profile.png")}
+              src={
+                sessionManager.getDataFromCookies(
+                  cookiesConstants.USER_PICTURE
+                ) || require("../../assets/images/Profile.png")
+              }
             />
           </span>
           <span>
@@ -868,27 +879,29 @@ export default function SimpleTabs(props) {
                 value={search}
               />
             </div>
-            {!isDownloadActive && tableValue === 1 ? ("") : (
-              isDownloadActive ? (
-                tableValue === 1 ? (""
-                  // <CSVLink
-                  //   filename={"watchlist.csv"}
-                  //   data={downloadWatchlist}
-                  //   style={{
-                  //     fontSize: "0.938rem",
-                  //     textAlign: "center",
-                  //     color: "#ffffff",
-                  //     backgroundColor: "rgb(7 125 245)",
-                  //     borderRadius: "0.25rem",
-                  //     width: "5.875rem",
-                  //     height: "2.125rem",
-                  //     marginRight: "1.5rem",
-                  //     paddingTop: "0.125rem",
-                  //   }}
-                  // >
-                  //   Export
-                  // </CSVLink>
-                ) : tableValue === 2 ? (
+            {!isDownloadActive && tableValue === 1 ? (
+              ""
+            ) : isDownloadActive ? (
+              tableValue === 1 ? (
+                ""
+              ) : // <CSVLink
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
+                tableValue === 2 ? (
                   <CSVLink
                     filename={"private_note.csv"}
                     data={downloadTxnPvtNote}
@@ -925,26 +938,25 @@ export default function SimpleTabs(props) {
                     Export
                   </CSVLink>
                 )
-              ) : (
-                <CSVLink
-                  filename={"tag_address.csv"}
-                  data={downloadTagAddress}
-                  style={{
-                    pointerEvents: "none",
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "#9fa9ba",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              ))}
+            ) : (
+              <CSVLink
+                filename={"tag_address.csv"}
+                data={downloadTagAddress}
+                style={{
+                  fontSize: "0.938rem",
+                  textAlign: "center",
+                  color: "#ffffff",
+                  backgroundColor: "rgb(7 125 245)",
+                  borderRadius: "0.25rem",
+                  width: "5.875rem",
+                  height: "2.125rem",
+                  marginRight: "1.5rem",
+                  paddingTop: "0.125rem",
+                }}
+              >
+                Export
+              </CSVLink>
+            )}
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
@@ -973,7 +985,9 @@ export default function SimpleTabs(props) {
                           />
                           </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheadersWatchlist"}>Address</span>
+                          <span className={"tableheadersWatchlist"}>
+                            Address
+                          </span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Description</span>
@@ -1011,18 +1025,22 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    {dataNotFound ? (<div className={classes.error}>{dataNotFound}</div>) : (
+                    {dataNotFound ? (
+                      <div className={classes.error}>{dataNotFound}</div>
+                    ) : (
                       <TableBody>
-                        {watchlist && watchlist.length > 0 && watchlist.map((row, index) => {
-                          return (
-                            <TableRow
-                              style={
-                                index % 2 !== 1
-                                  ? { background: "#f9f9f9" }
-                                  : { background: "white" }
-                              }
-                            >
-                              {/* <TableCell
+                        {watchlist &&
+                          watchlist.length > 0 &&
+                          watchlist.map((row, index) => {
+                            return (
+                              <TableRow
+                                style={
+                                  index % 2 !== 1
+                                    ? { background: "#f9f9f9" }
+                                    : { background: "white" }
+                                }
+                              >
+                                {/* <TableCell
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
@@ -1035,47 +1053,76 @@ export default function SimpleTabs(props) {
                                 style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
                               </TableCell> */}
-                              <TableCell style={{ border: "none" }} align="left">
-                                <a
-                                  className="linkTable1"
-                                  href={"/address-details/" + row.address}
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
                                 >
-                                  <Tooltip placement="top" title={row.address}>
-                                    <span className="tabledataWatchlist">
-                                      {shorten(row.address)}{" "}
-                                    </span>
-                                  </Tooltip>
-                                </a>
-                              </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <span className="tabledata-1">
-                                  {row.description}
-                                </span>
-                              </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <span className="tabledata-1">{row.balance}</span>
-                                {/* </a> */}
-                              </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <span className="tabledata-1">
-                                  {moment(row.addedOn).format(
-                                    "hh:mm A, D MMMM YYYY "
-                                  )}
-                                </span>
-                                {/* </a> */}
-                              </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <span className="tabledata-1">
-                                  {row.notification.type === "NO" ? "Off" : "Email"}
-                                </span>
-                              </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <EditWatchList row={row} getWatchlistList={getListOfWatchlist} />
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>)}
+                                  <a
+                                    className="linkTable1"
+                                    href={"/address-details/" + row.address}
+                                  >
+                                    <Tooltip
+                                      placement="top"
+                                      title={row.address}
+                                    >
+                                      <span className="tabledataWatchlist">
+                                        {shorten(row.address)}{" "}
+                                      </span>
+                                    </Tooltip>
+                                  </a>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.description}
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.balance}
+                                  </span>
+                                  {/* </a> */}
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {moment(row.addedOn).format(
+                                      "hh:mm A, D MMMM YYYY "
+                                    )}
+                                  </span>
+                                  {/* </a> */}
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.notification.type === "NO"
+                                      ? "Off"
+                                      : "Email"}
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <EditWatchList
+                                    row={row}
+                                    getWatchlistList={getListOfWatchlist}
+                                  />
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    )}
                   </Table>
                 </Grid>
               </Grid>
@@ -1166,7 +1213,12 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }} /><div className={classes.error1}>{dataNotFound}</div></TableRow>) : (
+                    {dataNotFound ? (
+                      <TableRow>
+                        <TableCell style={{ border: "none" }} />
+                        <div className={classes.error1}>{dataNotFound}</div>
+                      </TableRow>
+                    ) : (
                       <TableBody>
                         {address.map((row, index) => {
                           return (
@@ -1191,11 +1243,15 @@ export default function SimpleTabs(props) {
                                 // className={classes.Rectangle}
                                 />
                               </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
                                 <a
                                   className="linkTable1"
                                   href={
-                                    "/transaction-details/" + row.transactionHash
+                                    "/transaction-details/" +
+                                    row.transactionHash
                                   }
                                 >
                                   <Tooltip
@@ -1208,15 +1264,23 @@ export default function SimpleTabs(props) {
                                   </Tooltip>
                                 </a>
                               </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <span className="tabledata-1">{row.trxLable}</span>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <span className="tabledata-1">
+                                  {row.trxLable}
+                                </span>
                               </TableCell>
                               {/* <TableCell style={{ border: "none" }} align="left">
                                         
                                             <span className="tabledata-1">{row.Balance}</span>
                                         
                                     </TableCell> */}
-                              <TableCell style={{ border: "none" }} align="left">
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
                                 <span className="tabledata-1">
                                   {" "}
                                   {moment(row.addedOn).format(
@@ -1224,13 +1288,20 @@ export default function SimpleTabs(props) {
                                   )}{" "}
                                 </span>
                               </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <EditTxnLabel row={row} getListOfTxnLabel={getListOfTxnLabel} />
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <EditTxnLabel
+                                  row={row}
+                                  getListOfTxnLabel={getListOfTxnLabel}
+                                />
                               </TableCell>
                             </TableRow>
                           );
                         })}
-                      </TableBody>)}
+                      </TableBody>
+                    )}
                   </Table>
                 </Grid>
               </Grid>
@@ -1268,12 +1339,14 @@ export default function SimpleTabs(props) {
                             onChange={handleTagAddressCheckbox}
                             type="checkbox"
                             name="allselect"
-                            checked={countTag === tagAddrLength || checkedTag == true}
+                            checked={
+                              countTag === tagAddrLength || checkedTag == true
+                            }
                             className={classes.Rectangle}
                             style={{
                               marginRight: "10px",
                               border: "solid 1px #e3e7eb",
-                              backgroundColor: "red"
+                              backgroundColor: "red",
                             }}
                           />
                         </TableCell>
@@ -1315,7 +1388,12 @@ export default function SimpleTabs(props) {
                         {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
-                    {dataNotFound ? (<TableRow><TableCell style={{ border: "none" }} /><div className={classes.error}>{dataNotFound}</div></TableRow>) : (
+                    {dataNotFound ? (
+                      <TableRow>
+                        <TableCell style={{ border: "none" }} />
+                        <div className={classes.error}>{dataNotFound}</div>
+                      </TableRow>
+                    ) : (
                       <TableBody>
                         {privateAddress.map((row, index) => {
                           let tag = row.tagName;
@@ -1343,7 +1421,10 @@ export default function SimpleTabs(props) {
                                   style={{ marginTop: "4px" }}
                                 />
                               </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
                                 <a
                                   className="linkTable1"
                                   href={"/address-details/" + row.address}
@@ -1355,11 +1436,25 @@ export default function SimpleTabs(props) {
                                   </Tooltip>
                                 </a>
                               </TableCell>
-                              <TableCell style={{ border: "none" }} align="left">
-                                <span className="tabledata-2">{tag.map((item, index) => { return <div className="nameLabel2" key={index}>{item}</div> })}</span>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <span className="tabledata-2">
+                                  {tag.map((item, index) => {
+                                    return (
+                                      <div className="nameLabel2" key={index}>
+                                        {item}
+                                      </div>
+                                    );
+                                  })}
+                                </span>
                               </TableCell>
 
-                              <TableCell style={{ border: "none" }} align="left">
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
                                 <span className="tabledata-1">
                                   {moment(row.addedOn).format(
                                     "hh:mm A, D MMMM YYYY "
@@ -1368,16 +1463,22 @@ export default function SimpleTabs(props) {
                                 {/* </a> */}
                               </TableCell>
 
-                              <TableCell style={{ border: "none" }} align="left">
-                                <EditTagAddress row={row} getListOfTagAddress={getListOfTagAddress} />
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <EditTagAddress
+                                  row={row}
+                                  getListOfTagAddress={getListOfTagAddress}
+                                />
                               </TableCell>
                             </TableRow>
                           );
                         })}
-                      </TableBody>)}
+                      </TableBody>
+                    )}
                   </Table>
                 </Grid>
-
               </Grid>
             </div>
             <PaginationDiv>
