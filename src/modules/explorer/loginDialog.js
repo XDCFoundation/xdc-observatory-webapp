@@ -15,6 +15,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
 import Loader from '../../assets/loader'
+import ReCAPTCHA from "react-google-recaptcha";
+
+
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -292,6 +295,7 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+  console.log("props dialog", props)
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -444,6 +448,12 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
+    if(reCaptcha===""){
+      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+      setLoading(false);
+    } else {
+      setCaptchaError("");
+    }
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -464,11 +474,10 @@ export default function FormDialog(props) {
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions")
       setLoading(false);
-    }
-    // else if (captchaCheckbox === false) {
-    //   setErrorCaptcha("Please verify captcha")
-    //   setLoading(false);}
-    else {
+    } else if (captchaCheckbox === false) {
+      setErrorCaptcha("Please verify captcha")
+      setLoading(false);
+    } else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
@@ -478,7 +487,6 @@ export default function FormDialog(props) {
       } else {
         Utility.apiSuccessToast("Sign-up success, check your email");
         setLoading(false);
-
         setOpen(false);
         setTimeout(() => {
           setValue(0);
@@ -518,25 +526,25 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    // if (captchaCheckbox === false) {
-    //   setErrorCaptcha("please verify captcha")
-    // } else {
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.forgotPassword(email)
-    );
-    if (error || !authResponse) {
-      setEmailError("Please enter a valid email address");
-      Utility.apiFailureToast("Wrong email");
+    if (captchaCheckbox === false) {
+      setErrorCaptcha("please verify captcha")
     } else {
-      setEmail("");
-      // setCaptchaCheckbox(false);
-      Utility.apiSuccessToast(
-        "We have just sent you an email to reset your password."
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.forgotPassword(email)
       );
-      window.location.href = "/";
+      if (error || !authResponse) {
+        setEmailError("Please enter a valid email address");
+        Utility.apiFailureToast("Wrong email");
+      } else {
+        setEmail("");
+        setCaptchaCheckbox(false);
+        Utility.apiSuccessToast(
+          "We have just sent you an email to reset your password."
+        );
+        window.location.href = "/";
+      }
     }
-
   };
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
   const [termsCheckbox, setTermsCheckbox] = React.useState(false);
@@ -556,6 +564,14 @@ export default function FormDialog(props) {
       setCaptchaCheckbox(true);
     }
   };
+
+  // Google Recaptcha Handlers
+  const [reCaptcha , setReCaptcha] = React.useState("");
+  const [captchaError, setCaptchaError] = React.useState("");
+
+  function handleReCaptcha(value) {
+    setReCaptcha(value)
+  }
 
 
 
@@ -668,6 +684,7 @@ export default function FormDialog(props) {
                   </button>
                 </DialogActions>
 
+
                 <div className={classes.value}></div>
                 <DialogContentText className={classes.xdc}>
                   New to XDC Explorer?{" "}
@@ -760,6 +777,19 @@ export default function FormDialog(props) {
                   ></input>
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
+                <div style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "4px",
+                  flexDirection: "column"
+                }}>
+                  <ReCAPTCHA
+                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    onChange={handleReCaptcha}
+                  />
+                <div style={{marginLeft: 0}} className={classes.error1}>{captchaError}</div>
+                </div>
                 <div className={classes.termsContainer}>
                   <input
                     className={classes.checkbox}
@@ -777,6 +807,7 @@ export default function FormDialog(props) {
                     </a>
                   </span>
                 </div>
+
                 <div className={classes.error1}>{errorTermsCondition}</div>
                 {/* <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
@@ -795,7 +826,7 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                {/* <div className={classes.error2}>{errorCaptcha}</div> */}
+                <div className={classes.error2}>{errorCaptcha}</div>
                 {isLoading == true ? (
                   <div >
 
@@ -907,8 +938,8 @@ export default function FormDialog(props) {
             )}
           </Dialog>
         </div>
-      </div>
+      </div >
       <ToastContainer />
-    </div>
+    </div >
   );
 }
