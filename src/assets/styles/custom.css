@@ -9115,3 +9115,8 @@ button {
   display: flex;
   align-items: center;
 }
+@media (min-width: 0px) and (max-width: 768px) {
+  .MuiBackdrop-root {
+    background-color: rgb(169 147 147 / 0%) !important;
+  }
+}
