@@ -9119,4 +9119,12 @@ button {
   .MuiBackdrop-root {
     background-color: rgb(169 147 147 / 0%) !important;
   }
+  .copy-edit {
+    align-self: flex-end !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .copy-edit {
+    align-self: center !important;
+  }
 }
