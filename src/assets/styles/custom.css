@@ -1,4 +1,4 @@
-@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+/* @import "../../../node_modules/bootstrap/dist/css/bootstrap.css"; */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
@@ -6892,6 +6892,7 @@ button {
   border-radius: 10px;
   box-shadow: black;
   padding-top: 1.3rem;
+  text-align: center;
 }
 
 .second-row-table-block {
@@ -7120,9 +7121,15 @@ button {
   width: 400px;
   margin-top: 0.625rem;
 }
+@media (min-width: 375px) and (max-width: 767px) {
+  .qrcode-label {
+    height: 240px;
+    width: 240px;
+  }
+}
 
 .header-popup {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   padding-top: 0.313rem;
   padding-bottom: 3.75rem;
 }
@@ -7145,8 +7152,8 @@ button {
   .popup-content {
     margin: 4.438rem 15.688rem 0 3.406rem;
     background: rgb(255, 255, 255);
-    width: 21.888rem;
-    height: 27.5rem;
+    width: 100%;
+    height: 100%;
     padding: 5px;
     border-radius: 10px;
   }
@@ -9082,7 +9089,7 @@ button {
   .Network-explorer-internal {
     margin-top: 8px;
   }
-  .Network-explorer-internal:hover{
+  .Network-explorer-internal:hover {
     margin-top: 8px;
   }
   .Token-internal {
@@ -9106,4 +9113,7 @@ button {
 
 .radio-inside-dot > span > span > div > svg ~ svg > path {
   color: #2149b9;
+}
+.m-top-1 {
+  margin-top: 1px;
 }
