@@ -1,18 +1,19 @@
 import * as React from "react";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
+import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import {NotificationService} from "../../services";
-import utility, {dispatchAction} from "../../utility";
-import {sessionManager} from "../../managers/sessionManager";
-import {eventConstants, genericConstants} from "../../constants";
+import { NotificationService } from "../../services";
+import utility, { dispatchAction } from "../../utility";
+import { sessionManager } from "../../managers/sessionManager";
+import {  eventConstants, genericConstants } from "../../constants";
 import moment from "moment";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 const NoticationClear = styled.div`
   display: flex;
@@ -25,17 +26,7 @@ const ListItems = styled.div`
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 20px;
-  @media (min-width: 0px) and (max-width: 767px) {
-    
-   margin-top:4rem;
-    
-   
-  }
-    
-  
 `;
-
-
 
 const drawerWidth = 340;
 const useStyles = makeStyles((theme) => ({
@@ -52,19 +43,18 @@ const useStyles = makeStyles((theme) => ({
       top: "8.375rem",
     },
     drawerHeader:{
-      marginTop:"0px"
+      marginTop:"8px"
     }
   },
-  "@media (min-width: 0px) and (max-width: 767px)": {
+  "@media (max-width: 767px)": {
     paper: {
-      top:"0",
-      height: "50.75",
+      top: "11.438rem",
       width: "13.313rem",
     },
   },
   "@media (max-width: 449px)": {
     paper: {
-      
+      top: "12.438rem",
       width: "13.313rem",
     },
   },

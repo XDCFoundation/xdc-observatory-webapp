@@ -14,9 +14,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
-import Loader from '../../assets/loader'
+import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
-
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -61,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "12px",
   },
 
-
   passwordContainer: {
     marginTop: "15px",
   },
@@ -78,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: "auto",
     // marginRight: "auto",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   subCategory: {
@@ -206,7 +204,7 @@ const useStyles = makeStyles((theme) => ({
   alreadyAccount: {
     textAlign: "center",
     marginBottom: "30px",
-    color: "#2a2a2a"
+    color: "#2a2a2a",
   },
   signIn: {
     color: "#2149b9",
@@ -250,8 +248,8 @@ const useStyles = makeStyles((theme) => ({
       width: "95%",
     },
     loading: {
-      zIndex: -1
-    }
+      zIndex: -1,
+    },
   },
   "@media (max-width: 767px)": {
     paperWidthSm: {
@@ -260,16 +258,12 @@ const useStyles = makeStyles((theme) => ({
       height: "100%",
       width: "100%",
       borderRadius: "0px",
-      marginTop: "0px",
       backgroundImage: "none",
       opacity: "0px",
     },
     closeContainer: {
       display: "none",
-
-
     },
-
 
     paperWidthSm1: {
       position: "absolute",
@@ -286,7 +280,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-height: 900px)": {
     paperWidthSm1: {
       maxHeight: "500px",
-      height: "72%"
+      height: "72%",
     },
   },
 
@@ -307,7 +301,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const { onOpen, onClose } = props
+  const { onOpen, onClose } = props;
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(4);
@@ -316,7 +310,7 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-  console.log("props dialog", props)
+  console.log("props dialog", props);
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -336,31 +330,38 @@ export default function FormDialog(props) {
 
   const classes = useStyles();
   const urlProfile = () => {
-    const profilePic = sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+    const profilePic = sessionManager.getDataFromCookies(
+      cookiesConstants.USER_PICTURE
+    );
     return profilePic;
-  }
+  };
 
   React.useEffect(() => {
     if (open === true) {
-      setOpen(false)
+      setOpen(false);
     } else {
-      setOpen(props.open ? props.open : true)
+      setOpen(props.open);
     }
-  }, [props])
+  }, [props]);
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
   const handleClickOpen = () => {
     if (urlProfile()) {
       window.location.href = "loginprofile";
-
     } else {
       setOpen(true);
     }
-  }
+  };
 
   const handleClose = () => {
-    { props.verifiedEmail ? (props.onClose(onClose)) : (!props.hash ? setOpen(false) : props.onClose(onClose)) }
+    {
+      props.verifiedEmail
+        ? props.onClose(onClose)
+        : !props.hash
+          ? setOpen(false)
+          : props.onClose(onClose);
+    }
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -396,24 +397,23 @@ export default function FormDialog(props) {
       name: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorEmail("");
     setErrorPassword("");
 
     if (!email || !password) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
       setErrorEmail("Enter valid Username");
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -439,7 +439,10 @@ export default function FormDialog(props) {
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
-        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
+        sessionManager.setDataInCookies(
+          authResponse?.userInfoRes?.picture,
+          cookiesConstants.USER_PICTURE
+        );
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -449,7 +452,9 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        { !props.hash ? window.location.href = "loginprofile" : history.go(0) }
+        {
+          !props.hash ? (window.location.href = "loginprofile") : history.go(0);
+        }
       }
     }
   };
@@ -463,7 +468,7 @@ export default function FormDialog(props) {
       email: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
@@ -494,10 +499,10 @@ export default function FormDialog(props) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
     } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to the terms and conditions")
+      setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
     } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha")
+      setErrorCaptcha("Please verify captcha");
       setLoading(false);
     } else {
       const [error, response] = await Utility.parseResponse(
@@ -552,7 +557,7 @@ export default function FormDialog(props) {
     onClickReset();
 
     if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha")
+      setErrorCaptcha("please verify captcha");
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
@@ -596,7 +601,7 @@ export default function FormDialog(props) {
   const [captchaError, setCaptchaError] = React.useState("");
 
   function handleReCaptcha(value) {
-    setReCaptcha(value)
+    setReCaptcha(value);
   }
 
 
@@ -649,15 +654,23 @@ export default function FormDialog(props) {
   return (
     <div>
       <div className={classes.add}>
-        {props.verifiedEmail ? ("") : (!props.hash ?
+        {props.verifiedEmail ? (
+          ""
+        ) : !props.hash ? (
           <button className="login-button" onClick={handleClickOpen}>
             <img
               className="Shape2"
               style={{ borderRadius: "50px" }}
-              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
+              src={
+                sessionManager.getDataFromCookies(
+                  cookiesConstants.USER_PICTURE
+                ) || require("../../../src/assets/images/Profile.svg")
+              }
             ></img>
-          </button> : "")
-        }
+          </button>
+        ) : (
+          ""
+        )}
         <div className="dialogboxModal">
           <Dialog
             classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : value === 4 ? classes.paperWidthSm2 : classes.paperWidthSm }}
@@ -665,7 +678,6 @@ export default function FormDialog(props) {
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
-
           >
             {value === 4 ? (
               <div className="main-box">
@@ -1088,8 +1100,8 @@ export default function FormDialog(props) {
               )}
           </Dialog>
         </div>
-      </div >
+      </div>
       <ToastContainer />
-    </div >
+    </div>
   );
 }
