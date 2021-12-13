@@ -40,6 +40,7 @@ import { red } from "@material-ui/core/colors";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
+}
   & .paginationBttns {
     list-style: none;
     display: flex;
@@ -360,7 +361,6 @@ export default function SimpleTabs(props) {
         const [error, response] = await Utils.parseResponse(
           UserService.Search(data)
         );
-        console.log("search-res", response);
         if (error || !response) {
           setDataNotFound("Data not found");
         } else {
@@ -385,7 +385,7 @@ export default function SimpleTabs(props) {
         const [error, response] = await Utils.parseResponse(
           UserService.Search(data)
         );
-        console.log("search-res", response);
+
         if (error || !response) {
           setDataNotFound("Data not found");
         } else {
@@ -410,7 +410,6 @@ export default function SimpleTabs(props) {
         const [error, response] = await Utils.parseResponse(
           UserService.Search(data)
         );
-        console.log("search-res", response);
         if (error || !response) {
           setDataNotFound("Data not found");
         } else {
@@ -464,14 +463,12 @@ export default function SimpleTabs(props) {
   };
 
   const getListOfWatchlist = async (requestData) => {
-    console.log(requestData);
     const request = {
       limit: requestData?.limit || "5",
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
-    console.log("request Watchlist", request);
     const response = await UserService.getWatchlistList(request);
     setWatchlist(response.watchlistContent);
   };
@@ -494,7 +491,6 @@ export default function SimpleTabs(props) {
       isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
-    console.log("response", response);
     setPrivateAddress(response.tagAddressContent);
   };
 

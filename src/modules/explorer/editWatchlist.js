@@ -1,19 +1,19 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
+import { makeStyles } from "@material-ui/styles";
+import { Row } from "simple-flexbox";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import PutWatchlist from "../../services/user";
-import utility, {dispatchAction} from "../../utility";
-import {WatchListService} from "../../services";
-import {eventConstants, genericConstants} from "../../constants";
-import {connect} from "react-redux";
+import utility, { dispatchAction } from "../../utility";
+import { WatchListService } from "../../services";
+import { eventConstants, genericConstants } from "../../constants";
+import { connect } from "react-redux";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -165,7 +165,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   "@media (max-width: 714px)": {
-    heading:{
+    heading: {
       fontSize: "16px",
     },
     dialogBox: {
@@ -199,7 +199,6 @@ function EditWatchList(props) {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
-  console.log("check",props);
 
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
@@ -255,11 +254,11 @@ function EditWatchList(props) {
         utility.apiFailureToast("Error");
       } else {
         utility.apiSuccessToast("Address Updated");
-       window.location.href = "loginprofile";
+        window.location.href = "loginprofile";
       }
     };
   }
-  
+
   // const watchListService = async () => {
   //   const request = {
   //     _id: props.row._id,
@@ -302,114 +301,115 @@ function EditWatchList(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-            <Row>
-              <div className={classes.heading} id="form-dialog-title">
-                Edit Watchlist
-              </div>
-            </Row>
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                Address
-              </DialogContentText>
-              <input
-                value={address}
-                className={classes.input}
-                onChange={(e) => {setAddress(e.target.value)
+          <Row>
+            <div className={classes.heading} id="form-dialog-title">
+              Edit Watchlist
+            </div>
+          </Row>
+          <DialogContent>
+            <DialogContentText className={classes.subCategory}>
+              Address
+            </DialogContentText>
+            <input
+              value={address}
+              className={classes.input}
+              onChange={(e) => {
+                setAddress(e.target.value)
                 setError("")
               }}
-              
+
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                Description
-              </DialogContentText>
+          </DialogContent>
+          <DialogContent>
+            <DialogContentText className={classes.subCategory}>
+              Description
+            </DialogContentText>
 
-              <input
-                type="text"
-                value={description}
-                className={classes.input}
-                onChange={(e) => setDescription(e.target.value)}
-              ></input>
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                Notifications
-              </DialogContentText>
-              <FormControl
-                component="fieldset"
-                style={{ backgoundColor: "red !important" }}
-                className={classes.main_div}
+            <input
+              type="text"
+              value={description}
+              className={classes.input}
+              onChange={(e) => setDescription(e.target.value)}
+            ></input>
+          </DialogContent>
+          <DialogContent>
+            <DialogContentText className={classes.subCategory}>
+              Notifications
+            </DialogContentText>
+            <FormControl
+              component="fieldset"
+              style={{ backgoundColor: "red !important" }}
+              className={classes.main_div}
+            >
+              <RadioGroup
+                aria-label="gender"
+                name="gender1"
+                className={classes.radio}
+                style={{ margin: "-5px 28px -3px -10px" }}
+                value={value}
+                onChange={handleChange}
               >
-                <RadioGroup
-                  aria-label="gender"
-                  name="gender1"
-                  className={classes.radio}
-                  style={{ margin: "-5px 28px -3px -10px" }}
-                  value={value}
-                  onChange={handleChange}
+                <FormControlLabel
+                  className="radio-inside-dot"
+                  value="female"
+                  control={<Radio style={{ color: "#979797" }} />}
+                  classes={{ label: classes.notifyLabel }}
+                  style={{ margin: "5px 2px -5px -5px" }}
+                  label="No Notifications"
+                />
+                <FormControlLabel
+                  className="radio-inside-dot"
+                  value="male"
+                  control={<Radio style={{ color: "#979797" }} />}
+                  style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
+                  label="Notify on Incoming & Outgoing Txns"
+                />
+                <FormControlLabel
+                  className="radio-inside-dot"
+                  value="other"
+                  control={<Radio style={{ color: "#979797" }} />}
+                  style={{ margin: "-5px 26px -5px -5px" }}
+                  classes={{ label: classes.notifyLabel }}
+                  label="Notify on Incoming (Recieve) Txns Only"
+                />
+                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
+                <FormControlLabel
+                  className="radio-inside-dot"
+                  value="disabled"
+                  control={<Radio style={{ color: "#979797" }} />}
+                  classes={{ label: classes.notifyLabel }}
+                  style={{ margin: "-5px 26px -5px -5px" }}
+                  label="Notify on Outgoing (Sent) Txns Only"
+                />
+              </RadioGroup>
+            </FormControl>
+          </DialogContent>
+          <DialogActions className={classes.buttons}>
+            <div>
+              <span>
+                <button className={classes.deletebtn} onClick={handleDelete}>
+                  Delete
+                </button>
+              </span>
+            </div>
+            <div className={classes.flexButton}>
+              <span>
+                <button className={classes.cnlbtn} onClick={handleLogin}>
+                  Cancel
+                </button>
+              </span>
+              <span>
+                <button
+                  className={classes.updatebtn}
+                  onClick={watchListService}
                 >
-                  <FormControlLabel
-                    className="radio-inside-dot"
-                    value="female"
-                    control={<Radio style={{ color: "#979797" }} />}
-                    classes={{ label: classes.notifyLabel }}
-                    style={{ margin: "5px 2px -5px -5px" }}
-                    label="No Notifications"
-                  />
-                  <FormControlLabel
-                    className="radio-inside-dot"
-                    value="male"
-                    control={<Radio style={{ color: "#979797" }} />}
-                    style={{ margin: "-5px 26px -5px -5px" }}
-                    classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming & Outgoing Txns"
-                  />
-                  <FormControlLabel
-                    className="radio-inside-dot"
-                    value="other"
-                    control={<Radio style={{ color: "#979797" }} />}
-                    style={{ margin: "-5px 26px -5px -5px" }}
-                    classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming (Recieve) Txns Only"
-                  />
-                  {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
-                  <FormControlLabel
-                    className="radio-inside-dot"
-                    value="disabled"
-                    control={<Radio style={{ color: "#979797" }} />}
-                    classes={{ label: classes.notifyLabel }}
-                    style={{ margin: "-5px 26px -5px -5px" }}
-                    label="Notify on Outgoing (Sent) Txns Only"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </DialogContent>
-            <DialogActions className={classes.buttons}>
-              <div>
-                <span>
-                  <button className={classes.deletebtn} onClick={handleDelete}>
-                    Delete
-                  </button>
-                </span>
-              </div>
-              <div className={classes.flexButton}>
-                <span>
-                  <button className={classes.cnlbtn} onClick={handleLogin}>
-                    Cancel
-                  </button>
-                </span>
-                <span>
-                  <button
-                    className={classes.updatebtn}
-                    onClick={watchListService}
-                  >
-                    Update
-                  </button>
-                </span>
-              </div>
-            </DialogActions>
+                  Update
+                </button>
+              </span>
+            </div>
+          </DialogActions>
         </Dialog>
       </div>
     </div>
