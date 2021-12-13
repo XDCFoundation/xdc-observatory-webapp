@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,52 +8,49 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import "../../assets/styles/custom.css";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
-import back from '../../assets/images/back.svg';
-import next from '../../assets/images/next.svg';
-import Loader from '../../assets/loader'
+import back from "../../assets/images/back.svg";
+import next from "../../assets/images/next.svg";
+import Loader from "../../assets/loader";
 
 const Pagination = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 75.125rem;
+  margin: 0 auto;
 
+  @media (max-width: 767px) {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    width: 75.125rem;
-    margin: 0 auto;
-
-    @media (max-width:767px){
-      display: flex;
-      flex-direction:column;
-    }  
-    @media (max-width:1240px){
-      width: auto;
-    }      
-  `;
+    flex-direction: column;
+  }
+  @media (max-width: 1240px) {
+    width: auto;
+  }
+`;
 const RightPagination = styled.div`
-  display:flex ;  
+  display: flex;
 
   flex-direction: row;
-  
 
-  @media(max-width:767px){
+  @media (max-width: 767px) {
     margin-top: 24px;
-    }
-    @media (min-width:767px) and (max-width:1240px){
+  }
+  @media (min-width: 767px) and (max-width: 1240px) {
     margin-top: 31px;
-    }
-    
-`
+  }
+`;
 const LeftPagination = styled.div`
-display: flex;
-flex-direction: row;
-margin-top: 39px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 39px;
 
-@media (max-width:1240px){
-  margin-top: 31px;
-}
+  @media (max-width: 1240px) {
+    margin-top: 31px;
+  }
 `;
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -76,10 +73,9 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
     "@media (min-width: 0px) and (max-width: 1240px)": {
-      height: "12.563rem"
-    }
+      height: "12.563rem",
+    },
   },
-
 
   divider: {
     borderTop: "0px solid #bbb",
@@ -106,7 +102,7 @@ export default function StickyHeadTable() {
     );
     if (error || !tns) return;
     setHolders(tns);
-    setLoading(false)
+    setLoading(false);
     // if (tns.data == 0) {
     //   setNoData(false)
     // }
@@ -157,7 +153,6 @@ export default function StickyHeadTable() {
     )}`;
   }
 
-
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -165,19 +160,41 @@ export default function StickyHeadTable() {
           <Table>
             <TableHead>
               <TableRow className="w-100">
-                <TableCell style={{ border: "none", }} className="w-10" align="left">
+                <TableCell
+                  style={{ border: "none" }}
+                  className="w-10"
+                  align="left"
+                >
                   <span className={"tableheaders table-headers"}>Rank</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} className="w-40" align="left">
+                <TableCell
+                  style={{ border: "none" }}
+                  className="w-40"
+                  align="left"
+                >
                   <span className={"tableheaders table-headers"}>Address</span>
                 </TableCell>
-                <TableCell style={{ border: "none", paddingLeft: "17px" }} className="w-20" align="left">
+                <TableCell
+                  style={{ border: "none", paddingLeft: "17px" }}
+                  className="w-20"
+                  align="left"
+                >
                   <span className={"tableheaders table-headers"}>Quantity</span>
                 </TableCell>
-                <TableCell style={{ border: "none", paddingLeft: "17px" }} className="w-21" align="left">
-                  <span className={"tableheaders table-headers"}>Percentage</span>
+                <TableCell
+                  style={{ border: "none", paddingLeft: "17px" }}
+                  className="w-21"
+                  align="left"
+                >
+                  <span className={"tableheaders table-headers"}>
+                    Percentage
+                  </span>
                 </TableCell>
-                <TableCell style={{ border: "none", paddingLeft: "17px" }} className="w-12" align="left">
+                <TableCell
+                  style={{ border: "none", paddingLeft: "17px" }}
+                  className="w-12"
+                  align="left"
+                >
                   <span className={"tableheaders table-headers"}>Value</span>
                 </TableCell>
               </TableRow>
@@ -185,69 +202,75 @@ export default function StickyHeadTable() {
             {isLoading == true ? (
               <TableBody>
                 <TableRow>
-                  <TableCell style={{ border: 'none' }} colspan="5">
+                  <TableCell style={{ border: "none" }} colspan="5">
                     <div className="loader-holder-list">
                       <Loader />
                     </div>
                   </TableCell>
                 </TableRow>
               </TableBody>
-            ) :
-
+            ) : (
               <TableBody>
                 {holders?.data?.map((row, index) => {
                   return (
                     <StyledTableRow hover role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata table-data">{row[0]?.Rank}</span>
+                        <span className="tabledata table-data">
+                          {row[0]?.Rank}
+                        </span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         <a
-                          style={{ color: "#2149b9", fontSize: 11 }} href={"/holder-details/" + row[0]?.Address}>
-
-                          <span className="tabledata table-data">{row[0]?.Address}</span>
+                          style={{ color: "#2149b9", fontSize: 11 }}
+                          href={"/holder-details/" + row[0]?.Address}
+                        >
+                          <span className="tabledata table-data">
+                            {row[0]?.Address}
+                          </span>
                         </a>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata table-data mar-lef-3">{row[0]?.Quantity}</span>
+                        <span className="tabledata table-data mar-lef-3">
+                          {row[0]?.Quantity}
+                        </span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-                        <span className="tabledata table-data mar-lef-3">  {!(row[0]?.Percentage) ? "------" : (row[0].Percentage).toFixed(2)}</span>
+                        <span className="tabledata table-data mar-lef-3">
+                          {" "}
+                          {!row[0]?.Percentage
+                            ? "------"
+                            : row[0].Percentage.toFixed(2)}
+                        </span>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-                        <span className="tabledata table-data mar-lef-2">  {row[0]?.Value}</span>{" "}
+                        <span className="tabledata table-data mar-lef-2">
+                          {" "}
+                          {row[0]?.Value}
+                        </span>{" "}
                       </TableCell>
                     </StyledTableRow>
                   );
                 })}
-                {
-                  noData == false && (
-
-                    <div className="No-data-found">
-                      <span
-                        style={{ textAlign: "center", color: "#2a2a2a" }}
-                        className="tabledata"
-                      >
-                        No Holders Found
-                      </span>
-                    </div>
-                  )
-                }
-              </TableBody>}
+                {noData == false && (
+                  <div className="No-data-found">
+                    <span
+                      style={{ textAlign: "center", color: "#2a2a2a" }}
+                      className="tabledata"
+                    >
+                      No Holders Found
+                    </span>
+                  </div>
+                )}
+              </TableBody>
+            )}
           </Table>
         </TableContainer>
       </Paper>
-      <Pagination
-      >
-        <LeftPagination
-        >
-          <p
-            className="p-pagination"
-          >
-            Show
-          </p>
+      <Pagination>
+        <LeftPagination>
+          <p className="p-pagination">Show</p>
 
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>10</option>
@@ -255,12 +278,7 @@ export default function StickyHeadTable() {
             <option>75</option>
             <option>100</option>
           </select>
-          <p
-            className="p-pagination"
-          >
-            {" "}
-            Records
-          </p>
+          <p className="p-pagination"> Records</p>
         </LeftPagination>
 
         <RightPagination
@@ -282,7 +300,9 @@ export default function StickyHeadTable() {
             className={page === 0 ? "previousbox disabled" : "previousbox"}
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path"><img src={back} width="9px" /></p>
+            <p className="path">
+              <img src={back} width="9px" />
+            </p>
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">

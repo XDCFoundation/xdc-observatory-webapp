@@ -3283,7 +3283,7 @@ body {
 }
 
 .days p {
-  width: 3.5rem;
+  width: 4.5rem;
   height: 1.3rem;
   font-size: 0.875rem;
   color: #2a2a2a;
@@ -3294,7 +3294,7 @@ body {
   font-family: "Inter" !important;
   font-weight: 600;
   margin-top: -3px;
-  padding-left: 1.5px;
+  padding-left: 8.5px;
   padding-top: 10.9px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
@@ -9188,6 +9188,7 @@ button {
   outline-color: transparent;
   border-width: 0;
   padding-top: 3px;
+  margin: 1px;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
