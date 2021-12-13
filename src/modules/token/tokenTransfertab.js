@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,7 +10,7 @@ import "../../assets/styles/custom.css";
 import Tooltip from "@material-ui/core/Tooltip";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import back from '../../assets/images/back.svg';
 import next from '../../assets/images/next.svg';
@@ -154,8 +154,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(data),
       )
-      console.log(responseData, "<< ====")
-      setTotalToken(responseData.responseData)
+      setTotalToken(responseData?.responseData)
     } catch (error) {
       console.error(error)
     }
@@ -186,7 +185,6 @@ export default function StickyHeadTable() {
 
     if (action == "last") {
       let pageValue = totalToken - rowsPerPage;
-      console.log(pageValue, "???")
       setPage(pageValue);
       let values = { addr: address, pageNum: page, perpage: rowsPerPage };
       transferDetail(values);
