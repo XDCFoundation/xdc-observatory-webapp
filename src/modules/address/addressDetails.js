@@ -240,9 +240,9 @@ export default function AddressDetails(props) {
                                     outline: "none",
                                     // width: "0rem",
                                     height: "0rem",
-                                    marginLeft: "0rem",
+                                    marginLeft: "28rem",
                                   }}
-                                  className="close"
+                                  className="close close-qr "
                                   onClick={close}
                                 >
                                   &times;
@@ -264,7 +264,6 @@ export default function AddressDetails(props) {
                                     style={{
                                       height: 400,
                                       width: 400,
-                                      marginTop: "0.625rem",
                                     }}
                                     value={
                                       process.env.REACT_APP_QR_CODE_LINK + addr
