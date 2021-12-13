@@ -5,6 +5,7 @@ import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
+import { history } from "../../../managers/history";
 import { sessionManager } from "../../../managers/sessionManager";
 import Tokensearchbar from "../tokensearchBar";
 import FooterComponent from "../../common/footerComponent";
@@ -214,6 +215,28 @@ export default function FormDialog() {
 
 
   const classes = useStyles();
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const { width } = windowDimensions
+  if (width >= 760) {
+    history.push("/loginprofile")
+  }
 
   const handleClickOpen = () => {
     setOpen(true);

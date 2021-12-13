@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/styles";
 import {Row, typeOf} from "simple-flexbox";
 import {sessionManager} from "../../../managers/sessionManager";
 import Test from './Test'
+import { history } from "../../../managers/history";
 import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -288,7 +289,7 @@ const screenSize = window.innerHeight
   return (
     <div>
 
-      <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{window.location.href="/test"}}>
+      <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
         <div>
           <img
             className="imagediv1"

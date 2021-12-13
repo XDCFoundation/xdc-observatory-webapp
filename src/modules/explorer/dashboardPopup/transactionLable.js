@@ -4,7 +4,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
+import { Row } from "simple-flexbox";
+import { history } from "../../../managers/history";
 import {sessionManager} from "../../../managers/sessionManager";
 import {UserService} from "../../../services";
 import utility from "../../../utility";
@@ -244,7 +245,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div className="div2" onClick={width >= 760 ? handleClickOpen:()=>{window.location.href="/testTrancation"}}>
+      <div className="div2" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/testTrancation")}}>
         <div>
           <img
             className="imagediv2"

@@ -4,7 +4,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
+import { Row } from "simple-flexbox";
+import { history } from "../../../managers/history";
 import {sessionManager} from "../../../managers/sessionManager";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -267,9 +268,34 @@ export default function FormDialog() {
   };
   
   const classes = useStyles();
+  
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const { width } = windowDimensions
+  if (width >= 760) {
+    history.push("/loginprofile")
+  }
+
 
   return (
-      <div>
+    <div>
+       {/* {width <= 760 ? ()=>{window.location.href="/test-address"}:null} */}
           <Tokensearchbar />
 <div className={classes.createWatchlistMobile}>
         {/* <Dialog
