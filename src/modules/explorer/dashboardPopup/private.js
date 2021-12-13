@@ -5,6 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles, mergeClasses } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
+import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
@@ -267,11 +268,29 @@ export default function FormDialog() {
     setTags(prevState => prevState.filter((tag, i) => i !== index))
   }
 
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
 
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const { width } = windowDimensions
   
   return (
     <div>
-      <div className="div3" onClick={handleClickOpen}>
+      <div className="div3" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test-address")}}>
         <div>
           <img
             className="imagediv3"

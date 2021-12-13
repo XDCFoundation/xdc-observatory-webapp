@@ -154,7 +154,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utils.parseResponse(
         TokenData.getTotalTransferTransactionsForToken(data),
       )
-      setTotalToken(responseData.responseData)
+      setTotalToken(responseData?.responseData)
     } catch (error) {
       console.error(error)
     }
