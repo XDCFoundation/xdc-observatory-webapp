@@ -101,7 +101,6 @@ export default function TransactionTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getTransactionsCountForAddress(data),
       )
-      console.log(responseData, "<< ====")
       setTotalRecord(responseData)
     } catch (error) {
       console.error(error)
@@ -204,7 +203,6 @@ export default function TransactionTableComponent(props) {
     if (action === 'prev') {
       if (+from - +amount >= 0) {
         let pagecount = +from - +amount
-        console.log(pagecount, "<><>")
         setFrom(pagecount)
         if (keywords) {
           datas = {
