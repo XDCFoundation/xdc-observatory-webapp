@@ -4,7 +4,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 // import div from "@material-ui/core/div";
 // import p from "@material-ui/core/p";
 import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
+import { Row } from "simple-flexbox";
+import { history } from "../../../managers/history";
 import {sessionManager} from "../../../managers/sessionManager";
 import {UserService} from "../../../services";
 import utility from "../../../utility";
@@ -215,7 +216,29 @@ export default function FormDialog() {
     
   }
   const classes = useStyles();
+  
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
 
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const { width } = windowDimensions
+  if (width >= 760) {
+    history.push("/loginprofile")
+  }
   const handleClickOpen = () => {
     setOpen(true);
   };
