@@ -5002,7 +5002,7 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
-.margin-right-20px{
+.margin-right-20px {
   margin-right: 20px;
 }
 .card {
@@ -5055,6 +5055,55 @@ button {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+}
+.main-sing-up {
+  width: 432px;
+  height: 44px;
+  margin: 30px auto 18px auto;
+  padding: 13px 187px 12px;
+  border-radius: 4px;
+  background-color: #3763dd;
+  cursor: pointer;
+}
+.main-sing-up-text {
+  width: 58px;
+  height: 19px;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  text-align: center;
+  color: var(--white-two);
+}
+.main-end-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.main-close{
+  cursor: pointer;
+}
+.main-checkbox {
+  width: 12px;
+  height: 12px;
+}
+.main-end-text {
+  width: 178px;
+  height: 15px;
+  margin: 0 0 0 8px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #303134;
 }
 @media (min-width: 768px) and (max-width: 1239px) {
   .latestTranscation {
