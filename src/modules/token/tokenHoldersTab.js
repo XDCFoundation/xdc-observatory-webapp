@@ -165,19 +165,19 @@ export default function StickyHeadTable() {
           <Table>
             <TableHead>
               <TableRow className="w-100">
-                <TableCell style={{ border: "none" }} className="w-10" align="left">
+                <TableCell style={{ border: "none", }} className="w-10" align="left">
                   <span className={"tableheaders table-headers"}>Rank</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} className="w-40" align="left">
                   <span className={"tableheaders table-headers"}>Address</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} className="w-20" align="left">
+                <TableCell style={{ border: "none", paddingLeft: "17px" }} className="w-20" align="left">
                   <span className={"tableheaders table-headers"}>Quantity</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} className="w-21" align="left">
+                <TableCell style={{ border: "none", paddingLeft: "17px" }} className="w-21" align="left">
                   <span className={"tableheaders table-headers"}>Percentage</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} className="w-12" align="left">
+                <TableCell style={{ border: "none", paddingLeft: "17px" }} className="w-12" align="left">
                   <span className={"tableheaders table-headers"}>Value</span>
                 </TableCell>
               </TableRow>
