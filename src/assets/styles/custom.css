@@ -1479,6 +1479,9 @@ input:focus {
   .Network-explorer-internal {
     margin-left: 2px;
   }
+  .Network-explorer-internal:hover {
+    visibility: hidden;
+  }
 }
 
 .Token:hover {
@@ -8315,10 +8318,10 @@ button {
   .Network-explorer-internal {
     font-size: 14px;
   }
-  .Token-internal {
+  /* .Token-internal {
     margin-left: 149px;
     font-size: 14px;
-  }
+  } */
 
   .down-arrow-internal {
     margin-right: -9px;
@@ -9083,8 +9086,25 @@ button {
   .Network-explorer-internal {
     margin-top: 8px;
   }
+  .Network-explorer-internal:hover{
+    margin-top: 8px;
+  }
   .Token-internal {
     margin-top: 8px;
+  }
+  .Token-internal:hover {
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 767px) {
+  .Token-internal {
+    margin-left: 149px;
+    font-size: 14px;
+  }
+  .Token-internal:hover {
+    margin-left: 149px;
+    font-size: 14px;
   }
 }
 
