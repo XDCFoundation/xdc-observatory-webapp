@@ -323,7 +323,7 @@ export default function FormDialog(props) {
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
-  const [timer, setTimer] = React.useState('00:00');
+  const [timer, setTimer] = React.useState("00:00");
 
   const [emailError, setEmailError] = useState("");
   const [inputError, setInputError] = useState("");
@@ -359,8 +359,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.hash
-          ? setOpen(false)
-          : props.onClose(onClose);
+        ? setOpen(false)
+        : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -604,51 +604,50 @@ export default function FormDialog(props) {
     setReCaptcha(value);
   }
 
-
   const Ref = useRef(null);
 
   const getTimeRemaining = (e) => {
     const total = Date.parse(e) - Date.parse(new Date());
     const seconds = Math.floor((total / 1000) % 60);
     const minutes = Math.floor((total / 1000 / 60) % 60);
-    const hours = Math.floor((total / 1000 * 60 * 60) % 24);
+    const hours = Math.floor(((total / 1000) * 60 * 60) % 24);
     return {
-      total, hours, minutes, seconds
+      total,
+      hours,
+      minutes,
+      seconds,
     };
-  }
-
+  };
 
   const startTimer = (e) => {
-    let { total, minutes, seconds }
-      = getTimeRemaining(e);
+    let { total, minutes, seconds } = getTimeRemaining(e);
     if (total >= 0) {
       setTimer(
-        (minutes > 9 ? minutes : '0' + minutes) + ':'
-        + (seconds > 9 ? seconds : '0' + seconds)
-      )
+        (minutes > 9 ? minutes : "0" + minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
+      );
     }
-  }
-
+  };
 
   const clearTimer = (e) => {
-    setTimer('5:00');
+    setTimer("5:00");
     if (Ref.current) clearInterval(Ref.current);
     const id = setInterval(() => {
       startTimer(e);
-    }, 1000)
+    }, 1000);
     Ref.current = id;
-  }
+  };
 
   const getDeadTime = () => {
     let deadline = new Date();
     deadline.setSeconds(deadline.getSeconds() + 300);
     return deadline;
-  }
+  };
 
   const onClickReset = () => {
     clearTimer(getDeadTime());
-  }
-
+  };
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
@@ -673,7 +672,14 @@ export default function FormDialog(props) {
         )}
         <div className="dialogboxModal">
           <Dialog
-            classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : value === 4 ? classes.paperWidthSm2 : classes.paperWidthSm }}
+            classes={{
+              paperWidthSm:
+                value === 1
+                  ? classes.paperWidthSm1
+                  : value === 4
+                  ? classes.paperWidthSm2
+                  : classes.paperWidthSm,
+            }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
@@ -683,248 +689,259 @@ export default function FormDialog(props) {
               <div className="main-box">
                 <Row className="main-row">
                   <div className="main-title">New Features</div>
-                  <div
-                    className="main-close"
-                    onClick={handleClose}
-                  >
-                    <img src={require("../../../src/assets/images/XDC-Cross.svg")} />
+                  <div className="main-close" onClick={handleClose}>
+                    <img
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    />
                   </div>
                 </Row>
-                <div className="main-sub-title">Create your account and get started</div>
+                <div className="main-sub-title">
+                  Create your account and get started
+                </div>
                 <Row className="card-box">
                   <div className="card margin-right-20px">
-                    <img src={require("../../../src/assets/images/watchlist2.svg")} className="crad-image" />
+                    <img
+                      src={require("../../../src/assets/images/watchlist2.svg")}
+                      className="crad-image"
+                    />
                     <div className="card-title">Create watchlist</div>
                     <div className="card-text">
-                      An Email notification can be sent to you when an address on your watch list receives an incoming transaction.
+                      An Email notification can be sent to you when an address
+                      on your watch list receives an incoming transaction.
                     </div>
                   </div>
                   <div className="card margin-right-20px">
-                    <img src={require("../../../src/assets/images/transaction2.svg")} className="crad-image" />
+                    <img
+                      src={require("../../../src/assets/images/transaction2.svg")}
+                      className="crad-image"
+                    />
                     <div className="card-title">Add transaction label</div>
                     <div className="card-text">
-                      Add a personal note to a transaction hash to track it in future.
+                      Add a personal note to a transaction hash to track it in
+                      future.
                     </div>
                   </div>
                   <div className="card">
-                    <img src={require("../../../src/assets/images/private2.svg")} className="crad-image" />
+                    <img
+                      src={require("../../../src/assets/images/private2.svg")}
+                      className="crad-image"
+                    />
                     <div className="card-title">Add transaction label</div>
                     <div className="card-text">
-                      Add a personal note to a transaction hash to track it in future.
+                      Add a personal note to a transaction hash to track it in
+                      future.
                     </div>
                   </div>
                 </Row>
-                <div
-                  className="main-sing-up"
-                  onClick={handleClickOpenSignup}
-                >
+                <div className="main-sing-up" onClick={handleClickOpenSignup}>
                   <div className="main-sing-up-text"> Sign up</div>
                 </div>
                 <div className="main-end-box">
                   <input type="checkbox" className="main-checkbox" />
-                  <div className="main-end-text">Don't show this message again</div>
+                  <div className="main-end-text">
+                    Don't show this message again
+                  </div>
                 </div>
               </div>
-            ) :
-              value === 0 ? (
-                <div>
-                  {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
-                  <Row>
-                    <div className={classes.heading} id="form-dialog-title">
-                      Log in to your account
-                    </div>
+            ) : value === 0 ? (
+              <div>
+                {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
+                <Row>
+                  <div className={classes.heading} id="form-dialog-title">
+                    Log in to your account
+                  </div>
+                  <span
+                    onClick={handleClose}
+                    className={classes.closeContainer}
+                  >
+                    <img
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    ></img>
+                  </span>
+                </Row>
+                <DialogContent className={classes.userContainer}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Username</span>
+                  </DialogContentText>
+                  <input
+                    className={classes.input}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setEmailError("");
+                      setInputError(" ");
+                    }}
+                    type="text"
+                  ></input>
+                  <div className={classes.error}>{errorEmail}</div>
+                </DialogContent>
+                <DialogContent className={classes.passwordContainer}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Password</span>
                     <span
-                      onClick={handleClose}
-                      className={classes.closeContainer}
+                      className={classes.forgotPassword}
+                      onClick={handleOpenForgotPassword}
                     >
-                      <img
-                        className={classes.close}
-                        src={require("../../../src/assets/images/XDC-Cross.svg")}
-                      ></img>
-                    </span>
-                  </Row>
-                  <DialogContent className={classes.userContainer}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Username</span>
-                    </DialogContentText>
-                    <input
-                      className={classes.input}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        setEmailError("");
-                        setInputError(" ");
-                      }}
-                      type="text"
-                    ></input>
-                    <div className={classes.error}>{errorEmail}</div>
-                  </DialogContent>
-                  <DialogContent className={classes.passwordContainer}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Password</span>
-                      <span
-                        className={classes.forgotPassword}
-                        onClick={handleOpenForgotPassword}
-                      >
-                        Forgot Password?
-                      </span>
-                    </DialogContentText>
-
-                    <input
-                      type="password"
-                      type={passwordShown ? "text" : "password"}
-                      className={classes.input}
-                      onChange={(e) => setPassword(e.target.value)}
-                    ></input>
-                    <span>
-                      {passwordShown ? (
-                        <img
-                          src={require("../../../src/assets/images/show .svg")}
-                          className={classes.icon}
-                          onClick={togglePasswordVisiblity}
-                        />
-                      ) : (
-                        <img
-                          src={require("../../../src/assets/images/hide.svg")}
-                          className={classes.icon}
-                          onClick={togglePasswordVisiblity}
-                        />
-                      )}
-                    </span>
-                    <div className={classes.error}>{errorPassword}</div>
-                  </DialogContent>
-                  {isLoading == true ? (
-                    <div className={classes.loading} >
-
-                      <Loader />
-                    </div>
-
-                  ) : (
-                    <div></div>
-                  )}
-                  <DialogActions>
-                    <button
-                      className={classes.addbtn}
-                      onClick={() => {
-                        {
-                          { login() };
-                        }
-                      }}
-                    >
-                      Log in{" "}
-                    </button>
-                  </DialogActions>
-
-                  <div className={classes.value}></div>
-                  <DialogContentText className={classes.xdc}>
-                    New to XDC Explorer?{" "}
-                    <span
-                      className={classes.createaccount}
-                      onClick={handleClickOpenSignup}
-                    >
-                      {" "}
-                      Create an account
+                      Forgot Password?
                     </span>
                   </DialogContentText>
-                </div>
-              ) : value === 1 ? (
-                <div>
-                  {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
-                  <Row>
-                    <div className={classes.heading} id="form-dialog-title">
-                      Setup a New Account
-                    </div>
 
-                    <span
-                      onClick={handleClose}
-                      className={classes.closeContainer}
-                    >
+                  <input
+                    type="password"
+                    type={passwordShown ? "text" : "password"}
+                    className={classes.input}
+                    onChange={(e) => setPassword(e.target.value)}
+                  ></input>
+                  <span>
+                    {passwordShown ? (
                       <img
-                        className={classes.close}
-                        src={require("../../../src/assets/images/XDC-Cross.svg")}
-                      ></img>
-                    </span>
-                  </Row>
-                  <DialogContent className={classes.userContainerSignup}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Username</span>
-                    </DialogContentText>
-                    <input
-                      className={classes.input}
-                      placeholder="5 to 30 characters in length, only alphanumeric allowed"
-                      // name="userName"
-                      // value={signUp.userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                        src={require("../../../src/assets/images/show .svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity}
+                      />
+                    ) : (
+                      <img
+                        src={require("../../../src/assets/images/hide.svg")}
+                        className={classes.icon}
+                        onClick={togglePasswordVisiblity}
+                      />
+                    )}
+                  </span>
+                  <div className={classes.error}>{errorPassword}</div>
+                </DialogContent>
+                {isLoading == true ? (
+                  <div className={classes.loading}>
+                    <Loader />
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+                <DialogActions>
+                  <button
+                    className={classes.addbtn}
+                    onClick={() => {
+                      {
+                        {
+                          login();
+                        }
+                      }
+                    }}
+                  >
+                    Log in{" "}
+                  </button>
+                </DialogActions>
+
+                <div className={classes.value}></div>
+                <DialogContentText className={classes.xdc}>
+                  New to XDC Explorer?{" "}
+                  <span
+                    className={classes.createaccount}
+                    onClick={handleClickOpenSignup}
+                  >
+                    {" "}
+                    Create an account
+                  </span>
+                </DialogContentText>
+              </div>
+            ) : value === 1 ? (
+              <div>
+                {/*<------------------------------------------------ Signup Screen---------------------------------------------> */}
+                <Row>
+                  <div className={classes.heading} id="form-dialog-title">
+                    Setup a New Account
+                  </div>
+
+                  <span
+                    onClick={handleClose}
+                    className={classes.closeContainer}
+                  >
+                    <img
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    ></img>
+                  </span>
+                </Row>
+                <DialogContent className={classes.userContainerSignup}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Username</span>
+                  </DialogContentText>
+                  <input
+                    className={classes.input}
+                    placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                    // name="userName"
+                    // value={signUp.userName}
+                    onChange={(e) => setUserName(e.target.value)}
                     // onChange={inputEventSignUp}
-                    ></input>
-                    <div className={classes.error}>{errorUserName}</div>
-                  </DialogContent>
-                  <DialogContent className={classes.userContainerSignup}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Email</span>
-                    </DialogContentText>
-                    <input
-                      type="email"
-                      placeholder="A confirmation code will be sent to this email"
-                      className={classes.input}
-                      // name="email"
-                      onChange={(e) => setEmail(e.target.value)}
+                  ></input>
+                  <div className={classes.error}>{errorUserName}</div>
+                </DialogContent>
+                <DialogContent className={classes.userContainerSignup}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Email</span>
+                  </DialogContentText>
+                  <input
+                    type="email"
+                    placeholder="A confirmation code will be sent to this email"
+                    className={classes.input}
+                    // name="email"
+                    onChange={(e) => setEmail(e.target.value)}
                     // value={signUp.email}
 
                     // onChange={inputEventSignUp}
-                    ></input>
-                    <div className={classes.error}>{errorEmail}</div>
-                  </DialogContent>
-                  <DialogContent className={classes.userContainerSignup}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Password</span>
-                    </DialogContentText>
-                    <input
-                      type="password"
-                      id="password"
-                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                      className={classes.input}
-                      onChange={(e) => setPassword(e.target.value)}
+                  ></input>
+                  <div className={classes.error}>{errorEmail}</div>
+                </DialogContent>
+                <DialogContent className={classes.userContainerSignup}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Password</span>
+                  </DialogContentText>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                    className={classes.input}
+                    onChange={(e) => setPassword(e.target.value)}
                     // name="password"
                     // value={signUp.password}
                     // onChange={inputEventSignUp}
-                    ></input>
-                    <div className={classes.error}>{errorPassword}</div>
-                  </DialogContent>
-                  <DialogContent className={classes.userContainerSignup}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Confirm Password</span>
-                    </DialogContentText>
-                    <input
-                      type="password"
-                      id="password"
-                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                      className={classes.input}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
+                  ></input>
+                  <div className={classes.error}>{errorPassword}</div>
+                </DialogContent>
+                <DialogContent className={classes.userContainerSignup}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Confirm Password</span>
+                  </DialogContentText>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                    className={classes.input}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     // name="confirmPassword"
                     // value={signUp.confirmPassword}
                     // onChange={inputEventSignUp}
-                    ></input>
-                    <div className={classes.error}>{errorConfirmPassword}</div>
-                  </DialogContent>
-                  <div className={classes.termsContainer}>
-                    <input
-                      className={classes.checkbox}
-                      onClick={handleTermsCheckbox}
-                      type="checkbox"
-                    ></input>
-                    <span className="iAgree">
-                      I agree to the{" "}
-                      <a style={{ color: "#2b51bc" }} href="/term-conditions" >
-                        Terms of Use
-                      </a>
-                      {" "}&{" "}
-                      <a style={{ color: "#2b51bc" }} href="/privacy-policy"  >
-                        Privacy Policy
-                      </a>
-                    </span>
-                  </div>
-                  <div className={classes.error1}>{errorTermsCondition}</div>
-                  {/* <div className={classes.robotContainer}>
+                  ></input>
+                  <div className={classes.error}>{errorConfirmPassword}</div>
+                </DialogContent>
+                <div className={classes.termsContainer}>
+                  <input
+                    className={classes.checkbox}
+                    onClick={handleTermsCheckbox}
+                    type="checkbox"
+                  ></input>
+                  <span className="iAgree">
+                    I agree to the{" "}
+                    <a style={{ color: "#2b51bc" }} href="/term-conditions">
+                      Terms of Use
+                    </a>{" "}
+                    &{" "}
+                    <a style={{ color: "#2b51bc" }} href="/privacy-policy">
+                      Privacy Policy
+                    </a>
+                  </span>
+                </div>
+                <div className={classes.error1}>{errorTermsCondition}</div>
+                {/* <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
                    
                     <label class="container1">
@@ -941,163 +958,158 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                  <div className={classes.error2}>{errorCaptcha}</div>
-                  {isLoading == true ? (
-                    <div >
+                <div className={classes.error2}>{errorCaptcha}</div>
+                {isLoading == true ? (
+                  <div>
+                    <Loader />
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+                <button
+                  className={classes.createAccountbtn}
+                  onClick={handleSignUp}
+                >
+                  Create an Account{" "}
+                </button>
 
-                      <Loader />
-                    </div>
-
-                  ) : (
-                    <div></div>
-                  )}
-                  <button
-                    className={classes.createAccountbtn}
-                    onClick={handleSignUp}
+                <div className={classes.alreadyAccount}>
+                  <div>
+                    Already have an account?{" "}
+                    <span
+                      className={classes.signIn}
+                      onClick={handleClickOpenSignin}
+                    >
+                      Sign In
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : value === 2 ? (
+              //<------------------------------------Forgot success -------------------------------------------->
+              <div className="forgot-success">
+                <Row>
+                  {/* <div className={classes.heading} id="form-dialog-title"> */}
+                  <div className="forgot-success-title">
+                    You,ve successfully request a Forgot Password.
+                  </div>
+                  <span onClick={handleClose} className="forgot-success-close">
+                    <img
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    ></img>
+                  </span>
+                </Row>
+                <div className="forgot-success-box">
+                  <div className="forgot-success-text">
+                    If the email address belongs to a known account, a recovery
+                    password will be sent to you within the next few minutes.
+                  </div>
+                  <div className="forgot-success-text margin-top-20-px">
+                    If you have not received the email, you can make another
+                    request after 5 minutes
+                  </div>
+                </div>
+                <div className="forgot-success-time-div">
+                  <span className="forgot-success-time">
+                    {/* {time.m} : {time.s} */}
+                    {/* time */}
+                    {/* {minute}:{sec} */}
+                    {timer}
+                  </span>
+                </div>
+                <div className={classes.alreadyAccount}>
+                  <div>
+                    Back to{" "}
+                    <span
+                      className={classes.signIn}
+                      onClick={handleClickOpenSignin}
+                    >
+                      Sign In
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              // <------------------------------------------Forgot Password------------------------------------------------->
+              <div>
+                <Row>
+                  <div className={classes.heading} id="form-dialog-title">
+                    Forgot Password
+                  </div>
+                  <span
+                    onClick={handleClose}
+                    className={classes.closeContainer}
                   >
-                    Create an Account{" "}
-                  </button>
-
-
-                  <div className={classes.alreadyAccount}>
-                    <div>
-                      Already have an account?{" "}
-                      <span
-                        className={classes.signIn}
-                        onClick={handleClickOpenSignin}
-                      >
-                        Sign In
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ) : value === 2 ? (
-                //<------------------------------------Forgot success -------------------------------------------->
-                <div className="forgot-success">
-                  <Row>
-                    {/* <div className={classes.heading} id="form-dialog-title"> */}
-                    <div className="forgot-success-title">
-                      You,ve successfully request a Forgot Password.
-                    </div>
-                    <span
-                      onClick={handleClose}
-                      className="forgot-success-close"
-                    >
-                      <img
-                        className={classes.close}
-                        src={require("../../../src/assets/images/XDC-Cross.svg")}
-                      ></img>
-                    </span>
-                  </Row>
-                  <div className="forgot-success-box">
-                    <div className="forgot-success-text">
-                      If the email address belongs to a known account, a recovery password will be sent to you within the next few minutes.
-                    </div>
-                    <div className="forgot-success-text margin-top-20-px">
-                      If you have not received the email, you can make another request after 5 minutes
-                    </div>
-                  </div>
-                  <div className="forgot-success-time-div">
-                    <span className="forgot-success-time">
-                      {/* {time.m} : {time.s} */}
-                      {/* time */}
-                      {/* {minute}:{sec} */}
-                      {timer}
-                    </span>
-                  </div>
-                  <div className={classes.alreadyAccount}>
-                    <div>
-                      Back to{" "}
-                      <span
-                        className={classes.signIn}
-                        onClick={handleClickOpenSignin}
-                      >
-                        Sign In
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-              ) : (
-                // <------------------------------------------Forgot Password------------------------------------------------->
-                <div>
-                  <Row>
-                    <div className={classes.heading} id="form-dialog-title">
-                      Forgot Password
-                    </div>
-                    <span
-                      onClick={handleClose}
-                      className={classes.closeContainer}
-                    >
-                      <img
-                        className={classes.close}
-                        src={require("../../../src/assets/images/XDC-Cross.svg")}
-                      ></img>
-                    </span>
-                  </Row>
-                  <div className={classes.forgotText}>
-                    <p>
-                      Enter your registered email address and we will send you a
-                      password recovery link
-                    </p>
-                  </div>
-                  <DialogContent className={classes.userContainerSignup}>
-                    <DialogContentText className={classes.subCategory}>
-                      <span className={classes.fieldName}>Email Address</span>
-                    </DialogContentText>
-                    <input
-                      type="email"
-                      className={classes.input}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        setEmailError("");
-                        setInputError(" ");
-                      }}
-                    ></input>
-                  </DialogContent>
-
-                  {/* <div className={classes.robotContainerForgotPass}>
-                  <div className={classes.robotContainer1}>
-                   
-                    <label class="container1">
-                      <input type="checkbox"></input>
-                      <span
-                        class="checkmark1"
-                        onClick={handleCaptchaCheckbox}
-                      ></span>
-                    </label>
-                    <span className={classes.robotText}>I'm not a robot</span>
                     <img
-                      className={classes.recaptcha}
-                      src={require("../../../src/assets/images/recaptcha.svg")}
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
                     ></img>
-                  </div>
-                </div> */}
-
-                  <button
-                    className={classes.createAccountbtn}
-                    onClick={() => {
-                      // validateEmail();
-                      forgotpassword();
+                  </span>
+                </Row>
+                <div className={classes.forgotText}>
+                  <p>
+                    Enter your registered email address and we will send you a
+                    password recovery link
+                  </p>
+                </div>
+                <DialogContent className={classes.userContainerSignup}>
+                  <DialogContentText className={classes.subCategory}>
+                    <span className={classes.fieldName}>Email Address</span>
+                  </DialogContentText>
+                  <input
+                    type="email"
+                    className={classes.input}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setEmailError("");
+                      setInputError(" ");
                     }}
-                    disabled={!email}
-                  >
-                    Reset Password
-                  </button>
+                  ></input>
+                </DialogContent>
 
-                  <div className={classes.alreadyAccount}>
-                    <div>
-                      Back to{" "}
+                {/* <div className={classes.robotContainerForgotPass}>
+                  <div className={classes.robotContainer1}>
+                   
+                    <label class="container1">
+                      <input type="checkbox"></input>
                       <span
-                        className={classes.signIn}
-                        onClick={handleClickOpenSignin}
-                      >
-                        Sign In
-                      </span>
-                    </div>
+                        class="checkmark1"
+                        onClick={handleCaptchaCheckbox}
+                      ></span>
+                    </label>
+                    <span className={classes.robotText}>I'm not a robot</span>
+                    <img
+                      className={classes.recaptcha}
+                      src={require("../../../src/assets/images/recaptcha.svg")}
+                    ></img>
+                  </div>
+                </div> */}
+
+                <button
+                  className={classes.createAccountbtn}
+                  onClick={() => {
+                    // validateEmail();
+                    forgotpassword();
+                  }}
+                  disabled={!email}
+                >
+                  Reset Password
+                </button>
+
+                <div className={classes.alreadyAccount}>
+                  <div>
+                    Back to{" "}
+                    <span
+                      className={classes.signIn}
+                      onClick={handleClickOpenSignin}
+                    >
+                      Sign In
+                    </span>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
           </Dialog>
         </div>
       </div>
