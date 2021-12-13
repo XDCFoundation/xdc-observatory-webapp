@@ -60,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
   userContainer: {
     marginTop: "12px",
   },
+ 
+  
   passwordContainer: {
     marginTop: "15px",
   },
@@ -107,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
+    marginTop:"5px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -243,13 +246,23 @@ const useStyles = makeStyles((theme) => ({
       zIndex: -1
     }
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
-      top: "125px",
-      maxWidth: "503px",
-      width: "95%",
+      top: "102px",
+      height:"100%",
+      width: "100%",
+      borderRadius: "0px",
+      marginTop: "0px",
+      backgroundImage:"none",
+      opacity:"0px",
     },
+    closeContainer: {
+      display: "none",
+
+
+    },
+    
 
     paperWidthSm1: {
       position: "absolute",
@@ -588,13 +601,14 @@ export default function FormDialog(props) {
             ></img>
           </button> : "")
         }
-        <div>
+        <div className="dialogboxModal">
           <Dialog
             classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
+          
           >
             {value === 0 ? (
               <div>
@@ -613,6 +627,7 @@ export default function FormDialog(props) {
                     ></img>
                   </span>
                 </Row>
+                
                 <DialogContent className={classes.userContainer}>
                   <DialogContentText className={classes.subCategory}>
                     <span className={classes.fieldName}>Username</span>
@@ -638,6 +653,7 @@ export default function FormDialog(props) {
                       Forgot Password?
                     </span>
                   </DialogContentText>
+                  <div className="inputIconCntr">
 
                   <input
                     type="password"
@@ -660,6 +676,7 @@ export default function FormDialog(props) {
                       />
                     )}
                   </span>
+                  </div>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
@@ -669,7 +686,9 @@ export default function FormDialog(props) {
                   </div>
 
                 ) : (
-                  <div></div>
+                  <div>
+
+                  </div>
                 )}
                 <DialogActions>
                   <button
@@ -696,6 +715,9 @@ export default function FormDialog(props) {
                     Create an account
                   </span>
                 </DialogContentText>
+                <div className="loginMoView">
+
+                </div>
               </div>
             ) : value === 1 ? (
               <div>
