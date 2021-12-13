@@ -7121,10 +7121,18 @@ button {
   width: 400px;
   margin-top: 0.625rem;
 }
-@media (min-width: 375px) and (max-width: 767px) {
+@media (min-width: 300px) and (max-width: 767px) {
   .qrcode-label {
-    height: 240px;
-    width: 240px;
+    height: 240px !important;
+    width: 240px !important;
+    /* margin-top: 150px; */
+  }
+}
+@media (min-width: 300px) and (max-width: 767px) {
+  .close-qr {
+    margin-left: 318px !important;
+    margin-top: 200px !important;
+    /* margin-top: 150px; */
   }
 }
 
@@ -7139,15 +7147,18 @@ button {
   justify-content: space-between;
 }
 
-@media (min-width: 300px) and (max-width: 768px) {
+@media (min-width: 300px) and (max-width: 767px) {
   .source-code-verified-container {
     display: block;
     justify-content: space-between;
   }
   .header-popup {
     font-size: 0.75rem;
-    padding-top: 0.313rem;
-    padding-bottom: 3.75rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 320px;
+    margin-top: 30px;
+    word-break: break-all;
   }
   .popup-content {
     margin: 4.438rem 15.688rem 0 3.406rem;
@@ -7156,11 +7167,6 @@ button {
     height: 100%;
     padding: 5px;
     border-radius: 10px;
-  }
-  .qrcode-label {
-    height: 12.5rem;
-    width: 12.5rem;
-    margin-top: -1.25rem;
   }
 }
 .source-code-second-container {
