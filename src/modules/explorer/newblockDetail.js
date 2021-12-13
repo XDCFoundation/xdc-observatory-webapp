@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import styled from "styled-components";
@@ -14,7 +14,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import moment from "moment";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
-import queryString from 'query-string';
+import queryString from "query-string";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (min-width: 768px) and (max-width: 1239px)": {
       marginTop: "130px",
       maxWidth: "41.5rem",
-    }
-
+    },
   },
   rowDiv: {
     width: "100%",
@@ -59,20 +58,18 @@ export default function BlockDetails() {
   const [count, setcount] = useState(0);
   const [copiedText, setCopiedText] = useState("");
   const { blockNumber } = useParams();
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true);
   const parsed = queryString.parse(useLocation().search);
-  let hashKey = parsed?.hash
+  let hashKey = parsed?.hash;
 
   useEffect(() => {
-
     getLatestaccount(blockNumber);
     setcount(blockNumber);
-
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
     let urlPath;
-    if (typeof hashKey == 'undefined') {
+    if (typeof hashKey == "undefined") {
       urlPath = `${blockNumber}`;
     } else {
       urlPath = `${blockNumber}` + "?hash=" + hashKey;
@@ -83,10 +80,10 @@ export default function BlockDetails() {
     );
     if (error || !blockDetailsUsingHeight) return;
     setHeight(blockDetailsUsingHeight);
-    setLoading(false)
+    setLoading(false);
   };
   function increment() {
-    setLoading(true)
+    setLoading(true);
     let updatedCount = Number(count) + 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
@@ -94,7 +91,7 @@ export default function BlockDetails() {
   }
 
   function decrement() {
-    setLoading(true)
+    setLoading(true);
     let updatedCount = Number(count) - 1;
     setcount(updatedCount);
     window.history.pushState("", "", `/block-details/${updatedCount}`);
@@ -138,8 +135,8 @@ export default function BlockDetails() {
                     </Container>
 
                     <MiddleContainerHash>
-                      <Content >{height.hash}
-
+                      <Content>
+                        {height.hash}
 
                         <CopyToClipboard
                           text={height.hash}
@@ -153,9 +150,7 @@ export default function BlockDetails() {
                             }
                             placement="top"
                           >
-                            <button
-                              className="copy-icon-block-details"
-                            >
+                            <button className="copy-icon-block-details">
                               <ImgView
                                 src={require("../../../src/assets/images/copy.svg")}
                               />
@@ -256,7 +251,11 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>
                       <Content>
-                        <a onClick={decrement} className="parent_hash" style={{ cursor: "pointer" }}>
+                        <a
+                          onClick={decrement}
+                          className="parent_hash"
+                          style={{ cursor: "pointer" }}
+                        >
                           {height.parentHash}
                         </a>
                         <CopyToClipboard
@@ -298,7 +297,6 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>
                       <Content>
-
                         {height.sha3Uncles}
 
                         <CopyToClipboard
@@ -394,15 +392,12 @@ export default function BlockDetails() {
                       <Hash>Extra Data</Hash>
                     </Container>
                     <div className="block-details-extraData">
-
                       <textarea
                         className="text-area"
                         readOnly
                         value={height.extraData}
                       />
                     </div>
-
-
                   </Spacing>
                 </Div__>
               </div>
@@ -433,19 +428,19 @@ const Content = styled.span`
   color: #3a3a3a;
   word-break: break-all;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
   @media (min-width: 1241px) {
@@ -499,10 +494,10 @@ const Div__ = styled.div`
   margin-top: 20px;
   background-color: #fff;
   padding: 0rem 2.188rem 0.563rem 2.188rem;
-   @media (min-width: 0px) and (max-width: 767px) {
-     padding-right:10px;
-     padding-left:10px;
-   }
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 `;
 const MiddleContainer = styled.div`
   font-family: Inter;
@@ -514,22 +509,21 @@ const MiddleContainer = styled.div`
   width: 100%;
   @media (min-width: 0px) and (max-width: 767px) {
     margin-left: unset;
-    margin-top: 8px; 
-    font-size:0.875rem;
-     word-break: break-all; 
-    text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
-    opacity: 1;
-  }
-  @media (min-width: 768px) and (max-width:1240px) {
-    font-size:0.875rem;
+    margin-top: 8px;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
-
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
   }
   @media (min-width: 1241px) {
     height: 1.125rem;
@@ -572,7 +566,7 @@ const Hash = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -581,10 +575,10 @@ const Hash = styled.span`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.034rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
-  @media  (min-width: 1241px) {
+  @media (min-width: 1241px) {
     height: 1.125rem;
     font-family: Inter;
     font-size: 0.938rem;
@@ -605,7 +599,7 @@ const Spacing = styled.div`
   align-items: center;
   padding: 11px 6px 11px 0px;
   border-bottom: solid 1px #e3e7eb;
-  height:4.063rem;
+  height: 4.063rem;
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
@@ -660,7 +654,7 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 18px;
 
-  @media  (min-width: 1241px) {
+  @media (min-width: 1241px) {
     height: 1.813rem;
     font-family: Inter;
     font-size: 1.5rem;
@@ -672,7 +666,7 @@ const Heading = styled.span`
     text-align: left;
     color: #2a2a2a;
   }
-  @media  (min-width: 0px) and  (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -683,10 +677,10 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
-        margin-top: 75px;
+    margin-top: 75px;
     margin-bottom: 10px;
   }
-  @media  (min-width: 768px) and  (max-width:1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -704,18 +698,17 @@ const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
   cursor: pointer;
-  
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width: 0.688rem;
-   height: 0.688rem;
+
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.688rem;
+    height: 0.688rem;
   }
-   
-  @media  (min-width: 768px) and  (max-width: 1240px) {
-   width: 0.875rem;
-   height:0.875rem;
+
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 0.875rem;
+    height: 0.875rem;
   }
 `;
 const ImgView = styled.img`
   width: 20px;
-    
 `;
