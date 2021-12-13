@@ -1318,7 +1318,7 @@ input:focus {
 }
 
 .back-arrow {
-  margin-bottom: 0.313rem;
+  /* margin-bottom: 0.313rem; */
 }
 
 .navigation-arrow {
@@ -3528,6 +3528,7 @@ body {
     justify-content: space-between;
     margin-bottom: 5px;
   }
+
 }
 
 .contract-source-code-verify {
@@ -7054,12 +7055,10 @@ button {
 .outer-oval-trans {
   width: 14px;
   height: 14px;
-  margin: 12px 2px 18px 0;
+  margin: 12px 2px -10px 80px;
   padding: 5px 4px 4px 5px;
   background-color: rgba(55, 99, 221, 0.1);
   border-radius: 10px;
-  margin-bottom: -20px;
-  margin-left: 80px;
 }
 
 .Oval {
@@ -9106,4 +9105,29 @@ button {
 
 .radio-inside-dot > span > span > div > svg ~ svg > path {
   color: #2149b9;
+}
+
+.copyButton{
+  color: blue;
+  background-color: white;
+   font-size: 17px,
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .copyButton img{
+   width: 20px;
+
+
+  }
+  .addIconsReverve{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: -20px;
+  }
+  .imQrcode {
+    margin: 0 !important;
+    cursor: pointer;
+    color: #2149b9;
+    height: 0.963rem;
+    width: 0.863rem;
+  }
 }
