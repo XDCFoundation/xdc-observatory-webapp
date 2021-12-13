@@ -195,6 +195,7 @@ export default function AddressDetails(props) {
                       <Content>{addr}</Content>
                       {isTag ? (addressTag.map((item, index)=>{return <div className="nameLabel1" key={index}>{item}</div>})) : ("")}
                     </MiddleContainerHash>
+                    <div className="addIconsReverve"> 
                     <SecondContainer>
                       <CopyToClipboard
                         text={addr}
@@ -206,13 +207,7 @@ export default function AddressDetails(props) {
                           }
                           placement="top"
                         >
-                          <button
-                            style={{
-                              color: "blue",
-                              backgroundColor: "white",
-                              fontSize: 17,
-                            }}
-                          >
+                          <button className="copyButton"    >
                             <img
                               src={require("../../../src/assets/images/copy.svg")}
                             />
@@ -285,6 +280,7 @@ export default function AddressDetails(props) {
                         )}
                       </Popup>
                     </SecondContainer>
+                    </div>
                   </HashDiv>
                 </Spacing>
                 {/* <Spacing style={{ borderBottom: "none" }}>
@@ -432,9 +428,9 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 0.875rem;
+    font-size: .75rem;
     word-break: break-all;
-    margin-left:28px;
+    margin-left:17px;
   }
 `;
 const TextArea = styled.textarea`
@@ -503,7 +499,7 @@ const MiddleContainerHash = styled.div`
     font-size: 0.75rem;
     margin-left: unset;
     margin-top: 0.5rem;
-    padding-right: 2.313rem;
+    padding-right: 1.313rem;
   }
    @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
@@ -546,6 +542,7 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
+    padding: 0.438rem 0.438rem;
   }
 `;
 const Container = styled.div`
@@ -559,6 +556,7 @@ const SecondContainer = styled.div`
   display: flex;
   align-items: center;
   @media (min-width: 300px) and (max-width: 767px) {
+    margin-right: 70px;
   }
 `;
 
@@ -599,9 +597,14 @@ const Heading = styled.span`
 `;
 
 const ImageView = styled.img`
-  width: 0.938rem;
-  margin-right: 0.938rem;
+  ${'' /* width: 12px; */}
+  margin-right: 0.438rem;
   cursor: pointer;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.75rem;
+  ${'' /* margin-right: 0.638rem; */}
+  cursor: pointer;
+  }
 `;
 
 const AddressPath = styled.div`

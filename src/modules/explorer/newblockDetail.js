@@ -109,6 +109,14 @@ export default function BlockDetails() {
   const gasL = `Total gas limit provided by all transactions in the block`;
   const nonc = `Block nonce is a value used during mining to demonstrate proof of work for a block.`;
   const extrad = `Any data that can be included by the miner in the block.`;
+
+  const truncate = (input) => {
+    if (input.length > 40) {
+      return input.substring(0, 38) + '...';
+    }
+    return input;
+  };
+
   return (
     <div>
       <Tokensearchbar />
@@ -136,7 +144,8 @@ export default function BlockDetails() {
 
                     <MiddleContainerHash>
                       <Content>
-                        {height.hash}
+                        {height.hash && truncate(height.hash)}
+                        
 
                         <CopyToClipboard
                           text={height.hash}
@@ -256,7 +265,8 @@ export default function BlockDetails() {
                           className="parent_hash"
                           style={{ cursor: "pointer" }}
                         >
-                          {height.parentHash}
+                         {height.parentHash && truncate(height.parentHash)}
+
                         </a>
                         <CopyToClipboard
                           text={height.hash}
@@ -296,8 +306,8 @@ export default function BlockDetails() {
                       <Hash>Sha3Uncles</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>
-                        {height.sha3Uncles}
+                      <Content>    
+                         {height.sha3Uncles  && truncate(height.sha3Uncles )}
 
                         <CopyToClipboard
                           text={height.hash}

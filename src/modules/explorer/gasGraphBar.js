@@ -13,6 +13,9 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
                 <p className="Tooltip-graph-tx">Gas Price(Gwei): {props.point?.data?.y}</p>
             </div>
+            <div class="outer-oval-trans">
+        <div class="Oval"></div>
+      </div>
 
         </div>
     )
