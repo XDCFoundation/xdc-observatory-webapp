@@ -888,6 +888,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: 0.54px;
+    color:#252525;
   }
   .tableheaders_1 {
     font-size: 14px;
@@ -897,7 +898,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #2a2a2a !important;
+    color:#252525;
     opacity: 1;
     margin-right: 27px;
   }
@@ -911,7 +912,7 @@
     line-height: normal;
     letter-spacing: 0.54px;
     text-align: center;
-    color: #2a2a2a;
+    color:#252525;
 
     margin-right: 27px;
   }
