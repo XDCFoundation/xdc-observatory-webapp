@@ -314,7 +314,6 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-  console.log("props dialog", props);
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -498,10 +497,11 @@ export default function FormDialog(props) {
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
-    } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha");
-      setLoading(false);
-    } else {
+    }
+    // else if (captchaCheckbox === false) {
+    //   setErrorCaptcha("Please verify captcha")
+    //   setLoading(false);}
+    else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
@@ -551,24 +551,23 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha");
+    // if (captchaCheckbox === false) {
+    //   setErrorCaptcha("please verify captcha")
+    // } else {
+    const authObject = new AuthService();
+    let [error, authResponse] = await Utility.parseResponse(
+      authObject.forgotPassword(email)
+    );
+    if (error || !authResponse) {
+      setEmailError("Please enter a valid email address");
+      Utility.apiFailureToast("Wrong email");
     } else {
-      const authObject = new AuthService();
-      let [error, authResponse] = await Utility.parseResponse(
-        authObject.forgotPassword(email)
+      setEmail("");
+      // setCaptchaCheckbox(false);
+      Utility.apiSuccessToast(
+        "We have just sent you an email to reset your password."
       );
-      if (error || !authResponse) {
-        setEmailError("Please enter a valid email address");
-        Utility.apiFailureToast("Wrong email");
-      } else {
-        setEmail("");
-        setCaptchaCheckbox(false);
-        Utility.apiSuccessToast(
-          "We have just sent you an email to reset your password."
-        );
-        window.location.href = "/";
-      }
+      window.location.href = "/";
     }
   };
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
@@ -837,7 +836,7 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                <div className={classes.error2}>{errorCaptcha}</div>
+                {/* <div className={classes.error2}>{errorCaptcha}</div> */}
                 {isLoading == true ? (
                   <div>
                     <Loader />
