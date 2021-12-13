@@ -935,7 +935,7 @@ input:focus {
     margin: 20px auto auto auto !important;
   }
 }
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   .menu-sidebar {
     margin-top: 4px;
     fill: white;
@@ -1867,7 +1867,7 @@ p {
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
-  margin-top: 21px;
+  margin-top: 13px;
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
@@ -3270,6 +3270,9 @@ body {
 @media (max-width: 768px) {
   .content-tabs {
     margin-top: 10px;
+  }
+  .MuiBackdrop-root {
+    opacity: 0 !important;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -9082,7 +9085,7 @@ button {
   .Network-explorer-internal {
     margin-top: 8px;
   }
-  .Network-explorer-internal:hover{
+  .Network-explorer-internal:hover {
     margin-top: 8px;
   }
   .Token-internal {
@@ -9106,4 +9109,22 @@ button {
 
 .radio-inside-dot > span > span > div > svg ~ svg > path {
   color: #2149b9;
+}
+
+.inputIconCntr {
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 0px) and (max-width: 768px) {
+  .MuiBackdrop-root {
+    background-color: rgb(169 147 147 / 0%) !important;
+  }
+  .copy-edit {
+    align-self: flex-end !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .copy-edit {
+    align-self: center !important;
+  }
 }

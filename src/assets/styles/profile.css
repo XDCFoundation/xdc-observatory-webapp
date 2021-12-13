@@ -635,12 +635,22 @@ background-color: #4878ff; */
   }
   .heading {
     margin-bottom: -21px;
-    margin-top: 199px
+    margin-top: 199px;
   }
 }
 
 @media screen and (max-width: 714px) {
   .heading {
     width: 385px;
+  }
+}
+@media (max-width: 767px) {
+  .w-700-a {
+    width: 750px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .w-1500-a {
+    width: 1500px !important;
   }
 }
