@@ -14,6 +14,7 @@ import SearchData from "../../services/search";
 import Utility from "../../utility";
 import Popover from "./popover";
 import ChangePassword from "./changePassword";
+import { sessionManager } from "../../managers/sessionManager";
 
 const drawerWidth = 240;
 
@@ -141,6 +142,7 @@ export default function Navbar() {
   const openChangePassword = () => {
     setOpenPasswordBox(!openPasswordBox);
   };
+  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
   const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
@@ -791,7 +793,7 @@ export default function Navbar() {
                 onClick={toggleDrawer("right", true)}
               >
                 <img
-                  className="Shape2-internal1"
+                  className={isloggedIn ? "Shape2-internal1" : "menu-sidebar"}
                   src={require("../../../src/assets/images/Menu.svg")}
                 ></img>
                 {/* <MenuIcon /> */}
