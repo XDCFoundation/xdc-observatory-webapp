@@ -885,59 +885,59 @@ export default function SimpleTabs(props) {
               tableValue === 1 ? (
                 ""
               ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                <CSVLink
-                  filename={"private_note.csv"}
-                  data={downloadTxnPvtNote}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              ) : (
-                <CSVLink
-                  filename={"tag_address.csv"}
-                  data={downloadTagAddress}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              )
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
+                tableValue === 2 ? (
+                  <CSVLink
+                    filename={"private_note.csv"}
+                    data={downloadTxnPvtNote}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                ) : (
+                  <CSVLink
+                    filename={"tag_address.csv"}
+                    data={downloadTagAddress}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                )
             ) : (
               <CSVLink
                 filename={"tag_address.csv"}
@@ -1240,7 +1240,7 @@ export default function SimpleTabs(props) {
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
-                                  // className={classes.Rectangle}
+                                // className={classes.Rectangle}
                                 />
                               </TableCell>
                               <TableCell

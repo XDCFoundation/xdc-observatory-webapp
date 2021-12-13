@@ -935,7 +935,7 @@ input:focus {
     margin: 20px auto auto auto !important;
   }
 }
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   .menu-sidebar {
     margin-top: 4px;
     fill: white;
@@ -1867,7 +1867,7 @@ p {
   height: 2.375rem;
   padding: 0.5rem 0.644rem 0 0.75rem;
   margin-right: 0.625rem;
-  margin-top: 21px;
+  margin-top: 13px;
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
