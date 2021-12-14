@@ -398,13 +398,13 @@ export default function FormDialog(props) {
   }, []);
 
   return (
-    <div>
+    <div >
      
-        <div className={classes.add}>
+        <div className={classes.add} >
           <button className="login-button" onClick={handleClickOpen}>
             <div className="edit">Edit Profile</div>
           </button>
-          <ProfilePicContainer>
+          <ProfilePicContainer >
             <Dialog
               classes={{ paper: classes.paper }}
               className={classes.dialog}
@@ -412,7 +412,7 @@ export default function FormDialog(props) {
               onClose={handleClose}
               aria-labelledby="form-dialog-title"
             >
-             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+             <div className={isLoading == true ? "cover-spin-loginDialog" : ""} style={{overflow: "hidden"}}>
               <Wrapper>
                 <Title>Edit Profile</Title>
 
@@ -431,7 +431,7 @@ export default function FormDialog(props) {
               />
 
               <DialogContent
-                style={{ padding: "8px 35px", marginBottom: "14px" }}
+                style={{ padding: "8px 35px", marginBottom: "14px" , overflow:"hidden"}}
               >
                 <DialogContentText className={classes.subCategory}>
                   Username
