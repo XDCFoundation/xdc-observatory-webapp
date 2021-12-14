@@ -242,56 +242,6 @@ export default function Transaction({ _handleChange }) {
   //     <div><Loader /></div>
   //   )
   // }
-  function shorten(b, amountL = 20, amountR = 3, stars = 3) {
-
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-
-      b.length - 3,
-
-      b.length
-
-    )}`;
-
-  }
-  function getWindowDimensions() {
-
-    const { innerWidth: width, innerHeight: height } = window;
-
-    return {
-
-      width,
-
-      height
-
-    };
-
-  }
-
-
-
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
-
-
-
-  React.useEffect(() => {
-
-    function handleResize() {
-
-      setWindowDimensions(getWindowDimensions());
-
-    }
-
-
-
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-
-  }, []);
-
-  const { width } = windowDimensions
-
-
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -456,7 +406,6 @@ export default function Transaction({ _handleChange }) {
                         <Hash>From</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        
                         <Content>
                           {" "}
                           <span
@@ -466,8 +415,7 @@ export default function Transaction({ _handleChange }) {
                               className="linkTableDetails-transaction"
                               href={"/address-details/" + transactions.from}
                             >
-                              {transactions.from}
-                              
+                              {transactions.from}{" "}
                             </a>
                             <div
                               className={
