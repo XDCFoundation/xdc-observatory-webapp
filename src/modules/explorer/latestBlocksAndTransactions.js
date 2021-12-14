@@ -272,7 +272,7 @@ class LatestBlocks extends Component {
                                 className={
                                   animationClass ? animationClass : "height pad-lef-18"
                                 }
-                                href={"/block-details/" + z.number+"?hash="+z.hash}
+                                href={"/block-details/" + z.number}
                               >
                                 {z.number.toLocaleString()}
                               </a>

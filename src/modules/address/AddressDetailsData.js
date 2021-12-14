@@ -74,7 +74,7 @@ export default function AddressDetailsData() {
         ContractData.getContractDetails(values)
       );
       if (responseData.address != '') {
-        setResponses(responseData)
+        setResponses(responseData.contractResponse)
         let activeCurrency = window.localStorage.getItem('currency')
         let convertedCurrency = ''
         let value = 0
@@ -101,7 +101,7 @@ export default function AddressDetailsData() {
           balance: responseData.balance,
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
-          creator: responseData.owner,
+          creator: responseData.contractResponse.owner,
           transaction: responseData.creationTransaction,
           currencySymbol: convertedCurrency,
           val: value,
@@ -118,7 +118,7 @@ export default function AddressDetailsData() {
     }
   }
   React.useEffect(() => {
-    let values = { addr: addressNumber, pageNum: from, perpage: amount, keywords: '' }
+    let values = { addr: addressNumber }
     getContractDetails(values)
 
   }, []);

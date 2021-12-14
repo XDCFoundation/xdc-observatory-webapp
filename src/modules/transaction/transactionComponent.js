@@ -6,10 +6,10 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import {Grid, TableContainer} from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Loader from '../../assets/loader'
 
@@ -249,7 +249,7 @@ export default function TransactionComponent(props) {
                           {" "}
                           <a
                             className="linkTable"
-                            href={"/block-details/" + row.blockNumber+"?hash="+row.blockHash}
+                            href={"/block-details/" + row.blockNumber}
                           >
                             {" "}
                             <span

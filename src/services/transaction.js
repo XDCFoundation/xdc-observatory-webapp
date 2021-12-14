@@ -3,7 +3,7 @@ import { httpConstants } from "../constants";
 
 export default {
     getTotalTransaction, getLatestTransaction, getSomeDaysTransaction, getTransactionDetailsUsingHash, getUserTransactionPrivateNoteUsingHash, getUserAddressTagUsingAddressHash,
-    deleteTransactionPrivateNote
+    deleteTransactionPrivateNote, getCoinMarketDetailForTransaction
 }
 async function getTotalTransaction() {
     let url = process.env.REACT_APP_GET_TOTAL_TRANSACTION;
@@ -97,6 +97,20 @@ async function getUserAddressTagUsingAddressHash(data) {
 async function deleteTransactionPrivateNote(data) {
     let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "delete-transaction-Private-note";
     return httpService(httpConstants.METHOD_TYPE.PUT, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
+        .then(
+            response => {
+                if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
+                    return Promise.reject();
+                return Promise.resolve(response.responseData);
+
+            }
+        ).catch(function (err) {
+            return Promise.reject(err);
+        });
+}
+async function getCoinMarketDetailForTransaction(path, data) {
+    let url = process.env.REACT_APP_GET_COIN_MARKET_DETAIL_FOR_TRANSACTION + path;
+    return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, data, url)
         .then(
             response => {
                 if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
