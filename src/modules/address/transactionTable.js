@@ -483,7 +483,7 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.blockNumber + "?hash=" + row.blockHash}
+                              href={'/block-details/' + row.blockNumber}
                             >
                               <span className="tabledata">{row.blockNumber}</span>
                             </a>

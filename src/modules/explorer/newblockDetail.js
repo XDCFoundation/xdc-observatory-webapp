@@ -68,12 +68,7 @@ export default function BlockDetails() {
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
-    let urlPath;
-    if (typeof hashKey == "undefined") {
-      urlPath = `${blockNumber}`;
-    } else {
-      urlPath = `${blockNumber}` + "?hash=" + hashKey;
-    }
+    let urlPath = `${blockNumber}`;
 
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
@@ -145,7 +140,7 @@ export default function BlockDetails() {
                     <MiddleContainerHash>
                       <Content>
                         {height.hash && truncate(height.hash)}
-                        
+
 
                         <CopyToClipboard
                           text={height.hash}
@@ -265,7 +260,7 @@ export default function BlockDetails() {
                           className="parent_hash"
                           style={{ cursor: "pointer" }}
                         >
-                         {height.parentHash && truncate(height.parentHash)}
+                          {height.parentHash && truncate(height.parentHash)}
 
                         </a>
                         <CopyToClipboard
@@ -306,8 +301,8 @@ export default function BlockDetails() {
                       <Hash>Sha3Uncles</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>    
-                         {height.sha3Uncles  && truncate(height.sha3Uncles )}
+                      <Content>
+                        {height.sha3Uncles && truncate(height.sha3Uncles)}
 
                         <CopyToClipboard
                           text={height.hash}
