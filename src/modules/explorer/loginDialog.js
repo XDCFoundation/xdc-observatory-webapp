@@ -652,7 +652,7 @@ export default function FormDialog(props) {
   //------------------------------------------------------------------------------------------------------------------------------------->
 
 
- 
+
 
   return (
     <div>
@@ -976,7 +976,7 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                <div className={classes.error2}>{errorCaptcha}</div>
+                {/* <div className={classes.error2}>{errorCaptcha}</div> */}
                 {isLoading == true ? (
                   <div>
                     <Loader />

@@ -481,7 +481,7 @@ export default function AddressTableComponent(props) {
                       //   address.filter((addr) => addr?.isChecked == true)
                       //     .length == address.length
                       // }
-                      style={{ marginRight: '0.5rem' }}
+                      style={{ marginRight: '0.5rem', verticalAlign: "middle" }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>
                   </TableCell>
