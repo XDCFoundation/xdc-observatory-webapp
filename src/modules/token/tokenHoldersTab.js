@@ -103,9 +103,11 @@ export default function StickyHeadTable() {
     if (error || !tns) return;
     setHolders(tns);
     setLoading(false);
-    // if (tns.data == 0) {
-    //   setNoData(false)
-    // }
+
+    if (!tns.data || tns.data.length === 0) {
+      setNoData(false);
+    }
+
     setTotalHolder(tns?.responseCount);
   };
 
@@ -253,7 +255,7 @@ export default function StickyHeadTable() {
                     </StyledTableRow>
                   );
                 })}
-                {noData == false && (
+                {noData === false && (
                   <div className="No-data-found">
                     <span
                       style={{ textAlign: "center", color: "#2a2a2a" }}
