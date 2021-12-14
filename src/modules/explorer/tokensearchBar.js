@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 640px)": {
     list: {
-      width: 180,
+      width: 228,
       backgroundColor: "#102e84",
       height: "100%",
     },
@@ -230,7 +230,7 @@ export default function Navbar() {
             color: "#4666c4",
             fontSize: 13,
             fontFamily: "Inter",
-            marginLeft: 20,
+            marginLeft: 23,
             marginTop: "20px",
           }}
         >
