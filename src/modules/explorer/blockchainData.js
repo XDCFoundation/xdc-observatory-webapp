@@ -29,7 +29,7 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (min-width:767px) and (max-width: 1240px) {
+  @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
     /* width: auto; */
     width: 41.5rem;
@@ -38,7 +38,7 @@ const MainContainer = styled.div`
     height: 38.625rem;
     padding-top: 0px;
   }
-  @media (min-width:0px) and (max-width :767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column;
     /* width: auto; */
     width: 22.563rem;
@@ -48,20 +48,21 @@ const MainContainer = styled.div`
     padding-top: 0px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-top: 15px;
   }
 `;
 const MobileScreen = styled.div`
-margin-right: 3px;
-@media (max-width:767px){
-  margin-top: 3px;
-  margin-right:-35px ;
-}
-@media (min-width:767px){
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-right: 0px;
-}
+  margin-right: 3px;
+  @media (max-width: 767px) {
+    margin-top: 3px;
+    margin-right: -35px;
+  }
+  @media (min-width: 767px) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 0px;
+  }
 `;
 const LeftFirst = styled.div`
   flex: 0.3;
@@ -69,10 +70,10 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     padding: 10px 14px 0;
   }
-  @media (min-width:767px) and (max-width:1240px){
+  @media (min-width: 767px) and (max-width: 1240px) {
     padding: 20px 10px 0 0;
   }
 `;
@@ -80,22 +81,19 @@ const LeftContainer = styled.div`
   flex: 0.53;
   display: flex;
   flex-direction: column;
-  
 `;
 const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
   margin-left: 12px;
-  
 `;
 
 const LeftSec = styled.div`
   flex: 0.7;
-      margin-top: 10px;
-  @media (min-width:335px) and (max-width:767px){
+  margin-top: 10px;
+  @media (min-width: 335px) and (max-width: 767px) {
     padding: 0 3%;
   }
-  
 `;
 const ValueMain = styled.div`
   display: flex;
@@ -109,7 +107,7 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 15px;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     padding: 10px 0px 0 0;
     width: 9.75rem;
   }
@@ -118,14 +116,13 @@ const TitleIcon = styled.img`
   width: 22%;
   margin-right: 8px;
   margin-bottom: 36px;
-  @media (max-width:767px){
+  @media (max-width: 767px) {
     width: 18%;
     margin-right: 9px;
     margin-left: -8px;
     margin-top: 8px;
     margin-bottom: 28px;
-}
-  
+  }
 `;
 
 const ValueName = styled.div`
@@ -152,8 +149,22 @@ const TitleValue = styled.div`
   line-height: normal;
   letter-spacing: 0.58px;
   color: #2a2a2a;
-  @media (max-width:767px){
+  @media (max-width: 767px) {
     font-size: 0.875rem;
+  }
+`;
+const TitleData = styled.div`
+  font-size: 1rem;
+  font-family: Inter;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  color: #2a2a2a;
+  @media (max-width: 767px) {
+    white-space: nowrap;
+    width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 const LeftTop = styled.div`
@@ -166,17 +177,14 @@ const IconLogo = styled.img`
   width: 2.625rem;
   height: 2.625rem;
   margin-right: 12px;
-  @media (max-width:0px) and (max-width:767px){
+  @media (max-width: 0px) and (max-width: 767px) {
     width: 3.125rem;
     height: 3.125rem;
-
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width: 768px) and (max-width: 1240px) {
     width: 2.625rem;
-   height: 2.625rem;
-
+    height: 2.625rem;
   }
-  
 `;
 const LeftTitle = styled.div`
   font-size: 1.75rem;
@@ -187,10 +195,10 @@ const LeftTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.9px;
   color: #2a2a2a;
-  @media (max-width:767px){
+  @media (max-width: 767px) {
     font-size: 1.375rem;
-  }  
-  @media (min-width:768px){
+  }
+  @media (min-width: 768px) {
     font-size: 1.5rem;
   }
 `;
@@ -199,14 +207,14 @@ const Line1 = styled.hr`
   width: 100%;
   position: absolute;
   top: 65%;
-  @media (min-width:0px) and (max-width:767px){
-    width:90%;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 90%;
     top: 87%;
-    }
-  @media (min-width:767px) and (max-width:1240px){
-    width:97%;
+  }
+  @media (min-width: 767px) and (max-width: 1240px) {
+    width: 97%;
     top: 60%;
-    }
+  }
 `;
 const LeftTopSec = styled.div`
   font-size: 1.375rem;
@@ -214,10 +222,9 @@ const LeftTopSec = styled.div`
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #2a2a2a;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
   }
-
 `;
 const LeftTopSecMain = styled.div`
   display: flex;
@@ -226,7 +233,6 @@ const LeftTopSecMain = styled.div`
   margin-right: 5px;
   margin-top: 7px;
 `;
-
 
 class BlockChainDataComponent extends Component {
   constructor(props) {
@@ -314,9 +320,9 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-            this.state.transactionDataDetails[0]?.gasPrice /
-            1000000000000000000
-          ).toFixed(9)
+              this.state.transactionDataDetails[0]?.gasPrice /
+              1000000000000000000
+            ).toFixed(9)
           : 0;
         if (gp >= 0.000000001) {
           this.setState({ gasPrice: gp });
@@ -490,8 +496,8 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-          ? "$"
-          : "€";
+        ? "$"
+        : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
@@ -503,12 +509,15 @@ class BlockChainDataComponent extends Component {
     let txhash = this.state.transactionDataDetails[0]?.hash;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
-    let currentTp = this.state.tpsCounts
+    let currentTp = this.state.tpsCounts;
 
     return (
-      <MainContainer className={this.state.loading == true ? "cover-spin-3" : ""}>
-
-        <LeftContainer className={this.state.loading == true ? "cover-spin" : ""}>
+      <MainContainer
+        className={this.state.loading == true ? "cover-spin-3" : ""}
+      >
+        <LeftContainer
+          className={this.state.loading == true ? "cover-spin" : ""}
+        >
           <LeftFirst>
             <LeftTop>
               <IconLogo src={logo} />
@@ -559,7 +568,9 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={blockHeightImg} />
                   <ValueName>
                     <Title>Block Height</Title>
-                    <TitleValue className={animationClass ? animationClass : ""}>
+                    <TitleValue
+                      className={animationClass ? animationClass : ""}
+                    >
                       {this.state.blockdataNumber[0]?.number.toLocaleString()}
                     </TitleValue>
                   </ValueName>
@@ -575,9 +586,7 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={maxLogo} />
                   <ValueName>
                     <Title>Current/Max TPS</Title>
-                    <TitleValue>
-                      {currentTp ? currentTp : 0}/2000
-                    </TitleValue>
+                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
                   </ValueName>
                 </Value>
               </MobileScreen>
@@ -586,18 +595,20 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={priceLogo} />
                   <ValueName>
                     <Title>Gas Price</Title>
-                    <TitleValue
+                    <TitleData
                       className={TxanimationClass ? TxanimationClass : ""}
                     >
                       {this.state.gasPrice}
-                    </TitleValue>
+                    </TitleData>
                   </ValueName>
                 </Value>
                 <Value>
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
                     <Title>Difficulty</Title>
-                    <TitleValue className={animationClass ? animationClass : ""}>
+                    <TitleValue
+                      className={animationClass ? animationClass : ""}
+                    >
                       {this.state.blockdataNumber[0]?.totalDifficulty}
                     </TitleValue>
                   </ValueName>
@@ -624,7 +635,11 @@ class BlockChainDataComponent extends Component {
                               {/* <BsFillCaretUpFill size={10} /> */}
                               <img
                                 src={require("../../../src/assets/images/Up.svg")}
-                                style={{ width: "0.5rem", marginRight: "5px", marginBottom: "5px" }}
+                                style={{
+                                  width: "0.5rem",
+                                  marginRight: "5px",
+                                  marginBottom: "5px",
+                                }}
                               />
                             </div>
                           ) : (
@@ -632,7 +647,11 @@ class BlockChainDataComponent extends Component {
                               {/* <BsFillCaretDownFill size={10} /> */}
                               <img
                                 src={require("../../../src/assets/images/Down.svg")}
-                                style={{ width: "0.5rem", marginRight: "5px", marginBottom: "5px" }}
+                                style={{
+                                  width: "0.5rem",
+                                  marginRight: "5px",
+                                  marginBottom: "5px",
+                                }}
                               />
                             </div>
                           )}
@@ -647,10 +666,12 @@ class BlockChainDataComponent extends Component {
           </LeftSec>
         </LeftContainer>
 
-        <RightContainer className={this.state.loading == true ? "cover-spin" : ""}>
+        <RightContainer
+          className={this.state.loading == true ? "cover-spin" : ""}
+        >
           <Tab />
         </RightContainer>
-      </MainContainer >
+      </MainContainer>
     );
   }
 }

@@ -13,6 +13,9 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
                 <p className="Tooltip-graph-tx">Accounts: {props.point?.data?.y}</p>
             </div>
+            <div class="outer-oval-trans">
+        <div class="Oval"></div>
+      </div>
             {/* <TriangleArrowDown /> */}
         </div>
     )

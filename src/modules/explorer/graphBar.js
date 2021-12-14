@@ -47,7 +47,7 @@ const MyResponsiveLine = ({ data }) => (
     enableCrosshair={false}
     pointBorderWidth={2}
     pointBorderColor={{ from: "serieColor" }}
-    pointLabelYOffset={-12}
+    pointLabelYOffset={1}
     enableArea={true}
     useMesh={true}
     legends={[]}
