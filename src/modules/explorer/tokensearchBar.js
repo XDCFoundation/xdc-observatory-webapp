@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
   },
- 
+
   content: {
     flexGrow: 1,
     transition: theme.transitions.create("margin", {
@@ -105,7 +105,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
-    
   },
 
   "@media (min-width: 0px) and (max-width: 640px)": {
@@ -113,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
       width: 180,
       backgroundColor: "#102e84",
       height: "100%",
-    }
+    },
   },
   fullList: {
     width: "auto",
@@ -241,7 +240,6 @@ export default function Navbar() {
           <IconButton
             style={{ color: "white" }}
             onClick={toggleDrawer(anchor, false)}
-           
           >
             {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
           </IconButton>
@@ -667,12 +665,14 @@ export default function Navbar() {
                     to={"/"}
                     className="Network-explorer-internal"
                   >
-                   Network Explorer
+                    Network Explorer
                   </NavLink>
                 </div>
                 <div>
                   <a href="/">
-                    <div className="Network-explorer-internal">Network Explorer</div>
+                    <div className="Network-explorer-internal">
+                      Network Explorer
+                    </div>
                   </a>
                 </div>
                 <div>
@@ -710,6 +710,7 @@ export default function Navbar() {
                             width: 18,
                             height: 18,
                             marginRight: 3,
+                            marginTop: 1,
                           }}
                           src={require("../../assets/images/Search.svg")}
                         />
@@ -725,7 +726,7 @@ export default function Navbar() {
                                   handleSearch(event);
                                 }
                               }}
-                              className="main-input-td"
+                              className="main-input-td "
                               src={require("../../images/Search.png")}
                               placeholder="Search for an address, a Transaction or a block number"
                             />

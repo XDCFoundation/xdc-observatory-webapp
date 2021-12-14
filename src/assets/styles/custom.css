@@ -1,4 +1,4 @@
-@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+/* @import "../../../node_modules/bootstrap/dist/css/bootstrap.css"; */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
@@ -3283,7 +3283,7 @@ body {
 }
 
 .days p {
-  width: 3.5rem;
+  width: 4.5rem;
   height: 1.3rem;
   font-size: 0.875rem;
   color: #2a2a2a;
@@ -3294,7 +3294,7 @@ body {
   font-family: "Inter" !important;
   font-weight: 600;
   margin-top: -3px;
-  padding-left: 1.5px;
+  padding-left: 8.5px;
   padding-top: 10.9px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
@@ -5090,7 +5090,7 @@ button {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-.main-close{
+.main-close {
   cursor: pointer;
 }
 .main-checkbox {
@@ -7098,6 +7098,7 @@ button {
   border-radius: 10px;
   box-shadow: black;
   padding-top: 1.3rem;
+  text-align: center;
 }
 
 .second-row-table-block {
@@ -7326,9 +7327,23 @@ button {
   width: 400px;
   margin-top: 0.625rem;
 }
+@media (min-width: 300px) and (max-width: 767px) {
+  .qrcode-label {
+    height: 240px !important;
+    width: 240px !important;
+    /* margin-top: 150px; */
+  }
+}
+@media (min-width: 300px) and (max-width: 767px) {
+  .close-qr {
+    margin-left: 318px !important;
+    margin-top: 200px !important;
+    /* margin-top: 150px; */
+  }
+}
 
 .header-popup {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   padding-top: 0.313rem;
   padding-bottom: 3.75rem;
 }
@@ -7338,28 +7353,26 @@ button {
   justify-content: space-between;
 }
 
-@media (min-width: 300px) and (max-width: 768px) {
+@media (min-width: 300px) and (max-width: 767px) {
   .source-code-verified-container {
     display: block;
     justify-content: space-between;
   }
   .header-popup {
     font-size: 0.75rem;
-    padding-top: 0.313rem;
-    padding-bottom: 3.75rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 320px;
+    margin-top: 30px;
+    word-break: break-all;
   }
   .popup-content {
     margin: 4.438rem 15.688rem 0 3.406rem;
     background: rgb(255, 255, 255);
-    width: 21.888rem;
-    height: 27.5rem;
+    width: 100%;
+    height: 100%;
     padding: 5px;
     border-radius: 10px;
-  }
-  .qrcode-label {
-    height: 12.5rem;
-    width: 12.5rem;
-    margin-top: -1.25rem;
   }
 }
 .source-code-second-container {
@@ -7758,6 +7771,7 @@ button {
     width: 12.5rem;
     padding-bottom: 6px;
     font-size: 12px !important;
+    margin-top: 1px;
   }
   .mobFilter {
     margin-top: -2px;
@@ -7988,10 +8002,17 @@ button {
     letter-spacing: 0.72px;
     color: #2a2a2a;
   } */
+  .search-svg {
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 3px;
+    margin-top: 2px !important;
+  }
 
   .main-input-td {
     width: 31rem;
   }
+
   .select-td {
     margin-left: -34px;
     background-color: white !important;
@@ -9243,6 +9264,7 @@ button {
   outline-color: transparent;
   border-width: 0;
   padding-top: 3px;
+  margin: 1px;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
@@ -9388,6 +9410,9 @@ button {
 
 .radio-inside-dot > span > span > div > svg ~ svg > path {
   color: #2149b9;
+}
+.m-top-1 {
+  margin-top: 1px;
 }
 
 .inputIconCntr {
