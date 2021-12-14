@@ -415,7 +415,8 @@ export default function Transaction({ _handleChange }) {
                               className="linkTableDetails-transaction"
                               href={"/address-details/" + transactions.from}
                             >
-                              {transactions.from}{" "}
+                              {/* {transactions.from}{" "} */}
+                              0x6dd1cd0e7c8ed6fededc919105f520fe932147602ca62
                             </a>
                             <div
                               className={
@@ -447,7 +448,9 @@ export default function Transaction({ _handleChange }) {
                                       className={
                                         width > 1240
                                           ? "copy-icon"
-                                          : "copy-icon-from"
+                                          : width < 768
+                                          ? "copy-icon-from"
+                                          : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
@@ -534,7 +537,9 @@ export default function Transaction({ _handleChange }) {
                                       className={
                                         width > 1240
                                           ? "copy-icon"
-                                          : "copy-icon-from"
+                                          : width < 768
+                                          ? "copy-icon-from"
+                                          : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
