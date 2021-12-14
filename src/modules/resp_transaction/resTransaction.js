@@ -216,14 +216,14 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -287,8 +287,8 @@ export default function Transaction({ _handleChange }) {
                             width > 1240
                               ? "copyEditContainer"
                               : width <= 1240 && width >= 768
-                              ? "copyEditContainerTab"
-                              : "copyEditContainerMobile"
+                                ? "copyEditContainerTab"
+                                : "copyEditContainerMobile"
                           }
                         >
                           <CopyToClipboard
@@ -315,8 +315,8 @@ export default function Transaction({ _handleChange }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copyIconHashMobile"
-                                      : "copyIconHash"
+                                        ? "copyIconHashMobile"
+                                        : "copyIconHash"
                                   }
                                   src={require("../../../src/assets/images/copy.svg")}
                                 />
@@ -337,8 +337,8 @@ export default function Transaction({ _handleChange }) {
                                 width > 1240
                                   ? "edit-icon"
                                   : width < 768
-                                  ? "editIconHashMobile"
-                                  : "editIconHash"
+                                    ? "editIconHashMobile"
+                                    : "editIconHash"
                               }
                               onClick={openDialogPvtNote}
                               src={require("../../../src/assets/images/XDC-Edit.svg")}
@@ -415,8 +415,8 @@ export default function Transaction({ _handleChange }) {
                               className="linkTableDetails-transaction"
                               href={"/address-details/" + transactions.from}
                             >
-                              {/* {transactions.from}{" "} */}
-                              0x6dd1cd0e7c8ed6fededc919105f520fe932147602ca62
+                              {transactions.from}
+
                             </a>
                             <div
                               className={
@@ -449,8 +449,8 @@ export default function Transaction({ _handleChange }) {
                                         width > 1240
                                           ? "copy-icon"
                                           : width < 768
-                                          ? "copy-icon-from"
-                                          : "copy-icon-from-tab"
+                                            ? "copy-icon-from"
+                                            : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
@@ -538,8 +538,8 @@ export default function Transaction({ _handleChange }) {
                                         width > 1240
                                           ? "copy-icon"
                                           : width < 768
-                                          ? "copy-icon-from"
-                                          : "copy-icon-from-tab"
+                                            ? "copy-icon-from"
+                                            : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
