@@ -5,6 +5,8 @@ import FooterComponent from "../common";
 import LatestBlocksComponent from './latestBlocksAndTransactions';
 import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
+import Dialog from "@material-ui/core/Dialog";
+import { Row } from "simple-flexbox";
 
 
 
@@ -12,11 +14,12 @@ export default class BlockChainClass extends BaseComponent {
     constructor(props) {
         super(props)
         this.state = {
-            amount: ""
+            amount: "",
             // showDropDown: true
 
         }
     }
+
 
     _handleChange = (event) => {
         this.setState({ amount: event.target.value })

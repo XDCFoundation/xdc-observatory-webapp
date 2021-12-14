@@ -21,8 +21,11 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
     lineHeight: "normal",
     letterSpacing: "0.85px",
-    textAlign: "end",
+    textAlign: "center",
     color: "#2a2a2a",
+    "@media (min-width:0px) and (max-width:375px)":{
+        // textAlign: "center !important",
+    }
   },
   add: {
     backgroundColor: "#2149b9",
@@ -35,6 +38,17 @@ const useStyles = makeStyles((theme) => ({
     top: "65px",
     width: "503px",
     borderRadius: "12px",
+    "@media (min-width:0px) and (max-width:375px)":{
+      width:"100% !important",
+      height:"100% !important",
+      borderRadius:"1px !important",
+    },
+    "@media (min-width:375px) and (max-width:768px)":{
+      width:"100% !important",
+      height:"100% !important",
+      borderRadius:"1px !important",
+      maxWidth:"768px !important"
+    },
   },
   closeContainer: {
     top: "26px",
@@ -42,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     right: "30px",
     cursor: "pointer",
+    "@media (min-width:0px) and (max-width:768px)":{
+      display:"none !important",
+    }
   },
   input: {
     width: "433px",
@@ -91,6 +108,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     height: "445px",
+    "@media (min-width:500px) and (max-width:768px)":{
+      width: "100% !important",
+    flexFlow: "column nowrap ",
+    display: "flex !important",
+    maxWidth: "fit-content",
+    margin: "0 auto",
+    justifyContent:"flex-start !important"
+    }
   },
   error: {
     color: "red",
