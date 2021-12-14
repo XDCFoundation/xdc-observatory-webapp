@@ -339,11 +339,11 @@ export default function TokenDataComponent() {
   const CoinMarketExchangeForToken = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        TokenData.CoinMarketExchangeForToken(data)
+        TokenData?.CoinMarketExchangeForToken(data)
       );
 
-      if (responseData) {
-
+      if (responseData && responseData?.responseCode !== 400) {
+        console.log(responseData, "?>")
         setMarketCapValue(responseData)
 
       }
@@ -360,6 +360,7 @@ export default function TokenDataComponent() {
     listOfHolders(values);
     let value = { addr: address }
     transferDetail(value);
+    // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
 
