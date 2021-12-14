@@ -1666,7 +1666,7 @@ p {
     padding: 3px 12px 3px 12px;
     border-radius: 4px;
     background-color: #02c227;
-    margin-top: 25px;
+    margin-top: 14px;
   }
 }
 .profile-name-popover {
@@ -1692,7 +1692,7 @@ p {
     padding: 3px 12px 3px 12px;
     border-radius: 4px;
     background-color: #02c227;
-    margin-top: 21px;
+    margin-top: 17px;
   }
 }
 .Failed-rectangle {
@@ -1714,7 +1714,7 @@ p {
     padding: 3px 12px 3px 12px;
     border-radius: 4px;
     background-color: red;
-    margin-top: 21px;
+    margin-top: 15px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -1726,7 +1726,7 @@ p {
     padding: 3px 12px 3px 12px;
     border-radius: 4px;
     background-color: red;
-    margin-top: 21px;
+    margin-top: 17px;
   }
 }
 
@@ -8353,9 +8353,52 @@ button {
 .copyEditContainer {
   display: flex;
 }
+.copyEditContainerTab {
+  display: flex;
+  margin-top: -33px;
+  margin-left: 178px;
+}
+.copyEditContainerMobile {
+  display: flex;
+  margin-top: -20px;
+  margin-left: 269px;
+}
+.copyToClipboardHash {
+    color: #2149b9;
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.copyToClipboardHashMobile {
+  color: #2149b9;
+  background-color: white;
+}
+.copyToClipboardFromMobile {
+  color: #2149b9;
+  background-color: white;
+  margin-left: -9px;
+}
 .copy-icon {
   width: 25px;
   height: 25px;
+  cursor: pointer;
+}
+.copyIconHash {
+  width: 22px;
+  height: 22px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+.copy-icon-from {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+.copyIconHashMobile {
+  width: 22px;
+  height: 22px;
+  margin-top: -1px;
+  cursor: pointer;
 }
 .edit-icon {
   width: 20px;
@@ -8363,12 +8406,39 @@ button {
   margin-top: 4px;
   cursor: pointer;
 }
+.editIconHash {
+  width: 16px;
+  height: 16px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.editIconHashMobile {
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  cursor: pointer;
+}
 .edit1-icon {
   width: 20px;
   height: 20px;
-  margin-top: 6px;
+  margin-top: 4px;
   cursor: pointer;
 }
+.edit1-icon-from {
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+.fromContainer {
+  display: flex;
+}
+.fromContainerMobile {
+  display: flex;
+  margin-left: 88px;
+  margin-top: -21px;
+}
+
 @media (max-width: 767px) {
   .wid-42 {
     width: 42%;
