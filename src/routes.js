@@ -27,6 +27,9 @@ import BlockDetails from './modules/explorer/newblockDetail';
 import LoaderComponent from "./common/components/loader";
 import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen"
 import EditProfile from "./modules/explorer/editProfileResponsive"
+import Test from "./modules/explorer/dashboardPopup/Test"
+import TestTwo from './modules/explorer/dashboardPopup/TestTwo'
+import TestAddress from './modules/explorer/dashboardPopup/TestAddress'
 
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
@@ -80,6 +83,10 @@ class Routes extends BaseComponent {
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
             <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent}/>
             <Route exact path={'/edit-profile'} component={EditProfile} />
+            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
+            <Route exact path={'/test'} component={Test} />
+            <Route exact path={'/testTrancation'} component={TestTwo} />
+            <Route exact path={'/test-address'} component={TestAddress} />
             <Redirect exact from='*' to="/" />
           </Switch>
         </Router>

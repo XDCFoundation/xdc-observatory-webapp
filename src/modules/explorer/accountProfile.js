@@ -40,6 +40,7 @@ import { red } from "@material-ui/core/colors";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
+}
   & .paginationBttns {
     list-style: none;
     display: flex;
@@ -906,69 +907,68 @@ export default function SimpleTabs(props) {
               tableValue === 1 ? (
                 ""
               ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                <CSVLink
-                  filename={"private_note.csv"}
-                  data={downloadTxnPvtNote}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              ) : (
-                <CSVLink
-                  filename={"tag_address.csv"}
-                  data={downloadTagAddress}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              )
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
+                tableValue === 2 ? (
+                  <CSVLink
+                    filename={"private_note.csv"}
+                    data={downloadTxnPvtNote}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                ) : (
+                  <CSVLink
+                    filename={"tag_address.csv"}
+                    data={downloadTagAddress}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                )
             ) : (
               <CSVLink
                 filename={"tag_address.csv"}
                 data={downloadTagAddress}
                 style={{
-                  pointerEvents: "none",
                   fontSize: "0.938rem",
                   textAlign: "center",
                   color: "#ffffff",
-                  backgroundColor: "#9fa9ba",
+                  backgroundColor: "rgb(7 125 245)",
                   borderRadius: "0.25rem",
                   width: "5.875rem",
                   height: "2.125rem",
@@ -981,14 +981,14 @@ export default function SimpleTabs(props) {
             )}
           </div>
           <TabPanel value={value} index={0}>
-            <div className="griddiv">
+            <div className="griddiv add-root">
               <Grid lg={13} className="tablegrid_address">
                 <Grid
                   component={Paper}
                   style={{ boxShadow: "0px 0px 0px 0px" }}
                 >
                   <Table
-                    className="table"
+                    className="table w-700-a w-1500-a"
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
@@ -1172,7 +1172,7 @@ export default function SimpleTabs(props) {
                   style={{ boxShadow: "0px 0px 0px 0px" }}
                 >
                   <Table
-                    className="table"
+                    className="table w-700-a w-1500-a"
                     aria-label="Latest Transactions"
                     style={{ boxShadow: "0px 0px 0px 0px" }}
                   >
