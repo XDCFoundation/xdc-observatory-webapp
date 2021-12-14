@@ -1,22 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Grid} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import styled from "styled-components";
 // import "tippy.js/dist/tippy.css";
 import "../../assets/styles/custom.css";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
-import {useParams} from "react-router";
-import {TransactionService} from "../../services";
+import { useParams } from "react-router";
+import { TransactionService } from "../../services";
 import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
-import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag"
-import PrivateNote from "../../modules/common/dialog/privateNote"
-import {sessionManager} from "../../managers/sessionManager";
-import LoginDialog from "../explorer/loginDialog"
-
+import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
+import PrivateNote from "../../modules/common/dialog/privateNote";
+import { sessionManager } from "../../managers/sessionManager";
+import LoginDialog from "../explorer/loginDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "22.563rem",
       marginTop: "200px",
     },
-    "@media (min-width: 768px) and (max-width: 1239px)": {
+    "@media (min-width: 768px) and (max-width: 1240px)": {
       marginTop: "130px",
       maxWidth: "41.5rem",
     },
@@ -57,11 +56,11 @@ export default function Transaction({ _handleChange }) {
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
   const [isPvtNote, setIsPvtNote] = useState(false);
-  const [privateNote, setPrivateNote] = useState("")
-  const [addressTag, setAddressTag] = useState("")
-  const [addressTagTo, setAddressTagTo] = useState("")
-  const [isTag, setIsTag] = useState(false)
-  const [isTagTo, setIsTagTo] = useState(false)
+  const [privateNote, setPrivateNote] = useState("");
+  const [addressTag, setAddressTag] = useState("");
+  const [addressTagTo, setAddressTagTo] = useState("");
+  const [isTag, setIsTag] = useState(false);
+  const [isTagTo, setIsTagTo] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
   const [fromAddress, setFromAddress] = useState("");
@@ -70,35 +69,67 @@ export default function Transaction({ _handleChange }) {
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
+  function shorten(b, amountL = 35, amountR = 3, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 0,
+      b.length
+    )}`;
+  }
+  function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 0,
+      b.length
+    )}`;
+  }
 
-  const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false)
-  const [dialogValue, setDailogValue] = React.useState(0)
-  const [dialogValue2, setDailogValue2] = React.useState(0)
-  const [dialogPvtTagIsOpen2, setDialogPvtTagIsOpen2] = React.useState(false)
-  const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false)
-  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const { width } = windowDimensions;
+
+  const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
+  const [dialogValue, setDailogValue] = React.useState(0);
+  const [dialogValue2, setDailogValue2] = React.useState(0);
+  const [dialogPvtTagIsOpen2, setDialogPvtTagIsOpen2] = React.useState(false);
+  const [dialogPvtNoteIsOpen, setDialogPvtNoteIsOpen] = React.useState(false);
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
 
   const openDialogPvtTag = () => {
-    setDialogPvtTagIsOpen(true)
+    setDialogPvtTagIsOpen(true);
     setDailogValue(1);
-  }
+  };
   const closeDialogPvtTag = () => {
-    setDialogPvtTagIsOpen(false)
+    setDialogPvtTagIsOpen(false);
     setDailogValue(0);
-  }
+  };
   const openDialogPvtTag2 = () => {
-    setDialogPvtTagIsOpen2(true)
+    setDialogPvtTagIsOpen2(true);
     setDailogValue2(1);
-  }
+  };
   const closeDialogPvtTag2 = () => {
-    setDialogPvtTagIsOpen2(false)
+    setDialogPvtTagIsOpen2(false);
     setDailogValue2(0);
-  }
-  const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true)
-  const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false)
-  const openLoginDialog = () => setLoginDialogIsOpen(true)
-  const closeLoginDialog = () => setLoginDialogIsOpen(false)
-  const [isLoading, setLoading] = useState(true);
+  };
+  const openDialogPvtNote = () => setDialogPvtNoteIsOpen(true);
+  const closeDialogPvtNote = () => setDialogPvtNoteIsOpen(false);
+  const openLoginDialog = () => setLoginDialogIsOpen(true);
+  const closeLoginDialog = () => setLoginDialogIsOpen(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     transactionDetail();
@@ -122,42 +153,41 @@ export default function Transaction({ _handleChange }) {
   const privateNoteUsingHash = async () => {
     const data = {
       transactionHash: `${hash}`,
-      userId: sessionManager.getDataFromCookies("userId")
-    }
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
     let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
       TransactionService.getUserTransactionPrivateNoteUsingHash(data)
     );
     if (error || !privateNoteUsingHashResponse) return;
     setPrivateNote(privateNoteUsingHashResponse);
     setIsPvtNote(true);
-  }
-
+  };
 
   const tagUsingAddressFrom = async (response) => {
     const data = {
       address: response.from,
-      userId: sessionManager.getDataFromCookies("userId")
-    }
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
     let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
     if (errors || !tagUsingAddressHashResponse) return;
     setAddressTag(tagUsingAddressHashResponse);
     setIsTag(true);
-  }
+  };
 
   const tagUsingAddressTo = async (response) => {
     const data = {
       address: response.to,
-      userId: sessionManager.getDataFromCookies("userId")
-    }
+      userId: sessionManager.getDataFromCookies("userId"),
+    };
     let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
       TransactionService.getUserAddressTagUsingAddressHash(data)
     );
     if (errors || !tagUsingAddressHashResponse) return;
     setAddressTagTo(tagUsingAddressHashResponse);
     setIsTagTo(true);
-  }
+  };
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
   const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
@@ -186,14 +216,14 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-        ? transactions.valueUSD
-        : transactions.valueEUR;
+      ? transactions.valueUSD
+      : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-        ? transactions.transactionFeeUSD
-        : transactions.transactionFeeEUR;
+      ? transactions.transactionFeeUSD
+      : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -225,6 +255,7 @@ export default function Transaction({ _handleChange }) {
                   <Spacing style={{ borderBottom: "none" }}>
                     <Container>
                       <Heading>Transaction Details</Heading>
+                      {/* <p className="Failed-rectangle">Failed</p> */}
                       {transactions ? (
                         transactions.status ? (
                           <p className="Success-rectangle">Success</p>
@@ -246,37 +277,75 @@ export default function Transaction({ _handleChange }) {
 
                         <Hash>Hash ID</Hash>
                       </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content>{hash}
+                      <MiddleContainer1 isTextArea={false}>
+                        <Content>
+                          {hash}
+                          {/* <Content>{width > 1240 ? hash : (width <= 1240 && width >= 768 ? shorten(hash) : shortenHash(hash))} */}
                         </Content>
-                        <span className="copyEditContainer">
-                          <CopyToClipboard text={hash} onCopy={() => setCopiedText(hash)}>
+                        <span
+                          className={
+                            width > 1240
+                              ? "copyEditContainer"
+                              : width <= 1240 && width >= 768
+                              ? "copyEditContainerTab"
+                              : "copyEditContainerMobile"
+                          }
+                        >
+                          <CopyToClipboard
+                            text={hash}
+                            onCopy={() => setCopiedText(hash)}
+                          >
                             <Tooltip
                               title={
-                                copiedText === hash ? "Copied" : "Copy To Clipboard"
+                                copiedText === hash
+                                  ? "Copied"
+                                  : "Copy To Clipboard"
                               }
                               placement="top"
                             >
                               <button
-                                style={{
-                                  color: "#2149b9",
-                                  backgroundColor: "white",
-                                  fontSize: 14,
-                                  marginLeft: "10px",
-                                  marginRight: "5px",
-                                }}
+                                className={
+                                  width > 1240
+                                    ? "copyToClipboardHash"
+                                    : "copyToClipboardHashMobile"
+                                }
                               >
                                 <img
-                                  className="copy-icon"
+                                  className={
+                                    width > 1240
+                                      ? "copy-icon"
+                                      : width < 768
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
+                                  }
                                   src={require("../../../src/assets/images/copy.svg")}
                                 />
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {<PrivateNote open={dialogPvtNoteIsOpen} onClose={closeDialogPvtNote} hash={hash} pvtNote={privateNote[0]?.trxLable} />}
-                          {<img className="edit-icon" onClick={openDialogPvtNote} src={require("../../../src/assets/images/XDC-Edit.svg")} />}
+                          {
+                            <PrivateNote
+                              open={dialogPvtNoteIsOpen}
+                              onClose={closeDialogPvtNote}
+                              hash={hash}
+                              pvtNote={privateNote[0]?.trxLable}
+                            />
+                          }
+                          {
+                            <img
+                              className={
+                                width > 1240
+                                  ? "edit-icon"
+                                  : width < 768
+                                  ? "editIconHashMobile"
+                                  : "editIconHash"
+                              }
+                              onClick={openDialogPvtNote}
+                              src={require("../../../src/assets/images/XDC-Edit.svg")}
+                            />
+                          }
                         </span>
-                      </MiddleContainer>
+                      </MiddleContainer1>
                     </HashDiv>
                   </Div>
 
@@ -295,7 +364,12 @@ export default function Transaction({ _handleChange }) {
                         <Content>
                           <a
                             className="linkTableDetails-transaction"
-                            href={"/block-details/" + transactions.blockNumber + "?hash=" + transactions.blockHash}
+                            href={
+                              "/block-details/" +
+                              transactions.blockNumber +
+                              "?hash=" +
+                              transactions.blockHash
+                            }
                           >
                             {" "}
                             {transactions.blockNumber}{" "}
@@ -334,46 +408,79 @@ export default function Transaction({ _handleChange }) {
                       <MiddleContainer isTextArea={false}>
                         <Content>
                           {" "}
-                          <span style={{ display: "flex" }}>
+                          <span
+                            style={{ display: width > 1240 ? "flex" : "block" }}
+                          >
                             <a
                               className="linkTableDetails-transaction"
                               href={"/address-details/" + transactions.from}
                             >
                               {transactions.from}{" "}
                             </a>
-                            <CopyToClipboard
-                              text={transactions.from}
-                              onCopy={() => setCopiedText(transactions.from)}
+                            <div
+                              className={
+                                width < 768
+                                  ? "fromContainerMobile"
+                                  : "fromContainer"
+                              }
                             >
-                              <Tooltip
-                                title={
-                                  copiedText === transactions.from
-                                    ? "Copied"
-                                    : "Copy To Clipboard"
-                                }
-                                placement="top"
+                              <CopyToClipboard
+                                text={transactions.from}
+                                onCopy={() => setCopiedText(transactions.from)}
                               >
-                                <button
-                                  style={{
-                                    color: "blue",
-                                    backgroundColor: "white",
-                                    fontSize: 14,
-                                    marginLeft: "10px",
-                                    marginRight: "5px",
-                                  }}
+                                <Tooltip
+                                  title={
+                                    copiedText === transactions.from
+                                      ? "Copied"
+                                      : "Copy To Clipboard"
+                                  }
+                                  placement="top"
                                 >
-                                  <img
-                                    className="copy-icon"
-                                    src={require("../../../src/assets/images/copy.svg")}
-                                  />
-                                </button>
-                              </Tooltip>
-                            </CopyToClipboard>
-                            {<PrivateAddressTag open={dialogPvtTagIsOpen} onClose={closeDialogPvtTag} fromAddr={transactions.from} value={dialogValue} hash={hash} />}
-                            {isTag ? (<div className="nameLabel">{addressTag[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
+                                  <button
+                                    className={
+                                      width > 1240
+                                        ? "copyToClipboardHash"
+                                        : "copyToClipboardFromMobile"
+                                    }
+                                  >
+                                    <img
+                                      className={
+                                        width > 1240
+                                          ? "copy-icon"
+                                          : "copy-icon-from"
+                                      }
+                                      src={require("../../../src/assets/images/copy.svg")}
+                                    />
+                                  </button>
+                                </Tooltip>
+                              </CopyToClipboard>
+                              {
+                                <PrivateAddressTag
+                                  open={dialogPvtTagIsOpen}
+                                  onClose={closeDialogPvtTag}
+                                  fromAddr={transactions.from}
+                                  value={dialogValue}
+                                  hash={hash}
+                                />
+                              }
+                              {isTag ? (
+                                <div className="nameLabel">
+                                  {addressTag[0]?.tagName}
+                                </div>
+                              ) : (
+                                <img
+                                  className={
+                                    width > 1240
+                                      ? "edit1-icon"
+                                      : "edit1-icon-from"
+                                  }
+                                  onClick={openDialogPvtTag}
+                                  src={require("../../../src/assets/images/XDC-Edit.svg")}
+                                />
+                              )}
+                            </div>
                           </span>
                         </Content>
-
                       </MiddleContainer>
                     </SpacingHash>
                     <SpacingHash>
@@ -388,42 +495,78 @@ export default function Transaction({ _handleChange }) {
                       </Container>
                       <MiddleContainer isTextArea={false}>
                         <Content>
-                          <a
-                            className="linkTableDetails-transaction"
-                            href={"/address-details/" + transactions.to}
+                          <span
+                            style={{ display: width > 1240 ? "flex" : "block" }}
                           >
-                            {transactions.to}
-                          </a>
-                          <CopyToClipboard
-                            text={transactions.to}
-                            onCopy={() => setCopiedText(transactions.to)}
-                          >
-                            <Tooltip
-                              title={
-                                copiedText === transactions.to
-                                  ? "Copied"
-                                  : "Copy To Clipboard"
-                              }
-                              placement="top"
+                            <a
+                              className="linkTableDetails-transaction"
+                              href={"/address-details/" + transactions.to}
                             >
-                              <button
-                                style={{
-                                  color: "blue",
-                                  backgroundColor: "white",
-                                  fontSize: 14,
-                                  marginLeft: "10px",
-                                  marginRight: "5px",
-                                }}
+                              {transactions.to}
+                            </a>
+                            <div
+                              className={
+                                width < 768
+                                  ? "fromContainerMobile"
+                                  : "fromContainer"
+                              }
+                            >
+                              <CopyToClipboard
+                                text={transactions.to}
+                                onCopy={() => setCopiedText(transactions.to)}
                               >
-                                <img
-                                  className="copy-icon"
-                                  src={require("../../../src/assets/images/copy.svg")}
+                                <Tooltip
+                                  title={
+                                    copiedText === transactions.to
+                                      ? "Copied"
+                                      : "Copy To Clipboard"
+                                  }
+                                  placement="top"
+                                >
+                                  <button
+                                    className={
+                                      width > 1240
+                                        ? "copyToClipboardHash"
+                                        : "copyToClipboardFromMobile"
+                                    }
+                                  >
+                                    <img
+                                      className={
+                                        width > 1240
+                                          ? "copy-icon"
+                                          : "copy-icon-from"
+                                      }
+                                      src={require("../../../src/assets/images/copy.svg")}
+                                    />
+                                  </button>
+                                </Tooltip>
+                              </CopyToClipboard>
+                              {
+                                <PrivateAddressTag
+                                  open={dialogPvtTagIsOpen2}
+                                  onClose={closeDialogPvtTag2}
+                                  toAddr={transactions.to}
+                                  value={dialogValue2}
+                                  hash={hash}
                                 />
-                              </button>
-                            </Tooltip>
-                          </CopyToClipboard>
-                          {<PrivateAddressTag open={dialogPvtTagIsOpen2} onClose={closeDialogPvtTag2} toAddr={transactions.to} value={dialogValue2} hash={hash} />}
-                          {isTagTo ? (<div className="nameLabel">{addressTagTo[0]?.tagName}</div>) : (<img className="edit1-icon" onClick={openDialogPvtTag2} src={require("../../../src/assets/images/XDC-Edit.svg")} />)}
+                              }
+                              {isTagTo ? (
+                                <div className="nameLabel">
+                                  {addressTagTo[0]?.tagName}
+                                </div>
+                              ) : (
+                                <img
+                                  className={
+                                    width > 1240
+                                      ? "edit1-icon"
+                                      : "edit1-icon-from"
+                                  }
+                                  onClick={openDialogPvtTag2}
+                                  src={require("../../../src/assets/images/XDC-Edit.svg")}
+                                />
+                              )}
+                            </div>
+                          </span>
                         </Content>
                       </MiddleContainer>
                     </SpacingHash>
@@ -546,9 +689,15 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Private Note</Hash>
                       </Container>
                       <MiddleContainerPrivateNote>
-                        {!isloggedIn ?
-                          (<PrivateText>
-                            {<LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} hash={hash} />}
+                        {!isloggedIn ? (
+                          <PrivateText>
+                            {
+                              <LoginDialog
+                                open={loginDialogIsOpen}
+                                onClose={closeLoginDialog}
+                                hash={hash}
+                              />
+                            }
                             To access the Private Note feature, you must be
                             <a
                               className="linkTableDetails-transaction"
@@ -557,8 +706,15 @@ export default function Transaction({ _handleChange }) {
                             >
                               Logged In
                             </a>
-                          </PrivateText>) : (!isPvtNote ? (<span>Add private Note By click on Edit Icon in front of Hash ID</span>) :
-                            (<span>{privateNote[0]?.trxLable}</span>))}
+                          </PrivateText>
+                        ) : !isPvtNote ? (
+                          <span>
+                            Add private Note By click on Edit Icon in front of
+                            Hash ID
+                          </span>
+                        ) : (
+                          <span>{privateNote[0]?.trxLable}</span>
+                        )}
                       </MiddleContainerPrivateNote>
                     </SpacingPrivateNode>
                   </Div__>
@@ -585,7 +741,7 @@ const Input = styled.input`
   text-align: left;
   color: #2a2a2a;
 `;
-const Content = styled.span`
+const Content = styled.div`
   font-family: Inter;
   font-size: 0.935rem;
   letter-spacing: 0.54px;
@@ -601,7 +757,7 @@ const Content = styled.span`
     letter-spacing: 0.034rem;
     color: #3a3a3a;
     opacity: 1;
-    line-height: 18px !important; 
+    line-height: 18px !important;
     word-break: break-all;
   }
   @media (min-width: 768px) and (max-width: 1241px) {
@@ -745,6 +901,41 @@ const MiddleContainer = styled.div`
     opacity: 1;
   }
 `;
+
+const MiddleContainer1 = styled.div`
+  font-family: Inter;
+  font-size: 0.938rem;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
+    margin-left: unset;
+    margin-top: 10px;
+    display: block;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    display: block;
+  }
+`;
+
 const HashInputData = styled.span`
   color: var(--unnamed-color-2a2a2a);
   white-space: nowrap;
