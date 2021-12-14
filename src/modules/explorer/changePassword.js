@@ -23,9 +23,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.85px",
     textAlign: "center",
     color: "#2a2a2a",
-    "@media (min-width:0px) and (max-width:375px)":{
-        // textAlign: "center !important",
-    }
+   
   },
   add: {
     backgroundColor: "#2149b9",
@@ -74,13 +72,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "4px",
   },
   addbtn: {
+   
     width: "440px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    // margin: "10px 0px 20px 0px",
-    margin: "none",
+    margin: "10px 0px 20px 0px",
+    margin: "0px",
     color: "white",
   },
   subCategory: {
@@ -109,14 +108,30 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     height: "445px",
     "@media (min-width:500px) and (max-width:768px)":{
-      width: "100% !important",
+    width: "100% !important",
     flexFlow: "column nowrap ",
     display: "flex !important",
     maxWidth: "fit-content",
     margin: "0 auto",
-    justifyContent:"flex-start !important"
-    }
+    justifyContent: "flex-start !important", 
+    },
   },
+  "@media only screen and (min-device-width : 320px) and (max-device-width : 480px)":{
+    mobileDiv: {
+      marginTop: "15px",
+      marginLeft: "-5px",
+      marginRight: "-6px",
+    }, text: {
+      textAlign: "center",
+    }, 
+    mobileText: {
+      fontWeight: "500",
+    },
+    mobileHeader: {
+      fontSize: "16px",
+    },
+    },
+
   error: {
     color: "red",
     marginLeft: "2px",
@@ -206,7 +221,7 @@ export default function ChangePassword(props) {
       <DialogContent className={classes.heading}>
         <Row justifyContent="space-between" marginTop="8px">
           <DialogContentText className={classes.text}>
-            <b>Change Password</b>
+            <b className={classes.mobileHeader}>Change Password</b>
           </DialogContentText>
           <span
             onClick={props.openChangePassword}
@@ -220,7 +235,7 @@ export default function ChangePassword(props) {
         </Row>
         <Column>
           <DialogContentText className={classes.subCategory}>
-            <b>Current Password</b>
+            <b className={ classes.mobileText}>Current Password</b>
             <input
               type={passwordShown1 ? "text" : "password"}
               id="password"
@@ -247,7 +262,7 @@ export default function ChangePassword(props) {
             )}
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
-            <b>New Password</b>
+            <b className={ classes.mobileText}>New Password</b>
             <input
               type={passwordShown2 ? "text" : "password"}
               id="password"
@@ -275,7 +290,7 @@ export default function ChangePassword(props) {
             <div className={classes.error}>{errorPassword}</div>
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
-            <b>Confirm Password</b>
+            <b className={ classes.mobileText}>Confirm Password</b>
             <input
               type={passwordShown3 ? "text" : "password"}
               id="password"
@@ -312,12 +327,12 @@ export default function ChangePassword(props) {
             <div></div>
           )}
 
-          <DialogActions
+          <DialogActions className={ classes.mobileDiv}
             style={{
               //  alignItems: "center",
               // justifyContent: "start",
               marginTop: "15px",
-              marginLeft: "-5px"
+              marginLeft: "-5px",
             }}
           >
             <div style={{ color: "red" }}> {isError}</div>

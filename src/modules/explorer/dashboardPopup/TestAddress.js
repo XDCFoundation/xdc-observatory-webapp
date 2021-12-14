@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   addbtn: {
-    width: "110px",
+    width: "78px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 
   // },
   cnlbtn: {
-    width: "94px",
+    width: "78px",
     height: "34px",
     // margin: "33px 21px 0 87px",
     // padding: "8px 19px 7px 21px",
@@ -356,7 +356,7 @@ export default function FormDialog() {
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </div>
-          <DialogActions className={classes.buttons}>
+          <DialogActions>
             <span>
               <button className={classes.cnlbtn} onClick={handleClose}>
                 Cancel
