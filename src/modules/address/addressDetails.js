@@ -91,7 +91,7 @@ export default function AddressDetails(props) {
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
-  function _handleChange(event) {}
+  function _handleChange(event) { }
   const getAddressDetails = async () => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -193,99 +193,95 @@ export default function AddressDetails(props) {
                       <Content>{addr}</Content>
                       {isTag
                         ? addressTag.map((item, index) => {
-                            return (
-                              <div className="nameLabel1" key={index}>
-                                {item}
-                              </div>
-                            );
-                          })
+                          return (
+                            <div className="nameLabel1" key={index}>
+                              {item}
+                            </div>
+                          );
+                        })
                         : ""}
                     </MiddleContainerHash>
-                    <SecondContainer>
-                      <CopyToClipboard
-                        text={addr}
-                        onCopy={() => setCopiedText(addr)}
-                      >
-                        <Tooltip
-                          title={
-                            copiedText === addr ? "Copied" : "Copy To Clipboard"
-                          }
-                          placement="top"
+                    <div className="addIconsReverve">
+                      <SecondContainer>
+                        <CopyToClipboard
+                          text={addr}
+                          onCopy={() => setCopiedText(addr)}
                         >
-                          <button
-                            style={{
-                              color: "blue",
-                              backgroundColor: "white",
-                              fontSize: 17,
-                            }}
+                          <Tooltip
+                            title={
+                              copiedText === addr ? "Copied" : "Copy To Clipboard"
+                            }
+                            placement="top"
                           >
-                            <img
-                              src={require("../../../src/assets/images/copy.svg")}
-                            />
-                          </button>
-                        </Tooltip>
-                      </CopyToClipboard>
+                            <button className="copyButton"    >
+                              <img
+                                src={require("../../../src/assets/images/copy.svg")}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
 
-                      <Popup
-                        trigger={<ImQrcode className="imQrcode" />}
-                        lockScroll
-                        modal
-                      >
-                        {(close) => (
-                          <div className="popup_qr">
-                            <p>
-                              <div>
-                                <button
-                                  style={{
-                                    outline: "none",
-                                    // width: "0rem",
-                                    height: "0rem",
-                                    marginLeft: "28rem",
-                                  }}
-                                  className="close close-qr "
-                                  onClick={close}
-                                >
-                                  &times;
-                                </button>
-                                <div
-                                  className="header-popup"
+                        <Popup
+                          trigger={<ImQrcode className="imQrcode" />}
+                          lockScroll
+                          modal
+                        >
+                          {(close) => (
+                            <div className="popup_qr">
+                              <p>
+                                <div>
+                                  <button
+                                    style={{
+                                      outline: "none",
+                                      // width: "0rem",
+                                      height: "0rem",
+                                      marginLeft: "28rem",
+                                    }}
+                                    className="close close-qr "
+                                    onClick={close}
+                                  >
+                                    &times;
+                                  </button>
+                                  <div
+                                    className="header-popup"
                                   // style={{
                                   //   fontSize: "0.875rem",
                                   //   paddingTop: "0.313rem",
                                   //   paddingBottom: "3.75rem",
                                   // }}
-                                >
-                                  {" "}
-                                  {addr}{" "}
+                                  >
+                                    {" "}
+                                    {addr}{" "}
+                                  </div>
+                                  {window.innerWidth > 767 ? (
+                                    <QRCode
+                                      size={320}
+                                      style={{
+                                        height: 400,
+                                        width: 400,
+                                      }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  ) : (
+                                    <QRCode
+                                      // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                      size={320}
+                                      className="qrcode-label"
+                                      //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  )}
                                 </div>
-                                {window.innerWidth > 767 ? (
-                                  <QRCode
-                                    size={320}
-                                    style={{
-                                      height: 400,
-                                      width: 400,
-                                    }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                ) : (
-                                  <QRCode
-                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                    size={320}
-                                    className="qrcode-label"
-                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                )}
-                              </div>
-                            </p>
-                          </div>
-                        )}
-                      </Popup>
-                    </SecondContainer>
+                              </p>
+                            </div>
+                          )}
+                        </Popup>
+                      </SecondContainer>
+                    </div>
                   </HashDiv>
                 </Spacing>
                 {/* <Spacing style={{ borderBottom: "none" }}>
@@ -440,9 +436,9 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 0.875rem;
+    font-size: .75rem;
     word-break: break-all;
-    margin-left: 28px;
+    margin-left:17px;
   }
 `;
 const TextArea = styled.textarea`
@@ -511,7 +507,7 @@ const MiddleContainerHash = styled.div`
     font-size: 0.75rem;
     margin-left: unset;
     margin-top: 0.5rem;
-    padding-right: 2.313rem;
+    padding-right: 1.313rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
@@ -554,6 +550,7 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
+    padding: 0.438rem 0.438rem;
   }
 `;
 const Container = styled.div`
@@ -567,6 +564,7 @@ const SecondContainer = styled.div`
   display: flex;
   align-items: center;
   @media (min-width: 300px) and (max-width: 767px) {
+    margin-right: 70px;
   }
 `;
 
@@ -606,9 +604,14 @@ const Heading = styled.span`
 `;
 
 const ImageView = styled.img`
-  width: 0.938rem;
-  margin-right: 0.938rem;
+  ${'' /* width: 12px; */}
+  margin-right: 0.438rem;
   cursor: pointer;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.75rem;
+  ${'' /* margin-right: 0.638rem; */}
+  cursor: pointer;
+  }
 `;
 
 const AddressPath = styled.div`
