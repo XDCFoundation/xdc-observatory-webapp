@@ -114,7 +114,7 @@ export default function BasicPopover(props) {
             />
           </ProfileContainer>)}
       <Popover
-        style={{ top: "55px", marginLeft: "-40px", borderRadius: "30px", width: "100%", height: "100%" }}
+        style={{ top: "50px", marginLeft: "-40px", borderRadius: "30px", width: "100%", height: "100%" }}
         id={id}
         open={open}
         anchorEl={anchorEl}

@@ -4,10 +4,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
+import {Row, typeOf} from "simple-flexbox";
 import {sessionManager} from "../../../managers/sessionManager";
-
-
+import Test from './Test'
+import { history } from "../../../managers/history";
+import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -81,7 +82,6 @@ const useStyles = makeStyles((theme) => ({
   // padding: "8px 19px 7px 21px",
   // borderRadius: "4px",
   // backgroundColor: "#9fa9ba",
-
   // },
 
   addbtn: {
@@ -164,6 +164,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#2a2a2a",
   },
+  
   "@media (max-width: 714px)": {
     heading: {
       fontSize: "16px"
@@ -181,13 +182,15 @@ const useStyles = makeStyles((theme) => ({
       width: "250px",
     },
   },
+  "@media (max-width: 900px)": {
+   
+  },
 }));
+
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
-
   const [address, setAddress] = React.useState("");
-
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
@@ -200,11 +203,15 @@ export default function FormDialog() {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
-
-  
-
-  
+ 
   const [value, setValue] = React.useState("female");
+  const [isSize, setisSize] = React.useState(false)
+const screenSize = window.innerHeight 
+  if (screenSize=== "626") {
+    console.log(screenSize);
+    setisSize(false);
+ }
+
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -214,6 +221,9 @@ export default function FormDialog() {
     setError("");
 
   };
+
+
+
 
   const watchListService = async () => {
     const request = {
@@ -246,7 +256,7 @@ export default function FormDialog() {
 }
 
   const handleClickOpen = () => {
-    setOpen(true);
+      setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
@@ -255,16 +265,31 @@ export default function FormDialog() {
     setError("");
     setDescriptionError("")
   };
-  
   const classes = useStyles();
 
- 
-  
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
 
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  const { width } = windowDimensions
   return (
     <div>
 
-      <div style={{marginLeft:"10px"}} className="div1" onClick={handleClickOpen}>
+      <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
         <div>
           <img
             className="imagediv1"
@@ -288,8 +313,9 @@ export default function FormDialog() {
       >
           <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
       </Button> */}
-
-      <div>
+    {isSize===false
+        ?(
+      <div className={classes.createWatchlist}>
         <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -409,7 +435,9 @@ export default function FormDialog() {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
             </DialogContentText> */}
         </Dialog>
-      </div>
+      </div>)
+        : <Test />
+      }
     </div>
   );
 }

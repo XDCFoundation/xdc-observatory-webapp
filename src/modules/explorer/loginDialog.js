@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -14,7 +14,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
-import Loader from '../../assets/loader'
+import Loader from "../../assets/loader";
+import ReCAPTCHA from "react-google-recaptcha";
+
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -57,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   userContainer: {
     marginTop: "12px",
   },
+
   passwordContainer: {
     marginTop: "15px",
   },
@@ -73,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: "auto",
     // marginRight: "auto",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   subCategory: {
@@ -104,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
+    marginTop: "5px",
   },
   xdc: {
     color: "#2a2a2a",
@@ -132,6 +136,13 @@ const useStyles = makeStyles((theme) => ({
     top: "65px",
     width: "503px",
     padding: "0 11px",
+    borderRadius: "12px",
+  },
+  paperWidthSm2: {
+    position: "absolute",
+    top: "65px",
+    width: "600px",
+    // padding: "0 11px",
     borderRadius: "12px",
   },
   termsContainer: {
@@ -193,7 +204,7 @@ const useStyles = makeStyles((theme) => ({
   alreadyAccount: {
     textAlign: "center",
     marginBottom: "30px",
-    color: "#2a2a2a"
+    color: "#2a2a2a",
   },
   signIn: {
     color: "#2149b9",
@@ -237,15 +248,21 @@ const useStyles = makeStyles((theme) => ({
       width: "95%",
     },
     loading: {
-      zIndex: -1
-    }
+      zIndex: -1,
+    },
   },
-  "@media (max-width: 768px)": {
+  "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
-      top: "125px",
-      maxWidth: "503px",
-      width: "95%",
+      // top: "102px",
+      height: "100%",
+      width: "100%",
+      borderRadius: "0px",
+      backgroundImage: "none",
+      opacity: "0px",
+    },
+    closeContainer: {
+      display: "none",
     },
 
     paperWidthSm1: {
@@ -263,7 +280,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-height: 900px)": {
     paperWidthSm1: {
       maxHeight: "500px",
-      height: "72%"
+      height: "72%",
     },
   },
 
@@ -284,14 +301,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const { onOpen, onClose } = props
+  const { onOpen, onClose } = props;
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(0);
+  // const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(4);
   const [openSignup, setOpenSignup] = React.useState(false);
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
+  console.log("props dialog", props);
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -304,37 +323,45 @@ export default function FormDialog(props) {
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
+  const [timer, setTimer] = React.useState("00:00");
 
   const [emailError, setEmailError] = useState("");
   const [inputError, setInputError] = useState("");
 
   const classes = useStyles();
   const urlProfile = () => {
-    const profilePic = sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE)
+    const profilePic = sessionManager.getDataFromCookies(
+      cookiesConstants.USER_PICTURE
+    );
     return profilePic;
-  }
+  };
 
   React.useEffect(() => {
     if (open === true) {
-      setOpen(false)
+      setOpen(false);
     } else {
-      setOpen(props.open)
+      setOpen(props.open);
     }
-  }, [props])
+  }, [props]);
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
   const handleClickOpen = () => {
     if (urlProfile()) {
       window.location.href = "loginprofile";
-
     } else {
       setOpen(true);
     }
-  }
+  };
 
   const handleClose = () => {
-    { props.verifiedEmail ? (props.onClose(onClose)) : (!props.hash ? setOpen(false) : props.onClose(onClose)) }
+    {
+      props.verifiedEmail
+        ? props.onClose(onClose)
+        : !props.hash
+        ? setOpen(false)
+        : props.onClose(onClose);
+    }
     setTimeout(() => {
       setValue(0);
     }, 1000);
@@ -362,7 +389,7 @@ export default function FormDialog(props) {
     setValue(1);
   };
   const handleOpenForgotPassword = () => {
-    setValue(2);
+    setValue(3);
   };
 
   const login = async () => {
@@ -370,24 +397,23 @@ export default function FormDialog(props) {
       name: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorEmail("");
     setErrorPassword("");
 
     if (!email || !password) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
       setErrorEmail("Enter valid Username");
-      setLoading(false)
+      setLoading(false);
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -413,7 +439,10 @@ export default function FormDialog(props) {
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
-        sessionManager.setDataInCookies(authResponse?.userInfoRes?.picture, cookiesConstants.USER_PICTURE);
+        sessionManager.setDataInCookies(
+          authResponse?.userInfoRes?.picture,
+          cookiesConstants.USER_PICTURE
+        );
         sessionManager.setDataInCookies(
           authResponse?.userInfoRes?.sub,
           "userId"
@@ -423,7 +452,9 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         Utility.apiSuccessToast("Sign in successfull");
-        { !props.hash ? window.location.href = "loginprofile" : history.go(0) }
+        {
+          !props.hash ? (window.location.href = "loginprofile") : history.go(0);
+        }
       }
     }
   };
@@ -437,13 +468,19 @@ export default function FormDialog(props) {
       email: email,
       password: password,
     };
-    setLoading(true)
+    setLoading(true);
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
+    if (reCaptcha === "") {
+      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+      setLoading(false);
+    } else {
+      setCaptchaError("");
+    }
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
@@ -462,13 +499,12 @@ export default function FormDialog(props) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
     } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to the terms and conditions")
+      setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
-    }
-    // else if (captchaCheckbox === false) {
-    //   setErrorCaptcha("Please verify captcha")
-    //   setLoading(false);}
-    else {
+    } else if (captchaCheckbox === false) {
+      setErrorCaptcha("Please verify captcha");
+      setLoading(false);
+    } else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
@@ -478,7 +514,6 @@ export default function FormDialog(props) {
       } else {
         Utility.apiSuccessToast("Sign-up success, check your email");
         setLoading(false);
-
         setOpen(false);
         setTimeout(() => {
           setValue(0);
@@ -518,26 +553,30 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    // if (captchaCheckbox === false) {
-    //   setErrorCaptcha("please verify captcha")
-    // } else {
-    const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.forgotPassword(email)
-    );
-    if (error || !authResponse) {
-      setEmailError("Please enter a valid email address");
-      Utility.apiFailureToast("Wrong email");
-    } else {
-      setEmail("");
-      // setCaptchaCheckbox(false);
-      Utility.apiSuccessToast(
-        "We have just sent you an email to reset your password."
-      );
-      window.location.href = "/";
-    }
+    setValue(2);
+    onClickReset();
 
+    if (captchaCheckbox === false) {
+      setErrorCaptcha("please verify captcha");
+    } else {
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.forgotPassword(email)
+      );
+      if (error || !authResponse) {
+        setEmailError("Please enter a valid email address");
+        Utility.apiFailureToast("Wrong email");
+      } else {
+        setEmail("");
+        setCaptchaCheckbox(false);
+        Utility.apiSuccessToast(
+          "We have just sent you an email to reset your password."
+        );
+        window.location.href = "/";
+      }
+    }
   };
+
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
   const [termsCheckbox, setTermsCheckbox] = React.useState(false);
   const handleTermsCheckbox = () => {
@@ -557,30 +596,154 @@ export default function FormDialog(props) {
     }
   };
 
+  // Google Recaptcha Handlers
+  const [reCaptcha, setReCaptcha] = React.useState("");
+  const [captchaError, setCaptchaError] = React.useState("");
 
+  function handleReCaptcha(value) {
+    setReCaptcha(value);
+  }
+
+  const Ref = useRef(null);
+
+  const getTimeRemaining = (e) => {
+    const total = Date.parse(e) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor(((total / 1000) * 60 * 60) % 24);
+    return {
+      total,
+      hours,
+      minutes,
+      seconds,
+    };
+  };
+
+  const startTimer = (e) => {
+    let { total, minutes, seconds } = getTimeRemaining(e);
+    if (total >= 0) {
+      setTimer(
+        (minutes > 9 ? minutes : "0" + minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
+      );
+    }
+  };
+
+  const clearTimer = (e) => {
+    setTimer("5:00");
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      startTimer(e);
+    }, 1000);
+    Ref.current = id;
+  };
+
+  const getDeadTime = () => {
+    let deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + 300);
+    return deadline;
+  };
+
+  const onClickReset = () => {
+    clearTimer(getDeadTime());
+  };
 
   //------------------------------------------------------------------------------------------------------------------------------------->
   return (
     <div>
       <div className={classes.add}>
-        {props.verifiedEmail ? ("") : (!props.hash ?
+        {props.verifiedEmail ? (
+          ""
+        ) : !props.hash ? (
           <button className="login-button" onClick={handleClickOpen}>
             <img
               className="Shape2"
               style={{ borderRadius: "50px" }}
-              src={sessionManager.getDataFromCookies(cookiesConstants.USER_PICTURE) || require("../../../src/assets/images/Profile.svg")}
+              src={
+                sessionManager.getDataFromCookies(
+                  cookiesConstants.USER_PICTURE
+                ) || require("../../../src/assets/images/Profile.svg")
+              }
             ></img>
-          </button> : "")
-        }
-        <div>
+          </button>
+        ) : (
+          ""
+        )}
+        <div className="dialogboxModal">
           <Dialog
-            classes={{ paperWidthSm: value === 1 ? classes.paperWidthSm1 : classes.paperWidthSm }}
+            classes={{
+              paperWidthSm:
+                value === 1
+                  ? classes.paperWidthSm1
+                  : value === 4
+                  ? classes.paperWidthSm2
+                  : classes.paperWidthSm,
+            }}
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
-            {value === 0 ? (
+            {value === 4 ? (
+              <div className="main-box">
+                <Row className="main-row">
+                  <div className="main-title">New Features</div>
+                  <div className="main-close" onClick={handleClose}>
+                    <img
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    />
+                  </div>
+                </Row>
+                <div className="main-sub-title">
+                  Create your account and get started
+                </div>
+                <Row className="card-box">
+                  <div className="card margin-right-20px">
+                    <img
+                      src={require("../../../src/assets/images/watchlist2.svg")}
+                      className="crad-image"
+                    />
+                    <div className="card-title">Create watchlist</div>
+                    <div className="card-text">
+                      An Email notification can be sent to you when an address
+                      on your watch list receives an incoming transaction.
+                    </div>
+                  </div>
+                  <div className="card margin-right-20px">
+                    <img
+                      src={require("../../../src/assets/images/transaction2.svg")}
+                      className="crad-image"
+                    />
+                    <div className="card-title">Add transaction label</div>
+                    <div className="card-text">
+                      Add a personal note to a transaction hash to track it in
+                      future.
+                    </div>
+                  </div>
+                  <div className="card">
+                    <img
+                      src={require("../../../src/assets/images/private2.svg")}
+                      className="crad-image"
+                    />
+                    <div className="card-title">Add transaction label</div>
+                    <div className="card-text">
+                      Add a personal note to a transaction hash to track it in
+                      future.
+                    </div>
+                  </div>
+                </Row>
+                <div className="main-sing-up" onClick={handleClickOpenSignup}>
+                  <div className="main-sing-up-text"> Sign up</div>
+                </div>
+                <div className="main-end-box">
+                  <input type="checkbox" className="main-checkbox" />
+                  <div className="main-end-text">
+                    Don't show this message again
+                  </div>
+                </div>
+              </div>
+            ) : value === 0 ? (
               <div>
                 {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
                 <Row>
@@ -647,11 +810,9 @@ export default function FormDialog(props) {
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
                 {isLoading == true ? (
-                  <div className={classes.loading} >
-
+                  <div className={classes.loading}>
                     <Loader />
                   </div>
-
                 ) : (
                   <div></div>
                 )}
@@ -660,7 +821,9 @@ export default function FormDialog(props) {
                     className={classes.addbtn}
                     onClick={() => {
                       {
-                        { login() };
+                        {
+                          login();
+                        }
                       }
                     }}
                   >
@@ -708,7 +871,7 @@ export default function FormDialog(props) {
                     // name="userName"
                     // value={signUp.userName}
                     onChange={(e) => setUserName(e.target.value)}
-                  // onChange={inputEventSignUp}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorUserName}</div>
                 </DialogContent>
@@ -722,9 +885,9 @@ export default function FormDialog(props) {
                     className={classes.input}
                     // name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                  // value={signUp.email}
+                    // value={signUp.email}
 
-                  // onChange={inputEventSignUp}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorEmail}</div>
                 </DialogContent>
@@ -738,9 +901,9 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
-                  // name="password"
-                  // value={signUp.password}
-                  // onChange={inputEventSignUp}
+                    // name="password"
+                    // value={signUp.password}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
@@ -754,9 +917,9 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                  // name="confirmPassword"
-                  // value={signUp.confirmPassword}
-                  // onChange={inputEventSignUp}
+                    // name="confirmPassword"
+                    // value={signUp.confirmPassword}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
@@ -768,11 +931,11 @@ export default function FormDialog(props) {
                   ></input>
                   <span className="iAgree">
                     I agree to the{" "}
-                    <a style={{ color: "#2b51bc" }} href="/term-conditions" >
+                    <a style={{ color: "#2b51bc" }} href="/term-conditions">
                       Terms of Use
-                    </a>
-                    {" "}&{" "}
-                    <a style={{ color: "#2b51bc" }} href="/privacy-policy"  >
+                    </a>{" "}
+                    &{" "}
+                    <a style={{ color: "#2b51bc" }} href="/privacy-policy">
                       Privacy Policy
                     </a>
                   </span>
@@ -795,13 +958,11 @@ export default function FormDialog(props) {
                     ></img>
                   </div>
                 </div> */}
-                {/* <div className={classes.error2}>{errorCaptcha}</div> */}
+                <div className={classes.error2}>{errorCaptcha}</div>
                 {isLoading == true ? (
-                  <div >
-
+                  <div>
                     <Loader />
                   </div>
-
                 ) : (
                   <div></div>
                 )}
@@ -812,10 +973,54 @@ export default function FormDialog(props) {
                   Create an Account{" "}
                 </button>
 
-
                 <div className={classes.alreadyAccount}>
                   <div>
                     Already have an account?{" "}
+                    <span
+                      className={classes.signIn}
+                      onClick={handleClickOpenSignin}
+                    >
+                      Sign In
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : value === 2 ? (
+              //<------------------------------------Forgot success -------------------------------------------->
+              <div className="forgot-success">
+                <Row>
+                  {/* <div className={classes.heading} id="form-dialog-title"> */}
+                  <div className="forgot-success-title">
+                    You,ve successfully request a Forgot Password.
+                  </div>
+                  <span onClick={handleClose} className="forgot-success-close">
+                    <img
+                      className={classes.close}
+                      src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    ></img>
+                  </span>
+                </Row>
+                <div className="forgot-success-box">
+                  <div className="forgot-success-text">
+                    If the email address belongs to a known account, a recovery
+                    password will be sent to you within the next few minutes.
+                  </div>
+                  <div className="forgot-success-text margin-top-20-px">
+                    If you have not received the email, you can make another
+                    request after 5 minutes
+                  </div>
+                </div>
+                <div className="forgot-success-time-div">
+                  <span className="forgot-success-time">
+                    {/* {time.m} : {time.s} */}
+                    {/* time */}
+                    {/* {minute}:{sec} */}
+                    {timer}
+                  </span>
+                </div>
+                <div className={classes.alreadyAccount}>
+                  <div>
+                    Back to{" "}
                     <span
                       className={classes.signIn}
                       onClick={handleClickOpenSignin}
