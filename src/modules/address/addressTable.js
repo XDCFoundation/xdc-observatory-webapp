@@ -206,7 +206,7 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getTransactionsCountForAddress(data),
       )
-      setTotalRecord(responseData)
+      setTotalRecord(parseInt(responseData))
     } catch (error) {
       console.error(error)
     }
@@ -702,7 +702,8 @@ export default function AddressTableComponent(props) {
             <span className="text">Records</span>
           </Grid>
           <Grid xs="1"></Grid>
-          <Grid
+          {noData == true && (
+               <Grid
             item
             xs="7"
             style={{
@@ -715,13 +716,65 @@ export default function AddressTableComponent(props) {
             <button
               style={{ marginLeft: '0rem' }}
               onClick={() => handleChangePage('first')}
-              className={page === 0 ? 'btn disabled' : 'btn'}
+              className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
             >
               First
             </button>
             <button
               onClick={() => handleChangePage('prev')}
-              className={page === 0 ? 'btn disabled' : 'btn'}
+              className={page === 0 || totalRecord === 0? 'btn disabled' : 'btn'}
+            >
+              <img
+                className="back-arrow"
+                src={require('../../assets/images/back.svg')}
+              />
+            </button>
+            <button className="btn">
+              Page{' '}
+              0 of 0
+            </button>
+            <button
+              onClick={() => handleChangePage('next')}
+              className={
+                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
+              }
+            >
+              <img
+                className="back-arrow"
+                src={require('../../assets/images/next.svg')}
+              />
+            </button>
+            <button
+              onClick={() => handleChangePage('last')}
+              className={
+                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
+              }
+            >
+              Last
+            </button>
+          </Grid>
+          )}
+          {noData == false && (
+               <Grid
+            item
+            xs="7"
+            style={{
+              flexBasis: 'auto',
+              display: 'flex',
+              alignItems: 'baseline',
+            }}
+            className="pagination-page"
+          >
+            <button
+              style={{ marginLeft: '0rem' }}
+              onClick={() => handleChangePage('first')}
+              className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+            >
+              First
+            </button>
+            <button
+              onClick={() => handleChangePage('prev')}
+              className={page === 0 || totalRecord === 0? 'btn disabled' : 'btn'}
             >
               <img
                 className="back-arrow"
@@ -737,7 +790,7 @@ export default function AddressTableComponent(props) {
             <button
               onClick={() => handleChangePage('next')}
               className={
-                page + rowsPerPage === totalRecord ? 'btn disabled' : 'btn'
+                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
               }
             >
               <img
@@ -748,12 +801,14 @@ export default function AddressTableComponent(props) {
             <button
               onClick={() => handleChangePage('last')}
               className={
-                page + rowsPerPage === totalRecord ? 'btn disabled' : 'btn'
+                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
               }
             >
               Last
             </button>
-          </Grid>
+          </Grid> 
+          )}
+          
         </Grid>
       </Grid>
     </div>
