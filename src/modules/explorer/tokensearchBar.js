@@ -427,6 +427,7 @@ export default function Navbar() {
   };
   const items = (subanchor) => (
     <div
+    className="scrollbar"
       style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
@@ -434,8 +435,8 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={() => setOpen(false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className={classes.drawerHeader}>
+      <div className="scrollbar" style={{ display: "flex", flexDirection: "row" }}>
+        <div className={classes.drawerHeader} className="scrollbar">
           <div
             style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
           >
