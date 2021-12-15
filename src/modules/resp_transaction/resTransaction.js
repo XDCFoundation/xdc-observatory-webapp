@@ -415,8 +415,7 @@ export default function Transaction({ _handleChange }) {
                               className="linkTableDetails-transaction"
                               href={"/address-details/" + transactions.from}
                             >
-                              {/* {transactions.from}{" "} */}
-                              0x6dd1cd0e7c8ed6fededc919105f520fe932147602ca62
+                              {transactions.from}{" "}
                             </a>
                             <div
                               className={
