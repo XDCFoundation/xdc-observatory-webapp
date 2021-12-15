@@ -117,6 +117,28 @@ export default function BlockDetails() {
     return input;
   };
 
+  const getHoursAgo = (date) => {
+    let today = Date.now()
+    let difference = today - date;
+    if(difference/1000/60/60/24 > 30)
+      return ""
+    if(difference/1000/60/60/24 > 1){
+      let days = Math.floor(difference/1000/60/60/24)
+      if(days===1)
+        return days + " day ago "
+      else
+        return days + " days ago "
+    }
+    else {
+      let hours = Math.floor(difference/1000/60/60);
+      if(hours === 1)
+        return hours + " hour ago ";
+      else
+        return hours + " hours ago ";
+    }
+    return ;
+  }
+
   return (
     <div>
       <Tokensearchbar />
@@ -244,9 +266,11 @@ export default function BlockDetails() {
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
+                      {getHoursAgo(height.timestamp * 1000)}
+                      (
                       {moment(height.timestamp * 1000).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                      )}
+                        "ddd MMMM Do YYYY, h:mm:ss a"
+                      ) } GMT+530)
                     </MiddleContainer>
                   </Spacing>
                   <Spacing>
