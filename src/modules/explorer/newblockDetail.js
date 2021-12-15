@@ -111,7 +111,11 @@ export default function BlockDetails() {
     }
     return input;
   };
-
+  let td = parseInt(height?.totalDifficulty);
+  let totalDifficulty = td?.toLocaleString('en-US');
+  let difi = parseInt(height?.difficulty)
+  let difficulty = difi?.toLocaleString('en-US');
+  console.log(difficulty, "hhuhuh")
   return (
     <div>
       <Tokensearchbar />
@@ -341,7 +345,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{height.difficulty}</MiddleContainer>
+                    <MiddleContainer>{difficulty}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -352,7 +356,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Total Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{height.totalDifficulty}</MiddleContainer>
+                    <MiddleContainer>{totalDifficulty}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -363,7 +367,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Used</Hash>
                     </Container>
-                    <MiddleContainer>{height.gasUsed}</MiddleContainer>
+                    <MiddleContainer>{parseInt(height?.gasUsed)?.toLocaleString('en-US')}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -374,7 +378,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Limit</Hash>
                     </Container>
-                    <MiddleContainer>{height.gasLimit}</MiddleContainer>
+                    <MiddleContainer>{parseInt(height?.gasLimit)?.toLocaleString('en-US')}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
