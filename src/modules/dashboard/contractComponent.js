@@ -376,7 +376,7 @@ class Contractlist extends React.Component {
                       style={{ fontSize: "14px" }}
                       className={"tableheaders"}
                     >
-                      Is Token
+                      Token Yes/No
                     </span>
                   </TableCell>
                 </TableRow>
