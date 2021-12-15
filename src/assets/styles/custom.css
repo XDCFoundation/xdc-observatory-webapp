@@ -8388,10 +8388,15 @@ button {
   margin-top: -33px;
   margin-left: 178px;
 }
+.copyEditContainerAddress {
+  display: flex;
+  margin-top: -20px;
+  margin-left: 178px;
+}
 .copyEditContainerMobile {
   display: flex;
   margin-top: -20px;
-  margin-left: 269px;
+  margin-left: 75px;
 }
 .copyToClipboardHash {
   color: #2149b9;
@@ -9274,6 +9279,8 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
+  width:7.625rem;
+
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
