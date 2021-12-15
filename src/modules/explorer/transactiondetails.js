@@ -37,7 +37,6 @@ const useStyles = makeStyles({
 });
 
 export default function TransactionsDetailsData({ _handleChange }) {
-
   const { hash } = useParams();
   const [transactions, setTransactions] = useState(false);
   const [amount, setAmount] = useState("");
@@ -89,14 +88,14 @@ export default function TransactionsDetailsData({ _handleChange }) {
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-        ? transactions.valueUSD
-        : transactions.valueEUR;
+      ? transactions.valueUSD
+      : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-        ? transactions.transactionFeeUSD
-        : transactions.transactionFeeEUR;
+      ? transactions.transactionFeeUSD
+      : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
     : (transactionFetch / 1000000000000000000).toFixed(12);
@@ -116,7 +115,6 @@ export default function TransactionsDetailsData({ _handleChange }) {
   // let zero = value1?.slice(10, 74);
   // let one = value1?.slice(74, 138);
 
-
   return (
     <div>
       <Tokensearchbar />
@@ -125,7 +123,9 @@ export default function TransactionsDetailsData({ _handleChange }) {
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p className="block_details_heading_left_transaction">Transactionshhetails</p>
+          <p className="block_details_heading_left_transaction">
+            Transactionshhetails
+          </p>
           {transactions ? (
             transactions.status ? (
               <p className="Success-rectangle">Success</p>

@@ -207,11 +207,30 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "none",
   },
+  
   "@media (max-width: 1920px)": {
     appbar: {
       maxWidth: "1248px",
       width: "100%",
       padding: "0 24px",
+    },
+  },
+  "@media (min-width:0px) and (max-width: 714px)": {
+    appbar: {
+      Width: "300px",
+      width: "100%",
+      padding: "0 7px",
+     
+    },
+    tab1: {
+      color: "#2149b9 !important",
+      textTransform: "initial",
+      fontSize:"0.722rem"
+    },
+    tab2: {
+      color: "#6b7482",
+      textTransform: "initial",
+      fontSize:"0.722rem"
     },
   },
   "@media (max-width: 828px)": {
@@ -221,12 +240,15 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 24px",
     },
   },
+  
+
   "@media (max-width: 714px)": {
-    appbar: {
-      maxWidth: "375px",
-      width: "100%",
-      padding: "0 7px",
-    },
+    // appbar: {
+    //   maxWidth: "375px",
+    //   width: "100%",
+    //   padding: "0 7px",
+    // },
+
     mywatch: {
       /* width: 100px; */
       height: "19px",
@@ -1241,7 +1263,7 @@ export default function SimpleTabs(props) {
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
-                                // className={classes.Rectangle}
+                                  // className={classes.Rectangle}
                                 />
                               </TableCell>
                               <TableCell

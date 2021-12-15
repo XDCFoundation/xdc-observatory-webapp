@@ -1071,10 +1071,11 @@ const HashDiv = styled.div`
   height: auto;
   align-items: center;
   padding: 16px 33px;
-
+ 
   @media (max-width: 767px) {
     display: block;
     padding-left: 10px;
+    padding-right: 85px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     padding: 6px 30px;
