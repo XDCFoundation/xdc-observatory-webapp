@@ -2421,6 +2421,7 @@ p {
   line-height: normal;
   letter-spacing: normal;
   color: #2a2a2a !important;
+  outline: none;
 }
 
 .side-box {
