@@ -484,26 +484,31 @@ export default function FormDialog(props) {
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
+      console.log("1")
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
       setLoading(false);
+      console.log("1")
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
       setLoading(false);
+      console.log("1")
     } else if (!password.match(regExPass)) {
       setErrorPassword(
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
+      console.log("1")
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
+      console.log("1")
+
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
-    } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha");
-      setLoading(false);
+      console.log("1")
+
     } else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
