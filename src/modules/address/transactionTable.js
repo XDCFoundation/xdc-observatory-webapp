@@ -424,6 +424,13 @@ export default function TransactionTableComponent(props) {
                   >
                     <span className={'tableheaders table-value'}>Value</span>
                   </TableCell>
+                  <TableCell
+                    className="w-450 "
+                    style={{ border: 'none', paddingLeft: '1%' }}
+                    align="left"
+                  >
+                    <span className={'tableheaders table-value'}>Gas</span>
+                  </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
@@ -532,6 +539,9 @@ export default function TransactionTableComponent(props) {
                           </TableCell>
                           <TableCell style={{ border: 'none' }} align="left">
                             <span className="tabledata">{row.value}</span>
+                          </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
+                            <span className="tabledata">{row.gas}</span>
                           </TableCell>
                         </TableRow>
                       )
