@@ -296,19 +296,6 @@ export default function Navbar() {
     "Tokens",
   ];
   const [filter, setFilter] = useState("");
-  const childToggle = (subanchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setOpencontracts(false);
-
-    setState({ ...state, [subanchor]: open });
-  };
-
   const contracts = (subanchor) => (
     <div
       // style={{ overflow: "revert" }}
@@ -320,7 +307,9 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div className="menubar-contract">
+          <div
+            className="menubar-contract"
+          >
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpencontracts(false)}
@@ -344,7 +333,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={childToggle(subanchor, false)}
+                onClick={() => setOpencontracts(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -387,16 +376,6 @@ export default function Navbar() {
   );
 
   // ..................
-  const childToolsToggle = (subanchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setOpen(false);
-    setState({ ...state, [subanchor]: open });
-  };
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -408,7 +387,8 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div className="menubar-contract">
+          <div className="menubar-contract"
+          >
             <div style={{ marginTop: 10 }}>
               <span
                 onClick={() => setOpen(false)}
@@ -431,7 +411,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "14rem" }}
-                onClick={childToolsToggle(subanchor, false)}
+                onClick={() => setOpen(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -587,7 +567,7 @@ export default function Navbar() {
         <ul className="Live-Network">
           <p>More</p>
         </ul>
-        <ul className="Live-Network-list">
+        {/* <ul className="Live-Network-list">
           <a
             className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
@@ -595,7 +575,7 @@ export default function Navbar() {
             <div className="xinfin_account_button"> XDCPay</div>
           </a>
           <hr className="myhr" />
-        </ul>
+        </ul> */}
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
             <div className="xinfin_account_button">XDC Remix</div>

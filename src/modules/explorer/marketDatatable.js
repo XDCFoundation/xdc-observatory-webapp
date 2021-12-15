@@ -1,6 +1,6 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "../../assets/styles/custom.css";
-import {CoinMarketService} from "../../services";
+import { CoinMarketService } from "../../services";
 import styled from "styled-components";
 import Utils from "../../utility";
 import arrowUp from "../../assets/images/Up.svg";
@@ -136,272 +136,270 @@ class MarketDatatable extends Component {
       <>
         <DeskTopView>
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
-            <div className={this.state.loading == true ? "cover-spin" : ""}>
-              <div className="main_mid">
-                <div className="main_child">
-                  <div className="cont1">
-                    <p>Market Cap</p>
-                    <p>
-                      {currencySymbol}
-                      {MarketCapValue ? MarketCapValue : 0}
-                    </p>
-                    <div
-                      className={
-                        MarketCapchange >= 0
-                          ? "data_value_green"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="varMarket">
-                        {MarketCapchange == 0 ? (
-                          ""
-                        ) : MarketCapchange > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src={arrowUp} style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src={arrowDown} style={{ width: "8px" }} />
-                          </div>
-                        )}
-                        &nbsp;{MarketCapchange}%
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cont1">
-                    <p>Fully Diluted Market Cap</p>
-                    <p>
-                      {currencySymbol}
-                      {FullyDilutedMarketCapValue
-                        ? FullyDilutedMarketCapValue
-                        : 0}
-                    </p>
-                    <div
-                      className={
-                        FullyDilutedMarketCapchange >= 0
-                          ? "data_value_green"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="varMarket">
-                        {FullyDilutedMarketCapchange == 0 ? (
-                          ""
-                        ) : FullyDilutedMarketCapchange > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src={arrowUp} style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src={arrowDown} style={{ width: "8px" }} />
-                          </div>
-                        )}
-                        &nbsp;{FullyDilutedMarketCapchange}%
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cont1">
-                    <p>Volume (24hr)</p>
-                    <p>
-                      {currencySymbol}
-                      {volumeValue ? volumeValue : 0}
-                    </p>
-                    <div
-                      className={
-                        Volumechange >= 0
-                          ? "data_value_green"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="varMarket">
-                        {Volumechange == 0 ? (
-                          ""
-                        ) : Volumechange > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src={arrowUp} style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src={arrowDown} style={{ width: "8px" }} />
-                          </div>
-                        )}
-                        &nbsp;{Volumechange}%
-                      </div>
+            <div className="main_mid">
+              <div className="main_child">
+                <div className="cont1">
+                  <p>Market Cap</p>
+                  <p>
+                    {currencySymbol}
+                    {MarketCapValue ? MarketCapValue : 0}
+                  </p>
+                  <div
+                    className={
+                      MarketCapchange >= 0
+                        ? "data_value_green"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="varMarket">
+                      {MarketCapchange == 0 ? (
+                        ""
+                      ) : MarketCapchange > 0 ? (
+                        <div className="arrow_up">
+                          {/* <BsFillCaretUpFill size={10} /> */}
+                          <img src={arrowUp} style={{ width: "8px" }} />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} /> */}
+                          <img src={arrowDown} style={{ width: "8px" }} />
+                        </div>
+                      )}
+                      &nbsp;{MarketCapchange}%
                     </div>
                   </div>
                 </div>
-
-                <div className="main_sec">
-                  <div className="cont1">
-                    <div className="cont1-child">
-                      <p>Circulating Supply</p>
-                      <p>
-                        {circulatingSupplyValue ? circulatingSupplyValue : 0}{" "}
-                        XDC
-                      </p>
+                <div className="cont1">
+                  <p>Fully Diluted Market Cap</p>
+                  <p>
+                    {currencySymbol}
+                    {FullyDilutedMarketCapValue
+                      ? FullyDilutedMarketCapValue
+                      : 0}
+                  </p>
+                  <div
+                    className={
+                      FullyDilutedMarketCapchange >= 0
+                        ? "data_value_green"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="varMarket">
+                      {FullyDilutedMarketCapchange == 0 ? (
+                        ""
+                      ) : FullyDilutedMarketCapchange > 0 ? (
+                        <div className="arrow_up">
+                          {/* <BsFillCaretUpFill size={10} /> */}
+                          <img src={arrowUp} style={{ width: "8px" }} />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} /> */}
+                          <img src={arrowDown} style={{ width: "8px" }} />
+                        </div>
+                      )}
+                      &nbsp;{FullyDilutedMarketCapchange}%
                     </div>
                   </div>
-
-                  <div className="cont1 cont1_align">
-                    <div className="cont1-child2">
-                      <p>Total Supply</p>
-                      <p>{!totalSupplyValue ? 0 : totalSupplyValue}</p>
-                    </div>
-                  </div>
-                  <div className="con"> </div>
                 </div>
+                <div className="cont1">
+                  <p>Volume (24hr)</p>
+                  <p>
+                    {currencySymbol}
+                    {volumeValue ? volumeValue : 0}
+                  </p>
+                  <div
+                    className={
+                      Volumechange >= 0
+                        ? "data_value_green"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="varMarket">
+                      {Volumechange == 0 ? (
+                        ""
+                      ) : Volumechange > 0 ? (
+                        <div className="arrow_up">
+                          {/* <BsFillCaretUpFill size={10} /> */}
+                          <img src={arrowUp} style={{ width: "8px" }} />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} /> */}
+                          <img src={arrowDown} style={{ width: "8px" }} />
+                        </div>
+                      )}
+                      &nbsp;{Volumechange}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="main_sec">
+                <div className="cont1">
+                  <div className="cont1-child">
+                    <p>Circulating Supply</p>
+                    <p>
+                      {circulatingSupplyValue ? circulatingSupplyValue : 0}{" "}
+                      XDC
+                    </p>
+                  </div>
+                </div>
+
+                <div className="cont1 cont1_align">
+                  <div className="cont1-child2">
+                    <p>Total Supply</p>
+                    <p>{!totalSupplyValue ? 0 : totalSupplyValue}</p>
+                  </div>
+                </div>
+                <div className="con"> </div>
               </div>
             </div>
           </div>
+
         </DeskTopView>
         <MobileView>
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
-            <div className={this.state.loading == true ? "cover-spin" : ""}>
-              <div className="second_mid">
-                <div className="second_cont">
-                  <div className="w-54-per">
-                    <p>Market Cap</p>
-                  </div>
-                  <div className="mid_cont ">
-                    <p className="word-space-4">
-                      {currencySymbol}
-                      {MarketCapValue ? MarketCapValue : 0}
-                    </p>
 
-                    <div
-                      className={
-                        MarketCapchange >= 0
-                          ? "data_value_green"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="secondMarket">
-                        {MarketCapchange == 0 ? (
-                          ""
-                        ) : MarketCapchange > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src={arrowUp} style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src={arrowDown} style={{ width: "8px" }} />
-                          </div>
-                        )}
-                        &nbsp;{MarketCapchange}%
-                      </div>
+            <div className="second_mid">
+              <div className="second_cont">
+                <div className="w-54-per">
+                  <p>Market Cap</p>
+                </div>
+                <div className="mid_cont ">
+                  <p className="word-space-4">
+                    {currencySymbol}
+                    {MarketCapValue ? MarketCapValue : 0}
+                  </p>
+
+                  <div
+                    className={
+                      MarketCapchange >= 0
+                        ? "data_value_green"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="secondMarket">
+                      {MarketCapchange == 0 ? (
+                        ""
+                      ) : MarketCapchange > 0 ? (
+                        <div className="arrow_up">
+                          {/* <BsFillCaretUpFill size={10} /> */}
+                          <img src={arrowUp} style={{ width: "8px" }} />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} /> */}
+                          <img src={arrowDown} style={{ width: "8px" }} />
+                        </div>
+                      )}
+                      &nbsp;{MarketCapchange}%
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="second_cont">
-                  <div className="w-54-per">
-                    {" "}
-                    <p>Fully Diluted Market Cap</p>
-                  </div>
-                  <div className="mid_cont ">
-                    {" "}
-                    <p className="word-space-4">
-                      {currencySymbol}
-                      {FullyDilutedMarketCapValue
-                        ? FullyDilutedMarketCapValue
-                        : 0}
-                    </p>
-                    <div
-                      className={
-                        FullyDilutedMarketCapchange >= 0
-                          ? "data_value_green"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="secondMarket">
-                        {FullyDilutedMarketCapchange == 0 ? (
-                          ""
-                        ) : FullyDilutedMarketCapchange > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src={arrowUp} style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src={arrowDown} style={{ width: "8px" }} />
-                          </div>
-                        )}
-                        &nbsp;{FullyDilutedMarketCapchange}%
-                      </div>
+              <div className="second_cont">
+                <div className="w-54-per">
+                  {" "}
+                  <p>Fully Diluted Market Cap</p>
+                </div>
+                <div className="mid_cont ">
+                  {" "}
+                  <p className="word-space-4">
+                    {currencySymbol}
+                    {FullyDilutedMarketCapValue
+                      ? FullyDilutedMarketCapValue
+                      : 0}
+                  </p>
+                  <div
+                    className={
+                      FullyDilutedMarketCapchange >= 0
+                        ? "data_value_green"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="secondMarket">
+                      {FullyDilutedMarketCapchange == 0 ? (
+                        ""
+                      ) : FullyDilutedMarketCapchange > 0 ? (
+                        <div className="arrow_up">
+                          {/* <BsFillCaretUpFill size={10} /> */}
+                          <img src={arrowUp} style={{ width: "8px" }} />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} /> */}
+                          <img src={arrowDown} style={{ width: "8px" }} />
+                        </div>
+                      )}
+                      &nbsp;{FullyDilutedMarketCapchange}%
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="second_cont">
-                  <div className="w-54-per">
-                    {" "}
-                    <p>Volume (24hr)</p>
-                  </div>
-                  <div className="mid_cont ">
-                    {" "}
-                    <p className="word-space-4">
-                      {currencySymbol}
-                      {volumeValue ? volumeValue : 0}
-                    </p>
-                    <div
-                      className={
-                        Volumechange >= 0
-                          ? "data_value_green"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="secondMarket">
-                        {Volumechange == 0 ? (
-                          ""
-                        ) : Volumechange > 0 ? (
-                          <div className="arrow_up">
-                            {/* <BsFillCaretUpFill size={10} /> */}
-                            <img src={arrowUp} style={{ width: "8px" }} />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} /> */}
-                            <img src={arrowDown} style={{ width: "8px" }} />
-                          </div>
-                        )}
-                        &nbsp;{Volumechange}%
-                      </div>
+              <div className="second_cont">
+                <div className="w-54-per">
+                  {" "}
+                  <p>Volume (24hr)</p>
+                </div>
+                <div className="mid_cont ">
+                  {" "}
+                  <p className="word-space-4">
+                    {currencySymbol}
+                    {volumeValue ? volumeValue : 0}
+                  </p>
+                  <div
+                    className={
+                      Volumechange >= 0
+                        ? "data_value_green"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="secondMarket">
+                      {Volumechange == 0 ? (
+                        ""
+                      ) : Volumechange > 0 ? (
+                        <div className="arrow_up">
+                          {/* <BsFillCaretUpFill size={10} /> */}
+                          <img src={arrowUp} style={{ width: "8px" }} />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} /> */}
+                          <img src={arrowDown} style={{ width: "8px" }} />
+                        </div>
+                      )}
+                      &nbsp;{Volumechange}%
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="second_cont">
-                  <div className="w-54-per">
-                    {" "}
-                    <p>Circulating Supply</p>
-                  </div>
-                  <div className="mid_cont">
-                    {" "}
-                    <p style={{ marginRight: "42px" }}>
-                      {circulatingSupplyValue ? circulatingSupplyValue : 0} XDC
-                    </p>
-                  </div>
+              <div className="second_cont">
+                <div className="w-54-per">
+                  {" "}
+                  <p>Circulating Supply</p>
                 </div>
+                <div className="mid_cont">
+                  {" "}
+                  <p style={{ marginRight: "42px" }}>
+                    {circulatingSupplyValue ? circulatingSupplyValue : 0} XDC
+                  </p>
+                </div>
+              </div>
 
-                <div className="second_cont">
-                  <div className="w-54-per">
-                    {" "}
-                    <p>Total Supply</p>
-                  </div>
-                  <div className="mid_cont">
-                    {" "}
-                    <p style={{ marginRight: "25px" }}>
-                      {!totalSupplyValue ? 0 : totalSupplyValue}
-                    </p>
-                  </div>
+              <div className="second_cont">
+                <div className="w-54-per">
+                  {" "}
+                  <p>Total Supply</p>
+                </div>
+                <div className="mid_cont">
+                  {" "}
+                  <p style={{ marginRight: "25px" }}>
+                    {!totalSupplyValue ? 0 : totalSupplyValue}
+                  </p>
                 </div>
               </div>
             </div>

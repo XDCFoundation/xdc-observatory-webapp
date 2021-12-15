@@ -300,21 +300,9 @@ export default function Navbar() {
 
   const list = ["Accounts", "Contract", "Tools", "XDC Apis", "Nodes", "Tokens"];
   const [filter, setFilter] = useState("");
-  const childToggle = (subanchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setOpencontracts(false);
-
-    setState({ ...state, [subanchor]: open });
-  };
   const contracts = (subanchor) => (
     <div
-      style={{ overflow: "revert" }}
+      // style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
@@ -324,18 +312,18 @@ export default function Navbar() {
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
           <div
-            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
+            className="menubar-contract"
           >
             <div style={{ marginTop: 10 }}>
-              {" "}
               <span
                 onClick={() => setOpencontracts(false)}
                 style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>{" "}
+              </span>
             </div>
             <div
+              onClick={() => setOpencontracts(false)}
               style={{
                 color: "white",
                 marginTop: "14px",
@@ -343,14 +331,13 @@ export default function Navbar() {
                 marginLeft: "8px",
                 cursor: "pointer",
               }}
-              onClick={() => setOpencontracts(false)}
             >
               Contract
             </div>
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={childToggle(subanchor, false)}
+                onClick={() => setOpencontracts(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -382,7 +369,7 @@ export default function Navbar() {
               listStyle: "none",
               textDecoration: "none",
             }}
-            href={"/verify-contracts"}
+            href="/verify-contracts"
           >
             <div className="xinfin_api_button">Verify Contracts</div>
           </a>
@@ -391,16 +378,8 @@ export default function Navbar() {
       </List>
     </div>
   );
-  const childToolsToggle = (subanchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setOpen(false);
-    setState({ ...state, [subanchor]: open });
-  };
+
+  // ..................
   const items = (subanchor) => (
     <div
       style={{ overflow: "revert" }}
@@ -412,17 +391,15 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div
-            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
+          <div className="menubar-contract"
           >
             <div style={{ marginTop: 10 }}>
-              {" "}
               <span
                 onClick={() => setOpen(false)}
                 style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>{" "}
+              </span>
             </div>
             <div
               style={{
@@ -430,7 +407,7 @@ export default function Navbar() {
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
-                cursor: "pointer",
+                cursor: "pointer"
               }}
             >
               Tools
@@ -438,7 +415,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "14rem" }}
-                onClick={childToolsToggle(subanchor, false)}
+                onClick={() => setOpen(false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -594,7 +571,7 @@ export default function Navbar() {
         <ul className="Live-Network">
           <p>More</p>
         </ul>
-        <ul className="Live-Network-list">
+        {/* <ul className="Live-Network-list">
           <a
             className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
@@ -602,7 +579,7 @@ export default function Navbar() {
             <div className="xinfin_account_button">XinPay</div>
           </a>
           <hr className="myhr" />
-        </ul>
+        </ul> */}
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
             <div className="xinfin_account_button">XDC Remix</div>
