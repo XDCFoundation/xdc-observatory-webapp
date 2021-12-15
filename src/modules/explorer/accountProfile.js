@@ -943,10 +943,11 @@ export default function SimpleTabs(props) {
                 filename={"tag_address.csv"}
                 data={downloadTagAddress}
                 style={{
+                  pointerEvents: "none",
                   fontSize: "0.938rem",
                   textAlign: "center",
                   color: "#ffffff",
-                  backgroundColor: "rgb(7 125 245)",
+                  backgroundColor: "#9fa",
                   borderRadius: "0.25rem",
                   width: "5.875rem",
                   height: "2.125rem",
