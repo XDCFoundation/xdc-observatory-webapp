@@ -9081,7 +9081,7 @@ button {
 .cover-spin-3 {
   background-color: transparent;
   font-size: 30px;
-  top: 0;
+  top: 0px;
   left: 0;
   height: 100%;
 }
@@ -9090,7 +9090,7 @@ button {
   display: block;
   position: absolute;
   left: 50%;
-  top: 100%;
+  top: 65%;
   width: 40px;
   height: 40px;
   margin-left: -10px;
@@ -9113,7 +9113,8 @@ button {
   display: block;
   position: absolute;
   left: 50%;
-  bottom: -276px;
+  /* bottom: -276px; */
+  top: 880px;
   width: 40px;
   height: 40px;
   margin-left: -10px;
