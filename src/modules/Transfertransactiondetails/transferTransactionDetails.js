@@ -320,7 +320,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip title={transferToken}>
+                    <Tooltip title={transferToken} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -342,7 +342,7 @@ export default function TransferTransaction({ _handleChange }) {
 
                 <Spacing>
                   <Container>
-                    <Tooltip title={transferToken}>
+                    <Tooltip title={transferToken} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -372,7 +372,7 @@ export default function TransferTransaction({ _handleChange }) {
 
                 <Spacing>
                   <Container>
-                    <Tooltip title={value}>
+                    <Tooltip title={value} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -390,7 +390,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip title={txnfee}>
+                    <Tooltip title={txnfee} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -408,7 +408,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={gasprovided}>
+                    <Tooltip align="right" title={gasprovided} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -422,7 +422,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={gasprice}>
+                    <Tooltip align="right" title={gasprice} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -436,7 +436,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={gasused}>
+                    <Tooltip align="right" title={gasused} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -449,7 +449,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={nounced}>
+                    <Tooltip align="right" title={nounced} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -462,7 +462,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <SpacingInputData>
                   <Container className="mar-bottom-45 mar-bottom-15 mar-bottom-40">
-                    <Tooltip align="right" title={input}>
+                    <Tooltip align="right" title={input} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
@@ -475,7 +475,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </SpacingInputData>
                 <SpacingPrivateNode>
                   <Container>
-                    <Tooltip align="right" title={transferToken}>
+                    <Tooltip align="right" title={transferToken} style={{cursor:"pointer"}}>
                       <ImageView
                         src={require("../../../src/assets/images/questionmark.svg")}
                       />
