@@ -150,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginLeft: "24px",
     marginTop: "20px",
+    marginBottom: "35px",
   },
   checkbox: {
     width: "17px",
@@ -257,6 +258,7 @@ const useStyles = makeStyles((theme) => ({
       // top: "102px",
       height: "100%",
       width: "100%",
+      maxWidth: "767px",
       borderRadius: "0px",
       backgroundImage: "none",
       opacity: "0px",
@@ -346,9 +348,11 @@ const useStyles = makeStyles((theme) => ({
       // top: "102px",
       height: "100%",
       width: "100%",
+      maxWidth: "767px",
       borderRadius: "0px",
       backgroundImage: "none",
       opacity: "0px",
+      paddingBottom: "30px"
     },
 
     input: {
@@ -1011,7 +1015,8 @@ export default function FormDialog(props) {
                   display: "flex",
                   alignItems: "center",
                   marginTop: "4px",
-                  flexDirection: "column"
+                  flexDirection: "column",
+                  paddingLeft: "28px"
                 }}>
                   <ReCAPTCHA
                     sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
@@ -1145,6 +1150,20 @@ export default function FormDialog(props) {
                     }}
                   ></input>
                 </DialogContent>
+                <div style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "28px",
+                  flexDirection: "column",
+                  paddingLeft: "28px"
+                }}>
+                  <ReCAPTCHA
+                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    onChange={handleReCaptcha}
+                  />
+                  <div style={{ marginLeft: 0 }} className={classes.error1}>{captchaError}</div>
+                </div>
 
                 {/* <div className={classes.robotContainerForgotPass}>
                   <div className={classes.robotContainer1}>
