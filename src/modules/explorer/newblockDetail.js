@@ -144,7 +144,7 @@ export default function BlockDetails() {
 
                     <MiddleContainerHash>
                       <Content>
-                        {height.hash && truncate(height.hash)}
+                        {height.hash }
                         
 
                         <CopyToClipboard
@@ -265,16 +265,16 @@ export default function BlockDetails() {
                           className="parent_hash"
                           style={{ cursor: "pointer" }}
                         >
-                         {height.parentHash && truncate(height.parentHash)}
+                         {height.parentHash }
 
                         </a>
                         <CopyToClipboard
-                          text={height.hash}
-                          onCopy={() => setCopiedText(height.hash)}
+                          text={height.parentHash}
+                          onCopy={() => setCopiedText(height.parentHash)}
                         >
                           <Tooltip
                             title={
-                              copiedText === height.hash
+                              copiedText === height.parentHash
                                 ? "Copied"
                                 : "Copy To Clipboard"
                             }
@@ -307,15 +307,15 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>
                       <Content>    
-                         {height.sha3Uncles  && truncate(height.sha3Uncles )}
+                         {height.sha3Uncles  }
 
                         <CopyToClipboard
-                          text={height.hash}
-                          onCopy={() => setCopiedText(height.hash)}
+                          text={height.sha3Uncles}
+                          onCopy={() => setCopiedText(height.sha3Uncles)}
                         >
                           <Tooltip
                             title={
-                              copiedText === height.hash
+                              copiedText === height.sha3Uncles
                                 ? "Copied"
                                 : "Copy To Clipboard"
                             }
