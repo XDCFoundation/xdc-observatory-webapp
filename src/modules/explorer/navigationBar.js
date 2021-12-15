@@ -422,7 +422,7 @@ export default function Navbar() {
                 cursor: "pointer",
               }}
             >
-              Toolsss
+              Tools
             </div>
             <div>
               <IconButton

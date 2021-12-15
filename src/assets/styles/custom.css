@@ -429,6 +429,19 @@ input:focus {
   height: 1.875rem;
   width: 1.875rem;
 }
+.scrollbar ::-webkit-scrollbar {
+  background: red !important;
+  width: 13px;
+  height: 63px;
+  overflow: scroll;
+}
+.scrollbar ::-webkit-scrollbar-thumb {
+  width: 13px;
+  height: 11px;
+  background: black !important;
+  opacity: 1;
+  overflow: scroll;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
     height: 1.75rem;
@@ -8353,6 +8366,7 @@ button {
 }
 .copyEditContainer {
   display: flex;
+ 
 }
 .copy-icon {
   width: 25px;
@@ -9325,6 +9339,9 @@ button {
   }
   .copy-edit {
     align-self: flex-end !important;
+
+   
+   
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -9332,3 +9349,4 @@ button {
     align-self: center !important;
   }
 }
+
