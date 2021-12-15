@@ -7074,6 +7074,8 @@ button {
   opacity: 0.5;
   cursor: text;
   margin-left: 0px;
+  cursor: default;
+  pointer-events: none;
 }
 
 .checkmark {
