@@ -119,6 +119,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    drawerHeader: {
+      padding: "0 !important",
+    }
   },
   fullList: {
     width: "auto",

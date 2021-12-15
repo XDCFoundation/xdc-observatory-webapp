@@ -436,7 +436,7 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: .75rem;
+    font-size: .875rem;
     word-break: break-all;
     margin-left:17px;
   }

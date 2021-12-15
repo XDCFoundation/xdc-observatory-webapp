@@ -947,7 +947,7 @@ export default function SimpleTabs(props) {
                   fontSize: "0.938rem",
                   textAlign: "center",
                   color: "#ffffff",
-                  backgroundColor: "#9fa",
+                  backgroundColor: "#9fa9ba",
                   borderRadius: "0.25rem",
                   width: "5.875rem",
                   height: "2.125rem",

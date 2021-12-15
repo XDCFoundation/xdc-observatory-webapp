@@ -38,26 +38,28 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "50px !important",
   },
   buttons: {
-    padding: "10px 35px 15px 0px",
+    padding: "21px 0px 15px 0px",
+    maxWidth: "343px",
+    width: "100%",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   input: {
-    width: "503px",
-    height: "15px",
-    border: "solid 1px #c6c8ce",
+    height: "38px",
+    border: "solid 1px #9fa9ba",
     backgroundColor: "#ffffff",
-    borderRadius: "7px",
-    padding: "20px",
+    borderRadius: "4px",
     marginBottom: "21px",
     outline: "none",
+    width: "100%",
   },
 
   addbtn: {
-    width: "110px",
+    width: "78px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
-    margin: "0px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "0px 0px 15px 2px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
@@ -80,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 
   // },
   cnlbtn: {
-    width: "94px",
+    width: "78px",
     height: "34px",
     // margin: "33px 21px 0 87px",
     // padding: "8px 19px 7px 21px",
@@ -88,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#9fa9ba",
     color: "white",
     margin: "0px 8px 15px 2px",
-    padding: "6px 19px 3px 20px",
   },
   subCategory: {
     marginTop: "-12px",
@@ -112,6 +113,14 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-30px",
   },
+  userContainer: {
+    marginTop: "12px",
+    padding: "0px",
+    width: "100%",
+    maxWidth: "343px",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
   xdc: {
     color: "#2a2a2a",
     marginLeft: "30px",
@@ -131,11 +140,14 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
-    marginLeft: "24px",
+    marginLeft: "auto",
+    marginRight: "auto",
     fontFamily: "Inter",
     fontWeight: "600",
     fontSize: "18px",
     color: "#2a2a2a",
+    maxWidth: "343px",
+    width: "100%"
   },
   dialogBox: {
     width: "553px",
@@ -144,21 +156,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   createWatchlistMobile: {
-    paddingLeft: "2em",
-    paddingRight: "2em",
     paddingTop: "15em"  
 },
-  "@media (max-width: 714px)": {
+  "@media (max-width: 767px)": {
     heading:{
       fontSize: "16px",
     },
     dialogBox: {
       width: "362px",
       top: "95px"
-    },
-    input: {
-      maxWidth: "503px",
-      width: "100%",
     },
     error: {
       color: "red",
@@ -248,6 +254,7 @@ export default function FormDialog() {
     setErrorTag("")
     setPrivateAddress("");
     setTags([]);
+    history.push("/loginprofile")
   };
 
 
@@ -307,7 +314,7 @@ export default function FormDialog() {
               X{" "}
             </span> */}
           </Row>
-          <div>
+          <div className={classes.userContainer}>
             <p className={classes.subCategory}>
               Address
             </p>
@@ -319,7 +326,7 @@ export default function FormDialog() {
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </div>
-          <div>
+          <div className={classes.userContainer}>
             <p className={classes.subCategory}>
               Name Tag
               {/* <span  className={classes.forgotpass}>
@@ -327,7 +334,7 @@ export default function FormDialog() {
             </span> */}
             </p>
 
-            <div className="containerTag">
+            <div className="containerTagMobile">
                 {tags.map((tag, index) => (<div className="tag">
                   {tag}
                   <button onClick={() => deleteTag(index)}>x</button>

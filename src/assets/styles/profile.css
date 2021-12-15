@@ -576,7 +576,7 @@ background-color: #4878ff; */
 
 @media screen and (max-width: 376px) {
   .heading {
-    margin-left: -17px;
+    margin-left: -11px;
   }
   .searchBar {
     margin-left: 7px;

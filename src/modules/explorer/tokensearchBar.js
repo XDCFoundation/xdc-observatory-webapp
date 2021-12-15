@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
       height: "11.4375rem !important",
     },
+    drawerHeader: {
+      padding: "0 !important",
+    }
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
@@ -226,13 +229,7 @@ export default function Navbar() {
         }}
       >
         <p
-          style={{
-            color: "#4666c4",
-            fontSize: 13,
-            fontFamily: "Inter",
-            marginLeft: 23,
-            marginTop: "20px",
-          }}
+          className="inside-side-box-browse"
         >
           Browse
         </p>
