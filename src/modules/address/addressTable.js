@@ -383,8 +383,8 @@ export default function AddressTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab">
-        <div className="searchelement-input3 search-input-box">
-          <img
+        <div className="searchelement-input3 ">
+          {/*<img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
             src={require('../../assets/images/Search.svg')}
           />
@@ -415,7 +415,7 @@ export default function AddressTableComponent(props) {
               }
             }}
           // onKeyUp={handleKeyUp}
-          />
+          />*/}
         </div>
 
         {isDownloadActive ? (

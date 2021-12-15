@@ -7129,6 +7129,7 @@ button {
 
 .popup-overlay {
   background: rgba(0, 0, 0, 0.5);
+  margin-top: 50px;
 }
 
 [data-popup="tooltip"].popup-overlay {
