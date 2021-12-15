@@ -19,6 +19,9 @@ label {
 input[placeholder] {
   text-overflow: ellipsis;
 }
+a:link {
+  text-decoration: none;
+}
 
 input#password {
   width: 433px;
@@ -889,7 +892,7 @@ input:focus {
     width: 100% !important;
   }
   .csv {
-    padding: 11px 8px 9px 0 !important;
+    padding: 11px 0px 9px 0px !important;
     align-self: flex-end !important;
   }
   .csv-inactive {
@@ -7228,7 +7231,7 @@ button {
 }
 
 .ActiveDownload {
-  font-size: 10px;
+  font-size: 0.875rem;
   text-align: center;
   border-radius: 4px;
   width: 94px;
@@ -7237,7 +7240,7 @@ button {
 
 .ActiveDownload:hover {
   color: #81b4ff;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 
 .InactiveDownload {
