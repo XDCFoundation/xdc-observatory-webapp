@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: "13.313rem",
+      width: "14.313rem",
       backgroundColor: "#102e84",
       height: "100%",
     },
