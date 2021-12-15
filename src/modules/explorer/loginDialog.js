@@ -741,12 +741,12 @@ export default function FormDialog(props) {
           <Dialog
             classes={{
               paperWidthSm:
-                value === 1
+                value === 4
                   ? classes.paperWidthSm1
                   : value === 4
                     ? classes.paperWidthSm2
                     : classes.paperWidthSm,
-            }}
+            }} 
             className={classes.dialog}
             open={open || onOpen}
             onClose={handleClose}

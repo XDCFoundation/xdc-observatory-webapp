@@ -429,6 +429,19 @@ input:focus {
   height: 1.875rem;
   width: 1.875rem;
 }
+.scrollbar ::-webkit-scrollbar {
+  background: red !important;
+  width: 13px;
+  height: 63px;
+  overflow: scroll;
+}
+.scrollbar ::-webkit-scrollbar-thumb {
+  width: 13px;
+  height: 11px;
+  background: black !important;
+  opacity: 1;
+  overflow: scroll;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
     height: 1.75rem;
@@ -2787,6 +2800,7 @@ p {
   line-height: normal;
   letter-spacing: 0.58px;
   color: #8ebbfe;
+  margin-top:40px
 }
 
 .Live-Network-list {
@@ -7106,6 +7120,8 @@ button {
   opacity: 0.5;
   cursor: text;
   margin-left: 0px;
+  cursor: default;
+  pointer-events: none;
 }
 
 .checkmark {
@@ -8399,16 +8415,22 @@ button {
 }
 .copyEditContainer {
   display: flex;
+ 
 }
 .copyEditContainerTab {
   display: flex;
   margin-top: -33px;
   margin-left: 178px;
 }
+.copyEditContainerAddress {
+  display: flex;
+  margin-top: -20px;
+  margin-left: 178px;
+}
 .copyEditContainerMobile {
   display: flex;
   margin-top: -20px;
-  margin-left: 269px;
+  margin-left: 75px;
 }
 .copyToClipboardHash {
   color: #2149b9;
@@ -9291,6 +9313,8 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
+  width:7.625rem;
+
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
@@ -9403,7 +9427,7 @@ button {
   font-size: 14px;
   background-color: white;
   color: #4878ff;
-  margin-left: 300px;
+  margin-left: 280px;
 }
 
 @media (min-width: 767px) and (max-width: 1024px) {
@@ -9473,6 +9497,9 @@ button {
   }
   .copy-edit {
     align-self: flex-end !important;
+
+   
+   
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -9483,3 +9510,4 @@ button {
     width: 22px;
   }
 }
+

@@ -5,8 +5,6 @@ import AuthService from "../../services/userLogin";
 import AwsService from "../../services/awsService";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import React, { useMemo, useEffect, useState, useRef } from "react";
 import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
@@ -14,6 +12,8 @@ import { useDropzone } from "react-dropzone";
 import { history } from "../../managers/history";
 import styled from "styled-components";
 import { cookiesConstants } from "../../constants";
+import Tokensearchbar from "../explorer/tokensearchBar";
+
 
 const acceptStyle = {
   borderColor: "#00e676",
@@ -40,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "#2149b9",
     marginLeft: "-6px",
   },
+  "@media (min-width: 300px) and (max-width: 767px)": {
+    marginTop: "6.800rem",
+    maxWidth: "31.25rem",
+    padding: "0 0.5rem 0 0.5rem",
+  },
   error: {
     color: "red",
     marginLeft: "2px",
@@ -64,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: "31.438rem",
+    maxHeight: "35.063rem",
+    height: "100%",
     alignSelf: "flex-start",
     margin: "100px auto",
     borderRadius: "12px",
@@ -119,6 +126,18 @@ const useStyles = makeStyles((theme) => ({
     fontfamily: "Inter",
     fontweight: "600",
   },
+  avtar: {
+      height: "19px !important",
+  },
+  "@media (min-width: 300px) and (max-width: 767px)": {
+    username:{
+      
+      height: "60px"
+      
+    }
+    
+   
+  },
 }));
 const activeStyle = {
   borderColor: "#2196f3",
@@ -137,6 +156,7 @@ const baseStyle = {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding-top: 20px;
 `;
 const Upload = styled.div`
@@ -163,17 +183,31 @@ const Title = styled.div`
   font-weight: 600;
   text-align: center;
   color: #2a2a2a;
-  margin-left: auto;
-  margin-right: auto;
+  padding-left: 32px;
+  @media (min-width: 300px) and (max-width: 767px) {
+   
+  height: 20px;
+  font-size: 16px;
+  text-align: center;
+  margin:auto;
+  }
 `;
 const ProfilePicContainer = styled.div`
-  width: 503px;
+  
+  @media (min-width: 300px) and (max-width: 767px) {
+      margin-top:200px;
+      max-width: 503px,
+      width: 100%,
+      height: 102px;
+  }
 `;
 
 const Cut = styled.div`
-  position: absolute;
-  right: 28px;
-  margin-top: 4px;
+  padding-right: 25px;
+  padding-top: 7px;
+
+  display: flex;
+  align-content: flex-end;
 `;
 const Input = styled.div`
   display: flex;
@@ -418,23 +452,19 @@ export default function FormDialog(props) {
   }, []);
 
   const { width } = windowDimensions
+  if (width >= 760) {
 
+    history.push("/loginprofile")
+
+  }
   return (
     <div>
+    <Tokensearchbar />
      
         <div className={classes.add}>
-        <button className="login-button" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/edit-profile")}}>
-            <div className="edit">Edit Profile</div>
-          </button>
-          <ProfilePicContainer>
-            <Dialog
-              classes={{ paper: classes.paper }}
-              className={classes.dialog}
-              open={opens}
-              onClose={handleClose}
-              aria-labelledby="form-dialog-title"
-             
-            >
+         
+          <ProfilePicContainer >
+            
              <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
               <Wrapper>
                 <Title>Edit Profile</Title>
@@ -451,14 +481,15 @@ export default function FormDialog(props) {
                 filedata={fileData}
                 uploadFileToS3={uploadFileToS3}
                 profilePicture={profilePicture}
+                className={classes.avtar}
               />
 
-              <DialogContent
-                style={{ padding: "8px 35px", marginBottom: "14px", overflow: "hidden" }}
+              <div
+                style={{ padding: "8px 35px", marginBottom: "14px" }} className={classes.username}
               >
-                <DialogContentText className={classes.subCategory}>
+                <p className={classes.subCategory}>
                   Username
-                </DialogContentText>
+                </p>
                 {!usernameEnable ? (
                   <span className="beforeInput">
                     <span className="beforeInputValue">{userName}</span>
@@ -484,14 +515,15 @@ export default function FormDialog(props) {
                   />
                 )}
                 <div className={classes.error}>{userNameError}</div>
-              </DialogContent>
+              </div>
 
-              <DialogContent
+              <div
                 style={{ padding: "8px 35px", marginBottom: "25px" }}
+                className={classes.username}
               >
-                <DialogContentText className={classes.subCategory}>
+                <p className={classes.subCategory}>
                   Email
-                </DialogContentText>
+                </p>
                 {!emailEnable ? (
                   <span className="beforeInput">
                     <span className="beforeInputValue">{email}</span>
@@ -517,7 +549,7 @@ export default function FormDialog(props) {
                   />
                 )}
                 {emailError ? <div className={classes.error}>{emailError}</div> : <></>}
-              </DialogContent>
+              </div>
 
               <DialogActions>
                 <button
@@ -532,10 +564,11 @@ export default function FormDialog(props) {
 
               <div className={classes.value}></div>
               </div>
-            </Dialog>
+           
           </ProfilePicContainer>
         
       </div>
+   
     </div>
   );
 }

@@ -121,6 +121,9 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
+  pass:{
+    fontWeight: "500px"
+  }
 }));
 
 export default function ChangePassword(props) {
@@ -185,12 +188,13 @@ export default function ChangePassword(props) {
         setLoading(false);
         utility.apiFailureToast("failed");
       } else {
-        history.push("/loginprofile");
+        window.location.href="/loginprofile";
         utility.apiSuccessToast("Password changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse?.sub, "userId");
         setLoading(false);
+        
       }
     }
   };
@@ -220,7 +224,7 @@ export default function ChangePassword(props) {
         </Row>
         <Column>
           <DialogContentText className={classes.subCategory}>
-            <b>Current Password</b>
+            <span className={classes.pass}>Current Password</span>
             <input
               type={passwordShown1 ? "text" : "password"}
               id="password"
@@ -247,7 +251,7 @@ export default function ChangePassword(props) {
             )}
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
-            <b>New Password</b>
+          <span className={classes.pass}>New Password</span>
             <input
               type={passwordShown2 ? "text" : "password"}
               id="password"
@@ -275,7 +279,7 @@ export default function ChangePassword(props) {
             <div className={classes.error}>{errorPassword}</div>
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
-            <b>Confirm Password</b>
+          <span className={classes.pass}>Confirm Password</span>
             <input
               type={passwordShown3 ? "text" : "password"}
               id="password"
