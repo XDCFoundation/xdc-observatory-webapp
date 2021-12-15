@@ -70,33 +70,33 @@ export default function AddressDetailsData() {
 
   const getContractDetails = async (values) => {
     try {
-      const [error, responseData] = await Utility.parseResponse(
+      const [error, responseAPI] = await Utility.parseResponse(
         ContractData.getContractDetails(values)
       );
+      let responseData = responseAPI.contractResponse;
       if (responseData.address != '') {
-        setResponses(responseData)
+        setResponses(responseAPI)
         let activeCurrency = window.localStorage.getItem('currency')
         let convertedCurrency = ''
         let value = 0
         let changeVal = 0
         if (activeCurrency == 'USD') {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          value = (responseData.xdcValueUSD).toFixed(6)
-          changeVal = (responseData.priceInUSD).toFixed(6)
+          if(responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
+          if(responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
         } else if (activeCurrency == 'EUR') {
           convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
-          value = (responseData.xdcValueEUR).toFixed(6)
-          changeVal = (responseData.priceInEUR).toFixed(6)
+          if(responseData.xdcValueEUR) value = (responseData.xdcValueEUR).toFixed(6)
+          if(responseData.priceInEUR) changeVal = (responseData.priceInEUR).toFixed(6)
         } else if (activeCurrency == 'INR') {
           convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
-          value = (responseData.xdcValueINR).toFixed(6)
-          changeVal = (responseData.priceInINR).toFixed(6)
+          if(responseData.xdcValueINR) value = (responseData.xdcValueINR).toFixed(6)
+          if(responseData.priceInINR) changeVal = (responseData.priceInINR).toFixed(6)
         } else {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          value = (responseData.xdcValueUSD).toFixed(6)
-          changeVal = (responseData.priceInUSD).toFixed(6)
+          if(responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
+          if(responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
         }
-
         setData({
           balance: responseData.balance,
           transactionCout: responseData.transactionCount,
@@ -117,6 +117,54 @@ export default function AddressDetailsData() {
       console.error(error);
     }
   }
+  //   try {
+  //     const [error, responseData] = await Utility.parseResponse(
+  //       ContractData.getContractDetails(values)
+  //     );
+  //     if (responseData.address != '') {
+  //       setResponses(responseData)
+  //       let activeCurrency = window.localStorage.getItem('currency')
+  //       let convertedCurrency = ''
+  //       let value = 0
+  //       let changeVal = 0
+  //       if (activeCurrency == 'USD') {
+  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+  //         value = (responseData.xdcValueUSD).toFixed(6)
+  //         changeVal = (responseData.priceInUSD).toFixed(6)
+  //       } else if (activeCurrency == 'EUR') {
+  //         convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
+  //         value = (responseData.xdcValueEUR).toFixed(6)
+  //         changeVal = (responseData.priceInEUR).toFixed(6)
+  //       } else if (activeCurrency == 'INR') {
+  //         convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
+  //         value = (responseData.xdcValueINR).toFixed(6)
+  //         changeVal = (responseData.priceInINR).toFixed(6)
+  //       } else {
+  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
+  //         value = (responseData.xdcValueUSD).toFixed(6)
+  //         changeVal = (responseData.priceInUSD).toFixed(6)
+  //       }
+
+  //       setData({
+  //         balance: responseData.balance,
+  //         transactionCout: responseData.transactionCount,
+  //         contractName: responseData.contractName,
+  //         creator: responseData.owner,
+  //         transaction: responseData.creationTransaction,
+  //         currencySymbol: convertedCurrency,
+  //         val: value,
+  //         changedVal: changeVal,
+  //         transactionlist: responseData.transactionArray
+
+  //       })
+
+  //     } else {
+
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
   React.useEffect(() => {
     let values = { addr: addressNumber, pageNum: from, perpage: amount, keywords: '' }
     getContractDetails(values)
