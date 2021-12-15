@@ -678,9 +678,9 @@ export default function FormDialog(props) {
           <Dialog
             classes={{
               paperWidthSm:
-                value === 0
+                value === 4
                   ? classes.paperWidthSm1
-                  : value === 6
+                  : value === 4
                     ? classes.paperWidthSm2
                     : classes.paperWidthSm,
             }} 
@@ -689,7 +689,7 @@ export default function FormDialog(props) {
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
-            {value === 6 ? (
+            {value === 4 ? (
               <div className="main-box">
                 <Row className="main-row">
                   <div className="main-title">New Features</div>
