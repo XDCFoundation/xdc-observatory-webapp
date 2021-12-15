@@ -88,6 +88,19 @@ export default function AddressDetails(props) {
   let { addr } = useParams();
   let addressValue = 0;
 
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
+
+  const { width } = windowDimensions;
+
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -205,93 +218,114 @@ export default function AddressDetails(props) {
                             );
                           })
                         : ""}
-                    </MiddleContainerHash>
-                    <SecondContainer>
-                      <CopyToClipboard
-                        text={addr}
-                        onCopy={() => setCopiedText(addr)}
-                      >
-                        <Tooltip
-                          title={
-                            copiedText === addr ? "Copied" : "Copy To Clipboard"
+                        <span
+                          className={
+                            width > 1240
+                              ? "copyEditContainer"
+                              : width <= 1240 && width >= 768
+                                ? "copyEditContainerAddress"
+                                : "copyEditContainerMobile"
                           }
-                          placement="top"
                         >
-                          <button
-                            style={{
-                              color: "blue",
-                              backgroundColor: "white",
-                              fontSize: 17,
-                            }}
+                      <SecondContainer>
+                        <CopyToClipboard
+                          text={addr}
+                          onCopy={() => setCopiedText(addr)}
+                        >
+                          <Tooltip
+                            title={
+                              copiedText === addr
+                                ? "Copied"
+                                : "Copy To Clipboard"
+                            }
+                            placement="top"
                           >
-                            <img
-                              src={require("../../../src/assets/images/copy.svg")}
-                            />
-                          </button>
-                        </Tooltip>
-                      </CopyToClipboard>
+                            <button
+                              className={
+                                  width > 1240
+                                    ? "copyToClipboardHash"
+                                    : "copyToClipboardHashMobile"
+                                }
+                            >
+                              <img
+                              className={
+                                    width > 1240
+                                      ? "copy-icon"
+                                      : width < 1239
+                                        ? "copyIconHashMobile"
+                                        : "copyIconHash"
+                                  }
+                                src={require("../../../src/assets/images/copy.svg")}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
 
-                      <Popup
-                        trigger={<ImQrcode className="imQrcode" />}
-                        lockScroll
-                        modal
-                      >
-                        {(close) => (
-                          <div className="popup_qr">
-                            <p>
-                              <div>
-                                <button
-                                  style={{
-                                    outline: "none",
-                                    // width: "0rem",
-                                    height: "0rem",
-                                    marginLeft: "0rem",
-                                  }}
-                                  className="close"
-                                  onClick={close}
-                                >
-                                  &times;
-                                </button>
-                                <div
-                                  className="header-popup"
-                                  // style={{
-                                  //   fontSize: "0.875rem",
-                                  //   paddingTop: "0.313rem",
-                                  //   paddingBottom: "3.75rem",
-                                  // }}
-                                >
-                                  {" "}
-                                  {addr}{" "}
-                                </div>
-                                {window.innerWidth > 767 ? (
-                                  <QRCode
-                                    size={320}
+                        <Popup
+                          trigger={<ImQrcode className="imQrcode" />}
+                          lockScroll
+                          modal
+                        >
+                          {(close) => (
+                            <div className="popup_qr">
+                              <p>
+                                <div>
+                                  <button
                                     style={{
-                                      height: 400,
-                                      width: 400,
-                                      marginTop: "0.625rem",
+                                      outline: "none",
+                                      // width: "0rem",
+                                      height: "0rem",
+                                      marginLeft: "0rem",
                                     }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                ) : (
-                                  <QRCode
-                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                    size={320}
-                                    className="qrcode-label"
-                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                )}
-                              </div>
-                            </p>
-                          </div>
-                        )}
-                      </Popup>
-                    </SecondContainer>
+                                    className="close"
+                                    onClick={close}
+                                  >
+                                    &times;
+                                  </button>
+                                  <div
+                                    className="header-popup"
+                                    // style={{
+                                    //   fontSize: "0.875rem",
+                                    //   paddingTop: "0.313rem",
+                                    //   paddingBottom: "3.75rem",
+                                    // }}
+                                  >
+                                    {" "}
+                                    {addr}{" "}
+                                  </div>
+                                  {window.innerWidth > 767 ? (
+                                    <QRCode
+                                      size={320}
+                                      style={{
+                                        height: 400,
+                                        width: 400,
+                                        marginTop: "0.625rem",
+                                      }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK +
+                                        addr
+                                      }
+                                    />
+                                  ) : (
+                                    <QRCode
+                                      // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                      size={320}
+                                      className="qrcode-label"
+                                      //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK +
+                                        addr
+                                      }
+                                    />
+                                  )}
+                                </div>
+                              </p>
+                            </div>
+                          )}
+                        </Popup>
+                      </SecondContainer>
+                      </span>
+                    </MiddleContainerHash>
                   </HashDiv>
                 </Spacing>
                 {/* <Spacing style={{ borderBottom: "none" }}>
@@ -514,10 +548,17 @@ const MiddleContainerHash = styled.div`
   width: 100%;
   display: flex;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
     margin-left: unset;
-    margin-top: 0.5rem;
-    padding-right: 2.313rem;
+    margin-top: 10px;
+    display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
@@ -622,9 +663,8 @@ const AddressPath = styled.div`
   font-size: 0.875rem;
   display: flex;
   margin-bottom: 12px;
-  margin-left: 4px; 
-  margin-top: -30px;  
-
+  margin-left: 4px;
+  margin-top: -30px;
 `;
 
 const Explorer = styled.div`
