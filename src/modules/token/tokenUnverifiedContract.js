@@ -24,7 +24,7 @@ export default function TokenUnverifiedContract(props) {
                         </div>
                         <hr className="hr-line"></hr>
                         <div className="contract-source-code-verify">
-                            <div className="contract-text">Verify</div>
+                            <div className="contract-text"></div>
                             <div className="btn-click-div"><button className="click-here-btn" onClick={() => history.push('/verify-contracts/' + unverifiedData.address)}><FaShieldAlt className="shield-logo" />Click here</button> <p className="to-verify-text">to Verify and Publish Source Code</p></div>
                         </div>
 
