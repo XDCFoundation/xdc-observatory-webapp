@@ -2,11 +2,12 @@ import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
-import SignUp from "./loginDialog"
+import FormDialog from "./loginDialog"
 
 export default function NewFeature(props) {
     console.log(props,"propseeeeee")
   const [open, setOpen] = React.useState(true);
+  const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -23,7 +24,8 @@ const visited = ()=>{
     
 }
   return (
-    <Dialog onClose={handleClose} open={open}>
+      
+   !signUp ?   <Dialog onClose={handleClose} open={open}>
       <div className="main-box">
         <Row className="main-row">
           <div className="main-title">New Features</div>
@@ -67,7 +69,9 @@ const visited = ()=>{
             </div>
           </div>
         </Row>
-        <div className="main-sing-up" onClick={props.handleClickOpenSignup}>
+        <div className="main-sing-up" onClick={()=>{
+            setSignUp(true);
+        }}>
         
           <div className="main-sing-up-text"> Sign up</div>
         </div>
@@ -78,6 +82,8 @@ const visited = ()=>{
           <div className="main-end-text">Don't show this message again</div>
         </div>
       </div>
-    </Dialog>
+    </Dialog>:
+    <FormDialog isNewFeatureComponent={true}/>
+   
   );
 }

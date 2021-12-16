@@ -304,7 +304,7 @@ export default function FormDialog(props) {
   const { onOpen, onClose } = props;
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState(0);
-  const [value, setValue] = React.useState(4);
+  const [value, setValue] = React.useState(0);
   const [openSignup, setOpenSignup] = React.useState(false);
   
   const [passwordShown, setPasswordShown] = React.useState(false);
@@ -339,6 +339,14 @@ export default function FormDialog(props) {
   };
 
   React.useEffect(() => {
+console.log("logeeee",props)
+if(props.isNewFeatureComponent){
+  setOpen(true)
+  handleClickOpenSignup();
+  
+  return
+}
+
     if (open === true) {
       setOpen(false);
     } else {
@@ -672,12 +680,13 @@ export default function FormDialog(props) {
   //------------------------------------------------------------------------------------------------------------------------------------->
 
 
-
+console.log("proseeeeeeee",value)
 
   return (
+    
     <div>
-      <div className={classes.add}>
-        {props.verifiedEmail ? (
+      {/* <div className={classes.add}> */}
+       {!props.isNewFeatureComponent ? props.verifiedEmail ? (
           ""
         ) : !props.hash ? (
           <button className="login-button" onClick={handleClickOpen}>
@@ -693,8 +702,8 @@ export default function FormDialog(props) {
           </button>
         ) : (
           ""
-        )}
-        <div className="dialogboxModal">
+        ):""}
+        {/* <div className="dialogboxModal"> */}
           <Dialog
             classes={{
               paperWidthSm:
@@ -1094,8 +1103,8 @@ export default function FormDialog(props) {
               </div>
             )}
           </Dialog>
-        </div>
-      </div>
+        {/* </div> */}
+      {/* </div> */}
       <ToastContainer />
     </div>
   );
