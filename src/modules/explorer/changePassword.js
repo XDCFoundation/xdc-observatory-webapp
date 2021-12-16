@@ -13,6 +13,9 @@ import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
 const useStyles = makeStyles((theme) => ({
   text: {
+    display: "flex",
+    justifyContent : "center",
+    alignSelf : "center",
     width: "330px",
     fontFamily: "Inter",
     fontSize: "22px",
@@ -23,9 +26,7 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.85px",
     textAlign: "center",
     color: "#2a2a2a",
-    "@media (min-width:0px) and (max-width:375px)":{
-        // textAlign: "center !important",
-    }
+   
   },
   add: {
     backgroundColor: "#2149b9",
@@ -63,6 +64,8 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "433px",
     height: "40px",
+    fontSize : "14px !important",
+    fontWeight: "500",
     padding: "12px 19px 11px 19px",
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
@@ -72,16 +75,20 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
+    cursor: "pointer"
   },
   addbtn: {
-    width: "440px",
+    width: "433px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
     // margin: "10px 0px 20px 0px",
-    margin: "none",
+    margin: "10px 5px 10px 12px",
     color: "white",
+    '@media(max-width: 768px)' : {
+      width: "421px"
+    }
   },
   subCategory: {
     margin: "10px 5px 10px 12px",
@@ -109,18 +116,37 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     height: "445px",
     "@media (min-width:500px) and (max-width:768px)":{
-      width: "100% !important",
+    width: "100% !important",
     flexFlow: "column nowrap ",
     display: "flex !important",
     maxWidth: "fit-content",
     margin: "0 auto",
-    justifyContent:"flex-start !important"
-    }
+    justifyContent: "flex-start !important", 
+    },
   },
+  "@media only screen and (min-device-width : 320px) and (max-device-width : 480px)":{
+    mobileDiv: {
+      marginTop: "15px",
+      marginLeft: "-5px",
+      marginRight: "-6px",
+    }, text: {
+      textAlign: "center",
+    }, 
+    mobileText: {
+      fontWeight: "500",
+    },
+    mobileHeader: {
+      fontSize: "16px",
+    },
+    },
+
   error: {
     color: "red",
     marginLeft: "2px",
   },
+  pass:{
+    fontWeight: "500px"
+  }
 }));
 
 export default function ChangePassword(props) {
@@ -185,12 +211,13 @@ export default function ChangePassword(props) {
         setLoading(false);
         utility.apiFailureToast("failed");
       } else {
-        history.push("/loginprofile");
+        window.location.href="/loginprofile";
         utility.apiSuccessToast("Password changed successfully");
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse?.sub, "userId");
         setLoading(false);
+        
       }
     }
   };
@@ -204,9 +231,9 @@ export default function ChangePassword(props) {
       aria-labelledby="form-dialog-title"
     >
       <DialogContent className={classes.heading}>
-        <Row justifyContent="space-between" marginTop="8px">
+        <Row justifyContent="center" marginTop="8px">
           <DialogContentText className={classes.text}>
-            <b>Change Password</b>
+            <b className={classes.mobileHeader}>Change Password</b>
           </DialogContentText>
           <span
             onClick={props.openChangePassword}
@@ -220,7 +247,7 @@ export default function ChangePassword(props) {
         </Row>
         <Column>
           <DialogContentText className={classes.subCategory}>
-            <b>Current Password</b>
+            <span className={classes.pass}>Current Password</span>
             <input
               type={passwordShown1 ? "text" : "password"}
               id="password"
@@ -247,7 +274,7 @@ export default function ChangePassword(props) {
             )}
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
-            <b>New Password</b>
+          <span className={classes.pass}>New Password</span>
             <input
               type={passwordShown2 ? "text" : "password"}
               id="password"
@@ -275,7 +302,7 @@ export default function ChangePassword(props) {
             <div className={classes.error}>{errorPassword}</div>
           </DialogContentText>
           <DialogContentText className={classes.subCategory}>
-            <b>Confirm Password</b>
+          <span className={classes.pass}>Confirm Password</span>
             <input
               type={passwordShown3 ? "text" : "password"}
               id="password"
@@ -312,17 +339,20 @@ export default function ChangePassword(props) {
             <div></div>
           )}
 
-          <DialogActions
+          <DialogActions className={ classes.mobileDiv}
             style={{
+              padding: 0,
               //  alignItems: "center",
-              // justifyContent: "start",
+              justifyContent: "center",
               marginTop: "15px",
-              marginLeft: "-5px"
+              // marginLeft: "-5px",
+              // paddingRight : "0"
             }}
           >
-            <div style={{ color: "red" }}> {isError}</div>
+            {/* <div style={{ color: "red" }}> {isError}</div> */}
             <button
-              className={classes.addbtn}
+              className={classes.addbtn
+              }
               onClick={() => {
                 updatepassword();
               }}

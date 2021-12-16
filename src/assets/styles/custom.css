@@ -21,6 +21,9 @@ label {
 input[placeholder] {
   text-overflow: ellipsis;
 }
+a:link {
+  text-decoration: none;
+}
 
 input#password {
   width: 433px;
@@ -431,6 +434,19 @@ input:focus {
   height: 1.875rem;
   width: 1.875rem;
 }
+.scrollbar ::-webkit-scrollbar {
+  background: red !important;
+  width: 13px;
+  height: 63px;
+  overflow: scroll;
+}
+.scrollbar ::-webkit-scrollbar-thumb {
+  width: 13px;
+  height: 11px;
+  background: black !important;
+  opacity: 1;
+  overflow: scroll;
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   .Shape {
     height: 1.75rem;
@@ -526,6 +542,9 @@ input:focus {
   }
   .inside-side-box {
     margin-left: -17px !important;
+  }
+  .inside-side-box-browse {
+    margin-left: 15px !important;
   }
   .side-arrow-contract-tab {
     margin-left: 46% !important;
@@ -676,6 +695,17 @@ input:focus {
   height: "42px";
 }
 
+.containerTagMobile {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 14px;
+  border: 1px #9fa9ba solid;
+  border-radius: 4px;
+  height: 38px;
+}
+
 .containerTag input {
   width: 100%;
   height: 40px;
@@ -684,6 +714,15 @@ input:focus {
   border-radius: 8px;
   outline-color: #fff;
   margin-top: 4px;
+}
+
+.containerTagMobile input {
+  width: 100%;
+  height: 38px;
+  min-width: 50%;
+  border: none;
+  border-radius: 8px;
+  outline-color: #fff;
 }
 
 .tag {
@@ -891,7 +930,7 @@ input:focus {
     width: 100% !important;
   }
   .csv {
-    padding: 11px 8px 9px 0 !important;
+    padding: 11px 0px 9px 0px !important;
     align-self: flex-end !important;
   }
   .csv-inactive {
@@ -1378,12 +1417,14 @@ input:focus {
   margin-bottom: 0.125rem;
   cursor: pointer;
   color: #2149b9;
-  height: 1.063rem;
-  width: 1.063rem;
+  height: 1.25rem;
+  width: 1.25rem;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .imQrcode {
     margin-left: 0rem !important;
+    height: 16px;
+    width: 16px;
   }
 }
 .header-mobile-top {
@@ -2420,6 +2461,7 @@ p {
   line-height: normal;
   letter-spacing: normal;
   color: #2a2a2a !important;
+  outline: none;
 }
 
 .side-box {
@@ -2470,7 +2512,7 @@ p {
 }
 
 .inside-side-box {
-  margin-left: -17px;
+  margin-left: -10px;
   font-size: 14.5px;
   font-weight: 500;
   font-stretch: normal;
@@ -2479,9 +2521,16 @@ p {
   letter-spacing: 0.65px;
   color: #ffffff;
 }
+.inside-side-box-browse {
+  color: #4666c4;
+  font-size: 13px;
+  font-family: Inter;
+  margin-left: 23px;
+  margin-top: 20px;
+}
 
 .myhr {
-  width: 95%;
+  width: 92%;
   left: 0%;
   margin-top: -9px;
   border: solid 0.1px #4867c1;
@@ -2648,7 +2697,7 @@ p {
   margin-top: 6.875rem !important;
   margin: auto;
   padding-bottom: 1.25rem;
-  width: 75.125rem;
+  width: 76.125rem;
 }
 
 @media (max-width: 1300px) {
@@ -2724,6 +2773,19 @@ p {
   background-color: #ffffff;
 }
 
+.searchelement-input4 {
+  /*display: flex;
+  flex-direction: row;
+  height: 2.125rem;
+  width: 10.625rem;
+  padding: 5px 43px 2px 10px;
+  border-radius: 0.5rem;
+  outline-color: #e3e7eb;
+  /* box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1); */
+  /*border: solid 1px #e3e7eb;
+  background-color: #ffffff;*/
+}
+
 .token-text {
   margin-top: 90px;
   margin-left: 16%;
@@ -2757,6 +2819,7 @@ p {
   line-height: normal;
   letter-spacing: 0.58px;
   color: #8ebbfe;
+  margin-top: 40px;
 }
 
 .Live-Network-list {
@@ -4864,6 +4927,9 @@ button {
     margin-top: 15px;
     margin-right: auto;
     margin-left: auto;
+  }
+  .searchelement-input {
+    width: 22.625rem;
   }
 }
 
@@ -7076,6 +7142,8 @@ button {
   opacity: 0.5;
   cursor: text;
   margin-left: 0px;
+  cursor: default;
+  pointer-events: none;
 }
 
 .checkmark {
@@ -7129,6 +7197,7 @@ button {
 
 .popup-overlay {
   background: rgba(0, 0, 0, 0.5);
+  margin-top: 50px;
 }
 
 [data-popup="tooltip"].popup-overlay {
@@ -7214,7 +7283,7 @@ button {
 }
 
 .ActiveDownload {
-  font-size: 10px;
+  font-size: 0.875rem;
   text-align: center;
   border-radius: 4px;
   width: 94px;
@@ -7223,7 +7292,7 @@ button {
 
 .ActiveDownload:hover {
   color: #81b4ff;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 
 .InactiveDownload {
@@ -7259,7 +7328,7 @@ button {
 .outer-oval-trans {
   width: 14px;
   height: 14px;
-  margin: 12px 2px -10px 80px;
+  margin: 12px 2px -19px 80px;
   padding: 5px 4px 4px 5px;
   background-color: rgba(55, 99, 221, 0.1);
   border-radius: 10px;
@@ -8375,10 +8444,15 @@ button {
   margin-top: -33px;
   margin-left: 178px;
 }
+.copyEditContainerAddress {
+  display: flex;
+  margin-top: -20px;
+  margin-left: 178px;
+}
 .copyEditContainerMobile {
   display: flex;
   margin-top: -20px;
-  margin-left: 269px;
+  margin-left: 75px;
 }
 .copyToClipboardHash {
   color: #2149b9;
@@ -8444,7 +8518,7 @@ button {
 .edit1-icon {
   width: 20px;
   height: 20px;
-  margin-top: 4px;
+  margin-top: 7px;
   cursor: pointer;
 }
 .edit1-icon-from {
@@ -8582,7 +8656,7 @@ button {
 
 @media (max-width: 450px) {
   .mobile-navbartab1 {
-    margin-top: 61px;
+    margin-top: 25px;
   }
   .Shape-XDC {
     height: 23px;
@@ -9078,7 +9152,7 @@ button {
 .cover-spin-3 {
   background-color: transparent;
   font-size: 30px;
-  top: 0;
+  top: 0px;
   left: 0;
 }
 .cover-spin-3::after {
@@ -9270,6 +9344,7 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
+  width: 7.625rem;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
@@ -9343,6 +9418,7 @@ button {
 }
 .iAgree {
   color: #2a2a2a;
+  line-height: 26px;
 }
 .token-details-address-link {
   color: #2149b9;
@@ -9381,7 +9457,7 @@ button {
   font-size: 14px;
   background-color: white;
   color: #4878ff;
-  margin-left: 300px;
+  margin-left: 280px;
 }
 
 @media (min-width: 767px) and (max-width: 1024px) {
@@ -9420,26 +9496,30 @@ button {
   margin-top: 1px;
 }
 
+.imQrcode {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 .copyButton {
   color: blue;
   background-color: white;
-  font-size: 17px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .copyButton img {
-    width: 20px;
+    width: 22px;
   }
   .addIconsReverve {
     display: flex;
-    flex-direction: row-reverse;
     margin-top: -20px;
+    margin-left: 123px;
   }
   .imQrcode {
     margin: 0 !important;
     cursor: pointer;
     color: #2149b9;
-    height: 0.963rem;
-    width: 0.863rem;
+    height: 1rem;
+    width: 1rem;
   }
 }
 .inputIconCntr {
@@ -9457,5 +9537,8 @@ button {
 @media (min-width: 768px) and (max-width: 1240px) {
   .copy-edit {
     align-self: center !important;
+  }
+  .copyButton img {
+    width: 22px;
   }
 }

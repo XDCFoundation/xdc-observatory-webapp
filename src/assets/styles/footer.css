@@ -94,6 +94,7 @@ label {
 @media (min-width: 0px) and (max-width: 767px) {
   .for-button {
     display: flex;
+    width: 100%;
   }
 }
 .twitter {
@@ -303,6 +304,9 @@ a:hover {
     height: 1.238rem;
     width: 1.238rem;
   }
+  .select-xdc {
+    margin: 0px 13px 30px 1px;
+  }
   /* .MuiPopover-paper {
     left: 295px !important;
   } */
@@ -365,9 +369,7 @@ a:hover {
     margin-top: -26px;
   }
 }
-.XDC-Block-Width-tablet {
-  margin: 7px !important;
-}
+
 @media (min-width: 767px) and (max-width: 1240px) {
   .XDC-Block-Width-tablet {
     margin-left: 20px !important;
@@ -431,12 +433,12 @@ a:hover {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .xdc-desc {
-    width: 50%;
+    width: 100%;
     font-size: 0.75rem;
   }
 
   .button-Padding-Mobile {
-    padding-top: 35px;
+    /* padding-top: 35px; */
     padding-right: 15px;
   }
 }
