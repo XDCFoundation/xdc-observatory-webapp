@@ -106,7 +106,7 @@ export default function AccountComponent(props) {
 
                         </TableCell>
                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
-                        <TableCell className="w-2" style={{ border: "none" }} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
+                        <TableCell className="w-2" style={{ border: "none", paddingLeft: "0"}} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
                         <TableCell className="w-3" style={{ border: "none", paddingLeft: "2%" }} align="left"><span className="tabledata">{bal.substr(0, 18)}</span></TableCell>
                         {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                       </TableRow>

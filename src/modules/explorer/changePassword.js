@@ -13,6 +13,9 @@ import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
 const useStyles = makeStyles((theme) => ({
   text: {
+    display: "flex",
+    justifyContent : "center",
+    alignSelf : "center",
     width: "330px",
     fontFamily: "Inter",
     fontSize: "22px",
@@ -63,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "433px",
     height: "40px",
+    fontSize : "14px !important",
+    fontWeight: "500",
     padding: "12px 19px 11px 19px",
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
@@ -72,16 +77,20 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: "-48px",
     marginBottom: "4px",
+    cursor: "pointer"
   },
   addbtn: {
-    width: "440px",
+    width: "433px",
     height: "44px",
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
     // margin: "10px 0px 20px 0px",
-    margin: "none",
+    margin: "10px 5px 10px 12px",
     color: "white",
+    '@media(max-width: 768px)' : {
+      width: "421px"
+    }
   },
   subCategory: {
     margin: "10px 5px 10px 12px",
@@ -208,7 +217,7 @@ export default function ChangePassword(props) {
       aria-labelledby="form-dialog-title"
     >
       <DialogContent className={classes.heading}>
-        <Row justifyContent="space-between" marginTop="8px">
+        <Row justifyContent="center" marginTop="8px">
           <DialogContentText className={classes.text}>
             <b>Change Password</b>
           </DialogContentText>
@@ -318,15 +327,18 @@ export default function ChangePassword(props) {
 
           <DialogActions
             style={{
+              padding: 0,
               //  alignItems: "center",
-              // justifyContent: "start",
+              justifyContent: "center",
               marginTop: "15px",
-              marginLeft: "-5px"
+              // marginLeft: "-5px",
+              // paddingRight : "0"
             }}
           >
-            <div style={{ color: "red" }}> {isError}</div>
+            {/* <div style={{ color: "red" }}> {isError}</div> */}
             <button
-              className={classes.addbtn}
+              className={classes.addbtn
+              }
               onClick={() => {
                 updatepassword();
               }}

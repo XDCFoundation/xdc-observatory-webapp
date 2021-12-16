@@ -407,8 +407,8 @@ export default function FormDialog(props) {
   }
   const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
   React.useEffect(() => {
- function handleResize() {
-   setWindowDimensions(getWindowDimensions());
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
 
     }
     window.addEventListener('resize', handleResize);
@@ -420,22 +420,22 @@ export default function FormDialog(props) {
   const { width } = windowDimensions
 
   return (
-    <div>
-     
-        <div className={classes.add}>
-        <button className="login-button" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/edit-profile")}}>
-            <div className="edit">Edit Profile</div>
-          </button>
-          <ProfilePicContainer>
-            <Dialog
-              classes={{ paper: classes.paper }}
-              className={classes.dialog}
-              open={opens}
-              onClose={handleClose}
-              aria-labelledby="form-dialog-title"
-             
-            >
-             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+    <div >
+
+      <div className={classes.add}>
+        <button className="login-button" onClick={width >= 760 ? handleClickOpen : () => { history.push("/edit-profile") }}>
+          <div className="edit">Edit Profile</div>
+        </button>
+        <ProfilePicContainer >
+          <Dialog
+            classes={{ paper: classes.paper }}
+            className={classes.dialog}
+            open={opens}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+
+          >
+            <div className={isLoading == true ? "cover-spin-loginDialog" : ""} style={{ overflow: "hidden" }}>
               <Wrapper>
                 <Title>Edit Profile</Title>
 
@@ -531,10 +531,10 @@ export default function FormDialog(props) {
               </DialogActions>
 
               <div className={classes.value}></div>
-              </div>
-            </Dialog>
-          </ProfilePicContainer>
-        
+            </div>
+          </Dialog>
+        </ProfilePicContainer>
+
       </div>
     </div>
   );
