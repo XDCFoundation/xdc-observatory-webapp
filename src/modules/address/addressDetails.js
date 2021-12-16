@@ -63,6 +63,11 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
     width: "100%",
+    "@media (min-width: 300px) and (max-width: 767px)": {
+      marginTop: "6.800rem",
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
+    },
   },
 });
 export default function AddressDetails(props) {
@@ -83,6 +88,19 @@ export default function AddressDetails(props) {
   let { addr } = useParams();
   let addressValue = 0;
 
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
+
+  const { width } = windowDimensions;
+
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -91,7 +109,7 @@ export default function AddressDetails(props) {
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
-  function _handleChange(event) { }
+  function _handleChange(event) {}
   const getAddressDetails = async () => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -193,15 +211,22 @@ export default function AddressDetails(props) {
                       <Content>{addr}</Content>
                       {isTag
                         ? addressTag.map((item, index) => {
-                          return (
-                            <div className="nameLabel1" key={index}>
-                              {item}
-                            </div>
-                          );
-                        })
+                            return (
+                              <div className="nameLabel1" key={index}>
+                                {item}
+                              </div>
+                            );
+                          })
                         : ""}
-                    </MiddleContainerHash>
-                    <div className="addIconsReverve">
+                        <span
+                          className={
+                            width > 1240
+                              ? "copyEditContainer"
+                              : width <= 1240 && width >= 768
+                                ? "copyEditContainerAddress"
+                                : "copyEditContainerMobile"
+                          }
+                        >
                       <SecondContainer>
                         <CopyToClipboard
                           text={addr}
@@ -209,12 +234,27 @@ export default function AddressDetails(props) {
                         >
                           <Tooltip
                             title={
-                              copiedText === addr ? "Copied" : "Copy To Clipboard"
+                              copiedText === addr
+                                ? "Copied"
+                                : "Copy To Clipboard"
                             }
                             placement="top"
                           >
-                            <button className="copyButton"    >
+                            <button
+                              className={
+                                  width > 1240
+                                    ? "copyToClipboardHash"
+                                    : "copyToClipboardHashMobile"
+                                }
+                            >
                               <img
+                              className={
+                                    width > 1240
+                                      ? "copy-icon"
+                                      : width < 1239
+                                        ? "copyIconHashMobile"
+                                        : "copyIconHash"
+                                  }
                                 src={require("../../../src/assets/images/copy.svg")}
                               />
                             </button>
@@ -235,20 +275,20 @@ export default function AddressDetails(props) {
                                       outline: "none",
                                       // width: "0rem",
                                       height: "0rem",
-                                      marginLeft: "28rem",
+                                      marginLeft: "0rem",
                                     }}
-                                    className="close close-qr "
+                                    className="close"
                                     onClick={close}
                                   >
                                     &times;
                                   </button>
                                   <div
                                     className="header-popup"
-                                  // style={{
-                                  //   fontSize: "0.875rem",
-                                  //   paddingTop: "0.313rem",
-                                  //   paddingBottom: "3.75rem",
-                                  // }}
+                                    // style={{
+                                    //   fontSize: "0.875rem",
+                                    //   paddingTop: "0.313rem",
+                                    //   paddingBottom: "3.75rem",
+                                    // }}
                                   >
                                     {" "}
                                     {addr}{" "}
@@ -259,9 +299,11 @@ export default function AddressDetails(props) {
                                       style={{
                                         height: 400,
                                         width: 400,
+                                        marginTop: "0.625rem",
                                       }}
                                       value={
-                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                        process.env.REACT_APP_QR_CODE_LINK +
+                                        addr
                                       }
                                     />
                                   ) : (
@@ -271,7 +313,8 @@ export default function AddressDetails(props) {
                                       className="qrcode-label"
                                       //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
                                       value={
-                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                        process.env.REACT_APP_QR_CODE_LINK +
+                                        addr
                                       }
                                     />
                                   )}
@@ -281,7 +324,8 @@ export default function AddressDetails(props) {
                           )}
                         </Popup>
                       </SecondContainer>
-                    </div>
+                      </span>
+                    </MiddleContainerHash>
                   </HashDiv>
                 </Spacing>
                 {/* <Spacing style={{ borderBottom: "none" }}>
@@ -436,9 +480,9 @@ const Content = styled.span`
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: .75rem;
+    font-size: 0.875rem;
     word-break: break-all;
-    margin-left:17px;
+    margin-left: 28px;
   }
 `;
 const TextArea = styled.textarea`
@@ -504,10 +548,17 @@ const MiddleContainerHash = styled.div`
   width: 100%;
   display: flex;
   @media (min-width: 300px) and (max-width: 767px) {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
     margin-left: unset;
-    margin-top: 0.5rem;
-    padding-right: 1.313rem;
+    margin-top: 10px;
+    display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
@@ -550,7 +601,6 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
-    padding: 0.438rem 0.438rem;
   }
 `;
 const Container = styled.div`
@@ -564,7 +614,6 @@ const SecondContainer = styled.div`
   display: flex;
   align-items: center;
   @media (min-width: 300px) and (max-width: 767px) {
-    margin-right: 70px;
   }
 `;
 
@@ -579,7 +628,7 @@ const Div = styled.div`
   margin-top: 0.625rem;
   @media (min-width: 300px) and (max-width: 767px) {
     width: 22.563rem;
-    margin-top: 0rem;
+    margin-top: 0.625rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 664px !important;
@@ -596,7 +645,7 @@ const Heading = styled.span`
   font-size: 1.5rem;
   margin-bottom: 1.125rem;
   @media (min-width: 0px) and (max-width: 767px) {
-    margin-top: 25px !important;
+    margin-top: 10px !important;
     margin-bottom: 0px !important;
 
     font-size: 16px !important;
@@ -604,14 +653,9 @@ const Heading = styled.span`
 `;
 
 const ImageView = styled.img`
-  ${'' /* width: 12px; */}
-  margin-right: 0.438rem;
+  width: 0.938rem;
+  margin-right: 0.938rem;
   cursor: pointer;
-  @media (min-width: 0px) and (max-width: 767px) {
-    width: 0.75rem;
-  ${'' /* margin-right: 0.638rem; */}
-  cursor: pointer;
-  }
 `;
 
 const AddressPath = styled.div`
@@ -620,11 +664,12 @@ const AddressPath = styled.div`
   display: flex;
   margin-bottom: 12px;
   margin-left: 4px;
-  margin-top: -30px; ;
+  margin-top: -30px;
 `;
 
 const Explorer = styled.div`
   color: #2149b9;
+  border: "1px solid red";
 `;
 const Address = styled.div`
   color: #686868;

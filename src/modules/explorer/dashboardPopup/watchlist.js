@@ -248,7 +248,6 @@ const screenSize = window.innerHeight
       return;
     }
     utility.apiSuccessToast("Address added to watchlist");
-    window.location.href = "loginprofile";
     setAddress("");
     setDescription("");
     setOpen(false);
