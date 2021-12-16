@@ -150,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginLeft: "24px",
     marginTop: "20px",
+    marginBottom: "35px",
   },
   checkbox: {
     width: "17px",
@@ -257,6 +258,7 @@ const useStyles = makeStyles((theme) => ({
       // top: "102px",
       height: "100%",
       width: "100%",
+      maxWidth: "767px",
       borderRadius: "0px",
       backgroundImage: "none",
       opacity: "0px",
@@ -264,38 +266,99 @@ const useStyles = makeStyles((theme) => ({
     closeContainer: {
       display: "none",
     },
+    heading: {
+      fontWeight: "600",
+      marginRight: "auto",
+      marginLeft: "auto",
+      marginTop: "23px",
+      fontSize: "16px",
+      color: "#2a2a2a",
+      marginBottom: "8px",
+    },
+    subCategory: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    forgotPassword: {
+      position: "relative",
+      right: "0px",
+      color: "#3763dd",
+    },
+    dialogButton: {
+      padding: "0",
+      justifyContent: "center",
+    },
+    createaccount: {
+      color: "#3763dd",
+    },
+    forgotText: {
+      paddingLeft: "18px",
+      paddingRight: "18px",
+      marginBottom: "28px",
+    },
+    createAccountbtn: {
+      width: "100%",
+      maxWidth: "343px",
+      height: "38px",
+      borderRadius: "4px",
+      margin: "23px auto 21px auto",
+      display: "block",
+    },
+    addbtn: {
+      width: "100%",
+      maxWidth: "343px",
+      height: "38px",
+      borderRadius: "4px",
+      margin: "23px auto 21px auto",
+    },
+    termsContainer: {
+      flexFlow: "row nowrap",
+      display: "flex",
+      margin: "20px auto 35px auto",
+      maxWidth: "342px",
+      width: "100%",
+    },
+    userContainer: {
+      marginTop: "12px",
+      padding: "0px",
+      width: "100%",
+      maxWidth: "343px",
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+    userContainerSignup: {
+      marginTop: "12px",
+      padding: "0px",
+      width: "100%",
+      maxWidth: "343px",
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+    passwordContainer: {
+      marginTop: "20px",
+      padding: "0px",
+      width: "100%",
+      maxWidth: "343px",
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
 
     paperWidthSm1: {
       position: "absolute",
-      top: "125px",
-      maxWidth: "503px",
-      width: "95%",
+      // top: "102px",
+      height: "100%",
+      width: "100%",
+      maxWidth: "767px",
+      borderRadius: "0px",
+      backgroundImage: "none",
+      opacity: "0px",
+      paddingBottom: "30px",
     },
 
     input: {
       maxWidth: "433px",
       width: "100%",
-    },
-  },
-  "@media (max-height: 900px)": {
-    paperWidthSm1: {
-      maxHeight: "500px",
-      height: "72%",
-    },
-  },
-
-  "@media (max-width: 376px)": {
-    createAccountbtn: {
-      maxWidth: "433px",
-      width: "86%",
-    },
-    robotContainer: {
-      maxWidth: "299px",
-      width: "86%",
-    },
-    robotContainerForgotPass: {
-      maxWidth: "299px",
-      width: "86%",
+      height: "38px",
     },
   },
 }));
@@ -359,8 +422,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.hash
-          ? setOpen(false)
-          : props.onClose(onClose);
+        ? setOpen(false)
+        : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -484,26 +547,31 @@ export default function FormDialog(props) {
     if (!userName || !email || !password || !confirmPassword) {
       Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
+      console.log("1")
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
       setLoading(false);
+      console.log("1")
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
       setLoading(false);
+      console.log("1")
     } else if (!password.match(regExPass)) {
       setErrorPassword(
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
+      console.log("1")
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
+      console.log("1")
+
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
-    } else if (captchaCheckbox === false) {
-      setErrorCaptcha("Please verify captcha");
-      setLoading(false);
+      console.log("1")
+
     } else {
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
@@ -624,8 +692,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-        ":" +
-        (seconds > 9 ? seconds : "0" + seconds)
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -651,9 +719,6 @@ export default function FormDialog(props) {
 
   //------------------------------------------------------------------------------------------------------------------------------------->
 
-
-
-
   return (
     <div>
       <div className={classes.add}>
@@ -678,11 +743,11 @@ export default function FormDialog(props) {
           <Dialog
             classes={{
               paperWidthSm:
-                value === 1
+                value === 4
                   ? classes.paperWidthSm1
                   : value === 4
-                    ? classes.paperWidthSm2
-                    : classes.paperWidthSm,
+                  ? classes.paperWidthSm2
+                  : classes.paperWidthSm,
             }}
             className={classes.dialog}
             open={open || onOpen}
@@ -820,7 +885,7 @@ export default function FormDialog(props) {
                 ) : (
                   <div></div>
                 )}
-                <DialogActions>
+                <DialogActions className={classes.dialogButton}>
                   <button
                     className={classes.addbtn}
                     onClick={() => {
@@ -875,7 +940,7 @@ export default function FormDialog(props) {
                     // name="userName"
                     // value={signUp.userName}
                     onChange={(e) => setUserName(e.target.value)}
-                  // onChange={inputEventSignUp}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorUserName}</div>
                 </DialogContent>
@@ -889,9 +954,9 @@ export default function FormDialog(props) {
                     className={classes.input}
                     // name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                  // value={signUp.email}
+                    // value={signUp.email}
 
-                  // onChange={inputEventSignUp}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorEmail}</div>
                 </DialogContent>
@@ -905,9 +970,9 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
-                  // name="password"
-                  // value={signUp.password}
-                  // onChange={inputEventSignUp}
+                    // name="password"
+                    // value={signUp.password}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
@@ -921,24 +986,29 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                  // name="confirmPassword"
-                  // value={signUp.confirmPassword}
-                  // onChange={inputEventSignUp}
+                    // name="confirmPassword"
+                    // value={signUp.confirmPassword}
+                    // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
-                <div style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  marginTop: "4px",
-                  flexDirection: "column"
-                }}>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "4px",
+                    flexDirection: "column",
+                  }}
+                >
                   <ReCAPTCHA
-                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    // sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                     onChange={handleReCaptcha}
                   />
-                  <div style={{ marginLeft: 0 }} className={classes.error1}>{captchaError}</div>
+                  <div style={{ marginLeft: 0 }} className={classes.error1}>
+                    {captchaError}
+                  </div>
                 </div>
                 <div className={classes.termsContainer}>
                   <input
@@ -958,6 +1028,24 @@ export default function FormDialog(props) {
                   </span>
                 </div>
                 <div className={classes.error1}>{errorTermsCondition}</div>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "4px",
+                    flexDirection: "column",
+                    paddingLeft: "28px",
+                  }}
+                >
+                  <ReCAPTCHA
+                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    onChange={handleReCaptcha}
+                  />
+                  <div style={{ marginLeft: 0 }} className={classes.error1}>
+                    {captchaError}
+                  </div>
+                </div>
                 {/* <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
                    
@@ -1084,6 +1172,24 @@ export default function FormDialog(props) {
                     }}
                   ></input>
                 </DialogContent>
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    marginTop: "28px",
+                    flexDirection: "column",
+                    paddingLeft: "28px",
+                  }}
+                >
+                  <ReCAPTCHA
+                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    onChange={handleReCaptcha}
+                  />
+                  <div style={{ marginLeft: 0 }} className={classes.error1}>
+                    {captchaError}
+                  </div>
+                </div>
 
                 {/* <div className={classes.robotContainerForgotPass}>
                   <div className={classes.robotContainer1}>

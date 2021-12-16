@@ -64,8 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: "31.438rem",
-    maxHeight: "35.063rem",
-    height: "100%",
     alignSelf: "flex-start",
     margin: "100px auto",
     borderRadius: "12px",
@@ -139,7 +137,6 @@ const baseStyle = {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   padding-top: 20px;
 `;
 const Upload = styled.div`
@@ -166,18 +163,17 @@ const Title = styled.div`
   font-weight: 600;
   text-align: center;
   color: #2a2a2a;
-  padding-left: 32px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 const ProfilePicContainer = styled.div`
   width: 503px;
 `;
 
 const Cut = styled.div`
-  padding-right: 25px;
-  padding-top: 7px;
-
-  display: flex;
-  align-content: flex-end;
+  position: absolute;
+  right: 28px;
+  margin-top: 4px;
 `;
 const Input = styled.div`
   display: flex;
@@ -396,23 +392,50 @@ export default function FormDialog(props) {
       );
     }
   }, []);
+  function getWindowDimensions() {
+
+    const { innerWidth: width, innerHeight: height } = window;
+
+    return {
+
+      width,
+
+      height
+
+    };
+
+  }
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+
+    }
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+
+  }, []);
+
+  const { width } = windowDimensions
 
   return (
-    <div>
-     
-        <div className={classes.add}>
-          <button className="login-button" onClick={handleClickOpen}>
-            <div className="edit">Edit Profile</div>
-          </button>
-          <ProfilePicContainer>
-            <Dialog
-              classes={{ paper: classes.paper }}
-              className={classes.dialog}
-              open={opens}
-              onClose={handleClose}
-              aria-labelledby="form-dialog-title"
-            >
-             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+    <div >
+
+      <div className={classes.add}>
+        <button className="login-button" onClick={width >= 760 ? handleClickOpen : () => { history.push("/edit-profile") }}>
+          <div className="edit">Edit Profile</div>
+        </button>
+        <ProfilePicContainer >
+          <Dialog
+            classes={{ paper: classes.paper }}
+            className={classes.dialog}
+            open={opens}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+
+          >
+            <div className={isLoading == true ? "cover-spin-loginDialog" : ""} style={{ overflow: "hidden" }}>
               <Wrapper>
                 <Title>Edit Profile</Title>
 
@@ -431,7 +454,7 @@ export default function FormDialog(props) {
               />
 
               <DialogContent
-                style={{ padding: "8px 35px", marginBottom: "14px" }}
+                style={{ padding: "8px 35px", marginBottom: "14px", overflow: "hidden" }}
               >
                 <DialogContentText className={classes.subCategory}>
                   Username
@@ -508,10 +531,10 @@ export default function FormDialog(props) {
               </DialogActions>
 
               <div className={classes.value}></div>
-              </div>
-            </Dialog>
-          </ProfilePicContainer>
-        
+            </div>
+          </Dialog>
+        </ProfilePicContainer>
+
       </div>
     </div>
   );
