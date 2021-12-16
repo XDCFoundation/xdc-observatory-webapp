@@ -99,6 +99,7 @@ const BlockNumber = styled.div`
   text-align: left;
   color: #252525;
 `;
+
 const useStyles = makeStyles((theme) => ({
   textStyle1: {
     fontWeight: "600",
@@ -112,16 +113,17 @@ const useStyles = makeStyles((theme) => ({
   textStyle3: {
     fontWeight: 500,
   },
+  
 }));
 
 export default function TermsCondition() {
   
   const classes = useStyles();
   return (
-    <div>
+    <div className="scrollbar">
       <Tokensearchbar />
-      <Div>
-        <div>
+      <Div className="scrollbar">
+        <div className="scrollbar">
           <Heading>Terms of Use</Heading>
           <Subheading>Information Published on the Website</Subheading>
           <Para1>

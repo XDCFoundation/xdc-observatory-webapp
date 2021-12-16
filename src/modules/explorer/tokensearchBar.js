@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
+import styled from "styled-components";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -17,6 +18,13 @@ import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 
 const drawerWidth = 240;
+const Cut = styled.div`
+  padding-right: 5px;
+  padding-top: 15px;
+
+  display: flex;
+  align-content: flex-end;
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
       height: "11.4375rem !important",
     },
+    drawerHeader: {
+      padding: "0 !important",
+    }
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
@@ -83,6 +94,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
+  },
+  searchIcon: {
+    width: 18,
+    height: 18,
+    marginRight: 3,
+  },
+  "@media (min-width: 0px) and (max-width: 767px)": {
+    searchIcon:{
+      width: 14,
+      height: 14,
+      margin: "0px 7px 6px 0"
+    }
+
   },
 
   content: {
@@ -226,13 +250,7 @@ export default function Navbar() {
         }}
       >
         <p
-          style={{
-            color: "#4666c4",
-            fontSize: 13,
-            fontFamily: "Inter",
-            marginLeft: 23,
-            marginTop: "20px",
-          }}
+          className="inside-side-box-browse"
         >
           Browse
         </p>
@@ -297,6 +315,9 @@ export default function Navbar() {
       </List>
     </div>
   );
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const list = ["Accounts", "Contract", "Tools", "XDC Apis", "Nodes", "Tokens"];
   const [filter, setFilter] = useState("");
@@ -403,6 +424,7 @@ export default function Navbar() {
   };
   const items = (subanchor) => (
     <div
+    className="scrollbar"
       style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
@@ -410,8 +432,8 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={() => setOpen(false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className={classes.drawerHeader}>
+      <div className="scrollbar" style={{ display: "flex", flexDirection: "row" }}>
+        <div className={classes.drawerHeader} className="scrollbar">
           <div
             style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
           >
@@ -424,6 +446,13 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>{" "}
             </div>
+            <Cut onClick={handleClose}>
+              {" "}
+              <img
+                className="cross-icon"
+                src={require("../../../src/assets/images/back.svg")}
+              />{" "}
+            </Cut>
             <div
               style={{
                 color: "white",
@@ -706,12 +735,7 @@ export default function Navbar() {
                     <div>
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
-                          style={{
-                            width: 18,
-                            height: 18,
-                            marginRight: 3,
-                            marginTop: 1,
-                          }}
+                          className={classes.searchIcon}
                           src={require("../../assets/images/Search.svg")}
                         />
                         <div className="search-responsive">
