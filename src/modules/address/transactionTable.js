@@ -314,18 +314,18 @@ export default function TransactionTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
-        <div className="searchelement-input3 search-btn">
-          <img
+        <div className="searchelement-input4 search-btn">
+         {/* <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
             src={require('../../assets/images/Search.svg')}
           />
-          <input
+          } <input
             onKeyUp={(event) => props._handleSearch(event)}
             className="account-searchbar"
             type="text"
             placeholder="Search"
             onKeyUp={handleKeyUp}
-          />
+  />*/}
         </div>
         <div className="csvDownloadParent">
           {isDownloadActive ? (

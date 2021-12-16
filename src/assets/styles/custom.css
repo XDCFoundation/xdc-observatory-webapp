@@ -19,6 +19,9 @@ label {
 input[placeholder] {
   text-overflow: ellipsis;
 }
+a:link {
+  text-decoration: none;
+}
 
 input#password {
   width: 433px;
@@ -925,7 +928,7 @@ input:focus {
     width: 100% !important;
   }
   .csv {
-    padding: 11px 8px 9px 0 !important;
+    padding: 11px 0px 9px 0px !important;
     align-self: flex-end !important;
   }
   .csv-inactive {
@@ -2456,6 +2459,7 @@ p {
   line-height: normal;
   letter-spacing: normal;
   color: #2a2a2a !important;
+  outline: none;
 }
 
 .side-box {
@@ -2765,6 +2769,19 @@ p {
   /* box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1); */
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+}
+
+.searchelement-input4 {
+  /*display: flex;
+  flex-direction: row;
+  height: 2.125rem;
+  width: 10.625rem;
+  padding: 5px 43px 2px 10px;
+  border-radius: 0.5rem;
+  outline-color: #e3e7eb;
+  /* box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1); */
+  /*border: solid 1px #e3e7eb;
+  background-color: #ffffff;*/
 }
 
 .token-text {
@@ -7175,6 +7192,7 @@ button {
 
 .popup-overlay {
   background: rgba(0, 0, 0, 0.5);
+  margin-top: 50px;
 }
 
 [data-popup="tooltip"].popup-overlay {
@@ -7260,7 +7278,7 @@ button {
 }
 
 .ActiveDownload {
-  font-size: 10px;
+  font-size: 0.875rem;
   text-align: center;
   border-radius: 4px;
   width: 94px;
@@ -7269,7 +7287,7 @@ button {
 
 .ActiveDownload:hover {
   color: #81b4ff;
-  font-size: 10px;
+  font-size: 0.875rem;
 }
 
 .InactiveDownload {

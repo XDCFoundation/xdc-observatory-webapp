@@ -383,8 +383,8 @@ export default function AddressTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab">
-        <div className="searchelement-input3 search-input-box">
-          <img
+        <div className="searchelement-input4 search-input-box">
+          {/*<img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
             src={require('../../assets/images/Search.svg')}
           />
@@ -415,7 +415,7 @@ export default function AddressTableComponent(props) {
               }
             }}
           // onKeyUp={handleKeyUp}
-          />
+          />*/}
         </div>
 
         {isDownloadActive ? (
@@ -429,7 +429,8 @@ export default function AddressTableComponent(props) {
               backgroundColor: 'rgb(7 125 245)',
               borderRadius: '0.25rem',
               width: '5.875rem',
-              height: '1.875rem',
+              height: '2.125rem',
+              paddingTop: '0.125rem',
             }}
           >
             Export
