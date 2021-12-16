@@ -422,8 +422,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.hash
-        ? setOpen(false)
-        : props.onClose(onClose);
+          ? setOpen(false)
+          : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -621,12 +621,12 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    setValue(2);
     onClickReset();
-
-    if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha");
+    if (reCaptcha === "") {
+      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+      setLoading(false);
     } else {
+      setCaptchaError("");
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
@@ -636,7 +636,8 @@ export default function FormDialog(props) {
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
-        setCaptchaCheckbox(false);
+        setReCaptcha("");
+        setValue(2);
         Utility.apiSuccessToast(
           "We have just sent you an email to reset your password."
         );
@@ -692,8 +693,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -746,8 +747,8 @@ export default function FormDialog(props) {
                 value === 4
                   ? classes.paperWidthSm1
                   : value === 4
-                  ? classes.paperWidthSm2
-                  : classes.paperWidthSm,
+                    ? classes.paperWidthSm2
+                    : classes.paperWidthSm,
             }}
             className={classes.dialog}
             open={open || onOpen}
@@ -940,7 +941,7 @@ export default function FormDialog(props) {
                     // name="userName"
                     // value={signUp.userName}
                     onChange={(e) => setUserName(e.target.value)}
-                    // onChange={inputEventSignUp}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorUserName}</div>
                 </DialogContent>
@@ -954,9 +955,9 @@ export default function FormDialog(props) {
                     className={classes.input}
                     // name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    // value={signUp.email}
+                  // value={signUp.email}
 
-                    // onChange={inputEventSignUp}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorEmail}</div>
                 </DialogContent>
@@ -970,9 +971,9 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setPassword(e.target.value)}
-                    // name="password"
-                    // value={signUp.password}
-                    // onChange={inputEventSignUp}
+                  // name="password"
+                  // value={signUp.password}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorPassword}</div>
                 </DialogContent>
@@ -986,9 +987,9 @@ export default function FormDialog(props) {
                     placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                     className={classes.input}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    // name="confirmPassword"
-                    // value={signUp.confirmPassword}
-                    // onChange={inputEventSignUp}
+                  // name="confirmPassword"
+                  // value={signUp.confirmPassword}
+                  // onChange={inputEventSignUp}
                   ></input>
                   <div className={classes.error}>{errorConfirmPassword}</div>
                 </DialogContent>
@@ -1176,7 +1177,7 @@ export default function FormDialog(props) {
                   }}
                 >
                   <ReCAPTCHA
-                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                    sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                     onChange={handleReCaptcha}
                   />
                   <div style={{ marginLeft: 0 }} className={classes.error1}>
