@@ -207,7 +207,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "none",
   },
-  
+
   "@media (max-width: 1920px)": {
     appbar: {
       maxWidth: "1248px",
@@ -220,17 +220,17 @@ const useStyles = makeStyles((theme) => ({
       Width: "300px",
       width: "100%",
       padding: "0 7px",
-     
+
     },
     tab1: {
       color: "#2149b9 !important",
       textTransform: "initial",
-      fontSize:"0.722rem"
+      fontSize: "0.722rem"
     },
     tab2: {
       color: "#6b7482",
       textTransform: "initial",
-      fontSize:"0.722rem"
+      fontSize: "0.722rem"
     },
   },
   "@media (max-width: 828px)": {
@@ -240,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 24px",
     },
   },
-  
+
 
   "@media (max-width: 714px)": {
     // appbar: {
@@ -466,6 +466,19 @@ export default function SimpleTabs(props) {
   const [totalCount2, setTotalCount2] = React.useState(5);
   const [totalCount3, setTotalCount3] = React.useState(5);
 
+  // Edit box Popup Handlers
+  const [editBoxOpen, setEditBox] = React.useState(false);
+  const [selectedEditAddress, setSelectedAddress] = React.useState(false);
+  const handleClickOpen = (value) => {
+    setEditBox(true);
+    setSelectedAddress(value)
+  };
+  const handleClose = async () => {
+    console.log("CLOSE")
+    setEditBox(false);
+    };
+
+  // Edit Handlers Done
   const onChangeWatchlistPage = async (value) => {
     setWatchlistPageCount(value);
     const list = Math.ceil(value.selected * 5);
@@ -1136,14 +1149,24 @@ export default function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <EditWatchList
-                                    row={row}
-                                    getWatchlistList={getListOfWatchlist}
-                                  />
+
+                                  <div onClick={() => handleClickOpen(row)}>
+                                    <button className={classes.btn}>
+                                      <a className="linkTable1">
+                                        <span className="tabledata1">Edit</span>
+                                      </a>
+                                    </button>
+                                  </div>
                                 </TableCell>
                               </TableRow>
                             );
                           })}
+                        <EditWatchList
+                          handleClose ={handleClose}
+                          open={editBoxOpen}
+                          row={selectedEditAddress}
+                          getWatchlistList={getListOfWatchlist}
+                        />
                       </TableBody>
                     )}
                   </Table>
@@ -1263,7 +1286,7 @@ export default function SimpleTabs(props) {
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
-                                  // className={classes.Rectangle}
+                                // className={classes.Rectangle}
                                 />
                               </TableCell>
                               <TableCell
