@@ -8,6 +8,7 @@ import transactionLogo from "../../images/Transaction.svg";
 import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
+
 import Tab from "./tab";
 import {
   AccountService,
@@ -512,6 +513,7 @@ class BlockChainDataComponent extends Component {
     let currentTp = this.state.tpsCounts;
 
     return (
+
       <MainContainer
         className={this.state.loading == true ? "cover-spin-3" : ""}
       >

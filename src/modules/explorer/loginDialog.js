@@ -306,6 +306,7 @@ export default function FormDialog(props) {
   // const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(4);
   const [openSignup, setOpenSignup] = React.useState(false);
+  
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -318,6 +319,7 @@ export default function FormDialog(props) {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorUserName, setErrorUserName] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
+  const [viewPopup, setViewPopup] = React.useState(true);
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
@@ -351,8 +353,26 @@ export default function FormDialog(props) {
       window.location.href = "loginprofile";
     } else {
       setOpen(true);
+     
+
     }
   };
+  let visited=sessionManager.setDataInCookies( '',"alreadyVisited");
+  // const popUp = ()=>{
+    
+
+  //     if(visited) {
+  //       setViewPopup({ viewPopup: false })
+  //       //do not view Popup
+  //       console.log("bhai nahi dekhega")
+  //   } else 
+  //       //this is the first time
+  //      sessionManager.setDataInCookies["alreadyVisited"]=true;
+  //       console.log("bhai dekhega")
+  //       setViewPopup({ viewPopup: true});
+  // }
+  
+  
 
   const handleClose = () => {
     {
@@ -689,65 +709,11 @@ export default function FormDialog(props) {
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
-            {value === 4 ? (
-              <div className="main-box">
-                <Row className="main-row">
-                  <div className="main-title">New Features</div>
-                  <div className="main-close" onClick={handleClose}>
-                    <img
-                      src={require("../../../src/assets/images/XDC-Cross.svg")}
-                    />
-                  </div>
-                </Row>
-                <div className="main-sub-title">
-                  Create your account and get started
-                </div>
-                <Row className="card-box">
-                  <div className="card margin-right-20px">
-                    <img
-                      src={require("../../../src/assets/images/watchlist2.svg")}
-                      className="crad-image"
-                    />
-                    <div className="card-title">Create watchlist</div>
-                    <div className="card-text">
-                      An Email notification can be sent to you when an address
-                      on your watch list receives an incoming transaction.
-                    </div>
-                  </div>
-                  <div className="card margin-right-20px">
-                    <img
-                      src={require("../../../src/assets/images/transaction2.svg")}
-                      className="crad-image"
-                    />
-                    <div className="card-title">Add transaction label</div>
-                    <div className="card-text">
-                      Add a personal note to a transaction hash to track it in
-                      future.
-                    </div>
-                  </div>
-                  <div className="card">
-                    <img
-                      src={require("../../../src/assets/images/private2.svg")}
-                      className="crad-image"
-                    />
-                    <div className="card-title">Add transaction label</div>
-                    <div className="card-text">
-                      Add a personal note to a transaction hash to track it in
-                      future.
-                    </div>
-                  </div>
-                </Row>
-                <div className="main-sing-up" onClick={handleClickOpenSignup}>
-                  <div className="main-sing-up-text"> Sign up</div>
-                </div>
-                <div className="main-end-box">
-                  <input type="checkbox" className="main-checkbox" />
-                  <div className="main-end-text">
-                    Don't show this message again
-                  </div>
-                </div>
-              </div>
-            ) : value === 0 ? (
+            
+              
+              
+              
+            { value === 0 ? (
               <div>
                 {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
                 <Row>
