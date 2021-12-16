@@ -215,7 +215,7 @@ export default function FormDialog(props) {
       email: email,
       profilePic: url ? url : profilePicture,
     };
-
+    
     if (!userName.match(regExAlphaNum)) {
       setUserNameError("Enter valid Username");
       setLoading(false);
