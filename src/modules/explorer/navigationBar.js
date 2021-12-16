@@ -162,8 +162,8 @@ export default function Navbar() {
       }
     }
   };
-  
-  
+
+
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
@@ -415,7 +415,7 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
             </div>
-           
+
             <div
               style={{
                 color: "white",
@@ -441,7 +441,7 @@ export default function Navbar() {
 
       {/* onClick={() => setOpen(false)} */}
       <List className="side-box">
-       
+
         <ul className="Live-Network">
           <p>Live Network</p>
         </ul>

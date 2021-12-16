@@ -8,7 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import { useParams } from "react-router";
-import { TransactionService } from "../../services";
+import { TransactionService, BlockService } from "../../services";
 import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
@@ -130,11 +130,14 @@ export default function Transaction({ _handleChange }) {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
   const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    transactionDetail();
+  const [timeStamp, setTimeStamp] = useState();
+  const [price, setPrice] = useState("");
+  const [latestBlock, setLatestBlock] = useState(0);
+  useEffect(async () => {
+    await transactionDetail();
+    getLatestBlock();
     privateNoteUsingHash();
-  }, [amount]);
+  }, []);
 
   const transactionDetail = async () => {
     let urlPath = `${hash}`;
@@ -143,10 +146,36 @@ export default function Transaction({ _handleChange }) {
     );
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
+    setTimeStamp(transactiondetailusinghash?.timestamp);
     setLoading(false);
 
     tagUsingAddressFrom(transactiondetailusinghash);
     tagUsingAddressTo(transactiondetailusinghash);
+  };
+  const getLatestBlock = async () => {
+    let urlPath = "?skip=0&limit=1";
+    let [error, latestBlocks] = await Utils.parseResponse(
+      BlockService.getLatestBlock(urlPath, {})
+    );
+    if (error || !latestBlocks) return;
+
+    setLatestBlock(latestBlocks);
+  };
+  useEffect(() => {
+    let ts = parseInt(timeStamp);
+    getCoinMarketDetailForTransaction(ts);
+  }, [timeStamp]);
+  useEffect(() => {
+    let ts = parseInt(timeStamp);
+    getCoinMarketDetailForTransaction(ts);
+  }, [amount]);
+  const getCoinMarketDetailForTransaction = async (ts) => {
+    let urlPath = "?transactionTime=" + ts + "&fiatValue=" + CurrencyValue;
+    let [error, transactiondetailusinghash] = await Utils.parseResponse(
+      TransactionService.getCoinMarketDetailForTransaction(urlPath, {})
+    );
+    if (error || !transactiondetailusinghash) return;
+    setPrice(transactiondetailusinghash[0]?.price);
   };
 
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
@@ -213,35 +242,33 @@ export default function Transaction({ _handleChange }) {
   const currencySymbol =
     CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
   const valueFetch =
-    CurrencyValue === "INR"
-      ? transactions.valueINR
-      : CurrencyValue === "USD"
-        ? transactions.valueUSD
-        : transactions.valueEUR;
+    CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
+  const txfee = !transactions
+    ? 0
+    : (
+        (transactions?.gasPrice * transactions?.gasUsed) /
+        1000000000000000000
+      ).toFixed(12);
   const transactionFetch =
     CurrencyValue === "INR"
-      ? transactions.transactionFeeINR
+      ? txfee * price
       : CurrencyValue === "USD"
-        ? transactions.transactionFeeUSD
-        : transactions.transactionFeeEUR;
-  const fetchtxn = !transactionFetch
-    ? 0
-    : (transactionFetch / 1000000000000000000).toFixed(12);
-  const txfee = !transactions.transactionFee
-    ? 0
-    : (transactions.transactionFee / 1000000000000000000).toFixed(12);
+      ? txfee * price
+      : txfee * price;
+  const fetchtxn = !transactionFetch ? 0 : transactionFetch;
+
   const gasP = !transactions.gasPrice
     ? 0
     : (transactions.gasPrice / 1000000000000000000).toFixed(18);
   const valueDiv = !valueFetch
     ? 0
-    : (valueFetch / 1000000000000000000).toFixed(11);
-
+    : ((valueFetch * transactions.value) / 1000000000000000000).toFixed(11);
   // if (isLoading == true) {
   //   return (
   //     <div><Loader /></div>
   //   )
   // }
+  let bx = latestBlock[0]?.number - transactions?.blockNumber;
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -287,8 +314,8 @@ export default function Transaction({ _handleChange }) {
                             width > 1240
                               ? "copyEditContainer"
                               : width <= 1240 && width >= 768
-                                ? "copyEditContainerTab"
-                                : "copyEditContainerMobile"
+                              ? "copyEditContainerTab"
+                              : "copyEditContainerMobile"
                           }
                         >
                           <CopyToClipboard
@@ -315,8 +342,8 @@ export default function Transaction({ _handleChange }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                        ? "copyIconHashMobile"
-                                        : "copyIconHash"
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
                                   }
                                   src={require("../../../src/assets/images/copy.svg")}
                                 />
@@ -337,8 +364,8 @@ export default function Transaction({ _handleChange }) {
                                 width > 1240
                                   ? "edit-icon"
                                   : width < 768
-                                    ? "editIconHashMobile"
-                                    : "editIconHash"
+                                  ? "editIconHashMobile"
+                                  : "editIconHash"
                               }
                               onClick={openDialogPvtNote}
                               src={require("../../../src/assets/images/XDC-Edit.svg")}
@@ -364,17 +391,12 @@ export default function Transaction({ _handleChange }) {
                         <Content>
                           <a
                             className="linkTableDetails-transaction"
-                            href={
-                              "/block-details/" +
-                              transactions.blockNumber +
-                              "?hash=" +
-                              transactions.blockHash
-                            }
+                            href={"/block-details/" + transactions.blockNumber}
                           >
                             {" "}
-                            {transactions.blockNumber}{" "}
+                            {transactions.blockNumber}
                           </a>
-                          - {transactions.blockConfirmation} Blocks Confirmation
+                          &nbsp; - {bx} Blocks Confirmation
                         </Content>
                       </MiddleContainer>
                     </Spacing>
@@ -448,8 +470,8 @@ export default function Transaction({ _handleChange }) {
                                         width > 1240
                                           ? "copy-icon"
                                           : width < 768
-                                            ? "copy-icon-from"
-                                            : "copy-icon-from-tab"
+                                          ? "copy-icon-from"
+                                          : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
@@ -537,8 +559,8 @@ export default function Transaction({ _handleChange }) {
                                         width > 1240
                                           ? "copy-icon"
                                           : width < 768
-                                            ? "copy-icon-from"
-                                            : "copy-icon-from-tab"
+                                          ? "copy-icon-from"
+                                          : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
@@ -620,8 +642,7 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Gas Provided</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        {transactions.gas}
-                        {/* <Content> {transactions.gas}</Content> */}
+                        {parseInt(transactions.gas).toLocaleString("en-US")}
                       </MiddleContainer>
                     </Spacing>
                     <Spacing>
@@ -648,7 +669,11 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Gas Used</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        <Content>{transactions.gasUsed}</Content>
+                        <Content>
+                          {parseInt(transactions?.gasUsed)?.toLocaleString(
+                            "en-US"
+                          )}
+                        </Content>
                       </MiddleContainer>
                     </Spacing>
                     <Spacing>
@@ -754,6 +779,7 @@ const Content = styled.div`
   word-break: break-all;
   line-height: 28px;
   display: flex;
+  align-items: center;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;

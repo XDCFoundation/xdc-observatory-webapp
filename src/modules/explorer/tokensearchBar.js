@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 3,
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
-    searchIcon:{
+    searchIcon: {
       width: 14,
       height: 14,
       margin: "0px 7px 6px 0"
@@ -424,7 +424,7 @@ export default function Navbar() {
   };
   const items = (subanchor) => (
     <div
-    className="scrollbar"
+      className="scrollbar"
       style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
@@ -446,13 +446,7 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>{" "}
             </div>
-            <Cut onClick={handleClose}>
-              {" "}
-              <img
-                className="cross-icon"
-                src={require("../../../src/assets/images/back.svg")}
-              />{" "}
-            </Cut>
+
             <div
               style={{
                 color: "white",

@@ -426,6 +426,7 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr)
+  console.log(marketCapVal, "RESPONSE")
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
@@ -621,9 +622,7 @@ export default function TokenDataComponent() {
             </GraphContainer>
           </RightContainer>
         </MainContainer>
-        <TokenMarketDataTable
-          marketCap={marketCapVal}
-        />
+        {marketCapVal == 0 ? "" : <TokenMarketDataTable marketCap={marketCapVal} />}
         <br /><br />
         <Tokentabs />
         <br /><br />

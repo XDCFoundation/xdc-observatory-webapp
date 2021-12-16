@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
   // },
 
   addbtn: {
-    width: "110px",
+    width: "78px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cnlbtn: {
-    width: "94px",
+    width: "78px", 
     height: "34px",
     // margin: "33px 21px 0 87px",
     // padding: "8px 19px 7px 21px",
@@ -156,7 +156,6 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
-    marginLeft: "24px",
     fontFamily: "Inter",
     fontWeight: "600",
     fontSize: "18px",
@@ -400,7 +399,7 @@ export default function FormDialog() {
               </RadioGroup>
             </FormControl>
           </p>
-          <DialogActions className={classes.buttons}>
+          <DialogActions >
             <span onClick={handleClose}>
               <button className={classes.cnlbtn} onClick={handleLogin}>
                 Cancel

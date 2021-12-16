@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TokenTransfertab from './tokenTransfertab';
 import TokenHoldertab from './tokenHoldersTab';
 import TokenContracttab from './tokenContractTab';
 import TokenUnverifiedContract from './tokenUnverifiedContract'
-import {Grid} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 
 let li = 0;
 
@@ -83,8 +83,9 @@ export default function SimpleTabs(props) {
     let [error, contractStatus] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
     );
+    console.log(contractStatus, "lllollo")
     if (error || !contractStatus) return;
-    setContractStatus(contractStatus);
+    setContractStatus(contractStatus.contractResponse);
   };
 
   const toggleTab = (index) => {

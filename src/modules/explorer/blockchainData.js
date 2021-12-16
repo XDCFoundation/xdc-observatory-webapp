@@ -9,6 +9,7 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tab from "./tab";
+import Loader from "../../assets/loader"
 import {
   AccountService,
   CoinMarketService,
@@ -162,9 +163,9 @@ const TitleData = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
-    width: 90px;
+    width: 110px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
   }
 `;
 const LeftTop = styled.div`
@@ -320,9 +321,9 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-              this.state.transactionDataDetails[0]?.gasPrice /
-              1000000000000000000
-            ).toFixed(9)
+            this.state.transactionDataDetails[0]?.gasPrice /
+            1000000000000000000
+          ).toFixed(9)
           : 0;
         if (gp >= 0.000000001) {
           this.setState({ gasPrice: gp });
@@ -496,8 +497,8 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-        ? "$"
-        : "€";
+          ? "$"
+          : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
@@ -516,7 +517,6 @@ class BlockChainDataComponent extends Component {
         className={this.state.loading == true ? "cover-spin-3" : ""}
       >
         <LeftContainer
-          className={this.state.loading == true ? "cover-spin" : ""}
         >
           <LeftFirst>
             <LeftTop>
@@ -667,7 +667,6 @@ class BlockChainDataComponent extends Component {
         </LeftContainer>
 
         <RightContainer
-          className={this.state.loading == true ? "cover-spin" : ""}
         >
           <Tab />
         </RightContainer>
