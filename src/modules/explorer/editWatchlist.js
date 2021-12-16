@@ -187,34 +187,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EditWatchList(props) {
-  const [open, setOpen] = React.useState(false);
-
   const [_id, setId] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
-
+  
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
-
+  
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
     setId(props.row._id)
-  }, []);
-
+  });
+  
   const classes = useStyles();
+  
+  // const [open, setOpen] = React.useState(false);
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = async () => {
-    setOpen(false);
-  };
+  // const handleClose = async () => {
+  //   setOpen(false);
+  // };
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
@@ -223,7 +222,7 @@ function EditWatchList(props) {
 
   const handleLogin = () => {
     //   history.push("/loginprofile")
-    setOpen(false);
+    // setOpen(false);
   };
 
   const [edit, setEdit] = React.useState();
@@ -280,25 +279,29 @@ function EditWatchList(props) {
         return;
       }
       await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
-      await handleClose();
+      await props.handleClose();
       await props.getWatchlistList()
     }
   }
+
+  const closeEditBox = () => {
+    props.handleClose()
+  }
   return (
     <div>
-      <div onClick={handleClickOpen}>
+      {/* <div onClick={handleClickOpen}>
         <button className={classes.btn}>
           <a className="linkTable1">
             <span className="tabledata1">Edit</span>
           </a>
         </button>
-      </div>
+      </div> */}
 
       <div>
         <Dialog
           classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
+          open={props.open}
+          onClose={closeEditBox}
           aria-labelledby="form-dialog-title"
         >
           <Row>
@@ -396,7 +399,7 @@ function EditWatchList(props) {
             </div>
             <div className={classes.flexButton}>
               <span>
-                <button className={classes.cnlbtn} onClick={handleLogin}>
+                <button className={classes.cnlbtn} onClick={closeEditBox}>
                   Cancel
                 </button>
               </span>
