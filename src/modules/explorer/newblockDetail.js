@@ -115,7 +115,29 @@ export default function BlockDetails() {
   let totalDifficulty = td?.toLocaleString('en-US');
   let difi = parseInt(height?.difficulty)
   let difficulty = difi?.toLocaleString('en-US');
-  console.log(difficulty, "hhuhuh")
+
+  const getHoursAgo = (date) => {
+    let today = Date.now()
+    let difference = today - date;
+    if (difference / 1000 / 60 / 60 / 24 > 30)
+      return ""
+    if (difference / 1000 / 60 / 60 / 24 > 1) {
+      let days = Math.floor(difference / 1000 / 60 / 60 / 24)
+      if (days === 1)
+        return days + " day ago "
+      else
+        return days + " days ago "
+    }
+    else {
+      let hours = Math.floor(difference / 1000 / 60 / 60);
+      if (hours === 1)
+        return hours + " hour ago ";
+      else
+        return hours + " hours ago ";
+    }
+    return;
+  }
+
   return (
     <div>
       <Tokensearchbar />
@@ -143,7 +165,7 @@ export default function BlockDetails() {
 
                     <MiddleContainerHash>
                       <Content>
-                        {height.hash && truncate(height.hash)}
+                        {height.hash}
 
 
                         <CopyToClipboard
@@ -243,9 +265,11 @@ export default function BlockDetails() {
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
+                      {getHoursAgo(height.timestamp * 1000)}
+                      (
                       {moment(height.timestamp * 1000).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                      )}
+                        "ddd MMMM Do YYYY, h:mm:ss a"
+                      )} GMT+530)
                     </MiddleContainer>
                   </Spacing>
                   <Spacing>
@@ -264,16 +288,16 @@ export default function BlockDetails() {
                           className="parent_hash"
                           style={{ cursor: "pointer" }}
                         >
-                          {height.parentHash && truncate(height.parentHash)}
+                          {height.parentHash}
 
                         </a>
                         <CopyToClipboard
-                          text={height.hash}
-                          onCopy={() => setCopiedText(height.hash)}
+                          text={height.parentHash}
+                          onCopy={() => setCopiedText(height.parentHash)}
                         >
                           <Tooltip
                             title={
-                              copiedText === height.hash
+                              copiedText === height.parentHash
                                 ? "Copied"
                                 : "Copy To Clipboard"
                             }
@@ -306,15 +330,15 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>
                       <Content>
-                        {height.sha3Uncles && truncate(height.sha3Uncles)}
+                        {height.sha3Uncles}
 
                         <CopyToClipboard
-                          text={height.hash}
-                          onCopy={() => setCopiedText(height.hash)}
+                          text={height.sha3Uncles}
+                          onCopy={() => setCopiedText(height.sha3Uncles)}
                         >
                           <Tooltip
                             title={
-                              copiedText === height.hash
+                              copiedText === height.sha3Uncles
                                 ? "Copied"
                                 : "Copy To Clipboard"
                             }

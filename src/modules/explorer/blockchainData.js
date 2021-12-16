@@ -23,7 +23,7 @@ const MainContainer = styled.div`
   width: 75.125rem;
   height: 18.563rem;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
   padding: 1.9rem 1.375rem 0;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
