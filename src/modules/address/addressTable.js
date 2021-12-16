@@ -601,7 +601,7 @@ export default function AddressTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.Block + "?hash=" + row.Block_Hash}
+                              href={'/block-details/' + row.Block}
                             >
                               <span className="tabledata">{row.Block}</span>
                             </a>

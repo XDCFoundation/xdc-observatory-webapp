@@ -369,9 +369,7 @@ a:hover {
     margin-top: -26px;
   }
 }
-.XDC-Block-Width-tablet {
-  /* margin: 7px !important; */
-}
+
 @media (min-width: 767px) and (max-width: 1240px) {
   .XDC-Block-Width-tablet {
     margin-left: 20px !important;

@@ -363,7 +363,7 @@ export default function FormDialog() {
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </div>
-          <DialogActions className={classes.buttons}>
+          <DialogActions>
             <span>
               <button className={classes.cnlbtn} onClick={handleClose}>
                 Cancel

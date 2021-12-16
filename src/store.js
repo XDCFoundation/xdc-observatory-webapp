@@ -23,16 +23,16 @@ const loadFromLocalStorage = () => {
   }
 };
 const persistedStore = loadFromLocalStorage();
-const store = configureStore({reducer: rootReducer, persistedStore});
+const store = configureStore({ reducer: rootReducer, persistedStore });
 
 store.subscribe(() => {
   saveToLocalStorage(store.getState());
 });
 
-export default  createStore(
-    rootReducer,
-    applyMiddleware(
-        thunkMiddleware,
-        loggerMiddleware
-    )
+export default createStore(
+  rootReducer,
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+  )
 );
