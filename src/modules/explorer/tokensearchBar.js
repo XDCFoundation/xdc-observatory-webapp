@@ -446,13 +446,7 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>{" "}
             </div>
-            <Cut onClick={handleClose}>
-              {" "}
-              <img
-                className="cross-icon"
-                src={require("../../../src/assets/images/back.svg")}
-              />{" "}
-            </Cut>
+
             <div
               style={{
                 color: "white",
