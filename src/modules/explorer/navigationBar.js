@@ -37,6 +37,7 @@ const MobileView = styled.div`
   }
 `;
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -119,6 +120,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    drawerHeader: {
+      padding: "0 !important",
+    }
   },
   fullList: {
     width: "auto",
@@ -158,6 +162,8 @@ export default function Navbar() {
       }
     }
   };
+  
+  
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
@@ -167,8 +173,7 @@ export default function Navbar() {
     };
     if (SearchDataInput === "") {
       return;
-    }
-    else {
+    } else {
       BlockChainSearch(requestdata);
     }
   };
@@ -186,14 +191,14 @@ export default function Navbar() {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
         } else if (responseData[0].redirect == "account") {
-          let accounturl = "/address-details/" + responseData[0].account.address;
+          let accounturl =
+            "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
         } else if (responseData[0].redirect == "transaction") {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
         } else if (responseData[0].redirect == "token") {
-
           let tokenurl = "/token-data/" + responseData[0].token.address;
           window.location.href = tokenurl;
         } else {
@@ -287,14 +292,7 @@ export default function Navbar() {
     </div>
   );
 
-  const list = [
-    "Accounts",
-    "Contract",
-    "Tools",
-    "XDC Apis",
-    "Nodes",
-    "Tokens",
-  ];
+  const list = ["Accounts", "Contract", "Tools", "XDC Apis", "Nodes", "Tokens"];
   const [filter, setFilter] = useState("");
   const childToggle = (subanchor, open) => (event) => {
     if (
@@ -417,13 +415,14 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
             </div>
+           
             <div
               style={{
                 color: "white",
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               Tools
@@ -442,6 +441,7 @@ export default function Navbar() {
 
       {/* onClick={() => setOpen(false)} */}
       <List className="side-box">
+       
         <ul className="Live-Network">
           <p>Live Network</p>
         </ul>
@@ -641,7 +641,10 @@ export default function Navbar() {
                   src={require("../../../src/assets/images/XDC-Icon-Logo.svg")}
                 ></img>
               </a>
-              <a className="XDC" href="/"> XDC </a>
+              <a className="XDC" href="/">
+                {" "}
+                XDC{" "}
+              </a>
 
               <div>
                 <NavLink
@@ -724,9 +727,13 @@ export default function Navbar() {
                   <a className="logo_tokensearch" href={"/"}>
                     <img
                       className="Shape"
-                      src={require("../../../src/assets/images/XDC icon.svg")} ></img>
+                      src={require("../../../src/assets/images/XDC icon.svg")}
+                    ></img>
                   </a>
-                  <a className="XDC" href="/"> XDC </a>
+                  <a className="XDC" href="/">
+                    {" "}
+                    XDC{" "}
+                  </a>
                 </div>
                 &nbsp;
                 <div className="header-responsive">

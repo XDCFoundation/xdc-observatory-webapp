@@ -58,8 +58,8 @@ export default function TransactionTableComponent(props) {
   }
   let { addr } = useParams()
   let { addressNumber } = useParams()
-  const [from, setFrom] = React.useState(0)
-  const [amount, setAmount] = React.useState(50)
+  const [from, setFrom] = React.useState(parseInt(0))
+  const [amount, setAmount] = React.useState(parseInt(50))
   const [address, setAddress] = useState([])
   const [ContractAddress, setContractAddress] = useState(addressNumber)
   const [keywords, setKeywords] = useState('')
@@ -88,7 +88,7 @@ export default function TransactionTableComponent(props) {
         setLoading(false)
       } else {
         setNoData(true)
-        setTotalRecord(0)
+        setTotalRecord(parseInt(0))
         setAddress([])
         setLoading(false)
       }
@@ -101,14 +101,14 @@ export default function TransactionTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getTransactionsCountForAddress(data),
       )
-      setTotalRecord(responseData)
+      setTotalRecord(parseInt(responseData))
     } catch (error) {
       console.error(error)
     }
   }
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value
-    setFrom(0)
+    setFrom(parseInt(0))
     if (searchkeyword.length > 2) {
       setKeywords(searchkeyword)
       datas = {
@@ -122,7 +122,7 @@ export default function TransactionTableComponent(props) {
     if (searchkeyword.length == 0) {
       setNoData(false)
       setKeywords('')
-      setFrom(0)
+      setFrom(parseInt(0))
       datas = {
         pageNum: 0,
         perpage: amount,
@@ -134,7 +134,7 @@ export default function TransactionTableComponent(props) {
   }
   const handleChangePage = (action) => {
     if (action == 'first') {
-      setFrom(0);
+      setFrom(parseInt(0));
       if (keywords) {
         datas = {
           pageNum: 0,
@@ -155,7 +155,7 @@ export default function TransactionTableComponent(props) {
     }
     if (action === 'last') {
       let pagecount = +totalRecord - +amount
-      setFrom(pagecount)
+      setFrom(parseInt(pagecount))
       if (keywords) {
         datas = {
           pageNum: pagecount,
@@ -178,7 +178,7 @@ export default function TransactionTableComponent(props) {
     if (action === 'next') {
       if (+amount + +from < totalRecord) {
         let pagecount = +amount + +from
-        setFrom(pagecount)
+        setFrom(parseInt(pagecount))
         if (keywords) {
           datas = {
             pageNum: pagecount,
@@ -203,7 +203,7 @@ export default function TransactionTableComponent(props) {
     if (action === 'prev') {
       if (+from - +amount >= 0) {
         let pagecount = +from - +amount
-        setFrom(pagecount)
+        setFrom(parseInt(pagecount))
         if (keywords) {
           datas = {
             pageNum: pagecount,
@@ -225,8 +225,8 @@ export default function TransactionTableComponent(props) {
     }
   }
   const handleChangeRowsPerPage = (event) => {
-    setAmount(event.target.value)
-    setFrom(0)
+    setAmount(parseInt(event.target.value))
+    setFrom(parseInt(0))
     datas = {
       pageNum: 0,
       perpage: event.target.value,
@@ -314,18 +314,18 @@ export default function TransactionTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
-        <div className="searchelement-input3 search-btn">
-          <img
+        <div className="searchelement-input4 search-btn">
+         {/* <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
             src={require('../../assets/images/Search.svg')}
           />
-          <input
+          } <input
             onKeyUp={(event) => props._handleSearch(event)}
             className="account-searchbar"
             type="text"
             placeholder="Search"
             onKeyUp={handleKeyUp}
-          />
+  />*/}
         </div>
         <div className="csvDownloadParent">
           {isDownloadActive ? (
@@ -423,6 +423,13 @@ export default function TransactionTableComponent(props) {
                     align="left"
                   >
                     <span className={'tableheaders table-value'}>Value</span>
+                  </TableCell>
+                  <TableCell
+                    className="w-450 "
+                    style={{ border: 'none', paddingLeft: '1%' }}
+                    align="left"
+                  >
+                    <span className={'tableheaders table-value'}>Gas</span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
@@ -533,6 +540,9 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <span className="tabledata">{row.value}</span>
                           </TableCell>
+                          <TableCell style={{ border: 'none' }} align="left">
+                            <span className="tabledata">{row.gasUsed}</span>
+                          </TableCell>
                         </TableRow>
                       )
                     })}
@@ -584,48 +594,86 @@ export default function TransactionTableComponent(props) {
             <span className="text">Records</span>
           </Grid>
           <Grid xs="2"></Grid>
-          <Grid
+
+          {noData == true && (
+            <Grid
             item
             xs="7"
-            // style={{
-            //   flexBasis: "auto",
-            //   display: "flex",
-            //   alignItems: "baseline",
-            // }}
             className="page-tab"
           >
             <button
               style={{ marginLeft: '0px' }}
               onClick={() => handleChangePage('first')}
-              className={from === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               First
             </button>
             <button
               onClick={() => handleChangePage('prev')}
-              className={from === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/back.svg')} />
             </button>
             <button className="btn-contract">
-              Page{' '}
-              {Math.ceil(totalRecord / amount) -
-                Math.ceil((totalRecord - from) / amount) + 1}{' '}
-              of {Math.ceil(totalRecord / amount)}
+              Page 0 of 0
             </button >
             <button
               onClick={() => handleChangePage('next')}
-              className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
+              className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               <img src={require('../../../src/assets/images/next.svg')} />
             </button>
             <button
               onClick={() => handleChangePage('last')}
-              className={+from + +amount === totalRecord ? 'btn-contract disabled' : 'btn-contract'}
+              className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
               Last
             </button>
-          </Grid >
+          </Grid > 
+          )}
+          
+          {noData == false && (
+            <Grid
+            item
+            xs="7"
+            className="page-tab"
+          >
+            <button
+              style={{ marginLeft: '0px' }}
+              onClick={() => handleChangePage('first')}
+              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+            >
+              First
+            </button>
+            <button
+              onClick={() => handleChangePage('prev')}
+              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+            >
+              <img src={require('../../../src/assets/images/back.svg')} />
+              </button>
+              
+            <button className="btn-contract">
+              Page{' '}
+              {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
+                Math.ceil((parseInt(totalRecord) - parseInt(from)) / parseInt(amount)) + 1}{' '}
+              of {Math.ceil(parseInt(totalRecord) / parseInt(amount))}
+            </button >
+            <button
+              onClick={() => handleChangePage('next')}
+              className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+            >
+              <img src={require('../../../src/assets/images/next.svg')} />
+            </button>
+            <button
+              onClick={() => handleChangePage('last')}
+              className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+            > 
+              Last
+            </button>
+          </Grid > 
+          )}
+
+
         </Grid >
       </Grid >
     </div >

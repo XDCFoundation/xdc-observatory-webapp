@@ -202,7 +202,6 @@ export default function FormDialog() {
         return;
       }
       utility.apiSuccessToast("Transaction Added");
-      window.location.href = "loginprofile";
       setTransactionsHash("");
       setPrivateNote("");
       setOpen(false);

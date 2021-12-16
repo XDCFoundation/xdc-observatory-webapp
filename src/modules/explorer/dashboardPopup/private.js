@@ -40,6 +40,17 @@ const useStyles = makeStyles((theme) => ({
     width: "80% !important",
     height: "70% !important",
     borderRadius: "50px !important",
+    "@media (min-width:0px) and (max-width:375px)":{
+      width:"100% !important",
+      height:"100% !important",
+      borderRadius:"1px !important",
+    },
+    "@media (min-width:375px) and (max-width:768px)":{
+      width:"100% !important",
+      height:"100% !important",
+      borderRadius:"1px !important",
+      maxWidth:"768px !important"
+    },
   },
   buttons: {
     padding: "1px 35px 15px 0px",
@@ -140,12 +151,31 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
     color: "#2a2a2a",
+    "@media (min-width:500px) and (max-width:768px)":{
+      width: "100% !important",
+      flexFlow: "column nowrap ",
+      display: "flex !important",
+      maxWidth: "fit-content",
+      margin: "0 auto",
+      justifyContent: "flex-start !important", 
+      },
   },
   dialogBox: {
     width: "553px",
     position: "absolute",
     top: "111px",
     borderRadius: "12px",
+    "@media (min-width:0px) and (max-width:375px)":{
+      width:"100% !important",
+      height:"100% !important",
+      borderRadius:"1px !important",
+    },
+    "@media (min-width:375px) and (max-width:768px)":{
+      width:"100% !important",
+      height:"100% !important",
+      borderRadius:"1px !important",
+      maxWidth:"768px !important"
+    },
   },
   "@media (max-width: 714px)": {
     heading:{
@@ -290,7 +320,7 @@ export default function FormDialog() {
   
   return (
     <div>
-      <div className="div3" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test-address")}}>
+      <div className="div3" onClick={handleClickOpen}>
         <div>
           <img
             className="imagediv3"
@@ -316,7 +346,7 @@ export default function FormDialog() {
 
       <div>
         <Dialog
-          className={classes.dialog}
+          // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
           open={open}
           onClose={handleClose}

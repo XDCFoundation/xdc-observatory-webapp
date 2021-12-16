@@ -110,9 +110,10 @@ export default function FooterComponent(props) {
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                  XDCScan is a Block Explorer and Analytics Platform for XDC,
+                  The XDC Observatory is a Block Explorer and Analytics Platform for XDC,
                   a decentralized smart contracts platform.
                 </p>
+              </div>
               </div>
               <div className="button-Padding-Mobile">
                 <Select
@@ -182,7 +183,7 @@ export default function FooterComponent(props) {
                             <option>inr</option>
                         </select> */}
               </div>
-            </div>
+            
           </Grid>
         </FirstCloumn>
 
