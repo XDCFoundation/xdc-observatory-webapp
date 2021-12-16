@@ -7188,6 +7188,7 @@ button {
 
 .popup-arrow {
   color: rgb(255, 255, 255);
+  margin-top: 50px;
 }
 
 [role="tooltip"].popup-content {
@@ -7398,12 +7399,36 @@ button {
     width: 240px !important;
     /* margin-top: 150px; */
   }
+  .popup_qr {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: black;
+    padding-top: 1.3rem;
+    text-align: center;
+    margin-top: 130px;
+  }
 }
 @media (min-width: 300px) and (max-width: 767px) {
   .close-qr {
     margin-left: 318px !important;
     margin-top: 200px !important;
     /* margin-top: 150px; */
+  }
+  .popup_qr {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: black;
+    padding-top: 1.3rem;
+    text-align: center;
+    margin-top: 130px;
   }
 }
 
@@ -7509,6 +7534,18 @@ button {
   .source-code-content-value-name {
     font-size: 0.875rem;
     margin-left: 53px;
+  }
+  .popup_qr {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: black;
+    padding-top: 1.3rem;
+    text-align: center;
+    margin-top: 130px;
   }
 }
 
