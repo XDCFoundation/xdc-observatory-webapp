@@ -114,6 +114,7 @@ export default function FooterComponent(props) {
                   a decentralized smart contracts platform.
                 </p>
               </div>
+              </div>
               <div className="button-Padding-Mobile">
                 <Select
                   style={{
@@ -182,7 +183,7 @@ export default function FooterComponent(props) {
                             <option>inr</option>
                         </select> */}
               </div>
-            </div>
+            
           </Grid>
         </FirstCloumn>
 
