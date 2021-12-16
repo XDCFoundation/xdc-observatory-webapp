@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
+import styled from "styled-components";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -17,6 +18,13 @@ import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 
 const drawerWidth = 240;
+const Cut = styled.div`
+  padding-right: 5px;
+  padding-top: 15px;
+
+  display: flex;
+  align-content: flex-end;
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
       height: "11.4375rem !important",
     },
+    drawerHeader: {
+      padding: "0 !important",
+    }
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
@@ -83,6 +94,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
+  },
+  searchIcon: {
+    width: 18,
+    height: 18,
+    marginRight: 3,
+  },
+  "@media (min-width: 0px) and (max-width: 767px)": {
+    searchIcon: {
+      width: 14,
+      height: 14,
+      margin: "0px 7px 6px 0"
+    }
+
   },
 
   content: {
@@ -226,13 +250,7 @@ export default function Navbar() {
         }}
       >
         <p
-          style={{
-            color: "#4666c4",
-            fontSize: 13,
-            fontFamily: "Inter",
-            marginLeft: 23,
-            marginTop: "20px",
-          }}
+          className="inside-side-box-browse"
         >
           Browse
         </p>
@@ -297,12 +315,27 @@ export default function Navbar() {
       </List>
     </div>
   );
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const list = ["Accounts", "Contract", "Tools", "XDC Apis", "Nodes", "Tokens"];
   const [filter, setFilter] = useState("");
+  const childToggle = (subanchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpencontracts(false);
+
+    setState({ ...state, [subanchor]: open });
+  };
   const contracts = (subanchor) => (
     <div
-      // style={{ overflow: "revert" }}
+      style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
       })}
@@ -312,18 +345,18 @@ export default function Navbar() {
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
           <div
-            className="menubar-contract"
+            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
           >
             <div style={{ marginTop: 10 }}>
+              {" "}
               <span
                 onClick={() => setOpencontracts(false)}
                 style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>
+              </span>{" "}
             </div>
             <div
-              onClick={() => setOpencontracts(false)}
               style={{
                 color: "white",
                 marginTop: "14px",
@@ -331,13 +364,14 @@ export default function Navbar() {
                 marginLeft: "8px",
                 cursor: "pointer",
               }}
+              onClick={() => setOpencontracts(false)}
             >
               Contract
             </div>
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={() => setOpencontracts(false)}
+                onClick={childToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -369,7 +403,7 @@ export default function Navbar() {
               listStyle: "none",
               textDecoration: "none",
             }}
-            href="/verify-contracts"
+            href={"/verify-contracts"}
           >
             <div className="xinfin_api_button">Verify Contracts</div>
           </a>
@@ -378,10 +412,19 @@ export default function Navbar() {
       </List>
     </div>
   );
-
-  // ..................
+  const childToolsToggle = (subanchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setOpen(false);
+    setState({ ...state, [subanchor]: open });
+  };
   const items = (subanchor) => (
     <div
+      className="scrollbar"
       style={{ overflow: "revert" }}
       className={clsx(classes.list, {
         [classes.fullList]: subanchor === "top" || subanchor === "bottom",
@@ -389,25 +432,34 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={() => setOpen(false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className={classes.drawerHeader}>
-          <div className="menubar-contract"
+      <div className="scrollbar" style={{ display: "flex", flexDirection: "row" }}>
+        <div className={classes.drawerHeader} className="scrollbar">
+          <div
+            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
           >
             <div style={{ marginTop: 10 }}>
+              {" "}
               <span
                 onClick={() => setOpen(false)}
                 style={{ color: "white", fontSize: 17, cursor: "pointer" }}
               >
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>
+              </span>{" "}
             </div>
+            <Cut onClick={handleClose}>
+              {" "}
+              <img
+                className="cross-icon"
+                src={require("../../../src/assets/images/back.svg")}
+              />{" "}
+            </Cut>
             <div
               style={{
                 color: "white",
                 marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               Tools
@@ -415,7 +467,7 @@ export default function Navbar() {
             <div>
               <IconButton
                 style={{ color: "white", marginLeft: "14rem" }}
-                onClick={() => setOpen(false)}
+                onClick={childToolsToggle(subanchor, false)}
               >
                 {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
               </IconButton>
@@ -571,7 +623,7 @@ export default function Navbar() {
         <ul className="Live-Network">
           <p>More</p>
         </ul>
-        {/* <ul className="Live-Network-list">
+        <ul className="Live-Network-list">
           <a
             className="sidebar-links"
             href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
@@ -579,7 +631,7 @@ export default function Navbar() {
             <div className="xinfin_account_button">XinPay</div>
           </a>
           <hr className="myhr" />
-        </ul> */}
+        </ul>
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
             <div className="xinfin_account_button">XDC Remix</div>
@@ -683,12 +735,7 @@ export default function Navbar() {
                     <div>
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
-                          style={{
-                            width: 18,
-                            height: 18,
-                            marginRight: 3,
-                            marginTop: 1,
-                          }}
+                          className={classes.searchIcon}
                           src={require("../../assets/images/Search.svg")}
                         />
                         <div className="search-responsive">

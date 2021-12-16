@@ -628,7 +628,7 @@ export default function Transaction({ _handleChange }) {
                         <Content>
                           {" "}
                           {txfee} XDC ({currencySymbol}
-                          {fetchtxn.toString()})
+                          {fetchtxn})
                         </Content>
                       </MiddleContainer>
                     </Spacing>
