@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-
+import {makeStyles} from "@material-ui/core/styles";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
@@ -14,7 +14,17 @@ import Utility from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 
+const useStyles = makeStyles((theme) => ({
+transfer:{
+  height:'38px'
+},
+  "@media (min-width: 0px) and (max-width: 767px)": {
+    maxWidth: "20px",
+    border:"1px solid black",
+  },
 
+
+}));
 const MainContainer = styled.div`
   width: 75.125rem;
   height: 16.563rem;
@@ -321,6 +331,7 @@ const Icons = styled.div`
 `;
 
 export default function TokenDataComponent() {
+  const classes = useStyles();
   let changePrice = 5.21;
   let changeHolders = 0;
   let tokenName = 'XDC'
@@ -430,6 +441,8 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
+                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={require("../../../src/assets/images/XRC20-Icon.svg")}></img>
+
                 <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
 
@@ -502,9 +515,10 @@ export default function TokenDataComponent() {
                   </Value>
                   <Value>
                     {/* <TitleIcon src={priceLogo} /> */}
-                    <ValueName>
+                    <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      <TitleValue>{transfer}</TitleValue>
+                      {console.log("TRansfer",transfer)}
+                      <TitleValue>{(transfer.length && transfer.length)===0 ? "0" : transfer}</TitleValue>
                     </ValueName>
                   </Value>
                   <Value>

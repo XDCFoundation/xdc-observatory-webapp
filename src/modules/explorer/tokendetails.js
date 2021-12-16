@@ -248,7 +248,7 @@ export default function StickyHeadTable() {
   }, []);
   function shorten(b, amountL = 10, amountR = 4, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 4,
+      b.length - amountR,
       b.length
     )}`;
   }
@@ -386,7 +386,7 @@ export default function StickyHeadTable() {
                         <TableCell
                           id="td" style={{ whiteSpace: "nowrap" }}
                         >
-                          {row.tokenName}
+                          {shorten(row.tokenName, 9 , 0 , 3)}
                         </TableCell>
                         <TableCell
                           id="td"

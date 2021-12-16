@@ -70,6 +70,13 @@ const useStyles = makeStyles((theme) => ({
 
     width: "90%",
   },
+  "@media (max-width: 1920px)": {
+    appbar: {
+      maxWidth: "1248px",
+      width: "100%",
+      padding: "0 24px",
+    },
+  },
   mywatch: {
     /* width: 100px; */
     height: "19px",
@@ -129,7 +136,7 @@ export default function Watch() {
   return (
     <div>
       <div className={classes.root}>
-        <AppBar position="static" className={classes.appbar}>
+        {/* <AppBar position="static" className={classes.appbar}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -143,7 +150,7 @@ export default function Watch() {
               {...a11yProps(0)}
             />
             <Tab
-              label="Txn Private Note"
+              label="Txn Private Notee"
               className={classes.txnprivate}
               {...a11yProps(1)}
             />
@@ -153,7 +160,7 @@ export default function Watch() {
               {...a11yProps(2)}
             />
           </Tabs>
-        </AppBar>
+        </AppBar> */}
         <TabPanel value={value} index={0}>
           one
         </TabPanel>
