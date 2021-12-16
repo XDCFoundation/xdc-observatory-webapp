@@ -199,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "4.4px",
     border: "solid 0.6px #00a1ed",
     backgroundColor: "#3763dd",
-    margin: "41px 15px 23px 24px",
+    margin: "15px 15px 23px 24px",
     color: "white",
   },
   alreadyAccount: {
@@ -1038,13 +1038,6 @@ export default function FormDialog(props) {
                     paddingLeft: "28px",
                   }}
                 >
-                  <ReCAPTCHA
-                    sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
-                    onChange={handleReCaptcha}
-                  />
-                  <div style={{ marginLeft: 0 }} className={classes.error1}>
-                    {captchaError}
-                  </div>
                 </div>
                 {/* <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
