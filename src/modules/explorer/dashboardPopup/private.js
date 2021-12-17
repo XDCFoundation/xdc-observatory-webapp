@@ -165,17 +165,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "111px",
     borderRadius: "12px",
-    "@media (min-width:0px) and (max-width:375px)":{
-      width:"100% !important",
-      height:"100% !important",
-      borderRadius:"1px !important",
-    },
-    "@media (min-width:375px) and (max-width:768px)":{
-      width:"100% !important",
-      height:"100% !important",
-      borderRadius:"1px !important",
-      maxWidth:"768px !important"
-    },
   },
   "@media (max-width: 714px)": {
     heading:{
@@ -320,7 +309,7 @@ export default function FormDialog() {
   
   return (
     <div>
-      <div className="div3" onClick={handleClickOpen}>
+     <div className="div3" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test-address")}}>
         <div>
           <img
             className="imagediv3"
