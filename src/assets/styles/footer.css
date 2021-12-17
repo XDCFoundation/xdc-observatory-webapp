@@ -11,7 +11,7 @@ label {
 .footer_base {
   width: 100% !important ;
   background: linear-gradient(to bottom, #2149b9, #3e71ff);
-  margin: 40px 0 0;
+  margin: 60px 0 0;
   padding: 4%;
   padding-bottom: 1%;
   padding-right: 7%;
@@ -124,6 +124,7 @@ label {
 ul {
   list-style-type: none;
   float: left;
+  padding-left: 0px !important;
 }
 
 .copyright {
@@ -208,7 +209,7 @@ ul {
 }
 
 .Table-Header {
-  margin-top: -15px;
+  /* margin-top: -15px; */
   font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
@@ -225,7 +226,6 @@ ul {
 }
 
 .Table-Comp {
-  margin-left: -40px;
   font-size: 11px;
   white-space: nowrap;
 }
@@ -317,7 +317,7 @@ a:hover {
   }
 } */
 .Top-Header {
-  margin-top: -15px;
+  /* margin-top: -15px; */
   font-size: 10px;
   font-weight: normal;
   font-stretch: normal;
