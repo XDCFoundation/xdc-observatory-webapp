@@ -13,7 +13,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { CSVLink } from "react-csv";
-import TableHead from "@material-ui/core/TableHead";
+import TableHead from "@material-ui/core/TableHead";  
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
@@ -141,25 +141,6 @@ const useStyles = makeStyles((theme) => ({
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
   },
-  // taboption: {
-
-  //         activeTintColor: "white",
-  //         inactiveTintColor: "blue",
-
-  //         indicatorStyle :{
-  //               backgroundColor:'blue'
-  //         },
-
-  //         style: {
-  //           backgroundColor: 'grey',
-  //         },
-  //         labelStyle: {
-  //           fontSize: 9,
-  //           margin: 0,
-  //           padding: 0,
-  //           fontFamily: 'Poppins-bold',
-  //         },
-  //       },
   mywatch: {
     /* width: 100px; */
     height: "19px",
@@ -207,7 +188,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "none",
   },
-  
+
   "@media (max-width: 1920px)": {
     appbar: {
       maxWidth: "1248px",
@@ -220,17 +201,17 @@ const useStyles = makeStyles((theme) => ({
       Width: "300px",
       width: "100%",
       padding: "0 7px",
-     
+
     },
     tab1: {
       color: "#2149b9 !important",
       textTransform: "initial",
-      fontSize:"0.722rem"
+      fontSize: "0.722rem"
     },
     tab2: {
       color: "#6b7482",
       textTransform: "initial",
-      fontSize:"0.722rem"
+      fontSize: "0.722rem"
     },
   },
   "@media (max-width: 828px)": {
@@ -240,7 +221,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 24px",
     },
   },
-  
+
 
   "@media (max-width: 714px)": {
     // appbar: {
@@ -297,14 +278,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "initial",
   },
-  // Rectangle: {
-  //   width: "14px",
-  //   height: "14px",
-  //   margin: "1px 15px 17px 21px",
-  //   borderRadius: "2px",
-  //   border: "solid 1px #e3e7eb",
-  //   backgroundColor: "var(--white-two)"
-  // }
 }));
 
 export default function SimpleTabs(props) {
@@ -441,16 +414,6 @@ export default function SimpleTabs(props) {
     }
   }
 
-  // const filteredProducts = address.filter((product) => {
-  //   if (
-  //     product.tags.toLowerCase().includes(search) ||
-  //     product.title.toLowerCase().includes(search) ||
-  //     product.category.toLowerCase().includes(search)
-  //   ) {
-  //     return product;
-  //   }
-  // });
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -466,6 +429,19 @@ export default function SimpleTabs(props) {
   const [totalCount2, setTotalCount2] = React.useState(5);
   const [totalCount3, setTotalCount3] = React.useState(5);
 
+  // Edit box Popup Handlers
+  const [editBoxOpen, setEditBox] = React.useState(false);
+  const [selectedEditAddress, setSelectedAddress] = React.useState(false);
+  const handleClickOpen = (value) => {
+    setEditBox(true);
+    setSelectedAddress(value)
+  };
+  const handleClose = async () => {
+    console.log("CLOSE")
+    setEditBox(false);
+    };
+
+  // Edit Handlers Done
   const onChangeWatchlistPage = async (value) => {
     setWatchlistPageCount(value);
     const list = Math.ceil(value.selected * 5);
@@ -906,23 +882,7 @@ export default function SimpleTabs(props) {
             ) : isDownloadActive ? (
               tableValue === 1 ? (
                 ""
-              ) : // <CSVLink
-                //   filename={"watchlist.csv"}
-                //   data={downloadWatchlist}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export
-                // </CSVLink>
+              ) : 
                 tableValue === 2 ? (
                   <CSVLink
                     filename={"private_note.csv"}
@@ -995,18 +955,6 @@ export default function SimpleTabs(props) {
                   >
                     <TableHead>
                       <TableRow>
-                        {/* <TableCell style={{ border: "none" }} align="left">
-                          <input
-                            onChange={handleWatchlistCheckbox}
-                            type="checkbox"
-                            name="allselect"
-                            checked={countWatchlist === watchlistLength || checkedWatchlist == true}
-                            style={{
-                              marginRight: "10px",
-                              border: "solid 1px #e3e7eb"
-                            }}
-                          />
-                          </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheadersWatchlist"}>
                             Address
@@ -1063,19 +1011,7 @@ export default function SimpleTabs(props) {
                                     : { background: "white" }
                                 }
                               >
-                                {/* <TableCell
-                              style={{ border: "none" }}
-                              margin-left="5px"
-                            >
-                              <input
-                                key={row._id}
-                                name={row._id}
-                                onChange={handleWatchlistCheckbox}
-                                type="checkbox"
-                                checked={row?.isChecked1 || false}
-                                style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
-                              />
-                              </TableCell> */}
+                                
                                 <TableCell
                                   style={{ border: "none" }}
                                   align="left"
@@ -1136,14 +1072,24 @@ export default function SimpleTabs(props) {
                                   style={{ border: "none" }}
                                   align="left"
                                 >
-                                  <EditWatchList
-                                    row={row}
-                                    getWatchlistList={getListOfWatchlist}
-                                  />
+
+                                  <div onClick={() => handleClickOpen(row)}>
+                                    <button className={classes.btn}>
+                                      <a className="linkTable1">
+                                        <span className="tabledata1">Edit</span>
+                                      </a>
+                                    </button>
+                                  </div>
                                 </TableCell>
                               </TableRow>
                             );
                           })}
+                        <EditWatchList
+                          handleClose ={handleClose}
+                          open={editBoxOpen}
+                          row={selectedEditAddress}
+                          getWatchlistList={getListOfWatchlist}
+                        />
                       </TableBody>
                     )}
                   </Table>
@@ -1222,18 +1168,10 @@ export default function SimpleTabs(props) {
                               }}
                             />
                           </button>
-                          {/* </span> */}
                         </TableCell>
-                        {/* <TableCell
-                                style={{ border: "none", paddingLeft: "1%" }}
-                                align="left"
-                            >
-                                <span className={"tableheaders-1"}>Notification</span>
-                            </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}></span>
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     {dataNotFound ? (
@@ -1263,7 +1201,7 @@ export default function SimpleTabs(props) {
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
-                                  // className={classes.Rectangle}
+                                // className={classes.Rectangle}
                                 />
                               </TableCell>
                               <TableCell
@@ -1295,11 +1233,6 @@ export default function SimpleTabs(props) {
                                   {row.trxLable}
                                 </span>
                               </TableCell>
-                              {/* <TableCell style={{ border: "none" }} align="left">
-                                        
-                                            <span className="tabledata-1">{row.Balance}</span>
-                                        
-                                    </TableCell> */}
                               <TableCell
                                 style={{ border: "none" }}
                                 align="left"
@@ -1390,25 +1323,13 @@ export default function SimpleTabs(props) {
                             />
                           </button>
                         </TableCell>
-                        {/* <TableCell
-                                style={{ border: "none", paddingLeft: "2%" }}
-                                align="left"
-                            >
-                                <span className={"tableheaders-1"}>Balance</span>
-                            </TableCell> */}
+                        
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}>Added On</span>
                         </TableCell>
-                        {/* <TableCell
-                                style={{ border: "none", paddingLeft: "1%" }}
-                                align="left"
-                            >
-                                <span className={"tableheaders-1"}>Notification</span>
-                            </TableCell> */}
                         <TableCell style={{ border: "none" }} align="left">
                           <span className={"tableheaders-1"}></span>
                         </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                       </TableRow>
                     </TableHead>
                     {dataNotFound ? (
@@ -1420,7 +1341,6 @@ export default function SimpleTabs(props) {
                       <TableBody>
                         {privateAddress.map((row, index) => {
                           let tag = row.tagName;
-                          // const multipleTag = handleMultipleTag(tag);
 
                           return (
                             <TableRow
