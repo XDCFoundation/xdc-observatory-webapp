@@ -246,15 +246,15 @@ export default function Transaction({ _handleChange }) {
   const txfee = !transactions
     ? 0
     : (
-        (transactions?.gasPrice * transactions?.gasUsed) /
-        1000000000000000000
-      ).toFixed(12);
+      (transactions?.gasPrice * transactions?.gasUsed) /
+      1000000000000000000
+    ).toFixed(12);
   const transactionFetch =
     CurrencyValue === "INR"
       ? txfee * price
       : CurrencyValue === "USD"
-      ? txfee * price
-      : txfee * price;
+        ? txfee * price
+        : txfee * price;
   const fetchtxn = !transactionFetch ? 0 : transactionFetch;
 
   const gasP = !transactions.gasPrice
@@ -350,8 +350,8 @@ export default function Transaction({ _handleChange }) {
                             width > 1240
                               ? "copyEditContainer"
                               : width <= 1240 && width >= 768
-                              ? "copyEditContainerTab"
-                              : "copyEditContainerMobile"
+                                ? "copyEditContainerTab"
+                                : "copyEditContainerMobile"
                           }
                         >
                           <CopyToClipboard
@@ -378,8 +378,8 @@ export default function Transaction({ _handleChange }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copyIconHashMobile"
-                                      : "copyIconHash"
+                                        ? "copyIconHashMobile"
+                                        : "copyIconHash"
                                   }
                                   src={require("../../../src/assets/images/copy.svg")}
                                 />
@@ -400,8 +400,8 @@ export default function Transaction({ _handleChange }) {
                                 width > 1240
                                   ? "edit-icon"
                                   : width < 768
-                                  ? "editIconHashMobile"
-                                  : "editIconHash"
+                                    ? "editIconHashMobile"
+                                    : "editIconHash"
                               }
                               onClick={openDialogPvtNote}
                               src={require("../../../src/assets/images/XDC-Edit.svg")}
@@ -507,8 +507,8 @@ export default function Transaction({ _handleChange }) {
                                         width > 1240
                                           ? "copy-icon"
                                           : width < 768
-                                          ? "copy-icon-from"
-                                          : "copy-icon-from-tab"
+                                            ? "copy-icon-from"
+                                            : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
@@ -596,8 +596,8 @@ export default function Transaction({ _handleChange }) {
                                         width > 1240
                                           ? "copy-icon"
                                           : width < 768
-                                          ? "copy-icon-from"
-                                          : "copy-icon-from-tab"
+                                            ? "copy-icon-from"
+                                            : "copy-icon-from-tab"
                                       }
                                       src={require("../../../src/assets/images/copy.svg")}
                                     />
@@ -664,7 +664,12 @@ export default function Transaction({ _handleChange }) {
                       <MiddleContainer isTextArea={false}>
                         <Content>
                           {" "}
-                          {txfee} XDC ({currencySymbol}
+                          {txfee == 0
+                            ? 0
+                            : parseFloat(txfee)
+                              ?.toFixed(12)
+                              .replace(/0+$/, "")}{" "}
+                          XDC ({currencySymbol}
                           {fetchtxn})
                         </Content>
                       </MiddleContainer>
@@ -692,7 +697,9 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Gas Price</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        {gasP}
+                        {gasP == 0
+                          ? 0
+                          : parseFloat(gasP)?.toFixed(18).replace(/0+$/, "")}
                         {/* <Content> {gasP}</Content> */}
                       </MiddleContainer>
                     </Spacing>
