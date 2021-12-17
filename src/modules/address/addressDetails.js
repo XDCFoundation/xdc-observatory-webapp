@@ -110,7 +110,7 @@ export default function AddressDetails(props) {
   function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
   }
-  function _handleChange(event) {}
+  function _handleChange(event) { }
   const getAddressDetails = async () => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -212,119 +212,119 @@ export default function AddressDetails(props) {
                       <Content>{addr}</Content>
                       {isTag
                         ? addressTag.map((item, index) => {
-                            return (
-                              <div className="nameLabel1" key={index}>
-                                {item}
-                              </div>
-                            );
-                          })
+                          return (
+                            <div className="nameLabel1" key={index}>
+                              {item}
+                            </div>
+                          );
+                        })
                         : ""}
-                        <span
-                          className={
-                            width > 1240
-                              ? "copyEditContainer"
-                              : width <= 1240 && width >= 768
-                                ? "copyEditContainerAddress"
-                                : "copyEditContainerMobile"
-                          }
-                        >
-                      <SecondContainer>
-                        <CopyToClipboard
-                          text={addr}
-                          onCopy={() => setCopiedText(addr)}
-                        >
-                          <Tooltip
-                            title={
-                              copiedText === addr
-                                ? "Copied"
-                                : "Copy To Clipboard"
-                            }
-                            placement="top"
+                      <span
+                        className={
+                          width > 1240
+                            ? "copyEditContainer"
+                            : width <= 1240 && width >= 768
+                              ? "copyEditContainerAddress"
+                              : "copyEditContainerMobile"
+                        }
+                      >
+                        <SecondContainer>
+                          <CopyToClipboard
+                            text={addr}
+                            onCopy={() => setCopiedText(addr)}
                           >
-                            <button
-                              className={
+                            <Tooltip
+                              title={
+                                copiedText === addr
+                                  ? "Copied"
+                                  : "Copy To Clipboard"
+                              }
+                              placement="top"
+                            >
+                              <button
+                                className={
                                   width > 1240
                                     ? "copyToClipboardHash"
                                     : "copyToClipboardHashMobile"
                                 }
-                            >
-                              <img
-                              className={
+                              >
+                                <img
+                                  className={
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 1239
                                         ? "copyIconHashMobile"
                                         : "copyIconHash"
                                   }
-                                src={require("../../../src/assets/images/copy.svg")}
-                              />
-                            </button>
-                          </Tooltip>
-                        </CopyToClipboard>
+                                  src={require("../../../src/assets/images/copy.svg")}
+                                />
+                              </button>
+                            </Tooltip>
+                          </CopyToClipboard>
 
-                        <Popup
-                          trigger={<ImQrcode className="imQrcode" />}
-                          lockScroll
-                          modal
-                        >
-                          {(close) => (
-                            <div className="popup_qr">
-                              <p>
-                                <div>
-                                  <button
-                                    style={{
-                                      outline: "none",
-                                      // width: "0rem",
-                                      height: "0rem",
-                                      marginLeft: "0rem",
-                                    }}
-                                    className="close"
-                                    onClick={close}
-                                  >
-                                    &times;
-                                  </button>
-                                  <div
-                                    className="header-popup"
+                          <Popup
+                            trigger={<ImQrcode className="imQrcode" />}
+                            lockScroll
+                            modal
+                          >
+                            {(close) => (
+                              <div className="popup_qr">
+                                <p>
+                                  <div>
+                                    <button
+                                      style={{
+                                        outline: "none",
+                                        // width: "0rem",
+                                        height: "0rem",
+                                        marginLeft: "0rem",
+                                      }}
+                                      className="close"
+                                      onClick={close}
+                                    >
+                                      &times;
+                                    </button>
+                                    <div
+                                      className="header-popup"
                                     // style={{
                                     //   fontSize: "0.875rem",
                                     //   paddingTop: "0.313rem",
                                     //   paddingBottom: "3.75rem",
                                     // }}
-                                  >
-                                    {" "}
-                                    {addr}{" "}
+                                    >
+                                      {" "}
+                                      {addr}{" "}
+                                    </div>
+                                    {window.innerWidth > 767 ? (
+                                      <QRCode
+                                        size={320}
+                                        style={{
+                                          height: 400,
+                                          width: 400,
+                                          marginTop: "0.625rem",
+                                        }}
+                                        value={
+                                          process.env.REACT_APP_QR_CODE_LINK +
+                                          addr
+                                        }
+                                      />
+                                    ) : (
+                                      <QRCode
+                                        // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                        size={320}
+                                        className="qrcode-label"
+                                        //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                        value={
+                                          process.env.REACT_APP_QR_CODE_LINK +
+                                          addr
+                                        }
+                                      />
+                                    )}
                                   </div>
-                                  {window.innerWidth > 767 ? (
-                                    <QRCode
-                                      size={320}
-                                      style={{
-                                        height: 400,
-                                        width: 400,
-                                        marginTop: "0.625rem",
-                                      }}
-                                      value={
-                                        process.env.REACT_APP_QR_CODE_LINK +
-                                        addr
-                                      }
-                                    />
-                                  ) : (
-                                    <QRCode
-                                      // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                      size={320}
-                                      className="qrcode-label"
-                                      //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                      value={
-                                        process.env.REACT_APP_QR_CODE_LINK +
-                                        addr
-                                      }
-                                    />
-                                  )}
-                                </div>
-                              </p>
-                            </div>
-                          )}
-                        </Popup>
-                      </SecondContainer>
+                                </p>
+                              </div>
+                            )}
+                          </Popup>
+                        </SecondContainer>
                       </span>
                     </MiddleContainerHash>
                   </HashDiv>
