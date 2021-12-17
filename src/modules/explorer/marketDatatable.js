@@ -5,6 +5,10 @@ import styled from "styled-components";
 import Utils from "../../utility";
 import arrowUp from "../../assets/images/Up.svg";
 import arrowDown from "../../assets/images/Down.svg";
+import utility from "../../utility";
+import { Row } from "simple-flexbox";
+import Tooltip from "@material-ui/core/Tooltip";
+import { messages } from "../../constants";
 
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
@@ -23,6 +27,41 @@ const MobileView = styled.div`
 
   @media (min-width: 768px) {
     display: none;
+  }
+`;
+
+const MarketDataPointTitle = styled.div`
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.034rem;
+  justify-content: center;
+  display: flex;
+  flex-flow: row;
+  align-item: center;
+  gap: 2px;
+
+  @media (min-width: 768px) and (max-width: 1239px) {
+    font-family: Inter;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.029rem;
+    height: 0.938rem;
+    color: #686868;
+    font-size: 0.75rem;
+    opacity: 1;
+  }
+  @media (min-width: 350px) and (max-width: 1239px) {
+    justify-content: left;
+    align-item: left;
+  }
+
+  @media (min-width: 350px) and (max-width: 767px) {
+    display: block;
   }
 `;
 
@@ -124,14 +163,14 @@ class MarketDatatable extends Component {
     const vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
 
     let totalSupplyValue = Math.round(this.state.postLatestMarket.totalSupply); //totalSupply
-    totalSupplyValue = totalSupplyValue ? totalSupplyValue.toLocaleString() : 0;
+    totalSupplyValue = totalSupplyValue ? totalSupplyValue : 0;
 
     const currencySymbol =
       this.props.currency === "INR"
         ? "₹ "
         : this.props.currency === "USD"
-          ? "$ "
-          : "€ ";
+        ? "$ "
+        : "€ ";
     return (
       <>
         <DeskTopView>
@@ -139,7 +178,16 @@ class MarketDatatable extends Component {
             <div className="main_mid">
               <div className="main_child">
                 <div className="cont1">
-                  <p>Market Cap</p>
+                  <MarketDataPointTitle>
+                    Market Cap
+                    <Tooltip placement="top" title={messages.MARKET_CAP}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                   <p>
                     {currencySymbol}
                     {MarketCapValue ? MarketCapValue : 0}
@@ -170,7 +218,16 @@ class MarketDatatable extends Component {
                   </div>
                 </div>
                 <div className="cont1">
-                  <p>Fully Diluted Market Cap</p>
+                  <MarketDataPointTitle>
+                    Fully Diluted Market Cap
+                    <Tooltip placement="top" title={messages.FDMP}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                   <p>
                     {currencySymbol}
                     {FullyDilutedMarketCapValue
@@ -203,16 +260,23 @@ class MarketDatatable extends Component {
                   </div>
                 </div>
                 <div className="cont1">
-                  <p>Volume (24hr)</p>
+                  <MarketDataPointTitle>
+                    Volume (24hr)
+                    <Tooltip placement="top" title={messages.VOLUMEX24}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                   <p>
                     {currencySymbol}
                     {volumeValue ? volumeValue : 0}
                   </p>
                   <div
                     className={
-                      Volumechange >= 0
-                        ? "data_value_green"
-                        : "data_value_red"
+                      Volumechange >= 0 ? "data_value_green" : "data_value_red"
                     }
                   >
                     <div className="varMarket">
@@ -238,33 +302,66 @@ class MarketDatatable extends Component {
               <div className="main_sec">
                 <div className="cont1">
                   <div className="cont1-child">
-                    <p>Circulating Supply</p>
+                    <MarketDataPointTitle>
+                      Circulating Supply
+                      <Tooltip
+                        placement="top"
+                        title={messages.CIRCULATING_SUPPLY}
+                      >
+                        <img
+                          src="/images/question-mark.svg"
+                          height={"10px"}
+                          style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        />
+                      </Tooltip>
+                    </MarketDataPointTitle>
                     <p>
-                      {circulatingSupplyValue ? circulatingSupplyValue : 0}{" "}
-                      XDC
+                      {circulatingSupplyValue ? circulatingSupplyValue : 0} XDC
                     </p>
                   </div>
                 </div>
 
                 <div className="cont1 cont1_align">
                   <div className="cont1-child2">
-                    <p>Total Supply</p>
-                    <p>{!totalSupplyValue ? 0 : totalSupplyValue}</p>
+                    <MarketDataPointTitle>
+                      Total Supply
+                      <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
+                        <img
+                          src="/images/question-mark.svg"
+                          height={"10px"}
+                          style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        />
+                      </Tooltip>
+                    </MarketDataPointTitle>
+                    <p>
+                      {!totalSupplyValue
+                        ? 0
+                        : utility.convertToInternationalCurrencySystem(
+                            totalSupplyValue
+                          )}
+                    </p>
                   </div>
                 </div>
                 <div className="con"> </div>
               </div>
             </div>
           </div>
-
         </DeskTopView>
         <MobileView>
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
-
             <div className="second_mid">
               <div className="second_cont">
                 <div className="w-54-per">
-                  <p>Market Cap</p>
+                  <MarketDataPointTitle>
+                    Market Cap
+                    <Tooltip placement="top" title={messages.MARKET_CAP}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                 </div>
                 <div className="mid_cont ">
                   <p className="word-space-4">
@@ -302,7 +399,16 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="w-54-per">
                   {" "}
-                  <p>Fully Diluted Market Cap</p>
+                  <MarketDataPointTitle>
+                    Fully Diluted Market Cap
+                    <Tooltip placement="top" title={messages.FDMP}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                 </div>
                 <div className="mid_cont ">
                   {" "}
@@ -342,7 +448,16 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="w-54-per">
                   {" "}
-                  <p>Volume (24hr)</p>
+                  <MarketDataPointTitle>
+                    Volume (24hr)
+                    <Tooltip placement="top" title={messages.VOLUMEX24}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                 </div>
                 <div className="mid_cont ">
                   {" "}
@@ -352,9 +467,7 @@ class MarketDatatable extends Component {
                   </p>
                   <div
                     className={
-                      Volumechange >= 0
-                        ? "data_value_green"
-                        : "data_value_red"
+                      Volumechange >= 0 ? "data_value_green" : "data_value_red"
                     }
                   >
                     <div className="secondMarket">
@@ -380,7 +493,19 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="w-54-per">
                   {" "}
-                  <p>Circulating Supply</p>
+                  <MarketDataPointTitle>
+                    Circulating Supply
+                    <Tooltip
+                      placement="top"
+                      title={messages.CIRCULATING_SUPPLY}
+                    >
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                 </div>
                 <div className="mid_cont">
                   {" "}
@@ -393,12 +518,25 @@ class MarketDatatable extends Component {
               <div className="second_cont">
                 <div className="w-54-per">
                   {" "}
-                  <p>Total Supply</p>
+                  <MarketDataPointTitle>
+                    Total Supply
+                    <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
+                      <img
+                        src="/images/question-mark.svg"
+                        height={"10px"}
+                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                      />
+                    </Tooltip>
+                  </MarketDataPointTitle>
                 </div>
                 <div className="mid_cont">
                   {" "}
                   <p style={{ marginRight: "25px" }}>
-                    {!totalSupplyValue ? 0 : totalSupplyValue}
+                    {!totalSupplyValue
+                      ? 0
+                      : utility.convertToInternationalCurrencySystem(
+                          totalSupplyValue
+                        )}
                   </p>
                 </div>
               </div>
