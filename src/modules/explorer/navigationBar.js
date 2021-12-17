@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import styled from "styled-components";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -11,8 +11,10 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
+import { sessionManager } from "../../managers/sessionManager";
 import { NavLink } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
+import NewFeature from "./newFeature"
 import Login from "../login";
 
 import Utility from "../../utility";
@@ -143,6 +145,7 @@ export default function Navbar() {
     right: false,
   });
   const [open, setOpen] = useState(false);
+  const [viewPopUp, setViewPopUp] = useState(true);
   const [opencontracts, setOpencontracts] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const handleSearch = (event) => {
@@ -163,6 +166,14 @@ export default function Navbar() {
     }
   };
 
+  let visited = sessionManager.getDataFromCookies("Visited")
+  if (visited && viewPopUp === true) {
+    setViewPopUp(false);
+
+  }
+  // useEffect(() => {
+  //   sessionManager.setDataInCookies("NotVisited");
+  // }, []);
 
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
@@ -587,15 +598,7 @@ export default function Navbar() {
         <ul className="Live-Network">
           <p>More</p>
         </ul>
-        <ul className="Live-Network-list">
-          <a
-            className="sidebar-links"
-            href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
-          >
-            <div className="xinfin_account_button"> XDCPay</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
+
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
             <div className="xinfin_account_button">XDC Remix</div>
@@ -631,7 +634,11 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      {viewPopUp == true ? (
+        <NewFeature></NewFeature>
+      ) : (<div />)}
       <DeskTopView>
+
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <Toolbar>
             <Typography className="Header">
@@ -718,6 +725,7 @@ export default function Navbar() {
           </Toolbar>
         </AppBar>
       </DeskTopView>
+
       <MobileView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <Toolbar>
