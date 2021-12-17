@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    padding: "22px 35px 15px 0px",
   },
   input: {
     width: "503px",
@@ -320,7 +320,7 @@ export default function FormDialog() {
   
   return (
     <div>
-      <div className="div3" onClick={handleClickOpen}>
+      <div className="div3" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test-address")}}>
         <div>
           <img
             className="imagediv3"
