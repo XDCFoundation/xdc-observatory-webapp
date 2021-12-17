@@ -198,6 +198,7 @@ export default function Navbar() {
       }
 
       if (responseData) {
+        console.log(responseData, "jjjj")
         if (responseData[0].redirect == "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -210,8 +211,9 @@ export default function Navbar() {
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
         } else if (responseData[0].redirect == "token") {
-          let tokenurl = "/token-data/" + responseData[0].token.address;
+          let tokenurl = "/token-data/" + responseData[0].token.address + "/" + responseData[0].token.symbol;
           window.location.href = tokenurl;
+
         } else {
         }
       }

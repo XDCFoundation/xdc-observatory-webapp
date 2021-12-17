@@ -220,13 +220,7 @@ export default function AddressDetails(props) {
                         })
                         : ""}
                       <span
-                        className={
-                          width > 1240
-                            ? "copyEditContainer"
-                            : width <= 1240 && width >= 768
-                              ? "copyEditContainerAddress"
-                              : "copyEditContainerMobile"
-                        }
+                        className={"copyEditContainerMobile"}
                       >
                         <SecondContainer>
                           <CopyToClipboard

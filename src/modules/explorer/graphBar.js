@@ -17,7 +17,7 @@ const toolTipElement = (props) => {
         <div class="Oval"></div>
       </div>
       {/* <TriangleArrowDown /> */}
-    </div>
+    </div >
   );
 };
 const MyResponsiveLine = ({ data }) => (
@@ -101,13 +101,13 @@ export default function App() {
     arr[0].data = resultData;
     setData(arr);
   }, []);
-  let length = graphTransactions.length;
+  let length = graphTransactions?.length;
   const firstDate =
-    graphTransactions.length == 0
+    graphTransactions?.length == 0
       ? ""
-      : moment(graphTransactions[length - 1]?.day).format("D MMM");
+      : moment(graphTransactions[length - 1]?.day)?.format("D MMM");
   const lastDate =
-    graphTransactions.length == 0
+    graphTransactions?.length == 0
       ? ""
       : moment(graphTransactions[0]?.day).format("D MMM");
   return (
