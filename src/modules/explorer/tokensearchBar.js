@@ -446,13 +446,7 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>{" "}
             </div>
-            <Cut onClick={handleClose}>
-              {" "}
-              <img
-                className="cross-icon"
-                src={require("../../../src/assets/images/back.svg")}
-              />{" "}
-            </Cut>
+
             <div
               style={{
                 color: "white",
@@ -623,15 +617,7 @@ export default function Navbar() {
         <ul className="Live-Network">
           <p>More</p>
         </ul>
-        <ul className="Live-Network-list">
-          <a
-            className="sidebar-links"
-            href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
-          >
-            <div className="xinfin_account_button">XinPay</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
+
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
             <div className="xinfin_account_button">XDC Remix</div>

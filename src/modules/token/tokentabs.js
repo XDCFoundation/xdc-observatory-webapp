@@ -72,6 +72,7 @@ export default function SimpleTabs(props) {
 
   const [toggleState, setToggleState] = useState(1);
   const [contractStatus, setContractStatus] = useState("")
+  const [statusData, setStatus] = useState("")
   useEffect(() => {
     verifiedStatus();
   }, []);
@@ -80,12 +81,13 @@ export default function SimpleTabs(props) {
   const verifiedStatus = async () => {
 
     let urlPath = `${address}`;
-    let [error, contractStatus] = await Utils.parseResponse(
+    let [error, contractStatusData] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
     );
-    console.log(contractStatus, "lllollo")
-    if (error || !contractStatus) return;
-    setContractStatus(contractStatus.contractResponse);
+    console.log(contractStatusData.contractStatus, "lllollo")
+    if (error || !contractStatusData) return;
+    setContractStatus(contractStatusData.contractResponse);
+    setStatus(contractStatusData.contractStatus)
   };
 
   const toggleTab = (index) => {
@@ -142,7 +144,7 @@ export default function SimpleTabs(props) {
 
             <div className={toggleState === 3 ? "content  active-content" : "content"}>
               <div style={{ marginTop: '10px' }}>
-                {!contractStatus ? "" : contractStatus.status === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
+                {!contractStatus ? "" : statusData === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
                 {/* <TokenContracttab /> */}
                 {/* <TokenUnverifiedContract contractData={contractStatus} /> */}
               </div>

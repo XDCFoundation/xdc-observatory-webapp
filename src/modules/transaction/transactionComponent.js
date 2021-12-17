@@ -140,7 +140,7 @@ export default function TransactionComponent(props) {
                     To
                   </span>
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   style={{ border: "none", paddingLeft: "3rem" }}
                   className="table-head-all"
                   align="left"
@@ -148,7 +148,7 @@ export default function TransactionComponent(props) {
                   <span className={("tableheaders", "tableheaders-txn-fee")}>
                     Txn Fee
                   </span>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
             {props.state.isLoading == true ? (
@@ -310,7 +310,7 @@ export default function TransactionComponent(props) {
                             </Tooltip>
                           </a>
                         </TableCell>
-                        <TableCell
+                        {/* <TableCell
                           style={{ border: "none", paddingLeft: "2.813rem" }}
                           align="left"
                         >
@@ -321,7 +321,7 @@ export default function TransactionComponent(props) {
                           >
                             {txFee == 0 ? 0 : txFee} XDC
                           </span>
-                        </TableCell>
+                        </TableCell> */}
                       </TableRow>
                     );
                   })}

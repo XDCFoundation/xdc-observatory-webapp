@@ -205,13 +205,58 @@ export default function FormDialog(props) {
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const updateUser = async (url) => {
-    let userInfo = sessionManager.getDataFromCookies("userId");
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    let userId = sessionManager.getDataFromCookies("userId");
     setLoading(true);
 
     const reqObj = {
       name: userName,
-      userId: userInfo,
+      userId: userId,
       email: email,
+      profilePic: url ? url : profilePicture,
+    };
+    
+    if (!userName.match(regExAlphaNum)) {
+      setUserNameError("Enter valid Username");
+      setLoading(false);
+      return;
+    } else if (!email.match(mailformat)) {
+      setEmailError("Enter valid Email");
+      setLoading(false);
+    } else {
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.updateUser(reqObj)
+      );
+      if (authResponse?.email.length > 2) {
+        setLoading(false);
+      }
+      if (error || !authResponse) {
+        utility.apiFailureToast("User Exists");
+        setLoading(false);
+      } else {
+        utility.apiSuccessToast("Profile upadated successfully", {
+          autoClose: 10000,
+        });
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse.userId, "userId");
+        history.push("loginProfile");
+        handleClose();
+        // window.location.href = "loginprofile";
+        return authResponse;
+      }
+    }
+  };
+  const updateUserName = async (url) => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    let userId = sessionManager.getDataFromCookies("userId");
+    setLoading(true);
+
+    const reqObj = {
+      name: userName,
+      userId: userId,
+      // email: email,
       profilePic: url ? url : profilePicture,
     };
 
@@ -250,6 +295,7 @@ export default function FormDialog(props) {
 
   const uploadFileToS3 = async () => {
     setLoading(true);
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
     let formdata = new FormData();
     formdata.append("file", uploadFile);
     formdata.append("path", "profilePic");
@@ -264,7 +310,11 @@ export default function FormDialog(props) {
       utility.apiFailureToast(" Upload failed");
       return false;
     } else {
-      // utility.apiSuccessToast("Pic uploaded successfully");
+      if(userInfo.name === userName && userInfo.email === email) {
+      utility.apiSuccessToast("Pic uploaded successfully");
+      setLoading(false);
+      history.go(0);
+      }
       sessionManager.setDataInCookies(
         awsResponse[0].url,
         cookiesConstants.USER_PICTURE
@@ -362,14 +412,20 @@ export default function FormDialog(props) {
   const [emailEnable, setEmailEnable] = React.useState(false);
 
   const profileUrl = async () => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
     let response = {};
     if (isEditPicture) {
       response = await uploadFileToS3();
       if (!response) return;
       setProfilePicture(response[0].url);
     }
-
-    let upadteUser = await updateUser(response[0]?.url);
+    if(userInfo.name !== userName || userInfo.email !== email) {
+    if(userInfo.name !== userName && userInfo.email === email) {
+      let upadteUser = await updateUserName(response[0]?.url);
+    } else {
+      let upadteUser = await updateUser(response[0]?.url);
+    }
+  }
   };
   const getUserName = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
@@ -407,8 +463,8 @@ export default function FormDialog(props) {
   }
   const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
   React.useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
+ function handleResize() {
+   setWindowDimensions(getWindowDimensions());
 
     }
     window.addEventListener('resize', handleResize);
@@ -420,22 +476,22 @@ export default function FormDialog(props) {
   const { width } = windowDimensions
 
   return (
-    <div >
-
-      <div className={classes.add}>
-        <button className="login-button" onClick={width >= 760 ? handleClickOpen : () => { history.push("/edit-profile") }}>
-          <div className="edit">Edit Profile</div>
-        </button>
-        <ProfilePicContainer >
-          <Dialog
-            classes={{ paper: classes.paper }}
-            className={classes.dialog}
-            open={opens}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-
-          >
-            <div className={isLoading == true ? "cover-spin-loginDialog" : ""} style={{ overflow: "hidden" }}>
+    <div>
+     
+        <div className={classes.add}>
+        <button className="login-button" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/edit-profile")}}>
+            <div className="edit">Edit Profile</div>
+          </button>
+          <ProfilePicContainer>
+            <Dialog
+              classes={{ paper: classes.paper }}
+              className={classes.dialog}
+              open={opens}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+             
+            >
+             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
               <Wrapper>
                 <Title>Edit Profile</Title>
 
@@ -531,10 +587,10 @@ export default function FormDialog(props) {
               </DialogActions>
 
               <div className={classes.value}></div>
-            </div>
-          </Dialog>
-        </ProfilePicContainer>
-
+              </div>
+            </Dialog>
+          </ProfilePicContainer>
+        
       </div>
     </div>
   );
