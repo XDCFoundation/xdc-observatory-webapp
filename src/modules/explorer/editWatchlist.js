@@ -18,10 +18,6 @@ import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
     backgroundColor: "#2149b9",
     marginLeft: "90px",
   },
@@ -44,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     backgoundColor: "red",
   },
   radio: {
-    // backgroundColor: "blue",
   },
   cross: {
     marginTop: "25px",
@@ -69,23 +64,7 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     marginBottom: "21px",
   },
-  // addbtn: {
-  //   width: "110px",
-  // height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  // borderRadius: "4px",
-  // backgroundColor: "#3763dd",
-  // },
-  // cnlbtn: {
-  //   width: "94px",
-  // height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  // borderRadius: "4px",
-  // backgroundColor: "#9fa9ba",
 
-  // },
 
   updatebtn: {
     width: "110px",
@@ -109,8 +88,6 @@ const useStyles = makeStyles((theme) => ({
   cnlbtn: {
     width: "94px",
     height: "34px",
-    // margin: "33px 21px 0 87px",
-    // padding: "8px 19px 7px 21px",
     borderRadius: "4px",
     backgroundColor: "#9fa9ba",
     color: "white",
@@ -205,15 +182,6 @@ function EditWatchList(props) {
   });
   
   const classes = useStyles();
-  
-  // const [open, setOpen] = React.useState(false);
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = async () => {
-  //   setOpen(false);
-  // };
   const [value, setValue] = React.useState("female");
 
   const handleChange = (event) => {
@@ -221,8 +189,6 @@ function EditWatchList(props) {
   };
 
   const handleLogin = () => {
-    //   history.push("/loginprofile")
-    // setOpen(false);
   };
 
   const [edit, setEdit] = React.useState();
@@ -233,7 +199,6 @@ function EditWatchList(props) {
       address.slice(0, 2) == "xdc"
     ) {
       return true;
-      // watchListService();
     } else {
       setError("Address should start with xdc & 43 characters");
       return false;
@@ -247,7 +212,6 @@ function EditWatchList(props) {
       description: description,
     };
     if (validateAddress()) {
-      // validateAddress();
       const [error, response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
       if (error || !response) {
         utility.apiFailureToast("Error");
@@ -257,18 +221,6 @@ function EditWatchList(props) {
       }
     };
   }
-
-  // const watchListService = async () => {
-  //   const request = {
-  //     _id: props.row._id,
-  //     address: address,
-  //     description: description,
-  //   };
-  //   validateAddress();
-  //   const response = PutWatchlist.putWatchlist(request);
-  //   utility.apiSuccessToast("Changes updated successfully")
-  //   window.location.reload();
-  // };
   const handleDelete = async (watchlist) => {
     if (props?.row?._id) {
       props.dispatchAction(eventConstants.SHOW_LOADER, true)
@@ -289,14 +241,6 @@ function EditWatchList(props) {
   }
   return (
     <div>
-      {/* <div onClick={handleClickOpen}>
-        <button className={classes.btn}>
-          <a className="linkTable1">
-            <span className="tabledata1">Edit</span>
-          </a>
-        </button>
-      </div> */}
-
       <div>
         <Dialog
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -377,7 +321,6 @@ function EditWatchList(props) {
                   classes={{ label: classes.notifyLabel }}
                   label="Notify on Incoming (Recieve) Txns Only"
                 />
-                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
                 <FormControlLabel
                   className="radio-inside-dot"
                   value="disabled"

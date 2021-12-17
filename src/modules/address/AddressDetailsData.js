@@ -97,7 +97,6 @@ export default function AddressDetailsData() {
           if(responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
           if(responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
         }  
-        console.log(responseData)
         setData({
           balance: responseData.balance,
           transactionCout: responseData.transactionCount,
@@ -112,57 +111,10 @@ export default function AddressDetailsData() {
         })
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   }
-  //   try {
-  //     const [error, responseData] = await Utility.parseResponse(
-  //       ContractData.getContractDetails(values)
-  //     );
-  //     if (responseData.address != '') {
-  //       setResponses(responseData)
-  //       let activeCurrency = window.localStorage.getItem('currency')
-  //       let convertedCurrency = ''
-  //       let value = 0
-  //       let changeVal = 0
-  //       if (activeCurrency == 'USD') {
-  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-  //         value = (responseData.xdcValueUSD).toFixed(6)
-  //         changeVal = (responseData.priceInUSD).toFixed(6)
-  //       } else if (activeCurrency == 'EUR') {
-  //         convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
-  //         value = (responseData.xdcValueEUR).toFixed(6)
-  //         changeVal = (responseData.priceInEUR).toFixed(6)
-  //       } else if (activeCurrency == 'INR') {
-  //         convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
-  //         value = (responseData.xdcValueINR).toFixed(6)
-  //         changeVal = (responseData.priceInINR).toFixed(6)
-  //       } else {
-  //         convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-  //         value = (responseData.xdcValueUSD).toFixed(6)
-  //         changeVal = (responseData.priceInUSD).toFixed(6)
-  //       }
-
-  //       setData({
-  //         balance: responseData.balance,
-  //         transactionCout: responseData.transactionCount,
-  //         contractName: responseData.contractName,
-  //         creator: responseData.owner,
-  //         transaction: responseData.creationTransaction,
-  //         currencySymbol: convertedCurrency,
-  //         val: value,
-  //         changedVal: changeVal,
-  //         transactionlist: responseData.transactionArray
-
-  //       })
-
-  //     } else {
-
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  
   React.useEffect(() => {
     let values = { addr: addressNumber }
     getContractDetails(values)
@@ -303,29 +255,6 @@ export default function AddressDetailsData() {
 
               {!responses ? "" : responses.status === "unverified" ? <TokenUnverifiedContract contractData={responses} /> : <TokenContracttab contractData={responses} />}
             </div>
-            {/* <div
-              className={
-                toggleState === 2
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            > */}
-            {/* <div className="content_input_all">
-                <div className="content_input_add">
-                  <SearchIcon />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="content_input_add_btn"
-                  />
-                </div>
-                <span style={{ color: '#2149b9', fontFamily: 'Inter', fontSize: '14px', fontStyle: 'normal' }}>
-                  <i class="fa fa-download" aria-hidden="true"></i> Download CSV</span>
-
-              </div> */}
-            {/* <AddressTableComponent />*/}
-            {/* </div> */}
-
           </div>
         </div>
       </Grid>
