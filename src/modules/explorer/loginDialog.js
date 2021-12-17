@@ -445,8 +445,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.hash
-        ? setOpen(false)
-        : props.onClose(onClose);
+          ? setOpen(false)
+          : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -642,12 +642,12 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    setValue(2);
     onClickReset();
-
-    if (captchaCheckbox === false) {
-      setErrorCaptcha("please verify captcha");
+    if (reCaptcha === "") {
+      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+      setLoading(false);
     } else {
+      setCaptchaError("");
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
@@ -657,7 +657,8 @@ export default function FormDialog(props) {
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
-        setCaptchaCheckbox(false);
+        setReCaptcha("");
+        setValue(2);
         Utility.apiSuccessToast(
           "We have just sent you an email to reset your password."
         );
@@ -713,8 +714,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -1130,7 +1131,7 @@ export default function FormDialog(props) {
               }}
             >
               <ReCAPTCHA
-                sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
               />
               <div style={{ marginLeft: 0 }} className={classes.error1}>
