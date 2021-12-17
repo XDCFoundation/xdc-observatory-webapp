@@ -690,7 +690,7 @@ export default function Transaction({ _handleChange }) {
                             src={require("../../../src/assets/images/questionmark.svg")}
                           />
                         </Tooltip>
-                        <Hash>Nounce</Hash>
+                        <Hash>Nonce</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
                         <Content> {transactions.nonce}</Content>
