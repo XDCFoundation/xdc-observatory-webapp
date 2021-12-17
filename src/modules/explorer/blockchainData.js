@@ -242,8 +242,8 @@ class BlockChainDataComponent extends Component {
     this.state = {
       totalTransaction: [],
       totalAccount: [],
-      someDayAccount: [],
-      coinMarketPrice: [],
+      someDayAccount: 0,
+      coinMarketPrice: 0,
       tpsCounts: 0,
       Maxtps: 0,
       blockdataNumber: [],
@@ -372,14 +372,15 @@ class BlockChainDataComponent extends Component {
 
   async someDaysAccountCount() {
     let [error, someDaysAccount] = await Utils.parseResponse(
-      AccountService.getSomeDaysAccount()
+      AccountService?.getSomeDaysAccount()
     );
     if (error || !someDaysAccount) return;
     this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     const interval = setInterval(async () => {
       let [error, someDaysAccount] = await Utils.parseResponse(
-        AccountService.getSomeDaysAccount()
+        AccountService?.getSomeDaysAccount()
       );
+      if (error || !someDaysAccount) return;
       this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     }, 90000);
   }
@@ -400,6 +401,7 @@ class BlockChainDataComponent extends Component {
       let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
         CoinMarketService?.getCoinMarketData(this.props.currency, {})
       );
+      if (error || !totalcoinMarketPrice) return;
       this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     }, 90000);
   }
