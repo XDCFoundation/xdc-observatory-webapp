@@ -269,6 +269,42 @@ export default function Transaction({ _handleChange }) {
   //   )
   // }
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
+  const getHoursAgo = (date) => {
+    let today = Date.now()
+    let difference = today - date;
+    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    difference -= daysDifference * 1000 * 60 * 60 * 24
+    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    difference -= hoursDifference * 1000 * 60 * 60
+    var minutesDifference = Math.floor(difference / 1000 / 60);
+    difference -= minutesDifference * 1000 * 60
+    var secondsDifference = Math.floor(difference / 1000);
+    console.log('difference = ' +
+      daysDifference + ' day/s ' +
+      hoursDifference + ' hour/s ' +
+      minutesDifference + ' minute/s ' +
+      secondsDifference + ' second/s ');
+    if (secondsDifference < 60 && minutesDifference === 0 && hoursDifference === 0 && daysDifference === 0) {
+      if (secondsDifference === 1)
+        return secondsDifference + " second ago "
+      else return secondsDifference + " seconds ago "
+    }
+  if (minutesDifference < 60 && hoursDifference === 0 && daysDifference === 0) {
+    if (minutesDifference === 1)
+      return minutesDifference + " minute ago "
+    return minutesDifference + " minutes ago"
+  }
+  if (hoursDifference < 60 && daysDifference === 0) {
+    if (hoursDifference === 1)
+      return hoursDifference + " hour ago "
+    return hoursDifference + " hours ago"
+  }
+  if (daysDifference < 30) {
+    if (hoursDifference === 1)
+      return hoursDifference + " day ago "
+    return daysDifference + " days ago"
+  }
+}
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -412,9 +448,10 @@ export default function Transaction({ _handleChange }) {
                       </Container>
                       <MiddleContainer isTextArea={false}>
                         {" "}
+                        
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
-                        )}
+                        )} +0530 ({getHoursAgo(transactions.timestamp * 1000)})
                       </MiddleContainer>
                     </Spacing>
                     <SpacingHash>
