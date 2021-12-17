@@ -82,26 +82,27 @@ export default function AddressDetailsData() {
         let changeVal = 0
         if (activeCurrency == 'USD') {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          if (responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
-          if (responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
+          if(responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
+          if(responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
         } else if (activeCurrency == 'EUR') {
           convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  "
-          if (responseData.xdcValueEUR) value = (responseData.xdcValueEUR).toFixed(6)
-          if (responseData.priceInEUR) changeVal = (responseData.priceInEUR).toFixed(6)
+          if(responseData.xdcValueEUR) value = (responseData.xdcValueEUR).toFixed(6)
+          if(responseData.priceInEUR) changeVal = (responseData.priceInEUR).toFixed(6)
         } else if (activeCurrency == 'INR') {
           convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> "
-          if (responseData.xdcValueINR) value = (responseData.xdcValueINR).toFixed(6)
-          if (responseData.priceInINR) changeVal = (responseData.priceInINR).toFixed(6)
+          if(responseData.xdcValueINR) value = (responseData.xdcValueINR).toFixed(6)
+          if(responseData.priceInINR) changeVal = (responseData.priceInINR).toFixed(6)
         } else {
           convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  '
-          if (responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
-          if (responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
-        }
+          if(responseData.xdcValueUSD) value = (responseData.xdcValueUSD).toFixed(6)
+          if(responseData.priceInUSD) changeVal = (responseData.priceInUSD).toFixed(6)
+        }  
+        console.log(responseData)
         setData({
           balance: responseData.balance,
           transactionCout: responseData.transactionCount,
           contractName: responseData.contractName,
-          creator: responseData.contractResponse.owner,
+          creator: responseData.owner,
           transaction: responseData.creationTransaction,
           currencySymbol: convertedCurrency,
           val: value,
@@ -109,9 +110,6 @@ export default function AddressDetailsData() {
           transactionlist: responseData.transactionArray
 
         })
-
-      } else {
-
       }
     } catch (error) {
       console.error(error);
