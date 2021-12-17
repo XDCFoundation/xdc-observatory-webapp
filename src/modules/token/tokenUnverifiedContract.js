@@ -4,7 +4,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tooltip from "@material-ui/core/Tooltip";
 import {IoIosWarning} from "react-icons/io"
 import {FaShieldAlt} from "react-icons/fa"
-import {useHistory} from 'react-router-dom';
+import {useHistory,Link } from 'react-router-dom';
 
 export default function TokenUnverifiedContract(props) {
 
@@ -25,7 +25,9 @@ export default function TokenUnverifiedContract(props) {
                         <hr className="hr-line"></hr>
                         <div className="contract-source-code-verify">
                             <div className="contract-text">Verify</div>
-                            <div className="btn-click-div"><button className="click-here-btn" onClick={() => history.push('/verify-contracts/' + unverifiedData.address)}><FaShieldAlt className="shield-logo" />Click here</button> <p className="to-verify-text">to Verify and Publish Source Code</p></div>
+                            <div className="btn-click-div">
+                                <a href={"/verify-contracts/" + unverifiedData.address}><button className="click-here-btn" ><FaShieldAlt className="shield-logo" />Click here</button></a>
+                                <p className="to-verify-text">to Verify and Publish Source Code</p></div>
                         </div>
 
                     </div>
