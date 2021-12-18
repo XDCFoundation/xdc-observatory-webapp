@@ -329,7 +329,6 @@ class BlockChainDataComponent extends Component {
           ).toFixed(9)
           : 0;
         if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
-          console.log("this.state.gasPrice, gp", this.state.gasPrice, gp);
           this.setState({ gasPrice: gp });
         }
 

@@ -480,7 +480,6 @@ export default function FormDialog(props) {
      
         <div className={classes.add}>
         <button className="login-button" onClick={()=>{
-          console.log("width===",width)
           if(width) handleClickOpen()
           else history.push("/edit-profile")}}>
             <div className="edit">Edit Profile</div>

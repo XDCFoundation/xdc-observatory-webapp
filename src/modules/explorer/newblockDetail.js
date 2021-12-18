@@ -127,7 +127,6 @@ export default function BlockDetails() {
     currentTimeFormat,
     previousTime
   );
-  console.log(timeHoursAgo, "kiki")
   return (
     <div>
       <Tokensearchbar />

@@ -208,7 +208,6 @@ export default function FormDialog() {
   const [isSize, setisSize] = React.useState(false)
 const screenSize = window.innerHeight 
   if (screenSize=== "626") {
-    console.log(screenSize);
     setisSize(false);
  }
 
