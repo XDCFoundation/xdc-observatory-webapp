@@ -237,7 +237,7 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "710px",
       width: "100%",
-      padding: "0 24px",
+      padding: "0 10px",
     },
   },
   

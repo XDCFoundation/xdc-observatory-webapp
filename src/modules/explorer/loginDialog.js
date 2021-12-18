@@ -490,6 +490,7 @@ if(props.isNewFeatureComponent){
   // <-------------------------------------------------------SignUp functionality------------------------------------------------------>
 
   const handleSignUp = async (e) => {
+    console.log("button clicked")
     e.preventDefault();
     const data = {
       name: userName,

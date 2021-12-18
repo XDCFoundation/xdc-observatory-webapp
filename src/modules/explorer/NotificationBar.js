@@ -28,7 +28,7 @@ const ListItems = styled.div`
   margin-bottom: 20px;
   @media (min-width: 0px) and (max-width: 767px) {
     
-   margin-top:4rem;
+   margin-top:1rem;
     
    
   }
@@ -58,17 +58,12 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
     paper: {
-      top:"0",
-      height: "50.75",
+      top:"183px",
+      height: "40.75",
       width: "13.313rem",
     },
   },
-  "@media (max-width: 449px)": {
-    paper: {
-      
-      width: "13.313rem",
-    },
-  },
+  
 }));
 function TemporaryDrawer(props) {
   const classes = useStyles();
