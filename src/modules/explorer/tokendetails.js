@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,6 +14,7 @@ import Utility from "../../utility";
 import TokenData from "../../services/token";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
+import utility from "../../utility";
 
 const Pagination = styled.div`
   display: flex;
@@ -119,8 +120,8 @@ export default function StickyHeadTable() {
       }
     }
     if (action == "next") {
-      if (+amount + + from < totalToken) {
-        let page = +amount + + from;
+      if (+amount + +from < totalToken) {
+        let page = +amount + +from;
         setFrom(page);
         if (keywords) {
           let data = { pageNum: page, perpage: amount, searchkey: keywords };
@@ -286,7 +287,8 @@ export default function StickyHeadTable() {
                     if (e.key === "Enter") {
                       handleSearchKeyUp(e);
                     }
-                  }} onChange={(e) => {
+                  }}
+                  onChange={(e) => {
                     if (e.target.value == "") {
                       handleSearchKeyUp(e);
                     }
@@ -339,13 +341,22 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Type</span>
                 </TableCell>
-                <TableCell style={{ border: "none", whiteSpace: "nowrap" }} align="left">
-                  <span className={"tablehead-token-details"}>Total Supply</span>
+                <TableCell
+                  style={{ border: "none", whiteSpace: "nowrap" }}
+                  align="left"
+                >
+                  <span className={"tablehead-token-details"}>
+                    Total Supply
+                  </span>
                 </TableCell>
-                <TableCell style={{ border: "none", whiteSpace: "nowrap" }} align="left">
-                  <span className={"tablehead-token-details"}>Total Holders</span>
+                <TableCell
+                  style={{ border: "none", whiteSpace: "nowrap" }}
+                  align="left"
+                >
+                  <span className={"tablehead-token-details"}>
+                    Total Holders
+                  </span>
                 </TableCell>
-
               </TableRow>
             </TableHead>
             {isLoading == true ? (
@@ -369,37 +380,32 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell
-                          id="td"
-                        >
-                          {index + 1}
-                        </TableCell>
+                        <TableCell id="td">{index + 1}</TableCell>
                         <TableCell>
                           <a
                             className="token-details-address-link"
-                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                              }`}
+                            href={`/token-data/${row.address}/${
+                              row?.symbol ? row?.symbol : "NA"
+                            }`}
                           >
                             {shorten(row.address)}
                           </a>
                         </TableCell>
-                        <TableCell
-                          id="td" style={{ whiteSpace: "nowrap" }}
-                        >
-                          {shorten(row.tokenName, 9 , 0 , 3)}
+                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                          {shorten(row.tokenName, 9, 0, 3)}
                         </TableCell>
-                        <TableCell
-                          id="td"
-                        >
-                          <img style={{ height: "24", width: "24" }} src={require("../../../src/assets/images/XRC20-Icon.svg")}></img>&nbsp;{row.symbol}
+                        <TableCell id="td">
+                          <img
+                            style={{ height: "24", width: "24" }}
+                            src={require("../../../src/assets/images/XRC20-Icon.svg")}
+                          ></img>
+                          &nbsp;{row.symbol}
                         </TableCell>
-                        <TableCell
-                          id="td"
-                        >
-                          {row.type}
-                        </TableCell>
+                        <TableCell id="td">{row.type}</TableCell>
                         <TableCell id="td" style={{ paddingleft: "15" }}>
-                          {row.totalSupply}
+                          {utility.convertToInternationalCurrencySystem(
+                            row.totalSupply
+                          )}
                         </TableCell>
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {row.tokenHolders}
@@ -494,7 +500,8 @@ export default function StickyHeadTable() {
             <p className="Page-1-of-5-contract">
               Page{" "}
               {Math.ceil(totalToken / amount) -
-                Math.ceil((totalToken - from) / amount) + 1}{" "}
+                Math.ceil((totalToken - from) / amount) +
+                1}{" "}
               of {Math.ceil(totalToken / amount)}
             </p>
           </div>
