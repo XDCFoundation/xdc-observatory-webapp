@@ -64,8 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: "31.438rem",
-    maxHeight: "35.063rem",
-    height: "100%",
     alignSelf: "flex-start",
     margin: "100px auto",
     borderRadius: "12px",
@@ -139,7 +137,6 @@ const baseStyle = {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   padding-top: 20px;
 `;
 const Upload = styled.div`
@@ -166,18 +163,17 @@ const Title = styled.div`
   font-weight: 600;
   text-align: center;
   color: #2a2a2a;
-  padding-left: 32px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 const ProfilePicContainer = styled.div`
   width: 503px;
 `;
 
 const Cut = styled.div`
-  padding-right: 25px;
-  padding-top: 7px;
-
-  display: flex;
-  align-content: flex-end;
+  position: absolute;
+  right: 28px;
+  margin-top: 4px;
 `;
 const Input = styled.div`
   display: flex;
@@ -209,12 +205,13 @@ export default function FormDialog(props) {
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const updateUser = async (url) => {
-    let userInfo = sessionManager.getDataFromCookies("userId");
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    let userId = sessionManager.getDataFromCookies("userId");
     setLoading(true);
 
     const reqObj = {
       name: userName,
-      userId: userInfo,
+      userId: userId,
       email: email,
       profilePic: url ? url : profilePicture,
     };
@@ -251,9 +248,54 @@ export default function FormDialog(props) {
       }
     }
   };
+  const updateUserName = async (url) => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
+    let userId = sessionManager.getDataFromCookies("userId");
+    setLoading(true);
+
+    const reqObj = {
+      name: userName,
+      userId: userId,
+      // email: email,
+      profilePic: url ? url : profilePicture,
+    };
+
+    if (!userName.match(regExAlphaNum)) {
+      setUserNameError("Enter valid Username");
+      setLoading(false);
+      return;
+    } else if (!email.match(mailformat)) {
+      setEmailError("Enter valid Email");
+      setLoading(false);
+    } else {
+      const authObject = new AuthService();
+      let [error, authResponse] = await Utility.parseResponse(
+        authObject.updateUser(reqObj)
+      );
+      if (authResponse?.email.length > 2) {
+        setLoading(false);
+      }
+      if (error || !authResponse) {
+        utility.apiFailureToast("User Exists");
+        setLoading(false);
+      } else {
+        utility.apiSuccessToast("Profile upadated successfully", {
+          autoClose: 10000,
+        });
+        sessionManager.setDataInCookies(authResponse, "userInfo");
+        sessionManager.setDataInCookies(true, "isLoggedIn");
+        sessionManager.setDataInCookies(authResponse.userId, "userId");
+        history.push("loginProfile");
+        handleClose();
+        // window.location.href = "loginprofile";
+        return authResponse;
+      }
+    }
+  };
 
   const uploadFileToS3 = async () => {
     setLoading(true);
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
     let formdata = new FormData();
     formdata.append("file", uploadFile);
     formdata.append("path", "profilePic");
@@ -268,7 +310,11 @@ export default function FormDialog(props) {
       utility.apiFailureToast(" Upload failed");
       return false;
     } else {
-      // utility.apiSuccessToast("Pic uploaded successfully");
+      if(userInfo.name === userName && userInfo.email === email) {
+      utility.apiSuccessToast("Pic uploaded successfully");
+      setLoading(false);
+      history.go(0);
+      }
       sessionManager.setDataInCookies(
         awsResponse[0].url,
         cookiesConstants.USER_PICTURE
@@ -366,14 +412,20 @@ export default function FormDialog(props) {
   const [emailEnable, setEmailEnable] = React.useState(false);
 
   const profileUrl = async () => {
+    let userInfo = sessionManager.getDataFromCookies("userInfo");
     let response = {};
     if (isEditPicture) {
       response = await uploadFileToS3();
       if (!response) return;
       setProfilePicture(response[0].url);
     }
-
-    let upadteUser = await updateUser(response[0]?.url);
+    if(userInfo.name !== userName || userInfo.email !== email) {
+    if(userInfo.name !== userName && userInfo.email === email) {
+      let upadteUser = await updateUserName(response[0]?.url);
+    } else {
+      let upadteUser = await updateUser(response[0]?.url);
+    }
+  }
   };
   const getUserName = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
@@ -458,7 +510,7 @@ export default function FormDialog(props) {
               />
 
               <DialogContent
-                style={{ padding: "8px 35px", marginBottom: "14px" }}
+                style={{ padding: "8px 35px", marginBottom: "14px", overflow: "hidden" }}
               >
                 <DialogContentText className={classes.subCategory}>
                   Username

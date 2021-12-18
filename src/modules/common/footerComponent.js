@@ -11,6 +11,7 @@ import { MenuItem } from "material-ui";
 import { useSelector, useDispatch } from "react-redux";
 import { usdCurrency, eurCurrency, inrCurrency } from "../../actions/index";
 import styled from "styled-components";
+import { Column } from "simple-flexbox";
 export default function FooterComponent(props) {
   const [activeCurrency, setActiveCurrency] = useState("USD");
 
@@ -110,133 +111,142 @@ export default function FooterComponent(props) {
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                  XDCScan is a Block Explorer and Analytics Platform for XDC,
-                  a decentralized smart contracts platform.
+                  The XDC Network Explorer is a Block Explorer and Analytics
+                  Platform for XDC, a decentralized smart contracts platform.
                 </p>
               </div>
-              <div className="button-Padding-Mobile">
-                <Select
+            </div>
+            <div className="button-Padding-Mobile">
+              <Select
+                style={{
+                  outline: "0",
+                  backgroundColor: "#2149b9",
+                }}
+                id="currency"
+                className={"filled select-xdc"}
+                defaultValue="USD"
+                onChange={(event) => props._handleChange(event)}
+                value={CurrencyNow}
+                IconComponent={DownArrow}
+                MenuProps={{
+                  anchorOrigin: {
+                    vertical: "bottom",
+                    horizontal: "center",
+                  },
+                  transformOrigin: {
+                    vertical: "top",
+                    horizontal: "center",
+                  },
+                  getContentAnchorEl: null,
+                }}
+              >
+                {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
+                <MenuItem
+                  value="USD"
+                  selected="selected"
+                  style={{
+                    outline: "0",
+                    backgroundColor: "#2149b9",
+                    paddingTop: "0px",
+                    paddingBottom: "0px",
+                  }}
+                >
+                  <img className="select-icon" src={USD} />{" "}
+                  <span className="USD" selected>
+                    USD
+                  </span>
+                </MenuItem>
+                <MenuItem
+                  value="EUR"
                   style={{
                     outline: "0",
                     backgroundColor: "#2149b9",
                   }}
-                  id="currency"
-                  className={"filled select-xdc"}
-                  defaultValue="USD"
-                  onChange={(event) => props._handleChange(event)}
-                  value={CurrencyNow}
-                  IconComponent={DownArrow}
-                  MenuProps={{
-                    anchorOrigin: {
-                      vertical: "bottom",
-                      horizontal: "center",
-                    },
-                    transformOrigin: {
-                      vertical: "top",
-                      horizontal: "center",
-                    },
-                    getContentAnchorEl: null,
+                >
+                  <img className="select-icon" src={EUR} />{" "}
+                  <span className="USD">EUR</span>
+                </MenuItem>
+                <MenuItem
+                  value="INR"
+                  style={{
+                    outline: "0",
+                    backgroundColor: "#2149b9",
                   }}
                 >
-                  {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
-                  <MenuItem
-                    value="USD"
-                    selected="selected"
-                    style={{
-                      outline: "0",
-                      backgroundColor: "#2149b9",
-                      paddingTop: "0px",
-                      paddingBottom: "0px",
-                    }}
-                  >
-                    <img className="select-icon" src={USD} />{" "}
-                    <span className="USD" selected>
-                      USD
-                    </span>
-                  </MenuItem>
-                  <MenuItem
-                    value="EUR"
-                    style={{
-                      outline: "0",
-                      backgroundColor: "#2149b9",
-                    }}
-                  >
-                    <img className="select-icon" src={EUR} />{" "}
-                    <span className="USD">EUR</span>
-                  </MenuItem>
-                  <MenuItem
-                    value="INR"
-
-                    style={{
-                      outline: "0",
-                      backgroundColor: "#2149b9",
-                    }}
-                  >
-                    <img className="select-icon" src={INR} />{" "}
-                    <span className="USD">INR</span>
-                  </MenuItem>
-                </Select>
-                {/* <select className="select-form">
+                  <img className="select-icon" src={INR} />{" "}
+                  <span className="USD">INR</span>
+                </MenuItem>
+              </Select>
+              {/* <select className="select-form">
                             <option>usd</option>
 
                             <option>inr</option>
                         </select> */}
-              </div>
             </div>
           </Grid>
         </FirstCloumn>
 
         <SecondCloumn>
-          <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
-            <div className="Table-Header">
+          <Grid
+            alignContent="center"
+            item
+            xs={12}
+            style={{ margin: " 0 10px 10px 10px" }}
+          >
+            <div className="Table-Header text-align-left">
               Community
               <hr style={{ marginRight: "20px" }}></hr>
             </div>
-            <div>
-              <ul>
-                <li className="Table-Comp">
-                  <a href="https://xinfin.org/about.php" target="_blank">
-                    About Community
-                  </a>
-                </li>
-                <li className="Table-Comp">
-                  <a href="https://xinfin.network/#stats" target="_blank">
-                    XDC Network Status
-                  </a>
-                </li>
-                <li className="Table-Comp">
-                  <a href="https://xinfin.org/bounty.php" target="_blank">
-                    Community Bounty Program
-                  </a>
-                </li>
-                <li className="Table-Comp">
-                  <a href="https://howto.xinfin.org/" target="_blank">
-                    Developer Portal
-                  </a>
-                </li>
-                <li className="Table-Comp">
-                  <a
-                    href="https://xinfin.org/setup-masternode.php"
-                    target="_blank"
-                  >
-                    Setup MasterNode
-                  </a>
-                </li>
-                <li className="Table-Comp">
-                  <a href="https://xinfin.org/xdc-utility.php" target="_blank">
-                    XDC Utility
-                  </a>
-                </li>
-                <li className="Table-Comp">
-                  <a href="https://xinfin.org/compliance.php" target="_blank">
-                    Compliance
-                  </a>
-                </li>
-              </ul>
+
+            <div className="Table-Comp">
+              <a href="https://xinfin.org/about.php" target="_blank">
+                About Community
+              </a>
+            </div>
+
+            <div className="Table-Comp">
+              <a href="https://xinfin.network/#stats" target="_blank">
+                XDC Network Status
+              </a>
+            </div>
+
+            <div className="Table-Comp">
+              <a href="https://xinfin.org/bounty.php" target="_blank">
+                Community Bounty Program
+              </a>
+            </div>
+
+            <div className="Table-Comp">
+              <a href="https://howto.xinfin.org/" target="_blank">
+                Developer Portal
+              </a>
+            </div>
+
+            <div className="Table-Comp">
+              <a href="https://xinfin.org/setup-masternode.php" target="_blank">
+                Setup MasterNode
+              </a>
+            </div>
+
+            <div className="Table-Comp">
+              <a href="https://xinfin.org/xdc-utility.php" target="_blank">
+                XDC Utility
+              </a>
+            </div>
+
+            <div className="Table-Comp">
+              <a href="https://xinfin.org/compliance.php" target="_blank">
+                Compliance
+              </a>
             </div>
           </Grid>
 
-          <Grid justify="left" item xs={12} style={{ margin: "7px" }}>
+          <Grid
+            justify="left"
+            item
+            xs={12}
+            style={{ margin: " 0 10px 10px 10px" }}
+          >
             <div className="Table-Header">
               Other Links
               <hr></hr>
@@ -290,7 +300,12 @@ export default function FooterComponent(props) {
         <BlankSpaceDiv>
           <div></div>
           <ThirdCloumn>
-            <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
+            <Grid
+              alignContent="center"
+              item
+              xs={12}
+              style={{ margin: " 0 10px 10px 10px" }}
+            >
               <div className="Table-Header">
                 Follow Us
                 <hr style={{ marginRight: "20px" }}></hr>
@@ -377,7 +392,12 @@ export default function FooterComponent(props) {
               </ul>
             </Grid>
 
-            <Grid alignContent="center" item xs={12} style={{ margin: "7px" }}>
+            <Grid
+              alignContent="center"
+              item
+              xs={12}
+              style={{ margin: " 0 10px 10px 10px" }}
+            >
               <div className="Table-Header">
                 Tweet
                 <hr style={{ marginRight: "2px" }}></hr>

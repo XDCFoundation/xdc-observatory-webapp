@@ -383,8 +383,8 @@ export default function AddressTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab">
-        <div className="searchelement-input3 search-input-box">
-          <img
+        <div className="searchelement-input4 search-input-box">
+          {/*<img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
             src={require('../../assets/images/Search.svg')}
           />
@@ -415,7 +415,7 @@ export default function AddressTableComponent(props) {
               }
             }}
           // onKeyUp={handleKeyUp}
-          />
+          />*/}
         </div>
 
         {isDownloadActive ? (
@@ -429,7 +429,8 @@ export default function AddressTableComponent(props) {
               backgroundColor: 'rgb(7 125 245)',
               borderRadius: '0.25rem',
               width: '5.875rem',
-              height: '1.875rem',
+              height: '2.125rem',
+              paddingTop: '0.125rem',
             }}
           >
             Export
@@ -600,7 +601,7 @@ export default function AddressTableComponent(props) {
                           <TableCell style={{ border: 'none' }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.Block + "?hash=" + row.Block_Hash}
+                              href={'/block-details/' + row.Block}
                             >
                               <span className="tabledata">{row.Block}</span>
                             </a>
@@ -651,7 +652,7 @@ export default function AddressTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: 'none', color: "#2a2a2a" }} align="left">
-                            <span className="tabledata">{row.Value}</span>
+                            <span className="tabledata">{row.Value == 0 ? 0 : Number(row.Value / 1000000000000000000).toFixed(18).replace(/\.?0+$/, "")}</span>
                           </TableCell>
                         </TableRow>
                       )
@@ -703,112 +704,112 @@ export default function AddressTableComponent(props) {
           </Grid>
           <Grid xs="1"></Grid>
           {noData == true && (
-               <Grid
-            item
-            xs="7"
-            style={{
-              flexBasis: 'auto',
-              display: 'flex',
-              alignItems: 'baseline',
-            }}
-            className="pagination-page"
-          >
-            <button
-              style={{ marginLeft: '0rem' }}
-              onClick={() => handleChangePage('first')}
-              className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+            <Grid
+              item
+              xs="7"
+              style={{
+                flexBasis: 'auto',
+                display: 'flex',
+                alignItems: 'baseline',
+              }}
+              className="pagination-page"
             >
-              First
-            </button>
-            <button
-              onClick={() => handleChangePage('prev')}
-              className={page === 0 || totalRecord === 0? 'btn disabled' : 'btn'}
-            >
-              <img
-                className="back-arrow"
-                src={require('../../assets/images/back.svg')}
-              />
-            </button>
-            <button className="btn">
-              Page{' '}
-              0 of 0
-            </button>
-            <button
-              onClick={() => handleChangePage('next')}
-              className={
-                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
-              }
-            >
-              <img
-                className="back-arrow"
-                src={require('../../assets/images/next.svg')}
-              />
-            </button>
-            <button
-              onClick={() => handleChangePage('last')}
-              className={
-                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
-              }
-            >
-              Last
-            </button>
-          </Grid>
+              <button
+                style={{ marginLeft: '0rem' }}
+                onClick={() => handleChangePage('first')}
+                className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+              >
+                First
+              </button>
+              <button
+                onClick={() => handleChangePage('prev')}
+                className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+              >
+                <img
+                  className="back-arrow"
+                  src={require('../../assets/images/back.svg')}
+                />
+              </button>
+              <button className="btn">
+                Page{' '}
+                0 of 0
+              </button>
+              <button
+                onClick={() => handleChangePage('next')}
+                className={
+                  page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
+                }
+              >
+                <img
+                  className="back-arrow"
+                  src={require('../../assets/images/next.svg')}
+                />
+              </button>
+              <button
+                onClick={() => handleChangePage('last')}
+                className={
+                  page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
+                }
+              >
+                Last
+              </button>
+            </Grid>
           )}
           {noData == false && (
-               <Grid
-            item
-            xs="7"
-            style={{
-              flexBasis: 'auto',
-              display: 'flex',
-              alignItems: 'baseline',
-            }}
-            className="pagination-page"
-          >
-            <button
-              style={{ marginLeft: '0rem' }}
-              onClick={() => handleChangePage('first')}
-              className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+            <Grid
+              item
+              xs="7"
+              style={{
+                flexBasis: 'auto',
+                display: 'flex',
+                alignItems: 'baseline',
+              }}
+              className="pagination-page"
             >
-              First
-            </button>
-            <button
-              onClick={() => handleChangePage('prev')}
-              className={page === 0 || totalRecord === 0? 'btn disabled' : 'btn'}
-            >
-              <img
-                className="back-arrow"
-                src={require('../../assets/images/back.svg')}
-              />
-            </button>
-            <button className="btn">
-              Page{' '}
-              {Math.ceil(totalRecord / rowsPerPage) -
-                Math.ceil((totalRecord - page) / rowsPerPage) + 1}{' '}
-              of {Math.ceil(totalRecord / rowsPerPage)}
-            </button>
-            <button
-              onClick={() => handleChangePage('next')}
-              className={
-                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
-              }
-            >
-              <img
-                className="back-arrow"
-                src={require('../../assets/images/next.svg')}
-              />
-            </button>
-            <button
-              onClick={() => handleChangePage('last')}
-              className={
-                page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
-              }
-            >
-              Last
-            </button>
-          </Grid> 
+              <button
+                style={{ marginLeft: '0rem' }}
+                onClick={() => handleChangePage('first')}
+                className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+              >
+                First
+              </button>
+              <button
+                onClick={() => handleChangePage('prev')}
+                className={page === 0 || totalRecord === 0 ? 'btn disabled' : 'btn'}
+              >
+                <img
+                  className="back-arrow"
+                  src={require('../../assets/images/back.svg')}
+                />
+              </button>
+              <button className="btn">
+                Page{' '}
+                {Math.ceil(totalRecord / rowsPerPage) -
+                  Math.ceil((totalRecord - page) / rowsPerPage) + 1}{' '}
+                of {Math.ceil(totalRecord / rowsPerPage)}
+              </button>
+              <button
+                onClick={() => handleChangePage('next')}
+                className={
+                  page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
+                }
+              >
+                <img
+                  className="back-arrow"
+                  src={require('../../assets/images/next.svg')}
+                />
+              </button>
+              <button
+                onClick={() => handleChangePage('last')}
+                className={
+                  page + rowsPerPage === totalRecord || +page + +rowsPerPage > totalRecord || totalRecord === 0 ? 'btn disabled' : 'btn'
+                }
+              >
+                Last
+              </button>
+            </Grid>
           )}
-          
+
         </Grid>
       </Grid>
     </div>

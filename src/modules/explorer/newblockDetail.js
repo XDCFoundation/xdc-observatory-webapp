@@ -68,12 +68,7 @@ export default function BlockDetails() {
   }, []);
 
   const getLatestaccount = async (blockNumber) => {
-    let urlPath;
-    if (typeof hashKey == "undefined") {
-      urlPath = `${blockNumber}`;
-    } else {
-      urlPath = `${blockNumber}` + "?hash=" + hashKey;
-    }
+    let urlPath = `${blockNumber}`;
 
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
@@ -116,6 +111,32 @@ export default function BlockDetails() {
     }
     return input;
   };
+  let td = parseInt(height?.totalDifficulty);
+  let totalDifficulty = td?.toLocaleString('en-US');
+  let difi = parseInt(height?.difficulty)
+  let difficulty = difi?.toLocaleString('en-US');
+
+  const getHoursAgo = (date) => {
+    let today = Date.now()
+    let difference = today - date;
+    if (difference / 1000 / 60 / 60 / 24 > 30)
+      return ""
+    if (difference / 1000 / 60 / 60 / 24 > 1) {
+      let days = Math.floor(difference / 1000 / 60 / 60 / 24)
+      if (days === 1)
+        return days + " day ago "
+      else
+        return days + " days ago "
+    }
+    else {
+      let hours = Math.floor(difference / 1000 / 60 / 60);
+      if (hours === 1)
+        return hours + " hour ago ";
+      else
+        return hours + " hours ago ";
+    }
+    return;
+  }
 
   return (
     <div>
@@ -144,8 +165,8 @@ export default function BlockDetails() {
 
                     <MiddleContainerHash>
                       <Content>
-                        {height.hash }
-                        
+                        {height.hash}
+
 
                         <CopyToClipboard
                           text={height.hash}
@@ -244,9 +265,11 @@ export default function BlockDetails() {
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
+                      {getHoursAgo(height.timestamp * 1000)}
+                      (
                       {moment(height.timestamp * 1000).format(
-                        "MMMM Do YYYY, h:mm:ss a"
-                      )}
+                        "ddd MMMM Do YYYY, h:mm:ss a"
+                      )} GMT+530)
                     </MiddleContainer>
                   </Spacing>
                   <Spacing>
@@ -265,7 +288,7 @@ export default function BlockDetails() {
                           className="parent_hash"
                           style={{ cursor: "pointer" }}
                         >
-                         {height.parentHash }
+                          {height.parentHash}
 
                         </a>
                         <CopyToClipboard
@@ -306,8 +329,8 @@ export default function BlockDetails() {
                       <Hash>Sha3Uncles</Hash>
                     </Container>
                     <MiddleContainer>
-                      <Content>    
-                         {height.sha3Uncles  }
+                      <Content>
+                        {height.sha3Uncles}
 
                         <CopyToClipboard
                           text={height.sha3Uncles}
@@ -346,7 +369,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{height.difficulty}</MiddleContainer>
+                    <MiddleContainer>{difficulty}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -357,7 +380,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Total Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{height.totalDifficulty}</MiddleContainer>
+                    <MiddleContainer>{totalDifficulty}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -368,7 +391,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Used</Hash>
                     </Container>
-                    <MiddleContainer>{height.gasUsed}</MiddleContainer>
+                    <MiddleContainer>{parseInt(height?.gasUsed)?.toLocaleString('en-US')}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -379,7 +402,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Limit</Hash>
                     </Container>
-                    <MiddleContainer>{height.gasLimit}</MiddleContainer>
+                    <MiddleContainer>{parseInt(height?.gasLimit)?.toLocaleString('en-US')}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>

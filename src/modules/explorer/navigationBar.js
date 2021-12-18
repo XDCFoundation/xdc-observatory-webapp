@@ -122,6 +122,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#102e84",
       height: "100%",
     },
+    drawerHeader: {
+      padding: "0 !important",
+    }
   },
   fullList: {
     width: "auto",
@@ -162,16 +165,16 @@ export default function Navbar() {
       }
     }
   };
-  
+
   let visited = sessionManager.getDataFromCookies("Visited")
-  if(visited && viewPopUp === true){
+  if (visited && viewPopUp === true) {
     setViewPopUp(false);
-    
+
   }
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
   // }, []);
-  
+
   const handleSearchOption = (event) => {
     var selectOptType = SelectOptRef.current?.value;
     var SearchDataInput = SearchDataRef.current?.value;
@@ -423,7 +426,7 @@ export default function Navbar() {
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
               </span>
             </div>
-           
+
             <div
               style={{
                 color: "white",
@@ -449,7 +452,7 @@ export default function Navbar() {
 
       {/* onClick={() => setOpen(false)} */}
       <List className="side-box">
-       
+
         <ul className="Live-Network">
           <p>Live Network</p>
         </ul>
@@ -595,15 +598,7 @@ export default function Navbar() {
         <ul className="Live-Network">
           <p>More</p>
         </ul>
-        <ul className="Live-Network-list">
-          <a
-            className="sidebar-links"
-            href="https://chrome.google.com/webstore/detail/xinpay/bocpokimicclpaiekenaeelehdjllofo"
-          >
-            <div className="xinfin_account_button"> XDCPay</div>
-          </a>
-          <hr className="myhr" />
-        </ul>
+
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://remix.xinfin.network/">
             <div className="xinfin_account_button">XDC Remix</div>
@@ -641,9 +636,9 @@ export default function Navbar() {
       <CssBaseline />
       {viewPopUp == true ? (
         <NewFeature></NewFeature>
-      ):(<div/>)}
+      ) : (<div />)}
       <DeskTopView>
-     
+
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <Toolbar>
             <Typography className="Header">
@@ -730,7 +725,7 @@ export default function Navbar() {
           </Toolbar>
         </AppBar>
       </DeskTopView>
-      
+
       <MobileView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <Toolbar>

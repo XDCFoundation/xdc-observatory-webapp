@@ -8,8 +8,10 @@ import transactionLogo from "../../images/Transaction.svg";
 import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import Tab from "./tab";
+import Loader from "../../assets/loader";
 import {
   AccountService,
   CoinMarketService,
@@ -18,12 +20,13 @@ import {
   BlockService,
 } from "../../services";
 import Utils from "../../utility";
+import utility from "../../utility";
 
 const MainContainer = styled.div`
   width: 75.125rem;
   height: 18.563rem;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
   padding: 1.9rem 1.375rem 0;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
@@ -163,9 +166,9 @@ const TitleData = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
-    width: 90px;
+    width: 110px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
   }
 `;
 const LeftTop = styled.div`
@@ -325,7 +328,8 @@ class BlockChainDataComponent extends Component {
               1000000000000000000
             ).toFixed(9)
           : 0;
-        if (gp >= 0.000000001) {
+        if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
+          console.log("this.state.gasPrice, gp", this.state.gasPrice, gp);
           this.setState({ gasPrice: gp });
         }
 
@@ -513,13 +517,10 @@ class BlockChainDataComponent extends Component {
     let currentTp = this.state.tpsCounts;
 
     return (
-
       <MainContainer
         className={this.state.loading == true ? "cover-spin-3" : ""}
       >
-        <LeftContainer
-          className={this.state.loading == true ? "cover-spin" : ""}
-        >
+        <LeftContainer>
           <LeftFirst>
             <LeftTop>
               <IconLogo src={logo} />
@@ -581,7 +582,17 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={transactionLogo} />
                   <ValueName>
                     <Title>Transactions</Title>
-                    <TitleValue>{this.state.totalTransaction}</TitleValue>
+                    <Tooltip
+                      placement="top"
+                      title={this.state.totalTransaction}
+                    >
+                      <TitleValue>
+                        {" "}
+                        {utility.convertToInternationalCurrencySystem(
+                          this.state.totalTransaction
+                        )}
+                      </TitleValue>
+                    </Tooltip>
                   </ValueName>
                 </Value>
                 <Value>
@@ -608,11 +619,18 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
                     <Title>Difficulty</Title>
-                    <TitleValue
-                      className={animationClass ? animationClass : ""}
+                    <Tooltip
+                      placement="top"
+                      title={this.state.blockdataNumber[0]?.totalDifficulty}
                     >
-                      {this.state.blockdataNumber[0]?.totalDifficulty}
-                    </TitleValue>
+                      <TitleValue
+                        className={animationClass ? animationClass : ""}
+                      >
+                        {utility.convertToInternationalCurrencySystem(
+                          this.state.blockdataNumber[0]?.totalDifficulty
+                        )}
+                      </TitleValue>
+                    </Tooltip>
                   </ValueName>
                 </Value>
 
@@ -668,9 +686,7 @@ class BlockChainDataComponent extends Component {
           </LeftSec>
         </LeftContainer>
 
-        <RightContainer
-          className={this.state.loading == true ? "cover-spin" : ""}
-        >
+        <RightContainer>
           <Tab />
         </RightContainer>
       </MainContainer>
