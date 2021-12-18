@@ -50,7 +50,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "env-cmd .env react-scripts start",
+    "start": "env-cmd .env.production react-scripts start",
     "start-production": "env-cmd .env.production react-scripts start",
     "development": "PORT=80 env-cmd .env.development npm run build",
     "production": "env-cmd .env.production react-scripts build",
