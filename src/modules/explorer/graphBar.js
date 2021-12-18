@@ -101,13 +101,13 @@ export default function App() {
     arr[0].data = resultData;
     setData(arr);
   }, []);
-  let length = graphTransactions?.length;
+  let length = graphTransactions ? graphTransactions?.length : "";
   const firstDate =
-    graphTransactions?.length == 0
+    graphTransactions && graphTransactions?.length == 0
       ? ""
       : moment(graphTransactions[length - 1]?.day)?.format("D MMM");
   const lastDate =
-    graphTransactions?.length == 0
+    graphTransactions && graphTransactions?.length == 0
       ? ""
       : moment(graphTransactions[0]?.day).format("D MMM");
   return (

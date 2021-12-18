@@ -49,6 +49,7 @@ const TransactionTitle = styled.div`
 `;
 
 export default function CommonTransactionsTable(props) {
+  console.log(props, "hu")
   const classes = useStyles();
   const { transactionList, detailanimationclass, TransactionHeading } = props;
 
