@@ -416,7 +416,7 @@ export default function HolderTableComponent(props) {
         <div className="searchelement-input3">
           <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 5 }}
-            src={require("../../assets/images/Search.svg")}
+            src={"/images/Search.svg"}
           />
           <input
 

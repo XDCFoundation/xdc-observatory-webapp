@@ -298,7 +298,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={hashid}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
 
@@ -345,7 +345,7 @@ export default function Transaction({ _handleChange }) {
                                         ? "copyIconHashMobile"
                                         : "copyIconHash"
                                   }
-                                  src={require("../../../src/assets/images/copy.svg")}
+                                  src={"/images/copy.svg"}
                                 />
                               </button>
                             </Tooltip>
@@ -368,7 +368,7 @@ export default function Transaction({ _handleChange }) {
                                     : "editIconHash"
                               }
                               onClick={openDialogPvtNote}
-                              src={require("../../../src/assets/images/XDC-Edit.svg")}
+                              src={"/images/XDC-Edit.svg"}
                             />
                           }
                         </span>
@@ -381,7 +381,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip title={blocknumber}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
 
@@ -404,7 +404,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip title={timestamp}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
 
@@ -421,7 +421,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip title={from}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
 
@@ -473,7 +473,7 @@ export default function Transaction({ _handleChange }) {
                                             ? "copy-icon-from"
                                             : "copy-icon-from-tab"
                                       }
-                                      src={require("../../../src/assets/images/copy.svg")}
+                                      src={"/images/copy.svg"}
                                     />
                                   </button>
                                 </Tooltip>
@@ -499,7 +499,7 @@ export default function Transaction({ _handleChange }) {
                                       : "edit1-icon-from"
                                   }
                                   onClick={openDialogPvtTag}
-                                  src={require("../../../src/assets/images/XDC-Edit.svg")}
+                                  src={"/images/XDC-Edit.svg"}
                                 />
                               )}
                             </div>
@@ -511,7 +511,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip title={to}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
 
@@ -562,7 +562,7 @@ export default function Transaction({ _handleChange }) {
                                             ? "copy-icon-from"
                                             : "copy-icon-from-tab"
                                       }
-                                      src={require("../../../src/assets/images/copy.svg")}
+                                      src={"/images/copy.svg"}
                                     />
                                   </button>
                                 </Tooltip>
@@ -588,7 +588,7 @@ export default function Transaction({ _handleChange }) {
                                       : "edit1-icon-from"
                                   }
                                   onClick={openDialogPvtTag2}
-                                  src={require("../../../src/assets/images/XDC-Edit.svg")}
+                                  src={"/images/XDC-Edit.svg"}
                                 />
                               )}
                             </div>
@@ -600,7 +600,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip title={value}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <Hash>Value</Hash>
@@ -618,7 +618,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip title={txnfee}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
 
@@ -641,7 +641,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={gasprovided}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <Hash>Gas Provided</Hash>
@@ -654,7 +654,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={gasprice}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <Hash>Gas Price</Hash>
@@ -670,7 +670,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={gasused}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <Hash>Gas Used</Hash>
@@ -687,7 +687,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={nounced}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <Hash>Nounce</Hash>
@@ -700,7 +700,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={input}>
                           <ImageViewInputData
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <HashInputData>Input Data</HashInputData>
@@ -719,7 +719,7 @@ export default function Transaction({ _handleChange }) {
                       <Container>
                         <Tooltip align="right" title={transferToken}>
                           <ImageView
-                            src={require("../../../src/assets/images/questionmark.svg")}
+                            src={"/images/questionmark.svg"}
                           />
                         </Tooltip>
                         <Hash>Private Note</Hash>
