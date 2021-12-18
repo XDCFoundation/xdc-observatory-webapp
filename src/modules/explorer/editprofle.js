@@ -130,7 +130,7 @@ const baseStyle = {
   width: "400px",
   background: "#FFFFFF 0% 0% no-repeat padding-box",
   color: "#ACACAC",
-  border: "0.3px dashed var(--unnamed-color-acacac)",
+  // border: "0.3px dashed var(--unnamed-color-acacac)",
   border: "0.30000001192092896px dashed #ACACAC",
   // marginTop: 5,
 };
@@ -479,7 +479,10 @@ export default function FormDialog(props) {
     <div>
      
         <div className={classes.add}>
-        <button className="login-button" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/edit-profile")}}>
+        <button className="login-button" onClick={()=>{
+          console.log("width===",width)
+          if(width) handleClickOpen()
+          else history.push("/edit-profile")}}>
             <div className="edit">Edit Profile</div>
           </button>
           <ProfilePicContainer>
@@ -499,7 +502,7 @@ export default function FormDialog(props) {
                   {" "}
                   <img
                     className="cross-icon"
-                    src={require("../../../src/assets/images/XDC-Cross.svg")}
+                    src={"/images/XDC-Cross.svg"}
                   />{" "}
                 </Cut>
               </Wrapper>
@@ -520,7 +523,7 @@ export default function FormDialog(props) {
                     <span className="beforeInputValue">{userName}</span>
                     <img
                       className="imgcss"
-                      src={require("../../../src/assets/images/edit.svg")}
+                      src={"/images/edit.svg"}
                       onClick={() => setUsernameEnable(true)}
                     />
                   </span>
@@ -553,7 +556,7 @@ export default function FormDialog(props) {
                     <span className="beforeInputValue">{email}</span>
                     <img
                       className="imgcss"
-                      src={require("../../../src/assets/images/edit.svg")}
+                      src={"/images/edit.svg"}
                       onClick={() => setEmailEnable(true)}
                     />
                   </span>

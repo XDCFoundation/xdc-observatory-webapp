@@ -292,7 +292,7 @@ const screenSize = window.innerHeight
         <div>
           <img
             className="imagediv1"
-            src={require("../../../assets/images/watchlist.png")}
+            src={"/images/watchlist.png"}
           ></img>
         </div>
         <button className={classes.btn}>
@@ -310,7 +310,7 @@ const screenSize = window.innerHeight
         color="primary"
         onClick={handleClickOpen}
       >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
+          <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
     {isSize===false
         ?(

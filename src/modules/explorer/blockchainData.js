@@ -545,7 +545,7 @@ class BlockChainDataComponent extends Component {
                     <div className="arrow_up">
                       {/* <BsFillCaretUpFill size={10} /> */}
                       <img
-                        src={require("../../../src/assets/images/Up.svg")}
+                        src={"/images/Up.svg"}
                         style={{ width: "8px" }}
                       />
                     </div>
@@ -553,7 +553,7 @@ class BlockChainDataComponent extends Component {
                     <div className="arrow_down">
                       {/* <BsFillCaretDownFill size={10} /> */}
                       <img
-                        src={require("../../../src/assets/images/Down.svg")}
+                        src={"/images/Down.svg"}
                         style={{ width: "8px" }}
                       />
                     </div>
@@ -654,7 +654,7 @@ class BlockChainDataComponent extends Component {
                             <div className="arrow_up">
                               {/* <BsFillCaretUpFill size={10} /> */}
                               <img
-                                src={require("../../../src/assets/images/Up.svg")}
+                                src={"/images/Up.svg"}
                                 style={{
                                   width: "0.5rem",
                                   marginRight: "5px",
@@ -666,7 +666,7 @@ class BlockChainDataComponent extends Component {
                             <div className="arrow_down">
                               {/* <BsFillCaretDownFill size={10} /> */}
                               <img
-                                src={require("../../../src/assets/images/Down.svg")}
+                                src={"/images/Down.svg"}
                                 style={{
                                   width: "0.5rem",
                                   marginRight: "5px",

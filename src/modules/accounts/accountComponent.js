@@ -50,7 +50,7 @@ export default function AccountComponent(props) {
         <Grid class="tabletop-header">{state.tableName}</Grid>
         {/* <div className="searchelement-input2">
           <img style={{ width: 20, height: 20, marginRight: 6, marginTop: 3 }}
-            src={require('../../assets/images/Search.svg')} />
+            src={"/images/Search.svg"} />
           <input
             onKeyPress={(e) => {
               if (e.key === "Enter") {
@@ -141,12 +141,12 @@ export default function AccountComponent(props) {
             <button id="btn_12" style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
             <button id="btn_12" onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img
               className="back-arrow"
-              src={require("../../assets/images/back.svg")}
+              src={"/images/back.svg"}
             /></button>
             <button id="btn_12" className="btn">Page {Math.ceil(state.totalAccounts / state.amount)  - Math.ceil((state.totalAccounts - state.from) / state.amount) + 1} of {Math.ceil(state.totalAccounts / state.amount)}</button>
             <button id="btn_12" onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
               className="back-arrow"
-              src={require("../../assets/images/next.svg")}
+              src={"/images/next.svg"}
             /></button>
             <button id="btn_12" onClick={(event) => props._LastPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}>Last</button>
 

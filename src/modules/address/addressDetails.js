@@ -189,7 +189,7 @@ export default function AddressDetails(props) {
             <Grid style={{ width: "75.125rem" }}>
               <AddressPath>
                 <Explorer>Explorer</Explorer>
-                <Next src={require("../../../src/assets/images/next.svg")} />
+                <Next src={"/images/next.svg"} />
                 <Address>Address</Address>
               </AddressPath>
               <Spacing style={{ borderBottom: "none" }}>
@@ -203,7 +203,7 @@ export default function AddressDetails(props) {
                     <Container>
                       <Tooltip title="An address is a unique sequence of numbers and letters">
                         <ImageView
-                          src={require("../../../src/assets/images/questionmark.svg")}
+                          src={"/images/questionmark.svg"}
                         />
                       </Tooltip>
                       <Hash>Address</Hash>
@@ -256,7 +256,7 @@ export default function AddressDetails(props) {
                                         ? "copyIconHashMobile"
                                         : "copyIconHash"
                                   }
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src={"/images/copy.svg"}
                               />
                             </button>
                           </Tooltip>

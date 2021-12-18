@@ -442,7 +442,7 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={require("../../../src/assets/images/XRC20-Icon.svg")}></img>
+                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={"/images/XRC20-Icon.svg"}></img>
 
                 <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
@@ -461,7 +461,7 @@ export default function TokenDataComponent() {
                       <div className="arrow_up">
                         {/*<BsFillCaretUpFill size={10} />*/}
                         <img
-                          src={require("../../../src/assets/images/Up.svg")}
+                          src={"/images/Up.svg"}
                           style={{ width: "8px" }}
                         />
                       </div>
@@ -469,7 +469,7 @@ export default function TokenDataComponent() {
                       <div className="arrow_down">
                         {/* <BsFillCaretDownFill size={10} />*/}
                         <img
-                          src={require("../../../src/assets/images/Down.svg")}
+                          src={"/images/Down.svg"}
                           style={{ width: "8px" }}
                         />
                       </div>
