@@ -545,6 +545,11 @@
   margin: auto;
   width: 100%;
 }
+.tablegrid_no_data{
+  padding-top: 1.563rem;
+  margin: auto;
+  width: 100%;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .tablegrid_address {
     padding-top: 4.5%;

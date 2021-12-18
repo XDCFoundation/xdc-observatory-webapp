@@ -609,7 +609,7 @@ input:focus {
   width: 503px;
 }
 .imgcss {
-  margin-left: auto;
+  margin-left: 14px;
   padding-right: 15px;
   height: 14px;
   margin-top: 13px;
@@ -672,6 +672,10 @@ input:focus {
   padding-right: 7px;
   line-height: 19px;
   margin-right: 14px;
+}
+.no-data-added{
+  background-color: "red";
+
 }
 .tabledata-2 {
   display: flex;
@@ -3086,7 +3090,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .vc-contract-add-select {
@@ -3102,7 +3106,10 @@ p {
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
 }
-
+.builds{
+  font-size:2px;
+  color:#0cdd1e;
+}
 .right-nav-div {
   display: flex;
   align-items: center;
@@ -7014,7 +7021,7 @@ button {
 }
 
 .active-tabs_sec_contract {
-  color: #2149b9;
+  color: #2b51bc;
 }
 
 .active-tabs_sec::before {
@@ -7897,7 +7904,7 @@ button {
     color: #252525 !important;
   }
   .left-table-contract-data-mobile {
-    margin-top: -12px;
+    margin-top: 0;
     padding: 0px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
     font-size: 14px !important;

@@ -51,7 +51,7 @@ const MainContainer = styled.div`
     height: 32.063rem;
     padding: 0 1.875rem;
     margin: 0 auto;
-    margin-top: 165px;
+    margin-top: 182px;
   }
 `;
 const MobileScreen = styled.div`
@@ -93,10 +93,10 @@ const LeftFirst = styled.div`
   align-items: flex-start;
   padding-bottom: 1.125rem;
   @media (max-width:767px){
-   padding: 1.875rem 0;
+   padding: 1.875rem 0 0 0;
   }
   @media (min-width:767px) and (max-width:1240px){
-   padding: 1.5rem 0 1.125rem;
+   padding: 1.5rem 0 0.125rem;
   }
 `;
 const LeftSec = styled.div`
@@ -478,16 +478,19 @@ export default function TokenDataComponent() {
                   </div>
                 </div>
               </LeftTopSecMain>
-              <Line1></Line1>
+            
             </LeftFirst>
             <LeftSec>
+          
               <ValueMain>
+              
                 <MobileScreen>
                 
                   <Value>
                     {/* <TitleIcon src={blockHeightImg} /> */}
                     
                     <ValueName>
+                    {/* <Line2 ></Line2> */}
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
@@ -617,7 +620,7 @@ export default function TokenDataComponent() {
             <RightTop>
               <RightTitle>Holders</RightTitle>
               <RightTopSec>14 Days</RightTopSec>
-              <Line2 style={{height: "8px",backgroundColor:"red"}}></Line2>
+              <Line2 ></Line2>
             </RightTop>
             <GraphContainer>
               <HolderGraphBar />

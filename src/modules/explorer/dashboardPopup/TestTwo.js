@@ -171,6 +171,17 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       padding: "15px",
     },
+    subCategory1:{
+      marginTop: "0px",
+     
+      marginBottom: "2px",
+    // fontWeight: "50px",
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
+    border: "none !important",
+    }
   },
 }));
 
@@ -274,7 +285,7 @@ export default function FormDialog() {
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </div>
           <div>
-            <p className={classes.subCategory}>
+            <p className={classes.subCategory} className={classes.subCategory1} >
               Transaction Label/Note
               {/* <span  className={classes.forgotpass}>
               Forgot Password?
