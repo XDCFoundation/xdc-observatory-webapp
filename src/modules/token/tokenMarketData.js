@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../assets/styles/custom.css";
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
+import utility from "../../utility";
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     display: none;
@@ -86,7 +87,7 @@ export default function TokenMarketDataTable(props) {
   let vmc = parseFloat(volumeMarketcap).toFixed(6);
 
   var totalSupplyValue = 25425328688; //totalSupply
-  totalSupplyValue = totalSupplyValue.toLocaleString();
+  // totalSupplyValue = totalSupplyValue.toLocaleString();
   let activeCurrency = window.localStorage.getItem("currency");
   let CurrencySymbol = "";
   let marketCapVal = 0;
@@ -99,14 +100,14 @@ export default function TokenMarketDataTable(props) {
   if (props.marketCap) {
     symbol = props.marketCap.symbol;
     if (activeCurrency == "USD") {
-      CurrencySymbol = '$';
+      CurrencySymbol = "$";
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
       let totalSupplyValue = Math.round(
         props.marketCap.parseDataUSD.totalSupply
       ); //totalSupply
-      totalSupplyVal = totalSupplyValue ? totalSupplyValue.toLocaleString() : 0;
+      totalSupplyVal = totalSupplyValue ? totalSupplyValue : 0;
       circulatingSupplyVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataEUR.circulatingSupply
       );
@@ -125,7 +126,7 @@ export default function TokenMarketDataTable(props) {
       let totalSupplyValue = Math.round(
         props.marketCap.parseDataUSD.totalSupply
       ); //totalSupply
-      totalSupplyVal = totalSupplyValue ? totalSupplyValue.toLocaleString() : 0;
+      totalSupplyVal = totalSupplyValue ? totalSupplyValue : 0;
       circulatingSupplyVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataEUR.circulatingSupply
       );
@@ -144,7 +145,7 @@ export default function TokenMarketDataTable(props) {
       let totalSupplyValue = Math.round(
         props.marketCap.parseDataUSD.totalSupply
       ); //totalSupply
-      totalSupplyVal = totalSupplyValue ? totalSupplyValue.toLocaleString() : 0;
+      totalSupplyVal = totalSupplyValue ? totalSupplyValue : 0;
       circulatingSupplyVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataEUR.circulatingSupply
       );
@@ -156,14 +157,14 @@ export default function TokenMarketDataTable(props) {
         props.marketCap.parseDataUSD.volume24_hr
       );
     } else {
-      CurrencySymbol = '$';
+      CurrencySymbol = "$";
       marketCapVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataUSD.marketCap
       );
       let totalSupplyValue = Math.round(
         props.marketCap.parseDataUSD.totalSupply
       ); //totalSupply
-      totalSupplyVal = totalSupplyValue ? totalSupplyValue.toLocaleString() : 0;
+      totalSupplyVal = totalSupplyValue ? totalSupplyValue : 0;
       circulatingSupplyVal = convertToInternationalCurrencySystem(
         props.marketCap.parseDataEUR.circulatingSupply
       );
@@ -276,7 +277,9 @@ export default function TokenMarketDataTable(props) {
             <div className="cont-token-data cont1_align">
               <div className="cont1-child">
                 <p>Total Supply</p>
-                <p>{totalSupplyVal}</p>
+                <p>
+                  {utility.convertToInternationalCurrencySystem(totalSupplyVal)}
+                </p>
               </div>
             </div>
             <div className="con"> </div>
@@ -399,7 +402,9 @@ export default function TokenMarketDataTable(props) {
               <p>Total Supply</p>
             </div>
             <div className="mid_cont">
-              <p>{totalSupplyVal}</p>
+              <p>
+                {utility.convertToInternationalCurrencySystem(totalSupplyVal)}
+              </p>
             </div>
           </div>
         </div>
