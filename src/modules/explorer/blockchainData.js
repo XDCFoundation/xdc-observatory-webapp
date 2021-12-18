@@ -244,8 +244,8 @@ class BlockChainDataComponent extends Component {
     this.state = {
       totalTransaction: [],
       totalAccount: [],
-      someDayAccount: [],
-      coinMarketPrice: [],
+      someDayAccount: 0,
+      coinMarketPrice: 0,
       tpsCounts: 0,
       Maxtps: 0,
       blockdataNumber: [],
@@ -324,9 +324,9 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-              this.state.transactionDataDetails[0]?.gasPrice /
-              1000000000000000000
-            ).toFixed(9)
+            this.state.transactionDataDetails[0]?.gasPrice /
+            1000000000000000000
+          ).toFixed(9)
           : 0;
         if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
           console.log("this.state.gasPrice, gp", this.state.gasPrice, gp);
@@ -375,14 +375,15 @@ class BlockChainDataComponent extends Component {
 
   async someDaysAccountCount() {
     let [error, someDaysAccount] = await Utils.parseResponse(
-      AccountService.getSomeDaysAccount()
+      AccountService?.getSomeDaysAccount()
     );
     if (error || !someDaysAccount) return;
     this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     const interval = setInterval(async () => {
       let [error, someDaysAccount] = await Utils.parseResponse(
-        AccountService.getSomeDaysAccount()
+        AccountService?.getSomeDaysAccount()
       );
+      if (error || !someDaysAccount) return;
       this.setState({ someDayAccount: someDaysAccount[0]?.accountCount });
     }, 90000);
   }
@@ -403,6 +404,7 @@ class BlockChainDataComponent extends Component {
       let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
         CoinMarketService?.getCoinMarketData(this.props.currency, {})
       );
+      if (error || !totalcoinMarketPrice) return;
       this.setState({ coinMarketPrice: totalcoinMarketPrice[1] });
     }, 90000);
   }
@@ -413,6 +415,9 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
+    if (!tpsCount || tpsCount.length == 0 || tpsCount === undefined || tpsCount == "" || tpsCount === null) {
+      this.setState({ loading: false });
+    }
     if (error || !tpsCount) return;
 
     this.setState({ tpsCounts: tpsCount?.currenttps });
@@ -421,6 +426,9 @@ class BlockChainDataComponent extends Component {
       let [error, tpsCount] = await Utils.parseResponse(
         TpsService.getTpsCounter()
       );
+      if (!tpsCount || tpsCount.length == 0 || tpsCount === undefined || tpsCount == "" || tpsCount === null) {
+        this.setState({ loading: false });
+      }
       this.setState({ tpsCounts: tpsCount?.currenttps });
     }, 90000);
   }
@@ -501,8 +509,8 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-        ? "$"
-        : "€";
+          ? "$"
+          : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;

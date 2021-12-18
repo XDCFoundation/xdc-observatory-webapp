@@ -15,6 +15,7 @@ import moment from "moment";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
+import utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +74,9 @@ export default function BlockDetails() {
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
+    if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length == 0 || blockDetailsUsingHeight === undefined || blockDetailsUsingHeight == "" || blockDetailsUsingHeight === null) {
+      setLoading(false);
+    }
     if (error || !blockDetailsUsingHeight) return;
     setHeight(blockDetailsUsingHeight);
     setLoading(false);
@@ -116,28 +120,14 @@ export default function BlockDetails() {
   let difi = parseInt(height?.difficulty)
   let difficulty = difi?.toLocaleString('en-US');
 
-  const getHoursAgo = (date) => {
-    let today = Date.now()
-    let difference = today - date;
-    if (difference / 1000 / 60 / 60 / 24 > 30)
-      return ""
-    if (difference / 1000 / 60 / 60 / 24 > 1) {
-      let days = Math.floor(difference / 1000 / 60 / 60 / 24)
-      if (days === 1)
-        return days + " day ago "
-      else
-        return days + " days ago "
-    }
-    else {
-      let hours = Math.floor(difference / 1000 / 60 / 60);
-      if (hours === 1)
-        return hours + " hour ago ";
-      else
-        return hours + " hours ago ";
-    }
-    return;
-  }
-
+  let currentTime = Date.now();
+  let currentTimeFormat = new Date(currentTime);
+  let previousTime = new Date(height.timestamp * 1000);
+  let timeHoursAgo = utility.timeDiff(
+    currentTimeFormat,
+    previousTime
+  );
+  console.log(timeHoursAgo, "kiki")
   return (
     <div>
       <Tokensearchbar />
@@ -265,7 +255,7 @@ export default function BlockDetails() {
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
-                      {getHoursAgo(height.timestamp * 1000)}
+                      {timeHoursAgo}
                       (
                       {moment(height.timestamp * 1000).format(
                         "ddd MMMM Do YYYY, h:mm:ss a"

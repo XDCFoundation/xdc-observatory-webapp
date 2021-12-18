@@ -7348,7 +7348,39 @@ button {
   border: solid 1px #e3e7eb;
   background-color: #fff;
 }
-
+@media (min-width: 0px) and (max-width: 767px) {
+  .Tooltip-graph {
+    width: 80%;
+    padding: 4px 8px 7px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #e3e7eb;
+    background-color: #fff;
+  }
+  .Tooltip-graph-tx {
+    margin: 1px 0 0;
+    font-family: Inter;
+    font-size: 9px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.46px;
+    color: #2a2a2a;
+  }
+  .Tooltip-graph-date {
+    width: 80%;
+    margin: 0 53px 1px 0;
+    font-family: Inter;
+    font-size: 9px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.46px;
+    color: #9fa9ba;
+  }
+}
 .outer-oval {
   width: 14px;
   height: 14px;
@@ -8509,6 +8541,7 @@ button {
 }
 .copyEditContainer {
   display: flex;
+  margin-left: 29rem !important;
 }
 .copyEditContainerTab {
   display: flex;
@@ -8522,8 +8555,21 @@ button {
 }
 .copyEditContainerMobile {
   display: flex;
-  margin-top: -20px;
-  margin-left: 75px;
+  margin-left: 29rem !important;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .copyEditContainerMobile {
+    display: flex;
+    margin-top: -20px;
+    margin-left: 102px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .copyEditContainerMobile {
+    display: flex;
+    margin-top: 0px;
+    margin-left: -11px !important;
+  }
 }
 .copyToClipboardHash {
   color: #2149b9;
