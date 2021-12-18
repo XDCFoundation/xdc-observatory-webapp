@@ -5,7 +5,6 @@ import { sessionManager } from "../../managers/sessionManager";
 import FormDialog from "./loginDialog"
 
 export default function NewFeature(props) {
-    console.log(props,"propseeeeee")
   const [open, setOpen] = React.useState(true);
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
@@ -19,7 +18,6 @@ export default function NewFeature(props) {
 
 
 const visited = ()=>{
-    console.log("clickedddd")
     sessionManager.setDataInCookies(true,"Visited");
     
 }
