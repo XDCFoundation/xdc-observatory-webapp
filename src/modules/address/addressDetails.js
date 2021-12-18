@@ -116,7 +116,9 @@ export default function AddressDetails(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetail(addr)
       );
-
+      if (!responseData || responseData.length == 0 || responseData === undefined || responseData == "" || responseData === null) {
+        setLoading(false);
+      }
       if (responseData) {
         setBalance((responseData.balance / 1000000000000000000).toFixed(18));
         let activeCurrency = window.localStorage.getItem("currency");
