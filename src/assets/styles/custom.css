@@ -543,9 +543,9 @@ input:focus {
     color: #ffffff;
     margin-bottom: 10px;
   }
-  .inside-side-box {
-    margin-left: -17px !important;
-  }
+  /*.inside-side-box {*/
+  /*  margin-left: -17px !important;*/
+  /*}*/
   .inside-side-box-browse {
     margin-left: 15px !important;
   }
@@ -2515,7 +2515,7 @@ p {
 }
 
 .inside-side-box {
-  margin-left: -10px;
+  padding-left: 10px !important;
   font-size: 14.5px;
   font-weight: 500;
   font-stretch: normal;
@@ -2813,7 +2813,7 @@ p {
 }
 
 .Live-Network {
-  margin-left: -20px;
+  padding-left: 10px !important;
   font-family: "Inter-Regular";
   font-size: 12px;
   font-weight: bold;
@@ -2826,7 +2826,7 @@ p {
 }
 
 .Live-Network-list {
-  margin-left: -20px;
+  padding-left: 10px !important;
   font-family: "Inter";
   font-size: 13px;
   font-weight: 500;
