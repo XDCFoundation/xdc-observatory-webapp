@@ -14,6 +14,7 @@ import Loader from "../../assets/loader";
 import { makeStyles } from "@material-ui/core/styles";
 import utility from "../../utility";
 import styled from "styled-components";
+import moment from "moment";
 
 const useStyles = makeStyles({
   container: {
@@ -256,6 +257,7 @@ export default function CommonTransactionsTable(props) {
                         }}
                         align="left"
                       >
+                        <Tooltip title={moment(row.timestamp* 1000).format('YYYY-MM-DD hh:mm:ss')} arrow={true} className="fs-15">
                         <span
                           className={
                             animationClass ? animationClass : "tabledata"
@@ -263,6 +265,7 @@ export default function CommonTransactionsTable(props) {
                         >
                           {ti}
                         </span>
+                        </Tooltip>
                       </TableCell>
                       {props.showBlock ? (
                         <TableCell
