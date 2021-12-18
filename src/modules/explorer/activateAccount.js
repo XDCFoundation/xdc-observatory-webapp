@@ -30,9 +30,9 @@ export default function ActivateAccount() {
         <div className="activateHeading">Activate Your Account</div>
         </div>
         <div className="activateTextContainer">Your account registration has been submitted and is pending email verification</div>
-        <div className="activateText" style={{marginTop: "10px"}}>we have sent an email to "--------------email.com" with a link to a link to activate your account.</div>
+        <div className="activateText" style={{marginTop: "10px"}}>We have sent an email to "--------------email.com" with a link to a link to activate your account.</div>
         <div className="activateText" style={{marginBottom: "25px"}}>To complete the sign-up process, please click on the confirmation link in the email.</div>
-        <div className="activateText">If you have not recieve a confirmation email, please check your spam folder.</div>
+        <div className="activateText" style={{marginBottom: "237px"}}>If you have not recieve a confirmation email, please check your spam folder.</div>
       </div>
       <FooterComponent />
     </div>
