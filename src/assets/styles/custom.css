@@ -43,8 +43,7 @@ input#password[placeholder] {
   color: #9fa9ba;
 }
 .activateAccountBox{
-  margin-top: 260px;
-  height: 350px;
+  margin-top: 265px;
 }
 .activateHeadingContainer{
   display: flex;
@@ -52,16 +51,16 @@ input#password[placeholder] {
 }
 .activateHeading{
   color: #007b2c;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   margin-left: 15px;
 }
 .activateTextContainer{
   color: #007b2c;
     background-color: #f3fff7;
-    padding: 15px 40px;
+    padding: 16px 40px;
     width: fit-content;
-    border-radius: 12px;
+    border-radius: 6px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
