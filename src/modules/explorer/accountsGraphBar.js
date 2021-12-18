@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {ResponsiveLine} from '@nivo/line';
+import React, { useEffect, useState } from "react";
+import { ResponsiveLine } from '@nivo/line';
 import '../../assets/styles/custom.css';
 import moment from "moment";
-import {AccountService} from '../../services'
+import { AccountService } from '../../services'
 import Utils from '../../utility'
 import styled from "styled-components";
 
@@ -14,8 +14,8 @@ const toolTipElement = (props) => {
                 <p className="Tooltip-graph-tx">Accounts: {props.point?.data?.y}</p>
             </div>
             <div class="outer-oval-trans">
-        <div class="Oval"></div>
-      </div>
+                <div class="Oval"></div>
+            </div>
             {/* <TriangleArrowDown /> */}
         </div>
     )
@@ -79,9 +79,9 @@ export default function App() {
             return
         setGraphAccounts(AccountGraph)
         // alert(JSON.stringify(AccountGraph))
-         setInterval(async () => {
+        setInterval(async () => {
             let [error, AccountGraph] = await Utils.parseResponse(AccountService.getSomeDaysAccount())
-            if(error) return;
+            if (error) return;
             setGraphAccounts
                 (AccountGraph);
             // alert(JSON.stringify(AccountGraph))
@@ -125,9 +125,9 @@ export default function App() {
     // const colonIndex2 = value2?.indexOf(n);
     // const atIndex2 = value2?.indexOf("");
     // let lastDate = value2?.slice(atIndex2, colonIndex2);
-    let length = graphAccounts.length;
-    const firstDate = graphAccounts.length === 0 ? "" : (moment(graphAccounts[length - 1]?.day).format('D MMM'))
-    const lastDate = graphAccounts.length === 0 ? "" : (moment(graphAccounts[0]?.day).format('D MMM'))
+    let length = graphAccounts ? graphAccounts?.length : "";
+    const firstDate = graphAccounts && graphAccounts?.length === 0 ? "" : (moment(graphAccounts[length - 1]?.day).format('D MMM'))
+    const lastDate = graphAccounts && graphAccounts?.length === 0 ? "" : (moment(graphAccounts[0]?.day).format('D MMM'))
 
     return (
         <GraphSize >

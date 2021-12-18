@@ -354,7 +354,7 @@ export default function TokenDataComponent() {
       );
 
       if (responseData && responseData?.responseCode !== 400) {
-        console.log(responseData, "?>")
+
         setMarketCapValue(responseData)
 
       }
@@ -426,7 +426,7 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr)
-  console.log(marketCapVal, "RESPONSE")
+
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
@@ -518,7 +518,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      {console.log("TRansfer",transfer)}
+                      {}
                       <TitleValue>{(transfer.length && transfer.length)===0 ? "0" : transfer}</TitleValue>
                     </ValueName>
                   </Value>
