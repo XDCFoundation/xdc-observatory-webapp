@@ -188,6 +188,17 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       width: "250px",
     },
+    subCategory1:{
+      marginTop: "0px",
+     
+      marginBottom: "2px",
+  
+    fontFamily: "Inter",
+    fontSize: "14px",
+    color: "#2a2a2a",
+    fontWeight: "500",
+    border: "none !important",
+    }
   },
   "@media (max-width: 900px)": {
    
@@ -323,7 +334,7 @@ export default function FormDialog() {
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </div>
           <p>
-            <p className={classes.subCategory}>
+            <p className={classes.subCategory1}>
               Description
               {/* <span  className={classes.forgotpass}>
               Forgot ?
