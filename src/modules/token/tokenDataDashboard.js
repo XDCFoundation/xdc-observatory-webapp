@@ -20,7 +20,7 @@ transfer:{
 },
   "@media (min-width: 0px) and (max-width: 767px)": {
     maxWidth: "20px",
-    border:"1px solid black",
+    
   },
 
 
@@ -480,8 +480,10 @@ export default function TokenDataComponent() {
             <LeftSec>
               <ValueMain>
                 <MobileScreen>
+                
                   <Value>
                     {/* <TitleIcon src={blockHeightImg} /> */}
+                    
                     <ValueName>
                       <Title>Holders</Title>
                       <div className="last_value">
@@ -611,7 +613,7 @@ export default function TokenDataComponent() {
             <RightTop>
               <RightTitle>Holders</RightTitle>
               <RightTopSec>14 Days</RightTopSec>
-              <Line2></Line2>
+              <Line2 style={{height: "8px",backgroundColor:"red"}}></Line2>
             </RightTop>
             <GraphContainer>
               <HolderGraphBar />

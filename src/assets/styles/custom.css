@@ -762,7 +762,7 @@ input:focus {
   .Shape2 {
     height: 20px;
     width: 20px;
-    margin-top: -2px;
+    margin-top: 7px;
   }
   .Shape3 {
     width: 3.5rem !important;
@@ -2658,7 +2658,7 @@ p {
 .searchelement-div {
   margin-top: 6.875rem !important;
   margin: auto;
-  padding-bottom: 1.25rem;
+  padding-bottom: 0rem;
   width: 75.125rem;
 }
 
@@ -8874,7 +8874,7 @@ button {
     color: #ffffff;
     font-size: 0.875rem;
     font-family: Inter;
-    margin-left: 2px !important;
+    margin-left: 10px !important;
     margin-top: 23px;
   }
 }
