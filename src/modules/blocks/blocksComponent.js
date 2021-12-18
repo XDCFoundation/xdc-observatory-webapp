@@ -165,7 +165,7 @@ export default function BlocksComponent(props) {
                         >
                           <a
                             className="linkTable"
-                            href={"/block-details/" + row.number + "?hash=" + row.hash}
+                            href={"/block-details/" + row.number}
                           >
                             <span
                               className={

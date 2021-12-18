@@ -16,6 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { TransactionService } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
+
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({

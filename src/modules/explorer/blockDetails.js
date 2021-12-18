@@ -175,7 +175,7 @@ export default function BlockDetailsData() {
                                     Time Stamp
                                 </TableCell>
                                 <TableCell className="second-row-table" style={{ borderBottom: "1px solid #e3e7eb" }}>
-                                    {moment(height.timestamp * 1000).format('MMMM Do YYYY, h:mm:ss a')}
+                                    {moment(height.timestamp * 1000).format('DD MMMM Do YYYY, h:mm:ss a')}
                                 </TableCell>
                                 <TableCell style={{ borderBottom: "1px solid #e3e7eb" }}></TableCell>
                             </TableRow>

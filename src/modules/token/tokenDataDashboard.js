@@ -426,6 +426,7 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr)
+  console.log(marketCapVal, "RESPONSE")
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
@@ -441,6 +442,8 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
+                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={require("../../../src/assets/images/XRC20-Icon.svg")}></img>
+
                 <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
 
@@ -517,7 +520,8 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      <TitleValue>{transfer}</TitleValue>
+                      {console.log("TRansfer",transfer)}
+                      <TitleValue>{(transfer.length && transfer.length)===0 ? "0" : transfer}</TitleValue>
                     </ValueName>
                   </Value>
                   <Value>
@@ -620,9 +624,7 @@ export default function TokenDataComponent() {
             </GraphContainer>
           </RightContainer>
         </MainContainer>
-        <TokenMarketDataTable
-          marketCap={marketCapVal}
-        />
+        {marketCapVal == 0 ? "" : <TokenMarketDataTable marketCap={marketCapVal} />}
         <br /><br />
         <Tokentabs />
         <br /><br />

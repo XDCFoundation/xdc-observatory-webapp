@@ -28,13 +28,13 @@ const MyResponsiveLine = ({ data }) => (
     xScale={{ type: "point" }}
     yScale={{
       type: "linear",
-      min: "auto",
+      min: "-100",
       max: "auto",
       stacked: true,
       reverse: false,
     }}
     yFormat=" >-.2f"
-    curve="basis"
+    curve="monotoneX"
     axisTop={null}
     axisRight={null}
     axisBottom={null}
@@ -120,3 +120,6 @@ export default function App() {
     </GraphSize>
   );
 }
+
+
+
