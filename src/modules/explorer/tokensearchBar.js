@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerHeader: {
       padding: "0 !important",
-    }
+    },
   },
   "@media (min-width: 768px) and (max-width:1240px)": {
     appBar: {
@@ -104,9 +104,8 @@ const useStyles = makeStyles((theme) => ({
     searchIcon: {
       width: 14,
       height: 14,
-      margin: "0px 7px 6px 0"
-    }
-
+      margin: "0px 7px 6px 0",
+    },
   },
 
   content: {
@@ -249,11 +248,7 @@ export default function Navbar() {
           justifyContent: "space-between",
         }}
       >
-        <p
-          className="inside-side-box-browse"
-        >
-          Browse
-        </p>
+        <p className="inside-side-box-browse">Browse</p>
         <div className={classes.drawerHeader}>
           <IconButton
             style={{ color: "white" }}
@@ -432,7 +427,10 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={() => setOpen(false)}
     >
-      <div className="scrollbar" style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        className="scrollbar"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
         <div className={classes.drawerHeader} className="scrollbar">
           <div
             style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
