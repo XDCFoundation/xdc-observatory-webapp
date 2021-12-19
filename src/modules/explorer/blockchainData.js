@@ -8,9 +8,10 @@ import transactionLogo from "../../images/Transaction.svg";
 import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import Tab from "./tab";
-import Loader from "../../assets/loader"
+import Loader from "../../assets/loader";
 import {
   AccountService,
   CoinMarketService,
@@ -19,6 +20,7 @@ import {
   BlockService,
 } from "../../services";
 import Utils from "../../utility";
+import utility from "../../utility";
 
 const MainContainer = styled.div`
   width: 75.125rem;
@@ -322,11 +324,12 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-            this.state.transactionDataDetails[0]?.gasPrice /
-            1000000000000000000
-          ).toFixed(9)
+              this.state.transactionDataDetails[0]?.gasPrice /
+              1000000000000000000
+            ).toFixed(9)
           : 0;
-        if (gp >= 0.000000001) {
+        if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
+          console.log("this.state.gasPrice, gp", this.state.gasPrice, gp);
           this.setState({ gasPrice: gp });
         }
 
@@ -498,8 +501,8 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-          ? "$"
-          : "€";
+        ? "$"
+        : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;
@@ -514,12 +517,10 @@ class BlockChainDataComponent extends Component {
     let currentTp = this.state.tpsCounts;
 
     return (
-
       <MainContainer
         className={this.state.loading == true ? "cover-spin-3" : ""}
       >
-        <LeftContainer
-        >
+        <LeftContainer>
           <LeftFirst>
             <LeftTop>
               <IconLogo src={logo} />
@@ -581,7 +582,17 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={transactionLogo} />
                   <ValueName>
                     <Title>Transactions</Title>
-                    <TitleValue>{this.state.totalTransaction}</TitleValue>
+                    <Tooltip
+                      placement="top"
+                      title={this.state.totalTransaction}
+                    >
+                      <TitleValue>
+                        {" "}
+                        {utility.convertToInternationalCurrencySystem(
+                          this.state.totalTransaction
+                        )}
+                      </TitleValue>
+                    </Tooltip>
                   </ValueName>
                 </Value>
                 <Value>
@@ -608,11 +619,18 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
                     <Title>Difficulty</Title>
-                    <TitleValue
-                      className={animationClass ? animationClass : ""}
+                    <Tooltip
+                      placement="top"
+                      title={this.state.blockdataNumber[0]?.totalDifficulty}
                     >
-                      {this.state.blockdataNumber[0]?.totalDifficulty}
-                    </TitleValue>
+                      <TitleValue
+                        className={animationClass ? animationClass : ""}
+                      >
+                        {utility.convertToInternationalCurrencySystem(
+                          this.state.blockdataNumber[0]?.totalDifficulty
+                        )}
+                      </TitleValue>
+                    </Tooltip>
                   </ValueName>
                 </Value>
 
@@ -668,8 +686,7 @@ class BlockChainDataComponent extends Component {
           </LeftSec>
         </LeftContainer>
 
-        <RightContainer
-        >
+        <RightContainer>
           <Tab />
         </RightContainer>
       </MainContainer>

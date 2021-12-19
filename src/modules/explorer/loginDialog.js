@@ -750,7 +750,7 @@ export default function FormDialog(props) {
         ) : !props.hash ? (
           <button className="login-button" onClick={handleClickOpen}>
             <img
-              className="Shape2"
+              // className="Shape2"
               style={{ borderRadius: "50px" }}
               src={
                 sessionManager.getDataFromCookies(
