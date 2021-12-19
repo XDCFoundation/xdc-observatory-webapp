@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   searchIcon: {
+    marginTop:"2px",
     width: 18,
     height: 18,
     marginRight: 3,
