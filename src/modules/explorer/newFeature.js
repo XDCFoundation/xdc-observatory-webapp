@@ -5,7 +5,6 @@ import { sessionManager } from "../../managers/sessionManager";
 import FormDialog from "./loginDialog"
 
 export default function NewFeature(props) {
-    console.log(props,"propseeeeee")
   const [open, setOpen] = React.useState(true);
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
@@ -19,7 +18,6 @@ export default function NewFeature(props) {
 
 
 const visited = ()=>{
-    console.log("clickedddd")
     sessionManager.setDataInCookies(true,"Visited");
     
 }
@@ -30,7 +28,7 @@ const visited = ()=>{
         <Row className="main-row">
           <div className="main-title">New Features</div>
           <div className="main-close" onClick={handleClose}>
-            <img src={require("../../../src/assets/images/XDC-Cross.svg")} />
+            <img src={"/images/XDC-Cross.svg"} />
           </div>
         </Row>
         <div className="main-sub-title">
@@ -39,7 +37,7 @@ const visited = ()=>{
         <Row className="card-box">
           <div className="card margin-right-20px">
             <img
-              src={require("../../../src/assets/images/watchlist2.svg")}
+              src={'/images/watchlist2.svg'}
               className="crad-image"
             />
             <div className="card-title">Create watchlist</div>
@@ -50,7 +48,7 @@ const visited = ()=>{
           </div>
           <div className="card margin-right-20px">
             <img
-              src={require("../../../src/assets/images/transaction2.svg")}
+              src={"/images/transaction2.svg"}
               className="crad-image"
             />
             <div className="card-title">Add transaction label</div>
@@ -60,7 +58,7 @@ const visited = ()=>{
           </div>
           <div className="card">
             <img
-              src={require("../../../src/assets/images/private2.svg")}
+              src={'/images/private2.svg'}
               className="crad-image"
             />
             <div className="card-title">Add transaction label</div>

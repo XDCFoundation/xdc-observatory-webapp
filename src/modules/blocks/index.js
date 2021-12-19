@@ -71,6 +71,9 @@ export default class LatestBlocksList extends BaseComponent {
         amount = amount ? amount : this.state.amount;
         let urlPath = `?skip=${from}&limit=${amount}`
         let [error, listOfBlocks] = await Utils.parseResponse(BlockService.getLatestBlock(urlPath, {}))
+        if (!listOfBlocks || listOfBlocks.length == 0 || listOfBlocks === undefined || listOfBlocks == "" || listOfBlocks === null) {
+            this.setState({ isLoading: false })
+        }
         if (error || !listOfBlocks)
             return
         this.setState({ blocksList: listOfBlocks })

@@ -846,7 +846,7 @@ export default function SimpleTabs(props) {
               src={
                 sessionManager.getDataFromCookies(
                   cookiesConstants.USER_PICTURE
-                ) || require("../../assets/images/Profile.png")
+                ) || "/images/Profile.png"
               }
             />
           </span>

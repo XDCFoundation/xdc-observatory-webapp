@@ -134,7 +134,7 @@ export default function HoldersDetails(props) {
                               }
                               placement="top"
                             >
-                              <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}> <img src={require("../../../src/assets/images/copy.svg")} /> </button>
+                              <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14, marginLeft: "25px" }}> <img src={"/images/copy.svg"} /> </button>
                             </Tooltip>
                           </CopyToClipboard>
                           <Popup trigger={<ImQrcode className="qr-code" />} modal>

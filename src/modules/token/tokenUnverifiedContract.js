@@ -37,7 +37,7 @@ export default function TokenUnverifiedContract(props) {
 
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/bytecode.svg")} /> Contract Byte-Code</div>
+                        <div className="contract-source-2"><img className="code-logo" src={"/images/bytecode.svg"} /> Contract Byte-Code</div>
                         <div>
                             <CopyToClipboard text={unverifiedData.byteCode}
                                 onCopy={() => setCopiedText(unverifiedData.byteCode)}>
@@ -49,7 +49,7 @@ export default function TokenUnverifiedContract(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={"/images/copy.svg"} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>

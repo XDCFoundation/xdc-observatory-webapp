@@ -149,7 +149,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip align="right" title={hashid}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -205,7 +205,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={blocknumber}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -259,7 +259,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={timestamp}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -306,7 +306,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={from}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -382,7 +382,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={to}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -456,7 +456,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={value}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -506,7 +506,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={txnfee}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -553,7 +553,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={gasprovided}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -599,7 +599,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={gasprice}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -645,7 +645,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={gasused}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -691,7 +691,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip title={nounced}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -738,7 +738,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip align="left" title={input}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>
@@ -777,7 +777,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   <Tooltip align="right" title={privatenote}>
                     <img
                       style={{ width: 13, height: 13 }}
-                      src={require("../../../src/assets/images/questionmark.png")}
+                      src={"/images/questionmark.png"}
                     />
                   </Tooltip>
                 </TableCell>

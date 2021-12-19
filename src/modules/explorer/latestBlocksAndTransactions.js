@@ -66,7 +66,7 @@ class LatestBlocks extends Component {
   }
   async componentDidMount() {
     this.transactionsLatest();
-    await this.blocksLatest();
+    // await this.blocksLatest();
     this.socketData(this.props.socket);
   }
   socketData(socket) {
@@ -151,51 +151,62 @@ class LatestBlocks extends Component {
 
   /* FETCHING LATEST BLOCKS API*/
 
-  async blocksLatest() {
-    let urlPath = "?skip=0&limit=10";
-    let [error, latestBlocks] = await Utils.parseResponse(
-      BlockService.getLatestBlock(urlPath, {})
-    );
-    if (error || !latestBlocks) return;
+  // async blocksLatest() {
+  //   let urlPath = "?skip=0&limit=10";
+  //   let [error, latestBlocks] = await Utils.parseResponse(
+  //     BlockService.getLatestBlock(urlPath, {})
+  //   );
+  //   if (error || !latestBlocks) return;
 
-    this.setState({ latestBlocksData: latestBlocks });
-    this.setState({ isLoading: false });
-    // blocks = latestBlocks;
+  //   this.setState({ latestBlocksData: latestBlocks });
+  //   this.setState({ isLoading: false });
+  //   // blocks = latestBlocks;
 
-    const interval = setInterval(async () => {
-      if (!this.state.blockSocketConnected) {
-        let [error, latestBlocks] = await Utils.parseResponse(
-          BlockService.getLatestBlock(urlPath, {})
-        );
-        this.setState({ latestBlocksData: latestBlocks });
-        this.setState({ isLoading: false });
-      }
+  //   const interval = setInterval(async () => {
+  //     if (!this.state.blockSocketConnected) {
+  //       let [error, latestBlocks] = await Utils.parseResponse(
+  //         BlockService.getLatestBlock(urlPath, {})
+  //       );
+  //       this.setState({ latestBlocksData: latestBlocks });
+  //       this.setState({ isLoading: false });
+  //     }
 
-      // blocks = latestBlocks;
-    }, 90000);
-  }
+  //     // blocks = latestBlocks;
+  //   }, 90000);
+  // }
 
   /* FETCHING LATEST TRANSACTIONS API*/
 
   async transactionsLatest() {
     let urlPath = "?skip=0&limit=10";
+
     let [error, latestTransactions] = await Utils.parseResponse(
       TransactionService.getLatestTransaction(urlPath, {})
     );
-    if (error || !latestTransactions) return;
+
+    if (!latestTransactions || latestTransactions.length == 0 || latestTransactions === undefined || latestTransactions == "" || latestTransactions === null) {
+      this.setState({ isLoading: false });
+    }
+
+    this.setState({ isLoading: false });
     this.setState({ latestTransactionData: latestTransactions });
-    this.setState({ isLoadingTransaction: false });
+
     const interval = setInterval(async () => {
       if (!this.state.transactionSocketConnected) {
         let [error, latestTransactions] = await Utils.parseResponse(
           TransactionService.getLatestTransaction(urlPath, {})
         );
+        if (!latestTransactions || latestTransactions.length == 0 || latestTransactions === undefined || latestTransactions == "" || latestTransactions === null) {
+          this.setState({ isLoading: false });
+        }
+        if (error || !latestTransactions) return;
+        this.setState({ isLoading: false });
         this.setState({ latestTransactionData: latestTransactions });
-        this.setState({ isLoadingTransaction: false });
+
       }
     }, 90000);
-  }
 
+  }
   shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
@@ -416,8 +427,8 @@ class LatestBlocks extends Component {
                                     {e.value == 0
                                       ? 0
                                       : (e.value / 1000000000000000000).toFixed(
-                                          3
-                                        )}{" "}
+                                        3
+                                      )}{" "}
                                     XDC
                                   </p>
                                 </div>

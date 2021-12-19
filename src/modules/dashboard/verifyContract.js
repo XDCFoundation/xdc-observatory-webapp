@@ -38,7 +38,6 @@ export default function VerifyContract() {
         } catch (err) {
             setisLoading(false)
             //setMessage(err)
-            console.log(err)
         }
     };
 
