@@ -310,6 +310,7 @@ export default function StickyHeadTable() {
           borderRadius: "0.875rem",
           // marginLeft: "18%",
           // marginRight: "18%",
+          
         }}
         elevation={0}
       >
@@ -326,7 +327,7 @@ export default function StickyHeadTable() {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                <TableCell style={{ border: "none" }} align="left">
+                <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
                   <span>#</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
@@ -380,7 +381,7 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell id="td">{index + 1}</TableCell>
+                        <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>
                         <TableCell>
                           <a
                             className="token-details-address-link"
