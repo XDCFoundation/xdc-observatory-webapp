@@ -280,7 +280,7 @@ export default function StickyHeadTable() {
                     marginRight: 6,
                     marginTop: 3,
                   }}
-                  src={require("../../assets/images/Search.svg")}
+                  src={"/images/Search.svg"}
                 />
                 <input
                   onKeyPress={(e) => {
@@ -398,7 +398,7 @@ export default function StickyHeadTable() {
                         <TableCell id="td">
                           <img
                             style={{ height: "24", width: "24" }}
-                            src={require("../../../src/assets/images/XRC20-Icon.svg")}
+                            src={"/images/XRC20-Icon.svg"}
                           ></img>
                           &nbsp;{row.symbol}
                         </TableCell>
@@ -492,7 +492,7 @@ export default function StickyHeadTable() {
           >
             <img
               className="navigation-arrow"
-              src={require("../../assets/images/back.svg")}
+              src={"/images/back.svg"}
             />
 
             {/* <p className="path-contract">{"<"}</p> */}
@@ -516,7 +516,7 @@ export default function StickyHeadTable() {
           >
             <img
               className="navigation-arrow"
-              src={require("../../assets/images/next.svg")}
+              src={"/images/next.svg"}
             />
           </div>
           <div

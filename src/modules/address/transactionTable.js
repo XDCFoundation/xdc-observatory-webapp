@@ -317,7 +317,7 @@ export default function TransactionTableComponent(props) {
         <div className="searchelement-input4 search-btn">
          {/* <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
-            src={require('../../assets/images/Search.svg')}
+            src={"/images/Search.svg"}
           />
           } <input
             onKeyUp={(event) => props._handleSearch(event)}
@@ -331,7 +331,7 @@ export default function TransactionTableComponent(props) {
           {isDownloadActive ? (
             <div className="csv">
               <img
-                src={require('../../../src/assets/images/rectangle-copy.svg')}
+                src={"/images/rectangle-copy.svg"}
               />{' '}
               <CSVLink
                 className="ActiveDownload"
@@ -344,7 +344,7 @@ export default function TransactionTableComponent(props) {
           ) : (
             <div className="csv-inactive">
               <img
-                src={require('../../../src/assets/images/rectangle-copy.svg')}
+                src={"/images/rectangle-copy.svg"}
               />{' '}
               <CSVLink
                 className="InactiveDownload"
@@ -612,7 +612,7 @@ export default function TransactionTableComponent(props) {
               onClick={() => handleChangePage('prev')}
               className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
-              <img src={require('../../../src/assets/images/back.svg')} />
+              <img src={"/images/back.svg"} />
             </button>
             <button className="btn-contract">
               Page 0 of 0
@@ -621,7 +621,7 @@ export default function TransactionTableComponent(props) {
               onClick={() => handleChangePage('next')}
               className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
-              <img src={require('../../../src/assets/images/next.svg')} />
+              <img src={"/images/next.svg"} />
             </button>
             <button
               onClick={() => handleChangePage('last')}
@@ -649,7 +649,7 @@ export default function TransactionTableComponent(props) {
               onClick={() => handleChangePage('prev')}
               className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
-              <img src={require('../../../src/assets/images/back.svg')} />
+              <img src={"/images/back.svg"} />
               </button>
               
             <button className="btn-contract">
@@ -662,7 +662,7 @@ export default function TransactionTableComponent(props) {
               onClick={() => handleChangePage('next')}
               className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
             >
-              <img src={require('../../../src/assets/images/next.svg')} />
+              <img src={"/images/next.svg"} />
             </button>
             <button
               onClick={() => handleChangePage('last')}

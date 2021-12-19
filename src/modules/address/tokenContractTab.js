@@ -10,7 +10,7 @@ export default function TokenContracttab(props) {
         <>
             <Paper style={{ borderRadius: '14px', boxShadow: ' 0 1px 10px 0 rgba(0, 0, 0, 0.1)' }} elevation={0}>
                 <div className="container" >
-                    <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={require("../../../src/assets/images/verified.svg")} ></img></span>Contract Source Code Verified</div>
+                    <div className="contract-source"><span style={{ color: '#03be46', fontSize: '14', alignItems: "center" }}><img className="verified-logo" src={"/images/verified.svg"} ></img></span>Contract Source Code Verified</div>
                     <br /><br />
                     <div className="source-code-verified-container">
                         <div className="source-code-first-container">
@@ -47,7 +47,7 @@ export default function TokenContracttab(props) {
 
                     <br />
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/code.svg")} />Contract Source Code Verified </div>
+                        <div className="contract-source-2"><img className="code-logo" src={"/images/code.svg"} />Contract Source Code Verified </div>
                         <div>
                             <CopyToClipboard text={verifiedData.sourceCode}
                                 onCopy={() => setCopiedText(verifiedData.sourceCode)}>
@@ -59,7 +59,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={"/images/copy.svg"} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
@@ -73,7 +73,7 @@ export default function TokenContracttab(props) {
                     <br />
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/abi.svg")} />Contract ABI</div>
+                        <div className="contract-source-2"><img className="code-logo" src={"/images/abi.svg"} />Contract ABI</div>
                         <div>
                             <CopyToClipboard text={verifiedData.abi}
                                 onCopy={() => setCopiedText(verifiedData.abi)}>
@@ -85,7 +85,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={"/images/copy.svg"} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>
@@ -99,7 +99,7 @@ export default function TokenContracttab(props) {
                     <br />
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={require("../../../src/assets/images/bytecode.svg")} />Contract Byte-Code</div>
+                        <div className="contract-source-2"><img className="code-logo" src={"/images/bytecode.svg"} />Contract Byte-Code</div>
                         <div>
                             <CopyToClipboard text={verifiedData.byteCode}
                                 onCopy={() => setCopiedText(verifiedData.byteCode)}>
@@ -111,7 +111,7 @@ export default function TokenContracttab(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={require("../../../src/assets/images/copy.svg")} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img src={"/images/copy.svg"} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>

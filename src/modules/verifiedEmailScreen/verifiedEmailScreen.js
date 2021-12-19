@@ -58,7 +58,7 @@ function VerifiedEmailScreenComponent() {
     <Container>
       <MainDiv>
         <Verified>
-          <img src={require("../../../src/assets/images/greenTick.svg")} />{" "}
+          <img src={"/images/greenTick.svg"} />{" "}
           <EmailVerified> Email Verified </EmailVerified>
         </Verified>
         <Rectangle>
