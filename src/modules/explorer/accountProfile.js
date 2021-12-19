@@ -13,7 +13,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { CSVLink } from "react-csv";
-import TableHead from "@material-ui/core/TableHead";
+import TableHead from "@material-ui/core/TableHead";  
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
@@ -141,25 +141,6 @@ const useStyles = makeStyles((theme) => ({
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
   },
-  // taboption: {
-
-  //         activeTintColor: "white",
-  //         inactiveTintColor: "blue",
-
-  //         indicatorStyle :{
-  //               backgroundColor:'blue'
-  //         },
-
-  //         style: {
-  //           backgroundColor: 'grey',
-  //         },
-  //         labelStyle: {
-  //           fontSize: 9,
-  //           margin: 0,
-  //           padding: 0,
-  //           fontFamily: 'Poppins-bold',
-  //         },
-  //       },
   mywatch: {
     /* width: 100px; */
     height: "19px",
@@ -229,7 +210,7 @@ const useStyles = makeStyles((theme) => ({
     tab2: {
       color: "#6b7482",
       textTransform: "initial",
-      fontSize: "0.722rem",
+      fontSize: "0.722rem"
     },
   },
   "@media (max-width: 828px)": {
@@ -457,16 +438,6 @@ export default function SimpleTabs(props) {
     }
   }
 
-  // const filteredProducts = address.filter((product) => {
-  //   if (
-  //     product.tags.toLowerCase().includes(search) ||
-  //     product.title.toLowerCase().includes(search) ||
-  //     product.category.toLowerCase().includes(search)
-  //   ) {
-  //     return product;
-  //   }
-  // });
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -482,6 +453,19 @@ export default function SimpleTabs(props) {
   const [totalCount2, setTotalCount2] = React.useState(5);
   const [totalCount3, setTotalCount3] = React.useState(5);
 
+  // Edit box Popup Handlers
+  const [editBoxOpen, setEditBox] = React.useState(false);
+  const [selectedEditAddress, setSelectedAddress] = React.useState(false);
+  const handleClickOpen = (value) => {
+    setEditBox(true);
+    setSelectedAddress(value)
+  };
+  const handleClose = async () => {
+    console.log("CLOSE")
+    setEditBox(false);
+    };
+
+  // Edit Handlers Done
   const onChangeWatchlistPage = async (value) => {
     setWatchlistPageCount(value);
     const list = Math.ceil(value.selected * 5);
