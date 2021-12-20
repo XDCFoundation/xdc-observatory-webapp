@@ -531,7 +531,7 @@ class BlockChainDataComponent extends Component {
       : 0;
     let blockNumber = this.state.blockdataNumber[0]?.number;
     let animationClass = this.state.animationBlock?.[blockNumber];
-    let txhash = this.state.transactionDataDetails[0]?.hash;
+    let txhash = this.state.transactionDataDetails ? this.state.transactionDataDetails[0]?.hash : 0;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts;

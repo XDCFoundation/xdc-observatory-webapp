@@ -146,12 +146,12 @@ export default function StickyHeadTable() {
     let values = { addr: address, pageNum: 0, perpage: event.target.value };
     listOfHolders(values);
   };
-  function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 3,
-      b.length
-    )}`;
-  }
+  // function shorten(b, amountL = 10, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 3,
+  //     b.length
+  //   )}`;
+  // }
 
   return (
     <div>
@@ -199,7 +199,7 @@ export default function StickyHeadTable() {
                 </TableCell>
               </TableRow>
             </TableHead>
-            {isLoading == true ? (
+            {isLoading === true ? (
               <TableBody>
                 <TableRow>
                   <TableCell style={{ border: "none" }} colspan="5">
@@ -301,7 +301,7 @@ export default function StickyHeadTable() {
             onClick={() => handleChangePage("prev")}
           >
             <p className="path">
-              <img src={"/images/back.svg"} width="9px" />
+              <img alt="back" src={"/images/back.svg"} width="9px" />
             </p>
           </div>
           <div className="pagebox">
@@ -321,7 +321,7 @@ export default function StickyHeadTable() {
             }
           >
             <p className="path-2" onClick={() => handleChangePage("next")}>
-              <img src={"/images/next.svg"} width="9px" />
+              <img alt="next" src={"/images/next.svg"} width="9px" />
             </p>
           </div>
           <div

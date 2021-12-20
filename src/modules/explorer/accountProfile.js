@@ -141,25 +141,6 @@ const useStyles = makeStyles((theme) => ({
   PrivateTabIndicatorColorSecondary57: {
     backgroundColor: "#2149b9",
   },
-  // taboption: {
-
-  //         activeTintColor: "white",
-  //         inactiveTintColor: "blue",
-
-  //         indicatorStyle :{
-  //               backgroundColor:'blue'
-  //         },
-
-  //         style: {
-  //           backgroundColor: 'grey',
-  //         },
-  //         labelStyle: {
-  //           fontSize: 9,
-  //           margin: 0,
-  //           padding: 0,
-  //           fontFamily: 'Poppins-bold',
-  //         },
-  //       },
   mywatch: {
     /* width: 100px; */
     height: "19px",
@@ -236,7 +217,7 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "710px",
       width: "100%",
-      padding: "0 24px",
+      padding: "0 10px",
     },
   },
 
@@ -295,6 +276,21 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "initial",
   },
+  noData: {
+    width: "auto",
+    height: "19px",
+    margin: "25px 15px 0 480px",
+    fontFamily: "Inter",
+    fontSize: "16px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+
+    color: "#c6cbcf",
+  },
+  alert: {
+    margin: "110px 0 0 580px",
+  },
+
   // Rectangle: {
   //   width: "14px",
   //   height: "14px",
@@ -363,6 +359,9 @@ export default function SimpleTabs(props) {
   const [tagPageCount, setTagPageCount] = React.useState({});
   const [search, setSearch] = React.useState("");
   const [dataNotFound, setDataNotFound] = React.useState("");
+  const [addressNotAdded, setAddressNotAdded] = React.useState(true);
+  const [watchListNotAdded, setWatchListNotAdded] = React.useState(true);
+  const [txnAddressNotAdded, setTxnAddressNotAdded] = React.useState(true);
 
   async function searchData(event) {
     if (value === 0) {
@@ -407,7 +406,7 @@ export default function SimpleTabs(props) {
         );
 
         if (error || !response) {
-          setDataNotFound("Data not found");
+          setDataNotFound("Data Not Found");
         } else {
           setAddress(response);
         }
@@ -439,16 +438,6 @@ export default function SimpleTabs(props) {
     }
   }
 
-  // const filteredProducts = address.filter((product) => {
-  //   if (
-  //     product.tags.toLowerCase().includes(search) ||
-  //     product.title.toLowerCase().includes(search) ||
-  //     product.category.toLowerCase().includes(search)
-  //   ) {
-  //     return product;
-  //   }
-  // });
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -464,6 +453,18 @@ export default function SimpleTabs(props) {
   const [totalCount2, setTotalCount2] = React.useState(5);
   const [totalCount3, setTotalCount3] = React.useState(5);
 
+  // Edit box Popup Handlers
+  const [editBoxOpen, setEditBox] = React.useState(false);
+  const [selectedEditAddress, setSelectedAddress] = React.useState(false);
+  const handleClickOpen = (value) => {
+    setEditBox(true);
+    setSelectedAddress(value);
+  };
+  const handleClose = async () => {
+    setEditBox(false);
+  };
+
+  // Edit Handlers Done
   const onChangeWatchlistPage = async (value) => {
     setWatchlistPageCount(value);
     const list = Math.ceil(value.selected * 5);
@@ -490,6 +491,10 @@ export default function SimpleTabs(props) {
       isWatchlistAddress: true,
     };
     const response = await UserService.getWatchlistList(request);
+
+    if (response.totalCount > 0) {
+      setAddressNotAdded(false);
+    }
     setWatchlist(response.watchlistContent);
   };
 
@@ -500,6 +505,9 @@ export default function SimpleTabs(props) {
       userId: sessionManager.getDataFromCookies("userId"),
     };
     const response = await UserService.getTxnLabelList(request);
+    if (response.totalCount > 0) {
+      setWatchListNotAdded(false);
+    }
     setAddress(response.txnLabelContent);
   };
 
@@ -511,6 +519,9 @@ export default function SimpleTabs(props) {
       isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
+    if (response.totalCount > 0) {
+      setTxnAddressNotAdded(false);
+    }
     setPrivateAddress(response.tagAddressContent);
   };
 
@@ -594,7 +605,7 @@ export default function SimpleTabs(props) {
     const { name, checked } = event.target;
     if (name === "allselect" || countWatchlist === watchlistLength) {
       if (checkedWatchlist === false) {
-        setCheckedWatchlist(true);
+        setCheckedWatchlist(false);
       } else {
         setCheckedWatchlist(false);
       }
@@ -613,6 +624,7 @@ export default function SimpleTabs(props) {
           return addr;
         }
       });
+
       if (tempAddr.length > 0) {
         setDownloadActive(1);
       } else {
@@ -989,19 +1001,195 @@ export default function SimpleTabs(props) {
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
-              <Grid lg={13} className="tablegrid_address">
-                <Grid
-                  component={Paper}
-                  style={{ boxShadow: "0px 0px 0px 0px" }}
-                >
-                  <Table
-                    className="table w-700-a w-1500-a"
-                    aria-label="Latest Transactions"
-                    style={{ boxShadow: "0px 0px 0px 0px" }}
+              {addressNotAdded ? (
+                <div style={{ height: "512px" }}>
+                  <Grid
+                    className="tablegrid_no_data"
+                    style={{ borderBottom: "2px solid #f9f9f9" }}
                   >
-                    <TableHead>
-                      <TableRow>
-                        {/* <TableCell style={{ border: "none" }} align="left">
+                    <Grid
+                      component={Paper}
+                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                    >
+                      <Table
+                        className="table w-700-a w-1500-a"
+                        aria-label="Latest Transactions"
+                        style={{ boxShadow: "0px 0px 0px 0px" }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheadersWatchlist"}>
+                                Address
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>
+                                Description
+                              </span>
+                            </TableCell>
+                            <TableCell
+                              style={{
+                                border: "none",
+                                display: "flex",
+                                lineHeight: "21px",
+                              }}
+                              align="left"
+                            >
+                              <span className={"tableheaders-1"}>Balance</span>
+                              <button className={classes.btn}>
+                                <ArrowUpwardIcon
+                                  onClick={sortByBalance}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </button>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Added On</span>
+                            </TableCell>
+                            <TableCell
+                              style={{ border: "none", marginBottom: "160px" }}
+                              align="left"
+                            >
+                              <span className={"tableheaders-1"}>
+                                Notification
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"} />
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                      </Table>
+                    </Grid>
+                  </Grid>
+                  <img
+                    className={classes.alert}
+                    src={require("../../../src/assets/images/XDC-Alert.svg")}
+                  ></img>
+
+                  <div className={classes.noData}>
+                    No address added to watchlist
+                  </div>
+                </div>
+              ) : (
+                <Grid lg={13} className="tablegrid_address">
+                  {dataNotFound ? (
+                    <div style={{ height: "512px" }}>
+                      <Grid
+                        className="tablegrid_no_data"
+                        style={{ borderBottom: "2px solid #f9f9f9" }}
+                      >
+                        <Grid
+                          component={Paper}
+                          style={{ boxShadow: "0px 0px 0px 0px" }}
+                        >
+                          <Table
+                            className="table w-700-a w-1500-a"
+                            aria-label="Latest Transactions"
+                            style={{ boxShadow: "0px 0px 0px 0px" }}
+                          >
+                            <TableHead>
+                              <TableRow>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheadersWatchlist"}>
+                                    Address
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Description
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{
+                                    border: "none",
+                                    display: "flex",
+                                    lineHeight: "21px",
+                                  }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Balance
+                                  </span>
+                                  <button className={classes.btn}>
+                                    <ArrowUpwardIcon
+                                      onClick={sortByBalance}
+                                      style={{
+                                        color: "#3763dd",
+                                        height: "20px",
+                                        width: "15px",
+                                        marginLeft: "5px",
+                                      }}
+                                    />
+                                  </button>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Added On
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{
+                                    border: "none",
+                                    marginBottom: "160px",
+                                  }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Notification
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"} />
+                                </TableCell>
+                              </TableRow>
+                            </TableHead>
+                          </Table>
+                        </Grid>
+                      </Grid>
+                      <img
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
+
+                      <div
+                        className={classes.noData}
+                        style={{ marginLeft: "538px" }}
+                      >
+                        Data Not Found
+                      </div>
+                    </div>
+                  ) : (
+                    <Grid
+                      component={Paper}
+                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                    >
+                      <Table
+                        className="table w-700-a w-1500-a"
+                        aria-label="Latest Transactions"
+                        style={{ boxShadow: "0px 0px 0px 0px" }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            {/* <TableCell style={{ border: "none" }} align="left">
                           <input
                             onChange={handleWatchlistCheckbox}
                             type="checkbox"
@@ -1013,63 +1201,65 @@ export default function SimpleTabs(props) {
                             }}
                           />
                           </TableCell> */}
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheadersWatchlist"}>
-                            Address
-                          </span>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Description</span>
-                        </TableCell>
-                        <TableCell
-                          style={{
-                            border: "none",
-                            display: "flex",
-                            lineHeight: "21px",
-                          }}
-                          align="left"
-                        >
-                          <span className={"tableheaders-1"}>Balance</span>
-                          <button className={classes.btn}>
-                            <ArrowUpwardIcon
-                              onClick={sortByBalance}
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheadersWatchlist"}>
+                                Address
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>
+                                Description
+                              </span>
+                            </TableCell>
+                            <TableCell
                               style={{
-                                color: "#3763dd",
-                                height: "20px",
-                                width: "15px",
-                                marginLeft: "5px",
+                                border: "none",
+                                display: "flex",
+                                lineHeight: "21px",
                               }}
-                            />
-                          </button>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Added On</span>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Notification</span>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"} />
-                        </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                      </TableRow>
-                    </TableHead>
-                    {dataNotFound ? (
-                      <div className={classes.error}>{dataNotFound}</div>
-                    ) : (
-                      <TableBody>
-                        {watchlist &&
-                          watchlist.length > 0 &&
-                          watchlist.map((row, index) => {
-                            return (
-                              <TableRow
-                                style={
-                                  index % 2 !== 1
-                                    ? { background: "#f9f9f9" }
-                                    : { background: "white" }
-                                }
-                              >
-                                {/* <TableCell
+                              align="left"
+                            >
+                              <span className={"tableheaders-1"}>Balance</span>
+                              <button className={classes.btn}>
+                                <ArrowUpwardIcon
+                                  onClick={sortByBalance}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </button>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Added On</span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>
+                                Notification
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"} />
+                            </TableCell>
+                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                          </TableRow>
+                        </TableHead>
+
+                        <TableBody>
+                          {watchlist &&
+                            watchlist.length > 0 &&
+                            watchlist.map((row, index) => {
+                              return (
+                                <TableRow
+                                  style={
+                                    index % 2 !== 1
+                                      ? { background: "#f9f9f9" }
+                                      : { background: "white" }
+                                  }
+                                >
+                                  {/* <TableCell
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
@@ -1082,79 +1272,80 @@ export default function SimpleTabs(props) {
                                 style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
                               </TableCell> */}
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <a
-                                    className="linkTable1"
-                                    href={"/address-details/" + row.address}
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
                                   >
-                                    <Tooltip
-                                      placement="top"
-                                      title={row.address}
+                                    <a
+                                      className="linkTable1"
+                                      href={"/address-details/" + row.address}
                                     >
-                                      <span className="tabledataWatchlist">
-                                        {shorten(row.address)}{" "}
-                                      </span>
-                                    </Tooltip>
-                                  </a>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className="tabledata-1">
-                                    {row.description}
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className="tabledata-1">
-                                    {row.balance}
-                                  </span>
-                                  {/* </a> */}
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className="tabledata-1">
-                                    {moment(row.addedOn).format(
-                                      "hh:mm A, D MMMM YYYY "
-                                    )}
-                                  </span>
-                                  {/* </a> */}
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className="tabledata-1">
-                                    {row.notification.type === "NO"
-                                      ? "Off"
-                                      : "Email"}
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <EditWatchList
-                                    row={row}
-                                    getWatchlistList={getListOfWatchlist}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                      </TableBody>
-                    )}
-                  </Table>
+                                      <Tooltip
+                                        placement="top"
+                                        title={row.address}
+                                      >
+                                        <span className="tabledataWatchlist">
+                                          {shorten(row.address)}{" "}
+                                        </span>
+                                      </Tooltip>
+                                    </a>
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <span className="tabledata-1">
+                                      {row.description}
+                                    </span>
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <span className="tabledata-1">
+                                      {row.balance}
+                                    </span>
+                                    {/* </a> */}
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <span className="tabledata-1">
+                                      {moment(row.addedOn).format(
+                                        "hh:mm A, D MMMM YYYY "
+                                      )}
+                                    </span>
+                                    {/* </a> */}
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <span className="tabledata-1">
+                                      {row.notification.type === "NO"
+                                        ? "Off"
+                                        : "Email"}
+                                    </span>
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <EditWatchList
+                                      row={row}
+                                      getWatchlistList={getListOfWatchlist}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                        </TableBody>
+                      </Table>
+                    </Grid>
+                  )}
                 </Grid>
-              </Grid>
+              )}
             </div>
             <PaginationDiv>
               <ReactPaginate
@@ -1173,167 +1364,351 @@ export default function SimpleTabs(props) {
 
           <TabPanel value={value} index={1}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address">
-                <Grid
-                  component={Paper}
-                  style={{ boxShadow: "0px 0px 0px 0px" }}
-                >
-                  <Table
-                    className="table w-700-a w-1500-a"
-                    aria-label="Latest Transactions"
-                    style={{ boxShadow: "0px 0px 0px 0px" }}
+              {watchListNotAdded ? (
+                <div style={{ height: "512px" }}>
+                  <Grid
+                    className="tablegrid_no_data"
+                    style={{ borderBottom: "2px solid #f9f9f9" }}
                   >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <input
-                            // className={classes.Rectangle}
-                            onChange={handlePvtNoteCheckbox}
-                            type="checkbox"
-                            name="allselect"
-                            checked={
-                              countNote === pvtNoteLength || checkedNote == true
-                            }
-                            style={{
-                              marginRight: "10px",
-                              border: "solid 1px #e3e7eb",
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>
-                            Transaction Hash
-                          </span>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Note</span>
-                        </TableCell>
-                        {/* <TableCell
+                    <Grid
+                      component={Paper}
+                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                    >
+                      <Table
+                        className="table w-700-a w-1500-a"
+                        aria-label="Latest Transactions"
+                        style={{ boxShadow: "0px 0px 0px 0px" }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <input
+                                // className={classes.Rectangle}
+                                onChange={handlePvtNoteCheckbox}
+                                type="checkbox"
+                                name="allselect"
+                                checked={
+                                  countNote === pvtNoteLength ||
+                                  checkedNote == true
+                                }
+                                style={{
+                                  marginRight: "10px",
+                                  border: "solid 1px #e3e7eb",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>
+                                Transaction Hash
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Note</span>
+                            </TableCell>
+                            {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Added On</span>
-                          {/* <span> */}
-                          <button className={classes.btn}>
-                            <ArrowUpwardIcon
-                              onClick={sortByAddedOn}
-                              style={{
-                                color: "#3763dd",
-                                height: "20px",
-                                width: "15px",
-                                marginLeft: "5px",
-                              }}
-                            />
-                          </button>
-                          {/* </span> */}
-                        </TableCell>
-                        {/* <TableCell
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Added On</span>
+                              {/* <span> */}
+                              <button className={classes.btn}>
+                                <ArrowUpwardIcon
+                                  onClick={sortByAddedOn}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </button>
+                              {/* </span> */}
+                            </TableCell>
+
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}></span>
+                            </TableCell>
+                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                          </TableRow>
+                        </TableHead>
+                      </Table>
+                    </Grid>
+                  </Grid>
+                  <img
+                    className={classes.alert}
+                    src={require("../../../src/assets/images/XDC-Alert.svg")}
+                  ></img>
+
+                  <div className={classes.noData}>
+                    No Hash added to Priavte Note
+                  </div>
+                </div>
+              ) : (
+                <Grid
+                  className="tablegrid_no_data"
+                  style={{ borderBottom: "2px solid #f9f9f9" }}
+                >
+                  {dataNotFound ? (
+                    <div style={{ height: "512px" }}>
+                      <Grid
+                        className="tablegrid_no_data"
+                        style={{ borderBottom: "2px solid #f9f9f9" }}
+                      >
+                        <Grid
+                          component={Paper}
+                          style={{ boxShadow: "0px 0px 0px 0px" }}
+                        >
+                          <Table
+                            className="table w-700-a w-1500-a"
+                            aria-label="Latest Transactions"
+                            style={{ boxShadow: "0px 0px 0px 0px" }}
+                          >
+                            <TableHead>
+                              <TableRow>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <input
+                                    // className={classes.Rectangle}
+                                    onChange={handlePvtNoteCheckbox}
+                                    type="checkbox"
+                                    name="allselect"
+                                    checked={
+                                      countNote === pvtNoteLength ||
+                                      checkedNote == true
+                                    }
+                                    style={{
+                                      marginRight: "10px",
+                                      border: "solid 1px #e3e7eb",
+                                    }}
+                                  />
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Transaction Hash
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>Note</span>
+                                </TableCell>
+                                {/* <TableCell
+                                style={{ border: "none", paddingLeft: "2%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders-1"}>Balance</span>
+                            </TableCell> */}
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Added On
+                                  </span>
+                                  {/* <span> */}
+                                  <button className={classes.btn}>
+                                    <ArrowUpwardIcon
+                                      onClick={sortByAddedOn}
+                                      style={{
+                                        color: "#3763dd",
+                                        height: "20px",
+                                        width: "15px",
+                                        marginLeft: "5px",
+                                      }}
+                                    />
+                                  </button>
+                                  {/* </span> */}
+                                </TableCell>
+
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}></span>
+                                </TableCell>
+                                {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                              </TableRow>
+                            </TableHead>
+                          </Table>
+                        </Grid>
+                      </Grid>
+                      <img
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
+
+                      <div className={classes.noData}>
+                        style={{ marginLeft: "538px" }}
+                        Data Not Found
+                      </div>
+                    </div>
+                  ) : (
+                    <Grid
+                      component={Paper}
+                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                    >
+                      <Table
+                        className="table w-700-a w-1500-a"
+                        aria-label="Latest Transactions"
+                        style={{ boxShadow: "0px 0px 0px 0px" }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <input
+                                // className={classes.Rectangle}
+                                onChange={handlePvtNoteCheckbox}
+                                type="checkbox"
+                                name="allselect"
+                                checked={
+                                  countNote === pvtNoteLength ||
+                                  checkedNote == true
+                                }
+                                style={{
+                                  marginRight: "10px",
+                                  border: "solid 1px #e3e7eb",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>
+                                Transaction Hash
+                              </span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Note</span>
+                            </TableCell>
+                            {/* <TableCell
+                                style={{ border: "none", paddingLeft: "2%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders-1"}>Balance</span>
+                            </TableCell> */}
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Added On</span>
+                              {/* <span> */}
+                              <button className={classes.btn}>
+                                <ArrowUpwardIcon
+                                  onClick={sortByAddedOn}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </button>
+                              {/* </span> */}
+                            </TableCell>
+                            {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}></span>
-                        </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                      </TableRow>
-                    </TableHead>
-                    {dataNotFound ? (
-                      <TableRow>
-                        <TableCell style={{ border: "none" }} />
-                        <div className={classes.error1}>{dataNotFound}</div>
-                      </TableRow>
-                    ) : (
-                      <TableBody>
-                        {address.map((row, index) => {
-                          return (
-                            <TableRow
-                              style={
-                                index % 2 !== 1
-                                  ? { background: "#f9f9f9" }
-                                  : { background: "white" }
-                              }
-                            >
-                              <TableCell
-                                style={{ border: "none" }}
-                                margin-left="5px"
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}></span>
+                            </TableCell>
+                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                          </TableRow>
+                        </TableHead>
+
+                        <TableBody>
+                          {address.map((row, index) => {
+                            return (
+                              <TableRow
+                                style={
+                                  index % 2 !== 1
+                                    ? { background: "#f9f9f9" }
+                                    : { background: "white" }
+                                }
                               >
-                                <input
-                                  key={row._id}
-                                  name={row._id}
-                                  onChange={handlePvtNoteCheckbox}
-                                  type="checkbox"
-                                  checked={row?.isChecked2 || false}
-                                  style={{ marginTop: "4px" }}
-                                  // className={classes.Rectangle}
-                                />
-                              </TableCell>
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <a
-                                  className="linkTable1"
-                                  href={
-                                    "/transaction-details/" +
-                                    row.transactionHash
-                                  }
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  margin-left="5px"
                                 >
-                                  <Tooltip
-                                    placement="top"
-                                    title={row.transactionHash}
+                                  <input
+                                    key={row._id}
+                                    name={row._id}
+                                    onChange={handlePvtNoteCheckbox}
+                                    type="checkbox"
+                                    checked={row?.isChecked2 || false}
+                                    style={{ marginTop: "4px" }}
+                                    // className={classes.Rectangle}
+                                  />
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <a
+                                    className="linkTable1"
+                                    href={
+                                      "/transaction-details/" +
+                                      row.transactionHash
+                                    }
                                   >
-                                    <span className="tabledata1">
-                                      {Utils.shortenHash(row.transactionHash)}{" "}
-                                    </span>
-                                  </Tooltip>
-                                </a>
-                              </TableCell>
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <span className="tabledata-1">
-                                  {row.trxLable}
-                                </span>
-                              </TableCell>
-                              {/* <TableCell style={{ border: "none" }} align="left">
+                                    <Tooltip
+                                      placement="top"
+                                      title={row.transactionHash}
+                                    >
+                                      <span className="tabledata1">
+                                        {Utils.shortenHash(row.transactionHash)}{" "}
+                                      </span>
+                                    </Tooltip>
+                                  </a>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.trxLable}
+                                  </span>
+                                </TableCell>
+                                {/* <TableCell style={{ border: "none" }} align="left">
                                         
                                             <span className="tabledata-1">{row.Balance}</span>
                                         
                                     </TableCell> */}
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <span className="tabledata-1">
-                                  {" "}
-                                  {moment(row.addedOn).format(
-                                    "hh:mm A, D MMMM YYYY "
-                                  )}{" "}
-                                </span>
-                              </TableCell>
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <EditTxnLabel
-                                  row={row}
-                                  getListOfTxnLabel={getListOfTxnLabel}
-                                />
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    )}
-                  </Table>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {" "}
+                                    {moment(row.addedOn).format(
+                                      "hh:mm A, D MMMM YYYY "
+                                    )}{" "}
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <EditTxnLabel
+                                    row={row}
+                                    getListOfTxnLabel={getListOfTxnLabel}
+                                  />
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                    </Grid>
+                  )}
                 </Grid>
-              </Grid>
+              )}
             </div>
             <PaginationDiv>
               <ReactPaginate
@@ -1351,164 +1726,355 @@ export default function SimpleTabs(props) {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
-              <Grid lg={13} className="tablegrid_address">
-                <Grid
-                  component={Paper}
-                  style={{ boxShadow: "0px 0px 0px 0px" }}
-                >
-                  <Table
-                    className="table"
-                    aria-label="Latest Transactions"
-                    style={{ boxShadow: "0px 0px 0px 0px" }}
+              {txnAddressNotAdded ? (
+                <div style={{ height: "512px" }}>
+                  <Grid
+                    className="tablegrid_no_data"
+                    style={{ borderBottom: "2px solid #f9f9f9" }}
                   >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <input
-                            onChange={handleTagAddressCheckbox}
-                            type="checkbox"
-                            name="allselect"
-                            checked={
-                              countTag === tagAddrLength || checkedTag == true
-                            }
-                            className={classes.Rectangle}
-                            style={{
-                              marginRight: "10px",
-                              border: "solid 1px #e3e7eb",
-                              backgroundColor: "red",
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Address</span>
-                        </TableCell>
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Name Tag</span>
-                          <button className={classes.btn}>
-                            <ArrowUpwardIcon
-                              onClick={sortByTagName}
-                              style={{
-                                color: "#3763dd",
-                                height: "20px",
-                                width: "15px",
-                                marginLeft: "5px",
-                              }}
-                            />
-                          </button>
-                        </TableCell>
-                        {/* <TableCell
+                    <Grid
+                      component={Paper}
+                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                    >
+                      <Table
+                        className="table"
+                        aria-label="Latest Transactions"
+                        style={{ boxShadow: "0px 0px 0px 0px" }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <input
+                                onChange={handleTagAddressCheckbox}
+                                type="checkbox"
+                                name="allselect"
+                                checked={
+                                  countTag === tagAddrLength ||
+                                  checkedTag == true
+                                }
+                                className={classes.Rectangle}
+                                style={{
+                                  marginRight: "10px",
+                                  border: "solid 1px #e3e7eb",
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Address</span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Name Tag</span>
+                              <button className={classes.btn}>
+                                <ArrowUpwardIcon
+                                  onClick={sortByTagName}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </button>
+                            </TableCell>
+                            {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}>Added On</span>
-                        </TableCell>
-                        {/* <TableCell
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Added On</span>
+                            </TableCell>
+
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}></span>
+                            </TableCell>
+                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                          </TableRow>
+                        </TableHead>
+                      </Table>
+                    </Grid>
+                  </Grid>{" "}
+                  <img
+                    className={classes.alert}
+                    src={require("../../../src/assets/images/XDC-Alert.svg")}
+                  ></img>
+                  <div className={classes.noData}>
+                    No Address added to Tagged Address
+                  </div>
+                </div>
+              ) : (
+                <Grid lg={13} className="tablegrid_address">
+                  {dataNotFound ? (
+                    <div style={{ height: "512px" }}>
+                      <Grid
+                        className="tablegrid_no_data"
+                        style={{ borderBottom: "2px solid #f9f9f9" }}
+                      >
+                        <Grid
+                          component={Paper}
+                          style={{ boxShadow: "0px 0px 0px 0px" }}
+                        >
+                          <Table
+                            className="table"
+                            aria-label="Latest Transactions"
+                            style={{ boxShadow: "0px 0px 0px 0px" }}
+                          >
+                            <TableHead>
+                              <TableRow>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <input
+                                    onChange={handleTagAddressCheckbox}
+                                    type="checkbox"
+                                    name="allselect"
+                                    checked={
+                                      countTag === tagAddrLength ||
+                                      checkedTag == true
+                                    }
+                                    className={classes.Rectangle}
+                                    style={{
+                                      marginRight: "10px",
+                                      border: "solid 1px #e3e7eb",
+                                      backgroundColor: "red",
+                                    }}
+                                  />
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Address
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Name Tag
+                                  </span>
+                                  <button className={classes.btn}>
+                                    <ArrowUpwardIcon
+                                      onClick={sortByTagName}
+                                      style={{
+                                        color: "#3763dd",
+                                        height: "20px",
+                                        width: "15px",
+                                        marginLeft: "5px",
+                                      }}
+                                    />
+                                  </button>
+                                </TableCell>
+                                {/* <TableCell
+                                style={{ border: "none", paddingLeft: "2%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders-1"}>Balance</span>
+                            </TableCell> */}
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}>
+                                    Added On
+                                  </span>
+                                </TableCell>
+
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className={"tableheaders-1"}></span>
+                                </TableCell>
+                                {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                              </TableRow>
+                            </TableHead>
+                          </Table>
+                        </Grid>
+                      </Grid>{" "}
+                      <img
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
+                      <div
+                        className={classes.noData}
+                        style={{ marginLeft: "538px" }}
+                      >
+                        Data Not Found
+                      </div>
+                    </div>
+                  ) : (
+                    <Grid
+                      component={Paper}
+                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                    >
+                      <Table
+                        className="table"
+                        aria-label="Latest Transactions"
+                        style={{ boxShadow: "0px 0px 0px 0px" }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <input
+                                onChange={handleTagAddressCheckbox}
+                                type="checkbox"
+                                name="allselect"
+                                checked={
+                                  countTag === tagAddrLength ||
+                                  checkedTag == true
+                                }
+                                className={classes.Rectangle}
+                                style={{
+                                  marginRight: "10px",
+                                  border: "solid 1px #e3e7eb",
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Address</span>
+                            </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Name Tag</span>
+                              <button className={classes.btn}>
+                                <ArrowUpwardIcon
+                                  onClick={sortByTagName}
+                                  style={{
+                                    color: "#3763dd",
+                                    height: "20px",
+                                    width: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </button>
+                            </TableCell>
+                            {/* <TableCell
+                                style={{ border: "none", paddingLeft: "2%" }}
+                                align="left"
+                            >
+                                <span className={"tableheaders-1"}>Balance</span>
+                            </TableCell> */}
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}>Added On</span>
+                            </TableCell>
+                            {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
-                        <TableCell style={{ border: "none" }} align="left">
-                          <span className={"tableheaders-1"}></span>
-                        </TableCell>
-                        {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                      </TableRow>
-                    </TableHead>
-                    {dataNotFound ? (
-                      <TableRow>
-                        <TableCell style={{ border: "none" }} />
-                        <div className={classes.error}>{dataNotFound}</div>
-                      </TableRow>
-                    ) : (
-                      <TableBody>
-                        {privateAddress.map((row, index) => {
-                          let tag = row.tagName;
-                          // const multipleTag = handleMultipleTag(tag);
+                            <TableCell style={{ border: "none" }} align="left">
+                              <span className={"tableheaders-1"}></span>
+                            </TableCell>
+                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                          </TableRow>
+                        </TableHead>
+                        {dataNotFound ? (
+                          <TableRow>
+                            <TableCell style={{ border: "none" }} />
+                            <div className={classes.error}>{dataNotFound}</div>
+                          </TableRow>
+                        ) : (
+                          <TableBody>
+                            {privateAddress.map((row, index) => {
+                              let tag = row.tagName;
+                              // const multipleTag = handleMultipleTag(tag);
 
-                          return (
-                            <TableRow
-                              style={
-                                index % 2 !== 1
-                                  ? { background: "#f9f9f9" }
-                                  : { background: "white" }
-                              }
-                            >
-                              <TableCell
-                                style={{ border: "none" }}
-                                margin-left="5px"
-                              >
-                                <input
-                                  key={row._id}
-                                  name={row._id}
-                                  onChange={handleTagAddressCheckbox}
-                                  // className={classes.Rectangle}
-                                  type="checkbox"
-                                  checked={row?.isChecked3 || false}
-                                  style={{ marginTop: "4px" }}
-                                />
-                              </TableCell>
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <a
-                                  className="linkTable1"
-                                  href={"/address-details/" + row.address}
+                              return (
+                                <TableRow
+                                  style={
+                                    index % 2 !== 1
+                                      ? { background: "#f9f9f9" }
+                                      : { background: "white" }
+                                  }
                                 >
-                                  <Tooltip placement="top" title={row.address}>
-                                    <span className="tabledata1">
-                                      {shorten(row.address)}
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    margin-left="5px"
+                                  >
+                                    <input
+                                      key={row._id}
+                                      name={row._id}
+                                      onChange={handleTagAddressCheckbox}
+                                      // className={classes.Rectangle}
+                                      type="checkbox"
+                                      checked={row?.isChecked3 || false}
+                                      style={{ marginTop: "4px" }}
+                                    />
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <a
+                                      className="linkTable1"
+                                      href={"/address-details/" + row.address}
+                                    >
+                                      <Tooltip
+                                        placement="top"
+                                        title={row.address}
+                                      >
+                                        <span className="tabledata1">
+                                          {shorten(row.address)}
+                                        </span>
+                                      </Tooltip>
+                                    </a>
+                                  </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <span className="tabledata-2">
+                                      {tag.map((item, index) => {
+                                        return (
+                                          <div
+                                            className="nameLabel2"
+                                            key={index}
+                                          >
+                                            {item}
+                                          </div>
+                                        );
+                                      })}
                                     </span>
-                                  </Tooltip>
-                                </a>
-                              </TableCell>
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <span className="tabledata-2">
-                                  {tag.map((item, index) => {
-                                    return (
-                                      <div className="nameLabel2" key={index}>
-                                        {item}
-                                      </div>
-                                    );
-                                  })}
-                                </span>
-                              </TableCell>
+                                  </TableCell>
 
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <span className="tabledata-1">
-                                  {moment(row.addedOn).format(
-                                    "hh:mm A, D MMMM YYYY "
-                                  )}
-                                </span>
-                                {/* </a> */}
-                              </TableCell>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <span className="tabledata-1">
+                                      {moment(row.addedOn).format(
+                                        "hh:mm A, D MMMM YYYY "
+                                      )}
+                                    </span>
+                                    {/* </a> */}
+                                  </TableCell>
 
-                              <TableCell
-                                style={{ border: "none" }}
-                                align="left"
-                              >
-                                <EditTagAddress
-                                  row={row}
-                                  getListOfTagAddress={getListOfTagAddress}
-                                />
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    )}
-                  </Table>
+                                  <TableCell
+                                    style={{ border: "none" }}
+                                    align="left"
+                                  >
+                                    <EditTagAddress
+                                      row={row}
+                                      getListOfTagAddress={getListOfTagAddress}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
+                          </TableBody>
+                        )}
+                      </Table>
+                    </Grid>
+                  )}
                 </Grid>
-              </Grid>
+              )}
             </div>
             <PaginationDiv>
               <ReactPaginate

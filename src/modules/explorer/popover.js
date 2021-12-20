@@ -7,6 +7,7 @@ import { cookiesConstants } from "../../constants";
 import LoginDialog from "../explorer/loginDialog";
 import AuthService from "../../services/userLogin";
 import { Avatar } from "@material-ui/core";
+import { history } from "../../managers/history";
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -45,6 +46,9 @@ export default function BasicPopover(props) {
   const [openCP, setOpen] = React.useState(false);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
+  const openMyProfile = () => {
+    history.push("loginProfile");
+  };
   const openChangePassword = () => {
     setOpen(props.openChangePassword);
     setAnchorEl(null);
@@ -56,9 +60,8 @@ export default function BasicPopover(props) {
   const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
     const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
-      authObject.logout(userId)
-    );
+    // let [error, authResponse] =
+    await Utility.parseResponse(authObject.logout(userId));
 
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
@@ -80,12 +83,12 @@ export default function BasicPopover(props) {
       return userName;
     }
   };
-  const setUserImage = () => {
-    let name = sessionManager.getDataFromCookies("userInfo");
+  // const setUserImage = () => {
+  //   let name = sessionManager.getDataFromCookies("userInfo");
 
-    let userName = name.profilePic;
-    return userName;
-  };
+  //   let userName = name.profilePic;
+  //   return userName;
+  // };
 
   return (
     <div>
@@ -134,6 +137,11 @@ export default function BasicPopover(props) {
           horizontal: "right",
         }}
       >
+        <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
+          <Text style={{ marginRight: "auto" }} onClick={openMyProfile}>
+            My Profile
+          </Text>
+        </Contents>
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
             Change Password

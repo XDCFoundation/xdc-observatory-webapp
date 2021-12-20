@@ -393,11 +393,23 @@ background-color: #4878ff; */
   color: #252525;
   text-decoration: none;
 }
+.table > :not(:first-child) {
+  border: 0px;
+}
 
 .linkTable1 {
   color: #2149b9;
   line-height: 0;
 }
+
+.learnMoreText {
+  display: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1920px) {
   .heading {
     max-width: 1250px;
@@ -424,7 +436,7 @@ background-color: #4878ff; */
 
 @media screen and (max-width: 1242px) {
   .div3 {
-    margin-top: 44px;
+    /*margin-top: 44px;*/
   }
 }
 @media screen and (max-width: 1240px) {
@@ -444,7 +456,6 @@ background-color: #4878ff; */
     margin-top: 6px;
     margin-bottom: 11px;
   }
-
   .line {
     max-width: 664px;
     width: 92%;
@@ -461,11 +472,25 @@ background-color: #4878ff; */
   .tablegrid_address_contract {
     width: 1300px;
   }
+  .learnMoreText {
+    font-size: 10px;
+    color: #81b4ff;
+    display: block;
+    letter-spacing: 0.38px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+  }
 }
 @media screen and (max-width: 714px) {
   .line {
     max-width: 375px;
     width: 95%;
+  }
+  .createWatchlistText {
+    position: relative;
+    top: 10px;
   }
 }
 @media screen and (max-width: 450px) {

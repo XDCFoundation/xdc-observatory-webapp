@@ -63,24 +63,24 @@ export default function Transaction({ _handleChange }) {
   const [isTagTo, setIsTagTo] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [fromAddress, setFromAddress] = useState("");
+  // const [fromAddress, setFromAddress] = useState("");
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
-  function shorten(b, amountL = 35, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
-  function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
+  // function shorten(b, amountL = 35, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
+  // function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -146,9 +146,9 @@ export default function Transaction({ _handleChange }) {
     );
     if (
       !transactiondetailusinghash ||
-      transactiondetailusinghash.length == 0 ||
+      transactiondetailusinghash.length === 0 ||
       transactiondetailusinghash === undefined ||
-      transactiondetailusinghash == "" ||
+      transactiondetailusinghash === "" ||
       transactiondetailusinghash === null
     ) {
       setLoading(false);
@@ -278,6 +278,53 @@ export default function Transaction({ _handleChange }) {
   //   )
   // }
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
+  const getHoursAgo = (date) => {
+    let today = Date.now();
+    let difference = today - date;
+    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
+    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    difference -= hoursDifference * 1000 * 60 * 60;
+    var minutesDifference = Math.floor(difference / 1000 / 60);
+    difference -= minutesDifference * 1000 * 60;
+    var secondsDifference = Math.floor(difference / 1000);
+    console.log(
+      "difference = " +
+        daysDifference +
+        " day/s " +
+        hoursDifference +
+        " hour/s " +
+        minutesDifference +
+        " minute/s " +
+        secondsDifference +
+        " second/s "
+    );
+    if (
+      secondsDifference < 60 &&
+      minutesDifference === 0 &&
+      hoursDifference === 0 &&
+      daysDifference === 0
+    ) {
+      if (secondsDifference === 1) return secondsDifference + " second ago ";
+      else return secondsDifference + " seconds ago ";
+    }
+    if (
+      minutesDifference < 60 &&
+      hoursDifference === 0 &&
+      daysDifference === 0
+    ) {
+      if (minutesDifference === 1) return minutesDifference + " minute ago ";
+      return minutesDifference + " minutes ago";
+    }
+    if (hoursDifference < 60 && daysDifference === 0) {
+      if (hoursDifference === 1) return hoursDifference + " hour ago ";
+      return hoursDifference + " hours ago";
+    }
+    if (daysDifference < 30) {
+      if (hoursDifference === 1) return hoursDifference + " day ago ";
+      return daysDifference + " days ago";
+    }
+  };
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -357,27 +404,33 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {
-                            <PrivateNote
-                              open={dialogPvtNoteIsOpen}
-                              onClose={closeDialogPvtNote}
-                              hash={hash}
-                              pvtNote={privateNote[0]?.trxLable}
-                            />
-                          }
-                          {
-                            <img
-                              className={
-                                width > 1240
-                                  ? "edit-icon"
-                                  : width < 768
-                                  ? "editIconHashMobile"
-                                  : "editIconHash"
+                          {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                            <>
+                              {
+                                <PrivateNote
+                                  open={dialogPvtNoteIsOpen}
+                                  onClose={closeDialogPvtNote}
+                                  hash={hash}
+                                  pvtNote={privateNote[0]?.trxLable}
+                                />
                               }
-                              onClick={openDialogPvtNote}
-                              src={"/images/XDC-Edit.svg"}
-                            />
-                          }
+                              {
+                                <img
+                                  className={
+                                    width > 1240
+                                      ? "edit-icon"
+                                      : width < 768
+                                      ? "editIconHashMobile"
+                                      : "editIconHash"
+                                  }
+                                  onClick={openDialogPvtNote}
+                                  src={require("../../../src/assets/images/label.svg")}
+                                />
+                              }
+                            </>
+                          ) : (
+                            ""
+                          )}
                         </span>
                       </MiddleContainer1>
                     </HashDiv>
@@ -417,7 +470,8 @@ export default function Transaction({ _handleChange }) {
                         {" "}
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
-                        )}
+                        )}{" "}
+                        +0530 ({getHoursAgo(transactions.timestamp * 1000)})
                       </MiddleContainer>
                     </Spacing>
                     <SpacingHash>
@@ -479,29 +533,37 @@ export default function Transaction({ _handleChange }) {
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen}
-                                  onClose={closeDialogPvtTag}
-                                  fromAddr={transactions.from}
-                                  value={dialogValue}
-                                  hash={hash}
-                                />
-                              }
-                              {isTag ? (
-                                <div className="nameLabel">
-                                  {addressTag[0]?.tagName}
-                                </div>
-                              ) : (
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
+                              {sessionManager.getDataFromCookies(
+                                "isLoggedIn"
+                              ) ? (
+                                <>
+                                  {
+                                    <PrivateAddressTag
+                                      open={dialogPvtTagIsOpen}
+                                      onClose={closeDialogPvtTag}
+                                      fromAddr={transactions.from}
+                                      value={dialogValue}
+                                      hash={hash}
+                                    />
                                   }
-                                  onClick={openDialogPvtTag}
-                                  src={"/images/XDC-Edit.svg"}
-                                />
+                                  {isTag ? (
+                                    <div className="nameLabel">
+                                      {addressTag[0]?.tagName}
+                                    </div>
+                                  ) : (
+                                    <img
+                                      className={
+                                        width > 1240
+                                          ? "edit1-icon"
+                                          : "edit1-icon-from"
+                                      }
+                                      onClick={openDialogPvtTag}
+                                      src={require("../../../src/assets/images/tag.svg")}
+                                    />
+                                  )}
+                                </>
+                              ) : (
+                                ""
                               )}
                             </div>
                           </span>
@@ -566,29 +628,37 @@ export default function Transaction({ _handleChange }) {
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen2}
-                                  onClose={closeDialogPvtTag2}
-                                  toAddr={transactions.to}
-                                  value={dialogValue2}
-                                  hash={hash}
-                                />
-                              }
-                              {isTagTo ? (
-                                <div className="nameLabel">
-                                  {addressTagTo[0]?.tagName}
-                                </div>
-                              ) : (
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
+                              {sessionManager.getDataFromCookies(
+                                "isLoggedIn"
+                              ) ? (
+                                <>
+                                  {
+                                    <PrivateAddressTag
+                                      open={dialogPvtTagIsOpen2}
+                                      onClose={closeDialogPvtTag2}
+                                      toAddr={transactions.to}
+                                      value={dialogValue2}
+                                      hash={hash}
+                                    />
                                   }
-                                  onClick={openDialogPvtTag2}
-                                  src={"/images/XDC-Edit.svg"}
-                                />
+                                  {isTagTo ? (
+                                    <div className="nameLabel">
+                                      {addressTagTo[0]?.tagName}
+                                    </div>
+                                  ) : (
+                                    <img
+                                      className={
+                                        width > 1240
+                                          ? "edit1-icon"
+                                          : "edit1-icon-from"
+                                      }
+                                      onClick={openDialogPvtTag2}
+                                      src={require("../../../src/assets/images/tag.svg")}
+                                    />
+                                  )}
+                                </>
+                              ) : (
+                                ""
                               )}
                             </div>
                           </span>
@@ -677,7 +747,7 @@ export default function Transaction({ _handleChange }) {
                         <Tooltip align="right" title={nounced}>
                           <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
-                        <Hash>Nounce</Hash>
+                        <Hash>Nonce</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
                         <Content> {transactions.nonce}</Content>

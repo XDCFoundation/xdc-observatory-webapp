@@ -3,12 +3,14 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import { makeStyles, mergeClasses } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    padding: "22px 35px 15px 0px",
   },
   input: {
     width: "503px",
@@ -165,17 +167,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "111px",
     borderRadius: "12px",
-    "@media (min-width:0px) and (max-width:375px)": {
-      width: "100% !important",
-      height: "100% !important",
-      borderRadius: "1px !important",
-    },
-    "@media (min-width:375px) and (max-width:768px)": {
-      width: "100% !important",
-      height: "100% !important",
-      borderRadius: "1px !important",
-      maxWidth: "768px !important",
-    },
   },
   "@media (max-width: 714px)": {
     heading: {
@@ -196,18 +187,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
+
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
-  const [nameTag, setNameTag] = React.useState(false);
+  // const [nameTag, setNameTag] = React.useState(false);
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
-  const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
-  };
+  // const togglePasswordVisiblity = () => {
+  //   setPasswordShown(passwordShown ? false : true);
+  //   // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
+  // };
+
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function TaggedAddress() {
     setError("");
@@ -230,7 +242,7 @@ export default function FormDialog() {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error, response] = await utility.parseResponse(
+      const [error] = await utility.parseResponse(
         UserService.addPrivateTagToAddress(data)
       );
 
@@ -332,6 +344,25 @@ export default function FormDialog() {
             Add a short memo or private tag to the address of interest.
           </div>
         </button>
+
+        <div
+          className="imageParentDiv"
+          style={{ position: "relative", top: "32px" }}
+        >
+          <LightToolTip
+            open={tooltipIsOpen}
+            title="Add a short memo or private tag to the address of interest."
+            arrow
+            placement="top-start"
+          >
+            <div
+              className="learnMoreText"
+              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+            >
+              Learn More
+            </div>
+          </LightToolTip>
+        </div>
       </div>
 
       {/* <Button

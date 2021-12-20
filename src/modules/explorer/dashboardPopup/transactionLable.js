@@ -9,6 +9,8 @@ import { history } from "../../../managers/history";
 import { sessionManager } from "../../../managers/sessionManager";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -169,6 +171,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
+
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
@@ -180,6 +201,8 @@ export default function FormDialog() {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
+
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function transactionLable() {
     const data = {
@@ -264,6 +287,25 @@ export default function FormDialog() {
             Add a personal note to a transacton hash to track it in future.
           </div>
         </button>
+
+        <div
+          className="imageParentDiv"
+          style={{ position: "relative", top: "30px" }}
+        >
+          <LightToolTip
+            open={tooltipIsOpen}
+            title="Add a personal note to a transacton hash to track it in future."
+            arrow
+            placement="top-start"
+          >
+            <div
+              className="learnMoreText"
+              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+            >
+              Learn More
+            </div>
+          </LightToolTip>
+        </div>
       </div>
 
       {/* <Button

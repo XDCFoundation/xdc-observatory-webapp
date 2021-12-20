@@ -8,13 +8,15 @@ import { Row, typeOf } from "simple-flexbox";
 import { sessionManager } from "../../../managers/sessionManager";
 import Test from "./Test";
 import { history } from "../../../managers/history";
-import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
+import Utils from "../../../utility";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -185,6 +187,25 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 900px)": {},
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
+
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -195,6 +216,8 @@ export default function FormDialog() {
   const [notification, setNotification] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
+
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -246,6 +269,11 @@ export default function FormDialog() {
       setDescription("");
       setOpen(false);
     }
+    utility.apiSuccessToast("Address added to watchlist");
+    setAddress("");
+    setDescription("");
+    setOpen(false);
+    window.location.reload();
   };
 
   const handleClickOpen = () => {
@@ -302,6 +330,25 @@ export default function FormDialog() {
             watch list recieves an incoming transaction.
           </div>
         </button>
+
+        <div
+          className="imageParentDiv"
+          style={{ position: "relative", top: "33px" }}
+        >
+          <LightToolTip
+            open={tooltipIsOpen}
+            title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
+            arrow
+            placement="top-start"
+          >
+            <div
+              className="learnMoreText"
+              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+            >
+              Learn More
+            </div>
+          </LightToolTip>
+        </div>
       </div>
 
       {/* <Button
