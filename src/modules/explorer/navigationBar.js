@@ -19,7 +19,6 @@ import Login from "../login";
 
 import Utility from "../../utility";
 import SearchData from "../../services/search";
-import searchIcon from "../../assets/images/Search.svg";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -198,20 +197,22 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        if (responseData[0].redirect == "block") {
+
+        if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
-        } else if (responseData[0].redirect == "account") {
+        } else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
-        } else if (responseData[0].redirect == "transaction") {
+        } else if (responseData[0].redirect === "transaction") {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect == "token") {
-          let tokenurl = "/token-data/" + responseData[0].token.address;
+        } else if (responseData[0].redirect === "token") {
+          let tokenurl = "/token-data/" + responseData[0].token.address + "/" + responseData[0].token.symbol;
           window.location.href = tokenurl;
+
         } else {
         }
       }
@@ -645,7 +646,7 @@ export default function Navbar() {
               <a className="logo_tokensearch" href={"/"}>
                 <img
                   className="Shape"
-                  src={require("../../../src/assets/images/XDC-Icon-Logo.svg")}
+                  src={"/images/XDC-Icon-Logo.svg"}
                 ></img>
               </a>
               <a className="XDC" href="/">
@@ -700,7 +701,7 @@ export default function Navbar() {
               >
                 <img
                   className="menu-sidebar"
-                  src={require("../../../src/assets/images/Menu.svg")}
+                  src={"/images/Menu.svg"}
                 ></img>
               </IconButton>
 
@@ -735,7 +736,7 @@ export default function Navbar() {
                   <a className="logo_tokensearch" href={"/"}>
                     <img
                       className="Shape"
-                      src={require("../../../src/assets/images/XDC icon.svg")}
+                      src={"/images/XDC icon.svg"}
                     ></img>
                   </a>
                   <a className="XDC" href="/">
@@ -823,7 +824,7 @@ export default function Navbar() {
         <div className="exp-parent">
           <img
             className="Shape3"
-            src={require("../../../src/assets/images/Networkexplorer.svg")}
+            src={"/images/Networkexplorer.svg"}
           ></img>
           <div className="exp">XDC Observatory</div>
         </div>
@@ -842,7 +843,7 @@ export default function Navbar() {
                   <div className="search-dashboard-input">
                     <img
                       className="search-dashboard-icon"
-                      src={searchIcon}
+                      src={"/images/Search.svg"}
                     ></img>
                     <input
                       defaultValue={filter}

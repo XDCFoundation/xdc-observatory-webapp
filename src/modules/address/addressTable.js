@@ -386,7 +386,7 @@ export default function AddressTableComponent(props) {
         <div className="searchelement-input4 search-input-box">
           {/*<img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
-            src={require('../../assets/images/Search.svg')}
+            src={"/images/Search.svg"}
           />
           <input
             className="input-box-search"
@@ -727,7 +727,7 @@ export default function AddressTableComponent(props) {
               >
                 <img
                   className="back-arrow"
-                  src={require('../../assets/images/back.svg')}
+                  src={"/images/back.svg"}
                 />
               </button>
               <button className="btn">
@@ -742,7 +742,7 @@ export default function AddressTableComponent(props) {
               >
                 <img
                   className="back-arrow"
-                  src={require('../../assets/images/next.svg')}
+                  src={"/images/next.svg"}
                 />
               </button>
               <button
@@ -779,7 +779,7 @@ export default function AddressTableComponent(props) {
               >
                 <img
                   className="back-arrow"
-                  src={require('../../assets/images/back.svg')}
+                  src={"/images/back.svg"}
                 />
               </button>
               <button className="btn">
@@ -796,7 +796,7 @@ export default function AddressTableComponent(props) {
               >
                 <img
                   className="back-arrow"
-                  src={require('../../assets/images/next.svg')}
+                  src={"/images/next.svg"}
                 />
               </button>
               <button

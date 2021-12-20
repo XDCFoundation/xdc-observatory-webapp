@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
-import INR from "../../assets/images/INR.svg";
-import EUR from "../../assets/images/Euro.svg";
-import USD from "../../assets/images/dollar.svg";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import DownArrow from "@material-ui/icons/KeyboardArrowDown";
@@ -106,7 +103,7 @@ export default function FooterComponent(props) {
                 <div className="Top-Header">
                   <img
                     className="Shape-footer"
-                    src={require("../../../src/assets/images/XDC-Icon-Logo.svg")}
+                    src={"/images/XDC-Icon-Logo.svg"}
                   ></img>
                   <p className="XDC-Header">XDC</p>
                 </div>
@@ -151,7 +148,7 @@ export default function FooterComponent(props) {
                     paddingBottom: "0px",
                   }}
                 >
-                  <img className="select-icon" src={USD} />{" "}
+                  <img className="select-icon" src={"/images/dollar.svg"} />{" "}
                   <span className="USD" selected>
                     USD
                   </span>
@@ -163,7 +160,7 @@ export default function FooterComponent(props) {
                     backgroundColor: "#2149b9",
                   }}
                 >
-                  <img className="select-icon" src={EUR} />{" "}
+                  <img className="select-icon" src={"/images/Euro.svg"} />{" "}
                   <span className="USD">EUR</span>
                 </MenuItem>
                 <MenuItem
@@ -173,7 +170,7 @@ export default function FooterComponent(props) {
                     backgroundColor: "#2149b9",
                   }}
                 >
-                  <img className="select-icon" src={INR} />{" "}
+                  <img className="select-icon" src={"/images/INR.svg"} />{" "}
                   <span className="USD">INR</span>
                 </MenuItem>
               </Select>

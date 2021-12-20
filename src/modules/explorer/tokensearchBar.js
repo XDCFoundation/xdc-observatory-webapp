@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   searchIcon: {
+    marginTop:"2px",
     width: 18,
     height: 18,
     marginRight: 3,
@@ -490,7 +491,7 @@ export default function Navbar() {
         </ul>
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://xinfin.network/#explorer">
-            <div className="xinfin_account_button">Block Explorer</div>
+            <div className="xinfin_account_button">Block Observatory</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -540,7 +541,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://explorer.apothem.network/home"
           >
-            <div className="xinfin_account_button">Block Explorer</div>
+            <div className="xinfin_account_button">Block Observatory</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -662,7 +663,7 @@ export default function Navbar() {
                 <a href={"/"}>
                   <img
                     className="Shape-XDC"
-                    src={require("../../../src/assets/images/XDC icon.svg")}
+                    src={"/images/XDC icon.svg"}
                   ></img>
                 </a>
                 <a className="XDC-internal" href="/">
@@ -720,7 +721,7 @@ export default function Navbar() {
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
                           className={classes.searchIcon}
-                          src={require("../../assets/images/Search.svg")}
+                          src={"/images/Search.svg"}
                         />
                         <div className="search-responsive">
                           <div>
@@ -735,7 +736,7 @@ export default function Navbar() {
                                 }
                               }}
                               className="main-input-td "
-                              src={require("../../images/Search.png")}
+                              src={"/images/Search.png"}
                               placeholder="Search for an address, a Transaction or a block number"
                             />
                           </div>
@@ -802,7 +803,7 @@ export default function Navbar() {
               >
                 <img
                   className={isloggedIn ? "Shape2-internal1" : "menu-sidebar"}
-                  src={require("../../../src/assets/images/Menu.svg")}
+                  src={"/images/Menu.svg"}
                 ></img>
                 {/* <MenuIcon /> */}
               </IconButton>

@@ -181,6 +181,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       width: "250px",
     },
+    
   },
   "@media (max-width: 900px)": {
    
@@ -208,7 +209,6 @@ export default function FormDialog() {
   const [isSize, setisSize] = React.useState(false)
 const screenSize = window.innerHeight 
   if (screenSize=== "626") {
-    console.log(screenSize);
     setisSize(false);
  }
 
@@ -251,6 +251,7 @@ const screenSize = window.innerHeight
     setAddress("");
     setDescription("");
     setOpen(false);
+    window.location.reload();
   };
 }
 
@@ -292,7 +293,7 @@ const screenSize = window.innerHeight
         <div>
           <img
             className="imagediv1"
-            src={require("../../../assets/images/watchlist.png")}
+            src={"/images/watchlist.png"}
           ></img>
         </div>
         <button className={classes.btn}>
@@ -310,7 +311,7 @@ const screenSize = window.innerHeight
         color="primary"
         onClick={handleClickOpen}
       >
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
+          <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
     {isSize===false
         ?(

@@ -16,6 +16,7 @@ import AddressDetails from "./modules/address/addressDetails";
 import HolderDetails from "./modules/holders/holderDetails";
 import PolicyDetails from "./modules/explorer/privacyPolicy";
 import TermsCondition from "./modules/explorer/termsCondition";
+import ActivateAccount from "./modules/explorer/activateAccount";
 import AddressDetailsData from "./modules/address/AddressDetailsData";
 import ContractComponent from "./modules/dashboard/contractComponent";
 import ContractTab from "./modules/dashboard/contractTab";
@@ -80,6 +81,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/loginprofile'} component={AccountProfile} />
             <Route exact path={'/privacy-policy'} component={PolicyDetails} />
             <Route exact path={'/term-conditions'} component={TermsCondition} />
+            <Route exact path={'/activate-account'} component={ActivateAccount} />
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
             <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent}/>
             <Route exact path={'/edit-profile'} component={EditProfile} />

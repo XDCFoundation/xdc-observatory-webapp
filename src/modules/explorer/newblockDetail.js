@@ -15,6 +15,7 @@ import moment from "moment";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
+import utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +74,9 @@ export default function BlockDetails() {
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
+    if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length == 0 || blockDetailsUsingHeight === undefined || blockDetailsUsingHeight == "" || blockDetailsUsingHeight === null) {
+      setLoading(false);
+    }
     if (error || !blockDetailsUsingHeight) return;
     setHeight(blockDetailsUsingHeight);
     setLoading(false);

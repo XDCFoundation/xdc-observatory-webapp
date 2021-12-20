@@ -1,7 +1,6 @@
 import { Paper } from 'material-ui';
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import bytecod from '../../assets/images/bytecod.png';
 import Tooltip from "@material-ui/core/Tooltip";
 import { IoIosWarning } from "react-icons/io"
 import { FaShieldAlt } from "react-icons/fa"
@@ -35,7 +34,7 @@ export default function TokenUnverifiedContract(props) {
 
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={bytecod} />Contract Byte-Code</div>
+                        <div className="contract-source-2"><img className="code-logo" src={'/images/bytecod.png'} />Contract Byte-Code</div>
                         <div>
                             <CopyToClipboard text={unverifiedData.byteCode}
                                 onCopy={() => setCopiedText(unverifiedData.byteCode)}>
