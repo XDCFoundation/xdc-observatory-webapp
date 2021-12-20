@@ -3,7 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import { makeStyles, mergeClasses } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
@@ -190,13 +190,13 @@ export default function FormDialog() {
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const [privateAddress, setPrivateAddress] = React.useState(false);
-  const [nameTag, setNameTag] = React.useState(false);
+  // const [nameTag, setNameTag] = React.useState(false);
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
-  const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-    // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
-  };
+  // const togglePasswordVisiblity = () => {
+  //   setPasswordShown(passwordShown ? false : true);
+  //   // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
+  // };
 
   async function TaggedAddress() {
     setError("")
@@ -217,7 +217,7 @@ export default function FormDialog() {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error, response] = await utility.parseResponse(
+      const [error] = await utility.parseResponse(
         UserService.addPrivateTagToAddress(data)
       );
 
@@ -311,7 +311,7 @@ export default function FormDialog() {
     <div>
       <div className="div3" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
         <div>
-          <img
+          <img alt="private"
             className="imagediv3"
             src={"/images/private.png"}
           ></img>

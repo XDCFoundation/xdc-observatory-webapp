@@ -59,13 +59,13 @@ const useStyles = makeStyles({
 
   },
 });
-const Pagination = styled.div`
-  @media (min-width: 640px) {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-`;
+// const Pagination = styled.div`
+//   @media (min-width: 640px) {
+//     display: flex;
+//     width: 100%;
+//     justify-content: space-between;
+//   }
+// `;
 
 export default function TransactionComponent(props) {
   const classes = useStyles();
@@ -151,7 +151,7 @@ export default function TransactionComponent(props) {
                 </TableCell> */}
               </TableRow>
             </TableHead>
-            {props.state.isLoading == true ? (
+            {props.state.isLoading === true ? (
               <TableBody>
                 <TableRow>
                   <TableCell style={{ border: 'none' }} colspan="7">
@@ -169,9 +169,9 @@ export default function TransactionComponent(props) {
                     const currentTime = new Date();
                     const previousTime = new Date(row.timestamp * 1000);
                     const ti = timeDiff(currentTime, previousTime);
-                    const txFee = (
-                      (row?.gasUsed * row?.gasPrice) / 100000000000000000
-                    ).toFixed(9);
+                    // const txFee = (
+                    //   (row?.gasUsed * row?.gasPrice) / 100000000000000000
+                    // ).toFixed(9);
                     let amt = (row.value / 1000000000000000000).toFixed(4);
                     const Hash = row.hash;
                     let animationClass = props.state.hashAnimation?.[Hash];
@@ -364,7 +364,7 @@ export default function TransactionComponent(props) {
               props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
             }
           >
-            <img src={"/images/back.svg"} />{" "}
+            <img alt="back" src={"/images/back.svg"} />{" "}
           </button>
           <button className="btn btn-page">
             Page{" "}
@@ -384,7 +384,7 @@ export default function TransactionComponent(props) {
                 : "btn btn-next"
             }
           >
-            <img src={"/images/next.svg"} />
+            <img alt="next" src={"/images/next.svg"} />
           </button>
           <button
             onClick={(event) => props._LastPage(event)}
