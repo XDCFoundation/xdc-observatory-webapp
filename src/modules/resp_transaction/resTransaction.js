@@ -63,11 +63,24 @@ export default function Transaction({ _handleChange }) {
   const [isTagTo, setIsTagTo] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [fromAddress, setFromAddress] = useState("");
+  // const [fromAddress, setFromAddress] = useState("");
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
+  // };
+  // function shorten(b, amountL = 35, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
+  // function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -77,7 +90,7 @@ export default function Transaction({ _handleChange }) {
     };
   }
   const [windowDimensions, setWindowDimensions] = React.useState(
-    getWindowDimensions()
+      getWindowDimensions()
   );
 
   React.useEffect(() => {
@@ -129,14 +142,14 @@ export default function Transaction({ _handleChange }) {
   const transactionDetail = async () => {
     let urlPath = `${hash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
-      TransactionService.getTransactionDetailsUsingHash(urlPath, {})
+        TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
     if (
-      !transactiondetailusinghash ||
-      transactiondetailusinghash.length == 0 ||
-      transactiondetailusinghash === undefined ||
-      transactiondetailusinghash == "" ||
-      transactiondetailusinghash === null
+        !transactiondetailusinghash ||
+        transactiondetailusinghash.length === 0 ||
+        transactiondetailusinghash === undefined ||
+        transactiondetailusinghash === "" ||
+        transactiondetailusinghash === null
     ) {
       setLoading(false);
     }
@@ -151,7 +164,7 @@ export default function Transaction({ _handleChange }) {
   const getLatestBlock = async () => {
     let urlPath = "?skip=0&limit=1";
     let [error, latestBlocks] = await Utils.parseResponse(
-      BlockService.getLatestBlock(urlPath, {})
+        BlockService.getLatestBlock(urlPath, {})
     );
     if (error || !latestBlocks) return;
 
@@ -168,7 +181,7 @@ export default function Transaction({ _handleChange }) {
   const getCoinMarketDetailForTransaction = async (ts) => {
     let urlPath = "?transactionTime=" + ts + "&fiatValue=" + CurrencyValue;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
-      TransactionService.getCoinMarketDetailForTransaction(urlPath, {})
+        TransactionService.getCoinMarketDetailForTransaction(urlPath, {})
     );
     if (error || !transactiondetailusinghash) return;
     setPrice(transactiondetailusinghash[0]?.price);
@@ -181,7 +194,7 @@ export default function Transaction({ _handleChange }) {
       userId: sessionManager.getDataFromCookies("userId"),
     };
     let [error, privateNoteUsingHashResponse] = await Utils.parseResponse(
-      TransactionService.getUserTransactionPrivateNoteUsingHash(data)
+        TransactionService.getUserTransactionPrivateNoteUsingHash(data)
     );
     if (error || !privateNoteUsingHashResponse) return;
     setPrivateNote(privateNoteUsingHashResponse);
@@ -194,7 +207,7 @@ export default function Transaction({ _handleChange }) {
       userId: sessionManager.getDataFromCookies("userId"),
     };
     let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
-      TransactionService.getUserAddressTagUsingAddressHash(data)
+        TransactionService.getUserAddressTagUsingAddressHash(data)
     );
     if (errors || !tagUsingAddressHashResponse) return;
     setAddressTag(tagUsingAddressHashResponse);
@@ -207,7 +220,7 @@ export default function Transaction({ _handleChange }) {
       userId: sessionManager.getDataFromCookies("userId"),
     };
     let [errors, tagUsingAddressHashResponse] = await Utils.parseResponse(
-      TransactionService.getUserAddressTagUsingAddressHash(data)
+        TransactionService.getUserAddressTagUsingAddressHash(data)
     );
     if (errors || !tagUsingAddressHashResponse) return;
     setAddressTagTo(tagUsingAddressHashResponse);
@@ -236,29 +249,29 @@ export default function Transaction({ _handleChange }) {
 
   let CurrencyValue = window.localStorage.getItem("currency");
   const currencySymbol =
-    CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
+      CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
   const valueFetch =
-    CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
+      CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
   const txfee = !transactions
-    ? 0
-    : (
-      (transactions?.gasPrice * transactions?.gasUsed) /
-      1000000000000000000
-    ).toFixed(12);
+      ? 0
+      : (
+          (transactions?.gasPrice * transactions?.gasUsed) /
+          1000000000000000000
+      ).toFixed(12);
   const transactionFetch =
-    CurrencyValue === "INR"
-      ? txfee * price
-      : CurrencyValue === "USD"
-        ? txfee * price
-        : txfee * price;
+      CurrencyValue === "INR"
+          ? txfee * price
+          : CurrencyValue === "USD"
+              ? txfee * price
+              : txfee * price;
   const fetchtxn = !transactionFetch ? 0 : transactionFetch;
 
   const gasP = !transactions.gasPrice
-    ? 0
-    : (transactions.gasPrice / 1000000000000000000).toFixed(18);
+      ? 0
+      : (transactions.gasPrice / 1000000000000000000).toFixed(18);
   const valueDiv = !valueFetch
-    ? 0
-    : ((valueFetch * transactions.value) / 1000000000000000000).toFixed(11);
+      ? 0
+      : ((valueFetch * transactions.value) / 1000000000000000000).toFixed(11);
   // if (isLoading == true) {
   //   return (
   //     <div><Loader /></div>
@@ -266,537 +279,548 @@ export default function Transaction({ _handleChange }) {
   // }
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
-    let today = Date.now();
+    let today = Date.now()
     let difference = today - date;
     var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24;
+    difference -= daysDifference * 1000 * 60 * 60 * 24
     var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-    difference -= hoursDifference * 1000 * 60 * 60;
+    difference -= hoursDifference * 1000 * 60 * 60
     var minutesDifference = Math.floor(difference / 1000 / 60);
-    difference -= minutesDifference * 1000 * 60;
+    difference -= minutesDifference * 1000 * 60
     var secondsDifference = Math.floor(difference / 1000);
-
-    if (
-      secondsDifference < 60 &&
-      minutesDifference === 0 &&
-      hoursDifference === 0 &&
-      daysDifference === 0
-    ) {
-      if (secondsDifference === 1) return secondsDifference + " second ago ";
-      else return secondsDifference + " seconds ago ";
+    console.log('difference = ' +
+        daysDifference + ' day/s ' +
+        hoursDifference + ' hour/s ' +
+        minutesDifference + ' minute/s ' +
+        secondsDifference + ' second/s ');
+    if (secondsDifference < 60 && minutesDifference === 0 && hoursDifference === 0 && daysDifference === 0) {
+      if (secondsDifference === 1)
+        return secondsDifference + " second ago "
+      else return secondsDifference + " seconds ago "
     }
-    if (
-      minutesDifference < 60 &&
-      hoursDifference === 0 &&
-      daysDifference === 0
-    ) {
-      if (minutesDifference === 1) return minutesDifference + " minute ago ";
-      return minutesDifference + " minutes ago";
+    if (minutesDifference < 60 && hoursDifference === 0 && daysDifference === 0) {
+      if (minutesDifference === 1)
+        return minutesDifference + " minute ago "
+      return minutesDifference + " minutes ago"
     }
     if (hoursDifference < 60 && daysDifference === 0) {
-      if (hoursDifference === 1) return hoursDifference + " hour ago ";
-      return hoursDifference + " hours ago";
+      if (hoursDifference === 1)
+        return hoursDifference + " hour ago "
+      return hoursDifference + " hours ago"
     }
     if (daysDifference < 30) {
-      if (hoursDifference === 1) return hoursDifference + " day ago ";
-      return daysDifference + " days ago";
+      if (hoursDifference === 1)
+        return hoursDifference + " day ago "
+      return daysDifference + " days ago"
     }
-  };
+  }
   return (
-    <div className={classes.mainContainer}>
-      <Tokensearchbar />
+      <div className={classes.mainContainer}>
+        <Tokensearchbar />
 
-      <div className={classes.root}>
-        <Grid>
-          <div className={isLoading == true ? "cover-spin-2" : ""}>
-            <div className={isLoading == true ? "cover-spin" : ""}>
-              <div>
+        <div className={classes.root}>
+          <Grid>
+            <div className={isLoading == true ? "cover-spin-2" : ""}>
+              <div className={isLoading == true ? "cover-spin" : ""}>
                 <div>
-                  <Spacing style={{ borderBottom: "none" }}>
-                    <Container>
-                      <Heading>Transaction Details</Heading>
-                      {/* <p className="Failed-rectangle">Failed</p> */}
-                      {transactions ? (
-                        transactions.status ? (
-                          <p className="Success-rectangle">Success</p>
-                        ) : (
-                          <p className="Failed-rectangle">Failed</p>
-                        )
-                      ) : null}
-                    </Container>
-                  </Spacing>
-
-                  <Div>
-                    <HashDiv>
+                  <div>
+                    <Spacing style={{ borderBottom: "none" }}>
                       <Container>
-                        <Tooltip align="right" title={hashid}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-
-                        <Hash>Hash ID</Hash>
+                        <Heading>Transaction Details</Heading>
+                        {/* <p className="Failed-rectangle">Failed</p> */}
+                        {transactions ? (
+                            transactions.status ? (
+                                <p className="Success-rectangle">Success</p>
+                            ) : (
+                                <p className="Failed-rectangle">Failed</p>
+                            )
+                        ) : null}
                       </Container>
-                      <MiddleContainer1 isTextArea={false}>
-                        <Content>
-                          {hash}
-                          {/* <Content>{width > 1240 ? hash : (width <= 1240 && width >= 768 ? shorten(hash) : shortenHash(hash))} */}
-                        </Content>
-                        <span
-                          className={
-                            width > 1240
-                              ? "copyEditContainer"
-                              : width <= 1240 && width >= 768
-                                ? "copyEditContainerTab"
-                                : "copyEditContainerMobile"
-                          }
-                        >
+                    </Spacing>
+
+                    <Div>
+                      <HashDiv>
+                        <Container>
+                          <Tooltip align="right" title={hashid}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+
+                          <Hash>Hash ID</Hash>
+                        </Container>
+                        <MiddleContainer1 isTextArea={false}>
+                          <Content>
+                            {hash}
+                            {/* <Content>{width > 1240 ? hash : (width <= 1240 && width >= 768 ? shorten(hash) : shortenHash(hash))} */}
+                          </Content>
+                          <span
+                              className={
+                                width > 1240
+                                    ? "copyEditContainer"
+                                    : width <= 1240 && width >= 768
+                                        ? "copyEditContainerTab"
+                                        : "copyEditContainerMobile"
+                              }
+                          >
                           <CopyToClipboard
-                            text={hash}
-                            onCopy={() => setCopiedText(hash)}
+                              text={hash}
+                              onCopy={() => setCopiedText(hash)}
                           >
                             <Tooltip
-                              title={
-                                copiedText === hash
-                                  ? "Copied"
-                                  : "Copy To Clipboard"
-                              }
-                              placement="top"
+                                title={
+                                  copiedText === hash
+                                      ? "Copied"
+                                      : "Copy To Clipboard"
+                                }
+                                placement="top"
                             >
                               <button
-                                className={
-                                  width > 1240
-                                    ? "copyToClipboardHash"
-                                    : "copyToClipboardHashMobile"
-                                }
-                              >
-                                <img
                                   className={
                                     width > 1240
-                                      ? "copy-icon"
-                                      : width < 768
-                                        ? "copyIconHashMobile"
-                                        : "copyIconHash"
+                                        ? "copyToClipboardHash"
+                                        : "copyToClipboardHashMobile"
                                   }
-                                  src={"/images/copy.svg"}
+                              >
+                                <img
+                                    className={
+                                      width > 1240
+                                          ? "copy-icon"
+                                          : width < 768
+                                              ? "copyIconHashMobile"
+                                              : "copyIconHash"
+                                    }
+                                    src={"/images/copy.svg"}
                                 />
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {sessionManager.getDataFromCookies("isLoggedIn") ? (
-                            <>
-                              {
-                                <PrivateNote
-                                  open={dialogPvtNoteIsOpen}
-                                  onClose={closeDialogPvtNote}
-                                  hash={hash}
-                                  pvtNote={privateNote[0]?.trxLable}
-                                />
-                              }
-                              {
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit-icon"
-                                      : width < 768
-                                        ? "editIconHashMobile"
-                                        : "editIconHash"
+                            {sessionManager.getDataFromCookies("isLoggedIn") ?
+                                <>
+                                  {
+                                    <PrivateNote
+                                        open={dialogPvtNoteIsOpen}
+                                        onClose={closeDialogPvtNote}
+                                        hash={hash}
+                                        pvtNote={privateNote[0]?.trxLable}
+                                    />
                                   }
-                                  onClick={openDialogPvtNote}
-                                  src={require("../../../src/assets/images/label.svg")}
-                                />
-                              }
-                            </>
-                          ) : (
-                            ""
-                          )}
+                                  {
+                                    <img
+                                        className={
+                                          width > 1240
+                                              ? "edit-icon"
+                                              : width < 768
+                                                  ? "editIconHashMobile"
+                                                  : "editIconHash"
+                                        }
+                                        onClick={openDialogPvtNote}
+                                        src={require("../../../src/assets/images/label.svg")}
+                                    />
+                                  }
+                                </> : "" }
                         </span>
-                      </MiddleContainer1>
-                    </HashDiv>
-                  </Div>
+                        </MiddleContainer1>
+                      </HashDiv>
+                    </Div>
 
-                  <Div__>
-                    <Spacing>
-                      <Container>
-                        <Tooltip title={blocknumber}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
+                    <Div__>
+                      <Spacing>
+                        <Container>
+                          <Tooltip title={blocknumber}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
 
-                        <Hash>Block Number</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content>
-                          <a
-                            className="linkTableDetails-transaction"
-                            href={"/block-details/" + transactions.blockNumber}
-                          >
-                            {" "}
-                            {transactions.blockNumber}
-                          </a>
-                          &nbsp; - {bx} Blocks Confirmation
-                        </Content>
-                      </MiddleContainer>
-                    </Spacing>
-                    <Spacing>
-                      <Container>
-                        <Tooltip title={timestamp}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-
-                        <Hash>Timestamp</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        {" "}
-                        {moment(transactions.timestamp * 1000).format(
-                          "MMMM Do YYYY, h:mm:ss a"
-                        )}{" "}
-                        +0530 ({getHoursAgo(transactions.timestamp * 1000)})
-                      </MiddleContainer>
-                    </Spacing>
-                    <SpacingHash>
-                      <Container>
-                        <Tooltip title={from}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-
-                        <Hash>From</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content>
-                          {" "}
-                          <span
-                            style={{ display: width > 1240 ? "flex" : "block" }}
-                          >
+                          <Hash>Block Number</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          <Content>
                             <a
-                              className="linkTableDetails-transaction"
-                              href={"/address-details/" + transactions.from}
+                                className="linkTableDetails-transaction"
+                                href={"/block-details/" + transactions.blockNumber}
+                            >
+                              {" "}
+                              {transactions.blockNumber}
+                            </a>
+                            &nbsp; - {bx} Blocks Confirmation
+                          </Content>
+                        </MiddleContainer>
+                      </Spacing>
+                      <Spacing>
+                        <Container>
+                          <Tooltip title={timestamp}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+
+                          <Hash>Timestamp</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          {" "}
+
+                          {moment(transactions.timestamp * 1000).format(
+                              "MMMM Do YYYY, h:mm:ss a"
+                          )} +0530 ({getHoursAgo(transactions.timestamp * 1000)})
+                        </MiddleContainer>
+                      </Spacing>
+                      <SpacingHash>
+                        <Container>
+                          <Tooltip title={from}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+
+                          <Hash>From</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          <Content>
+                            {" "}
+                            <span
+                                style={{ display: width > 1240 ? "flex" : "block" }}
+                            >
+                            <a
+                                className="linkTableDetails-transaction"
+                                href={"/address-details/" + transactions.from}
                             >
                               {transactions.from}
                             </a>
                             <div
-                              className={
-                                width < 768
-                                  ? "fromContainerMobile"
-                                  : "fromContainer"
-                              }
+                                className={
+                                  width < 768
+                                      ? "fromContainerMobile"
+                                      : "fromContainer"
+                                }
                             >
                               <CopyToClipboard
-                                text={transactions.from}
-                                onCopy={() => setCopiedText(transactions.from)}
+                                  text={transactions.from}
+                                  onCopy={() => setCopiedText(transactions.from)}
                               >
                                 <Tooltip
-                                  title={
-                                    copiedText === transactions.from
-                                      ? "Copied"
-                                      : "Copy To Clipboard"
-                                  }
-                                  placement="top"
+                                    title={
+                                      copiedText === transactions.from
+                                          ? "Copied"
+                                          : "Copy To Clipboard"
+                                    }
+                                    placement="top"
                                 >
                                   <button
-                                    className={
-                                      width > 1240
-                                        ? "copyToClipboardHash"
-                                        : "copyToClipboardFromMobile"
-                                    }
-                                  >
-                                    <img
                                       className={
                                         width > 1240
-                                          ? "copy-icon"
-                                          : width < 768
-                                            ? "copy-icon-from"
-                                            : "copy-icon-from-tab"
+                                            ? "copyToClipboardHash"
+                                            : "copyToClipboardFromMobile"
                                       }
-                                      src={"/images/copy.svg"}
+                                  >
+                                    <img
+                                        className={
+                                          width > 1240
+                                              ? "copy-icon"
+                                              : width < 768
+                                                  ? "copy-icon-from"
+                                                  : "copy-icon-from-tab"
+                                        }
+                                        src={"/images/copy.svg"}
                                     />
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
-                              {sessionManager.getDataFromCookies(
-                                "isLoggedIn"
-                              ) ? (
-                                <>
-                                  {
-                                    <PrivateAddressTag
-                                      open={dialogPvtTagIsOpen}
-                                      onClose={closeDialogPvtTag}
-                                      fromAddr={transactions.from}
-                                      value={dialogValue}
-                                      hash={hash}
-                                    />
-                                  }
-                                  {isTag ? (
-                                    <div className="nameLabel">
-                                      {addressTag[0]?.tagName}
-                                    </div>
-                                  ) : (
-                                    <img
-                                      className={
-                                        width > 1240
-                                          ? "edit1-icon"
-                                          : "edit1-icon-from"
-                                      }
-                                      onClick={openDialogPvtTag}
-                                      src={require("../../../src/assets/images/tag.svg")}
-                                    />
-                                  )}
-                                </>
-                              ) : (
-                                ""
-                              )}
+                              {sessionManager.getDataFromCookies("isLoggedIn") ?
+                                  <>
+
+                                    {
+
+                                      <PrivateAddressTag
+                                          open={dialogPvtTagIsOpen}
+                                          onClose={closeDialogPvtTag}
+                                          fromAddr={transactions.from}
+                                          value={dialogValue}
+                                          hash={hash}
+                                      />
+                                    }
+                                    {isTag ? (
+                                        <div className="nameLabel">
+                                          {addressTag[0]?.tagName}
+                                        </div>
+                                    ) : (
+                                        <img
+                                            className={
+                                              width > 1240
+                                                  ? "edit1-icon"
+                                                  : "edit1-icon-from"
+                                            }
+                                            onClick={openDialogPvtTag}
+                                            src={require("../../../src/assets/images/tag.svg")}
+                                        />
+                                    )}
+                                  </> : ""}
                             </div>
                           </span>
-                        </Content>
-                      </MiddleContainer>
-                    </SpacingHash>
-                    <SpacingHash>
-                      <Container>
-                        <Tooltip title={to}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
+                          </Content>
+                        </MiddleContainer>
+                      </SpacingHash>
+                      <SpacingHash>
+                        <Container>
+                          <Tooltip title={to}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
 
-                        <Hash>To</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content>
+                          <Hash>To</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          <Content>
                           <span
-                            style={{ display: width > 1240 ? "flex" : "block" }}
+                              style={{ display: width > 1240 ? "flex" : "block" }}
                           >
                             <a
-                              className="linkTableDetails-transaction"
-                              href={"/address-details/" + transactions.to}
+                                className="linkTableDetails-transaction"
+                                href={"/address-details/" + transactions.to}
                             >
                               {transactions.to}
                             </a>
                             <div
-                              className={
-                                width < 768
-                                  ? "fromContainerMobile"
-                                  : "fromContainer"
-                              }
+                                className={
+                                  width < 768
+                                      ? "fromContainerMobile"
+                                      : "fromContainer"
+                                }
                             >
                               <CopyToClipboard
-                                text={transactions.to}
-                                onCopy={() => setCopiedText(transactions.to)}
+                                  text={transactions.to}
+                                  onCopy={() => setCopiedText(transactions.to)}
                               >
                                 <Tooltip
-                                  title={
-                                    copiedText === transactions.to
-                                      ? "Copied"
-                                      : "Copy To Clipboard"
-                                  }
-                                  placement="top"
+                                    title={
+                                      copiedText === transactions.to
+                                          ? "Copied"
+                                          : "Copy To Clipboard"
+                                    }
+                                    placement="top"
                                 >
                                   <button
-                                    className={
-                                      width > 1240
-                                        ? "copyToClipboardHash"
-                                        : "copyToClipboardFromMobile"
-                                    }
-                                  >
-                                    <img
                                       className={
                                         width > 1240
-                                          ? "copy-icon"
-                                          : width < 768
-                                            ? "copy-icon-from"
-                                            : "copy-icon-from-tab"
+                                            ? "copyToClipboardHash"
+                                            : "copyToClipboardFromMobile"
                                       }
-                                      src={"/images/copy.svg"}
+                                  >
+                                    <img
+                                        className={
+                                          width > 1240
+                                              ? "copy-icon"
+                                              : width < 768
+                                                  ? "copy-icon-from"
+                                                  : "copy-icon-from-tab"
+                                        }
+                                        src={"/images/copy.svg"}
                                     />
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
-                              {sessionManager.getDataFromCookies(
-                                "isLoggedIn"
-                              ) ? (
-                                <>
-                                  {
-                                    <PrivateAddressTag
-                                      open={dialogPvtTagIsOpen2}
-                                      onClose={closeDialogPvtTag2}
-                                      toAddr={transactions.to}
-                                      value={dialogValue2}
-                                      hash={hash}
-                                    />
-                                  }
-                                  {isTagTo ? (
-                                    <div className="nameLabel">
-                                      {addressTagTo[0]?.tagName}
-                                    </div>
-                                  ) : (
-                                    <img
-                                      className={
-                                        width > 1240
-                                          ? "edit1-icon"
-                                          : "edit1-icon-from"
-                                      }
-                                      onClick={openDialogPvtTag2}
-                                      src={require("../../../src/assets/images/tag.svg")}
-                                    />
-                                  )}
-                                </>
-                              ) : (
-                                ""
-                              )}
+                              {sessionManager.getDataFromCookies("isLoggedIn") ?
+                                  <>
+                                    {
+                                      <PrivateAddressTag
+                                          open={dialogPvtTagIsOpen2}
+                                          onClose={closeDialogPvtTag2}
+                                          toAddr={transactions.to}
+                                          value={dialogValue2}
+                                          hash={hash}
+                                      />
+                                    }
+                                    {isTagTo ? (
+                                        <div className="nameLabel">
+                                          {addressTagTo[0]?.tagName}
+                                        </div>
+                                    ) : (
+                                        <img
+                                            className={
+                                              width > 1240
+                                                  ? "edit1-icon"
+                                                  : "edit1-icon-from"
+                                            }
+                                            onClick={openDialogPvtTag2}
+                                            src={require("../../../src/assets/images/tag.svg")}
+                                        />
+                                    )}</> : ""}
                             </div>
                           </span>
-                        </Content>
-                      </MiddleContainer>
-                    </SpacingHash>
-                    <Spacing>
-                      <Container>
-                        <Tooltip title={value}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-                        <Hash>Value</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        {" "}
-                        {!transactions?.value
-                          ? 0
-                          : transactions?.value / 1000000000000000000}{" "}
-                        XDC ({currencySymbol}
-                        {valueDiv && valueDiv > 0 ? valueDiv : 0})
-                      </MiddleContainer>
-                    </Spacing>
-                    <Spacing>
-                      <Container>
-                        <Tooltip title={txnfee}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-
-                        <Hash>Txn Fee</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content>
+                          </Content>
+                        </MiddleContainer>
+                      </SpacingHash>
+                      <Spacing>
+                        <Container>
+                          <Tooltip title={value}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <Hash>Value</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
                           {" "}
-                          {txfee == 0
-                            ? 0
-                            : parseFloat(txfee)
-                              ?.toFixed(12)
-                              .replace(/0+$/, "")}{" "}
+                          {!transactions?.value
+                              ? 0
+                              : transactions?.value / 1000000000000000000}{" "}
                           XDC ({currencySymbol}
-                          {fetchtxn})
-                        </Content>
-                      </MiddleContainer>
-                    </Spacing>
-                    <Spacing>
-                      <Container>
-                        <Tooltip align="right" title={gasprovided}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-                        <Hash>Gas Provided</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        {parseInt(transactions.gas).toLocaleString("en-US")}
-                      </MiddleContainer>
-                    </Spacing>
-                    <Spacing>
-                      <Container>
-                        <Tooltip align="right" title={gasprice}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-                        <Hash>Gas Price</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        {gasP == 0
-                          ? 0
-                          : parseFloat(gasP)?.toFixed(18).replace(/0+$/, "")}
-                        {/* <Content> {gasP}</Content> */}
-                      </MiddleContainer>
-                    </Spacing>
-                    <Spacing>
-                      <Container>
-                        <Tooltip align="right" title={gasused}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-                        <Hash>Gas Used</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content>
-                          {parseInt(transactions?.gasUsed)?.toLocaleString(
-                            "en-US"
-                          )}
-                        </Content>
-                      </MiddleContainer>
-                    </Spacing>
-                    <Spacing>
-                      <Container>
-                        <Tooltip align="right" title={nounced}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-                        <Hash>Nonce</Hash>
-                      </Container>
-                      <MiddleContainer isTextArea={false}>
-                        <Content> {transactions.nonce}</Content>
-                      </MiddleContainer>
-                    </Spacing>
-                    <SpacingInputData>
-                      <Container>
-                        <Tooltip align="right" title={input}>
-                          <ImageViewInputData
-                            src={"/images/questionmark.svg"}
-                          />
-                        </Tooltip>
-                        <HashInputData>Input Data</HashInputData>
-                      </Container>
-                      <MiddleContainerInputData isTextArea={true}>
-                        <div className="transaction-details-input-data">
+                          {valueDiv && valueDiv > 0 ? valueDiv : 0})
+                        </MiddleContainer>
+                      </Spacing>
+                      <Spacing>
+                        <Container>
+                          <Tooltip title={txnfee}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+
+                          <Hash>Txn Fee</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          <Content>
+                            {" "}
+                            {txfee == 0
+                                ? 0
+                                : parseFloat(txfee)
+                                    ?.toFixed(12)
+                                    .replace(/0+$/, "")}{" "}
+                            XDC ({currencySymbol}
+                            {fetchtxn})
+                          </Content>
+                        </MiddleContainer>
+                      </Spacing>
+                      <Spacing>
+                        <Container>
+                          <Tooltip align="right" title={gasprovided}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <Hash>Gas Provided</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          {parseInt(transactions.gas).toLocaleString("en-US")}
+                        </MiddleContainer>
+                      </Spacing>
+                      <Spacing>
+                        <Container>
+                          <Tooltip align="right" title={gasprice}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <Hash>Gas Price</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          {gasP == 0
+                              ? 0
+                              : parseFloat(gasP)?.toFixed(18).replace(/0+$/, "")}
+                          {/* <Content> {gasP}</Content> */}
+                        </MiddleContainer>
+                      </Spacing>
+                      <Spacing>
+                        <Container>
+                          <Tooltip align="right" title={gasused}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <Hash>Gas Used</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          <Content>
+                            {parseInt(transactions?.gasUsed)?.toLocaleString(
+                                "en-US"
+                            )}
+                          </Content>
+                        </MiddleContainer>
+                      </Spacing>
+                      <Spacing>
+                        <Container>
+                          <Tooltip align="right" title={nounced}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <Hash>Nonce</Hash>
+                        </Container>
+                        <MiddleContainer isTextArea={false}>
+                          <Content> {transactions.nonce}</Content>
+                        </MiddleContainer>
+                      </Spacing>
+                      <SpacingInputData>
+                        <Container>
+                          <Tooltip align="right" title={input}>
+                            <ImageViewInputData
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <HashInputData>Input Data</HashInputData>
+                        </Container>
+                        <MiddleContainerInputData isTextArea={true}>
+                          <div className="transaction-details-input-data">
                           <textarea
-                            className="text-area-transaction"
-                            readOnly
-                            value={transactions.input}
+                              className="text-area-transaction"
+                              readOnly
+                              value={transactions.input}
                           />
-                        </div>
-                      </MiddleContainerInputData>
-                    </SpacingInputData>
-                    <SpacingPrivateNode>
-                      <Container>
-                        <Tooltip align="right" title={transferToken}>
-                          <ImageView src={"/images/questionmark.svg"} />
-                        </Tooltip>
-                        <Hash>Private Note</Hash>
-                      </Container>
-                      <MiddleContainerPrivateNote>
-                        {!isloggedIn ? (
-                          <PrivateText>
-                            {
-                              <LoginDialog
-                                open={loginDialogIsOpen}
-                                onClose={closeLoginDialog}
-                                hash={hash}
-                              />
-                            }
-                            To access the Private Note feature, you must be
-                            <a
-                              className="linkTableDetails-transaction"
-                              style={{ marginLeft: "5px", cursor: "pointer" }}
-                              onClick={openLoginDialog}
-                            >
-                              Logged In
-                            </a>
-                          </PrivateText>
-                        ) : !isPvtNote ? (
-                          <span>
+                          </div>
+                        </MiddleContainerInputData>
+                      </SpacingInputData>
+                      <SpacingPrivateNode>
+                        <Container>
+                          <Tooltip align="right" title={transferToken}>
+                            <ImageView
+                                src={"/images/questionmark.svg"}
+                            />
+                          </Tooltip>
+                          <Hash>Private Note</Hash>
+                        </Container>
+                        <MiddleContainerPrivateNote>
+                          {!isloggedIn ? (
+                              <PrivateText>
+                                {
+                                  <LoginDialog
+                                      open={loginDialogIsOpen}
+                                      onClose={closeLoginDialog}
+                                      hash={hash}
+                                  />
+                                }
+                                To access the Private Note feature, you must be
+                                <a
+                                    className="linkTableDetails-transaction"
+                                    style={{ marginLeft: "5px", cursor: "pointer" }}
+                                    onClick={openLoginDialog}
+                                >
+                                  Logged In
+                                </a>
+                              </PrivateText>
+                          ) : !isPvtNote ? (
+                              <span>
                             Add private Note By click on Edit Icon in front of
                             Hash ID
                           </span>
-                        ) : (
-                          <span>{privateNote[0]?.trxLable}</span>
-                        )}
-                      </MiddleContainerPrivateNote>
-                    </SpacingPrivateNode>
-                  </Div__>
-                  <br />
-                  <br />
+                          ) : (
+                              <span>{privateNote[0]?.trxLable}</span>
+                          )}
+                        </MiddleContainerPrivateNote>
+                      </SpacingPrivateNode>
+                    </Div__>
+                    <br />
+                    <br />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Grid>
-      </div>
+          </Grid>
+        </div>
 
-      <FooterComponent _handleChange={_handleChange} currency={amount} />
-    </div>
+        <FooterComponent _handleChange={_handleChange} currency={amount} />
+      </div>
   );
 }
 const Input = styled.input`
@@ -1222,12 +1246,12 @@ const ImageViewInputData = styled.img`
   }
 `;
 const ImageView = styled.img`
-  width: 16px;
-  margin-right: 16px;
+  width: 15px;
+  margin-right: 15px;
   cursor: pointer;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 14px;
-    height: 14px;
+    width: 0.688rem;
+    height: 0.688rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 0.875rem;
