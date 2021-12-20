@@ -58,20 +58,20 @@ export const eventConstants = {
 
 export const genericConstants = {
   INCORRECT_USERNAME_PASS: "Incorrect username or password",
-  ENTER_REQUIRED_FIELD: "Please enter the required fields",
+  ENTER_REQUIRED_FIELD: "Please enter the required information",
   INVALID_EMAIL: "Invalid email",
   PASSWORD_DID_NOT_MATCH: "Both the passwords did not match",
-  PASSWORD_UPDATE_SUCCESS: "Your Password has been updated successfully",
-  RESET_PASSWORD_MAIL_SENT: "A reset password mail is sent successfully",
+  PASSWORD_UPDATE_SUCCESS: "Your Password has been updated.",
+  RESET_PASSWORD_MAIL_SENT: "A reset password email has been sent.",
   PASSWORD_UPDATE_FAILED: "Failed to update your password",
-  CANNOT_GET_NOTIFICATIONS: "No Notifications",
-  CANNOT_CLEAR_NOTIFICATIONS: "No Notifications",
-  WATCHLIST_DELETED: "WatchList Deleted Succesfully",
+  CANNOT_GET_NOTIFICATIONS: "No notifications",
+  CANNOT_CLEAR_NOTIFICATIONS: "No notifications",
+  WATCHLIST_DELETED: "WatchList deleted",
   CANNOT_DELETE_WATCHLIST: "Cannot delete watchlist",
-  CANNOT_DELETE_TXN_PRIVATE_NOTE: "Cannot delete Txn Private Note",
-  TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted Succesfully",
-  CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Address",
-  TAGGED_ADDRESS_DELETED: "Tagged Address Deleted Succesfully",
+  CANNOT_DELETE_TXN_PRIVATE_NOTE: "Cannot delete Txn private notes",
+  TXN_PRIVATE_NOTE_DELETED: "Txn Private Note Deleted",
+  CANNOT_DELETE_TAGGED_ADDRESS: "Cannot delete Tagged Addresses",
+  TAGGED_ADDRESS_DELETED: "Tagged Address Deleted",
 };
 
 export const statusConstants = {
