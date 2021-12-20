@@ -111,7 +111,7 @@ export default function FooterComponent(props) {
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                  The XDC Network Explorer is a Block Explorer and Analytics
+                  The XDC Observatory is a Block Observatory and Analytics
                   Platform for XDC, a decentralized smart contracts platform.
                 </p>
               </div>

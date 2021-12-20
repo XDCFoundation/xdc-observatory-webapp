@@ -188,7 +188,7 @@ export default function AddressDetails(props) {
           <div className={classes.root}>
             <Grid style={{ width: "75.125rem" }}>
               <AddressPath>
-                <Explorer>Explorer</Explorer>
+                <Explorer>Observatory</Explorer>
                 <Next src={require("../../../src/assets/images/next.svg")} />
                 <Address>Address</Address>
               </AddressPath>

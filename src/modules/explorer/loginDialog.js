@@ -514,7 +514,7 @@ export default function FormDialog(props) {
 
     if (authResponse?.userInfoRes?.email_verified === false) {
       Utility.apiFailureToast(
-        "You have got an email from XDC explorer. Please verify your email."
+        "You have got an email from XDC Observatory. Please verify your email."
       );
       setLoading(false);
     } else {
@@ -867,7 +867,7 @@ export default function FormDialog(props) {
 
             <div className={classes.value}></div>
             <DialogContentText className={classes.xdc}>
-              New to XDC Explorer?{" "}
+              New to XDC Observatory?{" "}
               <span
                 className={classes.createaccount}
                 onClick={handleClickOpenSignup}
