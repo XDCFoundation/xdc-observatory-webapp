@@ -1399,7 +1399,7 @@ input:focus {
 .XDC {
   margin-left: 0.438rem;
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1411,7 +1411,7 @@ input:focus {
 .XDC-internal {
   /* margin-left: -0.313rem; */
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1421,9 +1421,9 @@ input:focus {
   cursor: pointer;
 }
 .XDC-internal:hover {
-  margin-left: -0.313rem;
+  /* margin-left: -0.313rem; */
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1469,7 +1469,7 @@ input:focus {
 .XDC:hover {
   margin-left: 0.438rem;
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -7542,9 +7542,17 @@ button {
 }
 
 .header-popup {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   padding-top: 0.313rem;
   padding-bottom: 3.75rem;
+  display: flex;
+  justify-content: space-between;
+  color: #2a2a2a;
+}
+.qrClose {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
 }
 
 .source-code-verified-container {
@@ -8582,19 +8590,21 @@ button {
     padding-left: 7px;
   }
 }
-.copyEditContainer {
+.copyEditContainer1 {
   display: flex;
   margin-left: 29rem !important;
+}
+.copyEditContainer2 {
+  display: flex;
+  /* margin-left: 29rem !important; */
 }
 .copyEditContainerTab {
   display: flex;
   margin-top: -33px;
-  margin-left: 178px;
+  margin-left: 170px;
 }
 .copyEditContainerAddress {
   display: flex;
-  margin-top: -20px;
-  margin-left: 178px;
 }
 .copyEditContainerMobile {
   display: flex;
@@ -8604,7 +8614,7 @@ button {
   .copyEditContainerMobile {
     display: flex;
     margin-top: -20px;
-    margin-left: 102px !important;
+    margin-left: 90px !important;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -8689,6 +8699,11 @@ button {
 }
 .fromContainer {
   display: flex;
+}
+.fromContainerTab {
+  display: flex;
+  position: absolute;
+  margin-left: 25.25rem;
 }
 .fromContainerMobile {
   display: flex;
