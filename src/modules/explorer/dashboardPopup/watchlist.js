@@ -15,6 +15,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
+import { Tooltip } from "@material-ui/core";
+import Utils from "../../../utility";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -290,12 +292,13 @@ const screenSize = window.innerHeight
     <div>
 
       <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
-        <div>
+        <div className="imageParentDiv">
           <img
             className="imagediv1"
             src={"/images/watchlist.png"}
           ></img>
         </div>
+
         <button className={classes.btn}>
           <div className="headingdiv1">Create watchlist</div>
           <div className="paradiv1">
@@ -303,6 +306,21 @@ const screenSize = window.innerHeight
             watch list recieves an incoming transaction.
           </div>
         </button>
+
+        <div className="imageParentDiv">
+          <Tooltip disableFocusListener title="Delete">
+          <a className="learnMoreText">Learn More</a>
+          </Tooltip>
+          {/*<Tooltip*/}
+          {/*    placement="top"*/}
+          {/*    title={row.transactionHash}*/}
+          {/*>*/}
+          {/*                            <span className="tabledata1">*/}
+          {/*                              {Utils.shortenHash(row.transactionHash)}{" "}*/}
+          {/*                            </span>*/}
+          {/*</Tooltip>*/}
+        </div>
+
       </div>
 
       {/* <Button

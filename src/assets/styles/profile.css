@@ -14,7 +14,7 @@
   display: flex;
   /* padding: 0px 200px; */
   justify-content: center;
-  flex-flow: wrap;
+  /*flex-flow: wrap;*/
 }
 .innerdiv {
   width: 100vw;
@@ -439,6 +439,10 @@ background-color: #4878ff; */
   color: #2149b9;
   line-height: 0;
 }
+
+.learnMoreText{
+  display: none;
+}
 @media screen and (max-width: 1920px) {
   .heading {
     max-width: 1250px;
@@ -512,17 +516,25 @@ background-color: #4878ff; */
     margin-left: unset;
     margin-right: 360px;
   }
+
+  .imageParentDiv{
+    display: flex;
+    justify-content: center;
+  }
+
   .imagediv1 {
-    margin-top: -7px;
+    margin-top: -15px;
   }
   .imagediv2,
   .imagediv3 {
-    margin-top: -11px;
+    margin-top: -16px;
   }
   .headingdiv1,
   .headingdiv2,
   .headingdiv3 {
-    font-size: 14px;
+    text-align: center;
+    max-width: 70px;
+    font-size: 12px;
     height: 15px;
     margin-top: 6px;
     margin-bottom: 11px;
@@ -532,6 +544,7 @@ background-color: #4878ff; */
   .paradiv3 {
     width: 272px;
     line-height: 1;
+    display: none;
   }
   .line {
     max-width: 664px;
@@ -549,14 +562,24 @@ background-color: #4878ff; */
   .tablegrid_address_contract {
     width: 1300px;
   }
+  .learnMoreText{
+    font-size: 10px;
+    color: #81b4ff;
+    display: block;
+    letter-spacing: 0.38px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+  }
 }
-@media screen and (max-width: 714px) {
+@media screen and (max-width: 768px) {
   .div1,
   .div2,
   .div3 {
-    max-width: 361px;
+    width: 28.125vw;
     height: 157px;
-    padding: 25px 25px;
+    padding: 25px 10px 25px 10px;
     border-radius: 12px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #213d8b;
