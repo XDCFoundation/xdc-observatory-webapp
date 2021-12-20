@@ -109,11 +109,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
     ? 0
     : (valueFetch / 1000000000000000000).toFixed(11);
 
-  // let charCount = transactions?.input?.length
-  // let value1 = transactions.input
-  // let MethodID = value1?.slice(0, 10);
-  // let zero = value1?.slice(10, 74);
-  // let one = value1?.slice(74, 138);
+
 
   return (
     <div>

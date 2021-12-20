@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 import React from "react";
 import ToastService from "react-material-toast";
 
+
 import AwsService from "../services/awsService";
 const toast = ToastService.new({
   place: "topRight",
@@ -73,7 +74,7 @@ function convertToInternationalCurrencySystem(num) {
   }
   num = Number(num);
   if (num > 999 && num < 1000000) {
-    return (num / 1000).toFixed(2) + " K"; // convert to K for number from > 1000 < 1 million
+    return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
   } else if (num > 999999 && num < 999999999) {
     return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
@@ -151,8 +152,8 @@ async function uploadImage(request) {
       throw error && error.message
         ? error.message
         : error
-        ? error
-        : "Upload file Failed";
+          ? error
+          : "Upload file Failed";
     }
     return response.responseData[0];
   } catch (error) {
@@ -534,8 +535,8 @@ function getAddedByObject(propsOfComponent) {
       user.firstName || user.lastName
         ? user.firstName + " " + user.lastName
         : user.company && user.company.name
-        ? user.company.name
-        : "",
+          ? user.company.name
+          : "",
     _id: user._id,
   };
 }
@@ -615,8 +616,8 @@ function isCompanyBalanceLow(company) {
     new Date(company.tokenEconomy.endDate).getMonth() -
     new Date().getMonth() +
     12 *
-      (new Date(company.tokenEconomy.endDate).getFullYear() -
-        new Date().getFullYear());
+    (new Date(company.tokenEconomy.endDate).getFullYear() -
+      new Date().getFullYear());
   if (
     company.tokenEconomy.PERCBalance <
     company.tokenEconomy.monthlyPERCAllocation * remainingMonth

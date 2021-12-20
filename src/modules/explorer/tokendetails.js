@@ -52,9 +52,9 @@ const LeftPagination = styled.div`
     margin-right: 5%;
   }
 `;
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
+// function capitalize(text) {
+//   return text.charAt(0).toUpperCase() + text.slice(1);
+// }
 
 const useStyles = makeStyles({
   rootui: {
@@ -71,7 +71,7 @@ const useStyles = makeStyles({
   },
   "@media (max-width: 1024px)": {
     container: {
-      height: 600,
+      height: 615,
     },
   },
 
@@ -92,7 +92,7 @@ export default function StickyHeadTable() {
 
   const [noData, setNoData] = React.useState(0);
   const handleChangePage = (action) => {
-    if (action == "first") {
+    if (action === "first") {
       setFrom(0);
       if (keywords) {
         let data = { pageNum: 0, perpage: amount, searchkey: keywords };
@@ -104,7 +104,7 @@ export default function StickyHeadTable() {
         getTotalTokenList();
       }
     }
-    if (action == "prev") {
+    if (action === "prev") {
       if (from - amount >= 0) {
         let page = from - amount;
         setFrom(page);
@@ -119,7 +119,7 @@ export default function StickyHeadTable() {
         }
       }
     }
-    if (action == "next") {
+    if (action === "next") {
       if (+amount + +from < totalToken) {
         let page = +amount + +from;
         setFrom(page);
@@ -135,7 +135,7 @@ export default function StickyHeadTable() {
       }
     }
 
-    if (action == "last") {
+    if (action === "last") {
       let page = totalToken - amount;
       setFrom(page);
 
@@ -177,7 +177,7 @@ export default function StickyHeadTable() {
       let data = { pageNum: 0, perpage: amount, searchkey: searchkeyword };
       SearchTokens(data);
     }
-    if (searchkeyword?.length == 0) {
+    if (searchkeyword?.length === 0) {
       setKeywords("");
       setLoading(false);
       setNoData(0);
@@ -191,7 +191,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTokenLists(data)
       );
-
+if(error) return;
       if (responseData) {
         setLoading(false);
         setRows(responseData);
@@ -207,7 +207,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTotalToken()
       );
-
+      if(error) return;
       if (responseData) {
         setTotalToken(responseData);
       }
@@ -220,7 +220,8 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTokenSearch(data)
       );
-      if (responseData.total == 0) {
+      if(error) return;
+      if (responseData.total === 0) {
         setNoData(1);
         setTotalToken(0);
         setRows([]);
@@ -310,6 +311,7 @@ export default function StickyHeadTable() {
           borderRadius: "0.875rem",
           // marginLeft: "18%",
           // marginRight: "18%",
+          
         }}
         elevation={0}
       >
@@ -326,7 +328,7 @@ export default function StickyHeadTable() {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                <TableCell style={{ border: "none" }} align="left">
+                <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
                   <span>#</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
@@ -380,7 +382,7 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell id="td">{index + 1}</TableCell>
+                        <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>
                         <TableCell>
                           <a
                             className="token-details-address-link"

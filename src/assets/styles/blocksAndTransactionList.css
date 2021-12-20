@@ -64,7 +64,7 @@
   }
   .tabletop-header {
     font-family: Inter;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -541,6 +541,11 @@
 }
 
 .tablegrid_address {
+  padding-top: 1.563rem;
+  margin: auto;
+  width: 100%;
+}
+.tablegrid_no_data{
   padding-top: 1.563rem;
   margin: auto;
   width: 100%;

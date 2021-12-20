@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Table from "@material-ui/core/Table";
-import { Grid, TableContainer } from "@material-ui/core";
+// import { Grid, TableContainer } from "@material-ui/core";
 import styled from "styled-components";
-const Explorer = styled.div`
-  color: #2149b9;
-`;
+// const Explorer = styled.div`
+//   color: #2149b9;
+// `;
 const Heading = styled.div`
   width: 174px;
   height: 29px;
@@ -60,10 +60,10 @@ const Para = styled.div`
   text-align: left;
   color: #252525;
 `;
-const Point = styled.div`
-  font-size: 0.8rem;
-  margin-top: 1rem;
-`;
+// const Point = styled.div`
+//   font-size: 0.8rem;
+//   margin-top: 1rem;
+// `;
 
 const Div = styled.div`
   width: 1202px;
@@ -1175,7 +1175,7 @@ function PrivacyPolicy() {
                     }}
                     className={classes.blockNumber}
                   >
-                    To allow you to interact with our Network Explorer by adding
+                    To allow you to interact with our XDC Observatory by adding
                     “tags” and other identity characteristics
                   </div>
                 </td>

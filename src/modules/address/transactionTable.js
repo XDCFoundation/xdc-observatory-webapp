@@ -83,8 +83,11 @@ export default function TransactionTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values),
       )
-      if (responseData && responseData.length > 0) {
-        setAddress(responseData)
+      let transactionSortByValue = responseData.sort((a, b) => {
+        return b.value - a.value;
+      });
+      if (transactionSortByValue && transactionSortByValue.length > 0) {
+        setAddress(transactionSortByValue)
         setLoading(false)
       } else {
         setNoData(true)
@@ -315,7 +318,7 @@ export default function TransactionTableComponent(props) {
     <div>
       <div className="content_input_all cont-tab-contract">
         <div className="searchelement-input4 search-btn">
-         {/* <img
+          {/* <img
             style={{ width: 18, height: 18, marginRight: 5, marginTop: 3 }}
             src={"/images/Search.svg"}
           />
@@ -380,11 +383,11 @@ export default function TransactionTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      // checked={
-                      //   address.filter((addr) => addr?.isChecked !== true)
-                      //     .length <=
-                      //   address.length + 1
-                      // }
+                      checked={
+                        address.filter((addr) => addr?.isChecked == true)
+                          .length ==
+                        address.length
+                      }
                       style={{ marginRight: '8px' }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>
@@ -597,80 +600,80 @@ export default function TransactionTableComponent(props) {
 
           {noData == true && (
             <Grid
-            item
-            xs="7"
-            className="page-tab"
-          >
-            <button
-              style={{ marginLeft: '0px' }}
-              onClick={() => handleChangePage('first')}
-              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              item
+              xs="7"
+              className="page-tab"
             >
-              First
-            </button>
-            <button
-              onClick={() => handleChangePage('prev')}
-              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
-            >
-              <img src={"/images/back.svg"} />
-            </button>
-            <button className="btn-contract">
-              Page 0 of 0
-            </button >
-            <button
-              onClick={() => handleChangePage('next')}
-              className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
-            >
-              <img src={"/images/next.svg"} />
-            </button>
-            <button
-              onClick={() => handleChangePage('last')}
-              className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
-            >
-              Last
-            </button>
-          </Grid > 
+              <button
+                style={{ marginLeft: '0px' }}
+                onClick={() => handleChangePage('first')}
+                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                First
+              </button>
+              <button
+                onClick={() => handleChangePage('prev')}
+                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                <img src={"/images/back.svg"} />
+              </button>
+              <button className="btn-contract">
+                Page 0 of 0
+              </button >
+              <button
+                onClick={() => handleChangePage('next')}
+                className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                <img src={"/images/next.svg"} />
+              </button>
+              <button
+                onClick={() => handleChangePage('last')}
+                className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                Last
+              </button>
+            </Grid >
           )}
-          
+
           {noData == false && (
             <Grid
-            item
-            xs="7"
-            className="page-tab"
-          >
-            <button
-              style={{ marginLeft: '0px' }}
-              onClick={() => handleChangePage('first')}
-              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              item
+              xs="7"
+              className="page-tab"
             >
-              First
-            </button>
-            <button
-              onClick={() => handleChangePage('prev')}
-              className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
-            >
-              <img src={"/images/back.svg"} />
+              <button
+                style={{ marginLeft: '0px' }}
+                onClick={() => handleChangePage('first')}
+                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                First
               </button>
-              
-            <button className="btn-contract">
-              Page{' '}
-              {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
-                Math.ceil((parseInt(totalRecord) - parseInt(from)) / parseInt(amount)) + 1}{' '}
-              of {Math.ceil(parseInt(totalRecord) / parseInt(amount))}
-            </button >
-            <button
-              onClick={() => handleChangePage('next')}
-              className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
-            >
-              <img src={"/images/next.svg"} />
-            </button>
-            <button
-              onClick={() => handleChangePage('last')}
-              className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
-            > 
-              Last
-            </button>
-          </Grid > 
+              <button
+                onClick={() => handleChangePage('prev')}
+                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                <img src={"/images/back.svg"} />
+              </button>
+
+              <button className="btn-contract">
+                Page{' '}
+                {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
+                  Math.ceil((parseInt(totalRecord) - parseInt(from)) / parseInt(amount)) + 1}{' '}
+                of {Math.ceil(parseInt(totalRecord) / parseInt(amount))}
+              </button >
+              <button
+                onClick={() => handleChangePage('next')}
+                className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                <img src={"/images/next.svg"} />
+              </button>
+              <button
+                onClick={() => handleChangePage('last')}
+                className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+              >
+                Last
+              </button>
+            </Grid >
           )}
 
 

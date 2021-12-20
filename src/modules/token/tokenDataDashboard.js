@@ -20,7 +20,7 @@ transfer:{
 },
   "@media (min-width: 0px) and (max-width: 767px)": {
     maxWidth: "20px",
-    border:"1px solid black",
+    
   },
 
 
@@ -51,7 +51,7 @@ const MainContainer = styled.div`
     height: 32.063rem;
     padding: 0 1.875rem;
     margin: 0 auto;
-    margin-top: 165px;
+    margin-top: 182px;
   }
 `;
 const MobileScreen = styled.div`
@@ -93,10 +93,10 @@ const LeftFirst = styled.div`
   align-items: flex-start;
   padding-bottom: 1.125rem;
   @media (max-width:767px){
-   padding: 1.875rem 0;
+   padding: 1.875rem 0 0 0;
   }
   @media (min-width:767px) and (max-width:1240px){
-   padding: 1.5rem 0 1.125rem;
+   padding: 1.5rem 0 0.125rem;
   }
 `;
 const LeftSec = styled.div`
@@ -239,14 +239,14 @@ const ContractButton = styled.button`
     font-size: 0.875rem;
   }
 `;
-const RightFirst = styled.div`
-  flex: 0.1;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  font-size: 2px;
-  align-items: center;
-`;
+// const RightFirst = styled.div`
+//   flex: 0.1;
+//   position: relative;
+//   display: flex;
+//   justify-content: space-between;
+//   font-size: 2px;
+//   align-items: center;
+// `;
 const RightTop = styled.div`
   flex: 0.2;
   display: flex;
@@ -326,16 +326,16 @@ const GraphContainer = styled.div`
   padding-left: 0px;
 `;
 
-const Icons = styled.div`
-  padding-top: 1px;
-`;
+// const Icons = styled.div`
+//   padding-top: 1px;
+// `;
 
 export default function TokenDataComponent() {
   const classes = useStyles();
-  let changePrice = 5.21;
+  // let changePrice = 5.21;
   let changeHolders = 0;
-  let tokenName = 'XDC'
-  let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
+  // let tokenName = 'XDC'
+  // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({})
   const { address } = useParams();
@@ -478,14 +478,19 @@ export default function TokenDataComponent() {
                   </div>
                 </div>
               </LeftTopSecMain>
-              <Line1></Line1>
+            
             </LeftFirst>
             <LeftSec>
+          
               <ValueMain>
+              
                 <MobileScreen>
+                
                   <Value>
                     {/* <TitleIcon src={blockHeightImg} /> */}
+                    
                     <ValueName>
+                    {/* <Line2 ></Line2> */}
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
@@ -615,7 +620,7 @@ export default function TokenDataComponent() {
             <RightTop>
               <RightTitle>Holders</RightTitle>
               <RightTopSec>14 Days</RightTopSec>
-              <Line2></Line2>
+              <Line2 ></Line2>
             </RightTop>
             <GraphContainer>
               <HolderGraphBar />
