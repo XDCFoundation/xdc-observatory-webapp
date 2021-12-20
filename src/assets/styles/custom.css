@@ -1486,7 +1486,7 @@ input:focus {
   cursor: pointer;
 }
 .XDC-internal:hover {
-  margin-left: -0.313rem;
+  /*margin-left: -0.313rem;*/
   font-size: 1.375rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1497,6 +1497,7 @@ input:focus {
   margin-top: 1.25rem;
   cursor: pointer;
 }
+
 @media (min-width: 0px) and (max-width: 767px) {
   .XDC {
     font-size: 14px;
@@ -3190,6 +3191,7 @@ p {
   line-height: normal;
   letter-spacing: 0.58px;
   color: #252525;
+  margin-top: 0;
 }
 
 .vc-contract-add-select {
@@ -8129,7 +8131,7 @@ button {
     font-size: 14px;
   }
   .vc-contract-compiler {
-    margin-top: 20px;
+    margin-top: 5rem;
     margin-left: 0px;
     font-size: 14px;
   }
