@@ -489,10 +489,7 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-            <img
-              className="navigation-arrow"
-              src={"/images/back.svg"}
-            />
+            <img className="navigation-arrow" src={"/images/back.svg"} />
 
             {/* <p className="path-contract">{"<"}</p> */}
           </div>
@@ -513,10 +510,7 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("next")}
           >
-            <img
-              className="navigation-arrow"
-              src={"/images/next.svg"}
-            />
+            <img className="navigation-arrow" src={"/images/next.svg"} />
           </div>
           <div
             className={

@@ -6,6 +6,7 @@ import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
 import LoginDialog from "../explorer/loginDialog";
 import AuthService from "../../services/userLogin";
+import { Avatar } from "@material-ui/core";
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -94,7 +95,7 @@ export default function BasicPopover(props) {
         </ProfileContainer>
       ) : (
         <ProfileContainer onClick={handleClick} Open Popover>
-          <img
+          {/* <img
             className="Shape2-internal"
             style={{ borderRadius: "50px" }}
             src={
@@ -102,14 +103,18 @@ export default function BasicPopover(props) {
                 cookiesConstants.USER_PICTURE
               ) || '/images/Profile.svg'
             }
+          /> */}
+          <Avatar
+            src={
+              sessionManager.getDataFromCookies(
+                cookiesConstants.USER_PICTURE
+              ) || "/images/Profile.svg"
+            }
           />
           <span className="userName-internal">
             {setUserName() === "" ? "" : Utility.shortenUserName(setUserName())}
           </span>
-          <img
-            className="down-arrow-internal"
-            src={'/images/Dropdown.svg'}
-          />
+          <img className="down-arrow-internal" src={"/images/Dropdown.svg"} />
         </ProfileContainer>
       )}
       <Popover

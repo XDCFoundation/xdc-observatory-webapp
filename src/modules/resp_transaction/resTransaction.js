@@ -306,9 +306,7 @@ export default function Transaction({ _handleChange }) {
                     <HashDiv>
                       <Container>
                         <Tooltip align="right" title={hashid}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Hash ID</Hash>
@@ -389,9 +387,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={blocknumber}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Block Number</Hash>
@@ -412,9 +408,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={timestamp}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Timestamp</Hash>
@@ -429,9 +423,7 @@ export default function Transaction({ _handleChange }) {
                     <SpacingHash>
                       <Container>
                         <Tooltip title={from}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>From</Hash>
@@ -519,9 +511,7 @@ export default function Transaction({ _handleChange }) {
                     <SpacingHash>
                       <Container>
                         <Tooltip title={to}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>To</Hash>
@@ -608,9 +598,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={value}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Value</Hash>
                       </Container>
@@ -626,9 +614,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={txnfee}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Txn Fee</Hash>
@@ -649,9 +635,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={gasprovided}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Gas Provided</Hash>
                       </Container>
@@ -662,9 +646,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={gasprice}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Gas Price</Hash>
                       </Container>
@@ -678,9 +660,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={gasused}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Gas Used</Hash>
                       </Container>
@@ -695,9 +675,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={nounced}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Nounce</Hash>
                       </Container>
@@ -727,9 +705,7 @@ export default function Transaction({ _handleChange }) {
                     <SpacingPrivateNode>
                       <Container>
                         <Tooltip align="right" title={transferToken}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Private Note</Hash>
                       </Container>

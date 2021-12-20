@@ -381,10 +381,6 @@ a:hover {
   outline: 0;
   background-color: #2149b9;
 } */
-.MuiList-padding {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-}
 .select-xdc .MuiSvgIcon-root {
   fill: #ffffff !important;
 }
