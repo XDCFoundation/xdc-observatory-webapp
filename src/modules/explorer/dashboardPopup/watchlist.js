@@ -251,6 +251,7 @@ const screenSize = window.innerHeight
     setAddress("");
     setDescription("");
     setOpen(false);
+    window.location.reload();
   };
 }
 
