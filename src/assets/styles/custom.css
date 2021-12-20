@@ -25,6 +25,54 @@ a:link {
   text-decoration: none;
 }
 
+.p-l-5{
+  padding-left: 5px;
+}
+
+.p-l-10{
+  padding-left: 10px;
+}
+
+.p-r-5{
+  padding-right: 5px;
+}
+
+.p-r-10{
+  padding-right: 10px;
+}
+
+.p-t-15{
+  padding-top: 15px;
+}
+
+.p-b-15{
+  padding-bottom: 15px;
+}
+
+.p-b-25{
+  padding-bottom: 25px;
+}
+
+.margin-0{
+  margin: 0;
+}
+
+.m-t-2{
+  margin-top: 2px;
+}
+
+.m-b-15{
+  margin-bottom: 15px;
+}
+
+.h-16{
+  height: 16px;
+}
+
+.h-20{
+  height: 20px;
+}
+
 input#password {
   width: 433px;
   height: 40px;
@@ -334,6 +382,18 @@ input:focus {
   width: 16%;
 }
 
+.w-16-px {
+  width: 16px;
+}
+
+.w-20-px {
+  width: 20px;
+}
+
+.w-320 {
+  width: 320px;
+}
+
 .w-850 {
   width: 850px;
 }
@@ -530,6 +590,11 @@ input:focus {
   margin-left: 4px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
+  .display-none-mobile{
+    display: none;
+  }
+
+
   .Shape {
     height: 20px;
     width: 20px;
@@ -1455,6 +1520,10 @@ input:focus {
   width: 1.25rem;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
+  .display-none-tab{
+    display: none;
+  }
+
   .imQrcode {
     margin-left: 0rem !important;
     height: 16px;
@@ -4274,6 +4343,13 @@ button {
   background-color: #ffffff;
 }
 @media (min-width: 1240px) {
+  .display-none-desktop{
+    display: none;
+  }
+  .display-none-tab{
+    display: none;
+  }
+
   .latestblock {
     width: 36.125rem;
     height: 29.625rem;

@@ -13,7 +13,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { CSVLink } from "react-csv";
-import TableHead from "@material-ui/core/TableHead";  
+import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
@@ -461,9 +461,9 @@ export default function SimpleTabs(props) {
     setSelectedAddress(value)
   };
   const handleClose = async () => {
-    console.log("CLOSE")
+
     setEditBox(false);
-    };
+  };
 
   // Edit Handlers Done
   const onChangeWatchlistPage = async (value) => {
@@ -492,7 +492,7 @@ export default function SimpleTabs(props) {
       isWatchlistAddress: true,
     };
     const response = await UserService.getWatchlistList(request);
-    
+
     if (response.totalCount > 0) {
       setAddressNotAdded(false);
     }
@@ -622,7 +622,6 @@ export default function SimpleTabs(props) {
       setWatchlist(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked1 === true) {
-          console.log("lengeeeeeee", addr);
           return addr;
         }
       });
@@ -919,59 +918,59 @@ export default function SimpleTabs(props) {
               tableValue === 1 ? (
                 ""
               ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                <CSVLink
-                  filename={"private_note.csv"}
-                  data={downloadTxnPvtNote}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              ) : (
-                <CSVLink
-                  filename={"tag_address.csv"}
-                  data={downloadTagAddress}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
-              )
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
+                tableValue === 2 ? (
+                  <CSVLink
+                    filename={"private_note.csv"}
+                    data={downloadTxnPvtNote}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                ) : (
+                  <CSVLink
+                    filename={"tag_address.csv"}
+                    data={downloadTagAddress}
+                    style={{
+                      fontSize: "0.938rem",
+                      textAlign: "center",
+                      color: "#ffffff",
+                      backgroundColor: "rgb(7 125 245)",
+                      borderRadius: "0.25rem",
+                      width: "5.875rem",
+                      height: "2.125rem",
+                      marginRight: "1.5rem",
+                      paddingTop: "0.125rem",
+                    }}
+                  >
+                    Export
+                  </CSVLink>
+                )
             ) : (
               <CSVLink
                 filename={"tag_address.csv"}
@@ -1637,7 +1636,7 @@ export default function SimpleTabs(props) {
                                     type="checkbox"
                                     checked={row?.isChecked2 || false}
                                     style={{ marginTop: "4px" }}
-                                    // className={classes.Rectangle}
+                                  // className={classes.Rectangle}
                                   />
                                 </TableCell>
                                 <TableCell
@@ -1795,7 +1794,7 @@ export default function SimpleTabs(props) {
                     src={require("../../../src/assets/images/XDC-Alert.svg")}
                   ></img>
                   <div className={classes.noData}>
-                  
+
                     No Address added to Tagged Address
                   </div>
                 </div>
@@ -1898,7 +1897,7 @@ export default function SimpleTabs(props) {
                       ></img>
                       <div className={classes.noData} style={{ marginLeft: "538px" }}>
 
-                      Data Not Found
+                        Data Not Found
                       </div>
                     </div>
                   ) : (

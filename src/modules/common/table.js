@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Paper,
-  TableContainer,
   TableRow,
   TableCell,
   Table,
@@ -9,7 +8,6 @@ import {
   TableBody,
 } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
-import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import Loader from "../../assets/loader";
 import { makeStyles } from "@material-ui/core/styles";
 import utility from "../../utility";
@@ -51,7 +49,7 @@ const TransactionTitle = styled.div`
 
 export default function CommonTransactionsTable(props) {
   const classes = useStyles();
-  const { transactionList, detailanimationclass, TransactionHeading } = props;
+  const { transactionList  } = props;
 
   return (
     <Paper
@@ -166,7 +164,7 @@ export default function CommonTransactionsTable(props) {
                 </TableCell> */}
             </TableRow>
           </TableHead>
-          {props.state.isLoading == true ? (
+          {props.state.isLoading === true ? (
             <TableBody>
               <TableRow>
                 <TableCell style={{ border: "none" }} colspan="7">
@@ -184,14 +182,16 @@ export default function CommonTransactionsTable(props) {
                   const currentTime = new Date();
                   const previousTime = new Date(row.timestamp * 1000);
                   const ti = utility.timeDiff(currentTime, previousTime);
-                  const txFee = (
-                    (row?.gasUsed * row?.gasPrice) /
-                    100000000000000000
-                  ).toFixed(9);
+                  // const txFee = (
+                  //   (row?.gasUsed * row?.gasPrice) /
+                  //   100000000000000000
+                  // ).toFixed(9);
                   let amt = (row.value / 1000000000000000000).toFixed(4);
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (
+                    <>
+                    {/* {amt > 0 ?  //if transaction amount is greater than 0 only then show the transaction */}
                     <TableRow
                       key={row.name}
                       style={
@@ -384,6 +384,8 @@ export default function CommonTransactionsTable(props) {
                           </span>
                         </TableCell> */}
                     </TableRow>
+                    {/* : "" } */}
+                    </>
                   );
                 })}
             </TableBody>

@@ -87,7 +87,7 @@ export default function TransferTransaction({ _handleChange }) {
   const nounced = ` Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address. `;
   const input = `Additional information that is required for the transaction `;
   const transferToken = `The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.`;
-  const privatenote = ` Private notes `;
+  // const privatenote = ` Private notes `;
 
   function _handleChange(event) {
     setAmount(event?.target?.value);
@@ -126,13 +126,13 @@ export default function TransferTransaction({ _handleChange }) {
       <Tokensearchbar />
       <div className={classes.root}>
         <Grid>
-          <div className={isLoading == true ? "cover-spin-2" : ""}>
-            <div className={isLoading == true ? "cover-spin" : ""}>
+          <div className={isLoading === true ? "cover-spin-2" : ""}>
+            <div className={isLoading === true ? "cover-spin" : ""}>
               <Spacin>
                 <Container>
                   <Heading>Transaction Details</Heading>
                   {transactions ? (
-                    transactions.status == true ? (
+                    transactions.status === true ? (
                       <p className="Success-rectangle">Success</p>
                     ) : (
                       <p className="Failed-rectangle">Failed</p>
@@ -184,7 +184,7 @@ export default function TransferTransaction({ _handleChange }) {
                 </HashDiv>
               </Div>
 
-              <Div__ className="pad-right-30">
+              <Division className="pad-right-30">
                 <Spacing>
                   <Container>
                     <Tooltip title={blocknumber}>
@@ -489,7 +489,7 @@ export default function TransferTransaction({ _handleChange }) {
                       <a className="linkTableDetails">Logged In</a></PrivateBox>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
-              </Div__>
+              </Division>
               <br />
               <br />
             </div>
@@ -501,16 +501,16 @@ export default function TransferTransaction({ _handleChange }) {
     </div>
   );
 }
-const Input = styled.input`
-  border-radius: 5px;
-  border: solid 1px #e3e7eb;
-  background-color: #fff;
-  font-family: Inter;
-  font-size: 14px;
-  letter-spacing: 0.54px;
-  text-align: left;
-  color: #2a2a2a;
-`;
+// const Input = styled.input`
+//   border-radius: 5px;
+//   border: solid 1px #e3e7eb;
+//   background-color: #fff;
+//   font-family: Inter;
+//   font-size: 14px;
+//   letter-spacing: 0.54px;
+//   text-align: left;
+//   color: #2a2a2a;
+// `;
 const Content = styled.span`
   font-family: Inter;
   font-size: 13px;
@@ -574,7 +574,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-const Div__ = styled.div`
+const Division = styled.div`
   height: auto;
   border-radius: 7px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
@@ -679,15 +679,15 @@ const MiddleContainerInputData = styled.div`
     margin-left: 88px;
   }
 `;
-const InputContainer = styled.div`
-  font-family: Inter;
-  font-size: 13px;
-  letter-spacing: 0.54px;
-  text-align: left;
-  color: #3a3a3a;
-  margin-left: 100px;
-  width: 100%;
-`;
+// const InputContainer = styled.div`
+//   font-family: Inter;
+//   font-size: 13px;
+//   letter-spacing: 0.54px;
+//   text-align: left;
+//   color: #3a3a3a;
+//   margin-left: 100px;
+//   width: 100%;
+// `;
 
 const Hash = styled.span`
   color: var(--unnamed-color-2a2a2a);
@@ -806,12 +806,12 @@ const Container = styled.div`
   align-items: center;
   max-width: 100px;
 `;
-const SecondContainer = styled.div`
-  display: flex;
-  align-items: center;
-  @media (max-width: 767px) {
-  }
-`;
+// const SecondContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   @media (max-width: 767px) {
+//   }
+// `;
 
 const Div = styled.div`
   height: 4.125rem;

@@ -3,7 +3,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { sessionManager } from "../../../managers/sessionManager";
@@ -162,7 +161,7 @@ export default function FormDialog(props) {
       trxLable: privateNote,
       transactionHash: transactionsHash,
     };
-    const [error, response] = await utility.parseResponse(
+    const [error] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
 
