@@ -296,7 +296,7 @@ class Contractlist extends React.Component {
                       marginRight: 6,
                       marginTop: 3,
                     }}
-                    src={require("../../assets/images/Search.svg")}
+                    src={"/images/Search.svg"}
                   />
                   <input
                     onKeyPress={(e) => {
@@ -546,7 +546,7 @@ class Contractlist extends React.Component {
             >
               <img
                 className="navigation-arrow"
-                src={require("../../assets/images/back.svg")}
+                src={"/images/back.svg"}
               />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
@@ -572,7 +572,7 @@ class Contractlist extends React.Component {
               <img
                 className="navigation-arrow"
 
-                src={require("../../assets/images/next.svg")}
+                src={"/images/next.svg"}
               />
               {/* <p
                 className="path-2-contract"

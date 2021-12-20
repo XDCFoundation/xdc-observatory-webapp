@@ -364,7 +364,7 @@ export default function TransactionComponent(props) {
               props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
             }
           >
-            <img src={require("../../../src/assets/images/back.svg")} />{" "}
+            <img src={"/images/back.svg"} />{" "}
           </button>
           <button className="btn btn-page">
             Page{" "}
@@ -384,7 +384,7 @@ export default function TransactionComponent(props) {
                 : "btn btn-next"
             }
           >
-            <img src={require("../../../src/assets/images/next.svg")} />
+            <img src={"/images/next.svg"} />
           </button>
           <button
             onClick={(event) => props._LastPage(event)}

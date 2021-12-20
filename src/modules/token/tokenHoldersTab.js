@@ -12,8 +12,6 @@ import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
-import back from "../../assets/images/back.svg";
-import next from "../../assets/images/next.svg";
 import Loader from "../../assets/loader";
 
 const Pagination = styled.div`
@@ -303,7 +301,7 @@ export default function StickyHeadTable() {
             onClick={() => handleChangePage("prev")}
           >
             <p className="path">
-              <img src={back} width="9px" />
+              <img src={"/images/back.svg"} width="9px" />
             </p>
           </div>
           <div className="pagebox">
@@ -323,7 +321,7 @@ export default function StickyHeadTable() {
             }
           >
             <p className="path-2" onClick={() => handleChangePage("next")}>
-              <img src={next} width="9px" />
+              <img src={"/images/next.svg"} width="9px" />
             </p>
           </div>
           <div

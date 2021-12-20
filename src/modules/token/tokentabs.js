@@ -84,7 +84,6 @@ export default function SimpleTabs(props) {
     let [error, contractStatusData] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
     );
-    console.log(contractStatusData.contractStatus, "lllollo")
     if (error || !contractStatusData) return;
     setContractStatus(contractStatusData.contractResponse);
     setStatus(contractStatusData.contractStatus)

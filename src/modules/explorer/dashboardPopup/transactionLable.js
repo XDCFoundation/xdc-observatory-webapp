@@ -248,7 +248,7 @@ export default function FormDialog() {
         <div>
           <img
             className="imagediv2"
-            src={require("../../../assets/images/transaction.png")}
+            src={"/images/transaction.png"}
           ></img>
         </div>
         <button className={classes.btn}>
@@ -266,7 +266,7 @@ export default function FormDialog() {
         onClick={handleClickOpen}
       >
           
-          <img className="Shape2" src={require("../../../../src/assets/images/Profile.png")}></img>
+          <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
       <div>
