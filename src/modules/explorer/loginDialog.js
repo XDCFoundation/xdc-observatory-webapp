@@ -904,7 +904,7 @@ export default function FormDialog(props) {
 
             <div className={classes.value}></div>
             <DialogContentText className={classes.xdc}>
-              New to XDC Explorer?{" "}
+              New to XDC Observatory?{" "}
               <span
                 className={classes.createaccount}
                 onClick={handleClickOpenSignup}
