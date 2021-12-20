@@ -63,24 +63,24 @@ export default function Transaction({ _handleChange }) {
   const [isTagTo, setIsTagTo] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [fromAddress, setFromAddress] = useState("");
+  // const [fromAddress, setFromAddress] = useState("");
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
-  function shorten(b, amountL = 35, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
-  function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
+  // function shorten(b, amountL = 35, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
+  // function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -146,9 +146,9 @@ export default function Transaction({ _handleChange }) {
     );
     if (
       !transactiondetailusinghash ||
-      transactiondetailusinghash.length == 0 ||
+      transactiondetailusinghash.length === 0 ||
       transactiondetailusinghash === undefined ||
-      transactiondetailusinghash == "" ||
+      transactiondetailusinghash === "" ||
       transactiondetailusinghash === null
     ) {
       setLoading(false);
