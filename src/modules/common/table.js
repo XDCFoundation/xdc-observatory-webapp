@@ -47,6 +47,9 @@ const TransactionTitle = styled.div`
   font-family: Inter;
   font-size: 1.125rem;
   font-weight: 600;
+  @media (min-width: 0px) and (max-width: 767px) {
+      margin-left:12px;
+    }
 `;
 
 export default function CommonTransactionsTable(props) {

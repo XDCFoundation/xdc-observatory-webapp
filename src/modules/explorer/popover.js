@@ -46,10 +46,10 @@ export default function BasicPopover(props) {
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
 
-const openMyProfile =()=>{
-  console.log("button clicked")
-  history.push("loginProfile");
-}
+// const openMyProfile =()=>{
+  
+//   history.push("loginProfile");
+// }
   const openChangePassword = () => {
     setOpen(props.openChangePassword);
     setAnchorEl(null);
@@ -136,8 +136,9 @@ const openMyProfile =()=>{
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Text style={{ marginRight: "auto" }} onClick={openMyProfile}>
-            My Profile
+          <Text style={{ marginRight: "auto" }} >
+          <a href="/loginprofile" style={{textDecoration: "none",color: "#2a2a2a"}}> My Profile</a>
+           
           </Text>
         </Contents>
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
