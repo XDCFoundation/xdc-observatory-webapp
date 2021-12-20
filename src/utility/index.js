@@ -69,11 +69,11 @@ export default utility;
 
 function convertToInternationalCurrencySystem(num) {
   if (num > 999 && num < 1000000) {
-    return (num / 1000).toFixed(2) + " Thousand"; // convert to K for number from > 1000 < 1 million
+    return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
   } else if (num > 999999 && num < 999999999) {
-    return (num / 1000000).toFixed(2) + " Millions"; // convert to M for number from > 1 million && < 1 billion
+    return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
-    return (num / 1000000000).toFixed(2) + " Billions"; // convert to B for number from > 1 billion
+    return (num / 1000000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
   } else if (num < 900) {
     return num; // if value < 1000, nothing to do
   }
@@ -134,8 +134,8 @@ async function uploadImage(request) {
       throw error && error.message
         ? error.message
         : error
-        ? error
-        : "Upload file Failed";
+          ? error
+          : "Upload file Failed";
     }
     return response.responseData[0];
   } catch (error) {
@@ -517,8 +517,8 @@ function getAddedByObject(propsOfComponent) {
       user.firstName || user.lastName
         ? user.firstName + " " + user.lastName
         : user.company && user.company.name
-        ? user.company.name
-        : "",
+          ? user.company.name
+          : "",
     _id: user._id,
   };
 }
@@ -598,8 +598,8 @@ function isCompanyBalanceLow(company) {
     new Date(company.tokenEconomy.endDate).getMonth() -
     new Date().getMonth() +
     12 *
-      (new Date(company.tokenEconomy.endDate).getFullYear() -
-        new Date().getFullYear());
+    (new Date(company.tokenEconomy.endDate).getFullYear() -
+      new Date().getFullYear());
   if (
     company.tokenEconomy.PERCBalance <
     company.tokenEconomy.monthlyPERCAllocation * remainingMonth

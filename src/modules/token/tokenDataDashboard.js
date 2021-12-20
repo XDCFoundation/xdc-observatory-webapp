@@ -239,14 +239,14 @@ const ContractButton = styled.button`
     font-size: 0.875rem;
   }
 `;
-const RightFirst = styled.div`
-  flex: 0.1;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  font-size: 2px;
-  align-items: center;
-`;
+// const RightFirst = styled.div`
+//   flex: 0.1;
+//   position: relative;
+//   display: flex;
+//   justify-content: space-between;
+//   font-size: 2px;
+//   align-items: center;
+// `;
 const RightTop = styled.div`
   flex: 0.2;
   display: flex;
@@ -326,16 +326,16 @@ const GraphContainer = styled.div`
   padding-left: 0px;
 `;
 
-const Icons = styled.div`
-  padding-top: 1px;
-`;
+// const Icons = styled.div`
+//   padding-top: 1px;
+// `;
 
 export default function TokenDataComponent() {
   const classes = useStyles();
-  let changePrice = 5.21;
+  // let changePrice = 5.21;
   let changeHolders = 0;
-  let tokenName = 'XDC'
-  let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
+  // let tokenName = 'XDC'
+  // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({})
   const { address } = useParams();
