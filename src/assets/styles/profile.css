@@ -443,6 +443,11 @@ background-color: #4878ff; */
 .learnMoreText{
   display: none;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1920px) {
   .heading {
     max-width: 1250px;
