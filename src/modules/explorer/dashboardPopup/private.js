@@ -332,7 +332,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div className="div3">
+      <div className="div3 cursor-pointer">
         <div className="imageParentDiv" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
           <img
             className="imagediv3"
