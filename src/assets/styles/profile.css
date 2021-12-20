@@ -480,7 +480,7 @@ background-color: #4878ff; */
 
 @media screen and (max-width: 1242px) {
   .div3 {
-    margin-top: 44px;
+    /*margin-top: 44px;*/
   }
 }
 @media screen and (max-width: 1240px) {
@@ -512,7 +512,7 @@ background-color: #4878ff; */
     max-width: 313px;
     height: 157px;
     width: 100%;
-    margin-top: 44px;
+    /*margin-top: 44px;*/
     margin-left: unset;
     margin-right: 360px;
   }
@@ -532,8 +532,10 @@ background-color: #4878ff; */
   .headingdiv1,
   .headingdiv2,
   .headingdiv3 {
+    display: flex;
+    justify-content: center;
     text-align: center;
-    max-width: 70px;
+    max-width: 100%;
     font-size: 12px;
     height: 15px;
     margin-top: 6px;
@@ -578,9 +580,9 @@ background-color: #4878ff; */
   .div2,
   .div3 {
     width: 28.125vw;
-    height: 157px;
+    height: 137px;
     padding: 25px 10px 25px 10px;
-    border-radius: 12px;
+    border-radius: 6px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #213d8b;
     margin: 9px 7px 9px 7px;
@@ -588,6 +590,10 @@ background-color: #4878ff; */
   .line {
     max-width: 375px;
     width: 95%;
+  }
+  .createWatchlistText{
+    position: relative;
+    top: 10px;
   }
 }
 @media screen and (max-width: 450px) {
