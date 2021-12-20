@@ -312,7 +312,7 @@ const screenSize = window.innerHeight
   return (
     <div>
 
-      <div style={{marginLeft:"10px"}} className="div1">
+      <div style={{marginLeft:"10px"}} className="div1 cursor-pointer">
 
         <div className="imageParentDiv" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
           <img

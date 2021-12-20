@@ -267,7 +267,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div className="div2">
+      <div className="div2 cursor-pointer">
         <div className="imageParentDiv" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/testTrancation")}}>
           <img
             className="imagediv2"
