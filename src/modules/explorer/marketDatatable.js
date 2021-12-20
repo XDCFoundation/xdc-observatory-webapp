@@ -59,7 +59,9 @@ const MarketDataPointTitle = styled.div`
   }
 
   @media (min-width: 350px) and (max-width: 767px) {
-    display: block;
+    display: flex;
+    gap: 10px;
+    flex-flow: row-reverse;
   }
 `;
 
@@ -181,7 +183,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.MARKET_CAP}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -203,12 +205,18 @@ class MarketDatatable extends Component {
                       ) : MarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       )}
                       &nbsp;{MarketCapchange}%
@@ -221,7 +229,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.FDMP}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -245,12 +253,18 @@ class MarketDatatable extends Component {
                       ) : FullyDilutedMarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       )}
                       &nbsp;{FullyDilutedMarketCapchange}%
@@ -263,7 +277,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.VOLUMEX24}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -283,12 +297,18 @@ class MarketDatatable extends Component {
                       ) : Volumechange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       )}
                       &nbsp;{Volumechange}%
@@ -308,7 +328,7 @@ class MarketDatatable extends Component {
                       >
                         <img
                           src="/images/question-mark.svg"
-                          height={"10px"}
+                          height={"14px"}
                           style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                         />
                       </Tooltip>
@@ -326,7 +346,7 @@ class MarketDatatable extends Component {
                       <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
                         <img
                           src="/images/question-mark.svg"
-                          height={"10px"}
+                          height={"14px"}
                           style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                         />
                       </Tooltip>
@@ -355,7 +375,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.MARKET_CAP}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -380,12 +400,18 @@ class MarketDatatable extends Component {
                       ) : MarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       )}
                       &nbsp;{MarketCapchange}%
@@ -402,7 +428,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.FDMP}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -429,12 +455,18 @@ class MarketDatatable extends Component {
                       ) : FullyDilutedMarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       )}
                       &nbsp;{FullyDilutedMarketCapchange}%
@@ -451,7 +483,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.VOLUMEX24}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -474,12 +506,18 @@ class MarketDatatable extends Component {
                       ) : Volumechange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
                         </div>
                       )}
                       &nbsp;{Volumechange}%
@@ -499,7 +537,7 @@ class MarketDatatable extends Component {
                     >
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
@@ -521,7 +559,7 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
                       <img
                         src="/images/question-mark.svg"
-                        height={"10px"}
+                        height={"14px"}
                         style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
                       />
                     </Tooltip>
