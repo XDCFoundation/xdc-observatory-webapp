@@ -829,7 +829,6 @@ const Content = styled.div`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
-  word-break: break-all;
   line-height: 28px;
   display: flex;
   align-items: center;

@@ -97,7 +97,9 @@ export default function AccountComponent(props) {
                   {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                     let num = row.balance;
                     let finalBal = num / 1000000000000000000;
-                    let bal = finalBal.toString()
+                    let bal1 = finalBal.toString()
+                    let nfObject = new Intl.NumberFormat('en-US');
+                  let bal = nfObject.format(bal1);
                     return (
                       <TableRow key={row.name} style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                         <TableCell className="w-1" style={{ border: "none", paddingLeft: "25.5px", width: "48%" }} >

@@ -6629,6 +6629,17 @@ button {
   line-height: 1rem !important;
 }
 
+.second-row-table-hash{
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 60px !important;
+  line-height: 1rem !important;
+  background-color: "red"
+
+}
+
 .second-row-table_hash2 {
   font-family: Inter !important;
   font-size: 12px !important;
@@ -8548,7 +8559,7 @@ button {
 }
 .copyEditContainer {
   display: flex;
-  margin-left: 29rem !important;
+  margin-left: 15rem !important;
 }
 .copyEditContainerTab {
   display: flex;

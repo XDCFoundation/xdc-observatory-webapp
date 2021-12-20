@@ -292,7 +292,7 @@ const screenSize = window.innerHeight
         <div>
           <img
             className="imagediv1"
-            src={"/images/watchlist.png"}
+            src={"/images/createWatchlist.svg"}
           ></img>
         </div>
         <button className={classes.btn}>

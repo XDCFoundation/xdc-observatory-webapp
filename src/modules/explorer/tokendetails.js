@@ -310,7 +310,6 @@ export default function StickyHeadTable() {
           borderRadius: "0.875rem",
           // marginLeft: "18%",
           // marginRight: "18%",
-          
         }}
         elevation={0}
       >
@@ -327,17 +326,20 @@ export default function StickyHeadTable() {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
+                <TableCell
+                  style={{ border: "none", paddingLeft: "75px" }}
+                  align="left"
+                >
                   <span>#</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Contract</span>
+                  <span className={"tablehead-token-details"}>Symbol</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Symbol</span>
+                  <span className={"tablehead-token-details"}>Contract</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Type</span>
@@ -381,7 +383,19 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>
+                        <TableCell style={{ paddingLeft: "75px" }} id="td">
+                          {index + 1}
+                        </TableCell>
+                        <TableCell id="td">
+                          <img
+                            style={{ height: "24", width: "24" }}
+                            src={"/images/XRC20-Icon.svg"}
+                          ></img>
+                          &nbsp;{row.symbol}
+                        </TableCell>
+                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                          {shorten(row.tokenName, 9, 0, 3)}
+                        </TableCell>
                         <TableCell>
                           <a
                             className="token-details-address-link"
@@ -392,16 +406,7 @@ export default function StickyHeadTable() {
                             {shorten(row.address)}
                           </a>
                         </TableCell>
-                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
-                          {shorten(row.tokenName, 9, 0, 3)}
-                        </TableCell>
-                        <TableCell id="td">
-                          <img
-                            style={{ height: "24", width: "24" }}
-                            src={"/images/XRC20-Icon.svg"}
-                          ></img>
-                          &nbsp;{row.symbol}
-                        </TableCell>
+
                         <TableCell id="td">{row.type}</TableCell>
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {utility.convertToInternationalCurrencySystem(
@@ -490,10 +495,7 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-            <img
-              className="navigation-arrow"
-              src={"/images/back.svg"}
-            />
+            <img className="navigation-arrow" src={"/images/back.svg"} />
 
             {/* <p className="path-contract">{"<"}</p> */}
           </div>
@@ -514,10 +516,7 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("next")}
           >
-            <img
-              className="navigation-arrow"
-              src={"/images/next.svg"}
-            />
+            <img className="navigation-arrow" src={"/images/next.svg"} />
           </div>
           <div
             className={

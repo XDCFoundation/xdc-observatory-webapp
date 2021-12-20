@@ -248,7 +248,7 @@ export default function FormDialog() {
         <div>
           <img
             className="imagediv2"
-            src={"/images/transaction.png"}
+            src={"/images/addTransactionLabel.svg"}
           ></img>
         </div>
         <button className={classes.btn}>
