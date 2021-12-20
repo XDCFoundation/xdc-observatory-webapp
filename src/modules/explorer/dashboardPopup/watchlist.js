@@ -4,11 +4,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {makeStyles} from "@material-ui/styles";
-import {Row, typeOf} from "simple-flexbox";
+import {Row} from "simple-flexbox";
 import {sessionManager} from "../../../managers/sessionManager";
 import Test from './Test'
 import { history } from "../../../managers/history";
-import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";

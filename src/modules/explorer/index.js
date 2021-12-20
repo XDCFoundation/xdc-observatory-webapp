@@ -5,8 +5,7 @@ import FooterComponent from "../common";
 import LatestBlocksComponent from './latestBlocksAndTransactions';
 import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
-import Dialog from "@material-ui/core/Dialog";
-import { Row } from "simple-flexbox";
+
 
 
 
