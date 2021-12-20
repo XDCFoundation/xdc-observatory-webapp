@@ -5,10 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import DownArrow from "@material-ui/icons/KeyboardArrowDown";
 import { MenuItem } from "material-ui";
-import { useSelector, useDispatch } from "react-redux";
-import { usdCurrency, eurCurrency, inrCurrency } from "../../actions/index";
 import styled from "styled-components";
-import { Column } from "simple-flexbox";
 export default function FooterComponent(props) {
   const [activeCurrency, setActiveCurrency] = useState("USD");
 

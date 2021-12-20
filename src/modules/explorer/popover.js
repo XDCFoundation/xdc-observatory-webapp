@@ -46,10 +46,9 @@ export default function BasicPopover(props) {
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
 
-const openMyProfile =()=>{
-  console.log("button clicked")
-  history.push("loginProfile");
-}
+  const openMyProfile = () => {
+    history.push("loginProfile");
+  }
   const openChangePassword = () => {
     setOpen(props.openChangePassword);
     setAnchorEl(null);
@@ -61,7 +60,8 @@ const openMyProfile =()=>{
   const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
     const authObject = new AuthService();
-    let [error, authResponse] = await Utility.parseResponse(
+    // let [error, authResponse] = 
+    await Utility.parseResponse(
       authObject.logout(userId)
     );
 
@@ -85,12 +85,12 @@ const openMyProfile =()=>{
       return userName;
     }
   };
-  const setUserImage = () => {
-    let name = sessionManager.getDataFromCookies("userInfo");
+  // const setUserImage = () => {
+  //   let name = sessionManager.getDataFromCookies("userInfo");
 
-    let userName = name.profilePic;
-    return userName;
-  };
+  //   let userName = name.profilePic;
+  //   return userName;
+  // };
 
   return (
     <div>
@@ -101,6 +101,7 @@ const openMyProfile =()=>{
       ) : (
         <ProfileContainer onClick={handleClick} Open Popover>
           <img
+            alt="Profile"
             className="Shape2-internal"
             style={{ borderRadius: "50px" }}
             src={
@@ -112,7 +113,7 @@ const openMyProfile =()=>{
           <span className="userName-internal">
             {setUserName() === "" ? "" : Utility.shortenUserName(setUserName())}
           </span>
-          <img
+          <img  alt="Profile"
             className="down-arrow-internal"
             src={'/images/Dropdown.svg'}
           />

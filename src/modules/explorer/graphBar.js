@@ -72,10 +72,11 @@ export default function App() {
     if (error || !transactionGraph) return;
     setGraphTransactions(transactionGraph);
     // alert(JSON.stringify(transactionGraph))
-    const interval = setInterval(async () => {
+    setInterval(async () => {
       let [error, transactionGraph] = await Utils.parseResponse(
         TransactionService.getSomeDaysTransaction()
       );
+      if(error) return;
       setGraphTransactions(transactionGraph);
       // alert(JSON.stringify(transactionGraph))
     }, 90000);
@@ -103,11 +104,11 @@ export default function App() {
   }, []);
   let length = graphTransactions ? graphTransactions?.length : "";
   const firstDate =
-    graphTransactions && graphTransactions?.length == 0
+    graphTransactions && graphTransactions?.length === 0
       ? ""
       : moment(graphTransactions[length - 1]?.day)?.format("D MMM");
   const lastDate =
-    graphTransactions && graphTransactions?.length == 0
+    graphTransactions && graphTransactions?.length === 0
       ? ""
       : moment(graphTransactions[0]?.day).format("D MMM");
   return (
