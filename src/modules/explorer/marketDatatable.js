@@ -3,8 +3,6 @@ import "../../assets/styles/custom.css";
 import { CoinMarketService } from "../../services";
 import styled from "styled-components";
 import Utils from "../../utility";
-import arrowUp from "../../assets/images/Up.svg";
-import arrowDown from "../../assets/images/Down.svg";
 import utility from "../../utility";
 import { Row } from "simple-flexbox";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -205,12 +203,12 @@ class MarketDatatable extends Component {
                       ) : MarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={arrowUp} style={{ width: "8px" }} />
+                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={arrowDown} style={{ width: "8px" }} />
+                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                         </div>
                       )}
                       &nbsp;{MarketCapchange}%
@@ -247,12 +245,12 @@ class MarketDatatable extends Component {
                       ) : FullyDilutedMarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={arrowUp} style={{ width: "8px" }} />
+                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={arrowDown} style={{ width: "8px" }} />
+                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                         </div>
                       )}
                       &nbsp;{FullyDilutedMarketCapchange}%
@@ -285,12 +283,12 @@ class MarketDatatable extends Component {
                       ) : Volumechange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={arrowUp} style={{ width: "8px" }} />
+                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={arrowDown} style={{ width: "8px" }} />
+                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                         </div>
                       )}
                       &nbsp;{Volumechange}%
@@ -382,12 +380,12 @@ class MarketDatatable extends Component {
                       ) : MarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={arrowUp} style={{ width: "8px" }} />
+                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={arrowDown} style={{ width: "8px" }} />
+                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                         </div>
                       )}
                       &nbsp;{MarketCapchange}%
@@ -431,12 +429,12 @@ class MarketDatatable extends Component {
                       ) : FullyDilutedMarketCapchange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={arrowUp} style={{ width: "8px" }} />
+                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={arrowDown} style={{ width: "8px" }} />
+                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                         </div>
                       )}
                       &nbsp;{FullyDilutedMarketCapchange}%
@@ -476,12 +474,12 @@ class MarketDatatable extends Component {
                       ) : Volumechange > 0 ? (
                         <div className="arrow_up">
                           {/* <BsFillCaretUpFill size={10} /> */}
-                          <img src={arrowUp} style={{ width: "8px" }} />
+                          <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                         </div>
                       ) : (
                         <div className="arrow_down">
                           {/* <BsFillCaretDownFill size={10} /> */}
-                          <img src={arrowDown} style={{ width: "8px" }} />
+                          <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                         </div>
                       )}
                       &nbsp;{Volumechange}%

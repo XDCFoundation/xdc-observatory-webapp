@@ -38,7 +38,6 @@ export default function VerifyContract() {
         } catch (err) {
             setisLoading(false)
             //setMessage(err)
-            console.log(err)
         }
     };
 
@@ -78,9 +77,10 @@ export default function VerifyContract() {
                                 <p className="validation-error-message">{errors?.contractname?.message}</p>
                             </div>
 
-                            <div className="vc-contract-compiler">Compiler
+                            <div className="vc-contract-compiler" style={{marginTop:"5em", }}>Compiler
                                 <div>
-                                    <select {...register("version")} name="version" className="vc-contract-add-select">
+                                
+                                    <select {...register("version")} name="version" className="vc-contract-add-select"  >
                                         <option value="">Select compiler</option>
                                         <option value="latest">Latest</option>
                                         {Releases.builds.map((row, index) => {
@@ -91,10 +91,10 @@ export default function VerifyContract() {
                                                 ver = finalVersion[1] + '+' + subversion[1]
                                             } else {
                                                 ver = finalVersion[1]
-                                            }
+                                            } 
 
                                             return (
-                                                <option value={ver}>{row}</option>
+                                                <option  value={ver}>{row}</option>
                                             )
                                         })
                                         }

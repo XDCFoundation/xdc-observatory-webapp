@@ -150,7 +150,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginLeft: "24px",
     marginTop: "20px",
-    marginBottom: "35px",
   },
   checkbox: {
     width: "17px",
@@ -374,7 +373,6 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-  console.log("props dialog", props);
 
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -384,6 +382,7 @@ export default function FormDialog(props) {
   const [isLoading, setLoading] = React.useState(false);
   const [viewPopup, setViewPopup] = React.useState(true);
   const [errorEmail, setErrorEmail] = React.useState("");
+  const [errorEmailVerified, setErrorEmailVerified] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
@@ -402,7 +401,6 @@ export default function FormDialog(props) {
   };
 
   React.useEffect(() => {
-    console.log("logeeee", props);
     if (props.isNewFeatureComponent) {
       setOpen(true);
       handleClickOpenSignup();
@@ -445,8 +443,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.hash
-          ? setOpen(false)
-          : props.onClose(onClose);
+        ? setOpen(false)
+        : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -463,6 +461,8 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
+    setErrorEmailVerified(false);
+    setCaptchaError("");
   };
 
   var regExAlphaNum = /^[0-9a-zA-Z]+$/;
@@ -473,9 +473,11 @@ export default function FormDialog(props) {
 
   const handleClickOpenSignup = () => {
     setValue(1);
+    setErrorEmailVerified(false);
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
+    setErrorEmailVerified(false);
   };
 
   const login = async () => {
@@ -487,8 +489,12 @@ export default function FormDialog(props) {
     setErrorEmail("");
     setErrorPassword("");
 
-    if (!email || !password) {
-      Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
+    if (!email) {
+      setErrorEmail("Please enter required field");
+      setLoading(false);
+      return;
+    } else if (!password) {
+      setErrorPassword("Please enter required field");
       setLoading(false);
       return;
     } else if (!email.match(regExAlphaNum)) {
@@ -513,14 +519,13 @@ export default function FormDialog(props) {
     }
 
     if (authResponse?.userInfoRes?.email_verified === false) {
-      Utility.apiFailureToast(
-        "You have got an email from XDC Observatory. Please verify your email."
-      );
+      setErrorEmailVerified(true);
       setLoading(false);
+      return;
     } else {
       if (error || !authResponse) {
         setLoading(false);
-        Utility.apiFailureToast("Wrong Username or password");
+        setErrorPassword("Wrong Username or password");
         // setislogged(true)
       } else {
         sessionManager.setDataInCookies(authResponse?.userInfoRes, "userInfo");
@@ -537,7 +542,6 @@ export default function FormDialog(props) {
         setUserName("");
         setEmail("");
         setPassword("");
-        Utility.apiSuccessToast("Sign in successfull");
         {
           !props.hash ? (window.location.href = "loginprofile") : history.go(0);
         }
@@ -561,39 +565,50 @@ export default function FormDialog(props) {
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
-    if (reCaptcha === "") {
-      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+    if (!userName) {
+      setErrorUserName(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
-    } else {
-      setCaptchaError("");
+      return;
     }
-    if (!userName || !email || !password || !confirmPassword) {
-      Utility.apiFailureToast(genericConstants.ENTER_REQUIRED_FIELD);
+    if (!email) {
+      setErrorEmail(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
-      console.log("1");
+      return;
+    }
+    if (!password) {
+      setErrorPassword(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false);
+      return;
+    }
+    if (!confirmPassword) {
+      setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
+      setLoading(false);
+      return;
     } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
       setLoading(false);
-      console.log("1");
     } else if (!email.match(mailformat)) {
       setErrorEmail("Enter valid Email");
       setLoading(false);
-      console.log("1");
     } else if (!password.match(regExPass)) {
       setErrorPassword(
         "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
-      console.log("1");
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
-      console.log("1");
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions");
       setLoading(false);
-      console.log("1");
     } else {
+      if (reCaptcha === "") {
+        setCaptchaError(genericConstants.RECAPTCHA_ERROR);
+        setLoading(false);
+        return;
+      } else {
+        setCaptchaError("");
+      }
       const [error, response] = await Utility.parseResponse(
         userSignUp.postSignUp(data)
       );
@@ -601,7 +616,7 @@ export default function FormDialog(props) {
         Utility.apiFailureToast("User already exists");
         setLoading(false);
       } else {
-        Utility.apiSuccessToast("Sign-up success, check your email");
+        window.location.href = "/activate-account";
         setLoading(false);
         setOpen(false);
         setTimeout(() => {
@@ -642,12 +657,12 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
+    setValue(2);
     onClickReset();
-    if (reCaptcha === "") {
-      setCaptchaError(genericConstants.RECAPTCHA_ERROR);
-      setLoading(false);
+
+    if (captchaCheckbox === false) {
+      setErrorCaptcha("please verify captcha");
     } else {
-      setCaptchaError("");
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
@@ -657,8 +672,7 @@ export default function FormDialog(props) {
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
-        setReCaptcha("");
-        setValue(2);
+        setCaptchaCheckbox(false);
         Utility.apiSuccessToast(
           "We have just sent you an email to reset your password."
         );
@@ -714,8 +728,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-        ":" +
-        (seconds > 9 ? seconds : "0" + seconds)
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -750,14 +764,15 @@ export default function FormDialog(props) {
         ) : !props.hash ? (
           <button className="login-button" onClick={handleClickOpen}>
             <img
-              // className="Shape2"
-              style={{ borderRadius: "50px" }}
+              className="Shape2"
+              style={{ borderRadius: "50px", width: "25px" }}
               src={
                 sessionManager.getDataFromCookies(
                   cookiesConstants.USER_PICTURE
-                ) || require("../../../src/assets/images/Profile.svg")
+                ) || "/images/Profile.svg"
               }
-            ></img>
+              alt={"image"}
+            />
           </button>
         ) : (
           ""
@@ -788,10 +803,7 @@ export default function FormDialog(props) {
                 Log in to your account
               </div>
               <span onClick={handleClose} className={classes.closeContainer}>
-                <img
-                  className={classes.close}
-                  src={require("../../../src/assets/images/XDC-Cross.svg")}
-                ></img>
+                <img className={classes.close} src={"/images/XDC-Cross.svg"} />
               </span>
             </Row>
             <DialogContent className={classes.userContainer}>
@@ -800,13 +812,15 @@ export default function FormDialog(props) {
               </DialogContentText>
               <input
                 className={classes.input}
+                placeholder="5 to 30 characters in length, only alphanumeric allowed"
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  setEmailError("");
+                  setErrorEmail("");
+                  setErrorPassword("");
                   setInputError(" ");
                 }}
                 type="text"
-              ></input>
+              />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
             <DialogContent className={classes.passwordContainer}>
@@ -823,19 +837,24 @@ export default function FormDialog(props) {
               <input
                 type="password"
                 type={passwordShown ? "text" : "password"}
+                id={passwordShown ? "text" : "password"}
+                placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 className={classes.input}
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setErrorPassword("");
+                }}
+              />
               <span>
                 {passwordShown ? (
                   <img
-                    src={require("../../../src/assets/images/show .svg")}
+                    src={"/images/show .svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
                   <img
-                    src={require("../../../src/assets/images/hide.svg")}
+                    src={"/images/hide.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
@@ -843,6 +862,22 @@ export default function FormDialog(props) {
               </span>
               <div className={classes.error}>{errorPassword}</div>
             </DialogContent>
+            {errorEmailVerified ? (
+              <div className="verifiedEmailError">
+                <span className="verifiedEmailErrorTextIcon">
+                  <img
+                    style={{ paddingRight: "2px" }}
+                    src={require("../../../src/assets/images/alert.svg")}
+                  />
+                  Email verification pending.
+                </span>
+                <span style={{ fontSize: "12px" }}>
+                  Please check your email to verify this account.
+                </span>
+              </div>
+            ) : (
+              ""
+            )}
             {isLoading == true ? (
               <div className={classes.loading}>
                 <Loader />
@@ -886,10 +921,7 @@ export default function FormDialog(props) {
               </div>
 
               <span onClick={handleClose} className={classes.closeContainer}>
-                <img
-                  className={classes.close}
-                  src={require("../../../src/assets/images/XDC-Cross.svg")}
-                ></img>
+                <img className={classes.close} src={"/images/XDC-Cross.svg"} />
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
@@ -901,9 +933,12 @@ export default function FormDialog(props) {
                 placeholder="5 to 30 characters in length, only alphanumeric allowed"
                 // name="userName"
                 // value={signUp.userName}
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                  setErrorUserName("");
+                }}
                 // onChange={inputEventSignUp}
-              ></input>
+              />
               <div className={classes.error}>{errorUserName}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
@@ -915,11 +950,14 @@ export default function FormDialog(props) {
                 placeholder="A confirmation code will be sent to this email"
                 className={classes.input}
                 // name="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrorEmail("");
+                }}
                 // value={signUp.email}
 
                 // onChange={inputEventSignUp}
-              ></input>
+              />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
@@ -931,11 +969,14 @@ export default function FormDialog(props) {
                 id="password"
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 className={classes.input}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setErrorPassword("");
+                }}
                 // name="password"
                 // value={signUp.password}
                 // onChange={inputEventSignUp}
-              ></input>
+              />
               <div className={classes.error}>{errorPassword}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
@@ -947,37 +988,22 @@ export default function FormDialog(props) {
                 id="password"
                 placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
                 className={classes.input}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  setErrorConfirmPassword("");
+                }}
                 // name="confirmPassword"
                 // value={signUp.confirmPassword}
                 // onChange={inputEventSignUp}
-              ></input>
+              />
               <div className={classes.error}>{errorConfirmPassword}</div>
             </DialogContent>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                marginTop: "4px",
-                flexDirection: "column",
-              }}
-            >
-              <ReCAPTCHA
-                // sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
-                sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
-                onChange={handleReCaptcha}
-              />
-              <div style={{ marginLeft: 0 }} className={classes.error1}>
-                {captchaError}
-              </div>
-            </div>
             <div className={classes.termsContainer}>
               <input
                 className={classes.checkbox}
                 onClick={handleTermsCheckbox}
                 type="checkbox"
-              ></input>
+              />
               <span className="iAgree">
                 I agree to the{" "}
                 <a style={{ color: "#2b51bc" }} href="/term-conditions">
@@ -990,16 +1016,33 @@ export default function FormDialog(props) {
               </span>
             </div>
             <div className={classes.error1}>{errorTermsCondition}</div>
+            {/* <div
+                            style={{
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                marginTop: "4px",
+                                flexDirection: "column",
+                                paddingLeft: "28px",
+                            }}
+                        ></div> */}
             <div
               style={{
                 width: "100%",
                 display: "flex",
                 alignItems: "center",
-                marginTop: "4px",
+                marginTop: "50px",
+                marginBottom: "25px",
                 flexDirection: "column",
-                paddingLeft: "28px",
               }}
-            ></div>
+            >
+              <ReCAPTCHA
+                // sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
+                onChange={handleReCaptcha}
+              />
+              <div className={classes.error2}>{captchaError}</div>
+            </div>
             {/* <div className={classes.robotContainer}>
                   <div className={classes.robotContainer1}>
                    
@@ -1013,7 +1056,7 @@ export default function FormDialog(props) {
                     <span className={classes.robotText}>I'm not a robot</span>
                     <img
                       className={classes.recaptcha}
-                      src={require("../../../src/assets/images/recaptcha.svg")}
+                      src={'/images/recaptcha.svg}
                     ></img>
                   </div>
                 </div> */}
@@ -1052,8 +1095,9 @@ export default function FormDialog(props) {
               <span onClick={handleClose} className="forgot-success-close">
                 <img
                   className={classes.close}
-                  src={require("../../../src/assets/images/XDC-Cross.svg")}
-                ></img>
+                  src={"/images/XDC-Cross.svg"}
+                  alt={"image"}
+                />
               </span>
             </Row>
             <div className="forgot-success-box">
@@ -1096,7 +1140,7 @@ export default function FormDialog(props) {
               <span onClick={handleClose} className={classes.closeContainer}>
                 <img
                   className={classes.close}
-                  src={require("../../../src/assets/images/XDC-Cross.svg")}
+                  src={"/images/XDC-Cross.svg"}
                 ></img>
               </span>
             </Row>
@@ -1118,7 +1162,7 @@ export default function FormDialog(props) {
                   setEmailError("");
                   setInputError(" ");
                 }}
-              ></input>
+              />
             </DialogContent>
             <div
               style={{
@@ -1131,7 +1175,7 @@ export default function FormDialog(props) {
               }}
             >
               <ReCAPTCHA
-                sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
+                sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
                 onChange={handleReCaptcha}
               />
               <div style={{ marginLeft: 0 }} className={classes.error1}>
@@ -1152,7 +1196,7 @@ export default function FormDialog(props) {
                     <span className={classes.robotText}>I'm not a robot</span>
                     <img
                       className={classes.recaptcha}
-                      src={require("../../../src/assets/images/recaptcha.svg")}
+                      src={'/images/recaptcha.svg'}
                     ></img>
                   </div>
                 </div> */}

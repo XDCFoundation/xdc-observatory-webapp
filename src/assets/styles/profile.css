@@ -431,6 +431,9 @@ background-color: #4878ff; */
   color: #252525;
   text-decoration: none;
 }
+.table > :not(:first-child) {
+  border: 0px;
+}
 
 .linkTable1 {
   color: #2149b9;

@@ -20,7 +20,7 @@ transfer:{
 },
   "@media (min-width: 0px) and (max-width: 767px)": {
     maxWidth: "20px",
-    border:"1px solid black",
+    
   },
 
 
@@ -51,7 +51,7 @@ const MainContainer = styled.div`
     height: 32.063rem;
     padding: 0 1.875rem;
     margin: 0 auto;
-    margin-top: 165px;
+    margin-top: 182px;
   }
 `;
 const MobileScreen = styled.div`
@@ -93,10 +93,10 @@ const LeftFirst = styled.div`
   align-items: flex-start;
   padding-bottom: 1.125rem;
   @media (max-width:767px){
-   padding: 1.875rem 0;
+   padding: 1.875rem 0 0 0;
   }
   @media (min-width:767px) and (max-width:1240px){
-   padding: 1.5rem 0 1.125rem;
+   padding: 1.5rem 0 0.125rem;
   }
 `;
 const LeftSec = styled.div`
@@ -354,7 +354,7 @@ export default function TokenDataComponent() {
       );
 
       if (responseData && responseData?.responseCode !== 400) {
-        console.log(responseData, "?>")
+
         setMarketCapValue(responseData)
 
       }
@@ -426,7 +426,7 @@ export default function TokenDataComponent() {
     }
   }
   let numberStatus = Math.sign(tokenChanges24hr)
-  console.log(marketCapVal, "RESPONSE")
+
   return (
     <>
       <div style={{ backgroundColor: '#fff' }}>
@@ -442,7 +442,7 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={require("../../../src/assets/images/XRC20-Icon.svg")}></img>
+                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={"/images/XRC20-Icon.svg"}></img>
 
                 <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
@@ -461,7 +461,7 @@ export default function TokenDataComponent() {
                       <div className="arrow_up">
                         {/*<BsFillCaretUpFill size={10} />*/}
                         <img
-                          src={require("../../../src/assets/images/Up.svg")}
+                          src={"/images/Up.svg"}
                           style={{ width: "8px" }}
                         />
                       </div>
@@ -469,7 +469,7 @@ export default function TokenDataComponent() {
                       <div className="arrow_down">
                         {/* <BsFillCaretDownFill size={10} />*/}
                         <img
-                          src={require("../../../src/assets/images/Down.svg")}
+                          src={"/images/Down.svg"}
                           style={{ width: "8px" }}
                         />
                       </div>
@@ -478,14 +478,19 @@ export default function TokenDataComponent() {
                   </div>
                 </div>
               </LeftTopSecMain>
-              <Line1></Line1>
+            
             </LeftFirst>
             <LeftSec>
+          
               <ValueMain>
+              
                 <MobileScreen>
+                
                   <Value>
                     {/* <TitleIcon src={blockHeightImg} /> */}
+                    
                     <ValueName>
+                    {/* <Line2 ></Line2> */}
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
@@ -518,7 +523,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      {console.log("TRansfer",transfer)}
+                      {}
                       <TitleValue>{(transfer.length && transfer.length)===0 ? "0" : transfer}</TitleValue>
                     </ValueName>
                   </Value>
@@ -615,7 +620,7 @@ export default function TokenDataComponent() {
             <RightTop>
               <RightTitle>Holders</RightTitle>
               <RightTopSec>14 Days</RightTopSec>
-              <Line2></Line2>
+              <Line2 ></Line2>
             </RightTop>
             <GraphContainer>
               <HolderGraphBar />

@@ -12,8 +12,6 @@ import TokenData from "../../services/token";
 import Utils from "../../utility";
 import { useParams } from "react-router";
 import styled from "styled-components";
-import back from '../../assets/images/back.svg';
-import next from '../../assets/images/next.svg';
 import Loader from '../../assets/loader'
 import TableBody from '@material-ui/core/TableBody'
 
@@ -348,7 +346,7 @@ export default function StickyHeadTable() {
             className={page === 0 ? "previousbox disabled" : "previousbox"}
             onClick={() => handleChangePage("prev")}
           >
-            <p className="path"><img src={back} width="9px" /></p>
+            <p className="path"><img src={'/images/back.svg'} width="9px" /></p>
           </div>
           <div className="pagebox">
             <p className="Page-1-of-5">
@@ -364,7 +362,7 @@ export default function StickyHeadTable() {
             }
           >
             <p className="path-2" onClick={() => handleChangePage("next")}>
-              <img src={next} width="9px" />
+              <img src={'/images/next.svg'} width="9px" />
             </p>
           </div>
           <div

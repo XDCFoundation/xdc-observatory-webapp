@@ -6,6 +6,7 @@ import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
 import LoginDialog from "../explorer/loginDialog";
 import AuthService from "../../services/userLogin";
+import { history } from "../../managers/history";
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -44,6 +45,11 @@ export default function BasicPopover(props) {
   const [openCP, setOpen] = React.useState(false);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
+
+const openMyProfile =()=>{
+  console.log("button clicked")
+  history.push("loginProfile");
+}
   const openChangePassword = () => {
     setOpen(props.openChangePassword);
     setAnchorEl(null);
@@ -100,7 +106,7 @@ export default function BasicPopover(props) {
             src={
               sessionManager.getDataFromCookies(
                 cookiesConstants.USER_PICTURE
-              ) || require("../../../src/assets/images/Profile.svg")
+              ) || '/images/Profile.svg'
             }
           />
           <span className="userName-internal">
@@ -108,7 +114,7 @@ export default function BasicPopover(props) {
           </span>
           <img
             className="down-arrow-internal"
-            src={require("../../../src/assets/images/Dropdown.svg")}
+            src={'/images/Dropdown.svg'}
           />
         </ProfileContainer>
       )}
@@ -129,6 +135,11 @@ export default function BasicPopover(props) {
           horizontal: "right",
         }}
       >
+        <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
+          <Text style={{ marginRight: "auto" }} onClick={openMyProfile}>
+            My Profile
+          </Text>
+        </Contents>
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "20px" }} onClick={openChangePassword}>
             Change Password
