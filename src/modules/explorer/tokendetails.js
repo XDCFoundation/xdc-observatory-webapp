@@ -71,7 +71,7 @@ const useStyles = makeStyles({
   },
   "@media (max-width: 1024px)": {
     container: {
-      height: 600,
+      height: 615,
     },
   },
 

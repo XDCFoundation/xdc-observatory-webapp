@@ -40,20 +40,20 @@ const useStyles = makeStyles((theme) => ({
     width: "80% !important",
     height: "70% !important",
     borderRadius: "50px !important",
-    "@media (min-width:0px) and (max-width:375px)":{
-      width:"100% !important",
-      height:"100% !important",
-      borderRadius:"1px !important",
+    "@media (min-width:0px) and (max-width:375px)": {
+      width: "100% !important",
+      height: "100% !important",
+      borderRadius: "1px !important",
     },
-    "@media (min-width:375px) and (max-width:768px)":{
-      width:"100% !important",
-      height:"100% !important",
-      borderRadius:"1px !important",
-      maxWidth:"768px !important"
+    "@media (min-width:375px) and (max-width:768px)": {
+      width: "100% !important",
+      height: "100% !important",
+      borderRadius: "1px !important",
+      maxWidth: "768px !important"
     },
   },
   buttons: {
-    padding: "1px 35px 15px 0px",
+    padding: "22px 35px 15px 0px",
   },
   input: {
     width: "503px",
@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
-  
+
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -151,14 +151,14 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "18px",
     color: "#2a2a2a",
-    "@media (min-width:500px) and (max-width:768px)":{
+    "@media (min-width:500px) and (max-width:768px)": {
       width: "100% !important",
       flexFlow: "column nowrap ",
       display: "flex !important",
       maxWidth: "fit-content",
       margin: "0 auto",
-      justifyContent: "flex-start !important", 
-      },
+      justifyContent: "flex-start !important",
+    },
   },
   dialogBox: {
     width: "553px",
@@ -167,7 +167,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   "@media (max-width: 714px)": {
-    heading:{
+    heading: {
       fontSize: "16px",
     },
     dialogBox: {
@@ -206,29 +206,29 @@ export default function FormDialog() {
       address: privateAddress,
       tagName: tags,
     };
-    if (!(privateAddress && privateAddress.length === 43) || !(privateAddress.slice(0,3) === "xdc")) {
+    if (!(privateAddress && privateAddress.length === 43) || !(privateAddress.slice(0, 3) === "xdc")) {
       setError("Address should start with xdc & 43 characters")
       return;
-    }else if (tags.length === 0){
+    } else if (tags.length === 0) {
       setErrorTag("Use comma(,) to add multiple tag");
       return;
     }
-    else if (tags && tags.length > 5){
+    else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-    const [error, response] = await utility.parseResponse(
-      UserService.addPrivateTagToAddress(data)
-    );
+      const [error, response] = await utility.parseResponse(
+        UserService.addPrivateTagToAddress(data)
+      );
 
-    if (error) {
-      utility.apiFailureToast("Address is already in use");
-      return;
+      if (error) {
+        utility.apiFailureToast("Address is already in use");
+        return;
+      }
+      utility.apiSuccessToast("Tag Added");
+      window.location.href = "loginprofile";
+      setOpen(false);
     }
-    utility.apiSuccessToast("Tag Added");
-    window.location.href = "loginprofile";
-    setOpen(false);
-  }
   }
 
 
@@ -260,14 +260,14 @@ export default function FormDialog() {
   const onKeyDown = (e) => {
     const { key } = e;
     const trimmedInput = input.trim();
-  
+
     if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
       setTags(prevState => [...prevState, trimmedInput]);
       setInput('');
       setErrorTag("");
     }
-  
+
     if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
       const tagsCopy = [...tags];
       const poppedTag = tagsCopy.pop();
@@ -275,10 +275,10 @@ export default function FormDialog() {
       setTags(tagsCopy);
       setInput(poppedTag);
     }
-  
+
     setIsKeyReleased(false);
   };
-  
+
   const onKeyUp = () => {
     setIsKeyReleased(true);
   }
@@ -306,10 +306,10 @@ export default function FormDialog() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   const { width } = windowDimensions
-  
+
   return (
     <div>
-     <div className="div3" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test-address")}}>
+      <div className="div3" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
         <div>
           <img
             className="imagediv3"
@@ -356,8 +356,9 @@ export default function FormDialog() {
             </DialogContentText>
             <input
               className={classes.input}
-              onChange={(e) => {setPrivateAddress(e.target.value)
-              setError("")
+              onChange={(e) => {
+                setPrivateAddress(e.target.value)
+                setError("")
               }}
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
@@ -371,19 +372,19 @@ export default function FormDialog() {
             </DialogContentText>
 
             <div className="containerTag">
-                {tags.map((tag, index) => (<div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                  </div>))}
-                <input
-                  value={input}
-                  placeholder="Enter a tag"
-                  onKeyDown={onKeyDown}
-                  onKeyUp={onKeyUp}
-                  onChange={onChange}
-                />
-              </div>
-              {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
+              {tags.map((tag, index) => (<div className="tag">
+                {tag}
+                <button onClick={() => deleteTag(index)}>x</button>
+              </div>))}
+              <input
+                value={input}
+                placeholder="Enter a tag"
+                onKeyDown={onKeyDown}
+                onKeyUp={onKeyUp}
+                onChange={onChange}
+              />
+            </div>
+            {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
             {/* <input
               type="text"
               className={classes.input}
