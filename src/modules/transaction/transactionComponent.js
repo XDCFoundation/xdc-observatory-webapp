@@ -6,12 +6,14 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Grid, TableContainer } from "@material-ui/core";
+import {Grid, TableContainer} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import styled from "styled-components";
 import Loader from '../../assets/loader'
+import ConfigureColumnPopOver from "../common/configureColumnsPopOver"
+import ConfigureColumnsModal from "../common/configureColumnsModal";
 
 function timeDiff(curr, prev) {
     if (curr < prev) return "0 secs ago";
@@ -59,16 +61,32 @@ const useStyles = makeStyles({
 
     },
 });
-// const Pagination = styled.div`
-//   @media (min-width: 640px) {
-//     display: flex;
-//     width: 100%;
-//     justify-content: space-between;
-//   }
-// `;
+const Pagination = styled.div`
+  @media (min-width: 640px) {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+`;
 
 export default function TransactionComponent(props) {
     const classes = useStyles();
+
+    let [anchorEl, setAnchorEl] = React.useState();
+    let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
+    let isSettingColumnOpen = Boolean(anchorEl);
+
+    function handleSettingsClick(event) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function toggleModal() {
+        setColumnsModal(!isColumnsModalOpen);
+    }
+
+    function handleOnClose() {
+        setAnchorEl(null);
+    }
 
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
@@ -77,69 +95,92 @@ export default function TransactionComponent(props) {
         )}`;
     }
 
-    const { state } = props;
+    const {state} = props;
+
+    const tableColumns = {"Transaction Hash":{isActive: true}}
     return (
         <Grid className="tableresponsive">
-            <Grid class="tabletop-header">{state.tableName}</Grid>
+            <div className="display-flex justify-content-between">
+                <Grid class="tabletop-header">{state.tableName}</Grid>
+                <div class="tabletop-header display-none-mobile">
+                    <img onClick={handleSettingsClick} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
+                    <ConfigureColumnPopOver
+                        isOpen={isSettingColumnOpen}
+                        anchorEl={anchorEl}
+                        handleOnClose={handleOnClose}
+                        tableColumns={props.state.tableColumns}
+                        toggleTableColumns={props.toggleTableColumns}
+                    />
+                </div>
+                <div className="tabletop-header display-none-tab display-none-desktop">
+                    <img onClick={toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
+                    <ConfigureColumnsModal
+                        isOpen={isColumnsModalOpen}
+                        onModalClose={toggleModal}
+                        tableColumns={props.state.tableColumns}
+                        toggleTableColumns={props.toggleTableColumns}
+                    />
+                </div>
+            </div>
 
-            <Paper style={{ borderRadius: "14px" }} elevation={0}>
+            <Paper style={{borderRadius: "14px"}} elevation={0}>
                 <TableContainer className={classes.container} id="container-table">
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell
+                                {props.state.tableColumns["Transaction Hash"].isActive && <TableCell
                                     className="table-head-hash hash-transaction-list-all"
                                     align="left"
                                 >
                   <span className={("tableheaders-hash", "tableheaders")}>
                     Hash
                   </span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "2.813rem" }}
+                                </TableCell>}
+                                {props.state.tableColumns["Amount"].isActive && <TableCell
+                                    style={{border: "none", paddingLeft: "2.813rem"}}
                                     className="table-head-all"
                                     align="left"
                                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     Amount
                   </span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "3rem" }}
+                                </TableCell>}
+                                {props.state.tableColumns["Age"].isActive && <TableCell
+                                    style={{border: "none", paddingLeft: "3rem"}}
                                     className="table-head-all"
                                     align="left"
                                 >
                   <span className={("tableheaders", "tableheaders-age")}>
                     Age
                   </span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "3rem" }}
+                                </TableCell>}
+                                {props.state.tableColumns["Block"].isActive && <TableCell
+                                    style={{border: "none", paddingLeft: "3rem"}}
                                     className="table-head-all"
                                     align="left"
                                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     Block
                   </span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "3rem" }}
+                                </TableCell>}
+                                {props.state.tableColumns["From Address"].isActive && <TableCell
+                                    style={{border: "none", paddingLeft: "3rem"}}
                                     className="table-head-all"
                                     align="left"
                                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     From
                   </span>
-                                </TableCell>
-                                <TableCell
-                                    style={{ border: "none", paddingLeft: "3rem" }}
+                                </TableCell>}
+                                {props.state.tableColumns["To Address"].isActive && <TableCell
+                                    style={{border: "none", paddingLeft: "3rem"}}
                                     className="table-head-all"
                                     align="left"
                                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     To
                   </span>
-                                </TableCell>
+                                </TableCell>}
                                 {/* <TableCell
                   style={{ border: "none", paddingLeft: "3rem" }}
                   className="table-head-all"
@@ -151,12 +192,12 @@ export default function TransactionComponent(props) {
                 </TableCell> */}
                             </TableRow>
                         </TableHead>
-                        {props.state.isLoading === true ? (
+                        {props.state.isLoading == true ? (
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell style={{ border: 'none' }} colspan="7">
+                                        <TableCell style={{border: 'none'}} colspan="7">
                                             <div className="loader-block-list">
-                                                <Loader />
+                                                <Loader/>
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -169,9 +210,9 @@ export default function TransactionComponent(props) {
                                     const currentTime = new Date();
                                     const previousTime = new Date(row.timestamp * 1000);
                                     const ti = timeDiff(currentTime, previousTime);
-                                    // const txFee = (
-                                    //   (row?.gasUsed * row?.gasPrice) / 100000000000000000
-                                    // ).toFixed(9);
+                                    const txFee = (
+                                        (row?.gasUsed * row?.gasPrice) / 100000000000000000
+                                    ).toFixed(9);
                                     let amt = (row.value / 1000000000000000000).toFixed(4);
                                     const Hash = row.hash;
                                     let animationClass = props.state.hashAnimation?.[Hash];
@@ -180,15 +221,16 @@ export default function TransactionComponent(props) {
                                             key={row.name}
                                             style={
                                                 index % 2 !== 1
-                                                    ? { background: "#f9f9f9" }
-                                                    : { background: "white" }
+                                                    ? {background: "#f9f9f9"}
+                                                    : {background: "white"}
                                             }
                                         >
-                                            <TableCell style={{ border: "none", width: "190px" }}>
+                                            {props.state.tableColumns["Transaction Hash"].isActive &&
+                                            <TableCell style={{border: "none", width: "190px"}}>
                                                 <Tooltip placement="right" title={row.hash}>
                                                     <VisibilityOutlinedIcon
                                                         fontSize="small"
-                                                        style={{ color: "#b9b9b9", marginRight: "3px" }}
+                                                        style={{color: "#b9b9b9", marginRight: "3px"}}
                                                     />
                                                 </Tooltip>
                                                 <a
@@ -205,8 +247,8 @@ export default function TransactionComponent(props) {
                                                         {shorten(row.hash)}
                             </span>{" "}
                                                 </a>
-                                            </TableCell>
-                                            <TableCell
+                                            </TableCell>}
+                                            {props.state.tableColumns["Amount"].isActive && <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "100px",
@@ -221,8 +263,8 @@ export default function TransactionComponent(props) {
                           >
                             {amt >= 0.0001 ? amt : 0}
                           </span>
-                                            </TableCell>
-                                            <TableCell
+                                            </TableCell>}
+                                            {props.state.tableColumns["Age"].isActive && <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "120px",
@@ -237,8 +279,8 @@ export default function TransactionComponent(props) {
                           >
                             {ti}
                           </span>
-                                            </TableCell>
-                                            <TableCell
+                                            </TableCell>}
+                                            {props.state.tableColumns["Block"].isActive && <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "120px",
@@ -261,8 +303,8 @@ export default function TransactionComponent(props) {
                                                         {row.blockNumber}
                             </span>{" "}
                                                 </a>
-                                            </TableCell>
-                                            <TableCell
+                                            </TableCell>}
+                                            {props.state.tableColumns["From Address"].isActive && <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "160px",
@@ -285,8 +327,8 @@ export default function TransactionComponent(props) {
                               </span>
                                                     </Tooltip>
                                                 </a>
-                                            </TableCell>
-                                            <TableCell
+                                            </TableCell>}
+                                            {props.state.tableColumns["To Address"].isActive && <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "155px",
@@ -309,7 +351,7 @@ export default function TransactionComponent(props) {
                               </span>
                                                     </Tooltip>
                                                 </a>
-                                            </TableCell>
+                                            </TableCell>}
                                             {/* <TableCell
                           style={{ border: "none", paddingLeft: "2.813rem" }}
                           align="left"
@@ -330,7 +372,7 @@ export default function TransactionComponent(props) {
                 </TableContainer>
             </Paper>
 
-            <Grid container style={{ marginTop: "2.25rem" }} className="Pagination">
+            <Grid container style={{marginTop: "2.25rem"}} className="Pagination">
                 {/* <Pagination> */}
                 <Grid className="Pagination_1">
                     <span className="text">Show</span>
@@ -364,7 +406,7 @@ export default function TransactionComponent(props) {
                             props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
                         }
                     >
-                        <img alt="back" src={"/images/back.svg"} />{" "}
+                        <img alt="back" src={"/images/back.svg"}/>{" "}
                     </button>
                     <button className="btn btn-page">
                         Page{" "}
@@ -384,7 +426,7 @@ export default function TransactionComponent(props) {
                                 : "btn btn-next"
                         }
                     >
-                        <img alt="next" src={"/images/next.svg"} />
+                        <img alt="next" src={"/images/next.svg"}/>
                     </button>
                     <button
                         onClick={(event) => props._LastPage(event)}
