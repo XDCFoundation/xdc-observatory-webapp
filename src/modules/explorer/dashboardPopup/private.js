@@ -9,6 +9,8 @@ import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
+import {withStyles} from "@material-ui/core/styles";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -185,6 +187,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white"
+    }
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  }
+})(Tooltip);
+
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
 
@@ -197,6 +218,8 @@ export default function FormDialog() {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
+
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function TaggedAddress() {
     setError("")
@@ -309,22 +332,25 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div className="div3" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
-        <div className="imageParentDiv">
+      <div className="div3">
+        <div className="imageParentDiv" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
           <img
             className="imagediv3"
             src={"/images/private.png"}
           ></img>
         </div>
-        <button className={classes.btn}>
-          <div className="headingdiv3">Add private tag to an Address</div>
+        <div onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
+          <div className="headingdiv3"><div>Add private tag to an Address</div></div>
           <div className="paradiv3">
             Add a short memo or private tag to the address of interest.
           </div>
-        </button>
+        </div>
 
-        <div className="imageParentDiv">
-          <div className="learnMoreText">Learn More</div>
+        <div className="imageParentDiv" style={{position: "relative", top:"32px"}}>
+          <LightToolTip open={tooltipIsOpen}
+                        title="Add a short memo or private tag to the address of interest." arrow placement="top-start">
+            <div className="learnMoreText" onClick={() => setTooltipIsOpen(!tooltipIsOpen)}>Learn More</div>
+          </LightToolTip>
         </div>
 
       </div>
