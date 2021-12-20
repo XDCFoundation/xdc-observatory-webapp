@@ -183,7 +183,6 @@ const Title = styled.div`
   font-weight: 600;
   text-align: center;
   color: #2a2a2a;
-  padding-left: 32px;
   @media (min-width: 300px) and (max-width: 767px) {
    
   height: 20px;
@@ -206,8 +205,9 @@ const Cut = styled.div`
   padding-right: 25px;
   padding-top: 7px;
 
-  display: flex;
-  align-content: flex-end;
+  // display: flex;
+  // align-content: flex-end;
+  display: none;
 `;
 const Input = styled.div`
   display: flex;
@@ -314,6 +314,7 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    history.push("/loginprofile")
     setUserNameError("");
     setEmailError("");
     setTimeout(() => {

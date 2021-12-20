@@ -538,6 +538,7 @@ export default function FormDialog(props) {
           authResponse?.userInfoRes?.sub,
           "userId"
         );
+        sessionManager.removeDataFromCookies("activateAccountEmail");
         setLoading(false);
         setUserName("");
         setEmail("");
@@ -617,6 +618,7 @@ export default function FormDialog(props) {
         setLoading(false);
       } else {
         window.location.href = "/activate-account";
+        sessionManager.setDataInCookies(email, "activateAccountEmail");
         setLoading(false);
         setOpen(false);
         setTimeout(() => {
@@ -1068,7 +1070,7 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
-            <button className={classes.createAccountbtn} onClick={handleSignUp}>
+            <button className={classes.createAccountbtn} onClick={handleSignUp} >
               Create an Account{" "}
             </button>
 
