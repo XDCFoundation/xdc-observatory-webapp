@@ -378,7 +378,7 @@ export default function FormDialog() {
               </div>))}
               <input
                 value={input}
-                placeholder="Enter a tag"
+                
                 onKeyDown={onKeyDown}
                 onKeyUp={onKeyUp}
                 onChange={onChange}

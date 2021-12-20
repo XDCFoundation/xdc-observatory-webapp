@@ -296,8 +296,8 @@ a:hover {
 }
 
 .Shape-footer {
-  height: 1.875rem;
-  width: 1.875rem;
+  height: 1.75rem;
+  width: 1.75rem;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .Shape-footer {
@@ -359,7 +359,7 @@ a:hover {
   .XDC-Header {
     margin-left: 25px;
     font-size: 0.875rem;
-    margin-top: -17px;
+    margin-top: -19px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {

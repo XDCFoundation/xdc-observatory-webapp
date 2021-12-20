@@ -77,7 +77,7 @@ export default function VerifyContract() {
                                 <p className="validation-error-message">{errors?.contractname?.message}</p>
                             </div>
 
-                            <div className="vc-contract-compiler" style={{marginTop:"5em", }}>Compiler
+                            <div className="vc-contract-compiler" >Compiler
                                 <div>
                                 
                                     <select {...register("version")} name="version" className="vc-contract-add-select"  >
