@@ -386,6 +386,8 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
+                          {sessionManager.getDataFromCookies("isLoggedIn") ?
+                          <>
                           {
                             <PrivateNote
                               open={dialogPvtNoteIsOpen}
@@ -404,9 +406,10 @@ export default function Transaction({ _handleChange }) {
                                     : "editIconHash"
                               }
                               onClick={openDialogPvtNote}
-                              src={require("../../../src/assets/images/XDC-Edit.svg")}
+                              src={require("../../../src/assets/images/label.svg")}
                             />
                           }
+                          </> : "" }
                         </span>
                       </MiddleContainer1>
                     </HashDiv>
@@ -515,7 +518,11 @@ export default function Transaction({ _handleChange }) {
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
+                              {sessionManager.getDataFromCookies("isLoggedIn") ?
+                              <>
+                              
                               {
+                                
                                 <PrivateAddressTag
                                   open={dialogPvtTagIsOpen}
                                   onClose={closeDialogPvtTag}
@@ -536,9 +543,10 @@ export default function Transaction({ _handleChange }) {
                                       : "edit1-icon-from"
                                   }
                                   onClick={openDialogPvtTag}
-                                  src={require("../../../src/assets/images/XDC-Edit.svg")}
+                                  src={require("../../../src/assets/images/tag.svg")}
                                 />
                               )}
+                              </> : ""}
                             </div>
                           </span>
                         </Content>
@@ -604,6 +612,8 @@ export default function Transaction({ _handleChange }) {
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
+                              {sessionManager.getDataFromCookies("isLoggedIn") ?
+                              <>
                               {
                                 <PrivateAddressTag
                                   open={dialogPvtTagIsOpen2}
@@ -625,9 +635,9 @@ export default function Transaction({ _handleChange }) {
                                       : "edit1-icon-from"
                                   }
                                   onClick={openDialogPvtTag2}
-                                  src={require("../../../src/assets/images/XDC-Edit.svg")}
+                                  src={require("../../../src/assets/images/tag.svg")}
                                 />
-                              )}
+                              )}</> : ""}
                             </div>
                           </span>
                         </Content>

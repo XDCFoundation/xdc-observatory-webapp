@@ -678,13 +678,13 @@ export default function Navbar() {
                     to={"/"}
                     className="Network-explorer-internal"
                   >
-                    Network Explorer
+                    XDC Observatory
                   </NavLink>
                 </div>
                 <div>
                   <a href="/">
                     <div className="Network-explorer-internal">
-                      Network Explorer
+                    XDC Observatory
                     </div>
                   </a>
                 </div>

@@ -1175,7 +1175,7 @@ function PrivacyPolicy() {
                     }}
                     className={classes.blockNumber}
                   >
-                    To allow you to interact with our Network Explorer by adding
+                    To allow you to interact with our XDC Observatory by adding
                     “tags” and other identity characteristics
                   </div>
                 </td>
