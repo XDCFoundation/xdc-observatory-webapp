@@ -245,7 +245,7 @@ export default function FormDialog() {
   return (
     <div>
       <div className="div2" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/testTrancation")}}>
-        <div>
+        <div className="imageParentDiv">
           <img
             className="imagediv2"
             src={"/images/transaction.png"}
@@ -257,6 +257,11 @@ export default function FormDialog() {
             Add a personal note to a transacton hash to track it in future.
           </div>
         </button>
+
+        <div className="imageParentDiv">
+          <div className="learnMoreText">Learn More</div>
+        </div>
+
       </div>
 
       {/* <Button

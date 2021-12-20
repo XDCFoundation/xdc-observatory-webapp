@@ -310,7 +310,7 @@ export default function FormDialog() {
   return (
     <div>
       <div className="div3" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
-        <div>
+        <div className="imageParentDiv">
           <img
             className="imagediv3"
             src={"/images/private.png"}
@@ -322,6 +322,11 @@ export default function FormDialog() {
             Add a short memo or private tag to the address of interest.
           </div>
         </button>
+
+        <div className="imageParentDiv">
+          <div className="learnMoreText">Learn More</div>
+        </div>
+
       </div>
 
       {/* <Button
