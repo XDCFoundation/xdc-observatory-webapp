@@ -7993,7 +7993,7 @@ button {
     width: 12.5rem;
     padding-bottom: 6px;
     font-size: 12px !important;
-    margin-top: 1px;
+    margin-top: -2px;
   }
   .mobFilter {
     margin-top: -2px;
@@ -8014,7 +8014,9 @@ button {
     margin-right: -12px;
     margin-left: 3rem;
   }
-
+.token_number{
+  padding-left:75px;
+}
   .vc-header {
     display: flex;
     justify-content: center;
