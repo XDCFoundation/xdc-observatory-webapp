@@ -491,7 +491,7 @@ export default function Navbar() {
         </ul>
         <ul className="Live-Network-list">
           <a className="sidebar-links" href="https://xinfin.network/#explorer">
-            <div className="xinfin_account_button">Block Explorer</div>
+            <div className="xinfin_account_button">Block Observatory</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -541,7 +541,7 @@ export default function Navbar() {
             className="sidebar-links"
             href="https://explorer.apothem.network/home"
           >
-            <div className="xinfin_account_button">Block Explorer</div>
+            <div className="xinfin_account_button">Block Observatory</div>
           </a>
           <hr className="myhr" />
         </ul>
@@ -679,13 +679,13 @@ export default function Navbar() {
                     to={"/"}
                     className="Network-explorer-internal"
                   >
-                    Network Explorer
+                    XDC Observatory
                   </NavLink>
                 </div>
                 <div>
                   <a href="/">
                     <div className="Network-explorer-internal">
-                      Network Explorer
+                    XDC Observatory
                     </div>
                   </a>
                 </div>

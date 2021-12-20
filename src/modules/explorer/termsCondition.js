@@ -2,12 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import Table from "@material-ui/core/Table";
-import { Grid, TableContainer } from "@material-ui/core";
 import styled from "styled-components";
-const Explorer = styled.div`
-  color: #2149b9;
-`;
+// const Explorer = styled.div`
+//   color: #2149b9;
+// `;
 const Heading = styled.div`
   width: 355px;
   height: 29px;

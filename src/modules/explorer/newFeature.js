@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
 import FormDialog from "./loginDialog"
+import { makeStyles } from "@material-ui/styles";
 
 export default function NewFeature(props) {
   const [open, setOpen] = React.useState(true);
@@ -16,6 +17,17 @@ export default function NewFeature(props) {
 //     onClose(selectedValue);
 //   };
 
+const useStyles = makeStyles((theme) => ({
+  dialogBox: {
+    maxWidth: "795px",
+    width: "100%",
+    height: "469px",
+    position: "absolute",
+    top: "65px",
+    borderRadius: "12px",
+  }
+}))
+const classes = useStyles();
 
 const visited = ()=>{
     sessionManager.setDataInCookies(true,"Visited");
@@ -23,8 +35,8 @@ const visited = ()=>{
 }
   return (
       
-   !signUp ?   <Dialog onClose={handleClose} open={open}>
-      <div className="main-box">
+   !signUp ?   <Dialog onClose={handleClose} open={open} classes={{paperWidthSm: classes.dialogBox}}>
+      <div className="main-box" >
         <Row className="main-row">
           <div className="main-title">New Features</div>
           <div className="main-close" onClick={handleClose}>
@@ -35,9 +47,9 @@ const visited = ()=>{
           Create your account and get started
         </div>
         <Row className="card-box">
-          <div className="card margin-right-20px">
+          <div className="card margin-right-34px">
             <img
-              src={'/images/watchlist2.svg'}
+              src={require("../../../src/assets/images/watch-list-new-feature.svg")}
               className="crad-image"
             />
             <div className="card-title">Create watchlist</div>
@@ -46,9 +58,9 @@ const visited = ()=>{
               watch list receives an incoming transaction.
             </div>
           </div>
-          <div className="card margin-right-20px">
+          <div className="card margin-right-34px">
             <img
-              src={"/images/transaction2.svg"}
+              src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
               className="crad-image"
             />
             <div className="card-title">Add transaction label</div>
@@ -58,12 +70,12 @@ const visited = ()=>{
           </div>
           <div className="card">
             <img
-              src={'/images/private2.svg'}
+              src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
               className="crad-image"
             />
-            <div className="card-title">Add transaction label</div>
+            <div className="card-title">Add private tag to an Address</div>
             <div className="card-text">
-              Add a personal note to a transaction hash to track it in future.
+              Add a short memo or private tag to the address of interest.
             </div>
           </div>
         </Row>
