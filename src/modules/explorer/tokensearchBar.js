@@ -662,7 +662,7 @@ export default function Navbar() {
                 <a href={"/"}>
                   <img
                     className="Shape-XDC"
-                    src={require("../../../src/assets/images/XDC icon.svg")}
+                    src={"/images/XDC icon.svg"}
                   ></img>
                 </a>
                 <a className="XDC-internal" href="/">
@@ -720,7 +720,7 @@ export default function Navbar() {
                       <div style={{ display: "flex", flexDirection: "row" }}>
                         <img
                           className={classes.searchIcon}
-                          src={require("../../assets/images/Search.svg")}
+                          src={"/images/Search.svg"}
                         />
                         <div className="search-responsive">
                           <div>
@@ -735,7 +735,7 @@ export default function Navbar() {
                                 }
                               }}
                               className="main-input-td "
-                              src={require("../../images/Search.png")}
+                              src={"/images/Search.png"}
                               placeholder="Search for an address, a Transaction or a block number"
                             />
                           </div>
@@ -802,7 +802,7 @@ export default function Navbar() {
               >
                 <img
                   className={isloggedIn ? "Shape2-internal1" : "menu-sidebar"}
-                  src={require("../../../src/assets/images/Menu.svg")}
+                  src={"/images/Menu.svg"}
                 ></img>
                 {/* <MenuIcon /> */}
               </IconButton>

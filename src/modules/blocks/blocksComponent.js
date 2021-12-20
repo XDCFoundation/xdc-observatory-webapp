@@ -11,8 +11,6 @@ import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-import back from "../../assets/images/back.svg";
-import next from "../../assets/images/next.svg";
 import Loader from "../../assets/loader";
 
 function timeDiff(curr, prev) {
@@ -277,7 +275,7 @@ export default function BlocksComponent(props) {
               props.state.from === 0 ? "btn disabled btn-back" : "btn btn-back"
             }
           >
-            <img src={back} width="10px" />
+            <img src={"/images/back.svg"} width="10px" />
           </button>
           <button className="btn btn-page">
             Page{" "}
@@ -294,7 +292,7 @@ export default function BlocksComponent(props) {
                 : "btn btn-next"
             }
           >
-            <img src={next} width="10px" />
+            <img src={"/images/next.svg"} width="10px" />
           </button>
           <button
             onClick={(event) => props._LastPage(event)}

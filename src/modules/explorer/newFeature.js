@@ -6,7 +6,6 @@ import FormDialog from "./loginDialog"
 import { makeStyles } from "@material-ui/styles";
 
 export default function NewFeature(props) {
-    console.log(props,"propseeeeee")
   const [open, setOpen] = React.useState(true);
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
@@ -31,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 const classes = useStyles();
 
 const visited = ()=>{
-    console.log("clickedddd")
     sessionManager.setDataInCookies(true,"Visited");
     
 }
@@ -42,7 +40,7 @@ const visited = ()=>{
         <Row className="main-row">
           <div className="main-title">New Features</div>
           <div className="main-close" onClick={handleClose}>
-            <img src={require("../../../src/assets/images/XDC-Cross.svg")} />
+            <img src={"/images/XDC-Cross.svg"} />
           </div>
         </Row>
         <div className="main-sub-title">

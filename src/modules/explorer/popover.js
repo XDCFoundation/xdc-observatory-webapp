@@ -100,7 +100,7 @@ export default function BasicPopover(props) {
             src={
               sessionManager.getDataFromCookies(
                 cookiesConstants.USER_PICTURE
-              ) || require("../../../src/assets/images/Profile.svg")
+              ) || '/images/Profile.svg'
             }
           />
           <span className="userName-internal">
@@ -108,7 +108,7 @@ export default function BasicPopover(props) {
           </span>
           <img
             className="down-arrow-internal"
-            src={require("../../../src/assets/images/Dropdown.svg")}
+            src={'/images/Dropdown.svg'}
           />
         </ProfileContainer>
       )}

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router";
-import {ResponsiveLine} from "@nivo/line";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { ResponsiveLine } from "@nivo/line";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
 import Utils from "../../utility";
@@ -164,13 +164,13 @@ export default function App() {
     setData(arr);
   }, []);
 
-  let length = graphTransactions?.length;
+  let length = graphTransactions ? graphTransactions?.length : "";
   const firstDate =
-    graphTransactions.length == 0
+    graphTransactions && graphTransactions?.length == 0
       ? ""
       : moment(graphTransactions[length - 1]?.date).format("D MMM");
   const lastDate =
-    graphTransactions.length == 0
+    graphTransactions && graphTransactions?.length == 0
       ? ""
       : moment(graphTransactions[0]?.date).format("D MMM");
   return (
