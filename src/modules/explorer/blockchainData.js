@@ -212,10 +212,11 @@ const LeftTitle = styled.div`
   }
 `;
 const Line1 = styled.hr`
-  background-color: #fff;
+  background-color: #e3e7eb;
   width: 100%;
   position: absolute;
   top: 65%;
+  opacity: 1;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 90%;
     top: 87%;
