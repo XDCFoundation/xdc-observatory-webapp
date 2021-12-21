@@ -465,7 +465,7 @@ export default function StickyHeadTable(props) {
                         )}
                         <TableCell id="td" style={{ paddingleft: "15" }}>
 
-                          {row.totalSupply / Math.pow(10, row?.decimals)}
+                          {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? (row.totalSupply / Math.pow(10, row?.decimals)) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
 
                         </TableCell>
                         {props?.state?.tableColumns["Total Holders"]

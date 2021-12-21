@@ -103,20 +103,23 @@ export const messages = {
   FDMP: "Fully Diluted Market Cap = Price x Total supply.",
 };
 
-
 export const toolTipMessages = {
-  hashid : "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
-  blocknumber : "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
-  timestamp : "The date and time at which a transaction is mined.",
-  from : "The sending party of the transaction(could be from a contact address)",
-  to : "The receiving party of the transaction(could be from a contact address) ",
-  value : "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  txnfee :"The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  gasprovided : "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
-  gasprice : "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block",
-  gasused : "The exact unit of gas that was used for the transactions.",
-  nounced : "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
-  input : "Additional information that is required for the transaction",
-  transferToken : "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote : "Private notes"
+  hashid: "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
+  blocknumber: "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+  timestamp: "The date and time at which a transaction is mined.",
+  from: "The sending party of the transaction(could be from a contact address)",
+  to: "The receiving party of the transaction(could be from a contact address) ",
+  value: "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  txnfee: "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  gasprovided: "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
+  gasprice: "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block",
+  gasused: "The exact unit of gas that was used for the transactions.",
+  nounced: "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
+  input: "Additional information that is required for the transaction",
+  transferToken: "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
+  privatenote: "Private notes"
+}
+
+export const decimalDivisionValue = {
+  DECIMAL_DIVISON_VALUE: 1000000000000000000
 }

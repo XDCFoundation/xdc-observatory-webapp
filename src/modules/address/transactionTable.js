@@ -265,7 +265,7 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.value / 1000000000000000000,
+            Value: Utility.decimalDivison(d.Value, 18),
           }
         }),
       )
@@ -292,7 +292,7 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.value / 1000000000000000000,
+            Value: Utility.decimalDivison(d.Value, 18),
           }
         }),
       )
