@@ -597,6 +597,11 @@
     /* padding-bottom: 68px; */
   }
 }
+
+.width-fit-content {
+  width: fit-content;
+}
+
 @media (min-width: 768px) and (max-width: 1240px) {
   .linkTableDetails-transaction {
     font-size: 0.875rem;
