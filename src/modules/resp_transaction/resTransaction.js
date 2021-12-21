@@ -448,7 +448,7 @@ export default function Transaction({ _handleChange }) {
                           </Content>
                         </MiddleContainer>
                       </Spacing>
-                      <Spacing>
+                      <Spacing className="mobileTimeStamp">
                         <Container>
                           <Tooltip title={timestamp}>
                             <ImageView
@@ -1168,7 +1168,7 @@ const HashDiv = styled.div`
   @media (max-width: 767px) {
     display: block;
     padding-left: 10px;
-    padding-right: 85px;
+    // padding-right: 85px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     padding: 6px 30px;
