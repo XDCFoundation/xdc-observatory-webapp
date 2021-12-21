@@ -367,7 +367,7 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(0);
-  const [openSignup, setOpenSignup] = React.useState(false);
+  // const [openSignup, setOpenSignup] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -380,7 +380,7 @@ export default function FormDialog(props) {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorUserName, setErrorUserName] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
-  const [viewPopup, setViewPopup] = React.useState(true);
+  // const [viewPopup, setViewPopup] = React.useState(true);
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorEmailVerified, setErrorEmailVerified] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
@@ -424,7 +424,7 @@ export default function FormDialog(props) {
       setOpen(true);
     }
   };
-  let visited = sessionManager.setDataInCookies("", "alreadyVisited");
+  sessionManager.setDataInCookies("", "alreadyVisited");
   // const popUp = ()=>{
 
   //     if(visited) {
@@ -847,13 +847,13 @@ export default function FormDialog(props) {
               />
               <span>
                 {passwordShown ? (
-                  <img
+                  <img alt="show"
                     src={"/images/show .svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
-                  <img
+                  <img alt="hide"
                     src={"/images/hide.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
@@ -865,7 +865,7 @@ export default function FormDialog(props) {
             {errorEmailVerified ? (
               <div className="verifiedEmailError">
                 <span className="verifiedEmailErrorTextIcon">
-                  <img
+                  <img alt="alert"
                     style={{ paddingRight: "2px" }}
                     src={require("../../../src/assets/images/alert.svg")}
                   />
@@ -878,7 +878,7 @@ export default function FormDialog(props) {
             ) : (
               ""
             )}
-            {isLoading == true ? (
+            {isLoading === true ? (
               <div className={classes.loading}>
                 <Loader />
               </div>

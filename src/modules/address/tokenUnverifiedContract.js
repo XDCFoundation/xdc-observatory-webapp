@@ -34,7 +34,7 @@ export default function TokenUnverifiedContract(props) {
 
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={'/images/bytecod.png'} />Contract Byte-Code</div>
+                        <div className="contract-source-2"><img alt="byteCode" className="code-logo" src={'/images/bytecod.png'} />Contract Byte-Code</div>
                         <div>
                             <CopyToClipboard text={unverifiedData.byteCode}
                                 onCopy={() => setCopiedText(unverifiedData.byteCode)}>

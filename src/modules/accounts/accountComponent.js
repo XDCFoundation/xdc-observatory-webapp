@@ -33,12 +33,12 @@ const useStyles = makeStyles({
 });
 export default function AccountComponent(props) {
 
-  function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 3,
+  // function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 3,
 
-    )}`;
-  }
+  //   )}`;
+  // }
   const { state } = props
   const classes = useStyles();
   //alert(props.state.noData)
@@ -80,7 +80,7 @@ export default function AccountComponent(props) {
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {props.state.isLoading == true ? (
+              {props.state.isLoading === true ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: 'none' }} colspan="6">
@@ -91,7 +91,7 @@ export default function AccountComponent(props) {
                   </TableRow>
                 </TableBody>
               ) :
-                props.state.noData == 1 &&
+                props.state.noData === 1 &&
                 <TableBody>
                   {props.state.accountList && props.state.accountList.length >= 1 && props.state.accountList.map((row, index) => {
                     let num = row.balance;
@@ -105,7 +105,7 @@ export default function AccountComponent(props) {
 
                         </TableCell>
                         {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
-                        <TableCell className="w-2" style={{ border: "none", paddingLeft: "0"}} align="left"><span className="tabledata">{row.accountType == 0 ? "Account" : "Contract"}</span></TableCell>
+                        <TableCell className="w-2" style={{ border: "none", paddingLeft: "0"}} align="left"><span className="tabledata">{row.accountType === 0 ? "Account" : "Contract"}</span></TableCell>
                         <TableCell
                          className="w-3" style={{ border: "none", paddingLeft: "2%", cursor:"pointer" }} align="left">
                              <Tooltip placement="right" title={format({})(bal)}>
@@ -119,7 +119,7 @@ export default function AccountComponent(props) {
                   })}
                 </TableBody>
               }
-              {props.state.noData == 0 &&
+              {props.state.noData === 0 &&
                 <TableBody >
                   <TableCell id="td" colSpan="4" style={{ borderBottom: "none" }}>
                     <span style={{ textAlign: 'center', color: 'black', borderBottom: "none" }} className="tabledata">No Account Found.</span>
@@ -144,12 +144,12 @@ export default function AccountComponent(props) {
 
           <Grid item className="Pagination_2">
             <button id="btn_12" style={{ marginLeft: "0px" }} onClick={(event) => props._FirstPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}>First</button>
-            <button id="btn_12" onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img
+            <button id="btn_12" onClick={(event) => props._PrevPage(event)} className={props.state.from === 0 ? "btn disabled" : "btn"}><img alt="back"
               className="back-arrow"
               src={"/images/back.svg"}
             /></button>
             <button id="btn_12" className="btn">Page {Math.ceil(state.totalAccounts / state.amount)  - Math.ceil((state.totalAccounts - state.from) / state.amount) + 1} of {Math.ceil(state.totalAccounts / state.amount)}</button>
-            <button id="btn_12" onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img
+            <button id="btn_12" onClick={(event) => props._NextPage(event)} className={props.state.from + props.state.amount === props.state.totalAccounts ? "btn disabled" : "btn"}><img alt="next"
               className="back-arrow"
               src={"/images/next.svg"}
             /></button>
