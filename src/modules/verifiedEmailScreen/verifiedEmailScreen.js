@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../managers/history";
 import LoginDialog from "../explorer/loginDialog"
 import { sessionManager } from "../../managers/sessionManager";
 const Container = styled.div`
@@ -58,7 +57,7 @@ function VerifiedEmailScreenComponent() {
     <Container>
       <MainDiv>
         <Verified>
-          <img src={"/images/greenTick.svg"} />{" "}
+          <img alt="greenTick" src={"/images/greenTick.svg"} />{" "}
           <EmailVerified> Email Verified </EmailVerified>
         </Verified>
         <Rectangle>

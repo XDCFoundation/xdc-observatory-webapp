@@ -35,7 +35,7 @@ import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
 import { cookiesConstants } from "../constants";
 import Utils from "../../utility";
-import { red } from "@material-ui/core/colors";
+
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -312,13 +312,13 @@ export default function SimpleTabs(props) {
   const [watchlist, setWatchlist] = React.useState([]);
   // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
-  const [exports, exportAddress] = React.useState({});
-  const [toggle, handleToggle] = React.useState(false);
-  const [isLoading, setLoading] = React.useState(false);
+  // const [exports, exportAddress] = React.useState({});
+  // const [toggle, handleToggle] = React.useState(false);
+  // const [isLoading, setLoading] = React.useState(false);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const { state } = props;
+  // const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState(0);
   const [nameToggle, setNameToggle] = React.useState(0);
@@ -441,11 +441,11 @@ export default function SimpleTabs(props) {
     setValue(newValue);
   };
 
-  function handleMultipleTag(tag) {
-    let tagWords = [];
-    tagWords = tag.split(",");
-    return tagWords;
-  }
+  // function handleMultipleTag(tag) {
+  //   let tagWords = [];
+  //   tagWords = tag.split(",");
+  //   return tagWords;
+  // }
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -820,6 +820,7 @@ export default function SimpleTabs(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    gap: 10px;
   `;
 
   return (
@@ -1174,7 +1175,7 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img
+                      <img alt="alert"
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
@@ -1398,7 +1399,7 @@ export default function SimpleTabs(props) {
                                 name="allselect"
                                 checked={
                                   countNote === pvtNoteLength ||
-                                  checkedNote == true
+                                  checkedNote === true
                                 }
                                 style={{
                                   marginRight: "10px",
