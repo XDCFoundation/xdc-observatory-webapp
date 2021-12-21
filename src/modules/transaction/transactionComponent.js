@@ -104,7 +104,7 @@ export default function TransactionComponent(props) {
     margin-top: 100px;
     gap: 10px;
     @media (min-width: 767px) {
-      margin: -100px 0 100px 0 !important;
+      margin: 100px 0 !important;
     }
   `;
 
