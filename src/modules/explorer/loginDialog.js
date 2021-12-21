@@ -479,6 +479,7 @@ export default function FormDialog(props) {
   const handleOpenForgotPassword = () => {
     setValue(3);
     setErrorEmailVerified(false);
+    setEmail("")
   };
 
   const login = async () => {
@@ -1160,6 +1161,7 @@ export default function FormDialog(props) {
               <input
                 type="email"
                 className={classes.input}
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setEmailError("");

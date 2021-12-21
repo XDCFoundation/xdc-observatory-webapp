@@ -13,6 +13,7 @@ import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
+import utility from "../../utility";
 
 const Pagination = styled.div`
   display: flex;
@@ -248,7 +249,7 @@ export default function StickyHeadTable() {
                         {" "}
                         <span className="tabledata table-data mar-lef-2">
                           {" "}
-                          {row[0]?.Value}
+                          {utility.convertToInternationalCurrencySystem(row[0]?.Value)}
                         </span>{" "}
                       </TableCell>
                     </StyledTableRow>
