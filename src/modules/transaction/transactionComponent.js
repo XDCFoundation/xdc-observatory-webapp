@@ -128,14 +128,14 @@ export default function TransactionComponent(props) {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {props.state.tableColumns["Transaction Hash"].isActive && <TableCell
+                                 <TableCell
                                     className="table-head-hash hash-transaction-list-all"
                                     align="left"
                                 >
                   <span className={("tableheaders-hash", "tableheaders")}>
                     Hash
                   </span>
-                                </TableCell>}
+                                </TableCell>
                                 {props.state.tableColumns["Amount"].isActive && <TableCell
                                     style={{border: "none", paddingLeft: "2.813rem"}}
                                     className="table-head-all"
@@ -163,7 +163,7 @@ export default function TransactionComponent(props) {
                     Block
                   </span>
                                 </TableCell>}
-                                {props.state.tableColumns["From Address"].isActive && <TableCell
+                                <TableCell
                                     style={{border: "none", paddingLeft: "3rem"}}
                                     className="table-head-all"
                                     align="left"
@@ -171,8 +171,8 @@ export default function TransactionComponent(props) {
                   <span className={("tableheaders", "tableheaders-all")}>
                     From
                   </span>
-                                </TableCell>}
-                                {props.state.tableColumns["To Address"].isActive && <TableCell
+                                </TableCell>
+                                <TableCell
                                     style={{border: "none", paddingLeft: "3rem"}}
                                     className="table-head-all"
                                     align="left"
@@ -180,7 +180,7 @@ export default function TransactionComponent(props) {
                   <span className={("tableheaders", "tableheaders-all")}>
                     To
                   </span>
-                                </TableCell>}
+                                </TableCell>
                                 {/* <TableCell
                   style={{ border: "none", paddingLeft: "3rem" }}
                   className="table-head-all"
@@ -225,7 +225,6 @@ export default function TransactionComponent(props) {
                                                     : {background: "white"}
                                             }
                                         >
-                                            {props.state.tableColumns["Transaction Hash"].isActive &&
                                             <TableCell style={{border: "none", width: "190px"}}>
                                                 <Tooltip placement="right" title={row.hash}>
                                                     <VisibilityOutlinedIcon
@@ -247,7 +246,7 @@ export default function TransactionComponent(props) {
                                                         {shorten(row.hash)}
                             </span>{" "}
                                                 </a>
-                                            </TableCell>}
+                                            </TableCell>
                                             {props.state.tableColumns["Amount"].isActive && <TableCell
                                                 style={{
                                                     border: "none",
@@ -304,7 +303,7 @@ export default function TransactionComponent(props) {
                             </span>{" "}
                                                 </a>
                                             </TableCell>}
-                                            {props.state.tableColumns["From Address"].isActive && <TableCell
+                                            <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "160px",
@@ -327,8 +326,8 @@ export default function TransactionComponent(props) {
                               </span>
                                                     </Tooltip>
                                                 </a>
-                                            </TableCell>}
-                                            {props.state.tableColumns["To Address"].isActive && <TableCell
+                                            </TableCell>
+                                            <TableCell
                                                 style={{
                                                     border: "none",
                                                     width: "155px",
@@ -351,7 +350,7 @@ export default function TransactionComponent(props) {
                               </span>
                                                     </Tooltip>
                                                 </a>
-                                            </TableCell>}
+                                            </TableCell>
                                             {/* <TableCell
                           style={{ border: "none", paddingLeft: "2.813rem" }}
                           align="left"

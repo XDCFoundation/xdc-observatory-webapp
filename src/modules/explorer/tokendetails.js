@@ -240,6 +240,22 @@ export default function StickyHeadTable() {
     }
   };
 
+  let [anchorEl, setAnchorEl] = React.useState();
+  let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
+  let isSettingColumnOpen = Boolean(anchorEl);
+
+  function handleSettingsClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function toggleModal() {
+    setColumnsModal(!isColumnsModalOpen);
+  }
+
+  function handleOnClose() {
+    setAnchorEl(null);
+  }
+
   React.useEffect(() => {
     let unmounted = false;
     let data = { pageNum: from, perpage: amount };
