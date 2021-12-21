@@ -357,7 +357,7 @@ export default function Transaction({ _handleChange }) {
                           <span
                               className={
                                 width > 1240
-                                    ? "copyEditContainer"
+                                    ? "copyEditContainer2"
                                     : width <= 1240 && width >= 768
                                         ? "copyEditContainerTab"
                                         : "copyEditContainerMobile"
@@ -480,7 +480,7 @@ export default function Transaction({ _handleChange }) {
                           <Content>
                             {" "}
                             <span
-                                style={{ display: width > 1240 ? "flex" : "block" }}
+                                style={{ display: width > 768 ? "flex" : "block" }}
                             >
                             <a
                                 className="linkTableDetails-transaction"
@@ -491,8 +491,8 @@ export default function Transaction({ _handleChange }) {
                             <div
                                 className={
                                   width < 768
-                                      ? "fromContainerMobile"
-                                      : "fromContainer"
+                                  ? "fromContainerMobile" : ( width > 1240 ? "fromContainer"
+                                  : "fromContainerTab")
                                 }
                             >
                               <CopyToClipboard
@@ -574,7 +574,7 @@ export default function Transaction({ _handleChange }) {
                         <MiddleContainer isTextArea={false}>
                           <Content>
                           <span
-                              style={{ display: width > 1240 ? "flex" : "block" }}
+                              style={{ display: width > 768 ? "flex" : "block" }}
                           >
                             <a
                                 className="linkTableDetails-transaction"
@@ -585,8 +585,8 @@ export default function Transaction({ _handleChange }) {
                             <div
                                 className={
                                   width < 768
-                                      ? "fromContainerMobile"
-                                      : "fromContainer"
+                                  ? "fromContainerMobile" : ( width > 1240 ? "fromContainer"
+                                  : "fromContainerTab")
                                 }
                             >
                               <CopyToClipboard
@@ -936,6 +936,7 @@ const MiddleContainerPrivateNote = styled.div`
     text-align: left;
     letter-spacing: 0.2px;
     opacity: 1;
+    margin-left: 64px;
   }
 `;
 const MiddleContainerInputData = styled.div`
@@ -960,6 +961,7 @@ const MiddleContainerInputData = styled.div`
     text-align: left;
     letter-spacing: 0.034rem;
     opacity: 1;
+    margin-left: 64px;
   }
 `;
 
@@ -992,6 +994,7 @@ const MiddleContainer = styled.div`
     letter-spacing: 0.034rem;
     color: #3a3a3a;
     opacity: 1;
+    margin-left: 64px;
   }
 `;
 
@@ -1026,6 +1029,7 @@ const MiddleContainer1 = styled.div`
     color: #3a3a3a;
     opacity: 1;
     display: block;
+    margin-left: 64px;
   }
 `;
 
