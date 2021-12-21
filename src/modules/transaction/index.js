@@ -21,13 +21,13 @@ export default class LatestTransactionList extends BaseComponent {
             hashAnimation: {},
             isLoading: true,
             tableColumns: {
-                "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
+                // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
                 "Amount": {isActive: true, toolTipText: toolTipMessages.value},
                 "Age": {isActive: true, toolTipText: toolTipMessages.timestamp},
                 // "Date and Time": {isActive: true},
                 "Block": {isActive: true, toolTipText: toolTipMessages.blocknumber},
-                "From Address": {isActive: true, toolTipText: toolTipMessages.from},
-                "To Address": {isActive: true, toolTipText: toolTipMessages.to},
+                // "From Address": {isActive: true, toolTipText: toolTipMessages.from},
+                // "To Address": {isActive: true, toolTipText: toolTipMessages.to},
             }
         }
     }
