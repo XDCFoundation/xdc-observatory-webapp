@@ -279,7 +279,6 @@ const useStyles = makeStyles((theme) => ({
   noData: {
     width: "auto",
     height: "19px",
-    margin: "25px 15px 0 480px",
     fontFamily: "Inter",
     fontSize: "16px",
     fontWeight: "normal",
@@ -288,7 +287,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#c6cbcf",
   },
   alert: {
-    margin: "110px 0 0 580px",
+    // margin: "110px 0 0 580px",
   },
 
   // Rectangle: {
@@ -815,6 +814,15 @@ export default function SimpleTabs(props) {
     }
   };
 
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+  `;
+
   return (
     <div>
       <Tokensearchbar />
@@ -1068,14 +1076,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  <img alt="alert"
-                    className={classes.alert}
-                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                  ></img>
+                  <NoDataFoundContainer>
+                    <img
+                      className={classes.alert}
+                      src={require("../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
 
-                  <div className={classes.noData}>
-                    No address added to watchlist
-                  </div>
+                    <div className={classes.noData}>
+                      No address added to watchlist
+                    </div>
+                  </NoDataFoundContainer>
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
@@ -1372,7 +1382,7 @@ export default function SimpleTabs(props) {
                   >
                     <Grid
                       component={Paper}
-                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                      style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
                     >
                       <Table
                         className="table w-700-a w-1500-a"
@@ -1437,14 +1447,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  <img
-                    className={classes.alert}
-                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                  ></img>
+                  <NoDataFoundContainer>
+                    <img
+                      className={classes.alert}
+                      src={require("../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
 
-                  <div className={classes.noData}>
-                    No Hash added to Priavte Note
-                  </div>
+                    <div className={classes.noData}>
+                      No Hash added to Priavte Note
+                    </div>
+                  </NoDataFoundContainer>
                 </div>
               ) : (
                 <Grid
@@ -1796,13 +1808,15 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>{" "}
-                  <img
-                    className={classes.alert}
-                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                  ></img>
-                  <div className={classes.noData}>
-                    No Address added to Tagged Address
-                  </div>
+                  <NoDataFoundContainer>
+                    <img
+                      className={classes.alert}
+                      src={require("../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
+                    <div className={classes.noData}>
+                      No Address added to Tagged Address
+                    </div>
+                  </NoDataFoundContainer>
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
