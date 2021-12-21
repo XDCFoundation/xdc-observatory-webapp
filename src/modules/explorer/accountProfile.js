@@ -35,7 +35,7 @@ import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
 import { cookiesConstants } from "../constants";
 import Utils from "../../utility";
-
+import { Column, Row } from "simple-flexbox";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -823,14 +823,20 @@ export default function SimpleTabs(props) {
     gap: 10px;
   `;
 
+  const UserNameContainer = styled.div`
+    display: flex;
+    flex-flow: row;
+    gap: 5px;
+  `;
+
   return (
     <div>
       <Tokensearchbar />
 
       <div className="maindiv">
-        <div className="heading">
-          {/* <span> */}
-          {/* <img
+        {/* <div className="heading"> */}
+        {/* <span> */}
+        {/* <img
               className="icon"
               style={{ borderRadius: "50px" }}
               src={
@@ -839,6 +845,7 @@ export default function SimpleTabs(props) {
                 ) || "/images/Profile.png"
               }
             /> */}
+        <UserNameContainer>
           <Avatar
             className="profile"
             src={
@@ -847,8 +854,14 @@ export default function SimpleTabs(props) {
               ) || "/images/Profile.png"
             }
           />
-          {/* </span> */}
-          <span>
+          <Column className="width-fit-content">
+            <Row>Welcome, {Utils.shortenUserName(setUserName())}</Row>
+            <Editprofile />
+          </Column>
+          <NotificationBar />
+        </UserNameContainer>
+        {/* </span> */}
+        {/* <span>
             <div className="nameicon">
               <span className="welcome">
                 Welcome, {Utils.shortenUserName(setUserName())}
@@ -860,8 +873,8 @@ export default function SimpleTabs(props) {
           </span>
           <span className="notificationBell">
             <NotificationBar />
-          </span>
-        </div>
+          </span> */}
+        {/* </div> */}
         <div className="divbox">
           <Watchlist />
           <Transaction />
@@ -1020,7 +1033,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <Table
-                        className="table w-700-a w-1500-a"
+                        className="table w-700-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
@@ -1097,10 +1110,13 @@ export default function SimpleTabs(props) {
                       >
                         <Grid
                           component={Paper}
-                          style={{ boxShadow: "0px 0px 0px 0px" }}
+                          style={{
+                            boxShadow: "0px 0px 0px 0px",
+                            overflow: "auto",
+                          }}
                         >
                           <Table
-                            className="table w-700-a w-1500-a"
+                            className="table w-700-a"
                             aria-label="Latest Transactions"
                             style={{ boxShadow: "0px 0px 0px 0px" }}
                           >
@@ -1175,7 +1191,8 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img alt="alert"
+                      <img
+                        alt="alert"
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
@@ -1193,7 +1210,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <Table
-                        className="table w-700-a w-1500-a"
+                        className="table w-700-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
@@ -1385,7 +1402,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
                     >
                       <Table
-                        className="table w-700-a w-1500-a"
+                        className="table w-700-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
@@ -1474,7 +1491,7 @@ export default function SimpleTabs(props) {
                           style={{ boxShadow: "0px 0px 0px 0px" }}
                         >
                           <Table
-                            className="table w-700-a w-1500-a"
+                            className="table w-700-a"
                             aria-label="Latest Transactions"
                             style={{ boxShadow: "0px 0px 0px 0px" }}
                           >
@@ -1569,7 +1586,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <Table
-                        className="table w-700-a w-1500-a"
+                        className="table w-700-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
