@@ -2762,26 +2762,14 @@ p {
 .searchelement-div-contract {
   margin-top: 80px;
 }
-@media (min-width: 300px) and (max-width: 768px) {
-  .search-container {
-    margin: 190px auto auto auto !important;
-  }
-}
 @media (min-width: 300px) and (max-width: 1250px) {
   .centerbox-td {
     display: none;
   }
 }
-@media (min-width: 769px) {
-  .search-container {
-    margin: 155px auto auto auto !important;
-  }
-}
 
-@media (min-width: 1240px) {
-  .search-container {
-    margin: 100px auto auto auto !important;
-  }
+.search-container {
+  margin: 20px auto auto auto !important;
 }
 
 .searchelement-contract {
