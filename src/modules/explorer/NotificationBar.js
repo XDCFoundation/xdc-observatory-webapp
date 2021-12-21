@@ -26,7 +26,7 @@ const ListItems = styled.div`
   margin-bottom: 20px;
   @media (min-width: 0px) and (max-width: 767px) {
 
-    margin-top: 4rem;
+    // margin-top: 4rem;
 
 
   }
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
             top: "8.375rem",
         },
         drawerHeader: {
-            marginTop: "0px"
+            marginTop: "6px"
         }
     },
     "@media (min-width: 0px) and (max-width: 767px)": {
