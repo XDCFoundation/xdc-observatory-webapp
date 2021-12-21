@@ -43,10 +43,10 @@ export default class LatestBlocksList extends BaseComponent {
                 ;
 
             let blockDataExist = blocks.findIndex((item) => {
-                return item.number == blockData.number;
+                return item.number === blockData.number;
             });
 
-            if (blockDataExist == -1 && this.state.from == 0) {
+            if (blockDataExist === -1 && this.state.from === 0) {
                 if (blocks.length >= 10) blocks.pop();
                 blocks.unshift(blockData);
                 let blockAnimationClass = { [blockData.number]: "first-block-details" };
@@ -71,7 +71,7 @@ export default class LatestBlocksList extends BaseComponent {
         amount = amount ? amount : this.state.amount;
         let urlPath = `?skip=${from}&limit=${amount}`
         let [error, listOfBlocks] = await Utils.parseResponse(BlockService.getLatestBlock(urlPath, {}))
-        if (!listOfBlocks || listOfBlocks.length == 0 || listOfBlocks === undefined || listOfBlocks == "" || listOfBlocks === null) {
+        if (!listOfBlocks || listOfBlocks.length === 0 || listOfBlocks === undefined || listOfBlocks === "" || listOfBlocks === null) {
             this.setState({ isLoading: false })
         }
         if (error || !listOfBlocks)

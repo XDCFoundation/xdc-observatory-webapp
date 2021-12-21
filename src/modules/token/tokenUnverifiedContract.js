@@ -4,13 +4,11 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tooltip from "@material-ui/core/Tooltip";
 import {IoIosWarning} from "react-icons/io"
 import {FaShieldAlt} from "react-icons/fa"
-import {useHistory,Link } from 'react-router-dom';
 
 export default function TokenUnverifiedContract(props) {
 
     let unverifiedData = props?.contractData
     const [copiedText, setCopiedText] = useState("");
-    const history = useHistory()
     return (
 
         <>
@@ -37,7 +35,7 @@ export default function TokenUnverifiedContract(props) {
 
 
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="contract-source-2"><img className="code-logo" src={"/images/bytecode.svg"} /> Contract Byte-Code</div>
+                        <div className="contract-source-2"><img alt='bytecode' className="code-logo" src={"/images/bytecode.svg"} /> Contract Byte-Code</div>
                         <div>
                             <CopyToClipboard text={unverifiedData.byteCode}
                                 onCopy={() => setCopiedText(unverifiedData.byteCode)}>
@@ -49,7 +47,7 @@ export default function TokenUnverifiedContract(props) {
                                     }
                                     placement="top"
                                 >
-                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img className="copy-icon-svg" src={"/images/copy.svg"} /></button>
+                                    <button style={{ color: 'blue', backgroundColor: 'white', fontSize: 14 }}><img alt='copy' className="copy-icon-svg" src={"/images/copy.svg"} /></button>
                                 </Tooltip>
 
                             </CopyToClipboard>

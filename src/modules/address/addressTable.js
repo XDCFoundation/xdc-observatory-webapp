@@ -79,7 +79,7 @@ export default function AddressTableComponent(props) {
   //const [exports, exportAddress] = useState({});
   //const [toggle, handleToggle] = useState(false);
   const [page, setPage] = React.useState(0)
-  //const [checkAll, setCheckAll] = React.useState(0);
+  const [checkAll, setCheckAll] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0)
   const [noData, setNoData] = useState(false)
   let showPerPage = 50
@@ -188,10 +188,13 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data),
       )
-      if (responseData && responseData.length > 0) {
+      let transactionSortByValue = responseData.sort((a, b) => {
+        return b.value - a.value;
+      });
+      if (transactionSortByValue && transactionSortByValue.length > 0) {
         setNoData(false)
         setLoading(false)
-        parseResponseData(responseData, 1)
+        parseResponseData(transactionSortByValue, 1)
       } else {
         setNoData(true)
         setLoading(false)
@@ -478,10 +481,10 @@ export default function AddressTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      // checked={
-                      //   address.filter((addr) => addr?.isChecked == true)
-                      //     .length == address.length
-                      // }
+                      checked={
+                        address.filter((addr) => addr?.isChecked == true)
+                          .length == address.length
+                      }
                       style={{ marginRight: '0.5rem', verticalAlign: "middle" }}
                     />
                     <span className={'tableheaders table-hash'}>Txn Hash</span>
@@ -579,7 +582,7 @@ export default function AddressTableComponent(props) {
                               onChange={handleChanged}
                               type="checkbox"
                               checked={row?.isChecked || false}
-                              //checked={checkAll}
+                              // checked={checkAll}
                               style={{ marginRight: '0.5rem' }}
                             />
 

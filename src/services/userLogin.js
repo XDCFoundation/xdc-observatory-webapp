@@ -90,7 +90,7 @@ export default class Auth0Service {
   }
   async logout(userId) {
 
-    let url = process.env.REACT_APP_USER_SERVICE_URL + "log-out" + `/${userId}`
+    let url = `${process.env.REACT_APP_USER_SERVICE_URL}log-out/${userId}`
 
 
     return httpService(
@@ -108,7 +108,6 @@ export default class Auth0Service {
         }
 
       ).catch((err) => {
-        console.log(err)
         return Promise.reject(err);
       });
   };
