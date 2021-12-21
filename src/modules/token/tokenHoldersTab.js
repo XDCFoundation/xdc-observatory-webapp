@@ -15,7 +15,7 @@ import styled from "styled-components";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import { Tooltip } from "@material-ui/core";
-
+import format from "format-number";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -260,7 +260,7 @@ export default function StickyHeadTable() {
                       <TableCell id="td" style={{ border: "none" }} className="cursor-pointer">
                         <Tooltip
                          placement="top"
-                         title={row[0]?.Value}
+                         title={format({})( row[0]?.Value)}
                         >
                         <span className="tabledata table-data mar-lef-2">
                         
