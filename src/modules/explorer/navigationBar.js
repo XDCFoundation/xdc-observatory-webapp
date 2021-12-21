@@ -187,6 +187,7 @@ export default function Navbar() {
     }
   };
   const BlockChainSearch = async (data) => {
+
     try {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
@@ -210,9 +211,9 @@ export default function Navbar() {
         } else if (responseData[0].redirect === "token") {
           let tokenurl =
             "/token-data/" +
-            responseData[0].token.address +
+            responseData[0]?.token[0]?.address +
             "/" +
-            responseData[0].token.symbol;
+            responseData[0]?.token[0]?.symbol;
           window.location.href = tokenurl;
         } else {
         }
