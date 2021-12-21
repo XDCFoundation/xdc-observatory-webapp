@@ -13,7 +13,7 @@ import TokenData from "../../services/token";
 import Utility from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
-
+import ContractData from "../../services/contract";
 const useStyles = makeStyles((theme) => ({
   transfer: {
     height: "38px",
@@ -327,6 +327,8 @@ export default function TokenDataComponent() {
   // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({});
+  const [contractData, setContractData] = useState("")
+  console.log(contractData, "plololo")
   const { address } = useParams();
   const { tn } = useParams();
 
@@ -355,6 +357,7 @@ export default function TokenDataComponent() {
     listOfHolders(values);
     let value = { addr: address };
     transferDetail(value);
+    getContractDetails(value)
     // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
@@ -375,10 +378,18 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     setHolders(tns);
   };
+  const getContractDetails = async () => {
 
+    let urlPath = `${address}`;
+    let [error, contractStatusData] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractStatusData) return;
+    setContractData(contractStatusData)
+  };
   React.useEffect(() => {
     (async () => {
-      let token = "XDC";
+
       await CoinMarketExchangeForToken(tn);
     })();
   }, []);
@@ -435,8 +446,8 @@ export default function TokenDataComponent() {
 
               <LeftTopSecMain>
                 <LeftTopSec>
-                  {ReactHtmlParser(CurrencySymbol)}
-                  {tokenPriceVal.toFixed(5)}
+                  {CurrencySymbol}
+                  {tokenPriceVal}
                 </LeftTopSec>
                 <div
                   className={
@@ -505,7 +516,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      {}
+                      { }
                       <TitleValue>
                         {(transfer.length && transfer.length) === 0
                           ? "0"
@@ -532,7 +543,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={difficultyLogo} /> */}
                     <ValueName>
                       <Title>Decimal</Title>
-                      <TitleValue>8</TitleValue>
+                      <TitleValue>{contractData?.contractResponse?.decimals}</TitleValue>
                     </ValueName>
                   </Value>
                   <Value>
@@ -625,7 +636,7 @@ export default function TokenDataComponent() {
         )}
         <br />
         <br />
-        <Tokentabs />
+        <Tokentabs contractStatusData={contractData} />
         <br />
         <br />
         <FooterComponent />
