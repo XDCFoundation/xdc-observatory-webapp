@@ -64,28 +64,46 @@ const utility = {
   shortenHash,
   timeDiff,
   convertToInternationalCurrencySystem,
+  getNumberUnit,
 };
 export default utility;
 
 function convertToInternationalCurrencySystem(num) {
+  if (isNaN(Number(num))) {
+    return "";
+  }
+  num = Number(num);
   if (num > 999 && num < 1000000) {
     return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
   } else if (num > 999999 && num < 999999999) {
     return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
+    console.log(num);
     return (num / 1000000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
   } else if (num < 900) {
     return num; // if value < 1000, nothing to do
   }
 }
+
+function getNumberUnit(num) {
+  let units = ["K", "M", "B", "T", "Quad", "Quint", "Sext"];
+  let unit = Math.floor((num / 1.0e1).toFixed(0).toString().length);
+  let r = unit % 3;
+  let x = Math.abs(Number(num)) / Number("1.0e+" + (unit - r)).toFixed(2);
+  const unitValue = units[Math.floor(unit / 3) - 2]
+    ? units[Math.floor(unit / 3) - 2]
+    : "";
+  return x.toFixed(2) + " " + unitValue;
+}
+
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
-  var ms_Min = 60 * 1000; // milliseconds in Minute
-  var ms_Hour = ms_Min * 60; // milliseconds in Hour
-  var ms_Day = ms_Hour * 24; // milliseconds in day
-  var ms_Mon = ms_Day * 30; // milliseconds in Month
-  var ms_Yr = ms_Day * 365; // milliseconds in Year
-  var diff = curr - prev; //difference between dates.
+  let ms_Min = 60 * 1000; // milliseconds in Minute
+  let ms_Hour = ms_Min * 60; // milliseconds in Hour
+  let ms_Day = ms_Hour * 24; // milliseconds in day
+  let ms_Mon = ms_Day * 30; // milliseconds in Month
+  let ms_Yr = ms_Day * 365; // milliseconds in Year
+  let diff = curr - prev; //difference between dates.
   // If the diff is less then milliseconds in a minute
   if (diff < ms_Min) {
     return Math.abs(Math.round(diff / 1000)) + " secs ago";
@@ -161,13 +179,13 @@ function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
 }
 
 function getDateFormat() {
-  var my_date = new Date(2019, 0, 31);
-  // Initialize variables
-  var separator = "";
-  var first = "";
-  var second = "";
-  var third = "";
-  var date_parts = [];
+  let my_date = new Date(2019, 0, 31);
+  // Initialize letiables
+  let separator = "";
+  let first = "";
+  let second = "";
+  let third = "";
+  let date_parts = [];
 
   // get separator : "-", "/" or " ", format based on toLocaleDateString function
   if (my_date.toLocaleDateString().split("-").length == 3) {
@@ -222,7 +240,7 @@ function getDateFormat() {
     }
   }
   // assembly
-  var format = first + "/" + second + "/" + third;
+  let format = first + "/" + second + "/" + third;
   return format;
 }
 
@@ -259,9 +277,9 @@ function apiSuccessToast(msg) {
 }
 
 function generateGUID() {
-  var nav = window.navigator;
-  var screen = window.screen;
-  var guid = nav.mimeTypes.length;
+  let nav = window.navigator;
+  let screen = window.screen;
+  let guid = nav.mimeTypes.length;
   guid += nav.userAgent.replace(/\D+/g, "");
   guid += nav.plugins.length;
   guid += screen.height || "";
@@ -560,10 +578,10 @@ function getMiniAwardNominationModel(nomination) {
 }
 
 function generateRandomAlphaNumericString(length) {
-  var randomAlphaNumericString = "";
-  var charset =
+  let randomAlphaNumericString = "";
+  let charset =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  for (var i = 0; i < length; i++)
+  for (let i = 0; i < length; i++)
     randomAlphaNumericString += charset.charAt(
       Math.floor(Math.random() * charset.length)
     );
@@ -571,7 +589,7 @@ function generateRandomAlphaNumericString(length) {
 }
 
 function generateCompanyLogoKey() {
-  var currentTimeStamp = new Date().getTime().toString();
+  let currentTimeStamp = new Date().getTime().toString();
   return currentTimeStamp + "_" + generateRandomAlphaNumericString(13);
 }
 
@@ -622,12 +640,12 @@ function getYearsList(addedOn = new Date().getTime()) {
 
 function epocToPrettyTime(seconds) {
   seconds = Math.floor(seconds); //to convert to integer if seconds is String.
-  var nowTimeMilliseconds = new Date().getTime();
-  var date = new Date(seconds);
-  var dateObject = moment(date).format("DD MMMM YYYY");
-  //var dateObject = moment(date).format('ddd, MMM DD hh:mm A');
+  let nowTimeMilliseconds = new Date().getTime();
+  let date = new Date(seconds);
+  let dateObject = moment(date).format("DD MMMM YYYY");
+  //let dateObject = moment(date).format('ddd, MMM DD hh:mm A');
   seconds = Math.floor(nowTimeMilliseconds / 1000 - seconds / 1000);
-  var interval = Math.floor(seconds / 172800);
+  let interval = Math.floor(seconds / 172800);
   if (interval >= 1) return dateObject;
   //if (interval >= 1) return dateObject+" "+moment.tz(moment.tz.guess()).format('z');
   interval = Math.floor(seconds / 86400);
@@ -647,12 +665,12 @@ function epocToPrettyTime(seconds) {
 
 function epocToPrettyTimeForFuture(seconds) {
   seconds = Math.floor(seconds); //to convert to integer if seconds is String.
-  var nowTimeMilliseconds = new Date().getTime();
-  var date = new Date(seconds);
-  var dateObject = moment(date).format("DD MMMM YYYY");
-  //var dateObject = moment(date).format('ddd, MMM DD hh:mm A');
+  let nowTimeMilliseconds = new Date().getTime();
+  let date = new Date(seconds);
+  let dateObject = moment(date).format("DD MMMM YYYY");
+  //let dateObject = moment(date).format('ddd, MMM DD hh:mm A');
   seconds = Math.floor(seconds / 1000 - nowTimeMilliseconds / 1000);
-  var interval = Math.floor(seconds / 86400);
+  let interval = Math.floor(seconds / 86400);
   if (interval >= 1) return interval + " days";
 
   interval = Math.floor(seconds / 3600);
@@ -766,7 +784,7 @@ function getTopSenderAggregatedQuery(
 
 function secondsToTime(milliseconds) {
   let date = new Date(milliseconds);
-  var duration = moment.duration(milliseconds, "milliseconds");
+  let duration = moment.duration(milliseconds, "milliseconds");
   return duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
   let dateObject = moment(date, "hh:mm:ss").fromNow();
   return dateObject;
