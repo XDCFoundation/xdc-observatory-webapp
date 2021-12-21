@@ -18,18 +18,17 @@ label {
   padding-left: 7%;
 }
 
-.mobile-column-display{
+.mobile-column-display {
   display: none;
 }
 
-.desktop-column-display{
+.desktop-column-display {
   display: block;
 }
 
-.follow-us-margin{
+.follow-us-margin {
   margin: 0px 0px 10px 0px !important;
 }
-
 
 @media (min-width: 1241px) {
   .footer_base {
@@ -172,7 +171,6 @@ ul {
   border: solid 0.1px #81b4ff;
   opacity: 0.8;
   margin-top: 5px !important;
-  width: 190px;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .Table-Header hr {
@@ -247,15 +245,15 @@ ul {
     font-size: 14px;
   }
 
-  .mobile-column-display{
+  .mobile-column-display {
     display: block;
   }
 
-  .desktop-column-display{
+  .desktop-column-display {
     display: none;
   }
 
-  .follow-us-margin{
+  .follow-us-margin {
     margin: 20px 0px 10px 0px !important;
   }
 }

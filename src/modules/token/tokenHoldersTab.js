@@ -94,6 +94,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const listOfHolders = async (values) => {
     let [error, tns] = await Utils.parseResponse(
@@ -154,6 +155,17 @@ export default function StickyHeadTable() {
   //   )}`;
   // }
 
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
+    }
+  `;
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -256,7 +268,7 @@ export default function StickyHeadTable() {
                     </StyledTableRow>
                   );
                 })}
-                {noData === false && (
+                {/* {noData === false && (
                   <div className="No-data-found">
                     <span
                       style={{ textAlign: "center", color: "#2a2a2a" }}
@@ -265,10 +277,19 @@ export default function StickyHeadTable() {
                       No Holders Found
                     </span>
                   </div>
-                )}
+                )} */}
               </TableBody>
             )}
           </Table>
+          {noData == false && (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+
+              <div>No Holders Found</div>
+            </NoDataFoundContainer>
+          )}
         </TableContainer>
       </Paper>
       <Pagination>
