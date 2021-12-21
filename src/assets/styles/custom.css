@@ -564,27 +564,25 @@ input:focus {
   }
   .Network-explorer {
     font-size: 0.813rem !important;
-    margin: 0.25rem 1rem 0.25rem 1.5rem !important;
+    margin: 0.4rem 1rem 0.25rem 2.5rem !important;
   }
   .Network-explorer:hover {
     font-size: 0.813rem !important;
   }
   .Token {
     font-size: 0.813rem !important;
-    margin: 0.25rem 0rem 0.25rem 10.5rem !important;
+    margin: 0.4rem 0rem 0.25rem 8.5rem !important;
   }
   .Shape3 {
-    width: 4.375rem;
-    height: 4.375rem;
-    margin-top: 69px;
+    /* width: 4.375rem;
+    height: 4.375rem; */
+    margin-top: 50px;
   }
 }
 
 .Shape-XDC {
   margin-right: 0.625rem;
-  margin-top: 1.125rem;
-  height: 1.875rem;
-  width: 1.875rem;
+  /* margin-top: 1rem; */
 }
 
 .w-100-per {
@@ -603,27 +601,24 @@ input:focus {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .display-none-mobile {
-    display: none;
+    display: none !important;
   }
-
   .Shape {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
   }
   .logo_tokensearch {
     list-style: none;
     text-decoration: none;
-    height: 20px;
-    width: 20px;
+    /* height: 20px; */
     line-height: 0 !important;
   }
-  .logo_tokensearch:hover {
+  /* .logo_tokensearch:hover {
     list-style: none;
     text-decoration: none;
-    height: 20px;
     width: 20px;
     line-height: 0 !important;
-  }
+  } */
   .Shape:hover {
     height: 20px;
     width: 20px;
@@ -650,14 +645,14 @@ input:focus {
   /*  margin-left: -17px !important;*/
   /*}*/
   .inside-side-box-browse {
-    margin-left: 15px !important;
+    margin-left: 20px !important;
   }
-  .side-arrow-contract-tab {
+  /* .side-arrow-contract-tab {
     margin-left: 46% !important;
-  }
-  .right-arrow-side-bar {
+  } */
+  /* .right-arrow-side-bar {
     margin-left: 63% !important;
-  }
+  } */
   .menubar-contract {
     display: flex;
     flex-direction: row;
@@ -668,13 +663,6 @@ input:focus {
 .paddingLeft-30 {
   padding-left: 11.1rem;
   cursor: pointer;
-}
-
-.side-arrow-contract-tab {
-  margin-left: 63%;
-}
-.right-arrow-side-bar {
-  margin-left: 75%;
 }
 
 .Shape2 {
@@ -862,14 +850,7 @@ input:focus {
   margin-top: 25px;
 }
 .down-arrow-internal {
-  margin-top: 14px;
   cursor: pointer;
-}
-.Shape2-internal1 {
-  width: 1.563rem;
-  height: 1.563rem;
-  margin-top: 0.63rem;
-  margin-left: 0.313rem;
 }
 /* .down-arrow-internal:hover{
   cursor: pointer;
@@ -880,13 +861,16 @@ input:focus {
     margin-top: 0px;
   }
 }
+
+.hamburger-icon {
+  margin-right: 0px !important;
+}
+.hamburger-icon:hover {
+  background-color: unset !important;
+}
 @media (min-width: 0px) and (max-width: 767px) {
-  .down-arrow-internal {
-    margin-top: 0px;
-    cursor: pointer;
-  }
   .menu-sidebar {
-    margin-top: 4px;
+    /* margin-top: 4px; */
     fill: white;
     width: 26px;
     height: 30px;
@@ -902,9 +886,9 @@ input:focus {
     margin-top: 7px;
   }
   .Shape3 {
-    width: 3.5rem !important;
-    height: 3.5rem !important;
-    margin-top: 100px;
+    /* width: 3.5rem !important;
+    height: 3.5rem !important; */
+    margin-top: 50px;
   }
   .browse-text-sidebar {
     color: rgb(70, 102, 196);
@@ -1087,7 +1071,7 @@ input:focus {
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .menu-sidebar {
-    margin-top: 4px;
+    /* margin-top: 4px; */
     fill: white;
     width: 1em;
     height: 1em;
@@ -1431,10 +1415,10 @@ input:focus {
   }
 }
 
-.Shape3 {
+/* .Shape3 {
   width: 5.125rem;
   height: 5.125rem;
-}
+} */
 
 .exp-parent {
   display: flex;
@@ -1460,10 +1444,7 @@ input:focus {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
-  width: 48px;
-  height: 22px;
   font-size: 22px;
-  margin: 1px 40px 98px 7px;
   background-color: #2149b9;
 }
 
@@ -1492,11 +1473,11 @@ input:focus {
   line-height: normal;
   letter-spacing: 0.039rem;
   color: #ffffff;
-  margin-top: 1.25rem;
+  /* margin-top: 1.25rem; */
   cursor: pointer;
 }
-.XDC-internal:hover {
-  /* margin-left: -0.313rem; */
+/* .XDC-internal:hover {
+  margin-left: -0.313rem;
   font-size: 1.375rem;
   font-weight: 600;
   font-stretch: normal;
@@ -1504,10 +1485,9 @@ input:focus {
   line-height: normal;
   letter-spacing: 0.039rem;
   color: #ffffff;
-  margin-top: 1.25rem;
+  margin-top: 0.25rem;
   cursor: pointer;
-}
-
+} */
 @media (min-width: 0px) and (max-width: 767px) {
   .XDC {
     font-size: 14px;
@@ -1515,12 +1495,12 @@ input:focus {
     margin-top: 0px !important;
     line-height: 1 !important ;
   }
-  .XDC:hover {
+  /* .XDC:hover {
     font-size: 14px !important;
     margin-left: 4px !important;
     margin-top: 0px !important;
     line-height: 1 !important ;
-  }
+  } */
 }
 .imQrcode {
   margin-left: 0.625rem;
@@ -1544,7 +1524,7 @@ input:focus {
 .header-mobile-top {
   display: flex;
   flex-direction: column;
-  margin-top: 55px;
+  /* margin-top: 55px; */
 }
 .XDC:hover {
   margin-left: 0.438rem;
@@ -1562,7 +1542,7 @@ input:focus {
 
 .Network-explorer {
   padding-bottom: 3px;
-  margin: 0.25rem 2.188rem 0.25rem 2.5rem;
+  margin: 0.25rem 2rem 0rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1578,7 +1558,7 @@ input:focus {
 .Network-explorer-internal {
   padding-bottom: 0.188rem;
   margin: 0.938rem 2.5rem 0.188rem 1.563rem;
-  padding-top: 0.5rem;
+  padding-top: 0.6rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1607,7 +1587,7 @@ input:focus {
 }
 .Network-explorer:hover {
   padding-bottom: 3px;
-  margin: 0.25rem 2.188rem 0.25rem 2.5rem;
+  margin: 0.25rem 2rem 0rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1662,9 +1642,11 @@ input:focus {
   color: #21a1e9;
 } */
 
-.Token {
+.Token,
+.Token:hover {
   padding-bottom: 3px;
-  margin: 0.25rem 0rem 0.25rem 13.5rem;
+  /* margin: 0.25rem 0rem 0.25rem 13.5rem; */
+  margin: 0.25rem 0rem 0.25rem 9rem;
   font-size: 0.938rem;
   font-weight: 500;
   font-stretch: normal;
@@ -1678,7 +1660,7 @@ input:focus {
 
 .Token-internal {
   padding-bottom: 0.188rem;
-  padding-top: 0.5rem;
+  padding-top: 0.6rem;
   margin: 0.938rem 2.5rem 0.188rem 11.563rem;
   font-size: 0.938rem;
   font-weight: 500;
@@ -1706,13 +1688,13 @@ input:focus {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .Token {
-    margin: 3px 40px 3px 155px;
+    /* margin: 3px 40px 3px 155px; */
     font-size: 0.875rem;
   }
-  .Token:hover {
+  /* .Token:hover {
     margin: 3px 40px 3px 155px;
     font-size: 0.875rem;
-  }
+  } */
   .token-link {
     font-size: 0.813rem !important;
   }
@@ -1830,7 +1812,6 @@ p {
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .down-arrow-internal {
-    margin-top: 14px;
     cursor: pointer;
   }
   .profile-name-popover {
@@ -2021,9 +2002,10 @@ p {
 .centerbox-td {
   /* width: 33.438rem; */
   height: 2.375rem;
-  padding: 0.5rem 0.644rem 0 0.75rem;
+  /* padding: 0.6rem 0.644rem 0 0.75rem; */
+  padding: 8px;
   margin-right: 0.625rem;
-  margin-top: 13px;
+  margin-top: 10px;
   border-radius: 0.25rem;
   background-color: #ffffff;
 }
@@ -2514,7 +2496,6 @@ p {
 
 .main-input-td {
   outline-color: #ffffff;
-  margin-top: -2px;
   height: 1.375rem;
   width: 25.938rem;
   color: #2a2a2a;
@@ -2525,7 +2506,7 @@ p {
   letter-spacing: 0.013rem;
   font-size: 0.938rem;
   font-weight: 600;
-  padding: 0.125rem 0.125rem 0px 0.125rem;
+  /* padding: 0.125rem 0.125rem 0px 0.125rem; */
   background-color: #ffffff;
 }
 
@@ -2588,6 +2569,7 @@ p {
   box-shadow: transparent;
   color: #ffffff;
   background-color: #102e84;
+  padding: 0 10px 0px 10px !important;
 }
 
 .account_details_button {
@@ -2606,6 +2588,9 @@ p {
 .xinfin_api_button {
   font-size: 1.063rem;
   color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 25px;
 }
 
 .xinfin_account_button {
@@ -2629,7 +2614,7 @@ p {
 }
 
 .inside-side-box {
-  padding-left: 10px !important;
+  padding: 0 0px 0 20px !important;
   font-size: 14.5px;
   font-weight: 500;
   font-stretch: normal;
@@ -2637,12 +2622,13 @@ p {
   line-height: normal;
   letter-spacing: 0.65px;
   color: #ffffff;
+  margin-top: 20px;
 }
 .inside-side-box-browse {
   color: #4666c4;
   font-size: 13px;
   font-family: Inter;
-  margin-left: 23px;
+  margin-left: 25px;
   margin-top: 20px;
 }
 
@@ -2764,10 +2750,25 @@ p {
 .searchelement-div-contract {
   margin-top: 80px;
 }
+@media (min-width: 300px) and (max-width: 768px) {
+  .search-container {
+    margin: 190px auto auto auto !important;
+  }
+}
+@media (min-width: 300px) and (max-width: 1250px) {
+  .centerbox-td {
+    display: none;
+  }
+}
+@media (min-width: 769px) {
+  .search-container {
+    margin: 155px auto auto auto !important;
+  }
+}
 
-@media (max-width: 1023px) {
-  .searchelement-div-contract {
-    margin-top: 150px;
+@media (min-width: 1240px) {
+  .search-container {
+    margin: 100px auto auto auto !important;
   }
 }
 
@@ -2811,15 +2812,15 @@ p {
 }
 
 .searchelement-div {
-  margin-top: 6.875rem !important;
+  margin-top: 4rem !important;
   margin: auto;
-  padding-bottom: 1.25rem;
+  /* padding-bottom: 1.25rem; */
   width: 76.125rem;
 }
 
 @media (max-width: 1300px) {
   .searchelement-div {
-    margin-top: 60px !important;
+    /* margin-top: 60px !important; */
     width: auto;
     display: flex;
     flex-direction: column;
@@ -2837,13 +2838,6 @@ p {
   letter-spacing: 0.043rem;
   text-align: left;
   color: #2a2a2a;
-}
-
-@media (max-width: 1023px) {
-  .searchelement-token {
-    margin-top: 90px;
-    margin-left: 5%;
-  }
 }
 
 .searchelement-input {
@@ -2940,7 +2934,7 @@ p {
 }
 
 .Live-Network-list {
-  padding-left: 10px !important;
+  padding: 0 0px 0 20px !important;
   font-family: "Inter";
   font-size: 13px;
   font-weight: 500;
@@ -2949,6 +2943,11 @@ p {
   line-height: normal;
   letter-spacing: 0.65px;
   color: #ffffff;
+  margin-top: 20px;
+}
+
+.margin-top-20px {
+  margin-top: 20px;
 }
 
 .vc-header {
@@ -3051,6 +3050,11 @@ p {
     text-align: left;
     color: #3a3a3a;
   }
+}
+
+.profile {
+  height: 30px !important;
+  width: 30px !important;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
@@ -3224,6 +3228,7 @@ p {
 .right-nav-div {
   display: flex;
   align-items: center;
+  margin-top: 5px;
 }
 
 @media (min-width: 1024px) {
@@ -3231,6 +3236,7 @@ p {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    align-items: center;
   }
   .search-responsive {
     display: flex;
@@ -3238,9 +3244,11 @@ p {
   .mobile-navbartab {
     display: flex;
   }
-  .mobile-navbartab1 {
-    display: flex;
-  }
+}
+
+.mobile-navbartab1 {
+  display: flex;
+  align-items: center;
 }
 /* @media (max-width: 767px) {
   .centerbox {
@@ -3252,6 +3260,11 @@ p {
   .select-td {
     /* margin-left: 15px !important; */
     font-size: 12px;
+  }
+  .vc-contract-add-select,
+  .vc-input-contract-name,
+  .vc-input-contract-add {
+    font-size: 0.8rem;
   }
 }
 
@@ -3303,18 +3316,23 @@ p {
   height: 200px !important;
 } */
 }
-
-@media (min-width: 0px) and (max-width: 767px) {
+.tab-search {
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 0px) and (max-width: 1022px) {
   .tab-search {
-    display: block;
+    display: flex;
     width: 82%;
+  }
+}
+@media (min-width: 768px) {
+  .display-none-desktop {
+    display: none;
   }
 }
 
 @media (max-width: 1023px) {
-  .MuiIconButton-label {
-    display: initial !important;
-  }
   /* .makeStyles-appBar-5 {
     height: 130px !important;
   }
@@ -3354,14 +3372,6 @@ p {
 }
 
 @media (max-width: 1241px) {
-  .tab-search {
-    display: block;
-    /* margin-top: 15px; */
-    /* width: 100%; */
-  }
-  .MuiIconButton-label {
-    display: initial !important;
-  }
   .makeStyles-appBar-5 {
     height: 130px !important;
   }
@@ -3372,7 +3382,7 @@ p {
     height: 130px !important;
   }
   .makeStyles-appBar-2 {
-    height: 130px !important;
+    height: 120px !important;
   }
   .makeStyles-appBar-4 {
     height: 130px !important;
@@ -3391,13 +3401,14 @@ p {
   }
   .MuiToolbar-regular {
     display: flex !important;
-    align-items: baseline !important;
+    align-items: center !important;
   }
   .right-nav-div {
     /* display: flex;
     align-items: center; */
     position: absolute;
-    right: 16px;
+    right: 5px;
+    margin-top: 5px;
   }
   /* .MuiAppBar-colorPrimary{
   height: 130px;
@@ -3422,10 +3433,6 @@ p {
     display: flex;
     justify-content: space-between;
     /* width: 80vw; */
-  }
-
-  .mobile-navbartab1 {
-    display: flex;
   }
 }
 
@@ -3597,6 +3604,12 @@ body {
     letter-spacing: 0.65px;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .down-arrow-internal {
+    display: none;
+  }
+}
 @media (min-width: 0px) and (max-width: 766px) {
   .tabs-vc {
     color: #2b51bc;
@@ -3698,56 +3711,34 @@ body {
 .contract-source-code {
   display: flex;
   align-items: center;
-  width: 31.25rem;
   margin-top: 15px;
-  justify-content: space-between;
-  margin-bottom: 5px;
+  gap: 4.688rem;
 }
 
-@media (min-width: 300px) and (max-width: 767px) {
+@media (min-width: 1250px) {
   .contract-source-code {
-    display: block;
-    align-items: center;
-    width: 87%;
-    margin-top: 15px;
-    justify-content: space-between;
-    margin-bottom: 5px;
+    gap: 20rem;
   }
 }
 
 .contract-source-code-verify {
   display: flex;
   align-items: center;
-  width: 46.25rem;
-  margin-top: 16px;
+  margin-top: 15px;
   justify-content: space-between;
 }
 
-@media (min-width: 300px) and (max-width: 767px) {
-  .contract-source-code-verify {
+@media (min-width: 300px) and (max-width: 1200px) {
+  .contract-source-code-verify,
+  .contract-source-code {
     display: block;
-    align-items: center;
-    width: 87%;
-    margin-top: 16px;
-    justify-content: space-between;
   }
 }
 
-@media (min-width: 767px) and (max-width: 900px) {
+@media (min-width: 1250px) {
   .contract-source-code-verify {
-    display: flex;
-    align-items: center;
-    width: 87%;
-    margin-top: 16px;
-    justify-content: space-between;
-  }
-  .contract-source-code {
-    display: flex;
-    align-items: center;
-    width: 58.5%;
-    margin-top: 15px;
-    justify-content: space-between;
-    margin-bottom: 5px;
+    justify-content: unset;
+    gap: 28.2rem;
   }
 }
 
@@ -3757,29 +3748,23 @@ body {
   font-size: 0.938rem;
   font-family: inter;
   display: flex;
-  height: 25px;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
   font-weight: normal;
-  padding: 4.5px 8px 6px 8px;
+  width: 110px;
 }
 
-@media (min-width: 300px) and (max-width: 768px) {
+@media (min-width: 300px) and (max-width: 1250px) {
   .contract-unverified-text {
-    background-color: rgb(252, 236, 235);
-    border-radius: 3px;
-    font-size: 12px;
-    font-family: inter;
-    display: flex;
-    height: 25px;
-    font-weight: normal;
-    padding: 4.5px 8px 6px 8px;
-    width: 100px;
-    margin-top: 5px;
+    font-size: 13px;
+    margin-top: 15px;
   }
 }
 
 .danger-logo {
   color: rgb(222, 68, 55);
-  margin-top: 1px;
   margin-right: 3px;
   width: 16px;
   height: 16px;
@@ -3810,19 +3795,19 @@ body {
   font-size: 0.938rem;
   font-family: inter;
   color: #ffffff;
-  height: 25px;
-  background-color: #2149b9;
+  height: 30px;
+  background-color: #3763dd;
   border-radius: 3px;
 }
 
 .btn-click-div {
   display: flex;
+  align-items: center;
 }
 
-@media (min-width: 300px) and (max-width: 768px) {
+@media (min-width: 300px) and (max-width: 1250px) {
   .btn-click-div {
-    display: flex;
-    margin-top: 5px;
+    margin-top: 15px;
   }
 }
 
@@ -3836,8 +3821,7 @@ body {
 
 @media (min-width: 300px) and (max-width: 375px) {
   .to-verify-text {
-    font-size: 7px;
-    color: #2a2a2a;
+    font-size: 13px;
     margin-top: 7px;
     margin-left: 4px;
     margin-bottom: 0px;
@@ -3846,8 +3830,7 @@ body {
 
 @media (min-width: 375px) and (max-width: 425px) {
   .to-verify-text {
-    font-size: 9px;
-    color: #2a2a2a;
+    font-size: 13px;
     margin-top: 6px;
     margin-left: 4px;
     margin-bottom: 0px;
@@ -3856,8 +3839,7 @@ body {
 
 @media (min-width: 425px) and (max-width: 768px) {
   .to-verify-text {
-    font-size: 12px;
-    color: #2a2a2a;
+    font-size: 13px;
     margin-top: 3px;
     margin-left: 4px;
     margin-bottom: 0px;
@@ -4030,9 +4012,10 @@ body {
 .input-area-bytecode {
   width: 100%;
   height: 158px;
-  font-size: 12px;
+  font-size: 13px;
   color: #2a2a2a;
-  margin-top: 10px;
+  padding: 10px;
+  margin-top: 15px;
   border-left-color: #2149b9;
   border-radius: 4px;
   border: solid 1px #9fa9ba;
@@ -6903,22 +6886,9 @@ button {
   color: #3a3a3a;
   margin-left: 0px;
   resize: none;
-  padding: 14px 0px 14px 14px;
+  padding: 10px;
 }
-@media (min-width: 0px) and (max-width: 767px) {
-  .text-area-transaction {
-    width: 100%;
-    height: 5rem !important;
-    border-radius: 4px;
-    outline: transparent;
-    border: solid 1px #9fa9ba;
-    background-color: #dee0e3;
-    color: #3a3a3a;
-    margin-left: 0px;
-    resize: none;
-    padding: 0px !important;
-  }
-}
+
 .input-data-text {
   height: 100%;
 }
@@ -7849,19 +7819,20 @@ button {
 
 @media (min-width: 0px) and (max-width: 640px) {
   .login-button {
-    width: 20px;
+    width: 25px;
   }
 }
 
 @media (min-width: 0px) and (max-width: 640px) {
   .MuiToolbar-regular {
-    min-height: 100px !important;
+    /* min-height: 100px !important; */
   }
 }
 .menu-sidebar-top {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  margin-top: 30px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .menu-sidebar-top {
@@ -7926,7 +7897,6 @@ button {
   .search-dashboard-icon {
     margin-left: 10px;
     height: 15px;
-    width: 14px;
     margin-bottom: 2px;
   }
 }
@@ -7988,7 +7958,6 @@ button {
   .search-dashboard-icon {
     margin-left: 10px;
     height: 1.375rem;
-    width: 1.375rem;
   }
 }
 
@@ -8076,13 +8045,9 @@ button {
   }
   .main-input-td {
     width: 12.5rem;
-    padding-bottom: 6px;
     font-size: 12px !important;
-    margin-top: 1px;
   }
-  .mobFilter {
-    margin-top: -2px;
-  }
+
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -8092,11 +8057,14 @@ button {
     display: flex;
     justify-content: center;
     margin-top: 3.75rem;
+    width: 100%;
   }
   .centerbox-td {
     width: 21.3rem;
     height: 1.9375rem;
     margin-right: -12px;
+    padding: 5px;
+    /* padding: 0.4rem 0.644rem 0 0.75rem; */
     margin-left: 3rem;
   }
 
@@ -8328,8 +8296,8 @@ button {
   }
   .mobile-navbartab {
     display: flex;
-    height: 2.5rem;
-    margin-top: 10px;
+    /* height: 2.5rem;
+    margin-top: 10px; */
   }
 
   .Network-explorer-internal {
@@ -8343,12 +8311,13 @@ button {
     justify-content: center;
     /* background-color: green; */
   }
-  .centerbox-td {
-    margin-top: 22px;
+  /* .centerbox-td {
+    margin-top: 35px;
     position: absolute;
-    right: 8px;
+    right: 15px;
     width: 38.938rem;
-  }
+    padding: 8px;
+  } */
 
   .vc-header {
     /* width: 41.5rem; */
@@ -8555,8 +8524,7 @@ button {
 @media (min-width: 640px) and (max-width: 1023px) {
   .responsive-table-width-token-list {
     border-radius: 14px;
-    margin-left: 5%;
-    margin-right: 5%;
+
     width: auto;
   }
 }
@@ -8600,6 +8568,10 @@ button {
     margin-top: 6px;
     margin-left: 5px;
   }
+}
+
+.margin-top-15px {
+  margin-top: 15px;
 }
 @media (min-width: 1239px) {
   .mar_child {
@@ -8922,19 +8894,13 @@ button {
     margin-top: 61px;
   }
   .Shape-XDC {
-    height: 23px;
-    width: 23px;
     margin-top: 0px;
+    height: 25px;
     margin-right: 7px;
   }
   .XDC-internal {
     font-size: 14px;
-    margin-top: 4.5px;
-  }
-  .right-nav-div {
-    position: absolute;
-    top: 45px;
-    right: 16px;
+    margin-top: 5.5px;
   }
 
   .Shape2-internal {
@@ -8945,7 +8911,6 @@ button {
   .Shape2-internal1 {
     height: 20px;
     width: 20px;
-    margin-top: 1px;
   }
   .Network-explorer-internal {
     font-size: 14px;
@@ -8957,6 +8922,7 @@ button {
 
   .down-arrow-internal {
     margin-right: -9px;
+    display: none;
   }
   .centerbox-td {
     margin-top: 0px !important;
@@ -8964,6 +8930,9 @@ button {
     margin-right: auto !important; */
     height: 34px;
     margin-left: 50px;
+    padding: 6px;
+
+    /* padding: 0.4rem 0.644rem 0 0.75rem; */
   }
   .select-td {
     margin-left: 13px;
@@ -8992,16 +8961,10 @@ button {
   .Shape2-internal {
     margin-top: 0px;
   }
-  .Shape2-internal1 {
-    margin-top: -6px;
-  }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .pad-left-27 {
     padding-left: 27px;
-  }
-  .right-nav-div {
-    top: 4px;
   }
 }
 @media (max-width: 767px) {
@@ -9082,7 +9045,7 @@ button {
     margin: 0 auto;
   }
   .div-searchelement_11 {
-    margin-top: 130px !important;
+    margin-top: 140px !important;
     width: 22.563rem !important;
   }
   .input-searchelement_11 {
@@ -9115,7 +9078,6 @@ button {
   }
   .token-list-tab_11 {
     width: 41.5rem !important;
-    margin: 0 auto !important;
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
@@ -9156,24 +9118,21 @@ button {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1240px) {
-  .searchelement-div {
-    margin-top: 58px !important;
-    width: 41.5rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
+@media (min-width: 1024px) and (max-width: 1300px) {
+  .searchelement-token {
+    margin-top: 95px !important;
+    margin-left: 5%;
   }
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
     width: 41.5rem;
   }
-  .searchelement-token {
-    margin-top: 90px !important;
-    margin-left: 0% !important;
-  }
+
   .searchelement-input {
     margin-left: 0% !important;
   }
@@ -9193,6 +9152,9 @@ button {
     font-family: Inter;
     margin-left: 10px !important;
     margin-top: 23px;
+  }
+  .down-arrow-internal {
+    display: none;
   }
 }
 .Notification-header-text-color-fade {
@@ -9692,16 +9654,13 @@ button {
   font-size: 0.875rem;
 }
 .userName-internal {
-  margin-top: 12px;
   margin-left: 4px;
   margin-right: 9px;
 }
 @media (min-width: 0px) and (max-width: 1024px) {
   .userName-internal {
     margin-top: 0px;
-  }
-  .down-arrow-internal {
-    margin-top: 3px;
+    display: none;
   }
 }
 @media (min-width: 0px) and (max-width: 767px) {
