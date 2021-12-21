@@ -47,7 +47,7 @@ export default function BasicPopover(props) {
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
   const openMyProfile = () => {
-    history.push("/loginProfile");
+    history.push("/loginprofile");
   };
   const openChangePassword = () => {
     setOpen(props.openChangePassword);

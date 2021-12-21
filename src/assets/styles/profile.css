@@ -3,12 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 } */
-.maindiv {
-  /* display:flow-rot;
-  height: 80%;
-  width: 50%; */
-  margin-top: 72px;
-}
+
 .divbox {
   width: 100vw;
   display: flex;
@@ -439,15 +434,10 @@ background-color: #4878ff; */
     /*margin-top: 44px;*/
   }
 }
-@media screen and (max-width: 1240px) {
-  .heading {
-    margin-top: 122px;
-  }
-}
+
 @media screen and (max-width: 828px) {
   .heading {
     max-width: 710px;
-    margin-top: 130px;
   }
 
   .headingdiv1 {
@@ -495,7 +485,6 @@ background-color: #4878ff; */
 }
 @media screen and (max-width: 450px) {
   .heading {
-    margin-top: 197px;
     margin-bottom: -13px;
   }
   .tablegrid_address_contract {

@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
 const MainContainer = styled.div`
   width: 75.125rem;
   height: 16.563rem;
-  margin: 0 auto;
-  margin-top: 50px;
   padding-top: 1.9rem;
   padding-left: 1.75rem;
   border-radius: 12px;
@@ -34,21 +32,19 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
+  margin: 30px auto auto auto;
+
   @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
     width: 41.5rem;
     height: 38.625rem;
     padding: 0 1.875rem;
-    margin: 0 auto;
-    margin-top: 140px;
   }
   @media (max-width: 767px) {
     flex-direction: column;
     width: 22.563rem;
     height: 32.063rem;
     padding: 0 1.875rem;
-    margin: 0 auto;
-    margin-top: 182px;
   }
 `;
 const MobileScreen = styled.div`

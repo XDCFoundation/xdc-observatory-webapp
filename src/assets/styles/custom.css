@@ -3368,7 +3368,7 @@ p {
 }
 
 @media (max-width: 1241px) {
-  .makeStyles-appBar-5 {
+  /* .makeStyles-appBar-5 {
     height: 130px !important;
   }
   .makeStyles-appBar-3 {
@@ -3394,7 +3394,7 @@ p {
   }
   .makeStyles-appBar-8 {
     height: 130px !important;
-  }
+  } */
   .MuiToolbar-regular {
     display: flex !important;
     align-items: center !important;
