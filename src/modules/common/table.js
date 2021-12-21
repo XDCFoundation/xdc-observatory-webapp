@@ -330,6 +330,7 @@ export default function CommonTransactionsTable(props) {
                           width: "155px",
                           whiteSpace: "nowrap",
                           padding: "20px",
+                          paddingRight: "20px",
                         }}
                         align="left"
                       >

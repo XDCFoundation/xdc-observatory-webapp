@@ -188,6 +188,27 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "none",
   },
+  noData: {
+    width: "auto",
+    height: "19px",
+    margin: "25px 15px 0 0px",
+    fontFamily: "Inter",
+    fontSize: "16px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    textAlign: "center",
+width:"300px",
+    color: "#c6cbcf",
+  },
+  alert: {
+    marginLeft:"118px"
+    
+  },
+  alertBox:{
+    margin: "110px 0 0 500px",
+    
+   width:"280px"
+  },
 
   "@media (max-width: 1920px)": {
     appbar: {
@@ -196,7 +217,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 24px",
     },
   },
-  "@media (min-width:0px) and (max-width: 714px)": {
+  "@media (min-width:0px) and (max-width: 768px)": {
     appbar: {
       Width: "300px",
       width: "100%",
@@ -212,6 +233,21 @@ const useStyles = makeStyles((theme) => ({
       textTransform: "initial",
       fontSize: "0.722rem"
     },
+    alertBox:{
+      margin: "110px 0 0 200px",
+    
+      width:"280px"
+
+    }
+  },
+  "@media (min-width: 768px) and (max-width: 1240px)":{
+    alertBox:{
+      margin: "110px 0 0 200px",
+    
+      width:"400px"
+
+    }
+
   },
   "@media (max-width: 828px)": {
     appbar: {
@@ -276,20 +312,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#6b7482",
     textTransform: "initial",
   },
-  noData: {
-    width: "auto",
-    height: "19px",
-    margin: "25px 15px 0 480px",
-    fontFamily: "Inter",
-    fontSize: "16px",
-    fontWeight: "normal",
-    fontStretch: "normal",
-
-    color: "#c6cbcf",
-  },
-  alert: {
-    margin: "110px 0 0 580px",
-  },
+ 
 
   // Rectangle: {
   //   width: "14px",
@@ -1159,6 +1182,7 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
+                      <div className={classes.alertBox}>
                       <img
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -1166,9 +1190,10 @@ export default function SimpleTabs(props) {
 
                       <div
                         className={classes.noData}
-                        style={{ marginLeft: "538px" }}
+                        style={{marginLeft:"-12px"}}
                       >
                         Data Not Found
+                      </div>
                       </div>
                     </div>
                   ) : (
@@ -1431,6 +1456,7 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
+                  <div className={classes.alertBox} >
                   <img
                     className={classes.alert}
                     src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -1439,7 +1465,9 @@ export default function SimpleTabs(props) {
                   <div className={classes.noData}>
                     No Hash added to Priavte Note
                   </div>
+                  </div>
                 </div>
+
               ) : (
                 <Grid
                   className="tablegrid_no_data"
@@ -1535,14 +1563,18 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
+                      <div>
+                      <div className={classes.alertBox} >
                       <img
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
 
                       <div className={classes.noData}>
-                        style={{ marginLeft: "538px" }}
+                      style={{marginLeft:"-12px"}}
                         Data Not Found
+                      </div>
+                      </div>
                       </div>
                     </div>
                   ) : (
@@ -1790,6 +1822,7 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>{" "}
+                  <div className={classes.alertBox} >
                   <img
                     className={classes.alert}
                     src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -1797,6 +1830,7 @@ export default function SimpleTabs(props) {
                   <div className={classes.noData}>
                   
                     No Address added to Tagged Address
+                  </div>
                   </div>
                 </div>
               ) : (
@@ -1892,14 +1926,16 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>{" "}
+                      <div className={classes.alertBox} >
                       <img
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
-                      <div className={classes.noData} style={{ marginLeft: "538px" }}>
-
+                      <div className={classes.noData} >
+                      style={{marginLeft:"-12px"}}
                       Data Not Found
                       </div>
+                    </div>
                     </div>
                   ) : (
                     <Grid
