@@ -25,10 +25,6 @@ a:link {
   text-decoration: none;
 }
 
-.MuiAppBar-positionFixed {
-  position: unset !important;
-}
-
 .p-l-5 {
   padding-left: 5px;
 }
