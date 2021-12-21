@@ -25,6 +25,10 @@ a:link {
   text-decoration: none;
 }
 
+.MuiAppBar-positionFixed{
+  position: unset !important;
+}
+
 .p-l-5 {
   padding-left: 5px;
 }
@@ -45,6 +49,14 @@ a:link {
   padding-top: 15px;
 }
 
+.p-t-30 {
+  padding-top: 30px;
+}
+
+.p-b-0 {
+  padding-bottom: 0px;
+}
+
 .p-b-15 {
   padding-bottom: 15px;
 }
@@ -53,12 +65,20 @@ a:link {
   padding-bottom: 25px;
 }
 
+.p-b-30 {
+  padding-bottom: 30px;
+}
+
 .margin-0 {
   margin: 0;
 }
 
 .m-t-2 {
   margin-top: 2px;
+}
+
+.m-b-0 {
+  margin-bottom: 0;
 }
 
 .m-b-15 {
@@ -7791,21 +7811,10 @@ button {
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
-  .MuiAppBar-positionFixed {
-    top: 0;
-    left: auto;
-    right: 0;
-    position: absolute !important;
-  }
+
 }
 
 @media (min-width: 768px) and (max-width: 1240px) {
-  .MuiAppBar-positionFixed {
-    top: 0;
-    left: auto;
-    right: 0;
-    position: absolute !important;
-  }
 }
 
 .login-button {
