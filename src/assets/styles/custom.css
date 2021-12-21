@@ -45,6 +45,10 @@ a:link {
   padding-top: 15px;
 }
 
+.p-b-0 {
+  padding-bottom: 0px;
+}
+
 .p-b-15 {
   padding-bottom: 15px;
 }
@@ -59,6 +63,10 @@ a:link {
 
 .m-t-2 {
   margin-top: 2px;
+}
+
+.m-b-0 {
+  margin-bottom: 0;
 }
 
 .m-b-15 {
