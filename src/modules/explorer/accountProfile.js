@@ -13,7 +13,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import { CSVLink } from "react-csv";
-import TableHead from "@material-ui/core/TableHead";  
+import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
 import FooterComponent from "../common/footerComponent";
@@ -21,7 +21,7 @@ import Editprofile from "./editprofle";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
+import { Tabs, Avatar } from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -210,7 +210,7 @@ const useStyles = makeStyles((theme) => ({
     tab2: {
       color: "#6b7482",
       textTransform: "initial",
-      fontSize: "0.722rem"
+      fontSize: "0.722rem",
     },
   },
   "@media (max-width: 828px)": {
@@ -454,16 +454,15 @@ export default function SimpleTabs(props) {
   const [totalCount3, setTotalCount3] = React.useState(5);
 
   // Edit box Popup Handlers
-  // const [editBoxOpen, setEditBox] = React.useState(false);
-  // const [selectedEditAddress, setSelectedAddress] = React.useState(false);
-  // const handleClickOpen = (value) => {
-  //   setEditBox(true);
-  //   setSelectedAddress(value)
-  // };
-  // const handleClose = async () => {
-  //   console.log("CLOSE")
-  //   setEditBox(false);
-  //   };
+  const [editBoxOpen, setEditBox] = React.useState(false);
+  const [selectedEditAddress, setSelectedAddress] = React.useState(false);
+  const handleClickOpen = (value) => {
+    setEditBox(true);
+    setSelectedAddress(value);
+  };
+  const handleClose = async () => {
+    setEditBox(false);
+  };
 
   // Edit Handlers Done
   const onChangeWatchlistPage = async (value) => {
@@ -492,7 +491,7 @@ export default function SimpleTabs(props) {
       isWatchlistAddress: true,
     };
     const response = await UserService.getWatchlistList(request);
-    
+
     if (response.totalCount > 0) {
       setAddressNotAdded(false);
     }
@@ -602,79 +601,78 @@ export default function SimpleTabs(props) {
   const [checkedWatchlist, setCheckedWatchlist] = React.useState(false);
   let watchlistLength = watchlist.length;
 
-  // const handleWatchlistCheckbox = (event) => {
-  //   const { name, checked } = event.target;
-  //   if (name === "allselect" || countWatchlist === watchlistLength) {
-  //     if (checkedWatchlist === false) {
-  //       setCheckedWatchlist(false);
-  //     } else {
-  //       setCheckedWatchlist(false);
-  //     }
-  //     if (countWatchlist === watchlistLength) {
-  //       setCheckedWatchlist(false);
-  //     }
-  //     setCountWatchlist(-1);
+  const handleWatchlistCheckbox = (event) => {
+    const { name, checked } = event.target;
+    if (name === "allselect" || countWatchlist === watchlistLength) {
+      if (checkedWatchlist === false) {
+        setCheckedWatchlist(false);
+      } else {
+        setCheckedWatchlist(false);
+      }
+      if (countWatchlist === watchlistLength) {
+        setCheckedWatchlist(false);
+      }
+      setCountWatchlist(-1);
 
-  //     let tempAddress = watchlist.map((addr) => {
-  //       return { ...addr, isChecked1: checked };
-  //     });
+      let tempAddress = watchlist.map((addr) => {
+        return { ...addr, isChecked1: checked };
+      });
 
-  //     setWatchlist(tempAddress);
-  //     let tempAddr = tempAddress.filter((addr) => {
-  //       if (addr.isChecked1 === true) {
-  //         console.log("lengeeeeeee", addr);
-  //         return addr;
-  //       }
-  //     });
+      setWatchlist(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked1 === true) {
+          return addr;
+        }
+      });
 
-  //     if (tempAddr.length > 0) {
-  //       setDownloadActive(1);
-  //     } else {
-  //       setDownloadActive(0);
-  //     }
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
 
-  //     setDownloadWatchlist(
-  //       tempAddress.map((item) => {
-  //         return {
-  //           Address: item.address,
-  //           Description: item.description,
-  //           Balance: item.balance,
-  //           AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-  //           Notification: item.notification.type === "NO" ? "Off" : "Email",
-  //         };
-  //       })
-  //     );
-  //   } else {
-  //     let tempAddress = watchlist.map((addr) =>
-  //       addr._id === name ? { ...addr, isChecked1: checked } : addr
-  //     );
-  //     setWatchlist(tempAddress);
-  //     let tempAddr = tempAddress.filter((addr) => {
-  //       if (addr.isChecked1 === true) {
-  //         return addr;
-  //       }
-  //     });
-  //     setCountWatchlist(tempAddr.length);
-  //     setCheckedWatchlist(false);
+      setDownloadWatchlist(
+        tempAddress.map((item) => {
+          return {
+            Address: item.address,
+            Description: item.description,
+            Balance: item.balance,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            Notification: item.notification.type === "NO" ? "Off" : "Email",
+          };
+        })
+      );
+    } else {
+      let tempAddress = watchlist.map((addr) =>
+        addr._id === name ? { ...addr, isChecked1: checked } : addr
+      );
+      setWatchlist(tempAddress);
+      let tempAddr = tempAddress.filter((addr) => {
+        if (addr.isChecked1 === true) {
+          return addr;
+        }
+      });
+      setCountWatchlist(tempAddr.length);
+      setCheckedWatchlist(false);
 
-  //     if (tempAddr.length > 0) {
-  //       setDownloadActive(1);
-  //     } else {
-  //       setDownloadActive(0);
-  //     }
-  //     setDownloadWatchlist(
-  //       tempAddr.map((item) => {
-  //         return {
-  //           Address: item.address,
-  //           Description: item.description,
-  //           Balance: item.balance,
-  //           AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
-  //           Notification: item.notification.type === "NO" ? "Off" : "Email",
-  //         };
-  //       })
-  //     );
-  //   }
-  // };
+      if (tempAddr.length > 0) {
+        setDownloadActive(1);
+      } else {
+        setDownloadActive(0);
+      }
+      setDownloadWatchlist(
+        tempAddr.map((item) => {
+          return {
+            Address: item.address,
+            Description: item.description,
+            Balance: item.balance,
+            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            Notification: item.notification.type === "NO" ? "Off" : "Email",
+          };
+        })
+      );
+    }
+  };
 
   const [countNote, setCountNote] = React.useState(-1);
   const [checkedNote, setCheckedNote] = React.useState(false);
@@ -823,8 +821,8 @@ export default function SimpleTabs(props) {
 
       <div className="maindiv">
         <div className="heading">
-          <span>
-            <img alt="profile"
+          {/* <span> */}
+          {/* <img
               className="icon"
               style={{ borderRadius: "50px" }}
               src={
@@ -832,8 +830,16 @@ export default function SimpleTabs(props) {
                   cookiesConstants.USER_PICTURE
                 ) || "/images/Profile.png"
               }
-            />
-          </span>
+            /> */}
+          <Avatar
+            className="profile"
+            src={
+              sessionManager.getDataFromCookies(
+                cookiesConstants.USER_PICTURE
+              ) || "/images/Profile.png"
+            }
+          />
+          {/* </span> */}
           <span>
             <div className="nameicon">
               <span className="welcome">
@@ -1795,7 +1801,6 @@ export default function SimpleTabs(props) {
                     src={require("../../../src/assets/images/XDC-Alert.svg")}
                   ></img>
                   <div className={classes.noData}>
-                  
                     No Address added to Tagged Address
                   </div>
                 </div>
@@ -1896,9 +1901,11 @@ export default function SimpleTabs(props) {
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
-                      <div className={classes.noData} style={{ marginLeft: "538px" }}>
-
-                      Data Not Found
+                      <div
+                        className={classes.noData}
+                        style={{ marginLeft: "538px" }}
+                      >
+                        Data Not Found
                       </div>
                     </div>
                   ) : (

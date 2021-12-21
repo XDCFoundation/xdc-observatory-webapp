@@ -3,12 +3,14 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {makeStyles} from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
-import {sessionManager} from "../../../managers/sessionManager";
-import {UserService} from "../../../services";
+import { sessionManager } from "../../../managers/sessionManager";
+import { UserService } from "../../../services";
 import utility from "../../../utility";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -108,12 +110,12 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
-    marginTop: "-20px"
+    marginTop: "-20px",
   },
   error1: {
     color: "red",
     marginLeft: "24px",
-    marginTop: "-14px"
+    marginTop: "-14px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -151,11 +153,11 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (max-width: 714px)": {
     heading: {
-      fontSize: "16px"
+      fontSize: "16px",
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     input: {
       maxWidth: "503px",
@@ -169,6 +171,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
+
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
@@ -181,23 +202,27 @@ export default function FormDialog() {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+
   async function transactionLable() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    if (!(TransactionsHash && TransactionsHash.length === 66) || !(TransactionsHash.slice(0,2) == "0x")) {
+    if (
+      !(TransactionsHash && TransactionsHash.length === 66) ||
+      !(TransactionsHash.slice(0, 2) == "0x")
+    ) {
       setError("Address should start with 0x & 66 characters");
-    } else if(!PrivateNote) {
-      setPrivateNoteError("Private Note is required")
+    } else if (!PrivateNote) {
+      setPrivateNoteError("Private Note is required");
     } else {
       const [error, response] = await utility.parseResponse(
-      UserService.postUserPrivateNote(data)
-    );
+        UserService.postUserPrivateNote(data)
+      );
 
-    if (error || !response) {
-      
+      if (error || !response) {
         utility.apiFailureToast("Transaction private note is already in use");
         return;
       }
@@ -206,7 +231,6 @@ export default function FormDialog() {
       setPrivateNote("");
       setOpen(false);
     }
-    
   }
   const classes = useStyles();
 
@@ -225,38 +249,63 @@ export default function FormDialog() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   // console.log({ width } = windowDimensions)
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
 
   return (
     <div>
-      <div className="div2" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/testTrancation")}}>
-        <div>
-          <img
-            className="imagediv2"
-            src={"/images/transaction.png"}
-          ></img>
-        </div>
+      <div
+        className="div1"
+        onClick={
+          width >= 760
+            ? handleClickOpen
+            : () => {
+                history.push("/testTrancation");
+              }
+        }
+      >
+        <img className="watchlist-image" src={"/images/transaction.png"}></img>
         <button className={classes.btn}>
-          <div className="headingdiv2">Add transaction label</div>
-          <div className="paradiv2">
+          <div className="headingdiv1">Add transaction label</div>
+          <div className="paradiv1">
             Add a personal note to a transacton hash to track it in future.
           </div>
         </button>
+
+        <div
+          className="imageParentDiv"
+          style={{ position: "relative", top: "30px" }}
+        >
+          <LightToolTip
+            open={tooltipIsOpen}
+            title="Add a personal note to a transacton hash to track it in future."
+            arrow
+            placement="top-start"
+          >
+            <div
+              className="learnMoreText"
+              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+            >
+              Learn More
+            </div>
+          </LightToolTip>
+        </div>
       </div>
 
       {/* <Button
@@ -289,8 +338,9 @@ export default function FormDialog() {
             <input
               type="text"
               className={classes.input}
-              onChange={(e) => {setTransactionsHash(e.target.value)
-              setError("")
+              onChange={(e) => {
+                setTransactionsHash(e.target.value);
+                setError("");
               }}
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
@@ -306,8 +356,9 @@ export default function FormDialog() {
             <textarea
               type="text"
               className={classes.textarea}
-              onChange={(e) => {setPrivateNote(e.target.value)
-              setPrivateNoteError("");
+              onChange={(e) => {
+                setPrivateNote(e.target.value);
+                setPrivateNoteError("");
               }}
             ></textarea>
             {/* <span>
@@ -319,7 +370,11 @@ export default function FormDialog() {
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </DialogContent>
-          {privateNoteError ? <div className={classes.error1}>{privateNoteError}</div> : <></>}
+          {privateNoteError ? (
+            <div className={classes.error1}>{privateNoteError}</div>
+          ) : (
+            <></>
+          )}
           {/* <DialogActions>
             <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
           </DialogActions> */}

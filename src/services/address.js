@@ -3,7 +3,7 @@ import { httpConstants } from "../constants";
 
 export default { getAddressDetail, getAddressDetailWithlimit, getTransactionSearch, getTransactionsCountForAddress }
 async function getAddressDetail(address) {
-    let url = process.env.REACT_APP_GET_ADDRESS_DETAILS + address + '?skip=0&limit=50';
+    let url = process.env.REACT_APP_GET_ADDRESS_DETAILS + address;
     return httpService(httpConstants.METHOD_TYPE.GET, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, {}, url)
         .then(
             response => {

@@ -13,7 +13,6 @@ import styled from "styled-components";
 import { cookiesConstants } from "../../constants";
 import Tokensearchbar from "../explorer/tokensearchBar";
 
-
 const acceptStyle = {
   borderColor: "#00e676",
 };
@@ -126,16 +125,12 @@ const useStyles = makeStyles((theme) => ({
     fontweight: "600",
   },
   avtar: {
-      height: "19px !important",
+    height: "19px !important",
   },
   "@media (min-width: 300px) and (max-width: 767px)": {
-    username:{
-      
-      height: "60px"
-      
-    }
-    
-   
+    username: {
+      height: "60px",
+    },
   },
 }));
 const activeStyle = {
@@ -182,22 +177,19 @@ const Title = styled.div`
   font-weight: 600;
   text-align: center;
   color: #2a2a2a;
-  padding-left: 32px;
   @media (min-width: 300px) and (max-width: 767px) {
-   
-  height: 20px;
-  font-size: 16px;
-  text-align: center;
-  margin:auto;
+    height: 20px;
+    font-size: 16px;
+    text-align: center;
+    margin: auto;
   }
 `;
 const ProfilePicContainer = styled.div`
-  
   @media (min-width: 300px) and (max-width: 767px) {
-      margin-top:200px;
-      max-width: 503px;
-      width: 100%;
-      height: 102px;
+    margin-top: 200px;
+    max-width: 503px;
+    width: 100%;
+    height: 102px;
   }
 `;
 
@@ -205,8 +197,9 @@ const Cut = styled.div`
   padding-right: 25px;
   padding-top: 7px;
 
-  display: flex;
-  align-content: flex-end;
+  // display: flex;
+  // align-content: flex-end;
+  display: none;
 `;
 // const Input = styled.div`
 //   display: flex;
@@ -273,7 +266,7 @@ export default function FormDialog(props) {
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse.userId, "userId");
-        history.push("loginProfile");
+        history.push("/loginProfile");
         handleClose();
         // window.location.href = "loginprofile";
         return authResponse;
@@ -313,6 +306,7 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    history.push("/loginprofile");
     setUserNameError("");
     setEmailError("");
     setTimeout(() => {
@@ -426,148 +420,138 @@ export default function FormDialog(props) {
     }
   }, []);
   function getWindowDimensions() {
-
     const { innerWidth: width, innerHeight: height } = window;
 
     return {
-
       width,
 
-      height
-
+      height,
     };
-
   }
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
   React.useEffect(() => {
- function handleResize() {
-   setWindowDimensions(getWindowDimensions());
-
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
     }
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
-
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
   if (width >= 760) {
-
-    history.push("/loginprofile")
-
+    history.push("/loginprofile");
   }
   return (
     <div>
-    <Tokensearchbar />
-     
-        <div className={classes.add}>
-         
-          <ProfilePicContainer >
-            
-             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
-              <Wrapper>
-                <Title>Edit Profile</Title>
+      <Tokensearchbar />
 
-                <Cut onClick={handleClose}>
-                  {" "}
+      <div className={classes.add}>
+        <ProfilePicContainer>
+          <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+            <Wrapper>
+              <Title>Edit Profile</Title>
+
+              <Cut onClick={handleClose}>
+                {" "}
+                <img
+                  className="cross-icon"
+                  src={"/images/XDC-Cross.svg"}
+                />{" "}
+              </Cut>
+            </Wrapper>
+            <AvatarUpload
+              filedata={fileData}
+              uploadFileToS3={uploadFileToS3}
+              profilePicture={profilePicture}
+              className={classes.avtar}
+            />
+
+            <div
+              style={{ padding: "8px 35px", marginBottom: "14px" }}
+              className={classes.username}
+            >
+              <p className={classes.subCategory}>Username</p>
+              {!usernameEnable ? (
+                <span className="beforeInput">
+                  <span className="beforeInputValue">{userName}</span>
                   <img
-                    className="cross-icon"
-                    src={'/images/XDC-Cross.svg'}
-                  />{" "}
-                </Cut>
-              </Wrapper>
-              <AvatarUpload
-                filedata={fileData}
-                uploadFileToS3={uploadFileToS3}
-                profilePicture={profilePicture}
-                className={classes.avtar}
-              />
-
-              <div
-                style={{ padding: "8px 35px", marginBottom: "14px" }} className={classes.username}
-              >
-                <p className={classes.subCategory}>
-                  Username
-                </p>
-                {!usernameEnable ? (
-                  <span className="beforeInput">
-                    <span className="beforeInputValue">{userName}</span>
-                    <img
-                      className="imgcss"
-                      src={'/images/edit.svg'}
-                      onClick={() => setUsernameEnable(true)}
-                    />
-                  </span>
-                ) : (
-                  <input
-                    className="inputcss"
-                    style={{ border: "solid 1px #9fa9ba", paddingLeft: "10px" }}
-                    type="text"
-                    id="username"
-                    value={userName}
-                    onChange={(e) => {
-                      {
-                        setUserName(e.target.value);
-                        setUserNameError("");
-                      }
-                    }}
+                    className="imgcss"
+                    src={"/images/edit.svg"}
+                    onClick={() => setUsernameEnable(true)}
                   />
-                )}
-                <div className={classes.error}>{userNameError}</div>
-              </div>
-
-              <div
-                style={{ padding: "8px 35px", marginBottom: "25px" }}
-                className={classes.username}
-              >
-                <p className={classes.subCategory}>
-                  Email
-                </p>
-                {!emailEnable ? (
-                  <span className="beforeInput">
-                    <span className="beforeInputValue">{email}</span>
-                    <img
-                      className="imgcss"
-                      src={'/images/edit.svg'}
-                      onClick={() => setEmailEnable(true)}
-                    />
-                  </span>
-                ) : (
-                  <input
-                    className="inputcss"
-                    style={{ border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
-                    type="text"
-                    id="email"
-                    value={email}
-                    onChange={(e) => {
-                      {
-                        setEmail(e.target.value);
-                        setEmailError("");
-                      }
-                    }}
-                  />
-                )}
-                {emailError ? <div className={classes.error}>{emailError}</div> : <></>}
-              </div>
-
-              <DialogActions>
-                <button
-                  className={classes.addbtn}
-                  onClick={() => {
-                    profileUrl();
+                </span>
+              ) : (
+                <input
+                  className="inputcss"
+                  style={{ border: "solid 1px #9fa9ba", paddingLeft: "10px" }}
+                  type="text"
+                  id="username"
+                  value={userName}
+                  onChange={(e) => {
+                    {
+                      setUserName(e.target.value);
+                      setUserNameError("");
+                    }
                   }}
-                >
-                  Update Profile{" "}
-                </button>
-              </DialogActions>
+                />
+              )}
+              <div className={classes.error}>{userNameError}</div>
+            </div>
 
-              <div className={classes.value}></div>
-              </div>
-           
-          </ProfilePicContainer>
-        
+            <div
+              style={{ padding: "8px 35px", marginBottom: "25px" }}
+              className={classes.username}
+            >
+              <p className={classes.subCategory}>Email</p>
+              {!emailEnable ? (
+                <span className="beforeInput">
+                  <span className="beforeInputValue">{email}</span>
+                  <img
+                    className="imgcss"
+                    src={"/images/edit.svg"}
+                    onClick={() => setEmailEnable(true)}
+                  />
+                </span>
+              ) : (
+                <input
+                  className="inputcss"
+                  style={{ border: "solid 1px #9fa9ba", paddingLeft: "14px" }}
+                  type="text"
+                  id="email"
+                  value={email}
+                  onChange={(e) => {
+                    {
+                      setEmail(e.target.value);
+                      setEmailError("");
+                    }
+                  }}
+                />
+              )}
+              {emailError ? (
+                <div className={classes.error}>{emailError}</div>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            <DialogActions>
+              <button
+                className={classes.addbtn}
+                onClick={() => {
+                  profileUrl();
+                }}
+              >
+                Update Profile{" "}
+              </button>
+            </DialogActions>
+
+            <div className={classes.value}></div>
+          </div>
+        </ProfilePicContainer>
       </div>
-   
     </div>
   );
 }
