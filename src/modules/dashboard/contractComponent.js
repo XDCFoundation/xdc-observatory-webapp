@@ -86,7 +86,7 @@ class Contractlist extends React.Component {
             anchorEl: null,
             isColumnsModalOpen: null,
             tableColumns: {
-                "Address": {isActive: true, toolTipText: "Address of the contract"},
+                // "Address": {isActive: true, toolTipText: "Address of the contract"},
                 "Token Name": {isActive: true, toolTipText: "Name of token associated with contract"},
                 "Contract Name": {isActive: true, toolTipText: "Name of the contract"},
                 "Token Yes/No": {isActive: true, toolTipText: "Whether contract contain any token or not"}
@@ -307,30 +307,6 @@ class Contractlist extends React.Component {
         return (
             <div>
                 <Tokensearchbar/>
-                <div>
-                    <div>
-                        <form
-                            method="post"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                            }}
-                        >
-                            <div className="display-flex searchelement-div div-searchelement p-b-0">
-
-                                {/*<div className="tabletop-header display-none-tab display-none-desktop display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">*/}
-                                {/*    <img onClick={this.toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>*/}
-                                {/*    <ConfigureColumnsModal*/}
-                                {/*        isOpen={this.state.isColumnsModalOpen}*/}
-                                {/*        onModalClose={this.toggleModal}*/}
-                                {/*        tableColumns={this.state.tableColumns}*/}
-                                {/*        toggleTableColumns={this.toggleTableColumns}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <br/>
                 <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
                     <div className="fs-24 fw-bold">Contracts</div>
                     <div
@@ -341,6 +317,15 @@ class Contractlist extends React.Component {
                             isOpen={this.state.isSettingColumnOpen}
                             anchorEl={this.state.anchorEl}
                             handleOnClose={this.handleOnClose}
+                            tableColumns={this.state.tableColumns}
+                            toggleTableColumns={this.toggleTableColumns}
+                        />
+                    </div>
+                    <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+                        <img onClick={this.toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
+                        <ConfigureColumnsModal
+                            isOpen={this.state.isColumnsModalOpen}
+                            onModalClose={this.toggleModal}
                             tableColumns={this.state.tableColumns}
                             toggleTableColumns={this.toggleTableColumns}
                         />
