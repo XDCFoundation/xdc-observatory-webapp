@@ -315,9 +315,6 @@ background-color: #4878ff; */
   .paradiv1 {
     font-size: 13px;
   }
-  .div1 {
-    width: 350px;
-  }
 }
 .paradiv2 {
   width: 320px;
@@ -501,6 +498,9 @@ background-color: #4878ff; */
 @media screen and (max-width: 1240px) {
   .heading {
     margin-top: 122px;
+  }
+  .div1 {
+    width: 305px;
   }
 }
 @media screen and (max-width: 828px) {

@@ -301,6 +301,50 @@ const useStyles = makeStyles((theme) => ({
   // }
 }));
 
+const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+`;
+
+const UserNameContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 40px auto;
+  gap: 15px;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 600;
+  max-width: 1190px;
+  width: 100%;
+  align-items: center;
+
+  @media (max-width: 850px) {
+    padding: 0 0 0 10px !important;
+    max-width: 710px;
+  }
+
+  @media (min-width: 450px) and (max-width: 850px) {
+    gap: ${(props) => (props.isWallet ? "30px" : "15px")};
+  }
+
+  @media (max-width: 400px) {
+    gap: 12px;
+  }
+  @media (min-width: 401px) and (max-width: 449px) {
+    gap: 30px;
+  }
+`;
+
+const SubParentContainer = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    max-width: 41.5rem;
+    margin: auto;
+  }
+`;
 export default function SimpleTabs(props) {
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -815,38 +859,11 @@ export default function SimpleTabs(props) {
     }
   };
 
-  const NoDataFoundContainer = styled.div`
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-    gap: 10px;
-  `;
-
-  const UserNameContainer = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    margin: 40px auto;
-    gap: 15px;
-    font-family: Inter;
-    font-size: 18px;
-    font-weight: 600;
-    max-width: 1190px;
-    width: 100%;
-    align-items: center;
-
-    @media (max-width: 850px) {
-      padding: 0 0 0 10px !important;
-      max-width: 710px;
-    }
-  `;
-
   return (
     <div>
       <Tokensearchbar />
 
-      <div>
+      <SubParentContainer>
         {/* <div className="heading"> */}
         {/* <span> */}
         {/* <img
@@ -890,7 +907,7 @@ export default function SimpleTabs(props) {
             <NotificationBar />
           </span> */}
         {/* </div> */}
-        <UserNameContainer>
+        <UserNameContainer isWallet={true}>
           <Watchlist />
           <Transaction />
           <Private />
@@ -2137,11 +2154,7 @@ export default function SimpleTabs(props) {
             </PaginationDiv>
           </TabPanel>
         </div>
-
-        <div>
-          <h1></h1>
-        </div>
-      </div>
+      </SubParentContainer>
       <FooterComponent />
     </div>
   );
