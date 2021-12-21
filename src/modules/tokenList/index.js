@@ -12,14 +12,14 @@ export default class LatestTransactionList extends BaseComponent {
         super(props);
         this.state = {
             tableColumns: {
-                "Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
-                "Contract": {isActive: true, toolTipText: toolTipMessages.hashid},
-                "Name": {isActive: true, toolTipText: toolTipMessages.value},
-                "Symbol": {isActive: true, toolTipText: toolTipMessages.timestamp},
+                "Hash": {isActive: true, toolTipText: "Serial Number of token"},
+                // "Contract": {isActive: true, toolTipText: toolTipMessages.hashid},
+                // "Name": {isActive: true, toolTipText: toolTipMessages.value},
+                "Symbol": {isActive: true, toolTipText: "Symbol of token"},
                 // "Date and Time": {isActive: true},
-                "Type": {isActive: true, toolTipText: toolTipMessages.blocknumber},
-                "Total Supply": {isActive: true, toolTipText: toolTipMessages.from},
-                "Total Holders": {isActive: true, toolTipText: toolTipMessages.to},
+                "Type": {isActive: true, toolTipText: "Type of token"},
+                // "Total Supply": {isActive: true, toolTipText: toolTipMessages.from},
+                "Total Holders": {isActive: true, toolTipText: "Total holders of token"},
             }
         }
     }

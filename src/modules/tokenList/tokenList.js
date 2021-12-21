@@ -359,26 +359,26 @@ if(error) return;
                 {props?.state?.tableColumns["Hash"].isActive &&  <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
                   <span>#</span>
                 </TableCell>}
-                {props?.state?.tableColumns["Contract"].isActive && <TableCell style={{ border: "none" }} align="left">
+                <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Contract</span>
-                </TableCell>}
-                {props?.state?.tableColumns["Name"].isActive && <TableCell style={{ border: "none" }} align="left">
+                </TableCell>
+                <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
-                </TableCell>}
+                </TableCell>
                 {props?.state?.tableColumns["Symbol"].isActive &&<TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Symbol</span>
                 </TableCell>}
                 {props?.state?.tableColumns["Type"].isActive &&<TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Type</span>
                 </TableCell>}
-                {props?.state?.tableColumns["Total Supply"].isActive &&<TableCell
+                <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
                 >
                   <span className={"tablehead-token-details"}>
                     Total Supply
                   </span>
-                </TableCell>}
+                </TableCell>
                 {props?.state?.tableColumns["Total Holders"].isActive && <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -411,7 +411,7 @@ if(error) return;
                         key={row._id}
                       >
                         {props?.state?.tableColumns["Hash"].isActive && <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>}
-                        {props?.state?.tableColumns["Contract"].isActive &&  <TableCell>
+                          <TableCell>
                           <a
                             className="token-details-address-link"
                             href={`/token-data/${row.address}/${
@@ -420,10 +420,10 @@ if(error) return;
                           >
                             {shorten(row.address)}
                           </a>
-                        </TableCell>}
-                        {props?.state?.tableColumns["Name"].isActive &&  <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                        </TableCell>
+                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
                           {shorten(row.tokenName, 9, 0, 3)}
-                        </TableCell>}
+                        </TableCell>
                         {props?.state?.tableColumns["Symbol"].isActive && <TableCell id="td">
                           <img
                             style={{ height: "24", width: "24" }}
@@ -432,11 +432,11 @@ if(error) return;
                           &nbsp;{row.symbol}
                         </TableCell>}
                         {props?.state?.tableColumns["Type"].isActive &&  <TableCell id="td">{row.type}</TableCell>}
-                        {props?.state?.tableColumns["Total Supply"].isActive &&  <TableCell id="td" style={{ paddingleft: "15" }}>
+                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {utility.convertToInternationalCurrencySystem(
                             row.totalSupply
                           )}
-                        </TableCell>}
+                        </TableCell>
                         {props?.state?.tableColumns["Total Holders"].isActive && <TableCell id="td" style={{ paddingleft: "15" }}>
                           {row.tokenHolders}
                         </TableCell>}
