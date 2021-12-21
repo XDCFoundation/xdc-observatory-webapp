@@ -640,7 +640,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-    props.active ? "0.15rem solid #ffffff !important" : ""};
+      props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
@@ -757,7 +757,7 @@ export default function Navbar() {
                     to={"/"}
                     className="Network-explorer"
                   >
-                    Network
+                    XDC Observatory
                   </NavLink>
 
                   {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
@@ -774,7 +774,7 @@ export default function Navbar() {
 
                   <a href="/">
                     <p className="Network-explorer" id="Network-explorer">
-                      Network
+                      XDC Observatory
                     </p>
                   </a>
                 </div>
@@ -845,7 +845,7 @@ export default function Navbar() {
         <MobileView>
           <MobileNavigationContainer>
             <NavigationButton active={window.location.pathname == "/"} href="/">
-              Network
+              XDC Observatory
             </NavigationButton>
             <NavigationButton
               active={window.location.pathname.includes("token")}

@@ -635,7 +635,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-    props.active ? "0.15rem solid #ffffff !important" : ""};
+      props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
@@ -687,7 +687,7 @@ export default function Navbar() {
                   to={"/"}
                   className="Network-explorer"
                 >
-                  Network
+                  XDC Observatory
                 </NavLink>
 
                 {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
@@ -805,7 +805,7 @@ export default function Navbar() {
           </MobileToolBar>
           <MobileNavigationContainer>
             <NavigationButton active={window.location.pathname == "/"} href="/">
-              Network
+              XDC Observatory
             </NavigationButton>
             <NavigationButton href="/token-details">Tokens</NavigationButton>
           </MobileNavigationContainer>
@@ -814,7 +814,7 @@ export default function Navbar() {
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
           <img className="Shape3" src={"/images/Networkexplorer.svg"}></img>
-          <div className="exp">Network Explorer</div>
+          <div className="exp">XDC Observatory</div>
         </div>
         {/* ------------ Search bar ----------------- */}
 
