@@ -694,13 +694,18 @@ export default function AddressTableComponent(props) {
                             style={{ border: "none", color: "#2a2a2a" }}
                             align="left"
                           >
-                            <span className="tabledata">
+                            <Tooltip
+                              placement="top"
+                              title={row?.Value}
+                            >
+                            <span className="tabledata cursor-pointer">
                               {row.Value == 0
                                 ? 0
                                 : Number(row.Value / 1000000000000000000)
                                     .toFixed(18)
                                     .replace(/\.?0+$/, "")}
                             </span>
+                            </Tooltip>
                           </TableCell>
                         </TableRow>
                       );

@@ -14,6 +14,7 @@ import Utils from "../../utility";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
+import { Tooltip } from "@material-ui/core";
 
 const Pagination = styled.div`
   display: flex;
@@ -256,14 +257,18 @@ export default function StickyHeadTable() {
                             : row[0].Percentage.toFixed(2)}
                         </span>
                       </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
+                      <TableCell id="td" style={{ border: "none" }} className="cursor-pointer">
+                        <Tooltip
+                         placement="top"
+                         title={row[0]?.Value}
+                        >
                         <span className="tabledata table-data mar-lef-2">
-                          {" "}
+                        
                           {utility.convertToInternationalCurrencySystem(
                             row[0]?.Value
                           )}
-                        </span>{" "}
+                        </span>
+                        </Tooltip>
                       </TableCell>
                     </StyledTableRow>
                   );

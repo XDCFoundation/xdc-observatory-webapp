@@ -18,6 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
 
+
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -563,7 +564,12 @@ export default function TransactionTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">{row.value}</span>
+                          <Tooltip
+                         placement="top"
+                         title={row?.Value}
+                        >
+                            <span className="tabledata">{Utility.convertToInternationalCurrencySystem(row.value)}</span>
+                            </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span className="tabledata">{row.gasUsed}</span>
@@ -596,7 +602,7 @@ export default function TransactionTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No Holders Found</div>
+                <div>No Transactions Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
