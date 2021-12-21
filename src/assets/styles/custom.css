@@ -8465,6 +8465,14 @@ button {
   margin: auto;
 }
 
+.responsive-table-width-transactions-list {
+  border-radius: 14px;
+  /* margin-left: 18%;
+  margin-right: 18%; */
+  width: 77.125rem;
+  margin: auto;
+}
+
 @media (max-width: 640px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
