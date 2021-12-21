@@ -253,6 +253,11 @@ export default function FormDialog() {
     setOpen(true);
   };
 
+  const handleCancel = () => {
+    history.push("/loginprofile")
+    setError("");
+  };
+
   const handleClose = () => {
     setOpen(false);
     setTransactionsHash("");
@@ -265,7 +270,7 @@ export default function FormDialog() {
   return (
       <div>
       <Tokensearchbar />
-      <div className={classes.createWatchlistMobile}>
+      <div className="p-l-10 p-r-10">
           <Row>
             <div className={classes.heading} id="form-dialog-title">
               Add Transaction Label
@@ -315,7 +320,7 @@ export default function FormDialog() {
         
           <DialogActions >
             <span style={{ color: "white" }}>
-              <button className={classes.cnlbtn} onClick={handleClose}>
+              <button className={classes.cnlbtn} onClick={handleCancel}>
                 {" "}
                 Cancel
               </button>
