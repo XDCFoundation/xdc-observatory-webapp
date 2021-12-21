@@ -239,6 +239,10 @@ input:focus {
   display: flex;
 }
 
+.flex-direction-column {
+  flex-direction: column;
+}
+
 .display-inline {
   display: inline;
 }

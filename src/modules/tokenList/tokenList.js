@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Tokensearchbar from "./tokensearchBar";
+import Tokensearchbar from "../explorer/tokensearchBar";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import Utility from "../../utility";
@@ -82,7 +82,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
   const [amount, setAmount] = React.useState(10);
@@ -275,7 +275,6 @@ if(error) return;
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
-
       <div>
         <div>
           <form
@@ -286,7 +285,8 @@ if(error) return;
               }
             }}
           >
-            <div className="searchelement-div div-searchelement_11">
+            <div className="display-flex searchelement-div div-searchelement_11">
+            <div className="">
               <p className="searchelement-token token-searchelement_11">
                 Tokens
               </p>
@@ -317,7 +317,7 @@ if(error) return;
                 />
               </div>
             </div>
-            <div className="tabletop-header display-none-mobile">
+            <div className=" display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
               <img onClick={handleSettingsClick} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
               <ConfigureColumnPopOver
                   isOpen={isSettingColumnOpen}
@@ -326,6 +326,7 @@ if(error) return;
                   tableColumns={props.state.tableColumns}
                   toggleTableColumns={props.toggleTableColumns}
               />
+            </div>
             </div>
           </form>
         </div>
@@ -355,37 +356,37 @@ if(error) return;
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
+                {props?.state?.tableColumns["Hash"].isActive &&  <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
                   <span>#</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                </TableCell>}
+                {props?.state?.tableColumns["Contract"].isActive && <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Contract</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                </TableCell>}
+                {props?.state?.tableColumns["Name"].isActive && <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                </TableCell>}
+                {props?.state?.tableColumns["Symbol"].isActive &&<TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Symbol</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                </TableCell>}
+                {props?.state?.tableColumns["Type"].isActive &&<TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Type</span>
-                </TableCell>
-                <TableCell
+                </TableCell>}
+                {props?.state?.tableColumns["Total Supply"].isActive &&<TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
                 >
                   <span className={"tablehead-token-details"}>
                     Total Supply
                   </span>
-                </TableCell>
-                <TableCell
+                </TableCell>}
+                {props?.state?.tableColumns["Total Holders"].isActive && <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
                 >
                   <span className={"tablehead-token-details"}>
                     Total Holders
                   </span>
-                </TableCell>
+                </TableCell>}
               </TableRow>
             </TableHead>
             {isLoading == true ? (
@@ -409,8 +410,8 @@ if(error) return;
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>
-                        <TableCell>
+                        {props?.state?.tableColumns["Hash"].isActive && <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>}
+                        {props?.state?.tableColumns["Contract"].isActive &&  <TableCell>
                           <a
                             className="token-details-address-link"
                             href={`/token-data/${row.address}/${
@@ -419,26 +420,26 @@ if(error) return;
                           >
                             {shorten(row.address)}
                           </a>
-                        </TableCell>
-                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                        </TableCell>}
+                        {props?.state?.tableColumns["Name"].isActive &&  <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
                           {shorten(row.tokenName, 9, 0, 3)}
-                        </TableCell>
-                        <TableCell id="td">
+                        </TableCell>}
+                        {props?.state?.tableColumns["Symbol"].isActive && <TableCell id="td">
                           <img
                             style={{ height: "24", width: "24" }}
                             src={"/images/XRC20-Icon.svg"}
                           ></img>
                           &nbsp;{row.symbol}
-                        </TableCell>
-                        <TableCell id="td">{row.type}</TableCell>
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
+                        </TableCell>}
+                        {props?.state?.tableColumns["Type"].isActive &&  <TableCell id="td">{row.type}</TableCell>}
+                        {props?.state?.tableColumns["Total Supply"].isActive &&  <TableCell id="td" style={{ paddingleft: "15" }}>
                           {utility.convertToInternationalCurrencySystem(
                             row.totalSupply
                           )}
-                        </TableCell>
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
+                        </TableCell>}
+                        {props?.state?.tableColumns["Total Holders"].isActive && <TableCell id="td" style={{ paddingleft: "15" }}>
                           {row.tokenHolders}
-                        </TableCell>
+                        </TableCell>}
                       </TableRow>
                     );
                   })}
