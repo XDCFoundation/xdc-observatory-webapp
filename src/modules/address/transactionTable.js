@@ -17,6 +17,7 @@ import AddressData from "../../services/address";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
+import format from "format-number";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -82,8 +83,15 @@ export default function TransactionTableComponent(props) {
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetailWithlimit(values)
-      );
+        AddressData.getAddressDetailWithlimit(values),
+      )
+      if(!responseData || responseData.length===0){
+        setNoData(true)
+        setTotalRecord(parseInt(0))
+        setAddress([])
+        setLoading(false)
+        return;
+      }
       let transactionSortByValue = responseData.sort((a, b) => {
         return b.value - a.value;
       });
@@ -450,7 +458,7 @@ export default function TransactionTableComponent(props) {
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {isLoading == true ? (
+              {isLoading === true  ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: "none" }} colspan="6">
@@ -556,7 +564,12 @@ export default function TransactionTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">{row.value}</span>
+                          <Tooltip
+                         placement="top"
+                         title={format({})(row.value)}
+                        >
+                            <span className="tabledata">{Utility.convertToInternationalCurrencySystem(row.value)}</span>
+                            </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span className="tabledata">{row.gasUsed}</span>
@@ -589,7 +602,7 @@ export default function TransactionTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No Holders Found</div>
+                <div>No Transactions Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
