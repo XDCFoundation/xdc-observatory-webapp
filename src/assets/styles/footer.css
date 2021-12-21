@@ -17,6 +17,20 @@ label {
   padding-right: 7%;
   padding-left: 7%;
 }
+
+.mobile-column-display{
+  display: none;
+}
+
+.desktop-column-display{
+  display: block;
+}
+
+.follow-us-margin{
+  margin: 0px 0px 10px 0px !important;
+}
+
+
 @media (min-width: 1241px) {
   .footer_base {
     padding-right: 0%;
@@ -158,6 +172,12 @@ ul {
   border: solid 0.1px #81b4ff;
   opacity: 0.8;
   margin-top: 5px !important;
+  width: 190px;
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .Table-Header hr {
+    width: 151px;
+  }
 }
 
 .USD {
@@ -221,7 +241,19 @@ ul {
 }
 @media (max-width: 767px) {
   .Table-Header {
-    font-size: 0.75rem;
+    font-size: 14px;
+  }
+
+  .mobile-column-display{
+    display: block;
+  }
+
+  .desktop-column-display{
+    display: none;
+  }
+
+  .follow-us-margin{
+    margin: 20px 0px 10px 0px !important;
   }
 }
 
