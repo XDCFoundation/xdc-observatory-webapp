@@ -137,7 +137,7 @@ export default function BasicPopover(props) {
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
           <Text style={{ marginRight: "auto" }} >
-          <a href="/loginprofile" style={{textDecoration: "none",color: "#2a2a2a"}}> My Profile</a>
+          <a href="/loginprofile" className="profile-links"> My Profile</a>
            
           </Text>
         </Contents>
