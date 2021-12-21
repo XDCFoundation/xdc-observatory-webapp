@@ -4,7 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
+import { Column, Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
@@ -335,9 +335,9 @@ export default function FormDialog() {
   return (
     <div>
       <div className="div1" onClick={handleClickOpen}>
-        <div>
-          <img className="watchlist-image" src={"/images/private.png"}></img>
-        </div>
+        <Column alignItems="center">
+          <img className="watchlist-image" src={"/images/private.svg"}></img>
+        </Column>
         <button className={classes.btn}>
           <div className="headingdiv1">Add private tag to an Address</div>
           <div className="paradiv1">
@@ -345,10 +345,7 @@ export default function FormDialog() {
           </div>
         </button>
 
-        <div
-          className="imageParentDiv"
-          style={{ position: "relative", top: "32px" }}
-        >
+        <div className="imageParentDiv">
           <LightToolTip
             open={tooltipIsOpen}
             title="Add a short memo or private tag to the address of interest."
