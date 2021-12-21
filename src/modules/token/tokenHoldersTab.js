@@ -95,9 +95,9 @@ const useStyles = makeStyles({
   alert: {
     margin: "110px 0 0 580px",
   },
-  table:{
-    marginBottom:"200px"
-  }
+  table: {
+    marginBottom: "200px",
+  },
 });
 
 export default function StickyHeadTable() {
@@ -112,7 +112,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const listOfHolders = async (values) => {
     let [error, tns] = await Utils.parseResponse(
@@ -250,13 +250,12 @@ export default function StickyHeadTable() {
                 </TableRow>
               </TableHead>
             </Table>
-            <div className={classes.table}>
-            <img
-              className={classes.alert}
-              src={require("../../../src/assets/images/XDC-Alert.svg")}
-            ></img>
-            <div className={classes.noData}>No transfers found</div>
-            </div>
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+              <div>No holder found</div>
+            </NoDataFoundContainer>
           </TableContainer>
         ) : (
           <TableContainer className={classes.container} id="container-table">
@@ -340,17 +339,20 @@ export default function StickyHeadTable() {
                             : row[0].Percentage.toFixed(2)}
                         </span>
                       </TableCell>
-                      <TableCell id="td" style={{ border: "none" }} className="cursor-pointer">
+                      <TableCell
+                        id="td"
+                        style={{ border: "none" }}
+                        className="cursor-pointer"
+                      >
                         <Tooltip
-                         placement="top"
-                         title={format({})( row[0]?.Value)}
+                          placement="top"
+                          title={format({})(row[0]?.Value)}
                         >
-                        <span className="tabledata table-data mar-lef-2">
-                        
-                          {utility.convertToInternationalCurrencySystem(
-                            row[0]?.Value
-                          )}
-                        </span>
+                          <span className="tabledata table-data mar-lef-2">
+                            {utility.convertToInternationalCurrencySystem(
+                              row[0]?.Value
+                            )}
+                          </span>
                         </Tooltip>
                       </TableCell>
                     </StyledTableRow>
