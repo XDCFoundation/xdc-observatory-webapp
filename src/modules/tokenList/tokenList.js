@@ -16,6 +16,7 @@ import styled from "styled-components";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
+import { Column, Row } from "simple-flexbox";
 
 const Pagination = styled.div`
   display: flex;
@@ -192,7 +193,7 @@ export default function StickyHeadTable(props) {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTokenLists(data)
       );
-if(error) return;
+      if (error) return;
       if (responseData) {
         setLoading(false);
         setRows(responseData);
@@ -208,7 +209,7 @@ if(error) return;
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTotalToken()
       );
-      if(error) return;
+      if (error) return;
       if (responseData) {
         setTotalToken(responseData);
       }
@@ -221,7 +222,7 @@ if(error) return;
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTokenSearch(data)
       );
-      if(error) return;
+      if (error) return;
       if (responseData.total === 0) {
         setNoData(1);
         setTotalToken(0);
@@ -272,65 +273,78 @@ if(error) return;
     )}`;
   }
 
+  const TokenTitle = styled.div`
+    font-size: 16px;
+    font-weight: bold;
+    @media (max-width: 1250px) {
+      font-size: 13px;
+    }
+  `;
+
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
-      <div>
-        <div>
-          <form
-            method="post"
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-              }
-            }}
-          >
-            <div className="display-flex searchelement-div div-searchelement_11">
-            <div className="">
-              <p className="searchelement-token token-searchelement_11">
-                Tokens
-              </p>
-              <div className="searchelement-input input-searchelement_11">
-                <img
-                  style={{
-                    width: 20,
-                    height: 20,
-                    marginRight: 6,
-                    marginTop: 3,
-                  }}
-                  src={"/images/Search.svg"}
-                />
-                <input
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      handleSearchKeyUp(e);
-                    }
-                  }}
-                  onChange={(e) => {
-                    if (e.target.value == "") {
-                      handleSearchKeyUp(e);
-                    }
-                  }}
-                  className="account-searchbar"
-                  type="text"
-                  placeholder="Search Tokens"
-                />
-              </div>
-            </div>
-            <div className=" display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-              <img onClick={handleSettingsClick} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
+
+      <form
+        method="post"
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
+      >
+        <Column
+          className={
+            "responsive-table-width-token-list token-list-tab_11 search-container"
+          }
+        >
+          <Row justifyContent="space-between" alignItems="center">
+            <TokenTitle>Tokens</TokenTitle>
+            <div className=" display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img
+                onClick={handleSettingsClick}
+                className="p-r-5 h-20 w-20-px"
+                src="/images/settings.svg"
+              />
               <ConfigureColumnPopOver
-                  isOpen={isSettingColumnOpen}
-                  anchorEl={anchorEl}
-                  handleOnClose={handleOnClose}
-                  tableColumns={props.state.tableColumns}
-                  toggleTableColumns={props.toggleTableColumns}
+                isOpen={isSettingColumnOpen}
+                anchorEl={anchorEl}
+                handleOnClose={handleOnClose}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
               />
             </div>
-            </div>
-          </form>
-        </div>
-      </div>
+          </Row>
+          <div className="searchelement-input input-searchelement_11 margin-top-15px">
+            <img
+              style={{
+                width: 20,
+                height: 20,
+                marginRight: 6,
+                marginTop: 3,
+              }}
+              src={"/images/Search.svg"}
+            />
+            <input
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              onChange={(e) => {
+                if (e.target.value == "") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              className="account-searchbar"
+              type="text"
+              placeholder="Search Tokens"
+            />
+          </div>
+        </Column>
+      </form>
+      {/* </div> */}
+      {/* </div> */}
 
       <br />
       <Paper
@@ -339,7 +353,6 @@ if(error) return;
           borderRadius: "0.875rem",
           // marginLeft: "18%",
           // marginRight: "18%",
-          
         }}
         elevation={0}
       >
@@ -356,21 +369,30 @@ if(error) return;
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                {props?.state?.tableColumns["Hash"].isActive &&  <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
-                  <span>#</span>
-                </TableCell>}
+                {props?.state?.tableColumns["Hash"].isActive && (
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "75px" }}
+                    align="left"
+                  >
+                    <span>#</span>
+                  </TableCell>
+                )}
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Contract</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
-                {props?.state?.tableColumns["Symbol"].isActive &&<TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Symbol</span>
-                </TableCell>}
-                {props?.state?.tableColumns["Type"].isActive &&<TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Type</span>
-                </TableCell>}
+                {props?.state?.tableColumns["Symbol"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>Symbol</span>
+                  </TableCell>
+                )}
+                {props?.state?.tableColumns["Type"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>Type</span>
+                  </TableCell>
+                )}
                 <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -379,14 +401,16 @@ if(error) return;
                     Total Supply
                   </span>
                 </TableCell>
-                {props?.state?.tableColumns["Total Holders"].isActive && <TableCell
-                  style={{ border: "none", whiteSpace: "nowrap" }}
-                  align="left"
-                >
-                  <span className={"tablehead-token-details"}>
-                    Total Holders
-                  </span>
-                </TableCell>}
+                {props?.state?.tableColumns["Total Holders"].isActive && (
+                  <TableCell
+                    style={{ border: "none", whiteSpace: "nowrap" }}
+                    align="left"
+                  >
+                    <span className={"tablehead-token-details"}>
+                      Total Holders
+                    </span>
+                  </TableCell>
+                )}
               </TableRow>
             </TableHead>
             {isLoading == true ? (
@@ -410,8 +434,12 @@ if(error) return;
                         tabIndex={-1}
                         key={row._id}
                       >
-                        {props?.state?.tableColumns["Hash"].isActive && <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>}
-                          <TableCell>
+                        {props?.state?.tableColumns["Hash"].isActive && (
+                          <TableCell style={{ paddingLeft: "75px" }} id="td">
+                            {index + 1}
+                          </TableCell>
+                        )}
+                        <TableCell>
                           <a
                             className="token-details-address-link"
                             href={`/token-data/${row.address}/${
@@ -424,22 +452,29 @@ if(error) return;
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
                           {shorten(row.tokenName, 9, 0, 3)}
                         </TableCell>
-                        {props?.state?.tableColumns["Symbol"].isActive && <TableCell id="td">
-                          <img
-                            style={{ height: "24", width: "24" }}
-                            src={"/images/XRC20-Icon.svg"}
-                          ></img>
-                          &nbsp;{row.symbol}
-                        </TableCell>}
-                        {props?.state?.tableColumns["Type"].isActive &&  <TableCell id="td">{row.type}</TableCell>}
-                         <TableCell id="td" style={{ paddingleft: "15" }}>
+                        {props?.state?.tableColumns["Symbol"].isActive && (
+                          <TableCell id="td">
+                            <img
+                              style={{ height: "24", width: "24" }}
+                              src={"/images/XRC20-Icon.svg"}
+                            ></img>
+                            &nbsp;{row.symbol}
+                          </TableCell>
+                        )}
+                        {props?.state?.tableColumns["Type"].isActive && (
+                          <TableCell id="td">{row.type}</TableCell>
+                        )}
+                        <TableCell id="td" style={{ paddingleft: "15" }}>
                           {utility.convertToInternationalCurrencySystem(
                             row.totalSupply
                           )}
                         </TableCell>
-                        {props?.state?.tableColumns["Total Holders"].isActive && <TableCell id="td" style={{ paddingleft: "15" }}>
-                          {row.tokenHolders}
-                        </TableCell>}
+                        {props?.state?.tableColumns["Total Holders"]
+                          .isActive && (
+                          <TableCell id="td" style={{ paddingleft: "15" }}>
+                            {row.tokenHolders}
+                          </TableCell>
+                        )}
                       </TableRow>
                     );
                   })}
@@ -519,10 +554,7 @@ if(error) return;
             }
             onClick={() => handleChangePage("prev")}
           >
-            <img
-              className="navigation-arrow"
-              src={"/images/back.svg"}
-            />
+            <img className="navigation-arrow" src={"/images/back.svg"} />
 
             {/* <p className="path-contract">{"<"}</p> */}
           </div>
@@ -543,10 +575,7 @@ if(error) return;
             }
             onClick={() => handleChangePage("next")}
           >
-            <img
-              className="navigation-arrow"
-              src={"/images/next.svg"}
-            />
+            <img className="navigation-arrow" src={"/images/next.svg"} />
           </div>
           <div
             className={

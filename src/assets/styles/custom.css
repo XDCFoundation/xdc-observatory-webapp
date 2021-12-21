@@ -657,7 +657,6 @@ input:focus {
   cursor: pointer;
 }
 
-
 .Shape2 {
   width: 1.5rem;
   height: 1.5rem;
@@ -8561,6 +8560,10 @@ button {
     margin-top: 6px;
     margin-left: 5px;
   }
+}
+
+.margin-top-15px {
+  margin-top: 15px;
 }
 @media (min-width: 1239px) {
   .mar_child {
