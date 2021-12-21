@@ -66,7 +66,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     width: "100%",
     "@media (min-width: 300px) and (max-width: 767px)": {
-      marginTop: "6.800rem",
       maxWidth: "31.25rem",
       padding: "0 0.5rem 0 0.5rem",
     },
@@ -211,143 +210,137 @@ export default function AddressDetails(props) {
       <Tokensearchbar />
       <Grid className="table-grid-block grid-block-table">
         <div className={classes.mainContainer}>
-          <div className={classes.root}>
-            <Grid style={{ width: "75.125rem" }}>
-              <AddressPath>
-                <Explorer>Observatory</Explorer>
-                <Next src={"/images/next.svg"} />
-                <Address>Address</Address>
-              </AddressPath>
-              <Spacing style={{ borderBottom: "none" }}>
+          {/* <div className={classes.root}> */}
+          <Grid style={{ width: "75.125rem" }}>
+            <AddressPath>
+              <Explorer>Observatory</Explorer>
+              <Next src={"/images/next.svg"} />
+              <Address>Address</Address>
+            </AddressPath>
+            <Spacing style={{ borderBottom: "none" }}>
+              <Container>
+                <Heading>Address Details</Heading>
+              </Container>
+            </Spacing>
+            <Div>
+              <HashDiv>
                 <Container>
-                  <Heading>Address Details</Heading>
+                  <Tooltip title="An address is a unique sequence of numbers and letters">
+                    <ImageView src={"/images/questionmark.svg"} />
+                  </Tooltip>
+                  <Hash>Address</Hash>
                 </Container>
-              </Spacing>
-              <Div>
-                <Spacing>
-                  <HashDiv>
-                    <Container>
-                      <Tooltip title="An address is a unique sequence of numbers and letters">
-                        <ImageView src={"/images/questionmark.svg"} />
-                      </Tooltip>
-                      <Hash>Address</Hash>
-                    </Container>
-                    <MiddleContainerHash>
-                      <Content>{addr}</Content>
-                      {isTag
-                        ? addressTag.map((item, index) => {
-                            return (
-                              <div className="nameLabel1" key={index}>
-                                {item}
-                              </div>
-                            );
-                          })
-                        : ""}
-                      <span
-                        className={
-                          width > 1240
-                            ? "copyEditContainer1"
-                            : width <= 1240 && width >= 768
-                            ? "copyEditContainerAddress"
-                            : "copyEditContainerMobile"
-                        }
+                <MiddleContainerHash>
+                  <Content>{addr}</Content>
+                  {isTag
+                    ? addressTag.map((item, index) => {
+                        return (
+                          <div className="nameLabel1" key={index}>
+                            {item}
+                          </div>
+                        );
+                      })
+                    : ""}
+                  <span
+                    className={
+                      width > 1240
+                        ? "copyEditContainer1"
+                        : width <= 1240 && width >= 768
+                        ? "copyEditContainerAddress"
+                        : "copyEditContainerMobile"
+                    }
+                  >
+                    <SecondContainer>
+                      <CopyToClipboard
+                        text={addr}
+                        onCopy={() => setCopiedText(addr)}
                       >
-                        <SecondContainer>
-                          <CopyToClipboard
-                            text={addr}
-                            onCopy={() => setCopiedText(addr)}
+                        <Tooltip
+                          title={
+                            copiedText === addr ? "Copied" : "Copy To Clipboard"
+                          }
+                          placement="top"
+                        >
+                          <button
+                            className={
+                              width > 1240
+                                ? "copyToClipboardHash"
+                                : "copyToClipboardHashMobile"
+                            }
                           >
-                            <Tooltip
-                              title={
-                                copiedText === addr
-                                  ? "Copied"
-                                  : "Copy To Clipboard"
+                            <img
+                              className={
+                                width > 1240
+                                  ? "copy-icon"
+                                  : width < 1239
+                                  ? "copyIconHashMobile"
+                                  : "copyIconHash"
                               }
-                              placement="top"
-                            >
-                              <button
-                                className={
-                                  width > 1240
-                                    ? "copyToClipboardHash"
-                                    : "copyToClipboardHashMobile"
-                                }
-                              >
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "copy-icon"
-                                      : width < 1239
-                                      ? "copyIconHashMobile"
-                                      : "copyIconHash"
-                                  }
-                                  src={"/images/copy.svg"}
-                                />
-                              </button>
-                            </Tooltip>
-                          </CopyToClipboard>
+                              src={"/images/copy.svg"}
+                            />
+                          </button>
+                        </Tooltip>
+                      </CopyToClipboard>
 
-                          <Popup
-                            trigger={<ImQrcode className="imQrcode" />}
-                            lockScroll
-                            modal
-                          >
-                            {(close) => (
-                              <div className="popup_qr">
-                                <CloseIcon
-                                  isDesktop={false}
-                                  src="/images/XDC-Cross.svg"
-                                  // className="qrClose"
-                                  onClick={close}
-                                />
-                                <p>
-                                  <div>
-                                    <div className="header-popup">
-                                      <Row alignItems="center">{addr}</Row>
-                                      <CloseIcon
-                                        isDesktop={true}
-                                        src="/images/XDC-Cross.svg"
-                                        // className="qrClose"
-                                        onClick={close}
-                                      />
-                                      {/* &times; */}
-                                      {/* </img> */}
-                                    </div>
-                                    {window.innerWidth > 767 ? (
-                                      <QRCode
-                                        size={320}
-                                        style={{
-                                          height: 400,
-                                          width: 400,
-                                          marginTop: "0.625rem",
-                                        }}
-                                        value={
-                                          process.env.REACT_APP_QR_CODE_LINK +
-                                          addr
-                                        }
-                                      />
-                                    ) : (
-                                      <QRCode
-                                        // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                        size={320}
-                                        className="qrcode-label"
-                                        //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                        value={
-                                          process.env.REACT_APP_QR_CODE_LINK +
-                                          addr
-                                        }
-                                      />
-                                    )}
-                                  </div>
-                                </p>
+                      <Popup
+                        trigger={<ImQrcode className="imQrcode" />}
+                        lockScroll
+                        modal
+                      >
+                        {(close) => (
+                          <div className="popup_qr">
+                            <CloseIcon
+                              isDesktop={false}
+                              src="/images/XDC-Cross.svg"
+                              // className="qrClose"
+                              onClick={close}
+                            />
+                            <p>
+                              <div>
+                                <div className="header-popup">
+                                  <Row alignItems="center">{addr}</Row>
+                                  <CloseIcon
+                                    isDesktop={true}
+                                    src="/images/XDC-Cross.svg"
+                                    // className="qrClose"
+                                    onClick={close}
+                                  />
+                                  {/* &times; */}
+                                  {/* </img> */}
+                                </div>
+                                {window.innerWidth > 767 ? (
+                                  <QRCode
+                                    size={320}
+                                    style={{
+                                      height: 400,
+                                      width: 400,
+                                      marginTop: "0.625rem",
+                                    }}
+                                    value={
+                                      process.env.REACT_APP_QR_CODE_LINK + addr
+                                    }
+                                  />
+                                ) : (
+                                  <QRCode
+                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                    size={320}
+                                    className="qrcode-label"
+                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                    value={
+                                      process.env.REACT_APP_QR_CODE_LINK + addr
+                                    }
+                                  />
+                                )}
                               </div>
-                            )}
-                          </Popup>
-                        </SecondContainer>
-                      </span>
-                    </MiddleContainerHash>
-                  </HashDiv>
-                </Spacing>
-                {/* <Spacing style={{ borderBottom: "none" }}>
+                            </p>
+                          </div>
+                        )}
+                      </Popup>
+                    </SecondContainer>
+                  </span>
+                </MiddleContainerHash>
+              </HashDiv>
+              {/* <Spacing style={{ borderBottom: "none" }}>
                   <HashDiv>
                     <Container>
                       <Hash>Balance</Hash>
@@ -360,9 +353,9 @@ export default function AddressDetails(props) {
                     </MiddleContainerHash>
                   </HashDiv>
                 </Spacing> */}
-              </Div>
-            </Grid>
-          </div>
+            </Div>
+          </Grid>
+          {/* </div> */}
         </div>
 
         {/* <div
@@ -565,6 +558,7 @@ const MiddleContainerHash = styled.div`
   margin-left: 6.25rem;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
@@ -604,7 +598,8 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 0.188rem 0.25rem;
+  padding: 0 0.188rem;
+  margin-top: 10px;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -644,12 +639,9 @@ const Div = styled.div`
   box-shadow: 0 0.125rem 0.938rem 0 rgba(0, 0, 0, 0.1);
   border: solid 0.063rem #e3e7eb;
   background-color: #fff;
-  margin-bottom: 0.938rem;
-  // padding: 0.313rem;
-  margin-top: 0.625rem;
+  margin: 20px 0;
   @media (min-width: 300px) and (max-width: 767px) {
     width: 22.563rem;
-    margin-top: 0.625rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 664px !important;
@@ -660,15 +652,11 @@ const Heading = styled.span`
   white-space: nowrap;
   color: #2a2a2a !important;
   box-shadow: none;
-  color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  margin-bottom: 1.125rem;
   @media (min-width: 0px) and (max-width: 767px) {
-    margin-top: 10px !important;
     margin-bottom: 0px !important;
-
     font-size: 16px !important;
   }
 `;
@@ -687,9 +675,7 @@ const AddressPath = styled.div`
   width: 100%;
   font-size: 0.875rem;
   display: flex;
-  margin-bottom: 12px;
   margin-left: 4px;
-  margin-top: -30px;
 `;
 
 const Explorer = styled.div`
