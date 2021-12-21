@@ -4,7 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Row, typeOf } from "simple-flexbox";
+import { Column, Row, typeOf } from "simple-flexbox";
 import { sessionManager } from "../../../managers/sessionManager";
 import Test from "./Test";
 import { history } from "../../../managers/history";
@@ -312,7 +312,8 @@ export default function FormDialog() {
   return (
     <div>
       <div className="div1">
-        <div
+        <Column
+          alignItems="center"
           onClick={
             width >= 760
               ? handleClickOpen
@@ -321,7 +322,7 @@ export default function FormDialog() {
                 }
           }
         >
-          <img className="watchlist-image" src={"/images/watchlist.png"} />
+          <img className="watchlist-image" src={"/images/watchlist.svg"} />
           <button className={classes.btn}>
             <div className="headingdiv1">Create watchlist</div>
             <div className="paradiv1">
@@ -329,7 +330,7 @@ export default function FormDialog() {
               watch list recieves an incoming transaction.
             </div>
           </button>
-        </div>
+        </Column>
         <LightToolTip
           open={tooltipIsOpen}
           title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
