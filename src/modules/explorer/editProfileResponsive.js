@@ -3,9 +3,8 @@ import Utility from "../../utility";
 import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import AwsService from "../../services/awsService";
-import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import React, { useMemo, useEffect, useState, useRef } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import AvatarUpload from "./AvatarUpload";
 import { makeStyles } from "@material-ui/styles";
 import { useDropzone } from "react-dropzone";
@@ -159,15 +158,15 @@ const Wrapper = styled.div`
   justify-content: space-between;
   padding-top: 20px;
 `;
-const Upload = styled.div`
-  display: block;
-  cursor: pointer;
-  padding-left: 11.2rem;
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: 500;
-  color: #2149b9;
-`;
+// const Upload = styled.div`
+//   display: block;
+//   cursor: pointer;
+//   padding-left: 11.2rem;
+//   font-family: Inter;
+//   font-size: 14px;
+//   font-weight: 500;
+//   color: #2149b9;
+// `;
 const Image = styled.img`
   width: 100%;
   height: 145px;
@@ -209,15 +208,15 @@ const Cut = styled.div`
   // align-content: flex-end;
   display: none;
 `;
-const Input = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-`;
+// const Input = styled.div`
+//   display: flex;
+//   flex-flow: row nowrap;
+// `;
 
 export default function FormDialog(props) {
   const classes = useStyles();
   const [opens, setOpen] = useState(false);
-  const [color, setColor] = useState("");
+  // const [color, setColor] = useState("");
   const [userName, setUserName] = React.useState("");
   const [userNameError, setUserNameError] = React.useState("");
   const [emailError, setEmailError] = React.useState("");

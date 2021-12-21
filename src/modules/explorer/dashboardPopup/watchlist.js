@@ -4,17 +4,19 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {makeStyles} from "@material-ui/styles";
-import {Row, typeOf} from "simple-flexbox";
+import {Row} from "simple-flexbox";
 import {sessionManager} from "../../../managers/sessionManager";
 import Test from './Test'
 import { history } from "../../../managers/history";
-import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
+import {withStyles} from "@material-ui/core/styles";
+import Tooltip from '@material-ui/core/Tooltip';
+import Utils from "../../../utility";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -188,6 +190,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white"
+    }
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  }
+})(Tooltip);
+
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -199,6 +220,8 @@ export default function FormDialog() {
   const [notification, setNotification] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
+
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -289,20 +312,33 @@ const screenSize = window.innerHeight
   return (
     <div>
 
-      <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
-        <div>
+      <div style={{marginLeft:"10px"}} className="div1 cursor-pointer">
+
+        <div className="imageParentDiv" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
           <img
             className="imagediv1"
             src={"/images/watchlist.png"}
           ></img>
         </div>
-        <button className={classes.btn}>
-          <div className="headingdiv1">Create watchlist</div>
+
+
+        <div onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
+
+          <div className="headingdiv1 createWatchlistText"><div>Create watchlist</div></div>
           <div className="paradiv1">
             An Email notification can be sent to you when an address on your
             watch list recieves an incoming transaction.
           </div>
-        </button>
+
+        </div>
+
+        <div className="imageParentDiv" style={{position: "relative", top:"33px"}}>
+          <LightToolTip open={tooltipIsOpen}
+                   title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction." arrow placement="top-start">
+          <div className="learnMoreText" onClick={() => setTooltipIsOpen(!tooltipIsOpen)}>Learn More</div>
+          </LightToolTip>
+        </div>
+
       </div>
 
       {/* <Button
