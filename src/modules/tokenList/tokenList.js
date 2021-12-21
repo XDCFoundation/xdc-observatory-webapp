@@ -300,7 +300,7 @@ export default function StickyHeadTable(props) {
         >
           <Row justifyContent="space-between" alignItems="center">
             <TokenTitle>Tokens</TokenTitle>
-            <div className=" display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
               <img
                 onClick={handleSettingsClick}
                 className="p-r-5 h-20 w-20-px"
