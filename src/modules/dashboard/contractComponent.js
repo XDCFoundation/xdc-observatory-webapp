@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from "react";
-import {withStyles, makeStyles} from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import {TableContainer} from "@material-ui/core";
+import { TableContainer } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
-import Utility, {dispatchAction} from "../../utility";
+import Utility, { dispatchAction } from "../../utility";
 import ContractData from "../../services/contract";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
@@ -18,20 +18,20 @@ import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 
 const StyledTableRow = withStyles((theme) => ({
-    root: {
-        "&:nth-of-type(odd)": {
-            backgroundColor: theme.palette.action.hover,
-        },
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
     },
+  },
 }))(TableRow);
 
 const useStyles = makeStyles({
-    rootui: {
-        borderRadius: "17px",
-        marginLeft: "18%",
-        width: "65%",
-        backgroundColor: "white",
-    },
+  rootui: {
+    borderRadius: "17px",
+    marginLeft: "18%",
+    width: "65%",
+    backgroundColor: "white",
+  },
 });
 const Pagination = styled.div`
   display: flex;
@@ -72,550 +72,585 @@ const LeftPagination = styled.div`
 `;
 
 class Contractlist extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            from: 0,
-            amount: 10,
-            rows: [],
-            totalRecord: 0,
-            keywords: "",
-            noData: false,
-            isLoading: true,
-            isSettingColumnOpen: false,
-            anchorEl: null,
-            isColumnsModalOpen: null,
-            tableColumns: {
-                // "Address": {isActive: true, toolTipText: "Address of the contract"},
-                "Token Name": {isActive: true, toolTipText: "Name of token associated with contract"},
-                "Contract Name": {isActive: true, toolTipText: "Name of the contract"},
-                "Token Yes/No": {isActive: true, toolTipText: "Whether contract contain any token or not"}
-            }
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      from: 0,
+      amount: 10,
+      rows: [],
+      totalRecord: 0,
+      keywords: "",
+      noData: false,
+      isLoading: true,
+      isSettingColumnOpen: false,
+      anchorEl: null,
+      isColumnsModalOpen: null,
+      tableColumns: {
+        // "Address": {isActive: true, toolTipText: "Address of the contract"},
+        "Token Name": {
+          isActive: true,
+          toolTipText: "Name of token associated with contract",
+        },
+        "Contract Name": {
+          isActive: true,
+          toolTipText: "Name of the contract",
+        },
+        "Token Yes/No": {
+          isActive: true,
+          toolTipText: "Whether contract contain any token or not",
+        },
+      },
+    };
+  }
 
-    componentDidMount = () => {
-        let data = {pageNum: this.state.from, perpage: this.state.amount};
+  componentDidMount = () => {
+    let data = { pageNum: this.state.from, perpage: this.state.amount };
+    this.getContractList(data);
+    this.getTotalContractList();
+  };
+
+  handleKeyUp = async (event) => {
+    let searchkeyword = event.target.value;
+    this.setState({ from: 0 });
+    if (searchkeyword.length > 2) {
+      this.setState({ keywords: searchkeyword });
+      this.setState({ isLoading: false });
+      let data = {
+        pageNum: this.state.from,
+        perpage: this.state.amount,
+        keywords: searchkeyword,
+      };
+      // window.location.reload();
+      await this.getContractSearch(data);
+    }
+    if (searchkeyword.length == 0) {
+      this.setState({ from: 0 });
+      let data = { pageNum: 0, perpage: this.state.amount };
+      await this.getContractList(data);
+      await this.getTotalContractList();
+    }
+  };
+
+  handleChangePage = (action) => {
+    if (action == "first") {
+      let page = 0;
+      this.setState({ from: page });
+      if (this.state.keywords) {
+        let data = {
+          pageNum: page,
+          perpage: this.state.amount,
+          keywords: this.state.keywords,
+        };
+        this.getContractSearch(data);
+      } else {
+        let data = { pageNum: page, perpage: this.state.amount };
         this.getContractList(data);
         this.getTotalContractList();
-    };
-
-    componentDidUpdate() {
+      }
+    }
+    if (action === "last") {
+      let page = this.state.totalRecord - this.state.amount;
+      this.setState({ from: page });
+      if (this.state.keywords) {
+        let data = {
+          pageNum: page,
+          perpage: this.state.amount,
+          keywords: this.state.keywords,
+        };
+        this.getContractSearch(data);
+      } else {
+        let data = { pageNum: page, perpage: this.state.amount };
+        this.getContractList(data);
+        this.getTotalContractList();
+      }
     }
 
-    handleKeyUp = async (event) => {
-        let searchkeyword = event.target.value;
-        this.setState({from: 0});
-        if (searchkeyword.length > 2) {
-            this.setState({keywords: searchkeyword});
-            this.setState({isLoading: false});
-            let data = {
-                pageNum: this.state.from,
-                perpage: this.state.amount,
-                keywords: searchkeyword,
-            };
-            // window.location.reload();
-            await this.getContractSearch(data);
-        }
-        if (searchkeyword.length == 0) {
-            this.setState({from: 0});
-            let data = {pageNum: 0, perpage: this.state.amount};
-            await this.getContractList(data);
-            await this.getTotalContractList();
-        }
-    };
-
-    handleChangePage = (action) => {
-        if (action == "first") {
-            let page = 0
-            this.setState({from: page});
-            if (this.state.keywords) {
-                let data = {
-                    pageNum: page,
-                    perpage: this.state.amount,
-                    keywords: this.state.keywords,
-                };
-                this.getContractSearch(data);
-            } else {
-                let data = {pageNum: page, perpage: this.state.amount};
-                this.getContractList(data);
-                this.getTotalContractList();
-            }
-        }
-        if (action === "last") {
-            let page = this.state.totalRecord - this.state.amount;
-            this.setState({from: page});
-            if (this.state.keywords) {
-                let data = {
-                    pageNum: page,
-                    perpage: this.state.amount,
-                    keywords: this.state.keywords,
-                };
-                this.getContractSearch(data);
-            } else {
-                let data = {pageNum: page, perpage: this.state.amount};
-                this.getContractList(data);
-                this.getTotalContractList();
-            }
-        }
-
-        if (action === "next") {
-            if (+this.state.amount + +this.state.from < this.state.totalRecord) {
-                let page = +this.state.amount + +this.state.from;
-                this.setState({from: page});
-                if (this.state.keywords) {
-                    let data = {
-                        pageNum: page,
-                        perpage: this.state.amount,
-                        keywords: this.state.keywords,
-                    };
-                    this.getContractSearch(data);
-                } else {
-                    let data = {pageNum: page, perpage: this.state.amount};
-                    this.getContractList(data);
-                    this.getTotalContractList();
-                }
-            }
-        }
-        if (action === "prev") {
-            if (this.state.from - this.state.amount >= 0) {
-                let page = this.state.from - this.state.amount;
-                this.setState({from: page});
-                if (this.state.keywords) {
-                    let data = {
-                        pageNum: page,
-                        perpage: this.state.amount,
-                        keywords: this.state.keywords,
-                    };
-                    this.getContractSearch(data);
-                } else {
-                    let data = {pageNum: page, perpage: this.state.amount};
-                    this.getContractList(data);
-                    this.getTotalContractList();
-                }
-            }
-        }
-    };
-
-    handleChangeRowsPerPage = async (event) => {
-        this.setState({amount: event.target.value});
+    if (action === "next") {
+      if (+this.state.amount + +this.state.from < this.state.totalRecord) {
+        let page = +this.state.amount + +this.state.from;
+        this.setState({ from: page });
         if (this.state.keywords) {
-            let data = {
-                pageNum: this.state.from,
-                perpage: this.state.amount,
-                keywords: this.state.keywords,
-            };
-            await this.getContractSearch(data);
+          let data = {
+            pageNum: page,
+            perpage: this.state.amount,
+            keywords: this.state.keywords,
+          };
+          this.getContractSearch(data);
         } else {
-            let data = {pageNum: this.state.from, perpage: event.target.value};
-            this.getContractList(data);
+          let data = { pageNum: page, perpage: this.state.amount };
+          this.getContractList(data);
+          this.getTotalContractList();
         }
+      }
+    }
+    if (action === "prev") {
+      if (this.state.from - this.state.amount >= 0) {
+        let page = this.state.from - this.state.amount;
+        this.setState({ from: page });
+        if (this.state.keywords) {
+          let data = {
+            pageNum: page,
+            perpage: this.state.amount,
+            keywords: this.state.keywords,
+          };
+          this.getContractSearch(data);
+        } else {
+          let data = { pageNum: page, perpage: this.state.amount };
+          this.getContractList(data);
+          this.getTotalContractList();
+        }
+      }
+    }
+  };
 
-        //this.getTotalContractList()
-    };
-
-    shorten(b, amountL = 10, amountR = 3, stars = 3) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-            b.length - 3,
-            b.length
-        )}`;
+  handleChangeRowsPerPage = async (event) => {
+    this.setState({ amount: event.target.value });
+    if (this.state.keywords) {
+      let data = {
+        pageNum: this.state.from,
+        perpage: this.state.amount,
+        keywords: this.state.keywords,
+      };
+      await this.getContractSearch(data);
+    } else {
+      let data = { pageNum: this.state.from, perpage: event.target.value };
+      this.getContractList(data);
     }
 
-    getContractList = async (data) => {
-        const [error, responseData] = await Utility.parseResponse(
-            ContractData.getContractLists(data)
-        );
+    //this.getTotalContractList()
+  };
 
-        if (responseData) {
-            this.setState({isLoading: false});
-            this.setState({rows: responseData});
-            this.setState({noData: false});
-        } else {
-            //setLoading(false);
-        }
-    };
+  shorten(b, amountL = 10, amountR = 3, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 3,
+      b.length
+    )}`;
+  }
 
-    getContractSearch = async (data) => {
-        const [error, responseData] = await Utility.parseResponse(
-            ContractData.getContractSearch(data)
-        );
+  getContractList = async (data) => {
+    const [error, responseData] = await Utility.parseResponse(
+      ContractData.getContractLists(data)
+    );
 
-        if (responseData?.totalRecord == 0) {
-            this.setState({noData: true});
-            this.setState({totalRecord: 0});
-            this.setState({rows: responseData?.response});
-        }
-        if (responseData?.totalRecord > 0) {
-            this.setState({totalRecord: responseData?.totalRecord});
-            this.setState({rows: responseData?.response});
-            this.setState({noData: false});
-        } else {
-            //setLoading(false);
-        }
-    };
-
-    getTotalContractList = async () => {
-        const [error, responseData] = await Utility.parseResponse(
-            ContractData.getTotalContractList()
-        );
-        if (responseData == 0) {
-            this.setState({noData: true});
-        }
-        if (responseData) {
-            this.setState({isLoading: false});
-            this.setState({totalRecord: responseData});
-            this.setState({noData: false});
-        } else {
-            //setLoading(false);
-        }
-    };
-
-    handleSettingsClick = (event) => {
-        this.setState({anchorEl: event.currentTarget, isSettingColumnOpen: !this.state.isSettingColumnOpen});
+    this.setState({ isLoading: false });
+    if (responseData) {
+      this.setState({ rows: responseData });
+      this.setState({ noData: false });
+    } else {
+      //setLoading(false);
     }
+  };
 
-    handleOnClose = () => {
-        this.setState({anchorEl: null, isSettingColumnOpen: false});
+  getContractSearch = async (data) => {
+    const [error, responseData] = await Utility.parseResponse(
+      ContractData.getContractSearch(data)
+    );
+
+    if (responseData?.totalRecord == 0) {
+      this.setState({ noData: true });
+      this.setState({ totalRecord: 0 });
+      this.setState({ rows: responseData?.response });
     }
-
-    toggleModal = () => {
-        this.setState({isColumnsModalOpen: !this.state.isColumnsModalOpen});
+    if (responseData?.totalRecord > 0) {
+      this.setState({ totalRecord: responseData?.totalRecord });
+      this.setState({ rows: responseData?.response });
+      this.setState({ noData: false });
+    } else {
+      //setLoading(false);
     }
+  };
 
-    toggleTableColumns = (columnName) => {
-        const columns = this.state.tableColumns;
-        columns[columnName].isActive = !columns[columnName].isActive
-        this.setState({tableColumns: columns})
+  getTotalContractList = async () => {
+    const [error, responseData] = await Utility.parseResponse(
+      ContractData.getTotalContractList()
+    );
+    if (responseData == 0) {
+      this.setState({ noData: true });
     }
+    this.setState({ isLoading: false });
+    if (responseData) {
+      this.setState({ totalRecord: responseData });
+      this.setState({ noData: false });
+    }
+  };
 
-    render(props) {
-        const {classes} = this.props;
-        let contentStatus = "";
-        let msgStatus = "";
-        if (this.state.noData) {
-            contentStatus = "hideContent";
-            msgStatus = "showContent";
-        } else {
-            contentStatus = "showContent";
-            msgStatus = "hideContent";
-        }
+  handleSettingsClick = (event) => {
+    this.setState({
+      anchorEl: event.currentTarget,
+      isSettingColumnOpen: !this.state.isSettingColumnOpen,
+    });
+  };
 
-        // if(this.state.isLoading){
-        //     return(<div class="loader"></div>)
-        // }
+  handleOnClose = () => {
+    this.setState({ anchorEl: null, isSettingColumnOpen: false });
+  };
 
-        return (
-            <div>
-                <Tokensearchbar/>
-                <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
-                    <div className="fs-24 fw-bold">Contracts</div>
-                    <div
-                        className=" display-none-mobile display-flex flex-direction-column justify-content-center">
-                        <img onClick={this.handleSettingsClick} className="p-r-5 h-20 w-20-px"
-                             src="/images/settings.svg"/>
-                        <ConfigureColumnPopOver
-                            isOpen={this.state.isSettingColumnOpen}
-                            anchorEl={this.state.anchorEl}
-                            handleOnClose={this.handleOnClose}
-                            tableColumns={this.state.tableColumns}
-                            toggleTableColumns={this.toggleTableColumns}
-                        />
-                    </div>
-                    <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-                        <img onClick={this.toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
-                        <ConfigureColumnsModal
-                            isOpen={this.state.isColumnsModalOpen}
-                            onModalClose={this.toggleModal}
-                            tableColumns={this.state.tableColumns}
-                            toggleTableColumns={this.toggleTableColumns}
-                        />
-                    </div>
-                </div>
-                <Paper
-                    className={"responsive-table-width-contract-list contact-list-tab"}
-                    style={{
-                        borderRadius: "14px",
-                    }}
-                    elevation={0}
-                >
-                    <TableContainer
-                        className={classes.container}
-                        id="container-table"
-                        style={{
-                            borderRadius: "12px",
-                            boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-                            background: "#fff",
-                            border: "none",
-                        }}
-                    >
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell
-                                        style={{border: "none", paddingLeft: "3%"}}
-                                        align="left"
-                                    >
+  toggleModal = () => {
+    this.setState({ isColumnsModalOpen: !this.state.isColumnsModalOpen });
+  };
+
+  toggleTableColumns = (columnName) => {
+    const columns = this.state.tableColumns;
+    columns[columnName].isActive = !columns[columnName].isActive;
+    this.setState({ tableColumns: columns });
+  };
+
+  render(props) {
+    const { classes } = this.props;
+    let contentStatus = "";
+    // let msgStatus = "";
+    // if (this.state.noData) {
+    //   contentStatus = "hideContent";
+    //   msgStatus = "showContent";
+    // } else {
+    //   contentStatus = "showContent";
+    //   msgStatus = "hideContent";
+    // }
+    console.log("this.state.noData", this.state.noData);
+    // if(this.state.isLoading){
+    //     return(<div class="loader"></div>)
+    // }
+    const NoDataFoundContainer = styled.div`
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+      gap: 10px;
+      @media (min-width: 767px) {
+        margin: 100px 0 !important;
+      }
+    `;
+
+    return (
+      <div>
+        <Tokensearchbar />
+        <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
+          <div className="fs-24 fw-bold">Contracts</div>
+          <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
+            <img
+              onClick={this.handleSettingsClick}
+              className="p-r-5 h-20 w-20-px"
+              src="/images/settings.svg"
+            />
+            <ConfigureColumnPopOver
+              isOpen={this.state.isSettingColumnOpen}
+              anchorEl={this.state.anchorEl}
+              handleOnClose={this.handleOnClose}
+              tableColumns={this.state.tableColumns}
+              toggleTableColumns={this.toggleTableColumns}
+            />
+          </div>
+          <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+            <img
+              onClick={this.toggleModal}
+              className="p-r-5 h-20 w-20-px"
+              src="/images/settings.svg"
+            />
+            <ConfigureColumnsModal
+              isOpen={this.state.isColumnsModalOpen}
+              onModalClose={this.toggleModal}
+              tableColumns={this.state.tableColumns}
+              toggleTableColumns={this.toggleTableColumns}
+            />
+          </div>
+        </div>
+        <Paper
+          className={"responsive-table-width-contract-list contact-list-tab"}
+          style={{
+            borderRadius: "14px",
+          }}
+          elevation={0}
+        >
+          <TableContainer
+            className={classes.container}
+            id="container-table"
+            style={{
+              borderRadius: "12px",
+              boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+              background: "#fff",
+              border: "none",
+            }}
+          >
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "3%" }}
+                    align="left"
+                  >
                     <span
-                        style={{fontSize: "14px"}}
-                        className={"tableheaders-contract"}
+                      style={{ fontSize: "14px" }}
+                      className={"tableheaders-contract"}
                     >
                       Address
                     </span>
-                                    </TableCell>
-                                    {this.state.tableColumns["Token Name"].isActive &&
-                                    <TableCell style={{border: "none"}} align="left">
-                    <span
-                        style={{fontSize: "14px"}}
+                  </TableCell>
+                  {this.state.tableColumns["Token Name"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        style={{ fontSize: "14px" }}
                         className={"tableheaders"}
-                    >
-                      Token Name
-                    </span>
-                                    </TableCell>}
-                                    {this.state.tableColumns["Contract Name"].isActive &&
-                                    <TableCell style={{border: "none"}} align="left">
-                    <span
-                        style={{fontSize: "14px"}}
+                      >
+                        Token Name
+                      </span>
+                    </TableCell>
+                  )}
+                  {this.state.tableColumns["Contract Name"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        style={{ fontSize: "14px" }}
                         className={"tableheaders"}
-                    >
-                      Contract Name
-                    </span>
-                                    </TableCell>}
-                                    {this.state.tableColumns["Token Yes/No"].isActive &&
-                                    <TableCell style={{border: "none"}} align="left">
-                    <span
-                        style={{fontSize: "14px"}}
+                      >
+                        Contract Name
+                      </span>
+                    </TableCell>
+                  )}
+                  {this.state.tableColumns["Token Yes/No"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        style={{ fontSize: "14px" }}
                         className={"tableheaders"}
-                    >
-                      Token Yes/No
-                    </span>
-                                    </TableCell>}
-                                </TableRow>
-                            </TableHead>
-                            {this.state.isLoading == true ? (
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell style={{border: "none"}} colspan="6">
-                                            <div className="loader-contract-list">
-                                                <Loader/>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            ) : (
-                                <TableBody>
-                                    {this.state.rows.map((row, index) => {
-                                        let isToken = "";
-                                        if (row.ERC == 0) {
-                                            isToken = "No";
-                                        } else {
-                                            isToken = "Yes";
-                                        }
-                                        return (
-                                            <TableRow
-                                                key={row.name}
-                                                style={
-                                                    index % 2 !== 1
-                                                        ? {background: "#f9f9f9"}
-                                                        : {background: "white"}
-                                                }
-                                            >
-                                                <TableCell
-                                                    id="td"
-                                                    style={{width: "46%", borderBottom: "none"}}
-                                                >
-                                                    <a
-                                                        style={{
-                                                            color: "#2149b9",
-                                                            fontSize: 14,
-                                                            marginLeft: "1.375rem",
-                                                        }}
-                                                        href={`/address/${row.address}`}
-                                                    >
-                                                        <span className="tabledata">{row.address} </span>
-                                                    </a>
-                                                </TableCell>
-                                                {this.state.tableColumns["Token Name"].isActive &&
-                                                <TableCell id="td" style={{borderBottom: "none"}}>
-                          <span
-                              className="tabledata"
-                              style={{marginLeft: "5px"}}
+                      >
+                        Token Yes/No
+                      </span>
+                    </TableCell>
+                  )}
+                </TableRow>
+              </TableHead>
+              {this.state.isLoading == true ? (
+                <TableBody>
+                  <TableRow>
+                    <TableCell style={{ border: "none" }} colspan="6">
+                      <div className="loader-contract-list">
+                        <Loader />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ) : (
+                <TableBody>
+                  {this.state.rows.map((row, index) => {
+                    let isToken = "";
+                    if (row.ERC == 0) {
+                      isToken = "No";
+                    } else {
+                      isToken = "Yes";
+                    }
+                    return (
+                      <TableRow
+                        key={row.name}
+                        style={
+                          index % 2 !== 1
+                            ? { background: "#f9f9f9" }
+                            : { background: "white" }
+                        }
+                      >
+                        <TableCell
+                          id="td"
+                          style={{ width: "46%", borderBottom: "none" }}
+                        >
+                          <a
+                            style={{
+                              color: "#2149b9",
+                              fontSize: 14,
+                              marginLeft: "1.375rem",
+                            }}
+                            href={`/address/${row.address}`}
                           >
-                            {row.tokenName}
-                          </span>
-                                                </TableCell>}
-                                                {this.state.tableColumns["Contract Name"].isActive &&
-                                                <TableCell id="td" style={{borderBottom: "none"}}>
-                          <span
+                            <span className="tabledata">{row.address} </span>
+                          </a>
+                        </TableCell>
+                        {this.state.tableColumns["Token Name"].isActive && (
+                          <TableCell id="td" style={{ borderBottom: "none" }}>
+                            <span
                               className="tabledata"
-                              style={{marginLeft: "5px"}}
-                          >
-                            {row.contractName}
-                          </span>
-                                                </TableCell>}
-                                                {this.state.tableColumns["Token Yes/No"].isActive &&
-                                                <TableCell id="td" style={{borderBottom: "none"}}>
-                          <span
+                              style={{ marginLeft: "5px" }}
+                            >
+                              {row.tokenName}
+                            </span>
+                          </TableCell>
+                        )}
+                        {this.state.tableColumns["Contract Name"].isActive && (
+                          <TableCell id="td" style={{ borderBottom: "none" }}>
+                            <span
                               className="tabledata"
-                              style={{marginLeft: "0.188rem", fontSize: 14}}
-                          >
-                            {isToken}
-                          </span>
-                                                </TableCell>}
-                                            </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-                            )}
-                            <TableBody className={msgStatus}>
-                                <TableCell id="td" style={{border: "none"}}>
+                              style={{ marginLeft: "5px" }}
+                            >
+                              {row.contractName}
+                            </span>
+                          </TableCell>
+                        )}
+                        {this.state.tableColumns["Token Yes/No"].isActive && (
+                          <TableCell id="td" style={{ borderBottom: "none" }}>
+                            <span
+                              className="tabledata"
+                              style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                            >
+                              {isToken}
+                            </span>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              )}
+              {/* <TableBody className={msgStatus}>
+                <TableCell id="td" style={{ border: "none" }}>
                   <span
-                      style={{textAlign: "center", color: "#2a2a2a"}}
-                      className="tabledata"
+                    style={{ textAlign: "center", color: "#2a2a2a" }}
+                    className="tabledata"
                   >
                     No data found.
                   </span>
-                                </TableCell>
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Paper>
+                </TableCell>
+              </TableBody> */}
+            </Table>
+            {this.state.noData ? (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
 
-                <Pagination
-                    // style={{
-                    //   display: "flex",
-                    //   justifyContent: "space-between",
-                    //   flexDirection: "row",
-                    // }}
-                >
-                    <LeftPagination
-                        // style={{
-                        //   display: "flex",
-                        //   flexDirection: "row",
-                        //   marginLeft: "18%",
-                        //   marginTop: "20px",
-                        // }}
-                    >
-                        <p
-                            style={{
-                                fontSize: "0.875rem",
-                                fontWeight: "600",
-                            }}
-                        >
-                            Show
-                        </p>
+                <div>No transactions found</div>
+              </NoDataFoundContainer>
+            ) : (
+              ""
+            )}
+          </TableContainer>
+        </Paper>
 
-                        <select
-                            value={this.state.amount}
-                            className="selectbox-contract"
-                            onChange={(event) => this.handleChangeRowsPerPage(event)}
-                        >
-                            <option value={10}>10</option>
-                            <option value={25}>25</option>
-                            <option value={50}>50</option>
-                            <option value={75}>75</option>
-                            <option value={100}>100</option>
-                        </select>
-                        <p
-                            style={{
-                                fontSize: "0.875rem",
-                                fontWeight: "600",
-                            }}
-                        >
-                            {" "}
-                            Records
-                        </p>
-                    </LeftPagination>
+        <Pagination
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "space-between",
+        //   flexDirection: "row",
+        // }}
+        >
+          <LeftPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginLeft: "18%",
+          //   marginTop: "20px",
+          // }}
+          >
+            <p
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: "600",
+              }}
+            >
+              Show
+            </p>
 
-                    <RightPagination
-                        // style={{
-                        //   display: "flex",
-                        //   flexDirection: "row",
-                        //   marginRight: "17.5%",
-                        //   marginTop: "20px",
-                        // }}
-                    >
-                        <div
-                            className={
-                                this.state.from === 0
-                                    ? "firstbox-contract disabled boxfirst"
-                                    : "firstbox-contract"
-                            }
-                            onClick={() => this.handleChangePage("first")}
-                        >
-                            <button
-                                style={{backgroundColor: "white"}}
-                                className="first-contract"
-                            >
-                                First
-                            </button>
-                        </div>
-                        <div
-                            className={
-                                this.state.from === 0
-                                    ? "previousbox-contract disabled"
-                                    : "previousbox-contract"
-                            }
-                            onClick={() => this.handleChangePage("prev")}
-                        >
-                            <img
-                                className="navigation-arrow"
-                                src={"/images/back.svg"}
-                            />
-                            {/* <p className="path-contract">{"<"}</p> */}
-                        </div>
-                        <div className="pagebox-contract">
-                            <p className="Page-1-of-5-contract">
-                                Page{" "}
-                                {Math.ceil(this.state.totalRecord / this.state.amount) -
-                                Math.ceil(
-                                    (this.state.totalRecord - this.state.from) /
-                                    this.state.amount
-                                ) + 1}{" "}
-                                of {Math.ceil(this.state.totalRecord / this.state.amount)}
-                            </p>
-                        </div>
-                        <div
-                            className={
-                                this.state.from + this.state.amount === this.state.totalRecord
-                                    ? "nextbox-contract disabled"
-                                    : "nextbox-contract"
-                            }
-                            onClick={() => this.handleChangePage("next")}
-                        >
-                            <img
-                                className="navigation-arrow"
+            <select
+              value={this.state.amount}
+              className="selectbox-contract"
+              onChange={(event) => this.handleChangeRowsPerPage(event)}
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={75}>75</option>
+              <option value={100}>100</option>
+            </select>
+            <p
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: "600",
+              }}
+            >
+              {" "}
+              Records
+            </p>
+          </LeftPagination>
 
-                                src={"/images/next.svg"}
-                            />
-                            {/* <p
+          <RightPagination
+          // style={{
+          //   display: "flex",
+          //   flexDirection: "row",
+          //   marginRight: "17.5%",
+          //   marginTop: "20px",
+          // }}
+          >
+            <div
+              className={
+                this.state.from === 0
+                  ? "firstbox-contract disabled boxfirst"
+                  : "firstbox-contract"
+              }
+              onClick={() => this.handleChangePage("first")}
+            >
+              <button
+                style={{ backgroundColor: "white" }}
+                className="first-contract"
+              >
+                First
+              </button>
+            </div>
+            <div
+              className={
+                this.state.from === 0
+                  ? "previousbox-contract disabled"
+                  : "previousbox-contract"
+              }
+              onClick={() => this.handleChangePage("prev")}
+            >
+              <img className="navigation-arrow" src={"/images/back.svg"} />
+              {/* <p className="path-contract">{"<"}</p> */}
+            </div>
+            <div className="pagebox-contract">
+              <p className="Page-1-of-5-contract">
+                Page{" "}
+                {Math.ceil(this.state.totalRecord / this.state.amount) -
+                  Math.ceil(
+                    (this.state.totalRecord - this.state.from) /
+                      this.state.amount
+                  ) +
+                  1}{" "}
+                of {Math.ceil(this.state.totalRecord / this.state.amount)}
+              </p>
+            </div>
+            <div
+              className={
+                this.state.from + this.state.amount === this.state.totalRecord
+                  ? "nextbox-contract disabled"
+                  : "nextbox-contract"
+              }
+              onClick={() => this.handleChangePage("next")}
+            >
+              <img className="navigation-arrow" src={"/images/next.svg"} />
+              {/* <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
               >
                 {">"}
               </p> */}
-                        </div>
-                        <div
-                            className={
-                                +this.state.from + +this.state.amount === this.state.totalRecord
-                                    ? "lastbox-contract disabled"
-                                    : "lastbox-contract"
-                            }
-                            onClick={() => this.handleChangePage("last")}
-                        >
-                            <button
-                                style={{backgroundColor: "white"}}
-                                className="last-contract"
-                            >
-                                Last
-                            </button>
-                        </div>
-                    </RightPagination>
-                </Pagination>
-
-                <FooterComponent/>
             </div>
-        );
-    }
+            <div
+              className={
+                +this.state.from + +this.state.amount === this.state.totalRecord
+                  ? "lastbox-contract disabled"
+                  : "lastbox-contract"
+              }
+              onClick={() => this.handleChangePage("last")}
+            >
+              <button
+                style={{ backgroundColor: "white" }}
+                className="last-contract"
+              >
+                Last
+              </button>
+            </div>
+          </RightPagination>
+        </Pagination>
+
+        <FooterComponent />
+      </div>
+    );
+  }
 }
 
 export default withStyles(useStyles)(Contractlist);

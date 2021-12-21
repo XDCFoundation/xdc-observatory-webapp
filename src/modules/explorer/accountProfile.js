@@ -820,6 +820,7 @@ export default function SimpleTabs(props) {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    gap: 10px;
   `;
 
   return (
