@@ -194,6 +194,9 @@ ul {
   .USD {
     font-size: 0.813rem;
   }
+  .Table-Header hr {
+    width: 85%;
+  }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .USD {
