@@ -81,6 +81,23 @@ const useStyles = makeStyles({
     borderTop: "0px solid #bbb",
     width: "100%",
   },
+  noData: {
+    width: "auto",
+    height: "19px",
+    margin: "25px 15px 0 530px",
+    fontFamily: "Inter",
+    fontSize: "16px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+
+    color: "#c6cbcf",
+  },
+  alert: {
+    margin: "110px 0 0 580px",
+  },
+  table:{
+    marginBottom:"200px"
+  }
 });
 
 export default function StickyHeadTable() {
@@ -170,60 +187,126 @@ export default function StickyHeadTable() {
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={classes.container} id="container-table">
-          <Table>
-            <TableHead>
-              <TableRow className="w-100">
-                <TableCell
-                  style={{ border: "none" }}
-                  className="w-10"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Rank</span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none" }}
-                  className="w-40"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Address</span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "17px" }}
-                  className="w-20"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Quantity</span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "17px" }}
-                  className="w-21"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>
-                    Percentage
-                  </span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "17px" }}
-                  className="w-12"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Value</span>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {isLoading === true ? (
+        {isLoading == true ? (
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
               <TableBody>
                 <TableRow>
                   <TableCell style={{ border: "none" }} colspan="5">
-                    <div className="loader-holder-list">
+                    <div className="loader-transfer-list">
                       <Loader />
                     </div>
                   </TableCell>
                 </TableRow>
               </TableBody>
-            ) : (
+            </Table>
+          </TableContainer>
+        ) : noData == false ? (
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
+              <TableHead>
+                <TableRow className="w-100">
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-10"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>Rank</span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-40"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Address
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-20"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Quantity
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-21"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Percentage
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-12"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>Value</span>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+            <div className={classes.table}>
+            <img
+              className={classes.alert}
+              src={require("../../../src/assets/images/XDC-Alert.svg")}
+            ></img>
+            <div className={classes.noData}>No transfers found</div>
+            </div>
+          </TableContainer>
+        ) : (
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
+              <TableHead>
+                <TableRow className="w-100">
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-10"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>Rank</span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-40"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Address
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-20"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Quantity
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-21"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Percentage
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-12"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>Value</span>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
               <TableBody>
                 {holders?.data?.map((row, index) => {
                   return (
@@ -273,29 +356,10 @@ export default function StickyHeadTable() {
                     </StyledTableRow>
                   );
                 })}
-                {/* {noData === false && (
-                  <div className="No-data-found">
-                    <span
-                      style={{ textAlign: "center", color: "#2a2a2a" }}
-                      className="tabledata"
-                    >
-                      No Holders Found
-                    </span>
-                  </div>
-                )} */}
               </TableBody>
-            )}
-          </Table>
-          {noData == false && (
-            <NoDataFoundContainer>
-              <img
-                src={require("../../../src/assets/images/XDC-Alert.svg")}
-              ></img>
-
-              <div>No Holders Found</div>
-            </NoDataFoundContainer>
-          )}
-        </TableContainer>
+            </Table>
+          </TableContainer>
+        )}
       </Paper>
       <Pagination>
         <LeftPagination>

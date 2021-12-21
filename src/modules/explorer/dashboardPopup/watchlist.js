@@ -17,6 +17,7 @@ import utility from "../../../utility";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Utils from "../../../utility";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -305,6 +306,7 @@ export default function FormDialog() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const { width } = windowDimensions;
+
   return (
     <div>
       <div className="div1 cursor-pointer">
@@ -318,7 +320,7 @@ export default function FormDialog() {
                 }
           }
         >
-          <img className="imagediv1" src={"/images/watchlist.png"}></img>
+          <img className="imagediv1" src={"/images/watchlist.svg"}></img>
         </div>
 
         <div
@@ -331,7 +333,7 @@ export default function FormDialog() {
                 }
           }
         >
-          <div className="headingdiv1 createWatchlistText">
+          <div className="headingdiv1">
             <div>Create watchlist</div>
           </div>
           <div className="paradiv1">
@@ -340,10 +342,7 @@ export default function FormDialog() {
           </div>
         </div>
 
-        <div
-          className="imageParentDiv"
-          style={{ position: "relative", top: "33px" }}
-        >
+        <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
             title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
@@ -357,7 +356,7 @@ export default function FormDialog() {
               Learn More
             </div>
           </LightToolTip>
-        </div>
+        </LearnMoreParent>
       </div>
 
       {/* <Button
@@ -501,3 +500,11 @@ export default function FormDialog() {
     </div>
   );
 }
+
+const LearnMoreParent = styled.div`
+  position: relative;
+  top: 30px;
+  @media (min-width: 767px) {
+    display: none;
+  }
+`;

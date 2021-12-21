@@ -181,7 +181,7 @@ function TemporaryDrawer(props) {
                     >
                         <img
                             className="noticon"
-                            src={'/images/notification.png'}
+                            src={'/images/notifications.svg'}
                             onClick={toggleDrawer(anchor, true)}
 
                         />
