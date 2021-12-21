@@ -92,7 +92,7 @@ export default function StickyHeadTable(props) {
   const [keywords, setKeywords] = React.useState("");
   const [rows, setRows] = React.useState([]);
 
-  const [noData, setNoData] = React.useState(0);
+  const [noData, setNoData] = React.useState(true);
   const handleChangePage = (action) => {
     if (action === "first") {
       setFrom(0);
@@ -100,7 +100,7 @@ export default function StickyHeadTable(props) {
         let data = { pageNum: 0, perpage: amount, searchkey: keywords };
         SearchTokens(data);
       } else {
-        setNoData(0);
+        setNoData(false);
         let data = { pageNum: 0, perpage: amount };
         getTokenList(data);
         getTotalTokenList();
@@ -114,7 +114,7 @@ export default function StickyHeadTable(props) {
           let data = { pageNum: page, perpage: amount, searchkey: keywords };
           SearchTokens(data);
         } else {
-          setNoData(0);
+          setNoData(false);
           let data = { pageNum: page, perpage: amount };
           getTokenList(data);
           getTotalTokenList();
@@ -129,7 +129,7 @@ export default function StickyHeadTable(props) {
           let data = { pageNum: page, perpage: amount, searchkey: keywords };
           SearchTokens(data);
         } else {
-          setNoData(0);
+          setNoData(false);
           let data = { pageNum: page, perpage: amount };
           getTokenList(data);
           getTotalTokenList();
@@ -145,7 +145,7 @@ export default function StickyHeadTable(props) {
         let data = { pageNum: page, perpage: amount, searchkey: keywords };
         SearchTokens(data);
       } else {
-        setNoData(0);
+        setNoData(false);
         let data = { pageNum: page, perpage: amount };
         getTokenList(data);
         getTotalTokenList();
@@ -164,7 +164,7 @@ export default function StickyHeadTable(props) {
       };
       SearchTokens(data);
     } else {
-      setNoData(0);
+      setNoData(false);
       let data = { pageNum: 0, perpage: event.target.value };
       getTokenList(data);
       getTotalTokenList();
@@ -182,7 +182,7 @@ export default function StickyHeadTable(props) {
     if (searchkeyword?.length === 0) {
       setKeywords("");
       setLoading(false);
-      setNoData(0);
+      setNoData(false);
       let data = { pageNum: from, perpage: amount };
       getTokenList(data);
       getTotalTokenList();
@@ -195,6 +195,7 @@ export default function StickyHeadTable(props) {
       );
       if (error) return;
       if (responseData) {
+        setNoData(false);
         setLoading(false);
         setRows(responseData);
       } else {
@@ -211,6 +212,7 @@ export default function StickyHeadTable(props) {
       );
       if (error) return;
       if (responseData) {
+        setNoData(false);
         setTotalToken(responseData);
       }
     } catch (error) {
@@ -224,13 +226,13 @@ export default function StickyHeadTable(props) {
       );
       if (error) return;
       if (responseData.total === 0) {
-        setNoData(1);
+        setNoData(true);
         setTotalToken(0);
         setRows([]);
       }
 
       if (responseData.total > 0) {
-        setNoData(0);
+        setNoData(false);
         setTotalToken(responseData.total);
         setLoading(false);
         setRows(responseData.resultSet);
@@ -274,10 +276,22 @@ export default function StickyHeadTable(props) {
   }
 
   const TokenTitle = styled.div`
-    font-size: 16px;
+    font-size: 24px;
     font-weight: bold;
     @media (max-width: 1250px) {
-      font-size: 13px;
+      font-size: 16px;
+    }
+  `;
+
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
     }
   `;
 
@@ -465,9 +479,7 @@ export default function StickyHeadTable(props) {
                           <TableCell id="td">{row.type}</TableCell>
                         )}
                         <TableCell id="td" style={{ paddingleft: "15" }}>
-                          {utility.convertToInternationalCurrencySystem(
-                            row.totalSupply
-                          )}
+                          {row.totalSupply / Math.pow(10, row?.decimals)}
                         </TableCell>
                         {props?.state?.tableColumns["Total Holders"]
                           .isActive && (
@@ -481,7 +493,7 @@ export default function StickyHeadTable(props) {
                 </TableBody>
               )
             )}
-            {noData == true && (
+            {/* {noData == true && (
               <TableBody>
                 <TableCell id="td" style={{ borderBottom: "none" }}>
                   <span
@@ -492,8 +504,17 @@ export default function StickyHeadTable(props) {
                   </span>
                 </TableCell>
               </TableBody>
-            )}
+            )} */}
           </Table>
+          {noData == true && (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+
+              <div>No transactions found</div>
+            </NoDataFoundContainer>
+          )}
         </TableContainer>
 
         {/* <Divider className={classes.divider}/>*/}
