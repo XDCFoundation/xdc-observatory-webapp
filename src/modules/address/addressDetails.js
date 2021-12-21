@@ -1,331 +1,353 @@
-import React, {useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import "../../assets/styles/custom.css";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import AddressTableComponent from "./addressTable";
-import {ImQrcode} from "react-icons/im";
+import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
-import {Grid} from "@material-ui/core";
-import Utility, {dispatchAction} from "../../utility";
+import { Grid } from "@material-ui/core";
+import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import Tooltip from "@material-ui/core/Tooltip";
-import {TransactionService} from "../../services";
-import {sessionManager} from "../../managers/sessionManager";
+import { TransactionService } from "../../services";
+import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
+import { Row } from "simple-flexbox";
 
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
-    container: {
-        borderRadius: "0.875rem",
-        boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
-        borderBottom: "none",
-        background: "#fff",
+  container: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#fff",
+  },
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    maxWidth: "187.5rem",
+    // marginTop: "6.25rem",
+    marginBottom: "0.938rem",
+    width: "100%",
+    "@media (min-width: 300px) and (max-width: 567px)": {
+      marginTop: "8.125rem",
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
     },
-    root: {
-        display: "flex",
-        justifyContent: "center",
-        maxWidth: "187.5rem",
-        // marginTop: "6.25rem",
-        marginBottom: "0.938rem",
-        width: "100%",
-        "@media (min-width: 300px) and (max-width: 567px)": {
-            marginTop: "8.125rem",
-            maxWidth: "31.25rem",
-            padding: "0 0.5rem 0 0.5rem",
-        },
-        "@media (min-width: 567px) and (max-width: 767px)": {
-            marginTop: "8.75rem",
-            maxWidth: "46.25rem",
-        },
-        "@media (min-width: 767px) and (max-width: 1040px)": {
-            maxWidth: "63.75rem",
-        },
+    "@media (min-width: 567px) and (max-width: 767px)": {
+      marginTop: "8.75rem",
+      maxWidth: "46.25rem",
     },
-    rowDiv: {
-        width: "100%",
-        alignItems: "center",
-        height: "3.313rem",
-        background: "#FFFFFF 0% 0% no-repeat padding-box",
-        borderRadius: "0.438rem",
+    "@media (min-width: 767px) and (max-width: 1040px)": {
+      maxWidth: "63.75rem",
+    },
+  },
+  rowDiv: {
+    width: "100%",
+    alignItems: "center",
+    height: "3.313rem",
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    borderRadius: "0.438rem",
 
-        justifyContent: "space-between",
+    justifyContent: "space-between",
+  },
+  line: {
+    width: "100%",
+    marginTop: "0rem",
+    marginBottom: "0rem",
+  },
+  mainContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    "@media (min-width: 300px) and (max-width: 767px)": {
+      marginTop: "6.800rem",
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
     },
-    line: {
-        width: "100%",
-        marginTop: "0rem",
-        marginBottom: "0rem",
-    },
-    mainContainer: {
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        "@media (min-width: 300px) and (max-width: 767px)": {
-            marginTop: "6.800rem",
-            maxWidth: "31.25rem",
-            padding: "0 0.5rem 0 0.5rem",
-        },
-    },
+  },
 });
 export default function AddressDetails(props) {
-    const [toggleState, setToggleState] = useState(1);
+  const [toggleState, setToggleState] = useState(1);
 
-    const [txtAddress, setTxtAddress] = useState("");
-    const [balance, setBalance] = useState(0);
-    const [convertCurrency, setConvertCurrency] = useState("");
-    const [coinValue, setCoinValue] = useState(0);
+  const [txtAddress, setTxtAddress] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [convertCurrency, setConvertCurrency] = useState("");
+  const [coinValue, setCoinValue] = useState(0);
 
-    const [transactions, setTransactions] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-    const [copiedText, setCopiedText] = useState("");
-    let nowCurrency = window.localStorage.getItem("currency");
-    const [addressTag, setAddressTag] = useState([]);
-    const [isTag, setIsTag] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [copiedText, setCopiedText] = useState("");
+  let nowCurrency = window.localStorage.getItem("currency");
+  const [addressTag, setAddressTag] = useState([]);
+  const [isTag, setIsTag] = useState(false);
 
-    let {addr} = useParams();
-    let addressValue = 0;
+  let { addr } = useParams();
+  let addressValue = 0;
 
-    function getWindowDimensions() {
-        const {innerWidth: width, innerHeight: height} = window;
-        return {
-            width,
-            height,
-        };
-    }
-
-    const [windowDimensions, setWindowDimensions] = React.useState(
-        getWindowDimensions()
-    );
-
-    const {width} = windowDimensions;
-
-    const toggleTab = (index) => {
-        setToggleState(index);
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
     };
-    const classes = useStyles();
+  }
 
-    function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
-    }
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
-    function _handleChange(event) {
-    }
+  const { width } = windowDimensions;
 
-    const getAddressDetails = async () => {
-        try {
-            const [error, responseData] = await Utility.parseResponse(
-                AddressData.getAddressDetail(addr)
-            );
-            if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
-                setLoading(false);
-            }
-            if (responseData) {
-                setBalance((responseData.balance / 1000000000000000000).toFixed(18));
-                let activeCurrency = window.localStorage.getItem("currency");
-                let convertedCurrency = "";
-                if (activeCurrency === "USD") {
-                    convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
-                    setCoinValue(
-                        (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                } else if (activeCurrency === "EUR") {
-                    convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
-                    setCoinValue(
-                        (responseData.balanceInEUR / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                } else if (activeCurrency === "INR") {
-                    convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
-                    setCoinValue(
-                        (responseData.balanceInINR / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                } else {
-                    convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
-                    setCoinValue(
-                        (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                }
-                setLoading(false);
-            } else {
-                setBalance(parseFloat(0).toFixed(18));
-                setLoading(false);
-            }
-        } catch (error) {
-            console.error(error);
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
+  const classes = useStyles();
+
+  function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
+  }
+
+  function _handleChange(event) {}
+
+  const getAddressDetails = async () => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetail(addr)
+      );
+      if (
+        !responseData ||
+        responseData.length === 0 ||
+        responseData === "" ||
+        responseData === null
+      ) {
+        setLoading(false);
+      }
+      if (responseData) {
+        setBalance((responseData.balance / 1000000000000000000).toFixed(18));
+        let activeCurrency = window.localStorage.getItem("currency");
+        let convertedCurrency = "";
+        if (activeCurrency === "USD") {
+          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
+          setCoinValue(
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
+          );
+          setConvertCurrency(convertedCurrency);
+        } else if (activeCurrency === "EUR") {
+          convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
+          setCoinValue(
+            (responseData.balanceInEUR / 1000000000000000000).toFixed(18)
+          );
+          setConvertCurrency(convertedCurrency);
+        } else if (activeCurrency === "INR") {
+          convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
+          setCoinValue(
+            (responseData.balanceInINR / 1000000000000000000).toFixed(18)
+          );
+          setConvertCurrency(convertedCurrency);
+        } else {
+          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
+          setCoinValue(
+            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
+          );
+          setConvertCurrency(convertedCurrency);
         }
+        setLoading(false);
+      } else {
+        setBalance(parseFloat(0).toFixed(18));
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const options = {
+    htmlparser2: {
+      lowerCaseTags: false,
+    },
+  };
+
+  const tagUsingAddressHash = async () => {
+    const data = {
+      address: addr,
+      userId: sessionManager.getDataFromCookies("userId"),
     };
 
-    const options = {
-        htmlparser2: {
-            lowerCaseTags: false,
-        },
-    };
+    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (error || !tagUsingAddressHashResponse) return;
+    setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
+    setIsTag(true);
+  };
 
-    const tagUsingAddressHash = async () => {
-        const data = {
-            address: addr,
-            userId: sessionManager.getDataFromCookies("userId"),
-        };
+  useEffect(() => {
+    getAddressDetails();
+    tagUsingAddressHash();
+  }, []);
 
-        let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
-            TransactionService.getUserAddressTagUsingAddressHash(data)
-        );
-        if (error || !tagUsingAddressHashResponse) return;
-        setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
-        setIsTag(true);
-    };
+  const CloseIcon = styled.img`
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    @media (min-width: 0) and (max-width: 768px) {
+      margin-left: auto;
+      margin-right: 20px;
+      display: ${(props) => (props.isDesktop ? "none" : "block")};
+    }
+    @media (min-width: 769px) {
+      display: ${(props) => (props.isDesktop ? "block" : "none")};
+    }
+  `;
 
-    useEffect(() => {
-        getAddressDetails();
-        tagUsingAddressHash();
-    }, []);
-    return (
-        <div style={{backgroundColor: "#fff"}}>
-            <Tokensearchbar/>
-            <Grid className="table-grid-block grid-block-table">
-                <div className={classes.mainContainer}>
-                    <div className={classes.root}>
-                        <Grid style={{width: "75.125rem"}}>
-                            <AddressPath>
-                                <Explorer>Observatory</Explorer>
-                                <Next src={"/images/next.svg"}/>
-                                <Address>Address</Address>
-                            </AddressPath>
-                            <Spacing style={{borderBottom: "none"}}>
-                                <Container>
-                                    <Heading>Address Details</Heading>
-                                </Container>
-                            </Spacing>
-                            <Div>
-                                <Spacing>
-                                    <HashDiv>
-                                        <Container>
-                                            <Tooltip title="An address is a unique sequence of numbers and letters">
-                                                <ImageView
-                                                    src={"/images/questionmark.svg"}
-                                                />
-                                            </Tooltip>
-                                            <Hash>Address</Hash>
-                                        </Container>
-                                        <MiddleContainerHash>
-                                            <Content>{addr}</Content>
-                                            {isTag
-                                                ? addressTag.map((item, index) => {
-                                                    return (
-                                                        <div className="nameLabel1" key={index}>
-                                                            {item}
-                                                        </div>
-                                                    );
-                                                })
-                                                : ""}
-                                            <span
-                                                className={
-                                                    width > 1240
-                                                        ? "copyEditContainer1"
-                                                        : width <= 1240 && width >= 768
-                                                            ? "copyEditContainerAddress"
-                                                            : "copyEditContainerMobile"
-                                                }
-                                            >
-                      <SecondContainer>
-                        <CopyToClipboard
+  return (
+    <div style={{ backgroundColor: "#fff" }}>
+      <Tokensearchbar />
+      <Grid className="table-grid-block grid-block-table">
+        <div className={classes.mainContainer}>
+          <div className={classes.root}>
+            <Grid style={{ width: "75.125rem" }}>
+              <AddressPath>
+                <Explorer>Observatory</Explorer>
+                <Next src={"/images/next.svg"} />
+                <Address>Address</Address>
+              </AddressPath>
+              <Spacing style={{ borderBottom: "none" }}>
+                <Container>
+                  <Heading>Address Details</Heading>
+                </Container>
+              </Spacing>
+              <Div>
+                <Spacing>
+                  <HashDiv>
+                    <Container>
+                      <Tooltip title="An address is a unique sequence of numbers and letters">
+                        <ImageView src={"/images/questionmark.svg"} />
+                      </Tooltip>
+                      <Hash>Address</Hash>
+                    </Container>
+                    <MiddleContainerHash>
+                      <Content>{addr}</Content>
+                      {isTag
+                        ? addressTag.map((item, index) => {
+                            return (
+                              <div className="nameLabel1" key={index}>
+                                {item}
+                              </div>
+                            );
+                          })
+                        : ""}
+                      <span
+                        className={
+                          width > 1240
+                            ? "copyEditContainer1"
+                            : width <= 1240 && width >= 768
+                            ? "copyEditContainerAddress"
+                            : "copyEditContainerMobile"
+                        }
+                      >
+                        <SecondContainer>
+                          <CopyToClipboard
                             text={addr}
                             onCopy={() => setCopiedText(addr)}
-                        >
-                          <Tooltip
+                          >
+                            <Tooltip
                               title={
-                                  copiedText === addr
-                                      ? "Copied"
-                                      : "Copy To Clipboard"
+                                copiedText === addr
+                                  ? "Copied"
+                                  : "Copy To Clipboard"
                               }
                               placement="top"
-                          >
-                            <button
-                                className={
-                                    width > 1240
-                                        ? "copyToClipboardHash"
-                                        : "copyToClipboardHashMobile"
-                                }
                             >
-                              <img
+                              <button
+                                className={
+                                  width > 1240
+                                    ? "copyToClipboardHash"
+                                    : "copyToClipboardHashMobile"
+                                }
+                              >
+                                <img
                                   className={
-                                      width > 1240
-                                          ? "copy-icon"
-                                          : width < 1239
-                                              ? "copyIconHashMobile"
-                                              : "copyIconHash"
+                                    width > 1240
+                                      ? "copy-icon"
+                                      : width < 1239
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
                                   }
                                   src={"/images/copy.svg"}
-                              />
-                            </button>
-                          </Tooltip>
-                        </CopyToClipboard>
+                                />
+                              </button>
+                            </Tooltip>
+                          </CopyToClipboard>
 
-                        <Popup
-                            trigger={<ImQrcode className="imQrcode"/>}
+                          <Popup
+                            trigger={<ImQrcode className="imQrcode" />}
                             lockScroll
                             modal
-                        >
-                          {(close) => (
+                          >
+                            {(close) => (
                               <div className="popup_qr">
-                                  <p>
-                                      <div>
-                                          <div
-                                              className="header-popup"
-                                          >
-                                              {" "}
-                                              {addr}{" "}
-                                              <img
-                                              src="/images/XDC-Cross.svg"
-                                              className="qrClose"
-                                              onClick={close}
-                                          >
-                                              {/* &times; */}
-                                          </img>
-                                          </div>
-                                          {window.innerWidth > 767 ? (
-                                              <QRCode
-                                                  size={320}
-                                                  style={{
-                                                      height: 400,
-                                                      width: 400,
-                                                      marginTop: "0.625rem",
-                                                  }}
-                                                  value={
-                                                      process.env.REACT_APP_QR_CODE_LINK +
-                                                      addr
-                                                  }
-                                              />
-                                          ) : (
-                                              <QRCode
-                                                  // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                                  size={320}
-                                                  className="qrcode-label"
-                                                  //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                                  value={
-                                                      process.env.REACT_APP_QR_CODE_LINK +
-                                                      addr
-                                                  }
-                                              />
-                                          )}
-                                      </div>
-                                  </p>
+                                <CloseIcon
+                                  isDesktop={false}
+                                  src="/images/XDC-Cross.svg"
+                                  // className="qrClose"
+                                  onClick={close}
+                                />
+                                <p>
+                                  <div>
+                                    <div className="header-popup">
+                                      <Row alignItems="center">{addr}</Row>
+                                      <CloseIcon
+                                        isDesktop={true}
+                                        src="/images/XDC-Cross.svg"
+                                        // className="qrClose"
+                                        onClick={close}
+                                      />
+                                      {/* &times; */}
+                                      {/* </img> */}
+                                    </div>
+                                    {window.innerWidth > 767 ? (
+                                      <QRCode
+                                        size={320}
+                                        style={{
+                                          height: 400,
+                                          width: 400,
+                                          marginTop: "0.625rem",
+                                        }}
+                                        value={
+                                          process.env.REACT_APP_QR_CODE_LINK +
+                                          addr
+                                        }
+                                      />
+                                    ) : (
+                                      <QRCode
+                                        // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                        size={320}
+                                        className="qrcode-label"
+                                        //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                        value={
+                                          process.env.REACT_APP_QR_CODE_LINK +
+                                          addr
+                                        }
+                                      />
+                                    )}
+                                  </div>
+                                </p>
                               </div>
-                          )}
-                        </Popup>
-                      </SecondContainer>
+                            )}
+                          </Popup>
+                        </SecondContainer>
                       </span>
-                                        </MiddleContainerHash>
-                                    </HashDiv>
-                                </Spacing>
-                                {/* <Spacing style={{ borderBottom: "none" }}>
+                    </MiddleContainerHash>
+                  </HashDiv>
+                </Spacing>
+                {/* <Spacing style={{ borderBottom: "none" }}>
                   <HashDiv>
                     <Container>
                       <Hash>Balance</Hash>
@@ -338,12 +360,12 @@ export default function AddressDetails(props) {
                     </MiddleContainerHash>
                   </HashDiv>
                 </Spacing> */}
-                            </Div>
-                        </Grid>
-                    </div>
-                </div>
+              </Div>
+            </Grid>
+          </div>
+        </div>
 
-                {/* <div
+        {/* <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
@@ -421,43 +443,43 @@ export default function AddressDetails(props) {
           </TableContainer>
         </Paper> */}
 
-                <div className="container_sec sec-contain">
-                    <div className="block_sec sec-block sec-block-mb">
-                        <div className="bloc-tabs_sec">
-                            <button
-                                className={
-                                    toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                                }
-                                onClick={() => toggleTab(1)}
-                                id="transaction-btn"
-                            >
-                                Transactions
-                            </button>
-                        </div>
-                    </div>
+        <div className="container_sec sec-contain">
+          <div className="block_sec sec-block sec-block-mb">
+            <div className="bloc-tabs_sec">
+              <button
+                className={
+                  toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                }
+                onClick={() => toggleTab(1)}
+                id="transaction-btn"
+              >
+                Transactions
+              </button>
+            </div>
+          </div>
 
-                    <div
-                        className={
-                            toggleState === 1
-                                ? "content_sec  active-content_sec sec-active"
-                                : "content_sec"
-                        }
-                    >
-                        {isTag ? (
-                            <AddressTableComponent
-                                trans={transactions}
-                                coinadd={addr}
-                                tag={addressTag}
-                            />
-                        ) : (
-                            <AddressTableComponent trans={transactions} coinadd={addr}/>
-                        )}
-                    </div>
-                </div>
-            </Grid>
-            <FooterComponent/>
+          <div
+            className={
+              toggleState === 1
+                ? "content_sec  active-content_sec sec-active"
+                : "content_sec"
+            }
+          >
+            {isTag ? (
+              <AddressTableComponent
+                trans={transactions}
+                coinadd={addr}
+                tag={addressTag}
+              />
+            ) : (
+              <AddressTableComponent trans={transactions} coinadd={addr} />
+            )}
+          </div>
         </div>
-    );
+      </Grid>
+      <FooterComponent />
+    </div>
+  );
 }
 
 const Input = styled.input`
