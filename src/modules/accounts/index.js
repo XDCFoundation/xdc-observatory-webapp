@@ -1,30 +1,29 @@
 import React from "react";
 import BaseComponent from "../baseComponent";
-import AccountComponent from "./accountComponent"
-import Utils from '../../utility'
-import { AccountService } from '../../services'
-import { CoinMarketService } from '../../services'
-import {toolTipMessages} from "../../constants";
-
+import AccountComponent from "./accountComponent";
+import Utils from "../../utility";
+import { AccountService } from "../../services";
+import { CoinMarketService } from "../../services";
+import { toolTipMessages } from "../../constants";
 
 export default class LatestAccountsList extends BaseComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            from: 0,
-            amount: 50,
-            tableName: "Accounts",
-            accountList: [],
-            totalAccounts: 0,
-            totalSupply: 0,
-            noData: 1,
-            isLoading: true,
-            tableColumns: {
-                "Type": {isActive: true, toolTipText: "Account type is either Account, Contract."},
-                "Balance": {isActive: true, toolTipText: "Balance held by a particular account."}
-            }
+  constructor(props) {
+    super(props);
+    this.state = {
+      from: 0,
+      amount: 50,
+      tableName: "Accounts",
+      accountList: [],
+      totalAccounts: 0,
+      totalSupply: 0,
+      noData: 1,
+      isLoading: true,
+        tableColumns: {
+            "Type": {isActive: true, toolTipText: "Account type is either Account, Contract."},
+            "Balance": {isActive: true, toolTipText: "Balance held by a particular account."}
         }
-    }
+    };
+  }
 
     componentDidMount() {
         this.getListOfAccounts()
