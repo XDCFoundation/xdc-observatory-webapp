@@ -20,8 +20,8 @@ export default class LatestAccountsList extends BaseComponent {
             noData: 1,
             isLoading: true,
             tableColumns: {
-                "Type": {isActive: true, toolTipText: "Type of account"},
-                "Balance": {isActive: true, toolTipText: "Number of token present in a particular address"}
+                "Type": {isActive: true, toolTipText: "Account type is either Account, Contract."},
+                "Balance": {isActive: true, toolTipText: "Balance held by a particular account."}
             }
         }
     }

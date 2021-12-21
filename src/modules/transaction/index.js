@@ -7,7 +7,6 @@ import TokenSearchComponent from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import {toolTipMessages} from "../../constants";
 
-
 export default class LatestTransactionList extends BaseComponent {
     constructor(props) {
         super(props);
@@ -24,6 +23,7 @@ export default class LatestTransactionList extends BaseComponent {
                 // "Transaction Hash": {isActive: true, toolTipText: toolTipMessages.hashid},
                 "Amount": {isActive: true, toolTipText: toolTipMessages.value},
                 "Age": {isActive: true, toolTipText: toolTipMessages.timestamp},
+                "Date": {isActive: true, toolTipText: toolTipMessages.timestamp},
                 // "Date and Time": {isActive: true},
                 "Block": {isActive: true, toolTipText: toolTipMessages.blocknumber},
                 // "From Address": {isActive: true, toolTipText: toolTipMessages.from},

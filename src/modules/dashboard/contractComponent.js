@@ -87,9 +87,9 @@ class Contractlist extends React.Component {
             isColumnsModalOpen: null,
             tableColumns: {
                 // "Address": {isActive: true, toolTipText: "Address of the contract"},
-                "Token Name": {isActive: true, toolTipText: "Name of token associated with contract"},
-                "Contract Name": {isActive: true, toolTipText: "Name of the contract"},
-                "Token Yes/No": {isActive: true, toolTipText: "Whether contract contain any token or not"}
+                "Token Name": {isActive: true, toolTipText: "Name of the token associated with the contract."},
+                "Contract Name": {isActive: true, toolTipText: "Name of the Smart Contract."},
+                "Token Yes/No": {isActive: true, toolTipText: "Whether a token is associated with a Smart Contract or not."}
             }
         };
     }

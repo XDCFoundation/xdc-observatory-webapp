@@ -14,6 +14,7 @@ import styled from "styled-components";
 import Loader from '../../assets/loader'
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver"
 import ConfigureColumnsModal from "../common/configureColumnsModal";
+import moment from "moment";
 
 function timeDiff(curr, prev) {
     if (curr < prev) return "0 secs ago";
@@ -99,10 +100,10 @@ export default function TransactionComponent(props) {
 
     const tableColumns = {"Transaction Hash":{isActive: true}}
     return (
-        <Grid className="tableresponsive">
-            <div className="display-flex justify-content-between">
-                <Grid class="tabletop-header">{state.tableName}</Grid>
-                <div class="tabletop-header display-none-mobile">
+        <div className="responsive-table-width-transactions-list contact-list-tab ">
+            <div className="display-flex justify-content-between p-t-30 p-b-30">
+                <div class="fs-24 fw-bold">{state.tableName}</div>
+                <div class="display-none-mobile display-flex flex-direction-column justify-content-center">
                     <img onClick={handleSettingsClick} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
                     <ConfigureColumnPopOver
                         isOpen={isSettingColumnOpen}
@@ -112,7 +113,7 @@ export default function TransactionComponent(props) {
                         toggleTableColumns={props.toggleTableColumns}
                     />
                 </div>
-                <div className="tabletop-header display-none-tab display-none-desktop">
+                <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
                     <img onClick={toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
                     <ConfigureColumnsModal
                         isOpen={isColumnsModalOpen}
@@ -122,7 +123,6 @@ export default function TransactionComponent(props) {
                     />
                 </div>
             </div>
-
             <Paper style={{borderRadius: "14px"}} elevation={0}>
                 <TableContainer className={classes.container} id="container-table">
                     <Table>
@@ -152,6 +152,15 @@ export default function TransactionComponent(props) {
                                 >
                   <span className={("tableheaders", "tableheaders-age")}>
                     Age
+                  </span>
+                                </TableCell>}
+                                {props.state.tableColumns["Date"].isActive && <TableCell
+                                    style={{border: "none", paddingLeft: "3rem"}}
+                                    className="table-head-all"
+                                    align="left"
+                                >
+                  <span className={("tableheaders", "tableheaders-age")}>
+                    Date
                   </span>
                                 </TableCell>}
                                 {props.state.tableColumns["Block"].isActive && <TableCell
@@ -277,6 +286,24 @@ export default function TransactionComponent(props) {
                               }
                           >
                             {ti}
+                          </span>
+                                            </TableCell>}
+                                            {props.state.tableColumns["Date"].isActive && <TableCell
+                                                style={{
+                                                    border: "none",
+                                                    width: "120px",
+                                                    paddingLeft: "2.813rem",
+                                                }}
+                                                align="left"
+                                            >
+                          <span
+                              className={
+                                  animationClass ? animationClass : "tabledata"
+                              }
+                          >
+                            {moment(row.timestamp * 1000).format(
+                                "MMMM DD, YYYY"
+                            )}
                           </span>
                                             </TableCell>}
                                             {props.state.tableColumns["Block"].isActive && <TableCell
@@ -441,6 +468,6 @@ export default function TransactionComponent(props) {
                 </Grid>
                 {/* </Pagination> */}
             </Grid>
-        </Grid>
+        </div>
     );
 }
