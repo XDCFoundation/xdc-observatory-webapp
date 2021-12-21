@@ -199,19 +199,23 @@ export default function Navbar() {
       );
 
       if (responseData) {
-        if (responseData[0].redirect == "block") {
+        if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
-        } else if (responseData[0].redirect == "account") {
+        } else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
-        } else if (responseData[0].redirect == "transaction") {
+        } else if (responseData[0].redirect === "transaction") {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect == "token") {
-          let tokenurl = "/token-data/" + responseData[0].token.address;
+        } else if (responseData[0].redirect === "token") {
+          let tokenurl =
+            "/token-data/" +
+            responseData[0]?.token[0]?.address +
+            "/" +
+            responseData[0]?.token[0]?.symbol;
           window.location.href = tokenurl;
         } else {
         }
@@ -641,7 +645,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-      props.active ? "0.15rem solid #ffffff !important" : ""};
+    props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
