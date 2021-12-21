@@ -108,6 +108,7 @@ export default function BasicPopover(props) {
             }
           /> */}
           <Avatar
+            className="profile"
             src={
               sessionManager.getDataFromCookies(
                 cookiesConstants.USER_PICTURE

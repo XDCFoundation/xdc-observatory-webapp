@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
-      height: "10.375rem !important",
+      height: "10.8rem !important",
     },
     drawerHeader: {
       padding: "0 !important",
@@ -674,10 +674,10 @@ export default function Navbar() {
     }
   `;
   const MobileView = styled.div`
-    @media (min-width: 0px) and (max-width: 767px) {
+    @media (min-width: 0px) and (max-width: 766px) {
       display: visible;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 767px) {
       display: none;
     }
   `;
@@ -693,20 +693,49 @@ export default function Navbar() {
     margin: 15px auto auto auto;
   `;
 
+  const MobileToolBar = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 10px 10px 0 20px;
+    justify-content: space-between;
+  `;
+
+  const TabSearchBox = styled.div`
+    height: 2.375rem;
+    padding: 8px;
+    margin-right: 0.625rem;
+    margin-top: 10px;
+    border-radius: 0.25rem;
+    background-color: #ffffff;
+  `;
+
+  const TabSearchBoxParent = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+    @media (min-width: 0px) and (max-width: 767px) {
+      display: none;
+    }
+    @media (min-width: 1250px) {
+      display: none;
+    }
+  `;
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       {/* <DeskTopView> */}
 
       <AppBar
-        className="mob-height"
+        // className="mob-height"
         elevation={0}
         className={clsx(classes.appBar)}
       >
-        <Toolbar className={clsx(classes.toolBar)}>
+        <MobileToolBar className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
-            <Typography className="Header">
+            <Row className="Header">
               <Row alignItems="center">
                 <a className="logo_tokensearch" href={"/"}>
                   <img
@@ -759,7 +788,7 @@ export default function Navbar() {
               </DeskTopView>
 
               {/* </div> */}
-            </Typography>
+            </Row>
             <DeskTopView>
               <div className="parentCenterbox">
                 <div className="centerbox-td">
@@ -779,21 +808,23 @@ export default function Navbar() {
               </div>
             </DeskTopView>
             {/* <div className="display-none-desktop"> */}
-            {LoginComponent({
-              toggleDrawer,
-              isloggedIn,
-              openChangePassword,
-              classes,
-              opencontracts,
-              state,
-              lists,
-              items,
-              contracts,
-              openPasswordBox,
-              open,
-            })}
+
             {/* </div> */}
           </div>
+
+          {LoginComponent({
+            toggleDrawer,
+            isloggedIn,
+            openChangePassword,
+            classes,
+            opencontracts,
+            state,
+            lists,
+            items,
+            contracts,
+            openPasswordBox,
+            open,
+          })}
 
           {/* <div className="display-none-mobile">
             {LoginComponent({
@@ -810,17 +841,14 @@ export default function Navbar() {
               open,
             })}
           </div> */}
-        </Toolbar>
+        </MobileToolBar>
         <MobileView>
           <MobileNavigationContainer>
             <NavigationButton active={window.location.pathname == "/"} href="/">
               Network
             </NavigationButton>
             <NavigationButton
-              active={
-                window.location.pathname.includes("token-details") ||
-                window.location.pathname.includes("token-data")
-              }
+              active={window.location.pathname.includes("token")}
               href="/token-details"
             >
               Tokens
@@ -838,6 +866,19 @@ export default function Navbar() {
             })}
           </SearchContainer>
         </MobileView>
+        <TabSearchBoxParent>
+          <TabSearchBox>
+            {SearchBox({
+              classes,
+              filter,
+              handleSearch,
+              SearchDataRef,
+              SelectOptRef,
+              handleSearchOption,
+              list,
+            })}
+          </TabSearchBox>
+        </TabSearchBoxParent>
       </AppBar>
       {/* </DeskTopView> */}
     </div>
@@ -929,7 +970,7 @@ const LoginComponent = ({
   open,
 }) => {
   return (
-    <div className="right-nav-div">
+    <Row alignItems="center">
       {openPasswordBox && (
         <ChangePassword openChangePassword={openChangePassword} />
       )}
@@ -968,6 +1009,6 @@ const LoginComponent = ({
           {contracts("right")}
         </Drawer>
       </React.Fragment>
-    </div>
+    </Row>
   );
 };

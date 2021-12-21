@@ -765,6 +765,7 @@ export default function FormDialog(props) {
         ) : !props.hash ? (
           //   <button className="login-button">
           <Avatar
+            className="profile"
             onClick={handleClickOpen}
             src={
               sessionManager.getDataFromCookies(

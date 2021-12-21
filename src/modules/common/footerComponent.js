@@ -283,63 +283,6 @@ export default function FooterComponent(props) {
           </Grid>
         </SecondCloumn>
 
-        <SecondCloumn className="mobile-column-display">
-          <Grid
-            justify="left"
-            item
-            xs={12}
-            style={{ margin: " 20px 0px 10px 0px" }}
-          >
-            <div className="Table-Header">
-              Other Links
-              <hr></hr>
-            </div>
-            <ul>
-              <li className="Table-Comp">
-                <a href="https://howto.xinfin.org/general/faq/" target="_blank">
-                  Read FAQ
-                </a>
-              </li>
-              <li className="Table-Comp">
-                <a
-                  href="https://xinfin.org/exchange-listing-resource.php"
-                  target="_blank"
-                >
-                  Exchange Listing Resource
-                </a>
-              </li>
-              <li className="Table-Comp">
-                <a href="https://xinfin.io/" target="_blank">
-                  XDC Exchange List
-                </a>
-              </li>
-              <li className="Table-Comp">
-                <a
-                  href="https://xinfin.org/xinfin-consensus.php"
-                  target="_blank"
-                >
-                  Public DPoS Consensus
-                </a>
-              </li>
-              <li className="Table-Comp">
-                <a href="https://xinfin.org/privacy.php" target="_blank">
-                  Privacy Policy
-                </a>
-              </li>
-              <li className="Table-Comp">
-                <a href="https://xinfin.org/disclaimer.php" target="_blank">
-                  Disclaimer
-                </a>
-              </li>
-              <li className="Table-Comp">
-                <a href="https://xinfin.org/contactus.php" target="_blank">
-                  Press Inquiry
-                </a>
-              </li>
-            </ul>
-          </Grid>
-        </SecondCloumn>
-
         <BlankSpaceDiv>
           <ThirdCloumn>
             <Grid alignContent="center" item xs={12}>

@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: "14.313rem",
+      width: "17.313rem",
       backgroundColor: "#102e84",
       height: "100%",
     },
@@ -657,14 +657,21 @@ export default function Navbar() {
     margin: 15px 0 0 0;
   `;
 
+  const MobileToolBar = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 10px 10px 0 20px;
+  `;
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       {viewPopUp == true ? <NewFeature></NewFeature> : <div />}
       <DeskTopView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
-          <Toolbar>
-            <Typography className="Header">
+          <MobileToolBar>
+            <Row className="Header">
               <a className="logo_tokensearch" href={"/"}>
                 <img className="Shape" src={"/images/XDC-Icon-Logo.svg"}></img>
               </a>
@@ -708,45 +715,47 @@ export default function Navbar() {
                   </div>
                 </a> */}
               </div>
-            </Typography>
-            <Login />
+            </Row>
+            <Row alignItems="center">
+              <Login />
 
-            <React.Fragment key={"right"}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                className="hamburger-icon"
-                edge="end"
-                onClick={toggleDrawer("right", true)}
-              >
-                <img className="menu-sidebar" src={"/images/Menu.svg"}></img>
-              </IconButton>
+              <React.Fragment key={"right"}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  className="hamburger-icon"
+                  edge="end"
+                  onClick={toggleDrawer("right", true)}
+                >
+                  <img className="menu-sidebar" src={"/images/Menu.svg"}></img>
+                </IconButton>
 
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={state["right"]}
-              >
-                {lists("right")}
-              </Drawer>
-              <Drawer className={classes.drawer} anchor={"right"} open={open}>
-                {items("right")}
-              </Drawer>
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={opencontracts}
-              >
-                {contracts("right")}
-              </Drawer>
-            </React.Fragment>
-          </Toolbar>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={state["right"]}
+                >
+                  {lists("right")}
+                </Drawer>
+                <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                  {items("right")}
+                </Drawer>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={opencontracts}
+                >
+                  {contracts("right")}
+                </Drawer>
+              </React.Fragment>
+            </Row>
+          </MobileToolBar>
         </AppBar>
       </DeskTopView>
 
       <MobileView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
-          <Toolbar>
+          <MobileToolBar>
             <Typography className="Header">
               <div style={{ display: "flex", alignItems: "center" }}>
                 <a className="logo_tokensearch" href={"/"}>
@@ -761,38 +770,39 @@ export default function Navbar() {
                 </a>
               </div>
             </Typography>
+            <Row alignItems="center">
+              <Login />
 
-            <Login />
+              <React.Fragment key={"right"}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="end"
+                  onClick={toggleDrawer("right", true)}
+                >
+                  <MenuIcon class="menu-sidebar" />
+                </IconButton>
 
-            <React.Fragment key={"right"}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="end"
-                onClick={toggleDrawer("right", true)}
-              >
-                <MenuIcon class="menu-sidebar" />
-              </IconButton>
-
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={state["right"]}
-              >
-                {lists("right")}
-              </Drawer>
-              <Drawer className={classes.drawer} anchor={"right"} open={open}>
-                {items("right")}
-              </Drawer>
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={opencontracts}
-              >
-                {contracts("right")}
-              </Drawer>
-            </React.Fragment>
-          </Toolbar>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={state["right"]}
+                >
+                  {lists("right")}
+                </Drawer>
+                <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                  {items("right")}
+                </Drawer>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={opencontracts}
+                >
+                  {contracts("right")}
+                </Drawer>
+              </React.Fragment>
+            </Row>
+          </MobileToolBar>
           <MobileNavigationContainer>
             <NavigationButton active={window.location.pathname == "/"} href="/">
               Network

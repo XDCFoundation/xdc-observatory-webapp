@@ -311,44 +311,38 @@ export default function FormDialog() {
   const { width } = windowDimensions;
   return (
     <div>
-      <div
-        style={{ marginLeft: "10px" }}
-        className="div1"
-        onClick={
-          width >= 760
-            ? handleClickOpen
-            : () => {
-                history.push("/test");
-              }
-        }
-      >
-        <img className="watchlist-image" src={"/images/watchlist.png"} />
-        <button className={classes.btn}>
-          <div className="headingdiv1">Create watchlist</div>
-          <div className="paradiv1">
-            An Email notification can be sent to you when an address on your
-            watch list recieves an incoming transaction.
-          </div>
-        </button>
-
+      <div className="div1">
         <div
-          className="imageParentDiv"
-          style={{ position: "relative", top: "33px" }}
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/test");
+                }
+          }
         >
-          <LightToolTip
-            open={tooltipIsOpen}
-            title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
-            arrow
-            placement="top-start"
-          >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
+          <img className="watchlist-image" src={"/images/watchlist.png"} />
+          <button className={classes.btn}>
+            <div className="headingdiv1">Create watchlist</div>
+            <div className="paradiv1">
+              An Email notification can be sent to you when an address on your
+              watch list recieves an incoming transaction.
             </div>
-          </LightToolTip>
+          </button>
         </div>
+        <LightToolTip
+          open={tooltipIsOpen}
+          title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
+          arrow
+          placement="top-start"
+        >
+          <div
+            className="learnMoreText"
+            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+          >
+            Learn More
+          </div>
+        </LightToolTip>
       </div>
 
       {/* <Button
