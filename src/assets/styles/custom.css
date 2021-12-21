@@ -25,7 +25,7 @@ a:link {
   text-decoration: none;
 }
 
-.MuiAppBar-positionFixed{
+.MuiAppBar-positionFixed {
   position: unset !important;
 }
 
@@ -6759,19 +6759,13 @@ button {
 }
 
 .table-grid-block {
-  margin: 130px auto auto auto;
+  margin: 20px auto auto auto;
   width: 75.063rem;
 }
 .table-grid-block-contract {
   margin: 130px auto auto auto;
   width: 75.063rem;
 }
-/* 
-@media (min-width: 641px) and (max-width: 1023px) {
-  .table-grid-block {
-    width: 90%;
-  }
-} */
 
 .table-grid-block3 {
   padding-top: 1%;
@@ -7811,7 +7805,6 @@ button {
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
-
 }
 
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -8147,14 +8140,12 @@ button {
     padding-left: 1.25rem;
   }
   .table-grid-block {
-    margin-top: 25%;
     width: 23.5rem;
   }
   .table-grid-block-contract {
     width: 23.5rem;
   }
   .grid-block-table {
-    margin: 56px auto auto auto !important;
     /* width: 100% !important; */
     width: 22.563rem !important;
   }
@@ -8387,7 +8378,6 @@ button {
     width: 22.563rem;
   }
   .grid-block-table {
-    margin: 149px auto auto auto !important;
     width: 41.5rem !important;
   }
   .AddressTitle {
@@ -9015,7 +9005,6 @@ button {
     max-width: 19rem!important;
   } */
   .grid-block-table {
-    margin: 56px auto auto auto !important;
     width: 22.563rem !important;
   }
   .sec-block-mb {
@@ -9075,7 +9064,6 @@ button {
 
 @media (min-width: 767px) and (max-width: 1240px) {
   .grid-block-table_11 {
-    padding-top: 7% !important;
     width: 41.5rem !important;
   }
   .div-searchelement_11 {
