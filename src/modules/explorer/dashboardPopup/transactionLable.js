@@ -4,7 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
+import { Column, Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { sessionManager } from "../../../managers/sessionManager";
 import { UserService } from "../../../services";
@@ -270,7 +270,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div
+      <Column
         className="div1"
         onClick={
           width >= 760
@@ -288,10 +288,7 @@ export default function FormDialog() {
           </div>
         </button>
 
-        <div
-          className="imageParentDiv"
-          style={{ position: "relative", top: "30px" }}
-        >
+        <div className="imageParentDiv">
           <LightToolTip
             open={tooltipIsOpen}
             title="Add a personal note to a transacton hash to track it in future."
@@ -306,7 +303,7 @@ export default function FormDialog() {
             </div>
           </LightToolTip>
         </div>
-      </div>
+      </Column>
 
       {/* <Button
         className={classes.btn}

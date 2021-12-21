@@ -107,6 +107,9 @@ const ValueMain = styled.div`
     gap: 30px;
   }
   /* margin-top: 12px; */
+  @media (min-width: 0px) and (max-width: 767px) {
+    // padding-right: 26px
+  }
 `;
 
 const Value = styled.div`
@@ -202,16 +205,19 @@ const LeftTitle = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
+    font-weight: 700;
+    color: #252525;
   }
   @media (min-width: 768px) {
     font-size: 1.5rem;
   }
 `;
 const Line1 = styled.hr`
-  background-color: #fff;
+background-color: #e3e7eb;
   width: 100%;
   position: absolute;
   top: 65%;
+  opacity: 1;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 90%;
     top: 87%;
@@ -593,6 +599,17 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
+                  <TitleIcon src={priceLogo} />
+                  <ValueName>
+                    <Title>Gas Price</Title>
+                    <TitleData
+                      className={TxanimationClass ? TxanimationClass : ""}
+                    >
+                      {this.state.gasPrice}
+                    </TitleData>
+                  </ValueName>
+                </Value>
+                <Value>
                   <TitleIcon src={transactionLogo} />
                   <ValueName>
                     <Title>Transactions</Title>
@@ -607,6 +624,36 @@ class BlockChainDataComponent extends Component {
                         )}
                       </TitleValue>
                     </Tooltip>
+                  </ValueName>
+                </Value>
+                
+              </MobileScreen>
+              <MobileScreen>
+                
+                <Value>
+                  <TitleIcon src={difficultyLogo} />
+                  <ValueName>
+                    <Title>Difficulty</Title>
+                    <Tooltip
+                      placement="top"
+                      title={this.state.blockdataNumber[0]?.totalDifficulty}
+                    >
+                      <TitleValue
+                        className={animationClass ? animationClass : ""}
+                      >
+                        {utility.convertToInternationalCurrencySystem(
+                          this.state.blockdataNumber[0]?.totalDifficulty
+                        )}
+                      </TitleValue>
+                    </Tooltip>
+                  </ValueName>
+                </Value>
+
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Current/Max TPS</Title>
+                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
                   </ValueName>
                 </Value>
                 <Value>
@@ -654,45 +701,6 @@ class BlockChainDataComponent extends Component {
                         </div>
                       </div>
                     </div>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
-              <MobileScreen>
-                <Value>
-                  <TitleIcon src={priceLogo} />
-                  <ValueName>
-                    <Title>Gas Price</Title>
-                    <TitleData
-                      className={TxanimationClass ? TxanimationClass : ""}
-                    >
-                      {this.state.gasPrice}
-                    </TitleData>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={difficultyLogo} />
-                  <ValueName>
-                    <Title>Difficulty</Title>
-                    <Tooltip
-                      placement="top"
-                      title={this.state.blockdataNumber[0]?.totalDifficulty}
-                    >
-                      <TitleValue
-                        className={animationClass ? animationClass : ""}
-                      >
-                        {utility.convertToInternationalCurrencySystem(
-                          this.state.blockdataNumber[0]?.totalDifficulty
-                        )}
-                      </TitleValue>
-                    </Tooltip>
-                  </ValueName>
-                </Value>
-
-                <Value>
-                  <TitleIcon src={maxLogo} />
-                  <ValueName>
-                    <Title>Current/Max TPS</Title>
-                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
                   </ValueName>
                 </Value>
               </MobileScreen>

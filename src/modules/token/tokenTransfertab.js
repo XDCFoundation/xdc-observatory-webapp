@@ -213,12 +213,50 @@ export default function StickyHeadTable() {
       b.length
     )}`;
   }
+
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
+    }
+  `;
+
   return (
     <>
       <Paper elevation={0}>
-        {isLoading == true ? (
-          <TableContainer className={classes.container} id="container-table">
-            <Table>
+        <TableContainer className={classes.container} id="container-table">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ border: "none" }} align="left">
+                  <span className={"tableheaders_Transfer-table-hash"}>
+                    TxnHash
+                  </span>
+                </TableCell>
+                <TableCell style={{ border: "none" }} align="left">
+                  <span className={"tableheaders_Transfer-table-age"}>Age</span>
+                </TableCell>
+                <TableCell style={{ border: "none" }} align="left">
+                  <span className={"tableheaders_Transfer-table-block"}>
+                    Block
+                  </span>
+                </TableCell>
+                <TableCell style={{ border: "none" }} align="left">
+                  <span className={"tableheaders_Transfer-table-from"}>
+                    From
+                  </span>
+                </TableCell>
+                <TableCell style={{ border: "none" }} align="left">
+                  <span className={"tableheaders_Transfer-table-to"}>To</span>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            {isLoading == true ? (
               <TableBody>
                 <TableRow>
                   <TableCell style={{ border: "none" }} colspan="5">
@@ -228,144 +266,94 @@ export default function StickyHeadTable() {
                   </TableCell>
                 </TableRow>
               </TableBody>
-            </Table>
-          </TableContainer>
-        ) : noData == false? (
-          <TableContainer className={classes.container} id="container-table">
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-hash"}>
-                      TxnHash
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-age"}>
-                      Age
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-block"}>
-                      Block
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-from"}>
-                      From
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-to"}>To</span>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-            </Table>
-            <div className={classes.table}>
-            <img
-              className={classes.alert}
-              src={require("../../../src/assets/images/XDC-Alert.svg")}
-            ></img>
-            <div className={classes.noData}>No transfers found</div>
-            </div>
-          </TableContainer>
-        ) : (
-          <TableContainer className={classes.container} id="container-table">
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-hash"}>
-                      TxnHash
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-age"}>
-                      Age
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-block"}>
-                      Block
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-from"}>
-                      From
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tableheaders_Transfer-table-to"}>To</span>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              {transfer &&
-                transfer.length >= 1 &&
-                transfer.map((row) => {
-                  const currentTime = new Date();
-                  const previousTime = new Date(row.timestamp * 1000);
-                  const ti = timeDiff(currentTime, previousTime);
-                  return (
-                    <StyledTableRow tabIndex={-1} key={row.code}>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <a
-                          style={{ color: "#2b51bc", fontSize: 11 }}
-                          href={"/transfer-transaction-details/" + row.hash}
-                        >
-                          <span className="tabledata table-data">
-                            {shorten(row.hash)}
-                          </span>
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <span
-                          style={{ color: "#2a2a2a" }}
-                          className="tabledata table-data"
-                        >
-                          {ti}
+            ) : (
+              transfer &&
+              transfer.length >= 1 &&
+              transfer.map((row) => {
+                const currentTime = new Date();
+                const previousTime = new Date(row.timestamp * 1000);
+                const ti = timeDiff(currentTime, previousTime);
+                return (
+                  <StyledTableRow tabIndex={-1} key={row.code}>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <a
+                        style={{ color: "#2b51bc", fontSize: 11 }}
+                        href={"/transfer-transaction-details/" + row.hash}
+                      >
+                        <span className="tabledata table-data">
+                          {shorten(row.hash)}
                         </span>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <a
-                          style={{ color: "#2b51bc", fontSize: 11 }}
-                          href={"/block-details/" + row.blockNumber}
-                        >
+                      </a>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <span
+                        style={{ color: "#2a2a2a" }}
+                        className="tabledata table-data"
+                      >
+                        {ti}
+                      </span>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <a
+                        style={{ color: "#2b51bc", fontSize: 11 }}
+                        href={"/block-details/" + row.blockNumber}
+                      >
+                        <span className="tabledata table-data">
+                          {" "}
+                          {row.blockNumber}
+                        </span>
+                      </a>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <a
+                        style={{ color: "#2b51bc", fontSize: 11 }}
+                        href="#text"
+                      >
+                        <Tooltip placement="top" title={row.from}>
                           <span className="tabledata table-data">
-                            {" "}
-                            {row.blockNumber}
+                            {shorten(row.from)}
                           </span>
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <a
-                          style={{ color: "#2b51bc", fontSize: 11 }}
-                          href="#text"
-                        >
-                          <Tooltip placement="top" title={row.from}>
-                            <span className="tabledata table-data">
-                              {shorten(row.from)}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        <a
-                          style={{ color: "#2419b9", fontSize: 11 }}
-                          href="#text"
-                        >
-                          <Tooltip placement="top" title={row.to}>
-                            <span className="tabledata table-data">
-                              {shorten(row.to)}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                    </StyledTableRow>
-                  );
-                })}
-            </Table>
-          </TableContainer>
-        )}
+                        </Tooltip>
+                      </a>
+                    </TableCell>
+                    <TableCell id="td" style={{ border: "none" }}>
+                      <a
+                        style={{ color: "#2419b9", fontSize: 11 }}
+                        href="#text"
+                      >
+                        <Tooltip placement="top" title={row.to}>
+                          <span className="tabledata table-data">
+                            {shorten(row.to)}
+                          </span>
+                        </Tooltip>
+                      </a>
+                    </TableCell>
+                  </StyledTableRow>
+                );
+              })
+            )}
+            {/* {
+              noData == false && (
+
+                <TableCell id="td" style={{ border: "none" }}>
+                  <span className="tabledata table-data">
+                    No Transfers Found
+                  </span>
+                </TableCell>
+
+              )
+            } */}
+          </Table>
+          {noData == false && (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+
+              <div>No Transfers Found</div>
+            </NoDataFoundContainer>
+          )}
+        </TableContainer>
       </Paper>
       <Pagination>
         <LeftPagination>

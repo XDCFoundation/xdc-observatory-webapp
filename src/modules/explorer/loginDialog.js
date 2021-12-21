@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperWidthSm: {
     position: "absolute",
-    top: "65px",
+    top: "45px",
     width: "503px",
     padding: "0 11px",
     borderRadius: "12px",
@@ -1071,7 +1071,7 @@ export default function FormDialog(props) {
             ) : (
               <div></div>
             )}
-            <button className={classes.createAccountbtn} onClick={handleSignUp} >
+            <button className={classes.createAccountbtn} onClick={handleSignUp}>
               Create an Account{" "}
             </button>
 

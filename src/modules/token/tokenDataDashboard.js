@@ -13,7 +13,7 @@ import TokenData from "../../services/token";
 import Utility from "../../utility";
 import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
-
+import ContractData from "../../services/contract";
 const useStyles = makeStyles((theme) => ({
   transfer: {
     height: "38px",
@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
 const MainContainer = styled.div`
   width: 75.125rem;
   height: 16.563rem;
-  margin: 0 auto;
-  margin-top: 50px;
   padding-top: 1.9rem;
   padding-left: 1.75rem;
   border-radius: 12px;
@@ -34,21 +32,24 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
+  margin: 30px auto auto auto;
+
   @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
     width: 41.5rem;
     height: 38.625rem;
     padding: 0 1.875rem;
-    margin: 0 auto;
-    margin-top: 140px;
   }
   @media (max-width: 767px) {
     flex-direction: column;
     width: 22.563rem;
     height: 32.063rem;
     padding: 0 1.875rem;
+<<<<<<< HEAD
     margin: 0 auto;
     margin-top: 158px;
+=======
+>>>>>>> 457dfb081bfab270780e67b7fbd71e3fc20cfbed
   }
 `;
 const MobileScreen = styled.div`
@@ -331,6 +332,8 @@ export default function TokenDataComponent() {
   // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({});
+  const [contractData, setContractData] = useState("")
+  console.log(contractData, "plololo")
   const { address } = useParams();
   const { tn } = useParams();
 
@@ -359,6 +362,7 @@ export default function TokenDataComponent() {
     listOfHolders(values);
     let value = { addr: address };
     transferDetail(value);
+    getContractDetails(value)
     // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
@@ -379,10 +383,18 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     setHolders(tns);
   };
+  const getContractDetails = async () => {
 
+    let urlPath = `${address}`;
+    let [error, contractStatusData] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractStatusData) return;
+    setContractData(contractStatusData)
+  };
   React.useEffect(() => {
     (async () => {
-      let token = "XDC";
+
       await CoinMarketExchangeForToken(tn);
     })();
   }, []);
@@ -439,8 +451,8 @@ export default function TokenDataComponent() {
 
               <LeftTopSecMain>
                 <LeftTopSec>
-                  {ReactHtmlParser(CurrencySymbol)}
-                  {tokenPriceVal.toFixed(5)}
+                  {CurrencySymbol}
+                  {tokenPriceVal}
                 </LeftTopSec>
                 <div
                   className={
@@ -512,7 +524,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      {}
+                      { }
                       <TitleValue>
                         {(transfer.length && transfer.length) === 0
                           ? "0"
@@ -539,7 +551,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={difficultyLogo} /> */}
                     <ValueName>
                       <Title>Decimal</Title>
-                      <TitleValue>8</TitleValue>
+                      <TitleValue>{contractData?.contractResponse?.decimals}</TitleValue>
                     </ValueName>
                   </Value>
                   <Value>
@@ -632,7 +644,7 @@ export default function TokenDataComponent() {
         )}
         <br />
         <br />
-        <Tokentabs />
+        <Tokentabs contractStatusData={contractData} />
         <br />
         <br />
         <FooterComponent />
