@@ -17,7 +17,7 @@ import AddressData from "../../services/address";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
-
+import format from "format-number";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -566,7 +566,7 @@ export default function TransactionTableComponent(props) {
                           <TableCell style={{ border: "none" }} align="left">
                           <Tooltip
                          placement="top"
-                         title={row?.Value}
+                         title={format({})(row.value)}
                         >
                             <span className="tabledata">{Utility.convertToInternationalCurrencySystem(row.value)}</span>
                             </Tooltip>

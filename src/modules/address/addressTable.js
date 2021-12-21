@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
+import format from "format-number";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -696,7 +697,7 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip
                               placement="top"
-                              title={row?.Value}
+                              title={format({})(row.Value)}
                             >
                             <span className="tabledata cursor-pointer">
                               {row.Value == 0
