@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/custom.css";
 import styled from "styled-components";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import HolderGraphBar from "../explorer/holderGraph";
 import TokenMarketDataTable from "./tokenMarketData";
@@ -15,15 +15,12 @@ import Utils from "../../utility";
 import ReactHtmlParser from "react-html-parser";
 
 const useStyles = makeStyles((theme) => ({
-transfer:{
-  height:'38px'
-},
+  transfer: {
+    height: "38px",
+  },
   "@media (min-width: 0px) and (max-width: 767px)": {
     maxWidth: "20px",
-    
   },
-
-
 }));
 const MainContainer = styled.div`
   width: 75.125rem;
@@ -37,15 +34,15 @@ const MainContainer = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
-  @media (min-width:767px) and (max-width: 1240px) {
+  @media (min-width: 767px) and (max-width: 1240px) {
     flex-direction: column;
     width: 41.5rem;
     height: 38.625rem;
     padding: 0 1.875rem;
-    margin:0 auto;
+    margin: 0 auto;
     margin-top: 140px;
   }
-  @media (max-width :767px){
+  @media (max-width: 767px) {
     flex-direction: column;
     width: 22.563rem;
     height: 32.063rem;
@@ -55,13 +52,13 @@ const MainContainer = styled.div`
   }
 `;
 const MobileScreen = styled.div`
-margin-right: 3px;
-@media (min-width:767px){
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-right: 0px;
-}
+  margin-right: 3px;
+  @media (min-width: 767px) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 0px;
+  }
 `;
 const LeftContainer = styled.div`
   flex: 0.55;
@@ -75,12 +72,12 @@ const RightContainer = styled.div`
   flex-direction: column;
   padding: 0px 20px 25px 40px;
   width: 50%;
-  @media (max-width:768px){
+  @media (max-width: 768px) {
     margin-top: -10px;
     padding: 0px 0px 0px 0px;
     width: auto;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width: 768px) and (max-width: 1240px) {
     padding: 0px 0px 0px 0px;
     width: auto;
   }
@@ -92,17 +89,16 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   padding-bottom: 1.125rem;
-  @media (max-width:767px){
-   padding: 1.875rem 0 0 0;
+  @media (max-width: 767px) {
+    padding: 1.875rem 0 0 0;
   }
-  @media (min-width:767px) and (max-width:1240px){
-   padding: 1.5rem 0 0.125rem;
+  @media (min-width: 767px) and (max-width: 1240px) {
+    padding: 1.5rem 0 0.125rem;
   }
 `;
 const LeftSec = styled.div`
   flex: 0.7;
-      margin-top: 10px;
-  
+  margin-top: 10px;
 `;
 const ValueMain = styled.div`
   display: flex;
@@ -115,7 +111,7 @@ const Value = styled.div`
   display: flex;
   width: 10.625rem;
   padding-bottom: 35px;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     width: 6.625rem;
     padding-bottom: 23px;
   }
@@ -141,10 +137,10 @@ const Title = styled.div`
   line-height: normal;
   letter-spacing: 0.65px;
   margin-bottom: 5px;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
   }
 `;
@@ -155,10 +151,10 @@ const TitleValue = styled.div`
   line-height: normal;
   letter-spacing: 0.58px;
   color: #2a2a2a;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
   }
-  @media (min-width:768px) and (max-width:1240px){
+  @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 1rem;
   }
 `;
@@ -184,10 +180,10 @@ const LeftTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.9px;
   color: #2a2a2a;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1.375rem;
   }
-  @media (min-width:767px) and (max-width:1240px){
+  @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 1.5rem;
   }
 `;
@@ -196,14 +192,14 @@ const Line1 = styled.hr`
   width: 100%;
   position: absolute;
   top: 65%;
-  @media (max-width:767px){
-    width:100%;
+  @media (max-width: 767px) {
+    width: 100%;
     top: 75%;
-    }
-    @media (min-width:767px) and (max-width:1240px){
-    width:100%;
+  }
+  @media (min-width: 767px) and (max-width: 1240px) {
+    width: 100%;
     top: 60%;
-    }
+  }
 `;
 const LeftTopSec = styled.div`
   font-size: 1.25rem;
@@ -211,10 +207,10 @@ const LeftTopSec = styled.div`
   font-family: Inter;
   letter-spacing: 0.55px;
   color: #2a2a2a;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
   }
-  @media (min-width:767px) and (max-width:1240px){
+  @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 1.375rem;
   }
 `;
@@ -222,7 +218,6 @@ const LeftTopSecMain = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  
 `;
 
 const ContractButton = styled.button`
@@ -235,7 +230,7 @@ const ContractButton = styled.button`
   padding-top: 0px;
   padding-left: 0px;
   margin-top: -8px;
-  @media (max-width:767px){
+  @media (max-width: 767px) {
     font-size: 0.875rem;
   }
 `;
@@ -264,59 +259,57 @@ const RightTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.65px;
   color: #2a2a2a;
-  @media (min-width:0px) and (max-width:767px){
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.01px;
     color: #2a2a2a;
   }
-  @media (min-width:767px) and (max-width:1240px){
+  @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.54px;
     color: #2a2a2a;
   }
-  
-  `;
+`;
 const Line2 = styled.hr`
   background-color: #e3e7eb !important;
   width: 100%;
   position: absolute;
   top: 30%;
   left: 0%;
-  @media (max-width:767px){
-    width:100%;
+  @media (max-width: 767px) {
+    width: 100%;
     top: 30%;
-    }
-  @media (min-width:768px) and (max-width:1240px){
-    width:100%;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 100%;
     top: 20%;
-    }
+  }
 `;
 const RightTopSec = styled.div`
   width: 3.938rem;
-    height: 1.3rem;
-    font-size: 0.875rem;
-    padding: 4.5px;
-    color: #2a2a2a;
-    border: none;
-    border-radius: 4px;
-    background-color: #e3e7eb;
-    background-size: cover;
-    font-family: "Inter" !important;
-    font-weight: 600;
-    padding-top: 1px;
-    @media (min-width:0px) and (max-width:767px){
+  height: 1.3rem;
+  font-size: 0.875rem;
+  padding: 4.5px;
+  color: #2a2a2a;
+  border: none;
+  border-radius: 4px;
+  background-color: #e3e7eb;
+  background-size: cover;
+  font-family: "Inter" !important;
+  font-weight: 600;
+  padding-top: 1px;
+  @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
     width: 3.438rem;
     height: 1.375rem;
     white-space: nowrap;
   }
-  @media (min-width:767px) and (max-width:1240px){
+  @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
     width: 4.063rem;
     height: 1.375rem;
-    
   }
 `;
 
@@ -337,7 +330,7 @@ export default function TokenDataComponent() {
   // let tokenName = 'XDC'
   // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
-  const [holders, setHolders] = useState({})
+  const [holders, setHolders] = useState({});
   const { address } = useParams();
   const { tn } = useParams();
 
@@ -354,30 +347,23 @@ export default function TokenDataComponent() {
       );
 
       if (responseData && responseData?.responseCode !== 400) {
-
-        setMarketCapValue(responseData)
-
+        setMarketCapValue(responseData);
       }
     } catch (error) {
       console.error(error);
     }
-  }
-
-
-
+  };
 
   useEffect(() => {
-    let values = { addr: address, pageNum: 0, perpage: 10 }
+    let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
-    let value = { addr: address }
+    let value = { addr: address };
     transferDetail(value);
     // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
 
-
   const transferDetail = async (values) => {
-
     let [error, tns] = await Utils.parseResponse(
       TokenData.getTotalTransferTransactionsForToken(values)
     );
@@ -392,47 +378,43 @@ export default function TokenDataComponent() {
     );
     if (error || !tns) return;
     setHolders(tns);
-  }
+  };
 
   React.useEffect(() => {
     (async () => {
-      let token = 'XDC'
-      await CoinMarketExchangeForToken(tn)
+      let token = "XDC";
+      await CoinMarketExchangeForToken(tn);
     })();
   }, []);
-  let activeCurrency = window.localStorage.getItem('currency')
-  let tokenPriceVal = 0
-  let tokenChanges24hr = 0
-  let CurrencySymbol = ''
+  let activeCurrency = window.localStorage.getItem("currency");
+  let tokenPriceVal = 0;
+  let tokenChanges24hr = 0;
+  let CurrencySymbol = "";
   if (marketCapVal) {
-    if (activeCurrency == 'USD') {
-      CurrencySymbol = '$'
-      tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
-      tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
-    } else if (activeCurrency == 'EUR') {
-      CurrencySymbol = '€'
-      tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice
-      tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr
-
-    } else if (activeCurrency == 'INR') {
-      CurrencySymbol = '₹'
-      tokenPriceVal = marketCapVal.parseDataINR.tokenPrice
-      tokenChanges24hr = marketCapVal.parseDataINR.pricePercentageChange24_hr
-
+    if (activeCurrency == "USD") {
+      CurrencySymbol = "$";
+      tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice;
+      tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr;
+    } else if (activeCurrency == "EUR") {
+      CurrencySymbol = "€";
+      tokenPriceVal = marketCapVal.parseDataEUR.tokenPrice;
+      tokenChanges24hr = marketCapVal.parseDataEUR.pricePercentageChange24_hr;
+    } else if (activeCurrency == "INR") {
+      CurrencySymbol = "₹";
+      tokenPriceVal = marketCapVal.parseDataINR.tokenPrice;
+      tokenChanges24hr = marketCapVal.parseDataINR.pricePercentageChange24_hr;
     } else {
-      CurrencySymbol = '$'
-      tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice
-      tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr
+      CurrencySymbol = "$";
+      tokenPriceVal = marketCapVal.parseDataUSD.tokenPrice;
+      tokenChanges24hr = marketCapVal.parseDataUSD.pricePercentageChange24_hr;
     }
   }
-  let numberStatus = Math.sign(tokenChanges24hr)
+  let numberStatus = Math.sign(tokenChanges24hr);
 
   return (
     <>
-      <div style={{ backgroundColor: '#fff' }}>
+      <div style={{ backgroundColor: "#fff" }}>
         <Tokensearchbar />
-        <br />
-        <br />
         <MainContainer>
           <LeftContainer>
             <LeftFirst>
@@ -442,13 +424,24 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <img style={{ height: "24", width: "24" , marginRight:"4px", marginTop : "3px" }} src={"/images/XRC20-Icon.svg"}></img>
+                <img
+                  style={{
+                    height: "24",
+                    width: "24",
+                    marginRight: "4px",
+                    marginTop: "3px",
+                  }}
+                  src={"/images/XRC20-Icon.svg"}
+                ></img>
 
                 <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
 
               <LeftTopSecMain>
-                <LeftTopSec>{ReactHtmlParser(CurrencySymbol)}{tokenPriceVal.toFixed(5)}</LeftTopSec>
+                <LeftTopSec>
+                  {ReactHtmlParser(CurrencySymbol)}
+                  {tokenPriceVal.toFixed(5)}
+                </LeftTopSec>
                 <div
                   className={
                     numberStatus > 0
@@ -460,10 +453,7 @@ export default function TokenDataComponent() {
                     {numberStatus > 0 ? (
                       <div className="arrow_up">
                         {/*<BsFillCaretUpFill size={10} />*/}
-                        <img
-                          src={"/images/Up.svg"}
-                          style={{ width: "8px" }}
-                        />
+                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                       </div>
                     ) : (
                       <div className="arrow_down">
@@ -478,19 +468,15 @@ export default function TokenDataComponent() {
                   </div>
                 </div>
               </LeftTopSecMain>
-            
             </LeftFirst>
             <LeftSec>
-          
               <ValueMain>
-              
                 <MobileScreen>
-                
                   <Value>
                     {/* <TitleIcon src={blockHeightImg} /> */}
-                    
+
                     <ValueName>
-                    {/* <Line2 ></Line2> */}
+                      {/* <Line2 ></Line2> */}
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
@@ -524,14 +510,24 @@ export default function TokenDataComponent() {
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
                       {}
-                      <TitleValue>{(transfer.length && transfer.length)===0 ? "0" : transfer}</TitleValue>
+                      <TitleValue>
+                        {(transfer.length && transfer.length) === 0
+                          ? "0"
+                          : transfer}
+                      </TitleValue>
                     </ValueName>
                   </Value>
                   <Value>
                     {/* <TitleIcon src={transactionLogo} /> */}
                     <ValueName>
                       <Title>Contract</Title>
-                      <ContractButton> <a className="token-link" href={`/address/${address}`}> {shorten(address)}</a></ContractButton>
+                      <ContractButton>
+                        {" "}
+                        <a className="token-link" href={`/address/${address}`}>
+                          {" "}
+                          {shorten(address)}
+                        </a>
+                      </ContractButton>
                     </ValueName>
                   </Value>
                 </MobileScreen>
@@ -612,7 +608,6 @@ export default function TokenDataComponent() {
                   </Value>
                 </MobileScreen>
               </ValueMain>
-
             </LeftSec>
           </LeftContainer>
 
@@ -620,17 +615,23 @@ export default function TokenDataComponent() {
             <RightTop>
               <RightTitle>Holders</RightTitle>
               <RightTopSec>14 Days</RightTopSec>
-              <Line2 ></Line2>
+              <Line2></Line2>
             </RightTop>
             <GraphContainer>
               <HolderGraphBar />
             </GraphContainer>
           </RightContainer>
         </MainContainer>
-        {marketCapVal == 0 ? "" : <TokenMarketDataTable marketCap={marketCapVal} />}
-        <br /><br />
+        {marketCapVal == 0 ? (
+          ""
+        ) : (
+          <TokenMarketDataTable marketCap={marketCapVal} />
+        )}
+        <br />
+        <br />
         <Tokentabs />
-        <br /><br />
+        <br />
+        <br />
         <FooterComponent />
       </div>
     </>
