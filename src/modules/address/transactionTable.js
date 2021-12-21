@@ -81,7 +81,6 @@ export default function TransactionTableComponent(props) {
   });
   const getContractDetails = async (values) => {
     try {
-      console.log("getContractDetails");
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values),
       )
