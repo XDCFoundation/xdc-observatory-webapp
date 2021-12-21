@@ -272,11 +272,7 @@ export default function Transaction({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : ((valueFetch * transactions.value) / 1000000000000000000).toFixed(11);
-  // if (isLoading == true) {
-  //   return (
-  //     <div><Loader /></div>
-  //   )
-  // }
+  
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now()
@@ -462,7 +458,7 @@ export default function Transaction({ _handleChange }) {
                         {" "}
                         
                         {moment(transactions.timestamp * 1000).format(
-                          "MMMM Do YYYY, h:mm:ss a"
+                          "YYYY-MM-DD, h:mm:ss a"
                         )} +0530 ({getHoursAgo(transactions.timestamp * 1000)})
                       </MiddleContainer>
                     </Spacing>
