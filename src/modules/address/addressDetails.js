@@ -228,7 +228,7 @@ export default function AddressDetails(props) {
                                             <span
                                                 className={
                                                     width > 1240
-                                                        ? "copyEditContainer"
+                                                        ? "copyEditContainer1"
                                                         : width <= 1240 && width >= 768
                                                             ? "copyEditContainerAddress"
                                                             : "copyEditContainerMobile"
@@ -277,28 +277,18 @@ export default function AddressDetails(props) {
                               <div className="popup_qr">
                                   <p>
                                       <div>
-                                          <button
-                                              style={{
-                                                  outline: "none",
-                                                  // width: "0rem",
-                                                  height: "0rem",
-                                                  marginLeft: "0rem",
-                                              }}
-                                              className="close"
-                                              onClick={close}
-                                          >
-                                              &times;
-                                          </button>
                                           <div
                                               className="header-popup"
-                                              // style={{
-                                              //   fontSize: "0.875rem",
-                                              //   paddingTop: "0.313rem",
-                                              //   paddingBottom: "3.75rem",
-                                              // }}
                                           >
                                               {" "}
                                               {addr}{" "}
+                                              <img
+                                              src="/images/XDC-Cross.svg"
+                                              className="qrClose"
+                                              onClick={close}
+                                          >
+                                              {/* &times; */}
+                                          </img>
                                           </div>
                                           {window.innerWidth > 767 ? (
                                               <QRCode
@@ -489,7 +479,6 @@ const Content = styled.span`
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
-    margin-left: 28px;
   }
 `;
 const TextArea = styled.textarea`
@@ -554,6 +543,7 @@ const MiddleContainerHash = styled.div`
   margin-left: 6.25rem;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -563,7 +553,8 @@ const MiddleContainerHash = styled.div`
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
-    margin-left: unset;
+    margin-left: 18px;
+    padding-right: 26px;
     margin-top: 10px;
     display: block;
   }
@@ -608,6 +599,7 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
+    padding-left: 3px;
   }
 `;
 const Container = styled.div`
@@ -663,6 +655,10 @@ const ImageView = styled.img`
   width: 0.938rem;
   margin-right: 0.938rem;
   cursor: pointer;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.75rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const AddressPath = styled.div`

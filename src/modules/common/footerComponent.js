@@ -394,29 +394,6 @@ export default function FooterComponent(props) {
             </Grid>
           </ThirdCloumn>
         </BlankSpaceDiv>
-
-        <ThirdCloumn className="mobile-column-display">
-          <Grid
-            alignContent="center"
-            item
-            xs={12}
-            style={{ margin: " 20px 0px 10px 0px" }}
-          >
-            <div className="Table-Header">
-              Tweet
-              <hr style={{ marginRight: "2px" }}></hr>
-            </div>
-            <div className={"twitter"}>
-              <a
-                class="twitter-timeline"
-                data-lang="en"
-                data-height="220"
-                data-theme="light"
-                href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"
-              ></a>
-            </div>
-          </Grid>
-        </ThirdCloumn>
       </Grid>
       <div className="footer-line">
         <hr></hr>

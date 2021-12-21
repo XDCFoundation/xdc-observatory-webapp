@@ -653,12 +653,6 @@ input:focus {
   cursor: pointer;
 }
 
-.side-arrow-contract-tab {
-  /* margin-left: 65%; */
-}
-.right-arrow-side-bar {
-  /* margin-left: 75%; */
-}
 
 .Shape2 {
   width: 1.5rem;
@@ -847,7 +841,6 @@ input:focus {
 .down-arrow-internal {
   cursor: pointer;
 }
-
 /* .down-arrow-internal:hover{
   cursor: pointer;
 } */
@@ -1451,7 +1444,7 @@ input:focus {
 .XDC {
   margin-left: 0.438rem;
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1463,7 +1456,7 @@ input:focus {
 .XDC-internal {
   /* margin-left: -0.313rem; */
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1475,7 +1468,7 @@ input:focus {
 /* .XDC-internal:hover {
   margin-left: -0.313rem;
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -1525,7 +1518,7 @@ input:focus {
 .XDC:hover {
   margin-left: 0.438rem;
   font-size: 1.375rem;
-  font-weight: 500;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -2880,18 +2873,18 @@ p {
   background-color: #ffffff;
 }
 
-.searchelement-input4 {
-  /*display: flex;
+/* .searchelement-input4 {
+  display: flex;
   flex-direction: row;
   height: 2.125rem;
   width: 10.625rem;
   padding: 5px 43px 2px 10px;
   border-radius: 0.5rem;
   outline-color: #e3e7eb;
-  /* box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1); */
-  /*border: solid 1px #e3e7eb;
-  background-color: #ffffff;*/
-}
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+} */
 
 .token-text {
   margin-top: 90px;
@@ -3201,6 +3194,7 @@ p {
   line-height: normal;
   letter-spacing: 0.58px;
   color: #252525;
+  margin-top: 0;
 }
 
 .vc-contract-add-select {
@@ -7595,9 +7589,17 @@ button {
 }
 
 .header-popup {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   padding-top: 0.313rem;
   padding-bottom: 3.75rem;
+  display: flex;
+  justify-content: space-between;
+  color: #2a2a2a;
+}
+.qrClose {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
 }
 
 .source-code-verified-container {
@@ -8104,7 +8106,7 @@ button {
     font-size: 14px;
   }
   .vc-contract-compiler {
-    margin-top: 20px;
+    margin-top: 5rem;
     margin-left: 0px;
     font-size: 14px;
   }
@@ -8633,19 +8635,21 @@ button {
     padding-left: 7px;
   }
 }
-.copyEditContainer {
+.copyEditContainer1 {
   display: flex;
   margin-left: 29rem !important;
+}
+.copyEditContainer2 {
+  display: flex;
+  /* margin-left: 29rem !important; */
 }
 .copyEditContainerTab {
   display: flex;
   margin-top: -33px;
-  margin-left: 178px;
+  margin-left: 170px;
 }
 .copyEditContainerAddress {
   display: flex;
-  margin-top: -20px;
-  margin-left: 178px;
 }
 .copyEditContainerMobile {
   display: flex;
@@ -8655,7 +8659,7 @@ button {
   .copyEditContainerMobile {
     display: flex;
     margin-top: -20px;
-    margin-left: 102px !important;
+    margin-left: 90px !important;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -8740,6 +8744,11 @@ button {
 }
 .fromContainer {
   display: flex;
+}
+.fromContainerTab {
+  display: flex;
+  position: absolute;
+  margin-left: 25.25rem;
 }
 .fromContainerMobile {
   display: flex;
