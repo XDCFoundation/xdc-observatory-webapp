@@ -3464,7 +3464,6 @@ body {
 @media (min-width: 767px) and (max-width: 1240px) {
   .content-tabs_sec {
     width: 42rem;
-    margin-left: -149px;
   }
 }
 
@@ -8392,7 +8391,6 @@ button {
   .block_sec_contract {
     width: 41.5rem;
     height: 2.188rem;
-    margin-left: -9.18rem;
   }
   .sec-block-mb {
     width: 41.5rem !important;
