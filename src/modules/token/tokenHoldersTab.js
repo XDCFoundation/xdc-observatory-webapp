@@ -93,6 +93,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const listOfHolders = async (values) => {
     let [error, tns] = await Utils.parseResponse(
