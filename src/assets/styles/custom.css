@@ -929,7 +929,6 @@ input:focus {
   /* contract start */
   .b-h1 {
     padding: 0 16px 0 15px !important;
-    margin-top: 8% !important;
     display: flex !important;
   }
   .sec-contain {
@@ -973,7 +972,6 @@ input:focus {
 @media (min-width: 300px) and (max-width: 567px) {
   .b-h1 {
     padding: 0 16px 0 15px !important;
-    margin-top: 8% !important;
     display: flex !important;
   }
   .w-31 {
@@ -1106,7 +1104,6 @@ input:focus {
   /* contract start */
   .b-h1 {
     padding: 0 16px 0 15px !important;
-    margin-top: 15% !important;
     display: flex !important;
   }
   .tb-grid-block {
@@ -1220,11 +1217,16 @@ input:focus {
   } */
 }
 
+.b-h1 {
+  padding: 0 16px 0 15px !important;
+  margin-top: 20px;
+  display: flex !important;
+}
+
 @media (min-width: 767px) and (max-width: 1023px) {
   /* contract start */
   .b-h1 {
     padding: 0 16px 0 15px !important;
-    margin-top: 8% !important;
     display: flex !important;
   }
   .tb-grid {
@@ -1315,7 +1317,6 @@ input:focus {
   /* contract start */
   .b-h1 {
     padding: 0 16px 0 15px !important;
-    margin-top: 1% !important;
     display: flex !important;
   }
   .tb-grid {
@@ -6747,7 +6748,7 @@ button {
   width: 75.063rem;
 }
 .table-grid-block-contract {
-  margin: 130px auto auto auto;
+  margin: 5px auto auto auto;
   width: 75.063rem;
 }
 
@@ -6935,6 +6936,7 @@ button {
 /*address/address page*/
 
 .AddressTitle {
+  word-break: break-all;
   font-family: Inter;
   font-size: 17px;
   font-weight: 600;
@@ -6944,7 +6946,6 @@ button {
   letter-spacing: 0.45px;
   color: #2149b9;
   font-weight: 500;
-  margin-top: 8px;
   margin-left: 15px;
 }
 .wordTruncating {
@@ -6963,7 +6964,7 @@ button {
   display: flex;
   width: 100%;
   margin: 0 auto;
-  margin-top: 31px !important;
+  margin-top: 20px !important;
 }
 
 .contractOverview {
@@ -7148,9 +7149,15 @@ button {
 .container_sec {
   display: flex;
   flex-direction: column;
-  position: relative;
   width: 100%;
   border: none;
+}
+
+@media (min-width: 0px) and (max-width: 1240px) {
+  .container_sec {
+    align-items: center;
+    margin: auto;
+  }
 }
 /* 
 @media (max-width: 640px) {
@@ -8116,10 +8123,8 @@ button {
     font-size: 17px;
     color: #2a2a2a;
     opacity: 1;
-    margin-top: 5.25rem;
   }
   .AddressTitle {
-    margin-top: -2px;
     margin-left: 0px;
     padding-left: 1.25rem;
   }
@@ -8351,15 +8356,13 @@ button {
     letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
-    margin-left: -10.18rem;
-    margin-top: 2.12rem;
   }
 
   .table-grid-block {
     width: 22.563rem;
   }
   .table-grid-block-contract {
-    width: 22.563rem;
+    width: 23.563rem;
   }
   .grid-block-table {
     width: 41.5rem !important;
@@ -8367,8 +8370,7 @@ button {
   .AddressTitle {
     width: 35rem;
     margin-left: 0px;
-    margin-top: 10px;
-    padding-left: 20px;
+    padding-left: 115px;
   }
   .contractOverview {
     width: 41.5rem;
