@@ -3,18 +3,20 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {makeStyles} from "@material-ui/styles";
-import {Row, typeOf} from "simple-flexbox";
-import {sessionManager} from "../../../managers/sessionManager";
-import Test from './Test'
+import { makeStyles } from "@material-ui/styles";
+import { Row, typeOf } from "simple-flexbox";
+import { sessionManager } from "../../../managers/sessionManager";
+import Test from "./Test";
 import { history } from "../../../managers/history";
-import { Redirect } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
+import Utils from "../../../utility";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -164,14 +166,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#2a2a2a",
   },
-  
+
   "@media (max-width: 714px)": {
     heading: {
-      fontSize: "16px"
+      fontSize: "16px",
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     input: {
       maxWidth: "503px",
@@ -181,13 +183,28 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       width: "250px",
     },
-    
   },
-  "@media (max-width: 900px)": {
-   
-  },
+  "@media (max-width: 900px)": {},
 }));
 
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -200,18 +217,19 @@ export default function FormDialog() {
 
   const [passwordShown, setPasswordShown] = React.useState(false);
 
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
- 
-  const [value, setValue] = React.useState("female");
-  const [isSize, setisSize] = React.useState(false)
-const screenSize = window.innerHeight 
-  if (screenSize=== "626") {
-    setisSize(false);
- }
 
+  const [value, setValue] = React.useState("female");
+  const [isSize, setisSize] = React.useState(false);
+  const screenSize = window.innerHeight;
+  if (screenSize === "626") {
+    setisSize(false);
+  }
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -219,11 +237,7 @@ const screenSize = window.innerHeight
 
   const handleLogin = () => {
     setError("");
-
   };
-
-
-
 
   const watchListService = async () => {
     const request = {
@@ -233,19 +247,27 @@ const screenSize = window.innerHeight
       type: value,
       isEnabled: true,
     };
-    if(!(address && address.length === 43) || !(address.slice(0,3) === "xdc")) {
+    if (
+      !(address && address.length === 43) ||
+      !(address.slice(0, 3) === "xdc")
+    ) {
       setError("Address should start with xdc & 43 characters");
-    } else if(!description){
-      setDescriptionError("Description is required")
-    } else{
-    if (value === "NO") request["isEnabled"] = false;
-    const [error, response] = await utility.parseResponse(
-      AddWatchList.addWatchlist(request)
-    );
+    } else if (!description) {
+      setDescriptionError("Description is required");
+    } else {
+      if (value === "NO") request["isEnabled"] = false;
+      const [error, response] = await utility.parseResponse(
+        AddWatchList.addWatchlist(request)
+      );
 
-    if (error || !response) {
-      utility.apiFailureToast("Address already exists");
-      return;
+      if (error || !response) {
+        utility.apiFailureToast("Address already exists");
+        return;
+      }
+      utility.apiSuccessToast("Address added to watchlist");
+      setAddress("");
+      setDescription("");
+      setOpen(false);
     }
     utility.apiSuccessToast("Address added to watchlist");
     setAddress("");
@@ -253,17 +275,16 @@ const screenSize = window.innerHeight
     setOpen(false);
     window.location.reload();
   };
-}
 
   const handleClickOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
     setAddress("");
     setDescription("");
     setError("");
-    setDescriptionError("")
+    setDescriptionError("");
   };
   const classes = useStyles();
 
@@ -271,38 +292,57 @@ const screenSize = window.innerHeight
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
   return (
     <div>
-
-      <div style={{marginLeft:"10px"}} className="div1" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/test")}}>
-        <div>
-          <img
-            className="imagediv1"
-            src={"/images/createWatchlist.svg"}
-          ></img>
+      <div className="div1">
+        <div
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/test");
+                }
+          }
+        >
+          <img className="watchlist-image" src={"/images/createWatchlist.svg"} />
+          <button className={classes.btn}>
+            <div className="headingdiv1">Create watchlist</div>
+            <div className="paradiv1">
+              An Email notification can be sent to you when an address on your
+              watch list recieves an incoming transaction.
+            </div>
+          </button>
         </div>
-        <button className={classes.btn}>
-          <div className="headingdiv1">Create watchlist</div>
-          <div className="paradiv1">
-            An Email notification can be sent to you when an address on your
-            watch list recieves an incoming transaction.
+        <LightToolTip
+          open={tooltipIsOpen}
+          title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
+          arrow
+          placement="top-start"
+        >
+          <div
+            className="learnMoreText"
+            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+          >
+            Learn More
           </div>
-        </button>
+        </LightToolTip>
       </div>
 
       {/* <Button
@@ -313,131 +353,136 @@ const screenSize = window.innerHeight
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-    {isSize===false
-        ?(
-      <div className={classes.createWatchlist}>
-        <Dialog
-          className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Add a New Address to your Watchlist
-            </div>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Address
-            </DialogContentText>
-            <input
-              className={classes.input}
-              onChange={(e) => {setAddress(e.target.value)
-                setError("")
-              }}
-              
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Description
-              {/* <span  className={classes.forgotpass}>
+      {isSize === false ? (
+        <div className={classes.createWatchlist}>
+          <Dialog
+            className={classes.dialog}
+            classes={{ paperWidthSm: classes.dialogBox }}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <Row>
+              <div className={classes.heading} id="form-dialog-title">
+                Add a New Address to your Watchlist
+              </div>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Address
+              </DialogContentText>
+              <input
+                className={classes.input}
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                  setError("");
+                }}
+              ></input>
+              {error ? <div className={classes.error}>{error}</div> : <></>}
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Description
+                {/* <span  className={classes.forgotpass}>
               Forgot ?
             </span> */}
-            </DialogContentText>
+              </DialogContentText>
 
-            <input
-              type="text"
-              className={classes.input}
-              onChange={(e) => {setDescription(e.target.value)
-              setDescriptionError("")
-            }}
-            ></input>
-            {descriptionError ? <div className={classes.error}>{descriptionError}</div> : <></>}
-            {/* <span>
+              <input
+                type="text"
+                className={classes.input}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  setDescriptionError("");
+                }}
+              ></input>
+              {descriptionError ? (
+                <div className={classes.error}>{descriptionError}</div>
+              ) : (
+                <></>
+              )}
+              {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
             </span> */}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Notifications
-            </DialogContentText>
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Notifications
+              </DialogContentText>
 
-            <FormControl
-              component="fieldset"
-              style={{ backgoundColor: "red !important" }}
-              className={classes.main_div}
-            >
-              {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
-              <RadioGroup
-                className={classes.radio}
-                style={{ margin: "-5px 28px -3px -10px" }}
-                value={value}
-                onChange={handleChange}
+              <FormControl
+                component="fieldset"
+                style={{ backgoundColor: "red !important" }}
+                className={classes.main_div}
               >
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="NO"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  style={{ margin: "5px 2px -5px -5px",}}
-                  classes={{ label: classes.notifyLabel }}
-                  label="No Notifications"
-                  onClick={(e) => setNotification(e.target.value)}
-                />
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="INOUT"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming & Outgoing Txns"
-                  onClick={(e) => setNotification(e.target.value)}
-                />
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="IN"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming (Recieve) Txns Only"
-                  onClick={(e) => setNotification(e.target.value)}
-                />
-                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
-                <FormControlLabel
-                  className="radio-inside-dot"
-                  value="OUT"
-                  control={<Radio style={{ color: "#979797" }} />}
-                  style={{ margin: "-5px 26px -5px -5px" }}
-                  classes={{ label: classes.notifyLabel }}
-                  label="Notify on Outgoing (Sent) Txns Only"
-                  onClick={(e) => setNotification(e.target.value)}
-                />
-              </RadioGroup>
-            </FormControl>
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <span onClick={handleClose}>
-              <button className={classes.cnlbtn} onClick={handleLogin}>
-                Cancel
-              </button>
-            </span>
-            <span >
-              <button className={classes.addbtn} onClick={watchListService}>
-                Add
-              </button>
-            </span>
-          </DialogActions>
-          {/* <div className={classes.value}></div>
+                {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
+                <RadioGroup
+                  className={classes.radio}
+                  style={{ margin: "-5px 28px -3px -10px" }}
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="NO"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    style={{ margin: "5px 2px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
+                    label="No Notifications"
+                    onClick={(e) => setNotification(e.target.value)}
+                  />
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="INOUT"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
+                    label="Notify on Incoming & Outgoing Txns"
+                    onClick={(e) => setNotification(e.target.value)}
+                  />
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="IN"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
+                    label="Notify on Incoming (Recieve) Txns Only"
+                    onClick={(e) => setNotification(e.target.value)}
+                  />
+                  {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
+                  <FormControlLabel
+                    className="radio-inside-dot"
+                    value="OUT"
+                    control={<Radio style={{ color: "#979797" }} />}
+                    style={{ margin: "-5px 26px -5px -5px" }}
+                    classes={{ label: classes.notifyLabel }}
+                    label="Notify on Outgoing (Sent) Txns Only"
+                    onClick={(e) => setNotification(e.target.value)}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </DialogContent>
+            <DialogActions className={classes.buttons}>
+              <span onClick={handleClose}>
+                <button className={classes.cnlbtn} onClick={handleLogin}>
+                  Cancel
+                </button>
+              </span>
+              <span>
+                <button className={classes.addbtn} onClick={watchListService}>
+                  Add
+                </button>
+              </span>
+            </DialogActions>
+            {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
             </DialogContentText> */}
-        </Dialog>
-      </div>)
-        : <Test />
-      }
+          </Dialog>
+        </div>
+      ) : (
+        <Test />
+      )}
     </div>
   );
 }

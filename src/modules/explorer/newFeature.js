@@ -40,7 +40,7 @@ const visited = ()=>{
         <Row className="main-row">
           <div className="main-title">New Features</div>
           <div className="main-close" onClick={handleClose}>
-            <img src={"/images/XDC-Cross.svg"} />
+            <img  alt="Cross" src={"/images/XDC-Cross.svg"} />
           </div>
         </Row>
         <div className="main-sub-title">
@@ -48,7 +48,7 @@ const visited = ()=>{
         </div>
         <Row className="card-box">
           <div className="card margin-right-34px">
-            <img
+            <img  alt="new-feature"
               src={require("../../../src/assets/images/watch-list-new-feature.svg")}
               className="crad-image"
             />
@@ -59,7 +59,7 @@ const visited = ()=>{
             </div>
           </div>
           <div className="card margin-right-34px">
-            <img
+            <img  alt="addLabel"
               src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
               className="crad-image"
             />
@@ -69,7 +69,7 @@ const visited = ()=>{
             </div>
           </div>
           <div className="card">
-            <img
+            <img  alt="addLabel"
               src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
               className="crad-image"
             />

@@ -1,7 +1,6 @@
 import * as React from "react";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import {makeStyles, useTheme} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -122,7 +121,7 @@ function TemporaryDrawer(props) {
             notificationIdArray.push(notification._id)
         })
         props.dispatchAction(eventConstants.SHOW_LOADER, true)
-        const [error, response] = await utility.parseResponse(NotificationService.markNotificationCleared({notificationIDArray: notificationIdArray}));
+        const [error] = await utility.parseResponse(NotificationService.markNotificationCleared({notificationIDArray: notificationIdArray}));
         props.dispatchAction(eventConstants.HIDE_LOADER, true)
         if (error) {
             utility.apiFailureToast(error?.message ? error.message : genericConstants.CANNOT_CLEAR_NOTIFICATIONS);

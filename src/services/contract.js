@@ -12,13 +12,7 @@ export default {
 async function getContractDetails(data) {
   let url =
     process.env.REACT_APP_GET_CONTRACT_DETAILS +
-    data.addr +
-    "?skip=" +
-    Math.ceil(data.pageNum) +
-    "&limit=" +
-    data.perpage +
-    "&keyword=" +
-    data.keywords;
+    data.addr
 
   return httpService(
     httpConstants.METHOD_TYPE.GET,
