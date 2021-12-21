@@ -622,7 +622,7 @@ export default function SimpleTabs(props) {
       setWatchlist(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked1 === true) {
-          
+          console.log("lengeeeeeee", addr);
           return addr;
         }
       });

@@ -320,7 +320,7 @@ class LatestBlocks extends Component {
 
                 <div className="latestTranscation">
                   <div className="latest2">
-                    <h1>Latest Transactions</h1>
+                    <h1>Latest Transations</h1>
                     <a className="nav_button" href="/view-all-transaction">
                       View All
                     </a>

@@ -63,24 +63,24 @@ export default function Transaction({ _handleChange }) {
   const [isTagTo, setIsTagTo] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [fromAddress, setFromAddress] = useState("");
+  // const [fromAddress, setFromAddress] = useState("");
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
-  function shorten(b, amountL = 35, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
-  function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - 0,
-      b.length
-    )}`;
-  }
+  // function shorten(b, amountL = 35, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
+  // function shortenHash(b, amountL = 10, amountR = 3, stars = 3) {
+  //   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+  //     b.length - 0,
+  //     b.length
+  //   )}`;
+  // }
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -146,9 +146,9 @@ export default function Transaction({ _handleChange }) {
     );
     if (
       !transactiondetailusinghash ||
-      transactiondetailusinghash.length == 0 ||
+      transactiondetailusinghash.length === 0 ||
       transactiondetailusinghash === undefined ||
-      transactiondetailusinghash == "" ||
+      transactiondetailusinghash === "" ||
       transactiondetailusinghash === null
     ) {
       setLoading(false);
@@ -275,41 +275,52 @@ export default function Transaction({ _handleChange }) {
   
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
-    let today = Date.now()
+    let today = Date.now();
     let difference = today - date;
     var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    difference -= daysDifference * 1000 * 60 * 60 * 24
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
     var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-    difference -= hoursDifference * 1000 * 60 * 60
+    difference -= hoursDifference * 1000 * 60 * 60;
     var minutesDifference = Math.floor(difference / 1000 / 60);
-    difference -= minutesDifference * 1000 * 60
+    difference -= minutesDifference * 1000 * 60;
     var secondsDifference = Math.floor(difference / 1000);
-    console.log('difference = ' +
-      daysDifference + ' day/s ' +
-      hoursDifference + ' hour/s ' +
-      minutesDifference + ' minute/s ' +
-      secondsDifference + ' second/s ');
-    if (secondsDifference < 60 && minutesDifference === 0 && hoursDifference === 0 && daysDifference === 0) {
-      if (secondsDifference === 1)
-        return secondsDifference + " second ago "
-      else return secondsDifference + " seconds ago "
+    console.log(
+      "difference = " +
+        daysDifference +
+        " day/s " +
+        hoursDifference +
+        " hour/s " +
+        minutesDifference +
+        " minute/s " +
+        secondsDifference +
+        " second/s "
+    );
+    if (
+      secondsDifference < 60 &&
+      minutesDifference === 0 &&
+      hoursDifference === 0 &&
+      daysDifference === 0
+    ) {
+      if (secondsDifference === 1) return secondsDifference + " second ago ";
+      else return secondsDifference + " seconds ago ";
     }
-  if (minutesDifference < 60 && hoursDifference === 0 && daysDifference === 0) {
-    if (minutesDifference === 1)
-      return minutesDifference + " minute ago "
-    return minutesDifference + " minutes ago"
-  }
-  if (hoursDifference < 60 && daysDifference === 0) {
-    if (hoursDifference === 1)
-      return hoursDifference + " hour ago "
-    return hoursDifference + " hours ago"
-  }
-  if (daysDifference < 30) {
-    if (hoursDifference === 1)
-      return hoursDifference + " day ago "
-    return daysDifference + " days ago"
-  }
-}
+    if (
+      minutesDifference < 60 &&
+      hoursDifference === 0 &&
+      daysDifference === 0
+    ) {
+      if (minutesDifference === 1) return minutesDifference + " minute ago ";
+      return minutesDifference + " minutes ago";
+    }
+    if (hoursDifference < 60 && daysDifference === 0) {
+      if (hoursDifference === 1) return hoursDifference + " hour ago ";
+      return hoursDifference + " hours ago";
+    }
+    if (daysDifference < 30) {
+      if (hoursDifference === 1) return hoursDifference + " day ago ";
+      return daysDifference + " days ago";
+    }
+  };
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -333,14 +344,23 @@ export default function Transaction({ _handleChange }) {
                       ) : null}
                     </Container>
                   </Spacing>
+                  {/* 
+                  <Div>
+                    <HashDiv>
+                      <Container>
+                        <Tooltip align="right" title={hashid}>
+                          <ImageView src={"/images/questionmark.svg"} />
+                        </Tooltip>
+
+                        <Hash>Hash ID</Hash>
+                      </Container>
+                    </Spacing> */}
 
                   <Div>
                     <HashDiv>
                       <Container>
                         <Tooltip align="right" title={hashid}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Hash ID</Hash>
@@ -353,7 +373,7 @@ export default function Transaction({ _handleChange }) {
                         <span
                           className={
                             width > 1240
-                              ? "copyEditContainer"
+                              ? "copyEditContainer2"
                               : width <= 1240 && width >= 768
                               ? "copyEditContainerTab"
                               : "copyEditContainerMobile"
@@ -391,30 +411,33 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {sessionManager.getDataFromCookies("isLoggedIn") ?
-                          <>
-                          {
-                            <PrivateNote
-                              open={dialogPvtNoteIsOpen}
-                              onClose={closeDialogPvtNote}
-                              hash={hash}
-                              pvtNote={privateNote[0]?.trxLable}
-                            />
-                          }
-                          {
-                            <img
-                              className={
-                                width > 1240
-                                  ? "edit-icon"
-                                  : width < 768
-                                  ? "editIconHashMobile"
-                                  : "editIconHash"
+                          {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                            <>
+                              {
+                                <PrivateNote
+                                  open={dialogPvtNoteIsOpen}
+                                  onClose={closeDialogPvtNote}
+                                  hash={hash}
+                                  pvtNote={privateNote[0]?.trxLable}
+                                />
                               }
-                              onClick={openDialogPvtNote}
-                              src={require("../../../src/assets/images/label.svg")}
-                            />
-                          }
-                          </> : "" }
+                              {
+                                <img
+                                  className={
+                                    width > 1240
+                                      ? "edit-icon"
+                                      : width < 768
+                                      ? "editIconHashMobile"
+                                      : "editIconHash"
+                                  }
+                                  onClick={openDialogPvtNote}
+                                  src={require("../../../src/assets/images/label.svg")}
+                                />
+                              }
+                            </>
+                          ) : (
+                            ""
+                          )}
                         </span>
                       </MiddleContainer1>
                     </HashDiv>
@@ -424,9 +447,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={blocknumber}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Block Number</Hash>
@@ -447,16 +468,13 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={timestamp}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Timestamp</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
                         {" "}
-                        
                         {moment(transactions.timestamp * 1000).format(
                           "YYYY-MM-DD, h:mm:ss a"
                         )} +0530 ({getHoursAgo(transactions.timestamp * 1000)})
@@ -465,9 +483,7 @@ export default function Transaction({ _handleChange }) {
                     <SpacingHash>
                       <Container>
                         <Tooltip title={from}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>From</Hash>
@@ -476,7 +492,7 @@ export default function Transaction({ _handleChange }) {
                         <Content>
                           {" "}
                           <span
-                            style={{ display: width > 1240 ? "flex" : "block" }}
+                            style={{ display: width > 768 ? "flex" : "block" }}
                           >
                             <a
                               className="linkTableDetails-transaction"
@@ -523,35 +539,38 @@ export default function Transaction({ _handleChange }) {
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
-                              {sessionManager.getDataFromCookies("isLoggedIn") ?
-                              <>
-                              
-                              {
-                                
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen}
-                                  onClose={closeDialogPvtTag}
-                                  fromAddr={transactions.from}
-                                  value={dialogValue}
-                                  hash={hash}
-                                />
-                              }
-                              {isTag ? (
-                                <div className="nameLabel">
-                                  {addressTag[0]?.tagName}
-                                </div>
-                              ) : (
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
+                              {sessionManager.getDataFromCookies(
+                                "isLoggedIn"
+                              ) ? (
+                                <>
+                                  {
+                                    <PrivateAddressTag
+                                      open={dialogPvtTagIsOpen}
+                                      onClose={closeDialogPvtTag}
+                                      fromAddr={transactions.from}
+                                      value={dialogValue}
+                                      hash={hash}
+                                    />
                                   }
-                                  onClick={openDialogPvtTag}
-                                  src={require("../../../src/assets/images/tag.svg")}
-                                />
+                                  {isTag ? (
+                                    <div className="nameLabel">
+                                      {addressTag[0]?.tagName}
+                                    </div>
+                                  ) : (
+                                    <img
+                                      className={
+                                        width > 1240
+                                          ? "edit1-icon"
+                                          : "edit1-icon-from"
+                                      }
+                                      onClick={openDialogPvtTag}
+                                      src={require("../../../src/assets/images/tag.svg")}
+                                    />
+                                  )}
+                                </>
+                              ) : (
+                                ""
                               )}
-                              </> : ""}
                             </div>
                           </span>
                         </Content>
@@ -560,9 +579,7 @@ export default function Transaction({ _handleChange }) {
                     <SpacingHash>
                       <Container>
                         <Tooltip title={to}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>To</Hash>
@@ -617,32 +634,38 @@ export default function Transaction({ _handleChange }) {
                                   </button>
                                 </Tooltip>
                               </CopyToClipboard>
-                              {sessionManager.getDataFromCookies("isLoggedIn") ?
-                              <>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen2}
-                                  onClose={closeDialogPvtTag2}
-                                  toAddr={transactions.to}
-                                  value={dialogValue2}
-                                  hash={hash}
-                                />
-                              }
-                              {isTagTo ? (
-                                <div className="nameLabel">
-                                  {addressTagTo[0]?.tagName}
-                                </div>
-                              ) : (
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
+                              {sessionManager.getDataFromCookies(
+                                "isLoggedIn"
+                              ) ? (
+                                <>
+                                  {
+                                    <PrivateAddressTag
+                                      open={dialogPvtTagIsOpen2}
+                                      onClose={closeDialogPvtTag2}
+                                      toAddr={transactions.to}
+                                      value={dialogValue2}
+                                      hash={hash}
+                                    />
                                   }
-                                  onClick={openDialogPvtTag2}
-                                  src={require("../../../src/assets/images/tag.svg")}
-                                />
-                              )}</> : ""}
+                                  {isTagTo ? (
+                                    <div className="nameLabel">
+                                      {addressTagTo[0]?.tagName}
+                                    </div>
+                                  ) : (
+                                    <img
+                                      className={
+                                        width > 1240
+                                          ? "edit1-icon"
+                                          : "edit1-icon-from"
+                                      }
+                                      onClick={openDialogPvtTag2}
+                                      src={require("../../../src/assets/images/tag.svg")}
+                                    />
+                                  )}
+                                </>
+                              ) : (
+                                ""
+                              )}
                             </div>
                           </span>
                         </Content>
@@ -651,9 +674,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={value}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Value</Hash>
                       </Container>
@@ -669,9 +690,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip title={txnfee}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
 
                         <Hash>Txn Fee</Hash>
@@ -692,9 +711,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={gasprovided}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Gas Provided</Hash>
                       </Container>
@@ -705,9 +722,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={gasprice}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Gas Price</Hash>
                       </Container>
@@ -721,9 +736,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={gasused}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Gas Used</Hash>
                       </Container>
@@ -738,9 +751,7 @@ export default function Transaction({ _handleChange }) {
                     <Spacing>
                       <Container>
                         <Tooltip align="right" title={nounced}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Nonce</Hash>
                       </Container>
@@ -770,9 +781,7 @@ export default function Transaction({ _handleChange }) {
                     <SpacingPrivateNode>
                       <Container>
                         <Tooltip align="right" title={transferToken}>
-                          <ImageView
-                            src={"/images/questionmark.svg"}
-                          />
+                          <ImageView src={"/images/questionmark.svg"} />
                         </Tooltip>
                         <Hash>Private Note</Hash>
                       </Container>
@@ -931,6 +940,7 @@ const MiddleContainerPrivateNote = styled.div`
     text-align: left;
     letter-spacing: 0.2px;
     opacity: 1;
+    margin-left: 64px;
   }
 `;
 const MiddleContainerInputData = styled.div`
@@ -955,6 +965,7 @@ const MiddleContainerInputData = styled.div`
     text-align: left;
     letter-spacing: 0.034rem;
     opacity: 1;
+    margin-left: 64px;
   }
 `;
 
@@ -987,6 +998,7 @@ const MiddleContainer = styled.div`
     letter-spacing: 0.034rem;
     color: #3a3a3a;
     opacity: 1;
+    margin-left: 64px;
   }
 `;
 
@@ -1021,6 +1033,7 @@ const MiddleContainer1 = styled.div`
     color: #3a3a3a;
     opacity: 1;
     display: block;
+    margin-left: 64px;
   }
 `;
 

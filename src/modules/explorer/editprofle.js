@@ -215,7 +215,7 @@ export default function FormDialog(props) {
       email: email,
       profilePic: url ? url : profilePicture,
     };
-    
+
     if (!userName.match(regExAlphaNum)) {
       setUserNameError("Enter valid Username");
       setLoading(false);
@@ -241,7 +241,7 @@ export default function FormDialog(props) {
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse.userId, "userId");
-        history.push("loginProfile");
+        history.push("/loginProfile");
         handleClose();
         // window.location.href = "loginprofile";
         return authResponse;
@@ -285,7 +285,7 @@ export default function FormDialog(props) {
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse.userId, "userId");
-        history.push("loginProfile");
+        history.push("/loginProfile");
         handleClose();
         // window.location.href = "loginprofile";
         return authResponse;
@@ -310,10 +310,10 @@ export default function FormDialog(props) {
       utility.apiFailureToast(" Upload failed");
       return false;
     } else {
-      if(userInfo.name === userName && userInfo.email === email) {
-      utility.apiSuccessToast("Pic uploaded successfully");
-      setLoading(false);
-      history.go(0);
+      if (userInfo.name === userName && userInfo.email === email) {
+        utility.apiSuccessToast("Pic uploaded successfully");
+        setLoading(false);
+        history.go(0);
       }
       sessionManager.setDataInCookies(
         awsResponse[0].url,
@@ -419,13 +419,13 @@ export default function FormDialog(props) {
       if (!response) return;
       setProfilePicture(response[0].url);
     }
-    if(userInfo.name !== userName || userInfo.email !== email) {
-    if(userInfo.name !== userName && userInfo.email === email) {
-      let upadteUser = await updateUserName(response[0]?.url);
-    } else {
-      let upadteUser = await updateUser(response[0]?.url);
+    if (userInfo.name !== userName || userInfo.email !== email) {
+      if (userInfo.name !== userName && userInfo.email === email) {
+        let upadteUser = await updateUserName(response[0]?.url);
+      } else {
+        let upadteUser = await updateUser(response[0]?.url);
+      }
     }
-  }
   };
   const getUserName = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
@@ -449,51 +449,52 @@ export default function FormDialog(props) {
     }
   }, []);
   function getWindowDimensions() {
-
     const { innerWidth: width, innerHeight: height } = window;
 
     return {
-
       width,
 
-      height
-
+      height,
     };
-
   }
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
   React.useEffect(() => {
- function handleResize() {
-   setWindowDimensions(getWindowDimensions());
-
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
     }
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
-
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
 
   return (
     <div>
-     
-        <div className={classes.add}>
-        <button className="login-button" onClick={()=>{
-          if(width) handleClickOpen()
-          else history.push("/edit-profile")}}>
-            <div className="edit">Edit Profile</div>
-          </button>
-          <ProfilePicContainer>
-            <Dialog
-              classes={{ paper: classes.paper }}
-              className={classes.dialog}
-              open={opens}
-              onClose={handleClose}
-              aria-labelledby="form-dialog-title"
-             
-            >
-             <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
+      <div className={classes.add}>
+        <button
+          className="login-button"
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/edit-profile");
+                }
+          }
+        >
+          <div className="edit">Edit Profile</div>
+        </button>
+        <ProfilePicContainer>
+          <Dialog
+            classes={{ paper: classes.paper }}
+            className={classes.dialog}
+            open={opens}
+            onClose={handleClose}
+            aria-labelledby="form-dialog-title"
+          >
+            <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
               <Wrapper>
                 <Title>Edit Profile</Title>
 
@@ -512,7 +513,11 @@ export default function FormDialog(props) {
               />
 
               <DialogContent
-                style={{ padding: "8px 35px", marginBottom: "14px", overflow: "hidden" }}
+                style={{
+                  padding: "8px 35px",
+                  marginBottom: "14px",
+                  overflow: "hidden",
+                }}
               >
                 <DialogContentText className={classes.subCategory}>
                   Username
@@ -574,7 +579,11 @@ export default function FormDialog(props) {
                     }}
                   />
                 )}
-                {emailError ? <div className={classes.error}>{emailError}</div> : <></>}
+                {emailError ? (
+                  <div className={classes.error}>{emailError}</div>
+                ) : (
+                  <></>
+                )}
               </DialogContent>
 
               <DialogActions>
@@ -589,10 +598,9 @@ export default function FormDialog(props) {
               </DialogActions>
 
               <div className={classes.value}></div>
-              </div>
-            </Dialog>
-          </ProfilePicContainer>
-        
+            </div>
+          </Dialog>
+        </ProfilePicContainer>
       </div>
     </div>
   );
