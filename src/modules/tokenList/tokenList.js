@@ -230,7 +230,7 @@ export default function StickyHeadTable(props) {
       }
 
       if (responseData.total > 0) {
-        setNoData(0);
+        // setNoData(0);
         setTotalToken(responseData.total);
         setLoading(false);
         setRows(responseData.resultSet);
@@ -278,6 +278,18 @@ export default function StickyHeadTable(props) {
     font-weight: bold;
     @media (max-width: 1250px) {
       font-size: 13px;
+    }
+  `;
+
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
     }
   `;
 
@@ -481,7 +493,7 @@ export default function StickyHeadTable(props) {
                 </TableBody>
               )
             )}
-            {noData == true && (
+            {/* {noData == true && (
               <TableBody>
                 <TableCell id="td" style={{ borderBottom: "none" }}>
                   <span
@@ -492,8 +504,17 @@ export default function StickyHeadTable(props) {
                   </span>
                 </TableCell>
               </TableBody>
-            )}
+            )} */}
           </Table>
+          {noData == true && (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+
+              <div>No transactions found</div>
+            </NoDataFoundContainer>
+          )}
         </TableContainer>
 
         {/* <Divider className={classes.divider}/>*/}
