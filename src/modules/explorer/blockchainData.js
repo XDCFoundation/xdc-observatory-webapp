@@ -105,6 +105,9 @@ const ValueMain = styled.div`
   flex-wrap: wrap;
   padding: 0px 4px;
   /* margin-top: 12px; */
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding-right: 26px
+  }
 `;
 
 const Value = styled.div`
@@ -201,6 +204,8 @@ const LeftTitle = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
+    font-weight: 700;
+    color: #252525;
   }
   @media (min-width: 768px) {
     font-size: 1.5rem;
@@ -586,6 +591,17 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
+                  <TitleIcon src={priceLogo} />
+                  <ValueName>
+                    <Title>Gas Price</Title>
+                    <TitleData
+                      className={TxanimationClass ? TxanimationClass : ""}
+                    >
+                      {this.state.gasPrice}
+                    </TitleData>
+                  </ValueName>
+                </Value>
+                <Value>
                   <TitleIcon src={transactionLogo} />
                   <ValueName>
                     <Title>Transactions</Title>
@@ -602,24 +618,13 @@ class BlockChainDataComponent extends Component {
                     </Tooltip>
                   </ValueName>
                 </Value>
-                <Value>
+              </MobileScreen>
+              <MobileScreen>
+              <Value>
                   <TitleIcon src={maxLogo} />
                   <ValueName>
                     <Title>Current/Max TPS</Title>
                     <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
-              <MobileScreen>
-                <Value>
-                  <TitleIcon src={priceLogo} />
-                  <ValueName>
-                    <Title>Gas Price</Title>
-                    <TitleData
-                      className={TxanimationClass ? TxanimationClass : ""}
-                    >
-                      {this.state.gasPrice}
-                    </TitleData>
                   </ValueName>
                 </Value>
                 <Value>
