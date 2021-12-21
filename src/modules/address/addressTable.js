@@ -17,6 +17,7 @@ import AddressData from "../../services/address";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
+import styled from "styled-components";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -209,6 +210,9 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getTransactionsCountForAddress(data)
       );
+      if (!responseData) {
+        setNoData(true);
+      }
       setTotalRecord(parseInt(responseData));
     } catch (error) {
       console.error(error);
@@ -379,6 +383,18 @@ export default function AddressTableComponent(props) {
       );
     }
   };
+
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
+    }
+  `;
 
   return (
     <div>
@@ -692,7 +708,7 @@ export default function AddressTableComponent(props) {
                   </TableBody>
                 )
               )}
-              {noData == true && (
+              {/* {noData == true && (
                 <TableBody>
                   <TableRow>
                     <TableCell
@@ -706,8 +722,17 @@ export default function AddressTableComponent(props) {
                     </TableCell>
                   </TableRow>
                 </TableBody>
-              )}
+              )} */}
             </Table>
+            {noData == true && (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
+
+                <div>No Holders Found</div>
+              </NoDataFoundContainer>
+            )}
           </TableContainer>
         </Paper>
         <Grid
