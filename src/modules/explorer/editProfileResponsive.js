@@ -186,7 +186,6 @@ const Title = styled.div`
 `;
 const ProfilePicContainer = styled.div`
   @media (min-width: 300px) and (max-width: 767px) {
-    margin-top: 200px;
     max-width: 503px;
     width: 100%;
     height: 102px;
