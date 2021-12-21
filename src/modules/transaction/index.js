@@ -51,7 +51,7 @@ export default class LatestTransactionList extends BaseComponent {
   }
 
   async getListOfTransactions(from, amount) {
-    debugger;
+    // debugger;
     from = from || from === 0 ? from : this.state.from;
     amount = amount ? amount : this.state.amount;
     let urlPath = `?skip=${from}&limit=${amount}`;
