@@ -4,13 +4,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Column, Row } from "simple-flexbox";
+import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
-import { withStyles } from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
+import {withStyles} from "@material-ui/core/styles";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100% !important",
       height: "100% !important",
       borderRadius: "1px !important",
-      maxWidth: "768px !important",
+      maxWidth: "768px !important"
     },
   },
   buttons: {
@@ -174,7 +174,7 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogBox: {
       width: "362px",
-      top: "95px",
+      top: "95px"
     },
     input: {
       maxWidth: "503px",
@@ -190,8 +190,8 @@ const useStyles = makeStyles((theme) => ({
 const LightToolTip = withStyles({
   arrow: {
     "&:before": {
-      backgroundColor: "white",
-    },
+      backgroundColor: "white"
+    }
   },
   tooltip: {
     color: "#2a2a2a",
@@ -203,7 +203,7 @@ const LightToolTip = withStyles({
     fontStyle: "normal",
     lineHeight: "1.42",
     letterSpacing: "0.46px",
-  },
+  }
 })(Tooltip);
 
 export default function FormDialog() {
@@ -222,28 +222,26 @@ export default function FormDialog() {
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function TaggedAddress() {
-    setError("");
-    setErrorTag("");
+    setError("")
+    setErrorTag("")
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: tags,
     };
-    if (
-      !(privateAddress && privateAddress.length === 43) ||
-      !(privateAddress.slice(0, 3) === "xdc")
-    ) {
-      setError("Address should start with xdc & 43 characters");
+    if (!(privateAddress && privateAddress.length === 43) || !(privateAddress.slice(0, 3) === "xdc")) {
+      setError("Address should start with xdc & 43 characters")
       return;
     } else if (tags.length === 0) {
       setErrorTag("Use comma(,) to add multiple tag");
       return;
-    } else if (tags && tags.length > 5) {
+    }
+    else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
       const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
+          UserService.addPrivateTagToAddress(data)
       );
 
       if (error) {
@@ -256,6 +254,7 @@ export default function FormDialog() {
     }
   }
 
+
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -264,13 +263,14 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
-    setError("");
-    setErrorTag("");
+    setError("")
+    setErrorTag("")
     setPrivateAddress("");
     setTags([]);
   };
 
-  const [input, setInput] = React.useState("");
+
+  const [input, setInput] = React.useState('');
   const [tags, setTags] = React.useState([]);
   const [isKeyReleased, setIsKeyReleased] = React.useState(false);
 
@@ -284,10 +284,10 @@ export default function FormDialog() {
     const { key } = e;
     const trimmedInput = input.trim();
 
-    if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
+    if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      setTags((prevState) => [...prevState, trimmedInput]);
-      setInput("");
+      setTags(prevState => [...prevState, trimmedInput]);
+      setInput('');
       setErrorTag("");
     }
 
@@ -304,65 +304,58 @@ export default function FormDialog() {
 
   const onKeyUp = () => {
     setIsKeyReleased(true);
-  };
+  }
 
   const deleteTag = (index) => {
-    setTags((prevState) => prevState.filter((tag, i) => i !== index));
-  };
+    setTags(prevState => prevState.filter((tag, i) => i !== index))
+  }
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height,
+      height
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(
-    getWindowDimensions()
-  );
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
 
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const { width } = windowDimensions;
+  const { width } = windowDimensions
 
   return (
-    <div>
-      <div className="div1" onClick={handleClickOpen}>
-        <Column alignItems="center">
-          <img className="watchlist-image" src={"/images/private.svg"}></img>
-        </Column>
-        <button className={classes.btn}>
-          <div className="headingdiv1">Add private tag to an Address</div>
-          <div className="paradiv1">
-            Add a short memo or private tag to the address of interest.
+      <div>
+        <div className="div3 cursor-pointer">
+          <div className="imageParentDiv" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
+            <img
+                className="imagediv3"
+                src={"/images/private.png"}
+            ></img>
           </div>
-        </button>
-
-        <div className="imageParentDiv">
-          <LightToolTip
-            open={tooltipIsOpen}
-            title="Add a short memo or private tag to the address of interest."
-            arrow
-            placement="top-start"
-          >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
+          <div onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
+            <div className="headingdiv3"><div>Add private tag to an Address</div></div>
+            <div className="paradiv3">
+              Add a short memo or private tag to the address of interest.
             </div>
-          </LightToolTip>
-        </div>
-      </div>
+          </div>
 
-      {/* <Button
+          <div className="imageParentDiv" style={{position: "relative", top:"32px"}}>
+            <LightToolTip open={tooltipIsOpen}
+                          title="Add a short memo or private tag to the address of interest." arrow placement="top-start">
+              <div className="learnMoreText" onClick={() => setTooltipIsOpen(!tooltipIsOpen)}>Learn More</div>
+            </LightToolTip>
+          </div>
+
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -371,97 +364,91 @@ export default function FormDialog() {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      <div>
-        <Dialog
-          // className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Add a new Address Tag
-            </div>
-            {/* <span onClick={handleClose} className={classes.cross}>
+        <div>
+          <Dialog
+              // className={classes.dialog}
+              classes={{ paperWidthSm: classes.dialogBox }}
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+          >
+            <Row>
+              <div className={classes.heading} id="form-dialog-title">
+                Add a new Address Tag
+              </div>
+              {/* <span onClick={handleClose} className={classes.cross}>
               {" "}
               X{" "}
             </span> */}
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Address
-            </DialogContentText>
-            <input
-              className={classes.input}
-              onChange={(e) => {
-                setPrivateAddress(e.target.value);
-                setError("");
-              }}
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Name Tag
-              {/* <span  className={classes.forgotpass}>
+            </Row>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Address
+              </DialogContentText>
+              <input
+                  className={classes.input}
+                  onChange={(e) => {
+                    setPrivateAddress(e.target.value)
+                    setError("")
+                  }}
+              ></input>
+              {error ? <div className={classes.error}>{error}</div> : <></>}
+            </DialogContent>
+            <DialogContent>
+              <DialogContentText className={classes.subCategory}>
+                Name Tag
+                {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
-            </DialogContentText>
+              </DialogContentText>
 
-            <div className="containerTag">
-              {tags.map((tag, index) => (
-                <div className="tag">
+              <div className="containerTag">
+                {tags.map((tag, index) => (<div className="tag">
                   {tag}
                   <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-              ))}
-              <input
-                value={input}
-                placeholder="Enter a tag"
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
-                onChange={onChange}
-              />
-            </div>
-            {errorTag ? (
-              <div className={classes.error1}>{errorTag}</div>
-            ) : (
-              <></>
-            )}
-            {/* <input
+                </div>))}
+                <input
+                    value={input}
+                    placeholder="Enter a tag"
+                    onKeyDown={onKeyDown}
+                    onKeyUp={onKeyUp}
+                    onChange={onChange}
+                />
+              </div>
+              {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
+              {/* <input
               type="text"
               className={classes.input}
               onChange={(e) => setNameTag(e.target.value)}
             ></input> */}
-            {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
-            {/* <span>
+              {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
+              {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
+             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity}
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
+            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>}
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
+              {/* </span> */}
+            </DialogContent>
+            <DialogActions className={classes.buttons}>
             <span>
               <button className={classes.cnlbtn} onClick={handleClose}>
                 Cancel
               </button>
             </span>
-            <span>
+              <span>
               <button className={classes.addbtn} onClick={TaggedAddress}>
                 Add
               </button>
             </span>
-          </DialogActions>
-          {/* <div className={classes.value}></div>
+            </DialogActions>
+            {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
+              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-        </Dialog>
+          </Dialog>
+        </div>
       </div>
-    </div>
   );
 }
