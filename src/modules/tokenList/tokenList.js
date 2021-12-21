@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Tokensearchbar from "./tokensearchBar";
+import Tokensearchbar from "../explorer/tokensearchBar";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import Utility from "../../utility";
@@ -15,7 +15,7 @@ import TokenData from "../../services/token";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
-import { Row, Column } from "simple-flexbox";
+import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 
 const Pagination = styled.div`
   display: flex;
@@ -82,7 +82,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
   const [amount, setAmount] = React.useState(10);
@@ -192,7 +192,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTokenLists(data)
       );
-      if (error) return;
+if(error) return;
       if (responseData) {
         setLoading(false);
         setRows(responseData);
@@ -208,7 +208,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTotalToken()
       );
-      if (error) return;
+      if(error) return;
       if (responseData) {
         setTotalToken(responseData);
       }
@@ -221,7 +221,7 @@ export default function StickyHeadTable() {
       const [error, responseData] = await Utility.parseResponse(
         TokenData.getTokenSearch(data)
       );
-      if (error) return;
+      if(error) return;
       if (responseData.total === 0) {
         setNoData(1);
         setTotalToken(0);
@@ -272,61 +272,65 @@ export default function StickyHeadTable() {
     )}`;
   }
 
-  const TokenTitle = styled.div`
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0 0 15px 0;
-    @media (max-width: 1250px) {
-      font-size: 13px;
-    }
-  `;
-
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
-
-      <form
-        method="post"
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-          }
-        }}
-      >
-        <Column
-          className={
-            "responsive-table-width-token-list token-list-tab_11 search-container"
-          }
-        >
-          <TokenTitle>Tokens</TokenTitle>
-          <div className="searchelement-input input-searchelement_11">
-            <img
-              style={{
-                width: 20,
-                height: 20,
-                marginRight: 6,
-                marginTop: 3,
-              }}
-              src={"/images/Search.svg"}
-            />
-            <input
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              onChange={(e) => {
-                if (e.target.value == "") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              className="account-searchbar"
-              type="text"
-              placeholder="Search Tokens"
-            />
-          </div>
-        </Column>
-      </form>
+      <div>
+        <div>
+          <form
+            method="post"
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+              }
+            }}
+          >
+            <div className="display-flex searchelement-div div-searchelement_11">
+            <div className="">
+              <p className="searchelement-token token-searchelement_11">
+                Tokens
+              </p>
+              <div className="searchelement-input input-searchelement_11">
+                <img
+                  style={{
+                    width: 20,
+                    height: 20,
+                    marginRight: 6,
+                    marginTop: 3,
+                  }}
+                  src={"/images/Search.svg"}
+                />
+                <input
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      handleSearchKeyUp(e);
+                    }
+                  }}
+                  onChange={(e) => {
+                    if (e.target.value == "") {
+                      handleSearchKeyUp(e);
+                    }
+                  }}
+                  className="account-searchbar"
+                  type="text"
+                  placeholder="Search Tokens"
+                />
+              </div>
+            </div>
+            <div className=" display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img onClick={handleSettingsClick} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
+              <ConfigureColumnPopOver
+                  isOpen={isSettingColumnOpen}
+                  anchorEl={anchorEl}
+                  handleOnClose={handleOnClose}
+                  tableColumns={props.state.tableColumns}
+                  toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <br />
       <Paper
@@ -335,6 +339,7 @@ export default function StickyHeadTable() {
           borderRadius: "0.875rem",
           // marginLeft: "18%",
           // marginRight: "18%",
+          
         }}
         elevation={0}
       >
@@ -351,24 +356,21 @@ export default function StickyHeadTable() {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "75px" }}
-                  align="left"
-                >
+                {props?.state?.tableColumns["Hash"].isActive &&  <TableCell style={{ border: "none", paddingLeft: "75px" }} align="left">
                   <span>#</span>
-                </TableCell>
+                </TableCell>}
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Contract</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                {props?.state?.tableColumns["Symbol"].isActive &&<TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Symbol</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
+                </TableCell>}
+                {props?.state?.tableColumns["Type"].isActive &&<TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Type</span>
-                </TableCell>
+                </TableCell>}
                 <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -377,14 +379,14 @@ export default function StickyHeadTable() {
                     Total Supply
                   </span>
                 </TableCell>
-                <TableCell
+                {props?.state?.tableColumns["Total Holders"].isActive && <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
                 >
                   <span className={"tablehead-token-details"}>
                     Total Holders
                   </span>
-                </TableCell>
+                </TableCell>}
               </TableRow>
             </TableHead>
             {isLoading == true ? (
@@ -408,10 +410,8 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell style={{ paddingLeft: "75px" }} id="td">
-                          {index + 1}
-                        </TableCell>
-                        <TableCell>
+                        {props?.state?.tableColumns["Hash"].isActive && <TableCell style={{paddingLeft: "75px"}} id="td">{index + 1}</TableCell>}
+                          <TableCell>
                           <a
                             className="token-details-address-link"
                             href={`/token-data/${row.address}/${
@@ -424,22 +424,22 @@ export default function StickyHeadTable() {
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
                           {shorten(row.tokenName, 9, 0, 3)}
                         </TableCell>
-                        <TableCell id="td">
+                        {props?.state?.tableColumns["Symbol"].isActive && <TableCell id="td">
                           <img
                             style={{ height: "24", width: "24" }}
                             src={"/images/XRC20-Icon.svg"}
                           ></img>
                           &nbsp;{row.symbol}
-                        </TableCell>
-                        <TableCell id="td">{row.type}</TableCell>
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
+                        </TableCell>}
+                        {props?.state?.tableColumns["Type"].isActive &&  <TableCell id="td">{row.type}</TableCell>}
+                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {utility.convertToInternationalCurrencySystem(
                             row.totalSupply
                           )}
                         </TableCell>
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
+                        {props?.state?.tableColumns["Total Holders"].isActive && <TableCell id="td" style={{ paddingleft: "15" }}>
                           {row.tokenHolders}
-                        </TableCell>
+                        </TableCell>}
                       </TableRow>
                     );
                   })}
@@ -519,7 +519,10 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("prev")}
           >
-            <img className="navigation-arrow" src={"/images/back.svg"} />
+            <img
+              className="navigation-arrow"
+              src={"/images/back.svg"}
+            />
 
             {/* <p className="path-contract">{"<"}</p> */}
           </div>
@@ -540,7 +543,10 @@ export default function StickyHeadTable() {
             }
             onClick={() => handleChangePage("next")}
           >
-            <img className="navigation-arrow" src={"/images/next.svg"} />
+            <img
+              className="navigation-arrow"
+              src={"/images/next.svg"}
+            />
           </div>
           <div
             className={
