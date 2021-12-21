@@ -181,15 +181,12 @@ export default function FooterComponent(props) {
         </FirstCloumn>
 
         <SecondCloumn>
-          <Grid
-            alignContent="center"
-            item
-            xs={12}
-            style={{ margin: " 0 10px 10px 10px" }}
-          >
+          <Grid alignContent="center" item xs={12}>
             <div className="Table-Header text-align-left">
               Community
-              <hr style={{ marginRight: "20px" }}></hr>
+              <div style={{ width: "100%", paddingRight: "10px" }}>
+                <hr></hr>
+              </div>
             </div>
 
             <div className="Table-Comp">
@@ -235,12 +232,7 @@ export default function FooterComponent(props) {
             </div>
           </Grid>
 
-          <Grid
-            justify="left"
-            item
-            xs={12}
-            style={{ margin: " 0 10px 10px 10px" }}
-          >
+          <Grid justify="left" item xs={12} style={{ margin: " 0 0 0 10px" }}>
             <div className="Table-Header">
               Other Links
               <hr></hr>
@@ -292,14 +284,8 @@ export default function FooterComponent(props) {
         </SecondCloumn>
 
         <BlankSpaceDiv>
-          <div></div>
           <ThirdCloumn>
-            <Grid
-              alignContent="center"
-              item
-              xs={12}
-              style={{ margin: " 0 10px 10px 10px" }}
-            >
+            <Grid alignContent="center" item xs={12}>
               <div className="Table-Header">
                 Follow Us
                 <hr style={{ marginRight: "20px" }}></hr>
@@ -390,7 +376,7 @@ export default function FooterComponent(props) {
               alignContent="center"
               item
               xs={12}
-              style={{ margin: " 0 10px 10px 10px" }}
+              style={{ margin: " 0 0 0 10px" }}
             >
               <div className="Table-Header">
                 Tweet

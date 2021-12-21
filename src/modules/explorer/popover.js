@@ -6,6 +6,7 @@ import Utility from "../../utility";
 import { cookiesConstants } from "../../constants";
 import LoginDialog from "../explorer/loginDialog";
 import AuthService from "../../services/userLogin";
+import { Avatar } from "@material-ui/core";
 import { history } from "../../managers/history";
 const ProfileContainer = styled.div`
   display: flex;
@@ -45,11 +46,9 @@ export default function BasicPopover(props) {
   const [openCP, setOpen] = React.useState(false);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-
-const openMyProfile =()=>{
-  console.log("button clicked")
-  history.push("loginProfile");
-}
+  const openMyProfile = () => {
+    history.push("/loginProfile");
+  };
   const openChangePassword = () => {
     setOpen(props.openChangePassword);
     setAnchorEl(null);
@@ -61,10 +60,8 @@ const openMyProfile =()=>{
   const userId = sessionManager.getDataFromCookies("userId");
   const logOut = async () => {
     const authObject = new AuthService();
-    // let [error, authResponse] = 
-    await Utility.parseResponse(
-      authObject.logout(userId)
-    );
+    // let [error, authResponse] =
+    await Utility.parseResponse(authObject.logout(userId));
 
     Utility.apiSuccessToast("Logout Successfully");
     sessionManager.removeDataFromCookies("userId");
@@ -101,8 +98,7 @@ const openMyProfile =()=>{
         </ProfileContainer>
       ) : (
         <ProfileContainer onClick={handleClick} Open Popover>
-          <img
-            alt="Profile"
+          {/* <img
             className="Shape2-internal"
             style={{ borderRadius: "50px" }}
             src={
@@ -110,14 +106,19 @@ const openMyProfile =()=>{
                 cookiesConstants.USER_PICTURE
               ) || '/images/Profile.svg'
             }
+          /> */}
+          <Avatar
+            className="profile"
+            src={
+              sessionManager.getDataFromCookies(
+                cookiesConstants.USER_PICTURE
+              ) || "/images/Profile.svg"
+            }
           />
           <span className="userName-internal">
             {setUserName() === "" ? "" : Utility.shortenUserName(setUserName())}
           </span>
-          <img  alt="Profile"
-            className="down-arrow-internal"
-            src={'/images/Dropdown.svg'}
-          />
+          <img className="down-arrow-internal" src={"/images/Dropdown.svg"} />
         </ProfileContainer>
       )}
       <Popover

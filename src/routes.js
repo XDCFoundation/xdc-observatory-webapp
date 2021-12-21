@@ -10,7 +10,7 @@ import TokenDataComponent from "./modules/token/tokenDataDashboard";
 import LatestTransactionList from "./modules/transaction/index";
 import LatestBlocksList from "./modules/blocks";
 import BlockChainClass from "./modules/explorer";
-import TokenDetails from "./modules/explorer/tokendetails";
+import TokenList from "./modules/tokenList";
 import LatestAccountsList from "./modules/accounts";
 import AddressDetails from "./modules/address/addressDetails";
 import HolderDetails from "./modules/holders/holderDetails";
@@ -74,7 +74,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/address-details/:addr'} component={AddressDetails} />
             <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
             <Route exact path={'/token-data/:address/:tn'} component={TokenDataComponent} />
-            <Route exact path={'/token-details'} component={TokenDetails} />
+            <Route exact path={'/token-details'} component={TokenList} />
             <Route exact path={'/transaction-details/:hash'} component={Transaction} />
             <Route exact path={'/contracts'} component={ContractComponent} />
             <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />

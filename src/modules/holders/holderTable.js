@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../../src/assets/styles/blocksAndTransactionList.css";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -7,13 +7,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from "@material-ui/core/Tooltip";
-import {Grid, TableContainer} from "@material-ui/core";
-import {useHistory, useParams} from "react-router-dom";
-import {CSVLink} from "react-csv";
+import { Grid, TableContainer } from "@material-ui/core";
+import { useHistory, useParams } from "react-router-dom";
+import { CSVLink } from "react-csv";
 import moment from "moment";
 import Utility from "../../utility";
 import AddressData from "../../services/address";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import TokenData from "../../services/token";
 import Loader from "../../assets/loader"
@@ -480,9 +480,9 @@ export default function HolderTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      // checked={
-                      //   address.filter((addr) => addr?.isChecked == true).length == address.length
-                      // }
+                      checked={
+                        address.filter((addr) => addr?.isChecked == true).length == address.length
+                      }
                       style={{ marginRight: "8px" }}
                     />
                     <span className={"tableheader"}>Txn Hash</span>

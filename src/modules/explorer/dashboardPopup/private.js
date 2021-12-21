@@ -9,6 +9,8 @@ import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100% !important",
       height: "100% !important",
       borderRadius: "1px !important",
-      maxWidth: "768px !important"
+      maxWidth: "768px !important",
     },
   },
   buttons: {
@@ -172,7 +174,7 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     input: {
       maxWidth: "503px",
@@ -184,6 +186,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
 
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
@@ -198,22 +219,26 @@ export default function FormDialog() {
   //   // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   // };
 
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+
   async function TaggedAddress() {
-    setError("")
-    setErrorTag("")
+    setError("");
+    setErrorTag("");
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: tags,
     };
-    if (!(privateAddress && privateAddress.length === 43) || !(privateAddress.slice(0, 3) === "xdc")) {
-      setError("Address should start with xdc & 43 characters")
+    if (
+      !(privateAddress && privateAddress.length === 43) ||
+      !(privateAddress.slice(0, 3) === "xdc")
+    ) {
+      setError("Address should start with xdc & 43 characters");
       return;
     } else if (tags.length === 0) {
       setErrorTag("Use comma(,) to add multiple tag");
       return;
-    }
-    else if (tags && tags.length > 5) {
+    } else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
@@ -231,7 +256,6 @@ export default function FormDialog() {
     }
   }
 
-
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -240,14 +264,13 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
-    setError("")
-    setErrorTag("")
+    setError("");
+    setErrorTag("");
     setPrivateAddress("");
     setTags([]);
   };
 
-
-  const [input, setInput] = React.useState('');
+  const [input, setInput] = React.useState("");
   const [tags, setTags] = React.useState([]);
   const [isKeyReleased, setIsKeyReleased] = React.useState(false);
 
@@ -261,10 +284,10 @@ export default function FormDialog() {
     const { key } = e;
     const trimmedInput = input.trim();
 
-    if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
+    if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      setTags(prevState => [...prevState, trimmedInput]);
-      setInput('');
+      setTags((prevState) => [...prevState, trimmedInput]);
+      setInput("");
       setErrorTag("");
     }
 
@@ -281,47 +304,65 @@ export default function FormDialog() {
 
   const onKeyUp = () => {
     setIsKeyReleased(true);
-  }
+  };
 
   const deleteTag = (index) => {
-    setTags(prevState => prevState.filter((tag, i) => i !== index))
-  }
+    setTags((prevState) => prevState.filter((tag, i) => i !== index));
+  };
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
 
   return (
     <div>
-      <div className="div3" onClick={width >= 760 ? handleClickOpen : () => { history.push("/test-address") }}>
+      <div className="div1" onClick={handleClickOpen}>
         <div>
-          <img alt="private"
-            className="imagediv3"
-            src={"/images/private.png"}
-          ></img>
+          <img className="watchlist-image" src={"/images/private.png"}></img>
         </div>
         <button className={classes.btn}>
-          <div className="headingdiv3">Add private tag to an Address</div>
-          <div className="paradiv3">
+          <div className="headingdiv1">Add private tag to an Address</div>
+          <div className="paradiv1">
             Add a short memo or private tag to the address of interest.
           </div>
         </button>
+
+        <div
+          className="imageParentDiv"
+          style={{ position: "relative", top: "32px" }}
+        >
+          <LightToolTip
+            open={tooltipIsOpen}
+            title="Add a short memo or private tag to the address of interest."
+            arrow
+            placement="top-start"
+          >
+            <div
+              className="learnMoreText"
+              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+            >
+              Learn More
+            </div>
+          </LightToolTip>
+        </div>
       </div>
 
       {/* <Button
@@ -357,8 +398,8 @@ export default function FormDialog() {
             <input
               className={classes.input}
               onChange={(e) => {
-                setPrivateAddress(e.target.value)
-                setError("")
+                setPrivateAddress(e.target.value);
+                setError("");
               }}
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
@@ -372,10 +413,12 @@ export default function FormDialog() {
             </DialogContentText>
 
             <div className="containerTag">
-              {tags.map((tag, index) => (<div className="tag">
-                {tag}
-                <button onClick={() => deleteTag(index)}>x</button>
-              </div>))}
+              {tags.map((tag, index) => (
+                <div className="tag">
+                  {tag}
+                  <button onClick={() => deleteTag(index)}>x</button>
+                </div>
+              ))}
               <input
                 value={input}
                 placeholder="Enter a tag"
@@ -384,7 +427,11 @@ export default function FormDialog() {
                 onChange={onChange}
               />
             </div>
-            {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
+            {errorTag ? (
+              <div className={classes.error1}>{errorTag}</div>
+            ) : (
+              <></>
+            )}
             {/* <input
               type="text"
               className={classes.input}
