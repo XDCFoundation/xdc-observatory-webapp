@@ -186,7 +186,6 @@ const Title = styled.div`
 `;
 const ProfilePicContainer = styled.div`
   @media (min-width: 300px) and (max-width: 767px) {
-    margin-top: 200px;
     max-width: 503px;
     width: 100%;
     height: 102px;
@@ -266,7 +265,7 @@ export default function FormDialog(props) {
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse.userId, "userId");
-        history.push("/loginProfile");
+        history.push("/loginprofile");
         handleClose();
         // window.location.href = "loginprofile";
         return authResponse;

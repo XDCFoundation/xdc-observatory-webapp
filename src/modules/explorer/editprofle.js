@@ -241,7 +241,7 @@ export default function FormDialog(props) {
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse.userId, "userId");
-        history.push("/loginProfile");
+        history.push("/loginprofile");
         handleClose();
         // window.location.href = "loginprofile";
         return authResponse;
@@ -285,7 +285,7 @@ export default function FormDialog(props) {
         sessionManager.setDataInCookies(authResponse, "userInfo");
         sessionManager.setDataInCookies(true, "isLoggedIn");
         sessionManager.setDataInCookies(authResponse.userId, "userId");
-        history.push("/loginProfile");
+        history.push("/loginprofile");
         handleClose();
         // window.location.href = "loginprofile";
         return authResponse;
