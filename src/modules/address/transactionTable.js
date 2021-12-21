@@ -80,9 +80,17 @@ export default function TransactionTableComponent(props) {
   })
   const getContractDetails = async (values) => {
     try {
+      console.log("getContractDetails");
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values),
       )
+      if(!responseData || responseData.length===0){
+        setNoData(true)
+        setTotalRecord(parseInt(0))
+        setAddress([])
+        setLoading(false)
+        return;
+      }
       let transactionSortByValue = responseData.sort((a, b) => {
         return b.value - a.value;
       });
@@ -437,7 +445,7 @@ export default function TransactionTableComponent(props) {
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {isLoading == true ? (
+              {isLoading === true  ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: 'none' }} colspan="6">
