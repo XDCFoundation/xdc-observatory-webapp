@@ -278,7 +278,7 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: d.value / 1000000000000000000,
+          Value: Utility.decimalDivison(d.Value, 18),
         }
       }),
     )
@@ -291,7 +291,7 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: d.value / 1000000000000000000,
+          Value: Utility.decimalDivison(d.Value, 18),
         }
       }),
     )
@@ -348,7 +348,7 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: d.Value / 1000000000000000000,
+            Value: Utility.decimalDivison(d.Value, 18),
           }
         }),
       )
@@ -376,7 +376,7 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: d.Value / 1000000000000000000,
+            Value: Utility.decimalDivison(d.Value, 18),
           }
         }),
       )
@@ -655,7 +655,7 @@ export default function AddressTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: 'none', color: "#2a2a2a" }} align="left">
-                            <span className="tabledata">{row.Value == 0 ? 0 : Number(row.Value / 1000000000000000000).toFixed(18).replace(/\.?0+$/, "")}</span>
+                            <span className="tabledata">{Utility.decimalDivison(row.Value, 18)} XDC</span>
                           </TableCell>
                         </TableRow>
                       )

@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import utility from "../../utility";
 import styled from "styled-components";
 import moment from "moment";
+import Utility, { dispatchAction } from "../../utility";
 
 const useStyles = makeStyles({
   container: {
@@ -49,7 +50,7 @@ const TransactionTitle = styled.div`
 
 export default function CommonTransactionsTable(props) {
   const classes = useStyles();
-  const { transactionList  } = props;
+  const { transactionList } = props;
 
   return (
     <Paper
@@ -186,88 +187,68 @@ export default function CommonTransactionsTable(props) {
                   //   (row?.gasUsed * row?.gasPrice) /
                   //   100000000000000000
                   // ).toFixed(9);
-                  let amt = (row.value / 1000000000000000000).toFixed(4);
+                  let amt = Utility.decimalDivison(row.value, 4);
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (
                     <>
-                    {/* {amt > 0 ?  //if transaction amount is greater than 0 only then show the transaction */}
-                    <TableRow
-                      key={row.name}
-                      style={
-                        index % 2 !== 1
-                          ? { background: "#f9f9f9" }
-                          : { background: "white" }
-                      }
-                    >
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "190px",
-                          whiteSpace: "nowrap",
-                          padding: "20px",
-                        }}
-                        className="padding-left-40px"
+                      {/* {amt > 0 ?  //if transaction amount is greater than 0 only then show the transaction */}
+                      <TableRow
+                        key={row.name}
+                        style={
+                          index % 2 !== 1
+                            ? { background: "#f9f9f9" }
+                            : { background: "white" }
+                        }
                       >
-                        <Tooltip placement="right" title={row.hash}>
-                          {/* <VisibilityOutlinedIcon
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "190px",
+                            whiteSpace: "nowrap",
+                            padding: "20px",
+                          }}
+                          className="padding-left-40px"
+                        >
+                          <Tooltip placement="right" title={row.hash}>
+                            {/* <VisibilityOutlinedIcon
                             fontSize="small"
                             style={{ color: "#b9b9b9", marginRight: "3px" }}
                           />
                         </Tooltip> */}
-                          <a
-                            className="linkTable"
-                            href={"/transaction-details/" + row.hash}
-                          >
-                            {" "}
-                            <span
-                              className={
-                                animationClass ? animationClass : "tabledata"
-                              }
+                            <a
+                              className="linkTable"
+                              href={"/transaction-details/" + row.hash}
                             >
                               {" "}
-                              {shorten(row.hash)}
-                            </span>{" "}
-                          </a>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "100px",
-                          whiteSpace: "nowrap",
-                          padding: "20px",
-                        }}
-                        align="left"
-                      >
-                        <span
-                          className={
-                            animationClass ? animationClass : "tabledata"
-                          }
+                              <span
+                                className={
+                                  animationClass ? animationClass : "tabledata"
+                                }
+                              >
+                                {" "}
+                                {shorten(row.hash)}
+                              </span>{" "}
+                            </a>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "100px",
+                            whiteSpace: "nowrap",
+                            padding: "20px",
+                          }}
+                          align="left"
                         >
-                          {amt >= 0.0001 ? amt : 0}
-                        </span>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "120px",
-                          whiteSpace: "nowrap",
-                          padding: "20px",
-                        }}
-                        align="left"
-                      >
-                        <Tooltip title={moment(row.timestamp* 1000).format('YYYY-MM-DD hh:mm:ss')} arrow={true} className="fs-15">
-                        <span
-                          className={
-                            animationClass ? animationClass : "tabledata"
-                          }
-                        >
-                          {ti}
-                        </span>
-                        </Tooltip>
-                      </TableCell>
-                      {props.showBlock ? (
+                          <span
+                            className={
+                              animationClass ? animationClass : "tabledata"
+                            }
+                          >
+                            {amt >= 0.0001 ? amt : 0}
+                          </span>
+                        </TableCell>
                         <TableCell
                           style={{
                             border: "none",
@@ -277,76 +258,70 @@ export default function CommonTransactionsTable(props) {
                           }}
                           align="left"
                         >
+                          <Tooltip title={moment(row.timestamp * 1000).format('YYYY-MM-DD hh:mm:ss')} arrow={true} className="fs-15">
+                            <span
+                              className={
+                                animationClass ? animationClass : "tabledata"
+                              }
+                            >
+                              {ti}
+                            </span>
+                          </Tooltip>
+                        </TableCell>
+                        {props.showBlock ? (
+                          <TableCell
+                            style={{
+                              border: "none",
+                              width: "120px",
+                              whiteSpace: "nowrap",
+                              padding: "20px",
+                            }}
+                            align="left"
+                          >
+                            {" "}
+                            <a
+                              className="linkTable"
+                              href={"/block-details/" + row.blockNumber}
+                            >
+                              {" "}
+                              <span
+                                className={
+                                  animationClass ? animationClass : "tabledata"
+                                }
+                              >
+                                {" "}
+                                {row.blockNumber}
+                              </span>{" "}
+                            </a>
+                          </TableCell>
+                        ) : (
+                          ""
+                        )}
+                        <TableCell
+                          style={{
+                            border: "none",
+                            width: "160px",
+                            whiteSpace: "nowrap",
+                            padding: "20px",
+                          }}
+                          align="left"
+                        >
                           {" "}
                           <a
                             className="linkTable"
-                            href={"/block-details/" + row.blockNumber}
+                            href={"/address-details/" + row.from}
                           >
-                            {" "}
-                            <span
-                              className={
-                                animationClass ? animationClass : "tabledata"
-                              }
-                            >
-                              {" "}
-                              {row.blockNumber}
-                            </span>{" "}
+                            <Tooltip placement="top" title={row.from}>
+                              <span
+                                className={
+                                  animationClass ? animationClass : "tabledata"
+                                }
+                              >
+                                {shorten(row.from)}
+                              </span>
+                            </Tooltip>
                           </a>
                         </TableCell>
-                      ) : (
-                        ""
-                      )}
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "160px",
-                          whiteSpace: "nowrap",
-                          padding: "20px",
-                        }}
-                        align="left"
-                      >
-                        {" "}
-                        <a
-                          className="linkTable"
-                          href={"/address-details/" + row.from}
-                        >
-                          <Tooltip placement="top" title={row.from}>
-                            <span
-                              className={
-                                animationClass ? animationClass : "tabledata"
-                              }
-                            >
-                              {shorten(row.from)}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          border: "none",
-                          width: "155px",
-                          whiteSpace: "nowrap",
-                          padding: "20px",
-                        }}
-                        align="left"
-                      >
-                        {" "}
-                        <a
-                          className="linkTable"
-                          href={"/address-details/" + row.to}
-                        >
-                          <Tooltip placement="top" title={row.to}>
-                            <span
-                              className={
-                                animationClass ? animationClass : "tabledata"
-                              }
-                            >
-                              {!row.to ? "------------------" : shorten(row.to)}
-                            </span>
-                          </Tooltip>
-                        </a>
-                      </TableCell>
-                      {props.showDetail ? (
                         <TableCell
                           style={{
                             border: "none",
@@ -357,21 +332,47 @@ export default function CommonTransactionsTable(props) {
                           align="left"
                         >
                           {" "}
-                          <div className="latest_child w-18 mar_child wid-17 details-pad ">
-                            <a
-                              className={
-                                animationClass ? animationClass : "details "
-                              }
-                              href={"/transaction-details/" + row.hash}
-                            >
-                              Details
-                            </a>
-                          </div>
+                          <a
+                            className="linkTable"
+                            href={"/address-details/" + row.to}
+                          >
+                            <Tooltip placement="top" title={row.to}>
+                              <span
+                                className={
+                                  animationClass ? animationClass : "tabledata"
+                                }
+                              >
+                                {!row.to ? "------------------" : shorten(row.to)}
+                              </span>
+                            </Tooltip>
+                          </a>
                         </TableCell>
-                      ) : (
-                        ""
-                      )}
-                      {/* <TableCell
+                        {props.showDetail ? (
+                          <TableCell
+                            style={{
+                              border: "none",
+                              width: "155px",
+                              whiteSpace: "nowrap",
+                              padding: "20px",
+                            }}
+                            align="left"
+                          >
+                            {" "}
+                            <div className="latest_child w-18 mar_child wid-17 details-pad ">
+                              <a
+                                className={
+                                  animationClass ? animationClass : "details "
+                                }
+                                href={"/transaction-details/" + row.hash}
+                              >
+                                Details
+                              </a>
+                            </div>
+                          </TableCell>
+                        ) : (
+                          ""
+                        )}
+                        {/* <TableCell
                           style={{ border: "none", paddingLeft: "2.813rem" }}
                           align="left"
                         >
@@ -383,8 +384,8 @@ export default function CommonTransactionsTable(props) {
                             {txFee == 0 ? 0 : txFee} XDC
                           </span>
                         </TableCell> */}
-                    </TableRow>
-                    {/* : "" } */}
+                      </TableRow>
+                      {/* : "" } */}
                     </>
                   );
                 })}

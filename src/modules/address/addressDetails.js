@@ -13,7 +13,7 @@ import { Grid } from "@material-ui/core";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import Tooltip from "@material-ui/core/Tooltip";
-import { TransactionService } from "../../services";
+import { TransactionService, CoinMarketService } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
@@ -76,6 +76,7 @@ export default function AddressDetails(props) {
 
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState(0);
+  console.log(typeof balance, parseInt(balance), "lololo")
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
 
@@ -85,10 +86,18 @@ export default function AddressDetails(props) {
   let nowCurrency = window.localStorage.getItem("currency");
   const [addressTag, setAddressTag] = useState([]);
   const [isTag, setIsTag] = useState(false);
-
+  const [amount, setAmount] = useState("");
+  const [coinMarketPrice, setCoinMarketPrice] = useState(0)
+  const [price, setPrice] = useState(0)
+  const [currentPrice, setCurrentPrice] = useState(0)
+  console.log(price * currentPrice, "popopopop")
   let { addr } = useParams();
-  let addressValue = 0;
-
+  let px = currentPrice * price
+  let priceChanged = Utility.decimalDivison(px, 18)
+  console.log(priceChanged, "jjjj")
+  let activeCurrency = window.localStorage.getItem("currency");
+  const currencySymbol =
+    activeCurrency === "INR" ? "₹ " : activeCurrency === "USD" ? "$ " : "€ ";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -108,11 +117,12 @@ export default function AddressDetails(props) {
   };
   const classes = useStyles();
 
-  function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
-  }
 
-  function _handleChange(event) {}
+
+  function _handleChange(event) {
+    setAmount(event?.target?.value);
+    window.localStorage.setItem("currency", event?.target?.value);
+  }
 
   const getAddressDetails = async () => {
     try {
@@ -128,34 +138,8 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        setBalance((responseData.balance / 1000000000000000000).toFixed(18));
-        let activeCurrency = window.localStorage.getItem("currency");
-        let convertedCurrency = "";
-        if (activeCurrency === "USD") {
-          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
-          setCoinValue(
-            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
-          );
-          setConvertCurrency(convertedCurrency);
-        } else if (activeCurrency === "EUR") {
-          convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
-          setCoinValue(
-            (responseData.balanceInEUR / 1000000000000000000).toFixed(18)
-          );
-          setConvertCurrency(convertedCurrency);
-        } else if (activeCurrency === "INR") {
-          convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
-          setCoinValue(
-            (responseData.balanceInINR / 1000000000000000000).toFixed(18)
-          );
-          setConvertCurrency(convertedCurrency);
-        } else {
-          convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
-          setCoinValue(
-            (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
-          );
-          setConvertCurrency(convertedCurrency);
-        }
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 18));
+        setCurrentPrice(responseData.balance)
         setLoading(false);
       } else {
         setBalance(parseFloat(0).toFixed(18));
@@ -166,6 +150,16 @@ export default function AddressDetails(props) {
     }
   };
 
+  const coinMarketCapDetails = async () => {
+    let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
+      CoinMarketService?.getCoinMarketData(activeCurrency, {})
+    );
+    if (error || !totalcoinMarketPrice) return;
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setPrice(totalcoinMarketPrice[1]?.price)
+  }
   const options = {
     htmlparser2: {
       lowerCaseTags: false,
@@ -188,8 +182,9 @@ export default function AddressDetails(props) {
 
   useEffect(() => {
     getAddressDetails();
+    coinMarketCapDetails();
     tagUsingAddressHash();
-  }, []);
+  }, [amount]);
 
   const CloseIcon = styled.img`
     width: 1rem;
@@ -234,20 +229,20 @@ export default function AddressDetails(props) {
                   <Content>{addr}</Content>
                   {isTag
                     ? addressTag.map((item, index) => {
-                        return (
-                          <div className="nameLabel1" key={index}>
-                            {item}
-                          </div>
-                        );
-                      })
+                      return (
+                        <div className="nameLabel1" key={index}>
+                          {item}
+                        </div>
+                      );
+                    })
                     : ""}
                   <span
                     className={
                       width > 1240
                         ? "copyEditContainer1"
                         : width <= 1240 && width >= 768
-                        ? "copyEditContainerAddress"
-                        : "copyEditContainerMobile"
+                          ? "copyEditContainerAddress"
+                          : "copyEditContainerMobile"
                     }
                   >
                     <SecondContainer>
@@ -273,8 +268,8 @@ export default function AddressDetails(props) {
                                 width > 1240
                                   ? "copy-icon"
                                   : width < 1239
-                                  ? "copyIconHashMobile"
-                                  : "copyIconHash"
+                                    ? "copyIconHashMobile"
+                                    : "copyIconHash"
                               }
                               src={"/images/copy.svg"}
                             />
@@ -340,19 +335,22 @@ export default function AddressDetails(props) {
                   </span>
                 </MiddleContainerHash>
               </HashDiv>
-              {/* <Spacing style={{ borderBottom: "none" }}>
-                  <HashDiv>
-                    <Container>
-                      <Hash>Balance</Hash>
-                    </Container>
-                    <MiddleContainerHash>
-                      <Content>
-                        {balance} XDC({ReactHtmlParser(convertCurrency)}{" "}
-                        {coinValue})
-                      </Content>
-                    </MiddleContainerHash>
-                  </HashDiv>
-                </Spacing> */}
+              <Spacing style={{ borderBottom: "none" }}>
+                <HashDiv>
+                  <Container>
+                    <Tooltip title="An address is a unique sequence of numbers and letters">
+                      <ImageView src={"/images/questionmark.svg"} />
+                    </Tooltip>
+                    <Hash>Balance</Hash>
+                  </Container>
+                  <MiddleContainerHash>
+                    <Content>
+                      {balance} XDC ({(currencySymbol)}
+                      {priceChanged}
+                    </Content>
+                  </MiddleContainerHash>
+                </HashDiv>
+              </Spacing>
             </Div>
           </Grid>
           {/* </div> */}
@@ -470,7 +468,7 @@ export default function AddressDetails(props) {
           </div>
         </div>
       </Grid>
-      <FooterComponent />
+      <FooterComponent _handleChange={_handleChange} currency={amount} />
     </div>
   );
 }

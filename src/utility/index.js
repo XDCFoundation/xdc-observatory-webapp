@@ -4,9 +4,9 @@ import swal from "sweetalert";
 import Cookies from "universal-cookie";
 import React from "react";
 import ToastService from "react-material-toast";
-
-
 import AwsService from "../services/awsService";
+import { decimalDivisionValue } from "../constants";
+
 const toast = ToastService.new({
   place: "topRight",
   duration: 3,
@@ -64,7 +64,7 @@ const utility = {
   shortenHash,
   timeDiff,
   convertToInternationalCurrencySystem,
-  getNumberUnit,
+  getNumberUnit, decimalDivison, decimalDivisonOnly
 };
 export default utility;
 
@@ -76,13 +76,34 @@ function convertToInternationalCurrencySystem(num) {
   if (num > 999 && num < 1000000) {
     return (num / 1000).toFixed(2) + "K"; // convert to K for number from > 1000 < 1 million
   } else if (num > 999999 && num < 999999999) {
-    return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
+    return (num / 1000000).toFixed(2) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
     console.log(num);
-    return (num / 1000000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
+    return (num / 1000000000).toFixed(2) + "B"; // convert to B for number from > 1 billion
   } else if (num < 900) {
     return num; // if value < 1000, nothing to do
   }
+}
+
+function decimalDivison(num, tofixed) {
+  num = Number(num)
+  if (num === 0)
+    return num;
+  if (num < decimalDivisionValue.DECIMAL_DIVISON_VALUE)
+    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
+  return this.convertToInternationalCurrencySystem((num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, ""));
+}
+
+function decimalDivisonOnly(num, tofixed) {
+  num = Number(num)
+  if (num === 0) {
+    return num;
+  }
+  else {
+    return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
+  }
+
+
 }
 
 function getNumberUnit(num) {
