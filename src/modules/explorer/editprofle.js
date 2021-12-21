@@ -479,9 +479,7 @@ export default function FormDialog(props) {
     <div>
      
         <div className={classes.add}>
-        <button className="login-button" onClick={()=>{
-          if(width) handleClickOpen()
-          else history.push("/edit-profile")}}>
+        <button className="login-button" onClick={width >= 760 ? handleClickOpen:()=>{history.push("/edit-profile")}}>
             <div className="edit">Edit Profile</div>
           </button>
           <ProfilePicContainer>
