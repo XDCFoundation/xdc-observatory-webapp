@@ -33,12 +33,12 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `simple-tab-${index}`,
+//     "aria-controls": `simple-tabpanel-${index}`,
+//   };
+// }
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -50,7 +50,7 @@ function a11yProps(index) {
 // }));
 
 export default function SimpleTabs() {
-  const [value, setValue] = React.useState(0);
+  // const [value, setValue] = React.useState(0);
 
   const [toggleState, setToggleState] = useState(1);
 
