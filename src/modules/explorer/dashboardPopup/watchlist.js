@@ -268,12 +268,8 @@ export default function FormDialog() {
       setAddress("");
       setDescription("");
       setOpen(false);
+      window.location.reload();
     }
-    utility.apiSuccessToast("Address added to watchlist");
-    setAddress("");
-    setDescription("");
-    setOpen(false);
-    window.location.reload();
   };
 
   const handleClickOpen = () => {
