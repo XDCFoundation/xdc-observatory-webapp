@@ -275,7 +275,7 @@ class Contractlist extends React.Component {
     }
 
     handleOnClose = () => {
-        this.setState({anchorEl: null,isSettingColumnOpen: false});
+        this.setState({anchorEl: null, isSettingColumnOpen: false});
     }
 
     toggleModal = () => {
@@ -315,36 +315,37 @@ class Contractlist extends React.Component {
                                 e.preventDefault();
                             }}
                         >
-                            <div className="display-flex">
-                                <div className="">
-                                        Contracts
-                                </div>
-                                <div
-                                    className=" display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-                                    <img onClick={this.handleSettingsClick} className="p-r-5 h-20 w-20-px"
-                                         src="/images/settings.svg"/>
-                                    <ConfigureColumnPopOver
-                                        isOpen={this.state.isSettingColumnOpen}
-                                        anchorEl={this.state.anchorEl}
-                                        handleOnClose={this.handleOnClose}
-                                        tableColumns={this.state.tableColumns}
-                                        toggleTableColumns={this.toggleTableColumns}
-                                    />
-                                </div>
-                                <div className="tabletop-header display-none-tab display-none-desktop display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-                                    <img onClick={this.toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>
-                                    <ConfigureColumnsModal
-                                        isOpen={this.state.isColumnsModalOpen}
-                                        onModalClose={this.toggleModal}
-                                        tableColumns={this.state.tableColumns}
-                                        toggleTableColumns={this.toggleTableColumns}
-                                    />
-                                </div>
+                            <div className="display-flex searchelement-div div-searchelement p-b-0">
+
+                                {/*<div className="tabletop-header display-none-tab display-none-desktop display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">*/}
+                                {/*    <img onClick={this.toggleModal} className="p-r-5 h-20 w-20-px" src="/images/settings.svg"/>*/}
+                                {/*    <ConfigureColumnsModal*/}
+                                {/*        isOpen={this.state.isColumnsModalOpen}*/}
+                                {/*        onModalClose={this.toggleModal}*/}
+                                {/*        tableColumns={this.state.tableColumns}*/}
+                                {/*        toggleTableColumns={this.toggleTableColumns}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                             </div>
                         </form>
                     </div>
                 </div>
                 <br/>
+                <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
+                    <div className="fs-24 fw-bold">Contracts</div>
+                    <div
+                        className=" display-none-mobile display-flex flex-direction-column justify-content-center">
+                        <img onClick={this.handleSettingsClick} className="p-r-5 h-20 w-20-px"
+                             src="/images/settings.svg"/>
+                        <ConfigureColumnPopOver
+                            isOpen={this.state.isSettingColumnOpen}
+                            anchorEl={this.state.anchorEl}
+                            handleOnClose={this.handleOnClose}
+                            tableColumns={this.state.tableColumns}
+                            toggleTableColumns={this.toggleTableColumns}
+                        />
+                    </div>
+                </div>
                 <Paper
                     className={"responsive-table-width-contract-list contact-list-tab"}
                     style={{
@@ -376,7 +377,8 @@ class Contractlist extends React.Component {
                       Address
                     </span>
                                     </TableCell>
-                                    {this.state.tableColumns["Token Name"].isActive && <TableCell style={{border: "none"}} align="left">
+                                    {this.state.tableColumns["Token Name"].isActive &&
+                                    <TableCell style={{border: "none"}} align="left">
                     <span
                         style={{fontSize: "14px"}}
                         className={"tableheaders"}
@@ -384,7 +386,8 @@ class Contractlist extends React.Component {
                       Token Name
                     </span>
                                     </TableCell>}
-                                    {this.state.tableColumns["Contract Name"].isActive &&  <TableCell style={{border: "none"}} align="left">
+                                    {this.state.tableColumns["Contract Name"].isActive &&
+                                    <TableCell style={{border: "none"}} align="left">
                     <span
                         style={{fontSize: "14px"}}
                         className={"tableheaders"}
@@ -392,7 +395,8 @@ class Contractlist extends React.Component {
                       Contract Name
                     </span>
                                     </TableCell>}
-                                    {this.state.tableColumns["Token Yes/No"].isActive &&    <TableCell style={{border: "none"}} align="left">
+                                    {this.state.tableColumns["Token Yes/No"].isActive &&
+                                    <TableCell style={{border: "none"}} align="left">
                     <span
                         style={{fontSize: "14px"}}
                         className={"tableheaders"}
@@ -445,7 +449,8 @@ class Contractlist extends React.Component {
                                                         <span className="tabledata">{row.address} </span>
                                                     </a>
                                                 </TableCell>
-                                                {this.state.tableColumns["Token Name"].isActive && <TableCell id="td" style={{borderBottom: "none"}}>
+                                                {this.state.tableColumns["Token Name"].isActive &&
+                                                <TableCell id="td" style={{borderBottom: "none"}}>
                           <span
                               className="tabledata"
                               style={{marginLeft: "5px"}}
@@ -453,7 +458,8 @@ class Contractlist extends React.Component {
                             {row.tokenName}
                           </span>
                                                 </TableCell>}
-                                                {this.state.tableColumns["Contract Name"].isActive && <TableCell id="td" style={{borderBottom: "none"}}>
+                                                {this.state.tableColumns["Contract Name"].isActive &&
+                                                <TableCell id="td" style={{borderBottom: "none"}}>
                           <span
                               className="tabledata"
                               style={{marginLeft: "5px"}}
@@ -461,7 +467,8 @@ class Contractlist extends React.Component {
                             {row.contractName}
                           </span>
                                                 </TableCell>}
-                                                {this.state.tableColumns["Token Yes/No"].isActive && <TableCell id="td" style={{borderBottom: "none"}}>
+                                                {this.state.tableColumns["Token Yes/No"].isActive &&
+                                                <TableCell id="td" style={{borderBottom: "none"}}>
                           <span
                               className="tabledata"
                               style={{marginLeft: "0.188rem", fontSize: 14}}
