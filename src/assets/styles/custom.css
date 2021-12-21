@@ -5238,6 +5238,17 @@ button {
   background-color: #3763dd;
   cursor: pointer;
 }
+
+.sign-up-button{
+  width: 432px;
+  height: 44px;
+  border-radius: 4px;
+  background-color: #3763dd;
+  cursor: pointer;
+  padding-top: 13px;
+  margin: 30px auto 18px auto;
+}
+
 .main-sing-up-text {
   font-family: Inter;
   font-size: 15px;
@@ -7519,6 +7530,7 @@ button {
   color: #9fa9ba;
 }
 
+
 .Tooltip-graph-tx {
   margin: 1px 0 0;
   font-family: Inter;
@@ -7665,6 +7677,51 @@ button {
     letter-spacing: 00.55px;
     font-family: inter;
   }
+
+  .margin-right-34px {
+    margin-right: 0;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    margin-bottom: 18px;
+  }
+
+  .main-box {
+    padding: 31px 15px 20px 15px;
+  }
+
+  .main-title{
+    font-size: 17px;
+  }
+
+  .main-sub-title{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 18px;
+  }
+
+  .sign-up-button{
+    width: 100%;
+    height: 44px;
+    border-radius: 4px;
+    background-color: #3763dd;
+    cursor: pointer;
+    padding-top: 13px;
+    margin: 12px auto 18px auto;
+  }
+
+  /*.main-sing-up {*/
+  /*  width: 0px;*/
+  /*  !*height: 44px;*!*/
+  /*  !*margin: 30px auto 18px auto;*!*/
+  /*  !*padding: 13px 187px 12px;*!*/
+  /*  !*border-radius: 4px;*!*/
+  /*  !*background-color: #3763dd;*!*/
+  /*  !*cursor: pointer;*!*/
+  /*}*/
 }
 
 .source-code-content-value {
