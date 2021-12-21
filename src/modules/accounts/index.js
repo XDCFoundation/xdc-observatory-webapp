@@ -4,12 +4,12 @@ import AccountComponent from "./accountComponent"
 import Utils from '../../utility'
 import { AccountService } from '../../services'
 import { CoinMarketService } from '../../services'
+import {toolTipMessages} from "../../constants";
 
 
 export default class LatestAccountsList extends BaseComponent {
     constructor(props) {
         super(props);
-
         this.state = {
             from: 0,
             amount: 50,
@@ -18,8 +18,11 @@ export default class LatestAccountsList extends BaseComponent {
             totalAccounts: 0,
             totalSupply: 0,
             noData: 1,
-            isLoading: true
-
+            isLoading: true,
+            tableColumns: {
+                "Type": {isActive: true, toolTipText: "Type of account"},
+                "Balance": {isActive: true, toolTipText: "Number of token present in a particular address"}
+            }
         }
     }
 
@@ -27,6 +30,12 @@ export default class LatestAccountsList extends BaseComponent {
         this.getListOfAccounts()
         this.getTotalAccounts()
         this.getCoinMarketTotalSupply()
+    }
+
+    toggleTableColumns = (columnName) => {
+        const columns = this.state.tableColumns;
+        columns[columnName].isActive = !columns[columnName].isActive
+        this.setState({tableColumns: columns})
     }
 
 
@@ -135,6 +144,7 @@ export default class LatestAccountsList extends BaseComponent {
     render() {
         return (
             <AccountComponent
+                toggleTableColumns={this.toggleTableColumns}
                 create_data={this.create_data}
                 state={this.state}
                 shorten={this.shorten}

@@ -16,6 +16,7 @@ import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -764,19 +765,19 @@ export default function FormDialog(props) {
         props.verifiedEmail ? (
           ""
         ) : !props.hash ? (
-          <button className="login-button" onClick={handleClickOpen}>
-            <img
-              className="Shape2"
-              style={{ borderRadius: "50px", width: "25px" }}
-              src={
-                sessionManager.getDataFromCookies(
-                  cookiesConstants.USER_PICTURE
-                ) || "/images/Profile.svg"
-              }
-              alt={"image"}
-            />
-          </button>
+          //   <button className="login-button">
+          <Avatar
+            className="profile"
+            onClick={handleClickOpen}
+            src={
+              sessionManager.getDataFromCookies(
+                cookiesConstants.USER_PICTURE
+              ) || "/images/Profile.svg"
+            }
+            alt={"image"}
+          />
         ) : (
+          //   </button>
           ""
         )
       ) : (
