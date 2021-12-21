@@ -84,7 +84,7 @@ input#password {
 }
 input#password[placeholder] {
   text-overflow: ellipsis;
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 2px;
 }
 ::placeholder {
@@ -564,7 +564,7 @@ input:focus {
   .Shape3 {
     width: 4.375rem;
     height: 4.375rem;
-    margin-top: 69px;
+    margin-top: 0px;
   }
 }
 
@@ -3360,7 +3360,7 @@ p {
     height: 130px !important;
   }
   .makeStyles-appBar-2 {
-    height: 130px !important;
+    /* height: 130px !important; */
   }
   .makeStyles-appBar-4 {
     height: 130px !important;
@@ -3547,7 +3547,7 @@ body {
   cursor: pointer;
   padding-left: 0px;
   margin: 0px 34px 0px 0px;
-  font-weight: normal;
+  font-weight: 400;
   letter-spacing: 0.65px;
 }
 @media (min-width: 0px) and (max-width: 768px) {
@@ -3563,7 +3563,7 @@ body {
     cursor: pointer;
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
-    font-weight: normal;
+    font-weight: 400;
     letter-spacing: 0.65px;
   }
 }
@@ -3581,7 +3581,7 @@ body {
     cursor: pointer;
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
-    font-weight: normal;
+    font-weight: 400;
     letter-spacing: 0.65px;
   }
 }
@@ -8150,7 +8150,7 @@ button {
 
   .contract_details_heading_left {
     letter-spacing: 0px;
-    font-size: 17px;
+    font-size: 16px;
     color: #2a2a2a;
     opacity: 1;
     margin-top: 5.25rem;
@@ -8159,6 +8159,7 @@ button {
     margin-top: -2px;
     margin-left: 0px;
     padding-left: 1.25rem;
+    font-size: 14px;
   }
   .table-grid-block {
     margin-top: 25%;

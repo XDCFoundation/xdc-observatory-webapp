@@ -59,6 +59,7 @@ const MarketDataPointTitle = styled.div`
 
   @media (min-width: 350px) and (max-width: 767px) {
     display: block;
+    color: #2a2a2a;
   }
 `;
 
