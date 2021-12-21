@@ -101,7 +101,7 @@ export default function CommonTransactionsTable(props) {
                 align="left"
               >
                 <span className={("tableheaders", "tableheaders-age")}>
-                  Age
+                  Date
                 </span>
               </TableCell>
               {props.showBlock ? (
@@ -263,7 +263,9 @@ export default function CommonTransactionsTable(props) {
                             animationClass ? animationClass : "tabledata"
                           }
                         >
-                          {ti}
+                          {moment(row.timestamp * 1000).format(
+                              "MMMM DD, YYYY"
+                          )}
                         </span>
                         </Tooltip>
                       </TableCell>
