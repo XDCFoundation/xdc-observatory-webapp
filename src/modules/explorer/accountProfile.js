@@ -83,7 +83,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box style={{ padding: "20px 0" }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -113,6 +113,8 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     // backgroundColor: "#f8f9fa00",
     // width: "100vw",
+    maxWidth: "1190px",
+    margin: "auto",
     borderRadius: "none",
     padding: "40px 0px",
     justifyContent: "space-around",
@@ -193,7 +195,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "1248px",
       width: "100%",
-      padding: "0 24px",
     },
   },
   "@media (min-width:0px) and (max-width: 714px)": {
@@ -825,15 +826,27 @@ export default function SimpleTabs(props) {
 
   const UserNameContainer = styled.div`
     display: flex;
-    flex-flow: row;
-    gap: 5px;
+    flex-flow: row wrap;
+    margin: 40px auto;
+    gap: 15px;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    max-width: 1190px;
+    width: 100%;
+    align-items: center;
+
+    @media (max-width: 850px) {
+      padding: 0 0 0 10px !important;
+      max-width: 710px;
+    }
   `;
 
   return (
     <div>
       <Tokensearchbar />
 
-      <div className="maindiv">
+      <div>
         {/* <div className="heading"> */}
         {/* <span> */}
         {/* <img
@@ -847,18 +860,20 @@ export default function SimpleTabs(props) {
             /> */}
         <UserNameContainer>
           <Avatar
-            className="profile"
+            className="profile-icon"
             src={
               sessionManager.getDataFromCookies(
                 cookiesConstants.USER_PICTURE
               ) || "/images/Profile.png"
             }
           />
-          <Column className="width-fit-content">
-            <Row>Welcome, {Utils.shortenUserName(setUserName())}</Row>
+          <Column>
+            <Row style={{ gap: "15px" }}>
+              Welcome, {Utils.shortenUserName(setUserName())}
+              <NotificationBar />
+            </Row>
             <Editprofile />
           </Column>
-          <NotificationBar />
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
@@ -875,11 +890,11 @@ export default function SimpleTabs(props) {
             <NotificationBar />
           </span> */}
         {/* </div> */}
-        <div className="divbox">
+        <UserNameContainer>
           <Watchlist />
           <Transaction />
           <Private />
-        </div>
+        </UserNameContainer>
 
         <div className={classes.root}>
           <AppBar
@@ -1033,7 +1048,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <Table
-                        className="table w-700-a"
+                        className="table w-700-a w-1500-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
@@ -1116,7 +1131,7 @@ export default function SimpleTabs(props) {
                           }}
                         >
                           <Table
-                            className="table w-700-a"
+                            className="table w-700-a w-1500-a"
                             aria-label="Latest Transactions"
                             style={{ boxShadow: "0px 0px 0px 0px" }}
                           >
@@ -1210,7 +1225,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <Table
-                        className="table w-700-a"
+                        className="table w-700-a w-1500-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
@@ -1402,7 +1417,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
                     >
                       <Table
-                        className="table w-700-a"
+                        className="table w-700-a w-1500-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
@@ -1491,7 +1506,7 @@ export default function SimpleTabs(props) {
                           style={{ boxShadow: "0px 0px 0px 0px" }}
                         >
                           <Table
-                            className="table w-700-a"
+                            className="table w-700-a w-1500-a"
                             aria-label="Latest Transactions"
                             style={{ boxShadow: "0px 0px 0px 0px" }}
                           >
@@ -1586,7 +1601,7 @@ export default function SimpleTabs(props) {
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
                       <Table
-                        className="table w-700-a"
+                        className="table w-700-a w-1500-a"
                         aria-label="Latest Transactions"
                         style={{ boxShadow: "0px 0px 0px 0px" }}
                       >
