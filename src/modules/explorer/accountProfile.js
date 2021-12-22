@@ -35,7 +35,7 @@ import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
 import { cookiesConstants } from "../constants";
 import Utils from "../../utility";
-
+import { Column, Row } from "simple-flexbox";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -83,7 +83,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box style={{ padding: "20px 0" }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -113,6 +113,8 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     // backgroundColor: "#f8f9fa00",
     // width: "100vw",
+    maxWidth: "1190px",
+    margin: "auto",
     borderRadius: "none",
     padding: "40px 0px",
     justifyContent: "space-around",
@@ -193,7 +195,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "1248px",
       width: "100%",
-      padding: "0 24px",
     },
   },
   "@media (min-width:0px) and (max-width: 714px)": {
@@ -300,6 +301,50 @@ const useStyles = makeStyles((theme) => ({
   // }
 }));
 
+const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+`;
+
+const UserNameContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 40px auto;
+  gap: 15px;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 600;
+  max-width: 1190px;
+  width: 100%;
+  align-items: center;
+
+  @media (max-width: 850px) {
+    padding: 0 0 0 10px !important;
+    max-width: 710px;
+  }
+
+  @media (min-width: 450px) and (max-width: 850px) {
+    gap: ${(props) => (props.isWallet ? "30px" : "15px")};
+  }
+
+  @media (max-width: 400px) {
+    gap: 12px;
+  }
+  @media (min-width: 401px) and (max-width: 449px) {
+    gap: 30px;
+  }
+`;
+
+const SubParentContainer = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    max-width: 41.5rem;
+    margin: auto;
+  }
+`;
 export default function SimpleTabs(props) {
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -814,23 +859,14 @@ export default function SimpleTabs(props) {
     }
   };
 
-  const NoDataFoundContainer = styled.div`
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-    gap: 10px;
-  `;
-
   return (
     <div>
       <Tokensearchbar />
 
-      <div className="maindiv">
-        <div className="heading">
-          {/* <span> */}
-          {/* <img
+      <SubParentContainer>
+        {/* <div className="heading"> */}
+        {/* <span> */}
+        {/* <img
               className="icon"
               style={{ borderRadius: "50px" }}
               src={
@@ -839,16 +875,25 @@ export default function SimpleTabs(props) {
                 ) || "/images/Profile.png"
               }
             /> */}
+        <UserNameContainer>
           <Avatar
-            className="profile"
+            className="profile-icon"
             src={
               sessionManager.getDataFromCookies(
                 cookiesConstants.USER_PICTURE
               ) || "/images/Profile.png"
             }
           />
-          {/* </span> */}
-          <span>
+          <Column>
+            <Row style={{ gap: "15px" }}>
+              Welcome, {Utils.shortenUserName(setUserName())}
+              <NotificationBar />
+            </Row>
+            <Editprofile />
+          </Column>
+        </UserNameContainer>
+        {/* </span> */}
+        {/* <span>
             <div className="nameicon">
               <span className="welcome">
                 Welcome, {Utils.shortenUserName(setUserName())}
@@ -860,13 +905,13 @@ export default function SimpleTabs(props) {
           </span>
           <span className="notificationBell">
             <NotificationBar />
-          </span>
-        </div>
-        <div className="divbox">
+          </span> */}
+        {/* </div> */}
+        <UserNameContainer isWallet={true}>
           <Watchlist />
           <Transaction />
           <Private />
-        </div>
+        </UserNameContainer>
 
         <div className={classes.root}>
           <AppBar
@@ -1097,7 +1142,10 @@ export default function SimpleTabs(props) {
                       >
                         <Grid
                           component={Paper}
-                          style={{ boxShadow: "0px 0px 0px 0px" }}
+                          style={{
+                            boxShadow: "0px 0px 0px 0px",
+                            overflow: "auto",
+                          }}
                         >
                           <Table
                             className="table w-700-a w-1500-a"
@@ -1175,7 +1223,8 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img alt="alert"
+                      <img
+                        alt="alert"
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
@@ -2105,11 +2154,7 @@ export default function SimpleTabs(props) {
             </PaginationDiv>
           </TabPanel>
         </div>
-
-        <div>
-          <h1></h1>
-        </div>
-      </div>
+      </SubParentContainer>
       <FooterComponent />
     </div>
   );

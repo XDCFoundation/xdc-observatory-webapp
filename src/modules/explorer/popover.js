@@ -139,8 +139,9 @@ export default function BasicPopover(props) {
         }}
       >
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>
-          <Text style={{ marginRight: "auto" }} onClick={openMyProfile}>
-            My Profile
+          <Text style={{ marginRight: "auto" }} >
+          <a href="/loginprofile" className="profile-links"> My Profile</a>
+           
           </Text>
         </Contents>
         <Contents style={{ borderBottom: " solid 1px #f9f9f9" }}>

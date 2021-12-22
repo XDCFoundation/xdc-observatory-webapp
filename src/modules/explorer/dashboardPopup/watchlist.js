@@ -4,7 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Column, Row, typeOf } from "simple-flexbox";
+import { Row } from "simple-flexbox";
 import { sessionManager } from "../../../managers/sessionManager";
 import Test from "./Test";
 import { history } from "../../../managers/history";
@@ -17,6 +17,7 @@ import utility from "../../../utility";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Utils from "../../../utility";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -268,12 +269,8 @@ export default function FormDialog() {
       setAddress("");
       setDescription("");
       setOpen(false);
+      window.location.reload();
     }
-    utility.apiSuccessToast("Address added to watchlist");
-    setAddress("");
-    setDescription("");
-    setOpen(false);
-    window.location.reload();
   };
 
   const handleClickOpen = () => {
@@ -309,11 +306,12 @@ export default function FormDialog() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const { width } = windowDimensions;
+
   return (
     <div>
-      <div className="div1">
-        <Column
-          alignItems="center"
+      <div className="div1 cursor-pointer">
+        <div
+          className="imageParentDiv"
           onClick={
             width >= 760
               ? handleClickOpen
@@ -322,28 +320,43 @@ export default function FormDialog() {
                 }
           }
         >
-          <img className="watchlist-image" src={"/images/watchlist.svg"} />
-          <button className={classes.btn}>
-            <div className="headingdiv1">Create watchlist</div>
-            <div className="paradiv1">
-              An Email notification can be sent to you when an address on your
-              watch list recieves an incoming transaction.
-            </div>
-          </button>
-        </Column>
-        <LightToolTip
-          open={tooltipIsOpen}
-          title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
-          arrow
-          placement="top-start"
+          <img className="imagediv1" src={"/images/watchlist.svg"}></img>
+        </div>
+
+        <div
+          className="imageParentDiv"
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/test");
+                }
+          }
         >
-          <div
-            className="learnMoreText"
-            onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-          >
-            Learn More
+          <div className="headingdiv1">
+            <div>Create watchlist</div>
           </div>
-        </LightToolTip>
+          <div className="paradiv1">
+            An Email notification can be sent to you when an address on your
+            watch list recieves an incoming transaction.
+          </div>
+        </div>
+
+        <LearnMoreParent>
+          <LightToolTip
+            open={tooltipIsOpen}
+            title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
+            arrow
+            placement="top-start"
+          >
+            <div
+              className="learnMoreText"
+              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+            >
+              Learn More
+            </div>
+          </LightToolTip>
+        </LearnMoreParent>
       </div>
 
       {/* <Button
@@ -477,7 +490,7 @@ export default function FormDialog() {
             </DialogActions>
             {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
+              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
           </Dialog>
         </div>
@@ -487,3 +500,11 @@ export default function FormDialog() {
     </div>
   );
 }
+
+const LearnMoreParent = styled.div`
+  position: relative;
+  top: 30px;
+  @media (min-width: 767px) {
+    display: none;
+  }
+`;

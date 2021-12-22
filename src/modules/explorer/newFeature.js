@@ -46,7 +46,7 @@ const visited = ()=>{
         <div className="main-sub-title">
           Create your account and get started
         </div>
-        <Row className="card-box">
+        <Row className="card-box" style={{flexFlow: "wrap"}}>
           <div className="card margin-right-34px">
             <img  alt="new-feature"
               src={require("../../../src/assets/images/watch-list-new-feature.svg")}
@@ -79,12 +79,16 @@ const visited = ()=>{
             </div>
           </div>
         </Row>
-        <div className="main-sing-up" onClick={()=>{
+
+        <div style={{display: "flex", justifyContent: "center"}}>
+          <div className="sign-up-button" onClick={()=>{
             setSignUp(true);
-        }}>
-        
-          <div className="main-sing-up-text"> Sign up</div>
+          }}>
+
+            <div className="main-sing-up-text"> Sign up</div>
+          </div>
         </div>
+
         <div className="main-end-box">
           <input type="checkbox" 
           onChange={visited} 
