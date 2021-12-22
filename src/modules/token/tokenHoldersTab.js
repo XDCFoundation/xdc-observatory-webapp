@@ -100,7 +100,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
+  console.log(props, "holders table")
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -184,6 +185,8 @@ export default function StickyHeadTable() {
       margin: 100px 0 !important;
     }
   `;
+  let decimals = props?.contractData ? props?.contractData?.contractResponse?.decimals : ""
+  console.log(decimals, "decimals on holder table")
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -296,18 +299,20 @@ export default function StickyHeadTable() {
                       Percentage
                     </span>
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     style={{ border: "none", paddingLeft: "17px" }}
                     className="w-12"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>Value</span>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               </TableHead>
 
               <TableBody>
                 {holders?.data?.map((row, index) => {
+                  let quantity = (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(decimals)
+
                   return (
                     <StyledTableRow hover role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
@@ -326,9 +331,15 @@ export default function StickyHeadTable() {
                         </a>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata table-data mar-lef-3">
-                          {row[0]?.Quantity}
-                        </span>
+                        <Tooltip
+                          placement="top"
+                          title={format({})(quantity >= 1 ? parseFloat(quantity) : quantity)}
+                        >
+                          <span className="tabledata table-data mar-lef-3">
+                            {row[0]?.Quantity / Math.pow(10, decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row[0]?.Quantity / Math.pow(10, decimals))) : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(decimals)
+                            }
+                          </span>
+                        </Tooltip >
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
@@ -339,7 +350,7 @@ export default function StickyHeadTable() {
                             : row[0].Percentage.toFixed(2)}
                         </span>
                       </TableCell>
-                      <TableCell
+                      {/* <TableCell
                         id="td"
                         style={{ border: "none" }}
                         className="cursor-pointer"
@@ -354,7 +365,7 @@ export default function StickyHeadTable() {
                             )}
                           </span>
                         </Tooltip>
-                      </TableCell>
+                      </TableCell> */}
                     </StyledTableRow>
                   );
                 })}

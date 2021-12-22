@@ -123,8 +123,8 @@ const useStyles = makeStyles({
   alert: {
     margin: "110px 0 0 580px",
   },
-  table:{
-    marginBottom:"200px"
+  table: {
+    marginBottom: "200px"
   }
 });
 
@@ -235,7 +235,7 @@ export default function StickyHeadTable() {
               <TableRow>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-hash"}>
-                    TxnHash
+                    Transaction Hash
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
