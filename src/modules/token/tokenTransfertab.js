@@ -109,6 +109,23 @@ const useStyles = makeStyles({
     borderTop: "0px solid #bbb",
     width: "100%",
   },
+  noData: {
+    width: "auto",
+    height: "19px",
+    margin: "25px 15px 0 530px",
+    fontFamily: "Inter",
+    fontSize: "16px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+
+    color: "#c6cbcf",
+  },
+  alert: {
+    margin: "110px 0 0 580px",
+  },
+  table:{
+    marginBottom:"200px"
+  }
 });
 
 export default function StickyHeadTable() {
@@ -119,6 +136,7 @@ export default function StickyHeadTable() {
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
+
   const [isLoading, setLoading] = useState(true);
   const { address } = useParams();
 

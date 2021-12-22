@@ -4,13 +4,14 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Column, Row } from "simple-flexbox";
+import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { sessionManager } from "../../../managers/sessionManager";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -270,25 +271,36 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Column
-        className="div1"
-        onClick={
-          width >= 760
-            ? handleClickOpen
-            : () => {
-                history.push("/testTrancation");
-              }
-        }
-      >
-        <img className="watchlist-image" src={"/images/transaction.svg"}></img>
-        <button className={classes.btn}>
+      <div className="div1 cursor-pointer">
+        <div
+          className="imageParentDiv"
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/testTrancation");
+                }
+          }
+        >
+          <img className="imagediv1" src={"/images/transaction.svg"}></img>
+        </div>
+        <div
+          className="imageParentDiv"
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/testTrancation");
+                }
+          }
+        >
           <div className="headingdiv1">Add transaction label</div>
           <div className="paradiv1">
             Add a personal note to a transacton hash to track it in future.
           </div>
-        </button>
+        </div>
 
-        <div className="imageParentDiv">
+        <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
             title="Add a personal note to a transacton hash to track it in future."
@@ -302,8 +314,8 @@ export default function FormDialog() {
               Learn More
             </div>
           </LightToolTip>
-        </div>
-      </Column>
+        </LearnMoreParent>
+      </div>
 
       {/* <Button
         className={classes.btn}
@@ -311,7 +323,7 @@ export default function FormDialog() {
         color="primary"
         onClick={handleClickOpen}
       >
-          
+
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
@@ -360,10 +372,10 @@ export default function FormDialog() {
             ></textarea>
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
+             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity}
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
+            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>}
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </DialogContent>
@@ -390,10 +402,18 @@ export default function FormDialog() {
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
+              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
       </div>
     </div>
   );
 }
+
+const LearnMoreParent = styled.div`
+  position: relative;
+  top: 30px;
+  @media (min-width: 767px) {
+    display: none;
+  }
+`;

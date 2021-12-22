@@ -24,6 +24,7 @@ function Tab() {
                     <button
                         className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
                         onClick={() => toggleTab(2)}
+                        style={{paddingLeft: "13px"}}
                     >
                         Accounts
                     </button>

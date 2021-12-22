@@ -13,8 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import utility from "../../utility";
 import styled from "styled-components";
 import moment from "moment";
-import Utility, { dispatchAction } from "../../utility";
-
+import Utility from "../../utility";
 const useStyles = makeStyles({
   container: {
     borderRadius: "14px",
@@ -46,6 +45,9 @@ const TransactionTitle = styled.div`
   font-family: Inter;
   font-size: 1.125rem;
   font-weight: 600;
+  @media (min-width: 0px) and (max-width: 767px) {
+      margin-left:12px;
+    }
 `;
 
 export default function CommonTransactionsTable(props) {
@@ -187,7 +189,7 @@ export default function CommonTransactionsTable(props) {
                   //   (row?.gasUsed * row?.gasPrice) /
                   //   100000000000000000
                   // ).toFixed(9);
-                  let amt = Utility.decimalDivison(row.value, 4);;
+                  let amt = Utility.decimalDivison(row.value, 4);
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (
@@ -330,6 +332,7 @@ export default function CommonTransactionsTable(props) {
                             width: "155px",
                             whiteSpace: "nowrap",
                             padding: "20px",
+                            paddingRight: "20px",
                           }}
                           align="left"
                         >
