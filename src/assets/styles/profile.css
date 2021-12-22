@@ -7,15 +7,28 @@
   /* display:flow-rot;
   height: 80%;
   width: 50%; */
-  margin-top: 72px;
+  margin-top: 40px;
+}
+
+.profile-icon {
+  height: 60px !important;
+  width: 60px !important;
 }
 .divbox {
-  width: 100vw;
+  margin-top: 40px;
   display: flex;
-  /* padding: 0px 200px; */
-  justify-content: center;
-  /*flex-flow: wrap;*/
+  padding: 0px 40px;
+  flex-flow: wrap;
+  gap: 40px;
 }
+
+@media (max-width: 710px) {
+  .divbox {
+    padding: 0px 10px;
+    gap: 10px;
+  }
+}
+
 .innerdiv {
   width: 100vw;
   padding: 40px 10px;
@@ -67,7 +80,6 @@
   width: 172px;
   height: 35px;
   outline: none;
-  margin-left: 24px;
 }
 .searchinput {
   margin-top: 1px;
@@ -193,7 +205,6 @@ height: 22px;
 margin: 30px 74px 1px 15px;
 background-color: #4878ff; */
 
-  width: 22px;
   height: 22px;
   cursor: pointer;
   /* background-color: #4878ff; */
@@ -202,9 +213,6 @@ background-color: #4878ff; */
   margin-top: 30px;
 }
 .edit {
-  width: 78px;
-  height: 19px;
-  margin: 1px 25.5px 36px -2px;
   font-family: Inter;
   font-size: 15px;
   font-weight: 500;
@@ -230,26 +238,23 @@ background-color: #4878ff; */
 .div1,
 .div2,
 .div3 {
-  width: 372px;
+  width: 385px;
   height: 187px;
-  padding: 25px 25px;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  padding: 25px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #213d8b;
-  margin-left: 22px;
-  margin-right: 22px;
 }
 .imagediv1 {
-  width: 49px;
-  height: 42px;
-  margin-top: -2px;
-
+  height: 45px;
   /* background-color: #3437e7; */
 }
 .headingdiv1 {
-  width: 136px;
   height: 20px;
-  margin: 18px 181px 11px 0;
+  /* margin: 18px 181px 11px 0; */
   font-family: Inter;
   font-size: 17px;
   font-weight: 600;
@@ -261,17 +266,17 @@ background-color: #4878ff; */
 }
 
 .paradiv1 {
-  width: 320px;
-  /* height: 51px;
-  margin: 11px 0 0;
-  font-family: Inter;
   font-size: 14px;
+  width: 320px;
+  font-family: Inter;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal; */
   color: #d3dfff;
+  letter-spacing: normal;
+  /* height: 51px;
+  margin: 11px 0 0;
   /* display: flex; */
 }
 /*
@@ -295,7 +300,7 @@ background-color: #4878ff; */
 .headingdiv2 {
   width: 235px;
   height: 21px;
-  margin: 18px 141px 11px 0;
+  /* margin: 18px 141px 11px 0; */
   font-family: Inter;
   font-size: 17px;
   font-weight: 600;
@@ -304,6 +309,12 @@ background-color: #4878ff; */
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
+}
+
+@media (max-width: 1200px) {
+  .paradiv1 {
+    font-size: 13px;
+  }
 }
 .paradiv2 {
   width: 320px;
@@ -440,11 +451,11 @@ background-color: #4878ff; */
   line-height: 0;
 }
 
-.learnMoreText{
+.learnMoreText {
   display: none;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
@@ -454,15 +465,9 @@ background-color: #4878ff; */
     width: 100%;
   }
   .divbox {
-    max-width: 100vw;
     width: 100%;
   }
-  .div1,
-  .div2,
-  .div3 {
-    max-width: 372px;
-    width: 100%;
-  }
+
   .paradiv1,
   .paradiv2,
   .paradiv3 {
@@ -483,14 +488,19 @@ background-color: #4878ff; */
   }
 }
 
-@media screen and (max-width: 1242px) {
-  .div3 {
-    /*margin-top: 44px;*/
-  }
+.imageParentDiv {
+  display: flex;
+  flex-flow: column;
+  align-items: start;
+  gap: 10px;
 }
+
 @media screen and (max-width: 1240px) {
   .heading {
     margin-top: 122px;
+  }
+  .div1 {
+    width: 305px;
   }
 }
 @media screen and (max-width: 828px) {
@@ -501,12 +511,7 @@ background-color: #4878ff; */
   /* .divbox {
 
   } */
-  .div1 {
-    max-width: 313px;
-    width: 100%;
-    height: 157px;
-    /* margin-top: 44px; */
-  }
+
   .div2 {
     max-width: 313px;
     width: 100%;
@@ -522,9 +527,11 @@ background-color: #4878ff; */
     margin-right: 360px;
   }
 
-  .imageParentDiv{
+  .imageParentDiv {
     display: flex;
     justify-content: center;
+    flex-flow: column;
+    gap: 5px;
   }
 
   .imagediv1 {
@@ -543,16 +550,9 @@ background-color: #4878ff; */
     max-width: 100%;
     font-size: 12px;
     height: 15px;
-    margin-top: 6px;
-    margin-bottom: 11px;
+    margin-bottom: 20px;
   }
-  .paradiv1,
-  .paradiv2,
-  .paradiv3 {
-    width: 272px;
-    line-height: 1;
-    display: none;
-  }
+
   .line {
     max-width: 664px;
     width: 92%;
@@ -562,14 +562,14 @@ background-color: #4878ff; */
     width: 100%;
   }
   .griddiv {
-    max-width: 664px;
+    /* max-width: 664px; */
     width: 100%;
     overflow-x: scroll;
   }
   .tablegrid_address_contract {
     width: 1300px;
   }
-  .learnMoreText{
+  .learnMoreText {
     font-size: 10px;
     color: #81b4ff;
     display: block;
@@ -581,7 +581,7 @@ background-color: #4878ff; */
   }
 }
 @media screen and (max-width: 768px) {
-  .div1,
+  /* .div1,
   .div2,
   .div3 {
     width: 28.125vw;
@@ -591,16 +591,13 @@ background-color: #4878ff; */
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #213d8b;
     margin: 9px 7px 9px 7px;
-  }
+  } */
   .line {
     max-width: 375px;
     width: 95%;
   }
-  .createWatchlistText{
-    position: relative;
-    top: 10px;
-  }
 }
+
 @media screen and (max-width: 450px) {
   .heading {
     margin-top: 197px;
@@ -615,12 +612,11 @@ background-color: #4878ff; */
   .heading {
     margin-left: -11px;
   }
-  .searchBar {
-    margin-left: 7px;
+  .searchdiv {
+    padding-left: 10px;
   }
   .griddiv {
     width: 361px;
-    margin-left: -17px;
   }
   .tablegrid_address_contract {
     width: 750px;
@@ -638,20 +634,27 @@ background-color: #4878ff; */
   }
   .edit {
     font-size: 13px;
-    margin-left: -5px;
-    margin-top: 0px;
   }
-  .noticon {
-    width: 17px;
-    height: 18px;
-    margin-top: -17px;
-  }
+
   .heading {
     margin-top: 161px;
   }
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
+  .paradiv1,
+  .paradiv2,
+  .paradiv3 {
+    width: 272px;
+    line-height: 1;
+    display: none;
+  }
+  .div1 {
+    width: 110px;
+    height: 165px;
+    align-items: center;
+    /* margin-top: 44px; */
+  }
   .icon {
     width: 40px;
     height: 40px;
@@ -662,14 +665,9 @@ background-color: #4878ff; */
   }
   .edit {
     font-size: 13px;
-    margin-left: -5px;
     margin-top: 0px;
   }
-  .noticon {
-    width: 17px;
-    height: 18px;
-    margin-top: -17px;
-  }
+
   .heading {
     margin-bottom: -21px;
     margin-top: 199px;

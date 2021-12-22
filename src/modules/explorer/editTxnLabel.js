@@ -1,15 +1,14 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
-import {TransactionService, UserService} from "../../services";
-import utility, {dispatchAction} from "../../utility";
-import {eventConstants, genericConstants} from "../../constants";
-import {connect} from "react-redux";
-
+import { makeStyles } from "@material-ui/styles";
+import { Row } from "simple-flexbox";
+import { TransactionService, UserService } from "../../services";
+import utility, { dispatchAction } from "../../utility";
+import { eventConstants, genericConstants } from "../../constants";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
 
     margin: "14px 8px 15px 2px",
-    padding: "6px 19px 3px 20px",
   },
   buttons: {
     justifyContent: "space-between",
@@ -52,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
-    marginTop: "-20px"
+    marginTop: "-20px",
   },
   input: {
     width: "506px",
@@ -62,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
-    marginBottom: "21px"
+    marginBottom: "21px",
   },
   textarea: {
     width: "503px",
@@ -73,13 +71,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     outline: "none",
   },
-  
 
   updatebtn: {
     width: "110px",
     height: "34px",
     margin: "14px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
@@ -89,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
     width: "110px",
     height: "34px",
     margin: "14px 0px 15px 20px",
-    padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "Red",
     color: "white",
@@ -132,12 +127,12 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   "@media (max-width: 714px)": {
-    heading:{
+    heading: {
       fontSize: "16px",
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     input: {
       maxWidth: "503px",
@@ -150,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
     },
     flexButton: {
       display: "flex",
-    }
+    },
   },
 }));
 
@@ -160,7 +155,7 @@ function EditTxnLabel(props) {
   const [PrivateNote, setPrivateNote] = React.useState("");
   const [error, setError] = React.useState("");
   const [passwordShown, setPasswordShown] = React.useState(false);
-  const [id, setId] = React.useState("")
+  const [id, setId] = React.useState("");
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
@@ -168,7 +163,7 @@ function EditTxnLabel(props) {
     if (props.row.transactionHash)
       setTransactionsHash(props.row.transactionHash);
     setPrivateNote(props.row.trxLable);
-    setId(props.row._id)
+    setId(props.row._id);
   }, []);
 
   async function editTransactionLable() {
@@ -186,7 +181,7 @@ function EditTxnLabel(props) {
       return;
     }
     utility.apiSuccessToast("Private Note Updated");
-    window.location.href = "loginprofile"
+    window.location.href = "loginprofile";
   }
   const classes = useStyles();
 
@@ -199,7 +194,6 @@ function EditTxnLabel(props) {
     setOpen(false);
   };
   const validateTransaction = () => {
-
     if (
       (TransactionsHash && TransactionsHash.length === 66) ||
       TransactionsHash.slice(0, 1) == "0x"
@@ -211,20 +205,23 @@ function EditTxnLabel(props) {
   };
   const handleDelete = async () => {
     if (props?.row?._id) {
-      props.dispatchAction(eventConstants.SHOW_LOADER, true)
-      const [error, response] = await utility.parseResponse(TransactionService.deleteTransactionPrivateNote({ _id: props.row._id }))
-      props.dispatchAction(eventConstants.HIDE_LOADER, true)
+      props.dispatchAction(eventConstants.SHOW_LOADER, true);
+      const [error, response] = await utility.parseResponse(
+        TransactionService.deleteTransactionPrivateNote({ _id: props.row._id })
+      );
+      props.dispatchAction(eventConstants.HIDE_LOADER, true);
 
       if (error || !response) {
-        utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_TXN_PRIVATE_NOTE);
+        utility.apiFailureToast(
+          error?.message || genericConstants.CANNOT_DELETE_TXN_PRIVATE_NOTE
+        );
         return;
-
       }
       await utility.apiSuccessToast(genericConstants.TXN_PRIVATE_NOTE_DELETED);
       await handleClose();
       await props.getListOfTxnLabel();
     }
-  }
+  };
   return (
     <div>
       <div onClick={handleClickOpen}>
@@ -242,66 +239,68 @@ function EditTxnLabel(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-            <Row>
-              <div className={classes.heading} id="form-dialog-title">
-                Edit Transaction label
-              </div>
-            </Row>
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                Transaction Hash
-              </DialogContentText>
-              <input
-                type="text"
-                className={classes.input}
-                value={TransactionsHash}
-                onChange={(e) => {setTransactionsHash(e.target.value)
-              setError("")
+          <Row>
+            <div className={classes.heading} id="form-dialog-title">
+              Edit Transaction label
+            </div>
+          </Row>
+          <DialogContent>
+            <DialogContentText className={classes.subCategory}>
+              Transaction Hash
+            </DialogContentText>
+            <input
+              type="text"
+              className={classes.input}
+              value={TransactionsHash}
+              onChange={(e) => {
+                setTransactionsHash(e.target.value);
+                setError("");
               }}
             ></input>
-             {error ? <div className={classes.error}>{error}</div> : <></>}
-            </DialogContent>
-            <DialogContent>
-              <DialogContentText className={classes.subCategory}>
-                Transaction Label/Note
-              </DialogContentText>
+            {error ? <div className={classes.error}>{error}</div> : <></>}
+          </DialogContent>
+          <DialogContent>
+            <DialogContentText className={classes.subCategory}>
+              Transaction Label/Note
+            </DialogContentText>
 
-              <textarea
-                type="text"
-                className={classes.textarea}
-                value={PrivateNote}
-                onChange={(e) => setPrivateNote(e.target.value)}
-              ></textarea>
-            </DialogContent>
+            <textarea
+              type="text"
+              className={classes.textarea}
+              value={PrivateNote}
+              onChange={(e) => setPrivateNote(e.target.value)}
+            ></textarea>
+          </DialogContent>
 
-            <DialogActions className={classes.buttons}>
-              <div>
-                <span>
-                  <button className={classes.deletebtn} onClick={handleDelete}>Delete</button>
-                </span>
-              </div>
-              <div className={classes.flexButton}>
-                <span style={{ color: "white" }}>
-                  <button className={classes.cnlbtn} onClick={handleClose}>
-                    Cancel
-                  </button>
-                </span>
-                <span>
-                  <button
-                    className={classes.updatebtn}
-                    onClick={editTransactionLable, validateTransaction}
-                  >
-                    Update
-                  </button>
-                </span>
-              </div>
-            </DialogActions>
+          <DialogActions className={classes.buttons}>
+            <div>
+              <span>
+                <button className={classes.deletebtn} onClick={handleDelete}>
+                  Delete
+                </button>
+              </span>
+            </div>
+            <div className={classes.flexButton}>
+              <span style={{ color: "white" }}>
+                <button className={classes.cnlbtn} onClick={handleClose}>
+                  Cancel
+                </button>
+              </span>
+              <span>
+                <button
+                  className={classes.updatebtn}
+                  onClick={(editTransactionLable, validateTransaction)}
+                >
+                  Update
+                </button>
+              </span>
+            </div>
+          </DialogActions>
         </Dialog>
       </div>
     </div>
   );
 }
-
 
 const mapStateToProps = (state) => {
   return { user: state.user };

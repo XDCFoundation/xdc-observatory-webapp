@@ -269,11 +269,7 @@ export default function Transaction({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : ((valueFetch * transactions.value) / 1000000000000000000).toFixed(11);
-  // if (isLoading == true) {
-  //   return (
-  //     <div><Loader /></div>
-  //   )
-  // }
+  
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
@@ -838,7 +834,6 @@ const Content = styled.div`
   letter-spacing: 0.54px;
   text-align: left;
   color: #3a3a3a;
-  word-break: break-all;
   line-height: 28px;
   display: flex;
   align-items: center;

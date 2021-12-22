@@ -2978,7 +2978,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .textarea-verify-contract {
@@ -3084,7 +3084,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .textarea-constructor-arg {
@@ -3141,7 +3141,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .vc-input-contract-add {
@@ -3171,7 +3171,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .vc-input-contract-name {
@@ -3991,6 +3991,7 @@ body {
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #efefef;
+  padding-left: "18px" !important;
 }
 
 .input-area-4 {
@@ -6743,6 +6744,17 @@ button {
   line-height: 1rem !important;
 }
 
+.second-row-table-hash{
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 60px !important;
+  line-height: 1rem !important;
+  background-color: "red"
+
+}
+
 .second-row-table_hash2 {
   font-family: Inter !important;
   font-size: 12px !important;
@@ -7563,6 +7575,31 @@ button {
   text-decoration: none;
 }
 
+.profile-links {
+  background: none;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  color: #2a2a2a;
+  display: inline;
+  text-decoration: none;
+}
+
+.profile-links:hover {
+  background: none;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  color: #2a2a2a;
+  display: inline;
+  list-style: none;
+  text-decoration: none;
+}
+
 .qrcode-label {
   height: 400px;
   width: 400px;
@@ -8092,6 +8129,10 @@ button {
   .main-input-td {
     width: 12.5rem;
     font-size: 12px !important;
+    margin-top: -2px;
+  }
+  .mobFilter {
+    margin-top: -2px;
   }
 
   .select-td {
@@ -8113,7 +8154,9 @@ button {
     /* padding: 0.4rem 0.644rem 0 0.75rem; */
     margin-left: 3rem;
   }
-
+.token_number{
+  padding-left:75px;
+}
   .vc-header {
     display: flex;
     justify-content: center;
@@ -8698,7 +8741,7 @@ button {
 }
 .copyEditContainer1 {
   display: flex;
-  margin-left: 29rem !important;
+  margin-left: 15rem !important;
 }
 .copyEditContainer2 {
   display: flex;
@@ -9619,7 +9662,8 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
-  width: 7.625rem;
+  width: 11.625rem;
+
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;

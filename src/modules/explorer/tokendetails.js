@@ -80,6 +80,15 @@ const useStyles = makeStyles({
     borderTop: "0rem solid #bbb",
     width: "100%",
   },
+  tokenNumber:{
+    paddingLeft:"65px"
+  },
+  "@media (min-width: 0px) and (max-width: 768px)": {
+    tokenNumber:{
+      paddingLeft:"28px"
+    }
+    
+  },
 });
 
 export default function StickyHeadTable() {
@@ -352,19 +361,19 @@ export default function StickyHeadTable() {
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
                 <TableCell
-                  style={{ border: "none", paddingLeft: "75px" }}
+                  style={{ border: "none" }}
                   align="left"
                 >
-                  <span>#</span>
+                  <span className= {classes.tokenNumber}>#</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Contract</span>
+                  <span className={"tablehead-token-details"}>Symbol</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Symbol</span>
+                  <span className={"tablehead-token-details"}>Contract</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Type</span>
@@ -408,8 +417,18 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell style={{ paddingLeft: "75px" }} id="td">
-                          {index + 1}
+                        <TableCell  id="td">
+                          <p className= {classes.tokenNumber}>{index + 1}</p>
+                        </TableCell>
+                        <TableCell id="td">
+                          <img
+                            style={{ height: "24", width: "24" }}
+                            src={"/images/XRC20-Icon.svg"}
+                          ></img>
+                          &nbsp;{row.symbol}
+                        </TableCell>
+                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                          {shorten(row.tokenName, 9, 0, 3)}
                         </TableCell>
                         <TableCell>
                           <a
@@ -421,16 +440,7 @@ export default function StickyHeadTable() {
                             {shorten(row.address)}
                           </a>
                         </TableCell>
-                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
-                          {shorten(row.tokenName, 9, 0, 3)}
-                        </TableCell>
-                        <TableCell id="td">
-                          <img
-                            style={{ height: "24", width: "24" }}
-                            src={"/images/XRC20-Icon.svg"}
-                          ></img>
-                          &nbsp;{row.symbol}
-                        </TableCell>
+
                         <TableCell id="td">{row.type}</TableCell>
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           {utility.convertToInternationalCurrencySystem(
