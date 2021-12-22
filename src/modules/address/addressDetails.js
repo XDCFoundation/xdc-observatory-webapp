@@ -97,7 +97,7 @@ export default function AddressDetails(props) {
   console.log(priceChanged, "jjjj")
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol =
-    activeCurrency === "INR" ? "₹ " : activeCurrency === "USD" ? "$ " : "€ ";
+    activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -346,7 +346,7 @@ export default function AddressDetails(props) {
                   <MiddleContainerHash>
                     <Content>
                       {balance} XDC ({(currencySymbol)}
-                      {priceChanged}
+                      {priceChanged})
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>

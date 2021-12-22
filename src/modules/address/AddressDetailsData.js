@@ -166,7 +166,7 @@ export default function AddressDetailsData() {
                       </TableRow>
                       <TableRow>
                         <TableCell className="left-table-contract">
-                          XDC Value
+                          USD Value
                         </TableCell>
                         <TableCell className="left-table-contract-data">
                           {ReactHtmlParser(data.currencySymbol)}
