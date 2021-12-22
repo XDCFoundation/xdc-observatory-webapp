@@ -350,7 +350,7 @@ export default function StickyHeadTable() {
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
               ></img>
 
-              <div>No Transfers Found</div>
+              <div style={{color:"#c6cbcf"}}>No Transfers Found</div>
             </NoDataFoundContainer>
           )}
         </TableContainer>

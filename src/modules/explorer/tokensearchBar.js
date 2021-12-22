@@ -92,6 +92,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
+    marginTop:"-12px",
   },
   searchIcon: {
     marginTop: "2px",

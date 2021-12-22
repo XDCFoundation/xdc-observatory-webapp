@@ -247,7 +247,7 @@ export default function Transaction({ _handleChange }) {
 
   let CurrencyValue = window.localStorage.getItem("currency");
   const currencySymbol =
-    CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
+    CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
   const valueFetch =
     CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
   const txfee = !transactions
@@ -416,6 +416,7 @@ export default function Transaction({ _handleChange }) {
                             />
                           }
                           {
+                            <Tooltip title="Add Transaction Label" placement="top">
                             <img
                               className={
                                 width > 1240
@@ -427,6 +428,7 @@ export default function Transaction({ _handleChange }) {
                               onClick={openDialogPvtNote}
                               src={require("../../../src/assets/images/label.svg")}
                             />
+                            </Tooltip>
                           }
                         </>
                       ) : (
@@ -556,6 +558,7 @@ export default function Transaction({ _handleChange }) {
                                   {addressTag[0]?.tagName}
                                 </div>
                               ) : (
+                                <Tooltip title="Add a new Address Tag" placement="top">
                                 <img
                                   className={
                                     width > 1240
@@ -565,6 +568,7 @@ export default function Transaction({ _handleChange }) {
                                   onClick={openDialogPvtTag}
                                   src={require("../../../src/assets/images/tag.svg")}
                                 />
+                                </Tooltip>
                               )}
                             </>
                           ) : (
@@ -649,6 +653,7 @@ export default function Transaction({ _handleChange }) {
                                   {addressTagTo[0]?.tagName}
                                 </div>
                               ) : (
+                                <Tooltip title="Add a new Address Tag" placement="top">
                                 <img
                                   className={
                                     width > 1240
@@ -658,6 +663,7 @@ export default function Transaction({ _handleChange }) {
                                   onClick={openDialogPvtTag2}
                                   src={require("../../../src/assets/images/tag.svg")}
                                 />
+                                </Tooltip>
                               )}
                             </>
                           ) : (

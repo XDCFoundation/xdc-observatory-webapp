@@ -204,7 +204,7 @@ function EditWatchList(props) {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
     setId(props.row._id)
-  }, []);
+  }, [props]);
 
   const classes = useStyles();
 
