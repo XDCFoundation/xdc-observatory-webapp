@@ -520,7 +520,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   }}
                   id="td"
                 >
-                  Txn Fee
+                  Transaction Fee
                 </TableCell>
                 <TableCell
                   style={{
