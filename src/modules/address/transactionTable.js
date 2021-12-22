@@ -85,7 +85,7 @@ export default function TransactionTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values),
       )
-      if(!responseData || responseData.length===0){
+      if (!responseData || responseData.length === 0) {
         setNoData(true)
         setTotalRecord(parseInt(0))
         setAddress([])
@@ -277,10 +277,10 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.value / 1000000000000000000,
-          };
-        })
-      );
+            Value: Utility.decimalDivison(d.Value, 18),
+          }
+        }),
+      )
     } else {
       let tempAddress = address.map((addr) =>
         addr._id === name ? { ...addr, isChecked: checked } : addr
@@ -304,10 +304,10 @@ export default function TransactionTableComponent(props) {
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.value / 1000000000000000000,
-          };
-        })
-      );
+            Value: Utility.decimalDivison(d.Value, 18),
+          }
+        }),
+      )
     }
   };
   React.useEffect(() => {
@@ -458,7 +458,7 @@ export default function TransactionTableComponent(props) {
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {isLoading === true  ? (
+              {isLoading === true ? (
                 <TableBody>
                   <TableRow>
                     <TableCell style={{ border: "none" }} colspan="6">
@@ -564,11 +564,11 @@ export default function TransactionTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                          <Tooltip
-                         placement="top"
-                         title={format({})(row.value)}
-                        >
-                            <span className="tabledata">{Utility.convertToInternationalCurrencySystem(row.value)}</span>
+                            <Tooltip
+                              placement="top"
+                              title={format({})(row.value)}
+                            >
+                              <span className="tabledata">{Utility.convertToInternationalCurrencySystem(row.value)}</span>
                             </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
@@ -719,8 +719,8 @@ export default function TransactionTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   +from + +amount === totalRecord ||
-                  +from + +amount > totalRecord ||
-                  totalRecord === 0
+                    +from + +amount > totalRecord ||
+                    totalRecord === 0
                     ? "btn-contract disabled"
                     : "btn-contract"
                 }
@@ -731,8 +731,8 @@ export default function TransactionTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   +from + +amount === totalRecord ||
-                  +from + +amount > totalRecord ||
-                  totalRecord === 0
+                    +from + +amount > totalRecord ||
+                    totalRecord === 0
                     ? "btn-contract disabled"
                     : "btn-contract"
                 }

@@ -456,9 +456,8 @@ export default function StickyHeadTable(props) {
                         <TableCell>
                           <a
                             className="token-details-address-link"
-                            href={`/token-data/${row.address}/${
-                              row?.symbol ? row?.symbol : "NA"
-                            }`}
+                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                              }`}
                           >
                             {shorten(row.address)}
                           </a>
@@ -479,14 +478,16 @@ export default function StickyHeadTable(props) {
                           <TableCell id="td">{row.type}</TableCell>
                         )}
                         <TableCell id="td" style={{ paddingleft: "15" }}>
-                          {row.totalSupply / Math.pow(10, row?.decimals)}
+
+                          {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? (utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
+
                         </TableCell>
                         {props?.state?.tableColumns["Total Holders"]
                           .isActive && (
-                          <TableCell id="td" style={{ paddingleft: "15" }}>
-                            {row.tokenHolders}
-                          </TableCell>
-                        )}
+                            <TableCell id="td" style={{ paddingleft: "15" }}>
+                              {row.tokenHolders}
+                            </TableCell>
+                          )}
                       </TableRow>
                     );
                   })}

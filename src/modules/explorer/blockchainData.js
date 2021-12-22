@@ -9,7 +9,7 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import Utility from '../../utility'
 import Tab from "./tab";
 import Loader from "../../assets/loader";
 import {
@@ -331,9 +331,7 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-              this.state.transactionDataDetails[0]?.gasPrice /
-              1000000000000000000
-            ).toFixed(9)
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 9))
           : 0;
         if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
           this.setState({ gasPrice: gp });
@@ -527,8 +525,8 @@ class BlockChainDataComponent extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-        ? "$"
-        : "€";
+          ? "$"
+          : "€";
     let changeDecimal = changePrice ? parseFloat(changePrice).toFixed(2) : 0;
     let changeXdc = this.state.coinMarketPrice.price;
     let changeDecimals = changeXdc ? parseFloat(changeXdc).toFixed(6) : 0;

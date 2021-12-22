@@ -6,6 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import CommonTransactionsTable from "../common/table";
+import Utility from '../../utility'
 // function timeDiff(curr, prev) {
 //   if (curr < prev) return "0 secs ago";
 //   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -429,9 +430,7 @@ class LatestBlocks extends Component {
                                   >
                                     {e.value === 0
                                       ? 0
-                                      : (e.value / 1000000000000000000).toFixed(
-                                        3
-                                      )}{" "}
+                                      : Utility.decimalDivison(e.value)}{" "}
                                     XDC
                                   </p>
                                 </div>
