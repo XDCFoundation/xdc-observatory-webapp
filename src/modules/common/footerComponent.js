@@ -103,6 +103,22 @@ export default function FooterComponent(props) {
     }
   `;
 
+  const ThirdCloumnWithoutFlex = styled.div`
+    width: 40%;
+
+    /* width: 100%; */
+    @media (min-width: 0px) and (max-width: 767px) {
+      //display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    @media (min-width: 767px) and (max-width: 1240px) {
+      //display: flex;
+      flex-direction: row;
+      width: 66%;
+    }
+  `;
+
   let CurrencyNow = window.localStorage.getItem("currency");
   return (
       <div className={"footer_base"}>
@@ -491,7 +507,7 @@ export default function FooterComponent(props) {
 
           </BlankSpaceDiv>
 
-          <ThirdCloumn className="mobile-column-display">
+          <ThirdCloumnWithoutFlex className="mobile-column-display">
             <Grid
                 alignContent="center"
                 item
@@ -512,7 +528,7 @@ export default function FooterComponent(props) {
                 ></a>
               </div>
             </Grid>
-          </ThirdCloumn>
+          </ThirdCloumnWithoutFlex>
         </Grid>
         <div className="footer-line">
           <hr></hr>
