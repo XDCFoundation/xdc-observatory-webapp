@@ -16,6 +16,7 @@ import { cookiesConstants } from "../../constants";
 import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -126,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperWidthSm: {
     position: "absolute",
-    top: "65px",
+    top: "45px",
     width: "503px",
     padding: "0 11px",
     borderRadius: "12px",
@@ -367,7 +368,7 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState(0);
   const [value, setValue] = React.useState(0);
-  const [openSignup, setOpenSignup] = React.useState(false);
+  // const [openSignup, setOpenSignup] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
   const togglePasswordVisiblity = () => {
@@ -380,7 +381,7 @@ export default function FormDialog(props) {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [errorUserName, setErrorUserName] = React.useState("");
   const [isLoading, setLoading] = React.useState(false);
-  const [viewPopup, setViewPopup] = React.useState(true);
+  // const [viewPopup, setViewPopup] = React.useState(true);
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorEmailVerified, setErrorEmailVerified] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
@@ -424,7 +425,7 @@ export default function FormDialog(props) {
       setOpen(true);
     }
   };
-  let visited = sessionManager.setDataInCookies("", "alreadyVisited");
+  sessionManager.setDataInCookies("", "alreadyVisited");
   // const popUp = ()=>{
 
   //     if(visited) {
@@ -478,6 +479,7 @@ export default function FormDialog(props) {
   const handleOpenForgotPassword = () => {
     setValue(3);
     setErrorEmailVerified(false);
+    setEmail("")
   };
 
   const login = async () => {
@@ -538,6 +540,7 @@ export default function FormDialog(props) {
           authResponse?.userInfoRes?.sub,
           "userId"
         );
+        sessionManager.removeDataFromCookies("activateAccountEmail");
         setLoading(false);
         setUserName("");
         setEmail("");
@@ -617,6 +620,7 @@ export default function FormDialog(props) {
         setLoading(false);
       } else {
         window.location.href = "/activate-account";
+        sessionManager.setDataInCookies(email, "activateAccountEmail");
         setLoading(false);
         setOpen(false);
         setTimeout(() => {
@@ -762,19 +766,19 @@ export default function FormDialog(props) {
         props.verifiedEmail ? (
           ""
         ) : !props.hash ? (
-          <button className="login-button" onClick={handleClickOpen}>
-            <img
-              className="Shape2"
-              style={{ borderRadius: "50px", width: "25px" }}
-              src={
-                sessionManager.getDataFromCookies(
-                  cookiesConstants.USER_PICTURE
-                ) || "/images/Profile.svg"
-              }
-              alt={"image"}
-            />
-          </button>
+          //   <button className="login-button">
+          <Avatar
+            className="profile"
+            onClick={handleClickOpen}
+            src={
+              sessionManager.getDataFromCookies(
+                cookiesConstants.USER_PICTURE
+              ) || "/images/Profile.svg"
+            }
+            alt={"image"}
+          />
         ) : (
+          //   </button>
           ""
         )
       ) : (
@@ -847,13 +851,13 @@ export default function FormDialog(props) {
               />
               <span>
                 {passwordShown ? (
-                  <img
+                  <img alt="show"
                     src={"/images/show .svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
-                  <img
+                  <img alt="hide"
                     src={"/images/hide.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
@@ -865,7 +869,7 @@ export default function FormDialog(props) {
             {errorEmailVerified ? (
               <div className="verifiedEmailError">
                 <span className="verifiedEmailErrorTextIcon">
-                  <img
+                  <img alt="alert"
                     style={{ paddingRight: "2px" }}
                     src={require("../../../src/assets/images/alert.svg")}
                   />
@@ -878,7 +882,7 @@ export default function FormDialog(props) {
             ) : (
               ""
             )}
-            {isLoading == true ? (
+            {isLoading === true ? (
               <div className={classes.loading}>
                 <Loader />
               </div>
@@ -896,7 +900,7 @@ export default function FormDialog(props) {
                   }
                 }}
               >
-                Log in{" "}
+                Login{" "}
               </button>
             </DialogActions>
 
@@ -1157,6 +1161,7 @@ export default function FormDialog(props) {
               <input
                 type="email"
                 className={classes.input}
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setEmailError("");

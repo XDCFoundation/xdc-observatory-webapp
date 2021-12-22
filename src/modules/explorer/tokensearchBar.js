@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+import { Toolbar, Typography } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import List from "@material-ui/core/List";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,6 +16,7 @@ import Utility from "../../utility";
 import Popover from "./popover";
 import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
+import { Row } from "simple-flexbox";
 
 const drawerWidth = 240;
 const Cut = styled.div`
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   appBar: {
+    position: "unset !important",
     backgroundColor: "#2149b9",
     height: "4.875rem",
     transition: theme.transitions.create(["margin", "width"], {
@@ -40,13 +42,13 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
-      height: "11.4375rem !important",
+      height: "10.8rem !important",
     },
     drawerHeader: {
       padding: "0 !important",
     },
   },
-  "@media (min-width: 768px) and (max-width:1240px)": {
+  "@media (min-width: 767px) and (max-width:1250px)": {
     appBar: {
       backgroundColor: "#2149b9",
       height: "134px !important",
@@ -56,11 +58,7 @@ const useStyles = makeStyles((theme) => ({
       }),
     },
   },
-  "@media (max-width:450px)": {
-    appBar: {
-      height: "199px !important",
-    },
-  },
+
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["margin", "width"], {
@@ -96,16 +94,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   searchIcon: {
-    marginTop:"2px",
+    marginTop: "2px",
     width: 18,
     height: 18,
     marginRight: 3,
   },
   "@media (min-width: 0px) and (max-width: 767px)": {
     searchIcon: {
-      width: 14,
-      height: 14,
-      margin: "0px 7px 6px 0",
+      width: 15,
+      height: 15,
     },
   },
 
@@ -133,7 +130,7 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 640px)": {
     list: {
-      width: 228,
+      width: 300,
       backgroundColor: "#102e84",
       height: "100%",
     },
@@ -202,19 +199,23 @@ export default function Navbar() {
       );
 
       if (responseData) {
-        if (responseData[0].redirect == "block") {
+        if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
-        } else if (responseData[0].redirect == "account") {
+        } else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
           window.location.href = accounturl;
-        } else if (responseData[0].redirect == "transaction") {
+        } else if (responseData[0].redirect === "transaction") {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect == "token") {
-          let tokenurl = "/token-data/" + responseData[0].token.address;
+        } else if (responseData[0].redirect === "token") {
+          let tokenurl =
+            "/token-data/" +
+            responseData[0]?.token[0]?.address +
+            "/" +
+            responseData[0]?.token[0]?.symbol;
           window.location.href = tokenurl;
         } else {
         }
@@ -247,6 +248,7 @@ export default function Navbar() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          marginTop: "40px",
         }}
       >
         <p className="inside-side-box-browse">Browse</p>
@@ -338,41 +340,40 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={() => setOpencontracts(false)}
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className={classes.drawerHeader}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          margin: "40px 10px 15px 20px",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Row style={{ gap: "5px", alignItems: "center" }}>
+          <i
+            class="fa fa-angle-left"
+            aria-hidden="true"
+            onClick={() => setOpencontracts(false)}
+            style={{ color: "white", fontSize: 14, cursor: "pointer" }}
+          ></i>
           <div
-            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
+            style={{
+              color: "white",
+              fontSize: 13,
+              cursor: "pointer",
+            }}
+            onClick={() => setOpencontracts(false)}
           >
-            <div style={{ marginTop: 10 }}>
-              {" "}
-              <span
-                onClick={() => setOpencontracts(false)}
-                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
-              >
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>{" "}
-            </div>
-            <div
-              style={{
-                color: "white",
-                marginTop: "14px",
-                fontSize: 13,
-                marginLeft: "8px",
-                cursor: "pointer",
-              }}
-              onClick={() => setOpencontracts(false)}
-            >
-              Contract
-            </div>
-            <div>
-              <IconButton
-                style={{ color: "white", marginLeft: "12.630rem" }}
-                onClick={childToggle(subanchor, false)}
-              >
-                {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
-              </IconButton>
-            </div>
+            Contract
           </div>
+        </Row>
+        <div>
+          <IconButton
+            style={{ color: "white" }}
+            onClick={childToggle(subanchor, false)}
+          >
+            {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
+          </IconButton>
         </div>
       </div>
 
@@ -428,46 +429,38 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={() => setOpen(false)}
     >
-      <div
-        className="scrollbar"
-        style={{ display: "flex", flexDirection: "row" }}
+      <Row
+        alignItems="center"
+        justifyContent="space-between"
+        style={{ padding: "0 20px 0 20px", marginTop: "40px" }}
       >
-        <div className={classes.drawerHeader} className="scrollbar">
+        <Row alignItems="center">
+          <i
+            class="fa fa-angle-left"
+            aria-hidden="true"
+            onClick={() => setOpen(false)}
+            style={{ color: "white", fontSize: 15, cursor: "pointer" }}
+          ></i>
           <div
-            style={{ display: "flex", flexDirection: "row", marginLeft: "4px" }}
+            style={{
+              color: "white",
+              fontSize: 13,
+              marginLeft: "8px",
+              cursor: "pointer",
+            }}
           >
-            <div style={{ marginTop: 10 }}>
-              {" "}
-              <span
-                onClick={() => setOpen(false)}
-                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
-              >
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>{" "}
-            </div>
-
-            <div
-              style={{
-                color: "white",
-                marginTop: "14px",
-                fontSize: 13,
-                marginLeft: "8px",
-                cursor: "pointer",
-              }}
-            >
-              Tools
-            </div>
-            <div>
-              <IconButton
-                style={{ color: "white", marginLeft: "14rem" }}
-                onClick={childToolsToggle(subanchor, false)}
-              >
-                {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
-              </IconButton>
-            </div>
+            Tools
           </div>
+        </Row>
+        <div>
+          <IconButton
+            style={{ color: "white" }}
+            onClick={childToolsToggle(subanchor, false)}
+          >
+            {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
+          </IconButton>
         </div>
-      </div>
+      </Row>
 
       {/* onClick={() => setOpen(false)} */}
       <List className="side-box">
@@ -647,188 +640,380 @@ export default function Navbar() {
     </div>
   );
 
+  // ..................
+  const NavigationButton = styled.a`
+  text-decoration :  none;
+  padding: 5px 20px;
+  border-bottom: ${(props) =>
+    props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.041rem;
+    color: #ffffff;
+    list-style: none;
+  @media (min-width: 0px) and (max-width: 767px){
+    font-size: 0.875rem;
+  `;
+
+  const MobileNavigationContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-flow: row;
+    margin: 15px 0 0 0;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  `;
+
+  const DeskTopView = styled.div`
+    @media (min-width: 0px) and (max-width: 767px) {
+      display: none;
+    }
+    @media (min-width: 768px) {
+      display: visible;
+    }
+  `;
+  const MobileView = styled.div`
+    @media (min-width: 0px) and (max-width: 766px) {
+      display: visible;
+    }
+    @media (min-width: 767px) {
+      display: none;
+    }
+  `;
+
+  const SearchContainer = styled.div`
+    width: 330px;
+    height: 35px;
+    padding: 6px;
+    border-radius: 6px;
+    border: solid 1px #e3e7eb;
+    margin: auto;
+    background: white;
+    margin: 15px auto auto auto;
+  `;
+
+  const MobileToolBar = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 10px 10px 0 20px;
+    justify-content: space-between;
+  `;
+
+  const TabSearchBox = styled.div`
+    height: 2.375rem;
+    padding: 8px;
+    margin-right: 0.625rem;
+    margin-top: 10px;
+    border-radius: 0.25rem;
+    background-color: #ffffff;
+  `;
+
+  const TabSearchBoxParent = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+    @media (min-width: 0px) and (max-width: 767px) {
+      display: none;
+    }
+    @media (min-width: 1250px) {
+      display: none;
+    }
+  `;
+
   return (
     <div className={classes.root}>
       <CssBaseline />
+      {/* <DeskTopView> */}
+
       <AppBar
-        className="mob-height"
+        // className="mob-height"
         elevation={0}
         className={clsx(classes.appBar)}
       >
-        <Toolbar className={clsx(classes.toolBar)}>
+        <MobileToolBar className={clsx(classes.toolBar)}>
           <div className="tab-search">
             {/* <Typography className="Header"> */}
-            <div className="mobile-navbartab">
-              <div className="mobile-navbartab1">
-                <a href={"/"}>
+            <Row className="Header">
+              <Row alignItems="center">
+                <a className="logo_tokensearch" href={"/"}>
                   <img
-                    className="Shape-XDC"
-                    src={"/images/XDC icon.svg"}
+                    className="Shape"
+                    src={"/images/XDC-Icon-Logo.svg"}
                   ></img>
                 </a>
-                <a className="XDC-internal" href="/">
+                <a className="XDC" href="/">
                   {" "}
                   XDC{" "}
                 </a>
-              </div>
-              <div>
+              </Row>
+
+              <DeskTopView>
                 <div>
                   <NavLink
                     exact
                     activeClassName="active-t"
                     to={"/"}
-                    className="Network-explorer-internal"
+                    className="Network-explorer"
                   >
                     XDC Observatory
                   </NavLink>
-                </div>
-                <div>
-                  <a href="/">
-                    <div className="Network-explorer-internal">
-                    XDC Observatory
-                    </div>
-                  </a>
+
+                  {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
                 </div>
                 <div>
                   <NavLink
                     exact
                     activeClassName="active-t"
                     to={"/token-details"}
-                    className="Token-internal"
+                    className="Token"
                   >
                     Tokens
                   </NavLink>
+
+                  <a href="/">
+                    <p className="Network-explorer" id="Network-explorer">
+                      XDC Observatory
+                    </p>
+                  </a>
                 </div>
                 <div>
                   <a href="/token-details">
-                    <div className="Token-internal">Tokens</div>
+                    <div className="Token" id="Token">
+                      Tokens
+                    </div>
                   </a>
                 </div>
-              </div>
-            </div>
-            {/* </Typography> */}
-            <div className="parentCenterbox">
-              <div className="centerbox-td">
-                {/* <p className="description"></p> */}
-                <div className="main-form-container-td">
-                  <form
-                    method="post"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
-                    <div>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <img
-                          className={classes.searchIcon}
-                          src={"/images/Search.svg"}
-                        />
-                        <div className="search-responsive">
-                          <div>
-                            <input
-                              defaultValue={filter}
-                              type="text"
-                              onKeyUp={(event) => handleSearch(event)}
-                              ref={SearchDataRef}
-                              onKeyPress={(event) => {
-                                if (event.key === "Enter") {
-                                  handleSearch(event);
-                                }
-                              }}
-                              className="main-input-td "
-                              src={"/images/Search.png"}
-                              placeholder="Search for an address, a Transaction or a block number"
-                            />
-                          </div>
-                          {/* name="NAME" */}
-                          <div className="mobFilter">
-                            <select
-                              className="select-td"
-                              onChange={(event) => handleSearchOption(event)}
-                              ref={SelectOptRef}
-                            >
-                              <option value="All filters" selected>
-                                All Filters
-                              </option>
-                              <option value="Address">Addresses</option>
-                              <option value="Blocks">Blocks</option>
-                              <option value="Tokens">Tokens</option>
-                              <option value="Transaction">Transaction</option>
-                              {/* <option value="Nametags">Nametags</option>
-                      <option value="Labels">Labels</option>
-                      <option value="Websites">Websites</option> */}
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <ul style={{ color: "black" }}>
-                      {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-                      <li>
-                        {list.map((name) => {
-                          if (filter.length !== 0) {
-                            if (
-                              name
-                                .toLowerCase()
-                                .startsWith(filter.toLowerCase())
-                            )
-                              return <li>{name}</li>;
-                          } else {
-                            return null;
-                          }
-                        })}
-                      </li>
-                    </ul>
-                  </form>
-                </div>
-                <div className="token-error-message-div">
-                  <span className="token-error-message">{errorMessage}</span>
+              </DeskTopView>
+
+              {/* </div> */}
+            </Row>
+            <DeskTopView>
+              <div className="parentCenterbox">
+                <div className="centerbox-td">
+                  {SearchBox({
+                    classes,
+                    filter,
+                    handleSearch,
+                    SearchDataRef,
+                    SelectOptRef,
+                    handleSearchOption,
+                    list,
+                  })}
+                  <div className="token-error-message-div">
+                    <span className="token-error-message">{errorMessage}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="right-nav-div">
-            {openPasswordBox && (
-              <ChangePassword openChangePassword={openChangePassword} />
-            )}
-            <Popover openChangePassword={openChangePassword} />
+            </DeskTopView>
+            {/* <div className="display-none-desktop"> */}
 
-            <React.Fragment className="rigt-line" key={"right"}>
-              <IconButton
-                // className="icon-tab"
-                color="inherit"
-                aria-label="open drawer"
-                edge="end"
-                onClick={toggleDrawer("right", true)}
-              >
-                <img
-                  className={isloggedIn ? "Shape2-internal1" : "menu-sidebar"}
-                  src={"/images/Menu.svg"}
-                ></img>
-                {/* <MenuIcon /> */}
-              </IconButton>
-
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={state["right"]}
-              >
-                {lists("right")}
-              </Drawer>
-              <Drawer className={classes.drawer} anchor={"right"} open={open}>
-                {items("right")}
-              </Drawer>
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={opencontracts}
-              >
-                {contracts("right")}
-              </Drawer>
-            </React.Fragment>
+            {/* </div> */}
           </div>
-        </Toolbar>
+
+          {LoginComponent({
+            toggleDrawer,
+            isloggedIn,
+            openChangePassword,
+            classes,
+            opencontracts,
+            state,
+            lists,
+            items,
+            contracts,
+            openPasswordBox,
+            open,
+          })}
+
+          {/* <div className="display-none-mobile">
+            {LoginComponent({
+              toggleDrawer,
+              isloggedIn,
+              openChangePassword,
+              classes,
+              opencontracts,
+              state,
+              lists,
+              items,
+              contracts,
+              openPasswordBox,
+              open,
+            })}
+          </div> */}
+        </MobileToolBar>
+        <MobileView>
+          <MobileNavigationContainer>
+            <NavigationButton active={window.location.pathname == "/"} href="/">
+              XDC Observatory
+            </NavigationButton>
+            <NavigationButton
+              active={window.location.pathname.includes("token")}
+              href="/token-details"
+            >
+              Tokens
+            </NavigationButton>
+          </MobileNavigationContainer>
+          <SearchContainer>
+            {SearchBox({
+              classes,
+              filter,
+              handleSearch,
+              SearchDataRef,
+              SelectOptRef,
+              handleSearchOption,
+              list,
+            })}
+          </SearchContainer>
+        </MobileView>
+        <TabSearchBoxParent>
+          <TabSearchBox>
+            {SearchBox({
+              classes,
+              filter,
+              handleSearch,
+              SearchDataRef,
+              SelectOptRef,
+              handleSearchOption,
+              list,
+            })}
+          </TabSearchBox>
+        </TabSearchBoxParent>
       </AppBar>
+      {/* </DeskTopView> */}
     </div>
   );
 }
+
+const SearchBox = ({
+  classes,
+  filter,
+  handleSearch,
+  SearchDataRef,
+  SelectOptRef,
+  handleSearchOption,
+  list,
+}) => {
+  return (
+    <form
+      method="post"
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <Row alignItems="center">
+        <img className={classes.searchIcon} src={"/images/Search.svg"} />
+        <div className="search-responsive">
+          <input
+            defaultValue={filter}
+            type="text"
+            onKeyUp={(event) => handleSearch(event)}
+            ref={SearchDataRef}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                handleSearch(event);
+              }
+            }}
+            className="main-input-td "
+            src={"/images/Search.png"}
+            placeholder="Search"
+          />
+          {/* name="NAME" */}
+          <div className="mobFilter">
+            <select
+              className="select-td"
+              onChange={(event) => handleSearchOption(event)}
+              ref={SelectOptRef}
+            >
+              <option value="All filters" selected>
+                All Filters
+              </option>
+              <option value="Address">Addresses</option>
+              <option value="Blocks">Blocks</option>
+              <option value="Tokens">Tokens</option>
+              <option value="Transaction">Transaction</option>
+              {/* <option value="Nametags">Nametags</option>
+                      <option value="Labels">Labels</option>
+                      <option value="Websites">Websites</option> */}
+            </select>
+          </div>
+        </div>
+      </Row>
+      <ul style={{ color: "black" }}>
+        {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+        <li>
+          {list.map((name) => {
+            if (filter.length !== 0) {
+              if (name.toLowerCase().startsWith(filter.toLowerCase()))
+                return <li>{name}</li>;
+            } else {
+              return null;
+            }
+          })}
+        </li>
+      </ul>
+    </form>
+  );
+};
+
+const LoginComponent = ({
+  toggleDrawer,
+  isloggedIn,
+  openChangePassword,
+  classes,
+  opencontracts,
+  state,
+  lists,
+  items,
+  contracts,
+  openPasswordBox,
+  open,
+}) => {
+  return (
+    <Row alignItems="center">
+      {openPasswordBox && (
+        <ChangePassword openChangePassword={openChangePassword} />
+      )}
+      <Popover openChangePassword={openChangePassword} />
+
+      <React.Fragment className="rigt-line" key={"right"}>
+        <IconButton
+          className="hamburger-icon"
+          color="inherit"
+          aria-label="open drawer"
+          edge="end"
+          onClick={toggleDrawer("right", true)}
+        >
+          <img
+            className={isloggedIn ? "Shape2-internal1" : "menu-sidebar"}
+            src={"/images/Menu.svg"}
+          ></img>
+          {/* <MenuIcon /> */}
+        </IconButton>
+
+        <Drawer
+          className={classes.drawer}
+          anchor={"right"}
+          open={state["right"]}
+        >
+          {lists("right")}
+        </Drawer>
+        <Drawer className={classes.drawer} anchor={"right"} open={open}>
+          {items("right")}
+        </Drawer>
+        <Drawer
+          className={classes.drawer}
+          anchor={"right"}
+          open={opencontracts}
+        >
+          {contracts("right")}
+        </Drawer>
+      </React.Fragment>
+    </Row>
+  );
+};

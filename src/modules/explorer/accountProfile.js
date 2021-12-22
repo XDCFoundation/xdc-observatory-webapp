@@ -21,7 +21,7 @@ import Editprofile from "./editprofle";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
+import { Tabs, Avatar } from "@material-ui/core";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -35,7 +35,7 @@ import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
 import { cookiesConstants } from "../constants";
 import Utils from "../../utility";
-import { red } from "@material-ui/core/colors";
+import { Column, Row } from "simple-flexbox";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -83,7 +83,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box style={{ padding: "20px 0" }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -113,6 +113,8 @@ const useStyles = makeStyles((theme) => ({
     // flexGrow: 1,
     // backgroundColor: "#f8f9fa00",
     // width: "100vw",
+    maxWidth: "1190px",
+    margin: "auto",
     borderRadius: "none",
     padding: "40px 0px",
     justifyContent: "space-around",
@@ -193,7 +195,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "1248px",
       width: "100%",
-      padding: "0 24px",
     },
   },
   "@media (min-width:0px) and (max-width: 714px)": {
@@ -210,7 +211,7 @@ const useStyles = makeStyles((theme) => ({
     tab2: {
       color: "#6b7482",
       textTransform: "initial",
-      fontSize: "0.722rem"
+      fontSize: "0.722rem",
     },
   },
   "@media (max-width: 828px)": {
@@ -279,7 +280,6 @@ const useStyles = makeStyles((theme) => ({
   noData: {
     width: "auto",
     height: "19px",
-    margin: "25px 15px 0 480px",
     fontFamily: "Inter",
     fontSize: "16px",
     fontWeight: "normal",
@@ -288,7 +288,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#c6cbcf",
   },
   alert: {
-    margin: "110px 0 0 580px",
+    // margin: "110px 0 0 580px",
   },
 
   // Rectangle: {
@@ -301,6 +301,50 @@ const useStyles = makeStyles((theme) => ({
   // }
 }));
 
+const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+`;
+
+const UserNameContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 40px auto;
+  gap: 15px;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 600;
+  max-width: 1190px;
+  width: 100%;
+  align-items: center;
+
+  @media (max-width: 850px) {
+    padding: 0 0 0 10px !important;
+    max-width: 710px;
+  }
+
+  @media (min-width: 450px) and (max-width: 850px) {
+    gap: ${(props) => (props.isWallet ? "30px" : "15px")};
+  }
+
+  @media (max-width: 400px) {
+    gap: 12px;
+  }
+  @media (min-width: 401px) and (max-width: 449px) {
+    gap: 30px;
+  }
+`;
+
+const SubParentContainer = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    max-width: 41.5rem;
+    margin: auto;
+  }
+`;
 export default function SimpleTabs(props) {
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -313,13 +357,13 @@ export default function SimpleTabs(props) {
   const [watchlist, setWatchlist] = React.useState([]);
   // const [userName, setUserName] = React.useState([]);
   const [privateAddress, setPrivateAddress] = React.useState([]);
-  const [exports, exportAddress] = React.useState({});
-  const [toggle, handleToggle] = React.useState(false);
-  const [isLoading, setLoading] = React.useState(false);
+  // const [exports, exportAddress] = React.useState({});
+  // const [toggle, handleToggle] = React.useState(false);
+  // const [isLoading, setLoading] = React.useState(false);
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const { state } = props;
+  // const { state } = props;
   const [addedOnToggle, setAddedOnToggle] = React.useState(0);
   const [balanceToggle, setBalanceToggle] = React.useState(0);
   const [nameToggle, setNameToggle] = React.useState(0);
@@ -442,11 +486,11 @@ export default function SimpleTabs(props) {
     setValue(newValue);
   };
 
-  function handleMultipleTag(tag) {
-    let tagWords = [];
-    tagWords = tag.split(",");
-    return tagWords;
-  }
+  // function handleMultipleTag(tag) {
+  //   let tagWords = [];
+  //   tagWords = tag.split(",");
+  //   return tagWords;
+  // }
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -458,10 +502,9 @@ export default function SimpleTabs(props) {
   const [selectedEditAddress, setSelectedAddress] = React.useState(false);
   const handleClickOpen = (value) => {
     setEditBox(true);
-    setSelectedAddress(value)
+    setSelectedAddress(value);
   };
   const handleClose = async () => {
-
     setEditBox(false);
   };
 
@@ -820,10 +863,10 @@ export default function SimpleTabs(props) {
     <div>
       <Tokensearchbar />
 
-      <div className="maindiv">
-        <div className="heading">
-          <span>
-            <img
+      <SubParentContainer>
+        {/* <div className="heading"> */}
+        {/* <span> */}
+        {/* <img
               className="icon"
               style={{ borderRadius: "50px" }}
               src={
@@ -831,9 +874,26 @@ export default function SimpleTabs(props) {
                   cookiesConstants.USER_PICTURE
                 ) || "/images/Profile.png"
               }
-            />
-          </span>
-          <span>
+            /> */}
+        <UserNameContainer>
+          <Avatar
+            className="profile-icon"
+            src={
+              sessionManager.getDataFromCookies(
+                cookiesConstants.USER_PICTURE
+              ) || "/images/Profile.png"
+            }
+          />
+          <Column>
+            <Row style={{ gap: "15px" }}>
+              Welcome, {Utils.shortenUserName(setUserName())}
+              <NotificationBar />
+            </Row>
+            <Editprofile />
+          </Column>
+        </UserNameContainer>
+        {/* </span> */}
+        {/* <span>
             <div className="nameicon">
               <span className="welcome">
                 Welcome, {Utils.shortenUserName(setUserName())}
@@ -845,13 +905,13 @@ export default function SimpleTabs(props) {
           </span>
           <span className="notificationBell">
             <NotificationBar />
-          </span>
-        </div>
-        <div className="divbox">
+          </span> */}
+        {/* </div> */}
+        <UserNameContainer isWallet={true}>
           <Watchlist />
           <Transaction />
           <Private />
-        </div>
+        </UserNameContainer>
 
         <div className={classes.root}>
           <AppBar
@@ -918,59 +978,59 @@ export default function SimpleTabs(props) {
               tableValue === 1 ? (
                 ""
               ) : // <CSVLink
-                //   filename={"watchlist.csv"}
-                //   data={downloadWatchlist}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export
-                // </CSVLink>
-                tableValue === 2 ? (
-                  <CSVLink
-                    filename={"private_note.csv"}
-                    data={downloadTxnPvtNote}
-                    style={{
-                      fontSize: "0.938rem",
-                      textAlign: "center",
-                      color: "#ffffff",
-                      backgroundColor: "rgb(7 125 245)",
-                      borderRadius: "0.25rem",
-                      width: "5.875rem",
-                      height: "2.125rem",
-                      marginRight: "1.5rem",
-                      paddingTop: "0.125rem",
-                    }}
-                  >
-                    Export
-                  </CSVLink>
-                ) : (
-                  <CSVLink
-                    filename={"tag_address.csv"}
-                    data={downloadTagAddress}
-                    style={{
-                      fontSize: "0.938rem",
-                      textAlign: "center",
-                      color: "#ffffff",
-                      backgroundColor: "rgb(7 125 245)",
-                      borderRadius: "0.25rem",
-                      width: "5.875rem",
-                      height: "2.125rem",
-                      marginRight: "1.5rem",
-                      paddingTop: "0.125rem",
-                    }}
-                  >
-                    Export
-                  </CSVLink>
-                )
+              //   filename={"watchlist.csv"}
+              //   data={downloadWatchlist}
+              //   style={{
+              //     fontSize: "0.938rem",
+              //     textAlign: "center",
+              //     color: "#ffffff",
+              //     backgroundColor: "rgb(7 125 245)",
+              //     borderRadius: "0.25rem",
+              //     width: "5.875rem",
+              //     height: "2.125rem",
+              //     marginRight: "1.5rem",
+              //     paddingTop: "0.125rem",
+              //   }}
+              // >
+              //   Export
+              // </CSVLink>
+              tableValue === 2 ? (
+                <CSVLink
+                  filename={"private_note.csv"}
+                  data={downloadTxnPvtNote}
+                  style={{
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "rgb(7 125 245)",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    marginRight: "1.5rem",
+                    paddingTop: "0.125rem",
+                  }}
+                >
+                  Export
+                </CSVLink>
+              ) : (
+                <CSVLink
+                  filename={"tag_address.csv"}
+                  data={downloadTagAddress}
+                  style={{
+                    fontSize: "0.938rem",
+                    textAlign: "center",
+                    color: "#ffffff",
+                    backgroundColor: "rgb(7 125 245)",
+                    borderRadius: "0.25rem",
+                    width: "5.875rem",
+                    height: "2.125rem",
+                    marginRight: "1.5rem",
+                    paddingTop: "0.125rem",
+                  }}
+                >
+                  Export
+                </CSVLink>
+              )
             ) : (
               <CSVLink
                 filename={"tag_address.csv"}
@@ -1061,14 +1121,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  <img
-                    className={classes.alert}
-                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                  ></img>
+                  <NoDataFoundContainer>
+                    <img
+                      className={classes.alert}
+                      src={require("../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
 
-                  <div className={classes.noData}>
-                    No address added to watchlist
-                  </div>
+                    <div className={classes.noData}>
+                      No address added to watchlist
+                    </div>
+                  </NoDataFoundContainer>
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
@@ -1080,7 +1142,10 @@ export default function SimpleTabs(props) {
                       >
                         <Grid
                           component={Paper}
-                          style={{ boxShadow: "0px 0px 0px 0px" }}
+                          style={{
+                            boxShadow: "0px 0px 0px 0px",
+                            overflow: "auto",
+                          }}
                         >
                           <Table
                             className="table w-700-a w-1500-a"
@@ -1159,6 +1224,7 @@ export default function SimpleTabs(props) {
                         </Grid>
                       </Grid>
                       <img
+                        alt="alert"
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
@@ -1365,7 +1431,7 @@ export default function SimpleTabs(props) {
                   >
                     <Grid
                       component={Paper}
-                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                      style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
                     >
                       <Table
                         className="table w-700-a w-1500-a"
@@ -1382,7 +1448,7 @@ export default function SimpleTabs(props) {
                                 name="allselect"
                                 checked={
                                   countNote === pvtNoteLength ||
-                                  checkedNote == true
+                                  checkedNote === true
                                 }
                                 style={{
                                   marginRight: "10px",
@@ -1430,14 +1496,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  <img
-                    className={classes.alert}
-                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                  ></img>
+                  <NoDataFoundContainer>
+                    <img
+                      className={classes.alert}
+                      src={require("../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
 
-                  <div className={classes.noData}>
-                    No Hash added to Priavte Note
-                  </div>
+                    <div className={classes.noData}>
+                      No Hash added to Priavte Note
+                    </div>
+                  </NoDataFoundContainer>
                 </div>
               ) : (
                 <Grid
@@ -1636,7 +1704,7 @@ export default function SimpleTabs(props) {
                                     type="checkbox"
                                     checked={row?.isChecked2 || false}
                                     style={{ marginTop: "4px" }}
-                                  // className={classes.Rectangle}
+                                    // className={classes.Rectangle}
                                   />
                                 </TableCell>
                                 <TableCell
@@ -1789,14 +1857,15 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>{" "}
-                  <img
-                    className={classes.alert}
-                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                  ></img>
-                  <div className={classes.noData}>
-
-                    No Address added to Tagged Address
-                  </div>
+                  <NoDataFoundContainer>
+                    <img
+                      className={classes.alert}
+                      src={require("../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
+                    <div className={classes.noData}>
+                      No Address added to Tagged Address
+                    </div>
+                  </NoDataFoundContainer>
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
@@ -1895,8 +1964,10 @@ export default function SimpleTabs(props) {
                         className={classes.alert}
                         src={require("../../../src/assets/images/XDC-Alert.svg")}
                       ></img>
-                      <div className={classes.noData} style={{ marginLeft: "538px" }}>
-
+                      <div
+                        className={classes.noData}
+                        style={{ marginLeft: "538px" }}
+                      >
                         Data Not Found
                       </div>
                     </div>
@@ -2083,11 +2154,7 @@ export default function SimpleTabs(props) {
             </PaginationDiv>
           </TabPanel>
         </div>
-
-        <div>
-          <h1></h1>
-        </div>
-      </div>
+      </SubParentContainer>
       <FooterComponent />
     </div>
   );
