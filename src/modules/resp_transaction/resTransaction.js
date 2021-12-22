@@ -462,7 +462,9 @@ export default function Transaction({ _handleChange }) {
                             href={"/block-details/" + transactions.blockNumber}
                           >
                             {" "}
-                            {transactions.blockNumber}
+                            {transactions.blockNumber
+                              ? transactions.blockNumber
+                              : ""}
                           </a>
                           &nbsp; - {bx} Blocks Confirmation
                         </Content>
@@ -477,11 +479,17 @@ export default function Transaction({ _handleChange }) {
                         <Hash>Timestamp</Hash>
                       </Container>
                       <MiddleContainer isTextArea={false}>
-                        {" "}
+                        {/* {" "}
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
-                        )}{" "}
-                        +0530 ({getHoursAgo(transactions.timestamp * 1000)})
+                        )}{" "} */}
+                        {transactions.timestamp &&
+                        !isNaN(Number(transactions.timestamp))
+                          ? moment(
+                              Number(transactions.timestamp) * 1000
+                            ).format("MMMM Do YYYY, h:mm:ss a") + "  +0530"
+                          : ""}
+                        ({getHoursAgo(transactions.timestamp * 1000)})
                       </MiddleContainer>
                     </Spacing>
                     <SpacingHash>

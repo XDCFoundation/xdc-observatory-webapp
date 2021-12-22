@@ -1,6 +1,5 @@
 import auth0 from "auth0-js";
 import { sessionManager } from "../managers/sessionManager"
-import { history } from "../managers/history"
 
 export default class Auth0Service {
   constructor(){

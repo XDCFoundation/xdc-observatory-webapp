@@ -13,7 +13,9 @@ import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
-
+import utility from "../../utility";
+import { Tooltip } from "@material-ui/core";
+import format from "format-number";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -93,6 +95,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const listOfHolders = async (values) => {
     let [error, tns] = await Utils.parseResponse(
@@ -153,6 +156,17 @@ export default function StickyHeadTable() {
   //   )}`;
   // }
 
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
+    }
+  `;
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -243,17 +257,23 @@ export default function StickyHeadTable() {
                             : row[0].Percentage.toFixed(2)}
                         </span>
                       </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
+                      <TableCell id="td" style={{ border: "none" }} className="cursor-pointer">
+                        <Tooltip
+                         placement="top"
+                         title={format({})( row[0]?.Value)}
+                        >
                         <span className="tabledata table-data mar-lef-2">
-                          {" "}
-                          {row[0]?.Value}
-                        </span>{" "}
+                        
+                          {utility.convertToInternationalCurrencySystem(
+                            row[0]?.Value
+                          )}
+                        </span>
+                        </Tooltip>
                       </TableCell>
                     </StyledTableRow>
                   );
                 })}
-                {noData === false && (
+                {/* {noData === false && (
                   <div className="No-data-found">
                     <span
                       style={{ textAlign: "center", color: "#2a2a2a" }}
@@ -262,10 +282,19 @@ export default function StickyHeadTable() {
                       No Holders Found
                     </span>
                   </div>
-                )}
+                )} */}
               </TableBody>
             )}
           </Table>
+          {noData == false && (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+
+              <div>No Holders Found</div>
+            </NoDataFoundContainer>
+          )}
         </TableContainer>
       </Paper>
       <Pagination>
