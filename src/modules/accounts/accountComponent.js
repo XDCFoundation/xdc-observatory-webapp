@@ -16,6 +16,8 @@ import utility from "../../utility";
 import format from "format-number";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
+import Utils from '../../utility'
+import { utils } from "react-bootstrap";
 import styled from "styled-components";
 
 const useStyles = makeStyles({
@@ -274,7 +276,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._NextPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                props.state.totalAccounts
+                  props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
@@ -286,7 +288,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._LastPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                props.state.totalAccounts
+                  props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
