@@ -852,7 +852,7 @@ export default function FormDialog(props) {
               <span>
                 {passwordShown ? (
                   <img alt="show"
-                    src={"/images/show .svg"}
+                    src={"/images/show.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
