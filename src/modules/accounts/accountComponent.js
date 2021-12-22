@@ -49,6 +49,7 @@ export default function AccountComponent(props) {
   let [anchorEl, setAnchorEl] = React.useState();
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
+  
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -68,7 +69,8 @@ export default function AccountComponent(props) {
 
   const { state } = props;
   const classes = useStyles();
-  //alert(props.state.noData)
+  let rantCount = state.from;
+  
   return (
     <div>
       <Tokensearchbar />
@@ -108,6 +110,14 @@ export default function AccountComponent(props) {
             <Table>
               <TableHead>
                 <TableRow>
+                  {props.state.tableColumns["Rank"].isActive && (
+                    <TableCell
+                      style={{ border: "none", paddingLeft: "2%" }}
+                      align="left"
+                    >
+                      <span className={"tableheaders_1 pl--1"}>Rank</span>
+                    </TableCell>
+                  )}
                   <TableCell
                     style={{ border: "none", paddingLeft: "2.2%" }}
                     align="left"
@@ -129,6 +139,17 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>Balance</span>
                     </TableCell>
+                    
+                  )}
+
+                  {props.state.tableColumns["Percentage"].isActive && (
+                    <TableCell
+                      style={{ border: "none", paddingLeft: "0%" }}
+                      align="left"
+                    >
+                      <span className={"tableheaders_1"}>Percentage</span>
+                    </TableCell>
+                    
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
                 </TableRow>
@@ -152,6 +173,11 @@ export default function AccountComponent(props) {
                         let num = row.balance;
                         let finalBal = num / 1000000000000000000;
                         let bal = finalBal.toString();
+                        rantCount = rantCount + 1
+                        let percentageValue = ((finalBal / state.totalSupply) * 100).toFixed(2)
+                        //state.totalSupply
+
+
                         return (
                           <TableRow
                             key={row.name}
@@ -161,6 +187,13 @@ export default function AccountComponent(props) {
                                 : { background: "white" }
                             }
                           >
+                             <TableCell
+                                className="w-2"
+                                style={{ border: "none", paddingLeft: "1%" }}
+                                align="left"
+                              >
+                              <span className="tabledata">{ rantCount }</span>
+                              </TableCell>
                             <TableCell
                               className="w-1"
                               style={{
@@ -210,6 +243,17 @@ export default function AccountComponent(props) {
                                     )}
                                   </span>
                                 </Tooltip>
+                              </TableCell>
+                            )}
+                            {props.state.tableColumns["Percentage"].isActive && (
+                              <TableCell
+                                className="w-2"
+                                style={{ border: "none", paddingLeft: "0" }}
+                                align="left"
+                              >
+                                <span className="tabledata">
+                                  {percentageValue} %
+                                </span>
                               </TableCell>
                             )}
                             {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
