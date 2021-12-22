@@ -9,7 +9,7 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import Utility from '../../utility'
 import Tab from "./tab";
 import Loader from "../../assets/loader";
 import {
@@ -34,7 +34,7 @@ const MainContainer = styled.div`
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     /* width: auto; */
     width: 41.5rem;
     margin-left: auto;
@@ -43,7 +43,7 @@ const MainContainer = styled.div`
     padding-top: 0px;
   }
   @media (min-width: 0px) and (max-width: 767px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     /* width: auto; */
     width: 22.563rem;
     height: 32.063rem;
@@ -75,7 +75,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 10px 14px 0;
+    padding: 0 10px 0;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     padding: 20px 10px 0 0;
@@ -101,10 +101,15 @@ const LeftSec = styled.div`
 `;
 const ValueMain = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 35px;
   flex-wrap: wrap;
-  padding: 0px 4px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    gap: 30px;
+  }
   /* margin-top: 12px; */
+  @media (min-width: 0px) and (max-width: 767px) {
+    // padding-right: 26px
+  }
 `;
 
 const Value = styled.div`
@@ -113,18 +118,17 @@ const Value = styled.div`
   padding-bottom: 15px;
   @media (min-width: 0px) and (max-width: 767px) {
     padding: 10px 0px 0 0;
-    width: 9.75rem;
   }
 `;
 const TitleIcon = styled.img`
-  width: 22%;
   margin-right: 8px;
   margin-bottom: 36px;
+  height: 35px;
   @media (max-width: 767px) {
-    width: 18%;
-    margin-right: 9px;
-    margin-left: -8px;
-    margin-top: 8px;
+    //   width: 18%;
+    margin-right: 0px;
+    margin-left: -10px;
+    //   margin-top: 8px;
     margin-bottom: 28px;
   }
 `;
@@ -201,16 +205,19 @@ const LeftTitle = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
+    font-weight: 700;
+    color: #252525;
   }
   @media (min-width: 768px) {
     font-size: 1.5rem;
   }
 `;
 const Line1 = styled.hr`
-  background-color: #fff;
+background-color: #e3e7eb;
   width: 100%;
   position: absolute;
   top: 65%;
+  opacity: 1;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 90%;
     top: 87%;
@@ -324,9 +331,7 @@ class BlockChainDataComponent extends Component {
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-            this.state.transactionDataDetails[0]?.gasPrice /
-            1000000000000000000
-          ).toFixed(9)
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 9))
           : 0;
         if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
           this.setState({ gasPrice: gp });
@@ -414,7 +419,13 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
-    if (!tpsCount || tpsCount.length == 0 || tpsCount === undefined || tpsCount == "" || tpsCount === null) {
+    if (
+      !tpsCount ||
+      tpsCount.length == 0 ||
+      tpsCount === undefined ||
+      tpsCount == "" ||
+      tpsCount === null
+    ) {
       this.setState({ loading: false });
     }
     if (error || !tpsCount) return;
@@ -425,7 +436,13 @@ class BlockChainDataComponent extends Component {
       let [error, tpsCount] = await Utils.parseResponse(
         TpsService.getTpsCounter()
       );
-      if (!tpsCount || tpsCount.length == 0 || tpsCount === undefined || tpsCount == "" || tpsCount === null) {
+      if (
+        !tpsCount ||
+        tpsCount.length == 0 ||
+        tpsCount === undefined ||
+        tpsCount == "" ||
+        tpsCount === null
+      ) {
         this.setState({ loading: false });
       }
       this.setState({ tpsCounts: tpsCount?.currenttps });
@@ -551,18 +568,12 @@ class BlockChainDataComponent extends Component {
                   ) : changeDecimal > 0 ? (
                     <div className="arrow_up">
                       {/* <BsFillCaretUpFill size={10} /> */}
-                      <img
-                        src={"/images/Up.svg"}
-                        style={{ width: "8px" }}
-                      />
+                      <img src={"/images/Up.svg"} style={{ width: "8px" }} />
                     </div>
                   ) : (
                     <div className="arrow_down">
                       {/* <BsFillCaretDownFill size={10} /> */}
-                      <img
-                        src={"/images/Down.svg"}
-                        style={{ width: "8px" }}
-                      />
+                      <img src={"/images/Down.svg"} style={{ width: "8px" }} />
                     </div>
                   )}
                   &nbsp;{changeDecimal ? changeDecimal : 0}%
@@ -586,6 +597,17 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
                 <Value>
+                  <TitleIcon src={priceLogo} />
+                  <ValueName>
+                    <Title>Gas Price</Title>
+                    <TitleData
+                      className={TxanimationClass ? TxanimationClass : ""}
+                    >
+                      {this.state.gasPrice}
+                    </TitleData>
+                  </ValueName>
+                </Value>
+                <Value>
                   <TitleIcon src={transactionLogo} />
                   <ValueName>
                     <Title>Transactions</Title>
@@ -602,26 +624,10 @@ class BlockChainDataComponent extends Component {
                     </Tooltip>
                   </ValueName>
                 </Value>
-                <Value>
-                  <TitleIcon src={maxLogo} />
-                  <ValueName>
-                    <Title>Current/Max TPS</Title>
-                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
-                  </ValueName>
-                </Value>
+                
               </MobileScreen>
               <MobileScreen>
-                <Value>
-                  <TitleIcon src={priceLogo} />
-                  <ValueName>
-                    <Title>Gas Price</Title>
-                    <TitleData
-                      className={TxanimationClass ? TxanimationClass : ""}
-                    >
-                      {this.state.gasPrice}
-                    </TitleData>
-                  </ValueName>
-                </Value>
+                
                 <Value>
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
@@ -641,6 +647,13 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
 
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Current/Max TPS</Title>
+                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
+                  </ValueName>
+                </Value>
                 <Value>
                   <TitleIcon src={accountLogo} />
                   <ValueName>

@@ -7,7 +7,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Tokensearchbar from "./tokensearchBar";
+import Tokensearchbar from "../explorer/tokensearchBar";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import Utility from "../../utility";
@@ -15,7 +15,9 @@ import TokenData from "../../services/token";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
-import { Row, Column } from "simple-flexbox";
+import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
+import { Column, Row } from "simple-flexbox";
+import ConfigureColumnsModal from "../common/configureColumnsModal";
 
 const Pagination = styled.div`
   display: flex;
@@ -80,18 +82,9 @@ const useStyles = makeStyles({
     borderTop: "0rem solid #bbb",
     width: "100%",
   },
-  tokenNumber:{
-    paddingLeft:"65px"
-  },
-  "@media (min-width: 0px) and (max-width: 768px)": {
-    tokenNumber:{
-      paddingLeft:"28px"
-    }
-    
-  },
 });
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
   const classes = useStyles();
   const [from, setFrom] = React.useState(0);
   const [amount, setAmount] = React.useState(10);
@@ -100,7 +93,7 @@ export default function StickyHeadTable() {
   const [keywords, setKeywords] = React.useState("");
   const [rows, setRows] = React.useState([]);
 
-  const [noData, setNoData] = React.useState(0);
+  const [noData, setNoData] = React.useState(true);
   const handleChangePage = (action) => {
     if (action === "first") {
       setFrom(0);
@@ -108,7 +101,7 @@ export default function StickyHeadTable() {
         let data = { pageNum: 0, perpage: amount, searchkey: keywords };
         SearchTokens(data);
       } else {
-        setNoData(0);
+        setNoData(false);
         let data = { pageNum: 0, perpage: amount };
         getTokenList(data);
         getTotalTokenList();
@@ -122,7 +115,7 @@ export default function StickyHeadTable() {
           let data = { pageNum: page, perpage: amount, searchkey: keywords };
           SearchTokens(data);
         } else {
-          setNoData(0);
+          setNoData(false);
           let data = { pageNum: page, perpage: amount };
           getTokenList(data);
           getTotalTokenList();
@@ -137,7 +130,7 @@ export default function StickyHeadTable() {
           let data = { pageNum: page, perpage: amount, searchkey: keywords };
           SearchTokens(data);
         } else {
-          setNoData(0);
+          setNoData(false);
           let data = { pageNum: page, perpage: amount };
           getTokenList(data);
           getTotalTokenList();
@@ -153,7 +146,7 @@ export default function StickyHeadTable() {
         let data = { pageNum: page, perpage: amount, searchkey: keywords };
         SearchTokens(data);
       } else {
-        setNoData(0);
+        setNoData(false);
         let data = { pageNum: page, perpage: amount };
         getTokenList(data);
         getTotalTokenList();
@@ -172,7 +165,7 @@ export default function StickyHeadTable() {
       };
       SearchTokens(data);
     } else {
-      setNoData(0);
+      setNoData(false);
       let data = { pageNum: 0, perpage: event.target.value };
       getTokenList(data);
       getTotalTokenList();
@@ -190,7 +183,7 @@ export default function StickyHeadTable() {
     if (searchkeyword?.length === 0) {
       setKeywords("");
       setLoading(false);
-      setNoData(0);
+      setNoData(false);
       let data = { pageNum: from, perpage: amount };
       getTokenList(data);
       getTotalTokenList();
@@ -203,6 +196,7 @@ export default function StickyHeadTable() {
       );
       if (error) return;
       if (responseData) {
+        setNoData(false);
         setLoading(false);
         setRows(responseData);
       } else {
@@ -219,6 +213,7 @@ export default function StickyHeadTable() {
       );
       if (error) return;
       if (responseData) {
+        setNoData(false);
         setTotalToken(responseData);
       }
     } catch (error) {
@@ -232,13 +227,13 @@ export default function StickyHeadTable() {
       );
       if (error) return;
       if (responseData.total === 0) {
-        setNoData(1);
+        setNoData(true);
         setTotalToken(0);
         setRows([]);
       }
 
       if (responseData.total > 0) {
-        setNoData(0);
+        setNoData(false);
         setTotalToken(responseData.total);
         setLoading(false);
         setRows(responseData.resultSet);
@@ -282,11 +277,22 @@ export default function StickyHeadTable() {
   }
 
   const TokenTitle = styled.div`
-    font-size: 16px;
+    font-size: 24px;
     font-weight: bold;
-    padding: 0 0 15px 0;
     @media (max-width: 1250px) {
-      font-size: 13px;
+      font-size: 16px;
+    }
+  `;
+
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
     }
   `;
 
@@ -307,8 +313,37 @@ export default function StickyHeadTable() {
             "responsive-table-width-token-list token-list-tab_11 search-container"
           }
         >
-          <TokenTitle>Tokens</TokenTitle>
-          <div className="searchelement-input input-searchelement_11">
+          <Row justifyContent="space-between" alignItems="center">
+            <TokenTitle>Tokens</TokenTitle>
+            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img
+                onClick={handleSettingsClick}
+                className="p-r-5 h-20 w-20-px"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnPopOver
+                isOpen={isSettingColumnOpen}
+                anchorEl={anchorEl}
+                handleOnClose={handleOnClose}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                  onClick={toggleModal}
+                  className="p-r-5 h-20 w-20-px"
+                  src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                  isOpen={isColumnsModalOpen}
+                  onModalClose={toggleModal}
+                  tableColumns={props.state.tableColumns}
+                  toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+          </Row>
+          <div className="searchelement-input input-searchelement_11 margin-top-15px">
             <img
               style={{
                 width: 20,
@@ -336,6 +371,8 @@ export default function StickyHeadTable() {
           </div>
         </Column>
       </form>
+      {/* </div> */}
+      {/* </div> */}
 
       <br />
       <Paper
@@ -360,24 +397,30 @@ export default function StickyHeadTable() {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                <TableCell
-                  style={{ border: "none" }}
-                  align="left"
-                >
-                  <span className= {classes.tokenNumber}>#</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Symbol</span>
-                </TableCell>
-                <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Name</span>
-                </TableCell>
+                {props?.state?.tableColumns["Hash"].isActive && (
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "75px" }}
+                    align="left"
+                  >
+                    <span>#</span>
+                  </TableCell>
+                )}
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Contract</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Type</span>
+                  <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
+                {props?.state?.tableColumns["Symbol"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>Symbol</span>
+                  </TableCell>
+                )}
+                {props?.state?.tableColumns["Type"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>Type</span>
+                  </TableCell>
+                )}
                 <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -386,14 +429,16 @@ export default function StickyHeadTable() {
                     Total Supply
                   </span>
                 </TableCell>
-                <TableCell
-                  style={{ border: "none", whiteSpace: "nowrap" }}
-                  align="left"
-                >
-                  <span className={"tablehead-token-details"}>
-                    Total Holders
-                  </span>
-                </TableCell>
+                {props?.state?.tableColumns["Total Holders"].isActive && (
+                  <TableCell
+                    style={{ border: "none", whiteSpace: "nowrap" }}
+                    align="left"
+                  >
+                    <span className={"tablehead-token-details"}>
+                      Total Holders
+                    </span>
+                  </TableCell>
+                )}
               </TableRow>
             </TableHead>
             {isLoading == true ? (
@@ -417,46 +462,53 @@ export default function StickyHeadTable() {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell  id="td">
-                          <p className= {classes.tokenNumber}>{index + 1}</p>
-                        </TableCell>
-                        <TableCell id="td">
-                          <img
-                            style={{ height: "24", width: "24" }}
-                            src={"/images/XRC20-Icon.svg"}
-                          ></img>
-                          &nbsp;{row.symbol}
-                        </TableCell>
-                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
-                          {shorten(row.tokenName, 9, 0, 3)}
-                        </TableCell>
+                        {props?.state?.tableColumns["Hash"].isActive && (
+                          <TableCell style={{ paddingLeft: "75px" }} id="td">
+                            {index + 1}
+                          </TableCell>
+                        )}
                         <TableCell>
                           <a
                             className="token-details-address-link"
-                            href={`/token-data/${row.address}/${
-                              row?.symbol ? row?.symbol : "NA"
-                            }`}
+                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                              }`}
                           >
                             {shorten(row.address)}
                           </a>
                         </TableCell>
+                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                          {shorten(row.tokenName, 9, 0, 3)}
+                        </TableCell>
+                        {props?.state?.tableColumns["Symbol"].isActive && (
+                          <TableCell id="td">
+                            <img
+                              style={{ height: "24", width: "24" }}
+                              src={"/images/XRC20-Icon.svg"}
+                            ></img>
+                            &nbsp;{row.symbol}
+                          </TableCell>
+                        )}
+                        {props?.state?.tableColumns["Type"].isActive && (
+                          <TableCell id="td">{row.type}</TableCell>
+                        )}
+                        <TableCell id="td" style={{ paddingleft: "15" }}>
 
-                        <TableCell id="td">{row.type}</TableCell>
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
-                          {utility.convertToInternationalCurrencySystem(
-                            row.totalSupply
+                          {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? (utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
+
+                        </TableCell>
+                        {props?.state?.tableColumns["Total Holders"]
+                          .isActive && (
+                            <TableCell id="td" style={{ paddingleft: "15" }}>
+                              {row.tokenHolders}
+                            </TableCell>
                           )}
-                        </TableCell>
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
-                          {row.tokenHolders}
-                        </TableCell>
                       </TableRow>
                     );
                   })}
                 </TableBody>
               )
             )}
-            {noData == true && (
+            {/* {noData == true && (
               <TableBody>
                 <TableCell id="td" style={{ borderBottom: "none" }}>
                   <span
@@ -467,8 +519,17 @@ export default function StickyHeadTable() {
                   </span>
                 </TableCell>
               </TableBody>
-            )}
+            )} */}
           </Table>
+          {noData == true && (
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+
+              <div>No transactions found</div>
+            </NoDataFoundContainer>
+          )}
         </TableContainer>
 
         {/* <Divider className={classes.divider}/>*/}

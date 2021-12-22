@@ -136,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
-  
+
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -147,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#2a2a2a",
     maxWidth: "343px",
-    width: "100%"
+    width: "100%",
   },
   dialogBox: {
     width: "553px",
@@ -156,15 +156,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   createWatchlistMobile: {
-    paddingTop: "15em"  
-},
+    marginTop: "50px",
+  },
   "@media (max-width: 767px)": {
-    heading:{
+    heading: {
       fontSize: "16px",
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     error: {
       color: "red",
@@ -187,61 +187,64 @@ export default function FormDialog() {
   };
 
   async function TaggedAddress() {
-    setError("")
-    setErrorTag("")
+    setError("");
+    setErrorTag("");
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: tags,
     };
-    if (!(privateAddress && privateAddress.length === 43) || !(privateAddress.slice(0,3) === "xdc")) {
-      setError("Address should start with xdc & 43 characters")
+    if (
+      !(privateAddress && privateAddress.length === 43) ||
+      !(privateAddress.slice(0, 3) === "xdc")
+    ) {
+      setError("Address should start with xdc & 43 characters");
       return;
-    }else if (tags.length === 0){
+    } else if (tags.length === 0) {
       setErrorTag("Use comma(,) to add multiple tag");
       return;
-    }
-    else if (tags && tags.length > 5){
+    } else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-    const [error, response] = await utility.parseResponse(
-      UserService.addPrivateTagToAddress(data)
-    );
+      const [error, response] = await utility.parseResponse(
+        UserService.addPrivateTagToAddress(data)
+      );
 
-    if (error) {
-      utility.apiFailureToast("Address is already in use");
-      return;
+      if (error) {
+        utility.apiFailureToast("Address is already in use");
+        return;
+      }
+      utility.apiSuccessToast("Tag Added");
+      window.location.href = "loginprofile";
+      setOpen(false);
     }
-    utility.apiSuccessToast("Tag Added");
-    window.location.href = "loginprofile";
-    setOpen(false);
   }
-  }
-
 
   const classes = useStyles();
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
   if (width >= 760) {
-    history.push("/loginprofile")
+    history.push("/loginprofile");
   }
 
   const handleClickOpen = () => {
@@ -250,15 +253,14 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
-    setError("")
-    setErrorTag("")
+    setError("");
+    setErrorTag("");
     setPrivateAddress("");
     setTags([]);
-    history.push("/loginprofile")
+    history.push("/loginprofile");
   };
 
-
-  const [input, setInput] = React.useState('');
+  const [input, setInput] = React.useState("");
   const [tags, setTags] = React.useState([]);
   const [isKeyReleased, setIsKeyReleased] = React.useState(false);
 
@@ -271,14 +273,14 @@ export default function FormDialog() {
   const onKeyDown = (e) => {
     const { key } = e;
     const trimmedInput = input.trim();
-  
-    if (key === ',' && trimmedInput.length && !tags.includes(trimmedInput)) {
+
+    if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      setTags(prevState => [...prevState, trimmedInput]);
-      setInput('');
+      setTags((prevState) => [...prevState, trimmedInput]);
+      setInput("");
       setErrorTag("");
     }
-  
+
     if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
       const tagsCopy = [...tags];
       const poppedTag = tagsCopy.pop();
@@ -286,101 +288,99 @@ export default function FormDialog() {
       setTags(tagsCopy);
       setInput(poppedTag);
     }
-  
+
     setIsKeyReleased(false);
   };
-  
+
   const onKeyUp = () => {
     setIsKeyReleased(true);
-  }
+  };
 
   const deleteTag = (index) => {
-    setTags(prevState => prevState.filter((tag, i) => i !== index))
-  }
+    setTags((prevState) => prevState.filter((tag, i) => i !== index));
+  };
 
-
-  
   return (
     <div>
-       <Tokensearchbar />
+      <Tokensearchbar />
       <div className={classes.createWatchlistMobile}>
-  
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Add a new Address Tag
-            </div>
-            {/* <span onClick={handleClose} className={classes.cross}>
+        <Row>
+          <div className={classes.heading} id="form-dialog-title">
+            Add a new Address Tag
+          </div>
+          {/* <span onClick={handleClose} className={classes.cross}>
               {" "}
               X{" "}
             </span> */}
-          </Row>
-          <div className={classes.userContainer}>
-            <p className={classes.subCategory}>
-              Address
-            </p>
-            <input
-              className={classes.input}
-              onChange={(e) => {setPrivateAddress(e.target.value)
-              setError("")
-              }}
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
-          </div>
-          <div className={classes.userContainer}>
-            <p className={classes.subCategory}>
-              Name Tag
-              {/* <span  className={classes.forgotpass}>
+        </Row>
+        <div className={classes.userContainer}>
+          <p className={classes.subCategory}>Address</p>
+          <input
+            className={classes.input}
+            onChange={(e) => {
+              setPrivateAddress(e.target.value);
+              setError("");
+            }}
+          ></input>
+          {error ? <div className={classes.error}>{error}</div> : <></>}
+        </div>
+        <div className={classes.userContainer}>
+          <p className={classes.subCategory}>
+            Name Tag
+            {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
-            </p>
+          </p>
 
-            <div className="containerTagMobile">
-                {tags.map((tag, index) => (<div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                  </div>))}
-                <input
-                  value={input}
-                  placeholder="Enter a tag"
-                  onKeyDown={onKeyDown}
-                  onKeyUp={onKeyUp}
-                  onChange={onChange}
-                />
+          <div className="containerTagMobile">
+            {tags.map((tag, index) => (
+              <div className="tag">
+                {tag}
+                <button onClick={() => deleteTag(index)}>x</button>
               </div>
-              {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
-            {/* <input
+            ))}
+            <input
+              value={input}
+              placeholder="Enter a tag"
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
+              onChange={onChange}
+            />
+          </div>
+          {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
+          {/* <input
               type="text"
               className={classes.input}
               onChange={(e) => setNameTag(e.target.value)}
             ></input> */}
-            {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
-            {/* <span>
+          {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
+          {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
-          </div>
-          <DialogActions className={classes.buttons}>
-            <span>
-              <button className={classes.cnlbtn} onClick={handleClose}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={TaggedAddress}>
-                Add
-              </button>
-            </span>
-          </DialogActions>
-          {/* <div className={classes.value}></div>
+          {/* </span> */}
+        </div>
+        <DialogActions className={classes.buttons}>
+          <span>
+            <button className={classes.cnlbtn} onClick={handleClose}>
+              Cancel
+            </button>
+          </span>
+          <span>
+            <button className={classes.addbtn} onClick={TaggedAddress}>
+              Add
+            </button>
+          </span>
+        </DialogActions>
+        {/* <div className={classes.value}></div>
           <p className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
-            </p> */} 
+            </p> */}
       </div>
-      <FooterComponent/>
+      <FooterComponent />
     </div>
   );
 }

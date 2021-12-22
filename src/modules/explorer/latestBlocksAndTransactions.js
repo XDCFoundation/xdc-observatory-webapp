@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import "../../assets/styles/custom.css";
-import { BlockService, TransactionService } from "../../services";
+import {  TransactionService } from "../../services";
 import Utils from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import CommonTransactionsTable from "../common/table";
+import Utility from '../../utility'
 // function timeDiff(curr, prev) {
 //   if (curr < prev) return "0 secs ago";
 //   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -37,9 +38,9 @@ import CommonTransactionsTable from "../common/table";
 //     return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
 //   }
 // }
-function shortenBalance(b, amountL = 4, amountR = 3, stars = 0) {
-  return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length)}`;
-}
+// function shortenBalance(b, amountL = 4, amountR = 3, stars = 0) {
+//   return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length)}`;
+// }
 const hideBlock = true;
 class LatestBlocks extends Component {
   constructor(props) {
@@ -75,10 +76,10 @@ class LatestBlocks extends Component {
     socket.on("block-socket", (blockData, error) => {
       this.setState({ blockSocketConnected: true });
       let blockDataExist = blocks.findIndex((item) => {
-        return item.number == blockData.number;
+        return item.number === blockData.number;
       });
 
-      if (blockDataExist == -1) {
+      if (blockDataExist === -1) {
         if (blocks.length >= 10) blocks.pop();
         blocks.unshift(blockData);
         let blockAnimationClass = { [blockData.number]: "first-block-age" };
@@ -111,12 +112,15 @@ class LatestBlocks extends Component {
       let transactions = this.state.latestTransactionData;
       this.setState({ transactionSocketConnected: true });
       let transactionDataExist = transactions.findIndex((item) => {
-        return item.hash == transactionData.hash;
+        return item.hash === transactionData.hash;
       });
-
-      if (transactionDataExist == -1) {
+   
+      if (transactionDataExist === -1 && Number(transactionData.value)>0) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
+        console.log("transactions", transactionData);
+        // if(Number(transactionData.value)>0)
+        // transactions.unshift(transactionData);
         let hashAnimationClass = {
           [transactionData.hash]: "first-transaction-hash",
         };
@@ -183,20 +187,20 @@ class LatestBlocks extends Component {
     let [error, latestTransactions] = await Utils.parseResponse(
       TransactionService.getLatestTransaction(urlPath, {})
     );
-
-    if (!latestTransactions || latestTransactions.length == 0 || latestTransactions === undefined || latestTransactions == "" || latestTransactions === null) {
+      if(error) return;
+    if (!latestTransactions || latestTransactions.length === 0 || latestTransactions === undefined || latestTransactions === "" || latestTransactions === null) {
       this.setState({ isLoading: false });
     }
 
     this.setState({ isLoading: false });
     this.setState({ latestTransactionData: latestTransactions });
 
-    const interval = setInterval(async () => {
+    setInterval(async () => {
       if (!this.state.transactionSocketConnected) {
         let [error, latestTransactions] = await Utils.parseResponse(
           TransactionService.getLatestTransaction(urlPath, {})
         );
-        if (!latestTransactions || latestTransactions.length == 0 || latestTransactions === undefined || latestTransactions == "" || latestTransactions === null) {
+        if (!latestTransactions || latestTransactions.length === 0 || latestTransactions === undefined || latestTransactions === "" || latestTransactions === null) {
           this.setState({ isLoading: false });
         }
         if (error || !latestTransactions) return;
@@ -241,7 +245,7 @@ class LatestBlocks extends Component {
                       </div>
                     </div>
                     <div className="data_value">
-                      {this.state.isLoading == true ? (
+                      {this.state.isLoading === true ? (
                         <div className="loader-circular">
                           <Loader />
                         </div>
@@ -376,7 +380,7 @@ class LatestBlocks extends Component {
                 ""
               )} */}
 
-                      {this.state.isLoadingTransaction == true ? (
+                      {this.state.isLoadingTransaction === true ? (
                         <div className="loader-circular">
                           <Loader />
                         </div>
@@ -424,11 +428,9 @@ class LatestBlocks extends Component {
                                         : "value_main margin-left-38"
                                     }
                                   >
-                                    {e.value == 0
+                                    {e.value === 0
                                       ? 0
-                                      : (e.value / 1000000000000000000).toFixed(
-                                        3
-                                      )}{" "}
+                                      : Utility.decimalDivison(e.value)}{" "}
                                     XDC
                                   </p>
                                 </div>
