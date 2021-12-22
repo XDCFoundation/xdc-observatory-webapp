@@ -228,6 +228,7 @@ export default function FormDialog() {
         return;
       }
       utility.apiSuccessToast("Transaction Added");
+      window.location.reload();
       setTransactionsHash("");
       setPrivateNote("");
       setOpen(false);
