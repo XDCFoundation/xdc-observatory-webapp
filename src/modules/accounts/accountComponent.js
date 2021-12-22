@@ -27,6 +27,26 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  RankColumn: {
+    border: "none !important",
+    borderBottom: "none !important",
+    paddingLeft: "2% !important"
+  },
+  RankColumnVal: {
+    border: "none !important",
+    borderBottom: "none !important",
+    paddingLeft: "1% !important"
+  },
+  PercentageColumn: {
+    border: "none !important",
+    borderBottom: "none !important",
+    paddingLeft: "0% !important"
+  },
+  PercentageColumnVal: {
+    border: "none !important",
+    borderBottom: "none !important",
+    paddingLeft: "0% !important"
+  },
   "@media (max-width: 1024px)": {
     container: {
       height: 600,
@@ -69,7 +89,7 @@ export default function AccountComponent(props) {
 
   const { state } = props;
   const classes = useStyles();
-  let rantCount = state.from;
+  let rantValue = state.from;
   
   return (
     <div>
@@ -112,7 +132,7 @@ export default function AccountComponent(props) {
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "2%" }}
+                      className={classes.RankColumn}
                       align="left"
                     >
                       <span className={"tableheaders_1 pl--1"}>Rank</span>
@@ -144,7 +164,7 @@ export default function AccountComponent(props) {
 
                   {props.state.tableColumns["Percentage"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "0%" }}
+                      className={classes.PercentageColumn}
                       align="left"
                     >
                       <span className={"tableheaders_1"}>Percentage</span>
@@ -173,7 +193,7 @@ export default function AccountComponent(props) {
                         let num = row.balance;
                         let finalBal = num / 1000000000000000000;
                         let bal = finalBal.toString();
-                        rantCount = rantCount + 1
+                        rantValue = rantValue + 1
                         let percentageValue = ((finalBal / state.totalSupply) * 100).toFixed(2)
                         //state.totalSupply
 
@@ -189,11 +209,10 @@ export default function AccountComponent(props) {
                           >
                             {props.state.tableColumns["Rank"].isActive && (
                               <TableCell
-                                className="w-2"
-                                style={{ border: "none", paddingLeft: "1%" }}
+                                className={`w-2 ${classes.RankColumnVal}`}
                                 align="left"
                               >
-                                <span className="tabledata">{rantCount}</span>
+                                <span className="tabledata">{rantValue}</span>
                               </TableCell>
                             )}
                             <TableCell
@@ -249,8 +268,7 @@ export default function AccountComponent(props) {
                             )}
                             {props.state.tableColumns["Percentage"].isActive && (
                               <TableCell
-                                className="w-2"
-                                style={{ border: "none", paddingLeft: "0" }}
+                                className={`w-2 ${classes.PercentageColumnVal}`}
                                 align="left"
                               >
                                 <span className="tabledata">
