@@ -261,7 +261,7 @@ export default function ChangePassword(props) {
     />
                         {passwordShown1 ? (
                             <img
-                                src={"/images/show .svg"}
+                                src={"/images/show.svg"}
                                 className={classes.icon}
                                 onClick={togglePasswordVisiblity1}
                             />
@@ -289,7 +289,7 @@ export default function ChangePassword(props) {
                         />
                         {passwordShown2 ? (
                             <img
-                                src={"/images/show .svg"}
+                                src={"/images/show.svg"}
                                 className={classes.icon}
                                 onClick={togglePasswordVisiblity2}
                             />
@@ -318,7 +318,7 @@ export default function ChangePassword(props) {
                         />
                         {passwordShown3 ? (
                             <img
-                                src={"/images/show .svg"}
+                                src={"/images/show.svg"}
                                 className={classes.icon}
                                 onClick={togglePasswordVisiblity3}
                             />
