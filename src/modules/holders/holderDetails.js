@@ -136,7 +136,7 @@ export default function HoldersDetails(props) {
                         {addr}
                       </TableCell>
                       <TableCell>
-                        <div className="dis-flex">
+                        <div>
                           <CopyToClipboard
                             text={addr}
                             onCopy={() => setCopiedText(addr)}
@@ -386,6 +386,60 @@ export default function HoldersDetails(props) {
                               </Tooltip>
                             </CopyToClipboard>
                             <Popup
+                        trigger={<ImQrcode className="imQrcode" />}
+                        lockScroll
+                        modal
+                      >
+                        {(close) => (
+                          <div className="popup_qr">
+                            <CloseIcon
+                              isDesktop={false}
+                              src="/images/XDC-Cross.svg"
+                              // className="qrClose"
+                              onClick={close}
+                            />
+                            <p>
+                              <div>
+                                <div className="header-popup">
+                                  <Row alignItems="center">{addr}</Row>
+                                  <CloseIcon
+                                    isDesktop={true}
+                                    src="/images/XDC-Cross.svg"
+                                    // className="qrClose"
+                                    onClick={close}
+                                  />
+                                  {/* &times; */}
+                                  {/* </img> */}
+                                </div>
+                                {window.innerWidth > 767 ? (
+                                  <QRCode
+                                    size={320}
+                                    style={{
+                                      height: 400,
+                                      width: 400,
+                                      marginTop: "0.625rem",
+                                    }}
+                                    value={
+                                      addr
+                                    }
+                                  />
+                                ) : (
+                                  <QRCode
+                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                    size={320}
+                                    className="qrcode-label"
+                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                    value={
+                                      addr
+                                    }
+                                  />
+                                )}
+                              </div>
+                            </p>
+                          </div>
+                        )}
+                      </Popup>
+                            {/* <Popup
                               trigger={
                                 <ImQrcode
                                   style={{
@@ -433,7 +487,7 @@ export default function HoldersDetails(props) {
                                   </p>
                                 </div>
                               )}
-                            </Popup>
+                            </Popup> */}
                           </div>
                         </div>
                       </TableCell>
