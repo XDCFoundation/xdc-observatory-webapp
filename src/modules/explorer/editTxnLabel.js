@@ -164,7 +164,7 @@ function EditTxnLabel(props) {
       setTransactionsHash(props.row.transactionHash);
     setPrivateNote(props.row.trxLable);
     setId(props.row._id);
-  }, []);
+  }, [props]);
 
   async function editTransactionLable() {
     setOpen(false);
