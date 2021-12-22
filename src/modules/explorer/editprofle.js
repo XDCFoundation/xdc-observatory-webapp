@@ -542,7 +542,7 @@ export default function FormDialog(props) {
                   }}
                 />
               )}
-              <div className={classes.error}>{userNameError}</div>
+              {userNameError && <div className={classes.error}>{userNameError}</div>}
             </DialogContent>
 
             <DialogContent

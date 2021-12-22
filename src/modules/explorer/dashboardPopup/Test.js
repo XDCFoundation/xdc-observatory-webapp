@@ -3,10 +3,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import { makeStyles } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
-import { history } from "../../../managers/history";
-import { sessionManager } from "../../../managers/sessionManager";
+import {makeStyles} from "@material-ui/styles";
+import {Row} from "simple-flexbox";
+import {history} from "../../../managers/history";
+import {sessionManager} from "../../../managers/sessionManager";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -223,7 +223,8 @@ export default function FormDialog() {
     setValue(event.target.value);
   };
 
-  const handleLogin = () => {
+  const handleCancel = () => {
+    history.push("/loginprofile")
     setError("");
   };
   const watchListService = async () => {
@@ -407,7 +408,7 @@ export default function FormDialog() {
         </p>
         <DialogActions>
           <span onClick={handleClose}>
-            <button className={classes.cnlbtn} onClick={handleLogin}>
+            <button className={classes.cnlbtn} onClick={handleCancel}>
               Cancel
             </button>
           </span>
