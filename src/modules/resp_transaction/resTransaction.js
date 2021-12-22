@@ -473,10 +473,10 @@ export default function Transaction({ _handleChange }) {
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "} */}
                     {transactions.timestamp &&
-                      !isNaN(Number(transactions.timestamp))
+                    !isNaN(Number(transactions.timestamp))
                       ? moment(Number(transactions.timestamp) * 1000).utc().format(
-                        "MMMM Do YYYY, h:mm:ss A"
-                      ) + "  UTC"
+                          "MMMM Do YYYY, h:mm:ss A"
+                        ) + "  UTC"
                       : ""}
                     {/*({getHoursAgo(transactions.timestamp * 1000)})*/}
                   </MiddleContainer>
