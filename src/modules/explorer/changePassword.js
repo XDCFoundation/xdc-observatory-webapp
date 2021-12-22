@@ -210,7 +210,7 @@ export default function ChangePassword(props) {
                 setLoading(false);
                 utility.apiFailureToast("failed");
             } else {
-                window.location.href = "/loginprofile";
+                setInterval((window.location.href = "/loginprofile"),3000);
                 utility.apiSuccessToast("Password changed successfully");
                 sessionManager.setDataInCookies(authResponse, "userInfo");
                 sessionManager.setDataInCookies(true, "isLoggedIn");

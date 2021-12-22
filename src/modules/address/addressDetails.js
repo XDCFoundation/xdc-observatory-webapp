@@ -247,7 +247,7 @@ export default function AddressDetails(props) {
                         ? "copyEditContainer1"
                         : width <= 1240 && width >= 768
                         ? "copyEditContainerAddress"
-                        : "copyEditContainerMobile"
+                        : "copyEditContainerMobileAddr"
                     }
                   >
                     <SecondContainer>

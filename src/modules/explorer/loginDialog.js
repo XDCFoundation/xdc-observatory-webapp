@@ -900,7 +900,7 @@ export default function FormDialog(props) {
                   }
                 }}
               >
-                Log in{" "}
+                Login{" "}
               </button>
             </DialogActions>
 

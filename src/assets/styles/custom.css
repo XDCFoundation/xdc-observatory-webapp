@@ -100,7 +100,7 @@ input#password {
 }
 input#password[placeholder] {
   text-overflow: ellipsis;
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 2px;
 }
 ::placeholder {
@@ -584,7 +584,7 @@ input:focus {
   .Shape3 {
     /* width: 4.375rem;
     height: 4.375rem; */
-    margin-top: 50px;
+    /* margin-top: 50px; */
   }
 }
 
@@ -2978,7 +2978,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .textarea-verify-contract {
@@ -3084,7 +3084,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .textarea-constructor-arg {
@@ -3141,7 +3141,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .vc-input-contract-add {
@@ -3171,7 +3171,7 @@ p {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 
 .vc-input-contract-name {
@@ -3379,7 +3379,7 @@ p {
     height: 130px !important;
   }
   .makeStyles-appBar-2 {
-    height: 120px !important;
+    /* height: 130px !important; */
   }
   .makeStyles-appBar-4 {
     height: 130px !important;
@@ -3431,7 +3431,7 @@ p {
     justify-content: space-between;
     /* width: 80vw; */
   }
-}
+
 
 .centerbox-1 {
   margin-top: 25px;
@@ -3477,7 +3477,7 @@ body {
   background-color: #e3e7eb;
   background-size: cover;
   font-family: "Inter" !important;
-  font-weight: 600;
+  font-weight: normal;
   margin-top: -3px;
   padding-left: 8.5px;
   padding-top: 10.9px;
@@ -3526,11 +3526,11 @@ body {
 .dates p {
   font-size: 0.75rem;
   font-family: Inter;
-  font-weight: 600;
+  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  color: #b5bac7;
+  color: #9fa9ba;
   letter-spacing: 0.5px;
   margin-top: 4px;
 }
@@ -3562,7 +3562,7 @@ body {
   cursor: pointer;
   padding-left: 0px;
   margin: 0px 34px 0px 0px;
-  font-weight: normal;
+  font-weight: 400;
   letter-spacing: 0.65px;
 }
 @media (min-width: 0px) and (max-width: 768px) {
@@ -3578,7 +3578,7 @@ body {
     cursor: pointer;
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
-    font-weight: normal;
+    font-weight: 400;
     letter-spacing: 0.65px;
   }
 }
@@ -3596,7 +3596,7 @@ body {
     cursor: pointer;
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
-    font-weight: normal;
+    font-weight: 400;
     letter-spacing: 0.65px;
   }
 }
@@ -3991,6 +3991,7 @@ body {
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #efefef;
+  padding-left: "18px" !important;
 }
 
 .input-area-4 {
@@ -5238,6 +5239,17 @@ button {
   background-color: #3763dd;
   cursor: pointer;
 }
+
+.sign-up-button{
+  width: 432px;
+  height: 44px;
+  border-radius: 4px;
+  background-color: #3763dd;
+  cursor: pointer;
+  padding-top: 13px;
+  margin: 30px auto 18px auto;
+}
+
 .main-sing-up-text {
   font-family: Inter;
   font-size: 15px;
@@ -6578,7 +6590,7 @@ button {
     display: flex;
     opacity: 1;
     justify-content: center;
-    margin-top: 6px;
+    margin-top: 8px;
   }
 }
 
@@ -6592,7 +6604,7 @@ button {
   background-color: #e3e7eb;
   background-size: cover;
   font-family: "Inter" !important;
-  font-weight: 600;
+  font-weight: normal;
   padding-left: 2.5px;
 }
 
@@ -6730,6 +6742,17 @@ button {
   letter-spacing: 0.65px;
   padding-left: 55px !important;
   line-height: 1rem !important;
+}
+
+.second-row-table-hash{
+  font-family: Inter !important;
+  font-size: 12px !important;
+  font-weight: normal !important;
+  letter-spacing: 0.65px;
+  padding-left: 60px !important;
+  line-height: 1rem !important;
+  background-color: "red"
+
 }
 
 .second-row-table_hash2 {
@@ -7525,6 +7548,7 @@ button {
   color: #9fa9ba;
 }
 
+
 .Tooltip-graph-tx {
   margin: 1px 0 0;
   font-family: Inter;
@@ -7547,6 +7571,31 @@ button {
 .sidebar-links:hover {
   font-size: 14px;
   color: #2149b9;
+  list-style: none;
+  text-decoration: none;
+}
+
+.profile-links {
+  background: none;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  color: #2a2a2a;
+  display: inline;
+  text-decoration: none;
+}
+
+.profile-links:hover {
+  background: none;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  color: #2a2a2a;
+  display: inline;
   list-style: none;
   text-decoration: none;
 }
@@ -7671,6 +7720,51 @@ button {
     letter-spacing: 00.55px;
     font-family: inter;
   }
+
+  .margin-right-34px {
+    margin-right: 0;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    margin-bottom: 18px;
+  }
+
+  .main-box {
+    padding: 31px 15px 20px 15px;
+  }
+
+  .main-title{
+    font-size: 17px;
+  }
+
+  .main-sub-title{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 18px;
+  }
+
+  .sign-up-button{
+    width: 100%;
+    height: 44px;
+    border-radius: 4px;
+    background-color: #3763dd;
+    cursor: pointer;
+    padding-top: 13px;
+    margin: 12px auto 18px auto;
+  }
+
+  /*.main-sing-up {*/
+  /*  width: 0px;*/
+  /*  !*height: 44px;*!*/
+  /*  !*margin: 30px auto 18px auto;*!*/
+  /*  !*padding: 13px 187px 12px;*!*/
+  /*  !*border-radius: 4px;*!*/
+  /*  !*background-color: #3763dd;*!*/
+  /*  !*cursor: pointer;*!*/
+  /*}*/
 }
 
 .source-code-content-value {
@@ -8035,6 +8129,10 @@ button {
   .main-input-td {
     width: 12.5rem;
     font-size: 12px !important;
+    margin-top: -2px;
+  }
+  .mobFilter {
+    margin-top: -2px;
   }
 
   .select-td {
@@ -8056,7 +8154,9 @@ button {
     /* padding: 0.4rem 0.644rem 0 0.75rem; */
     margin-left: 3rem;
   }
-
+.token_number{
+  padding-left:75px;
+}
   .vc-header {
     display: flex;
     justify-content: center;
@@ -8119,13 +8219,14 @@ button {
 
   .contract_details_heading_left {
     letter-spacing: 0px;
-    font-size: 17px;
+    font-size: 16px;
     color: #2a2a2a;
     opacity: 1;
   }
   .AddressTitle {
     margin-left: 0px;
     padding-left: 1.25rem;
+    font-size: 14px;
   }
   .table-grid-block {
     width: 23.5rem;
@@ -8640,7 +8741,7 @@ button {
 }
 .copyEditContainer1 {
   display: flex;
-  margin-left: 29rem !important;
+  margin-left: 15rem !important;
 }
 .copyEditContainer2 {
   display: flex;
@@ -8661,8 +8762,13 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .copyEditContainerMobile {
     display: flex;
+    margin-top: -66px;
+    margin-left: 274px !important;
+  }
+  .copyEditContainerMobileAddr {
+    display: flex;
     margin-top: -20px;
-    margin-left: 90px !important;
+    margin-left: 77px !important;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -8728,8 +8834,8 @@ button {
   cursor: pointer;
 }
 .editIconHashMobile {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   margin-top: 4px;
   cursor: pointer;
 }
@@ -8740,9 +8846,9 @@ button {
   cursor: pointer;
 }
 .edit1-icon-from {
-  width: 16px;
-  height: 16px;
-  margin-top: 4px;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
   cursor: pointer;
 }
 .fromContainer {
@@ -8755,8 +8861,9 @@ button {
 }
 .fromContainerMobile {
   display: flex;
-  margin-left: 88px;
-  margin-top: -21px;
+  margin-left: 274px;
+  margin-top: -66px;
+  position: absolute;
 }
 
 @media (max-width: 767px) {
@@ -9555,7 +9662,8 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
-  width: 7.625rem;
+  width: 11.625rem;
+
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
