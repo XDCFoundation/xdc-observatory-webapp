@@ -376,7 +376,6 @@ export default function FormDialog(props) {
   };
 
   const [userName, setUserName] = React.useState("");
-  const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -474,11 +473,8 @@ export default function FormDialog(props) {
   // <-----------------------------------------------------login functionality------------------------------------------------------>
 
   const handleClickOpenSignup = () => {
-    
     setValue(1);
     setErrorEmailVerified(false);
-    setName("");
-    
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
@@ -561,7 +557,7 @@ export default function FormDialog(props) {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const data = {
-      name: name,
+      name: userName,
       email: email,
       password: password,
     };
@@ -569,11 +565,10 @@ export default function FormDialog(props) {
     setErrorUserName("");
     setErrorEmail("");
     setErrorPassword("");
-    setUserName("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
     setErrorCaptcha("");
-    if (!name) {
+    if (!userName) {
       setErrorUserName(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
       return;
@@ -592,7 +587,7 @@ export default function FormDialog(props) {
       setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
       setLoading(false);
       return;
-    } else if (!name.match(regExAlphaNum)) {
+    } else if (!userName.match(regExAlphaNum)) {
       setErrorUserName("Enter valid Username");
       setLoading(false);
     } else if (!email.match(mailformat)) {
@@ -632,7 +627,7 @@ export default function FormDialog(props) {
           setValue(0);
         }, 1000);
 
-        setName("");
+        setUserName("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
@@ -857,7 +852,7 @@ export default function FormDialog(props) {
               <span>
                 {passwordShown ? (
                   <img alt="show"
-                    src={"/images/show .svg"}
+                    src={"/images/show.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
@@ -940,11 +935,10 @@ export default function FormDialog(props) {
               <input
                 className={classes.input}
                 placeholder="5 to 30 characters in length, only alphanumeric allowed"
-                name="name"
+                // name="userName"
                 // value={signUp.userName}
                 onChange={(e) => {
-                  setUserName("");
-                  setName(e.target.value);
+                  setUserName(e.target.value);
                   setErrorUserName("");
                 }}
                 // onChange={inputEventSignUp}
