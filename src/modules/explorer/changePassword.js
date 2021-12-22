@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
         mobileDiv: {
             marginTop: "15px",
             marginLeft: "-5px",
-            marginRight: "-6px",
+            marginRight: "0px",
         }, text: {
             textAlign: "center",
         },

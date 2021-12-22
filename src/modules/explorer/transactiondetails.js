@@ -83,7 +83,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
 
   let CurrencyValue = window.localStorage.getItem("currency");
   const currencySymbol =
-    CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
+    CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
   const valueFetch =
     CurrencyValue === "INR"
       ? transactions.valueINR
