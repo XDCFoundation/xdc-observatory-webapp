@@ -159,7 +159,7 @@ function EditTaggedAddress(props) {
     setNameTag(props.row.tagName);
     setId(props.row._id);
     setTags(multipleTag);
-  }, []);
+  }, [props]);
 
   async function editTaggedAddress() {
     setError("");
