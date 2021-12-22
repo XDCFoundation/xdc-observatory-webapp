@@ -255,6 +255,11 @@ export default function FormDialog() {
     setOpen(true);
   };
 
+  const handleCancel = () => {
+    history.push("/loginprofile")
+    setError("");
+  };
+
   const handleClose = () => {
     setOpen(false);
     setTransactionsHash("");
@@ -320,7 +325,7 @@ export default function FormDialog() {
 
         <DialogActions>
           <span style={{ color: "white" }}>
-            <button className={classes.cnlbtn} onClick={handleClose}>
+            <button className={classes.cnlbtn} onClick={handleCancel}>
               {" "}
               Cancel
             </button>
