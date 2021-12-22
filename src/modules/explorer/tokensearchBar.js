@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 !important",
     },
   },
-  "@media (min-width: 768px) and (max-width:1250px)": {
+  "@media (min-width: 767px) and (max-width:1250px)": {
     appBar: {
       backgroundColor: "#2149b9",
       height: "134px !important",

@@ -45,6 +45,11 @@ const MainContainer = styled.div`
     width: 22.563rem;
     height: 32.063rem;
     padding: 0 1.875rem;
+<<<<<<< HEAD
+    margin: 0 auto;
+    margin-top: 158px;
+=======
+>>>>>>> 457dfb081bfab270780e67b7fbd71e3fc20cfbed
   }
 `;
 const MobileScreen = styled.div`
@@ -476,6 +481,9 @@ export default function TokenDataComponent() {
                 </div>
               </LeftTopSecMain>
             </LeftFirst>
+            <RightTop>
+              <Line2></Line2>
+            </RightTop>
             <LeftSec>
               <ValueMain>
                 <MobileScreen>

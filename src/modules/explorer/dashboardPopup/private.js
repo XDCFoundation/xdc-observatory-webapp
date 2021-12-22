@@ -4,13 +4,14 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { makeStyles } from "@material-ui/styles";
-import { Column, Row } from "simple-flexbox";
+import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -334,18 +335,37 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div className="div1" onClick={handleClickOpen}>
-        <Column alignItems="center">
-          <img className="watchlist-image" src={"/images/private.svg"}></img>
-        </Column>
-        <button className={classes.btn}>
-          <div className="headingdiv1">Add private tag to an Address</div>
+      <div className="div1 cursor-pointer">
+        <div
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/test-address");
+                }
+          }
+        >
+          <img className="imagediv1" src={"/images/private.svg"}></img>
+        </div>
+        <div
+          className="imageParentDiv"
+          onClick={
+            width >= 760
+              ? handleClickOpen
+              : () => {
+                  history.push("/test-address");
+                }
+          }
+        >
+          <div className="headingdiv1">
+            <div>Add private tag to an Address</div>
+          </div>
           <div className="paradiv1">
             Add a short memo or private tag to the address of interest.
           </div>
-        </button>
+        </div>
 
-        <div className="imageParentDiv">
+        <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
             title="Add a short memo or private tag to the address of interest."
@@ -359,7 +379,7 @@ export default function FormDialog() {
               Learn More
             </div>
           </LightToolTip>
-        </div>
+        </LearnMoreParent>
       </div>
 
       {/* <Button
@@ -437,10 +457,10 @@ export default function FormDialog() {
             {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
             {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
+             {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity}
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
-            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
+            {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>}
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
             {/* </span> */}
           </DialogContent>
@@ -458,10 +478,18 @@ export default function FormDialog() {
           </DialogActions>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
-              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
+              New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
       </div>
     </div>
   );
 }
+
+const LearnMoreParent = styled.div`
+  position: relative;
+  top: 30px;
+  @media (min-width: 767px) {
+    display: none;
+  }
+`;
