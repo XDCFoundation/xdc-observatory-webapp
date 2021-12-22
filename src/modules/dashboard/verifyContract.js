@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,9 +6,23 @@ import * as Yup from 'yup';
 import Releases from "./list.json";
 import contractverify from "../../services/contractverify";
 export default function VerifyContract() {
-    const { address } = useParams();
+    let address = useParams();
+    
+    if (address.address !== undefined) {
+       if (address.address.length != undefined) {
+            let str = address.address
+            if (str.includes("xdc")) {
+                let result = str.replace(/^.{3}/g, '0x');
+                address = result
+            }
+        } 
+    }
+    
+        
+    
     const [isLoading, setisLoading] = useState(false)
     const [msg, setMessage] = useState("")
+    const inputRef = useRef();
     const validationSchema = Yup.object().shape({
         addr: Yup.string()
             .required('Contract address is required'),
@@ -22,7 +36,16 @@ export default function VerifyContract() {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema)
     });
-
+    const handleChange = async (event) => {
+        let txtValue = event.target.value
+        if (txtValue !== undefined) {
+            if (txtValue.includes("xdc")) {
+                let resultVal = txtValue.replace(/^.{3}/g, '0x'); 
+                inputRef.current.value = resultVal;
+                
+            }
+        }
+    }
     const onSubmitHandler = async (data) => {
         try {
             setisLoading(true)
@@ -62,10 +85,10 @@ export default function VerifyContract() {
                         <div className="flex-row">
                             <div className="vc-contract-add">Contract Address
                                 {
-                                    address ? <div>
-                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" defaultValue={address ? address : ""} />
+                                    address.length ? <div>
+                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange}  value={address.length ? address : ""} />
                                     </div> : <div>
-                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" />
+                                        <input {...register("addr")} ref={inputRef} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={inputRef.current} />
                                     </div>
                                 }
                                 <p className="validation-error-message">{errors?.addr?.message}</p>
@@ -77,7 +100,7 @@ export default function VerifyContract() {
                                 <p className="validation-error-message">{errors?.contractname?.message}</p>
                             </div>
 
-                            <div className="vc-contract-compiler" style={{marginTop:"5em", }}>Compiler
+                            <div className="vc-contract-compiler">Compiler
                                 <div>
                                 
                                     <select {...register("version")} name="version" className="vc-contract-add-select"  >
