@@ -17,6 +17,7 @@ import Loader from "../../assets/loader";
 import utility from "../../utility";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import { Column, Row } from "simple-flexbox";
+import ConfigureColumnsModal from "../common/configureColumnsModal";
 
 const Pagination = styled.div`
   display: flex;
@@ -326,6 +327,19 @@ export default function StickyHeadTable(props) {
                 handleOnClose={handleOnClose}
                 tableColumns={props.state.tableColumns}
                 toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                  onClick={toggleModal}
+                  className="p-r-5 h-20 w-20-px"
+                  src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                  isOpen={isColumnsModalOpen}
+                  onModalClose={toggleModal}
+                  tableColumns={props.state.tableColumns}
+                  toggleTableColumns={props.toggleTableColumns}
               />
             </div>
           </Row>
