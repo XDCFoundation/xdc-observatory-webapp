@@ -1223,18 +1223,15 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img
-                        alt="alert"
-                        className={classes.alert}
-                        src={require("../../../src/assets/images/XDC-Alert.svg")}
-                      ></img>
+                      <NoDataFoundContainer>
+                        <img
+                          alt="alert"
+                          className={classes.alert}
+                          src={require("../../../src/assets/images/XDC-Alert.svg")}
+                        ></img>
 
-                      <div
-                        className={classes.noData}
-                        style={{ marginLeft: "538px" }}
-                      >
-                        Data Not Found
-                      </div>
+                        <div className={classes.noData}>Data Not Found</div>
+                      </NoDataFoundContainer>
                     </div>
                   ) : (
                     <Grid
@@ -1602,15 +1599,15 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img
-                        className={classes.alert}
-                        src={require("../../../src/assets/images/XDC-Alert.svg")}
-                      ></img>
+                      <NoDataFoundContainer>
+                        <img
+                          alt="alert"
+                          className={classes.alert}
+                          src={require("../../../src/assets/images/XDC-Alert.svg")}
+                        ></img>
 
-                      <div className={classes.noData}>
-                        style={{ marginLeft: "538px" }}
-                        Data Not Found
-                      </div>
+                        <div className={classes.noData}>Data Not Found</div>
+                      </NoDataFoundContainer>
                     </div>
                   ) : (
                     <Grid
@@ -1960,16 +1957,15 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>{" "}
-                      <img
-                        className={classes.alert}
-                        src={require("../../../src/assets/images/XDC-Alert.svg")}
-                      ></img>
-                      <div
-                        className={classes.noData}
-                        style={{ marginLeft: "538px" }}
-                      >
-                        Data Not Found
-                      </div>
+                      <NoDataFoundContainer>
+                        <img
+                          alt="alert"
+                          className={classes.alert}
+                          src={require("../../../src/assets/images/XDC-Alert.svg")}
+                        ></img>
+
+                        <div className={classes.noData}>Data Not Found</div>
+                      </NoDataFoundContainer>
                     </div>
                   ) : (
                     <Grid
