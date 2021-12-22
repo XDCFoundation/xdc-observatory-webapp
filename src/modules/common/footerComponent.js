@@ -52,6 +52,24 @@ export default function FooterComponent(props) {
   `;
   const SecondCloumn = styled.div`
     /* width: 100%; */
+    //display: flex;
+    /* flex-direction: column; */
+    width: auto;
+    @media (min-width: 0px) and (max-width: 767px) {
+      //display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    @media (min-width: 767px) and (max-width: 1240px) {
+      //display: flex;
+      flex-direction: row;
+      width: 66%;
+      padding-top: 40px;
+    }
+  `;
+
+  const SecondColumnWithFlex = styled.div`
+    /* width: 100%; */
     display: flex;
     /* flex-direction: column; */
     width: auto;
@@ -67,6 +85,7 @@ export default function FooterComponent(props) {
       padding-top: 40px;
     }
   `;
+
   const ThirdCloumn = styled.div`
     display: flex;
     width: 40%;
@@ -180,7 +199,7 @@ export default function FooterComponent(props) {
             </Grid>
           </FirstCloumn>
 
-          <SecondCloumn>
+          <SecondColumnWithFlex >
             <Grid
                 alignContent="center"
                 item
@@ -292,7 +311,7 @@ export default function FooterComponent(props) {
                 </li>
               </ul>
             </Grid>
-          </SecondCloumn>
+          </SecondColumnWithFlex>
 
           <SecondCloumn className="mobile-column-display">
             <Grid
