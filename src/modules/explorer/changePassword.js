@@ -208,7 +208,8 @@ export default function ChangePassword(props) {
             );
             if (error || !authResponse) {
                 setLoading(false);
-                utility.apiFailureToast("failed");
+                // utility.apiFailureToast("failed");
+                setErrorConfirmPassword("Failed to Change Password");
             } else {
                 setInterval((window.location.href = "/loginprofile"),3000);
                 utility.apiSuccessToast("Password changed successfully");
@@ -260,7 +261,7 @@ export default function ChangePassword(props) {
     />
                         {passwordShown1 ? (
                             <img
-                                src={"/images/show.svg"}
+                                src={"/images/show .svg"}
                                 className={classes.icon}
                                 onClick={togglePasswordVisiblity1}
                             />
@@ -282,12 +283,13 @@ export default function ChangePassword(props) {
                             onChange={(e) => {
                                 {
                                     setNewInput(e.target.value);
+                                    setErrorPassword("");
                                 }
                             }}
                         />
                         {passwordShown2 ? (
                             <img
-                                src={"/images/show.svg"}
+                                src={"/images/show .svg"}
                                 className={classes.icon}
                                 onClick={togglePasswordVisiblity2}
                             />
@@ -310,12 +312,13 @@ export default function ChangePassword(props) {
                             onChange={(e) => {
                                 {
                                     setConfirmPassword(e.target.value);
+                                    setErrorConfirmPassword("");
                                 }
                             }}
                         />
                         {passwordShown3 ? (
                             <img
-                                src={"/images/show.svg"}
+                                src={"/images/show .svg"}
                                 className={classes.icon}
                                 onClick={togglePasswordVisiblity3}
                             />
