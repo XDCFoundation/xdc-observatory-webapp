@@ -911,7 +911,7 @@ input:focus {
   color: rgb(70, 102, 196);
   font-size: 0.875rem;
   font-family: Inter;
-  margin-left: 20px;
+  margin-left: 23px;
   margin-top: 20px;
 }
 
@@ -2623,7 +2623,7 @@ p {
 }
 
 .inside-side-box {
-  padding: 0 0px 0 20px !important;
+  padding: 0 0px 0 13px !important;
   font-size: 14.5px;
   font-weight: 500;
   font-stretch: normal;
@@ -2631,14 +2631,14 @@ p {
   line-height: normal;
   letter-spacing: 0.65px;
   color: #ffffff;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .inside-side-box-browse {
   color: #4666c4;
   font-size: 13px;
   font-family: Inter;
   margin-left: 25px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .myhr {
@@ -2931,7 +2931,7 @@ p {
 }
 
 .Live-Network-list {
-  padding: 0 0px 0 20px !important;
+  padding: 0 0px 0 13px !important;
   font-family: "Inter";
   font-size: 13px;
   font-weight: 500;
@@ -3464,6 +3464,9 @@ body {
   .content-tabs_sec {
     width: 42rem;
   }
+}
+.MuiBackdrop-root {
+  opacity: 0 !important;
 }
 
 .days p {
