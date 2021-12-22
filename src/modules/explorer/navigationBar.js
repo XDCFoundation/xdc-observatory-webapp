@@ -650,7 +650,7 @@ export default function Navbar() {
                   to={"/"}
                   className="Network-explorer"
                 >
-                  Network Explorer
+                  XDC Observatory
                 </NavLink>
 
                 {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
@@ -667,7 +667,7 @@ export default function Navbar() {
 
                 <a href="/">
                   <p className="Network-explorer" id="Network-explorer">
-                    Network Explorer
+                    XDC Observatory
                   </p>
                 </a>
               </div>
@@ -741,7 +741,7 @@ export default function Navbar() {
                       to={"/"}
                       className="Network-explorer"
                     >
-                      Network Explorer
+                      XDC Observatory
                     </NavLink>
                   </div>
 
@@ -762,7 +762,7 @@ export default function Navbar() {
                     to={"/"}
                     className="Network-explorer"
                   >
-                    Network Explorer
+                    XDC Observatory
                   </NavLink>
                 </div>
 
@@ -814,7 +814,7 @@ export default function Navbar() {
             className="Shape3"
             src={"images/Networkexplorer.svg"}
           ></img>
-          <div className="exp">Network Explorer</div>
+          <div className="exp">XDC Observatory</div>
         </div>
         {/* ------------ Search bar ----------------- */}
 
