@@ -943,7 +943,7 @@ export default function SimpleTabs(props) {
                 onClick={handlePrivateNote}
               />
               <Tab
-                label="Tagged Adresses"
+                label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
                 {...a11yProps(2)}
