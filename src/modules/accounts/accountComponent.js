@@ -187,13 +187,15 @@ export default function AccountComponent(props) {
                                 : { background: "white" }
                             }
                           >
-                             <TableCell
+                            {props.state.tableColumns["Rank"].isActive && (
+                              <TableCell
                                 className="w-2"
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                               >
-                              <span className="tabledata">{ rantCount }</span>
+                                <span className="tabledata">{rantCount}</span>
                               </TableCell>
+                            )}
                             <TableCell
                               className="w-1"
                               style={{
