@@ -257,7 +257,7 @@ export default function StickyHeadTable(props) {
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
               ></img>
-              <div>No holder found</div>
+              <div style={{color:"#c6cbcf"}}>No holder found</div>
             </NoDataFoundContainer>
           </TableContainer>
         ) : (

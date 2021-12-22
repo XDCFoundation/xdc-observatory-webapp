@@ -533,7 +533,7 @@ export default function StickyHeadTable(props) {
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
               ></img>
 
-              <div>No transactions found</div>
+              <div style={{color:"#c6cbcf"}}>No Tokens found</div>
             </NoDataFoundContainer>
           )}
         </TableContainer>
