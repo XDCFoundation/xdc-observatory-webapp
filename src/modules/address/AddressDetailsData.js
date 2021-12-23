@@ -231,7 +231,7 @@ export default function AddressDetailsData() {
                       <TableRow>
                         <div className="contract-summary-mobile">
                           <TableCell className="left-table-contract-mobile">
-                            Transactions
+                            Transaction
                           </TableCell>
                           <TableCell className="left-table-contract-data-mobile">
                             {data.transaction != "" && (
