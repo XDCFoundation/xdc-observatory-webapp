@@ -1307,6 +1307,7 @@ export default function SimpleTabs(props) {
                           {watchlist &&
                             watchlist.length > 0 &&
                             watchlist.map((row, index) => {
+                              // console.log("watchlist address",row)
                               return (
                                 <TableRow
                                   style={
@@ -1682,6 +1683,7 @@ export default function SimpleTabs(props) {
 
                         <TableBody>
                           {address.map((row, index) => {
+                            
                             return (
                               <TableRow
                                 style={
