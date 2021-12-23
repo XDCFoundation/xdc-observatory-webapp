@@ -208,7 +208,8 @@ export default function ChangePassword(props) {
             );
             if (error || !authResponse) {
                 setLoading(false);
-                utility.apiFailureToast("failed");
+                // utility.apiFailureToast("failed");
+                setErrorConfirmPassword("Failed to Change Password");
             } else {
                 setInterval((window.location.href = "/loginprofile"),3000);
                 utility.apiSuccessToast("Password changed successfully");
@@ -282,6 +283,7 @@ export default function ChangePassword(props) {
                             onChange={(e) => {
                                 {
                                     setNewInput(e.target.value);
+                                    setErrorPassword("");
                                 }
                             }}
                         />
@@ -310,6 +312,7 @@ export default function ChangePassword(props) {
                             onChange={(e) => {
                                 {
                                     setConfirmPassword(e.target.value);
+                                    setErrorConfirmPassword("");
                                 }
                             }}
                         />
