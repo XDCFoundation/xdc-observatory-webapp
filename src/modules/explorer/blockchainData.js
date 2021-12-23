@@ -533,9 +533,9 @@ class BlockChainDataComponent extends Component {
     let changeAccounts = this.state.someDayAccount
       ? this.state.someDayAccount
       : 0;
-    let blockNumber = this.state.blockdataNumber[0]?.number;
+    let blockNumber = this.state && this.state.blockdataNumber.length ? this.state.blockdataNumber[0]?.number : "";
     let animationClass = this.state.animationBlock?.[blockNumber];
-    let txhash = this.state.transactionDataDetails ? this.state.transactionDataDetails[0]?.hash : 0;
+    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails.length ? this.state.transactionDataDetails[0]?.hash : 0;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts;
@@ -592,7 +592,7 @@ class BlockChainDataComponent extends Component {
                     <TitleValue
                       className={animationClass ? animationClass : ""}
                     >
-                      {this.state.blockdataNumber[0]?.number.toLocaleString()}
+                      {this.state && this.state.blockdataNumber.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
                     </TitleValue>
                   </ValueName>
                 </Value>
@@ -624,10 +624,10 @@ class BlockChainDataComponent extends Component {
                     </Tooltip>
                   </ValueName>
                 </Value>
-                
+
               </MobileScreen>
               <MobileScreen>
-                
+
                 <Value>
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
