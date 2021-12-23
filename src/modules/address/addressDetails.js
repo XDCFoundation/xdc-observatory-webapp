@@ -76,10 +76,8 @@ export default function AddressDetails(props) {
 
   const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState(0);
-  console.log(typeof balance, parseInt(balance), "lololo")
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
-
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
@@ -90,11 +88,9 @@ export default function AddressDetails(props) {
   const [coinMarketPrice, setCoinMarketPrice] = useState(0)
   const [price, setPrice] = useState(0)
   const [currentPrice, setCurrentPrice] = useState(0)
-  console.log(price * currentPrice, "popopopop")
   let { addr } = useParams();
   let px = currentPrice * price
   let priceChanged = Utility.decimalDivison(px, 18)
-  console.log(priceChanged, "jjjj")
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol =
     activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
@@ -345,8 +341,7 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {balance} XDC ({(currencySymbol)}
-                      {priceChanged})
+                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged})
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>
@@ -596,7 +591,6 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 0 0.188rem;
   margin-top: 10px;
 
   @media (min-width: 300px) and (max-width: 767px) {
