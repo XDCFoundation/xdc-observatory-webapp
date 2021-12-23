@@ -3912,7 +3912,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
-    padding: 16px 0px 10px 25px !important;
+    padding: 16px 22px 10px 25px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }

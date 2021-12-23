@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "100px",
+    // marginTop: "100px",
     width: "75.125rem",
     "@media (min-width: 0px) and (max-width: 767px)": {
-      marginTop: "130px",
+      // marginTop: "130px",
       maxWidth: "22.563rem",
     },
     "@media (min-width: 768px) and (max-width: 1239px)": {
-      marginTop: "130px",
+      // marginTop: "130px",
       maxWidth: "41.5rem",
     },
   },
@@ -724,7 +724,7 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
-    margin-top: 75px;
+    margin-top: 15px;
     margin-bottom: 10px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
