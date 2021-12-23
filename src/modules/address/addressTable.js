@@ -392,6 +392,7 @@ export default function AddressTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
+    color:"#c6cbcf";
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -501,7 +502,7 @@ export default function AddressTableComponent(props) {
                       }
                       style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
                     />
-                    <span className={"tableheaders table-hash"}>Txn Hash</span>
+                    <span className={"tableheaders table-hash"}>Transaction Hash</span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
@@ -697,14 +698,12 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip
                               placement="top"
-                              title={format({})(row.Value)}
+                              title={format({})(Utility.decimalDivisonOnly(row.Value, 18))}
                             >
                               <span className="tabledata cursor-pointer">
                                 {row.Value == 0
                                   ? 0
-                                  : Number(row.Value / 1000000000000000000)
-                                    .toFixed(18)
-                                    .replace(/\.?0+$/, "")}
+                                  : Utility.decimalDivison(row.Value, 18)} XDC
                               </span>
                             </Tooltip>
                           </TableCell>
@@ -736,7 +735,7 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div>No Holders Found</div>
+                <div style={{color:"#c6cbcf"}}>No Holders Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>

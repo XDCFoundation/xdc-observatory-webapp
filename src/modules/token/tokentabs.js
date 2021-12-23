@@ -149,7 +149,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenHoldertab />
+                <TokenHoldertab contractData={props?.contractStatusData} />
               </div>
             </div>
 
