@@ -496,7 +496,7 @@ export default function TransferTransaction({ _handleChange }) {
                     {/* <Input /> */}
                     <PrivateBox>
                       To access the Private Note feature, you must be
-                      <a className="linkTableDetails">Logged In</a>
+                      <a className="linkTableDetails"> Logged In</a>
                     </PrivateBox>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
