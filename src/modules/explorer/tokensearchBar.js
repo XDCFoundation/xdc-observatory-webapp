@@ -433,7 +433,7 @@ export default function Navbar() {
       <Row
         alignItems="center"
         justifyContent="space-between"
-        style={{ padding: "0 20px 0 20px", marginTop: "40px" }}
+        style={{ padding: "0 20px 0 20px", marginTop: "20px" }}
       >
         <Row alignItems="center">
           <i
