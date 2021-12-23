@@ -145,6 +145,9 @@ export default function TransferTransaction({ _handleChange }) {
 
 
   const gasP = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
+
+
+
   const valueDiv = !valueFetch ? 0 : Utils.decimalDivison(valueFetch, 2);
   return (
     <div className={classes.mainContainer}>
@@ -382,7 +385,7 @@ export default function TransferTransaction({ _handleChange }) {
                       ? 0
                       : Utils.decimalDivison(transactions?.transactionValue, 2)}{" "}
                       XDC ({currencySymbol}
-                    {valueDiv && valueDiv > 0 ? valueDiv : 0})
+                    {coinmarketcap && coinmarketcap?.price > 0 ? Utils.decimalDivison(coinmarketcap.price * transactions?.transactionValue, 2) : 0})
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
@@ -396,7 +399,7 @@ export default function TransferTransaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                        {txfee && txfee > 0 ? txfee : 0}  XDC ({currencySymbol}
-                      {fetchtxn && fetchtxn > 0 ? fetchtxn : 0}
+                      {txfee && txfee > 0 ? Utils.decimalDivison(coinmarketcap.price * txfee, 2) : 0}
                       )
                     </Content>
                   </MiddleContainer>
