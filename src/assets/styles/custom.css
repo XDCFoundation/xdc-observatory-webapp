@@ -3381,7 +3381,7 @@ p {
   .makeStyles-appBar-2 {
     /* height: 130px !important; */
 }
-.makeStyles-appBar-4 {
+/* .makeStyles-appBar-4 {
   height: 130px !important;
 }
 .makeStyles-appBar-9 {
@@ -3396,11 +3396,12 @@ p {
 .makeStyles-appBar-8 {
   height: 130px !important;
 }
-*/ .MuiToolbar-regular {
+*/
+.MuiToolbar-regular {
   display: flex !important;
   align-items: center !important;
 }
-.right-nav-div {
+*/ .right-nav-div {
   /* display: flex;
     align-items: center; */
   position: absolute;
@@ -7862,7 +7863,7 @@ button {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .header-responsive {
-    display: visible;
+    display: none;
   }
 }
 
