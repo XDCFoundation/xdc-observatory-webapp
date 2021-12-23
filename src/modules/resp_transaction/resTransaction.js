@@ -261,7 +261,7 @@ export default function Transaction({ _handleChange }) {
       : CurrencyValue === "USD"
         ? txfee * price
         : txfee * price;
-  const fetchtxn = !transactionFetch ? 0 : transactionFetch;
+  const fetchtxn = !transactionFetch ? 0 : parseFloat(transactionFetch)?.toFixed(12);
 
   const gasP = !transactions.gasPrice
     ? 0
@@ -417,17 +417,17 @@ export default function Transaction({ _handleChange }) {
                           }
                           {
                             <Tooltip title="Add Transaction Label" placement="top">
-                            <img
-                              className={
-                                width > 1240
-                                  ? "edit-icon"
-                                  : width < 768
-                                    ? "editIconHashMobile"
-                                    : "editIconHash"
-                              }
-                              onClick={openDialogPvtNote}
-                              src={require("../../../src/assets/images/label.svg")}
-                            />
+                              <img
+                                className={
+                                  width > 1240
+                                    ? "edit-icon"
+                                    : width < 768
+                                      ? "editIconHashMobile"
+                                      : "editIconHash"
+                                }
+                                onClick={openDialogPvtNote}
+                                src={require("../../../src/assets/images/label.svg")}
+                              />
                             </Tooltip>
                           }
                         </>
@@ -559,15 +559,15 @@ export default function Transaction({ _handleChange }) {
                                 </div>
                               ) : (
                                 <Tooltip title="Add a new Address Tag" placement="top">
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
-                                  }
-                                  onClick={openDialogPvtTag}
-                                  src={require("../../../src/assets/images/tag.svg")}
-                                />
+                                  <img
+                                    className={
+                                      width > 1240
+                                        ? "edit1-icon"
+                                        : "edit1-icon-from"
+                                    }
+                                    onClick={openDialogPvtTag}
+                                    src={require("../../../src/assets/images/tag.svg")}
+                                  />
                                 </Tooltip>
                               )}
                             </>
@@ -654,15 +654,15 @@ export default function Transaction({ _handleChange }) {
                                 </div>
                               ) : (
                                 <Tooltip title="Add a new Address Tag" placement="top">
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
-                                  }
-                                  onClick={openDialogPvtTag2}
-                                  src={require("../../../src/assets/images/tag.svg")}
-                                />
+                                  <img
+                                    className={
+                                      width > 1240
+                                        ? "edit1-icon"
+                                        : "edit1-icon-from"
+                                    }
+                                    onClick={openDialogPvtTag2}
+                                    src={require("../../../src/assets/images/tag.svg")}
+                                  />
                                 </Tooltip>
                               )}
                             </>
