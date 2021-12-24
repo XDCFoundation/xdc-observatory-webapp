@@ -161,12 +161,12 @@ export default function AddressDetailsData() {
                           Balance
                         </TableCell>
                         <TableCell className="left-table-contract-data">
-                          {data.balance} XDC
+                          {!data.balance ? 0 : data.balance} XDC
                         </TableCell>
                       </TableRow>
                       <TableRow>
                         <TableCell className="left-table-contract">
-                          XDC Value
+                          USD Value
                         </TableCell>
                         <TableCell className="left-table-contract-data">
                           {ReactHtmlParser(data.currencySymbol)}
@@ -187,7 +187,7 @@ export default function AddressDetailsData() {
                           Contract Name
                         </TableCell>
                         <TableCell className="left-table-contract-data-last">
-                          {data.contractName}
+                          {!data.contractName ? "Not Available" : data.contractName}
                           <i class="fas fa-badge-check"></i>
                         </TableCell>
                       </TableRow>

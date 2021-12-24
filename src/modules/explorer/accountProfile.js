@@ -959,7 +959,7 @@ export default function SimpleTabs(props) {
                 onClick={handlePrivateNote}
               />
               <Tab
-                label="Tagged Adresses"
+                label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
                 {...a11yProps(2)}
@@ -1244,18 +1244,15 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img
-                        alt="alert"
-                        className={classes.alert}
-                        src={require("../../../src/assets/images/XDC-Alert.svg")}
-                      ></img>
+                      <NoDataFoundContainer>
+                        <img
+                          alt="alert"
+                          className={classes.alert}
+                          src={require("../../../src/assets/images/XDC-Alert.svg")}
+                        ></img>
 
-                      <div
-                        className={classes.noData}
-                        style={{ marginLeft: "538px" }}
-                      >
-                        Data Not Found
-                      </div>
+                        <div className={classes.noData}>Data Not Found</div>
+                      </NoDataFoundContainer>
                     </div>
                   ) : (
                     <Grid
@@ -1331,6 +1328,7 @@ export default function SimpleTabs(props) {
                           {watchlist &&
                             watchlist.length > 0 &&
                             watchlist.map((row, index) => {
+                              // console.log("watchlist address",row)
                               return (
                                 <TableRow
                                   style={
@@ -1623,15 +1621,15 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>
-                      <img
-                        className={classes.alert}
-                        src={require("../../../src/assets/images/XDC-Alert.svg")}
-                      ></img>
+                      <NoDataFoundContainer>
+                        <img
+                          alt="alert"
+                          className={classes.alert}
+                          src={require("../../../src/assets/images/XDC-Alert.svg")}
+                        ></img>
 
-                      <div className={classes.noData}>
-                        style={{ marginLeft: "538px" }}
-                        Data Not Found
-                      </div>
+                        <div className={classes.noData}>Data Not Found</div>
+                      </NoDataFoundContainer>
                     </div>
                   ) : (
                     <Grid
@@ -1706,6 +1704,7 @@ export default function SimpleTabs(props) {
 
                         <TableBody>
                           {address.map((row, index) => {
+                            
                             return (
                               <TableRow
                                 style={
@@ -1981,16 +1980,15 @@ export default function SimpleTabs(props) {
                           </Table>
                         </Grid>
                       </Grid>{" "}
-                      <img
-                        className={classes.alert}
-                        src={require("../../../src/assets/images/XDC-Alert.svg")}
-                      ></img>
-                      <div
-                        className={classes.noData}
-                        style={{ marginLeft: "538px" }}
-                      >
-                        Data Not Found
-                      </div>
+                      <NoDataFoundContainer>
+                        <img
+                          alt="alert"
+                          className={classes.alert}
+                          src={require("../../../src/assets/images/XDC-Alert.svg")}
+                        ></img>
+
+                        <div className={classes.noData}>Data Not Found</div>
+                      </NoDataFoundContainer>
                     </div>
                   ) : (
                     <Grid

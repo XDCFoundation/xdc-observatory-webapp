@@ -168,10 +168,10 @@ class MarketDatatable extends Component {
 
     const currencySymbol =
       this.props.currency === "INR"
-        ? "₹ "
+        ? "₹"
         : this.props.currency === "USD"
-        ? "$ "
-        : "€ ";
+        ? "$"
+        : "€";
     return (
       <>
         <DeskTopView>
