@@ -204,7 +204,7 @@ function EditWatchList(props) {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
     setId(props.row._id)
-  }, []);
+  }, [props]);
 
   const classes = useStyles();
 
@@ -364,7 +364,7 @@ function EditWatchList(props) {
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming & Outgoing Txns"
+                  label="Notify on Incoming & Outgoing Transactions"
                 />
                 <FormControlLabel
                   className="radio-inside-dot"
@@ -372,16 +372,16 @@ function EditWatchList(props) {
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
-                  label="Notify on Incoming (Recieve) Txns Only"
+                  label="Notify on Incoming (Recieve) Transactions Only"
                 />
-                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
+                {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Transactions Only" /> */}
                 <FormControlLabel
                   className="radio-inside-dot"
                   value="disabled"
                   control={<Radio style={{ color: "#979797" }} />}
                   classes={{ label: classes.notifyLabel }}
                   style={{ margin: "-5px 26px -5px -5px" }}
-                  label="Notify on Outgoing (Sent) Txns Only"
+                  label="Notify on Outgoing (Sent) Transactions Only"
                 />
               </RadioGroup>
             </FormControl>
