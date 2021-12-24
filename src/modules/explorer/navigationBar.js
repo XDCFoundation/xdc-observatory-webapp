@@ -703,18 +703,7 @@ export default function Navbar() {
                   Tokens
                 </a>
 
-                {/* <a href="/">
-                  <p className="Network-explorer" id="Network-explorer">
-                    Network
-                  </p>
-                </a>
-              </div>
-              <div>
-                <a href="/token-details">
-                  <div className="Token" id="Token">
-                    Tokens
-                  </div>
-                </a> */}
+                
               </div>
             </Row>
             <Row alignItems="center">
