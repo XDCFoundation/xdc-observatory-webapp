@@ -221,115 +221,120 @@ export default function AddressDetails(props) {
                   </Tooltip>
                   <Hash>Address</Hash>
                 </Container>
-                <MiddleContainerHash>
-                  <Content>{addr}</Content>
-                  {isTag
-                    ? addressTag.map((item, index) => {
-                      return (
-                        <div className="nameLabel1" key={index}>
-                          {item}
-                        </div>
-                      );
-                    })
-                    : ""}
-                  <span
-                    className={
-                      width > 1240
-                        ? "copyEditContainer1"
-                        : width <= 1240 && width >= 768
-                          ? "copyEditContainerAddress"
-                          : "copyEditContainerMobileAddr"
-                    }
-                  >
-                    <SecondContainer>
-                      <CopyToClipboard
-                        text={addr}
-                        onCopy={() => setCopiedText(addr)}
-                      >
-                        <Tooltip
-                          title={
-                            copiedText === addr ? "Copied" : "Copy To Clipboard"
-                          }
-                          placement="top"
+                <MiddleContainerHashTop>
+                  <AddressDiv>
+                    <Content>{addr}</Content></AddressDiv>
+                  <LabelAndCopyDiv>
+                    {isTag
+                      ? addressTag.map((item, index) => {
+                        return (
+                          <span className={index == 0 ? "nameLabel11" : "nameLabel1"} key={index}>
+                            {item}
+                          </span>
+                        );
+                      })
+                      : ""}
+
+
+                    <span
+                      className={
+                        width > 1240
+                          ? "copyEditContainer1"
+                          : width <= 1240 && width >= 768
+                            ? "copyEditContainerAddress"
+                            : "copyEditContainerMobileAddr"
+                      }
+                    >
+                      <SecondContainer>
+                        <CopyToClipboard
+                          text={addr}
+                          onCopy={() => setCopiedText(addr)}
                         >
-                          <button
-                            className={
-                              width > 1240
-                                ? "copyToClipboardHash"
-                                : "copyToClipboardHashMobile"
+                          <Tooltip
+                            title={
+                              copiedText === addr ? "Copied" : "Copy To Clipboard"
                             }
+                            placement="top"
                           >
-                            <img
+                            <button
                               className={
                                 width > 1240
-                                  ? "copy-icon"
-                                  : width < 1239
-                                    ? "copyIconHashMobile"
-                                    : "copyIconHash"
+                                  ? "copyToClipboardHash"
+                                  : "copyToClipboardHashMobile"
                               }
-                              src={"/images/copy.svg"}
-                            />
-                          </button>
-                        </Tooltip>
-                      </CopyToClipboard>
+                            >
+                              <img
+                                className={
+                                  width > 1240
+                                    ? "copy-icon"
+                                    : width < 1239
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
+                                }
+                                src={"/images/copy.svg"}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
 
-                      <Popup
-                        trigger={<ImQrcode className="imQrcode" />}
-                        lockScroll
-                        modal
-                      >
-                        {(close) => (
-                          <div className="popup_qr">
-                            <CloseIcon
-                              isDesktop={false}
-                              src="/images/XDC-Cross.svg"
-                              // className="qrClose"
-                              onClick={close}
-                            />
-                            <p>
-                              <div>
-                                <div className="header-popup">
-                                  <Row alignItems="center">{addr}</Row>
-                                  <CloseIcon
-                                    isDesktop={true}
-                                    src="/images/XDC-Cross.svg"
-                                    // className="qrClose"
-                                    onClick={close}
-                                  />
-                                  {/* &times; */}
-                                  {/* </img> */}
+                        <Popup
+                          trigger={<ImQrcode className="imQrcode" />}
+                          lockScroll
+                          modal
+                        >
+                          {(close) => (
+                            <div className="popup_qr">
+                              <CloseIcon
+                                isDesktop={false}
+                                src="/images/XDC-Cross.svg"
+                                // className="qrClose"
+                                onClick={close}
+                              />
+                              <p>
+                                <div>
+                                  <div className="header-popup">
+                                    <Row alignItems="center">{addr}</Row>
+                                    <CloseIcon
+                                      isDesktop={true}
+                                      src="/images/XDC-Cross.svg"
+                                      // className="qrClose"
+                                      onClick={close}
+                                    />
+                                    {/* &times; */}
+                                    {/* </img> */}
+                                  </div>
+                                  {window.innerWidth > 767 ? (
+                                    <QRCode
+                                      size={320}
+                                      style={{
+                                        height: 400,
+                                        width: 400,
+                                        marginTop: "0.625rem",
+                                      }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  ) : (
+                                    <QRCode
+                                      // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                      size={320}
+                                      className="qrcode-label"
+                                      //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  )}
                                 </div>
-                                {window.innerWidth > 767 ? (
-                                  <QRCode
-                                    size={320}
-                                    style={{
-                                      height: 400,
-                                      width: 400,
-                                      marginTop: "0.625rem",
-                                    }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                ) : (
-                                  <QRCode
-                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                    size={320}
-                                    className="qrcode-label"
-                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                )}
-                              </div>
-                            </p>
-                          </div>
-                        )}
-                      </Popup>
-                    </SecondContainer>
-                  </span>
-                </MiddleContainerHash>
+                              </p>
+                            </div>
+                          )}
+                        </Popup>
+                      </SecondContainer>
+                    </span>
+                  </LabelAndCopyDiv>
+                </MiddleContainerHashTop>
               </HashDiv>
               <Spacing style={{ borderBottom: "none" }}>
                 <HashDiv>
@@ -467,7 +472,15 @@ export default function AddressDetails(props) {
     </div>
   );
 }
+const AddressDiv = styled.div`
 
+`;
+const LabelAndCopyDiv = styled.div`
+display: flex;
+@media (min-width: 300px) and (max-width: 767px) {
+  display: block;
+}
+`;
 const Input = styled.input`
   border-radius: 0.313rem;
   border: solid 0.063rem #e3e7eb;
@@ -569,6 +582,37 @@ const MiddleContainerHash = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
+    display: block;
+  }
+`;
+const MiddleContainerHashTop = styled.div`
+  font-family: Inter;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 6.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
+    margin-left: 18px;
+    padding-right: 26px;
+    margin-top: 10px;
+    display: block;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 4.25rem !important;
+    display:block;
   }
 `;
 const Hash = styled.span`
