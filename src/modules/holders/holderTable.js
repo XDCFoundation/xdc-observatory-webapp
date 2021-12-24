@@ -485,7 +485,7 @@ export default function HolderTableComponent(props) {
                       }
                       style={{ marginRight: "8px" }}
                     />
-                    <span className={"tableheader"}>Txn Hash</span>
+                    <span className={"tableheader"}>Transaction Hash</span>
                   </TableCell>
                   <TableCell style={{ border: "none" }} align="left">
                     <span className={"tableheader mar-right-45 mar-right-40"}>

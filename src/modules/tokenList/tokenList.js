@@ -18,7 +18,8 @@ import utility from "../../utility";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import { Column, Row } from "simple-flexbox";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
-
+import format from "format-number";
+import Tooltip from "@material-ui/core/Tooltip";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -331,15 +332,15 @@ export default function StickyHeadTable(props) {
             </div>
             <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
               <img
-                  onClick={toggleModal}
-                  className="p-r-5 h-20 w-20-px"
-                  src="/images/settings.svg"
+                onClick={toggleModal}
+                className="p-r-5 h-20 w-20-px"
+                src="/images/settings.svg"
               />
               <ConfigureColumnsModal
-                  isOpen={isColumnsModalOpen}
-                  onModalClose={toggleModal}
-                  tableColumns={props.state.tableColumns}
-                  toggleTableColumns={props.toggleTableColumns}
+                isOpen={isColumnsModalOpen}
+                onModalClose={toggleModal}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
               />
             </div>
           </Row>
@@ -455,6 +456,7 @@ export default function StickyHeadTable(props) {
               noData == false && (
                 <TableBody>
                   {rows?.map((row, index) => {
+                    let totalsupply = (row?.totalSupply / Math.pow(10, row?.decimals)).toFixed(row?.decimals)
                     return (
                       <TableRow
                         hover
@@ -492,14 +494,18 @@ export default function StickyHeadTable(props) {
                           <TableCell id="td">{row.type}</TableCell>
                         )}
                         <TableCell id="td" style={{ paddingleft: "15" }}>
-
-                          {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? (utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
-
+                          <Tooltip
+                            placement="top"
+                            title={format({})(totalsupply >= 1 ? parseFloat(totalsupply) : totalsupply)}
+                          ><span>
+                              {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
+                            </span>
+                          </Tooltip>
                         </TableCell>
                         {props?.state?.tableColumns["Total Holders"]
                           .isActive && (
                             <TableCell id="td" style={{ paddingleft: "15" }}>
-                              {row.tokenHolders}
+                              {format({})(row.tokenHolders)}
                             </TableCell>
                           )}
                       </TableRow>
@@ -632,6 +638,6 @@ export default function StickyHeadTable(props) {
       </Pagination>
 
       <FooterComponent />
-    </div>
+    </div >
   );
 }

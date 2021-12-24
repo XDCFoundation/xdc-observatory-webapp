@@ -16,6 +16,7 @@ import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
 import PrivateNote from "../../modules/common/dialog/privateNote";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog";
+import format from "format-number";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -268,7 +269,8 @@ export default function Transaction({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : Utils.decimalDivison((valueFetch * transactions.value), 11);
-
+  console.log(typeof (valueDiv), "value in currency")
+  let ValueMain = !transactions?.value ? 0 : Utils.decimalDivison((transactions?.value), 11);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
@@ -475,10 +477,10 @@ export default function Transaction({ _handleChange }) {
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "} */}
                     {transactions.timestamp &&
-                    !isNaN(Number(transactions.timestamp))
+                      !isNaN(Number(transactions.timestamp))
                       ? moment(Number(transactions.timestamp) * 1000).utc().format(
-                          "MMMM Do YYYY, h:mm:ss A"
-                        ) + "  UTC"
+                        "MMMM Do YYYY, h:mm:ss A"
+                      ) + "  UTC"
                       : ""}
                     {/*({getHoursAgo(transactions.timestamp * 1000)})*/}
                   </MiddleContainer>
@@ -594,7 +596,7 @@ export default function Transaction({ _handleChange }) {
                           className="linkTableDetails-transaction"
                           href={"/address-details/" + transactions.to}
                         >
-                          {transactions.to}
+                          {transactions.to ? transactions.to : transactions.contractAddress}
                         </a>
                         <div
                           className={
@@ -680,12 +682,9 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Value</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    {" "}
-                    {!transactions?.value
-                      ? 0
-                      : transactions?.value / 1000000000000000000}{" "}
+                    {ValueMain}&nbsp;
                     XDC ({currencySymbol}
-                    {valueDiv && valueDiv > 0 ? valueDiv : 0})
+                    {valueDiv})
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
@@ -717,7 +716,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Gas Provided</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    {parseInt(transactions.gas).toLocaleString("en-US")}
+                    {format({})(transactions.gas)}
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
@@ -743,7 +742,7 @@ export default function Transaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-                      {parseInt(transactions?.gasUsed)?.toLocaleString("en-US")}
+                      {format({})(transactions?.gasUsed)}
                     </Content>
                   </MiddleContainer>
                 </Spacing>
