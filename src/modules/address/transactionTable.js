@@ -411,7 +411,7 @@ export default function TransactionTableComponent(props) {
                       }
                       style={{ marginRight: "8px" }}
                     />
-                    <span className={"tableheaders table-hash"}>Txn Hash</span>
+                    <span className={"tableheaders table-hash"}>Transaction Hash</span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
