@@ -772,9 +772,7 @@ input:focus {
   line-height: 19px;
   margin-right: 14px;
 }
-.no-data-added {
-  background-color: "red";
-}
+
 .tabledata-2 {
   display: flex;
   font-family: Inter;
@@ -787,6 +785,18 @@ input:focus {
   text-align: left;
   opacity: 1;
   color: #2a2a2a;
+}
+.not-found{
+color:#c6cbcf;
+font-family: Inter;
+margin-top:1rem;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+
 }
 
 .containerTag {

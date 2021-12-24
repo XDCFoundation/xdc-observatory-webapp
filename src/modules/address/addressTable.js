@@ -735,7 +735,7 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div style={{color:"#c6cbcf"}}>No Holders Found</div>
+                <div className="not-found">No Holders Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>

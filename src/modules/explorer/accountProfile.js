@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "1190px",
     margin: "auto",
     borderRadius: "none",
-    padding: "40px 0px",
+    padding: "10px 0px",
     justifyContent: "space-around",
     textTransform: "none",
   },
@@ -333,6 +333,7 @@ const UserNameContainer = styled.div`
 
   @media (max-width: 400px) {
     gap: 12px;
+    margin:10px auto;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     gap: 30px;
