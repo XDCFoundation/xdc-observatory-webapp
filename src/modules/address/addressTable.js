@@ -19,6 +19,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
 import format from "format-number";
+import TransactionDetailTooltip from "../common/transactionDetailTooltip";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -88,8 +92,26 @@ export default function AddressTableComponent(props) {
   let datas = {};
   let data = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
+  const [id, setId] = useState(0);
+  let [anchorEl, setAnchorEl] = React.useState();
+  let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
+  let isSettingColumnOpen = Boolean(anchorEl);
+  const [open, setOpen] = React.useState(false);
+  console.log(id, "mmmmmm");
+  const handleTooltipOpen = () => {
+    console.log("i'm clicked");
+    setOpen(!open);
+  };
+  function handleOnClose() {
+    setAnchorEl(null);
+  }
+  function handleSettingsClick(event) {
+    setAnchorEl(event?.currentTarget);
+  }
 
-  const history = useHistory();
+  function toggleModal() {
+    setColumnsModal(!isColumnsModalOpen);
+  }
   const handleChangePage = (action) => {
     if (action == "first") {
       if (keywords) {
@@ -282,9 +304,9 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value: Utility.decimalDivison(d.Value, 18),
-        }
-      }),
-    )
+        };
+      })
+    );
 
     setDownloadaddress(
       trxn.map((d) => {
@@ -295,10 +317,10 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value: Utility.decimalDivison(d.Value, 18),
-        }
-      }),
-    )
-  }
+        };
+      })
+    );
+  };
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value;
     setPage(0);
@@ -324,7 +346,7 @@ export default function AddressTableComponent(props) {
   };
 
   const handleChanged = (event) => {
-    console.log("clicked")
+    console.log("clicked");
     const { name, checked } = event.target;
     if (name === "allselect") {
       let tempAddress = address.map((addr) => {
@@ -352,9 +374,9 @@ export default function AddressTableComponent(props) {
             From: d.From,
             To: d.To,
             Value: Utility.decimalDivison(d.Value, 18),
-          }
-        }),
-      )
+          };
+        })
+      );
     } else {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr
@@ -380,9 +402,9 @@ export default function AddressTableComponent(props) {
             From: d.From,
             To: d.To,
             Value: Utility.decimalDivison(d.Value, 18),
-          }
-        }),
-      )
+          };
+        })
+      );
     }
   };
 
@@ -393,7 +415,7 @@ export default function AddressTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
-    color:"#c6cbcf";
+    color: "#c6cbcf";
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -503,7 +525,9 @@ export default function AddressTableComponent(props) {
                       // }
                       style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
                     />
-                    <span className={"tableheaders table-hash"}>Transaction Hash</span>
+                    <span className={"tableheaders table-hash"}>
+                      Transaction Hash
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
@@ -589,7 +613,11 @@ export default function AddressTableComponent(props) {
                           }
                         >
                           <TableCell
-                            style={{ border: "none" }}
+                            style={{
+                              border: "none",
+                              display: "flex",
+                              alignItems: "center",
+                            }}
                             margin-left="0.313rem"
                           >
                             <input
@@ -601,6 +629,20 @@ export default function AddressTableComponent(props) {
                               // checked={checkAll}
                               style={{ marginRight: "0.5rem" }}
                             />
+                            <div>
+                              <img
+                                onClick={handleSettingsClick}
+                                className={"show-tooltip"}
+                                src={"/images/show-icon.svg"}
+                              />
+                              <TransactionDetailTooltip
+                                isOpen={isSettingColumnOpen}
+                                anchorEl={anchorEl}
+                                handleOnClose={handleOnClose}
+                                // tableColumns={props.state.tableColumns}
+                                // toggleTableColumns={props.toggleTableColumns}
+                              />
+                            </div>
 
                             <a
                               className="linkTable"
@@ -647,15 +689,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.From)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                      return (
-                                        <div
-                                          className="nameLabel2"
-                                          key={index}
-                                        >
-                                          {item}
-                                        </div>
-                                      );
-                                    })
+                                        return (
+                                          <div
+                                            className="nameLabel2"
+                                            key={index}
+                                          >
+                                            {item}
+                                          </div>
+                                        );
+                                      })
                                     : shorten(row.From)}
                                 </span>
                               </Tooltip>
@@ -679,15 +721,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.To)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                      return (
-                                        <div
-                                          className="nameLabel2"
-                                          key={index}
-                                        >
-                                          {item}
-                                        </div>
-                                      );
-                                    })
+                                        return (
+                                          <div
+                                            className="nameLabel2"
+                                            key={index}
+                                          >
+                                            {item}
+                                          </div>
+                                        );
+                                      })
                                     : shorten(row.To)}
                                 </span>
                               </Tooltip>
@@ -699,12 +741,15 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip
                               placement="top"
-                              title={format({})(Utility.decimalDivisonOnly(row.Value, 18))}
+                              title={format({})(
+                                Utility.decimalDivisonOnly(row.Value, 18)
+                              )}
                             >
                               <span className="tabledata cursor-pointer">
                                 {row.Value == 0
                                   ? 0
-                                  : Utility.decimalDivison(row.Value, 18)} XDC
+                                  : Utility.decimalDivison(row.Value, 18)}{" "}
+                                XDC
                               </span>
                             </Tooltip>
                           </TableCell>
@@ -799,8 +844,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -811,8 +856,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -860,8 +905,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -872,8 +917,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
