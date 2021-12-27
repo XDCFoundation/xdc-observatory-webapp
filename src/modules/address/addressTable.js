@@ -324,6 +324,7 @@ export default function AddressTableComponent(props) {
   };
 
   const handleChanged = (event) => {
+    console.log("clicked")
     const { name, checked } = event.target;
     if (name === "allselect") {
       let tempAddress = address.map((addr) => {
@@ -496,10 +497,10 @@ export default function AddressTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked == true)
+                      //     .length == address.length
+                      // }
                       style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
                     />
                     <span className={"tableheaders table-hash"}>Transaction Hash</span>
@@ -735,7 +736,7 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div style={{color:"#c6cbcf"}}>No Holders Found</div>
+                <div className="not-found">No Holders Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>

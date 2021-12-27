@@ -230,7 +230,10 @@ export default function FormDialog() {
       address: privateAddress,
       tagName: tags,
     };
-    if (
+    if(!privateAddress){
+      setError("Please enter required field");
+    }
+    else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {

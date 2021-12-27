@@ -241,6 +241,9 @@ export default function FormDialog() {
   };
 
   const watchListService = async () => {
+    if(!address){
+      setError("Please enter required field");
+    }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
@@ -248,7 +251,10 @@ export default function FormDialog() {
       type: value,
       isEnabled: true,
     };
-    if (
+    if(!address){
+      setError("Please enter required field");
+    }
+   else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {

@@ -202,7 +202,10 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    if (
+    if(!TransactionsHash){
+      setError("Please enter required field");
+    }
+   else if (
       !(TransactionsHash && TransactionsHash.length === 66) ||
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {

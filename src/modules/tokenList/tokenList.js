@@ -407,21 +407,22 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                 )}
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Contract</span>
+                  <span className={"tablehead-token-details"}>Symbol</span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
-                {props?.state?.tableColumns["Symbol"].isActive && (
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details"}>Symbol</span>
-                  </TableCell>
-                )}
                 {props?.state?.tableColumns["Type"].isActive && (
                   <TableCell style={{ border: "none" }} align="left">
                     <span className={"tablehead-token-details"}>Type</span>
                   </TableCell>
                 )}
+                {props?.state?.tableColumns["Symbol"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>Contract</span>
+                  </TableCell>
+                )}
+                
                 <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -469,18 +470,6 @@ export default function StickyHeadTable(props) {
                             {index + 1}
                           </TableCell>
                         )}
-                        <TableCell>
-                          <a
-                            className="token-details-address-link"
-                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                              }`}
-                          >
-                            {shorten(row.address)}
-                          </a>
-                        </TableCell>
-                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
-                          {shorten(row.tokenName, 9, 0, 3)}
-                        </TableCell>
                         {props?.state?.tableColumns["Symbol"].isActive && (
                           <TableCell id="td">
                             <img
@@ -490,9 +479,24 @@ export default function StickyHeadTable(props) {
                             &nbsp;{row.symbol}
                           </TableCell>
                         )}
+                        
+                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                          {shorten(row.tokenName, 9, 0, 3)}
+                        </TableCell>
                         {props?.state?.tableColumns["Type"].isActive && (
                           <TableCell id="td">{row.type}</TableCell>
                         )}
+                        <TableCell>
+                          <a
+                            className="token-details-address-link"
+                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                              }`}
+                          >
+                            {shorten(row.address)}
+                          </a>
+                        </TableCell>
+                       
+                      
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           <Tooltip
                             placement="top"

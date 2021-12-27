@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   //     height: "48.375rem",
   //   },
   // },
+  input: {
+    paddingRight: "30px !important",
+  },
 });
 
 const TransactionHeaderContainer = styled.div`
@@ -46,8 +49,8 @@ const TransactionTitle = styled.div`
   font-size: 1.125rem;
   font-weight: 600;
   @media (min-width: 0px) and (max-width: 767px) {
-      margin-left:12px;
-    }
+    margin-left: 12px;
+  }
 `;
 
 export default function CommonTransactionsTable(props) {
@@ -260,7 +263,13 @@ export default function CommonTransactionsTable(props) {
                           }}
                           align="left"
                         >
-                          <Tooltip title={moment(row.timestamp * 1000).format('YYYY-MM-DD hh:mm:ss')} arrow={true} className="fs-15">
+                          <Tooltip
+                            title={moment(row.timestamp * 1000).format(
+                              "YYYY-MM-DD hh:mm:ss"
+                            )}
+                            arrow={true}
+                            className="fs-15"
+                          >
                             <span
                               className={
                                 animationClass ? animationClass : "tabledata"
@@ -331,10 +340,11 @@ export default function CommonTransactionsTable(props) {
                             border: "none",
                             width: "155px",
                             whiteSpace: "nowrap",
-                            padding: "20px",
-                            paddingRight: "20px",
+
+                            paddingRight: "30px !important",
                           }}
                           align="left"
+                          className={classes.input}
                         >
                           {" "}
                           <a
@@ -346,8 +356,13 @@ export default function CommonTransactionsTable(props) {
                                 className={
                                   animationClass ? animationClass : "tabledata"
                                 }
+                                style={{
+                                  paddingRight: "30px !important",
+                                }}
                               >
-                                {!row.to ? "------------------" : shorten(row.to)}
+                                {!row.to
+                                  ? "------------------"
+                                  : shorten(row.to)}
                               </span>
                             </Tooltip>
                           </a>
