@@ -79,7 +79,10 @@ const styles = StyleSheet.create({
     }
 
 })
-const PDF = ({ data }) => (
+
+const PDF = ({ data }) => {
+    console.log("data", data);
+    return(
     <Document>
         <Page size="A4" style={styles.page}>
             <View >
@@ -92,7 +95,7 @@ const PDF = ({ data }) => (
                             </G>
                         </Svg>
                         <View style={styles.headingData}>
-                            <Text style={styles.heading} >Transaction Private Notes</Text>
+                            <Text style={styles.heading} >Tagged Addresses</Text>
                             <Text style={styles.time}>Exported on: {moment.utc().format("MMM DD YYYY HH:mm:ss")} UTC+</Text>
                         </View>
                     </View>
@@ -100,8 +103,8 @@ const PDF = ({ data }) => (
                 <View style={styles.table}>
                     <View style={[styles.flexGrow1, styles.bold]}>
                         <View style={styles.headRow}>
-                            <Text style={styles.transactionHash}>Transaction Hash</Text>
-                            <Text style={styles.tableBodyText}>Note</Text>
+                            <Text style={styles.transactionHash}>Address</Text>
+                            <Text style={styles.tableBodyText}>Name Tag</Text>
                             <Text style={styles.tableBodyText}>Added On</Text>
                         </View>
                     </View>
@@ -110,13 +113,19 @@ const PDF = ({ data }) => (
                             <View style={styles.bodyRow}>
                                 <Link
                                     style={[styles.transactionHash, styles.link]}
-                                    src={`${process.env.REACT_APP_WEB_APP}transaction-details/${row.TransactionHash}`}
+                                    src={`${process.env.REACT_APP_WEB_APP}address-details/${row.Address}`}
                                 >
-                                    {(row.TransactionHash).match(/.{1,30}/g).join(" ")}
+                                    {(row.Address).match(/.{1,30}/g).join(" ")}
                                 </Link>
-                                <Text style={styles.tableBodyText}>
-                                    {row.Note}
-                                </Text>
+                                <View style={styles.tableBodyText}>
+                                {row.NameTag.map((nameTag,index)=>(
+                                    <View>
+                                   { index === row.NameTag.length-1 ?
+                                        <Text> {nameTag} </Text> : <Text> {nameTag}, </Text>}
+                                     </View>
+                                ))}
+                                 </View>
+                              
                                 <View style={styles.tableBodyText}>
                                     <Text>{moment.utc(moment(row.AddedOn)).format("MMM DD YYYY")}</Text>
                                     <Text>{moment.utc(moment(row.AddedOn)).format("HH:mm:ss")} UTC+</Text>
@@ -132,5 +141,7 @@ const PDF = ({ data }) => (
                 <Link style={styles.observerLink} src="www.xdc.observer"> www.xdc.observer</Link></View>
         </Page>
     </Document>
-);
+    )
+};
+
 export default PDF;
