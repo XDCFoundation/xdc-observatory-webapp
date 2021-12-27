@@ -191,6 +191,7 @@ function EditTaggedAddress(props) {
         utility.apiSuccessToast("Address tag Updated");
         window.location.href = "loginprofile";
         setOpen(false);
+        setErrorTag("")
       }
     }
   }
@@ -298,6 +299,7 @@ function EditTaggedAddress(props) {
               onChange={(e) => {
                 setPrivateAddress(e.target.value);
                 setError("");
+                setErrorTag("")
               }}
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
