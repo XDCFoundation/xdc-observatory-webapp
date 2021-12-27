@@ -137,7 +137,7 @@ const PDF = ({ data }) => (
 const ExportPDF = (props) => {
     return (
         <div>
-            <PDFDownloadLink document={<PDF data={props.data} />} fileName="somename.pdf">
+            <PDFDownloadLink document={<PDF data={props.data} />} fileName="transactionPvtNote.pdf">
                 Export
             </PDFDownloadLink>
         </div>)
