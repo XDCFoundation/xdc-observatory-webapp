@@ -708,18 +708,7 @@ export default function Navbar() {
                   Tokens
                 </a>
 
-                {/* <a href="/">
-                  <p className="Network-explorer" id="Network-explorer">
-                    XDC Observatory
-                  </p>
-                </a>
-              </div>
-              <div>
-                <a href="/token-details">
-                  <div className="Token" id="Token">
-                    Tokens
-                  </div>
-                </a> */}
+                
               </div>
             </Row>
             <Row alignItems="center">
@@ -763,60 +752,17 @@ export default function Navbar() {
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <MobileToolBar>
             <Typography className="Header">
-              <div className="header-mobile-top">
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <a className="logo_tokensearch" href={"/"}>
-                    <img
-                      className="Shape"
-                      src={"/images/XDC icon.svg"}
-                    ></img>
-                  </a>
-                  <a className="XDC" href="/">
-                    {" "}
-                    XDC{" "}
-                  </a>
-                </div>
-                &nbsp;
-                <div className="header-responsive">
-                  <div>
-                    <NavLink
-                      exact
-                      activeClassName="active-t"
-                      to={"/"}
-                      className="Network-explorer"
-                    >
-                      XDC Observatory
-                    </NavLink>
-                  </div>
-
-                  <div>
-                    <a href="/token-details">
-                      <div className="Token" id="Token">
-                        Tokens
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="header-responsive-desktop">
-                <div>
-                  <NavLink
-                    exact
-                    activeClassName="active-t"
-                    to={"/"}
-                    className="Network-explorer"
-                  >
-                    XDC Observatory
-                  </NavLink>
-                </div>
-
-                <div>
-                  <a href="/token-details">
-                    <div className="Token" id="Token">
-                      Tokens
-                    </div>
-                  </a>
-                </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <a className="logo_tokensearch" href={"/"}>
+                  <img
+                    className="Shape"
+                    src={"/images/XDC-Icon-Logo.svg"}
+                  ></img>
+                </a>
+                <a className="XDC" href="/">
+                  {" "}
+                  XDC{" "}
+                </a>
               </div>
             </Typography>
             <Row alignItems="center">
@@ -829,7 +775,8 @@ export default function Navbar() {
                   edge="end"
                   onClick={toggleDrawer("right", true)}
                 >
-                  <MenuIcon class="menu-sidebar" />
+                  {/* <MenuIcon class="menu-sidebar" /> */}
+                  <img className="menu-sidebar" src={"/images/Menu.svg"}></img>
                 </IconButton>
 
                 <Drawer
@@ -862,10 +809,7 @@ export default function Navbar() {
       </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
-          <img
-            className="Shape3"
-            src={"images/Networkexplorer.svg"}
-          ></img>
+          <img className="Shape3" src={"/images/Networkexplorer.svg"}></img>
           <div className="exp">XDC Observatory</div>
         </div>
         {/* ------------ Search bar ----------------- */}

@@ -191,7 +191,7 @@ export default function AddressDetails(props) {
       margin-right: 20px;
       display: ${(props) => (props.isDesktop ? "none" : "block")};
     }
-    @media (min-width: 769px) {
+    @media (min-width: 768px) {
       display: ${(props) => (props.isDesktop ? "block" : "none")};
     }
   `;
@@ -575,8 +575,8 @@ const MiddleContainerHash = styled.div`
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
-    margin-left: 18px;
-    padding-right: 26px;
+    margin-left: 0px;
+    // padding-right: 26px;
     margin-top: 10px;
     display: block;
   }
@@ -652,7 +652,7 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
-    padding-left: 3px;
+    padding-left: 14px;
   }
 `;
 const Container = styled.div`

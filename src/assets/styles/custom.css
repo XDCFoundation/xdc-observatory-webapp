@@ -128,6 +128,7 @@ input#password[placeholder] {
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
+  text-align: center;
 }
 .activateText {
   text-align: center;
@@ -801,9 +802,7 @@ input:focus {
   line-height: 19px;
   margin-right: 14px;
 }
-.no-data-added {
-  background-color: "red";
-}
+
 .tabledata-2 {
   display: flex;
   font-family: Inter;
@@ -816,6 +815,17 @@ input:focus {
   text-align: left;
   opacity: 1;
   color: #2a2a2a;
+}
+.not-found {
+  color: #c6cbcf;
+  font-family: Inter;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
 }
 
 .containerTag {
@@ -906,9 +916,9 @@ input:focus {
   background-color: unset !important;
 }
 @media (min-width: 0px) and (max-width: 767px) {
-  .menu-sidebar {
-    /* margin-top: 4px; */
-    fill: white;
+  /* .menu-sidebar { */
+  /* margin-top: 4px; */
+  /* fill: white;
     width: 26px;
     height: 30px;
     display: inline-block;
@@ -916,7 +926,7 @@ input:focus {
     transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     flex-shrink: 0;
     user-select: none;
-  }
+  } */
   .Shape2 {
     height: 20px;
     width: 20px;
@@ -1104,10 +1114,10 @@ input:focus {
     margin: 20px auto auto auto !important;
   }
 }
-@media (min-width: 768px) and (max-width: 1240px) {
-  .menu-sidebar {
-    /* margin-top: 4px; */
-    fill: white;
+/* @media (min-width: 768px) and (max-width: 1240px) {
+  .menu-sidebar { */
+/* margin-top: 4px; */
+/* fill: white;
     width: 1em;
     height: 1em;
     display: inline-block;
@@ -1116,7 +1126,7 @@ input:focus {
     flex-shrink: 0;
     user-select: none;
   }
-}
+} */
 /* @media (min-width: 1023px) {
   .menu-sidebar {
     fill: white;
@@ -2132,6 +2142,12 @@ p {
     background-color: #ffffff;
     outline: none;
   }
+  .parent_hash {
+    font-size: 0.875rem !important;
+  }
+  .parent_hash:hover {
+    font-size: 0.875rem !important;
+  }
 }
 /* .firstbox {
   height: 35px;
@@ -3079,8 +3095,8 @@ p {
 }
 
 .profile {
-  height: 30px !important;
-  width: 30px !important;
+  height: 28px !important;
+  width: 28px !important;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
@@ -8830,9 +8846,7 @@ button {
   margin-top: -33px;
   margin-left: 170px;
 }
-.copyEditContainerAddress {
-  display: flex;
-}
+
 .copyEditContainerMobile {
   display: flex;
   margin-left: 29rem !important;
@@ -8843,11 +8857,25 @@ button {
     margin-top: -66px;
     margin-left: 274px !important;
   }
-  /* .copyEditContainerMobileAddr {
+
+  .copyEditContainer1 {
     display: flex;
-    margin-top: -20px;
-    margin-left: 77px !important;
-  } */
+    margin-top: -71px;
+    margin-left: 16rem;
+    margin-bottom: 24px;
+  }
+  .copyToClipboardAddr {
+    color: #2149b9;
+    background-color: white;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .copyIconAddr {
+    width: 22px;
+    height: 22px;
+    margin-top: -1px;
+    cursor: pointer;
+  }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .copyEditContainerMobile {
@@ -8855,6 +8883,27 @@ button {
     margin-top: 0px;
     margin-left: -11px !important;
   }
+  .copyEditContainer1 {
+    display: flex;
+    margin-left: 0px;
+  }
+  .copyToClipboardAddr {
+    color: #2149b9;
+    background-color: white;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .copyIconAddr {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
+}
+.copyToClipboardAddr {
+  color: #2149b9;
+  background-color: white;
+  margin-left: 10px;
+  margin-right: 5px;
 }
 .copyToClipboardHash {
   color: #2149b9;
@@ -8872,6 +8921,11 @@ button {
   margin-left: -9px;
 }
 .copy-icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.copyIconAddr {
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -9061,6 +9115,12 @@ button {
     overflow-x: scroll;
   }
 }
+.Shape2-internal1 {
+  margin-top: -2px !important;
+}
+.menu-sidebar {
+  margin-top: -2px !important;
+}
 
 @media (max-width: 450px) {
   .mobile-navbartab1 {
@@ -9082,8 +9142,18 @@ button {
     margin-top: 7px;
   }
   .Shape2-internal1 {
-    height: 20px;
-    width: 20px;
+    height: 28px;
+    width: 26px;
+    margin-top: -2px !important;
+  }
+  .menu-sidebar {
+    height: 28px;
+    width: 26px;
+    margin-top: -2px !important;
+  }
+  .profile {
+    height: 25px !important;
+    width: 25px !important;
   }
   .Network-explorer-internal {
     font-size: 14px;
