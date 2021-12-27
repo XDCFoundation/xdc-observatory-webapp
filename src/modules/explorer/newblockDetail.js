@@ -97,6 +97,27 @@ export default function BlockDetails() {
     getLatestaccount(updatedCount);
   }
 
+  //--------------------->
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const { width } = windowDimensions;
+
   const hashid = `Hash of the block header from the previous block`;
   const blockheight = `Also known as Block Number. The block height, which indicates the length the length of the blockchain, increases after the addition of the new block.`;
   const timestamp = `The date and time at which a transaction is mined.`;
@@ -179,9 +200,8 @@ export default function BlockDetails() {
 
                     <MiddleContainerHash>
                       <Content>
-                        {height.hash}
-
-
+                        {/* {height.hash} */}
+                        {width > 1240 ? height.hash : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.hash) : height.hash)}
                         <CopyToClipboard
                           text={height.hash}
                           onCopy={() => setCopiedText(height.hash)}
@@ -302,7 +322,8 @@ export default function BlockDetails() {
                           className="parent_hash"
                           style={{ cursor: "pointer" }}
                         >
-                          {height.parentHash}
+                          {/* {height.parentHash} */}
+                          {width > 1240 ? height.parentHash : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.parentHash) : height.parentHash)}
 
                         </a>
                         <CopyToClipboard
@@ -344,8 +365,8 @@ export default function BlockDetails() {
                     </Container>
                     <MiddleContainer>
                       <Content>
-                        {height.sha3Uncles}
-
+                        {/* {height.sha3Uncles} */}
+                        {width > 1240 ? height.sha3Uncles : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(height.sha3Uncles) : height.sha3Uncles)}
                         <CopyToClipboard
                           text={height.sha3Uncles}
                           onCopy={() => setCopiedText(height.sha3Uncles)}
