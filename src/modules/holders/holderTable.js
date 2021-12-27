@@ -471,7 +471,7 @@ export default function HolderTableComponent(props) {
 
       <Grid lg={13} className="tablegrid_address">
         <Paper style={{ borderRadius: "14px" }} elevation={0}>
-          <TableContainer className={classes.container} id="container-table">
+          <TableContainer className={classes.container} id="container-table-holder">
             <Table>
               <TableHead>
                 <TableRow>

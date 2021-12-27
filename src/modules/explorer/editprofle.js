@@ -417,12 +417,21 @@ export default function FormDialog(props) {
       setProfilePicture(response[0].url);
     }
     if (userInfo.name !== userName || userInfo.email !== email) {
+      
       if (userInfo.name !== userName && userInfo.email === email) {
+        
         let upadteUser = await updateUserName(response[0]?.url);
+        
       } else {
+        
         let upadteUser = await updateUser(response[0]?.url);
+        
       }
+    
     }
+   
+    handleClose();
+
   };
   const getUserName = () => {
     let name = sessionManager.getDataFromCookies("userInfo");
@@ -542,7 +551,9 @@ export default function FormDialog(props) {
                   }}
                 />
               )}
-              {userNameError && <div className={classes.error}>{userNameError}</div>}
+              {userNameError && (
+                <div className={classes.error}>{userNameError}</div>
+              )}
             </DialogContent>
 
             <DialogContent

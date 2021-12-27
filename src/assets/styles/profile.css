@@ -220,6 +220,7 @@ background-color: #4878ff; */
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
+  cursor: pointer;
   color: #2149b9;
 }
 .name {
@@ -634,6 +635,7 @@ background-color: #4878ff; */
   }
   .edit {
     font-size: 13px;
+    cursor: pointer;
   }
 
   .heading {
@@ -666,6 +668,7 @@ background-color: #4878ff; */
   .edit {
     font-size: 13px;
     margin-top: 0px;
+    cursor: pointer;
   }
 
   .heading {

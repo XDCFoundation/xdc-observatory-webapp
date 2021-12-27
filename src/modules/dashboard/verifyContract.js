@@ -7,7 +7,7 @@ import Releases from "./list.json";
 import contractverify from "../../services/contractverify";
 export default function VerifyContract() {
     let address = useParams();
-    
+   
     if (address.address !== undefined) {
        if (address.address.length != undefined) {
             let str = address.address
@@ -22,6 +22,7 @@ export default function VerifyContract() {
     
     const [isLoading, setisLoading] = useState(false)
     const [msg, setMessage] = useState("")
+    const [inputValue, setInputValue] = useState("")
     const inputRef = useRef();
     const validationSchema = Yup.object().shape({
         addr: Yup.string()
@@ -36,13 +37,13 @@ export default function VerifyContract() {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema)
     });
-    const handleChange = async (event) => {
+    const handleChange = (event) => { 
         let txtValue = event.target.value
         if (txtValue !== undefined) {
             if (txtValue.includes("xdc")) {
-                let resultVal = txtValue.replace(/^.{3}/g, '0x'); 
-                inputRef.current.value = resultVal;
-                
+                setInputValue(txtValue.replace(/^.{3}/g, '0x'))
+            } else {
+                setInputValue(txtValue)
             }
         }
     }
@@ -88,7 +89,7 @@ export default function VerifyContract() {
                                     address.length ? <div>
                                         <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange}  value={address.length ? address : ""} />
                                     </div> : <div>
-                                        <input {...register("addr")} ref={inputRef} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={inputRef.current} />
+                                        <input {...register("addr")}  name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={inputValue} />
                                     </div>
                                 }
                                 <p className="validation-error-message">{errors?.addr?.message}</p>

@@ -107,7 +107,7 @@ export default function BlockDetailsData() {
                                     Hash ID
                                 </TableCell>
                                 <TableCell className="second-row-table_hash2" style={{borderBottom: "none"}}>
-                                    {height.hash}
+                                    {(window.innerWidth >= 768) ? (window.innerWidth < 1240 ? Utils.shortenHashTab(height.hash) : height.hash) : height.hash}
                                 </TableCell>
                                 <p style={{marginTop: '17px'}}>
                                     <CopyToClipboard text={height.hash} onCopy={() => setCopiedText(height.hash)}>
