@@ -47,10 +47,10 @@ const CloseIcon = styled.img`
   cursor: pointer;
   @media (min-width: 0) and (max-width: 768px) {
     margin-left: auto;
-    margin-right: 20px;
+    // margin-right: 20px;
     display: ${(props) => (props.isDesktop ? "none" : "block")};
   }
-  @media (min-width: 769px) {
+  @media (min-width: 768px) {
     display: ${(props) => (props.isDesktop ? "block" : "none")};
   }
 `;
