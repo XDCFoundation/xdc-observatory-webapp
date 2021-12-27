@@ -85,10 +85,16 @@ a:link {
   height: 16px;
 }
 
+.h-14 {
+  height: 14px;
+}
+
 .h-20 {
   height: 20px;
 }
-
+.m-r-10 {
+  margin-right: 10px;
+}
 input#password {
   width: 433px;
   height: 40px;
@@ -402,7 +408,9 @@ input:focus {
 .w-16 {
   width: 16%;
 }
-
+.w-14-px {
+  width: 14px;
+}
 .w-16-px {
   width: 16px;
 }
@@ -10007,4 +10015,59 @@ button {
 }
 #new-features .MuiPaper-root {
   max-width: 900px !important;
+}
+.show-tooltip {
+  width: 20px;
+  color: #585858;
+  margin-right: 6px;
+}
+.transaction-detail-tooltip {
+  width: 308px;
+  height: 454px;
+  padding: 8px;
+}
+.additional-details {
+  font-weight: 600;
+  color: #252525;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+}
+.detail-heading {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #252525;
+}
+.success-text {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #03be46;
+  margin-top: 7px;
+}
+.line-detail-tooltip {
+  height: 1px;
+  margin: 7px 0 12px;
+  border: solid 1px #e3e7eb;
+}
+.detail-heading-text {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #2a2a2a;
+  margin-top: 7px;
 }
