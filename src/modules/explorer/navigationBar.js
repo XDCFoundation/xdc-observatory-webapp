@@ -770,7 +770,8 @@ export default function Navbar() {
                   edge="end"
                   onClick={toggleDrawer("right", true)}
                 >
-                  <MenuIcon class="menu-sidebar" />
+                  {/* <MenuIcon class="menu-sidebar" /> */}
+                  <img className="menu-sidebar" src={"/images/Menu.svg"}></img>
                 </IconButton>
 
                 <Drawer
