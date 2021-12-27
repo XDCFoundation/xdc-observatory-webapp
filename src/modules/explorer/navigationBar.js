@@ -187,7 +187,6 @@ export default function Navbar() {
     }
   };
   const BlockChainSearch = async (data) => {
-
     try {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
@@ -636,7 +635,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-      props.active ? "0.15rem solid #ffffff !important" : ""};
+    props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
@@ -761,10 +760,7 @@ export default function Navbar() {
               <div className="header-mobile-top">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <a className="logo_tokensearch" href={"/"}>
-                    <img
-                      className="Shape"
-                      src={"/images/XDC icon.svg"}
-                    ></img>
+                    <img className="Shape" src={"/images/XDC icon.svg"}></img>
                   </a>
                   <a className="XDC" href="/">
                     {" "}
@@ -772,7 +768,7 @@ export default function Navbar() {
                   </a>
                 </div>
                 &nbsp;
-                <div className="header-responsive">
+                {/* <div className="header-responsive">
                   <div>
                     <NavLink
                       exact
@@ -791,7 +787,7 @@ export default function Navbar() {
                       </div>
                     </a>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="header-responsive-desktop">
                 <div>
@@ -857,10 +853,7 @@ export default function Navbar() {
       </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
-          <img
-            className="Shape3"
-            src={"images/Networkexplorer.svg"}
-          ></img>
+          <img className="Shape3" src={"images/Networkexplorer.svg"}></img>
           <div className="exp">XDC Observatory</div>
         </div>
         {/* ------------ Search bar ----------------- */}
