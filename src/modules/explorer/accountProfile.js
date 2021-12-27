@@ -1030,7 +1030,7 @@ export default function SimpleTabs(props) {
                 // >
                 //   Export test
                 // </div>
-                <PDFDownloadLink style={styles.pdfDownloadLink} document={ <TransactionPDF data={downloadTxnPvtNote}/>}  fileName="somename.pdf">
+                <PDFDownloadLink style={styles.pdfDownloadLink} document={ <TransactionPDF data={downloadTxnPvtNote}/>}  fileName="transactionPvtNote.pdf">
                 Export
                 </PDFDownloadLink>
                
