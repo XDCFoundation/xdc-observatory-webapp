@@ -184,17 +184,20 @@ const LeftTitle = styled.div`
   }
 `;
 const Line1 = styled.hr`
-  background-color: #fff;
+  background-color: #e3e7eb !important;
   width: 100%;
   position: absolute;
-  top: 65%;
+  top: 30%;
+  left: 0%;
   @media (max-width: 767px) {
+   margin-top: 2px;
     width: 100%;
-    top: 75%;
+    top: 30%;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
+  @media (min-width: 768px)  {
     width: 100%;
-    top: 60%;
+    top: 20%;
+    display: none;
   }
 `;
 const LeftTopSec = styled.div`
@@ -275,12 +278,14 @@ const Line2 = styled.hr`
   top: 30%;
   left: 0%;
   @media (max-width: 767px) {
+   
     width: 100%;
     top: 30%;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 100%;
     top: 20%;
+    display: none;
   }
 `;
 const RightTopSec = styled.div`
@@ -477,7 +482,7 @@ export default function TokenDataComponent() {
               </LeftTopSecMain>
             </LeftFirst>
             <RightTop>
-              <Line2></Line2>
+              <Line1></Line1>
             </RightTop>
             <LeftSec>
               <ValueMain>
@@ -486,7 +491,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={blockHeightImg} /> */}
 
                     <ValueName>
-                      {/* <Line2 ></Line2> */}
+                     
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>

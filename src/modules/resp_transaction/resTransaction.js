@@ -269,7 +269,6 @@ export default function Transaction({ _handleChange }) {
   const valueDiv = !valueFetch
     ? 0
     : Utils.decimalDivison((valueFetch * transactions.value), 11);
-  console.log(typeof (valueDiv), "value in currency")
   let ValueMain = !transactions?.value ? 0 : Utils.decimalDivison((transactions?.value), 11);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
@@ -363,16 +362,19 @@ export default function Transaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer1 isTextArea={false}>
                     <Content>
-                      {hash}
-                      {/* <Content>{width > 1240 ? hash : (width <= 1240 && width >= 768 ? shorten(hash) : shortenHash(hash))} */}
+                      {/* {hash} */}
+                      {width > 1240 ? hash : (width <= 1240 && width >= 768 ? Utils.shortenHashTab(hash) : hash)}
                     </Content>
                     <span
                       className={
-                        width > 1240
+                        // width > 1240
+                        //   ? "copyEditContainer2"
+                        //   : width <= 1240 && width >= 768
+                        //     ? "copyEditContainerTab"
+                        //     : "copyEditContainerMobile"
+                        width >= 768
                           ? "copyEditContainer2"
-                          : width <= 1240 && width >= 768
-                            ? "copyEditContainerTab"
-                            : "copyEditContainerMobile"
+                          : "copyEditContainerMobile"
                       }
                     >
                       <CopyToClipboard
@@ -1020,12 +1022,12 @@ const MiddleContainer1 = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
-    word-break: break-all;
-    text-align: left;
-    letter-spacing: 0.034rem;
-    color: #3a3a3a;
-    opacity: 1;
-    display: block;
+    // word-break: break-all;
+    // text-align: left;
+    // letter-spacing: 0.034rem;
+    // color: #3a3a3a;
+    // opacity: 1;
+    // display: block;
     margin-left: 64px;
   }
 `;
@@ -1166,7 +1168,7 @@ const HashDiv = styled.div`
     // padding-right: 85px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    padding: 6px 30px;
+    padding: 14px 30px;
   }
 `;
 const Container = styled.div`

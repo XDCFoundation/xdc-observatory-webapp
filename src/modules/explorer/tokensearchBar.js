@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
     justifyContent: "flex-start",
-    marginTop:"-12px",
+    marginTop: "-12px",
   },
   searchIcon: {
     marginTop: "2px",
@@ -433,7 +433,7 @@ export default function Navbar() {
       <Row
         alignItems="center"
         justifyContent="space-between"
-        style={{ padding: "0 20px 0 20px", marginTop: "40px" }}
+        style={{ padding: "0 20px 0 20px", marginTop: "20px" }}
       >
         <Row alignItems="center">
           <i
@@ -646,7 +646,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-    props.active ? "0.15rem solid #ffffff !important" : ""};
+      props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
@@ -689,7 +689,7 @@ export default function Navbar() {
   `;
 
   const SearchContainer = styled.div`
-    width: 330px;
+    width: 22.563rem;
     height: 35px;
     padding: 6px;
     border-radius: 6px;
@@ -901,64 +901,66 @@ const SearchBox = ({
   list,
 }) => {
   return (
-    <form
-      method="post"
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <Row alignItems="center">
-        <img className={classes.searchIcon} src={"/images/Search.svg"} />
-        <div className="search-responsive">
-          <input
-            defaultValue={filter}
-            type="text"
-            onKeyUp={(event) => handleSearch(event)}
-            ref={SearchDataRef}
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
-                handleSearch(event);
-              }
-            }}
-            className="main-input-td "
-            src={"/images/Search.png"}
-            placeholder="Search"
-          />
-          {/* name="NAME" */}
-          <div className="mobFilter">
-            <select
-              className="select-td"
-              onChange={(event) => handleSearchOption(event)}
-              ref={SelectOptRef}
-            >
-              <option value="All filters" selected>
-                All Filters
-              </option>
-              <option value="Address">Addresses</option>
-              <option value="Blocks">Blocks</option>
-              <option value="Tokens">Tokens</option>
-              <option value="Transaction">Transaction</option>
-              {/* <option value="Nametags">Nametags</option>
+    <div>
+      <form
+        method="post"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <Row alignItems="center">
+          <img className={classes.searchIcon} src={"/images/Search.svg"} />
+          <div className="search-responsive">
+            <input
+              defaultValue={filter}
+              type="text"
+              onKeyUp={(event) => handleSearch(event)}
+              ref={SearchDataRef}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  handleSearch(event);
+                }
+              }}
+              className="main-input-td "
+              src={"/images/Search.png"}
+              placeholder="Search"
+            />
+            {/* name="NAME" */}
+            <div className="mobFilter">
+              <select
+                className="select-td"
+                onChange={(event) => handleSearchOption(event)}
+                ref={SelectOptRef}
+              >
+                <option value="All filters" selected>
+                  All Filters
+                </option>
+                <option value="Address">Addresses</option>
+                <option value="Blocks">Blocks</option>
+                <option value="Tokens">Tokens</option>
+                <option value="Transaction">Transaction</option>
+                {/* <option value="Nametags">Nametags</option>
                       <option value="Labels">Labels</option>
                       <option value="Websites">Websites</option> */}
-            </select>
+              </select>
+            </div>
           </div>
-        </div>
-      </Row>
-      <ul style={{ color: "black" }}>
-        {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
-        <li>
-          {list.map((name) => {
-            if (filter.length !== 0) {
-              if (name.toLowerCase().startsWith(filter.toLowerCase()))
-                return <li>{name}</li>;
-            } else {
-              return null;
-            }
-          })}
-        </li>
-      </ul>
-    </form>
+        </Row>
+        <ul style={{ color: "black" }}>
+          {/* if needed above marginTop: '20px', marginLeft: '-45px' */}
+          <li>
+            {list.map((name) => {
+              if (filter.length !== 0) {
+                if (name.toLowerCase().startsWith(filter.toLowerCase()))
+                  return <li>{name}</li>;
+              } else {
+                return null;
+              }
+            })}
+          </li>
+        </ul>
+      </form>
+    </div>
   );
 };
 
