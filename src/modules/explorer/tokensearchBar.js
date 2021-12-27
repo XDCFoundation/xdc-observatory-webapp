@@ -689,7 +689,7 @@ export default function Navbar() {
   `;
 
   const SearchContainer = styled.div`
-    width: 330px;
+    width: 22.563rem;
     height: 35px;
     padding: 6px;
     border-radius: 6px;
@@ -901,6 +901,7 @@ const SearchBox = ({
   list,
 }) => {
   return (
+    <div>
     <form
       method="post"
       onSubmit={(e) => {
@@ -932,7 +933,7 @@ const SearchBox = ({
               ref={SelectOptRef}
             >
               <option value="All filters" selected>
-                All Filters
+                All Filtersss
               </option>
               <option value="Address">Addresses</option>
               <option value="Blocks">Blocks</option>
@@ -959,6 +960,7 @@ const SearchBox = ({
         </li>
       </ul>
     </form>
+    </div>
   );
 };
 

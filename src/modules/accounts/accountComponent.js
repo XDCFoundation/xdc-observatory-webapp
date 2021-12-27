@@ -30,12 +30,12 @@ const useStyles = makeStyles({
   RankColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "2% !important"
+    paddingLeft: "5% !important"
   },
   RankColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "1% !important"
+    paddingLeft: "5% !important"
   },
   PercentageColumn: {
     border: "none !important",
@@ -133,29 +133,29 @@ export default function AccountComponent(props) {
                   {props.state.tableColumns["Rank"].isActive && (
                     <TableCell
                       className={classes.RankColumn}
-                      align="left"
+                      align="center"
                     >
                       <span className={"tableheaders_1 pl--1"}>Rank</span>
                     </TableCell>
                   )}
                   <TableCell
                     style={{ border: "none", paddingLeft: "2.2%" }}
-                    align="left"
+                    align="center !important"
                   >
                     <span className={"tableheaders_1_address"}>Address</span>
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "2%" }}
-                      align="left"
+                      style={{ border: "none", paddingLeft: "6%" }}
+                      align="center"
                     >
                       <span className={"tableheaders_1 pl--1"}>Type</span>
                     </TableCell>
                   )}
                   {props.state.tableColumns["Balance"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "2.2%" }}
-                      align="left"
+                      style={{ border: "none", paddingLeft: "5%" }}
+                      align="center"
                     >
                       <span className={"tableheaders_1"}>Balance</span>
                     </TableCell>
@@ -165,7 +165,7 @@ export default function AccountComponent(props) {
                   {props.state.tableColumns["Percentage"].isActive && (
                     <TableCell
                       className={classes.PercentageColumn}
-                      align="left"
+                      align="center"
                     >
                       <span className={"tableheaders_1"}>Percentage</span>
                     </TableCell>
@@ -210,7 +210,7 @@ export default function AccountComponent(props) {
                             {props.state.tableColumns["Rank"].isActive && (
                               <TableCell
                                 className={`w-2 ${classes.RankColumnVal}`}
-                                align="left"
+                                align="center"
                               >
                                 <span className="tabledata">{rantValue}</span>
                               </TableCell>
@@ -220,7 +220,7 @@ export default function AccountComponent(props) {
                               style={{
                                 border: "none",
                                 paddingLeft: "25.5px",
-                                width: "48%",
+                                width: "",
                               }}
                             >
                               <a
@@ -234,8 +234,8 @@ export default function AccountComponent(props) {
                             {props.state.tableColumns["Type"].isActive && (
                               <TableCell
                                 className="w-2"
-                                style={{ border: "none", paddingLeft: "0" }}
-                                align="left"
+                                style={{ border: "none", paddingLeft: "5%" }}
+                                align="center"
                               >
                                 <span className="tabledata">
                                   {row.accountType == 0
@@ -249,10 +249,10 @@ export default function AccountComponent(props) {
                                 className="w-3"
                                 style={{
                                   border: "none",
-                                  paddingLeft: "2%",
+                                  paddingLeft: "5%",
                                   cursor: "pointer",
                                 }}
-                                align="left"
+                                align="center"
                               >
                                 <Tooltip
                                   placement="right"
@@ -269,7 +269,7 @@ export default function AccountComponent(props) {
                             {props.state.tableColumns["Percentage"].isActive && (
                               <TableCell
                                 className={`w-2 ${classes.PercentageColumnVal}`}
-                                align="left"
+                                align="center"
                               >
                                 <span className="tabledata">
                                   {percentageValue} %

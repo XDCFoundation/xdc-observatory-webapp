@@ -261,7 +261,8 @@ export default function Transaction({ _handleChange }) {
       : CurrencyValue === "USD"
         ? txfee * price
         : txfee * price;
-  const fetchtxn = !transactionFetch ? 0 : transactionFetch;
+        const fetchTxn = !transactionFetch ? 0 : transactionFetch;
+        const fetchtxn = fetchTxn.toFixed(4)
 
   const gasP = !transactions.gasPrice
     ? 0

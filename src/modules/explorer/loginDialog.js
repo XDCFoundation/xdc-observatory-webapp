@@ -475,6 +475,8 @@ export default function FormDialog(props) {
   const handleClickOpenSignup = () => {
     setValue(1);
     setErrorEmailVerified(false);
+    setEmail("")
+    setUserName("")
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
