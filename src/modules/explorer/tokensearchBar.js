@@ -933,7 +933,7 @@ const SearchBox = ({
               ref={SelectOptRef}
             >
               <option value="All filters" selected>
-                All Filtersss
+                All Filters
               </option>
               <option value="Address">Addresses</option>
               <option value="Blocks">Blocks</option>
