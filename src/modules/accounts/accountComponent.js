@@ -19,6 +19,7 @@ import ConfigureColumnsModal from "../common/configureColumnsModal";
 import Utils from '../../utility'
 import { utils } from "react-bootstrap";
 import styled from "styled-components";
+import { messages } from "../../constants"
 
 const useStyles = makeStyles({
   container: {
@@ -142,22 +143,52 @@ export default function AccountComponent(props) {
                     style={{ border: "none", paddingLeft: "2.2%" }}
                     align="center !important"
                   >
-                    <span className={"tableheaders_1_address"}>Address</span>
+                    <span className={"tableheaders_1_address"}>
+                      Address
+                      <Tooltip placement="top" title={messages.ACCOUNT_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
                       style={{ border: "none", paddingLeft: "6%" }}
                       align="center"
                     >
-                      <span className={"tableheaders_1 pl--1"}>Type</span>
+                      <span className={"tableheaders_1 pl--1"}>
+                        Type
+                        <Tooltip placement="top" title={messages.ACCOUNT_TYPE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                        </span>
                     </TableCell>
                   )}
                   {props.state.tableColumns["Balance"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "5%" }}
+                      style={{ border: "none", paddingLeft: "5%", paddingRight: "48px" }}
                       align="center"
                     >
-                      <span className={"tableheaders_1"}>Balance</span>
+                      <span className={"tableheaders_1"}>
+                        Balance
+                        <Tooltip placement="top" title={messages.ACCOUNT_BALANCE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                        </span>
                     </TableCell>
                     
                   )}
