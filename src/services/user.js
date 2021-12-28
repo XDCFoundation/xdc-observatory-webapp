@@ -20,12 +20,9 @@ export default {
 function getHeaders() {
   return {
     "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
-    skip: true,
-    "Access-Control-Allow-Origin": "*",
-    // 'Authorization': `Bearer ${utility.getAccessToken()}`
+    "X-API-key": process.env.REACT_APP_X_API_KEY,
   };
 }
-
 async function getUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
@@ -33,7 +30,7 @@ async function getUserPrivateNote(data) {
     data;
   return httpService(
     "GET",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -58,7 +55,7 @@ async function postUserPrivateNote(data) {
     "add-transaction-label";
   return httpService(
     "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
@@ -82,7 +79,7 @@ async function getUserWatchlist(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "getAddress/" + data;
   return httpService(
     "GET",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -106,7 +103,7 @@ async function addPrivateTagToAddress(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-address-tag";
   return httpService(
     "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
@@ -132,7 +129,7 @@ async function getPrivateTagToAddress(data) {
     data;
   return httpService(
     "GET",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -156,7 +153,7 @@ async function addWatchlist(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-watchlist";
   return httpService(
     "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
@@ -180,7 +177,7 @@ async function putWatchlist(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-watchlist";
   return httpService(
     "PUT",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
@@ -204,7 +201,7 @@ async function putTaggedAddress(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-address-tag";
   return httpService(
     "PUT",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
@@ -229,7 +226,7 @@ async function editUserPrivateNote(data) {
     "edit-transaction-Private-note";
   return httpService(
     "PUT",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
@@ -251,7 +248,7 @@ async function Search(data) {
   let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "search";
   return httpService(
     "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
