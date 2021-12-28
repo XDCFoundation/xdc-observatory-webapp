@@ -14,6 +14,7 @@ import utility from "../../utility";
 import styled from "styled-components";
 import moment from "moment";
 import Utility from "../../utility";
+import { CompareArrowsOutlined } from "@material-ui/icons";
 const useStyles = makeStyles({
   container: {
     borderRadius: "14px",
@@ -193,6 +194,10 @@ export default function CommonTransactionsTable(props) {
                   //   100000000000000000
                   // ).toFixed(9);
                   let amt = Utility.decimalDivison(row.value, 4);
+                  let amt1= amt.toString().split(".")[0]
+                       let amt2= amt.toString().split(".")[1]
+                       
+                       
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (
@@ -245,14 +250,24 @@ export default function CommonTransactionsTable(props) {
                             padding: "20px",
                           }}
                           align="left"
-                        >
+                        >{amt2>=0 ? (<span
+                            className={
+                              animationClass ? animationClass : "tabledata"
+                            }
+                          >
+                            
+                            {amt1}
+                          </span>):(
                           <span
                             className={
                               animationClass ? animationClass : "tabledata"
                             }
                           >
-                            {amt >= 0.0001 ? amt : 0}
+                            
+                            {amt1}{"."}<span style ={{color:"#9FA9BA"}}>{amt2}</span>
                           </span>
+                          )}
+
                         </TableCell>
                         <TableCell
                           style={{
