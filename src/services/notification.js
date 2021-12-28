@@ -1,17 +1,24 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../constants";
 
-export default{
-   proposalList , 
-   getNotificationList,
-   markNotificationCleared
-  }
+export default {
+  proposalList,
+  getNotificationList,
+  markNotificationCleared,
+};
 
- async function proposalList(reqObj) {
+function getHeaders() {
+  return {
+    "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
+    "X-API-key": process.env.REACT_APP_X_API_KEY,
+  };
+}
+
+async function proposalList(reqObj) {
   const url = process.env.REACT_APP_GET_NOTIFICATION + "get notification";
   return httpService(
     httpConstants.METHOD_TYPE.POST,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     reqObj,
     url
   )
@@ -30,11 +37,11 @@ export default{
     });
 }
 
- async function getNotificationList(reqObj) {
+async function getNotificationList(reqObj) {
   const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "notification-list";
   return httpService(
     httpConstants.METHOD_TYPE.POST,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     reqObj,
     url
   )
@@ -43,13 +50,10 @@ export default{
         !response.success ||
         !response.responseData ||
         response.responseData.length === 0
-      )
-      {
-        
-      return Promise.reject();
+      ) {
+        return Promise.reject();
       }
 
-      
       return Promise.resolve(response.responseData);
     })
     .catch(function (err) {
@@ -58,11 +62,12 @@ export default{
 }
 
 async function markNotificationCleared(reqObj) {
-  const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "mark-bulk-notification-clear";
+  const url =
+    process.env.REACT_APP_NOTIFICATION_SERVICE + "mark-bulk-notification-clear";
 
   return httpService(
     httpConstants.METHOD_TYPE.POST,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     reqObj,
     url
   )
@@ -71,13 +76,10 @@ async function markNotificationCleared(reqObj) {
         !response.success ||
         !response.responseData ||
         response.responseData.length === 0
-      )
-      {
-      
-      return Promise.reject();
+      ) {
+        return Promise.reject();
       }
 
-    
       return Promise.resolve(response.responseData);
     })
     .catch(function (err) {
