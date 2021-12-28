@@ -14,7 +14,7 @@ function ConfigureColumnsModal(props) {
         >
             <div className="w-320">
                 <div className="fs-16 fw-bold p-t-15 p-b-15 display-flex justify-content-center">Configure Columns</div>
-                <hr className="margin-0 m-b-15"/>
+                <hr className="margin-0 m-b-15" />
                 <div>
                     {
                         props.tableColumns && Object.keys(props.tableColumns).map(key => {
@@ -23,14 +23,14 @@ function ConfigureColumnsModal(props) {
                                     <div className="display-flex">
                                         <Tooltip align="right" title={props.tableColumns[key].toolTipText}>
                                             <img className="w-16-px h-16 m-t-2"
-                                                 src="/images/question_mark_tooltip.svg"></img>
+                                                src="/images/question_mark_tooltip.svg"></img>
                                         </Tooltip>
                                         <div className="p-l-5">{key}</div>
                                     </div>
                                     <div onClick={() => props.toggleTableColumns(key)}>
                                         {props.tableColumns[key].isActive ?
-                                            <img className="" src="/images/active-switch.svg"/> :
-                                            <img className="" src="/images/inactive-switch.svg"/>}
+                                            <img className="" src="/images/active-switch.svg" /> :
+                                            <img className="" src="/images/inactive-switch.svg" />}
                                     </div>
                                 </div>
                             )
