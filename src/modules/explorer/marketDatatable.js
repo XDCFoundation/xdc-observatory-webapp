@@ -35,6 +35,7 @@ const MarketDataPointTitle = styled.div`
   line-height: normal;
   letter-spacing: 0.034rem;
   justify-content: center;
+  color: #686868;
   display: flex;
   flex-flow: row;
   align-item: center;
@@ -58,11 +59,11 @@ const MarketDataPointTitle = styled.div`
   }
 
   @media (min-width: 350px) and (max-width: 767px) {
-    display: block;
-    color: #2a2a2a;
-    // display: flex;
-    // gap: 10px;
-    // flex-flow: row-reverse;
+    // display: block;
+    color: #686868;
+    display: flex;
+    gap: 10px;
+    flex-flow: row-reverse;
   }
 `;
 

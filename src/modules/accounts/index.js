@@ -7,25 +7,25 @@ import { CoinMarketService } from "../../services";
 import { toolTipMessages } from "../../constants";
 
 export default class LatestAccountsList extends BaseComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      from: 0,
-      amount: 50,
-      tableName: "Accounts",
-      accountList: [],
-      totalAccounts: 0,
-      totalSupply: 0,
-      noData: 1,
-      isLoading: true,
-        tableColumns: {
-            "Rank": {isActive: true, toolTipText: "Account rank is position based on account value."},
-            "Type": {isActive: true, toolTipText: "Account type is either Account, Contract."},
-            "Balance": { isActive: true, toolTipText: "Balance held by a particular account." },
-            "Percentage": {isActive: true, toolTipText: "Percentage held by a particular account value percentage."}
-        }
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            from: 0,
+            amount: 10,
+            tableName: "Accounts",
+            accountList: [],
+            totalAccounts: 0,
+            totalSupply: 0,
+            noData: 1,
+            isLoading: true,
+            tableColumns: {
+                "Rank": { isActive: true, toolTipText: "Account rank is position based on account value." },
+                "Type": { isActive: true, toolTipText: "Account type is either Account, Contract." },
+                "Balance": { isActive: true, toolTipText: "Balance held by a particular account." },
+                "Percentage": { isActive: true, toolTipText: "Percentage held by a particular account value percentage." }
+            }
+        };
+    }
 
     componentDidMount() {
         this.getListOfAccounts()
@@ -36,7 +36,7 @@ export default class LatestAccountsList extends BaseComponent {
     toggleTableColumns = (columnName) => {
         const columns = this.state.tableColumns;
         columns[columnName].isActive = !columns[columnName].isActive
-        this.setState({tableColumns: columns})
+        this.setState({ tableColumns: columns })
     }
 
 
