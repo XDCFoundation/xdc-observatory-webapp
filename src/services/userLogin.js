@@ -16,7 +16,7 @@ export default class Auth0Service {
     let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "sign-in";
     return httpService(
       httpConstants.METHOD_TYPE.POST,
-      this.this.getHeaders(),
+      this.getHeaders(),
       reqObj,
       url
     )
@@ -70,7 +70,7 @@ export default class Auth0Service {
       httpConstants.API_END_POINT.ADD_USER;
     return httpService(
       httpConstants.METHOD_TYPE.POST,
-      this.this.getHeaders(),
+      this.getHeaders(),
       requestData,
       url
     )
@@ -118,7 +118,7 @@ export default class Auth0Service {
       `${httpConstants.API_END_POINT.GET_USER}/${userId}`;
     return httpService(
       httpConstants.METHOD_TYPE.GET,
-      this.this.getHeaders(),
+      this.getHeaders(),
       {},
       url
     )
