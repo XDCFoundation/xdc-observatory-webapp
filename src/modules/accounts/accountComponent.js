@@ -193,8 +193,20 @@ export default function AccountComponent(props) {
                         let num = row.balance;
                         let finalBal = num / 1000000000000000000;
                         let bal = finalBal.toString();
-                        rantValue = rantValue + 1
+                       var bal1=    utility.convertToInternationalCurrencySystem(bal)
+                      var bal2=  bal1.toString().split(".")[0] 
+                      var bal3=  bal1.toString().split(".")[1] 
+                      console.log(bal3.substring(2))
+                              
+              
+                 
+                       rantValue = rantValue + 1
                         let percentageValue = ((finalBal / state.totalSupply) * 100).toFixed(2)
+                       let percentageValue1= percentageValue.toString().split(".")[0]
+                       let percentageValue2= percentageValue.toString().split(".")[1]
+                       
+                       
+                       
                         //state.totalSupply
 
 
@@ -259,9 +271,7 @@ export default function AccountComponent(props) {
                                   title={format({})(bal)}
                                 >
                                   <span className="tabledata">
-                                    {utility.convertToInternationalCurrencySystem(
-                                      bal
-                                    )}
+                                    {bal2}{"."}<span style ={{color:"#9FA9BA"}}>{bal3}</span>
                                   </span>
                                 </Tooltip>
                               </TableCell>
@@ -272,7 +282,7 @@ export default function AccountComponent(props) {
                                 align="center"
                               >
                                 <span className="tabledata">
-                                  {percentageValue} %
+                              {percentageValue1}{"."}<span style ={{color:"#9FA9BA"}}>{percentageValue2}</span>%
                                 </span>
                               </TableCell>
                             )}

@@ -912,10 +912,12 @@ export default function SimpleTabs(props) {
           <Column>
             <Row className={classes.profileName} style={{ gap: "15px" }}>
               Welcome, {Utils.shortenUserName(setUserName())}
-              <NotificationBar />
+             
             </Row>
+            
             <Editprofile />
           </Column>
+          <NotificationBar  />  
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
