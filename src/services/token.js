@@ -23,12 +23,7 @@ function getHeaders() {
 async function CoinMarketExchangeForToken(data) {
   let url = process.env.REACT_APP_GET_TOKEN_MARKETCAP + "/" + data;
 
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -53,12 +48,7 @@ async function getTokenLists(data) {
     "&limit=" +
     data.perpage;
 
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -76,12 +66,7 @@ async function getTokenLists(data) {
 }
 async function getSomeDaysHolders(path, data) {
   let url = process.env.REACT_APP_GET_SOME_DAYS_HOLDERS + path;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -107,12 +92,7 @@ async function getTokenSearch(data) {
     "&data=" +
     data.searchkey;
 
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -131,12 +111,7 @@ async function getTokenSearch(data) {
 
 async function getTotalToken() {
   let url = process.env.REACT_APP_GET_TOTAL_TOKEN;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -162,12 +137,7 @@ async function getListOfTransferTransactionsForToken(data) {
     "&limit=" +
     data.perpage;
 
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -185,12 +155,7 @@ async function getListOfTransferTransactionsForToken(data) {
 async function getTotalTransferTransactionsForToken(data) {
   let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr;
 
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -213,12 +178,7 @@ async function getListOfHoldersForToken(data) {
     Math.ceil(data.pageNum) +
     "&limit=" +
     data.perpage;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -236,12 +196,7 @@ async function getListOfHoldersForToken(data) {
 async function getTransferTransactionDetailsUsingHash(path, data) {
   let url =
     process.env.REACT_APP_GET_TRANSFER_TRANSACTION_DETAIL_USING_ADDRESS + path;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -264,12 +219,7 @@ async function getHolderDetailsUsingAddressforToken(data) {
     Math.ceil(data.pageNum) +
     "&limit=" +
     data.perpage;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||

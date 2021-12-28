@@ -19,12 +19,7 @@ function getHeaders() {
 }
 async function getTotalTransaction() {
   let url = process.env.REACT_APP_GET_TOTAL_TRANSACTION;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -41,12 +36,7 @@ async function getTotalTransaction() {
 }
 async function getLatestTransaction(path, data) {
   let url = process.env.REACT_APP_GET_LATEST_TRANSACTIONS + path;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -64,12 +54,7 @@ async function getLatestTransaction(path, data) {
 
 async function getSomeDaysTransaction() {
   let url = process.env.REACT_APP_GET_SOME_DAYS_TRANSACTIONS;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -87,12 +72,7 @@ async function getSomeDaysTransaction() {
 
 async function getTransactionDetailsUsingHash(path, data) {
   let url = process.env.REACT_APP_GET_TRANSACTION_DETAILS + path;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -112,12 +92,7 @@ async function getUserTransactionPrivateNoteUsingHash(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "get-user-transaction-private-note-using-hash";
-  return httpService(
-    httpConstants.METHOD_TYPE.POST,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -137,12 +112,7 @@ async function getUserAddressTagUsingAddressHash(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "get-user-address-tag-using-address-hash";
-  return httpService(
-    httpConstants.METHOD_TYPE.POST,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -162,12 +132,7 @@ async function deleteTransactionPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "delete-transaction-Private-note";
-  return httpService(
-    httpConstants.METHOD_TYPE.PUT,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.PUT, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -184,12 +149,7 @@ async function deleteTransactionPrivateNote(data) {
 }
 async function getCoinMarketDetailForTransaction(path, data) {
   let url = process.env.REACT_APP_GET_COIN_MARKET_DETAIL_FOR_TRANSACTION + path;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||

@@ -91,7 +91,12 @@ export default class Auth0Service {
   async logout(userId) {
     let url = `${process.env.REACT_APP_USER_SERVICE_URL}log-out/${userId}`;
 
-    return httpService(httpConstants.METHOD_TYPE.GET, this.getHeaders(), userId, url)
+    return httpService(
+      httpConstants.METHOD_TYPE.GET,
+      this.getHeaders(),
+      userId,
+      url
+    )
       .then((response) => {
         if (
           !response.success ||

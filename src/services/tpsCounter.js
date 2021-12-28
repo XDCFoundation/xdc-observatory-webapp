@@ -10,12 +10,7 @@ function getHeaders() {
 }
 async function getTpsCounter() {
   let url = process.env.REACT_APP_GET_TPS_COUNTER;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -33,16 +28,8 @@ async function getTpsCounter() {
 
 async function getMaxTpsCounter() {
   let url = process.env.REACT_APP_GET_MAXTPS_COUNTER;
-  return httpService(
-    httpConstants.METHOD_TYPE.GET,
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
-      // if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0) {
-      //     return Promise.reject();
-      // }
       return Promise.resolve(response.responseData.maxtps);
     })
     .catch(function (err) {
