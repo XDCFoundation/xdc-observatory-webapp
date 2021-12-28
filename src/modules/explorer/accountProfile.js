@@ -36,6 +36,8 @@ import { sessionManager } from "../../managers/sessionManager";
 import { cookiesConstants } from "../constants";
 import Utils from "../../utility";
 import { Column, Row } from "simple-flexbox";
+import TransactionPDF from "../../common/components/transactionPDF";
+import { PDFDownloadLink , StyleSheet } from '@react-pdf/renderer';
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -70,6 +72,20 @@ const PaginationDiv = styled.div`
     border: none;
   }
 `;
+
+const styles = StyleSheet.create({
+  pdfDownloadLink: {
+    fontSize: "0.938rem",
+    textAlign: "center",
+    color: "#ffffff",
+    backgroundColor: "rgb(7 125 245)",
+    borderRadius: "0.25rem",
+    width: "5.875rem",
+    height: "2.125rem",
+    marginRight: "1.5rem",
+    paddingTop: "0.125rem",
+  },
+})
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -756,7 +772,7 @@ export default function SimpleTabs(props) {
           return {
             TransactionHash: item.transactionHash,
             Note: item.trxLable,
-            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            AddedOn: item.addedOn,
           };
         })
       );
@@ -783,7 +799,7 @@ export default function SimpleTabs(props) {
           return {
             TransactionHash: item.transactionHash,
             Note: item.trxLable,
-            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            AddedOn: item.addedOn,
           };
         })
       );
@@ -996,23 +1012,28 @@ export default function SimpleTabs(props) {
               //   Export
               // </CSVLink>
               tableValue === 2 ? (
-                <CSVLink
-                  filename={"private_note.csv"}
-                  data={downloadTxnPvtNote}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
+                // <div
+                //   onClick={downloadTxnPvtNotePDF}
+                //   filename={"private_note.csv"}
+                //   data={downloadTxnPvtNote}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export test
+                // </div>
+                <PDFDownloadLink style={styles.pdfDownloadLink} document={ <TransactionPDF data={downloadTxnPvtNote}/>}  fileName="transactionPvtNote.pdf">
+                Export
+                </PDFDownloadLink>
+               
               ) : (
                 <CSVLink
                   filename={"tag_address.csv"}
@@ -1033,7 +1054,7 @@ export default function SimpleTabs(props) {
                 </CSVLink>
               )
             ) : (
-              <CSVLink
+              <div
                 filename={"tag_address.csv"}
                 data={downloadTagAddress}
                 style={{
@@ -1046,11 +1067,11 @@ export default function SimpleTabs(props) {
                   width: "5.875rem",
                   height: "2.125rem",
                   marginRight: "1.5rem",
-                  paddingTop: "0.125rem",
+                  paddingTop: "0.4rem",
                 }}
               >
                 Export
-              </CSVLink>
+              </div>
             )}
           </div>
           <TabPanel value={value} index={0}>
