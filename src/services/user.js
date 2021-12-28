@@ -28,12 +28,7 @@ async function getUserPrivateNote(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "transaction-private-note/" +
     data;
-  return httpService(
-    "GET",
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -53,12 +48,7 @@ async function postUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "add-transaction-label";
-  return httpService(
-    "POST",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -77,12 +67,7 @@ async function postUserPrivateNote(data) {
 async function getUserWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "getAddress/" + data;
-  return httpService(
-    "GET",
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -101,12 +86,7 @@ async function getUserWatchlist(data) {
 async function addPrivateTagToAddress(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-address-tag";
-  return httpService(
-    "POST",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -127,12 +107,7 @@ async function getPrivateTagToAddress(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "get-address-tag/" +
     data;
-  return httpService(
-    "GET",
-    getHeaders(),
-    {},
-    url
-  )
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -151,12 +126,7 @@ async function getPrivateTagToAddress(data) {
 async function addWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-watchlist";
-  return httpService(
-    "POST",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -175,12 +145,7 @@ async function addWatchlist(data) {
 async function putWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-watchlist";
-  return httpService(
-    "PUT",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("PUT", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -199,12 +164,7 @@ async function putWatchlist(data) {
 async function putTaggedAddress(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-address-tag";
-  return httpService(
-    "PUT",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("PUT", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -224,12 +184,7 @@ async function editUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "edit-transaction-Private-note";
-  return httpService(
-    "PUT",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("PUT", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -246,12 +201,7 @@ async function editUserPrivateNote(data) {
 }
 async function Search(data) {
   let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "search";
-  return httpService(
-    "POST",
-    getHeaders(),
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||

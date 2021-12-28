@@ -5,7 +5,6 @@ export default class AwsService {
     const config = {
       headers: {
         "content-type": "multipart/form-data",
-        //  "Authorization" : `Bearer ${utility.getAccessToken()}`
         "X-API-key": process.env.REACT_APP_X_API_KEY,
       },
     };
@@ -20,14 +19,9 @@ export default class AwsService {
         ) {
           return;
         }
-
-        // this.returnResponseToParentComponent(data.data)
-
         return data.data.responseData;
       })
-
       .catch((err) => {
-        // Utils.apiFailureToast(err && err.message || "Unable to upload selected file")
       });
   }
 }

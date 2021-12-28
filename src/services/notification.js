@@ -16,12 +16,7 @@ function getHeaders() {
 
 async function proposalList(reqObj) {
   const url = process.env.REACT_APP_GET_NOTIFICATION + "get notification";
-  return httpService(
-    httpConstants.METHOD_TYPE.POST,
-    getHeaders(),
-    reqObj,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), reqObj, url)
     .then((response) => {
       if (
         !response.success ||
@@ -39,12 +34,7 @@ async function proposalList(reqObj) {
 
 async function getNotificationList(reqObj) {
   const url = process.env.REACT_APP_NOTIFICATION_SERVICE + "notification-list";
-  return httpService(
-    httpConstants.METHOD_TYPE.POST,
-    getHeaders(),
-    reqObj,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), reqObj, url)
     .then((response) => {
       if (
         !response.success ||
@@ -65,12 +55,7 @@ async function markNotificationCleared(reqObj) {
   const url =
     process.env.REACT_APP_NOTIFICATION_SERVICE + "mark-bulk-notification-clear";
 
-  return httpService(
-    httpConstants.METHOD_TYPE.POST,
-    getHeaders(),
-    reqObj,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), reqObj, url)
     .then((response) => {
       if (
         !response.success ||
@@ -79,7 +64,6 @@ async function markNotificationCleared(reqObj) {
       ) {
         return Promise.reject();
       }
-
       return Promise.resolve(response.responseData);
     })
     .catch(function (err) {
