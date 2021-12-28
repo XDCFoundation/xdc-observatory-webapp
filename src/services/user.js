@@ -20,23 +20,15 @@ export default {
 function getHeaders() {
   return {
     "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
-    skip: true,
-    "Access-Control-Allow-Origin": "*",
-    // 'Authorization': `Bearer ${utility.getAccessToken()}`
+    "X-API-key": process.env.REACT_APP_X_API_KEY,
   };
 }
-
 async function getUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "transaction-private-note/" +
     data;
-  return httpService(
-    "GET",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    {},
-    url
-  )
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -56,12 +48,7 @@ async function postUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "add-transaction-label";
-  return httpService(
-    "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -80,12 +67,7 @@ async function postUserPrivateNote(data) {
 async function getUserWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "getAddress/" + data;
-  return httpService(
-    "GET",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    {},
-    url
-  )
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -104,12 +86,7 @@ async function getUserWatchlist(data) {
 async function addPrivateTagToAddress(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-address-tag";
-  return httpService(
-    "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -130,12 +107,7 @@ async function getPrivateTagToAddress(data) {
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "get-address-tag/" +
     data;
-  return httpService(
-    "GET",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    {},
-    url
-  )
+  return httpService("GET", getHeaders(), {}, url)
     .then((response) => {
       if (
         !response.success ||
@@ -154,12 +126,7 @@ async function getPrivateTagToAddress(data) {
 async function addWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "add-watchlist";
-  return httpService(
-    "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -178,12 +145,7 @@ async function addWatchlist(data) {
 async function putWatchlist(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-watchlist";
-  return httpService(
-    "PUT",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("PUT", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -202,12 +164,7 @@ async function putWatchlist(data) {
 async function putTaggedAddress(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-address-tag";
-  return httpService(
-    "PUT",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("PUT", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -227,12 +184,7 @@ async function editUserPrivateNote(data) {
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "edit-transaction-Private-note";
-  return httpService(
-    "PUT",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("PUT", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -249,12 +201,7 @@ async function editUserPrivateNote(data) {
 }
 async function Search(data) {
   let url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "search";
-  return httpService(
-    "POST",
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
-    data,
-    url
-  )
+  return httpService("POST", getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||

@@ -9,6 +9,13 @@ export default {
   getContractDetailsUsingAddress,
 };
 
+function getHeaders() {
+  return {
+    "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
+    "X-API-key": process.env.REACT_APP_X_API_KEY,
+  };
+}
+
 async function getContractDetails(data) {
   let url =
     process.env.REACT_APP_GET_CONTRACT_DETAILS +
@@ -16,7 +23,7 @@ async function getContractDetails(data) {
 
   return httpService(
     httpConstants.METHOD_TYPE.GET,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -46,7 +53,7 @@ async function getContractLists(data) {
 
   return httpService(
     httpConstants.METHOD_TYPE.GET,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -70,7 +77,7 @@ async function getTotalContractList() {
   let url = process.env.REACT_APP_GET_TOTAL_CONTRACT_LIST;
   return httpService(
     httpConstants.METHOD_TYPE.GET,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -100,7 +107,7 @@ async function getContractSearch(data) {
     data.keywords;
   return httpService(
     httpConstants.METHOD_TYPE.GET,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     {},
     url
   )
@@ -123,7 +130,7 @@ async function getContractDetailsUsingAddress(path, data) {
   let url = process.env.REACT_APP_GET_CONTRACT_DETAIL_USING_ADDRESS + path
   return httpService(
     httpConstants.METHOD_TYPE.GET,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     data,
     url
   )
