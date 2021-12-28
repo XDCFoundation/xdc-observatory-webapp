@@ -92,26 +92,15 @@ export default function AddressTableComponent(props) {
   let datas = {};
   let data = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
-  const [id, setId] = useState(0);
-  let [anchorEl, setAnchorEl] = React.useState();
-  let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
-  let isSettingColumnOpen = Boolean(anchorEl);
+  // let isSettingColumnOpen = Boolean(anchorEl);
   const [open, setOpen] = React.useState(false);
-  console.log(id, "mmmmmm");
-  const handleTooltipOpen = () => {
-    console.log("i'm clicked");
-    setOpen(!open);
-  };
-  function handleOnClose() {
-    setAnchorEl(null);
-  }
+  const [anchorEl, setAnchorEl] = React.useState();
+
   function handleSettingsClick(event) {
+    setOpen(true);
     setAnchorEl(event?.currentTarget);
   }
 
-  function toggleModal() {
-    setColumnsModal(!isColumnsModalOpen);
-  }
   const handleChangePage = (action) => {
     if (action == "first") {
       if (keywords) {
@@ -630,17 +619,8 @@ export default function AddressTableComponent(props) {
                               style={{ marginRight: "0.5rem" }}
                             />
                             <div>
-                              <img
-                                onClick={handleSettingsClick}
-                                className={"show-tooltip"}
-                                src={"/images/show-icon.svg"}
-                              />
                               <TransactionDetailTooltip
-                                isOpen={isSettingColumnOpen}
-                                anchorEl={anchorEl}
-                                handleOnClose={handleOnClose}
-                                // tableColumns={props.state.tableColumns}
-                                // toggleTableColumns={props.toggleTableColumns}
+                                transactionAddress={row}
                               />
                             </div>
 
