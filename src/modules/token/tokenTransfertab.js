@@ -362,6 +362,7 @@ export default function StickyHeadTable() {
           <p className="p-pagination">Show</p>
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>10</option>
+            <option>25</option>
             <option>50</option>
             <option>75</option>
             <option>100</option>

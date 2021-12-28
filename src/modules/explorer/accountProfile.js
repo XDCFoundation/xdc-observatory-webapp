@@ -937,7 +937,7 @@ export default function SimpleTabs(props) {
                 onClick={handleWatchlist}
               />
               <Tab
-                label="Txn Private Note"
+                label="Transaction Private Note"
                 className={classes.txnprivate}
                 className={value === 1 ? classes.tab1 : classes.tab2}
                 {...a11yProps(1)}
