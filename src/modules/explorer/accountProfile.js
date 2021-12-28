@@ -38,6 +38,7 @@ import Utils from "../../utility";
 import { Column, Row } from "simple-flexbox";
 import TransactionPDF from "../../common/components/transactionPDF";
 import { PDFDownloadLink , StyleSheet } from '@react-pdf/renderer';
+import { messages } from "../../constants"
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -1076,7 +1077,7 @@ export default function SimpleTabs(props) {
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
-              {addressNotAdded ? (
+              { addressNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"
@@ -1096,11 +1097,27 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheadersWatchlist"}>
                                 Address
+                                <Tooltip placement="top" title={messages.WATCHLIST_ADDRESS}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Description
+                                <Tooltip placement="top" title={messages.WATCHLIST_DESCRIPTION}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell
@@ -1111,7 +1128,17 @@ export default function SimpleTabs(props) {
                               }}
                               align="left"
                             >
-                              <span className={"tableheaders-1"}>Balance</span>
+                              <span className={"tableheaders-1"}>
+                                Balance
+                                <Tooltip placement="top" title={messages.WATCHLIST_BALANCE}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByBalance}
@@ -1125,7 +1152,17 @@ export default function SimpleTabs(props) {
                               </button>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Added On</span>
+                              <span className={"tableheaders-1"}>
+                                Added On
+                              <Tooltip placement="top" title={messages.WATCHLIST_ADDED_ON}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                              </span>
                             </TableCell>
                             <TableCell
                               style={{ border: "none", marginBottom: "160px" }}
@@ -1133,6 +1170,14 @@ export default function SimpleTabs(props) {
                             >
                               <span className={"tableheaders-1"}>
                                 Notification
+                                <Tooltip placement="top" title={messages.WATCHLIST_NOTIFICATION}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -1156,106 +1201,6 @@ export default function SimpleTabs(props) {
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
-                  {dataNotFound ? (
-                    <div style={{ height: "512px" }}>
-                      <Grid
-                        className="tablegrid_no_data"
-                        style={{ borderBottom: "2px solid #f9f9f9" }}
-                      >
-                        <Grid
-                          component={Paper}
-                          style={{
-                            boxShadow: "0px 0px 0px 0px",
-                            overflow: "auto",
-                          }}
-                        >
-                          <Table
-                            className="table w-700-a w-1500-a"
-                            aria-label="Latest Transactions"
-                            style={{ boxShadow: "0px 0px 0px 0px" }}
-                          >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheadersWatchlist"}>
-                                    Address
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Description
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{
-                                    border: "none",
-                                    display: "flex",
-                                    lineHeight: "21px",
-                                  }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Balance
-                                  </span>
-                                  <button className={classes.btn}>
-                                    <ArrowUpwardIcon
-                                      onClick={sortByBalance}
-                                      style={{
-                                        color: "#3763dd",
-                                        height: "20px",
-                                        width: "15px",
-                                        marginLeft: "5px",
-                                      }}
-                                    />
-                                  </button>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Added On
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{
-                                    border: "none",
-                                    marginBottom: "160px",
-                                  }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Notification
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"} />
-                                </TableCell>
-                              </TableRow>
-                            </TableHead>
-                          </Table>
-                        </Grid>
-                      </Grid>
-                      <NoDataFoundContainer>
-                        <img
-                          alt="alert"
-                          className={classes.alert}
-                          src={require("../../../src/assets/images/XDC-Alert.svg")}
-                        ></img>
-
-                        <div className={classes.noData}>Data Not Found</div>
-                      </NoDataFoundContainer>
-                    </div>
-                  ) : (
                     <Grid
                       component={Paper}
                       style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -1282,11 +1227,27 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheadersWatchlist"}>
                                 Address
+                                <Tooltip placement="top" title={messages.WATCHLIST_ADDRESS}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Description
+                                <Tooltip placement="top" title={messages.WATCHLIST_DESCRIPTION}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell
@@ -1297,7 +1258,17 @@ export default function SimpleTabs(props) {
                               }}
                               align="left"
                             >
-                              <span className={"tableheaders-1"}>Balance</span>
+                              <span className={"tableheaders-1"}>
+                                Balance
+                                <Tooltip placement="top" title={messages.WATCHLIST_BALANCE}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByBalance}
@@ -1311,11 +1282,29 @@ export default function SimpleTabs(props) {
                               </button>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Added On</span>
+                              <span className={"tableheaders-1"}>
+                                Added On
+                                <Tooltip placement="top" title={messages.WATCHLIST_ADDED_ON}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Notification
+                                <Tooltip placement="top" title={messages.WATCHLIST_NOTIFICATION}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
@@ -1422,7 +1411,7 @@ export default function SimpleTabs(props) {
                         </TableBody>
                       </Table>
                     </Grid>
-                  )}
+                
                 </Grid>
               )}
             </div>
@@ -1443,7 +1432,7 @@ export default function SimpleTabs(props) {
 
           <TabPanel value={value} index={1}>
             <div className="griddiv">
-              {watchListNotAdded ? (
+              {addressNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"
@@ -1479,10 +1468,28 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
+                                <Tooltip placement="top" title={messages.HASH}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Note</span>
+                              <span className={"tableheaders-1"}>
+                                Note
+                                <Tooltip placement="top" title={messages.PRIVATE_NOTE}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
                             {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
@@ -1491,7 +1498,17 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Added On</span>
+                              <span className={"tableheaders-1"}>
+                                Added On
+                                <Tooltip placement="top" title={messages.PRIVATE_NOTE_ADDED_ON}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                               {/* <span> */}
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
@@ -1528,111 +1545,7 @@ export default function SimpleTabs(props) {
                   </NoDataFoundContainer>
                 </div>
               ) : (
-                <Grid
-                  className="tablegrid_no_data"
-                  style={{ borderBottom: "2px solid #f9f9f9" }}
-                >
-                  {dataNotFound ? (
-                    <div style={{ height: "512px" }}>
-                      <Grid
-                        className="tablegrid_no_data"
-                        style={{ borderBottom: "2px solid #f9f9f9" }}
-                      >
-                        <Grid
-                          component={Paper}
-                          style={{ boxShadow: "0px 0px 0px 0px" }}
-                        >
-                          <Table
-                            className="table w-700-a w-1500-a"
-                            aria-label="Latest Transactions"
-                            style={{ boxShadow: "0px 0px 0px 0px" }}
-                          >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <input
-                                    // className={classes.Rectangle}
-                                    onChange={handlePvtNoteCheckbox}
-                                    type="checkbox"
-                                    name="allselect"
-                                    checked={
-                                      countNote === pvtNoteLength ||
-                                      checkedNote == true
-                                    }
-                                    style={{
-                                      marginRight: "10px",
-                                      border: "solid 1px #e3e7eb",
-                                    }}
-                                  />
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Transaction Hash
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>Note</span>
-                                </TableCell>
-                                {/* <TableCell
-                                style={{ border: "none", paddingLeft: "2%" }}
-                                align="left"
-                            >
-                                <span className={"tableheaders-1"}>Balance</span>
-                            </TableCell> */}
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Added On
-                                  </span>
-                                  {/* <span> */}
-                                  <button className={classes.btn}>
-                                    <ArrowUpwardIcon
-                                      onClick={sortByAddedOn}
-                                      style={{
-                                        color: "#3763dd",
-                                        height: "20px",
-                                        width: "15px",
-                                        marginLeft: "5px",
-                                      }}
-                                    />
-                                  </button>
-                                  {/* </span> */}
-                                </TableCell>
-
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}></span>
-                                </TableCell>
-                                {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                              </TableRow>
-                            </TableHead>
-                          </Table>
-                        </Grid>
-                      </Grid>
-                      <NoDataFoundContainer>
-                        <img
-                          alt="alert"
-                          className={classes.alert}
-                          src={require("../../../src/assets/images/XDC-Alert.svg")}
-                        ></img>
-
-                        <div className={classes.noData}>Data Not Found</div>
-                      </NoDataFoundContainer>
-                    </div>
-                  ) : (
+                <Grid lg={13} className="tablegrid_address">
                     <Grid
                       component={Paper}
                       style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -1663,10 +1576,28 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
+                                <Tooltip placement="top" title={messages.HASH}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Note</span>
+                              <span className={"tableheaders-1"}>
+                                Note
+                                <Tooltip placement="top" title={messages.PRIVATE_NOTE}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
                             {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
@@ -1675,7 +1606,17 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Added On</span>
+                              <span className={"tableheaders-1"}>
+                                Added On
+                                <Tooltip placement="top" title={messages.PRIVATE_NOTE_ADDED_ON}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                               {/* <span> */}
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
@@ -1788,9 +1729,8 @@ export default function SimpleTabs(props) {
                         </TableBody>
                       </Table>
                     </Grid>
+                  </Grid>
                   )}
-                </Grid>
-              )}
             </div>
             <PaginationDiv>
               <ReactPaginate
@@ -1843,10 +1783,30 @@ export default function SimpleTabs(props) {
                               />
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Address</span>
+                              <span className={"tableheaders-1"}>
+                                Address
+                                <Tooltip placement="top" title={messages.TAG_ADDRESS}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Name Tag</span>
+                              <span className={"tableheaders-1"}>
+                                Name Tag
+                                <Tooltip placement="top" title={messages.NAME_TAG}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByTagName}
@@ -1866,7 +1826,17 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Added On</span>
+                              <span className={"tableheaders-1"}>
+                                Added On
+                                <Tooltip placement="top" title={messages.TAG_ADDED_ON}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
@@ -1888,110 +1858,8 @@ export default function SimpleTabs(props) {
                     </div>
                   </NoDataFoundContainer>
                 </div>
-              ) : (
+              ) :(
                 <Grid lg={13} className="tablegrid_address">
-                  {dataNotFound ? (
-                    <div style={{ height: "512px" }}>
-                      <Grid
-                        className="tablegrid_no_data"
-                        style={{ borderBottom: "2px solid #f9f9f9" }}
-                      >
-                        <Grid
-                          component={Paper}
-                          style={{ boxShadow: "0px 0px 0px 0px" }}
-                        >
-                          <Table
-                            className="table"
-                            aria-label="Latest Transactions"
-                            style={{ boxShadow: "0px 0px 0px 0px" }}
-                          >
-                            <TableHead>
-                              <TableRow>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <input
-                                    onChange={handleTagAddressCheckbox}
-                                    type="checkbox"
-                                    name="allselect"
-                                    checked={
-                                      countTag === tagAddrLength ||
-                                      checkedTag == true
-                                    }
-                                    className={classes.Rectangle}
-                                    style={{
-                                      marginRight: "10px",
-                                      border: "solid 1px #e3e7eb",
-                                      backgroundColor: "red",
-                                    }}
-                                  />
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Address
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Name Tag
-                                  </span>
-                                  <button className={classes.btn}>
-                                    <ArrowUpwardIcon
-                                      onClick={sortByTagName}
-                                      style={{
-                                        color: "#3763dd",
-                                        height: "20px",
-                                        width: "15px",
-                                        marginLeft: "5px",
-                                      }}
-                                    />
-                                  </button>
-                                </TableCell>
-                                {/* <TableCell
-                                style={{ border: "none", paddingLeft: "2%" }}
-                                align="left"
-                            >
-                                <span className={"tableheaders-1"}>Balance</span>
-                            </TableCell> */}
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}>
-                                    Added On
-                                  </span>
-                                </TableCell>
-
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className={"tableheaders-1"}></span>
-                                </TableCell>
-                                {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                              </TableRow>
-                            </TableHead>
-                          </Table>
-                        </Grid>
-                      </Grid>{" "}
-                      <NoDataFoundContainer>
-                        <img
-                          alt="alert"
-                          className={classes.alert}
-                          src={require("../../../src/assets/images/XDC-Alert.svg")}
-                        ></img>
-
-                        <div className={classes.noData}>Data Not Found</div>
-                      </NoDataFoundContainer>
-                    </div>
-                  ) : (
                     <Grid
                       component={Paper}
                       style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -2021,10 +1889,30 @@ export default function SimpleTabs(props) {
                               />
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Address</span>
+                              <span className={"tableheaders-1"}>
+                                Address
+                                <Tooltip placement="top" title={messages.TAG_ADDRESS}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Name Tag</span>
+                              <span className={"tableheaders-1"}>
+                                Name Tag
+                                <Tooltip placement="top" title={messages.NAME_TAG}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByTagName}
@@ -2044,7 +1932,17 @@ export default function SimpleTabs(props) {
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
                             <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>Added On</span>
+                              <span className={"tableheaders-1"}>
+                                Added On
+                                <Tooltip placement="top" title={messages.TAG_ADDED_ON}>
+                                <img
+                                  alt="question-mark"
+                                  src="/images/question-mark.svg"
+                                  height={"14px"}
+                                  className="tooltipLatestTransactionTableDashboard"
+                                />
+                                </Tooltip>
+                                </span>
                             </TableCell>
                             {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
@@ -2058,12 +1956,6 @@ export default function SimpleTabs(props) {
                             {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
                           </TableRow>
                         </TableHead>
-                        {dataNotFound ? (
-                          <TableRow>
-                            <TableCell style={{ border: "none" }} />
-                            <div className={classes.error}>{dataNotFound}</div>
-                          </TableRow>
-                        ) : (
                           <TableBody>
                             {privateAddress.map((row, index) => {
                               let tag = row.tagName;
@@ -2152,12 +2044,10 @@ export default function SimpleTabs(props) {
                               );
                             })}
                           </TableBody>
-                        )}
                       </Table>
                     </Grid>
+                  </Grid>
                   )}
-                </Grid>
-              )}
             </div>
             <PaginationDiv>
               <ReactPaginate

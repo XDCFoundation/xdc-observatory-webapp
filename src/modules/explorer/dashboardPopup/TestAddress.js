@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   createWatchlistMobile: {
-    marginTop: "50px",
+    marginTop: "14px",
   },
   "@media (max-width: 767px)": {
     heading: {

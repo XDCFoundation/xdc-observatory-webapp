@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   createWatchlistMobile: {
     paddingLeft: "2em",
     paddingRight: "2em",
-    marginTop: "50px",
+    marginTop: "14px",
   },
   buttons: {
     padding: "10px 35px 20px 0px",
