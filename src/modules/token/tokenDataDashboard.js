@@ -197,7 +197,7 @@ const Line1 = styled.hr`
   @media (min-width: 768px)  {
     width: 100%;
     top: 20%;
-    display: none;
+    margin-top: 2px;
   }
 `;
 const LeftTopSec = styled.div`

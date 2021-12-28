@@ -461,6 +461,7 @@ export default function TransactionComponent(props) {
             <option value={10}>10</option>
             <option value={25}>25</option>
             <option value={50}>50</option>
+            <option value={75}>75</option>
             <option value={100}>100</option>
           </select>
           <span className="text">Records</span>

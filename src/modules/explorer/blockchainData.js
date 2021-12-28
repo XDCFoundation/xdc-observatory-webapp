@@ -481,6 +481,7 @@ class BlockChainDataComponent extends Component {
         let [error, latestBlocks] = await Utils.parseResponse(
           BlockService.getLatestBlock(urlPath, {})
         );
+        if (error || !latestBlocks) return;
         this.setState({ blockdataNumber: latestBlocks });
       }
 
@@ -533,9 +534,9 @@ class BlockChainDataComponent extends Component {
     let changeAccounts = this.state.someDayAccount
       ? this.state.someDayAccount
       : 0;
-    let blockNumber = this.state && this.state.blockdataNumber.length ? this.state.blockdataNumber[0]?.number : "";
+    let blockNumber = this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number : "";
     let animationClass = this.state.animationBlock?.[blockNumber];
-    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails.length ? this.state.transactionDataDetails[0]?.hash : 0;
+    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails?.length ? this.state.transactionDataDetails[0]?.hash : 0;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts;
@@ -592,7 +593,7 @@ class BlockChainDataComponent extends Component {
                     <TitleValue
                       className={animationClass ? animationClass : ""}
                     >
-                      {this.state && this.state.blockdataNumber.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
+                      {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
                     </TitleValue>
                   </ValueName>
                 </Value>
@@ -634,7 +635,7 @@ class BlockChainDataComponent extends Component {
                     <Title>Difficulty</Title>
                     <Tooltip
                       placement="top"
-                      title={this.state.blockdataNumber[0]?.totalDifficulty}
+                      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}
                     >
                       <TitleValue
                         className={animationClass ? animationClass : ""}

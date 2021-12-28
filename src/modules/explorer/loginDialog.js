@@ -477,6 +477,7 @@ export default function FormDialog(props) {
     setErrorEmailVerified(false);
     setEmail("")
     setUserName("")
+    setPassword("")
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
@@ -938,7 +939,7 @@ export default function FormDialog(props) {
                 className={classes.input}
                 placeholder="5 to 30 characters in length, only alphanumeric allowed"
                 // name="userName"
-                // value={signUp.userName}
+                 value={userName}
                 onChange={(e) => {
                   setUserName(e.target.value);
                   setErrorUserName("");
@@ -956,6 +957,7 @@ export default function FormDialog(props) {
                 placeholder="A confirmation code will be sent to this email"
                 className={classes.input}
                 // name="email"
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setErrorEmail("");
