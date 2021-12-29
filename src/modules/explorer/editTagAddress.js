@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "2px",
     marginTop: "-20px",
   },
+  error1: {
+    color: "red",
+    marginLeft: "2px",
+  },
   value: {
     width: "400px !important",
   },
@@ -169,14 +173,18 @@ function EditTaggedAddress(props) {
       address: privateAddress,
       tagName: tags,
     };
-    if (
+    if(!privateAddress){
+      setError(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if(!input && tags.length === 0){
+      setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if (
       !(privateAddress && privateAddress.length === 43) ||
-      !privateAddress.slice(0, 2) === "xdc"
+      !(privateAddress.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc & 43 characters");
       return;
     } else if (tags.length === 0) {
-      setErrorTag("Use comma(,) to add multiple tag");
+      setErrorTag("Press comma(,) to add tag");
       return;
     } else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
@@ -185,14 +193,15 @@ function EditTaggedAddress(props) {
       const [error, response] = await utility.parseResponse(
         PutTagAddress.putTaggedAddress(data)
       );
-      if (error || !response) {
-        utility.apiFailureToast("Address already exists");
-      } else {
-        utility.apiSuccessToast("Address tag Updated");
-        window.location.href = "loginprofile";
-        setOpen(false);
-        setErrorTag("")
+
+      if (error) {
+        setErrorTag("Address is already in use");
+        return;
       }
+      utility.apiSuccessToast("Address tag Updated");
+      window.location.href = "loginprofile";
+      setOpen(false);
+      setErrorTag("")
     }
   }
 
@@ -240,6 +249,12 @@ function EditTaggedAddress(props) {
   const onKeyDown = (e) => {
     const { key } = e;
     const trimmedInput = input.trim();
+
+    // if(key === "," && input.length>15){
+    //   setErrorTag("Name tag should not exceed 15 character");
+    //   console.log("errorInTag")
+    //   return;
+    // }
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
@@ -302,7 +317,7 @@ function EditTaggedAddress(props) {
                 setErrorTag("")
               }}
             ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
+            {!tags && error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
           {/* <DialogContent>
               <DialogContentText className={classes.subCategory}>
@@ -323,7 +338,6 @@ function EditTaggedAddress(props) {
             <DialogContentText className={classes.subCategory}>
               Name Tag
             </DialogContentText>
-
             <div className="containerTag">
               {tags.map((tag, index) => (
                 <div className="tag">
@@ -339,7 +353,9 @@ function EditTaggedAddress(props) {
                 onChange={onChange}
               />
             </div>
-            {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>}
+            {console.log("Input",input)}
+            {console.log("InputLength",input.length)}
+            {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
           </DialogContent>
           {/* <------------------------------------------------------------------------------------------------------------------> */}
 

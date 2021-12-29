@@ -11,6 +11,7 @@ import Utility from "../../utility";
 import {sessionManager} from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
+import { genericConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -156,6 +157,7 @@ export default function ChangePassword(props) {
     const [currentInput, setCurrentInput] = React.useState("");
     const [isError, setIsError] = React.useState("");
     const [isLoading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState("");
     const [errorPassword, setErrorPassword] = React.useState("");
     const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
     const [passwordShown1, setPasswordShown1] = React.useState(false);
@@ -187,12 +189,19 @@ export default function ChangePassword(props) {
         };
 
         setLoading(true)
+        setError("")
         setErrorPassword("");
         setErrorConfirmPassword("");
 
-        if (!newInput || !confirmPassword || !currentInput) {
+        if (!currentInput) {
             setLoading(false);
-            utility.apiFailureToast("Please enter required field");
+            setError(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!newInput) {
+            setLoading(false);
+            setErrorPassword(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!confirmPassword) {
+            setLoading(false);
+            setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput.match(regExPass)) {
             setErrorPassword(
                 "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
@@ -256,6 +265,7 @@ export default function ChangePassword(props) {
     onChange={(e) => {
         {
             setCurrentInput(e.target.value);
+            setError("");
         }
     }}
     />
@@ -272,6 +282,7 @@ export default function ChangePassword(props) {
                                 onClick={togglePasswordVisiblity1}
                             />
                         )}
+                        <div className={classes.error}>{error}</div>
                     </DialogContentText>
                     <DialogContentText className={classes.subCategory}>
                         <span className={classes.pass}>New Password</span>
