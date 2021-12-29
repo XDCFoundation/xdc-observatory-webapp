@@ -101,7 +101,6 @@ const useStyles = makeStyles({
 });
 
 export default function StickyHeadTable(props) {
-  console.log(props, "holders table")
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -188,7 +187,6 @@ export default function StickyHeadTable(props) {
     }
   `;
   let decimals = props?.contractData ? props?.contractData?.contractResponse?.decimals : ""
-  console.log(decimals, "decimals on holder table")
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
