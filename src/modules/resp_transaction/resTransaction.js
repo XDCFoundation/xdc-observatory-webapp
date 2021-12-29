@@ -253,7 +253,7 @@ export default function Transaction({ _handleChange }) {
   const txfee = !transactions
     ? 0
     : (
-      Utils.decimalDivison((transactions?.gasPrice * transactions?.gasUsed), 12));
+      Utils.decimalDivison((transactions?.gasPrice * transactions?.gasUsed), 8));
 
   const transactionFetch =
     CurrencyValue === "INR"
@@ -261,15 +261,15 @@ export default function Transaction({ _handleChange }) {
       : CurrencyValue === "USD"
         ? txfee * price
         : txfee * price;
-  const fetchtxn = !transactionFetch ? 0 : parseFloat(transactionFetch)?.toFixed(12);
+  const fetchtxn = !transactionFetch ? 0 : parseFloat(transactionFetch)?.toFixed(8);
 
   const gasP = !transactions.gasPrice
     ? 0
-    : Utils.decimalDivison(transactions.gasPrice, 18);
+    : Utils.decimalDivison(transactions.gasPrice, 12);
   const valueDiv = !valueFetch
     ? 0
-    : Utils.decimalDivison((valueFetch * transactions.value), 11);
-  let ValueMain = !transactions?.value ? 0 : Utils.decimalDivison((transactions?.value), 11);
+    : Utils.decimalDivison((valueFetch * transactions.value), 8);
+  let ValueMain = !transactions?.value ? 0 : Utils.decimalDivison((transactions?.value), 8);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
@@ -281,17 +281,6 @@ export default function Transaction({ _handleChange }) {
     var minutesDifference = Math.floor(difference / 1000 / 60);
     difference -= minutesDifference * 1000 * 60;
     var secondsDifference = Math.floor(difference / 1000);
-    console.log(
-      "difference = " +
-      daysDifference +
-      " day/s " +
-      hoursDifference +
-      " hour/s " +
-      minutesDifference +
-      " minute/s " +
-      secondsDifference +
-      " second/s "
-    );
     if (
       secondsDifference < 60 &&
       minutesDifference === 0 &&
@@ -703,7 +692,7 @@ export default function Transaction({ _handleChange }) {
                       {txfee == 0
                         ? 0
                         : parseFloat(txfee)
-                          ?.toFixed(12)
+                          ?.toFixed(8)
                           .replace(/0+$/, "")}{" "}
                       XDC ({currencySymbol}
                       {fetchtxn})
@@ -731,7 +720,7 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     {gasP == 0
                       ? 0
-                      : parseFloat(gasP)?.toFixed(18).replace(/0+$/, "")}
+                      : parseFloat(gasP)?.toFixed(12).replace(/0+$/, "")}
                     {/* <Content> {gasP}</Content> */}
                   </MiddleContainer>
                 </Spacing>

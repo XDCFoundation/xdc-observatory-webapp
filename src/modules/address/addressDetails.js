@@ -90,7 +90,7 @@ export default function AddressDetails(props) {
   const [currentPrice, setCurrentPrice] = useState(0)
   let { addr } = useParams();
   let px = currentPrice * price
-  let priceChanged = Utility.decimalDivison(px, 18)
+  let priceChanged = Utility.decimalDivison(px, 8)
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol =
     activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
@@ -134,11 +134,11 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        setBalance(Utility.decimalDivisonOnly(responseData.balance, 18));
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
         setCurrentPrice(responseData.balance)
         setLoading(false);
       } else {
-        setBalance(parseFloat(0).toFixed(18));
+        setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
     } catch (error) {
@@ -463,7 +463,7 @@ export default function AddressDetails(props) {
                 tag={addressTag}
               />
             ) : (
-              <AddressTableComponent trans={transactions} coinadd={addr} />
+              <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
             )}
           </div>
         </div>

@@ -333,7 +333,6 @@ export default function TokenDataComponent() {
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({});
   const [contractData, setContractData] = useState("")
-  console.log(contractData, "plololo")
   const { address } = useParams();
   const { tn } = useParams();
 
@@ -452,7 +451,7 @@ export default function TokenDataComponent() {
               <LeftTopSecMain>
                 <LeftTopSec>
                   {CurrencySymbol}
-                  {tokenPriceVal}
+                  {tokenPriceVal.toFixed(8)}
                 </LeftTopSec>
                 <div
                   className={
@@ -491,7 +490,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={blockHeightImg} /> */}
 
                     <ValueName>
-                     
+
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
