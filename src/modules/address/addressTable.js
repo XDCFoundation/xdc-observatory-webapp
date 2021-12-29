@@ -292,7 +292,7 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 18),
+          Value: Utility.decimalDivison(d.Value, 8),
         };
       })
     );
@@ -305,7 +305,7 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 18),
+          Value: Utility.decimalDivison(d.Value, 8),
         };
       })
     );
@@ -335,7 +335,6 @@ export default function AddressTableComponent(props) {
   };
 
   const handleChanged = (event) => {
-    console.log("clicked");
     const { name, checked } = event.target;
     if (name === "allselect") {
       let tempAddress = address.map((addr) => {
@@ -362,7 +361,7 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: Utility.decimalDivison(d.Value, 8),
           };
         })
       );
@@ -390,7 +389,7 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: Utility.decimalDivison(d.Value, 8),
           };
         })
       );
@@ -621,6 +620,7 @@ export default function AddressTableComponent(props) {
                             <div>
                               <TransactionDetailTooltip
                                 transactionAddress={row}
+                                currency={props.currency}
                               />
                             </div>
 
@@ -669,15 +669,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.From)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })
+                                      return (
+                                        <div
+                                          className="nameLabel2"
+                                          key={index}
+                                        >
+                                          {item}
+                                        </div>
+                                      );
+                                    })
                                     : shorten(row.From)}
                                 </span>
                               </Tooltip>
@@ -701,15 +701,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.To)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })
+                                      return (
+                                        <div
+                                          className="nameLabel2"
+                                          key={index}
+                                        >
+                                          {item}
+                                        </div>
+                                      );
+                                    })
                                     : shorten(row.To)}
                                 </span>
                               </Tooltip>
@@ -722,13 +722,13 @@ export default function AddressTableComponent(props) {
                             <Tooltip
                               placement="top"
                               title={format({})(
-                                Utility.decimalDivisonOnly(row.Value, 18)
+                                Utility.decimalDivisonOnly(row.Value, 8)
                               )}
                             >
                               <span className="tabledata cursor-pointer">
                                 {row.Value == 0
                                   ? 0
-                                  : Utility.decimalDivison(row.Value, 18)}{" "}
+                                  : Utility.decimalDivison(row.Value, 8)}{" "}
                                 XDC
                               </span>
                             </Tooltip>
@@ -824,8 +824,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -836,8 +836,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -885,8 +885,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -897,8 +897,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }

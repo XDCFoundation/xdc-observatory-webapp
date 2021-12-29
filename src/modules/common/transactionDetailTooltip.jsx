@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
@@ -8,44 +8,82 @@ import format from "format-number";
 import { toolTipMessages } from "../../constants";
 
 function TransactionDetailTooltip(props) {
-  console.log(props, "<<=====props");
-  const [open, setOpen] = useState({});
+  const [open, setOpen] = useState(false);
   const [transactionHash, setTransactionHash] = useState(0);
   const [transactions, setTransactionDetail] = useState(0);
-  console.log(transactions, "ppp");
+  const [price, setPrice] = useState(0);
 
-  const openTootltip = (idx) => {
-    let ele = (document.getElementById(
-      idx.currentTarget.getAttribute("id")
-    ).style.backgroundColor = "#4878ff");
-    setOpen(true);
+  const [timeStamp, setTimeStamp] = useState(0);
+  let CurrencyValue = window.localStorage.getItem("currency");
+  let menuRef = useRef();
+
+  const openTootltip = () => {
     if (props.transactionAddress.Txn_Hash !== undefined) {
       setTransactionHash(props.transactionAddress.Txn_Hash);
     }
   };
+
   useEffect(() => {
+    document.addEventListener("mousedown", (event) => {
+      if (!menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    });
     if (transactionHash !== 0) {
       transactionDetail();
     }
-  }, [transactionHash]);
+    if (timeStamp !== 0) {
+      getCoinMarketDetailForTransaction();
+    }
+  }, [transactionHash, timeStamp, CurrencyValue]);
 
   const transactionDetail = async () => {
     let urlPath = `${transactionHash}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
       TransactionService.getTransactionDetailsUsingHash(urlPath, {})
     );
-    // if (
-    //   !transactiondetailusinghash ||
-    //   transactiondetailusinghash.length === 0 ||
-    //   transactiondetailusinghash === undefined ||
-    //   transactiondetailusinghash === "" ||
-    //   transactiondetailusinghash === null
-    // ) {
-    //   setLoading(false);
-    // }
     if (error || !transactiondetailusinghash) return;
     setTransactionDetail(transactiondetailusinghash);
+    setTimeStamp(transactiondetailusinghash?.timestamp);
   };
+
+  const getCoinMarketDetailForTransaction = async () => {
+    let urlPath =
+      "?transactionTime=" + timeStamp + "&fiatValue=" + CurrencyValue;
+    let [error, transactiondetailusinghash] = await Utils.parseResponse(
+      TransactionService.getCoinMarketDetailForTransaction(urlPath, {})
+    );
+    if (error || !transactiondetailusinghash) return;
+    setPrice(transactiondetailusinghash[0]?.price);
+  };
+
+  const currencySymbol =
+    CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
+  const valueFetch =
+    CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
+  const valueDiv = !valueFetch
+    ? 0
+    : Utils.decimalDivison(valueFetch * transactions.value, 8);
+  const ValueMain = !transactions?.value
+    ? 0
+    : Utils.decimalDivison(transactions?.value, 8);
+  const txfee = !transactions
+    ? 0
+    : Utils.decimalDivison(transactions?.gasPrice * transactions?.gasUsed, 8);
+
+  const transactionFetch =
+    CurrencyValue === "INR"
+      ? txfee * price
+      : CurrencyValue === "USD"
+      ? txfee * price
+      : txfee * price;
+  const fetchtxn = !transactionFetch
+    ? 0
+    : parseFloat(transactionFetch)?.toFixed(8);
+
+  const gasP = !transactions.gasPrice
+    ? 0
+    : Utils.decimalDivison(transactions.gasPrice, 12);
 
   return (
     <div>
@@ -56,21 +94,18 @@ function TransactionDetailTooltip(props) {
         placement="right"
         offset={[0, 0]}
         content={
-          <div className={"transaction-detail-tooltip"}>
+          <div ref={menuRef} className={"transaction-detail-tooltip"}>
             <p className="fs-14 additional-details">Additional Details</p>
             <div className="display-flex">
-              <Tippy
-                align="left"
-                content={"hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"}
-              >
+              <Tippy align="right" content={"Status of the transaction."}>
                 <img
                   className="w-14-px h-14 m-r-10"
                   src="/images/question_mark_tooltip.svg"
                 ></img>
-              </Tippy>{" "}
+              </Tippy>
               <div className="detail-heading">Status</div>
             </div>
-            {transactions.status == true ? (
+            {transactions && transactions.status == true ? (
               <div className="success-text">Success</div>
             ) : (
               <div className="failed-text">Failed</div>
@@ -85,7 +120,10 @@ function TransactionDetailTooltip(props) {
               </Tippy>{" "}
               <div className="detail-heading">Value</div>
             </div>
-            <div className="detail-heading-text">20 XDC ($1.615)</div>
+            <div className="detail-heading-text">
+              {ValueMain}&nbsp; XDC ({currencySymbol}
+              {valueDiv})
+            </div>
             <hr className="line-detail-tooltip"></hr>
             <div className="display-flex">
               <Tippy align="left" content={toolTipMessages.txnfee}>
@@ -96,7 +134,13 @@ function TransactionDetailTooltip(props) {
               </Tippy>{" "}
               <div className="detail-heading">Txn Free</div>
             </div>
-            <div className="detail-heading-text">0.00000525 XDC ($0.2411)</div>
+            <div className="detail-heading-text">
+              {txfee == 0
+                ? 0
+                : parseFloat(txfee)?.toFixed(8).replace(/0+$/, "")}{" "}
+              XDC ({currencySymbol}
+              {fetchtxn})
+            </div>
             <hr className="line-detail-tooltip"></hr>
             <div className="display-flex">
               <Tippy align="left" content={toolTipMessages.gasprovided}>
@@ -120,7 +164,9 @@ function TransactionDetailTooltip(props) {
               </Tippy>{" "}
               <div className="detail-heading">Gas Price</div>
             </div>
-            <div className="detail-heading-text">0.00000000025</div>
+            <div className="detail-heading-text">
+              {gasP == 0 ? 0 : parseFloat(gasP)?.toFixed(12).replace(/0+$/, "")}
+            </div>
             <hr className="line-detail-tooltip"></hr>
             <div className="display-flex">
               <Tippy align="left" content={toolTipMessages.nounced}>
@@ -132,16 +178,38 @@ function TransactionDetailTooltip(props) {
               <div className="detail-heading">Nonce</div>
             </div>
             <div className="detail-heading-text">{transactions?.nonce}</div>
-            <hr className="line-detail-tooltip"></hr>
+            <div className="tooltip-link-div">
+              <div>
+                <a
+                  href={"/transaction-details/" + transactionHash}
+                  className="tooltip-link"
+                >
+                  Transaction Details
+                </a>
+              </div>
+              <div>
+                <a
+                  href={"/transaction-details/" + transactionHash}
+                  className="tooltip-link"
+                >
+                  <img className={"show-arrow"} src={"/images/arrow.svg"} />
+                </a>
+              </div>
+            </div>
           </div>
         }
       >
-        <img
-          className={"show-tooltip"}
-          src={"/images/show-icon.svg"}
-          onClick={openTootltip}
-          id={props.transactionAddress.id}
-        />
+        <button
+          onClick={() => setOpen(true)}
+          className={open ? "eye-button" : "eye-button-inactive"}
+        >
+          <img
+            className={"show-tooltip"}
+            src={open ? "/images/show-icon-white.svg" : "/images/show-icon.svg"}
+            onClick={openTootltip}
+            id={props.transactionAddress.id}
+          />
+        </button>
       </Tippy>
     </div>
   );

@@ -10082,3 +10082,50 @@ button {
   color: red;
   margin-top: 7px;
 }
+.eye-button {
+  background-color: #4878ff;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  padding: 3px 2px 3px 3px;
+}
+.eye-button-inactive {
+  background-color: transparent;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  padding: 3px 2px 3px 3px;
+}
+.tooltip-link {
+  color: #4878ff;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.tooltip-link:hover {
+  color: #4878ff;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.tooltip-link-div {
+  margin-top: 30px;
+  width: 155px;
+  display: flex;
+  justify-content: space-between;
+}
+.show-arrow {
+  width: 12px;
+  height: 7px;
+  color: #4878ff;
+}

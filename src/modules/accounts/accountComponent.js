@@ -17,7 +17,6 @@ import format from "format-number";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import Utils from '../../utility'
-import { utils } from "react-bootstrap";
 import styled from "styled-components";
 
 const useStyles = makeStyles({
@@ -69,7 +68,7 @@ export default function AccountComponent(props) {
   let [anchorEl, setAnchorEl] = React.useState();
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
-  
+
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -90,7 +89,7 @@ export default function AccountComponent(props) {
   const { state } = props;
   const classes = useStyles();
   let rantValue = state.from;
-  
+
   return (
     <div>
       <Tokensearchbar />
@@ -159,7 +158,7 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>Balance</span>
                     </TableCell>
-                    
+
                   )}
 
                   {props.state.tableColumns["Percentage"].isActive && (
@@ -169,7 +168,7 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>Percentage</span>
                     </TableCell>
-                    
+
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
                 </TableRow>
@@ -190,11 +189,12 @@ export default function AccountComponent(props) {
                     {props.state.accountList &&
                       props.state.accountList.length >= 1 &&
                       props.state.accountList.map((row, index) => {
-                        let num = row.balance;
-                        let finalBal = num / 1000000000000000000;
-                        let bal = finalBal.toString();
+
+                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8)
                         rantValue = rantValue + 1
-                        let percentageValue = ((finalBal / state.totalSupply) * 100).toFixed(2)
+                        let percentageValue = (((finalBal) / state.totalSupply) * 100).toFixed(8)
+
+
                         //state.totalSupply
 
 
@@ -256,11 +256,11 @@ export default function AccountComponent(props) {
                               >
                                 <Tooltip
                                   placement="right"
-                                  title={format({})(bal)}
+                                  title={format({})(finalBal)}
                                 >
                                   <span className="tabledata">
                                     {utility.convertToInternationalCurrencySystem(
-                                      bal
+                                      finalBal
                                     )}
                                   </span>
                                 </Tooltip>

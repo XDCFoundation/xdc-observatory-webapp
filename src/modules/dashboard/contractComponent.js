@@ -85,12 +85,12 @@ class Contractlist extends React.Component {
       isSettingColumnOpen: false,
       anchorEl: null,
       isColumnsModalOpen: null,
-        tableColumns: {
-            // "Address": {isActive: true, toolTipText: "Address of the contract"},
-            "Token Name": {isActive: true, toolTipText: "Name of the token associated with the contract."},
-            "Contract Name": {isActive: true, toolTipText: "Name of the Smart Contract."},
-            "Token Yes/No": {isActive: true, toolTipText: "Whether a token is associated with a Smart Contract or not."}
-        }
+      tableColumns: {
+        // "Address": {isActive: true, toolTipText: "Address of the contract"},
+        "Token Name": { isActive: true, toolTipText: "Name of the token associated with the contract." },
+        "Contract Name": { isActive: true, toolTipText: "Name of the Smart Contract." },
+        "Token Yes/No": { isActive: true, toolTipText: "Whether a token is associated with a Smart Contract or not." }
+      }
     };
   }
 
@@ -297,7 +297,6 @@ class Contractlist extends React.Component {
     //   contentStatus = "showContent";
     //   msgStatus = "hideContent";
     // }
-    console.log("this.state.noData", this.state.noData);
     // if(this.state.isLoading){
     //     return(<div class="loader"></div>)
     // }
@@ -598,7 +597,7 @@ class Contractlist extends React.Component {
                 {Math.ceil(this.state.totalRecord / this.state.amount) -
                   Math.ceil(
                     (this.state.totalRecord - this.state.from) /
-                      this.state.amount
+                    this.state.amount
                   ) +
                   1}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}

@@ -192,7 +192,8 @@ export default function CommonTransactionsTable(props) {
                   //   (row?.gasUsed * row?.gasPrice) /
                   //   100000000000000000
                   // ).toFixed(9);
-                  let amt = Utility.decimalDivison(row.value, 4);
+                  let amt = Utility.decimalDivison(row.value, 8);
+                  console.log(amt, "popopo")
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (

@@ -98,10 +98,10 @@ export default function TransactionsDetailsData({ _handleChange }) {
         : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
-    : Utils.decimalDivison(transactionFetch, 12);
+    : Utils.decimalDivison(transactionFetch, 8);
   const txfee = !transactions.transactionFee
     ? 0
-    : (transactions.transactionFee / 1000000000000000000).toFixed(12);
+    : (transactions.transactionFee / 1000000000000000000).toFixed(8);
   const gasP = !transactions.gasPrice
     ? 0
     : (transactions.gasPrice / 1000000000000000000).toFixed(18);

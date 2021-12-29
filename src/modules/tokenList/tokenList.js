@@ -398,17 +398,17 @@ export default function StickyHeadTable(props) {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                {props?.state?.tableColumns["Hash"].isActive && (
-                  <TableCell
-                    style={{ border: "none", paddingLeft: "75px" }}
-                    align="left"
-                  >
-                    <span>#</span>
+                <TableCell
+                  style={{ border: "none", paddingLeft: "75px" }}
+                  align="left"
+                >
+                  <span>#</span>
+                </TableCell>
+                {props?.state?.tableColumns["Symbol"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>Symbol</span>
                   </TableCell>
                 )}
-                <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Symbol</span>
-                </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
@@ -417,12 +417,12 @@ export default function StickyHeadTable(props) {
                     <span className={"tablehead-token-details"}>Type</span>
                   </TableCell>
                 )}
-                {props?.state?.tableColumns["Symbol"].isActive && (
+                {props?.state?.tableColumns["Hash"].isActive && (
                   <TableCell style={{ border: "none" }} align="left">
                     <span className={"tablehead-token-details"}>Contract</span>
                   </TableCell>
                 )}
-                
+
                 <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -465,11 +465,10 @@ export default function StickyHeadTable(props) {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        {props?.state?.tableColumns["Hash"].isActive && (
-                          <TableCell style={{ paddingLeft: "75px" }} id="td">
-                            {index + 1}
-                          </TableCell>
-                        )}
+                        <TableCell style={{ paddingLeft: "75px" }} id="td">
+                          {index + 1}
+                        </TableCell>
+
                         {props?.state?.tableColumns["Symbol"].isActive && (
                           <TableCell id="td">
                             <img
@@ -479,24 +478,26 @@ export default function StickyHeadTable(props) {
                             &nbsp;{row.symbol}
                           </TableCell>
                         )}
-                        
+
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
                           {shorten(row.tokenName, 9, 0, 3)}
                         </TableCell>
                         {props?.state?.tableColumns["Type"].isActive && (
                           <TableCell id="td">{row.type}</TableCell>
                         )}
-                        <TableCell>
-                          <a
-                            className="token-details-address-link"
-                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                              }`}
-                          >
-                            {shorten(row.address)}
-                          </a>
-                        </TableCell>
-                       
-                      
+                        {props?.state?.tableColumns["Hash"].isActive && (
+                          <TableCell>
+                            <a
+                              className="token-details-address-link"
+                              href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                                }`}
+                            >
+                              {shorten(row.address)}
+                            </a>
+                          </TableCell>
+                        )}
+
+
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           <Tooltip
                             placement="top"
@@ -537,7 +538,7 @@ export default function StickyHeadTable(props) {
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
               ></img>
 
-              <div style={{color:"#c6cbcf"}}>No Tokens found</div>
+              <div style={{ color: "#c6cbcf" }}>No Tokens found</div>
             </NoDataFoundContainer>
           )}
         </TableContainer>
