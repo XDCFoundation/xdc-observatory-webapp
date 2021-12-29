@@ -67,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SimpleTabs(props) {
-  console.log(props?.contractStatusData?.contractStatus, "plplplp");
   const classes = useStyles();
   const [toggleState, setToggleState] = useState(1);
 
