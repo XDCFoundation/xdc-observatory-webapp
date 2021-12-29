@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivateAccount() {
   const [email, setEmail]  = React.useState("")
   let activateAccountEmail = sessionManager.getDataFromCookies("activateAccountEmail");
-  console.log("activate",activateAccountEmail)
   useEffect(() => {
     setEmail(activateAccountEmail)
   }, [])
