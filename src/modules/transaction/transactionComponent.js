@@ -15,6 +15,7 @@ import Loader from "../../assets/loader";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import moment from "moment";
+import {messages} from "../../constants"
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -55,9 +56,18 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  container1: {
+    borderRadius: "14px",
+    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#fff",
+  },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
       height: "48.375rem",
+    },
+    container1: {
+      height: "23.375rem",
     },
   },
 });
@@ -144,7 +154,7 @@ export default function TransactionComponent(props) {
       </div>
 
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={classes.container} id="container-table">
+        <TableContainer className={!props.state.isData ? classes.container1 : classes.container} id="container-table">
           <Table>
             <TableHead>
               <TableRow>
@@ -154,6 +164,14 @@ export default function TransactionComponent(props) {
                 >
                   <span className={("tableheaders-hash", "tableheaders")}>
                     Hash
+                    <Tooltip placement="top" title={messages.HASH}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 {props.state.tableColumns["Amount"].isActive && (
@@ -164,6 +182,14 @@ export default function TransactionComponent(props) {
                   >
                     <span className={("tableheaders", "tableheaders-all")}>
                       Amount
+                      <Tooltip placement="top" title={messages.AMOUNT}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                 )}
@@ -175,6 +201,14 @@ export default function TransactionComponent(props) {
                   >
                     <span className={("tableheaders", "tableheaders-age")}>
                       Age
+                      <Tooltip placement="top" title={messages.AGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                 )}
@@ -186,6 +220,14 @@ export default function TransactionComponent(props) {
                     >
                     <span className={("tableheaders", "tableheaders-age")}>
                       Date
+                      <Tooltip placement="top" title={messages.DATE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                     </TableCell>
                 )}
@@ -197,6 +239,14 @@ export default function TransactionComponent(props) {
                   >
                     <span className={("tableheaders", "tableheaders-all")}>
                       Block
+                      <Tooltip placement="top" title={messages.BLOCK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                 )}
@@ -207,6 +257,14 @@ export default function TransactionComponent(props) {
                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     From
+                    <Tooltip placement="top" title={messages.FROM}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell
@@ -216,6 +274,14 @@ export default function TransactionComponent(props) {
                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     To
+                    <Tooltip placement="top" title={messages.TO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 {/* <TableCell

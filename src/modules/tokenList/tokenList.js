@@ -20,6 +20,8 @@ import { Column, Row } from "simple-flexbox";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import format from "format-number";
 import Tooltip from "@material-ui/core/Tooltip";
+import { messages } from "../../constants"
+
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -413,13 +415,34 @@ export default function StickyHeadTable(props) {
                   <span className={"tablehead-token-details"}>Name</span>
                 </TableCell>
                 {props?.state?.tableColumns["Type"].isActive && (
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details"}>Type</span>
+                  <TableCell style={{ border: "none", whiteSpace: "nowrap" }}
+                  align="left">
+                    <span className={"tablehead-token-details"}>
+                      Type
+                      <Tooltip placement="top" title={messages.TOKEN_TYPE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                 )}
                 {props?.state?.tableColumns["Symbol"].isActive && (
                   <TableCell style={{ border: "none" }} align="left">
-                    <span className={"tablehead-token-details"}>Contract</span>
+                    <span className={"tablehead-token-details"}>
+                      Contract
+                      <Tooltip placement="top" title={messages.CONTRACT}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                 )}
                 
@@ -429,6 +452,14 @@ export default function StickyHeadTable(props) {
                 >
                   <span className={"tablehead-token-details"}>
                     Total Supply
+                    <Tooltip placement="top" title={messages.TOKEN_TOTAL_SUPPLY}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 {props?.state?.tableColumns["Total Holders"].isActive && (
@@ -438,6 +469,14 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tablehead-token-details"}>
                       Total Holders
+                      <Tooltip placement="top" title={messages.HOLDER}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                 )}

@@ -16,6 +16,8 @@ import styled from "styled-components";
 import Loader from "../../assets/loader";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
+import { messages } from "../../constants";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -375,6 +377,14 @@ class Contractlist extends React.Component {
                       className={"tableheaders-contract"}
                     >
                       Address
+                      <Tooltip placement="top" title={messages.CONTRACT_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   {this.state.tableColumns["Token Name"].isActive && (
@@ -384,6 +394,14 @@ class Contractlist extends React.Component {
                         className={"tableheaders"}
                       >
                         Token Name
+                        <Tooltip placement="top" title={messages.TOKEN_NAME}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
                       </span>
                     </TableCell>
                   )}
@@ -394,6 +412,14 @@ class Contractlist extends React.Component {
                         className={"tableheaders"}
                       >
                         Contract Name
+                        <Tooltip placement="top" title={messages.CONTRACT_NAME}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
                       </span>
                     </TableCell>
                   )}
@@ -404,6 +430,14 @@ class Contractlist extends React.Component {
                         className={"tableheaders"}
                       >
                         Token Yes/No
+                        <Tooltip placement="top" title={messages.TOKEN_YES_NO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
                       </span>
                     </TableCell>
                   )}
