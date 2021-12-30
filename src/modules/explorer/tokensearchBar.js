@@ -776,7 +776,7 @@ export default function Navbar() {
                   <NavLink
                     exact
                     activeClassName="active-t"
-                    to={"/token-details"}
+                    to={"/tokens"}
                     className="Token"
                   >
                     Tokens
@@ -789,7 +789,7 @@ export default function Navbar() {
                   </a>
                 </div>
                 <div>
-                  <a href="/token-details">
+                  <a href="/tokens">
                     <div className="Token" id="Token">
                       Tokens
                     </div>
@@ -859,7 +859,7 @@ export default function Navbar() {
             </NavigationButton>
             <NavigationButton
               active={window.location.pathname.includes("token")}
-              href="/token-details"
+              href="/tokens"
             >
               Tokens
             </NavigationButton>

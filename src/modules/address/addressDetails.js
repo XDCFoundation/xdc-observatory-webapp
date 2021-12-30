@@ -17,7 +17,7 @@ import { TransactionService, CoinMarketService } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
-
+import format from "format-number";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -90,7 +90,7 @@ export default function AddressDetails(props) {
   const [currentPrice, setCurrentPrice] = useState(0)
   let { addr } = useParams();
   let px = currentPrice * price
-  let priceChanged = Utility.decimalDivison(px, 18)
+  let priceChanged = Utility.decimalDivison(px, 8)
   let priceChanged1 = priceChanged.toString().split(".")[0];
   let priceChanged2 = priceChanged.toString().split(".")[1];
   let activeCurrency = window.localStorage.getItem("currency");
@@ -136,11 +136,12 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        setBalance(Utility.decimalDivisonOnly(responseData.balance, 18));
+        console.log(responseData.balance, "ppp")
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
         setCurrentPrice(responseData.balance)
         setLoading(false);
       } else {
-        setBalance(parseFloat(0).toFixed(18));
+        setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
     } catch (error) {
@@ -332,7 +333,7 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged2 == null ? (
+                      {format({})(balance)} XDC ({currencySymbol}{priceChanged2 == null ? (
                         <span>{priceChanged1}</span>
                       ) : (
                         <span>
@@ -457,7 +458,7 @@ export default function AddressDetails(props) {
                 tag={addressTag}
               />
             ) : (
-              <AddressTableComponent trans={transactions} coinadd={addr} />
+              <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
             )}
           </div>
         </div>

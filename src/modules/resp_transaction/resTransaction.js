@@ -252,9 +252,9 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
   const txfee = !transactions
     ? 0
-    : Utils.decimalDivison(transactions?.gasPrice * transactions?.gasUsed, 12);
+    : Utils.decimalDivison(transactions?.gasPrice * transactions?.gasUsed, 8);
 
-  const txnFee = parseFloat(txfee)?.toFixed(12).replace(/0+$/, "");
+  const txnFee = parseFloat(txfee)?.toFixed(8).replace(/0+$/, "");
 
   let txnFee1 = txnFee.toString().split(".")[0];
   let txnFee2 = txnFee.toString().split(".")[1];
@@ -267,23 +267,23 @@ export default function Transaction({ _handleChange }) {
       : txfee * price;
   const fetchtxn = !transactionFetch
     ? 0
-    : parseFloat(transactionFetch)?.toFixed(12);
-    let fetchtxn1 = fetchtxn.toString().split(".")[0];
+    : parseFloat(transactionFetch)?.toFixed(8);
+  let fetchtxn1 = fetchtxn.toString().split(".")[0];
   let fetchtxn2 = fetchtxn.toString().split(".")[1];
 
   const gasP = !transactions.gasPrice
     ? 0
-    : Utils.decimalDivison(transactions.gasPrice, 18);
-   const gasPrice =parseFloat(gasP)?.toFixed(18).replace(/0+$/, "")
-   let gasPrice1 = gasPrice.toString().split(".")[0];
+    : Utils.decimalDivison(transactions.gasPrice, 12);
+  const gasPrice = parseFloat(gasP)?.toFixed(12).replace(/0+$/, "");
+  let gasPrice1 = gasPrice.toString().split(".")[0];
   let gasPrice2 = gasPrice.toString().split(".")[1];
-    
+
   const valueDiv = !valueFetch
     ? 0
-    : Utils.decimalDivison(valueFetch * transactions.value, 11);
+    : Utils.decimalDivison(valueFetch * transactions.value, 8);
   let ValueMain = !transactions?.value
     ? 0
-    : Utils.decimalDivison(transactions?.value, 11);
+    : Utils.decimalDivison(transactions?.value, 8);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
@@ -295,17 +295,6 @@ export default function Transaction({ _handleChange }) {
     var minutesDifference = Math.floor(difference / 1000 / 60);
     difference -= minutesDifference * 1000 * 60;
     var secondsDifference = Math.floor(difference / 1000);
-    console.log(
-      "difference = " +
-        daysDifference +
-        " day/s " +
-        hoursDifference +
-        " hour/s " +
-        minutesDifference +
-        " minute/s " +
-        secondsDifference +
-        " second/s "
-    );
     if (
       secondsDifference < 60 &&
       minutesDifference === 0 &&
@@ -738,7 +727,7 @@ export default function Transaction({ _handleChange }) {
                         </span>
                       )}
                       XDC ({currencySymbol}
-                        {fetchtxn2 == null ? (
+                      {fetchtxn2 == null ? (
                         <span>{fetchtxn1}</span>
                       ) : (
                         <span>
@@ -746,7 +735,8 @@ export default function Transaction({ _handleChange }) {
                           {"."}
                           <span style={{ color: "#9FA9BA" }}>{fetchtxn2}</span>
                         </span>
-                      )})
+                      )}
+                      )
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -769,15 +759,15 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Gas Price</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                     {gasPrice2 == null ? (
-                        <span>{gasPrice1}</span>
-                      ) : (
-                        <span>
-                          {gasPrice1}
-                          {"."}
-                          <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
-                        </span>
-                      )}
+                    {gasPrice2 == null ? (
+                      <span>{gasPrice1}</span>
+                    ) : (
+                      <span>
+                        {gasPrice1}
+                        {"."}
+                        <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
+                      </span>
+                    )}
                     {/* <Content> {gasP}</Content> */}
                   </MiddleContainer>
                 </Spacing>

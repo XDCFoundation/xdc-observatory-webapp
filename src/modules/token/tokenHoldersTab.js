@@ -317,25 +317,25 @@ export default function StickyHeadTable(props) {
                   let quantity1 =
                     row[0]?.Quantity / Math.pow(10, decimals) >= 1
                       ? format({})(
-                          utility.convertToInternationalCurrencySystem(
-                            row[0]?.Quantity / Math.pow(10, decimals)
-                          )
+                        utility.convertToInternationalCurrencySystem(
+                          row[0]?.Quantity / Math.pow(10, decimals)
                         )
+                      )
                       : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
-                          decimals
-                        );
+                        decimals
+                      );
                   var quantity2 = quantity1.toString().split(".")[0];
                   var quantity3 = quantity1.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                   var splittedArray = quantity3?.match(regex);
 
-                  var percentageValue = !row[0]?.Percentage ? "------" : row[0].Percentage.toFixed(2)
+                  var percentageValue = !row[0]?.Percentage ? "------" : row[0].Percentage.toFixed(8)
                   let percentageValue1 = percentageValue
-                          .toString()
-                          .split(".")[0];
-                        let percentageValue2 = percentageValue
-                          .toString()
-                          .split(".")[1];
+                    .toString()
+                    .split(".")[0];
+                  let percentageValue2 = percentageValue
+                    .toString()
+                    .split(".")[1];
 
                   var quantity4 =
                     splittedArray && splittedArray.length
@@ -387,15 +387,15 @@ export default function StickyHeadTable(props) {
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-                        
+
                         <span className="tabledata table-data mar-lef-3">
-                                  {percentageValue1}
-                                  {"."}
-                                  <span style={{ color: "#9FA9BA" }}>
-                                    {percentageValue2}
-                                  </span>
-                                  %
-                                </span>
+                          {percentageValue1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>
+                            {percentageValue2}
+                          </span>
+                          %
+                        </span>
                       </TableCell>
                       {/* <TableCell
                         id="td"
