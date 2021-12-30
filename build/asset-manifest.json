@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.6ebbc0fc.chunk.css",
-    "main.js": "/static/js/main.d1094d2b.chunk.js",
-    "main.js.map": "/static/js/main.d1094d2b.chunk.js.map",
+    "main.css": "/static/css/main.b45c5c62.chunk.css",
+    "main.js": "/static/js/main.b6e6ad70.chunk.js",
+    "main.js.map": "/static/js/main.b6e6ad70.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.61f4e7a4.js",
     "runtime-main.js.map": "/static/js/runtime-main.61f4e7a4.js.map",
-    "static/css/2.9c8d33a3.chunk.css": "/static/css/2.9c8d33a3.chunk.css",
-    "static/js/2.97614be9.chunk.js": "/static/js/2.97614be9.chunk.js",
-    "static/js/2.97614be9.chunk.js.map": "/static/js/2.97614be9.chunk.js.map",
+    "static/css/2.9c5672e4.chunk.css": "/static/css/2.9c5672e4.chunk.css",
+    "static/js/2.c1700877.chunk.js": "/static/js/2.c1700877.chunk.js",
+    "static/js/2.c1700877.chunk.js.map": "/static/js/2.c1700877.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.2dabc9a3508685851f7ac1526113592d.js": "/precache-manifest.2dabc9a3508685851f7ac1526113592d.js",
+    "precache-manifest.49ac260faf6bb1106470b2e414ed6c6b.js": "/precache-manifest.49ac260faf6bb1106470b2e414ed6c6b.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.9c8d33a3.chunk.css.map": "/static/css/2.9c8d33a3.chunk.css.map",
-    "static/css/main.6ebbc0fc.chunk.css.map": "/static/css/main.6ebbc0fc.chunk.css.map",
-    "static/js/2.97614be9.chunk.js.LICENSE.txt": "/static/js/2.97614be9.chunk.js.LICENSE.txt",
+    "static/css/2.9c5672e4.chunk.css.map": "/static/css/2.9c5672e4.chunk.css.map",
+    "static/css/main.b45c5c62.chunk.css.map": "/static/css/main.b45c5c62.chunk.css.map",
+    "static/js/2.c1700877.chunk.js.LICENSE.txt": "/static/js/2.c1700877.chunk.js.LICENSE.txt",
     "static/media/Accounts.svg": "/static/media/Accounts.153a6952.svg",
     "static/media/AddLabel_NewFeature.svg": "/static/media/AddLabel_NewFeature.baab3c8e.svg",
     "static/media/AddTransactionLable_NewFeature.svg": "/static/media/AddTransactionLable_NewFeature.d518894f.svg",
@@ -26,17 +26,17 @@
     "static/media/XDC-Icon.svg": "/static/media/XDC-Icon.97ff7a10.svg",
     "static/media/alert.svg": "/static/media/alert.dca4dcde.svg",
     "static/media/copy.svg": "/static/media/copy.62032db5.svg",
-    "static/media/label.svg": "/static/media/label.dda2f7e0.svg",
+    "static/media/label.svg": "/static/media/label.da14e1f8.svg",
     "static/media/noun-email-4466398.svg": "/static/media/noun-email-4466398.8d75cc3e.svg",
     "static/media/question-mark.svg": "/static/media/question-mark.29606863.svg",
-    "static/media/tag.svg": "/static/media/tag.0c1ea566.svg",
+    "static/media/tag.svg": "/static/media/tag.605aaa34.svg",
     "static/media/watch-list-new-feature.svg": "/static/media/watch-list-new-feature.20f38093.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.61f4e7a4.js",
-    "static/css/2.9c8d33a3.chunk.css",
-    "static/js/2.97614be9.chunk.js",
-    "static/css/main.6ebbc0fc.chunk.css",
-    "static/js/main.d1094d2b.chunk.js"
+    "static/css/2.9c5672e4.chunk.css",
+    "static/js/2.c1700877.chunk.js",
+    "static/css/main.b45c5c62.chunk.css",
+    "static/js/main.b6e6ad70.chunk.js"
   ]
 }
