@@ -280,6 +280,14 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
       color: "#6b7482",
     },
+    profileName: {
+      color:"#252525",
+      fontSize:"14px"
+    },
+    editProfile: {
+      color:"#252525",
+      fontSize:"14px"
+    }
   },
   btn: {
     textAlign: "start",
@@ -907,12 +915,14 @@ export default function SimpleTabs(props) {
             }
           />
           <Column>
-            <Row style={{ gap: "15px" }}>
+            <Row className={classes.profileName} style={{ gap: "15px" }}>
               Welcome, {Utils.shortenUserName(setUserName())}
-              <NotificationBar />
+             
             </Row>
+            
             <Editprofile />
           </Column>
+          <NotificationBar  />  
         </UserNameContainer>
         {/* </span> */}
         {/* <span>

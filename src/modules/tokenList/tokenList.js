@@ -527,6 +527,16 @@ export default function StickyHeadTable(props) {
                 <TableBody>
                   {rows?.map((row, index) => {
                     let totalsupply = (row?.totalSupply / Math.pow(10, row?.decimals)).toFixed(row?.decimals)
+                    const supply = row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)
+                    console.log(supply)
+                    var supply1 = supply.toString().split(".")[0];
+                        var supply2 = supply.toString().split(".")[1];
+                        var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                        var splittedArray = supply2?.match(regex);
+
+                        var supply4 =splittedArray && splittedArray.length ? splittedArray[0]:0;
+                        var text = splittedArray && splittedArray.length ? splittedArray[1]:0;
+                        console.log("rachit",supply4,text, supply1)
                     return (
                       <TableRow
                         hover
@@ -571,7 +581,19 @@ export default function StickyHeadTable(props) {
                             placement="top"
                             title={format({})(totalsupply >= 1 ? parseFloat(totalsupply) : totalsupply)}
                           ><span>
-                              {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
+                             {supply4 === 0 || supply4 == null ? (
+                                    <span className="tabledata">{supply1}</span>
+                                  ) : (
+                                    <span className="tabledata">
+                                      {supply1}
+                                      {"."}
+                                      <span style={{ color: "#9FA9BA" }}>
+                                        {supply4}
+                                      </span>
+                                      {text}
+                                    </span>
+                                  )}
+                                 
                             </span>
                           </Tooltip>
                         </TableCell>

@@ -3369,17 +3369,29 @@ p {
 .tab-search {
   display: flex;
   align-items: center;
+  
 }
-@media (min-width: 0px) and (max-width: 1022px) {
+@media (min-width: 768px) and (max-width: 1022px) {
   .tab-search {
     display: flex;
     width: 82%;
   }
 }
+@media (max-width: 768px) {
+  
+  .tab-search {
+    display: flex;
+    width: 82%;
+    margin-left:-10px;
+  }
+  
+}
 @media (min-width: 768px) {
   .display-none-desktop {
     display: none;
   }
+  
+  
 }
 
 @media (max-width: 1023px) {

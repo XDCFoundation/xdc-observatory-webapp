@@ -105,6 +105,10 @@ const useStyles = makeStyles((theme) => ({
       width: 15,
       height: 15,
     },
+    popover: {
+      marginRight:"-15px",
+      
+    }
   },
 
   content: {
@@ -978,7 +982,7 @@ const LoginComponent = ({
   open,
 }) => {
   return (
-    <Row alignItems="center">
+    <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
         <ChangePassword openChangePassword={openChangePassword} />
       )}

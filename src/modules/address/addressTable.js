@@ -28,26 +28,37 @@ function timeDiff(curr, prev) {
   var ms_Mon = ms_Day * 30; // milliseconds in Month
   var ms_Yr = ms_Day * 365; // milliseconds in Year
   var diff = curr - prev; //difference between dates.
+
   // If the diff is less then milliseconds in a minute
   if (diff < ms_Min) {
     return Math.abs(Math.round(diff / 1000)) + " secs ago";
 
     // If the diff is less then milliseconds in a Hour
+  } else if (diff < ms_Hour && Math.abs(Math.round(diff / ms_Min)) === 1) {
+    return Math.abs(Math.round(diff / ms_Mon)) + " min ago";
   } else if (diff < ms_Hour) {
     return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-
     // If the diff is less then milliseconds in a day
+  } else if (diff < ms_Day && Math.abs(Math.round(diff / ms_Hour)) === 1) {
+    return Math.abs(Math.round(diff / ms_Hour)) + " hr ago";
   } else if (diff < ms_Day) {
     return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
 
     // If the diff is less then milliseconds in a Month
-  } else if (diff < ms_Mon) {
+  } else if (diff < ms_Mon && Math.abs(Math.round(diff / ms_Day)) === 1) {
+    return Math.abs(Math.round(diff / ms_Day)) + " day ago";
+  } else if (diff < ms_Mon && Math.abs(Math.round(diff / ms_Day)) > 1) {
     return Math.abs(Math.round(diff / ms_Day)) + " days ago";
 
     // If the diff is less then milliseconds in a year
-  } else if (diff < ms_Yr) {
+  } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) === 1) {
+    return Math.abs(Math.round(diff / ms_Mon)) + " month ago";
+  } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) > 1) {
     return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
-  } else {
+  }
+ else if ( Math.abs(Math.round(diff / ms_Yr)) === 1) {
+  return Math.abs(Math.round(diff / ms_Yr)) + " year";
+}  else {
     return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
   }
 }
@@ -283,9 +294,9 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value: Utility.decimalDivison(d.Value, 18),
-        }
-      }),
-    )
+        };
+      })
+    );
 
     setDownloadaddress(
       trxn.map((d) => {
@@ -296,10 +307,10 @@ export default function AddressTableComponent(props) {
           From: d.from,
           To: d.to,
           Value: Utility.decimalDivison(d.Value, 18),
-        }
-      }),
-    )
-  }
+        };
+      })
+    );
+  };
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value;
     setPage(0);
@@ -352,9 +363,9 @@ export default function AddressTableComponent(props) {
             From: d.From,
             To: d.To,
             Value: Utility.decimalDivison(d.Value, 18),
-          }
-        }),
-      )
+          };
+        })
+      );
     } else {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr
@@ -380,9 +391,9 @@ export default function AddressTableComponent(props) {
             From: d.From,
             To: d.To,
             Value: Utility.decimalDivison(d.Value, 18),
-          }
-        }),
-      )
+          };
+        })
+      );
     }
   };
 
@@ -393,7 +404,7 @@ export default function AddressTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
-    color:"#c6cbcf";
+    color: "#c6cbcf";
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -630,6 +641,17 @@ export default function AddressTableComponent(props) {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = timeDiff(currentTime, previousTime);
+                      const value = Utility.decimalDivison(row.Value, 18)
+                      console.log(value,"valu1")
+                      var value1 = value.toString().split(".")[0];
+                        var value2 = value.toString().split(".")[1];
+                        console.log(value2,"valu111")
+                       
+                  var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                  var splittedArray = value2?.match(regex);
+                  var bal4 =splittedArray && splittedArray.length ? splittedArray[0]:0;
+                        var text = splittedArray && splittedArray.length ? splittedArray[1]:0;
+                        console.log(text,"valu",bal4)
                       return (
                         <TableRow
                           style={
@@ -697,15 +719,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.From)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                      return (
-                                        <div
-                                          className="nameLabel2"
-                                          key={index}
-                                        >
-                                          {item}
-                                        </div>
-                                      );
-                                    })
+                                        return (
+                                          <div
+                                            className="nameLabel2"
+                                            key={index}
+                                          >
+                                            {item}
+                                          </div>
+                                        );
+                                      })
                                     : shorten(row.From)}
                                 </span>
                               </Tooltip>
@@ -729,15 +751,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.To)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                      return (
-                                        <div
-                                          className="nameLabel2"
-                                          key={index}
-                                        >
-                                          {item}
-                                        </div>
-                                      );
-                                    })
+                                        return (
+                                          <div
+                                            className="nameLabel2"
+                                            key={index}
+                                          >
+                                            {item}
+                                          </div>
+                                        );
+                                      })
                                     : shorten(row.To)}
                                 </span>
                               </Tooltip>
@@ -749,13 +771,30 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip
                               placement="top"
-                              title={format({})(Utility.decimalDivisonOnly(row.Value, 18))}
+                              title={format({})(
+                                Utility.decimalDivisonOnly(row.Value, 18)
+                              )}
                             >
-                              <span className="tabledata cursor-pointer">
-                                {row.Value == 0
+                            {value2 == null ? (<span className="tabledata cursor-pointer">
+                                  {row.Value == 0
                                   ? 0
-                                  : Utility.decimalDivison(row.Value, 18)} XDC
-                              </span>
+                                  : value1}{}
+                                  {" "}
+                                  
+                                  XDC
+                                </span>):(
+                              <span className="tabledata cursor-pointer">
+                                  {row.Value == 0
+                                  ? 0
+                                  : value1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {bal4}
+                                  </span>
+                                  {text}
+                                   XDC
+                                </span>
+                                )}
                             </Tooltip>
                           </TableCell>
                         </TableRow>
@@ -810,7 +849,7 @@ export default function AddressTableComponent(props) {
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>
-
+              <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
             <span className="text">Records</span>
@@ -849,8 +888,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -861,8 +900,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -910,8 +949,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -922,8 +961,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
+                  +page + +rowsPerPage > totalRecord ||
+                  totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
