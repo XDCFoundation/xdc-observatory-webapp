@@ -198,6 +198,7 @@ export default function CommonTransactionsTable(props) {
                        let amt2= amt.toString().split(".")[1]
                        
                        
+                       
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (
@@ -250,13 +251,13 @@ export default function CommonTransactionsTable(props) {
                             padding: "20px",
                           }}
                           align="left"
-                        >{amt2>=0 ? (<span
+                        >{ amt2== null ? (<span
                             className={
                               animationClass ? animationClass : "tabledata"
                             }
                           >
                             
-                            {amt1}
+                            {amt1<0 ? amt1:0}
                           </span>):(
                           <span
                             className={

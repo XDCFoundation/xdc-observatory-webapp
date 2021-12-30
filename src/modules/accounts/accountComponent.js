@@ -16,7 +16,7 @@ import utility from "../../utility";
 import format from "format-number";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
-import Utils from '../../utility'
+import Utils from "../../utility";
 import { utils } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -30,22 +30,22 @@ const useStyles = makeStyles({
   RankColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "5.8% !important"
+    paddingLeft: "5.8% !important",
   },
   RankColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "5% !important"
+    paddingLeft: "5% !important",
   },
   PercentageColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "0% !important"
+    paddingLeft: "0% !important",
   },
   PercentageColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "0% !important"
+    paddingLeft: "0% !important",
   },
   "@media (max-width: 1024px)": {
     container: {
@@ -69,7 +69,6 @@ export default function AccountComponent(props) {
   let [anchorEl, setAnchorEl] = React.useState();
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
-  
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -90,7 +89,7 @@ export default function AccountComponent(props) {
   const { state } = props;
   const classes = useStyles();
   let rantValue = state.from;
-  
+
   return (
     <div>
       <Tokensearchbar />
@@ -131,10 +130,7 @@ export default function AccountComponent(props) {
               <TableHead>
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
-                    <TableCell
-                      className={classes.RankColumn}
-                      align="center"
-                    >
+                    <TableCell className={classes.RankColumn} align="center">
                       <span className={"tableheaders_1 pl--1"}>Rank</span>
                     </TableCell>
                   )}
@@ -159,7 +155,6 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>Balance</span>
                     </TableCell>
-                    
                   )}
 
                   {props.state.tableColumns["Percentage"].isActive && (
@@ -169,7 +164,6 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>Percentage</span>
                     </TableCell>
-                    
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
                 </TableRow>
@@ -193,22 +187,33 @@ export default function AccountComponent(props) {
                         let num = row.balance;
                         let finalBal = num / 1000000000000000000;
                         let bal = finalBal.toString();
-                       var bal1=    utility.convertToInternationalCurrencySystem(bal)
-                      var bal2=  bal1.toString().split(".")[0] 
-                      var bal3=  bal1.toString().split(".")[1] 
-                      console.log(bal3.substring(2))
-                              
-              
-                 
-                       rantValue = rantValue + 1
-                        let percentageValue = ((finalBal / state.totalSupply) * 100).toFixed(2)
-                       let percentageValue1= percentageValue.toString().split(".")[0]
-                       let percentageValue2= percentageValue.toString().split(".")[1]
-                       
-                       
-                       
-                        //state.totalSupply
+                        var bal1 =
+                          utility.convertToInternationalCurrencySystem(bal);
+                        var bal2 = bal1.toString().split(".")[0];
+                        var bal3 = bal1.toString().split(".")[1];
+                        var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                        var splittedArray = bal3?.match(regex);
 
+                        var bal4 =splittedArray && splittedArray.length ? splittedArray[0]:0;
+                        var text = splittedArray && splittedArray.length ? splittedArray[1]:0;
+                        
+
+                        rantValue = rantValue + 1;
+                        let percentageValue = (
+                          (finalBal / state.totalSupply) *
+                          100
+                        ).toFixed(2);
+                        let percentageValue1 = percentageValue
+                          .toString()
+                          .split(".")[0];
+                        let percentageValue2 = percentageValue
+                          .toString()
+                          .split(".")[1];
+
+                        
+                        
+
+                        //state.totalSupply
 
                         return (
                           <TableRow
@@ -270,19 +275,34 @@ export default function AccountComponent(props) {
                                   placement="right"
                                   title={format({})(bal)}
                                 >
-                                  <span className="tabledata">
-                                    {bal2}{"."}<span style ={{color:"#9FA9BA"}}>{bal3}</span>
-                                  </span>
+                                  {bal3 >= 0 || bal3 == null ? (
+                                    <span className="tabledata">{bal2}</span>
+                                  ) : (
+                                    <span className="tabledata">
+                                      {bal2}
+                                      {"."}
+                                      <span style={{ color: "#9FA9BA" }}>
+                                        {bal4}
+                                      </span>
+                                      {text}
+                                    </span>
+                                  )}
                                 </Tooltip>
                               </TableCell>
                             )}
-                            {props.state.tableColumns["Percentage"].isActive && (
+                            {props.state.tableColumns["Percentage"]
+                              .isActive && (
                               <TableCell
                                 className={`w-2 ${classes.PercentageColumnVal}`}
                                 align="center"
                               >
                                 <span className="tabledata">
-                              {percentageValue1}{"."}<span style ={{color:"#9FA9BA"}}>{percentageValue2}</span>%
+                                  {percentageValue1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {percentageValue2}
+                                  </span>
+                                  %
                                 </span>
                               </TableCell>
                             )}
@@ -351,7 +371,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._NextPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                  props.state.totalAccounts
+                props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
@@ -363,7 +383,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._LastPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                  props.state.totalAccounts
+                props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }

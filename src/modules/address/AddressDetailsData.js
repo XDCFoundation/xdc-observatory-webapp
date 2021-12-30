@@ -64,7 +64,18 @@ export default function AddressDetailsData() {
     transactionlist: [],
   };
   const [data, setData] = React.useState(initialState);
+  let balance = !data.balance ? 0 : data.balance
+  let balance1 = balance.toString().split(".")[0];
+  let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
+
+  let value = !data.val ? 0 : data.val
+  let value1 = value.toString().split(".")[0];
+  let value2 = value.toString().split(".")[1];
+  
+  let changedValue = data.changedVal 
+  let changedValue1 = changedValue.toString().split(".")[0];
+  let changedValue2 = changedValue.toString().split(".")[1];
 
   const getContractDetails = async (values) => {
     try {
@@ -161,7 +172,16 @@ export default function AddressDetailsData() {
                           Balance
                         </TableCell>
                         <TableCell className="left-table-contract-data">
-                          {!data.balance ? 0 : data.balance} XDC
+                        {balance2 == null ? (
+                        <span>{balance1} XDC</span>
+                      ) : (
+                        <span>
+                          {balance1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{balance2}</span>
+                          XDC
+                        </span>
+                      )}
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -170,8 +190,26 @@ export default function AddressDetailsData() {
                         </TableCell>
                         <TableCell className="left-table-contract-data">
                           {ReactHtmlParser(data.currencySymbol)}
-                          {data.val} (@ {ReactHtmlParser(data.currencySymbol)}
-                          {data.changedVal}/XDC)
+                          {value2 == null ? (
+                        <span>{value1} </span>
+                      ) : (
+                        <span>
+                          {value1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{value2}</span>
+                         
+                        </span>
+                      )} (@ {ReactHtmlParser(data.currencySymbol)}
+                      {changedValue2 == null ? (
+                        <span>{changedValue1}/XDC </span>
+                      ) : (
+                        <span>
+                          {changedValue1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{changedValue2}</span>
+                         /XDC
+                        </span>
+                      )})
                         </TableCell>
                       </TableRow>
                       <TableRow>

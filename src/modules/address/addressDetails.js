@@ -91,6 +91,8 @@ export default function AddressDetails(props) {
   let { addr } = useParams();
   let px = currentPrice * price
   let priceChanged = Utility.decimalDivison(px, 18)
+  let priceChanged1 = priceChanged.toString().split(".")[0];
+  let priceChanged2 = priceChanged.toString().split(".")[1];
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol =
     activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
@@ -346,7 +348,15 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged})
+                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged2 == null ? (
+                        <span>{priceChanged1}</span>
+                      ) : (
+                        <span>
+                          {priceChanged1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{priceChanged2}</span>
+                        </span>
+                      )})
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>
