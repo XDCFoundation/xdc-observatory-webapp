@@ -14,6 +14,7 @@ import { useParams } from "react-router";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
+import { messages } from "../../constants";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -238,23 +239,67 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-hash"}>
                     Transaction Hash
+                    <Tooltip placement="top" title={messages.HASH}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders_Transfer-table-age"}>Age</span>
+                  <span className={"tableheaders_Transfer-table-age"}>
+                    Age
+                    <Tooltip placement="top" title={messages.AGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-block"}>
                     Block
+                    <Tooltip placement="top" title={messages.BLOCK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-from"}>
                     From
+                    <Tooltip placement="top" title={messages.FROM}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders_Transfer-table-to"}>To</span>
+                  <span className={"tableheaders_Transfer-table-to"}>
+                    To
+                    <Tooltip placement="top" title={messages.TO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                  </span>
                 </TableCell>
               </TableRow>
             </TableHead>

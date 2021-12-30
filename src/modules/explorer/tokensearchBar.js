@@ -105,6 +105,10 @@ const useStyles = makeStyles((theme) => ({
       width: 15,
       height: 15,
     },
+    popover: {
+      marginRight:"-15px",
+      
+    }
   },
 
   content: {
@@ -772,7 +776,7 @@ export default function Navbar() {
                   <NavLink
                     exact
                     activeClassName="active-t"
-                    to={"/token-details"}
+                    to={"/tokens"}
                     className="Token"
                   >
                     Tokens
@@ -785,7 +789,7 @@ export default function Navbar() {
                   </a>
                 </div>
                 <div>
-                  <a href="/token-details">
+                  <a href="/tokens">
                     <div className="Token" id="Token">
                       Tokens
                     </div>
@@ -855,7 +859,7 @@ export default function Navbar() {
             </NavigationButton>
             <NavigationButton
               active={window.location.pathname.includes("token")}
-              href="/token-details"
+              href="/tokens"
             >
               Tokens
             </NavigationButton>
@@ -978,7 +982,7 @@ const LoginComponent = ({
   open,
 }) => {
   return (
-    <Row alignItems="center">
+    <Row className={classes.popover} alignItems="center">
       {openPasswordBox && (
         <ChangePassword openChangePassword={openChangePassword} />
       )}

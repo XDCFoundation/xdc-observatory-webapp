@@ -107,15 +107,21 @@ export const messages = {
   AMOUNT:
     "The number of tokens being transferred.",
   DATE:
-    "It tells when the transaction occur.",
+    "Transaction creation date.",
   AGE:
-    "It tells how old the transaction is.",
+    "Time when was the transaction created",
   BLOCK:
     "Block number associated with the transaction.",
   FROM:
     "Sender’s account",
   TO:
     "Receiver’s account",
+  SI_NO:
+    "Sl. No.",
+  SYMBOL:
+    "A virtual currency token.",
+  NAME:
+    "Name of the token.",
   TOKEN:
     "A virtual currency token or a denomination of a cryptocurrency.",
   TOKEN_TYPE:

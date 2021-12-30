@@ -85,10 +85,16 @@ a:link {
   height: 16px;
 }
 
+.h-14 {
+  height: 14px;
+}
+
 .h-20 {
   height: 20px;
 }
-
+.m-r-10 {
+  margin-right: 10px;
+}
 input#password {
   width: 433px;
   height: 40px;
@@ -402,7 +408,9 @@ input:focus {
 .w-16 {
   width: 16%;
 }
-
+.w-14-px {
+  width: 14px;
+}
 .w-16-px {
   width: 16px;
 }
@@ -837,6 +845,14 @@ input:focus {
   border: 1px #9fa9ba solid;
   border-radius: 8px;
   height: "42px";
+}
+div::-webkit-scrollbar {
+  height: 3px;
+  width: 3px;
+}
+div::-webkit-scrollbar-thumb {
+  background: #9fa9ba; 
+  border-radius: 8px;
 }
 
 .containerTagMobile {
@@ -3361,17 +3377,29 @@ p {
 .tab-search {
   display: flex;
   align-items: center;
+  
 }
-@media (min-width: 0px) and (max-width: 1022px) {
+@media (min-width: 768px) and (max-width: 1022px) {
   .tab-search {
     display: flex;
     width: 82%;
   }
 }
+@media (max-width: 768px) {
+  
+  .tab-search {
+    display: flex;
+    width: 82%;
+    margin-left:-10px;
+  }
+  
+}
 @media (min-width: 768px) {
   .display-none-desktop {
     display: none;
   }
+  
+  
 }
 
 @media (max-width: 1023px) {
@@ -5249,7 +5277,7 @@ button {
   margin-top: 20px;
 }
 .main-box {
-  padding: 31px 45px 20px 45px;
+  padding: 28px 45px 15px 45px;
 }
 .main-row {
   justify-content: center;
@@ -7834,7 +7862,7 @@ button {
   }
 
   .main-box {
-    padding: 31px 15px 20px 15px;
+    padding: 28px 15px 15px 15px;
   }
 
   .main-title {
@@ -8732,6 +8760,7 @@ button {
   text-align: center;
   color: #2a2a2a;
   opacity: 0.8;
+  display: flex;
 }
 @media (min-width: 1241px) {
   .w-34 {
@@ -8868,7 +8897,7 @@ button {
   .copyEditContainer1 {
     display: flex;
     margin-top: -71px;
-    margin-left: 16rem;
+    margin-left: 15.5rem;
     margin-bottom: 24px;
   }
   .copyToClipboardAddr {
@@ -10014,4 +10043,117 @@ button {
 }
 #new-features .MuiPaper-root {
   max-width: 900px !important;
+}
+.show-tooltip {
+  width: 20px;
+  color: #585858;
+  margin-right: 6px;
+}
+.transaction-detail-tooltip {
+  width: 308px;
+  height: 454px;
+  padding: 18px;
+}
+.additional-details {
+  font-weight: 600;
+  color: #252525;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+}
+.detail-heading {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #252525;
+}
+.success-text {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #03be46;
+  margin-top: 7px;
+}
+.line-detail-tooltip {
+  height: 1px;
+  margin: 7px 0 12px;
+  border: solid 1px #e3e7eb;
+}
+.detail-heading-text {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #2a2a2a;
+  margin-top: 7px;
+}
+.failed-text {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: red;
+  margin-top: 7px;
+}
+.eye-button {
+  background-color: #4878ff;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  padding: 3px 2px 3px 3px;
+}
+.eye-button-inactive {
+  background-color: transparent;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  padding: 3px 2px 3px 3px;
+}
+.tooltip-link {
+  color: #4878ff;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.tooltip-link:hover {
+  color: #4878ff;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.tooltip-link-div {
+  margin-top: 30px;
+  width: 155px;
+  display: flex;
+  justify-content: space-between;
+}
+.show-arrow {
+  width: 12px;
+  height: 7px;
+  color: #4878ff;
 }

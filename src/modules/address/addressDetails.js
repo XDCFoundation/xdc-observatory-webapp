@@ -17,7 +17,7 @@ import { TransactionService, CoinMarketService } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
-
+import format from "format-number";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -90,7 +90,9 @@ export default function AddressDetails(props) {
   const [currentPrice, setCurrentPrice] = useState(0)
   let { addr } = useParams();
   let px = currentPrice * price
-  let priceChanged = Utility.decimalDivison(px, 18)
+  let priceChanged = Utility.decimalDivison(px, 8)
+  let priceChanged1 = priceChanged.toString().split(".")[0];
+  let priceChanged2 = priceChanged.toString().split(".")[1];
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol =
     activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
@@ -134,11 +136,12 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        setBalance(Utility.decimalDivisonOnly(responseData.balance, 18));
+        console.log(responseData.balance, "ppp")
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
         setCurrentPrice(responseData.balance)
         setLoading(false);
       } else {
-        setBalance(parseFloat(0).toFixed(18));
+        setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
     } catch (error) {
@@ -237,13 +240,7 @@ export default function AddressDetails(props) {
 
 
                     <span
-                      className={
-                        width > 1240
-                          ? "copyEditContainer1"
-                          : width <= 1240 && width >= 768
-                            ? "copyEditContainerAddress"
-                            : "copyEditContainerMobileAddr"
-                      }
+                      className="copyEditContainer1"
                     >
                       <SecondContainer>
                         <CopyToClipboard
@@ -257,20 +254,10 @@ export default function AddressDetails(props) {
                             placement="top"
                           >
                             <button
-                              className={
-                                width > 1240
-                                  ? "copyToClipboardHash"
-                                  : "copyToClipboardHashMobile"
-                              }
+                              className="copyToClipboardAddr"
                             >
                               <img
-                                className={
-                                  width > 1240
-                                    ? "copy-icon"
-                                    : width < 1239
-                                      ? "copyIconHashMobile"
-                                      : "copyIconHash"
-                                }
+                                className="copyIconAddr"
                                 src={"/images/copy.svg"}
                               />
                             </button>
@@ -346,7 +333,15 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged})
+                      {format({})(balance)} XDC ({currencySymbol}{priceChanged2 == null ? (
+                        <span>{priceChanged1}</span>
+                      ) : (
+                        <span>
+                          {priceChanged1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{priceChanged2}</span>
+                        </span>
+                      )})
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>
@@ -463,7 +458,7 @@ export default function AddressDetails(props) {
                 tag={addressTag}
               />
             ) : (
-              <AddressTableComponent trans={transactions} coinadd={addr} />
+              <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
             )}
           </div>
         </div>
@@ -582,7 +577,7 @@ const MiddleContainerHash = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
-    display: block;
+    // display: block;
   }
 `;
 const MiddleContainerHashTop = styled.div`
@@ -605,14 +600,14 @@ const MiddleContainerHashTop = styled.div`
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
-    margin-left: 18px;
-    padding-right: 26px;
+    margin-left: 0px;
+    padding-right: 6px;
     margin-top: 10px;
     display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
-    display:block;
+    // display:block;
   }
 `;
 const Hash = styled.span`

@@ -311,8 +311,40 @@ export default function StickyHeadTable(props) {
 
               <TableBody>
                 {holders?.data?.map((row, index) => {
-                  let quantity = (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(decimals)
+                  let quantity = (
+                    row[0]?.Quantity / Math.pow(10, decimals)
+                  )?.toFixed(decimals);
+                  let quantity1 =
+                    row[0]?.Quantity / Math.pow(10, decimals) >= 1
+                      ? format({})(
+                        utility.convertToInternationalCurrencySystem(
+                          row[0]?.Quantity / Math.pow(10, decimals)
+                        )
+                      )
+                      : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
+                        decimals
+                      );
+                  var quantity2 = quantity1.toString().split(".")[0];
+                  var quantity3 = quantity1.toString().split(".")[1];
+                  var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                  var splittedArray = quantity3?.match(regex);
 
+                  var percentageValue = !row[0]?.Percentage ? "------" : row[0].Percentage.toFixed(8)
+                  let percentageValue1 = percentageValue
+                    .toString()
+                    .split(".")[0];
+                  let percentageValue2 = percentageValue
+                    .toString()
+                    .split(".")[1];
+
+                  var quantity4 =
+                    splittedArray && splittedArray.length
+                      ? splittedArray[0]
+                      : 0;
+                  var text =
+                    splittedArray && splittedArray.length
+                      ? splittedArray[1]
+                      : 0;
                   return (
                     <StyledTableRow hover role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
@@ -333,21 +365,36 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         <Tooltip
                           placement="top"
-                          title={format({})(quantity >= 1 ? parseFloat(quantity) : quantity)}
+                          title={format({})(
+                            quantity >= 1 ? parseFloat(quantity) : quantity
+                          )}
                         >
-                          <span className="tabledata table-data mar-lef-3">
-                            {row[0]?.Quantity / Math.pow(10, decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row[0]?.Quantity / Math.pow(10, decimals))) : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(decimals)
-                            }
-                          </span>
-                        </Tooltip >
+                          {quantity3 >= 0 || quantity3 == null ? (
+                            <span className="tabledata table-data mar-lef-3">
+                              {quantity2}
+                            </span>
+                          ) : (
+                            <span className="tabledata table-data mar-lef-3">
+                              {quantity2}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>
+                                {quantity4}
+                              </span>
+                              {text}
+                            </span>
+                          )}
+                        </Tooltip>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
+
                         <span className="tabledata table-data mar-lef-3">
-                          {" "}
-                          {!row[0]?.Percentage
-                            ? "------"
-                            : row[0].Percentage.toFixed(2)}
+                          {percentageValue1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>
+                            {percentageValue2}
+                          </span>
+                          %
                         </span>
                       </TableCell>
                       {/* <TableCell

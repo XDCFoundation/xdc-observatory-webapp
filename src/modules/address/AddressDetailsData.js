@@ -18,6 +18,8 @@ import TokenUnverifiedContract from "./tokenUnverifiedContract";
 import TokenContracttab from "./tokenContractTab";
 import ReactHtmlParser from "react-html-parser";
 import { Row } from "simple-flexbox";
+import { sessionManager } from "../../managers/sessionManager";
+import LoginDialog from "../explorer/loginDialog"
 
 const useStyles = makeStyles({
   rootUI: {
@@ -35,6 +37,14 @@ const useStyles = makeStyles({
     },
   },
   table: {},
+  wantToLoginText: {
+    fontSize: "14px",
+    fontWeight: "500",
+    fontFamily: "Inter !important",
+    color: "#3a3a3a",
+    letterSpacing: "0.54px",
+    marginLeft: "25px",
+  }
 });
 
 export default function AddressDetailsData() {
@@ -64,7 +74,23 @@ export default function AddressDetailsData() {
     transactionlist: [],
   };
   const [data, setData] = React.useState(initialState);
+  let balance = !data.balance ? 0 : data.balance
+  let balance1 = balance.toString().split(".")[0];
+  let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
+
+  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
+  const openLoginDialog = () => setLoginDialogIsOpen(true);
+  const closeLoginDialog = () => setLoginDialogIsOpen(false);
+
+  let value = !data.val ? 0 : data.val
+  let value1 = value.toString().split(".")[0];
+  let value2 = value.toString().split(".")[1];
+
+  let changedValue = data.changedVal
+  let changedValue1 = changedValue.toString().split(".")[0];
+  let changedValue2 = changedValue.toString().split(".")[1];
 
   const getContractDetails = async (values) => {
     try {
@@ -141,6 +167,23 @@ export default function AddressDetailsData() {
             >
               Address{" "}
               <span className="AddressTitle addtitle">{addressNumber}</span>
+              {!isloggedIn ? (
+                <span className={classes.wantToLoginText}>
+                  <LoginDialog
+                    open={loginDialogIsOpen}
+                    onClose={closeLoginDialog}
+                    dataHashOrAddress={addressNumber}
+                  />
+                  <div>Want to tag this address?
+                    <a
+                      className="linkTableDetails-transaction"
+                      style={{ marginLeft: "5px", cursor: "pointer" }}
+                      onClick={openLoginDialog}
+                    >
+                      Login
+                    </a>
+                  </div>
+                </span>) : ("")}
             </Row>
           </div>
           <div className="address_block_main">
@@ -161,7 +204,16 @@ export default function AddressDetailsData() {
                           Balance
                         </TableCell>
                         <TableCell className="left-table-contract-data">
-                          {!data.balance ? 0 : data.balance} XDC
+                          {balance2 == null ? (
+                            <span>{balance1} XDC</span>
+                          ) : (
+                            <span>
+                              {balance1}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>{balance2}</span>
+                              XDC
+                            </span>
+                          )}
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -170,8 +222,26 @@ export default function AddressDetailsData() {
                         </TableCell>
                         <TableCell className="left-table-contract-data">
                           {ReactHtmlParser(data.currencySymbol)}
-                          {data.val} (@ {ReactHtmlParser(data.currencySymbol)}
-                          {data.changedVal}/XDC)
+                          {value2 == null ? (
+                            <span>{value1} </span>
+                          ) : (
+                            <span>
+                              {value1}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>{value2}</span>
+
+                            </span>
+                          )} (@ {ReactHtmlParser(data.currencySymbol)}
+                          {changedValue2 == null ? (
+                            <span>{changedValue1}/XDC </span>
+                          ) : (
+                            <span>
+                              {changedValue1}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>{changedValue2}</span>
+                              /XDC
+                            </span>
+                          )})
                         </TableCell>
                       </TableRow>
                       <TableRow>
