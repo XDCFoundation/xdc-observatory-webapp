@@ -20,6 +20,7 @@ import { Column, Row } from "simple-flexbox";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import format from "format-number";
 import Tooltip from "@material-ui/core/Tooltip";
+import { useParams } from "react-router-dom";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -93,6 +94,8 @@ export default function StickyHeadTable(props) {
   const [totalToken, setTotalToken] = React.useState(0);
   const [keywords, setKeywords] = React.useState("");
   const [rows, setRows] = React.useState([]);
+  let { token } = useParams();
+  console.log(token, "TOKEN-SEARCH")
 
   const [noData, setNoData] = React.useState(true);
   const handleChangePage = (action) => {
@@ -263,9 +266,15 @@ export default function StickyHeadTable(props) {
 
   React.useEffect(() => {
     let unmounted = false;
-    let data = { pageNum: from, perpage: amount };
-    getTokenList(data);
-    getTotalTokenList();
+    if (token) {
+      let datas = { pageNum: 0, perpage: amount, searchkey: token };
+      SearchTokens(datas)
+    } else {
+
+      let data = { pageNum: from, perpage: amount };
+      getTokenList(data);
+      getTotalTokenList();
+    }
     return () => {
       unmounted = true;
     };
@@ -354,6 +363,7 @@ export default function StickyHeadTable(props) {
               }}
               src={"/images/Search.svg"}
             />
+
             <input
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
