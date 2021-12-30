@@ -487,6 +487,7 @@ background-color: #4878ff; */
   .griddiv {
     max-width: 1202px;
     width: 100%;
+    overflow-x: auto;
   }
 }
 
@@ -688,7 +689,7 @@ background-color: #4878ff; */
     width: 750px !important;
   }
 }
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1240px) {
   .w-1500-a {
     width: 1500px !important;
   }
