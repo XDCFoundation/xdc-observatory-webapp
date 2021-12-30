@@ -325,7 +325,6 @@ export default function AddressTableComponent(props) {
   };
 
   const handleChanged = (event) => {
-    console.log("clicked")
     const { name, checked } = event.target;
     if (name === "allselect") {
       let tempAddress = address.map((addr) => {

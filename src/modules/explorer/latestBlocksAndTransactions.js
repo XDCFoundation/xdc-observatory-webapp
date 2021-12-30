@@ -118,7 +118,6 @@ class LatestBlocks extends Component {
       if (transactionDataExist === -1 && Number(transactionData.value)>0) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        console.log("transactions", transactionData);
         // if(Number(transactionData.value)>0)
         // transactions.unshift(transactionData);
         let hashAnimationClass = {
