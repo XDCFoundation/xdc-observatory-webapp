@@ -790,7 +790,7 @@ export default function Transaction({ _handleChange }) {
                           <LoginDialog
                             open={loginDialogIsOpen}
                             onClose={closeLoginDialog}
-                            hash={hash}
+                            dataHashOrAddress={hash}
                           />
                         }
                         To access the Private Note feature, you must be
