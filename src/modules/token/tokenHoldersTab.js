@@ -101,7 +101,6 @@ const useStyles = makeStyles({
 });
 
 export default function StickyHeadTable(props) {
-  console.log(props, "holders table");
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -187,10 +186,7 @@ export default function StickyHeadTable(props) {
       height:70px !important;,
     }
   `;
-  let decimals = props?.contractData
-    ? props?.contractData?.contractResponse?.decimals
-    : "";
-  console.log(decimals, "decimals on holder table");
+  let decimals = props?.contractData ? props?.contractData?.contractResponse?.decimals : ""
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -431,6 +427,7 @@ export default function StickyHeadTable(props) {
 
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>10</option>
+            <option>25</option>
             <option>50</option>
             <option>75</option>
             <option>100</option>

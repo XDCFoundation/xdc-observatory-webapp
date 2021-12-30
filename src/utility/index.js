@@ -79,7 +79,6 @@ function convertToInternationalCurrencySystem(num) {
   } else if (num > 999999 && num < 999999999) {
     return parseFloat((num / 1000000).toFixed(2)) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
-    console.log(num);
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
   } else if (num < 900) {
     return num; // if value < 1000, nothing to do

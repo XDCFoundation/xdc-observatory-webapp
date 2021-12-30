@@ -12,6 +12,7 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
+import { genericConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -231,16 +232,17 @@ export default function FormDialog() {
       tagName: tags,
     };
     if(!privateAddress){
-      setError("Please enter required field");
-    }
-    else if (
+      setError(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if(!input && tags.length === 0){
+      setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc & 43 characters");
       return;
     } else if (tags.length === 0) {
-      setErrorTag("Use comma(,) to add multiple tag");
+      setErrorTag("Press comma(,) to add tag");
       return;
     } else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
@@ -251,7 +253,7 @@ export default function FormDialog() {
       );
 
       if (error) {
-        utility.apiFailureToast("Address is already in use");
+        setErrorTag("Address is already in use");
         return;
       }
       utility.apiSuccessToast("Tag Added");

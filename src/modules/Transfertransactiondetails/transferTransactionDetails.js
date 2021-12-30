@@ -82,7 +82,6 @@ export default function TransferTransaction({ _handleChange }) {
     );
     if (error || !coinMarket) return;
     setCoinmarketcap(coinMarket[0])
-    console.log('coinMarket====',coinMarket[0])
     
   };
 
