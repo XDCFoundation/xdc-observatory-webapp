@@ -39,6 +39,7 @@ import { Column, Row } from "simple-flexbox";
 import TransactionPDF from "../../common/components/transactionPDF";
 import { PDFDownloadLink , StyleSheet } from '@react-pdf/renderer';
 import { messages } from "../../constants"
+import StorageMessage from "./dashboardPopup/storageMessage";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -390,6 +391,7 @@ export default function SimpleTabs(props) {
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
+  
 
   React.useEffect(() => {
     getUserWatchlist();
@@ -509,6 +511,7 @@ export default function SimpleTabs(props) {
   //   tagWords = tag.split(",");
   //   return tagWords;
   // }
+  const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage") 
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -1188,7 +1191,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  <NoDataFoundContainer>
+                  { dataNotFound ?
+                  (<NoDataFoundContainer>
+                       <img
+                         alt="alert"
+                         className={classes.alert}
+                         src={require("../../../src/assets/images/XDC-Alert.svg")}
+                       ></img>
+                        <div className={classes.noData}>Data Not Found</div>
+                     </NoDataFoundContainer>):
+                  (<NoDataFoundContainer>
                     <img
                       className={classes.alert}
                       src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -1197,7 +1209,7 @@ export default function SimpleTabs(props) {
                     <div className={classes.noData}>
                       No address added to watchlist
                     </div>
-                  </NoDataFoundContainer>
+                  </NoDataFoundContainer>)}
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
@@ -1533,7 +1545,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  <NoDataFoundContainer>
+                  { dataNotFound ?
+                  (<NoDataFoundContainer>
+                       <img
+                         alt="alert"
+                         className={classes.alert}
+                         src={require("../../../src/assets/images/XDC-Alert.svg")}
+                       ></img>
+                        <div className={classes.noData}>Data Not Found</div>
+                     </NoDataFoundContainer>):
+                  (<NoDataFoundContainer>
                     <img
                       className={classes.alert}
                       src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -1542,7 +1563,7 @@ export default function SimpleTabs(props) {
                     <div className={classes.noData}>
                       No Hash added to Priavte Note
                     </div>
-                  </NoDataFoundContainer>
+                  </NoDataFoundContainer>)}
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
@@ -1748,7 +1769,7 @@ export default function SimpleTabs(props) {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <div className="griddiv">
-              {txnAddressNotAdded ? (
+              {txnAddressNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"
@@ -1848,7 +1869,16 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>{" "}
-                  <NoDataFoundContainer>
+                  { dataNotFound ?
+                  (<NoDataFoundContainer>
+                       <img
+                         alt="alert"
+                         className={classes.alert}
+                         src={require("../../../src/assets/images/XDC-Alert.svg")}
+                       ></img>
+                        <div className={classes.noData}>Data Not Found</div>
+                     </NoDataFoundContainer>):
+                  (<NoDataFoundContainer>
                     <img
                       className={classes.alert}
                       src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -1856,7 +1886,7 @@ export default function SimpleTabs(props) {
                     <div className={classes.noData}>
                       No Address added to Tagged Address
                     </div>
-                  </NoDataFoundContainer>
+                  </NoDataFoundContainer>)}
                 </div>
               ) :(
                 <Grid lg={13} className="tablegrid_address">
@@ -2065,6 +2095,8 @@ export default function SimpleTabs(props) {
           </TabPanel>
         </div>
       </SubParentContainer>
+      {isStorageMessage ? (""):
+      (<StorageMessage />)}
       <FooterComponent />
     </div>
   );

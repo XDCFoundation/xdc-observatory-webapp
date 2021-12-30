@@ -68,12 +68,22 @@ const Para = styled.div`
 const Div = styled.div`
   width: 1202px;
   height: auto;
-  margin: 189.5px 357.5px 101px 360.5px;
+  margin: 55.5px auto 101px auto;
   padding: 32px 23px 115px 26px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: var(--white-two);
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+    overflow-x: scroll;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+    overflow-x: scroll;
+  };
 `;
 const Block1 = styled.div`
   width: 1152px;
