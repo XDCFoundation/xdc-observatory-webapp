@@ -2917,8 +2917,8 @@ p {
   display: flex;
   flex-direction: row;
   height: 2.125rem;
-  width: 10.625rem;
-  padding: 5px 43px 2px 10px;
+  width: 13.875rem;
+  padding: 0px 43px 2px 10px;
   border-radius: 0.5rem;
   outline-color: #e3e7eb;
   /* box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1); */
@@ -5186,6 +5186,9 @@ button {
     margin-left: 0.875rem;
   }
 }
+.tooltipLatestTransactionTableDashboard {
+  margin: auto 0px auto 5px;
+}
 
 @media (min-width: 0px) and (max-width: 767px) {
   .latestTranscation {
@@ -5264,7 +5267,6 @@ button {
   justify-content: center;
 }
 .main-title {
-  width: 156px;
   height: 26px;
   margin: 0 64px 1.5px 61px;
   font-family: Inter;
@@ -8267,7 +8269,7 @@ button {
   .vc-header {
     display: flex;
     justify-content: center;
-    margin: 14rem 0rem 0rem 0.5rem;
+    margin: 1.5rem 0rem 0rem 0.5rem;
     font-family: "Inter" !important;
     font-size: 15px;
     font-weight: bold;
@@ -8516,7 +8518,7 @@ button {
     /* width: 41.5rem; */
     display: flex;
     justify-content: center;
-    margin: 10rem 0rem 2rem 0rem;
+    margin: 1.8rem 0rem 2rem 0rem;
     /* margin: 165px auto 3%; */
     font-family: "Inter" !important;
     font-size: 17px;
@@ -8628,7 +8630,7 @@ button {
 @media (min-width: 1241px) {
   .vc-header {
     width: 75.125rem;
-    margin-top: 95px !important;
+    margin-top: 35px !important;
     margin: 0 auto;
     font-family: "Inter" !important;
     font-size: 1.5rem;
@@ -9159,13 +9161,13 @@ button {
     margin-top: -2px !important;
   }
   .menu-sidebar {
-    height: 28px;
+    height: 27px;
     width: 26px;
     margin-top: -2px !important;
   }
   .profile {
-    height: 25px !important;
-    width: 25px !important;
+    height: 24px !important;
+    width: 24px !important;
   }
   .Network-explorer-internal {
     font-size: 14px;
@@ -9822,7 +9824,7 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
-  width: 11.625rem;
+  width: 11rem;
 }
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;

@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
 import format from "format-number";
+import { messages } from "../../constants"
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -335,7 +336,6 @@ export default function AddressTableComponent(props) {
   };
 
   const handleChanged = (event) => {
-    console.log("clicked");
     const { name, checked } = event.target;
     if (name === "allselect") {
       let tempAddress = address.map((addr) => {
@@ -516,7 +516,15 @@ export default function AddressTableComponent(props) {
                     />
                     <span className={"tableheaders table-hash"}>
                       Transaction Hash
-                    </span>
+                      <Tooltip placement="top" title={messages.HASH}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
@@ -527,7 +535,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-age"}>Age</span>
+                    <span className={"tableheaders table-age"}>
+                      Age
+                      <Tooltip placement="top" title={messages.AGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -538,7 +556,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block"}>Block</span>
+                    <span className={"tableheaders table-block"}>
+                      Block
+                      <Tooltip placement="top" title={messages.BLOCK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -549,7 +577,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-from"}>From</span>
+                    <span className={"tableheaders table-from"}>
+                      From
+                      <Tooltip placement="top" title={messages.FROM}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
@@ -560,7 +598,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-to"}>To</span>
+                    <span className={"tableheaders table-to"}>
+                      To
+                      <Tooltip placement="top" title={messages.TO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 "

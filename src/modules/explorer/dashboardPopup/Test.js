@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   createWatchlistMobile: {
     paddingLeft: "2em",
     paddingRight: "2em",
-    marginTop: "50px",
+    marginTop: "14px",
   },
   radio: {
     // backgroundColor: "#979797",
