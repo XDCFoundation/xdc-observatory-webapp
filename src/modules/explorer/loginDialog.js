@@ -443,7 +443,7 @@ export default function FormDialog(props) {
     {
       props.verifiedEmail
         ? props.onClose(onClose)
-        : !props.hash
+        : !props.dataHashOrAddress
         ? setOpen(false)
         : props.onClose(onClose);
     }
@@ -548,7 +548,7 @@ export default function FormDialog(props) {
         setEmail("");
         setPassword("");
         {
-          !props.hash ? (window.location.href = "loginprofile") : history.go(0);
+          !props.dataHashOrAddress ? (window.location.href = "/loginprofile") : history.go(0);
         }
       }
     }
@@ -767,7 +767,7 @@ export default function FormDialog(props) {
       {!props.isNewFeatureComponent ? (
         props.verifiedEmail ? (
           ""
-        ) : !props.hash ? (
+        ) : !props.dataHashOrAddress ? (
           //   <button className="login-button">
           <Avatar
             className="profile"
