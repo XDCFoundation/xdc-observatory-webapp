@@ -5373,6 +5373,11 @@ button {
   width: 16px;
   height: 16px;
 }
+@media (min-width: 0px) and (max-width: 767px) {
+  .main-close {
+   display: none;
+  }
+}
 .main-checkbox {
   width: 12px;
   height: 12px;
