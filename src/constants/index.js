@@ -109,7 +109,7 @@ export const messages = {
   DATE:
     "Transaction creation date.",
   AGE:
-    "It tells how old the transaction is.",
+    "Time when was the transaction created",
   BLOCK:
     "Block number associated with the transaction.",
   FROM:

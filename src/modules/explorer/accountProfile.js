@@ -1392,7 +1392,7 @@ export default function SimpleTabs(props) {
                                     align="left"
                                   >
                                     <span className="tabledata-1">
-                                      {moment(row.addedOn).format(
+                                      {moment(row.modifiedOn).format(
                                         "hh:mm A, D MMMM YYYY "
                                       )}
                                     </span>
@@ -1732,7 +1732,7 @@ export default function SimpleTabs(props) {
                                 >
                                   <span className="tabledata-1">
                                     {" "}
-                                    {moment(row.addedOn).format(
+                                    {moment(row.modifiedOn).format(
                                       "hh:mm A, D MMMM YYYY "
                                     )}{" "}
                                   </span>
@@ -2058,7 +2058,7 @@ export default function SimpleTabs(props) {
                                     align="left"
                                   >
                                     <span className="tabledata-1">
-                                      {moment(row.addedOn).format(
+                                      {moment(row.modifiedOn).format(
                                         "hh:mm A, D MMMM YYYY "
                                       )}
                                     </span>
