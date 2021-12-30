@@ -17,7 +17,7 @@ import { TransactionService, CoinMarketService } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
-
+import format from "format-number";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -134,6 +134,7 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
+        console.log(responseData.balance, "ppp")
         setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
         setCurrentPrice(responseData.balance)
         setLoading(false);
@@ -346,7 +347,7 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged})
+                      {format({})(balance)} XDC ({currencySymbol}{priceChanged})
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>

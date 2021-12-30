@@ -74,7 +74,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/address-details/:addr'} component={AddressDetails} />
             <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
             <Route exact path={'/token-data/:address/:tn'} component={TokenDataComponent} />
-            <Route exact path={'/token-details'} component={TokenList} />
+            <Route exact path={['/tokens/:token', '/tokens']} component={TokenList} />
             <Route exact path={'/transaction-details/:hash'} component={Transaction} />
             <Route exact path={'/contracts'} component={ContractComponent} />
             <Route exact path={['/verify-contracts/:address', '/verify-contracts']} component={ContractTab} />
@@ -83,7 +83,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/term-conditions'} component={TermsCondition} />
             <Route exact path={'/activate-account'} component={ActivateAccount} />
             <Route exact path={'/address/:addressNumber'} component={AddressDetailsData} />
-            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent}/>
+            <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
             <Route exact path={'/edit-profile'} component={EditProfile} />
             <Route exact path={'/verified-email'} component={VerifiedEmailScreenComponent} />
             <Route exact path={'/test'} component={Test} />
