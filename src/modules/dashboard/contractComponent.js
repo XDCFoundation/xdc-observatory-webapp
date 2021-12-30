@@ -299,7 +299,6 @@ class Contractlist extends React.Component {
     //   contentStatus = "showContent";
     //   msgStatus = "hideContent";
     // }
-    console.log("this.state.noData", this.state.noData);
     // if(this.state.isLoading){
     //     return(<div class="loader"></div>)
     // }
