@@ -593,6 +593,17 @@ export default function AddressTableComponent(props) {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = timeDiff(currentTime, previousTime);
+                      const value = Utility.decimalDivison(row.Value, 18)
+                      console.log(value,"valu1")
+                      var value1 = value.toString().split(".")[0];
+                        var value2 = value.toString().split(".")[1];
+                        console.log(value2,"valu111")
+                       
+                  var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                  var splittedArray = value2?.match(regex);
+                  var bal4 =splittedArray && splittedArray.length ? splittedArray[0]:0;
+                        var text = splittedArray && splittedArray.length ? splittedArray[1]:0;
+                        console.log(text,"valu",bal4)
                       return (
                         <TableRow
                           style={
@@ -716,12 +727,26 @@ export default function AddressTableComponent(props) {
                                 Utility.decimalDivisonOnly(row.Value, 18)
                               )}
                             >
-                              <span className="tabledata cursor-pointer">
-                                {row.Value == 0
+                            {value2 == null ? (<span className="tabledata cursor-pointer">
+                                  {row.Value == 0
                                   ? 0
-                                  : Utility.decimalDivison(row.Value, 18)}{" "}
-                                XDC
-                              </span>
+                                  : value1}{}
+                                  {" "}
+                                  
+                                  XDC
+                                </span>):(
+                              <span className="tabledata cursor-pointer">
+                                  {row.Value == 0
+                                  ? 0
+                                  : value1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {bal4}
+                                  </span>
+                                  {text}
+                                   XDC
+                                </span>
+                                )}
                             </Tooltip>
                           </TableCell>
                         </TableRow>
