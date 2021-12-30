@@ -6,7 +6,15 @@ import Select from "@material-ui/core/Select";
 import DownArrow from "@material-ui/icons/KeyboardArrowDown";
 import { MenuItem } from "material-ui";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  currencyPopup: {
+    marginLeft: "10px",
+  }
+}));
 export default function FooterComponent(props) {
+  const classes = useStyles();
   const [activeCurrency, setActiveCurrency] = useState("USD");
 
   useEffect(() => {
@@ -146,7 +154,8 @@ export default function FooterComponent(props) {
               </div>
             </div>
             <div className="button-Padding-Mobile">
-              <Select
+              <Select classes={{paper: classes.currencyPopup}}
+              /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
                 style={{
                   outline: "0",
                   backgroundColor: "#2149b9",
