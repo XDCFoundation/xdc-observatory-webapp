@@ -405,14 +405,44 @@ export default function StickyHeadTable(props) {
                     style={{ border: "none", paddingLeft: "75px" }}
                     align="left"
                   >
-                    <span>#</span>
+                    <span className={"tablehead-token-details"}>
+                      #
+                      <Tooltip placement="top" title={messages.SI_NO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                 )}
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Symbol</span>
+                  <span className={"tablehead-token-details"}>
+                    Symbol
+                    <Tooltip placement="top" title={messages.SYMBOL}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>Name</span>
+                  <span className={"tablehead-token-details"}>
+                    Name
+                    <Tooltip placement="top" title={messages.NAME}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 {props?.state?.tableColumns["Type"].isActive && (
                   <TableCell style={{ border: "none", whiteSpace: "nowrap" }}

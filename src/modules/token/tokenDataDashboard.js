@@ -41,7 +41,7 @@ const MainContainer = styled.div`
     padding: 0 1.875rem;
   }
   @media (max-width: 767px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 22.563rem;
     height: 32.063rem;
     padding: 0 1.875rem;
@@ -69,7 +69,7 @@ const RightContainer = styled.div`
   padding: 0px 20px 25px 40px;
   width: 50%;
   @media (max-width: 768px) {
-    margin-top: -10px;
+    margin-top: 20px;
     padding: 0px 0px 0px 0px;
     width: auto;
   }
@@ -428,7 +428,8 @@ export default function TokenDataComponent() {
         <Tokensearchbar />
         <MainContainer>
           <LeftContainer>
-            <LeftFirst>
+          {window.innerWidth >= 768 ?
+            (<><LeftFirst>
               <LeftTop>
                 {/* {logo.length > 0 ?
                   <IconLogo src={logo} />
@@ -447,7 +448,7 @@ export default function TokenDataComponent() {
 
                 <LeftTitle>{tn.toUpperCase()}</LeftTitle>
               </LeftTop>
-
+                  
               <LeftTopSecMain>
                 <LeftTopSec>
                   {CurrencySymbol}
@@ -482,7 +483,7 @@ export default function TokenDataComponent() {
             </LeftFirst>
             <RightTop>
               <Line1></Line1>
-            </RightTop>
+            </RightTop></>):("")}
             <LeftSec>
               <ValueMain>
                 <MobileScreen>
@@ -635,6 +636,64 @@ export default function TokenDataComponent() {
               <HolderGraphBar />
             </GraphContainer>
           </RightContainer>
+          {window.innerWidth < 768 ?
+            (<>
+            {/* <RightTop>
+              <Line1></Line1>
+            </RightTop> */}
+            <LeftFirst>
+              <LeftTop>
+                {/* {logo.length > 0 ?
+                  <IconLogo src={logo} />
+                  :
+                  <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
+                } */}
+                <img
+                  style={{
+                    height: "24",
+                    width: "24",
+                    marginRight: "4px",
+                    marginTop: "3px",
+                  }}
+                  src={"/images/XRC20-Icon.svg"}
+                ></img>
+
+                <LeftTitle>{tn.toUpperCase()}</LeftTitle>
+              </LeftTop>
+                  
+              <LeftTopSecMain>
+                <LeftTopSec>
+                  {CurrencySymbol}
+                  {tokenPriceVal}
+                </LeftTopSec>
+                <div
+                  className={
+                    numberStatus > 0
+                      ? "data_value_green last_value_main"
+                      : "data_value_red"
+                  }
+                >
+                  <div className="value_changePrice">
+                    {numberStatus > 0 ? (
+                      <div className="arrow_up">
+                        {/*<BsFillCaretUpFill size={10} />*/}
+                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} />*/}
+                        <img
+                          src={"/images/Down.svg"}
+                          style={{ width: "8px" }}
+                        />
+                      </div>
+                    )}
+                    &nbsp;{tokenChanges24hr.toFixed(2)}%
+                  </div>
+                </div>
+              </LeftTopSecMain>
+            </LeftFirst>
+            </>):("")}
         </MainContainer>
         {marketCapVal == 0 ? (
           ""

@@ -838,6 +838,14 @@ input:focus {
   border-radius: 8px;
   height: "42px";
 }
+div::-webkit-scrollbar {
+  height: 3px;
+  width: 3px;
+}
+div::-webkit-scrollbar-thumb {
+  background: #9fa9ba; 
+  border-radius: 8px;
+}
 
 .containerTagMobile {
   display: flex;
@@ -5249,7 +5257,7 @@ button {
   margin-top: 20px;
 }
 .main-box {
-  padding: 31px 45px 20px 45px;
+  padding: 28px 45px 15px 45px;
 }
 .main-row {
   justify-content: center;
@@ -7829,7 +7837,7 @@ button {
   }
 
   .main-box {
-    padding: 31px 15px 20px 15px;
+    padding: 28px 15px 15px 15px;
   }
 
   .main-title {
@@ -8727,6 +8735,7 @@ button {
   text-align: center;
   color: #2a2a2a;
   opacity: 0.8;
+  display: flex;
 }
 @media (min-width: 1241px) {
   .w-34 {
@@ -8863,7 +8872,7 @@ button {
   .copyEditContainer1 {
     display: flex;
     margin-top: -71px;
-    margin-left: 16rem;
+    margin-left: 15.5rem;
     margin-bottom: 24px;
   }
   .copyToClipboardAddr {

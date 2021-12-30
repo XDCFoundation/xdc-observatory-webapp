@@ -19,6 +19,7 @@ import styled from "styled-components";
 import Utils from "../../utility";
 import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
+import format from "format-number";
 
 var QRCode = require("qrcode.react");
 
@@ -239,7 +240,7 @@ export default function HoldersDetails(props) {
                         Balance
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                        {holder[0]?.Holder_token_balance} XDC
+                        {format({})(holder[0]?.Holder_token_balance)} XDC
                         {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                       </TableCell>
                       <TableCell></TableCell>

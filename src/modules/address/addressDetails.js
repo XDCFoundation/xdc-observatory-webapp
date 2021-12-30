@@ -237,13 +237,7 @@ export default function AddressDetails(props) {
 
 
                     <span
-                      className={
-                        width > 1240
-                          ? "copyEditContainer1"
-                          : width <= 1240 && width >= 768
-                            ? "copyEditContainerAddress"
-                            : "copyEditContainerMobileAddr"
-                      }
+                      className="copyEditContainer1"
                     >
                       <SecondContainer>
                         <CopyToClipboard
@@ -257,20 +251,10 @@ export default function AddressDetails(props) {
                             placement="top"
                           >
                             <button
-                              className={
-                                width > 1240
-                                  ? "copyToClipboardHash"
-                                  : "copyToClipboardHashMobile"
-                              }
+                              className="copyToClipboardAddr"
                             >
                               <img
-                                className={
-                                  width > 1240
-                                    ? "copy-icon"
-                                    : width < 1239
-                                      ? "copyIconHashMobile"
-                                      : "copyIconHash"
-                                }
+                                className="copyIconAddr"
                                 src={"/images/copy.svg"}
                               />
                             </button>
@@ -582,7 +566,7 @@ const MiddleContainerHash = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
-    display: block;
+    // display: block;
   }
 `;
 const MiddleContainerHashTop = styled.div`
@@ -605,14 +589,14 @@ const MiddleContainerHashTop = styled.div`
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
-    margin-left: 18px;
-    padding-right: 26px;
+    margin-left: 0px;
+    padding-right: 6px;
     margin-top: 10px;
     display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
-    display:block;
+    // display:block;
   }
 `;
 const Hash = styled.span`
