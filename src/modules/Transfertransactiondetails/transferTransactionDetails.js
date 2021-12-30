@@ -68,13 +68,13 @@ export default function TransferTransaction({ _handleChange }) {
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
   const [isLoading, setLoading] = useState(true);
-  const [tokenTransferValue , setTokenTransferValue] = useState(0)
+  const [tokenTransferValue, setTokenTransferValue] = useState(0)
   useEffect(() => {
     transferTransactionDetail();
     getLatestBlocks();
     getcoinMarketCapData()
   }, [amount]);
-  
+
   const getcoinMarketCapData = async () => {
     let urlPath = `${CurrencyValue}`;
     let [error, coinMarket] = await Utils.parseResponse(
@@ -82,7 +82,6 @@ export default function TransferTransaction({ _handleChange }) {
     );
     if (error || !coinMarket) return;
     setCoinmarketcap(coinMarket[0])
-    
   };
 
   const getLatestBlocks = async () => {
@@ -92,9 +91,9 @@ export default function TransferTransaction({ _handleChange }) {
     );
     if (error || !latestBlock) return;
     setLatestBlocks(latestBlock[0].number);
-    
+
   };
-  
+
   const transferTransactionDetail = async () => {
     let urlPath = `/${address}`;
     let [error, transactiondetailusinghash] = await Utils.parseResponse(
@@ -130,15 +129,15 @@ export default function TransferTransaction({ _handleChange }) {
     window.localStorage.setItem("currency", event?.target?.value);
   }
 
-  
+
   const currencySymbol = CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
   const valueFetch = coinmarketcap.price
 
   const transactionFetch = CurrencyValue === "INR" ? transactions.transactionFeeINR : CurrencyValue === "USD" ? transactions.transactionFeeUSD : transactions.transactionFeeEUR;
-  
-  const fetchtxn = !transactionFetch? 0 : (transactionFetch / 1000000000000000000).toFixed(12);
-  
-  
+
+  const fetchtxn = !transactionFetch ? 0 : (transactionFetch / 1000000000000000000).toFixed(12);
+
+
   let txfee = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
   txfee = txfee * transactions.gasUsed
 
@@ -240,10 +239,10 @@ export default function TransferTransaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     {transactions.timestamp &&
-                    !isNaN(Number(transactions.timestamp))
+                      !isNaN(Number(transactions.timestamp))
                       ? moment(Number(transactions.timestamp) * 1000).utc().format(
-                          "MMMM Do YYYY, h:mm:ss A"
-                        ) + "  UTC"
+                        "MMMM Do YYYY, h:mm:ss A"
+                      ) + "  UTC"
                       : ""}
                   </MiddleContainer>
                 </Spacing>
@@ -345,8 +344,8 @@ export default function TransferTransaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       Contract{" "}
-                      
-                      (<a className="linkTableDetails" href={"/address/"+transactions?.contract}>
+
+                      (<a className="linkTableDetails" href={"/address/" + transactions?.contract}>
                         {transactions?.contract}
                       </a>)
                     </Content>
@@ -367,7 +366,7 @@ export default function TransferTransaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       {tokenTransferValue}
-                      
+
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -383,7 +382,7 @@ export default function TransferTransaction({ _handleChange }) {
                     {!transactions?.transactionValue
                       ? 0
                       : Utils.decimalDivison(transactions?.transactionValue, 2)}{" "}
-                      XDC ({currencySymbol}
+                    XDC ({currencySymbol}
                     {coinmarketcap && coinmarketcap?.price > 0 ? Utils.decimalDivison(coinmarketcap.price * transactions?.transactionValue, 2) : 0})
                   </MiddleContainer>
                 </Spacing>
@@ -397,7 +396,7 @@ export default function TransferTransaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-                       {txfee && txfee > 0 ? txfee : 0}  XDC ({currencySymbol}
+                      {txfee && txfee > 0 ? txfee : 0}  XDC ({currencySymbol}
                       {txfee && txfee > 0 ? Utils.decimalDivison(coinmarketcap.price * txfee, 2) : 0}
                       )
                     </Content>

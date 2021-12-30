@@ -20,6 +20,10 @@ import Loader from "../../assets/loader";
 import styled from "styled-components";
 import format from "format-number";
 import { messages } from "../../constants"
+import TransactionDetailTooltip from "../common/transactionDetailTooltip";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -56,9 +60,9 @@ function timeDiff(curr, prev) {
   } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) > 1) {
     return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
   }
- else if ( Math.abs(Math.round(diff / ms_Yr)) === 1) {
-  return Math.abs(Math.round(diff / ms_Yr)) + " year";
-}  else {
+  else if (Math.abs(Math.round(diff / ms_Yr)) === 1) {
+    return Math.abs(Math.round(diff / ms_Yr)) + " year";
+  } else {
     return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
   }
 }
@@ -100,8 +104,15 @@ export default function AddressTableComponent(props) {
   let datas = {};
   let data = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
+  // let isSettingColumnOpen = Boolean(anchorEl);
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState();
 
-  const history = useHistory();
+  function handleSettingsClick(event) {
+    setOpen(true);
+    setAnchorEl(event?.currentTarget);
+  }
+
   const handleChangePage = (action) => {
     if (action == "first") {
       if (keywords) {
@@ -293,7 +304,7 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 18),
+          Value: Utility.decimalDivison(d.Value, 8),
         };
       })
     );
@@ -306,7 +317,7 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 18),
+          Value: Utility.decimalDivison(d.Value, 8),
         };
       })
     );
@@ -362,7 +373,7 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: Utility.decimalDivison(d.Value, 8),
           };
         })
       );
@@ -390,7 +401,7 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 18),
+            Value: Utility.decimalDivison(d.Value, 8),
           };
         })
       );
@@ -517,14 +528,14 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheaders table-hash"}>
                       Transaction Hash
                       <Tooltip placement="top" title={messages.HASH}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
@@ -538,14 +549,14 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheaders table-age"}>
                       Age
                       <Tooltip placement="top" title={messages.AGE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -559,14 +570,14 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheaders table-block"}>
                       Block
                       <Tooltip placement="top" title={messages.BLOCK}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -580,14 +591,14 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheaders table-from"}>
                       From
                       <Tooltip placement="top" title={messages.FROM}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
@@ -601,14 +612,14 @@ export default function AddressTableComponent(props) {
                     <span className={"tableheaders table-to"}>
                       To
                       <Tooltip placement="top" title={messages.TO}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 "
@@ -641,17 +652,16 @@ export default function AddressTableComponent(props) {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = timeDiff(currentTime, previousTime);
-                      const value = Utility.decimalDivison(row.Value, 18)
-                      console.log(value,"valu1")
+                      const value = Utility.decimalDivison(row.Value, 8)
+                      console.log(value, "valu1")
                       var value1 = value.toString().split(".")[0];
-                        var value2 = value.toString().split(".")[1];
-                        console.log(value2,"valu111")
-                       
-                  var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
-                  var splittedArray = value2?.match(regex);
-                  var bal4 =splittedArray && splittedArray.length ? splittedArray[0]:0;
-                        var text = splittedArray && splittedArray.length ? splittedArray[1]:0;
-                        console.log(text,"valu",bal4)
+                      var value2 = value.toString().split(".")[1];
+                      console.log(value2, "valu111")
+
+                      var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                      var splittedArray = value2?.match(regex);
+                      var bal4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
+                      var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
                       return (
                         <TableRow
                           style={
@@ -661,7 +671,11 @@ export default function AddressTableComponent(props) {
                           }
                         >
                           <TableCell
-                            style={{ border: "none" }}
+                            style={{
+                              border: "none",
+                              display: "flex",
+                              alignItems: "center",
+                            }}
                             margin-left="0.313rem"
                           >
                             <input
@@ -673,6 +687,12 @@ export default function AddressTableComponent(props) {
                               // checked={checkAll}
                               style={{ marginRight: "0.5rem" }}
                             />
+                            <div>
+                              <TransactionDetailTooltip
+                                transactionAddress={row}
+                                currency={props.currency}
+                              />
+                            </div>
 
                             <a
                               className="linkTable"
@@ -719,15 +739,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.From)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })
+                                      return (
+                                        <div
+                                          className="nameLabel2"
+                                          key={index}
+                                        >
+                                          {item}
+                                        </div>
+                                      );
+                                    })
                                     : shorten(row.From)}
                                 </span>
                               </Tooltip>
@@ -751,15 +771,15 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.To)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })
+                                      return (
+                                        <div
+                                          className="nameLabel2"
+                                          key={index}
+                                        >
+                                          {item}
+                                        </div>
+                                      );
+                                    })
                                     : shorten(row.To)}
                                 </span>
                               </Tooltip>
@@ -772,29 +792,29 @@ export default function AddressTableComponent(props) {
                             <Tooltip
                               placement="top"
                               title={format({})(
-                                Utility.decimalDivisonOnly(row.Value, 18)
+                                Utility.decimalDivisonOnly(row.Value, 8)
                               )}
                             >
-                            {value2 == null ? (<span className="tabledata cursor-pointer">
-                                  {row.Value == 0
+                              {value2 == null ? (<span className="tabledata cursor-pointer">
+                                {row.Value == 0
                                   ? 0
-                                  : value1}{}
-                                  {" "}
-                                  
-                                  XDC
-                                </span>):(
-                              <span className="tabledata cursor-pointer">
+                                  : value1}{ }
+                                {" "}
+
+                                &nbsp;XDC
+                              </span>) : (
+                                <span className="tabledata cursor-pointer">
                                   {row.Value == 0
-                                  ? 0
-                                  : value1}
+                                    ? 0
+                                    : value1}
                                   {"."}
                                   <span style={{ color: "#9FA9BA" }}>
                                     {bal4}
                                   </span>
                                   {text}
-                                   XDC
+                                  &nbsp;XDC
                                 </span>
-                                )}
+                              )}
                             </Tooltip>
                           </TableCell>
                         </TableRow>
@@ -888,8 +908,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -900,8 +920,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -949,8 +969,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -961,8 +981,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }

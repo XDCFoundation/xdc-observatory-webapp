@@ -431,11 +431,9 @@ export default function FormDialog(props) {
   //     if(visited) {
   //       setViewPopup({ viewPopup: false })
   //       //do not view Popup
-  //       console.log("bhai nahi dekhega")
   //   } else
   //       //this is the first time
   //      sessionManager.setDataInCookies["alreadyVisited"]=true;
-  //       console.log("bhai dekhega")
   //       setViewPopup({ viewPopup: true});
   // }
 
@@ -444,8 +442,8 @@ export default function FormDialog(props) {
       props.verifiedEmail
         ? props.onClose(onClose)
         : !props.dataHashOrAddress
-        ? setOpen(false)
-        : props.onClose(onClose);
+          ? setOpen(false)
+          : props.onClose(onClose);
     }
     setTimeout(() => {
       setValue(0);
@@ -735,8 +733,8 @@ export default function FormDialog(props) {
     if (total >= 0) {
       setTimer(
         (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -794,8 +792,8 @@ export default function FormDialog(props) {
             value === 4
               ? classes.paperWidthSm1
               : value === 4
-              ? classes.paperWidthSm2
-              : classes.paperWidthSm,
+                ? classes.paperWidthSm2
+                : classes.paperWidthSm,
         }}
         className={classes.dialog}
         open={open || onOpen}
@@ -939,12 +937,12 @@ export default function FormDialog(props) {
                 className={classes.input}
                 placeholder="5 to 30 characters in length, only alphanumeric allowed"
                 // name="userName"
-                 value={userName}
+                value={userName}
                 onChange={(e) => {
                   setUserName(e.target.value);
                   setErrorUserName("");
                 }}
-                // onChange={inputEventSignUp}
+              // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorUserName}</div>
             </DialogContent>
@@ -962,9 +960,9 @@ export default function FormDialog(props) {
                   setEmail(e.target.value);
                   setErrorEmail("");
                 }}
-                // value={signUp.email}
+              // value={signUp.email}
 
-                // onChange={inputEventSignUp}
+              // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
@@ -981,9 +979,9 @@ export default function FormDialog(props) {
                   setPassword(e.target.value);
                   setErrorPassword("");
                 }}
-                // name="password"
-                // value={signUp.password}
-                // onChange={inputEventSignUp}
+              // name="password"
+              // value={signUp.password}
+              // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorPassword}</div>
             </DialogContent>
@@ -1000,9 +998,9 @@ export default function FormDialog(props) {
                   setConfirmPassword(e.target.value);
                   setErrorConfirmPassword("");
                 }}
-                // name="confirmPassword"
-                // value={signUp.confirmPassword}
-                // onChange={inputEventSignUp}
+              // name="confirmPassword"
+              // value={signUp.confirmPassword}
+              // onChange={inputEventSignUp}
               />
               <div className={classes.error}>{errorConfirmPassword}</div>
             </DialogContent>

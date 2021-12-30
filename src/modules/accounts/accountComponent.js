@@ -17,7 +17,6 @@ import format from "format-number";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import Utils from "../../utility";
-import { utils } from "react-bootstrap";
 import styled from "styled-components";
 import { messages } from "../../constants"
 
@@ -142,14 +141,14 @@ export default function AccountComponent(props) {
                     <span className={"tableheaders_1_address"}>
                       Address
                       <Tooltip placement="top" title={messages.ACCOUNT_ADDRESS}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
@@ -159,14 +158,14 @@ export default function AccountComponent(props) {
                       <span className={"tableheaders_1 pl--1"}>
                         Type
                         <Tooltip placement="top" title={messages.ACCOUNT_TYPE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
+                          <img
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
                     </TableCell>
                   )}
                   {props.state.tableColumns["Balance"].isActive && (
@@ -177,14 +176,14 @@ export default function AccountComponent(props) {
                       <span className={"tableheaders_1"}>
                         Balance
                         <Tooltip placement="top" title={messages.ACCOUNT_BALANCE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
+                          <img
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
                     </TableCell>
                   )}
 
@@ -215,8 +214,7 @@ export default function AccountComponent(props) {
                     {props.state.accountList &&
                       props.state.accountList.length >= 1 &&
                       props.state.accountList.map((row, index) => {
-                        let num = row.balance;
-                        let finalBal = num / 1000000000000000000;
+                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8)
                         let bal = finalBal.toString();
                         var bal1 =
                           utility.convertToInternationalCurrencySystem(bal);
@@ -225,15 +223,15 @@ export default function AccountComponent(props) {
                         var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                         var splittedArray = bal3?.match(regex);
 
-                        var bal4 =splittedArray && splittedArray.length ? splittedArray[0]:0;
-                        var text = splittedArray && splittedArray.length ? splittedArray[1]:0;
-                        
+                        var bal4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
+                        var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
+
 
                         rantValue = rantValue + 1;
                         let percentageValue = (
                           (finalBal / state.totalSupply) *
                           100
-                        ).toFixed(2);
+                        ).toFixed(8);
                         let percentageValue1 = percentageValue
                           .toString()
                           .split(".")[0];
@@ -241,8 +239,8 @@ export default function AccountComponent(props) {
                           .toString()
                           .split(".")[1];
 
-                        
-                        
+
+
 
                         //state.totalSupply
 
@@ -304,7 +302,7 @@ export default function AccountComponent(props) {
                               >
                                 <Tooltip
                                   placement="right"
-                                  title={format({})(bal)}
+                                  title={format({})(finalBal)}
                                 >
                                   {bal3 >= 0 || bal3 == null ? (
                                     <span className="tabledata">{bal2}</span>
@@ -323,20 +321,20 @@ export default function AccountComponent(props) {
                             )}
                             {props.state.tableColumns["Percentage"]
                               .isActive && (
-                              <TableCell
-                                className={`w-2 ${classes.PercentageColumnVal}`}
-                                align="center"
-                              >
-                                <span className="tabledata">
-                                  {percentageValue1}
-                                  {"."}
-                                  <span style={{ color: "#9FA9BA" }}>
-                                    {percentageValue2}
+                                <TableCell
+                                  className={`w-2 ${classes.PercentageColumnVal}`}
+                                  align="center"
+                                >
+                                  <span className="tabledata">
+                                    {percentageValue1}
+                                    {"."}
+                                    <span style={{ color: "#9FA9BA" }}>
+                                      {percentageValue2}
+                                    </span>
+                                    %
                                   </span>
-                                  %
-                                </span>
-                              </TableCell>
-                            )}
+                                </TableCell>
+                              )}
                             {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                           </TableRow>
                         );
@@ -402,7 +400,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._NextPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                props.state.totalAccounts
+                  props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
@@ -414,7 +412,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._LastPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                props.state.totalAccounts
+                  props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
