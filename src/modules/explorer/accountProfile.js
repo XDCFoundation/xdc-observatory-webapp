@@ -1520,7 +1520,7 @@ export default function SimpleTabs(props) {
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
                                 </Tooltip>
-                                </span>
+                                
                               {/* <span> */}
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
@@ -1533,6 +1533,7 @@ export default function SimpleTabs(props) {
                                   }}
                                 />
                               </button>
+                              </span>
                               {/* </span> */}
                             </TableCell>
 
@@ -1637,7 +1638,7 @@ export default function SimpleTabs(props) {
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
                                 </Tooltip>
-                                </span>
+                                
                               {/* <span> */}
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
@@ -1650,6 +1651,7 @@ export default function SimpleTabs(props) {
                                   }}
                                 />
                               </button>
+                              </span>
                               {/* </span> */}
                             </TableCell>
                             {/* <TableCell
@@ -1827,7 +1829,7 @@ export default function SimpleTabs(props) {
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
                                 </Tooltip>
-                                </span>
+                                
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByTagName}
@@ -1839,6 +1841,7 @@ export default function SimpleTabs(props) {
                                   }}
                                 />
                               </button>
+                              </span>
                             </TableCell>
                             {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
@@ -1942,7 +1945,7 @@ export default function SimpleTabs(props) {
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
                                 </Tooltip>
-                                </span>
+                                
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByTagName}
@@ -1954,6 +1957,7 @@ export default function SimpleTabs(props) {
                                   }}
                                 />
                               </button>
+                              </span>
                             </TableCell>
                             {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
