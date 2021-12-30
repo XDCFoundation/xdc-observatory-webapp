@@ -1,6 +1,5 @@
 import React from 'react'
 import moment from 'moment';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Page, Text, View, Document, StyleSheet, Link, Svg, G, Path } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -134,12 +133,4 @@ const PDF = ({ data }) => (
         </Page>
     </Document>
 );
-const ExportPDF = (props) => {
-    return (
-        <div>
-            <PDFDownloadLink document={<PDF data={props.data} />} fileName="transactionPvtNote.pdf">
-                Export
-            </PDFDownloadLink>
-        </div>)
-};
 export default PDF;
