@@ -76,12 +76,22 @@ const Para1 = styled.div`
 const Div = styled.div`
   width: 1202px;
   height: auto;
-  margin: 189.5px 357.5px 134px 360.5px;
+  margin: 55.5px auto 134px auto;
   padding: 32px 32px 80px 26px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: var(--white-two);
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+    overflow-x: scroll;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+    overflow-x: scroll;
+  };
 `;
 const BlockNumber = styled.div`
   width: 1143px;
@@ -118,10 +128,10 @@ export default function TermsCondition() {
   
   const classes = useStyles();
   return (
-    <div className="scrollbar">
+    <div>
       <Tokensearchbar />
-      <Div className="scrollbar">
-        <div className="scrollbar">
+      <Div>
+        <div>
           <Heading>Terms of Use</Heading>
           <Subheading>Information Published on the Website</Subheading>
           <Para1>

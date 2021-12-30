@@ -572,7 +572,7 @@ export default function TransactionTableComponent(props) {
                             </Tooltip>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">{row.gasUsed}</span>
+                            <span className="tabledata">{format({})(row.gasUsed)}</span>
                           </TableCell>
                         </TableRow>
                       );

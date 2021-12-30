@@ -21,7 +21,6 @@ export default function NewFeature(props) {
     dialogBox: {
       maxWidth: "795px",
       width: "100%",
-      height: "469px",
       position: "absolute",
       top: "65px",
       borderRadius: "12px",

@@ -468,7 +468,7 @@ a:hover {
 
   .button-Padding-Mobile {
     /* padding-top: 35px; */
-    padding-right: 15px;
+    padding-right: 15px !important;
   }
 }
 .select-xdc .MuiList-padding {
