@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 export default function TokenContracttab(props) {
+  console.log(props, "kii")
   let verifiedData = props?.contractData;
   const [copiedText, setCopiedText] = useState("");
   return (
@@ -30,7 +31,7 @@ export default function TokenContracttab(props) {
               <div className="source-code-content">
                 <div className="source-code-content-heading">Contract Name</div>
                 <div className="source-code-content-value-name">
-                  {verifiedData.contractName}
+                  {verifiedData?.contractName}
                 </div>
               </div>
               <hr className="source-code-line"></hr>
@@ -39,7 +40,7 @@ export default function TokenContracttab(props) {
                   Compiler Version
                 </div>
                 <div className="source-code-content-value">
-                  {verifiedData.compilerVersion}
+                  {verifiedData?.compilerVersion}
                 </div>
               </div>
               <hr className="source-code-line"></hr>
@@ -74,12 +75,12 @@ export default function TokenContracttab(props) {
             </div>
             <div>
               <CopyToClipboard
-                text={verifiedData.sourceCode}
-                onCopy={() => setCopiedText(verifiedData.sourceCode)}
+                text={verifiedData?.sourceCode}
+                onCopy={() => setCopiedText(verifiedData?.sourceCode)}
               >
                 <Tooltip
                   title={
-                    copiedText === verifiedData.sourceCode
+                    copiedText === verifiedData?.sourceCode
                       ? "Copied"
                       : "Copy To Clipboard"
                   }
@@ -105,11 +106,11 @@ export default function TokenContracttab(props) {
                 borderLeftWidth: "6px",
                 borderLeftColor: "#2149b9",
                 outline: "none",
-                paddingLeft:"18px"
+                paddingLeft: "18px"
               }}
               readOnly
               className="input-area-3"
-              value={verifiedData.sourceCode}
+              value={verifiedData?.sourceCode}
             />
           </div>
 
@@ -122,12 +123,12 @@ export default function TokenContracttab(props) {
             </div>
             <div>
               <CopyToClipboard
-                text={verifiedData.abi}
-                onCopy={() => setCopiedText(verifiedData.abi)}
+                text={verifiedData?.abi}
+                onCopy={() => setCopiedText(verifiedData?.abi)}
               >
                 <Tooltip
                   title={
-                    copiedText === verifiedData.abi
+                    copiedText === verifiedData?.abi
                       ? "Copied"
                       : "Copy To Clipboard"
                   }
@@ -149,12 +150,12 @@ export default function TokenContracttab(props) {
 
           <div>
             <textarea
-              value={verifiedData.abi}
+              value={verifiedData?.abi}
               style={{
                 borderLeftWidth: "6px",
                 borderLeftColor: "#2149b9",
                 outline: "none",
-                paddingLeft:"18px"
+                paddingLeft: "18px"
               }}
               readOnly
               className="input-area-3"
@@ -170,12 +171,12 @@ export default function TokenContracttab(props) {
             </div>
             <div>
               <CopyToClipboard
-                text={verifiedData.byteCode}
-                onCopy={() => setCopiedText(verifiedData.byteCode)}
+                text={verifiedData?.byteCode}
+                onCopy={() => setCopiedText(verifiedData?.byteCode)}
               >
                 <Tooltip
                   title={
-                    copiedText === verifiedData.byteCode
+                    copiedText === verifiedData?.byteCode
                       ? "Copied"
                       : "Copy To Clipboard"
                   }
@@ -197,7 +198,7 @@ export default function TokenContracttab(props) {
 
           <div>
             <textarea
-              value={verifiedData.byteCode}
+              value={verifiedData?.byteCode}
               style={{
                 borderLeftWidth: "6px",
                 borderLeftColor: "#2149b9",

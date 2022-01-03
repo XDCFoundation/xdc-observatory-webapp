@@ -506,9 +506,8 @@ export default function StickyHeadTable(props) {
               noData == false && (
                 <TableBody>
                   {rows?.map((row, index) => {
-                    let totalsupply = (row?.totalSupply / Math.pow(10, row?.decimals)).toFixed(row?.decimals)
-                    const supply = row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)
-                    console.log(supply)
+                    let totalsupply = utility.divideByDecimalValue(row?.totalSupply, row?.decimals)
+                    const supply = utility.divideByDecimalValue(row?.totalSupply, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(utility.divideByDecimalValue(row?.totalSupply, row?.decimals))) : (utility.divideByDecimalValue(row?.totalSupply, row?.decimals))
                     var supply1 = supply.toString().split(".")[0];
                     var supply2 = supply.toString().split(".")[1];
                     var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
@@ -560,7 +559,7 @@ export default function StickyHeadTable(props) {
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           <Tooltip
                             placement="top"
-                            title={format({})(totalsupply >= 1 ? parseFloat(totalsupply) : totalsupply)}
+                            title={format({})(totalsupply >= 1 ? parseFloat(totalsupply) : totalsupply == 0 ? parseFloat(totalsupply) : totalsupply)}
                           ><span>
                               {supply4 === 0 || supply4 == null ? (
                                 <span className="tabledata">{supply1}</span>

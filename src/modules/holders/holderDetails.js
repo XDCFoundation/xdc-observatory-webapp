@@ -80,6 +80,7 @@ export default function HoldersDetails(props) {
   const [holder, setHolderDetail] = useState({});
   // const [totalToken, setTotalToken] = useState({});
   const { addr } = useParams();
+  const { tn } = useParams();
 
   useEffect(() => {
     let values = { addr: addr, pageNum: 0, perpage: 1 };
@@ -240,7 +241,7 @@ export default function HoldersDetails(props) {
                         Balance
                       </TableCell>
                       <TableCell className="second-row-table_address-balance">
-                        {format({})(holder[0]?.Holder_token_balance)} XDC
+                        {format({})(holder[0]?.Holder_token_balance)} {tn}
                         {/* ({ReactHtmlParser(convertCurrency)} {coinValue}) */}
                       </TableCell>
                       <TableCell></TableCell>
@@ -387,59 +388,59 @@ export default function HoldersDetails(props) {
                               </Tooltip>
                             </CopyToClipboard>
                             <Popup
-                        trigger={<ImQrcode className="imQrcode" />}
-                        lockScroll
-                        modal
-                      >
-                        {(close) => (
-                          <div className="popup_qr">
-                            <CloseIcon
-                              isDesktop={false}
-                              src="/images/XDC-Cross.svg"
-                              // className="qrClose"
-                              onClick={close}
-                            />
-                            <p>
-                              <div>
-                                <div className="header-popup">
-                                  <Row alignItems="center">{addr}</Row>
+                              trigger={<ImQrcode className="imQrcode" />}
+                              lockScroll
+                              modal
+                            >
+                              {(close) => (
+                                <div className="popup_qr">
                                   <CloseIcon
-                                    isDesktop={true}
+                                    isDesktop={false}
                                     src="/images/XDC-Cross.svg"
                                     // className="qrClose"
                                     onClick={close}
                                   />
-                                  {/* &times; */}
-                                  {/* </img> */}
+                                  <p>
+                                    <div>
+                                      <div className="header-popup">
+                                        <Row alignItems="center">{addr}</Row>
+                                        <CloseIcon
+                                          isDesktop={true}
+                                          src="/images/XDC-Cross.svg"
+                                          // className="qrClose"
+                                          onClick={close}
+                                        />
+                                        {/* &times; */}
+                                        {/* </img> */}
+                                      </div>
+                                      {window.innerWidth > 767 ? (
+                                        <QRCode
+                                          size={320}
+                                          style={{
+                                            height: 400,
+                                            width: 400,
+                                            marginTop: "0.625rem",
+                                          }}
+                                          value={
+                                            addr
+                                          }
+                                        />
+                                      ) : (
+                                        <QRCode
+                                          // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                          size={320}
+                                          className="qrcode-label"
+                                          //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                          value={
+                                            addr
+                                          }
+                                        />
+                                      )}
+                                    </div>
+                                  </p>
                                 </div>
-                                {window.innerWidth > 767 ? (
-                                  <QRCode
-                                    size={320}
-                                    style={{
-                                      height: 400,
-                                      width: 400,
-                                      marginTop: "0.625rem",
-                                    }}
-                                    value={
-                                      addr
-                                    }
-                                  />
-                                ) : (
-                                  <QRCode
-                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                    size={320}
-                                    className="qrcode-label"
-                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={
-                                      addr
-                                    }
-                                  />
-                                )}
-                              </div>
-                            </p>
-                          </div>
-                        )}
-                      </Popup>
+                              )}
+                            </Popup>
                             {/* <Popup
                               trigger={
                                 <ImQrcode

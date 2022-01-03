@@ -333,7 +333,22 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {format({})(balance)} XDC ({currencySymbol}{priceChanged2 == null ? (
+                      {format({})(balance)} XDC
+                    </Content>
+                  </MiddleContainerHash>
+                </HashDiv>
+              </Spacing>
+              <Spacing style={{ borderBottom: "none" }}>
+                <HashDiv>
+                  <Container>
+                    <Tooltip title="An address is a unique sequence of numbers and letters">
+                      <ImageView src={"/images/questionmark.svg"} />
+                    </Tooltip>
+                    <Hash>XDC Value</Hash>
+                  </Container>
+                  <MiddleContainerHash>
+                    <Content>
+                      {currencySymbol}{priceChanged2 == null ? (
                         <span>{priceChanged1}</span>
                       ) : (
                         <span>
@@ -341,7 +356,7 @@ export default function AddressDetails(props) {
                           {"."}
                           <span style={{ color: "#9FA9BA" }}>{priceChanged2}</span>
                         </span>
-                      )})
+                      )}
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>

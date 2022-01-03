@@ -12,14 +12,15 @@ function TransactionDetailTooltip(props) {
   const [transactionHash, setTransactionHash] = useState(0);
   const [transactions, setTransactionDetail] = useState(0);
   const [price, setPrice] = useState(0);
-
   const [timeStamp, setTimeStamp] = useState(0);
+
   let CurrencyValue = window.localStorage.getItem("currency");
   let menuRef = useRef();
 
   const openTootltip = () => {
-    if (props.transactionAddress.Txn_Hash !== undefined) {
-      setTransactionHash(props.transactionAddress.Txn_Hash);
+    if (props.transactionAddress !== undefined) {
+      setTransactionHash(0);
+      setTransactionHash(props.transactionAddress);
     }
   };
 
@@ -36,6 +37,7 @@ function TransactionDetailTooltip(props) {
       getCoinMarketDetailForTransaction();
     }
   }, [transactionHash, timeStamp, CurrencyValue]);
+  console.log(transactionHash, "oooo");
 
   const transactionDetail = async () => {
     let urlPath = `${transactionHash}`;
@@ -207,7 +209,6 @@ function TransactionDetailTooltip(props) {
             className={"show-tooltip"}
             src={open ? "/images/show-icon-white.svg" : "/images/show-icon.svg"}
             onClick={openTootltip}
-            id={props.transactionAddress.id}
           />
         </button>
       </Tippy>
