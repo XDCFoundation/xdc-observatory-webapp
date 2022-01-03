@@ -78,6 +78,7 @@ export default function AddressDetailsData() {
   let balance1 = balance.toString().split(".")[0];
   let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
+  console.log(responses, "PPPP");
 
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
@@ -377,10 +378,10 @@ export default function AddressDetailsData() {
             >
               {!responses ? (
                 ""
-              ) : responses.status === "unverified" ? (
-                <TokenUnverifiedContract contractData={responses} />
+              ) : responses?.contractStatus === "Unverified" ? (
+                <TokenUnverifiedContract contractData={responses?.contractResponse} />
               ) : (
-                <TokenContracttab contractData={responses} />
+                <TokenContracttab contractData={responses?.contractResponse} />
               )}
             </div>
           </div>

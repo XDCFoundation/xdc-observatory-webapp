@@ -263,8 +263,8 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR"
       ? txfee * price
       : CurrencyValue === "USD"
-      ? txfee * price
-      : txfee * price;
+        ? txfee * price
+        : txfee * price;
   const fetchtxn = !transactionFetch
     ? 0
     : parseFloat(transactionFetch)?.toFixed(8);
@@ -369,8 +369,8 @@ export default function Transaction({ _handleChange }) {
                       {width > 1240
                         ? hash
                         : width <= 1240 && width >= 768
-                        ? Utils.shortenHashTab(hash)
-                        : hash}
+                          ? Utils.shortenHashTab(hash)
+                          : hash}
                     </Content>
                     <span
                       className={
@@ -406,8 +406,8 @@ export default function Transaction({ _handleChange }) {
                                 width > 1240
                                   ? "copy-icon"
                                   : width < 768
-                                  ? "copyIconHashMobile"
-                                  : "copyIconHash"
+                                    ? "copyIconHashMobile"
+                                    : "copyIconHash"
                               }
                               src={"/images/copy.svg"}
                             />
@@ -434,8 +434,8 @@ export default function Transaction({ _handleChange }) {
                                   width > 1240
                                     ? "edit-icon"
                                     : width < 768
-                                    ? "editIconHashMobile"
-                                    : "editIconHash"
+                                      ? "editIconHashMobile"
+                                      : "editIconHash"
                                 }
                                 onClick={openDialogPvtNote}
                                 src={require("../../../src/assets/images/label.svg")}
@@ -489,10 +489,10 @@ export default function Transaction({ _handleChange }) {
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "} */}
                     {transactions.timestamp &&
-                    !isNaN(Number(transactions.timestamp))
+                      !isNaN(Number(transactions.timestamp))
                       ? moment(Number(transactions.timestamp) * 1000)
-                          .utc()
-                          .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
+                        .utc()
+                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
                       : ""}
                     {/*({getHoursAgo(transactions.timestamp * 1000)})*/}
                   </MiddleContainer>
@@ -546,8 +546,8 @@ export default function Transaction({ _handleChange }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copy-icon-from"
-                                      : "copy-icon-from-tab"
+                                        ? "copy-icon-from"
+                                        : "copy-icon-from-tab"
                                   }
                                   src={"/images/copy.svg"}
                                 />
@@ -646,8 +646,8 @@ export default function Transaction({ _handleChange }) {
                                     width > 1240
                                       ? "copy-icon"
                                       : width < 768
-                                      ? "copy-icon-from"
-                                      : "copy-icon-from-tab"
+                                        ? "copy-icon-from"
+                                        : "copy-icon-from-tab"
                                   }
                                   src={"/images/copy.svg"}
                                 />
@@ -726,7 +726,7 @@ export default function Transaction({ _handleChange }) {
                           <span style={{ color: "#9FA9BA" }}>{txnFee2}</span>
                         </span>
                       )}
-                      XDC ({currencySymbol}
+                      &nbsp;XDC ({currencySymbol}
                       {fetchtxn2 == null ? (
                         <span>{fetchtxn1}</span>
                       ) : (

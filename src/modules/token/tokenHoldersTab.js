@@ -109,6 +109,7 @@ export default function StickyHeadTable(props) {
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const [isLoading, setLoading] = useState(true);
+  const { tn } = useParams();
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
@@ -355,7 +356,7 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         <a
                           style={{ color: "#2149b9", fontSize: 11 }}
-                          href={"/holder-details/" + row[0]?.Address}
+                          href={"/holder-details/" + row[0]?.Address + "/" + tn}
                         >
                           <span className="tabledata table-data">
                             {row[0]?.Address}
