@@ -363,7 +363,7 @@ const UserNameContainer = styled.div`
     margin:10px auto;
   }
   @media (min-width: 401px) and (max-width: 449px) {
-    gap: 30px;
+    // gap: 30px;
   }
 `;
 
