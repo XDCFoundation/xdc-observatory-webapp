@@ -14,6 +14,7 @@ import { useParams } from "react-router";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
+import { messages } from "../../constants";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -217,12 +218,14 @@ export default function StickyHeadTable() {
   const NoDataFoundContainer = styled.div`
     display: flex;
     flex-flow: column;
+    height:300px !important;,
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-top:140px !important;,
     gap: 10px;
-    @media (min-width: 767px) {
-      margin: 100px 0 !important;
+    @media (min-width: 0px) and (max-width: 767px){
+      margin: 30px 0 !important;
+      height:70px !important;,
     }
   `;
 
@@ -236,23 +239,67 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-hash"}>
                     Transaction Hash
+                    <Tooltip placement="top" title={messages.HASH}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders_Transfer-table-age"}>Age</span>
+                  <span className={"tableheaders_Transfer-table-age"}>
+                    Age
+                    <Tooltip placement="top" title={messages.AGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-block"}>
                     Block
+                    <Tooltip placement="top" title={messages.BLOCK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-from"}>
                     From
+                    <Tooltip placement="top" title={messages.FROM}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders_Transfer-table-to"}>To</span>
+                  <span className={"tableheaders_Transfer-table-to"}>
+                    To
+                    <Tooltip placement="top" title={messages.TO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                  </span>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -350,7 +397,7 @@ export default function StickyHeadTable() {
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
               ></img>
 
-              <div style={{color:"#c6cbcf"}}>No Transfers Found</div>
+              <div className="not-found">No Transfers Found</div>
             </NoDataFoundContainer>
           )}
         </TableContainer>
@@ -360,6 +407,7 @@ export default function StickyHeadTable() {
           <p className="p-pagination">Show</p>
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>10</option>
+            <option>25</option>
             <option>50</option>
             <option>75</option>
             <option>100</option>

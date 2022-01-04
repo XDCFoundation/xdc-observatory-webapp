@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   createWatchlistMobile: {
     paddingLeft: "2em",
     paddingRight: "2em",
-    marginTop: "50px",
+    marginTop: "14px",
   },
   radio: {
     // backgroundColor: "#979797",
@@ -168,6 +168,23 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "14px",
     color: "#2a2a2a",
   },
+  lastContainer: {
+    maxWidth: "343px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerText: {
+    fontSize: "12px",
+    fontFamily: "Inter !important",
+    color: "#ff0202",
+    letterSpacing: "0.46px",
+    lineHeight: "1.58",
+  },
 
   "@media (max-width: 714px)": {
     heading: {
@@ -235,8 +252,10 @@ export default function FormDialog() {
       description: description,
       type: value,
       isEnabled: true,
-    };
-    if (
+    };if(!address){
+      setError("Please enter required field");
+    }
+   else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
@@ -440,6 +459,11 @@ export default function FormDialog() {
             </button>
           </span>
         </DialogActions>
+        <div className={classes.lastContainer}>
+              <div className={classes.lastContainerText}>
+              To protect your privacy, data related to the Watchlists, is added on your local device. Cleaning the browsing history or cookies will clean the watchlist data saved in your profile.
+                </div>
+            </div>
       </div>
       <FooterComponent />
     </div>

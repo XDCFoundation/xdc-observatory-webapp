@@ -415,14 +415,14 @@ export default function HolderTableComponent(props) {
       <div className="content_input_all">
         <div className="searchelement-input3">
           <img
-            style={{ width: 18, height: 18, marginRight: 5, marginTop: 5 }}
+            style={{ width: 18, height: 18, marginRight: 5, marginTop: 7 }}
             src={"/images/Search.svg"}
           />
           <input
 
             className="account-searchbar"
             type="text"
-            placeholder="Search Txn"
+            placeholder="Search Transaction"
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 handleKeyUp(e)
@@ -471,7 +471,7 @@ export default function HolderTableComponent(props) {
 
       <Grid lg={13} className="tablegrid_address">
         <Paper style={{ borderRadius: "14px" }} elevation={0}>
-          <TableContainer className={classes.container} id="container-table">
+          <TableContainer className={classes.container} id="container-table-holder">
             <Table>
               <TableHead>
                 <TableRow>

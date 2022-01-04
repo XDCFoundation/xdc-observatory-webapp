@@ -19,6 +19,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import styled from "styled-components";
 import format from "format-number";
+import { messages } from "../../constants"
+import TransactionDetailTooltip from "../common/transactionDetailTooltip";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -27,25 +32,36 @@ function timeDiff(curr, prev) {
   var ms_Mon = ms_Day * 30; // milliseconds in Month
   var ms_Yr = ms_Day * 365; // milliseconds in Year
   var diff = curr - prev; //difference between dates.
+
   // If the diff is less then milliseconds in a minute
   if (diff < ms_Min) {
     return Math.abs(Math.round(diff / 1000)) + " secs ago";
 
     // If the diff is less then milliseconds in a Hour
+  } else if (diff < ms_Hour && Math.abs(Math.round(diff / ms_Min)) === 1) {
+    return Math.abs(Math.round(diff / ms_Mon)) + " min ago";
   } else if (diff < ms_Hour) {
     return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-
     // If the diff is less then milliseconds in a day
+  } else if (diff < ms_Day && Math.abs(Math.round(diff / ms_Hour)) === 1) {
+    return Math.abs(Math.round(diff / ms_Hour)) + " hr ago";
   } else if (diff < ms_Day) {
     return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
 
     // If the diff is less then milliseconds in a Month
-  } else if (diff < ms_Mon) {
+  } else if (diff < ms_Mon && Math.abs(Math.round(diff / ms_Day)) === 1) {
+    return Math.abs(Math.round(diff / ms_Day)) + " day ago";
+  } else if (diff < ms_Mon && Math.abs(Math.round(diff / ms_Day)) > 1) {
     return Math.abs(Math.round(diff / ms_Day)) + " days ago";
 
     // If the diff is less then milliseconds in a year
-  } else if (diff < ms_Yr) {
+  } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) === 1) {
+    return Math.abs(Math.round(diff / ms_Mon)) + " month ago";
+  } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) > 1) {
     return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
+  }
+  else if (Math.abs(Math.round(diff / ms_Yr)) === 1) {
+    return Math.abs(Math.round(diff / ms_Yr)) + " year";
   } else {
     return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
   }
@@ -88,8 +104,15 @@ export default function AddressTableComponent(props) {
   let datas = {};
   let data = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
+  // let isSettingColumnOpen = Boolean(anchorEl);
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState();
 
-  const history = useHistory();
+  function handleSettingsClick(event) {
+    setOpen(true);
+    setAnchorEl(event?.currentTarget);
+  }
+
   const handleChangePage = (action) => {
     if (action == "first") {
       if (keywords) {
@@ -281,10 +304,10 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 18),
-        }
-      }),
-    )
+          Value: Utility.decimalDivison(d.Value, 8),
+        };
+      })
+    );
 
     setDownloadaddress(
       trxn.map((d) => {
@@ -294,11 +317,11 @@ export default function AddressTableComponent(props) {
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: Utility.decimalDivison(d.Value, 18),
-        }
-      }),
-    )
-  }
+          Value: Utility.decimalDivison(d.Value, 8),
+        };
+      })
+    );
+  };
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value;
     setPage(0);
@@ -350,10 +373,10 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 18),
-          }
-        }),
-      )
+            Value: Utility.decimalDivison(d.Value, 8),
+          };
+        })
+      );
     } else {
       let tempAddress = address.map((addr) =>
         addr.id === name ? { ...addr, isChecked: checked } : addr
@@ -378,10 +401,10 @@ export default function AddressTableComponent(props) {
             Block: d.Block,
             From: d.From,
             To: d.To,
-            Value: Utility.decimalDivison(d.Value, 18),
-          }
-        }),
-      )
+            Value: Utility.decimalDivison(d.Value, 8),
+          };
+        })
+      );
     }
   };
 
@@ -392,7 +415,7 @@ export default function AddressTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
-    color:"#c6cbcf";
+    color: "#c6cbcf";
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -496,13 +519,23 @@ export default function AddressTableComponent(props) {
                       onChange={handleChanged}
                       type="checkbox"
                       name="allselect"
-                      checked={
-                        address.filter((addr) => addr?.isChecked == true)
-                          .length == address.length
-                      }
+                      // checked={
+                      //   address.filter((addr) => addr?.isChecked == true)
+                      //     .length == address.length
+                      // }
                       style={{ marginRight: "0.5rem", verticalAlign: "middle" }}
                     />
-                    <span className={"tableheaders table-hash"}>Transaction Hash</span>
+                    <span className={"tableheaders table-hash"}>
+                      Transaction Hash
+                      <Tooltip placement="top" title={messages.HASH}>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
@@ -513,7 +546,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-age"}>Age</span>
+                    <span className={"tableheaders table-age"}>
+                      Age
+                      <Tooltip placement="top" title={messages.AGE}>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -524,7 +567,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-block"}>Block</span>
+                    <span className={"tableheaders table-block"}>
+                      Block
+                      <Tooltip placement="top" title={messages.BLOCK}>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -535,7 +588,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-from"}>From</span>
+                    <span className={"tableheaders table-from"}>
+                      From
+                      <Tooltip placement="top" title={messages.FROM}>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
@@ -546,7 +609,17 @@ export default function AddressTableComponent(props) {
                     }}
                     align="left"
                   >
-                    <span className={"tableheaders table-to"}>To</span>
+                    <span className={"tableheaders table-to"}>
+                      To
+                      <Tooltip placement="top" title={messages.TO}>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     className="w-450 "
@@ -579,6 +652,16 @@ export default function AddressTableComponent(props) {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = timeDiff(currentTime, previousTime);
+                      const value = Utility.decimalDivison(row.Value, 8)
+                      console.log(value, "valu1")
+                      var value1 = value.toString().split(".")[0];
+                      var value2 = value.toString().split(".")[1];
+                      console.log(value2, "valu111")
+
+                      var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                      var splittedArray = value2?.match(regex);
+                      var bal4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
+                      var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
                       return (
                         <TableRow
                           style={
@@ -588,7 +671,11 @@ export default function AddressTableComponent(props) {
                           }
                         >
                           <TableCell
-                            style={{ border: "none" }}
+                            style={{
+                              border: "none",
+                              display: "flex",
+                              alignItems: "center",
+                            }}
                             margin-left="0.313rem"
                           >
                             <input
@@ -600,6 +687,12 @@ export default function AddressTableComponent(props) {
                               // checked={checkAll}
                               style={{ marginRight: "0.5rem" }}
                             />
+                            <div>
+                              <TransactionDetailTooltip
+                                transactionAddress={row.Txn_Hash}
+                                currency={props.currency}
+                              />
+                            </div>
 
                             <a
                               className="linkTable"
@@ -698,13 +791,30 @@ export default function AddressTableComponent(props) {
                           >
                             <Tooltip
                               placement="top"
-                              title={format({})(Utility.decimalDivisonOnly(row.Value, 18))}
+                              title={format({})(
+                                Utility.decimalDivisonOnly(row.Value, 8)
+                              )}
                             >
-                              <span className="tabledata cursor-pointer">
+                              {value2 == null ? (<span className="tabledata cursor-pointer">
                                 {row.Value == 0
                                   ? 0
-                                  : Utility.decimalDivison(row.Value, 18)} XDC
-                              </span>
+                                  : value1}{ }
+                                {" "}
+
+                                &nbsp;XDC
+                              </span>) : (
+                                <span className="tabledata cursor-pointer">
+                                  {row.Value == 0
+                                    ? 0
+                                    : value1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {bal4}
+                                  </span>
+                                  {text}
+                                  &nbsp;XDC
+                                </span>
+                              )}
                             </Tooltip>
                           </TableCell>
                         </TableRow>
@@ -735,7 +845,7 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div style={{color:"#c6cbcf"}}>No Holders Found</div>
+                <div className="not-found">No Holders Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
@@ -759,7 +869,7 @@ export default function AddressTableComponent(props) {
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>
-
+              <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
             <span className="text">Records</span>

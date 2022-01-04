@@ -97,7 +97,7 @@ class Routes extends BaseComponent {
             />
             <Route
               exact
-              path={"/holder-details/:addr"}
+              path={"/holder-details/:addr/:tn"}
               component={HolderDetails}
             />
             <Route
@@ -105,7 +105,11 @@ class Routes extends BaseComponent {
               path={"/token-data/:address/:tn"}
               component={TokenDataComponent}
             />
-            <Route exact path={"/token-details"} component={TokenList} />
+            <Route
+              exact
+              path={["/tokens/:token", "/tokens"]}
+              component={TokenList}
+            />
             <Route
               exact
               path={"/transaction-details/:hash"}
@@ -144,7 +148,6 @@ class Routes extends BaseComponent {
             <Route exact path={"/test"} component={Test} />
             <Route exact path={"/testTrancation"} component={TestTwo} />
             <Route exact path={"/test-address"} component={TestAddress} />
-            <Route exact path={"/test-graph"} component={Chart} />
             <Redirect exact from="*" to="/" />
           </Switch>
         </Router>

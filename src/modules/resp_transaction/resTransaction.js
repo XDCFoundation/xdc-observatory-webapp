@@ -252,8 +252,12 @@ export default function Transaction({ _handleChange }) {
     CurrencyValue === "INR" ? price : CurrencyValue === "USD" ? price : price;
   const txfee = !transactions
     ? 0
-    : (
-      Utils.decimalDivison((transactions?.gasPrice * transactions?.gasUsed), 12));
+    : Utils.decimalDivison(transactions?.gasPrice * transactions?.gasUsed, 8);
+
+  const txnFee = parseFloat(txfee)?.toFixed(8).replace(/0+$/, "");
+
+  let txnFee1 = txnFee.toString().split(".")[0];
+  let txnFee2 = txnFee.toString().split(".")[1];
 
   const transactionFetch =
     CurrencyValue === "INR"
@@ -261,16 +265,25 @@ export default function Transaction({ _handleChange }) {
       : CurrencyValue === "USD"
         ? txfee * price
         : txfee * price;
-  const fetchtxn = !transactionFetch ? 0 : transactionFetch;
+  const fetchtxn = !transactionFetch
+    ? 0
+    : parseFloat(transactionFetch)?.toFixed(8);
+  let fetchtxn1 = fetchtxn.toString().split(".")[0];
+  let fetchtxn2 = fetchtxn.toString().split(".")[1];
 
   const gasP = !transactions.gasPrice
     ? 0
-    : Utils.decimalDivison(transactions.gasPrice, 18);
+    : Utils.decimalDivison(transactions.gasPrice, 12);
+  const gasPrice = parseFloat(gasP)?.toFixed(12).replace(/0+$/, "");
+  let gasPrice1 = gasPrice.toString().split(".")[0];
+  let gasPrice2 = gasPrice.toString().split(".")[1];
+
   const valueDiv = !valueFetch
     ? 0
-    : Utils.decimalDivison((valueFetch * transactions.value), 11);
-  console.log(typeof (valueDiv), "value in currency")
-  let ValueMain = !transactions?.value ? 0 : Utils.decimalDivison((transactions?.value), 11);
+    : Utils.decimalDivison(valueFetch * transactions.value, 8);
+  let ValueMain = !transactions?.value
+    ? 0
+    : Utils.decimalDivison(transactions?.value, 8);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
@@ -282,17 +295,6 @@ export default function Transaction({ _handleChange }) {
     var minutesDifference = Math.floor(difference / 1000 / 60);
     difference -= minutesDifference * 1000 * 60;
     var secondsDifference = Math.floor(difference / 1000);
-    console.log(
-      "difference = " +
-      daysDifference +
-      " day/s " +
-      hoursDifference +
-      " hour/s " +
-      minutesDifference +
-      " minute/s " +
-      secondsDifference +
-      " second/s "
-    );
     if (
       secondsDifference < 60 &&
       minutesDifference === 0 &&
@@ -363,16 +365,23 @@ export default function Transaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer1 isTextArea={false}>
                     <Content>
-                      {hash}
-                      {/* <Content>{width > 1240 ? hash : (width <= 1240 && width >= 768 ? shorten(hash) : shortenHash(hash))} */}
+                      {/* {hash} */}
+                      {width > 1240
+                        ? hash
+                        : width <= 1240 && width >= 768
+                          ? Utils.shortenHashTab(hash)
+                          : hash}
                     </Content>
                     <span
                       className={
-                        width > 1240
+                        // width > 1240
+                        //   ? "copyEditContainer2"
+                        //   : width <= 1240 && width >= 768
+                        //     ? "copyEditContainerTab"
+                        //     : "copyEditContainerMobile"
+                        width >= 768
                           ? "copyEditContainer2"
-                          : width <= 1240 && width >= 768
-                            ? "copyEditContainerTab"
-                            : "copyEditContainerMobile"
+                          : "copyEditContainerMobile"
                       }
                     >
                       <CopyToClipboard
@@ -416,18 +425,21 @@ export default function Transaction({ _handleChange }) {
                             />
                           }
                           {
-                            <Tooltip title="Add Transaction Label" placement="top">
-                            <img
-                              className={
-                                width > 1240
-                                  ? "edit-icon"
-                                  : width < 768
-                                    ? "editIconHashMobile"
-                                    : "editIconHash"
-                              }
-                              onClick={openDialogPvtNote}
-                              src={require("../../../src/assets/images/label.svg")}
-                            />
+                            <Tooltip
+                              title="Add Transaction Label"
+                              placement="top"
+                            >
+                              <img
+                                className={
+                                  width > 1240
+                                    ? "edit-icon"
+                                    : width < 768
+                                      ? "editIconHashMobile"
+                                      : "editIconHash"
+                                }
+                                onClick={openDialogPvtNote}
+                                src={require("../../../src/assets/images/label.svg")}
+                              />
                             </Tooltip>
                           }
                         </>
@@ -478,9 +490,9 @@ export default function Transaction({ _handleChange }) {
                         )}{" "} */}
                     {transactions.timestamp &&
                       !isNaN(Number(transactions.timestamp))
-                      ? moment(Number(transactions.timestamp) * 1000).utc().format(
-                        "MMMM Do YYYY, h:mm:ss A"
-                      ) + "  UTC"
+                      ? moment(Number(transactions.timestamp) * 1000)
+                        .utc()
+                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
                       : ""}
                     {/*({getHoursAgo(transactions.timestamp * 1000)})*/}
                   </MiddleContainer>
@@ -558,16 +570,19 @@ export default function Transaction({ _handleChange }) {
                                   {addressTag[0]?.tagName}
                                 </div>
                               ) : (
-                                <Tooltip title="Add a new Address Tag" placement="top">
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
-                                  }
-                                  onClick={openDialogPvtTag}
-                                  src={require("../../../src/assets/images/tag.svg")}
-                                />
+                                <Tooltip
+                                  title="Add a new Address Tag"
+                                  placement="top"
+                                >
+                                  <img
+                                    className={
+                                      width > 1240
+                                        ? "edit1-icon"
+                                        : "edit1-icon-from"
+                                    }
+                                    onClick={openDialogPvtTag}
+                                    src={require("../../../src/assets/images/tag.svg")}
+                                  />
                                 </Tooltip>
                               )}
                             </>
@@ -596,7 +611,9 @@ export default function Transaction({ _handleChange }) {
                           className="linkTableDetails-transaction"
                           href={"/address-details/" + transactions.to}
                         >
-                          {transactions.to ? transactions.to : transactions.contractAddress}
+                          {transactions.to
+                            ? transactions.to
+                            : transactions.contractAddress}
                         </a>
                         <div
                           className={
@@ -653,16 +670,19 @@ export default function Transaction({ _handleChange }) {
                                   {addressTagTo[0]?.tagName}
                                 </div>
                               ) : (
-                                <Tooltip title="Add a new Address Tag" placement="top">
-                                <img
-                                  className={
-                                    width > 1240
-                                      ? "edit1-icon"
-                                      : "edit1-icon-from"
-                                  }
-                                  onClick={openDialogPvtTag2}
-                                  src={require("../../../src/assets/images/tag.svg")}
-                                />
+                                <Tooltip
+                                  title="Add a new Address Tag"
+                                  placement="top"
+                                >
+                                  <img
+                                    className={
+                                      width > 1240
+                                        ? "edit1-icon"
+                                        : "edit1-icon-from"
+                                    }
+                                    onClick={openDialogPvtTag2}
+                                    src={require("../../../src/assets/images/tag.svg")}
+                                  />
                                 </Tooltip>
                               )}
                             </>
@@ -682,8 +702,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Value</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    {ValueMain}&nbsp;
-                    XDC ({currencySymbol}
+                    {ValueMain}&nbsp; XDC ({currencySymbol}
                     {valueDiv})
                   </MiddleContainer>
                 </Spacing>
@@ -698,13 +717,26 @@ export default function Transaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       {" "}
-                      {txfee == 0
-                        ? 0
-                        : parseFloat(txfee)
-                          ?.toFixed(12)
-                          .replace(/0+$/, "")}{" "}
-                      XDC ({currencySymbol}
-                      {fetchtxn})
+                      {txnFee2 == null ? (
+                        <span>{txnFee1}</span>
+                      ) : (
+                        <span>
+                          {txnFee1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{txnFee2}</span>
+                        </span>
+                      )}
+                      &nbsp;XDC ({currencySymbol}
+                      {fetchtxn2 == null ? (
+                        <span>{fetchtxn1}</span>
+                      ) : (
+                        <span>
+                          {fetchtxn1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{fetchtxn2}</span>
+                        </span>
+                      )}
+                      )
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -727,9 +759,15 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Gas Price</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    {gasP == 0
-                      ? 0
-                      : parseFloat(gasP)?.toFixed(18).replace(/0+$/, "")}
+                    {gasPrice2 == null ? (
+                      <span>{gasPrice1}</span>
+                    ) : (
+                      <span>
+                        {gasPrice1}
+                        {"."}
+                        <span style={{ color: "#9FA9BA" }}>{gasPrice2}</span>
+                      </span>
+                    )}
                     {/* <Content> {gasP}</Content> */}
                   </MiddleContainer>
                 </Spacing>
@@ -741,9 +779,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Gas Used</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>
-                      {format({})(transactions?.gasUsed)}
-                    </Content>
+                    <Content>{format({})(transactions?.gasUsed)}</Content>
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
@@ -788,7 +824,7 @@ export default function Transaction({ _handleChange }) {
                           <LoginDialog
                             open={loginDialogIsOpen}
                             onClose={closeLoginDialog}
-                            hash={hash}
+                            dataHashOrAddress={hash}
                           />
                         }
                         To access the Private Note feature, you must be
@@ -1020,12 +1056,12 @@ const MiddleContainer1 = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
-    word-break: break-all;
-    text-align: left;
-    letter-spacing: 0.034rem;
-    color: #3a3a3a;
-    opacity: 1;
-    display: block;
+    // word-break: break-all;
+    // text-align: left;
+    // letter-spacing: 0.034rem;
+    // color: #3a3a3a;
+    // opacity: 1;
+    // display: block;
     margin-left: 64px;
   }
 `;
@@ -1166,7 +1202,7 @@ const HashDiv = styled.div`
     // padding-right: 85px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    padding: 6px 30px;
+    padding: 14px 30px;
   }
 `;
 const Container = styled.div`

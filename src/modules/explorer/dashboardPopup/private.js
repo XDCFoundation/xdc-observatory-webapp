@@ -12,7 +12,7 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { cookiesConstants } from "../../../constants";
+import { genericConstants, cookiesConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttons: {
-    padding: "22px 35px 15px 0px",
+    padding: "22px 35px 0px 0px",
   },
   input: {
     width: "503px",
@@ -170,6 +170,22 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
+  lastContainer: {
+    width: "504px",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerText: {
+    fontSize: "12px",
+    fontFamily: "Inter !important",
+    color: "#ff0202",
+    letterSpacing: "0.46px",
+    lineHeight: "1.58",
+  },
   "@media (max-width: 714px)": {
     heading: {
       fontSize: "16px",
@@ -232,14 +248,18 @@ export default function FormDialog() {
       address: privateAddress,
       tagName: tags,
     };
-    if (
+    if (!privateAddress) {
+      setError(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if (!input && tags.length === 0) {
+      setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
+    } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
       setError("Address should start with xdc & 43 characters");
       return;
     } else if (tags.length === 0) {
-      setErrorTag("Use comma(,) to add multiple tag");
+      setErrorTag("Press comma(,) to add tag");
       return;
     } else if (tags && tags.length > 5) {
       setErrorTag("You can not add Name tag more than 5");
@@ -309,6 +329,10 @@ export default function FormDialog() {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
+      if (trimmedInput.length > 15) {
+        utility.apiFailureToast("Tag length should be less than 15");
+        return;
+      }
       setTags((prevState) => [...prevState, trimmedInput]);
       setInput("");
       setErrorTag("");
@@ -331,6 +355,10 @@ export default function FormDialog() {
 
   const deleteTag = (index) => {
     setTags((prevState) => prevState.filter((tag, i) => i !== index));
+  };
+
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
   };
 
   function getWindowDimensions() {
@@ -390,6 +418,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="Add a short memo or private tag to the address of interest."
             arrow
             placement="top-start"
@@ -498,6 +527,13 @@ export default function FormDialog() {
               </button>
             </span>
           </DialogActions>
+          <div className={classes.lastContainer}>
+            <div className={classes.lastContainerText}>
+              To protect your privacy, data related to the address tags, is
+              added on your local device. Cleaning the browsing history or
+              cookies will clean the address tags saved in your profile.
+            </div>
+          </div>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
