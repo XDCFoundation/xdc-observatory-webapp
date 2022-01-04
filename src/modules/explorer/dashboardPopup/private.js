@@ -12,6 +12,7 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -223,6 +224,7 @@ export default function FormDialog() {
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function TaggedAddress() {
+    debugger;
     setError("");
     setErrorTag("");
     const data = {
@@ -243,14 +245,34 @@ export default function FormDialog() {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
+      // const [error] = await utility.parseResponse(
+      //   UserService.addPrivateTagToAddress(data)
+      // );
 
-      if (error) {
-        utility.apiFailureToast("Address is already in use");
-        return;
+      // if (error) {
+      //   utility.apiFailureToast("Address is already in use");
+      //   return;
+      // }
+      let taggedAddress = localStorage.getItem(
+        cookiesConstants.USER_TAGGED_ADDRESS
+      );
+      if (taggedAddress) {
+        taggedAddress = JSON.parse(taggedAddress);
+        const existingTag = taggedAddress.find(
+          (item) => item.address == privateAddress && item.userId == data.userId
+        );
+        if (existingTag) {
+          utility.apiFailureToast("Address is already in use");
+          return;
+        }
+      } else {
+        taggedAddress = [];
       }
+      taggedAddress.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TAGGED_ADDRESS,
+        JSON.stringify(taggedAddress)
+      );
       utility.apiSuccessToast("Tag Added");
       window.location.href = "loginprofile";
       setOpen(false);
