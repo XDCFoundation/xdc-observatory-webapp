@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 export default function TokenContracttab(props) {
-  console.log(props, "kii")
   let verifiedData = props?.contractData;
   const [copiedText, setCopiedText] = useState("");
   return (
