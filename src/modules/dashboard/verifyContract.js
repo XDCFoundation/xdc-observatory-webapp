@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,21 +7,22 @@ import Releases from "./list.json";
 import contractverify from "../../services/contractverify";
 export default function VerifyContract() {
     let address = useParams();
-   
+
     if (address.address !== undefined) {
-       if (address.address.length != undefined) {
+        if (address.address.length != undefined) {
             let str = address.address
             if (str.includes("xdc")) {
                 let result = str.replace(/^.{3}/g, '0x');
                 address = result
             }
-        } 
+        }
     }
-    
-        
-    
+
+
+
     const [isLoading, setisLoading] = useState(false)
     const [msg, setMessage] = useState("")
+    console.log(msg, "oookok")
     const [inputValue, setInputValue] = useState("")
     const inputRef = useRef();
     const validationSchema = Yup.object().shape({
@@ -37,7 +38,10 @@ export default function VerifyContract() {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema)
     });
-    const handleChange = (event) => { 
+    function clearMessage() {
+        setMessage("");
+    }
+    const handleChange = (event) => {
         let txtValue = event.target.value
         if (txtValue !== undefined) {
             if (txtValue.includes("xdc")) {
@@ -87,9 +91,9 @@ export default function VerifyContract() {
                             <div className="vc-contract-add">Contract Address
                                 {
                                     address.length ? <div>
-                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange}  value={address.length ? address : ""} />
+                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={address.length ? address : ""} />
                                     </div> : <div>
-                                        <input {...register("addr")}  name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={inputValue} />
+                                        <input {...register("addr")} name="addr" className="vc-input-contract-add" type="text" placeholder="Contract Address" onChange={handleChange} value={inputValue} />
                                     </div>
                                 }
                                 <p className="validation-error-message">{errors?.addr?.message}</p>
@@ -103,7 +107,7 @@ export default function VerifyContract() {
 
                             <div className="vc-contract-compiler">Compiler
                                 <div>
-                                
+
                                     <select {...register("version")} name="version" className="vc-contract-add-select"  >
                                         <option value="">Select compiler</option>
                                         <option value="latest">Latest</option>
@@ -115,10 +119,10 @@ export default function VerifyContract() {
                                                 ver = finalVersion[1] + '+' + subversion[1]
                                             } else {
                                                 ver = finalVersion[1]
-                                            } 
+                                            }
 
                                             return (
-                                                <option  value={ver}>{row}</option>
+                                                <option value={ver}>{row}</option>
                                             )
                                         })
                                         }
@@ -145,7 +149,7 @@ export default function VerifyContract() {
 
                         <div>
                             <button style={{ backgroundColor: '#3763dd', borderRadius: '4px' }} className="validate-button">Validate Code</button>
-                            <button type="button" onClick={() => reset()} style={{ backgroundColor: '#9fa9ba', borderRadius: '4px' }} className="reset-button">Reset</button>
+                            <button type="button" onClick={() => { reset(); clearMessage(); }} style={{ backgroundColor: '#9fa9ba', borderRadius: '4px' }} className="reset-button">Reset</button>
                         </div>
 
                     </div>
