@@ -352,7 +352,6 @@ export default function Navbar() {
               onClick={() => setOpencontracts(false)}
               style={{
                 color: "white",
-                marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
                 cursor: "pointer",
