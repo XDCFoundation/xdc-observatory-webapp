@@ -332,6 +332,10 @@ export default function FormDialog() {
     setTags((prevState) => prevState.filter((tag, i) => i !== index));
   };
 
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
+  }
+
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -389,6 +393,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="Add a short memo or private tag to the address of interest."
             arrow
             placement="top-start"

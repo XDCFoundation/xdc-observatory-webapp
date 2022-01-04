@@ -305,6 +305,11 @@ export default function FormDialog() {
     setError("");
     setDescriptionError("");
   };
+
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
+  }
+
   const classes = useStyles();
 
   function getWindowDimensions() {
@@ -367,6 +372,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
             arrow
             placement="top-start"

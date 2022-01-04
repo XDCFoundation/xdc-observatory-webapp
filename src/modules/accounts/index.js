@@ -19,10 +19,10 @@ export default class LatestAccountsList extends BaseComponent {
             noData: 1,
             isLoading: true,
             tableColumns: {
-                "Rank": { isActive: true, toolTipText: "Account rank is position based on account value." },
+                "Rank": { isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance." },
                 "Type": { isActive: true, toolTipText: "Account type is either Account, Contract or Token." },
                 "Balance": { isActive: true, toolTipText: "Balance held by a particular account." },
-                "Percentage": { isActive: true, toolTipText: "Percentage held by a particular account value percentage." }
+                "Percentage": { isActive: true, toolTipText: "Percentage of holdings out of the total supply." }
             }
         };
     }

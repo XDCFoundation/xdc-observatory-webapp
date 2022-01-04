@@ -387,6 +387,7 @@ export default function FormDialog(props) {
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
+  const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] = React.useState(false);
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
   const [timer, setTimer] = React.useState("00:00");
 
@@ -402,13 +403,13 @@ export default function FormDialog(props) {
   };
 
   React.useEffect(() => {
-    if (props.isNewFeatureComponent) {
-      setOpen(true);
-      handleClickOpenSignup();
-
-      return;
+    if (!newFeatureSignupPropsValue) {
+      if (props.isNewFeatureComponent) {
+        setOpen(true);
+        handleClickOpenSignup();
+        return;
+      }
     }
-
     if (open === true) {
       setOpen(false);
     } else {
@@ -464,11 +465,12 @@ export default function FormDialog(props) {
     setErrorCaptcha("");
     setErrorEmailVerified(false);
     setCaptchaError("");
+    setNewFeatureSignupPropsValue(true);
   };
 
   var regExAlphaNum = /^[0-9a-zA-Z]+$/;
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
+  var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   // <-----------------------------------------------------login functionality------------------------------------------------------>
 
@@ -507,7 +509,7 @@ export default function FormDialog(props) {
       return;
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-        "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+        "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
       return;

@@ -7,7 +7,7 @@ import styled from "styled-components";
 //   color: #2149b9;
 // `;
 const Heading = styled.div`
-  width: 355px;
+  width: 100%;
   height: 29px;
   margin: 0 789px 16px 0;
   font-family: Inter;
@@ -19,9 +19,17 @@ const Heading = styled.div`
   letter-spacing: 0.92px;
   text-align: left;
   color: #2a2a2a;
+  @media (min-width:768px) and (max-width:1240px) {
+    // max-width: 690px;
+    // width: 100%;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    font-size: 18px;
+  };
+  
 `;
 const Subheading = styled.div`
-  width: 350px;
+  width: 100%;
   height: 21px;
   margin: 16px 794px 32px 0;
   font-family: Inter;
@@ -35,6 +43,7 @@ const Subheading = styled.div`
   color: #2a2a2a;
 `;
 const PointHeading = styled.div`
+  width: 100%;
   font-weight: 600;
   margin: 32px 0 0 1px;
   font-family: Inter;
@@ -57,11 +66,18 @@ const Para = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 690px;
+    width: 100%;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+  };
 `;
 const Para1 = styled.div`
   width: 1136px;
-  height: 95px;
-  margin: 32px 7px 32px 1px;
+  // margin: 32px 7px 32px 1px;
   font-family: Inter;
   font-size: 15px;
   font-weight: normal;
@@ -71,6 +87,14 @@ const Para1 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 690px;
+    width: 100%;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+  };
 `;
 
 const Div = styled.div`
@@ -85,16 +109,19 @@ const Div = styled.div`
   @media (min-width:768px) and (max-width:1240px) {
     max-width: 740px;
     width: 100%;
-    overflow-x: scroll;
+    // overflow-x: scroll;
+    padding: 29px 24px 35px 24px;
   };
   @media (min-width:0px) and (max-width:767px) {
     max-width: 360px;
     width: 100%;
-    overflow-x: scroll;
+    // overflow-x: scroll;
+    padding: 20px 14px 20px 14px;
+    margin-top: 17px;
   };
 `;
 const BlockNumber = styled.div`
-  width: 1143px;
+  width: 100%;
   height: auto;
   margin: 32px 0 0 1px;
   font-family: Inter;

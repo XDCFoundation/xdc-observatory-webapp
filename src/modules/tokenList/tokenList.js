@@ -68,23 +68,38 @@ const useStyles = makeStyles({
     marginLeft: "18%",
     marginRight: "18%",
   },
-
   container: {
     borderRadius: "0.875rem",
     boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
     borderBottom: "none",
     background: "#fff",
   },
+  tableFirstHeading: {
+    border: "none",
+    paddingLeft: "75px !important"
+  },
+  tableFirstData: {
+    paddingLeft: "75px !important"
+  },
+  divider: {
+    borderTop: "0rem solid #bbb",
+    width: "100%",
+  },
+
   "@media (max-width: 1024px)": {
     container: {
       height: 615,
     },
   },
 
-  divider: {
-    borderTop: "0rem solid #bbb",
-    width: "100%",
-  },
+  "@media (max-width: 1240px)": {
+    tableFirstHeading: {
+      paddingLeft: "32px !important"
+    },
+    tableFirstData: {
+      paddingLeft: "32px !important"
+    },
+  }
 });
 
 export default function StickyHeadTable(props) {
@@ -402,7 +417,7 @@ export default function StickyHeadTable(props) {
               <TableRow>
                 {props?.state?.tableColumns["Hash"].isActive && (
                   <TableCell
-                    style={{ border: "none", paddingLeft: "75px" }}
+                    className={classes.tableFirstHeading}
                     align="left"
                   >
                     <span className={"tablehead-token-details"}>
@@ -535,7 +550,7 @@ export default function StickyHeadTable(props) {
                         key={row._id}
                       >
                         {props?.state?.tableColumns["Hash"].isActive && (
-                          <TableCell style={{ paddingLeft: "75px" }} id="td">
+                          <TableCell className={classes.tableFirstData} id="td">
                             {index + 1}
                           </TableCell>
                         )}
@@ -600,7 +615,7 @@ export default function StickyHeadTable(props) {
               </TableBody>
             )} */}
           </Table>
-          {noData == true && (
+          {noData == true && !isLoading ? (
             <NoDataFoundContainer>
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -608,7 +623,7 @@ export default function StickyHeadTable(props) {
 
               <div style={{color:"#c6cbcf"}}>No Tokens found</div>
             </NoDataFoundContainer>
-          )}
+          ):("")}
         </TableContainer>
 
         {/* <Divider className={classes.divider}/>*/}
