@@ -1,6 +1,5 @@
 import React from 'react'
 import moment from 'moment';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Page, Text, View, Document, StyleSheet, Link, Svg, G, Path } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -50,6 +49,14 @@ const styles = StyleSheet.create({
         flex: 2,
         wordBreak: 'break-all',
         margin: "10",
+        color: "#484848",
+        fontWeight:"normal"
+    },
+    tableHeads:{
+        flex: 2,
+        wordBreak: 'break-all',
+        margin: "10",
+
     },
     headingData: {
         flexGrow: 8
@@ -102,8 +109,8 @@ const PDF = ({ data }) => (
                     <View style={[styles.flexGrow1, styles.bold]}>
                         <View style={styles.headRow}>
                             <Text style={styles.transactionHash}>Transaction Hash</Text>
-                            <Text style={styles.tableBodyText}>Note</Text>
-                            <Text style={styles.tableBodyText}>Added On</Text>
+                            <Text style={styles.tableHeads}>Note</Text>
+                            <Text style={styles.tableHeads}>Added On</Text>
                         </View>
                     </View>
                     {data.map((row, i) => (
@@ -134,12 +141,4 @@ const PDF = ({ data }) => (
         </Page>
     </Document>
 );
-const ExportPDF = (props) => {
-    return (
-        <div>
-            <PDFDownloadLink document={<PDF data={props.data} />} fileName="transactionPvtNote.pdf">
-                Export
-            </PDFDownloadLink>
-        </div>)
-};
 export default PDF;

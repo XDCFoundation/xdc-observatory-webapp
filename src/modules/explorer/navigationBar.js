@@ -202,6 +202,7 @@ export default function Navbar() {
       }
 
       if (responseData) {
+        console.log(responseData, "serach-data")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -214,12 +215,13 @@ export default function Navbar() {
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
-          let tokenurl =
+          let tokenDataUrl =
             "/token-data/" +
             responseData[0]?.token[0]?.address +
             "/" +
             responseData[0]?.token[0]?.symbol;
-          window.location.href = tokenurl;
+          let tokenListUrl = '/tokens/' + responseData[0]?.token[0]?.tokenName;
+          window.location.href = responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
         } else {
         }
       }
@@ -702,13 +704,13 @@ export default function Navbar() {
                 <a
                   exact
                   activeClassName="active-t"
-                  href={"/token-details"}
+                  href={"/tokens"}
                   className="Token"
                 >
                   Tokens
                 </a>
 
-                
+
               </div>
             </Row>
             <Row alignItems="center">
@@ -803,7 +805,7 @@ export default function Navbar() {
             <NavigationButton active={window.location.pathname == "/"} href="/">
               XDC Observatory
             </NavigationButton>
-            <NavigationButton href="/token-details">Tokens</NavigationButton>
+            <NavigationButton href="/tokens">Tokens</NavigationButton>
           </MobileNavigationContainer>
         </AppBar>
       </MobileView>

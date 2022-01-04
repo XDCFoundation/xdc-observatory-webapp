@@ -25,6 +25,11 @@ export default function NewFeature(props) {
       position: "absolute",
       top: "65px",
       borderRadius: "12px",
+     '@media (min-width: 0px) and (max-width: 766px)' : {
+        height: "100vh",
+        top: "40px",
+        borderRadius: "0px",
+      }
     }
   }))
   const classes = useStyles();

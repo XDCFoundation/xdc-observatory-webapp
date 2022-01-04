@@ -14,6 +14,7 @@ import utility from "../../utility";
 import styled from "styled-components";
 import moment from "moment";
 import Utility from "../../utility";
+import { CompareArrowsOutlined } from "@material-ui/icons";
 import { messages } from "../../constants";
 const useStyles = makeStyles({
   container: {
@@ -89,13 +90,13 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders-hash", "tableheaders")}>
                   Hash
                   <Tooltip placement="top" title={messages.HASH}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                    <img
+                      alt="question-mark"
+                      src="/images/question-mark.svg"
+                      height={"14px"}
+                      className="tooltipLatestTransactionTableDashboard"
+                    />
+                  </Tooltip>
                 </span>
               </TableCell>
               <TableCell
@@ -109,13 +110,13 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-all")}>
                   Amount
                   <Tooltip placement="top" title={messages.AMOUNT}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                    <img
+                      alt="question-mark"
+                      src="/images/question-mark.svg"
+                      height={"14px"}
+                      className="tooltipLatestTransactionTableDashboard"
+                    />
+                  </Tooltip>
                 </span>
               </TableCell>
               <TableCell
@@ -126,13 +127,13 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-age")}>
                   Date
                   <Tooltip placement="top" title={messages.DATE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                    <img
+                      alt="question-mark"
+                      src="/images/question-mark.svg"
+                      height={"14px"}
+                      className="tooltipLatestTransactionTableDashboard"
+                    />
+                  </Tooltip>
                 </span>
               </TableCell>
               {props.showBlock ? (
@@ -170,13 +171,13 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-all")}>
                   From
                   <Tooltip placement="top" title={messages.FROM}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                    <img
+                      alt="question-mark"
+                      src="/images/question-mark.svg"
+                      height={"14px"}
+                      className="tooltipLatestTransactionTableDashboard"
+                    />
+                  </Tooltip>
                 </span>
               </TableCell>
               <TableCell
@@ -187,13 +188,13 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-all")}>
                   To
                   <Tooltip placement="top" title={messages.TO}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                    <img
+                      alt="question-mark"
+                      src="/images/question-mark.svg"
+                      height={"14px"}
+                      className="tooltipLatestTransactionTableDashboard"
+                    />
+                  </Tooltip>
                 </span>
               </TableCell>
               {props.showDetail ? (
@@ -243,7 +244,12 @@ export default function CommonTransactionsTable(props) {
                   //   (row?.gasUsed * row?.gasPrice) /
                   //   100000000000000000
                   // ).toFixed(9);
-                  let amt = Utility.decimalDivison(row.value, 4);
+                  let amt = Utility.decimalDivison(row.value, 8);
+                  let amt1 = amt.toString().split(".")[0]
+                  let amt2 = amt.toString().split(".")[1]
+
+
+
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
                   return (
@@ -296,14 +302,24 @@ export default function CommonTransactionsTable(props) {
                             padding: "20px",
                           }}
                           align="left"
+                        >{amt2 == null ? (<span
+                          className={
+                            animationClass ? animationClass : "tabledata"
+                          }
                         >
+
+                          {amt1 < 0 ? amt1 : 0}
+                        </span>) : (
                           <span
                             className={
                               animationClass ? animationClass : "tabledata"
                             }
                           >
-                            {amt >= 0.0001 ? amt : 0}
+
+                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span>
                           </span>
+                        )}
+
                         </TableCell>
                         <TableCell
                           style={{

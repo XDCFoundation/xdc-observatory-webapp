@@ -197,7 +197,7 @@ const Line1 = styled.hr`
   @media (min-width: 768px)  {
     width: 100%;
     top: 20%;
-    display: none;
+    margin-top: 2px;
   }
 `;
 const LeftTopSec = styled.div`
@@ -452,7 +452,7 @@ export default function TokenDataComponent() {
               <LeftTopSecMain>
                 <LeftTopSec>
                   {CurrencySymbol}
-                  {tokenPriceVal}
+                  {tokenPriceVal.toFixed(8)}
                 </LeftTopSec>
                 <div
                   className={
@@ -491,7 +491,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={blockHeightImg} /> */}
 
                     <ValueName>
-                     
+
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
