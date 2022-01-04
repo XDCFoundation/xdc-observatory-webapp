@@ -52,11 +52,12 @@ export default function VerifyContract() {
         }
     }
     const onSubmitHandler = async (data) => {
+        let contractAddress = data.addr?.replace(/^.{2}/g, 'xdc');
         try {
             setisLoading(true)
             const resp = await contractverify.getContractVerify(data)
             if (resp[0].Error == 0) {
-                let url = "/address/" + data.addr
+                let url = "/address/" + contractAddress
                 setisLoading(false)
                 window.location.href = url;
             } else {
