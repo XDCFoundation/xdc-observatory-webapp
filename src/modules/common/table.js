@@ -310,7 +310,7 @@ export default function CommonTransactionsTable(props) {
                           }
                         >
 
-                          {amt1 < 0 ? amt1 : 0}
+                          {amt1 < 0 ? amt1 : 0} XDC
                         </span>) : (
                           <span
                             className={
@@ -318,7 +318,7 @@ export default function CommonTransactionsTable(props) {
                             }
                           >
 
-                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span>
+                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span> XDC
                           </span>
                         )}
 
