@@ -18,6 +18,8 @@ span,
 label {
   font-family: "Inter" !important;
 }
+
+
 input[placeholder] {
   text-overflow: ellipsis;
 }

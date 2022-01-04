@@ -8,9 +8,14 @@ function TokenBalanceGraphComponent(props) {
         title: {
             text: "",
         },
+        credits:{
+            enabled: false
+        },
         series: [
             {
-                data: props.state.graphData
+                data: props.state.graphData,
+                name: 'Token Balance',
+                type:'column'
             },
         ],
         yAxis:[{
@@ -19,7 +24,7 @@ function TokenBalanceGraphComponent(props) {
         }],
         xAxis:[{
             opposite: false,
-            title:{text:""},
+            title:{text:"<div>Hey</div>"},
         }],
     };
 
