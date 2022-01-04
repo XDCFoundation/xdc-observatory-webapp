@@ -10153,3 +10153,6 @@ button {
   height: 7px;
   color: #4878ff;
 }
+.tooltip-loader-div {
+  margin-top: 50%;
+}
