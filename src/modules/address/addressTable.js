@@ -653,10 +653,8 @@ export default function AddressTableComponent(props) {
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = timeDiff(currentTime, previousTime);
                       const value = Utility.decimalDivison(row.Value, 8)
-                      console.log(value, "valu1")
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
-                      console.log(value2, "valu111")
 
                       var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                       var splittedArray = value2?.match(regex);

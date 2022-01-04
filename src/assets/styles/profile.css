@@ -216,10 +216,9 @@ margin-bottom:16px;
 }
 @media screen and (max-width: 768px) {
   .noticon{
-    margin-left: 150px;
-    height:16px;
-    width:14px;
-    margin-bottom:0;
+    height:20px;
+    width:16px;
+    margin-bottom:13px;
   }
 }
 .notificationBell {

@@ -363,7 +363,7 @@ const UserNameContainer = styled.div`
     margin:10px auto;
   }
   @media (min-width: 401px) and (max-width: 449px) {
-    gap: 30px;
+    // gap: 30px;
   }
 `;
 
@@ -419,7 +419,6 @@ export default function SimpleTabs(props) {
       const response = await UserService.getUserPrivateNote(data);
       // setAddress(response);
       setTotalCount2(response.length);
-      console.log("res",response)
     }
     getPvtTagAddress();
     async function getPvtTagAddress() {
