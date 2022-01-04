@@ -308,6 +308,10 @@ export default function FormDialog() {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
+      if(trimmedInput.length > 15){
+        utility.apiFailureToast("Tag length should be less than 15");
+        return;
+      }
       setTags((prevState) => [...prevState, trimmedInput]);
       setInput("");
       setErrorTag("");

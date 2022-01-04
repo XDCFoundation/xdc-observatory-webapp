@@ -631,7 +631,7 @@ class Contractlist extends React.Component {
                 {Math.ceil(this.state.totalRecord / this.state.amount) -
                   Math.ceil(
                     (this.state.totalRecord - this.state.from) /
-                      this.state.amount
+                    this.state.amount
                   ) +
                   1}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}

@@ -22,6 +22,7 @@ import format from "format-number";
 import Tooltip from "@material-ui/core/Tooltip";
 import { messages } from "../../constants"
 
+import { useParams } from "react-router-dom";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -110,6 +111,8 @@ export default function StickyHeadTable(props) {
   const [totalToken, setTotalToken] = React.useState(0);
   const [keywords, setKeywords] = React.useState("");
   const [rows, setRows] = React.useState([]);
+  let { token } = useParams();
+  console.log(token, "TOKEN-SEARCH")
 
   const [noData, setNoData] = React.useState(true);
   const handleChangePage = (action) => {
@@ -280,9 +283,15 @@ export default function StickyHeadTable(props) {
 
   React.useEffect(() => {
     let unmounted = false;
-    let data = { pageNum: from, perpage: amount };
-    getTokenList(data);
-    getTotalTokenList();
+    if (token) {
+      let datas = { pageNum: 0, perpage: amount, searchkey: token };
+      SearchTokens(datas)
+    } else {
+
+      let data = { pageNum: from, perpage: amount };
+      getTokenList(data);
+      getTotalTokenList();
+    }
     return () => {
       unmounted = true;
     };
@@ -371,6 +380,7 @@ export default function StickyHeadTable(props) {
               }}
               src={"/images/Search.svg"}
             />
+
             <input
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
@@ -415,28 +425,13 @@ export default function StickyHeadTable(props) {
           <Table style={{ borderBottom: "none" }}>
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
-                {props?.state?.tableColumns["Hash"].isActive && (
-                  <TableCell
-                    className={classes.tableFirstHeading}
-                    align="left"
-                  >
-                    <span className={"tablehead-token-details"}>
-                      #
-                      <Tooltip placement="top" title={messages.SI_NO}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
-                  </TableCell>
-                )}
-                <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tablehead-token-details"}>
-                    Symbol
-                    <Tooltip placement="top" title={messages.SYMBOL}>
+                <TableCell
+                  style={{ border: "none", paddingLeft: "75px" }}
+                  align="left"
+                >
+                  <span>
+                    #
+                    <Tooltip placement="top" title={messages.SI_NO}>
                       <img
                         alt="question-mark"
                         src="/images/question-mark.svg"
@@ -446,51 +441,66 @@ export default function StickyHeadTable(props) {
                     </Tooltip>
                     </span>
                 </TableCell>
+                {props?.state?.tableColumns["Symbol"].isActive && (
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"}>
+                      Symbol
+                      <Tooltip placement="top" title={messages.SYMBOL}>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                      </span>
+                  </TableCell>
+                )}
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>
                     Name
                     <Tooltip placement="top" title={messages.NAME}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                 </TableCell>
                 {props?.state?.tableColumns["Type"].isActive && (
                   <TableCell style={{ border: "none", whiteSpace: "nowrap" }}
-                  align="left">
+                    align="left">
                     <span className={"tablehead-token-details"}>
                       Type
                       <Tooltip placement="top" title={messages.TOKEN_TYPE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                 )}
-                {props?.state?.tableColumns["Symbol"].isActive && (
+                {props?.state?.tableColumns["Hash"].isActive && (
                   <TableCell style={{ border: "none" }} align="left">
                     <span className={"tablehead-token-details"}>
                       Contract
                       <Tooltip placement="top" title={messages.CONTRACT}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                 )}
-                
+
                 <TableCell
                   style={{ border: "none", whiteSpace: "nowrap" }}
                   align="left"
@@ -515,13 +525,13 @@ export default function StickyHeadTable(props) {
                     <span className={"tablehead-token-details"}>
                       Total Holders
                       <Tooltip placement="top" title={messages.HOLDER}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                 )}
@@ -542,6 +552,16 @@ export default function StickyHeadTable(props) {
                 <TableBody>
                   {rows?.map((row, index) => {
                     let totalsupply = (row?.totalSupply / Math.pow(10, row?.decimals)).toFixed(row?.decimals)
+                    const supply = row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)
+                    console.log(supply)
+                    var supply1 = supply.toString().split(".")[0];
+                    var supply2 = supply.toString().split(".")[1];
+                    var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                    var splittedArray = supply2?.match(regex);
+
+                    var supply4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
+                    var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
+                    console.log("rachit", supply4, text, supply1)
                     return (
                       <TableRow
                         hover
@@ -549,11 +569,10 @@ export default function StickyHeadTable(props) {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        {props?.state?.tableColumns["Hash"].isActive && (
-                          <TableCell className={classes.tableFirstData} id="td">
-                            {index + 1}
-                          </TableCell>
-                        )}
+                        <TableCell style={{ paddingLeft: "75px" }} id="td">
+                          {index + 1}
+                        </TableCell>
+
                         {props?.state?.tableColumns["Symbol"].isActive && (
                           <TableCell id="td">
                             <img
@@ -563,30 +582,44 @@ export default function StickyHeadTable(props) {
                             &nbsp;{row.symbol}
                           </TableCell>
                         )}
-                        
+
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
                           {shorten(row.tokenName, 9, 0, 3)}
                         </TableCell>
                         {props?.state?.tableColumns["Type"].isActive && (
                           <TableCell id="td">{row.type}</TableCell>
                         )}
-                        <TableCell>
-                          <a
-                            className="token-details-address-link"
-                            href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                              }`}
-                          >
-                            {shorten(row.address)}
-                          </a>
-                        </TableCell>
-                       
-                      
+                        {props?.state?.tableColumns["Hash"].isActive && (
+                          <TableCell>
+                            <a
+                              className="token-details-address-link"
+                              href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                                }`}
+                            >
+                              {shorten(row.address)}
+                            </a>
+                          </TableCell>
+                        )}
+
+
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           <Tooltip
                             placement="top"
                             title={format({})(totalsupply >= 1 ? parseFloat(totalsupply) : totalsupply)}
                           ><span>
-                              {row.totalSupply / Math.pow(10, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(row.totalSupply / Math.pow(10, row?.decimals))) : (row.totalSupply / Math.pow(10, row?.decimals))?.toFixed(row?.decimals)}
+                              {supply4 === 0 || supply4 == null ? (
+                                <span className="tabledata">{supply1}</span>
+                              ) : (
+                                <span className="tabledata">
+                                  {supply1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {supply4}
+                                  </span>
+                                  {text}
+                                </span>
+                              )}
+
                             </span>
                           </Tooltip>
                         </TableCell>
@@ -621,7 +654,7 @@ export default function StickyHeadTable(props) {
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
               ></img>
 
-              <div style={{color:"#c6cbcf"}}>No Tokens found</div>
+              <div style={{ color: "#c6cbcf" }}>No Tokens found</div>
             </NoDataFoundContainer>
           ):("")}
         </TableContainer>

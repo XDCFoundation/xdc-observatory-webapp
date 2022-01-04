@@ -16,8 +16,7 @@ import utility from "../../utility";
 import format from "format-number";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
-import Utils from '../../utility'
-import { utils } from "react-bootstrap";
+import Utils from "../../utility";
 import styled from "styled-components";
 import { messages } from "../../constants"
 
@@ -31,22 +30,22 @@ const useStyles = makeStyles({
   RankColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "5% !important"
+    paddingLeft: "5.8% !important",
   },
   RankColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "5% !important"
+    paddingLeft: "5% !important",
   },
   PercentageColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "0% !important"
+    paddingLeft: "0% !important",
   },
   PercentageColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "0% !important"
+    paddingLeft: "0% !important",
   },
   "@media (max-width: 1024px)": {
     container: {
@@ -70,7 +69,6 @@ export default function AccountComponent(props) {
   let [anchorEl, setAnchorEl] = React.useState();
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
-  
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -91,7 +89,7 @@ export default function AccountComponent(props) {
   const { state } = props;
   const classes = useStyles();
   let rantValue = state.from;
-  
+
   return (
     <div>
       <Tokensearchbar />
@@ -156,14 +154,14 @@ export default function AccountComponent(props) {
                     <span className={"tableheaders_1_address"}>
                       Address
                       <Tooltip placement="top" title={messages.ACCOUNT_ADDRESS}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
@@ -173,14 +171,14 @@ export default function AccountComponent(props) {
                       <span className={"tableheaders_1 pl--1"}>
                         Type
                         <Tooltip placement="top" title={messages.ACCOUNT_TYPE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
+                          <img
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
                     </TableCell>
                   )}
                   {props.state.tableColumns["Balance"].isActive && (
@@ -191,16 +189,15 @@ export default function AccountComponent(props) {
                       <span className={"tableheaders_1"}>
                         Balance
                         <Tooltip placement="top" title={messages.ACCOUNT_BALANCE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
+                          <img
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
                     </TableCell>
-                    
                   )}
 
                   {props.state.tableColumns["Percentage"].isActive && (
@@ -220,7 +217,6 @@ export default function AccountComponent(props) {
                     </Tooltip>
                         </span>
                     </TableCell>
-                    
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
                 </TableRow>
@@ -241,13 +237,35 @@ export default function AccountComponent(props) {
                     {props.state.accountList &&
                       props.state.accountList.length >= 1 &&
                       props.state.accountList.map((row, index) => {
-                        let num = row.balance;
-                        let finalBal = num / 1000000000000000000;
+                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8)
                         let bal = finalBal.toString();
-                        rantValue = rantValue + 1
-                        let percentageValue = ((finalBal / state.totalSupply) * 100).toFixed(2)
-                        //state.totalSupply
+                        var bal1 =
+                          utility.convertToInternationalCurrencySystem(bal);
+                        var bal2 = bal1.toString().split(".")[0];
+                        var bal3 = bal1.toString().split(".")[1];
+                        var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                        var splittedArray = bal3?.match(regex);
 
+                        var bal4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
+                        var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
+
+
+                        rantValue = rantValue + 1;
+                        let percentageValue = (
+                          (finalBal / state.totalSupply) *
+                          100
+                        ).toFixed(8);
+                        let percentageValue1 = percentageValue
+                          .toString()
+                          .split(".")[0];
+                        let percentageValue2 = percentageValue
+                          .toString()
+                          .split(".")[1];
+
+
+
+
+                        //state.totalSupply
 
                         return (
                           <TableRow
@@ -307,26 +325,39 @@ export default function AccountComponent(props) {
                               >
                                 <Tooltip
                                   placement="right"
-                                  title={format({})(bal)}
+                                  title={format({})(finalBal)}
                                 >
-                                  <span className="tabledata">
-                                    {utility.convertToInternationalCurrencySystem(
-                                      bal
-                                    )}
-                                  </span>
+                                  {bal3 >= 0 || bal3 == null ? (
+                                    <span className="tabledata">{bal2}</span>
+                                  ) : (
+                                    <span className="tabledata">
+                                      {bal2}
+                                      {"."}
+                                      <span style={{ color: "#9FA9BA" }}>
+                                        {bal4}
+                                      </span>
+                                      {text}
+                                    </span>
+                                  )}
                                 </Tooltip>
                               </TableCell>
                             )}
-                            {props.state.tableColumns["Percentage"].isActive && (
-                              <TableCell
-                                className={`w-2 ${classes.PercentageColumnVal}`}
-                                align="center"
-                              >
-                                <span className="tabledata">
-                                  {percentageValue} %
-                                </span>
-                              </TableCell>
-                            )}
+                            {props.state.tableColumns["Percentage"]
+                              .isActive && (
+                                <TableCell
+                                  className={`w-2 ${classes.PercentageColumnVal}`}
+                                  align="center"
+                                >
+                                  <span className="tabledata">
+                                    {percentageValue1}
+                                    {"."}
+                                    <span style={{ color: "#9FA9BA" }}>
+                                      {percentageValue2}
+                                    </span>
+                                    %
+                                  </span>
+                                </TableCell>
+                              )}
                             {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                           </TableRow>
                         );
@@ -358,6 +389,7 @@ export default function AccountComponent(props) {
               <option value={10}>10</option>
               <option value={25}>25</option>
               <option value={50}>50</option>
+              <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
             <span className="text">Records</span>

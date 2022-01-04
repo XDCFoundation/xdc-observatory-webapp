@@ -37,6 +37,7 @@ import { cookiesConstants } from "../constants";
 import Utils from "../../utility";
 import { Column, Row } from "simple-flexbox";
 import TransactionPDF from "../../common/components/transactionPDF";
+import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink , StyleSheet } from '@react-pdf/renderer';
 import { messages } from "../../constants"
 import StorageMessage from "./dashboardPopup/storageMessage";
@@ -279,6 +280,14 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
       color: "#6b7482",
     },
+    profileName: {
+      color:"#252525",
+      fontSize:"14px"
+    },
+    editProfile: {
+      color:"#252525",
+      fontSize:"14px"
+    }
   },
   btn: {
     textAlign: "start",
@@ -853,7 +862,7 @@ export default function SimpleTabs(props) {
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            AddedOn: moment(item.addedOn),
           };
         })
       );
@@ -879,7 +888,7 @@ export default function SimpleTabs(props) {
           return {
             Address: item.address,
             NameTag: item.tagName,
-            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            AddedOn: moment(item.addedOn),
           };
         })
       );
@@ -912,12 +921,14 @@ export default function SimpleTabs(props) {
             }
           />
           <Column>
-            <Row style={{ gap: "15px" }}>
+            <Row className={classes.profileName} style={{ gap: "15px" }}>
               Welcome, {Utils.shortenUserName(setUserName())}
-              <NotificationBar />
+             
             </Row>
+            
             <Editprofile />
           </Column>
+          <NotificationBar  />  
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
@@ -1040,28 +1051,39 @@ export default function SimpleTabs(props) {
                 // >
                 //   Export test
                 // </div>
-                <PDFDownloadLink style={styles.pdfDownloadLink} document={ <TransactionPDF data={downloadTxnPvtNote}/>}  fileName="transactionPvtNote.pdf">
+                <PDFDownloadLink style={styles.pdfDownloadLink} document={
+                   <TransactionPDF 
+                   data={downloadTxnPvtNote} 
+                   />} 
+                    fileName="transactionPvtNote.pdf">
                 Export
                 </PDFDownloadLink>
                
               ) : (
-                <CSVLink
-                  filename={"tag_address.csv"}
-                  data={downloadTagAddress}
-                  style={{
-                    fontSize: "0.938rem",
-                    textAlign: "center",
-                    color: "#ffffff",
-                    backgroundColor: "rgb(7 125 245)",
-                    borderRadius: "0.25rem",
-                    width: "5.875rem",
-                    height: "2.125rem",
-                    marginRight: "1.5rem",
-                    paddingTop: "0.125rem",
-                  }}
-                >
-                  Export
-                </CSVLink>
+                <PDFDownloadLink style={styles.pdfDownloadLink} document={
+                  <AddressPDF 
+                  data={downloadTagAddress} 
+                  />} 
+                   fileName="tagAddresses.pdf">
+               Export
+               </PDFDownloadLink>
+                // <CSVLink
+                //   filename={"tag_address.csv"}
+                //   data={downloadTagAddress}
+                //   style={{
+                //     fontSize: "0.938rem",
+                //     textAlign: "center",
+                //     color: "#ffffff",
+                //     backgroundColor: "rgb(7 125 245)",
+                //     borderRadius: "0.25rem",
+                //     width: "5.875rem",
+                //     height: "2.125rem",
+                //     marginRight: "1.5rem",
+                //     paddingTop: "0.125rem",
+                //   }}
+                // >
+                //   Export
+                // </CSVLink>
               )
             ) : (
               <div
