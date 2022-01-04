@@ -20,7 +20,7 @@ import ReactHtmlParser from "react-html-parser";
 import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog"
-
+import AddressData from "../../services/address";
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -78,6 +78,7 @@ export default function AddressDetailsData() {
   let balance1 = balance.toString().split(".")[0];
   let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
+  const [count, setCount] = React.useState(0);
 
   const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
@@ -145,10 +146,22 @@ export default function AddressDetailsData() {
       // console.error(error);
     }
   };
-
+  const getTransactionsCountForAddress = async (data) => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getTransactionsCountForAddress(data)
+      );
+      if (error || !responseData) return;
+      setCount(parseInt(responseData));
+    } catch (error) {
+      console.error(error);
+    }
+  };
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
+    let data = { addrr: addressNumber }
+    getTransactionsCountForAddress(data);
   }, []);
 
   return (
@@ -165,7 +178,7 @@ export default function AddressDetailsData() {
               justifyContent="center"
               className="contract_details_heading_left"
             >
-              Address{" "}
+              Contract Address{" "}
               <span className="AddressTitle addtitle">{addressNumber}</span>
               {!isloggedIn ? (
                 <span className={classes.wantToLoginText}>
@@ -249,7 +262,7 @@ export default function AddressDetailsData() {
                           Transactions
                         </TableCell>
                         <TableCell className="left-table-contract-data">
-                          {data.transactionCout}
+                          {count}
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -377,10 +390,10 @@ export default function AddressDetailsData() {
             >
               {!responses ? (
                 ""
-              ) : responses.status === "unverified" ? (
-                <TokenUnverifiedContract contractData={responses} />
+              ) : responses?.contractStatus === "Unverified" ? (
+                <TokenUnverifiedContract contractData={responses?.contractResponse} />
               ) : (
-                <TokenContracttab contractData={responses} />
+                <TokenContracttab contractData={responses?.contractResponse} />
               )}
             </div>
           </div>

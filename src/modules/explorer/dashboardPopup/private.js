@@ -12,7 +12,7 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { genericConstants } from "../../constants";
+import { genericConstants, cookiesConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -240,6 +240,7 @@ export default function FormDialog() {
   const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
   async function TaggedAddress() {
+    debugger;
     setError("");
     setErrorTag("");
     const data = {
@@ -247,9 +248,9 @@ export default function FormDialog() {
       address: privateAddress,
       tagName: tags,
     };
-    if(!privateAddress){
+    if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if(!input && tags.length === 0){
+    } else if (!input && tags.length === 0) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
@@ -264,14 +265,34 @@ export default function FormDialog() {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
+      // const [error] = await utility.parseResponse(
+      //   UserService.addPrivateTagToAddress(data)
+      // );
 
-      if (error) {
-        setErrorTag("Address is already in use");
-        return;
+      // if (error) {
+      //   utility.apiFailureToast("Address is already in use");
+      //   return;
+      // }
+      let taggedAddress = localStorage.getItem(
+        cookiesConstants.USER_TAGGED_ADDRESS
+      );
+      if (taggedAddress) {
+        taggedAddress = JSON.parse(taggedAddress);
+        const existingTag = taggedAddress.find(
+          (item) => item.address == privateAddress && item.userId == data.userId
+        );
+        if (existingTag) {
+          utility.apiFailureToast("Address is already in use");
+          return;
+        }
+      } else {
+        taggedAddress = [];
       }
+      taggedAddress.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TAGGED_ADDRESS,
+        JSON.stringify(taggedAddress)
+      );
       utility.apiSuccessToast("Tag Added");
       window.location.href = "loginprofile";
       setOpen(false);
@@ -308,7 +329,7 @@ export default function FormDialog() {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      if(trimmedInput.length > 15){
+      if (trimmedInput.length > 15) {
         utility.apiFailureToast("Tag length should be less than 15");
         return;
       }
@@ -334,6 +355,10 @@ export default function FormDialog() {
 
   const deleteTag = (index) => {
     setTags((prevState) => prevState.filter((tag, i) => i !== index));
+  };
+
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
   };
 
   function getWindowDimensions() {
@@ -393,6 +418,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="Add a short memo or private tag to the address of interest."
             arrow
             placement="top-start"
@@ -502,10 +528,12 @@ export default function FormDialog() {
             </span>
           </DialogActions>
           <div className={classes.lastContainer}>
-              <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the address tags, is added on your local device. Cleaning the browsing history or cookies will clean the address tags saved in your profile.
-                </div>
+            <div className={classes.lastContainerText}>
+              To protect your privacy, data related to the address tags, is
+              added on your local device. Cleaning the browsing history or
+              cookies will clean the address tags saved in your profile.
             </div>
+          </div>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>

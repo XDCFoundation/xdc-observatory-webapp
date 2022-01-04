@@ -689,7 +689,7 @@ export default function AddressTableComponent(props) {
                             />
                             <div>
                               <TransactionDetailTooltip
-                                transactionAddress={row}
+                                transactionAddress={row.Txn_Hash}
                                 currency={props.currency}
                               />
                             </div>

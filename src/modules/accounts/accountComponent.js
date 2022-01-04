@@ -130,8 +130,21 @@ export default function AccountComponent(props) {
               <TableHead>
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
-                    <TableCell className={classes.RankColumn} align="center">
-                      <span className={"tableheaders_1 pl--1"}>Rank</span>
+                    <TableCell
+                      className={classes.RankColumn}
+                      align="center"
+                    >
+                      <span className={"tableheaders_1 pl--1"}>
+                        Rank
+                        <Tooltip placement="top" title={messages.RANK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                        </span>
                     </TableCell>
                   )}
                   <TableCell
@@ -192,7 +205,17 @@ export default function AccountComponent(props) {
                       className={classes.PercentageColumn}
                       align="center"
                     >
-                      <span className={"tableheaders_1"}>Percentage</span>
+                      <span className={"tableheaders_1"}>
+                        Percentage
+                        <Tooltip placement="top" title={messages.PERCENTAGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                        </span>
                     </TableCell>
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}

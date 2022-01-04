@@ -8,6 +8,7 @@ import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
+import TokentabsForAnalyics from "./tokentabsForAnalyics";
 import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
 import Utility from "../../utility";
@@ -703,6 +704,7 @@ export default function TokenDataComponent() {
         <br />
         <br />
         <Tokentabs contractStatusData={contractData} />
+        <TokentabsForAnalyics contractStatusData={contractData} />
         <br />
         <br />
         <FooterComponent />

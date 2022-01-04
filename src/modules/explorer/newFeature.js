@@ -10,6 +10,7 @@ export default function NewFeature(props) {
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
+    setSignUp(false);
   };
   //   const { onClose, selectedValue, open } = props;
 
@@ -36,9 +37,13 @@ export default function NewFeature(props) {
   const visited = () => {
     sessionManager.setDataInCookies(true, "Visited");
   }
-  return (
+  const isLoggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
-    !signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
+  return (
+    <>
+    {!isLoggedIn ?
+
+    (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
       <div className="main-box" >
         <Row className="main-row">
           <div className="main-title">New Features</div>
@@ -100,7 +105,7 @@ export default function NewFeature(props) {
         </div>
       </div>
     </Dialog> :
-      <FormDialog isNewFeatureComponent={true} />
+      <FormDialog isNewFeatureComponent={true} />):("")}</>
 
   );
 }
