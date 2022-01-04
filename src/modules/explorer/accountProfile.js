@@ -419,7 +419,6 @@ export default function SimpleTabs(props) {
       const response = await UserService.getUserPrivateNote(data);
       // setAddress(response);
       setTotalCount2(response.length);
-      console.log("res",response)
     }
     getPvtTagAddress();
     async function getPvtTagAddress() {

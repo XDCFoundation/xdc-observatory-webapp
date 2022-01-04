@@ -22,7 +22,6 @@ export default function VerifyContract() {
 
     const [isLoading, setisLoading] = useState(false)
     const [msg, setMessage] = useState("")
-    console.log(msg, "oookok")
     const [inputValue, setInputValue] = useState("")
     const inputRef = useRef();
     const validationSchema = Yup.object().shape({
@@ -52,11 +51,12 @@ export default function VerifyContract() {
         }
     }
     const onSubmitHandler = async (data) => {
+        let contractAddress = data.addr?.replace(/^.{2}/g, 'xdc');
         try {
             setisLoading(true)
             const resp = await contractverify.getContractVerify(data)
             if (resp[0].Error == 0) {
-                let url = "/address/" + data.addr
+                let url = "/address/" + contractAddress
                 setisLoading(false)
                 window.location.href = url;
             } else {

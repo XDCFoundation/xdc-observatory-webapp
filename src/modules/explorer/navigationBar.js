@@ -202,7 +202,6 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        console.log(responseData, "serach-data")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -352,7 +351,6 @@ export default function Navbar() {
               onClick={() => setOpencontracts(false)}
               style={{
                 color: "white",
-                marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
                 cursor: "pointer",

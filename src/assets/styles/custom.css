@@ -615,6 +615,7 @@ input:focus {
   display: flex;
   flex-direction: row;
   margin-left: 4px;
+  align-items: center;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .display-none-mobile {
@@ -851,7 +852,7 @@ div::-webkit-scrollbar {
   width: 3px;
 }
 div::-webkit-scrollbar-thumb {
-  background: #9fa9ba; 
+  background: #9fa9ba;
   border-radius: 8px;
 }
 
@@ -3377,7 +3378,6 @@ p {
 .tab-search {
   display: flex;
   align-items: center;
-  
 }
 @media (min-width: 768px) and (max-width: 1022px) {
   .tab-search {
@@ -3386,20 +3386,16 @@ p {
   }
 }
 @media (max-width: 768px) {
-  
   .tab-search {
     display: flex;
     width: 82%;
-    margin-left:-10px;
+    margin-left: -10px;
   }
-  
 }
 @media (min-width: 768px) {
   .display-none-desktop {
     display: none;
   }
-  
-  
 }
 
 @media (max-width: 1023px) {
@@ -5403,7 +5399,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .main-close {
-   display: none;
+    display: none;
   }
 }
 .main-checkbox {

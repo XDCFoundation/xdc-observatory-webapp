@@ -37,7 +37,6 @@ function TransactionDetailTooltip(props) {
       getCoinMarketDetailForTransaction();
     }
   }, [transactionHash, timeStamp, CurrencyValue]);
-  console.log(transactionHash, "oooo");
 
   const transactionDetail = async () => {
     let urlPath = `${transactionHash}`;
