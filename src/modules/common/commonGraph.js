@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 
@@ -14,14 +13,12 @@ const options = {
   ],
 };
 
-const Chart = () => (
-  <div>
+export default function Chart(props) {
+  return (
     <HighchartsReact
       highcharts={Highcharts}
       constructorType={"stockChart"}
-      options={options}
+      options={props.options}
     />
-  </div>
-);
-
-export default Chart;
+  );
+}
