@@ -11,6 +11,7 @@ import { UserService } from "../../../services";
 import utility from "../../../utility";
 import Tokensearchbar from "../tokensearchBar";
 import FooterComponent from "../../common/footerComponent";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -210,14 +211,37 @@ export default function FormDialog() {
     } else if (!PrivateNote) {
       setPrivateNoteError("Private Note is required");
     } else {
-      const [error, response] = await utility.parseResponse(
-        UserService.postUserPrivateNote(data)
+      // const [error, response] = await utility.parseResponse(
+      //   UserService.postUserPrivateNote(data)
+      // );
+
+      // if (error || !response) {
+      //   utility.apiFailureToast("Transaction private note is already in use");
+      //   return;
+      // }
+      let transactionLabel = localStorage.getItem(
+        cookiesConstants.USER_TRASACTION_LABELS
       );
 
-      if (error || !response) {
-        utility.apiFailureToast("Transaction private note is already in use");
-        return;
+      if (transactionLabel) {
+        transactionLabel = JSON.parse(transactionLabel);
+        const existingTransactionLabel = transactionLabel.find(
+          (item) =>
+            item.transactionHash == TransactionsHash &&
+            item.userId == data.userId
+        );
+        if (existingTransactionLabel) {
+          utility.apiFailureToast("Transaction private note is already in use");
+          return;
+        }
+      } else {
+        transactionLabel = [];
       }
+      transactionLabel.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TRASACTION_LABELS,
+        JSON.stringify(transactionLabel)
+      );
       utility.apiSuccessToast("Transaction Added");
       window.location.href = "loginprofile";
       setTransactionsHash("");
@@ -256,7 +280,7 @@ export default function FormDialog() {
   };
 
   const handleCancel = () => {
-    history.push("/loginprofile")
+    history.push("/loginprofile");
     setError("");
   };
 

@@ -9,6 +9,7 @@ import { history } from "../../../managers/history";
 import { sessionManager } from "../../../managers/sessionManager";
 import Tokensearchbar from "../tokensearchBar";
 import FooterComponent from "../../common/footerComponent";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -207,14 +208,34 @@ export default function FormDialog() {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error, response] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
+      // const [error, response] = await utility.parseResponse(
+      //   UserService.addPrivateTagToAddress(data)
+      // );
 
-      if (error) {
-        utility.apiFailureToast("Address is already in use");
-        return;
+      // if (error) {
+      //   utility.apiFailureToast("Address is already in use");
+      //   return;
+      // }
+      let taggedAddress = localStorage.getItem(
+        cookiesConstants.USER_TAGGED_ADDRESS
+      );
+      if (taggedAddress) {
+        taggedAddress = JSON.parse(taggedAddress);
+        const existingTag = taggedAddress.find(
+          (item) => item.address == privateAddress && item.userId == data.userId
+        );
+        if (existingTag) {
+          utility.apiFailureToast("Address is already in use");
+          return;
+        }
+      } else {
+        taggedAddress = [];
       }
+      taggedAddress.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TAGGED_ADDRESS,
+        JSON.stringify(taggedAddress)
+      );
       utility.apiSuccessToast("Tag Added");
       window.location.href = "loginprofile";
       setOpen(false);

@@ -1062,7 +1062,7 @@ export default function SimpleTabs(props) {
                   >
                     <Grid
                       component={Paper}
-                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                      style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
                     >
                       <Table
                         className="table w-700-a w-1500-a"
@@ -1138,7 +1138,10 @@ export default function SimpleTabs(props) {
                     <div style={{ height: "512px" }}>
                       <Grid
                         className="tablegrid_no_data"
-                        style={{ borderBottom: "2px solid #f9f9f9" }}
+                        style={{
+                          borderBottom: "2px solid #f9f9f9",
+                          overflow: "auto",
+                        }}
                       >
                         <Grid
                           component={Paper}
@@ -1683,7 +1686,6 @@ export default function SimpleTabs(props) {
 
                         <TableBody>
                           {address.map((row, index) => {
-                            
                             return (
                               <TableRow
                                 style={

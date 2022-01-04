@@ -42,6 +42,9 @@ export const cookiesConstants = {
   AUTH0_ACCESS_TOKEN: "AUTH0_ACCESS_TOKEN",
   USER_DETAIL: "USER_DETAIL",
   USER_SUB: "USER_SUB",
+  USER_TAGGED_ADDRESS: "USER_TAGGED_ADDRESS",
+  USER_TRASACTION_LABELS: "USER_TRASACTION_LABELS",
+  USER_ADDRESS_WATCHLIST: "USER_ADDRESS_WATCHLIST",
 
   USER_PICTURE: "USER_PICTURE",
   USER_ID: "USER_ID",
@@ -104,22 +107,30 @@ export const messages = {
 };
 
 export const toolTipMessages = {
-  hashid: "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
-  blocknumber: "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+  hashid:
+    "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
+  blocknumber:
+    "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
   timestamp: "The date and time at which a transaction is mined.",
   from: "The sending party of the transaction(could be from a contact address)",
   to: "The receiving party of the transaction(could be from a contact address) ",
-  value: "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  txnfee: "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  gasprovided: "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
-  gasprice: "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block",
+  value:
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  txnfee:
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  gasprovided:
+    "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
+  gasprice:
+    "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block",
   gasused: "The exact unit of gas that was used for the transactions.",
-  nounced: "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
+  nounced:
+    "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
   input: "Additional information that is required for the transaction",
-  transferToken: "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes"
-}
+  transferToken:
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
+  privatenote: "Private notes",
+};
 
 export const decimalDivisionValue = {
-  DECIMAL_DIVISON_VALUE: 1000000000000000000
-}
+  DECIMAL_DIVISON_VALUE: 1000000000000000000,
+};
