@@ -202,7 +202,6 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        console.log(responseData, "serach-data")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;

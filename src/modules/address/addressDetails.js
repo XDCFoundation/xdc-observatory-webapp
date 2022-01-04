@@ -136,7 +136,6 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        console.log(responseData.balance, "ppp")
         setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
         setCurrentPrice(responseData.balance)
         setLoading(false);
