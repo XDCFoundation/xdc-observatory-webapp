@@ -10,6 +10,7 @@ export default function NewFeature(props) {
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
+    setSignUp(false);
   };
   //   const { onClose, selectedValue, open } = props;
 
@@ -21,21 +22,28 @@ export default function NewFeature(props) {
     dialogBox: {
       maxWidth: "795px",
       width: "100%",
-      height: "469px",
       position: "absolute",
       top: "65px",
       borderRadius: "12px",
+     '@media (min-width: 0px) and (max-width: 766px)' : {
+        height: "100vh",
+        top: "40px",
+        borderRadius: "0px",
+      }
     }
   }))
   const classes = useStyles();
 
   const visited = () => {
     sessionManager.setDataInCookies(true, "Visited");
-
   }
-  return (
+  const isLoggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
-    !signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
+  return (
+    <>
+    {!isLoggedIn ?
+
+    (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
       <div className="main-box" >
         <Row className="main-row">
           <div className="main-title">New Features</div>
@@ -97,7 +105,7 @@ export default function NewFeature(props) {
         </div>
       </div>
     </Dialog> :
-      <FormDialog isNewFeatureComponent={true} />
+      <FormDialog isNewFeatureComponent={true} />):("")}</>
 
   );
 }

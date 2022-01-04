@@ -362,6 +362,11 @@
     background-color: #ffffff;
   }
 }
+@media (min-width: 0px) and (max-width: 767px) {
+  .tabledata {
+    padding-right: 30px !important;
+  }
+}
 
 .tabledata {
   width: 10%;

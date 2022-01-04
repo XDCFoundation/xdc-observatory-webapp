@@ -75,7 +75,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 0 10px 0;
+    padding: 20px 10px 0 0;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     padding: 20px 10px 0 0;
@@ -90,6 +90,10 @@ const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
   margin-left: 12px;
+   @media (min-width: 0px) and (max-width: 767px) {
+     display: flex;
+     flex-direction:column;
+   }
 `;
 
 const LeftSec = styled.div`
@@ -98,6 +102,9 @@ const LeftSec = styled.div`
   @media (min-width: 335px) and (max-width: 767px) {
     padding: 0 3%;
   }
+  @media (min-width: 768px) and (max-width: 1240px) {
+ margin-top: 30px;
+  }
 `;
 const ValueMain = styled.div`
   display: flex;
@@ -105,6 +112,7 @@ const ValueMain = styled.div`
   flex-wrap: wrap;
   @media (min-width: 0px) and (max-width: 767px) {
     gap: 30px;
+    margin-top:15px
   }
   /* margin-top: 12px; */
   @media (min-width: 0px) and (max-width: 767px) {
@@ -216,15 +224,15 @@ const Line1 = styled.hr`
 background-color: #e3e7eb;
   width: 100%;
   position: absolute;
-  top: 65%;
+  top: 77%;
   opacity: 1;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 90%;
     top: 87%;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
-    width: 97%;
-    top: 60%;
+    width: 98%;
+    top: 90%;
   }
 `;
 const LeftTopSec = styled.div`
@@ -244,7 +252,20 @@ const LeftTopSecMain = styled.div`
   margin-right: 5px;
   margin-top: 7px;
 `;
-
+const MobileDesign = styled.div`
+ @media (min-width: 0px) and (max-width: 767px) {
+  display: visible;}
+ @media (min-width: 768px) {
+   display: none;
+ }
+`;
+const DeskTopDesign = styled.div`
+ @media (min-width: 0px) and (max-width: 767px) {
+  display: none;}
+ @media (min-width: 768px) {
+   display: visible;
+ }
+`;
 class BlockChainDataComponent extends Component {
   constructor(props) {
     super(props);
@@ -481,6 +502,7 @@ class BlockChainDataComponent extends Component {
         let [error, latestBlocks] = await Utils.parseResponse(
           BlockService.getLatestBlock(urlPath, {})
         );
+        if (error || !latestBlocks) return;
         this.setState({ blockdataNumber: latestBlocks });
       }
 
@@ -533,9 +555,9 @@ class BlockChainDataComponent extends Component {
     let changeAccounts = this.state.someDayAccount
       ? this.state.someDayAccount
       : 0;
-    let blockNumber = this.state && this.state.blockdataNumber.length ? this.state.blockdataNumber[0]?.number : "";
+    let blockNumber = this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number : "";
     let animationClass = this.state.animationBlock?.[blockNumber];
-    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails.length ? this.state.transactionDataDetails[0]?.hash : 0;
+    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails?.length ? this.state.transactionDataDetails[0]?.hash : 0;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts;
@@ -545,46 +567,51 @@ class BlockChainDataComponent extends Component {
         className={this.state.loading == true ? "cover-spin-3" : ""}
       >
         <LeftContainer>
-          <LeftFirst>
-            <LeftTop>
-              <IconLogo src={logo} />
-              <LeftTitle>XDC</LeftTitle>
-            </LeftTop>
-            <LeftTopSecMain>
-              <LeftTopSec>
-                {currencySymbol}
-                {changeDecimals}
-              </LeftTopSec>
-              <div
-                className={
-                  changeDecimal >= 0
-                    ? "data_value_green last_value_main"
-                    : "data_value_red"
-                }
-              >
-                <div className="value_changePrice">
-                  {changeDecimal == 0 ? (
-                    ""
-                  ) : changeDecimal > 0 ? (
-                    <div className="arrow_up">
-                      {/* <BsFillCaretUpFill size={10} /> */}
-                      <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                    </div>
-                  ) : (
-                    <div className="arrow_down">
-                      {/* <BsFillCaretDownFill size={10} /> */}
-                      <img src={"/images/Down.svg"} style={{ width: "8px" }} />
-                    </div>
-                  )}
-                  &nbsp;{changeDecimal ? changeDecimal : 0}%
+          <DeskTopDesign>
+            <LeftFirst>
+
+              <LeftTop>
+                <IconLogo src={logo} />
+                <LeftTitle>XDC</LeftTitle>
+              </LeftTop>
+              <LeftTopSecMain>
+                <LeftTopSec>
+                  {currencySymbol}
+                  {changeDecimals}
+                </LeftTopSec>
+                <div
+                  className={
+                    changeDecimal >= 0
+                      ? "data_value_green last_value_main"
+                      : "data_value_red"
+                  }
+                >
+                  <div className="value_changePrice">
+                    {changeDecimal == 0 ? (
+                      ""
+                    ) : changeDecimal > 0 ? (
+                      <div className="arrow_up">
+                        {/* <BsFillCaretUpFill size={10} /> */}
+                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} /> */}
+                        <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                      </div>
+                    )}
+                    &nbsp;{changeDecimal ? changeDecimal : 0}%
+                  </div>
                 </div>
-              </div>
-            </LeftTopSecMain>
-            <Line1></Line1>
-          </LeftFirst>
+              </LeftTopSecMain>
+              <Line1></Line1>
+
+            </LeftFirst>
+          </DeskTopDesign>
           <LeftSec>
             <ValueMain>
               <MobileScreen>
+
                 <Value>
                   <TitleIcon src={blockHeightImg} />
                   <ValueName>
@@ -592,7 +619,7 @@ class BlockChainDataComponent extends Component {
                     <TitleValue
                       className={animationClass ? animationClass : ""}
                     >
-                      {this.state && this.state.blockdataNumber.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
+                      {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
                     </TitleValue>
                   </ValueName>
                 </Value>
@@ -634,7 +661,7 @@ class BlockChainDataComponent extends Component {
                     <Title>Difficulty</Title>
                     <Tooltip
                       placement="top"
-                      title={this.state.blockdataNumber[0]?.totalDifficulty}
+                      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}
                     >
                       <TitleValue
                         className={animationClass ? animationClass : ""}
@@ -707,6 +734,46 @@ class BlockChainDataComponent extends Component {
         </LeftContainer>
 
         <RightContainer>
+          <MobileDesign>
+            <LeftFirst>
+
+              <LeftTop>
+                <IconLogo src={logo} />
+                <LeftTitle>XDC</LeftTitle>
+              </LeftTop>
+              <LeftTopSecMain>
+                <LeftTopSec>
+                  {currencySymbol}
+                  {changeDecimals}
+                </LeftTopSec>
+                <div
+                  className={
+                    changeDecimal >= 0
+                      ? "data_value_green last_value_main"
+                      : "data_value_red"
+                  }
+                >
+                  <div className="value_changePrice">
+                    {changeDecimal == 0 ? (
+                      ""
+                    ) : changeDecimal > 0 ? (
+                      <div className="arrow_up">
+                        {/* <BsFillCaretUpFill size={10} /> */}
+                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} /> */}
+                        <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                      </div>
+                    )}
+                    &nbsp;{changeDecimal ? changeDecimal : 0}%
+                  </div>
+                </div>
+              </LeftTopSecMain>
+
+            </LeftFirst>
+          </MobileDesign>
           <Tab />
         </RightContainer>
       </MainContainer>

@@ -12,6 +12,8 @@ import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
 import TokenData from "../../services/token";
+import BlockService from "../../services/blocks";
+import coinMarketService from "../../services/coinMarket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,14 +58,41 @@ export default function TransferTransaction({ _handleChange }) {
     )} `;
   }
 
+  let decimalValue = 0
+  let currentBlock = 0
+  let CurrencyValue = window.localStorage.getItem("currency");
   const { address } = useParams();
   const [transactions, setTransactions] = useState(false);
+  const [latestBlocks, setLatestBlocks] = useState(0);
+  const [coinmarketcap, setCoinmarketcap] = useState([]);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
   const [isLoading, setLoading] = useState(true);
+  const [tokenTransferValue, setTokenTransferValue] = useState(0)
   useEffect(() => {
     transferTransactionDetail();
+    getLatestBlocks();
+    getcoinMarketCapData()
   }, [amount]);
+
+  const getcoinMarketCapData = async () => {
+    let urlPath = `${CurrencyValue}`;
+    let [error, coinMarket] = await Utils.parseResponse(
+      coinMarketService.getCoinMarketData(urlPath, {})
+    );
+    if (error || !coinMarket) return;
+    setCoinmarketcap(coinMarket[0])
+  };
+
+  const getLatestBlocks = async () => {
+    let urlPath = "?skip=0&limit=1";
+    let [error, latestBlock] = await Utils.parseResponse(
+      BlockService.getLatestBlock(urlPath, {})
+    );
+    if (error || !latestBlock) return;
+    setLatestBlocks(latestBlock[0].number);
+
+  };
 
   const transferTransactionDetail = async () => {
     let urlPath = `/${address}`;
@@ -73,6 +102,11 @@ export default function TransferTransaction({ _handleChange }) {
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
     setLoading(false);
+    if (transactiondetailusinghash.decimals !== undefined) {
+      decimalValue = Math.pow(10, transactiondetailusinghash.decimals)
+      setTokenTransferValue(parseInt(parseInt(transactiondetailusinghash.value) / decimalValue))
+    }
+    currentBlock = transactiondetailusinghash.number
   };
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
@@ -95,33 +129,24 @@ export default function TransferTransaction({ _handleChange }) {
     window.localStorage.setItem("currency", event?.target?.value);
   }
 
-  let CurrencyValue = window.localStorage.getItem("currency");
-  const currencySymbol =
-    CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
-  const valueFetch =
-    CurrencyValue === "INR"
-      ? transactions.valueINR
-      : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
-  const transactionFetch =
-    CurrencyValue === "INR"
-      ? transactions.transactionFeeINR
-      : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
-  const fetchtxn = !transactionFetch
-    ? 0
-    : (transactionFetch / 1000000000000000000).toFixed(12);
-  const txfee = !transactions.transactionFee
-    ? 0
-    : (transactions.transactionFee / 1000000000000000000).toFixed(12);
-  const gasP = !transactions.gasPrice
-    ? 0
-    : (transactions.gasPrice / 1000000000000000000).toFixed(18);
-  const valueDiv = !valueFetch
-    ? 0
-    : (valueFetch / 1000000000000000000).toFixed(11);
+
+  const currencySymbol = CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
+  const valueFetch = coinmarketcap.price
+
+  const transactionFetch = CurrencyValue === "INR" ? transactions.transactionFeeINR : CurrencyValue === "USD" ? transactions.transactionFeeUSD : transactions.transactionFeeEUR;
+
+  const fetchtxn = !transactionFetch ? 0 : (transactionFetch / 1000000000000000000).toFixed(12);
+
+
+  let txfee = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
+  txfee = txfee * transactions.gasUsed
+
+
+  const gasP = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
+
+
+
+  const valueDiv = !valueFetch ? 0 : Utils.decimalDivison(valueFetch, 2);
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -200,7 +225,7 @@ export default function TransferTransaction({ _handleChange }) {
                       >
                         {transactions.blockNumber}
                       </a>
-                      - {transactions.blockConfirmation} Blocks Confirmation
+                      - {latestBlocks && latestBlocks > 0 ? latestBlocks - parseInt(transactions?.blockNumber) : 0}  Blocks Confirmation
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -214,10 +239,10 @@ export default function TransferTransaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     {transactions.timestamp &&
-                    !isNaN(Number(transactions.timestamp))
-                      ? moment(Number(transactions.timestamp) * 1000).format(
-                          "MMMM Do YYYY, h:mm:ss a"
-                        ) + "  +0530"
+                      !isNaN(Number(transactions.timestamp))
+                      ? moment(Number(transactions.timestamp) * 1000).utc().format(
+                        "MMMM Do YYYY, h:mm:ss A"
+                      ) + "  UTC"
                       : ""}
                   </MiddleContainer>
                 </Spacing>
@@ -319,11 +344,10 @@ export default function TransferTransaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       Contract{" "}
-                      <a className="linkTableDetails" href={"/"}>
-                        {transactions.ContractDetails?.address}{" "}
-                      </a>
-                      ({transactions.ContractDetails?.symbol} :{" "}
-                      {transactions.ContractDetails?.tokenName})
+
+                      (<a className="linkTableDetails" href={"/address/" + transactions?.contract}>
+                        {transactions?.contract}
+                      </a>)
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -341,19 +365,8 @@ export default function TransferTransaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-                      From{" "}
-                      <a className="linkTableDetails" href={"/"}>
-                        {shorten(transactions.from)}
-                      </a>
-                      To{" "}
-                      <a className="linkTableDetails" href={"/"}>
-                        {shorten(transactions.to)}
-                      </a>
-                      For 1{" "}
-                      <a className="linkTableDetails" href={"/"}>
-                        {transactions.ContractDetails?.symbol} (
-                        {transactions.ContractDetails?.tokenName})
-                      </a>
+                      {tokenTransferValue}
+
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -366,11 +379,11 @@ export default function TransferTransaction({ _handleChange }) {
                     <Hash>Value</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    {!transactions?.value
+                    {!transactions?.transactionValue
                       ? 0
-                      : transactions?.value / 1000000000000000000}
+                      : Utils.decimalDivison(transactions?.transactionValue, 2)}{" "}
                     XDC ({currencySymbol}
-                    {valueDiv && valueDiv > 0 ? valueDiv : 0})
+                    {coinmarketcap && coinmarketcap?.price > 0 ? Utils.decimalDivison(coinmarketcap.price * transactions?.transactionValue, 2) : 0})
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
@@ -383,8 +396,9 @@ export default function TransferTransaction({ _handleChange }) {
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-                      {txfee} XDC ({currencySymbol}
-                      {fetchtxn})
+                      {txfee && txfee > 0 ? txfee : 0}  XDC ({currencySymbol}
+                      {txfee && txfee > 0 ? Utils.decimalDivison(coinmarketcap.price * txfee, 2) : 0}
+                      )
                     </Content>
                   </MiddleContainer>
                 </Spacing>
@@ -480,7 +494,7 @@ export default function TransferTransaction({ _handleChange }) {
                     {/* <Input /> */}
                     <PrivateBox>
                       To access the Private Note feature, you must be
-                      <a className="linkTableDetails">Logged In</a>
+                      <a className="linkTableDetails"> Logged In</a>
                     </PrivateBox>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>

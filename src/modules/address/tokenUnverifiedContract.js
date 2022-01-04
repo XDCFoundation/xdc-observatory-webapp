@@ -34,7 +34,7 @@ export default function TokenUnverifiedContract(props) {
                 <button
                   className="click-here-btn"
                   onClick={() =>
-                    history.push("/verify-contracts/" + unverifiedData.address)
+                    history.push("/verify-contracts/" + unverifiedData?.address)
                   }
                 >
                   <FaShieldAlt className="shield-logo" />
@@ -54,12 +54,12 @@ export default function TokenUnverifiedContract(props) {
             </div>
             <div>
               <CopyToClipboard
-                text={unverifiedData.byteCode}
-                onCopy={() => setCopiedText(unverifiedData.byteCode)}
+                text={unverifiedData?.byteCode}
+                onCopy={() => setCopiedText(unverifiedData?.byteCode)}
               >
                 <Tooltip
                   title={
-                    copiedText === unverifiedData.byteCode
+                    copiedText === unverifiedData?.byteCode
                       ? "Copied"
                       : "Copy To Clipboard"
                   }
@@ -87,7 +87,7 @@ export default function TokenUnverifiedContract(props) {
                 outline: "none",
               }}
               readOnly
-              value={unverifiedData.byteCode}
+              value={unverifiedData?.byteCode}
               className="input-area-bytecode"
             />
           </div>

@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "15px 35px 20px 0px",
+    padding: "15px 35px 0px 0px",
   },
   subCategory: {
     marginTop: "-12px",
@@ -167,6 +167,22 @@ const useStyles = makeStyles((theme) => ({
   notifyLabel: {
     fontSize: "14px",
     color: "#2a2a2a",
+  },
+  lastContainer: {
+    width: "504px",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerText: {
+    fontSize: "12px",
+    fontFamily: "Inter !important",
+    color: "#ff0202",
+    letterSpacing: "0.46px",
+    lineHeight: "1.58",
   },
 
   "@media (max-width: 714px)": {
@@ -242,6 +258,9 @@ export default function FormDialog() {
   };
 
   const watchListService = async () => {
+    if(!address){
+      setError("Please enter required field");
+    }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
@@ -249,7 +268,10 @@ export default function FormDialog() {
       type: value,
       isEnabled: true,
     };
-    if (
+    if(!address){
+      setError("Please enter required field");
+    }
+   else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
@@ -305,6 +327,11 @@ export default function FormDialog() {
     setError("");
     setDescriptionError("");
   };
+
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
+  }
+
   const classes = useStyles();
 
   function getWindowDimensions() {
@@ -367,6 +394,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
             arrow
             placement="top-start"
@@ -510,6 +538,11 @@ export default function FormDialog() {
                 </button>
               </span>
             </DialogActions>
+            <div className={classes.lastContainer}>
+              <div className={classes.lastContainerText}>
+                To protect your privacy, data related to the Watchlists, is added on your local device. Cleaning the browsing history or cookies will clean the watchlist data saved in your profile.
+                </div>
+            </div>
             {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>

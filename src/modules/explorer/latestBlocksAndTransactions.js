@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../../assets/styles/custom.css";
-import {  TransactionService } from "../../services";
+import { TransactionService } from "../../services";
 import Utils from "../../utility";
 import Tooltip from "@material-ui/core/Tooltip";
 import Loader from "../../assets/loader";
@@ -114,11 +114,10 @@ class LatestBlocks extends Component {
       let transactionDataExist = transactions.findIndex((item) => {
         return item.hash === transactionData.hash;
       });
-   
-      if (transactionDataExist === -1 && Number(transactionData.value)>0) {
+
+      if (transactionDataExist === -1 && Number(transactionData.value) > 0) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        console.log("transactions", transactionData);
         // if(Number(transactionData.value)>0)
         // transactions.unshift(transactionData);
         let hashAnimationClass = {
@@ -187,7 +186,7 @@ class LatestBlocks extends Component {
     let [error, latestTransactions] = await Utils.parseResponse(
       TransactionService.getLatestTransaction(urlPath, {})
     );
-      if(error) return;
+    if (error) return;
     if (!latestTransactions || latestTransactions.length === 0 || latestTransactions === undefined || latestTransactions === "" || latestTransactions === null) {
       this.setState({ isLoading: false });
     }

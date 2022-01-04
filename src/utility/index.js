@@ -62,9 +62,10 @@ const utility = {
   uploadImage,
   shortenUserName,
   shortenHash,
+  shortenHashTab,
   timeDiff,
   convertToInternationalCurrencySystem,
-  getNumberUnit, decimalDivison, decimalDivisonOnly
+  getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue
 };
 export default utility;
 
@@ -78,7 +79,6 @@ function convertToInternationalCurrencySystem(num) {
   } else if (num > 999999 && num < 999999999) {
     return parseFloat((num / 1000000).toFixed(2)) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
-    console.log(num);
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
   } else if (num < 900) {
     return num; // if value < 1000, nothing to do
@@ -113,6 +113,17 @@ function getNumberUnit(num) {
     ? units[Math.floor(unit / 3) - 2]
     : "";
   return x.toFixed(2) + " " + unitValue;
+}
+
+function divideByDecimalValue(num, decimals) {
+  num = Number(num)
+  if (num === 0) {
+    return num;
+  }
+  else {
+    return (num / Math.pow(10, decimals)).toFixed(decimals)
+  }
+
 }
 
 function timeDiff(curr, prev) {
@@ -192,6 +203,14 @@ function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
   if (b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 4,
+      b.length
+    )}`;
+  else return b;
+}
+function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
+  if (b.length > 12)
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - 0,
       b.length
     )}`;
   else return b;

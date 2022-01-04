@@ -17,7 +17,7 @@ import { TransactionService, CoinMarketService } from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
-
+import format from "format-number";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -90,7 +90,9 @@ export default function AddressDetails(props) {
   const [currentPrice, setCurrentPrice] = useState(0)
   let { addr } = useParams();
   let px = currentPrice * price
-  let priceChanged = Utility.decimalDivison(px, 18)
+  let priceChanged = Utility.decimalDivison(px, 8)
+  let priceChanged1 = priceChanged.toString().split(".")[0];
+  let priceChanged2 = priceChanged.toString().split(".")[1];
   let activeCurrency = window.localStorage.getItem("currency");
   const currencySymbol =
     activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
@@ -134,11 +136,12 @@ export default function AddressDetails(props) {
         setLoading(false);
       }
       if (responseData) {
-        setBalance(Utility.decimalDivisonOnly(responseData.balance, 18));
+        console.log(responseData.balance, "ppp")
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
         setCurrentPrice(responseData.balance)
         setLoading(false);
       } else {
-        setBalance(parseFloat(0).toFixed(18));
+        setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
     } catch (error) {
@@ -191,7 +194,7 @@ export default function AddressDetails(props) {
       margin-right: 20px;
       display: ${(props) => (props.isDesktop ? "none" : "block")};
     }
-    @media (min-width: 769px) {
+    @media (min-width: 768px) {
       display: ${(props) => (props.isDesktop ? "block" : "none")};
     }
   `;
@@ -221,115 +224,104 @@ export default function AddressDetails(props) {
                   </Tooltip>
                   <Hash>Address</Hash>
                 </Container>
-                <MiddleContainerHash>
-                  <Content>{addr}</Content>
-                  {isTag
-                    ? addressTag.map((item, index) => {
-                      return (
-                        <div className="nameLabel1" key={index}>
-                          {item}
-                        </div>
-                      );
-                    })
-                    : ""}
-                  <span
-                    className={
-                      width > 1240
-                        ? "copyEditContainer1"
-                        : width <= 1240 && width >= 768
-                          ? "copyEditContainerAddress"
-                          : "copyEditContainerMobileAddr"
-                    }
-                  >
-                    <SecondContainer>
-                      <CopyToClipboard
-                        text={addr}
-                        onCopy={() => setCopiedText(addr)}
-                      >
-                        <Tooltip
-                          title={
-                            copiedText === addr ? "Copied" : "Copy To Clipboard"
-                          }
-                          placement="top"
-                        >
-                          <button
-                            className={
-                              width > 1240
-                                ? "copyToClipboardHash"
-                                : "copyToClipboardHashMobile"
-                            }
-                          >
-                            <img
-                              className={
-                                width > 1240
-                                  ? "copy-icon"
-                                  : width < 1239
-                                    ? "copyIconHashMobile"
-                                    : "copyIconHash"
-                              }
-                              src={"/images/copy.svg"}
-                            />
-                          </button>
-                        </Tooltip>
-                      </CopyToClipboard>
+                <MiddleContainerHashTop>
+                  <AddressDiv>
+                    <Content>{addr}</Content></AddressDiv>
+                  <LabelAndCopyDiv>
+                    {isTag
+                      ? addressTag.map((item, index) => {
+                        return (
+                          <span className={index == 0 ? "nameLabel11" : "nameLabel1"} key={index}>
+                            {item}
+                          </span>
+                        );
+                      })
+                      : ""}
 
-                      <Popup
-                        trigger={<ImQrcode className="imQrcode" />}
-                        lockScroll
-                        modal
-                      >
-                        {(close) => (
-                          <div className="popup_qr">
-                            <CloseIcon
-                              isDesktop={false}
-                              src="/images/XDC-Cross.svg"
-                              // className="qrClose"
-                              onClick={close}
-                            />
-                            <p>
-                              <div>
-                                <div className="header-popup">
-                                  <Row alignItems="center">{addr}</Row>
-                                  <CloseIcon
-                                    isDesktop={true}
-                                    src="/images/XDC-Cross.svg"
-                                    // className="qrClose"
-                                    onClick={close}
-                                  />
-                                  {/* &times; */}
-                                  {/* </img> */}
+
+                    <span
+                      className="copyEditContainer1"
+                    >
+                      <SecondContainer>
+                        <CopyToClipboard
+                          text={addr}
+                          onCopy={() => setCopiedText(addr)}
+                        >
+                          <Tooltip
+                            title={
+                              copiedText === addr ? "Copied" : "Copy To Clipboard"
+                            }
+                            placement="top"
+                          >
+                            <button
+                              className="copyToClipboardAddr"
+                            >
+                              <img
+                                className="copyIconAddr"
+                                src={"/images/copy.svg"}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
+
+                        <Popup
+                          trigger={<ImQrcode className="imQrcode" />}
+                          lockScroll
+                          modal
+                        >
+                          {(close) => (
+                            <div className="popup_qr">
+                              <CloseIcon
+                                isDesktop={false}
+                                src="/images/XDC-Cross.svg"
+                                // className="qrClose"
+                                onClick={close}
+                              />
+                              <p>
+                                <div>
+                                  <div className="header-popup">
+                                    <Row alignItems="center">{addr}</Row>
+                                    <CloseIcon
+                                      isDesktop={true}
+                                      src="/images/XDC-Cross.svg"
+                                      // className="qrClose"
+                                      onClick={close}
+                                    />
+                                    {/* &times; */}
+                                    {/* </img> */}
+                                  </div>
+                                  {window.innerWidth > 767 ? (
+                                    <QRCode
+                                      size={320}
+                                      style={{
+                                        height: 400,
+                                        width: 400,
+                                        marginTop: "0.625rem",
+                                      }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  ) : (
+                                    <QRCode
+                                      // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                      size={320}
+                                      className="qrcode-label"
+                                      //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  )}
                                 </div>
-                                {window.innerWidth > 767 ? (
-                                  <QRCode
-                                    size={320}
-                                    style={{
-                                      height: 400,
-                                      width: 400,
-                                      marginTop: "0.625rem",
-                                    }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                ) : (
-                                  <QRCode
-                                    // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                    size={320}
-                                    className="qrcode-label"
-                                    //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                    value={
-                                      process.env.REACT_APP_QR_CODE_LINK + addr
-                                    }
-                                  />
-                                )}
-                              </div>
-                            </p>
-                          </div>
-                        )}
-                      </Popup>
-                    </SecondContainer>
-                  </span>
-                </MiddleContainerHash>
+                              </p>
+                            </div>
+                          )}
+                        </Popup>
+                      </SecondContainer>
+                    </span>
+                  </LabelAndCopyDiv>
+                </MiddleContainerHashTop>
               </HashDiv>
               <Spacing style={{ borderBottom: "none" }}>
                 <HashDiv>
@@ -341,7 +333,30 @@ export default function AddressDetails(props) {
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {parseInt(balance)?.toLocaleString("en-US")} XDC ({currencySymbol}{priceChanged})
+                      {format({})(balance)} XDC
+                    </Content>
+                  </MiddleContainerHash>
+                </HashDiv>
+              </Spacing>
+              <Spacing style={{ borderBottom: "none" }}>
+                <HashDiv>
+                  <Container>
+                    <Tooltip title="An address is a unique sequence of numbers and letters">
+                      <ImageView src={"/images/questionmark.svg"} />
+                    </Tooltip>
+                    <Hash>XDC Value</Hash>
+                  </Container>
+                  <MiddleContainerHash>
+                    <Content>
+                      {currencySymbol}{priceChanged2 == null ? (
+                        <span>{priceChanged1}</span>
+                      ) : (
+                        <span>
+                          {priceChanged1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{priceChanged2}</span>
+                        </span>
+                      )}
                     </Content>
                   </MiddleContainerHash>
                 </HashDiv>
@@ -458,7 +473,7 @@ export default function AddressDetails(props) {
                 tag={addressTag}
               />
             ) : (
-              <AddressTableComponent trans={transactions} coinadd={addr} />
+              <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
             )}
           </div>
         </div>
@@ -467,7 +482,15 @@ export default function AddressDetails(props) {
     </div>
   );
 }
+const AddressDiv = styled.div`
 
+`;
+const LabelAndCopyDiv = styled.div`
+display: flex;
+@media (min-width: 300px) and (max-width: 767px) {
+  display: block;
+}
+`;
 const Input = styled.input`
   border-radius: 0.313rem;
   border: solid 0.063rem #e3e7eb;
@@ -562,13 +585,44 @@ const MiddleContainerHash = styled.div`
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
-    margin-left: 18px;
-    padding-right: 26px;
+    margin-left: 0px;
+    // padding-right: 26px;
     margin-top: 10px;
     display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
+    // display: block;
+  }
+`;
+const MiddleContainerHashTop = styled.div`
+  font-family: Inter;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 6.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
+    margin-left: 0px;
+    padding-right: 6px;
+    margin-top: 10px;
+    display: block;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 4.25rem !important;
+    // display:block;
   }
 `;
 const Hash = styled.span`
@@ -608,7 +662,7 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
-    padding-left: 3px;
+    padding-left: 14px;
   }
 `;
 const Container = styled.div`

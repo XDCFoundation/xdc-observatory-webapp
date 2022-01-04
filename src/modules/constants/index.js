@@ -67,7 +67,7 @@ export const eventConstants = {
 
 export const genericConstants = {
     INCORRECT_USERNAME_PASS: "Incorrect username or password",
-    ENTER_REQUIRED_FIELD: "Please enter the required fields",
+    ENTER_REQUIRED_FIELD: "Please enter the required information",
     INVALID_EMAIL: "Invalid email",
     PASSWORD_DID_NOT_MATCH: "Both the passwords did not match",
     PASSWORD_UPDATE_SUCCESS: "Your Password has been updated successfully",
