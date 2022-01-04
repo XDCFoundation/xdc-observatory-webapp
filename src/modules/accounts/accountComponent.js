@@ -136,7 +136,17 @@ export default function AccountComponent(props) {
                       className={classes.RankColumn}
                       align="center"
                     >
-                      <span className={"tableheaders_1 pl--1"}>Rank</span>
+                      <span className={"tableheaders_1 pl--1"}>
+                        Rank
+                        <Tooltip placement="top" title={messages.RANK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                        </span>
                     </TableCell>
                   )}
                   <TableCell
@@ -198,7 +208,17 @@ export default function AccountComponent(props) {
                       className={classes.PercentageColumn}
                       align="center"
                     >
-                      <span className={"tableheaders_1"}>Percentage</span>
+                      <span className={"tableheaders_1"}>
+                        Percentage
+                        <Tooltip placement="top" title={messages.PERCENTAGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                        </span>
                     </TableCell>
                     
                   )}

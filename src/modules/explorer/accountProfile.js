@@ -399,7 +399,9 @@ export default function SimpleTabs(props) {
       const data = sessionManager.getDataFromCookies("userId");
       const response = await UserService.getUserWatchlist(data);
       // setWatchlist(response);
+
       setTotalCount1(response.length);
+      
       setTablevalue(1);
     }
     getuserdata();
@@ -408,6 +410,7 @@ export default function SimpleTabs(props) {
       const response = await UserService.getUserPrivateNote(data);
       // setAddress(response);
       setTotalCount2(response.length);
+      console.log("res",response)
     }
     getPvtTagAddress();
     async function getPvtTagAddress() {
@@ -652,14 +655,17 @@ export default function SimpleTabs(props) {
   const handleWatchlist = () => {
     setTablevalue(1);
     setDownloadActive(0);
+    setSearch("");
   };
   const handlePrivateNote = () => {
     setTablevalue(2);
     setDownloadActive(0);
+    setSearch("");
   };
   const handleTagAddress = () => {
     setTablevalue(3);
     setDownloadActive(0);
+    setSearch("");
   };
 
   const [countWatchlist, setCountWatchlist] = React.useState(-1);

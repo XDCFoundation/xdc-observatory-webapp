@@ -91,7 +91,7 @@ class Contractlist extends React.Component {
             // "Address": {isActive: true, toolTipText: "Address of the contract"},
             "Token Name": {isActive: true, toolTipText: "Name of the token associated with the contract."},
             "Contract Name": {isActive: true, toolTipText: "Name of the Smart Contract."},
-            "Token Yes/No": {isActive: true, toolTipText: "Whether a token is associated with a Smart Contract or not."}
+            "Token Yes/No": {isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not"}
         }
     };
   }

@@ -173,7 +173,7 @@ export default function ChangePassword(props) {
         setPasswordShown3(passwordShown3 ? false : true);
     };
 
-    var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
+    var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
     const handleClose = () => {
         history.push("/loginprofile");
@@ -204,7 +204,7 @@ export default function ChangePassword(props) {
             setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput.match(regExPass)) {
             setErrorPassword(
-                "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+                "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
             );
             setLoading(false);
         } else if (newInput !== confirmPassword) {

@@ -109,13 +109,13 @@ export const messages = {
   DATE:
     "Transaction creation date.",
   AGE:
-    "Time when was the transaction created",
+    "Time when was the transaction created.",
   BLOCK:
     "Block number associated with the transaction.",
   FROM:
-    "Sender’s account",
+    "Sender’s account.",
   TO:
-    "Receiver’s account",
+    "Receiver’s account.",
   SI_NO:
     "Sl. No.",
   SYMBOL:
@@ -131,7 +131,7 @@ export const messages = {
   HOLDER:
     "The number of holders.",
   TOKEN_TOTAL_SUPPLY:
-    "Amount of tokens being transferred",
+    "Amount of tokens being transferred.",
   STATUS:
     "The token is either verified or unverified.",
   ACCOUNT_ADDRESS:
@@ -141,34 +141,47 @@ export const messages = {
   ACCOUNT_BALANCE:
     "Balance held by a particular account.",
   WATCHLIST_ADDRESS:
-    "Users' wallet address",
+    "Users' wallet address.",
   WATCHLIST_DESCRIPTION:
-    "The description provided by the user while creating the watchlist",
+    "The description provided by the user while creating the watchlist.",
   WATCHLIST_BALANCE:
-  "The amount available in the wallet",
+  "The amount available in the wallet.",
   WATCHLIST_ADDED_ON:
-    "Watchlist creation date",
+    "Watchlist creation date.",
   WATCHLIST_NOTIFICATION:
-    "Notification priorities set by the users",
+    "Notification priorities set by the users.",
   PRIVATE_NOTE:
-    "A private note added to a transaction",
+    "A private note added to a transaction.",
   PRIVATE_NOTE_ADDED_ON:
-    "Private note creation date",
+    "Private note creation date.",
   TAG_ADDRESS:
-    "Wallet addresses with tag names",
+    "Wallet addresses with tag names.",
   NAME_TAG:
-    "The tag name that is given to an address",
+    "The tag name that is given to an address.",
   TAG_ADDED_ON:
-    "The date on which the address was tagged",
+    "The date on which the address was tagged.",
   CONTRACT_ADDRESS:
-    "The unique address of the contract",
+    "The unique address of the contract.",
   TOKEN_NAME:
-    "Name of the token associated with the contract",
+    "Name of the token associated with the contract.",
   CONTRACT_NAME:
-    "Name of the Smart Contract",
+    "Name of the Smart Contract.",
   TOKEN_YES_NO:
-    "Whether the token is associated with the Smart Contract or not",
-    
+    "Whether the token is associated with the Smart Contract or not.",
+  VALUE:
+    "Amount to tokens being transferred.",
+  GAS:
+    "The gas price associated with the transaction.",
+  RANK:
+    "Account’s rank sorted on the basis of Balance.",
+  PERCENTAGE:
+    "Percentage of holdings out of the total supply.",
+  HOLDER_RANK:
+  "Holder’s rank sorted on the basis of Quantity.",
+  WALLET_ADDRESS:
+  "Wallet address.",
+  QUANTITY:
+  "The amount available in the wallet."
 };
 
 export const toolTipMessages = {

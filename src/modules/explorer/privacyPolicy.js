@@ -5,6 +5,7 @@ import FooterComponent from "../common/footerComponent";
 import Table from "@material-ui/core/Table";
 // import { Grid, TableContainer } from "@material-ui/core";
 import styled from "styled-components";
+import { Media } from "react-bootstrap";
 // const Explorer = styled.div`
 //   color: #2149b9;
 // `;
@@ -23,8 +24,7 @@ const Heading = styled.div`
   color: #2a2a2a;
 `;
 const Subheading = styled.div`
-  width: 430px;
-  height: 21px;
+  width: 100%;
   margin: 16px 723px 32px 0;
   font-family: Inter;
   font-size: 18px;
@@ -59,6 +59,7 @@ const Para = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  width: 100%;
 `;
 // const Point = styled.div`
 //   font-size: 0.8rem;
@@ -69,7 +70,7 @@ const Div = styled.div`
   width: 1202px;
   height: auto;
   margin: 55.5px auto 101px auto;
-  padding: 32px 23px 115px 26px;
+  padding: 32px 32px 80px 26px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -77,17 +78,19 @@ const Div = styled.div`
   @media (min-width:768px) and (max-width:1240px) {
     max-width: 740px;
     width: 100%;
-    overflow-x: scroll;
+    padding: 29px 24px 35px 24px;
+    // overflow-x: scroll;
   };
   @media (min-width:0px) and (max-width:767px) {
     max-width: 360px;
     width: 100%;
-    overflow-x: scroll;
+    margin-top: 17px;
+    padding: 20px 14px 20px 14px;
+    // overflow-x: scroll;
   };
 `;
 const Block1 = styled.div`
-  width: 1152px;
-  height: 152px;
+  width: 100%;
   margin: 32px 0 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -100,8 +103,7 @@ const Block1 = styled.div`
   color: #252525;
 `;
 const Block2 = styled.div`
-  width: 1139px;
-  height: 418px;
+  width: 100%;
   margin: 77px 13px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -114,8 +116,7 @@ const Block2 = styled.div`
   color: #252525;
 `;
 const Block3 = styled.div`
-  width: 1136px;
-  height: 152px;
+  width: 100%;
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -128,8 +129,7 @@ const Block3 = styled.div`
   color: #252525;
 `;
 const Block4 = styled.div`
-  width: 1121px;
-  height: 228px;
+  width: 100%;
   margin: 28px 16px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -142,8 +142,7 @@ const Block4 = styled.div`
   color: #252525;
 `;
 const Block5 = styled.div`
-  width: 1136px;
-  height: 95px;
+  width: 100%;
   margin: 28px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -156,8 +155,7 @@ const Block5 = styled.div`
   color: #252525;
 `;
 const Block6 = styled.div`
-  width: 1136px;
-  height: 114px;
+  width: 100%;
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -170,8 +168,7 @@ const Block6 = styled.div`
   color: #252525;
 `;
 const Block7 = styled.div`
-  width: 1121px;
-  height: 95px;
+  width: 100%;
   margin: 28px 16px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -184,8 +181,7 @@ const Block7 = styled.div`
   color: #252525;
 `;
 const Block9 = styled.div`
-  width: 1136px;
-  height: 190px;
+  width: 100%;
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -198,8 +194,7 @@ const Block9 = styled.div`
   color: #252525;
 `;
 const Block10 = styled.div`
-  width: 1113px;
-  height: 171px;
+  width: 100%;
   margin: 28px 39px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -212,8 +207,7 @@ const Block10 = styled.div`
   color: #252525;
 `;
 const Block11 = styled.div`
-  width: 1121px;
-  height: 95px;
+  width: 100%;
   margin: 28px 31px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -226,8 +220,7 @@ const Block11 = styled.div`
   color: #252525;
 `;
 const Block12 = styled.div`
-  width: 1121px;
-  height: 57px;
+  width: 100%;
   margin: 28px 31px 22px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -240,8 +233,7 @@ const Block12 = styled.div`
   color: #252525;
 `;
 const Block13 = styled.div`
-  width: 1121px;
-  height: 399px;
+  width: 100%;
   margin: 22px 16px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -254,8 +246,7 @@ const Block13 = styled.div`
   color: #252525;
 `;
 const Block14 = styled.div`
-  width: 1121px;
-  height: 114px;
+  width: 100%;
   margin: 28px 31px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -268,8 +259,7 @@ const Block14 = styled.div`
   color: #252525;
 `;
 const Block15 = styled.div`
-  width: 1121px;
-  height: 57px;
+  width: 100%;
   margin: 28px 31px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -282,8 +272,7 @@ const Block15 = styled.div`
   color: #252525;
 `;
 const Block16 = styled.div`
-  width: 1121px;
-  height: 76px;
+  width: 100%;
   margin: 28px 31px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -296,8 +285,7 @@ const Block16 = styled.div`
   color: #252525;
 `;
 const Block17 = styled.div`
-  width: 1136px;
-  height: 95px;
+  width: 100%;
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -310,8 +298,7 @@ const Block17 = styled.div`
   color: #252525;
 `;
 const Block18 = styled.div`
-  width: 531px;
-  height: 190px;
+  width: 100%;
   margin: 28px 606px 5px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -324,8 +311,7 @@ const Block18 = styled.div`
   color: #252525;
 `;
 const Block19 = styled.div`
-  width: 1136px;
-  height: 57px;
+  width: 100%;
   margin: 5px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -338,8 +324,7 @@ const Block19 = styled.div`
   color: #252525;
 `;
 const Block20 = styled.div`
-  width: 1136px;
-  height: 76px;
+  width: 100%;
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -352,8 +337,7 @@ const Block20 = styled.div`
   color: #252525;
 `;
 const Block21 = styled.div`
-  width: 1121px;
-  height: 95px;
+  width: 100%;
   margin: 28px 16px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -366,8 +350,7 @@ const Block21 = styled.div`
   color: #252525;
 `;
 const Block22 = styled.div`
-  width: 1136px;
-  height: 38px;
+  width: 100%;
   margin: 28px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -380,8 +363,7 @@ const Block22 = styled.div`
   color: #252525;
 `;
 const Block23 = styled.div`
-  width: 1136px;
-  height: 57px;
+  width: 100%;
   margin: 5px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -394,8 +376,7 @@ const Block23 = styled.div`
   color: #252525;
 `;
 const Block24 = styled.div`
-  width: 1136px;
-  height: 171px;
+  width: 100%;
   margin: 77px 16px 80px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -408,8 +389,7 @@ const Block24 = styled.div`
   color: #252525;
 `;
 const Block25 = styled.div`
-  width: 1131px;
-  height: 114px;
+  width: 100%;
   margin: 80px 21px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -422,8 +402,7 @@ const Block25 = styled.div`
   color: #252525;
 `;
 const Block26 = styled.div`
-  width: 824px;
-  height: 135px;
+  width: 100%;
   margin: 28px 313px 71px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -436,8 +415,7 @@ const Block26 = styled.div`
   color: #252525;
 `;
 const Block27 = styled.div`
-  width: 1136px;
-  height: 95px;
+  width: 100%;
   margin: 28px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -450,8 +428,7 @@ const Block27 = styled.div`
   color: #252525;
 `;
 const Block28 = styled.div`
-  width: 828px;
-  height: 760px;
+  width: 100%;
   margin: 28px 309px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -464,8 +441,7 @@ const Block28 = styled.div`
   color: #252525;
 `;
 const Block29 = styled.div`
-  width: 1136px;
-  height: 76px;
+  width: 100%;
   margin: 28px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -480,7 +456,7 @@ const Block29 = styled.div`
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    width: "1136px",
+    width: "100%",
     height: "1487px",
     margin: "28px 16px 28px 1px",
     padding: "0 1.2px 0 0",
@@ -533,9 +509,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#252525",
   },
   rectangleCopy5: {
-    width: "531px",
-    height: "190px",
-    margin: "28px 606px 5px 7px",
     fontFamily: "Inter",
     fontSize: "15px",
     fontWeight: "normal",
@@ -545,6 +518,8 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.58px",
     textAlign: "left",
     color: "#252525",
+    width: "100%",
+    margin: "28px 16px 0px 1px",
   },
   hash: {
     width: "106.6px",
@@ -596,6 +571,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Inter",
     fontSize: "15px",
     fonWeight: "600",
+  },
+  
+  "@media (min-width: 0px) and (max-width: 1240px)": {
+    tableContainer: {
+      maxWidth: "710px",
+      width: "100%",
+      overflowX: "scroll",
+    }
   },
 }));
 
@@ -769,6 +752,7 @@ function PrivacyPolicy() {
               your consent.
             </Para>
           </Block9>
+          <div className={classes.tableContainer}>
           <Table>
             <table className={classes.table}>
               <tr>
@@ -1256,6 +1240,7 @@ function PrivacyPolicy() {
               </tr>
             </table>
           </Table>
+          </div>
           <Block10>
             <PointHeading>(b) Your marketing choices</PointHeading>
             <Para>
@@ -1484,8 +1469,7 @@ function PrivacyPolicy() {
           </Block26>
           <PointHeading
             style={{
-              width: "1131px",
-              height: "19px",
+              width: "100%",
               margin: "71px 21px 28px 1px",
             }}
           >
@@ -1573,8 +1557,7 @@ function PrivacyPolicy() {
           </Block28>
           <Para
             style={{
-              width: "879px",
-              height: "19px",
+              width: "100%",
               margin: "28px 258px 28px 7px",
             }}
           >
@@ -1598,11 +1581,6 @@ function PrivacyPolicy() {
         </Block29>
         <div
           className={classes.rectangleCopy5}
-          style={{
-            width: "1136px",
-            height: "95px",
-            margin: "28px 16px 28px 1px",
-          }}
         >
           <PointHeading>(c) What we may need from you</PointHeading>
           <Para>
@@ -1617,11 +1595,6 @@ function PrivacyPolicy() {
         </div>
         <div
           className={classes.rectangleCopy5}
-          style={{
-            width: "1136px",
-            height: "76px",
-            margin: "28px 16px 77px 1px",
-          }}
         >
           <PointHeading>(c)Time limit to respond</PointHeading>
           <Para>
@@ -1634,11 +1607,6 @@ function PrivacyPolicy() {
         </div>
         <div
           className={classes.rectangleCopy5}
-          style={{
-            width: "1136px",
-            height: "76px",
-            margin: "28px 16px 77px 1px",
-          }}
         >
           <PointHeading>
             11. CHANGES TO THE PRIVACY NOTICE AND YOUR DUTY TO INFORM US OF

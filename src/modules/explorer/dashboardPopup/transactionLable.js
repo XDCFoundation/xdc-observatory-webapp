@@ -266,6 +266,11 @@ export default function FormDialog() {
     setError("");
     setPrivateNoteError("");
   };
+  
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
+  }
+
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -323,6 +328,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="Add a personal note to a transacton hash to track it in future."
             arrow
             placement="top-start"
