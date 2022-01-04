@@ -72,7 +72,7 @@ class Routes extends BaseComponent {
             <Route exact path={'/block-details/:blockNumber'} component={BlockDetails} />
             <Route exact path={'/account-details'} component={LatestAccountsList} />
             <Route exact path={'/address-details/:addr'} component={AddressDetails} />
-            <Route exact path={'/holder-details/:addr'} component={HolderDetails} />
+            <Route exact path={'/holder-details/:addr/:tn'} component={HolderDetails} />
             <Route exact path={'/token-data/:address/:tn'} component={TokenDataComponent} />
             <Route exact path={['/tokens/:token', '/tokens']} component={TokenList} />
             <Route exact path={'/transaction-details/:hash'} component={Transaction} />
