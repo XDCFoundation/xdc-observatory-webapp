@@ -18,6 +18,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Utils from "../../../utility";
 import styled from "styled-components";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -279,14 +280,35 @@ export default function FormDialog() {
       setDescriptionError("Description is required");
     } else {
       if (value === "NO") request["isEnabled"] = false;
-      const [error, response] = await utility.parseResponse(
-        AddWatchList.addWatchlist(request)
-      );
+      // const [error, response] = await utility.parseResponse(
+      //   AddWatchList.addWatchlist(request)
+      // );
 
-      if (error || !response) {
-        utility.apiFailureToast("Address already exists");
-        return;
+      // if (error || !response) {
+      //   utility.apiFailureToast("Address already exists");
+      //   return;
+      // }
+      let watchlists = localStorage.getItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      if (watchlists) {
+        watchlists = JSON.parse(watchlists);
+        const existingWatchList = watchlists.find(
+          (item) =>
+            item.address == request.address && item.userId == request.userId
+        );
+        if (existingWatchList) {
+          utility.apiFailureToast("Address already exists");
+          return;
+        }
+      } else {
+        watchlists = [];
       }
+      watchlists.push(request);
+      localStorage.setItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        JSON.stringify(watchlists)
+      );
       utility.apiSuccessToast("Address added to watchlist");
       setAddress("");
       setDescription("");
@@ -305,6 +327,11 @@ export default function FormDialog() {
     setError("");
     setDescriptionError("");
   };
+
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
+  }
+
   const classes = useStyles();
 
   function getWindowDimensions() {
@@ -367,6 +394,7 @@ export default function FormDialog() {
         <LearnMoreParent>
           <LightToolTip
             open={tooltipIsOpen}
+            onClose={tooltipClose}
             title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
             arrow
             placement="top-start"

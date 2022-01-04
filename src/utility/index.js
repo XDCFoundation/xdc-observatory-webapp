@@ -65,7 +65,7 @@ const utility = {
   shortenHashTab,
   timeDiff,
   convertToInternationalCurrencySystem,
-  getNumberUnit, decimalDivison, decimalDivisonOnly
+  getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue
 };
 export default utility;
 
@@ -113,6 +113,17 @@ function getNumberUnit(num) {
     ? units[Math.floor(unit / 3) - 2]
     : "";
   return x.toFixed(2) + " " + unitValue;
+}
+
+function divideByDecimalValue(num, decimals) {
+  num = Number(num)
+  if (num === 0) {
+    return num;
+  }
+  else {
+    return (num / Math.pow(10, decimals)).toFixed(decimals)
+  }
+
 }
 
 function timeDiff(curr, prev) {

@@ -42,6 +42,9 @@ export const cookiesConstants = {
   AUTH0_ACCESS_TOKEN: "AUTH0_ACCESS_TOKEN",
   USER_DETAIL: "USER_DETAIL",
   USER_SUB: "USER_SUB",
+  USER_TAGGED_ADDRESS: "USER_TAGGED_ADDRESS",
+  USER_TRASACTION_LABELS: "USER_TRASACTION_LABELS",
+  USER_ADDRESS_WATCHLIST: "USER_ADDRESS_WATCHLIST",
 
   USER_PICTURE: "USER_PICTURE",
   USER_ID: "USER_ID",
@@ -109,13 +112,13 @@ export const messages = {
   DATE:
     "Transaction creation date.",
   AGE:
-    "Time when was the transaction created",
+    "Time when was the transaction created.",
   BLOCK:
     "Block number associated with the transaction.",
   FROM:
-    "Sender’s account",
+    "Sender’s account.",
   TO:
-    "Receiver’s account",
+    "Receiver’s account.",
   SI_NO:
     "Sl. No.",
   SYMBOL:
@@ -131,7 +134,7 @@ export const messages = {
   HOLDER:
     "The number of holders.",
   TOKEN_TOTAL_SUPPLY:
-    "Amount of tokens being transferred",
+    "Amount of tokens being transferred.",
   STATUS:
     "The token is either verified or unverified.",
   ACCOUNT_ADDRESS:
@@ -141,53 +144,74 @@ export const messages = {
   ACCOUNT_BALANCE:
     "Balance held by a particular account.",
   WATCHLIST_ADDRESS:
-    "Users' wallet address",
+    "Users' wallet address.",
   WATCHLIST_DESCRIPTION:
-    "The description provided by the user while creating the watchlist",
+    "The description provided by the user while creating the watchlist.",
   WATCHLIST_BALANCE:
-  "The amount available in the wallet",
+  "The amount available in the wallet.",
   WATCHLIST_ADDED_ON:
-    "Watchlist creation date",
+    "Watchlist creation date.",
   WATCHLIST_NOTIFICATION:
-    "Notification priorities set by the users",
+    "Notification priorities set by the users.",
   PRIVATE_NOTE:
-    "A private note added to a transaction",
+    "A private note added to a transaction.",
   PRIVATE_NOTE_ADDED_ON:
-    "Private note creation date",
+    "Private note creation date.",
   TAG_ADDRESS:
-    "Wallet addresses with tag names",
+    "Wallet addresses with tag names.",
   NAME_TAG:
-    "The tag name that is given to an address",
+    "The tag name that is given to an address.",
   TAG_ADDED_ON:
-    "The date on which the address was tagged",
+    "The date on which the address was tagged.",
   CONTRACT_ADDRESS:
-    "The unique address of the contract",
+    "The unique address of the contract.",
   TOKEN_NAME:
-    "Name of the token associated with the contract",
+    "Name of the token associated with the contract.",
   CONTRACT_NAME:
-    "Name of the Smart Contract",
+    "Name of the Smart Contract.",
   TOKEN_YES_NO:
-    "Whether the token is associated with the Smart Contract or not",
-    
+    "Whether the token is associated with the Smart Contract or not.",
+  VALUE:
+    "Amount to tokens being transferred.",
+  GAS:
+    "The gas price associated with the transaction.",
+  RANK:
+    "Account’s rank sorted on the basis of Balance.",
+  PERCENTAGE:
+    "Percentage of holdings out of the total supply.",
+  HOLDER_RANK:
+  "Holder’s rank sorted on the basis of Quantity.",
+  WALLET_ADDRESS:
+  "Wallet address.",
+  QUANTITY:
+  "The amount available in the wallet."
 };
 
 export const toolTipMessages = {
-  hashid: "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
-  blocknumber: "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
+  hashid:
+    "A transaction hash is a unique character identifier that is generated whenever the transaction is executed.",
+  blocknumber:
+    "The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.",
   timestamp: "The date and time at which a transaction is mined.",
   from: "The sending party of the transaction(could be from a contact address)",
   to: "The receiving party of the transaction(could be from a contact address) ",
-  value: "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  txnfee: "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
-  gasprovided: "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
-  gasprice: "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block",
+  value:
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  txnfee:
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value(if available) to see historical value at the time of Transaction",
+  gasprovided:
+    "Maximum amount of gas provided for the transaction. For normal XDC transfers the value is 21,000. For contract this value is higher an bound by block gas limit.",
+  gasprice:
+    "Cost per unit of gas specified for the transaction, in XDC and Gwei. The higher the gas price the higher hance of getting included in a block",
   gasused: "The exact unit of gas that was used for the transactions.",
-  nounced: "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
+  nounced:
+    "Sequential running number for an address, beginning with 0 for the first transaction. For example, if the nonce of a transaction is 10, it would be 11th transaction sent from the sender's address.",
   input: "Additional information that is required for the transaction",
-  transferToken: "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
-  privatenote: "Private notes"
-}
+  transferToken:
+    "The value being transacted in XDC and fiat value. Note: You can click the fiat value (if available) to see historical value at the time of transaction.",
+  privatenote: "Private notes",
+};
 
 export const decimalDivisionValue = {
-  DECIMAL_DIVISON_VALUE: 1000000000000000000
-}
+  DECIMAL_DIVISON_VALUE: 1000000000000000000,
+};

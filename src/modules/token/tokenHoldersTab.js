@@ -16,6 +16,7 @@ import Loader from "../../assets/loader";
 import utility from "../../utility";
 import { Tooltip } from "@material-ui/core";
 import format from "format-number";
+import { messages } from "../../constants";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -109,6 +110,7 @@ export default function StickyHeadTable(props) {
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const [isLoading, setLoading] = useState(true);
+  const { tn } = useParams();
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
@@ -214,7 +216,17 @@ export default function StickyHeadTable(props) {
                     className="w-10"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"}>Rank</span>
+                    <span className={"tableheaders table-headers"}>
+                      Rank
+                      <Tooltip placement="top" title={messages.HOLDER_RANK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
@@ -223,6 +235,14 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tableheaders table-headers"}>
                       Address
+                      <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
@@ -232,6 +252,14 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tableheaders table-headers"}>
                       Quantity
+                      <Tooltip placement="top" title={messages.QUANTITY}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
@@ -241,15 +269,23 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tableheaders table-headers"}>
                       Percentage
+                      <Tooltip placement="top" title={messages.PERCENTAGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     style={{ border: "none", paddingLeft: "17px" }}
                     className="w-12"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>Value</span>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               </TableHead>
             </Table>
@@ -270,7 +306,17 @@ export default function StickyHeadTable(props) {
                     className="w-10"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"}>Rank</span>
+                    <span className={"tableheaders table-headers"}>
+                      Rank
+                      <Tooltip placement="top" title={messages.HOLDER_RANK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
@@ -279,6 +325,14 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tableheaders table-headers"}>
                       Address
+                      <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
@@ -288,6 +342,14 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tableheaders table-headers"}>
                       Quantity
+                      <Tooltip placement="top" title={messages.QUANTITY}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
@@ -297,6 +359,14 @@ export default function StickyHeadTable(props) {
                   >
                     <span className={"tableheaders table-headers"}>
                       Percentage
+                      <Tooltip placement="top" title={messages.PERCENTAGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
                     </span>
                   </TableCell>
                   {/* <TableCell
@@ -355,7 +425,7 @@ export default function StickyHeadTable(props) {
                       <TableCell id="td" style={{ border: "none" }}>
                         <a
                           style={{ color: "#2149b9", fontSize: 11 }}
-                          href={"/holder-details/" + row[0]?.Address}
+                          href={"/holder-details/" + row[0]?.Address + "/" + tn}
                         >
                           <span className="tabledata table-data">
                             {row[0]?.Address}

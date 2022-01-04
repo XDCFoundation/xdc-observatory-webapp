@@ -16,6 +16,8 @@ import moment from "moment";
 import Utility from "../../utility";
 import { CompareArrowsOutlined } from "@material-ui/icons";
 import { messages } from "../../constants";
+import TransactionDetailTooltip from "./transactionDetailTooltip";
+
 const useStyles = makeStyles({
   container: {
     borderRadius: "14px",
@@ -269,15 +271,15 @@ export default function CommonTransactionsTable(props) {
                             width: "190px",
                             whiteSpace: "nowrap",
                             padding: "20px",
+                            display: "flex",
+                            margin: 0,
+                            alignItems: "center"
                           }}
                           className="padding-left-40px"
                         >
+                          <div><TransactionDetailTooltip transactionAddress={row.hash} /></div>
                           <Tooltip placement="right" title={row.hash}>
-                            {/* <VisibilityOutlinedIcon
-                            fontSize="small"
-                            style={{ color: "#b9b9b9", marginRight: "3px" }}
-                          />
-                        </Tooltip> */}
+
                             <a
                               className="linkTable"
                               href={"/transaction-details/" + row.hash}
