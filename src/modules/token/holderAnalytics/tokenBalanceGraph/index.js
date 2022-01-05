@@ -1,26 +1,59 @@
 import React from "react";
-import BaseComponent from "../../../baseComponent";
-import TokenBalanceComponent from "./tokenBalanceGraphComponent";
+import styled from "styled-components";
+import Graph from "../../../common/commonGraph";
 
-export default class TokenBalanceGraph extends BaseComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      graphData: this.props.graphData,
-    };
-  }
+const GraphContainer = styled.div`
+  margin: 20px 0 0 0;
+`;
+function TokenBalanceGraphComponent(props) {
+  const graphData = props.graphData.map((data) => {
+    console.log(data.currentBalance.toFixed(2));
+    data.x = data.date;
+    data.y = Number(data.currentBalance.toFixed(2));
+    return data;
+  });
 
-  async componentDidMount() {
-    let graphData = await this.props.graphData;
-    graphData = graphData.map((data) => {
-      data.x = data.date;
-      data.y = Number(data.currentBalance.toFixed(2));
-      return data;
-    });
-    this.setState({ graphData });
-  }
+  const options = {
+    title: {
+      text: "",
+    },
+    legend: {
+      layout: "horizontal",
+      align: "center",
+      enabled: true,
+    },
+    tooltip: {
+      split: false,
+    },
+    series: [
+      {
+        showInLegend: true,
+        data: graphData,
+        name: "Token Balance",
+        type: "line",
+      },
+    ],
+    credits: { enabled: false },
+    yAxis: [
+      {
+        opposite: false,
+        title: { text: "Token Balance" },
+      },
+    ],
+    xAxis: [
+      {
+        showInLegend: false,
+        opposite: false,
+        title: { text: "" },
+      },
+    ],
+  };
 
-  render() {
-    return <TokenBalanceComponent state={this.state} />;
-  }
+  return (
+    <GraphContainer>
+      <Graph options={options} />
+    </GraphContainer>
+  );
 }
+
+export default TokenBalanceGraphComponent;
