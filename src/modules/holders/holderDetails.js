@@ -20,7 +20,7 @@ import Utils from "../../utility";
 import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
 import format from "format-number";
-import HolderAnalytics from "../token/analytics/analyticsComponent"
+import HolderAnalytics from "../token/holderAnalytics/analyticsComponent"
 
 var QRCode = require("qrcode.react");
 
