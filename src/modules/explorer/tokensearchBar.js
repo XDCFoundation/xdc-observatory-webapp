@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
+
     }),
   },
   "@media (min-width: 0px) and (max-width:767px)": {
@@ -693,7 +694,7 @@ export default function Navbar() {
   `;
 
   const SearchContainer = styled.div`
-    width: 22.563rem;
+    width: 21rem;
     height: 35px;
     padding: 6px;
     border-radius: 6px;
@@ -704,6 +705,7 @@ export default function Navbar() {
   `;
 
   const MobileToolBar = styled.div`
+    margin: 0 10px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -927,7 +929,7 @@ const SearchBox = ({
               }}
               className="main-input-td "
               src={"/images/Search.png"}
-              placeholder="Search"
+              placeholder="Search for an address, a Transaction or a block number"
             />
             {/* name="NAME" */}
             <div className="mobFilter">
