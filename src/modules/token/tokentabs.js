@@ -11,7 +11,7 @@ import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
 import { useParams } from "react-router";
-import TokenAnalytics from "./holderAnalytics/analyticsComponent";
+import TokenAnalytics from "./tokenAnalytics/analyticsComponent";
 
 let li = 0;
 
@@ -128,6 +128,16 @@ export default function SimpleTabs(props) {
                 >
                   Contracts
                 </button>
+                <button
+                    className={
+                      toggleState === 4
+                          ? "tabs-data active-tabs-token"
+                          : "tabs-data"
+                    }
+                    onClick={() => toggleTab(4)}
+                >
+                  Analytics
+                </button>
               </div>
             </div>
           </div>
@@ -171,6 +181,15 @@ export default function SimpleTabs(props) {
                     contractData={props?.contractStatusData?.contractResponse}
                   />
                 )}
+              </div>
+            </div>
+            <div
+                className={
+                  toggleState === 4 ? "content  active-content" : "content"
+                }
+            >
+              <div style={{ marginTop: "10px" }}>
+                <TokenAnalytics />
               </div>
             </div>
           </div>
