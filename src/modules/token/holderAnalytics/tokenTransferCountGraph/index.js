@@ -14,12 +14,8 @@ export default class TokenTransferCounts extends BaseComponent {
   }
 
   async componentDidMount() {
-    let graphData = await this.props.getAnalyticsData();
-    graphData = graphData.map((data) => {
-      data.x = data.date;
-      data.y = Number(data.currentBalance.toFixed(5));
-      return data;
-    });
+    let graphData = await this.props.graphData;
+
     let receiveAmountSeries = [],
       sentAmountSeries = [];
     graphData.map((data) => {

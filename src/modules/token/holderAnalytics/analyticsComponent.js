@@ -31,9 +31,6 @@ function TokenAnalytics(props) {
     await getTokenBalance();
   }, []);
 
-  const getAnalyticsData = () => {
-    return graphData;
-  };
   const getTokenBalance = async () => {
     let request = {
       walletAddress: "xdcad0eea4004bd8c442c488b4e45e28401f25905d5",
@@ -90,10 +87,10 @@ function TokenAnalytics(props) {
           </AnalyticsTabButton>
         </div>
         {activeTab === "tokenBalance" && (
-          <TokenBalanceGraph getAnalyticsData={getAnalyticsData} />
+          <TokenBalanceGraph graphData={graphData} />
         )}
         {activeTab === "tokenTransferAmounts" && (
-          <TokenTransferCounts getAnalyticsData={getAnalyticsData} />
+          <TokenTransferCounts graphData={graphData} />
         )}
       </Paper>
     </div>
