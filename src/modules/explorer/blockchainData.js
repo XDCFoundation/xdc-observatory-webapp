@@ -286,6 +286,7 @@ class BlockChainDataComponent extends Component {
       loading: true,
     };
   }
+
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
@@ -342,19 +343,25 @@ class BlockChainDataComponent extends Component {
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        let blockAnimationClass = {
-          [transactionData.hash]: "block-height-animation",
-        };
-        this.setState({ animationTransaction: blockAnimationClass });
-        setTimeout(() => {
-          this.setState({ animationTransaction: {} });
-        }, 500);
+        let gpCurrent = this.state.transactionDataDetails[0]?.gasPrice
+          ? (
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
+          : 0;
+        if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
+          let blockAnimationClass = {
+            [transactionData.hash]: "block-height-animation",
+          };
+          this.setState({ animationTransaction: blockAnimationClass });
+          setTimeout(() => {
+            this.setState({ animationTransaction: {} });
+          }, 500);
+        }
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 9))
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
           : 0;
-        if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
+        if (gp >= 0.000000000001 && this.state.gasPrice !== gp) {
           this.setState({ gasPrice: gp });
         }
 
