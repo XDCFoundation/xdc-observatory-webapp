@@ -34,13 +34,13 @@ function TokenAnalytics(props) {
       >
         <div>
           <AnalyticsTabButton
-            active={activeTab === "tokenBalance" ? true : false}
+            active={activeTab === "tokenContractOverview" ? true : false}
             onClick={() => setActiveTab("tokenContractOverview")}
           >
             Token Contract Overview
           </AnalyticsTabButton>
           <AnalyticsTabButton
-            active={activeTab === "tokenTransferAmounts" ? true : false}
+            active={activeTab === "historicalPrice" ? true : false}
             onClick={() => setActiveTab("historicalPrice")}
           >
             Historical Price

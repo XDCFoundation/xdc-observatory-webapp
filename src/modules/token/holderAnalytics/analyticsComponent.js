@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 import TokenBalanceGraph from "./tokenBalanceGraph";
-import TokenTransferCounts from "./tokenTransferCountGraph";
+import TokenTransferAmount from "./tokenTransferAmountGraph";
+import TokenTransferCount from "./tokenTransferCount";
 import Utility from "../../../utility";
 import AccountService from "../../../services/accounts";
 import moment from "moment";
@@ -90,7 +91,10 @@ function TokenAnalytics(props) {
           <TokenBalanceGraph graphData={graphData} />
         )}
         {activeTab === "tokenTransferAmounts" && (
-          <TokenTransferCounts graphData={graphData} />
+          <TokenTransferAmount graphData={graphData} />
+        )}
+        {activeTab === "tokenTransferCounts" && (
+            <TokenTransferCount />
         )}
       </Paper>
     </div>
