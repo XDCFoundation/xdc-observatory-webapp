@@ -18,6 +18,8 @@ span,
 label {
   font-family: "Inter" !important;
 }
+
+
 input[placeholder] {
   text-overflow: ellipsis;
 }
@@ -3716,6 +3718,7 @@ body {
   background: #fff;
   cursor: pointer;
   padding-left: 0px;
+  padding-right: 0px;
   margin: 0px 27px 1px 0.5px;
   font-weight: 600;
   font-family: Inter;
@@ -4322,7 +4325,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 90%;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -4341,7 +4344,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 58px;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
