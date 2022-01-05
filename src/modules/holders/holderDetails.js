@@ -20,6 +20,7 @@ import Utils from "../../utility";
 import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
 import format from "format-number";
+import HolderAnalytics from "../token/holderAnalytics/analyticsComponent"
 
 var QRCode = require("qrcode.react");
 
@@ -285,18 +286,71 @@ export default function HoldersDetails(props) {
             <br />
             <br />
             <div className="container_sec">
-              <div className="block_sec">
-                <div className="bloc-tabs_sec">
-                  <button
-                    className={
-                      toggleState === 1
-                        ? "tabs_sec active-tabs_sec"
-                        : "tabs_sec"
-                    }
-                    onClick={() => toggleTab(1)}
+              {/*<div className="block_sec">*/}
+              {/*  <div className="bloc-tabs_sec">*/}
+              {/*    <button*/}
+              {/*      className={*/}
+              {/*        toggleState === 1*/}
+              {/*          ? "tabs_sec active-tabs_sec"*/}
+              {/*          : "tabs_sec"*/}
+              {/*      }*/}
+              {/*      onClick={() => toggleTab(1)}*/}
+              {/*    >*/}
+              {/*      Transfers*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*  <div className="bloc-tabs_sec">*/}
+              {/*    <button*/}
+              {/*        className={*/}
+              {/*          toggleState === 2*/}
+              {/*              ? "tabs_sec active-tabs_sec"*/}
+              {/*              : "tabs_sec"*/}
+              {/*        }*/}
+              {/*        onClick={() => toggleTab(2)}*/}
+              {/*    >*/}
+              {/*      Analytics*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              <div
+                  style={{
+                    width: "auto",
+                    display: "flex",
+                    flexDirection: "row",
+                    backgroundColor: "transparent",
+                    height: "25px",
+                    borderBottom: "solid 1px #e3e7eb",
+                  }}
+              >
+                <div>
+                  <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        backgroundColor: "transparent",
+                      }}
                   >
-                    Transfers
-                  </button>
+                    <button
+                        className={
+                          toggleState === 1
+                              ? "tabs-data active-tabs-token"
+                              : "tabs-data"
+                        }
+                        onClick={() => toggleTab(1)}
+                    >
+                      Transfers
+                    </button>
+                    <button
+                        className={
+                          toggleState === 2
+                              ? "tabs-data active-tabs-token-holder"
+                              : "tabs-data"
+                        }
+                        onClick={() => toggleTab(2)}
+                    >
+                      Analytics
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -318,7 +372,7 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent trans={transactions} />
+                  <HolderAnalytics/>
                 </div>
               </div>
             </div>
