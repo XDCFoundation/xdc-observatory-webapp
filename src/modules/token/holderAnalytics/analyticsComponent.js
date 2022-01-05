@@ -3,6 +3,9 @@ import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 import TokenBalanceGraph from "./tokenBalanceGraph";
 import TokenTransferCounts from "./tokenTransferCountGraph";
+import Utility from "../../../utility";
+import AccountService from "../../../services/accounts";
+import moment from "moment";
 
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
@@ -22,6 +25,29 @@ const AnalyticsTabButton = styled.button`
 `;
 
 function TokenAnalytics(props) {
+  const [graphData, setGraphData] = React.useState([]);
+
+  React.useEffect(async () => {
+    await getTokenBalance();
+  }, []);
+
+  const getTokenBalance = async () => {
+    let request = {
+      walletAddress: "xdcad0eea4004bd8c442c488b4e45e28401f25905d5",
+      tokenAddress: "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
+      from: moment().subtract(1, "month").valueOf(),
+      to: moment().valueOf(),
+      type: "",
+    };
+    let [error, response] = await Utility.parseResponse(
+      AccountService.getTokenBalance(request)
+    );
+    if (error || !response) {
+      return [];
+    }
+    setGraphData(response.data);
+  };
+
   let [activeTab, setActiveTab] = useState("tokenBalance");
 
   return (
@@ -60,8 +86,12 @@ function TokenAnalytics(props) {
             Historical Price
           </AnalyticsTabButton>
         </div>
-        {activeTab === "tokenBalance" && <TokenBalanceGraph />}
-        {activeTab === "tokenTransferAmounts" && <TokenTransferCounts />}
+        {activeTab === "tokenBalance" && (
+          <TokenBalanceGraph graphData={graphData} />
+        )}
+        {activeTab === "tokenTransferAmounts" && (
+          <TokenTransferCounts graphData={graphData} />
+        )}
       </Paper>
     </div>
   );
