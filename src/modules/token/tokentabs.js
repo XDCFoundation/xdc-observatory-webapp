@@ -11,7 +11,7 @@ import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
 import { useParams } from "react-router";
-import TokenAnalytics from "./analytics/analyticsComponent";
+import TokenAnalytics from "./holderAnalytics/analyticsComponent";
 
 let li = 0;
 
