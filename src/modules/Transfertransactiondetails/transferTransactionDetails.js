@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import {Grid} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import styled from "styled-components";
 // import "tippy.js/dist/tippy.css";
 import "../../assets/styles/custom.css";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
-import {useParams} from "react-router";
+import { useParams } from "react-router";
 import Utils from "../../utility";
 import FooterComponent from "../common/footerComponent";
 import moment from "moment";
 import TokenData from "../../services/token";
+import BlockService from "../../services/blocks";
+import coinMarketService from "../../services/coinMarket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (min-width: 768px) and (max-width: 1239px)": {
       marginTop: "130px",
       maxWidth: "41.5rem",
-    }
-
+    },
   },
   rowDiv: {
     width: "100%",
@@ -52,17 +53,46 @@ const useStyles = makeStyles((theme) => ({
 export default function TransferTransaction({ _handleChange }) {
   const classes = useStyles();
   function shorten(b, amountL = 25, amountR = 0, stars = 3) {
-    return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(b.length)} `;
+    return `${b?.slice(0, amountL)} ${".".repeat(stars)} ${b?.slice(
+      b.length
+    )} `;
   }
 
+  let decimalValue = 0
+  let currentBlock = 0
+  let CurrencyValue = window.localStorage.getItem("currency");
   const { address } = useParams();
   const [transactions, setTransactions] = useState(false);
+  const [latestBlocks, setLatestBlocks] = useState(0);
+  const [coinmarketcap, setCoinmarketcap] = useState([]);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true);
+  const [tokenTransferValue, setTokenTransferValue] = useState(0)
   useEffect(() => {
     transferTransactionDetail();
+    getLatestBlocks();
+    getcoinMarketCapData()
   }, [amount]);
+
+  const getcoinMarketCapData = async () => {
+    let urlPath = `${CurrencyValue}`;
+    let [error, coinMarket] = await Utils.parseResponse(
+      coinMarketService.getCoinMarketData(urlPath, {})
+    );
+    if (error || !coinMarket) return;
+    setCoinmarketcap(coinMarket[0])
+  };
+
+  const getLatestBlocks = async () => {
+    let urlPath = "?skip=0&limit=1";
+    let [error, latestBlock] = await Utils.parseResponse(
+      BlockService.getLatestBlock(urlPath, {})
+    );
+    if (error || !latestBlock) return;
+    setLatestBlocks(latestBlock[0].number);
+
+  };
 
   const transferTransactionDetail = async () => {
     let urlPath = `/${address}`;
@@ -71,7 +101,12 @@ export default function TransferTransaction({ _handleChange }) {
     );
     if (error || !transactiondetailusinghash) return;
     setTransactions(transactiondetailusinghash);
-    setLoading(false)
+    setLoading(false);
+    if (transactiondetailusinghash.decimals !== undefined) {
+      decimalValue = Math.pow(10, transactiondetailusinghash.decimals)
+      setTokenTransferValue(parseInt(parseInt(transactiondetailusinghash.value) / decimalValue))
+    }
+    currentBlock = transactiondetailusinghash.number
   };
 
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
@@ -94,33 +129,24 @@ export default function TransferTransaction({ _handleChange }) {
     window.localStorage.setItem("currency", event?.target?.value);
   }
 
-  let CurrencyValue = window.localStorage.getItem("currency");
-  const currencySymbol =
-    CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
-  const valueFetch =
-    CurrencyValue === "INR"
-      ? transactions.valueINR
-      : CurrencyValue === "USD"
-        ? transactions.valueUSD
-        : transactions.valueEUR;
-  const transactionFetch =
-    CurrencyValue === "INR"
-      ? transactions.transactionFeeINR
-      : CurrencyValue === "USD"
-        ? transactions.transactionFeeUSD
-        : transactions.transactionFeeEUR;
-  const fetchtxn = !transactionFetch
-    ? 0
-    : (transactionFetch / 1000000000000000000).toFixed(12);
-  const txfee = !transactions.transactionFee
-    ? 0
-    : (transactions.transactionFee / 1000000000000000000).toFixed(12);
-  const gasP = !transactions.gasPrice
-    ? 0
-    : (transactions.gasPrice / 1000000000000000000).toFixed(18);
-  const valueDiv = !valueFetch
-    ? 0
-    : (valueFetch / 1000000000000000000).toFixed(11);
+
+  const currencySymbol = CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
+  const valueFetch = coinmarketcap.price
+
+  const transactionFetch = CurrencyValue === "INR" ? transactions.transactionFeeINR : CurrencyValue === "USD" ? transactions.transactionFeeUSD : transactions.transactionFeeEUR;
+
+  const fetchtxn = !transactionFetch ? 0 : (transactionFetch / 1000000000000000000).toFixed(12);
+
+
+  let txfee = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
+  txfee = txfee * transactions.gasUsed
+
+
+  const gasP = !transactions.gasPrice ? 0 : Utils.decimalDivison(transactions.gasPrice, 2);
+
+
+
+  const valueDiv = !valueFetch ? 0 : Utils.decimalDivison(valueFetch, 2);
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -145,16 +171,14 @@ export default function TransferTransaction({ _handleChange }) {
                 <HashDiv>
                   <Container className="pad-left-5">
                     <Tooltip align="right" title={hashid}>
-                      <ImageView
-                        src={"/images/questionmark.png"}
-                      />
+                      <ImageView src={"/images/questionmark.png"} />
                     </Tooltip>
 
                     <Hash>Hash ID</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-                    <Content>{address}
-
+                    <Content>
+                      {address}
 
                       <CopyToClipboard
                         text={address}
@@ -162,7 +186,9 @@ export default function TransferTransaction({ _handleChange }) {
                       >
                         <Tooltip
                           title={
-                            copiedText === address ? "Copied" : "Copy To Clipboard"
+                            copiedText === address
+                              ? "Copied"
+                              : "Copy To Clipboard"
                           }
                           placement="top"
                         >
@@ -173,9 +199,7 @@ export default function TransferTransaction({ _handleChange }) {
                               fontSize: 14,
                             }}
                           >
-                            <ImgView
-                              src={"/images/copy.svg"}
-                            />
+                            <ImgView src={"/images/copy.svg"} />
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
@@ -188,9 +212,7 @@ export default function TransferTransaction({ _handleChange }) {
                 <Spacing>
                   <Container>
                     <Tooltip title={blocknumber}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash>Block Number</Hash>
@@ -201,43 +223,39 @@ export default function TransferTransaction({ _handleChange }) {
                         className="linkTableDetails"
                         href={"/block-details/" + transactions.blockNumber}
                       >
-
                         {transactions.blockNumber}
                       </a>
-                      - {transactions.blockConfirmation} Blocks Confirmation
+                      - {latestBlocks && latestBlocks > 0 ? latestBlocks - parseInt(transactions?.blockNumber) : 0}  Blocks Confirmation
                     </Content>
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
                   <Container>
                     <Tooltip title={timestamp}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash>Timestamp</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-
-                    {moment(transactions.timestamp * 1000).format(
-                      "MMMM Do YYYY, h:mm:ss a"
-                    )}
+                    {transactions.timestamp &&
+                      !isNaN(Number(transactions.timestamp))
+                      ? moment(Number(transactions.timestamp) * 1000).utc().format(
+                        "MMMM Do YYYY, h:mm:ss A"
+                      ) + "  UTC"
+                      : ""}
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
                   <Container>
                     <Tooltip title={from}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash>From</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-
                       <a
                         className="linkTableDetails"
                         href={"/address-details/" + transactions.from}
@@ -263,9 +281,7 @@ export default function TransferTransaction({ _handleChange }) {
                               fontSize: 14,
                             }}
                           >
-                            <ImgView
-                              src={"/images/copy.svg"}
-                            />
+                            <ImgView src={"/images/copy.svg"} />
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
@@ -275,9 +291,7 @@ export default function TransferTransaction({ _handleChange }) {
                 <Spacing>
                   <Container>
                     <Tooltip title={to}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash>To</Hash>
@@ -309,9 +323,7 @@ export default function TransferTransaction({ _handleChange }) {
                               fontSize: 14,
                             }}
                           >
-                            <ImgView
-                              src={"/images/copy.svg"}
-                            />
+                            <ImgView src={"/images/copy.svg"} />
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
@@ -320,10 +332,11 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip title={transferToken} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      title={transferToken}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash> Interacted With (To)</Hash>
@@ -331,87 +344,72 @@ export default function TransferTransaction({ _handleChange }) {
                   <MiddleContainer isTextArea={false}>
                     <Content>
                       Contract{" "}
-                      <a className="linkTableDetails" href={"/"}>
-                        {transactions.ContractDetails?.address}
-                        {" "}
-                      </a>
-                      ({transactions.ContractDetails?.symbol} : {transactions.ContractDetails?.tokenName})
+
+                      (<a className="linkTableDetails" href={"/address/" + transactions?.contract}>
+                        {transactions?.contract}
+                      </a>)
                     </Content>
                   </MiddleContainer>
                 </Spacing>
 
                 <Spacing>
                   <Container>
-                    <Tooltip title={transferToken} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      title={transferToken}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash> Token Transfer</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-                      From{" "}
-                      <a className="linkTableDetails" href={"/"}>
-                        {shorten(transactions.from)}
-                      </a>
-                      To{" "}
-                      <a className="linkTableDetails" href={"/"}>
+                      {tokenTransferValue}
 
-                        {shorten(transactions.to)}
-                      </a>
-                      For 1{" "}
-                      <a className="linkTableDetails" href={"/"}>
-
-                        {transactions.ContractDetails?.symbol} ({transactions.ContractDetails?.tokenName})
-                      </a>
                     </Content>
                   </MiddleContainer>
                 </Spacing>
 
                 <Spacing>
                   <Container>
-                    <Tooltip title={value} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip title={value} style={{ cursor: "pointer" }}>
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Value</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
-
-                    {!transactions?.value
+                    {!transactions?.transactionValue
                       ? 0
-                      : transactions?.value / 1000000000000000000}
+                      : Utils.decimalDivison(transactions?.transactionValue, 2)}{" "}
                     XDC ({currencySymbol}
-                    {valueDiv && valueDiv > 0 ? valueDiv : 0})
+                    {coinmarketcap && coinmarketcap?.price > 0 ? Utils.decimalDivison(coinmarketcap.price * transactions?.transactionValue, 2) : 0})
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip title={txnfee} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip title={txnfee} style={{ cursor: "pointer" }}>
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
 
                     <Hash>Txn Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
-
-                      {txfee} XDC ({currencySymbol}
-                      {fetchtxn})
+                      {txfee && txfee > 0 ? txfee : 0}  XDC ({currencySymbol}
+                      {txfee && txfee > 0 ? Utils.decimalDivison(coinmarketcap.price * txfee, 2) : 0}
+                      )
                     </Content>
                   </MiddleContainer>
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={gasprovided} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      align="right"
+                      title={gasprovided}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Gas Provided</Hash>
                   </Container>
@@ -422,10 +420,12 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={gasprice} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      align="right"
+                      title={gasprice}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Gas Price</Hash>
                   </Container>
@@ -436,10 +436,12 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={gasused} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      align="right"
+                      title={gasused}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Gas Used</Hash>
                   </Container>
@@ -449,10 +451,12 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <Spacing>
                   <Container>
-                    <Tooltip align="right" title={nounced} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      align="right"
+                      title={nounced}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Nonce</Hash>
                   </Container>
@@ -462,10 +466,12 @@ export default function TransferTransaction({ _handleChange }) {
                 </Spacing>
                 <SpacingInputData>
                   <Container className="mar-bottom-45 mar-bottom-15 mar-bottom-40">
-                    <Tooltip align="right" title={input} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      align="right"
+                      title={input}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Input Data</Hash>
                   </Container>
@@ -475,10 +481,12 @@ export default function TransferTransaction({ _handleChange }) {
                 </SpacingInputData>
                 <SpacingPrivateNode>
                   <Container>
-                    <Tooltip align="right" title={transferToken} style={{cursor:"pointer"}}>
-                      <ImageView
-                        src={"/images/questionmark.svg"}
-                      />
+                    <Tooltip
+                      align="right"
+                      title={transferToken}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ImageView src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Private Note</Hash>
                   </Container>
@@ -486,7 +494,8 @@ export default function TransferTransaction({ _handleChange }) {
                     {/* <Input /> */}
                     <PrivateBox>
                       To access the Private Note feature, you must be
-                      <a className="linkTableDetails">Logged In</a></PrivateBox>
+                      <a className="linkTableDetails"> Logged In</a>
+                    </PrivateBox>
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Division>
@@ -520,20 +529,20 @@ const Content = styled.span`
   word-break: break-all;
 
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
   @media (min-width: 1241px) {
@@ -581,15 +590,15 @@ const Division = styled.div`
   background-color: #fff;
   padding: 9px;
 
-    @media(min-width:0px) and (max-width:767px){
-   width:22.563rem;
-   padding-left:10px;
-  padding-right:10px;
-}
-@media (min-width: 768px) and (max-width: 1240px){
-      width: 41.5rem;
-      padding: 13px;
-    }
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+    padding: 13px;
+  }
   @media (min-width: 1241px) {
     height: 64.06rem;
     width: 75.125rem;
@@ -610,13 +619,12 @@ const MiddleContainer = styled.div`
   margin-left: 100px;
   width: 100%;
 
- 
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
@@ -624,11 +632,11 @@ const MiddleContainer = styled.div`
     margin-top: 10px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    font-size:0.875rem;
+    font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-   letter-spacing: 0.034rem;
-    color: #3A3A3A;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
     opacity: 1;
   }
 
@@ -663,9 +671,9 @@ const PrivateBox = styled.div`
     font-size: 0.875rem;
   }
   @media (min-width: 0px) and (max-width: 767px) {
-   margin-left: unset;
-   width: 100%;
-   margin-top: 10px;
+    margin-left: unset;
+    width: 100%;
+    margin-top: 10px;
   }
 `;
 const MiddleContainerInputData = styled.div`
@@ -703,7 +711,7 @@ const Hash = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -712,7 +720,7 @@ const Hash = styled.span`
     font-size: 0.875rem;
     text-align: left;
     letter-spacing: 0.034rem;
-    color: #2A2A2A;
+    color: #2a2a2a;
     opacity: 1;
   }
   @media (min-width: 1241px) {
@@ -762,9 +770,9 @@ const SpacingInputData = styled.div`
     display: block;
     padding: 11px 6px;
   }
-  @media (min-width: 768px) and (max-width: 1240px){
-      height: 6.25rem;
-    }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    height: 6.25rem;
+  }
 `;
 const SpacingPrivateNode = styled.div`
   display: flex;
@@ -779,7 +787,7 @@ const SpacingPrivateNode = styled.div`
     display: block;
     padding: 11px 6px;
     height: 6.5rem;
-    border-bottom:none;
+    border-bottom: none;
   }
 `;
 const HashDiv = styled.div`
@@ -795,9 +803,9 @@ const HashDiv = styled.div`
     display: block;
     padding: 16px 6px;
   }
-  @media (min-width: 768px) and (max-width: 1240px){
-    padding-left:5px;
-    }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    padding-left: 5px;
+  }
 `;
 const Container = styled.div`
   display: flex;
@@ -821,13 +829,13 @@ const Div = styled.div`
   margin-bottom: 15px;
   padding: 6px;
 
-  @media(min-width:0px) and (max-width:767px){
-   width:22.563rem;
-   height: 6.813rem;
-}
-  @media (min-width: 768px) and (max-width: 1240px){
-      width: 41.5rem;
-    }
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    height: 6.813rem;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+  }
 `;
 
 const Heading = styled.span`
@@ -839,7 +847,7 @@ const Heading = styled.span`
   font-weight: 600;
   font-size: 1.5rem;
   margin-left: -21px;
-  @media  (min-width: 0px) and  (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -852,7 +860,7 @@ const Heading = styled.span`
     color: #2a2a2a;
     margin-top: 62px;
   }
-  @media  (min-width: 768px) and  (max-width:1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
     font-family: Inter;
     font-size: 1rem;
@@ -881,20 +889,20 @@ const ImageView = styled.img`
   width: 15px;
   margin-right: 15px;
   cursor: pointer;
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width: 0.688rem;
-   height: 0.688rem;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.688rem;
+    height: 0.688rem;
   }
-  @media  (min-width: 768px) and  (max-width: 1240px) {
-   width: 0.875rem;
-   height:0.875rem;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 0.875rem;
+    height: 0.875rem;
   }
 `;
 const ImgView = styled.img`
   width: 20px;
   height: 20px;
-  @media  (min-width: 0px) and  (max-width: 767px) {
-   width:1rem;
-   height:1rem;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 1rem;
+    height: 1rem;
   }
 `;

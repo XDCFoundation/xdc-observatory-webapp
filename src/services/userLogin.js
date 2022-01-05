@@ -1,9 +1,13 @@
-
 import { httpService } from "../utility/httpService";
 import { httpConstants } from "../constants";
 
-
 export default class Auth0Service {
+  getHeaders() {
+    return {
+      "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
+      "X-API-key": process.env.REACT_APP_X_API_KEY,
+    };
+  }
   constructor() {
     this.signin = this.signin.bind(this);
   }
@@ -12,7 +16,7 @@ export default class Auth0Service {
     let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "sign-in";
     return httpService(
       httpConstants.METHOD_TYPE.POST,
-      { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+      this.getHeaders(),
       reqObj,
       url
     )
@@ -31,37 +35,33 @@ export default class Auth0Service {
       });
   }
 
-  getHeaders() {
-    return {
-      "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
-      skip: true,
-      "Access-Control-Allow-Origin": "*",
-    };
-  }
   async forgotPassword(email) {
-
     const reqObj = {
+      email,
+    };
 
-      email
+    let url =
+      process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "forgot-password";
 
-    }
-
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "forgot-password"
-
-    return httpService(httpConstants.METHOD_TYPE.POST, { 'Content-Type': httpConstants.CONTENT_TYPE.APPLICATION_JSON }, reqObj, url)
-
-      .then(
-
-        response => {
-
-          if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
-            return Promise.reject();
-          return Promise.resolve(response.responseData);
-        }
-      ).catch(function (err) {
+    return httpService(
+      httpConstants.METHOD_TYPE.POST,
+      this.getHeaders(),
+      reqObj,
+      url
+    )
+      .then((response) => {
+        if (
+          !response.success ||
+          response.responseCode !== 200 ||
+          !response.responseData ||
+          response.responseData.length === 0
+        )
+          return Promise.reject();
+        return Promise.resolve(response.responseData);
+      })
+      .catch(function (err) {
         return Promise.reject(err);
-      },
-      );
+      });
   }
 
   async signUp(requestData) {
@@ -89,28 +89,28 @@ export default class Auth0Service {
       });
   }
   async logout(userId) {
-
-    let url = `${process.env.REACT_APP_USER_SERVICE_URL}log-out/${userId}`
-
+    let url = `${process.env.REACT_APP_USER_SERVICE_URL}log-out/${userId}`;
 
     return httpService(
       httpConstants.METHOD_TYPE.GET,
-      { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+      this.getHeaders(),
       userId,
       url
     )
-      .then(
-        response => {
-          if (!response.success || response.responseCode !== 200 || !response.responseData || response.responseData.length === 0)
-
-            return Promise.reject(response);
-          return Promise.resolve(response.responseData);
-        }
-
-      ).catch((err) => {
+      .then((response) => {
+        if (
+          !response.success ||
+          response.responseCode !== 200 ||
+          !response.responseData ||
+          response.responseData.length === 0
+        )
+          return Promise.reject(response);
+        return Promise.resolve(response.responseData);
+      })
+      .catch((err) => {
         return Promise.reject(err);
       });
-  };
+  }
 
   async getUser(userId) {
     let url =
@@ -164,13 +164,12 @@ export default class Auth0Service {
       });
   }
   async changePassword(reqObj) {
-
-
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "change-password"
+    let url =
+      process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "change-password";
 
     return httpService(
       httpConstants.METHOD_TYPE.POST,
-      { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+      this.getHeaders(),
       reqObj,
       url
     )
@@ -185,18 +184,16 @@ export default class Auth0Service {
 
         return Promise.resolve(response.responseData);
       })
-      .catch(
-        function (err) {
-          return Promise.reject(err);
-        }
-
-      );
+      .catch(function (err) {
+        return Promise.reject(err);
+      });
   }
   async updateUser(reqObj) {
-    let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "update-user"
+    let url =
+      process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "update-user";
     return httpService(
       httpConstants.METHOD_TYPE.POST,
-      { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+      this.getHeaders(),
       reqObj,
       url
     )
@@ -211,11 +208,8 @@ export default class Auth0Service {
 
         return Promise.resolve(response.responseData);
       })
-      .catch(
-        function (err) {
-          return Promise.reject(err);
-        }
-
-      );
+      .catch(function (err) {
+        return Promise.reject(err);
+      });
   }
 }

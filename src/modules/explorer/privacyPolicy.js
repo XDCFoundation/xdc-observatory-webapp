@@ -9,44 +9,35 @@ import styled from "styled-components";
 //   color: #2149b9;
 // `;
 const Heading = styled.div`
-  width: 174px;
-  height: 29px;
-  margin: 0 979px 16px 0;
   font-family: Inter;
   font-size: 24px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.92px;
-  text-align: left;
   color: #2a2a2a;
+  @media (min-width:0px) and (max-width:767px) {
+    font-size:18px;
+  };
+  
 `;
 const Subheading = styled.div`
-  width: 430px;
-  height: 21px;
-  margin: 16px 723px 32px 0;
-  font-family: Inter;
+  margin-top: 16px;
   font-size: 18px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.69px;
-  text-align: left;
   color: #2a2a2a;
+  @media (min-width:0px) and (max-width:767px) {
+    font-size:15px;
+  };
 `;
 const PointHeading = styled.div`
   font-weight: 600;
   margin: 32px 0 0 1px;
-  font-family: Inter;
   font-size: 15px;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.58px;
-  text-align: left;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px) {
+    margin-top:14px;
+  };
 `;
 const Para = styled.div`
   margin: 16px 0 0 1px;
@@ -68,158 +59,234 @@ const Para = styled.div`
 const Div = styled.div`
   width: 1202px;
   height: auto;
-  margin: 189.5px 357.5px 101px 360.5px;
+  margin: 55.5px auto 101px auto;
   padding: 32px 23px 115px 26px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: var(--white-two);
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+    overflow-x:hidden;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+    overflow-x:hidden;
+  };
+  @media (min-width:1240) {
+   
+    width: 100%;
+  };
 `;
+
+const TableDiv = styled.div`
+@media (min-width:768px) and (max-width:1240px) {
+  max-width: 740px;
+  width: 100%;
+  overflow:scroll
+ 
+};
+`
 const Block1 = styled.div`
   width: 1152px;
-  height: 152px;
-  margin: 32px 0 77px 1px;
-  font-family: Inter;
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.58px;
-  text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 303px;
+  };
+
+
 `;
 const Block2 = styled.div`
-  width: 1139px;
-  height: 418px;
   margin: 77px 13px 77px 1px;
   font-family: Inter;
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
-  text-align: left;
+ 
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block3 = styled.div`
   width: 1136px;
-  height: 152px;
   margin: 77px 16px 28px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
-  text-align: left;
+ 
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block4 = styled.div`
   width: 1121px;
-  height: 228px;
+ 
   margin: 28px 16px 28px 7px;
-  font-family: Inter;
+  
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
-  text-align: left;
+ 
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    
+  };
 `;
 const Block5 = styled.div`
   width: 1136px;
-  height: 95px;
+
   margin: 28px 16px 77px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+  
   letter-spacing: 0.58px;
-  text-align: left;
+
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block6 = styled.div`
   width: 1136px;
-  height: 114px;
+ 
   margin: 77px 16px 28px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+
   letter-spacing: 0.58px;
-  text-align: left;
+ 
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block7 = styled.div`
   width: 1121px;
-  height: 95px;
+
   margin: 28px 16px 28px 7px;
-  font-family: Inter;
+  
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+  
   letter-spacing: 0.58px;
-  text-align: left;
+  
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block9 = styled.div`
   width: 1136px;
-  height: 190px;
+  
   margin: 77px 16px 28px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
-  text-align: left;
+  
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block10 = styled.div`
   width: 1113px;
-  height: 171px;
+ 
   margin: 28px 39px 28px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
-  text-align: left;
+  
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block11 = styled.div`
   width: 1121px;
-  height: 95px;
+ 
   margin: 28px 31px 28px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
-  text-align: left;
+  
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block12 = styled.div`
   width: 1121px;
-  height: 57px;
+ 
   margin: 28px 31px 22px 1px;
-  font-family: Inter;
+ 
   font-size: 15px;
   font-weight: normal;
   font-stretch: normal;
@@ -228,10 +295,19 @@ const Block12 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block13 = styled.div`
   width: 1121px;
-  height: 399px;
+ 
   margin: 22px 16px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -242,24 +318,39 @@ const Block13 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block14 = styled.div`
   width: 1121px;
-  height: 114px;
+ 
   margin: 28px 31px 28px 1px;
   font-family: Inter;
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+ 
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block15 = styled.div`
   width: 1121px;
-  height: 57px;
+
   margin: 28px 31px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -270,10 +361,19 @@ const Block15 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block16 = styled.div`
   width: 1121px;
-  height: 76px;
+ 
   margin: 28px 31px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -284,10 +384,19 @@ const Block16 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block17 = styled.div`
   width: 1136px;
-  height: 95px;
+  
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -298,10 +407,19 @@ const Block17 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block18 = styled.div`
   width: 531px;
-  height: 190px;
+  
   margin: 28px 606px 5px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -312,10 +430,19 @@ const Block18 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block19 = styled.div`
   width: 1136px;
-  height: 57px;
+
   margin: 5px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -326,10 +453,19 @@ const Block19 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block20 = styled.div`
   width: 1136px;
-  height: 76px;
+ 
   margin: 77px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -340,10 +476,19 @@ const Block20 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block21 = styled.div`
   width: 1121px;
-  height: 95px;
+ 
   margin: 28px 16px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -354,10 +499,19 @@ const Block21 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block22 = styled.div`
   width: 1136px;
-  height: 38px;
+
   margin: 28px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -368,10 +522,20 @@ const Block22 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block23 = styled.div`
   width: 1136px;
-  height: 57px;
+
   margin: 5px 16px 77px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -382,10 +546,19 @@ const Block23 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block24 = styled.div`
   width: 1136px;
-  height: 171px;
+ 
   margin: 77px 16px 80px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -396,10 +569,19 @@ const Block24 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block25 = styled.div`
   width: 1131px;
-  height: 114px;
+ 
   margin: 80px 21px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -410,10 +592,21 @@ const Block25 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  
+
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block26 = styled.div`
   width: 824px;
-  height: 135px;
+
   margin: 28px 313px 71px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -424,10 +617,19 @@ const Block26 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block27 = styled.div`
   width: 1136px;
-  height: 95px;
+
   margin: 28px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -438,10 +640,19 @@ const Block27 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block28 = styled.div`
   width: 828px;
-  height: 760px;
+ 
   margin: 28px 309px 28px 7px;
   font-family: Inter;
   font-size: 15px;
@@ -452,10 +663,19 @@ const Block28 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 const Block29 = styled.div`
   width: 1136px;
-  height: 76px;
+
   margin: 28px 16px 28px 1px;
   font-family: Inter;
   font-size: 15px;
@@ -466,6 +686,15 @@ const Block29 = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+   
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+  };
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -476,55 +705,76 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 1.2px 0 0",
     border: "solid 1px #dedede",
     backgroundColor: "var(--white-two)",
+
+  },
+  materialTable: {
+    '@media (min-width:0px) and (max-width:767px)': {
+      "display": "none"
+    }
+  },
+  mobileTable: {
+    width: "300px",
+    margin: "28px 16px 28px 1px",
+    padding: "0 1.2px 0 0",
+    border: "solid 1px #dedede",
+    backgroundColor: "var(--white-two)",
+    '@media (min-width:768px)': {
+      "display": "none"
+    }
   },
   purpose: {
-    width: "325px",
-    height: "19px",
-    margin: "34px 101.6px 36.2px 70px",
-    fontFamily: "Inter",
     fontSize: "15px",
-    fonWeight: "600",
-    fontStretch: "normal",
+    fontWeight: "600",
     border: "solid 1px #dedede",
-    fontStyle: "normal",
-    lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#252525",
+    '@media (min-width:0px) and (max-width:767px)': {
+     marginBottom:"12px",
+     border:"none",
+     textAlign:"left"
+    }
+  },
+  rowNumber:{
+    border: "solid 1px #dedede",
+    padding: "0px 5px",
+    textAlign:"center"
+
+  },
+  tableData:{
+    border: "solid 1px #dedede",
+    padding: "5px 0px 2px 5px"
   },
   personal: {
-    width: "283px",
     border: "solid 1px #dedede",
-    height: "19px",
-    margin: "34px 55.6px 36.2px 77.4px",
-    fontFamily: "Inter",
     fontSize: "15px",
-    fonWeight: "600",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
+    fontWeight: "600",
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#252525",
+    '@media (min-width:0px) and (max-width:767px)': {
+      marginTop:"12px",
+      marginBottom:"12px",
+      border:"none",
+      textAlign:"left"
+     }
   },
   lawful: {
-    width: "426.1px",
-    height: "38px",
-    margin: "19px 58.8px 32.2px 70.4px",
-    fontFamily: "Inter",
     fontSize: "15px",
-    fonWeight: "600",
-    fontStretch: "normal",
+    fontWeight: "600",
     border: "solid 1px #dedede",
-    fontStyle: "normal",
-    lineHeight: "normal",
     letterSpacing: "0.58px",
     textAlign: "center",
     color: "#252525",
+    '@media (min-width:0px) and (max-width:767px)': {
+      marginTop:"12px",
+      marginBottom:"12px",
+      border:"none",
+      textAlign:"left"
+     }
   },
   rectangleCopy5: {
     width: "531px",
-    height: "190px",
     margin: "28px 606px 5px 7px",
     fontFamily: "Inter",
     fontSize: "15px",
@@ -535,6 +785,10 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0.58px",
     textAlign: "left",
     color: "#252525",
+    '@media (min-width:0px) and (max-width:767px)': {
+     width:"300px",
+     margin:"35px 2px 0px 0px"
+     }
   },
   hash: {
     width: "106.6px",
@@ -545,12 +799,13 @@ const useStyles = makeStyles((theme) => ({
     color: "#252525",
   },
   row: {
-    width: "106.6px",
-    height: "320px",
-    margin: "19px 58.8px 32.2px 70.4px",
     border: "solid 1px #dedede",
     textAlign: "center",
     color: "#252525",
+    '@media (min-width:0px) and (max-width:767px)': {
+      border:"none",
+      textAlign:"left"
+    }
   },
   blockNumber: {
     width: "271px",
@@ -602,7 +857,7 @@ function PrivacyPolicy() {
             <Para>
               The purpose of this privacy notice is to give you information on
               how XDC Foundation processes your Personal Data through your use
-              of the website at<a href=""> www.____.org</a> (hereinafter
+              of the website at <br /> <a href=""> www.____.org</a> (hereinafter
               referred to as the “Website”), including any data you may provide
               through the Website when you sign up to use any of the services we
               provide.
@@ -623,7 +878,7 @@ function PrivacyPolicy() {
             <PointHeading>(a) Who we are</PointHeading>
             <Para>
               XDC Foundation, SIX, 2nd Floor, Cricket Square, P.O. Box 2681,
-              George Town, Grand Cayman, KY1-1111, Cayman Islands__, is the
+              George Town, Grand Cayman, KY1-1111, Cayman Islands__, is <br /> the
               controller and is responsible for processing your Personal Data
               (referred to as ”XDC Foundation”, “we”, “us” or “our” in this
               privacy notice) in the context of this Website.
@@ -759,7 +1014,8 @@ function PrivacyPolicy() {
               your consent.
             </Para>
           </Block9>
-          <Table>
+          <TableDiv>
+          <Table className={classes.materialTable}>
             <table className={classes.table}>
               <tr>
                 <th className={classes.hash}>#</th>
@@ -1246,6 +1502,8 @@ function PrivacyPolicy() {
               </tr>
             </table>
           </Table>
+          </TableDiv>
+          <MobileResponisveTable />
           <Block10>
             <PointHeading>(b) Your marketing choices</PointHeading>
             <Para>
@@ -1562,11 +1820,11 @@ function PrivacyPolicy() {
             </Para>
           </Block28>
           <Para
-            style={{
-              width: "879px",
-              height: "19px",
-              margin: "28px 258px 28px 7px",
-            }}
+            // style={{
+            //   width: "879px",
+            //   height: "19px",
+            //   margin: "28px 258px 28px 7px",
+            // }}
           >
             If you wish to exercise any of the rights set out above, please
             contact us at{" "}
@@ -1588,11 +1846,11 @@ function PrivacyPolicy() {
         </Block29>
         <div
           className={classes.rectangleCopy5}
-          style={{
-            width: "1136px",
-            height: "95px",
-            margin: "28px 16px 28px 1px",
-          }}
+          // style={{
+          //   width: "1136px",
+          //   height: "95px",
+          //   margin: "28px 16px 28px 1px",
+          // }}
         >
           <PointHeading>(c) What we may need from you</PointHeading>
           <Para>
@@ -1607,15 +1865,15 @@ function PrivacyPolicy() {
         </div>
         <div
           className={classes.rectangleCopy5}
-          style={{
-            width: "1136px",
-            height: "76px",
-            margin: "28px 16px 77px 1px",
-          }}
+          // style={{
+          //   width: "1136px",
+          //   height: "76px",
+          //   margin: "28px 16px 77px 1px",
+          // }}
         >
           <PointHeading>(c)Time limit to respond</PointHeading>
           <Para>
-             We try to respond to all legitimate
+            We try to respond to all legitimate
             requests within one month. Occasionally it may take us longer than a
             month if your request is particularly complex or you have made a
             number of requests. In this case, we will notify you and keep you
@@ -1624,11 +1882,11 @@ function PrivacyPolicy() {
         </div>
         <div
           className={classes.rectangleCopy5}
-          style={{
-            width: "1136px",
-            height: "76px",
-            margin: "28px 16px 77px 1px",
-          }}
+          // style={{
+          //   width: "1136px",
+          //   height: "76px",
+          //   margin: "28px 16px 77px 1px",
+          // }}
         >
           <PointHeading>
             11. CHANGES TO THE PRIVACY NOTICE AND YOUR DUTY TO INFORM US OF
@@ -1649,4 +1907,263 @@ function PrivacyPolicy() {
   );
 }
 
+const MobileResponisveTable = () => {
+  const classes = useStyles();
+  return (
+    <Table className={classes.mobileTable}>
+      <table >
+        {/* <tr>
+        <th className={classes.hash}># testing</th>
+        <th className={classes.purpose}>Perpose Activity</th>
+        <th className={classes.personal}>Type Personal Data</th>
+        <th className={classes.lawful}>
+          Lawful bases for processing including basis of legitimate
+          interest
+        </th>
+      </tr> */}
+
+        <tr className={classes.row}>
+          <td  className={classes.rowNumber}>1</td>
+          <td  className={classes.tableData}>
+            <div className={classes.purpose} >Purpose Activity</div>
+            <div >
+              To manage our relationship with you which will include:
+            </div>
+            <ul>
+              <li>Providing services to you on the Website;</li>
+              <div>Responding to your inquiries;</div>
+              <div>Notifying you of changes to our terms or privacy policy,
+                and</div>
+              <div>
+                Asking you to provide a review or complete a survey.
+              </div>
+            </ul>
+            {/* </td> */}
+            {/* <td style={{ border: "solid 1px #dedede" }}> */}
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>(1) Identity
+            </div>
+            <div>
+              (2) Contact
+            </div>
+            <div>(3) Marketing and Communications
+            </div>
+            {/* </td> */}
+            {/* <td style={{ border: "solid 1px #dedede" }}> */}
+            <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+            <div>
+              <div >
+                (a) Necessary to comply with a request from you (contract
+                performance).
+              </div>
+              <div >
+                (b) Necessary to comply with legal obligations.
+              </div>
+              <div >
+                (c) Necessary for our legitimate interests (to keep our
+                records updated and to study how customers use our
+                products and services)
+              </div>
+            </div>
+          </td>
+        </tr>
+
+
+        <tr className={classes.row}>
+          <td  className={classes.rowNumber}>2</td>
+          <td  className={classes.tableData}>
+
+            <div className={classes.purpose}>Purpose Activity</div>
+            <div>
+              To administer and protect our business and this Website
+              (including troubleshooting, data analysis,testing, system
+              maintenance, support, reporting and hosting of data)
+            </div>
+            <div  className={classes.personal}>Type Personal Data</div>
+            <div>(1) Identity</div>
+            <div>(2) Technical</div>
+            <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+            <div>
+              <div >
+                (a) Necessary for our legitimate interests (for running
+                our business, provision of administration and IT services,
+                network security)
+              </div>
+              <div >
+                (b) Necessary to comply with legal obligations.
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr className={classes.row}>
+          <td  className={classes.rowNumber}>3</td>
+          <td  className={classes.tableData}>
+
+          <div className={classes.purpose}>Purpose Activity</div>
+            <div>
+              We send you marketing communications from us if you have
+              requested information from us based on your interests
+            </div>
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>(1) Identity</div>
+            <div>(2) Contact</div>
+            <div>(3) Marketing and Communications</div>
+            <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+            <div>Your Consent</div>
+          </td>
+        </tr>
+
+
+        <tr className={classes.row}>
+        <td  className={classes.rowNumber}>4</td>
+        <td  className={classes.tableData}>
+
+        <div className={classes.purpose}>Purpose Activity</div>
+          <div>
+            To deliver relevant website content to you and measure or
+            understand the effectiveness of the communication that we
+            deliver to you
+          </div>
+          <div className={classes.personal}>Type Personal Data</div>
+          <div>
+            (1) Identity
+          </div>
+          <div>
+            (2) Contact
+          </div>
+          <div>
+            (3) Marketing and Communications
+          </div>
+          <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+          <div>
+            Your Consent
+          </div>
+        </td>
+      </tr>
+
+
+      <tr className={classes.row}>
+        <td  className={classes.rowNumber}>5</td>
+        <td  className={classes.tableData}>
+
+        <div className={classes.purpose} >Purpose Activity</div>
+          <div>
+            To use data analytics to improve our Website, products and
+            services, marketing, customer relationships and experiences
+          </div>
+          <div className={classes.personal}>Type Personal Data</div>
+          <div>
+            (1) Identity
+          </div>
+          <div>
+            (2) Usage
+          </div>
+          <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+          <div>
+            Necessary for our legitimate interests (to define types of
+            customers for our products and services, to keep our website
+            updated and relevant, to develop our business and to inform
+            our marketing strategy)
+          </div>
+        </td>
+      </tr>
+
+      <tr className={classes.row}>
+        <td  className={classes.rowNumber}>6</td>
+        <td  className={classes.tableData}>
+
+        <div className={classes.purpose} >Purpose Activity</div>
+          <div>
+            To deliver relevant marketing materials, including news
+            articles, newsletters and event invitations  to individuals
+            subscribed to our mailing lists. We use mailing list
+            software in conjunction with our CRM to deliver the
+            communication by email.
+          </div>
+          <div className={classes.personal}>Type Personal Data</div>
+          <div>
+            (1) Identity
+          </div>
+          <div>
+            (2) Contact
+          </div>
+          <div>
+            (3) Marketing and Communications
+          </div>
+          <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+          <div>
+            Your Consent
+          </div>
+        </td>
+      </tr>
+
+
+      <tr className={classes.row}>
+        <td  className={classes.rowNumber}>7</td>
+        <td  className={classes.tableData}>
+
+        <div className={classes.purpose}>Purpose Activity</div>
+          <div>
+            To allow you to interact with our XDC Observatory by adding
+            “tags” and other identity characteristics
+          </div>
+          <div className={classes.personal}>Type Personal Data</div>
+          <div>
+            User defined at user’s discretion
+          </div>
+          <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+          <div>
+            Your Consent
+          </div>
+        </td>
+      </tr>
+
+      <tr className={classes.row}>
+        <td  className={classes.rowNumber}>8</td>
+        <td  className={classes.tableData}>
+
+        <div className={classes.purpose}>Purpose Activity</div>
+          <div>
+            To allow you to receive notification and alerts via email
+            and push notification
+          </div>
+          <div className={classes.personal}>Type Personal Data</div>
+          <div>
+            User defined at user’s discretion
+          </div>
+          <div className={classes.lawful}>
+              Lawful bases for processing including basis of legitimate
+              interest
+            </div>
+          <div>
+            Your Consent
+          </div>
+        </td>
+      </tr> 
+      </table>
+    </Table>
+  )
+}
 export default PrivacyPolicy;

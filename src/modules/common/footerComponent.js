@@ -6,7 +6,15 @@ import Select from "@material-ui/core/Select";
 import DownArrow from "@material-ui/icons/KeyboardArrowDown";
 import { MenuItem } from "material-ui";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  currencyPopup: {
+    marginLeft: "10px",
+  }
+}));
 export default function FooterComponent(props) {
+  const classes = useStyles();
   const [activeCurrency, setActiveCurrency] = useState("USD");
 
   useEffect(() => {
@@ -52,6 +60,24 @@ export default function FooterComponent(props) {
   `;
   const SecondCloumn = styled.div`
     /* width: 100%; */
+    //display: flex;
+    /* flex-direction: column; */
+    width: auto;
+    @media (min-width: 0px) and (max-width: 767px) {
+      //display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    @media (min-width: 767px) and (max-width: 1240px) {
+      //display: flex;
+      flex-direction: row;
+      width: 66%;
+      padding-top: 40px;
+    }
+  `;
+
+  const SecondColumnWithFlex = styled.div`
+    /* width: 100%; */
     display: flex;
     /* flex-direction: column; */
     width: auto;
@@ -67,6 +93,7 @@ export default function FooterComponent(props) {
       padding-top: 40px;
     }
   `;
+
   const ThirdCloumn = styled.div`
     display: flex;
     width: 40%;
@@ -79,6 +106,22 @@ export default function FooterComponent(props) {
     }
     @media (min-width: 767px) and (max-width: 1240px) {
       display: flex;
+      flex-direction: row;
+      width: 66%;
+    }
+  `;
+
+  const ThirdCloumnWithoutFlex = styled.div`
+    width: 40%;
+
+    /* width: 100%; */
+    @media (min-width: 0px) and (max-width: 767px) {
+      //display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    @media (min-width: 767px) and (max-width: 1240px) {
+      //display: flex;
       flex-direction: row;
       width: 66%;
     }
@@ -111,7 +154,8 @@ export default function FooterComponent(props) {
               </div>
             </div>
             <div className="button-Padding-Mobile">
-              <Select
+              <Select classes={{ paper: classes.currencyPopup }}
+                /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
                 style={{
                   outline: "0",
                   backgroundColor: "#2149b9",
@@ -130,19 +174,25 @@ export default function FooterComponent(props) {
                   transformOrigin: {
                     vertical: "top",
                     horizontal: "center",
+                  }, PaperProps: {
+                    style: {
+                      backgroundColor: "#2149b9",
+                    },
                   },
                   getContentAnchorEl: null,
                 }}
               >
                 {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
                 <MenuItem
+                  id="cureency"
                   value="USD"
+
                   selected="selected"
                   style={{
                     outline: "0",
                     backgroundColor: "#2149b9",
-                    paddingTop: "0px",
-                    paddingBottom: "0px",
+                    paddingTop: "0px !important",
+                    paddingBottom: "0px !important",
                   }}
                 >
                   <img className="select-icon" src={"/images/dollar.svg"} />{" "}
@@ -180,16 +230,18 @@ export default function FooterComponent(props) {
           </Grid>
         </FirstCloumn>
 
-        <SecondCloumn>
+        <SecondColumnWithFlex >
           <Grid
             alignContent="center"
             item
             xs={12}
-            style={{ margin: " 0 10px 10px 10px" }}
+            style={{ margin: " 0px 0px 10px 0px" }}
           >
             <div className="Table-Header text-align-left">
               Community
-              <hr style={{ marginRight: "20px" }}></hr>
+              <div style={{ width: "100%", paddingRight: "10px" }}>
+                <hr></hr>
+              </div>
             </div>
 
             <div className="Table-Comp">
@@ -240,6 +292,64 @@ export default function FooterComponent(props) {
             item
             xs={12}
             style={{ margin: " 0 10px 10px 10px" }}
+            className="desktop-column-display"
+          >
+            <div className="Table-Header">
+              Other Links
+              <hr></hr>
+            </div>
+            <ul>
+              <li className="Table-Comp">
+                <a href="https://howto.xinfin.org/general/faq/" target="_blank">
+                  Read FAQ
+                </a>
+              </li>
+              <li className="Table-Comp">
+                <a
+                  href="https://xinfin.org/exchange-listing-resource.php"
+                  target="_blank"
+                >
+                  Exchange Listing Resource
+                </a>
+              </li>
+              <li className="Table-Comp">
+                <a href="https://xinfin.io/" target="_blank">
+                  XDC Exchange List
+                </a>
+              </li>
+              <li className="Table-Comp">
+                <a
+                  href="https://xinfin.org/xinfin-consensus.php"
+                  target="_blank"
+                >
+                  Public DPoS Consensus
+                </a>
+              </li>
+              <li className="Table-Comp">
+                <a href="https://xinfin.org/privacy.php" target="_blank">
+                  Privacy Policy
+                </a>
+              </li>
+              <li className="Table-Comp">
+                <a href="https://xinfin.org/disclaimer.php" target="_blank">
+                  Disclaimer
+                </a>
+              </li>
+              <li className="Table-Comp">
+                <a href="https://xinfin.org/contactus.php" target="_blank">
+                  Press Inquiry
+                </a>
+              </li>
+            </ul>
+          </Grid>
+        </SecondColumnWithFlex>
+
+        <SecondCloumn className="mobile-column-display">
+          <Grid
+            justify="left"
+            item
+            xs={12}
+            style={{ margin: " 20px 0px 10px 0px" }}
           >
             <div className="Table-Header">
               Other Links
@@ -298,7 +408,7 @@ export default function FooterComponent(props) {
               alignContent="center"
               item
               xs={12}
-              style={{ margin: " 0 10px 10px 10px" }}
+              className="follow-us-margin"
             >
               <div className="Table-Header">
                 Follow Us
@@ -391,6 +501,7 @@ export default function FooterComponent(props) {
               item
               xs={12}
               style={{ margin: " 0 10px 10px 10px" }}
+              className="desktop-column-display"
             >
               <div className="Table-Header">
                 Tweet
@@ -407,11 +518,36 @@ export default function FooterComponent(props) {
               </div>
             </Grid>
           </ThirdCloumn>
+
+
         </BlankSpaceDiv>
+
+        <ThirdCloumnWithoutFlex className="mobile-column-display">
+          <Grid
+            alignContent="center"
+            item
+            xs={12}
+            style={{ margin: " 20px 0px 10px 0px" }}
+          >
+            <div className="Table-Header">
+              Tweet
+              <hr style={{ marginRight: "2px" }}></hr>
+            </div>
+            <div className={"twitter"}>
+              <a
+                class="twitter-timeline"
+                data-lang="en"
+                data-height="220"
+                data-theme="light"
+                href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"
+              ></a>
+            </div>
+          </Grid>
+        </ThirdCloumnWithoutFlex>
       </Grid>
       <div className="footer-line">
         <hr></hr>
-        <span className={"copyright"}>© 2021 XDC. All Rights Reserved.</span>
+        <span className={"copyright"}>© 2022 XDC. All Rights Reserved.</span>
       </div>
     </div>
   );

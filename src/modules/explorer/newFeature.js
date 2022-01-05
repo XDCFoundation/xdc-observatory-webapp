@@ -10,45 +10,53 @@ export default function NewFeature(props) {
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
+    setSignUp(false);
   };
-//   const { onClose, selectedValue, open } = props;
+  //   const { onClose, selectedValue, open } = props;
 
-//   const handleClose = () => {
-//     onClose(selectedValue);
-//   };
+  //   const handleClose = () => {
+  //     onClose(selectedValue);
+  //   };
 
-const useStyles = makeStyles((theme) => ({
-  dialogBox: {
-    maxWidth: "795px",
-    width: "100%",
-    height: "469px",
-    position: "absolute",
-    top: "65px",
-    borderRadius: "12px",
+  const useStyles = makeStyles((theme) => ({
+    dialogBox: {
+      maxWidth: "795px",
+      width: "100%",
+      position: "absolute",
+      top: "65px",
+      borderRadius: "12px",
+     '@media (min-width: 0px) and (max-width: 766px)' : {
+        height: "100vh",
+        top: "40px",
+        borderRadius: "0px",
+      }
+    }
+  }))
+  const classes = useStyles();
+
+  const visited = () => {
+    sessionManager.setDataInCookies(true, "Visited");
   }
-}))
-const classes = useStyles();
+  const isLoggedIn = sessionManager.getDataFromCookies("isLoggedIn");
 
-const visited = ()=>{
-    sessionManager.setDataInCookies(true,"Visited");
-    
-}
   return (
-      
-   !signUp ?   <Dialog onClose={handleClose} open={open} classes={{paperWidthSm: classes.dialogBox}}>
+    <>
+    {!isLoggedIn ?
+
+    (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
       <div className="main-box" >
         <Row className="main-row">
           <div className="main-title">New Features</div>
           <div className="main-close" onClick={handleClose}>
-            <img  alt="Cross" src={"/images/XDC-Cross.svg"} />
+            <img alt="Cross" src={"/images/XDC-Cross.svg"} />
           </div>
         </Row>
         <div className="main-sub-title">
           Create your account and get started
         </div>
-        <Row className="card-box">
+        <Row className="card-box" style={{ flexFlow: "wrap" }}>
           <div className="card margin-right-34px">
-            <img  alt="new-feature"
+            <img alt="new-feature"
               src={require("../../../src/assets/images/watch-list-new-feature.svg")}
               className="crad-image"
             />
@@ -59,7 +67,7 @@ const visited = ()=>{
             </div>
           </div>
           <div className="card margin-right-34px">
-            <img  alt="addLabel"
+            <img alt="addLabel"
               src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
               className="crad-image"
             />
@@ -69,7 +77,7 @@ const visited = ()=>{
             </div>
           </div>
           <div className="card">
-            <img  alt="addLabel"
+            <img alt="addLabel"
               src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
               className="crad-image"
             />
@@ -79,21 +87,25 @@ const visited = ()=>{
             </div>
           </div>
         </Row>
-        <div className="main-sing-up" onClick={()=>{
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className="sign-up-button" onClick={() => {
             setSignUp(true);
-        }}>
-        
-          <div className="main-sing-up-text"> Sign up</div>
+          }}>
+
+            <div className="main-sing-up-text"> Sign up</div>
+          </div>
         </div>
+
         <div className="main-end-box">
-          <input type="checkbox" 
-          onChange={visited} 
-          className="main-checkbox" />
+          <input type="checkbox"
+            onChange={visited}
+            className="main-checkbox" />
           <div className="main-end-text">Don't show this message again</div>
         </div>
       </div>
-    </Dialog>:
-    <FormDialog isNewFeatureComponent={true}/>
-   
+    </Dialog> :
+      <FormDialog isNewFeatureComponent={true} />):("")}</>
+
   );
 }

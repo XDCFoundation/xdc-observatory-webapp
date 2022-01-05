@@ -13,7 +13,10 @@ import TokenData from "../../services/token";
 import Utils from "../../utility";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
-
+import utility from "../../utility";
+import { Tooltip } from "@material-ui/core";
+import format from "format-number";
+import { messages } from "../../constants";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -79,9 +82,26 @@ const useStyles = makeStyles({
     borderTop: "0px solid #bbb",
     width: "100%",
   },
+  noData: {
+    width: "auto",
+    height: "19px",
+    margin: "25px 15px 0 530px",
+    fontFamily: "Inter",
+    fontSize: "16px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+
+    color: "#c6cbcf",
+  },
+  alert: {
+    margin: "110px 0 0 580px",
+  },
+  table: {
+    marginBottom: "200px",
+  },
 });
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -90,9 +110,11 @@ export default function StickyHeadTable() {
   const [noData, setNoData] = useState(true);
   const { address } = useParams();
   const [isLoading, setLoading] = useState(true);
+  const { tn } = useParams();
   useEffect(() => {
     let values = { addr: address, pageNum: 0, perpage: 10 };
     listOfHolders(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const listOfHolders = async (values) => {
     let [error, tns] = await Utils.parseResponse(
@@ -153,65 +175,246 @@ export default function StickyHeadTable() {
   //   )}`;
   // }
 
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    height:300px !important;,
+    justify-content: center;
+    align-items: center;
+    margin-top:140px !important;,
+    gap: 10px;
+    @media (min-width: 0px) and (max-width: 767px){
+      margin: 30px 0 !important;
+      height:70px !important;,
+    }
+  `;
+  let decimals = props?.contractData ? props?.contractData?.contractResponse?.decimals : ""
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
-        <TableContainer className={classes.container} id="container-table">
-          <Table>
-            <TableHead>
-              <TableRow className="w-100">
-                <TableCell
-                  style={{ border: "none" }}
-                  className="w-10"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Rank</span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none" }}
-                  className="w-40"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Address</span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "17px" }}
-                  className="w-20"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Quantity</span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "17px" }}
-                  className="w-21"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>
-                    Percentage
-                  </span>
-                </TableCell>
-                <TableCell
-                  style={{ border: "none", paddingLeft: "17px" }}
-                  className="w-12"
-                  align="left"
-                >
-                  <span className={"tableheaders table-headers"}>Value</span>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {isLoading === true ? (
+        {isLoading == true ? (
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
               <TableBody>
                 <TableRow>
                   <TableCell style={{ border: "none" }} colspan="5">
-                    <div className="loader-holder-list">
+                    <div className="loader-transfer-list">
                       <Loader />
                     </div>
                   </TableCell>
                 </TableRow>
               </TableBody>
-            ) : (
+            </Table>
+          </TableContainer>
+        ) : noData == false ? (
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
+              <TableHead>
+                <TableRow className="w-100">
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-10"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Rank
+                      <Tooltip placement="top" title={messages.HOLDER_RANK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-40"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Address
+                      <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-20"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Quantity
+                      <Tooltip placement="top" title={messages.QUANTITY}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-21"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Percentage
+                      <Tooltip placement="top" title={messages.PERCENTAGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
+                  </TableCell>
+                  {/* <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-12"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>Value</span>
+                  </TableCell> */}
+                </TableRow>
+              </TableHead>
+            </Table>
+            <NoDataFoundContainer>
+              <img
+                src={require("../../../src/assets/images/XDC-Alert.svg")}
+              ></img>
+              <div className="not-found">No Holder Found</div>
+            </NoDataFoundContainer>
+          </TableContainer>
+        ) : (
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
+              <TableHead>
+                <TableRow className="w-100">
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-10"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Rank
+                      <Tooltip placement="top" title={messages.HOLDER_RANK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none" }}
+                    className="w-40"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Address
+                      <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-20"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Quantity
+                      <Tooltip placement="top" title={messages.QUANTITY}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-21"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>
+                      Percentage
+                      <Tooltip placement="top" title={messages.PERCENTAGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                    </span>
+                  </TableCell>
+                  {/* <TableCell
+                    style={{ border: "none", paddingLeft: "17px" }}
+                    className="w-12"
+                    align="left"
+                  >
+                    <span className={"tableheaders table-headers"}>Value</span>
+                  </TableCell> */}
+                </TableRow>
+              </TableHead>
+
               <TableBody>
                 {holders?.data?.map((row, index) => {
+                  let quantity = (
+                    row[0]?.Quantity / Math.pow(10, decimals)
+                  )?.toFixed(decimals);
+                  let quantity1 =
+                    row[0]?.Quantity / Math.pow(10, decimals) >= 1
+                      ? format({})(
+                        utility.convertToInternationalCurrencySystem(
+                          row[0]?.Quantity / Math.pow(10, decimals)
+                        )
+                      )
+                      : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
+                        decimals
+                      );
+                  var quantity2 = quantity1.toString().split(".")[0];
+                  var quantity3 = quantity1.toString().split(".")[1];
+                  var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                  var splittedArray = quantity3?.match(regex);
+
+                  var percentageValue = !row[0]?.Percentage ? "------" : row[0].Percentage.toFixed(8)
+                  let percentageValue1 = percentageValue
+                    .toString()
+                    .split(".")[0];
+                  let percentageValue2 = percentageValue
+                    .toString()
+                    .split(".")[1];
+
+                  var quantity4 =
+                    splittedArray && splittedArray.length
+                      ? splittedArray[0]
+                      : 0;
+                  var text =
+                    splittedArray && splittedArray.length
+                      ? splittedArray[1]
+                      : 0;
                   return (
                     <StyledTableRow hover role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
@@ -222,7 +425,7 @@ export default function StickyHeadTable() {
                       <TableCell id="td" style={{ border: "none" }}>
                         <a
                           style={{ color: "#2149b9", fontSize: 11 }}
-                          href={"/holder-details/" + row[0]?.Address}
+                          href={"/holder-details/" + row[0]?.Address + "/" + tn}
                         >
                           <span className="tabledata table-data">
                             {row[0]?.Address}
@@ -230,43 +433,63 @@ export default function StickyHeadTable() {
                         </a>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
-                        <span className="tabledata table-data mar-lef-3">
-                          {row[0]?.Quantity}
-                        </span>
+                        <Tooltip
+                          placement="top"
+                          title={format({})(
+                            quantity >= 1 ? parseFloat(quantity) : quantity
+                          )}
+                        >
+                          {quantity3 >= 0 || quantity3 == null ? (
+                            <span className="tabledata table-data mar-lef-3">
+                              {quantity2}
+                            </span>
+                          ) : (
+                            <span className="tabledata table-data mar-lef-3">
+                              {quantity2}
+                              {"."}
+                              <span style={{ color: "#9FA9BA" }}>
+                                {quantity4}
+                              </span>
+                              {text}
+                            </span>
+                          )}
+                        </Tooltip>
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
+
                         <span className="tabledata table-data mar-lef-3">
-                          {" "}
-                          {!row[0]?.Percentage
-                            ? "------"
-                            : row[0].Percentage.toFixed(2)}
+                          {percentageValue1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>
+                            {percentageValue2}
+                          </span>
+                          %
                         </span>
                       </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
-                        {" "}
-                        <span className="tabledata table-data mar-lef-2">
-                          {" "}
-                          {row[0]?.Value}
-                        </span>{" "}
-                      </TableCell>
+                      {/* <TableCell
+                        id="td"
+                        style={{ border: "none" }}
+                        className="cursor-pointer"
+                      >
+                        <Tooltip
+                          placement="top"
+                          title={format({})(row[0]?.Value)}
+                        >
+                          <span className="tabledata table-data mar-lef-2">
+                            {utility.convertToInternationalCurrencySystem(
+                              row[0]?.Value
+                            )}
+                          </span>
+                        </Tooltip>
+                      </TableCell> */}
                     </StyledTableRow>
                   );
                 })}
-                {noData === false && (
-                  <div className="No-data-found">
-                    <span
-                      style={{ textAlign: "center", color: "#2a2a2a" }}
-                      className="tabledata"
-                    >
-                      No Holders Found
-                    </span>
-                  </div>
-                )}
               </TableBody>
-            )}
-          </Table>
-        </TableContainer>
+            </Table>
+          </TableContainer>
+        )}
       </Paper>
       <Pagination>
         <LeftPagination>
@@ -274,6 +497,7 @@ export default function StickyHeadTable() {
 
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>10</option>
+            <option>25</option>
             <option>50</option>
             <option>75</option>
             <option>100</option>

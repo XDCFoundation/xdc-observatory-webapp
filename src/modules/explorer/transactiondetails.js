@@ -83,25 +83,25 @@ export default function TransactionsDetailsData({ _handleChange }) {
 
   let CurrencyValue = window.localStorage.getItem("currency");
   const currencySymbol =
-    CurrencyValue === "INR" ? "₹ " : CurrencyValue === "USD" ? "$ " : "€ ";
+    CurrencyValue === "INR" ? "₹" : CurrencyValue === "USD" ? "$" : "€";
   const valueFetch =
     CurrencyValue === "INR"
       ? transactions.valueINR
       : CurrencyValue === "USD"
-      ? transactions.valueUSD
-      : transactions.valueEUR;
+        ? transactions.valueUSD
+        : transactions.valueEUR;
   const transactionFetch =
     CurrencyValue === "INR"
       ? transactions.transactionFeeINR
       : CurrencyValue === "USD"
-      ? transactions.transactionFeeUSD
-      : transactions.transactionFeeEUR;
+        ? transactions.transactionFeeUSD
+        : transactions.transactionFeeEUR;
   const fetchtxn = !transactionFetch
     ? 0
-    : (transactionFetch / 1000000000000000000).toFixed(12);
+    : Utils.decimalDivison(transactionFetch, 8);
   const txfee = !transactions.transactionFee
     ? 0
-    : (transactions.transactionFee / 1000000000000000000).toFixed(12);
+    : (transactions.transactionFee / 1000000000000000000).toFixed(8);
   const gasP = !transactions.gasPrice
     ? 0
     : (transactions.gasPrice / 1000000000000000000).toFixed(18);
@@ -520,7 +520,7 @@ export default function TransactionsDetailsData({ _handleChange }) {
                   }}
                   id="td"
                 >
-                  Txn Fee
+                  Transaction Fee
                 </TableCell>
                 <TableCell
                   style={{

@@ -14,6 +14,10 @@ import Utility, { dispatchAction } from "../../utility";
 import ContractData from "../../services/contract";
 import styled from "styled-components";
 import Loader from "../../assets/loader";
+import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
+import ConfigureColumnsModal from "../common/configureColumnsModal";
+import { messages } from "../../constants";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -80,16 +84,23 @@ class Contractlist extends React.Component {
       keywords: "",
       noData: false,
       isLoading: true,
+      isSettingColumnOpen: false,
+      anchorEl: null,
+      isColumnsModalOpen: null,
+        tableColumns: {
+            // "Address": {isActive: true, toolTipText: "Address of the contract"},
+            "Token Name": {isActive: true, toolTipText: "Name of the token associated with the contract."},
+            "Contract Name": {isActive: true, toolTipText: "Name of the Smart Contract."},
+            "Token Yes/No": {isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not"}
+        }
     };
   }
+
   componentDidMount = () => {
     let data = { pageNum: this.state.from, perpage: this.state.amount };
     this.getContractList(data);
     this.getTotalContractList();
   };
-
-  componentDidUpdate() {
-  }
 
   handleKeyUp = async (event) => {
     let searchkeyword = event.target.value;
@@ -115,7 +126,7 @@ class Contractlist extends React.Component {
 
   handleChangePage = (action) => {
     if (action == "first") {
-      let page = 0
+      let page = 0;
       this.setState({ from: page });
       if (this.state.keywords) {
         let data = {
@@ -201,6 +212,7 @@ class Contractlist extends React.Component {
 
     //this.getTotalContractList()
   };
+
   shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
@@ -213,8 +225,8 @@ class Contractlist extends React.Component {
       ContractData.getContractLists(data)
     );
 
+    this.setState({ isLoading: false });
     if (responseData) {
-      this.setState({ isLoading: false });
       this.setState({ rows: responseData });
       this.setState({ noData: false });
     } else {
@@ -248,87 +260,98 @@ class Contractlist extends React.Component {
     if (responseData == 0) {
       this.setState({ noData: true });
     }
+    this.setState({ isLoading: false });
     if (responseData) {
-      this.setState({ isLoading: false });
       this.setState({ totalRecord: responseData });
       this.setState({ noData: false });
-    } else {
-      //setLoading(false);
     }
+  };
+
+  handleSettingsClick = (event) => {
+    this.setState({
+      anchorEl: event.currentTarget,
+      isSettingColumnOpen: !this.state.isSettingColumnOpen,
+    });
+  };
+
+  handleOnClose = () => {
+    this.setState({ anchorEl: null, isSettingColumnOpen: false });
+  };
+
+  toggleModal = () => {
+    this.setState({ isColumnsModalOpen: !this.state.isColumnsModalOpen });
+  };
+
+  toggleTableColumns = (columnName) => {
+    const columns = this.state.tableColumns;
+    columns[columnName].isActive = !columns[columnName].isActive;
+    this.setState({ tableColumns: columns });
   };
 
   render(props) {
     const { classes } = this.props;
     let contentStatus = "";
-    let msgStatus = "";
-    if (this.state.noData) {
-      contentStatus = "hideContent";
-      msgStatus = "showContent";
-    } else {
-      contentStatus = "showContent";
-      msgStatus = "hideContent";
-    }
-
+    // let msgStatus = "";
+    // if (this.state.noData) {
+    //   contentStatus = "hideContent";
+    //   msgStatus = "showContent";
+    // } else {
+    //   contentStatus = "showContent";
+    //   msgStatus = "hideContent";
+    // }
     // if(this.state.isLoading){
     //     return(<div class="loader"></div>)
     // }
+    const NoDataFoundContainer = styled.div`
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+      gap: 10px;
+      @media (min-width: 767px) {
+        margin: 100px 0 !important;
+      }
+    `;
 
     return (
       <div>
         <Tokensearchbar />
-        <div>
-          <div>
-            <form
-              method="post"
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <div className="searchelement-div div-searchelement">
-                <p className="searchelement-token token-searchelement">
-                  Contracts
-                </p>
-                {/* <div className="searchelement-input input-searchelement">
-                  <img
-                    style={{
-                      width: 20,
-                      height: 20,
-                      marginRight: 6,
-                      marginTop: 3,
-                    }}
-                    src={"/images/Search.svg"}
-                  />
-                  <input
-                    onKeyPress={(e) => {
-                      if (e.key === "Enter") {
-
-                        this.handleKeyUp(e);
-                      }
-                    }}
-                    onChange={(e) => {
-                      if (e.target.value == "") {
-                        this.handleKeyUp(e);
-                      }
-                    }}
-                    className="account-searchbar"
-                    type="text"
-                    placeholder="Search Contracts"
-                  />
-                  
-                </div> */}
-              </div>
-            </form>
+        <div className="display-flex justify-content-between p-t-30 p-b-30 responsive-table-width-contract-list contact-list-tab">
+          <div className="fs-24 fw-bold">Contracts</div>
+          <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
+            <img
+              onClick={this.handleSettingsClick}
+              className="p-r-5 h-20 w-20-px"
+              src="/images/settings.svg"
+            />
+            <ConfigureColumnPopOver
+              isOpen={this.state.isSettingColumnOpen}
+              anchorEl={this.state.anchorEl}
+              handleOnClose={this.handleOnClose}
+              tableColumns={this.state.tableColumns}
+              toggleTableColumns={this.toggleTableColumns}
+            />
+          </div>
+          <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+            <img
+              onClick={this.toggleModal}
+              className="p-r-5 h-20 w-20-px"
+              src="/images/settings.svg"
+            />
+            <ConfigureColumnsModal
+              isOpen={this.state.isColumnsModalOpen}
+              onModalClose={this.toggleModal}
+              tableColumns={this.state.tableColumns}
+              toggleTableColumns={this.toggleTableColumns}
+            />
           </div>
         </div>
-        <br />
         <Paper
           className={"responsive-table-width-contract-list contact-list-tab"}
           style={{
             borderRadius: "14px",
-            // marginLeft: "18%",
-            // marginRight: "18%",
           }}
-          // className={classes.rootui}
           elevation={0}
         >
           <TableContainer
@@ -353,32 +376,70 @@ class Contractlist extends React.Component {
                       className={"tableheaders-contract"}
                     >
                       Address
+                      <Tooltip placement="top" title={messages.CONTRACT_ADDRESS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
                     </span>
                   </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span
-                      style={{ fontSize: "14px" }}
-                      className={"tableheaders"}
-                    >
-                      Token Name
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span
-                      style={{ fontSize: "14px" }}
-                      className={"tableheaders"}
-                    >
-                      Contract Name
-                    </span>
-                  </TableCell>
-                  <TableCell style={{ border: "none" }} align="left">
-                    <span
-                      style={{ fontSize: "14px" }}
-                      className={"tableheaders"}
-                    >
-                      Token Yes/No
-                    </span>
-                  </TableCell>
+                  {this.state.tableColumns["Token Name"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        style={{ fontSize: "14px" }}
+                        className={"tableheaders"}
+                      >
+                        Token Name
+                        <Tooltip placement="top" title={messages.TOKEN_NAME}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
+                      </span>
+                    </TableCell>
+                  )}
+                  {this.state.tableColumns["Contract Name"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        style={{ fontSize: "14px" }}
+                        className={"tableheaders"}
+                      >
+                        Contract Name
+                        <Tooltip placement="top" title={messages.CONTRACT_NAME}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
+                      </span>
+                    </TableCell>
+                  )}
+                  {this.state.tableColumns["Token Yes/No"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span
+                        style={{ fontSize: "14px" }}
+                        className={"tableheaders"}
+                      >
+                        Token Yes/No
+                        <Tooltip placement="top" title={messages.TOKEN_YES_NO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                         />
+                      </Tooltip>
+                      </span>
+                    </TableCell>
+                  )}
                 </TableRow>
               </TableHead>
               {this.state.isLoading == true ? (
@@ -424,36 +485,42 @@ class Contractlist extends React.Component {
                             <span className="tabledata">{row.address} </span>
                           </a>
                         </TableCell>
-                        <TableCell id="td" style={{ borderBottom: "none" }}>
-                          <span
-                            className="tabledata"
-                            style={{ marginLeft: "5px" }}
-                          >
-                            {row.tokenName}
-                          </span>
-                        </TableCell>
-                        <TableCell id="td" style={{ borderBottom: "none" }}>
-                          <span
-                            className="tabledata"
-                            style={{ marginLeft: "5px" }}
-                          >
-                            {row.contractName}
-                          </span>
-                        </TableCell>
-                        <TableCell id="td" style={{ borderBottom: "none" }}>
-                          <span
-                            className="tabledata"
-                            style={{ marginLeft: "0.188rem", fontSize: 14 }}
-                          >
-                            {isToken}
-                          </span>
-                        </TableCell>
+                        {this.state.tableColumns["Token Name"].isActive && (
+                          <TableCell id="td" style={{ borderBottom: "none" }}>
+                            <span
+                              className="tabledata"
+                              style={{ marginLeft: "5px" }}
+                            >
+                              {row.tokenName}
+                            </span>
+                          </TableCell>
+                        )}
+                        {this.state.tableColumns["Contract Name"].isActive && (
+                          <TableCell id="td" style={{ borderBottom: "none" }}>
+                            <span
+                              className="tabledata"
+                              style={{ marginLeft: "5px" }}
+                            >
+                              {row.contractName}
+                            </span>
+                          </TableCell>
+                        )}
+                        {this.state.tableColumns["Token Yes/No"].isActive && (
+                          <TableCell id="td" style={{ borderBottom: "none" }}>
+                            <span
+                              className="tabledata"
+                              style={{ marginLeft: "0.188rem", fontSize: 14 }}
+                            >
+                              {isToken}
+                            </span>
+                          </TableCell>
+                        )}
                       </TableRow>
                     );
                   })}
                 </TableBody>
               )}
-              <TableBody className={msgStatus}>
+              {/* <TableBody className={msgStatus}>
                 <TableCell id="td" style={{ border: "none" }}>
                   <span
                     style={{ textAlign: "center", color: "#2a2a2a" }}
@@ -462,8 +529,19 @@ class Contractlist extends React.Component {
                     No data found.
                   </span>
                 </TableCell>
-              </TableBody>
+              </TableBody> */}
             </Table>
+            {this.state.noData ? (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
+
+                <div>No transactions found</div>
+              </NoDataFoundContainer>
+            ) : (
+              ""
+            )}
           </TableContainer>
         </Paper>
 
@@ -544,10 +622,7 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("prev")}
             >
-              <img
-                className="navigation-arrow"
-                src={"/images/back.svg"}
-              />
+              <img className="navigation-arrow" src={"/images/back.svg"} />
               {/* <p className="path-contract">{"<"}</p> */}
             </div>
             <div className="pagebox-contract">
@@ -557,7 +632,8 @@ class Contractlist extends React.Component {
                   Math.ceil(
                     (this.state.totalRecord - this.state.from) /
                     this.state.amount
-                  ) + 1}{" "}
+                  ) +
+                  1}{" "}
                 of {Math.ceil(this.state.totalRecord / this.state.amount)}
               </p>
             </div>
@@ -569,11 +645,7 @@ class Contractlist extends React.Component {
               }
               onClick={() => this.handleChangePage("next")}
             >
-              <img
-                className="navigation-arrow"
-
-                src={"/images/next.svg"}
-              />
+              <img className="navigation-arrow" src={"/images/next.svg"} />
               {/* <p
                 className="path-2-contract"
                 onClick={() => this.handleChangePage("next")}
@@ -583,7 +655,7 @@ class Contractlist extends React.Component {
             </div>
             <div
               className={
-                +this.state.from + + this.state.amount === this.state.totalRecord
+                +this.state.from + +this.state.amount === this.state.totalRecord
                   ? "lastbox-contract disabled"
                   : "lastbox-contract"
               }
@@ -604,4 +676,5 @@ class Contractlist extends React.Component {
     );
   }
 }
+
 export default withStyles(useStyles)(Contractlist);

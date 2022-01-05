@@ -1,359 +1,371 @@
-import React, {useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import "../../assets/styles/custom.css";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import AddressTableComponent from "./addressTable";
-import {ImQrcode} from "react-icons/im";
+import { ImQrcode } from "react-icons/im";
 import Popup from "reactjs-popup";
-import {Grid} from "@material-ui/core";
-import Utility, {dispatchAction} from "../../utility";
+import { Grid } from "@material-ui/core";
+import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import Tooltip from "@material-ui/core/Tooltip";
-import {TransactionService} from "../../services";
-import {sessionManager} from "../../managers/sessionManager";
+import { TransactionService, CoinMarketService } from "../../services";
+import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
-
+import { Row } from "simple-flexbox";
+import format from "format-number";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
-    container: {
-        borderRadius: "0.875rem",
-        boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
-        borderBottom: "none",
-        background: "#fff",
+  container: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#fff",
+  },
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    maxWidth: "187.5rem",
+    // marginTop: "6.25rem",
+    marginBottom: "0.938rem",
+    width: "100%",
+    "@media (min-width: 300px) and (max-width: 567px)": {
+      marginTop: "8.125rem",
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
     },
-    root: {
-        display: "flex",
-        justifyContent: "center",
-        maxWidth: "187.5rem",
-        // marginTop: "6.25rem",
-        marginBottom: "0.938rem",
-        width: "100%",
-        "@media (min-width: 300px) and (max-width: 567px)": {
-            marginTop: "8.125rem",
-            maxWidth: "31.25rem",
-            padding: "0 0.5rem 0 0.5rem",
-        },
-        "@media (min-width: 567px) and (max-width: 767px)": {
-            marginTop: "8.75rem",
-            maxWidth: "46.25rem",
-        },
-        "@media (min-width: 767px) and (max-width: 1040px)": {
-            maxWidth: "63.75rem",
-        },
+    "@media (min-width: 567px) and (max-width: 767px)": {
+      marginTop: "8.75rem",
+      maxWidth: "46.25rem",
     },
-    rowDiv: {
-        width: "100%",
-        alignItems: "center",
-        height: "3.313rem",
-        background: "#FFFFFF 0% 0% no-repeat padding-box",
-        borderRadius: "0.438rem",
+    "@media (min-width: 767px) and (max-width: 1040px)": {
+      maxWidth: "63.75rem",
+    },
+  },
+  rowDiv: {
+    width: "100%",
+    alignItems: "center",
+    height: "3.313rem",
+    background: "#FFFFFF 0% 0% no-repeat padding-box",
+    borderRadius: "0.438rem",
 
-        justifyContent: "space-between",
+    justifyContent: "space-between",
+  },
+  line: {
+    width: "100%",
+    marginTop: "0rem",
+    marginBottom: "0rem",
+  },
+  mainContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    "@media (min-width: 300px) and (max-width: 767px)": {
+      maxWidth: "31.25rem",
+      padding: "0 0.5rem 0 0.5rem",
     },
-    line: {
-        width: "100%",
-        marginTop: "0rem",
-        marginBottom: "0rem",
-    },
-    mainContainer: {
-        display: "flex",
-        justifyContent: "center",
-        width: "100%",
-        "@media (min-width: 300px) and (max-width: 767px)": {
-            marginTop: "6.800rem",
-            maxWidth: "31.25rem",
-            padding: "0 0.5rem 0 0.5rem",
-        },
-    },
+  },
 });
 export default function AddressDetails(props) {
-    const [toggleState, setToggleState] = useState(1);
+  const [toggleState, setToggleState] = useState(1);
 
-    const [txtAddress, setTxtAddress] = useState("");
-    const [balance, setBalance] = useState(0);
-    const [convertCurrency, setConvertCurrency] = useState("");
-    const [coinValue, setCoinValue] = useState(0);
+  const [txtAddress, setTxtAddress] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [convertCurrency, setConvertCurrency] = useState("");
+  const [coinValue, setCoinValue] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [copiedText, setCopiedText] = useState("");
+  let nowCurrency = window.localStorage.getItem("currency");
+  const [addressTag, setAddressTag] = useState([]);
+  const [isTag, setIsTag] = useState(false);
+  const [amount, setAmount] = useState("");
+  const [coinMarketPrice, setCoinMarketPrice] = useState(0)
+  const [price, setPrice] = useState(0)
+  const [currentPrice, setCurrentPrice] = useState(0)
+  let { addr } = useParams();
+  let px = currentPrice * price
+  let priceChanged = Utility.decimalDivison(px, 8)
+  let priceChanged1 = priceChanged.toString().split(".")[0];
+  let priceChanged2 = priceChanged.toString().split(".")[1];
+  let activeCurrency = window.localStorage.getItem("currency");
+  const currencySymbol =
+    activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
 
-    const [transactions, setTransactions] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-    const [copiedText, setCopiedText] = useState("");
-    let nowCurrency = window.localStorage.getItem("currency");
-    const [addressTag, setAddressTag] = useState([]);
-    const [isTag, setIsTag] = useState(false);
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
-    let {addr} = useParams();
-    let addressValue = 0;
+  const { width } = windowDimensions;
 
-    function getWindowDimensions() {
-        const {innerWidth: width, innerHeight: height} = window;
-        return {
-            width,
-            height,
-        };
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
+  const classes = useStyles();
+
+
+
+  function _handleChange(event) {
+    setAmount(event?.target?.value);
+    window.localStorage.setItem("currency", event?.target?.value);
+  }
+
+  const getAddressDetails = async () => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetail(addr)
+      );
+      if (
+        !responseData ||
+        responseData.length === 0 ||
+        responseData === "" ||
+        responseData === null
+      ) {
+        setLoading(false);
+      }
+      if (responseData) {
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
+        setCurrentPrice(responseData.balance)
+        setLoading(false);
+      } else {
+        setBalance(parseFloat(0).toFixed(8));
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    const [windowDimensions, setWindowDimensions] = React.useState(
-        getWindowDimensions()
+  const coinMarketCapDetails = async () => {
+    let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
+      CoinMarketService?.getCoinMarketData(activeCurrency, {})
     );
+    if (error || !totalcoinMarketPrice) return;
+    totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
+      return a.lastUpdated - b.lastUpdated;
+    });
+    setPrice(totalcoinMarketPrice[1]?.price)
+  }
+  const options = {
+    htmlparser2: {
+      lowerCaseTags: false,
+    },
+  };
 
-    const {width} = windowDimensions;
-
-    const toggleTab = (index) => {
-        setToggleState(index);
+  const tagUsingAddressHash = async () => {
+    const data = {
+      address: addr,
+      userId: sessionManager.getDataFromCookies("userId"),
     };
-    const classes = useStyles();
 
-    function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
+    let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
+      TransactionService.getUserAddressTagUsingAddressHash(data)
+    );
+    if (error || !tagUsingAddressHashResponse) return;
+    setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
+    setIsTag(true);
+  };
+
+  useEffect(() => {
+    getAddressDetails();
+    coinMarketCapDetails();
+    tagUsingAddressHash();
+  }, [amount]);
+
+  const CloseIcon = styled.img`
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    @media (min-width: 0) and (max-width: 768px) {
+      margin-left: auto;
+      margin-right: 20px;
+      display: ${(props) => (props.isDesktop ? "none" : "block")};
     }
-
-    function _handleChange(event) {
+    @media (min-width: 768px) {
+      display: ${(props) => (props.isDesktop ? "block" : "none")};
     }
+  `;
 
-    const getAddressDetails = async () => {
-        try {
-            const [error, responseData] = await Utility.parseResponse(
-                AddressData.getAddressDetail(addr)
-            );
-            if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
-                setLoading(false);
-            }
-            if (responseData) {
-                setBalance((responseData.balance / 1000000000000000000).toFixed(18));
-                let activeCurrency = window.localStorage.getItem("currency");
-                let convertedCurrency = "";
-                if (activeCurrency === "USD") {
-                    convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
-                    setCoinValue(
-                        (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                } else if (activeCurrency === "EUR") {
-                    convertedCurrency = "<i class='fa fa-eur' aria-hidden='true'></i>  ";
-                    setCoinValue(
-                        (responseData.balanceInEUR / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                } else if (activeCurrency === "INR") {
-                    convertedCurrency = "<i class='fa fa-inr' aria-hidden='true'></i> ";
-                    setCoinValue(
-                        (responseData.balanceInINR / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                } else {
-                    convertedCurrency = '<i class="fa fa-usd" aria-hidden="true"></i>  ';
-                    setCoinValue(
-                        (responseData.balanceInUSD / 1000000000000000000).toFixed(18)
-                    );
-                    setConvertCurrency(convertedCurrency);
-                }
-                setLoading(false);
-            } else {
-                setBalance(parseFloat(0).toFixed(18));
-                setLoading(false);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  return (
+    <div style={{ backgroundColor: "#fff" }}>
+      <Tokensearchbar />
+      <Grid className="table-grid-block grid-block-table">
+        <div className={classes.mainContainer}>
+          {/* <div className={classes.root}> */}
+          <Grid style={{ width: "75.125rem" }}>
+            <AddressPath>
+              <Explorer>Observatory</Explorer>
+              <Next src={"/images/next.svg"} />
+              <Address>Address</Address>
+            </AddressPath>
+            <Spacing style={{ borderBottom: "none" }}>
+              <Container>
+                <Heading>Address Details</Heading>
+              </Container>
+            </Spacing>
+            <Div>
+              <HashDiv>
+                <Container>
+                  <Tooltip title="An address is a unique sequence of numbers and letters">
+                    <ImageView src={"/images/questionmark.svg"} />
+                  </Tooltip>
+                  <Hash>Address</Hash>
+                </Container>
+                <MiddleContainerHashTop>
+                  <AddressDiv>
+                    <Content>{addr}</Content></AddressDiv>
+                  <LabelAndCopyDiv>
+                    {isTag
+                      ? addressTag.map((item, index) => {
+                        return (
+                          <span className={index == 0 ? "nameLabel11" : "nameLabel1"} key={index}>
+                            {item}
+                          </span>
+                        );
+                      })
+                      : ""}
 
-    const options = {
-        htmlparser2: {
-            lowerCaseTags: false,
-        },
-    };
 
-    const tagUsingAddressHash = async () => {
-        const data = {
-            address: addr,
-            userId: sessionManager.getDataFromCookies("userId"),
-        };
-
-        let [error, tagUsingAddressHashResponse] = await Utils.parseResponse(
-            TransactionService.getUserAddressTagUsingAddressHash(data)
-        );
-        if (error || !tagUsingAddressHashResponse) return;
-        setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
-        setIsTag(true);
-    };
-
-    useEffect(() => {
-        getAddressDetails();
-        tagUsingAddressHash();
-    }, []);
-    return (
-        <div style={{backgroundColor: "#fff"}}>
-            <Tokensearchbar/>
-            <Grid className="table-grid-block grid-block-table">
-                <div className={classes.mainContainer}>
-                    <div className={classes.root}>
-                        <Grid style={{width: "75.125rem"}}>
-                            <AddressPath>
-                                <Explorer>Observatory</Explorer>
-                                <Next src={"/images/next.svg"}/>
-                                <Address>Address</Address>
-                            </AddressPath>
-                            <Spacing style={{borderBottom: "none"}}>
-                                <Container>
-                                    <Heading>Address Details</Heading>
-                                </Container>
-                            </Spacing>
-                            <Div>
-                                <Spacing>
-                                    <HashDiv>
-                                        <Container>
-                                            <Tooltip title="An address is a unique sequence of numbers and letters">
-                                                <ImageView
-                                                    src={"/images/questionmark.svg"}
-                                                />
-                                            </Tooltip>
-                                            <Hash>Address</Hash>
-                                        </Container>
-                                        <MiddleContainerHash>
-                                            <Content>{addr}</Content>
-                                            {isTag
-                                                ? addressTag.map((item, index) => {
-                                                    return (
-                                                        <div className="nameLabel1" key={index}>
-                                                            {item}
-                                                        </div>
-                                                    );
-                                                })
-                                                : ""}
-                                            <span
-                                                className={
-                                                    width > 1240
-                                                        ? "copyEditContainer"
-                                                        : width <= 1240 && width >= 768
-                                                            ? "copyEditContainerAddress"
-                                                            : "copyEditContainerMobile"
-                                                }
-                                            >
+                    <span
+                      className="copyEditContainer1"
+                    >
                       <SecondContainer>
                         <CopyToClipboard
-                            text={addr}
-                            onCopy={() => setCopiedText(addr)}
+                          text={addr}
+                          onCopy={() => setCopiedText(addr)}
                         >
                           <Tooltip
-                              title={
-                                  copiedText === addr
-                                      ? "Copied"
-                                      : "Copy To Clipboard"
-                              }
-                              placement="top"
+                            title={
+                              copiedText === addr ? "Copied" : "Copy To Clipboard"
+                            }
+                            placement="top"
                           >
                             <button
-                                className={
-                                    width > 1240
-                                        ? "copyToClipboardHash"
-                                        : "copyToClipboardHashMobile"
-                                }
+                              className="copyToClipboardAddr"
                             >
                               <img
-                                  className={
-                                      width > 1240
-                                          ? "copy-icon"
-                                          : width < 1239
-                                              ? "copyIconHashMobile"
-                                              : "copyIconHash"
-                                  }
-                                  src={"/images/copy.svg"}
+                                className="copyIconAddr"
+                                src={"/images/copy.svg"}
                               />
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
 
                         <Popup
-                            trigger={<ImQrcode className="imQrcode"/>}
-                            lockScroll
-                            modal
+                          trigger={<ImQrcode className="imQrcode" />}
+                          lockScroll
+                          modal
                         >
                           {(close) => (
-                              <div className="popup_qr">
-                                  <p>
-                                      <div>
-                                          <button
-                                              style={{
-                                                  outline: "none",
-                                                  // width: "0rem",
-                                                  height: "0rem",
-                                                  marginLeft: "0rem",
-                                              }}
-                                              className="close"
-                                              onClick={close}
-                                          >
-                                              &times;
-                                          </button>
-                                          <div
-                                              className="header-popup"
-                                              // style={{
-                                              //   fontSize: "0.875rem",
-                                              //   paddingTop: "0.313rem",
-                                              //   paddingBottom: "3.75rem",
-                                              // }}
-                                          >
-                                              {" "}
-                                              {addr}{" "}
-                                          </div>
-                                          {window.innerWidth > 767 ? (
-                                              <QRCode
-                                                  size={320}
-                                                  style={{
-                                                      height: 400,
-                                                      width: 400,
-                                                      marginTop: "0.625rem",
-                                                  }}
-                                                  value={
-                                                      process.env.REACT_APP_QR_CODE_LINK +
-                                                      addr
-                                                  }
-                                              />
-                                          ) : (
-                                              <QRCode
-                                                  // style={{window.innerWidth > 768 ? '800px' : '400px'}}
-                                                  size={320}
-                                                  className="qrcode-label"
-                                                  //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                                  value={
-                                                      process.env.REACT_APP_QR_CODE_LINK +
-                                                      addr
-                                                  }
-                                              />
-                                          )}
-                                      </div>
-                                  </p>
-                              </div>
+                            <div className="popup_qr">
+                              <CloseIcon
+                                isDesktop={false}
+                                src="/images/XDC-Cross.svg"
+                                // className="qrClose"
+                                onClick={close}
+                              />
+                              <p>
+                                <div>
+                                  <div className="header-popup">
+                                    <Row alignItems="center">{addr}</Row>
+                                    <CloseIcon
+                                      isDesktop={true}
+                                      src="/images/XDC-Cross.svg"
+                                      // className="qrClose"
+                                      onClick={close}
+                                    />
+                                    {/* &times; */}
+                                    {/* </img> */}
+                                  </div>
+                                  {window.innerWidth > 767 ? (
+                                    <QRCode
+                                      size={320}
+                                      style={{
+                                        height: 400,
+                                        width: 400,
+                                        marginTop: "0.625rem",
+                                      }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  ) : (
+                                    <QRCode
+                                      // style={{window.innerWidth > 768 ? '800px' : '400px'}}
+                                      size={320}
+                                      className="qrcode-label"
+                                      //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
+                                      value={
+                                        process.env.REACT_APP_QR_CODE_LINK + addr
+                                      }
+                                    />
+                                  )}
+                                </div>
+                              </p>
+                            </div>
                           )}
                         </Popup>
                       </SecondContainer>
-                      </span>
-                                        </MiddleContainerHash>
-                                    </HashDiv>
-                                </Spacing>
-                                {/* <Spacing style={{ borderBottom: "none" }}>
-                  <HashDiv>
-                    <Container>
-                      <Hash>Balance</Hash>
-                    </Container>
-                    <MiddleContainerHash>
-                      <Content>
-                        {balance} XDC({ReactHtmlParser(convertCurrency)}{" "}
-                        {coinValue})
-                      </Content>
-                    </MiddleContainerHash>
-                  </HashDiv>
-                </Spacing> */}
-                            </Div>
-                        </Grid>
-                    </div>
-                </div>
+                    </span>
+                  </LabelAndCopyDiv>
+                </MiddleContainerHashTop>
+              </HashDiv>
+              <Spacing style={{ borderBottom: "none" }}>
+                <HashDiv>
+                  <Container>
+                    <Tooltip title="An address is a unique sequence of numbers and letters">
+                      <ImageView src={"/images/questionmark.svg"} />
+                    </Tooltip>
+                    <Hash>Balance</Hash>
+                  </Container>
+                  <MiddleContainerHash>
+                    <Content>
+                      {format({})(balance)} XDC
+                    </Content>
+                  </MiddleContainerHash>
+                </HashDiv>
+              </Spacing>
+              <Spacing style={{ borderBottom: "none" }}>
+                <HashDiv>
+                  <Container>
+                    <Tooltip title="An address is a unique sequence of numbers and letters">
+                      <ImageView src={"/images/questionmark.svg"} />
+                    </Tooltip>
+                    <Hash>XDC Value</Hash>
+                  </Container>
+                  <MiddleContainerHash>
+                    <Content>
+                      {currencySymbol}{priceChanged2 == null ? (
+                        <span>{priceChanged1}</span>
+                      ) : (
+                        <span>
+                          {priceChanged1}
+                          {"."}
+                          <span style={{ color: "#9FA9BA" }}>{priceChanged2}</span>
+                        </span>
+                      )}
+                    </Content>
+                  </MiddleContainerHash>
+                </HashDiv>
+              </Spacing>
+            </Div>
+          </Grid>
+          {/* </div> */}
+        </div>
 
-                {/* <div
+        {/* <div
           className="block_details_heading"
           style={{ display: "flex", flexDirection: "row" }}
         >
@@ -431,45 +443,53 @@ export default function AddressDetails(props) {
           </TableContainer>
         </Paper> */}
 
-                <div className="container_sec sec-contain">
-                    <div className="block_sec sec-block sec-block-mb">
-                        <div className="bloc-tabs_sec">
-                            <button
-                                className={
-                                    toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                                }
-                                onClick={() => toggleTab(1)}
-                                id="transaction-btn"
-                            >
-                                Transactions
-                            </button>
-                        </div>
-                    </div>
+        <div className="container_sec sec-contain">
+          <div className="block_sec sec-block sec-block-mb">
+            <div className="bloc-tabs_sec">
+              <button
+                className={
+                  toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                }
+                onClick={() => toggleTab(1)}
+                id="transaction-btn"
+              >
+                Transactions
+              </button>
+            </div>
+          </div>
 
-                    <div
-                        className={
-                            toggleState === 1
-                                ? "content_sec  active-content_sec sec-active"
-                                : "content_sec"
-                        }
-                    >
-                        {isTag ? (
-                            <AddressTableComponent
-                                trans={transactions}
-                                coinadd={addr}
-                                tag={addressTag}
-                            />
-                        ) : (
-                            <AddressTableComponent trans={transactions} coinadd={addr}/>
-                        )}
-                    </div>
-                </div>
-            </Grid>
-            <FooterComponent/>
+          <div
+            className={
+              toggleState === 1
+                ? "content_sec  active-content_sec sec-active"
+                : "content_sec"
+            }
+          >
+            {isTag ? (
+              <AddressTableComponent
+                trans={transactions}
+                coinadd={addr}
+                tag={addressTag}
+              />
+            ) : (
+              <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
+            )}
+          </div>
         </div>
-    );
+      </Grid>
+      <FooterComponent _handleChange={_handleChange} currency={amount} />
+    </div>
+  );
 }
+const AddressDiv = styled.div`
 
+`;
+const LabelAndCopyDiv = styled.div`
+display: flex;
+@media (min-width: 300px) and (max-width: 767px) {
+  display: block;
+}
+`;
 const Input = styled.input`
   border-radius: 0.313rem;
   border: solid 0.063rem #e3e7eb;
@@ -489,7 +509,6 @@ const Content = styled.span`
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
-    margin-left: 28px;
   }
 `;
 const TextArea = styled.textarea`
@@ -554,6 +573,8 @@ const MiddleContainerHash = styled.div`
   margin-left: 6.25rem;
   width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   @media (min-width: 300px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
@@ -563,12 +584,44 @@ const MiddleContainerHash = styled.div`
     opacity: 1;
     word-break: break-all;
     height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
-    margin-left: unset;
+    margin-left: 0px;
+    // padding-right: 26px;
     margin-top: 10px;
     display: block;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-left: 4.25rem !important;
+    // display: block;
+  }
+`;
+const MiddleContainerHashTop = styled.div`
+  font-family: Inter;
+  font-size: 0.813rem;
+  letter-spacing: 0.034rem;
+  text-align: left;
+  color: #3a3a3a;
+  margin-left: 6.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (min-width: 300px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0.034rem;
+    color: #3a3a3a;
+    opacity: 1;
+    word-break: break-all;
+    height: ${(props) => (props.isTextArea ? `100px` : `unset`)};
+    margin-left: 0px;
+    padding-right: 6px;
+    margin-top: 10px;
+    display: block;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 4.25rem !important;
+    // display:block;
   }
 `;
 const Hash = styled.span`
@@ -591,7 +644,7 @@ const Spacing = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  padding: 0.188rem 0.25rem;
+  margin-top: 10px;
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
@@ -608,6 +661,7 @@ const HashDiv = styled.div`
 
   @media (min-width: 300px) and (max-width: 767px) {
     display: block;
+    padding-left: 14px;
   }
 `;
 const Container = styled.div`
@@ -630,12 +684,9 @@ const Div = styled.div`
   box-shadow: 0 0.125rem 0.938rem 0 rgba(0, 0, 0, 0.1);
   border: solid 0.063rem #e3e7eb;
   background-color: #fff;
-  margin-bottom: 0.938rem;
-  // padding: 0.313rem;
-  margin-top: 0.625rem;
+  margin: 20px 0;
   @media (min-width: 300px) and (max-width: 767px) {
     width: 22.563rem;
-    margin-top: 0.625rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 664px !important;
@@ -646,15 +697,11 @@ const Heading = styled.span`
   white-space: nowrap;
   color: #2a2a2a !important;
   box-shadow: none;
-  color: var(--unnamed-color-2a2a2a);
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
-  margin-bottom: 1.125rem;
   @media (min-width: 0px) and (max-width: 767px) {
-    margin-top: 10px !important;
     margin-bottom: 0px !important;
-
     font-size: 16px !important;
   }
 `;
@@ -663,15 +710,17 @@ const ImageView = styled.img`
   width: 0.938rem;
   margin-right: 0.938rem;
   cursor: pointer;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 0.75rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const AddressPath = styled.div`
   width: 100%;
   font-size: 0.875rem;
   display: flex;
-  margin-bottom: 12px;
   margin-left: 4px;
-  margin-top: -30px;
 `;
 
 const Explorer = styled.div`

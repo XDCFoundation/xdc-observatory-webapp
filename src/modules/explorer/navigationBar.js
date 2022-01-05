@@ -14,11 +14,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import { sessionManager } from "../../managers/sessionManager";
 import { NavLink } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
-import NewFeature from "./newFeature"
+import NewFeature from "./newFeature";
 import Login from "../login";
 
 import Utility from "../../utility";
 import SearchData from "../../services/search";
+import { Row } from "simple-flexbox";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -38,7 +39,6 @@ const MobileView = styled.div`
   }
 `;
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -50,7 +50,12 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+  }, "@media (max-width: 1240px) ": {
+    appBar: {
+      position: "absolute",
+    },
   },
+
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["margin", "width"], {
@@ -117,13 +122,13 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: "14.313rem",
+      width: "17.313rem",
       backgroundColor: "#102e84",
       height: "100%",
     },
     drawerHeader: {
       padding: "0 !important",
-    }
+    },
   },
   fullList: {
     width: "auto",
@@ -165,10 +170,9 @@ export default function Navbar() {
     }
   };
 
-  let visited = sessionManager.getDataFromCookies("Visited")
+  let visited = sessionManager.getDataFromCookies("Visited");
   if (visited && viewPopUp === true) {
     setViewPopUp(false);
-
   }
   // useEffect(() => {
   //   sessionManager.setDataInCookies("NotVisited");
@@ -188,16 +192,17 @@ export default function Navbar() {
     }
   };
   const BlockChainSearch = async (data) => {
+
     try {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
-      if (!responseData) {
+      if (!responseData || responseData[0]?.token?.length == 0) {
         Utility.apiFailureToast("No details found.");
       }
 
       if (responseData) {
-
+        console.log(responseData, "pppp")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -209,10 +214,14 @@ export default function Navbar() {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
-          let tokenurl = "/token-data/" + responseData[0].token.address + "/" + responseData[0].token.symbol;
-          window.location.href = tokenurl;
-
+        } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
+          let tokenDataUrl =
+            "/token-data/" +
+            responseData[0]?.token[0]?.address +
+            "/" +
+            responseData[0]?.token[0]?.symbol;
+          let tokenListUrl = '/tokens/' + responseData[0]?.token[0]?.tokenName;
+          window.location.href = responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
         } else {
         }
       }
@@ -330,8 +339,8 @@ export default function Navbar() {
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div className={classes.drawerHeader}>
-          <div className="menubar-contract">
-            <div style={{ marginTop: 10 }}>
+          <div className="menubar-contract" style={{ marginTop: "40px" }}>
+            <div>
               <span
                 onClick={() => setOpencontracts(false)}
                 style={{ color: "white", fontSize: 17, cursor: "pointer" }}
@@ -343,7 +352,6 @@ export default function Navbar() {
               onClick={() => setOpencontracts(false)}
               style={{
                 color: "white",
-                marginTop: "14px",
                 fontSize: 13,
                 marginLeft: "8px",
                 cursor: "pointer",
@@ -453,7 +461,6 @@ export default function Navbar() {
 
       {/* onClick={() => setOpen(false)} */}
       <List className="side-box">
-
         <ul className="Live-Network">
           <p>Live Network</p>
         </ul>
@@ -631,23 +638,49 @@ export default function Navbar() {
   );
 
   // ..................
+  const NavigationButton = styled.a`
+  text-decoration :  none;
+  padding: 5px 20px;
+  border-bottom: ${(props) =>
+      props.active ? "0.15rem solid #ffffff !important" : ""};
+    padding-bottom: 3px;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.041rem;
+    color: #ffffff;
+    list-style: none;
+  @media (min-width: 0px) and (max-width: 767px){
+    font-size: 0.875rem;
+  `;
+
+  const MobileNavigationContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-flow: row;
+    margin: 15px 0 0 0;
+  `;
+
+  const MobileToolBar = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 10px 10px 0 20px;
+  `;
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {viewPopUp == true ? (
-        <NewFeature></NewFeature>
-      ) : (<div />)}
+      {viewPopUp == true ? <NewFeature></NewFeature> : <div />}
       <DeskTopView>
-
         <AppBar elevation={0} className={clsx(classes.appBar)}>
-          <Toolbar>
-            <Typography className="Header">
+          <MobileToolBar>
+            <Row className="Header">
               <a className="logo_tokensearch" href={"/"}>
-                <img
-                  className="Shape"
-                  src={"/images/XDC-Icon-Logo.svg"}
-                ></img>
+                <img className="Shape" src={"/images/XDC-Icon-Logo.svg"}></img>
               </a>
               <a className="XDC" href="/">
                 {" "}
@@ -664,168 +697,120 @@ export default function Navbar() {
                   XDC Observatory
                 </NavLink>
 
-                {/* <p className="Network-explorer" active id="Network-explorer">Network Explorer</p> */}
+                {/* <p className="Network-explorer" active id="Network-explorer">Network</p> */}
               </div>
               <div>
-                <NavLink
+                <a
                   exact
                   activeClassName="active-t"
-                  to={"/token-details"}
+                  href={"/tokens"}
                   className="Token"
                 >
                   Tokens
-                </NavLink>
-
-                <a href="/">
-                  <p className="Network-explorer" id="Network-explorer">
-                  XDC Observatory
-                  </p>
                 </a>
-              </div>
-              <div>
-                <a href="/token-details">
-                  <div className="Token" id="Token">
-                    Tokens
-                  </div>
-                </a>
-              </div>
-            </Typography>
-            <Login />
 
-            <React.Fragment key={"right"}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="end"
-                onClick={toggleDrawer("right", true)}
-              >
-                <img
-                  className="menu-sidebar"
-                  src={"/images/Menu.svg"}
-                ></img>
-              </IconButton>
 
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={state["right"]}
-              >
-                {lists("right")}
-              </Drawer>
-              <Drawer className={classes.drawer} anchor={"right"} open={open}>
-                {items("right")}
-              </Drawer>
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={opencontracts}
-              >
-                {contracts("right")}
-              </Drawer>
-            </React.Fragment>
-          </Toolbar>
+              </div>
+            </Row>
+            <Row alignItems="center">
+              <Login />
+
+              <React.Fragment key={"right"}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  className="hamburger-icon"
+                  edge="end"
+                  onClick={toggleDrawer("right", true)}
+                >
+                  <img className="menu-sidebar" src={"/images/Menu.svg"}></img>
+                </IconButton>
+
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={state["right"]}
+                >
+                  {lists("right")}
+                </Drawer>
+                <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                  {items("right")}
+                </Drawer>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={opencontracts}
+                >
+                  {contracts("right")}
+                </Drawer>
+              </React.Fragment>
+            </Row>
+          </MobileToolBar>
         </AppBar>
       </DeskTopView>
 
       <MobileView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
-          <Toolbar>
+          <MobileToolBar>
             <Typography className="Header">
-              <div className="header-mobile-top">
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <a className="logo_tokensearch" href={"/"}>
-                    <img
-                      className="Shape"
-                      src={"/images/XDC icon.svg"}
-                    ></img>
-                  </a>
-                  <a className="XDC" href="/">
-                    {" "}
-                    XDC{" "}
-                  </a>
-                </div>
-                &nbsp;
-                <div className="header-responsive">
-                  <div>
-                    <NavLink
-                      exact
-                      activeClassName="active-t"
-                      to={"/"}
-                      className="Network-explorer"
-                    >
-                      XDC Observatory
-                    </NavLink>
-                  </div>
-
-                  <div>
-                    <a href="/token-details">
-                      <div className="Token" id="Token">
-                        Tokens
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="header-responsive-desktop">
-                <div>
-                  <NavLink
-                    exact
-                    activeClassName="active-t"
-                    to={"/"}
-                    className="Network-explorer"
-                  >
-                    XDC Observatory
-                  </NavLink>
-                </div>
-
-                <div>
-                  <a href="/token-details">
-                    <div className="Token" id="Token">
-                      Tokens
-                    </div>
-                  </a>
-                </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <a className="logo_tokensearch" href={"/"}>
+                  <img
+                    className="Shape"
+                    src={"/images/XDC-Icon-Logo.svg"}
+                  ></img>
+                </a>
+                <a className="XDC" href="/">
+                  {" "}
+                  XDC{" "}
+                </a>
               </div>
             </Typography>
-            <Login />
+            <Row alignItems="center">
+              <Login />
 
-            <React.Fragment key={"right"}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="end"
-                onClick={toggleDrawer("right", true)}
-              >
-                <MenuIcon class="menu-sidebar" />
-              </IconButton>
+              <React.Fragment key={"right"}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="end"
+                  onClick={toggleDrawer("right", true)}
+                >
+                  {/* <MenuIcon class="menu-sidebar" /> */}
+                  <img className="menu-sidebar" src={"/images/Menu.svg"}></img>
+                </IconButton>
 
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={state["right"]}
-              >
-                {lists("right")}
-              </Drawer>
-              <Drawer className={classes.drawer} anchor={"right"} open={open}>
-                {items("right")}
-              </Drawer>
-              <Drawer
-                className={classes.drawer}
-                anchor={"right"}
-                open={opencontracts}
-              >
-                {contracts("right")}
-              </Drawer>
-            </React.Fragment>
-          </Toolbar>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={state["right"]}
+                >
+                  {lists("right")}
+                </Drawer>
+                <Drawer className={classes.drawer} anchor={"right"} open={open}>
+                  {items("right")}
+                </Drawer>
+                <Drawer
+                  className={classes.drawer}
+                  anchor={"right"}
+                  open={opencontracts}
+                >
+                  {contracts("right")}
+                </Drawer>
+              </React.Fragment>
+            </Row>
+          </MobileToolBar>
+          <MobileNavigationContainer>
+            <NavigationButton active={window.location.pathname == "/"} href="/">
+              XDC Observatory
+            </NavigationButton>
+            <NavigationButton href="/tokens">Tokens</NavigationButton>
+          </MobileNavigationContainer>
         </AppBar>
       </MobileView>
       <main className={clsx(classes.content)}>
         <div className="exp-parent">
-          <img
-            className="Shape3"
-            src={"/images/Networkexplorer.svg"}
-          ></img>
+          <img className="Shape3" src={"/images/Networkexplorer.svg"}></img>
           <div className="exp">XDC Observatory</div>
         </div>
         {/* ------------ Search bar ----------------- */}
@@ -856,7 +841,7 @@ export default function Navbar() {
                       //     handleSearch(event);
                       //   }
                       // }}
-                      placeholder="Search for an address, a Transaction or a block number"
+                      placeholder="Search"
                     />
                   </div>
 
