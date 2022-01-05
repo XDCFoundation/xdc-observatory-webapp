@@ -122,12 +122,12 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: "17.313rem",
+      width: "153px",
       backgroundColor: "#102e84",
       height: "100%",
     },
     drawerHeader: {
-      padding: "0 !important",
+      padding: "3px 0 0 0",
     },
   },
   fullList: {

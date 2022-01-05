@@ -165,6 +165,7 @@ ul {
   border: solid 0.1px #81b4ff;
   opacity: 0.8;
   margin-bottom: 5px !important;
+  background-color: transparent;
 }
 
 .Table-Header hr {
@@ -334,8 +335,8 @@ a:hover {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .Shape-footer {
-    height: 1.238rem;
-    width: 1.238rem;
+    height: 1.5625rem;
+    width: 1.5625rem;
   }
   .select-xdc {
     margin: 0px 13px 30px 1px;
@@ -390,9 +391,9 @@ a:hover {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .XDC-Header {
-    margin-left: 25px;
+    margin-left: 30px;
     font-size: 0.875rem;
-    margin-top: -19px;
+    margin-top: -21px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
