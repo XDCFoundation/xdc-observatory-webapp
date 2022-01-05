@@ -66,7 +66,7 @@ const useStyles = makeStyles({
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
-      height: "48.375rem",
+      height: "36.375rem",
     },
     container1: {
       height: "23.375rem",
@@ -501,7 +501,7 @@ export default function TransactionComponent(props) {
               </TableBody>
             )}
           </Table>
-          {!props.state.isData ? (
+          {!props.state.isData && !props.state.isLoading ?  (
             <NoDataFoundContainer>
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}

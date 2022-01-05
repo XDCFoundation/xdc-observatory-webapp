@@ -326,12 +326,12 @@ export default function FooterComponent(props) {
                 </a>
               </li>
               <li className="Table-Comp">
-                <a href="https://xinfin.org/privacy.php" target="_blank">
+                <a href="https://observer.xdc.org/privacy-policy" target="_blank">
                   Privacy Policy
                 </a>
               </li>
               <li className="Table-Comp">
-                <a href="https://xinfin.org/disclaimer.php" target="_blank">
+                <a href="https://observer.xdc.org/term-conditions" target="_blank">
                   Disclaimer
                 </a>
               </li>

@@ -796,6 +796,8 @@ input:focus {
   padding-right: 7px;
   margin-left: 18px;
   line-height: 19px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .nameLabel2 {
@@ -2576,7 +2578,7 @@ p {
   text-align: left;
   letter-spacing: 0.013rem;
   font-size: 0.938rem;
-  font-weight: 600;
+  font-weight: 500;
   /* padding: 0.125rem 0.125rem 0px 0.125rem; */
   background-color: #ffffff;
 }
@@ -3640,7 +3642,7 @@ body {
 @media (min-width: 0px) and (max-width: 768px) {
   .tabs {
     padding-bottom: 7px;
-    color: #b5bac7;
+    color: #9fa9ba;
     text-align: center;
     width: 80%;
     cursor: pointer;
@@ -5440,6 +5442,9 @@ button {
     width: 100%;
     height: 29.625rem;
   }
+  .card-box {
+    flex-flow: nowrap !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1239px) {
@@ -7035,7 +7040,7 @@ button {
 
 .block_details_heading_left {
   font-size: 1.5rem;
-  margin-top: -16px;
+  margin-top: 5px;
   font-family: Inter;
   font-weight: 1000 !important;
   letter-spacing: 0.65px;
@@ -7627,6 +7632,9 @@ button {
     letter-spacing: 0.46px;
     color: #9fa9ba;
   }
+  .block_details_heading_left {
+    margin-top: 0px;
+  }
 }
 .outer-oval {
   width: 14px;
@@ -7813,7 +7821,7 @@ button {
     width: 100%;
     height: 100%;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 0px;
   }
 }
 .source-code-second-container {
@@ -8038,14 +8046,14 @@ button {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin-top: 30px;
+  margin-top: 9px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .menu-sidebar-top {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    margin-top: 40px;
+    margin-top: 0px;
   }
   .select {
     height: 32px;
@@ -9994,6 +10002,7 @@ button {
 .imQrcode {
   width: 1.25rem;
   height: 1.25rem;
+  margin: auto 0 auto 0.625rem;
 }
 
 .copyButton {
@@ -10021,7 +10030,7 @@ button {
   display: flex;
   align-items: center;
 }
-@media (min-width: 0px) and (max-width: 768px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .MuiBackdrop-root {
     background-color: rgb(169 147 147 / 0%) !important;
   }
@@ -10045,6 +10054,7 @@ button {
 }
 #new-features .MuiPaper-root {
   max-width: 900px !important;
+  width: 95%;
 }
 .show-tooltip {
   width: 20px;
