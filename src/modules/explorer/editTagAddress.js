@@ -173,9 +173,9 @@ function EditTaggedAddress(props) {
       address: privateAddress,
       tagName: tags,
     };
-    if(!privateAddress){
+    if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if(!input && tags.length === 0){
+    } else if (!input && tags.length === 0) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
@@ -353,8 +353,6 @@ function EditTaggedAddress(props) {
                 onChange={onChange}
               />
             </div>
-            {console.log("Input",input)}
-            {console.log("InputLength",input.length)}
             {errorTag ? <div className={classes.error1}>{errorTag}</div> : <></>}
           </DialogContent>
           {/* <------------------------------------------------------------------------------------------------------------------> */}

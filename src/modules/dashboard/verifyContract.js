@@ -22,7 +22,6 @@ export default function VerifyContract() {
 
     const [isLoading, setisLoading] = useState(false)
     const [msg, setMessage] = useState("")
-    console.log(msg, "oookok")
     const [inputValue, setInputValue] = useState("")
     const inputRef = useRef();
     const validationSchema = Yup.object().shape({

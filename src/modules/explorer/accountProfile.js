@@ -12,6 +12,7 @@ import { Tooltip } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import { CSVLink } from "react-csv";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "./tokensearchBar";
@@ -362,7 +363,7 @@ const UserNameContainer = styled.div`
     margin: 10px auto;
   }
   @media (min-width: 401px) and (max-width: 449px) {
-    gap: 30px;
+    // gap: 30px;
   }
 `;
 
@@ -417,7 +418,6 @@ export default function SimpleTabs(props) {
       const response = await UserService.getUserPrivateNote(data);
       // setAddress(response);
       setTotalCount2(response.length);
-      console.log("res", response);
     }
     getPvtTagAddress();
     async function getPvtTagAddress() {
@@ -521,8 +521,7 @@ export default function SimpleTabs(props) {
   //   tagWords = tag.split(",");
   //   return tagWords;
   // }
-  const isStorageMessage =
-    sessionManager.getDataFromCookies("isStorageMessage");
+  const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage") 
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
