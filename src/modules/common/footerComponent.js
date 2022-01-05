@@ -154,8 +154,8 @@ export default function FooterComponent(props) {
               </div>
             </div>
             <div className="button-Padding-Mobile">
-              <Select classes={{paper: classes.currencyPopup}}
-              /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
+              <Select classes={{ paper: classes.currencyPopup }}
+                /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
                 style={{
                   outline: "0",
                   backgroundColor: "#2149b9",
@@ -547,7 +547,7 @@ export default function FooterComponent(props) {
       </Grid>
       <div className="footer-line">
         <hr></hr>
-        <span className={"copyright"}>© 2021 XDC. All Rights Reserved.</span>
+        <span className={"copyright"}>© 2022 XDC. All Rights Reserved.</span>
       </div>
     </div>
   );
