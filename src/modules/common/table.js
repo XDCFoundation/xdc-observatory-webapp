@@ -247,8 +247,8 @@ export default function CommonTransactionsTable(props) {
                   //   100000000000000000
                   // ).toFixed(9);
                   let amt = Utility.decimalDivison(row.value, 8);
-                  let amt1 = amt.toString().split(".")[0]
-                  let amt2 = amt.toString().split(".")[1]
+                  let amt1 = amt?.toString()?.split(".")[0]
+                  let amt2 = amt?.toString()?.split(".")[1]
 
 
 
