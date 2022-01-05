@@ -112,7 +112,6 @@ export default function StickyHeadTable(props) {
   const [keywords, setKeywords] = React.useState("");
   const [rows, setRows] = React.useState([]);
   let { token } = useParams();
-  console.log(token, "TOKEN-SEARCH")
 
   const [noData, setNoData] = React.useState(true);
   const handleChangePage = (action) => {
@@ -560,7 +559,6 @@ export default function StickyHeadTable(props) {
 
                     var supply4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
                     var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
-                    console.log("rachit", supply4, text, supply1)
                     return (
                       <TableRow
                         hover
