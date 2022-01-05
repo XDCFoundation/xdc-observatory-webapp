@@ -763,8 +763,8 @@ export default function AddressTableComponent(props) {
                             )}
                           </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
-                                <span className={row.To !== addr ? "in": "out"}>
-                                    {row.To !== addr ? 'In': 'Out'}
+                                <span className={row.From === addr ? "out": "in"}>
+                                    {row.From === addr ? 'Out': 'In'}
                                 </span>
                             </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
