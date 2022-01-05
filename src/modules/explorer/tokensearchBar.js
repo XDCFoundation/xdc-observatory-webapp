@@ -106,8 +106,8 @@ const useStyles = makeStyles((theme) => ({
       height: 15,
     },
     popover: {
-      marginRight:"-15px",
-      
+      marginRight: "-15px",
+
     }
   },
 
@@ -195,7 +195,11 @@ export default function Navbar() {
       filter: selectOptType,
       data: SearchDataInput,
     };
-    BlockChainSearch(requestdata);
+    if (SearchDataInput === "") {
+      return;
+    } else {
+      BlockChainSearch(requestdata);
+    }
   };
   const BlockChainSearch = async (data) => {
     try {
@@ -203,7 +207,12 @@ export default function Navbar() {
         SearchData.searchData(data)
       );
 
+      if (!responseData || responseData[0]?.token?.length == 0) {
+        Utility.apiFailureToast("No details found.");
+      }
+
       if (responseData) {
+        console.log(responseData, "pppp")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -215,13 +224,14 @@ export default function Navbar() {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
-          let tokenurl =
+        } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
+          let tokenDataUrl =
             "/token-data/" +
             responseData[0]?.token[0]?.address +
             "/" +
             responseData[0]?.token[0]?.symbol;
-          window.location.href = tokenurl;
+          let tokenListUrl = '/tokens/' + responseData[0]?.token[0]?.tokenName;
+          window.location.href = responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
         } else {
         }
       }
@@ -920,11 +930,11 @@ const SearchBox = ({
               type="text"
               onKeyUp={(event) => handleSearch(event)}
               ref={SearchDataRef}
-              onKeyPress={(event) => {
+              /* onKeyPress={(event) => {
                 if (event.key === "Enter") {
                   handleSearch(event);
                 }
-              }}
+              }} */
               className="main-input-td "
               src={"/images/Search.png"}
               placeholder="Search"
