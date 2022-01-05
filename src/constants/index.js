@@ -15,6 +15,7 @@ export const httpConstants = {
     WEB: "web",
   },
   API_END_POINT: {
+    GET_TOKEN_BALANCE: "/get-token-balance",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
     GET_USERS_LIST: "/get-user-list",
@@ -103,88 +104,49 @@ export const messages = {
     "The amount of coins that have been already created, minus any coins that have been burned.",
   VOLUMEX24:
     "A measure of how much of a cryptocurrency was traded in the last 24 hours.",
-  FDMP: 
-    "Fully Diluted Market Cap = Price x Total supply.",
-  HASH:
-    "Unique transaction identifier, also known as the Transaction ID.",
-  AMOUNT:
-    "The number of tokens being transferred.",
-  DATE:
-    "Transaction creation date.",
-  AGE:
-    "Time when was the transaction created.",
-  BLOCK:
-    "Block number associated with the transaction.",
-  FROM:
-    "Sender’s account.",
-  TO:
-    "Receiver’s account.",
-  SI_NO:
-    "Sl. No.",
-  SYMBOL:
-    "A virtual currency token.",
-  NAME:
-    "Name of the token.",
-  TOKEN:
-    "A virtual currency token or a denomination of a cryptocurrency.",
-  TOKEN_TYPE:
-    "Token type may include XRC20, XRC721 or XRC1155.",
-  CONTRACT:
-    "Smart Contract associated with the particular token.",
-  HOLDER:
-    "The number of holders.",
-  TOKEN_TOTAL_SUPPLY:
-    "Amount of tokens being transferred.",
-  STATUS:
-    "The token is either verified or unverified.",
-  ACCOUNT_ADDRESS:
-    "The unique address of a particular account.",
-  ACCOUNT_TYPE:
-    "Account type is either Account, Contract or Token.",
-  ACCOUNT_BALANCE:
-    "Balance held by a particular account.",
-  WATCHLIST_ADDRESS:
-    "Users' wallet address.",
+  FDMP: "Fully Diluted Market Cap = Price x Total supply.",
+  HASH: "Unique transaction identifier, also known as the Transaction ID.",
+  AMOUNT: "The number of tokens being transferred.",
+  DATE: "Transaction creation date.",
+  AGE: "Time when was the transaction created.",
+  BLOCK: "Block number associated with the transaction.",
+  FROM: "Sender’s account.",
+  TO: "Receiver’s account.",
+  SI_NO: "Sl. No.",
+  SYMBOL: "A virtual currency token.",
+  NAME: "Name of the token.",
+  TOKEN: "A virtual currency token or a denomination of a cryptocurrency.",
+  TOKEN_TYPE: "Token type may include XRC20, XRC721 or XRC1155.",
+  CONTRACT: "Smart Contract associated with the particular token.",
+  HOLDER: "The number of holders.",
+  TOKEN_TOTAL_SUPPLY: "Amount of tokens being transferred.",
+  STATUS: "The token is either verified or unverified.",
+  ACCOUNT_ADDRESS: "The unique address of a particular account.",
+  ACCOUNT_TYPE: "Account type is either Account, Contract or Token.",
+  ACCOUNT_BALANCE: "Balance held by a particular account.",
+  WATCHLIST_ADDRESS: "Users' wallet address.",
   WATCHLIST_DESCRIPTION:
     "The description provided by the user while creating the watchlist.",
-  WATCHLIST_BALANCE:
-  "The amount available in the wallet.",
-  WATCHLIST_ADDED_ON:
-    "Watchlist creation date.",
-  WATCHLIST_NOTIFICATION:
-    "Notification priorities set by the users.",
-  PRIVATE_NOTE:
-    "A private note added to a transaction.",
-  PRIVATE_NOTE_ADDED_ON:
-    "Private note creation date.",
-  TAG_ADDRESS:
-    "Wallet addresses with tag names.",
-  NAME_TAG:
-    "The tag name that is given to an address.",
-  TAG_ADDED_ON:
-    "The date on which the address was tagged.",
-  CONTRACT_ADDRESS:
-    "The unique address of the contract.",
-  TOKEN_NAME:
-    "Name of the token associated with the contract.",
-  CONTRACT_NAME:
-    "Name of the Smart Contract.",
+  WATCHLIST_BALANCE: "The amount available in the wallet.",
+  WATCHLIST_ADDED_ON: "Watchlist creation date.",
+  WATCHLIST_NOTIFICATION: "Notification priorities set by the users.",
+  PRIVATE_NOTE: "A private note added to a transaction.",
+  PRIVATE_NOTE_ADDED_ON: "Private note creation date.",
+  TAG_ADDRESS: "Wallet addresses with tag names.",
+  NAME_TAG: "The tag name that is given to an address.",
+  TAG_ADDED_ON: "The date on which the address was tagged.",
+  CONTRACT_ADDRESS: "The unique address of the contract.",
+  TOKEN_NAME: "Name of the token associated with the contract.",
+  CONTRACT_NAME: "Name of the Smart Contract.",
   TOKEN_YES_NO:
     "Whether the token is associated with the Smart Contract or not.",
-  VALUE:
-    "Amount to tokens being transferred.",
-  GAS:
-    "The gas price associated with the transaction.",
-  RANK:
-    "Account’s rank sorted on the basis of Balance.",
-  PERCENTAGE:
-    "Percentage of holdings out of the total supply.",
-  HOLDER_RANK:
-  "Holder’s rank sorted on the basis of Quantity.",
-  WALLET_ADDRESS:
-  "Wallet address.",
-  QUANTITY:
-  "The amount available in the wallet."
+  VALUE: "Amount to tokens being transferred.",
+  GAS: "The gas price associated with the transaction.",
+  RANK: "Account’s rank sorted on the basis of Balance.",
+  PERCENTAGE: "Percentage of holdings out of the total supply.",
+  HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
+  WALLET_ADDRESS: "Wallet address.",
+  QUANTITY: "The amount available in the wallet.",
 };
 
 export const toolTipMessages = {

@@ -44,7 +44,7 @@ import StorageMessage from "./dashboardPopup/storageMessage";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
-}
+
   & .paginationBttns {
     list-style: none;
     display: flex;
