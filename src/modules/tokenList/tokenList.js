@@ -438,7 +438,7 @@ export default function StickyHeadTable(props) {
                         className="tooltipLatestTransactionTableDashboard"
                       />
                     </Tooltip>
-                    </span>
+                  </span>
                 </TableCell>
                 {props?.state?.tableColumns["Symbol"].isActive && (
                   <TableCell style={{ border: "none" }} align="left">
@@ -452,21 +452,21 @@ export default function StickyHeadTable(props) {
                           className="tooltipLatestTransactionTableDashboard"
                         />
                       </Tooltip>
-                      </span>
+                    </span>
                   </TableCell>
                 )}
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tablehead-token-details"}>
                     Name
                     <Tooltip placement="top" title={messages.NAME}>
-                        <img
-                          alt="question-mark"
-                          src="/images/question-mark.svg"
-                          height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
-                        />
-                      </Tooltip>
-                    </span>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                  </span>
                 </TableCell>
                 {props?.state?.tableColumns["Type"].isActive && (
                   <TableCell style={{ border: "none", whiteSpace: "nowrap" }}
@@ -559,6 +559,7 @@ export default function StickyHeadTable(props) {
 
                     var supply4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
                     var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
+                    let tokenName = row?.tokenName?.length <= 15 || row?.tokenName?.length == 0 ? row?.tokenName : shorten(row?.tokenName, 15, 0, 3)
                     return (
                       <TableRow
                         hover
@@ -581,7 +582,7 @@ export default function StickyHeadTable(props) {
                         )}
 
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
-                          {shorten(row.tokenName, 9, 0, 3)}
+                          {tokenName}
                         </TableCell>
                         {props?.state?.tableColumns["Type"].isActive && (
                           <TableCell id="td">{row.type}</TableCell>
@@ -653,7 +654,7 @@ export default function StickyHeadTable(props) {
 
               <div style={{ color: "#c6cbcf" }}>No Tokens found</div>
             </NoDataFoundContainer>
-          ):("")}
+          ) : ("")}
         </TableContainer>
 
         {/* <Divider className={classes.divider}/>*/}
