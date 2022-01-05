@@ -1,12 +1,18 @@
 import { httpService } from "../managers/httpService";
 import { httpConstants } from "../constants";
 
-export default { postWatchlist , deleteWatchlist }
+export default { postWatchlist, deleteWatchlist };
+function getHeaders() {
+  return {
+    "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
+    "X-API-key": process.env.REACT_APP_X_API_KEY,
+  };
+}
 async function postWatchlist(reqObj) {
   const url = process.env.REACT_APP_POST_WATCHLIST + "";
   return httpService(
     httpConstants.METHOD_TYPE.POST,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     reqObj,
     url
   )
@@ -26,10 +32,11 @@ async function postWatchlist(reqObj) {
 }
 
 async function deleteWatchlist(reqObj) {
-  const url = process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "delete-watchlist";
+  const url =
+    process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "delete-watchlist";
   return httpService(
     httpConstants.METHOD_TYPE.PUT,
-    { "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON },
+    getHeaders(),
     reqObj,
     url
   )

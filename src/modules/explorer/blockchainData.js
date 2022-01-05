@@ -9,7 +9,7 @@ import maxLogo from "../../images/Current Max_TPS.svg";
 import difficultyLogo from "../../images/Difficulty.svg";
 import accountLogo from "../../images/Accounts.svg";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import Utility from '../../utility'
 import Tab from "./tab";
 import Loader from "../../assets/loader";
 import {
@@ -34,7 +34,7 @@ const MainContainer = styled.div`
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     /* width: auto; */
     width: 41.5rem;
     margin-left: auto;
@@ -43,7 +43,7 @@ const MainContainer = styled.div`
     padding-top: 0px;
   }
   @media (min-width: 0px) and (max-width: 767px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     /* width: auto; */
     width: 22.563rem;
     height: 32.063rem;
@@ -75,7 +75,7 @@ const LeftFirst = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 10px 14px 0;
+    padding: 20px 10px 0 0;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     padding: 20px 10px 0 0;
@@ -90,6 +90,10 @@ const RightContainer = styled.div`
   flex: 0.47;
   display: flex;
   margin-left: 12px;
+   @media (min-width: 0px) and (max-width: 767px) {
+     display: flex;
+     flex-direction:column;
+   }
 `;
 
 const LeftSec = styled.div`
@@ -98,13 +102,22 @@ const LeftSec = styled.div`
   @media (min-width: 335px) and (max-width: 767px) {
     padding: 0 3%;
   }
+  @media (min-width: 768px) and (max-width: 1240px) {
+ margin-top: 30px;
+  }
 `;
 const ValueMain = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 35px;
   flex-wrap: wrap;
-  padding: 0px 4px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    gap: 30px;
+    margin-top:15px
+  }
   /* margin-top: 12px; */
+  @media (min-width: 0px) and (max-width: 767px) {
+    // padding-right: 26px
+  }
 `;
 
 const Value = styled.div`
@@ -113,18 +126,17 @@ const Value = styled.div`
   padding-bottom: 15px;
   @media (min-width: 0px) and (max-width: 767px) {
     padding: 10px 0px 0 0;
-    width: 9.75rem;
   }
 `;
 const TitleIcon = styled.img`
-  width: 22%;
   margin-right: 8px;
   margin-bottom: 36px;
+  height: 35px;
   @media (max-width: 767px) {
-    width: 18%;
-    margin-right: 9px;
-    margin-left: -8px;
-    margin-top: 8px;
+    //   width: 18%;
+    margin-right: 0px;
+    margin-left: -10px;
+    //   margin-top: 8px;
     margin-bottom: 28px;
   }
 `;
@@ -201,23 +213,26 @@ const LeftTitle = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
+    font-weight: 700;
+    color: #252525;
   }
   @media (min-width: 768px) {
     font-size: 1.5rem;
   }
 `;
 const Line1 = styled.hr`
-  background-color: #fff;
+background-color: #e3e7eb;
   width: 100%;
   position: absolute;
-  top: 65%;
+  top: 77%;
+  opacity: 1;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 90%;
     top: 87%;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
-    width: 97%;
-    top: 60%;
+    width: 98%;
+    top: 90%;
   }
 `;
 const LeftTopSec = styled.div`
@@ -237,7 +252,20 @@ const LeftTopSecMain = styled.div`
   margin-right: 5px;
   margin-top: 7px;
 `;
-
+const MobileDesign = styled.div`
+ @media (min-width: 0px) and (max-width: 767px) {
+  display: visible;}
+ @media (min-width: 768px) {
+   display: none;
+ }
+`;
+const DeskTopDesign = styled.div`
+ @media (min-width: 0px) and (max-width: 767px) {
+  display: none;}
+ @media (min-width: 768px) {
+   display: visible;
+ }
+`;
 class BlockChainDataComponent extends Component {
   constructor(props) {
     super(props);
@@ -258,6 +286,7 @@ class BlockChainDataComponent extends Component {
       loading: true,
     };
   }
+
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
@@ -314,21 +343,25 @@ class BlockChainDataComponent extends Component {
       if (transactionDataExist == -1) {
         if (transactions.length >= 10) transactions.pop();
         transactions.unshift(transactionData);
-        let blockAnimationClass = {
-          [transactionData.hash]: "block-height-animation",
-        };
-        this.setState({ animationTransaction: blockAnimationClass });
-        setTimeout(() => {
-          this.setState({ animationTransaction: {} });
-        }, 500);
+        let gpCurrent = this.state.transactionDataDetails[0]?.gasPrice
+          ? (
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
+          : 0;
+        if (gpCurrent >= 0.000000000001 && this.state.gasPrice !== gpCurrent) {
+          let blockAnimationClass = {
+            [transactionData.hash]: "block-height-animation",
+          };
+          this.setState({ animationTransaction: blockAnimationClass });
+          setTimeout(() => {
+            this.setState({ animationTransaction: {} });
+          }, 500);
+        }
         this.setState({ transactionDataDetails: transactions });
         let gp = this.state.transactionDataDetails[0]?.gasPrice
           ? (
-            this.state.transactionDataDetails[0]?.gasPrice /
-            1000000000000000000
-          ).toFixed(9)
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
           : 0;
-        if (gp >= 0.000000001 && this.state.gasPrice !== gp) {
+        if (gp >= 0.000000000001 && this.state.gasPrice !== gp) {
           this.setState({ gasPrice: gp });
         }
 
@@ -414,7 +447,13 @@ class BlockChainDataComponent extends Component {
     let [error, tpsCount] = await Utils.parseResponse(
       TpsService.getTpsCounter()
     );
-    if (!tpsCount || tpsCount.length == 0 || tpsCount === undefined || tpsCount == "" || tpsCount === null) {
+    if (
+      !tpsCount ||
+      tpsCount.length == 0 ||
+      tpsCount === undefined ||
+      tpsCount == "" ||
+      tpsCount === null
+    ) {
       this.setState({ loading: false });
     }
     if (error || !tpsCount) return;
@@ -425,7 +464,13 @@ class BlockChainDataComponent extends Component {
       let [error, tpsCount] = await Utils.parseResponse(
         TpsService.getTpsCounter()
       );
-      if (!tpsCount || tpsCount.length == 0 || tpsCount === undefined || tpsCount == "" || tpsCount === null) {
+      if (
+        !tpsCount ||
+        tpsCount.length == 0 ||
+        tpsCount === undefined ||
+        tpsCount == "" ||
+        tpsCount === null
+      ) {
         this.setState({ loading: false });
       }
       this.setState({ tpsCounts: tpsCount?.currenttps });
@@ -464,6 +509,7 @@ class BlockChainDataComponent extends Component {
         let [error, latestBlocks] = await Utils.parseResponse(
           BlockService.getLatestBlock(urlPath, {})
         );
+        if (error || !latestBlocks) return;
         this.setState({ blockdataNumber: latestBlocks });
       }
 
@@ -516,9 +562,9 @@ class BlockChainDataComponent extends Component {
     let changeAccounts = this.state.someDayAccount
       ? this.state.someDayAccount
       : 0;
-    let blockNumber = this.state.blockdataNumber[0]?.number;
+    let blockNumber = this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number : "";
     let animationClass = this.state.animationBlock?.[blockNumber];
-    let txhash = this.state.transactionDataDetails ? this.state.transactionDataDetails[0]?.hash : 0;
+    let txhash = this.state.transactionDataDetails && this.state.transactionDataDetails?.length ? this.state.transactionDataDetails[0]?.hash : 0;
     let TxanimationClass = this.state.animationTransaction?.[txhash];
     let maxTp = this.state.Maxtps ? this.state.Maxtps?.toFixed(2) : 0;
     let currentTp = this.state.tpsCounts;
@@ -528,52 +574,51 @@ class BlockChainDataComponent extends Component {
         className={this.state.loading == true ? "cover-spin-3" : ""}
       >
         <LeftContainer>
-          <LeftFirst>
-            <LeftTop>
-              <IconLogo src={logo} />
-              <LeftTitle>XDC</LeftTitle>
-            </LeftTop>
-            <LeftTopSecMain>
-              <LeftTopSec>
-                {currencySymbol}
-                {changeDecimals}
-              </LeftTopSec>
-              <div
-                className={
-                  changeDecimal >= 0
-                    ? "data_value_green last_value_main"
-                    : "data_value_red"
-                }
-              >
-                <div className="value_changePrice">
-                  {changeDecimal == 0 ? (
-                    ""
-                  ) : changeDecimal > 0 ? (
-                    <div className="arrow_up">
-                      {/* <BsFillCaretUpFill size={10} /> */}
-                      <img
-                        src={"/images/Up.svg"}
-                        style={{ width: "8px" }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="arrow_down">
-                      {/* <BsFillCaretDownFill size={10} /> */}
-                      <img
-                        src={"/images/Down.svg"}
-                        style={{ width: "8px" }}
-                      />
-                    </div>
-                  )}
-                  &nbsp;{changeDecimal ? changeDecimal : 0}%
+          <DeskTopDesign>
+            <LeftFirst>
+
+              <LeftTop>
+                <IconLogo src={logo} />
+                <LeftTitle>XDC</LeftTitle>
+              </LeftTop>
+              <LeftTopSecMain>
+                <LeftTopSec>
+                  {currencySymbol}
+                  {changeDecimals}
+                </LeftTopSec>
+                <div
+                  className={
+                    changeDecimal >= 0
+                      ? "data_value_green last_value_main"
+                      : "data_value_red"
+                  }
+                >
+                  <div className="value_changePrice">
+                    {changeDecimal == 0 ? (
+                      ""
+                    ) : changeDecimal > 0 ? (
+                      <div className="arrow_up">
+                        {/* <BsFillCaretUpFill size={10} /> */}
+                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} /> */}
+                        <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                      </div>
+                    )}
+                    &nbsp;{changeDecimal ? changeDecimal : 0}%
+                  </div>
                 </div>
-              </div>
-            </LeftTopSecMain>
-            <Line1></Line1>
-          </LeftFirst>
+              </LeftTopSecMain>
+              <Line1></Line1>
+
+            </LeftFirst>
+          </DeskTopDesign>
           <LeftSec>
             <ValueMain>
               <MobileScreen>
+
                 <Value>
                   <TitleIcon src={blockHeightImg} />
                   <ValueName>
@@ -581,8 +626,19 @@ class BlockChainDataComponent extends Component {
                     <TitleValue
                       className={animationClass ? animationClass : ""}
                     >
-                      {this.state.blockdataNumber[0]?.number.toLocaleString()}
+                      {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
                     </TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={priceLogo} />
+                  <ValueName>
+                    <Title>Gas Price</Title>
+                    <TitleData
+                      className={TxanimationClass ? TxanimationClass : ""}
+                    >
+                      {this.state.gasPrice}
+                    </TitleData>
                   </ValueName>
                 </Value>
                 <Value>
@@ -602,33 +658,17 @@ class BlockChainDataComponent extends Component {
                     </Tooltip>
                   </ValueName>
                 </Value>
-                <Value>
-                  <TitleIcon src={maxLogo} />
-                  <ValueName>
-                    <Title>Current/Max TPS</Title>
-                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
-                  </ValueName>
-                </Value>
+
               </MobileScreen>
               <MobileScreen>
-                <Value>
-                  <TitleIcon src={priceLogo} />
-                  <ValueName>
-                    <Title>Gas Price</Title>
-                    <TitleData
-                      className={TxanimationClass ? TxanimationClass : ""}
-                    >
-                      {this.state.gasPrice}
-                    </TitleData>
-                  </ValueName>
-                </Value>
+
                 <Value>
                   <TitleIcon src={difficultyLogo} />
                   <ValueName>
                     <Title>Difficulty</Title>
                     <Tooltip
                       placement="top"
-                      title={this.state.blockdataNumber[0]?.totalDifficulty}
+                      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}
                     >
                       <TitleValue
                         className={animationClass ? animationClass : ""}
@@ -641,6 +681,13 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
 
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Current/Max TPS</Title>
+                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
+                  </ValueName>
+                </Value>
                 <Value>
                   <TitleIcon src={accountLogo} />
                   <ValueName>
@@ -694,6 +741,46 @@ class BlockChainDataComponent extends Component {
         </LeftContainer>
 
         <RightContainer>
+          <MobileDesign>
+            <LeftFirst>
+
+              <LeftTop>
+                <IconLogo src={logo} />
+                <LeftTitle>XDC</LeftTitle>
+              </LeftTop>
+              <LeftTopSecMain>
+                <LeftTopSec>
+                  {currencySymbol}
+                  {changeDecimals}
+                </LeftTopSec>
+                <div
+                  className={
+                    changeDecimal >= 0
+                      ? "data_value_green last_value_main"
+                      : "data_value_red"
+                  }
+                >
+                  <div className="value_changePrice">
+                    {changeDecimal == 0 ? (
+                      ""
+                    ) : changeDecimal > 0 ? (
+                      <div className="arrow_up">
+                        {/* <BsFillCaretUpFill size={10} /> */}
+                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                      </div>
+                    ) : (
+                      <div className="arrow_down">
+                        {/* <BsFillCaretDownFill size={10} /> */}
+                        <img src={"/images/Down.svg"} style={{ width: "8px" }} />
+                      </div>
+                    )}
+                    &nbsp;{changeDecimal ? changeDecimal : 0}%
+                  </div>
+                </div>
+              </LeftTopSecMain>
+
+            </LeftFirst>
+          </MobileDesign>
           <Tab />
         </RightContainer>
       </MainContainer>

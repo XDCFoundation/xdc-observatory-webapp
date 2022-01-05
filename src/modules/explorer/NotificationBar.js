@@ -26,7 +26,7 @@ const ListItems = styled.div`
   margin-bottom: 20px;
   @media (min-width: 0px) and (max-width: 767px) {
 
-    margin-top: 4rem;
+    // margin-top: 4rem;
 
 
   }
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
             top: "8.375rem",
         },
         drawerHeader: {
-            marginTop: "0px"
+            marginTop: "6px"
         }
     },
     "@media (min-width: 0px) and (max-width: 767px)": {
@@ -132,6 +132,7 @@ function TemporaryDrawer(props) {
 
     const list = (anchor) => (
         <div
+            style={{height:"100vh"}}
             className={clsx(classes.list, {
                 [classes.fullList]: anchor === "top" || anchor === "bottom",
             })}
@@ -181,7 +182,7 @@ function TemporaryDrawer(props) {
                     >
                         <img
                             className="noticon"
-                            src={'/images/notification.png'}
+                            src={'/images/notifications.svg'}
                             onClick={toggleDrawer(anchor, true)}
 
                         />

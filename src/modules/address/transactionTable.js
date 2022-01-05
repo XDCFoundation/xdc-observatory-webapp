@@ -1,142 +1,155 @@
-import React, { useEffect, useState } from 'react'
-import '../../../src/assets/styles/blocksAndTransactionList.css'
-import Paper from '@material-ui/core/Paper'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Tooltip from '@material-ui/core/Tooltip'
-import { Grid, TableContainer } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
-import { CSVLink, CSVDownload } from 'react-csv'
-import moment from 'moment'
-import Utility, { dispatchAction } from '../../utility'
-import { useParams } from 'react-router-dom'
-import AddressData from '../../services/address'
-import { makeStyles } from '@material-ui/core/styles'
-import Loader from '../../assets/loader'
+import React, { useEffect, useState } from "react";
+import "../../../src/assets/styles/blocksAndTransactionList.css";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Tooltip from "@material-ui/core/Tooltip";
+import { Grid, TableContainer } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { CSVLink, CSVDownload } from "react-csv";
+import moment from "moment";
+import Utility, { dispatchAction } from "../../utility";
+import { useParams } from "react-router-dom";
+import AddressData from "../../services/address";
+import { makeStyles } from "@material-ui/core/styles";
+import Loader from "../../assets/loader";
+import styled from "styled-components";
+import format from "format-number";
+import { messages } from "../../constants";
 
 function timeDiff(curr, prev) {
-  var ms_Min = 60 * 1000 // milliseconds in Minute
-  var ms_Hour = ms_Min * 60 // milliseconds in Hour
-  var ms_Day = ms_Hour * 24 // milliseconds in day
-  var ms_Mon = ms_Day * 30 // milliseconds in Month
-  var ms_Yr = ms_Day * 365 // milliseconds in Year
-  var diff = curr - prev //difference between dates.
+  var ms_Min = 60 * 1000; // milliseconds in Minute
+  var ms_Hour = ms_Min * 60; // milliseconds in Hour
+  var ms_Day = ms_Hour * 24; // milliseconds in day
+  var ms_Mon = ms_Day * 30; // milliseconds in Month
+  var ms_Yr = ms_Day * 365; // milliseconds in Year
+  var diff = curr - prev; //difference between dates.
   // If the diff is less then milliseconds in a minute
   if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + ' secs ago'
+    return Math.abs(Math.round(diff / 1000)) + " secs ago";
 
     // If the diff is less then milliseconds in a Hour
   } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + ' mins ago'
+    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
 
     // If the diff is less then milliseconds in a day
   } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + ' hrs ago'
+    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
 
     // If the diff is less then milliseconds in a Month
   } else if (diff < ms_Mon) {
-    return Math.abs(Math.round(diff / ms_Day)) + ' days ago'
+    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
 
     // If the diff is less then milliseconds in a year
   } else if (diff < ms_Yr) {
-    return Math.abs(Math.round(diff / ms_Mon)) + ' months ago'
+    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
   } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + ' years ago'
+    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
   }
 }
 export default function TransactionTableComponent(props) {
-  const { state } = props
+  const { state } = props;
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b?.slice(0, amountL)}${'.'.repeat(stars)}${b?.slice(
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
       b.length - 3,
-      b.length,
-    )}`
+      b.length
+    )}`;
   }
-  let { addr } = useParams()
-  let { addressNumber } = useParams()
-  const [from, setFrom] = React.useState(parseInt(0))
-  const [amount, setAmount] = React.useState(parseInt(50))
-  const [address, setAddress] = useState([])
-  const [ContractAddress, setContractAddress] = useState(addressNumber)
-  const [keywords, setKeywords] = useState('')
-  const [reportaddress, setReportaddress] = useState([])
-  const [downloadaddress, setDownloadaddress] = useState([])
-  const [isDownloadActive, setDownloadActive] = useState(0)
-  const [noData, setNoData] = useState(false)
-  const [totalRecord, setTotalRecord] = useState(0)
-  const [isLoading, setLoading] = useState(true)
-  let datas = {}
+  let { addr } = useParams();
+  let { addressNumber } = useParams();
+  const [from, setFrom] = React.useState(parseInt(0));
+  const [amount, setAmount] = React.useState(parseInt(50));
+  const [address, setAddress] = useState([]);
+  const [ContractAddress, setContractAddress] = useState(addressNumber);
+  const [keywords, setKeywords] = useState("");
+  const [reportaddress, setReportaddress] = useState([]);
+  const [downloadaddress, setDownloadaddress] = useState([]);
+  const [isDownloadActive, setDownloadActive] = useState(0);
+  const [noData, setNoData] = useState(false);
+  const [totalRecord, setTotalRecord] = useState(0);
+  const [isLoading, setLoading] = useState(true);
+  let datas = {};
   const useStyles = makeStyles({
     container: {
-      borderRadius: '14px',
-      boxShadow: '0 1px 10px 0 rgba(0, 0, 0, 0.1)',
-      borderBottom: 'none',
-      background: '#fff',
+      borderRadius: "14px",
+      boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+      borderBottom: "none",
+      background: "#fff",
     },
-  })
+  });
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(values),
       )
-      let transactionSortByValue = responseData.sort((a, b) => {
-        return b.value - a.value;
-      });
-      if (transactionSortByValue && transactionSortByValue.length > 0) {
-        setAddress(transactionSortByValue)
-        setLoading(false)
-      } else {
+      if (!responseData || responseData.length === 0) {
         setNoData(true)
         setTotalRecord(parseInt(0))
         setAddress([])
         setLoading(false)
+        return;
+      }
+      let transactionSortByValue = responseData.sort((a, b) => {
+        return b.value - a.value;
+      });
+      if (transactionSortByValue && transactionSortByValue.length > 0) {
+        setAddress(transactionSortByValue);
+        setLoading(false);
+      } else {
+        setNoData(true);
+        setTotalRecord(parseInt(0));
+        setAddress([]);
+        setLoading(false);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
   const getTransactionsCountForAddress = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getTransactionsCountForAddress(data),
-      )
-      setTotalRecord(parseInt(responseData))
+        AddressData.getTransactionsCountForAddress(data)
+      );
+      if (!responseData) {
+        setNoData(true);
+      }
+      setTotalRecord(parseInt(responseData));
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
   const handleKeyUp = (event) => {
-    let searchkeyword = event.target.value
-    setFrom(parseInt(0))
+    let searchkeyword = event.target.value;
+    setFrom(parseInt(0));
     if (searchkeyword.length > 2) {
-      setKeywords(searchkeyword)
+      setKeywords(searchkeyword);
       datas = {
         pageNum: 0,
         perpage: amount,
         keywords: searchkeyword,
         addrr: ContractAddress,
-      }
-      getContractDetails(datas)
+      };
+      getContractDetails(datas);
     }
     if (searchkeyword.length == 0) {
-      setNoData(false)
-      setKeywords('')
-      setFrom(parseInt(0))
+      setNoData(false);
+      setKeywords("");
+      setFrom(parseInt(0));
       datas = {
         pageNum: 0,
         perpage: amount,
         addrr: ContractAddress,
-        keywords: '',
-      }
-      getContractDetails(datas)
+        keywords: "",
+      };
+      getContractDetails(datas);
     }
-  }
+  };
   const handleChangePage = (action) => {
-    if (action == 'first') {
+    if (action == "first") {
       setFrom(parseInt(0));
       if (keywords) {
         datas = {
@@ -144,176 +157,190 @@ export default function TransactionTableComponent(props) {
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
-        }
-        getContractDetails(datas)
+        };
+        getContractDetails(datas);
       } else {
         datas = {
           pageNum: 0,
           perpage: amount,
           addrr: ContractAddress,
-          keywords: '',
-        }
-        getContractDetails(datas)
+          keywords: "",
+        };
+        getContractDetails(datas);
       }
     }
-    if (action === 'last') {
-      let pagecount = +totalRecord - +amount
-      setFrom(parseInt(pagecount))
+    if (action === "last") {
+      let pagecount = +totalRecord - +amount;
+      setFrom(parseInt(pagecount));
       if (keywords) {
         datas = {
           pageNum: pagecount,
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
-        }
-        getContractDetails(datas)
+        };
+        getContractDetails(datas);
       } else {
         datas = {
           pageNum: pagecount,
           perpage: amount,
           addrr: ContractAddress,
           keywords: keywords,
-        }
-        getContractDetails(datas)
+        };
+        getContractDetails(datas);
       }
     }
 
-    if (action === 'next') {
+    if (action === "next") {
       if (+amount + +from < totalRecord) {
-        let pagecount = +amount + +from
-        setFrom(parseInt(pagecount))
+        let pagecount = +amount + +from;
+        setFrom(parseInt(pagecount));
         if (keywords) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
-          }
-          getContractDetails(datas)
+          };
+          getContractDetails(datas);
         } else {
           let datas = {
             pageNum: pagecount,
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
-          }
+          };
 
-          getContractDetails(datas)
+          getContractDetails(datas);
         }
       }
     }
 
-    if (action === 'prev') {
+    if (action === "prev") {
       if (+from - +amount >= 0) {
-        let pagecount = +from - +amount
-        setFrom(parseInt(pagecount))
+        let pagecount = +from - +amount;
+        setFrom(parseInt(pagecount));
         if (keywords) {
           datas = {
             pageNum: pagecount,
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
-          }
-          getContractDetails(datas)
+          };
+          getContractDetails(datas);
         } else {
           datas = {
             pageNum: pagecount,
             perpage: amount,
             addrr: ContractAddress,
             keywords: keywords,
-          }
-          getContractDetails(datas)
+          };
+          getContractDetails(datas);
         }
       }
     }
-  }
+  };
   const handleChangeRowsPerPage = (event) => {
-    setAmount(parseInt(event.target.value))
-    setFrom(parseInt(0))
+    setAmount(parseInt(event.target.value));
+    setFrom(parseInt(0));
     datas = {
       pageNum: 0,
       perpage: event.target.value,
       addrr: ContractAddress,
       keywords: keywords,
-    }
-    getContractDetails(datas)
-  }
+    };
+    getContractDetails(datas);
+  };
 
   const handleChanged = (event) => {
-    const { name, checked } = event.target
-    if (name === 'allselect') {
+    const { name, checked } = event.target;
+    if (name === "allselect") {
       let tempAddress = address.map((addr) => {
-        return { ...addr, isChecked: checked }
-      })
-      setAddress(tempAddress)
+        return { ...addr, isChecked: checked };
+      });
+      setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
-          return addr
+          return addr;
         }
-      })
+      });
       if (tempAddr.length > 0) {
-        setDownloadActive(1)
+        setDownloadActive(1);
       } else {
-        setDownloadActive(0)
+        setDownloadActive(0);
       }
 
       setDownloadaddress(
         tempAddress.map((d) => {
           return {
             Txn_Hash: d.hash,
-            Date: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
+            Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.value / 1000000000000000000,
+            Value: Utility.decimalDivison(d.Value, 18),
           }
         }),
       )
     } else {
       let tempAddress = address.map((addr) =>
-        addr._id === name ? { ...addr, isChecked: checked } : addr,
-      )
-      setAddress(tempAddress)
+        addr._id === name ? { ...addr, isChecked: checked } : addr
+      );
+      setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked === true) {
-          return addr
+          return addr;
         }
-      })
+      });
       if (tempAddr.length > 0) {
-        setDownloadActive(1)
+        setDownloadActive(1);
       } else {
-        setDownloadActive(0)
+        setDownloadActive(0);
       }
       setDownloadaddress(
         tempAddr.map((d) => {
           return {
             Txn_Hash: d.hash,
-            Date: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
+            Date: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.blockNumber,
             From: d.from,
             To: d.to,
-            Value: d.value / 1000000000000000000,
+            Value: Utility.decimalDivison(d.Value, 18),
           }
         }),
       )
     }
-  }
+  };
   React.useEffect(() => {
-    setContractAddress(addressNumber)
+    setContractAddress(addressNumber);
     let values = {
       addrr: ContractAddress,
       pageNum: from,
       perpage: amount,
       keywords: keywords,
-    }
-    getContractDetails(values)
+    };
+    getContractDetails(values);
     let data = {
       addrr: ContractAddress,
+    };
+    getTransactionsCountForAddress(data);
+    setLoading(false);
+  }, []);
+  const classes = useStyles();
+  const history = useHistory();
+
+  const NoDataFoundContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    gap: 10px;
+    @media (min-width: 767px) {
+      margin: 100px 0 !important;
     }
-    getTransactionsCountForAddress(data)
-  }, [])
-  const classes = useStyles()
-  const history = useHistory()
+  `;
+
   return (
     <div>
       <div className="content_input_all cont-tab-contract">
@@ -333,12 +360,10 @@ export default function TransactionTableComponent(props) {
         <div className="csvDownloadParent">
           {isDownloadActive ? (
             <div className="csv">
-              <img
-                src={"/images/rectangle-copy.svg"}
-              />{' '}
+              <img src={"/images/rectangle-copy.svg"} />{" "}
               <CSVLink
                 className="ActiveDownload"
-                filename={'transactions.csv'}
+                filename={"transactions.csv"}
                 data={downloadaddress}
               >
                 Download CSV
@@ -346,12 +371,10 @@ export default function TransactionTableComponent(props) {
             </div>
           ) : (
             <div className="csv-inactive">
-              <img
-                src={"/images/rectangle-copy.svg"}
-              />{' '}
+              <img src={"/images/rectangle-copy.svg"} />{" "}
               <CSVLink
                 className="InactiveDownload"
-                filename={'transactions.csv'}
+                filename={"transactions.csv"}
                 data={downloadaddress}
               >
                 Download CSV
@@ -363,7 +386,7 @@ export default function TransactionTableComponent(props) {
 
       <Grid lg={13} className="tablegrid_address">
         <Paper
-          style={{ borderRadius: '14px' }}
+          style={{ borderRadius: "14px" }}
           elevation={0}
           className="table-paper-contract"
         >
@@ -376,7 +399,7 @@ export default function TransactionTableComponent(props) {
                 <TableRow>
                   <TableCell
                     className="w-31 w-850"
-                    style={{ border: 'none' }}
+                    style={{ border: "none" }}
                     align="left"
                   >
                     <input
@@ -385,62 +408,131 @@ export default function TransactionTableComponent(props) {
                       name="allselect"
                       checked={
                         address.filter((addr) => addr?.isChecked == true)
-                          .length ==
-                        address.length
+                          .length == address.length
                       }
-                      style={{ marginRight: '8px' }}
+                      style={{ marginRight: "8px" }}
                     />
-                    <span className={'tableheaders table-hash'}>Txn Hash</span>
+                    <span className={"tableheaders table-hash"}>
+                      Transaction Hash
+                      <Tooltip placement="top" title={messages.HASH}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-16 w-19"
-                    style={{ border: 'none', paddingLeft: '1.8%' }}
+                    style={{ border: "none", paddingLeft: "1.8%" }}
                     align="left"
                   >
-                    <span className={'tableheaders table-age'}>Age</span>
+                    <span className={"tableheaders table-age"}>
+                      Age
+                      <Tooltip placement="top" title={messages.AGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
-                    style={{ border: 'none', paddingLeft: '2%' }}
+                    style={{ border: "none", paddingLeft: "2%" }}
                     align="left"
                   >
-                    <span className={'tableheaders table-block'}>Block</span>
+                    <span className={"tableheaders table-block"}>
+                      Block
+                      <Tooltip placement="top" title={messages.BLOCK}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
-                    style={{ border: 'none', paddingLeft: '1%' }}
+                    style={{ border: "none", paddingLeft: "1%" }}
                     align="left"
                   >
-                    <span className={'tableheaders table-from'}>From</span>
+                    <span className={"tableheaders table-from"}>
+                      From
+                      <Tooltip placement="top" title={messages.FROM}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 w-18"
-                    style={{ border: 'none', paddingLeft: '1%' }}
+                    style={{ border: "none", paddingLeft: "1%" }}
                     align="left"
                   >
-                    <span className={'tableheaders table-to'}>To</span>
+                    <span className={"tableheaders table-to"}>
+                      To
+                      <Tooltip placement="top" title={messages.TO}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 "
-                    style={{ border: 'none', paddingLeft: '1%' }}
+                    style={{ border: "none", paddingLeft: "1%" }}
                     align="left"
                   >
-                    <span className={'tableheaders table-value'}>Value</span>
+                    <span className={"tableheaders table-value"}>
+                      Value
+                      <Tooltip placement="top" title={messages.VALUE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   <TableCell
                     className="w-450 "
-                    style={{ border: 'none', paddingLeft: '1%' }}
+                    style={{ border: "none", paddingLeft: "1%" }}
                     align="left"
                   >
-                    <span className={'tableheaders table-value'}>Gas</span>
+                    <span className={"tableheaders table-value"}>
+                      Gas
+                      <Tooltip placement="top" title={messages.GAS}>
+                      <img
+                        alt="question-mark"
+                        src="/images/question-mark.svg"
+                        height={"14px"}
+                        className="tooltipLatestTransactionTableDashboard"
+                      />
+                    </Tooltip>
+                      </span>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
               </TableHead>
-              {isLoading == true ? (
+              {isLoading === true ? (
                 <TableBody>
                   <TableRow>
-                    <TableCell style={{ border: 'none' }} colspan="6">
+                    <TableCell style={{ border: "none" }} colspan="6">
                       <div className="loader-address-details-list">
                         <Loader />
                       </div>
@@ -451,19 +543,19 @@ export default function TransactionTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-                      const currentTime = new Date()
-                      const previousTime = new Date(row.timestamp * 1000)
-                      const TimeAge = timeDiff(currentTime, previousTime)
+                      const currentTime = new Date();
+                      const previousTime = new Date(row.timestamp * 1000);
+                      const TimeAge = timeDiff(currentTime, previousTime);
                       return (
                         <TableRow
                           style={
                             index % 2 !== 1
-                              ? { background: '#f9f9f9' }
-                              : { background: 'white' }
+                              ? { background: "#f9f9f9" }
+                              : { background: "white" }
                           }
                         >
                           <TableCell
-                            style={{ border: 'none' }}
+                            style={{ border: "none" }}
                             margin-left="5px"
                           >
                             <input
@@ -473,40 +565,42 @@ export default function TransactionTableComponent(props) {
                               type="checkbox"
                               checked={row?.isChecked || false}
                               //checked={checkAll}
-                              style={{ marginRight: '8px' }}
+                              style={{ marginRight: "8px" }}
                             />
 
                             <a
                               className="linkTable"
-                              href={'/transaction-details/' + row.hash}
+                              href={"/transaction-details/" + row.hash}
                             >
                               <Tooltip placement="top" title={row.hash}>
                                 <span className="tabledata">
-                                  {shorten(row.hash)}{' '}
+                                  {shorten(row.hash)}{" "}
                                 </span>
                               </Tooltip>
                             </a>
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: "none" }} align="left">
                             <span className="tabledata">{TimeAge}</span>
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: "none" }} align="left">
                             <a
                               className="linkTable"
-                              href={'/block-details/' + row.blockNumber}
+                              href={"/block-details/" + row.blockNumber}
                             >
-                              <span className="tabledata">{row.blockNumber}</span>
+                              <span className="tabledata">
+                                {row.blockNumber}
+                              </span>
                             </a>
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: "none" }} align="left">
                             {row.from != addr ? (
                               <a
                                 className="linkTable"
-                                href={'/address-details/' + row.from}
+                                href={"/address-details/" + row.from}
                               >
                                 <Tooltip placement="top" title={row.from}>
                                   <span className="tabledata">
-                                    {' '}
+                                    {" "}
                                     {shorten(row.from)}
                                   </span>
                                 </Tooltip>
@@ -514,17 +608,17 @@ export default function TransactionTableComponent(props) {
                             ) : (
                               <Tooltip placement="top" title={row.from}>
                                 <span className="tabledata">
-                                  {' '}
+                                  {" "}
                                   {shorten(row.from)}
                                 </span>
                               </Tooltip>
                             )}
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
+                          <TableCell style={{ border: "none" }} align="left">
                             {row.to != addr ? (
                               <a
                                 className="linkTable"
-                                href={'/address-details/' + row.to}
+                                href={"/address-details/" + row.to}
                               >
                                 <Tooltip placement="top" title={row.to}>
                                   <span className="tabledata">
@@ -540,19 +634,24 @@ export default function TransactionTableComponent(props) {
                               </Tooltip>
                             )}
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
-                            <span className="tabledata">{row.value}</span>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <Tooltip
+                              placement="top"
+                              title={format({})(row.value)}
+                            >
+                              <span className="tabledata">{Utility.convertToInternationalCurrencySystem(row.value)}</span>
+                            </Tooltip>
                           </TableCell>
-                          <TableCell style={{ border: 'none' }} align="left">
-                            <span className="tabledata">{row.gasUsed}</span>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className="tabledata">{format({})(row.gasUsed)}</span>
                           </TableCell>
                         </TableRow>
-                      )
+                      );
                     })}
                   </TableBody>
                 )
               )}
-              {noData == true && (
+              {/* {noData == true && (
                 <TableBody>
                   <TableRow>
                     <TableCell
@@ -566,16 +665,25 @@ export default function TransactionTableComponent(props) {
                     </TableCell>
                   </TableRow>
                 </TableBody>
-              )}
+              )} */}
             </Table>
+            {noData == true && (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
+
+                <div>No Transactions Found</div>
+              </NoDataFoundContainer>
+            )}
           </TableContainer>
         </Paper>
         <Grid
           container
           style={{
-            marginTop: '2.25rem',
-            display: 'flex',
-            justifyContent: 'space-between',
+            marginTop: "2.25rem",
+            display: "flex",
+            justifyContent: "space-between",
           }}
           className="page-container"
         >
@@ -599,86 +707,113 @@ export default function TransactionTableComponent(props) {
           <Grid xs="2"></Grid>
 
           {noData == true && (
-            <Grid
-              item
-              xs="7"
-              className="page-tab"
-            >
+            <Grid item xs="7" className="page-tab">
               <button
-                style={{ marginLeft: '0px' }}
-                onClick={() => handleChangePage('first')}
-                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                style={{ marginLeft: "0px" }}
+                onClick={() => handleChangePage("first")}
+                className={
+                  from === 0 || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 First
               </button>
               <button
-                onClick={() => handleChangePage('prev')}
-                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                onClick={() => handleChangePage("prev")}
+                className={
+                  from === 0 || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 <img src={"/images/back.svg"} />
               </button>
-              <button className="btn-contract">
-                Page 0 of 0
-              </button >
+              <button className="btn-contract">Page 0 of 0</button>
               <button
-                onClick={() => handleChangePage('next')}
-                className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                onClick={() => handleChangePage("next")}
+                className={
+                  +from + +amount === totalRecord || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 <img src={"/images/next.svg"} />
               </button>
               <button
-                onClick={() => handleChangePage('last')}
-                className={+from + +amount === totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                onClick={() => handleChangePage("last")}
+                className={
+                  +from + +amount === totalRecord || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 Last
               </button>
-            </Grid >
+            </Grid>
           )}
 
           {noData == false && (
-            <Grid
-              item
-              xs="7"
-              className="page-tab"
-            >
+            <Grid item xs="7" className="page-tab">
               <button
-                style={{ marginLeft: '0px' }}
-                onClick={() => handleChangePage('first')}
-                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                style={{ marginLeft: "0px" }}
+                onClick={() => handleChangePage("first")}
+                className={
+                  from === 0 || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 First
               </button>
               <button
-                onClick={() => handleChangePage('prev')}
-                className={from === 0 || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                onClick={() => handleChangePage("prev")}
+                className={
+                  from === 0 || totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 <img src={"/images/back.svg"} />
               </button>
 
               <button className="btn-contract">
-                Page{' '}
+                Page{" "}
                 {Math.ceil(parseInt(totalRecord) / parseInt(amount)) -
-                  Math.ceil((parseInt(totalRecord) - parseInt(from)) / parseInt(amount)) + 1}{' '}
+                  Math.ceil(
+                    (parseInt(totalRecord) - parseInt(from)) / parseInt(amount)
+                  ) +
+                  1}{" "}
                 of {Math.ceil(parseInt(totalRecord) / parseInt(amount))}
-              </button >
+              </button>
               <button
-                onClick={() => handleChangePage('next')}
-                className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                onClick={() => handleChangePage("next")}
+                className={
+                  +from + +amount === totalRecord ||
+                    +from + +amount > totalRecord ||
+                    totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 <img src={"/images/next.svg"} />
               </button>
               <button
-                onClick={() => handleChangePage('last')}
-                className={+from + +amount === totalRecord || +from + +amount > totalRecord || totalRecord === 0 ? 'btn-contract disabled' : 'btn-contract'}
+                onClick={() => handleChangePage("last")}
+                className={
+                  +from + +amount === totalRecord ||
+                    +from + +amount > totalRecord ||
+                    totalRecord === 0
+                    ? "btn-contract disabled"
+                    : "btn-contract"
+                }
               >
                 Last
               </button>
-            </Grid >
+            </Grid>
           )}
-
-
-        </Grid >
-      </Grid >
-    </div >
-  )
+        </Grid>
+      </Grid>
+    </div>
+  );
 }

@@ -1,32 +1,42 @@
 import React from "react";
 import BaseComponent from "../baseComponent";
-import AccountComponent from "./accountComponent"
-import Utils from '../../utility'
-import { AccountService } from '../../services'
-import { CoinMarketService } from '../../services'
-
+import AccountComponent from "./accountComponent";
+import Utils from "../../utility";
+import { AccountService } from "../../services";
+import { CoinMarketService } from "../../services";
+import { toolTipMessages } from "../../constants";
 
 export default class LatestAccountsList extends BaseComponent {
     constructor(props) {
         super(props);
-
         this.state = {
             from: 0,
-            amount: 50,
+            amount: 10,
             tableName: "Accounts",
             accountList: [],
             totalAccounts: 0,
             totalSupply: 0,
             noData: 1,
-            isLoading: true
-
-        }
+            isLoading: true,
+            tableColumns: {
+                "Rank": { isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance." },
+                "Type": { isActive: true, toolTipText: "Account type is either Account, Contract or Token." },
+                "Balance": { isActive: true, toolTipText: "Balance held by a particular account." },
+                "Percentage": { isActive: true, toolTipText: "Percentage of holdings out of the total supply." }
+            }
+        };
     }
 
     componentDidMount() {
         this.getListOfAccounts()
         this.getTotalAccounts()
         this.getCoinMarketTotalSupply()
+    }
+
+    toggleTableColumns = (columnName) => {
+        const columns = this.state.tableColumns;
+        columns[columnName].isActive = !columns[columnName].isActive
+        this.setState({ tableColumns: columns })
     }
 
 
@@ -135,6 +145,7 @@ export default class LatestAccountsList extends BaseComponent {
     render() {
         return (
             <AccountComponent
+                toggleTableColumns={this.toggleTableColumns}
                 create_data={this.create_data}
                 state={this.state}
                 shorten={this.shorten}

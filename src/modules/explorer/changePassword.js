@@ -11,6 +11,7 @@ import Utility from "../../utility";
 import {sessionManager} from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
+import { genericConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -128,7 +129,7 @@ const useStyles = makeStyles((theme) => ({
         mobileDiv: {
             marginTop: "15px",
             marginLeft: "-5px",
-            marginRight: "-6px",
+            marginRight: "0px",
         }, text: {
             textAlign: "center",
         },
@@ -156,6 +157,7 @@ export default function ChangePassword(props) {
     const [currentInput, setCurrentInput] = React.useState("");
     const [isError, setIsError] = React.useState("");
     const [isLoading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState("");
     const [errorPassword, setErrorPassword] = React.useState("");
     const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
     const [passwordShown1, setPasswordShown1] = React.useState(false);
@@ -171,7 +173,7 @@ export default function ChangePassword(props) {
         setPasswordShown3(passwordShown3 ? false : true);
     };
 
-    var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/;
+    var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
     const handleClose = () => {
         history.push("/loginprofile");
@@ -187,15 +189,22 @@ export default function ChangePassword(props) {
         };
 
         setLoading(true)
+        setError("")
         setErrorPassword("");
         setErrorConfirmPassword("");
 
-        if (!newInput || !confirmPassword || !currentInput) {
+        if (!currentInput) {
             setLoading(false);
-            utility.apiFailureToast("Please enter required field");
+            setError(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!newInput) {
+            setLoading(false);
+            setErrorPassword(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!confirmPassword) {
+            setLoading(false);
+            setErrorConfirmPassword(genericConstants.ENTER_REQUIRED_FIELD);
         } else if (!newInput.match(regExPass)) {
             setErrorPassword(
-                "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+                "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
             );
             setLoading(false);
         } else if (newInput !== confirmPassword) {
@@ -208,9 +217,10 @@ export default function ChangePassword(props) {
             );
             if (error || !authResponse) {
                 setLoading(false);
-                utility.apiFailureToast("failed");
+                // utility.apiFailureToast("failed");
+                setErrorConfirmPassword("Failed to Change Password");
             } else {
-                window.location.href = "/loginprofile";
+                setInterval((window.location.href = "/loginprofile"),3000);
                 utility.apiSuccessToast("Password changed successfully");
                 sessionManager.setDataInCookies(authResponse, "userInfo");
                 sessionManager.setDataInCookies(true, "isLoggedIn");
@@ -255,6 +265,7 @@ export default function ChangePassword(props) {
     onChange={(e) => {
         {
             setCurrentInput(e.target.value);
+            setError("");
         }
     }}
     />
@@ -271,6 +282,7 @@ export default function ChangePassword(props) {
                                 onClick={togglePasswordVisiblity1}
                             />
                         )}
+                        <div className={classes.error}>{error}</div>
                     </DialogContentText>
                     <DialogContentText className={classes.subCategory}>
                         <span className={classes.pass}>New Password</span>
@@ -282,6 +294,7 @@ export default function ChangePassword(props) {
                             onChange={(e) => {
                                 {
                                     setNewInput(e.target.value);
+                                    setErrorPassword("");
                                 }
                             }}
                         />
@@ -310,6 +323,7 @@ export default function ChangePassword(props) {
                             onChange={(e) => {
                                 {
                                     setConfirmPassword(e.target.value);
+                                    setErrorConfirmPassword("");
                                 }
                             }}
                         />

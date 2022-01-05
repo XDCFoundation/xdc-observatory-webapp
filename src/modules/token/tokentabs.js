@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import TokenTransfertab from './tokenTransfertab';
-import TokenHoldertab from './tokenHoldersTab';
-import TokenContracttab from './tokenContractTab';
-import TokenUnverifiedContract from './tokenUnverifiedContract'
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import TokenTransfertab from "./tokenTransfertab";
+import TokenHoldertab from "./tokenHoldersTab";
+import TokenContracttab from "./tokenContractTab";
+import TokenUnverifiedContract from "./tokenUnverifiedContract";
 import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
@@ -43,14 +43,14 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 650,
-    width: '100%',
+    width: "100%",
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     "@media (min-width:0px) and (max-width:767px)": {
@@ -68,57 +68,62 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
   const [toggleState, setToggleState] = useState(1);
-  const [contractStatus, setContractStatus] = useState("")
-  const [statusData, setStatus] = useState("")
-  useEffect(() => {
-    verifiedStatus();
-  }, []);
-  const { address } = useParams();
-
-  const verifiedStatus = async () => {
-
-    let urlPath = `${address}`;
-    let [error, contractStatusData] = await Utils.parseResponse(
-      ContractData.getContractDetailsUsingAddress(urlPath, {})
-    );
-    if (error || !contractStatusData) return;
-    setContractStatus(contractStatusData.contractResponse);
-    setStatus(contractStatusData.contractStatus)
-  };
-
+  const { tn } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
-
   return (
     <div>
-
       {/* <Grid lg={10} className="table-grid-block3"> */}
       <Grid className="table-grid-block3">
         <div className={classes.root}>
-          <div style={{ width: 'auto', display: 'flex', flexDirection: 'row', backgroundColor: 'transparent', height: '25px', borderBottom: 'solid 1px #e3e7eb' }}>
+          <div
+            style={{
+              width: "auto",
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "transparent",
+              height: "25px",
+              borderBottom: "solid 1px #e3e7eb",
+            }}
+          >
             <div>
-              <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: 'transparent' }} >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  backgroundColor: "transparent",
+                }}
+              >
                 <button
-                  className={toggleState === 1 ? "tabs-data active-tabs-token" : "tabs-data"}
+                  className={
+                    toggleState === 1
+                      ? "tabs-data active-tabs-token"
+                      : "tabs-data"
+                  }
                   onClick={() => toggleTab(1)}
                 >
                   Transfers
                 </button>
                 <button
-                  className={toggleState === 2 ? "tabs-data active-tabs-token-holder" : "tabs-data"}
+                  className={
+                    toggleState === 2
+                      ? "tabs-data active-tabs-token-holder"
+                      : "tabs-data"
+                  }
                   onClick={() => toggleTab(2)}
                 >
                   Holders
                 </button>
                 <button
-                  className={toggleState === 3 ? "tabs-data active-tabs-token" : "tabs-data"}
+                  className={
+                    toggleState === 3
+                      ? "tabs-data active-tabs-token"
+                      : "tabs-data"
+                  }
                   onClick={() => toggleTab(3)}
-
                 >
                   Contracts
                 </button>
@@ -127,33 +132,48 @@ export default function SimpleTabs(props) {
           </div>
 
           <div>
-            <div className={toggleState === 1 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px', width: 'auto' }}>
+            <div
+              className={
+                toggleState === 1 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px", width: "auto" }}>
                 <TokenTransfertab />
               </div>
             </div>
 
-            <div className={toggleState === 2 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px' }}>
-                <TokenHoldertab />
+            <div
+              className={
+                toggleState === 2 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px" }}>
+                <TokenHoldertab contractData={props?.contractStatusData} />
               </div>
             </div>
 
-
-
-            <div className={toggleState === 3 ? "content  active-content" : "content"}>
-              <div style={{ marginTop: '10px' }}>
-                {!contractStatus ? "" : statusData === "Unverified" ? <TokenUnverifiedContract contractData={contractStatus} /> : <TokenContracttab contractData={contractStatus} />}
-                {/* <TokenContracttab /> */}
-                {/* <TokenUnverifiedContract contractData={contractStatus} /> */}
+            <div
+              className={
+                toggleState === 3 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px" }}>
+                {!props?.contractStatusData?.contractResponse ? (
+                  ""
+                ) : props?.contractStatusData?.contractStatus ===
+                  "Unverified" ? (
+                  <TokenUnverifiedContract
+                    contractData={props?.contractStatusData?.contractResponse}
+                  />
+                ) : (
+                  <TokenContracttab
+                    contractData={props?.contractStatusData?.contractResponse}
+                  />
+                )}
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </Grid>
     </div>
   );

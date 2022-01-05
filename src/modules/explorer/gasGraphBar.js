@@ -11,7 +11,7 @@ const toolTipElement = (props) => {
         <div>
             <div className="Tooltip-graph">
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
-                <p className="Tooltip-graph-tx">Gas Price(Gwei): {props.point?.data?.y}</p>
+                <p className="Tooltip-graph-tx">Gas Price(USD): {props.point?.data?.y}</p>
             </div>
             <div class="outer-oval-trans">
                 <div class="Oval"></div>
@@ -99,7 +99,7 @@ export default function App() {
 
             resultData.push({
                 x: items.day,
-                y: (items.avgGasPrice / 1000000000000000000).toString().substr(0, 6)
+                y: Utils.decimalDivisonOnly(items?.avgGasPrice, 8)
 
             })
 

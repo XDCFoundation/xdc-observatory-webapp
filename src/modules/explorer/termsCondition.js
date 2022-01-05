@@ -19,6 +19,9 @@ const Heading = styled.div`
   letter-spacing: 0.92px;
   text-align: left;
   color: #2a2a2a;
+  @media (min-width:0px) and (max-width:767px) {
+    font-size:18px;
+  };
 `;
 const Subheading = styled.div`
   width: 350px;
@@ -33,6 +36,9 @@ const Subheading = styled.div`
   letter-spacing: 0.69px;
   text-align: left;
   color: #2a2a2a;
+  @media (min-width:0px) and (max-width:767px) {
+    font-size:15px;
+  };
 `;
 const PointHeading = styled.div`
   font-weight: 600;
@@ -45,6 +51,9 @@ const PointHeading = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:0px) and (max-width:767px) {
+    margin-top:14px;
+  };
 `;
 const Para = styled.div`
   margin: 32px 0 0 1px;
@@ -60,28 +69,45 @@ const Para = styled.div`
 `;
 const Para1 = styled.div`
   width: 1136px;
-  height: 95px;
   margin: 32px 7px 32px 1px;
   font-family: Inter;
   font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.27;
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+    overflow-x: scroll;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+    overflow-x: scroll;
+    padding:5px 5px 5px 10px;
+  };
 `;
 
 const Div = styled.div`
   width: 1202px;
   height: auto;
-  margin: 189.5px 357.5px 134px 360.5px;
+  margin: 55.5px auto 134px auto;
   padding: 32px 32px 80px 26px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: var(--white-two);
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 740px;
+    width: 100%;
+    overflow-x: hidden;
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    max-width: 360px;
+    width: 100%;
+    overflow-x: hidden;
+  };
 `;
 const BlockNumber = styled.div`
   width: 1143px;
@@ -96,6 +122,17 @@ const BlockNumber = styled.div`
   letter-spacing: 0.58px;
   text-align: left;
   color: #252525;
+  @media (min-width:768px) and (max-width:1240px) {
+    max-width: 720px;
+    width: 100%;
+    
+  };
+  @media (min-width:0px) and (max-width:767px) {
+    width: 300px;
+    margin-top:35px;
+    padding:5px 5px 5px 10px;
+    
+  };
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -118,10 +155,10 @@ export default function TermsCondition() {
   
   const classes = useStyles();
   return (
-    <div className="scrollbar">
+    <div>
       <Tokensearchbar />
-      <Div className="scrollbar">
-        <div className="scrollbar">
+      <Div>
+        <div>
           <Heading>Terms of Use</Heading>
           <Subheading>Information Published on the Website</Subheading>
           <Para1>

@@ -3,11 +3,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 // import div from "@material-ui/core/div";
 // import p from "@material-ui/core/p";
-import {makeStyles} from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { history } from "../../../managers/history";
-import {sessionManager} from "../../../managers/sessionManager";
-import {UserService} from "../../../services";
+import { sessionManager } from "../../../managers/sessionManager";
+import { UserService } from "../../../services";
 import utility from "../../../utility";
 import Tokensearchbar from "../tokensearchBar";
 import FooterComponent from "../../common/footerComponent";
@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
 
     margin: "14px 8px 15px 2px",
-    padding: "6px 19px 3px 20px",
-  },    createWatchlistMobile: {
+  },
+  createWatchlistMobile: {
     paddingLeft: "2em",
     paddingRight: "2em",
-    paddingTop: "15em"  
-},
+    marginTop: "14px",
+  },
   buttons: {
     padding: "10px 35px 20px 0px",
   },
@@ -96,7 +96,6 @@ const useStyles = makeStyles((theme) => ({
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
@@ -114,12 +113,12 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
-    marginTop: "-20px"
+    marginTop: "-20px",
   },
   error1: {
     color: "red",
     marginLeft: "24px",
-    marginTop: "-14px"
+    marginTop: "-14px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -154,13 +153,31 @@ const useStyles = makeStyles((theme) => ({
     top: "111px",
     borderRadius: "12px",
   },
+  lastContainer: {
+    maxWidth: "343px",
+    width: "100%",
+    padding: "11px 12px 10px 13px",
+    borderRadius: "6px",
+    backgroundColor: "#fff3f3",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "25px",
+  },
+  lastContainerText: {
+    fontSize: "12px",
+    fontFamily: "Inter !important",
+    color: "#ff0202",
+    letterSpacing: "0.46px",
+    lineHeight: "1.58",
+  },
+
   "@media (max-width: 714px)": {
     heading: {
-      fontSize: "16px"
+      fontSize: "16px",
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     input: {
       maxWidth: "503px",
@@ -171,17 +188,17 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       padding: "15px",
     },
-    subCategory1:{
+    subCategory1: {
       marginTop: "0px",
-     
+
       marginBottom: "2px",
-    // fontWeight: "50px",
-    fontFamily: "Inter",
-    fontSize: "14px",
-    color: "#2a2a2a",
-    fontWeight: "500",
-    border: "none !important",
-    }
+      // fontWeight: "50px",
+      fontFamily: "Inter",
+      fontSize: "14px",
+      color: "#2a2a2a",
+      fontWeight: "500",
+      border: "none !important",
+    },
   },
 }));
 
@@ -203,17 +220,22 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    if (!(TransactionsHash && TransactionsHash.length === 66) || !(TransactionsHash.slice(0,2) == "0x")) {
+    if(!TransactionsHash){
+      setError("Please enter required field");
+    }
+   else if (
+      !(TransactionsHash && TransactionsHash.length === 66) ||
+      !(TransactionsHash.slice(0, 2) == "0x")
+    ) {
       setError("Address should start with 0x & 66 characters");
-    } else if(!PrivateNote) {
-      setPrivateNoteError("Private Note is required")
+    } else if (!PrivateNote) {
+      setPrivateNoteError("Private Note is required");
     } else {
       const [error, response] = await utility.parseResponse(
-      UserService.postUserPrivateNote(data)
-    );
+        UserService.postUserPrivateNote(data)
+      );
 
-    if (error || !response) {
-      
+      if (error || !response) {
         utility.apiFailureToast("Transaction private note is already in use");
         return;
       }
@@ -223,34 +245,40 @@ export default function FormDialog() {
       setPrivateNote("");
       setOpen(false);
     }
-    
   }
   const classes = useStyles();
-  
+
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
 
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const { width } = windowDimensions
+  const { width } = windowDimensions;
   if (width >= 760) {
-    history.push("/loginprofile")
+    history.push("/loginprofile");
   }
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleCancel = () => {
+    history.push("/loginprofile")
+    setError("");
   };
 
   const handleClose = () => {
@@ -259,80 +287,87 @@ export default function FormDialog() {
     setPrivateNote("");
     setError("");
     setPrivateNoteError("");
-    };
-
+  };
 
   return (
-      <div>
+    <div>
       <Tokensearchbar />
       <div className={classes.createWatchlistMobile}>
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Add Transaction Label
-            </div>
-          </Row>
-          <div>
-            <p className={classes.subCategory}>
-              Transaction Hash
-            </p>
-            <input
-              type="text"
-              className={classes.input}
-              onChange={(e) => {setTransactionsHash(e.target.value)
-              setError("")
-              }}
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
+        <Row>
+          <div className={classes.heading} id="form-dialog-title">
+            Add Transaction Label
           </div>
-          <div>
-            <p className={classes.subCategory} className={classes.subCategory1} >
-              Transaction Label/Note
-              {/* <span  className={classes.forgotpass}>
+        </Row>
+        <div>
+          <p className={classes.subCategory}>Transaction Hash</p>
+          <input
+            type="text"
+            className={classes.input}
+            onChange={(e) => {
+              setTransactionsHash(e.target.value);
+              setError("");
+            }}
+          ></input>
+          {error ? <div className={classes.error}>{error}</div> : <></>}
+        </div>
+        <div>
+          <p className={classes.subCategory} className={classes.subCategory1}>
+            Transaction Label/Note
+            {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
-            </p>
+          </p>
 
-            <textarea
-              type="text"
-              className={classes.textarea}
-              onChange={(e) => {setPrivateNote(e.target.value)
+          <textarea
+            type="text"
+            className={classes.textarea}
+            onChange={(e) => {
+              setPrivateNote(e.target.value);
               setPrivateNoteError("");
-              }}
-            ></textarea>
-            {/* <span>
+            }}
+          ></textarea>
+          {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity} 
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>} 
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
-          </div>
-          {privateNoteError ? <div className={classes.error1}>{privateNoteError}</div> : <></>}
-          {/* <DialogActions>
+          {/* </span> */}
+        </div>
+        {privateNoteError ? (
+          <div className={classes.error1}>{privateNoteError}</div>
+        ) : (
+          <></>
+        )}
+        {/* <DialogActions>
             <button className={classes.addbtn} onClick={handleLogin} >Cancel </button>
           </DialogActions> */}
-        
-          <DialogActions >
-            <span style={{ color: "white" }}>
-              <button className={classes.cnlbtn} onClick={handleClose}>
-                {" "}
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={transactionLable}>
-                Add
-              </button>
-            </span>
-          </DialogActions>
-          {/* <div className={classes.value}></div>
+
+        <DialogActions>
+          <span style={{ color: "white" }}>
+            <button className={classes.cnlbtn} onClick={handleCancel}>
+              {" "}
+              Cancel
+            </button>
+          </span>
+          <span>
+            <button className={classes.addbtn} onClick={transactionLable}>
+              Add
+            </button>
+          </span>
+        </DialogActions>
+        <div className={classes.lastContainer}>
+              <div className={classes.lastContainerText}>
+              To protect your privacy, data related to the transaction labels, is added on your local device. Cleaning the browsing history or cookies will clean the transaction labels saved in your profile. 
+                </div>
+            </div>
+        {/* <div className={classes.value}></div>
           <p className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
             </p> */}
-             
-          </div>
-          <FooterComponent/>
+      </div>
+      <FooterComponent />
     </div>
   );
 }

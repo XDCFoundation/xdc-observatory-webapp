@@ -17,6 +17,19 @@ label {
   padding-right: 7%;
   padding-left: 7%;
 }
+
+.mobile-column-display {
+  display: none;
+}
+
+.desktop-column-display {
+  display: block;
+}
+
+.follow-us-margin {
+  margin: 0px 0px 10px 0px !important;
+}
+
 @media (min-width: 1241px) {
   .footer_base {
     padding-right: 0%;
@@ -159,6 +172,11 @@ ul {
   opacity: 0.8;
   margin-top: 5px !important;
 }
+@media (min-width: 768px) and (max-width: 1240px) {
+  .Table-Header hr {
+    width: 151px;
+  }
+}
 
 .USD {
   font-size: 0.875rem;
@@ -173,6 +191,9 @@ ul {
 @media (min-width: 0px) and (max-width: 767px) {
   .USD {
     font-size: 0.813rem;
+  }
+  .Table-Header hr {
+    width: 85%;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -221,7 +242,19 @@ ul {
 }
 @media (max-width: 767px) {
   .Table-Header {
-    font-size: 0.75rem;
+    font-size: 14px;
+  }
+
+  .mobile-column-display {
+    display: block;
+  }
+
+  .desktop-column-display {
+    display: none;
+  }
+
+  .follow-us-margin {
+    margin: 20px 0px 10px 0px !important;
   }
 }
 
@@ -296,8 +329,8 @@ a:hover {
 }
 
 .Shape-footer {
-  height: 1.875rem;
-  width: 1.875rem;
+  height: 1.75rem;
+  width: 1.75rem;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .Shape-footer {
@@ -359,7 +392,7 @@ a:hover {
   .XDC-Header {
     margin-left: 25px;
     font-size: 0.875rem;
-    margin-top: -17px;
+    margin-top: -19px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -381,10 +414,6 @@ a:hover {
   outline: 0;
   background-color: #2149b9;
 } */
-.MuiList-padding {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-}
 .select-xdc .MuiSvgIcon-root {
   fill: #ffffff !important;
 }
@@ -439,6 +468,10 @@ a:hover {
 
   .button-Padding-Mobile {
     /* padding-top: 35px; */
-    padding-right: 15px;
+    padding-right: 15px !important;
   }
+}
+.select-xdc .MuiList-padding {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }

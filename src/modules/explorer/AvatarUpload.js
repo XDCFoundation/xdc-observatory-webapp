@@ -31,11 +31,10 @@ const useStyles = makeStyles((theme) => ({
   large: {
     width: "108px",
     height: "108px",
-    marginTop: "35px",
   },
   "@media (min-width: 300px) and (max-width: 767px)": {
     avtar:{
-      marginTop: "25px",
+      marginTop: "20px",
       height: "160px"
       
     }
