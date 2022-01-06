@@ -428,7 +428,7 @@ export default function StickyHeadTable(props) {
                   style={{ border: "none", paddingLeft: "75px" }}
                   align="left"
                 >
-                  <span>
+                  <span className={"tablehead-token-details"}>
                     #
                     <Tooltip placement="top" title={messages.SI_NO}>
                       <img

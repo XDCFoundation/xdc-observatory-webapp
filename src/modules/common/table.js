@@ -310,7 +310,7 @@ export default function CommonTransactionsTable(props) {
                           }
                         >
 
-                          {amt1 < 0 ? amt1 : 0} XDC
+                          {amt1} XDC
                         </span>) : (
                           <span
                             className={

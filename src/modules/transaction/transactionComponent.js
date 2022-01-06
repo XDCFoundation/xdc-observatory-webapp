@@ -17,7 +17,8 @@ import ConfigureColumnsModal from "../common/configureColumnsModal";
 import moment from "moment";
 import { messages } from "../../constants"
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
-
+import format from "format-number";
+import utility from "../../utility";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -315,11 +316,11 @@ export default function TransactionComponent(props) {
                     const currentTime = new Date();
                     const previousTime = new Date(row.timestamp * 1000);
                     const ti = timeDiff(currentTime, previousTime);
-                    const txFee = (
-                      (row?.gasUsed * row?.gasPrice) /
-                      100000000000000000
-                    ).toFixed(9);
-                    let amt = (row.value / 1000000000000000000).toFixed(4);
+                    // const txFee = (
+                    //   (row?.gasUsed * row?.gasPrice) /
+                    //   100000000000000000
+                    // ).toFixed(9);
+                    let amt = utility.decimalDivison(row.value, 8);
                     const Hash = row.hash;
                     let animationClass = props.state.hashAnimation?.[Hash];
                     return (
@@ -365,7 +366,7 @@ export default function TransactionComponent(props) {
                                 animationClass ? animationClass : "tabledata"
                               }
                             >
-                              {amt >= 0.0001 ? amt : 0}
+                              {amt}
                             </span>
                           </TableCell>
                         )}
