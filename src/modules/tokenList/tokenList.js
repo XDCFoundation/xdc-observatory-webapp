@@ -33,7 +33,7 @@ const Pagination = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
-    width: 22.563rem;
+    width: 21rem;
     margin: 0 auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -325,7 +325,6 @@ export default function StickyHeadTable(props) {
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
-
       <form
         method="post"
         onKeyPress={(e) => {
@@ -402,6 +401,7 @@ export default function StickyHeadTable(props) {
       {/* </div> */}
 
       <br />
+
       <Paper
         className={"responsive-table-width-token-list token-list-tab_11"}
         style={{
@@ -755,8 +755,7 @@ export default function StickyHeadTable(props) {
           </div>
         </RightPagination>
       </Pagination>
-
       <FooterComponent />
-    </div >
+    </div>
   );
 }
