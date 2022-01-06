@@ -3571,7 +3571,7 @@ body {
 }
 @media (max-width: 767px) {
   .previousbox-contract {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
   }
   .nextbox-contract {
     padding: 10px 20px;
@@ -9257,7 +9257,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 641px) {
   #btn_12 {
-    padding: 7px 6px 10px 10px !important;
+    padding: 7px 12px 10px 10px !important;
   }
 }
 
