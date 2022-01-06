@@ -247,8 +247,8 @@ export default function CommonTransactionsTable(props) {
                   //   100000000000000000
                   // ).toFixed(9);
                   let amt = Utility.decimalDivison(row.value, 8);
-                  let amt1 = amt.toString().split(".")[0]
-                  let amt2 = amt.toString().split(".")[1]
+                  let amt1 = amt?.toString()?.split(".")[0]
+                  let amt2 = amt?.toString()?.split(".")[1]
 
 
 
@@ -310,7 +310,7 @@ export default function CommonTransactionsTable(props) {
                           }
                         >
 
-                          {amt1 < 0 ? amt1 : 0}
+                          {amt1 < 0 ? amt1 : 0} XDC
                         </span>) : (
                           <span
                             className={
@@ -318,7 +318,7 @@ export default function CommonTransactionsTable(props) {
                             }
                           >
 
-                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span>
+                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span> XDC
                           </span>
                         )}
 
