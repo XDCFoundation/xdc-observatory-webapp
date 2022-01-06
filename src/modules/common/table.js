@@ -345,7 +345,7 @@ export default function CommonTransactionsTable(props) {
                               }
                             >
                               {moment(row.timestamp * 1000).format(
-                                "MMM DD, YYYY"
+                                "MMM DD, YYYY h:mm A"
                               )}
                             </span>
                           </Tooltip>

@@ -403,7 +403,7 @@ export default function TransactionComponent(props) {
                               }
                             >
                               {moment(row.timestamp * 1000).format(
-                                "MMM DD, YYYY"
+                                "MMM DD, YYYY h:mm A"
                               )}
                             </span>
                           </TableCell>
