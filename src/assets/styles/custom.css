@@ -8257,7 +8257,9 @@ button {
   .mobFilter {
     margin-top: -2px;
   }
-
+.mobFilter option {
+  width: 10px;
+}
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -10161,4 +10163,8 @@ button {
 }
 .tooltip-loader-div {
   margin-top: 50%;
+}
+
+.search-dashboard-select option {
+  width: 10px;
 }

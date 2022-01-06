@@ -14,6 +14,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
+  overflowNone : {
+    overflow : "initial"
+  },
   add: {
     // marginLeft: "80%",
     // backgroundColor: "#f5f8fa",
@@ -366,7 +369,7 @@ export default function FormDialog() {
               Add Transaction Label
             </div>
           </Row>
-          <DialogContent>
+          <DialogContent className={classes.overflowNone}>
             <DialogContentText className={classes.subCategory}>
               Transaction Hash
             </DialogContentText>
@@ -380,7 +383,7 @@ export default function FormDialog() {
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
-          <DialogContent>
+          <DialogContent className={classes.overflowNone}>
             <DialogContentText className={classes.subCategory}>
               Transaction Label/Note
               {/* <span  className={classes.forgotpass}>
