@@ -4,9 +4,11 @@ import styled from "styled-components";
 import TokenBalanceGraph from "./tokenBalanceGraph";
 import TokenTransferAmount from "./tokenTransferAmountGraph";
 import TokenTransferCount from "./tokenTransferCount";
+import TokeHistoryAnalytics from "../tokenHistoryAnalytics";
 import Utility from "../../../utility";
 import AccountService from "../../../services/accounts";
 import moment from "moment";
+import { useHistory, useParams } from 'react-router-dom'
 
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
@@ -27,16 +29,19 @@ const AnalyticsTabButton = styled.button`
 
 function TokenAnalytics(props) {
   const [graphData, setGraphData] = React.useState([]);
+  const { address } = useParams()
 
   React.useEffect(async () => {
     await getTokenBalance();
   }, []);
 
   const getTokenBalance = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userAddress = urlParams.get('userAddress');
     let request = {
-      walletAddress: "xdcad0eea4004bd8c442c488b4e45e28401f25905d5",
-      tokenAddress: "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
-      from: moment().subtract(1, "month").valueOf(),
+      walletAddress: userAddress,
+      tokenAddress: address,
+      from: moment().subtract(2, "month").valueOf(),
       to: moment().valueOf(),
       type: "",
     };
@@ -95,6 +100,9 @@ function TokenAnalytics(props) {
         )}
         {activeTab === "tokenTransferCounts" && (
             <TokenTransferCount />
+        )}
+        {activeTab === "historicalPrice" && (
+            <TokeHistoryAnalytics/>
         )}
       </Paper>
     </div>

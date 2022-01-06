@@ -19,6 +19,9 @@ label {
   font-family: "Inter" !important;
 }
 
+.highcharts-credits{
+  display: none !important;
+}
 
 input[placeholder] {
   text-overflow: ellipsis;
