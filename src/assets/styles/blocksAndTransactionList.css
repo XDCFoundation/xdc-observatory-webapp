@@ -330,7 +330,7 @@
   letter-spacing: 0.54px;
   text-align: center;
   color: #2a2a2a;
-  margin-right: 50px;
+  /*margin-right: 50px;*/
 }
 
 .select-amount {
@@ -855,7 +855,7 @@
   }
 }
 .bord-none {
-  border: none;
+  border: none !important;
 }
 @media (min-width: 1024px) {
   .pad-left-7 {
