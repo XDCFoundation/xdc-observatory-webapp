@@ -15,6 +15,9 @@ export const httpConstants = {
     WEB: "web",
   },
   API_END_POINT: {
+    GET_TOKEN_OVERVIEW: "/get-token-overview",
+    GET_HISTORY_PRICE: "/get-history-price",
+    GET_TOKEN_TRANSFER_COUNT: "/get-token-transfer-count",
     GET_TOKEN_BALANCE: "/get-token-balance",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
