@@ -33,7 +33,7 @@ const Pagination = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
-    width: 22.563rem;
+    width: 21rem;
     margin: 0 auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
