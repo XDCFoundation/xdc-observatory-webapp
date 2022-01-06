@@ -20,6 +20,7 @@ import Utils from "../../utility";
 import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
 import format from "format-number";
+import ContractData from "../../services/contract";
 
 var QRCode = require("qrcode.react");
 
@@ -68,42 +69,48 @@ const useStyles = makeStyles({
 export default function HoldersDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
-  // const [txtAddress, setTxtAddress] = useState('');
-  // const [balance, setBalance] = useState(0);
-  // const [convertCurrency, setConvertCurrency] = useState('');
-  // const [coinValue, setCoinValue] = useState(0);
-
   const [transactions, setTransactions] = useState([]);
 
   const [copiedText, setCopiedText] = useState("");
-  // let nowCurrency = window.localStorage.getItem('currency')
-  const [holder, setHolderDetail] = useState({});
-  // const [totalToken, setTotalToken] = useState({});
+
+  const [holder, setHolderDetail] = useState(0);
+  const [contractAddress, setContractAddress] = useState(0)
+  const [decimal, setDecimal] = useState(0)
   const { addr } = useParams();
   const { tn } = useParams();
 
   useEffect(() => {
     let values = { addr: addr, pageNum: 0, perpage: 1 };
     holderDetail(values);
-  }, []);
+    if (holder !== 0) {
+      getContractDetails()
+    }
+  }, [contractAddress]);
+
+  const getContractDetails = async () => {
+
+    let urlPath = `${contractAddress}`;
+    let [error, contractDecimal] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractDecimal) return;
+    setDecimal(contractDecimal.contractResponse?.decimals)
+  };
 
   const holderDetail = async (values) => {
     let [error, tns] = await Utils.parseResponse(
       TokenData.getHolderDetailsUsingAddressforToken(values)
     );
     if (error || !tns) return;
-    setHolderDetail(tns);
+    setHolderDetail(tns)
+    setContractAddress(tns[0]?.Contract_address);
   };
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
   const classes = useStyles();
-  // const options = {
-  //   htmlparser2: {
-  //     lowerCaseTags: false
-  //   }
-  // };
+
   return (
     <>
       <DeskTopView>
@@ -308,10 +315,10 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent />
+                  <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
-                <div
+                {/* <div
                   className={
                     toggleState === 2
                       ? "content_sec  active-content_sec"
@@ -319,7 +326,7 @@ export default function HoldersDetails(props) {
                   }
                 >
                   <HolderTableComponent trans={transactions} />
-                </div>
+                </div> */}
               </div>
             </div>
           </Grid>
@@ -553,18 +560,18 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent />
+                  <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
-                <div
+                {/* <div
                   className={
                     toggleState === 2
                       ? "content_sec  active-content_sec"
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent trans={transactions} />
-                </div>
+                  <HolderTableComponent  />
+                </div> */}
               </div>
             </div>
           </Grid>
