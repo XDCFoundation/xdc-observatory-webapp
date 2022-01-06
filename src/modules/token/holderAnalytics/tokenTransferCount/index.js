@@ -59,15 +59,9 @@ class TokenTransferCountGraph extends BaseComponent {
         const uniqueAddressReceived = [];
         for (let index = 0; index < data.length; index++) {
             const x = data[index].date;
-            totalTransferData.push({
-                x,
-                y: data[index].totalTransfers,
-            });
+            totalTransferData.push({x, y: data[index].totalTransfers,});
             inBoundData.push({x, y: data[index].inBoundTransfer});
-            outBoundData.push({
-                x,
-                y: data[index].outBoundTransfer,
-            });
+            outBoundData.push({x, y: data[index].outBoundTransfer,});
             uniqueAddressSent.push({
                 x,
                 y: data[index].uniqueAddressesSent,

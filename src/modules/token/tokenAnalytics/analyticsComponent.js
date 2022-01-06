@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Paper } from "@material-ui/core";
 import styled from "styled-components";
+import TokenHistory from "../tokenHistoryAnalytics"
+import TokenContractOverviewGraph from "./tokenContractOverview"
 
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
@@ -46,8 +48,8 @@ function TokenAnalytics(props) {
             Historical Price
           </AnalyticsTabButton>
         </div>
-        {activeTab === "tokenContractOverview" && 'Token Contract overview graph' }
-        {activeTab === "historicalPrice" && 'Historical Price graph'}
+        {activeTab === "tokenContractOverview" && <TokenContractOverviewGraph/> }
+        {activeTab === "historicalPrice" && <TokenHistory/>}
       </Paper>
     </div>
   );

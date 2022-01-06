@@ -1,5 +1,6 @@
-import { httpService } from "../managers/httpService";
-import { httpConstants } from "../constants";
+import {httpService} from "../managers/httpService";
+import {httpConstants} from "../constants";
+
 export default {
     getTotalAccount,
     getSomeDaysAccount,
@@ -9,12 +10,14 @@ export default {
     getHistoryPrice,
     getTokenOverview,
 };
+
 function getHeaders() {
     return {
         "Content-Type": httpConstants.CONTENT_TYPE.APPLICATION_JSON,
         "X-API-key": process.env.REACT_APP_X_API_KEY,
     };
 }
+
 async function getTotalAccount() {
     let url = process.env.REACT_APP_GET_TOTAL_ACCOUNTS;
     return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
@@ -32,6 +35,7 @@ async function getTotalAccount() {
             return Promise.reject(err);
         });
 }
+
 async function getSomeDaysAccount() {
     let url = process.env.REACT_APP_GET_SOME_DAYS_ACCOUNTS;
     return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
@@ -49,6 +53,7 @@ async function getSomeDaysAccount() {
             return Promise.reject(err);
         });
 }
+
 async function getLatestAccount(path, data) {
     let url = process.env.REACT_APP_GET_LATEST_ACCOUNTS + path;
     return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), data, url)
@@ -66,6 +71,7 @@ async function getLatestAccount(path, data) {
             return Promise.reject(err);
         });
 }
+
 async function getTokenBalance(data) {
     // let url =
     //   process.env.REACT_APP_GET_LATEST_ACCOUNTS +
@@ -87,6 +93,7 @@ async function getTokenBalance(data) {
             return Promise.reject(err);
         });
 }
+
 async function getTokenTransferCount(data) {
     // let url =
     //   process.env.REACT_APP_GET_LATEST_ACCOUNTS +
@@ -109,13 +116,11 @@ async function getTokenTransferCount(data) {
             return Promise.reject(err);
         });
 }
+
 async function getTokenOverview(data) {
-    // let url =
-    //   process.env.REACT_APP_GET_LATEST_ACCOUNTS +
-    //   httpConstants.API_END_POINT.GET_TOKEN_TRANSFER_COUNT;
-    let url =
-        "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008" +
-        httpConstants.API_END_POINT.GET_TOKEN_OVERVIEW;
+    let url = process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL + httpConstants.API_END_POINT.GET_TOKEN_OVERVIEW;
+    // let url = "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008" +
+    //     httpConstants.API_END_POINT.GET_TOKEN_OVERVIEW;
     return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
         .then((response) => {
             if (
@@ -131,13 +136,10 @@ async function getTokenOverview(data) {
             return Promise.reject(err);
         });
 }
+
 async function getHistoryPrice(data) {
-    // let url =
-    //   process.env.REACT_APP_GET_LATEST_ACCOUNTS +
-    //   httpConstants.API_END_POINT.GET_TOKEN_BALANCE;
-    let url =
-        "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008" +
-        httpConstants.API_END_POINT.GET_HISTORY_PRICE;
+    let url = process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL + httpConstants.API_END_POINT.GET_HISTORY_PRICE;
+    // let url = "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008" + httpConstants.API_END_POINT.GET_HISTORY_PRICE;
     return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
         .then((response) => {
             if (
