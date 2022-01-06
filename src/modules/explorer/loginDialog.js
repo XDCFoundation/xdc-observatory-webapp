@@ -1184,7 +1184,7 @@ export default function FormDialog(props) {
               }}
             >
               <ReCAPTCHA
-                sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
+                sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
                 onChange={handleReCaptcha}
               />
               <div style={{ marginLeft: 0 }} className={classes.error1}>

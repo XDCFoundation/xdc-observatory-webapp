@@ -3,12 +3,12 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {makeStyles} from "@material-ui/styles";
-import {Row, Column} from "simple-flexbox";
-import {history} from "../../managers/history";
+import { makeStyles } from "@material-ui/styles";
+import { Row, Column } from "simple-flexbox";
+import { history } from "../../managers/history";
 import utility from "../../utility";
 import Utility from "../../utility";
-import {sessionManager} from "../../managers/sessionManager";
+import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
 import { genericConstants } from "../../constants";
@@ -63,17 +63,7 @@ const useStyles = makeStyles((theme) => ({
             display: "none !important",
         }
     },
-    input: {
-        width: "433px",
-        height: "40px",
-        fontSize: "14px !important",
-        fontWeight: "500",
-        padding: "12px 19px 11px 19px",
-        borderRadius: "6px",
-        border: "solid 1px #9fa9ba",
-        backgroundColor: "#fff",
-        outline: "none",
-    },
+
     icon: {
         marginLeft: "-48px",
         marginBottom: "4px",
@@ -220,7 +210,7 @@ export default function ChangePassword(props) {
                 // utility.apiFailureToast("failed");
                 setErrorConfirmPassword("Failed to Change Password");
             } else {
-                setInterval((window.location.href = "/loginprofile"),3000);
+                setInterval((window.location.href = "/loginprofile"), 3000);
                 utility.apiSuccessToast("Password changed successfully");
                 sessionManager.setDataInCookies(authResponse, "userInfo");
                 sessionManager.setDataInCookies(true, "isLoggedIn");
@@ -234,7 +224,7 @@ export default function ChangePassword(props) {
     return (
         <Dialog
             // className={classes.dialog}
-            classes={{paperWidthSm: classes.dialogBox}}
+            classes={{ paperWidthSm: classes.dialogBox }}
             open
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
@@ -248,27 +238,27 @@ export default function ChangePassword(props) {
                         onClick={props.openChangePassword}
                         className={classes.closeContainer}
                     >
-            <img
-                className={classes.close}
-                src={"/images/XDC-Cross.svg"}
-            />
-          </span>
+                        <img
+                            className={classes.close}
+                            src={"/images/XDC-Cross.svg"}
+                        />
+                    </span>
                 </Row>
                 <Column>
                     <DialogContentText className={classes.subCategory}>
                         <span className={classes.pass}>Current Password</span>
                         <input
-    type={passwordShown1 ? "text" : "password"}
-    id="password"
-    placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-    className={classes.input}
-    onChange={(e) => {
-        {
-            setCurrentInput(e.target.value);
-            setError("");
-        }
-    }}
-    />
+                            type={passwordShown1 ? "text" : "password"}
+                            id="password"
+                            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                            className="change-password-input"
+                            onChange={(e) => {
+                                {
+                                    setCurrentInput(e.target.value);
+                                    setError("");
+                                }
+                            }}
+                        />
                         {passwordShown1 ? (
                             <img
                                 src={"/images/show.svg"}
@@ -290,7 +280,7 @@ export default function ChangePassword(props) {
                             type={passwordShown2 ? "text" : "password"}
                             id="password"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                            className={classes.input}
+                            className="change-password-input"
                             onChange={(e) => {
                                 {
                                     setNewInput(e.target.value);
@@ -319,7 +309,7 @@ export default function ChangePassword(props) {
                             type={passwordShown3 ? "text" : "password"}
                             id="password"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-                            className={classes.input}
+                            className="change-password-input"
                             onChange={(e) => {
                                 {
                                     setConfirmPassword(e.target.value);
@@ -345,7 +335,7 @@ export default function ChangePassword(props) {
                     {isLoading == true ? (
                         <div>
 
-                            <Loader/>
+                            <Loader />
                         </div>
 
                     ) : (
@@ -353,14 +343,14 @@ export default function ChangePassword(props) {
                     )}
 
                     <DialogActions className={classes.mobileDiv}
-                                   style={{
-                                       padding: 0,
-                                       //  alignItems: "center",
-                                       justifyContent: "center",
-                                       marginTop: "15px",
-                                       // marginLeft: "-5px",
-                                       // paddingRight : "0"
-                                   }}
+                        style={{
+                            padding: 0,
+                            //  alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: "15px",
+                            // marginLeft: "-5px",
+                            // paddingRight : "0"
+                        }}
                     >
                         {/* <div style={{ color: "red" }}> {isError}</div> */}
                         <button
