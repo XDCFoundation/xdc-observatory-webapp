@@ -5200,6 +5200,8 @@ button {
 }
 .tooltipLatestTransactionTableDashboard {
   margin: auto 0px auto 5px;
+  height: 14px;
+  width: 14px;
 }
 
 @media (min-width: 0px) and (max-width: 767px) {

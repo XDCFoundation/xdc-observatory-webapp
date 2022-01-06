@@ -74,7 +74,7 @@ let convertToInternationalCurrencySystem = function givenCurrency(num) {
     return (num / 1000000).toFixed(2) + " M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
     return (num / 1000000000).toFixed(2) + " B"; // convert to B for number from > 1 billion
-  } else if (num < 900) {
+  } else if (num < 999) {
     return num; // if value < 1000, nothing to do
   }
 };
@@ -171,8 +171,8 @@ class MarketDatatable extends Component {
       this.props.currency === "INR"
         ? "₹"
         : this.props.currency === "USD"
-        ? "$"
-        : "€";
+          ? "$"
+          : "€";
     return (
       <>
         <DeskTopView>
@@ -362,8 +362,8 @@ class MarketDatatable extends Component {
                       {!totalSupplyValue
                         ? 0
                         : utility.convertToInternationalCurrencySystem(
-                            totalSupplyValue
-                          )}
+                          totalSupplyValue
+                        )}
                     </p>
                   </div>
                 </div>
@@ -583,8 +583,8 @@ class MarketDatatable extends Component {
                     {!totalSupplyValue
                       ? 0
                       : utility.convertToInternationalCurrencySystem(
-                          totalSupplyValue
-                        )}
+                        totalSupplyValue
+                      )}
                   </p>
                 </div>
               </div>
