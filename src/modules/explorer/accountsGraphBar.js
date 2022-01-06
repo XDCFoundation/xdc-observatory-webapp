@@ -5,18 +5,19 @@ import moment from "moment";
 import { AccountService } from '../../services'
 import Utils from '../../utility'
 import styled from "styled-components";
+import format from "format-number";
 
 const toolTipElement = (props) => {
+    let accountCount = Number(props.point?.data?.y)
     return (
         <div>
             <div className="Tooltip-graph">
                 <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
-                <p className="Tooltip-graph-tx">Accounts: {props.point?.data?.y}</p>
+                <p className="Tooltip-graph-tx">Accounts: {format({})(accountCount)}</p>
             </div>
             <div class="outer-oval-trans">
                 <div class="Oval"></div>
             </div>
-            {/* <TriangleArrowDown /> */}
         </div>
     )
 }
