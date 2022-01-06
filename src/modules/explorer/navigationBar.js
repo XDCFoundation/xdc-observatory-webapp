@@ -197,11 +197,12 @@ export default function Navbar() {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
-      if (!responseData) {
+      if (!responseData || responseData[0]?.token?.length == 0) {
         Utility.apiFailureToast("No details found.");
       }
 
       if (responseData) {
+        console.log(responseData, "pppp")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -213,7 +214,7 @@ export default function Navbar() {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
+        } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
           let tokenDataUrl =
             "/token-data/" +
             responseData[0]?.token[0]?.address +
