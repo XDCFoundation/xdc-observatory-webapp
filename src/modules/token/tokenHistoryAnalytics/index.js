@@ -23,15 +23,15 @@ class TokenPriceHistoryGraph extends BaseComponent {
     }
 
     componentDidMount = () => {
-        this.generateGraphData();
+        this.getHistoricalTokenData();
     }
 
     getHistoricalTokenData = async () => {
         const tokenAddress = this.props.address;
         let request = {
             tokenAddress: tokenAddress,
-            from: moment().subtract(2, "month").valueOf(),
-            to: moment().valueOf(),
+            startTime: moment().subtract(2, "month").valueOf(),
+            endTime: moment().valueOf(),
         };
         let [error, response] = await utility.parseResponse(
             accounts.getHistoryPrice(request)
@@ -40,53 +40,53 @@ class TokenPriceHistoryGraph extends BaseComponent {
             this.generateGraphData([]);
             return;
         }
-        // this.generateGraphData(response);
+        this.generateGraphData(response);
     }
 
-    generateGraphData = () => {
-        const data = [{
-            "tokenAddress": "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
-            "closingTime": 1641427199000,
-            "openingTime": 1641340800000,
-            "highValueTime": 1641391199000,
-            "lowValueTime": 1641405599000,
-            "openingPrice": 100,
-            "highestPrice": 120,
-            "lowestPrice": 90,
-            "closingPrice": 105,
-            "volume": 66994920902.7202,
-            "marketCap": 4530215218.84018,
-            "timestamp": 1641340800000
-        },
-            {
-                "tokenAddress": "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
-                "closingTime": 1641427199000,
-                "openingTime": 1641340800000,
-                "highValueTime": 1641391199000,
-                "lowValueTime": 1641405599000,
-                "openingPrice": 100,
-                "highestPrice": 120,
-                "lowestPrice": 90,
-                "closingPrice": 120,
-                "volume": 66994920902.7202,
-                "marketCap": 4530215218.84018,
-                "timestamp": 1641487232000
-            },
-            {
-                "tokenAddress": "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
-                "closingTime": 1641427199000,
-                "openingTime": 1641340800000,
-                "highValueTime": 1641391199000,
-                "lowValueTime": 1641405599000,
-                "openingPrice": 100,
-                "highestPrice": 120,
-                "lowestPrice": 90,
-                "closingPrice": 150,
-                "volume": 66994920902.7202,
-                "marketCap": 4530215218.84018,
-                "timestamp": 1641573632000
-            }
-        ]
+    generateGraphData = (data) => {
+        // const data = [{
+        //     "tokenAddress": "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
+        //     "closingTime": 1641427199000,
+        //     "openingTime": 1641340800000,
+        //     "highValueTime": 1641391199000,
+        //     "lowValueTime": 1641405599000,
+        //     "openingPrice": 100,
+        //     "highestPrice": 120,
+        //     "lowestPrice": 90,
+        //     "closingPrice": 105,
+        //     "volume": 66994920902.7202,
+        //     "marketCap": 4530215218.84018,
+        //     "timestamp": 1641340800000
+        // },
+        //     {
+        //         "tokenAddress": "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
+        //         "closingTime": 1641427199000,
+        //         "openingTime": 1641340800000,
+        //         "highValueTime": 1641391199000,
+        //         "lowValueTime": 1641405599000,
+        //         "openingPrice": 100,
+        //         "highestPrice": 120,
+        //         "lowestPrice": 90,
+        //         "closingPrice": 120,
+        //         "volume": 66994920902.7202,
+        //         "marketCap": 4530215218.84018,
+        //         "timestamp": 1641487232000
+        //     },
+        //     {
+        //         "tokenAddress": "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
+        //         "closingTime": 1641427199000,
+        //         "openingTime": 1641340800000,
+        //         "highValueTime": 1641391199000,
+        //         "lowValueTime": 1641405599000,
+        //         "openingPrice": 100,
+        //         "highestPrice": 120,
+        //         "lowestPrice": 90,
+        //         "closingPrice": 150,
+        //         "volume": 66994920902.7202,
+        //         "marketCap": 4530215218.84018,
+        //         "timestamp": 1641573632000
+        //     }
+        // ]
         let options = {
             title: {
                 text: "",
