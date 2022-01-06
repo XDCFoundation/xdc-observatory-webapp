@@ -6,6 +6,7 @@ import { TransactionService } from "../../services";
 import Utils from "../../utility";
 import format from "format-number";
 import { toolTipMessages } from "../../constants";
+import Loader from "../../assets/loader";
 
 function TransactionDetailTooltip(props) {
   const [open, setOpen] = useState(false);
@@ -13,6 +14,7 @@ function TransactionDetailTooltip(props) {
   const [transactions, setTransactionDetail] = useState(0);
   const [price, setPrice] = useState(0);
   const [timeStamp, setTimeStamp] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   let CurrencyValue = window.localStorage.getItem("currency");
   let menuRef = useRef();
@@ -46,6 +48,7 @@ function TransactionDetailTooltip(props) {
     if (error || !transactiondetailusinghash) return;
     setTransactionDetail(transactiondetailusinghash);
     setTimeStamp(transactiondetailusinghash?.timestamp);
+    setIsLoading(false);
   };
 
   const getCoinMarketDetailForTransaction = async () => {
@@ -96,107 +99,117 @@ function TransactionDetailTooltip(props) {
         offset={[0, 0]}
         content={
           <div ref={menuRef} className={"transaction-detail-tooltip"}>
-            <p className="fs-14 additional-details">Additional Details</p>
-            <div className="display-flex">
-              <Tippy align="right" content={"Status of the transaction."}>
-                <img
-                  className="w-14-px h-14 m-r-10"
-                  src="/images/question_mark_tooltip.svg"
-                ></img>
-              </Tippy>
-              <div className="detail-heading">Status</div>
-            </div>
-            {transactions && transactions.status == true ? (
-              <div className="success-text">Success</div>
+            {isLoading == true ? (
+              <div className="tooltip-loader-div">
+                <Loader />
+              </div>
             ) : (
-              <div className="failed-text">Failed</div>
+              <div>
+                <p className="fs-14 additional-details">Additional Details</p>
+                <div className="display-flex">
+                  <Tippy align="right" content={"Status of the transaction."}>
+                    <img
+                      className="w-14-px h-14 m-r-10"
+                      src="/images/question_mark_tooltip.svg"
+                    ></img>
+                  </Tippy>
+                  <div className="detail-heading">Status</div>
+                </div>
+                {transactions && transactions.status == true ? (
+                  <div className="success-text">Success</div>
+                ) : (
+                  <div className="failed-text">Failed</div>
+                )}
+                <hr className="line-detail-tooltip"></hr>
+                <div className="display-flex">
+                  <Tippy align="left" content={toolTipMessages.value}>
+                    <img
+                      className="w-14-px h-14 m-r-10"
+                      src="/images/question_mark_tooltip.svg"
+                    ></img>
+                  </Tippy>{" "}
+                  <div className="detail-heading">Value</div>
+                </div>
+                <div className="detail-heading-text">
+                  {ValueMain}&nbsp; XDC ({currencySymbol}
+                  {valueDiv})
+                </div>
+                <hr className="line-detail-tooltip"></hr>
+                <div className="display-flex">
+                  <Tippy align="left" content={toolTipMessages.txnfee}>
+                    <img
+                      className="w-14-px h-14 m-r-10"
+                      src="/images/question_mark_tooltip.svg"
+                    ></img>
+                  </Tippy>{" "}
+                  <div className="detail-heading">Txn Free</div>
+                </div>
+                <div className="detail-heading-text">
+                  {txfee == 0
+                    ? 0
+                    : parseFloat(txfee)?.toFixed(8).replace(/0+$/, "")}{" "}
+                  XDC ({currencySymbol}
+                  {fetchtxn})
+                </div>
+                <hr className="line-detail-tooltip"></hr>
+                <div className="display-flex">
+                  <Tippy align="left" content={toolTipMessages.gasprovided}>
+                    <img
+                      className="w-14-px h-14 m-r-10"
+                      src="/images/question_mark_tooltip.svg"
+                    ></img>
+                  </Tippy>{" "}
+                  <div className="detail-heading">Gas Provided</div>
+                </div>
+                <div className="detail-heading-text">
+                  {format({})(transactions.gas)}
+                </div>
+                <hr className="line-detail-tooltip"></hr>
+                <div className="display-flex">
+                  <Tippy align="left" content={toolTipMessages.gasprice}>
+                    <img
+                      className="w-14-px h-14 m-r-10"
+                      src="/images/question_mark_tooltip.svg"
+                    ></img>
+                  </Tippy>{" "}
+                  <div className="detail-heading">Gas Price</div>
+                </div>
+                <div className="detail-heading-text">
+                  {gasP == 0
+                    ? 0
+                    : parseFloat(gasP)?.toFixed(12).replace(/0+$/, "")}
+                </div>
+                <hr className="line-detail-tooltip"></hr>
+                <div className="display-flex">
+                  <Tippy align="left" content={toolTipMessages.nounced}>
+                    <img
+                      className="w-14-px h-14 m-r-10"
+                      src="/images/question_mark_tooltip.svg"
+                    ></img>
+                  </Tippy>{" "}
+                  <div className="detail-heading">Nonce</div>
+                </div>
+                <div className="detail-heading-text">{transactions?.nonce}</div>
+                <div className="tooltip-link-div">
+                  <div>
+                    <a
+                      href={"/transaction-details/" + transactionHash}
+                      className="tooltip-link"
+                    >
+                      Transaction Details
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href={"/transaction-details/" + transactionHash}
+                      className="tooltip-link"
+                    >
+                      <img className={"show-arrow"} src={"/images/arrow.svg"} />
+                    </a>
+                  </div>
+                </div>
+              </div>
             )}
-            <hr className="line-detail-tooltip"></hr>
-            <div className="display-flex">
-              <Tippy align="left" content={toolTipMessages.value}>
-                <img
-                  className="w-14-px h-14 m-r-10"
-                  src="/images/question_mark_tooltip.svg"
-                ></img>
-              </Tippy>{" "}
-              <div className="detail-heading">Value</div>
-            </div>
-            <div className="detail-heading-text">
-              {ValueMain}&nbsp; XDC ({currencySymbol}
-              {valueDiv})
-            </div>
-            <hr className="line-detail-tooltip"></hr>
-            <div className="display-flex">
-              <Tippy align="left" content={toolTipMessages.txnfee}>
-                <img
-                  className="w-14-px h-14 m-r-10"
-                  src="/images/question_mark_tooltip.svg"
-                ></img>
-              </Tippy>{" "}
-              <div className="detail-heading">Txn Free</div>
-            </div>
-            <div className="detail-heading-text">
-              {txfee == 0
-                ? 0
-                : parseFloat(txfee)?.toFixed(8).replace(/0+$/, "")}{" "}
-              XDC ({currencySymbol}
-              {fetchtxn})
-            </div>
-            <hr className="line-detail-tooltip"></hr>
-            <div className="display-flex">
-              <Tippy align="left" content={toolTipMessages.gasprovided}>
-                <img
-                  className="w-14-px h-14 m-r-10"
-                  src="/images/question_mark_tooltip.svg"
-                ></img>
-              </Tippy>{" "}
-              <div className="detail-heading">Gas Provided</div>
-            </div>
-            <div className="detail-heading-text">
-              {format({})(transactions.gas)}
-            </div>
-            <hr className="line-detail-tooltip"></hr>
-            <div className="display-flex">
-              <Tippy align="left" content={toolTipMessages.gasprice}>
-                <img
-                  className="w-14-px h-14 m-r-10"
-                  src="/images/question_mark_tooltip.svg"
-                ></img>
-              </Tippy>{" "}
-              <div className="detail-heading">Gas Price</div>
-            </div>
-            <div className="detail-heading-text">
-              {gasP == 0 ? 0 : parseFloat(gasP)?.toFixed(12).replace(/0+$/, "")}
-            </div>
-            <hr className="line-detail-tooltip"></hr>
-            <div className="display-flex">
-              <Tippy align="left" content={toolTipMessages.nounced}>
-                <img
-                  className="w-14-px h-14 m-r-10"
-                  src="/images/question_mark_tooltip.svg"
-                ></img>
-              </Tippy>{" "}
-              <div className="detail-heading">Nonce</div>
-            </div>
-            <div className="detail-heading-text">{transactions?.nonce}</div>
-            <div className="tooltip-link-div">
-              <div>
-                <a
-                  href={"/transaction-details/" + transactionHash}
-                  className="tooltip-link"
-                >
-                  Transaction Details
-                </a>
-              </div>
-              <div>
-                <a
-                  href={"/transaction-details/" + transactionHash}
-                  className="tooltip-link"
-                >
-                  <img className={"show-arrow"} src={"/images/arrow.svg"} />
-                </a>
-              </div>
-            </div>
           </div>
         }
       >
