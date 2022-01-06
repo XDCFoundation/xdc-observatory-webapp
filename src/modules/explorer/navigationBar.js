@@ -653,6 +653,7 @@ export default function Navbar() {
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
     font-size: 0.875rem;
+  }
   `;
 
   const MobileNavigationContainer = styled.div`

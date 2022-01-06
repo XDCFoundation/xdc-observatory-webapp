@@ -125,8 +125,8 @@ const useStyles = makeStyles({
     margin: "110px 0 0 580px",
   },
   table: {
-    marginBottom: "200px"
-  }
+    marginBottom: "200px",
+  },
 });
 
 export default function StickyHeadTable() {
@@ -141,6 +141,13 @@ export default function StickyHeadTable() {
   const [isLoading, setLoading] = useState(true);
   const { address } = useParams();
 
+  // tooltip states
+  const [txHashToolTop, setTxHashToolTop] = React.useState(false);
+  const [ageToolTip, setAgeToolTip] = React.useState(false);
+  const [blockToolTip, setBlockToolTip] = React.useState(false);
+  const [fromToolTip, setFromToolTip] = React.useState(false);
+  const [toToolTip, setToToolTip] = React.useState(false);
+
   useEffect(() => {
     let values = { addr: address, pageNum: page, perpage: rowsPerPage };
     transferDetail(values);
@@ -149,9 +156,7 @@ export default function StickyHeadTable() {
   }, []);
 
   const transferDetail = async (values) => {
-    let [error, tns] = await Utils.parseResponse(
-      TokenData.getListOfTransferTransactionsForToken(values)
-    );
+    let [error, tns] = await Utils.parseResponse(TokenData.getListOfTransferTransactionsForToken(values));
     if (!tns || tns.length == 0) {
       setNoData(false);
       setLoading(false);
@@ -162,9 +167,7 @@ export default function StickyHeadTable() {
   };
   const getTotalTransferToken = async (data) => {
     try {
-      const [error, responseData] = await Utils.parseResponse(
-        TokenData.getTotalTransferTransactionsForToken(data)
-      );
+      const [error, responseData] = await Utils.parseResponse(TokenData.getTotalTransferTransactionsForToken(data));
       setTotalToken(responseData?.responseData);
     } catch (error) {
       console.error(error);
@@ -209,10 +212,7 @@ export default function StickyHeadTable() {
   };
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
-    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(
-      b.length - 3,
-      b.length
-    )}`;
+    return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(b.length - 3, b.length)}`;
   }
 
   const NoDataFoundContainer = styled.div`
@@ -239,8 +239,14 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-hash"}>
                     Transaction Hash
-                    <Tooltip placement="top" title={messages.HASH}>
+                    <Tooltip
+                      open={txHashToolTop}
+                      onOpen={() => setTxHashToolTop(true)}
+                      onClose={() => setTxHashToolTop(false)}
+                      placement="top"
+                      title={messages.HASH}>
                       <img
+                        onClick={() => setTxHashToolTop(!txHashToolTop)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -252,21 +258,31 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-age"}>
                     Age
-                    <Tooltip placement="top" title={messages.AGE}>
+                    <Tooltip
+                    open={ageToolTip}
+                    onOpen={() => setAgeToolTip(true)}
+                    onClose={() => setAgeToolTip(false)}
+                     placement="top" title={messages.AGE}>
                       <img
+                      onClick={() => setAgeToolTip(!ageToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
                         className="tooltipLatestTransactionTableDashboard"
                       />
                     </Tooltip>
-                    </span>
+                  </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-block"}>
                     Block
-                    <Tooltip placement="top" title={messages.BLOCK}>
+                    <Tooltip 
+                    open={blockToolTip}
+                    onOpen={() => setBlockToolTip(true)}
+                    onClose={() => setBlockToolTip(false)}
+                     placement="top" title={messages.BLOCK}>
                       <img
+                      onClick={() => setBlockToolTip(!blockToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -278,8 +294,13 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-from"}>
                     From
-                    <Tooltip placement="top" title={messages.FROM}>
+                    <Tooltip 
+                    open={fromToolTip}
+                    onOpen={() => setFromToolTip(true)}
+                    onClose={() => setFromToolTip(false)}
+                     placement="top" title={messages.FROM}>
                       <img
+                      onClick={() => setFromToolTip(!fromToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -291,8 +312,12 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-to"}>
                     To
-                    <Tooltip placement="top" title={messages.TO}>
+                    <Tooltip open={toToolTip}
+                    onOpen={() => setToToolTip(true)}
+                    onClose={() => setToToolTip(false)}
+                     placement="top" title={messages.TO}>
                       <img
+                      onClick={() => setToToolTip(!toToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -323,55 +348,31 @@ export default function StickyHeadTable() {
                 return (
                   <StyledTableRow tabIndex={-1} key={row.code}>
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a
-                        style={{ color: "#2b51bc", fontSize: 11 }}
-                        href={"/transfer-transaction-details/" + row.hash}
-                      >
-                        <span className="tabledata table-data">
-                          {shorten(row.hash)}
-                        </span>
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/transfer-transaction-details/" + row.hash}>
+                        <span className="tabledata table-data">{shorten(row.hash)}</span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      <span
-                        style={{ color: "#2a2a2a" }}
-                        className="tabledata table-data"
-                      >
+                      <span style={{ color: "#2a2a2a" }} className="tabledata table-data">
                         {ti}
                       </span>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a
-                        style={{ color: "#2b51bc", fontSize: 11 }}
-                        href={"/block-details/" + row.blockNumber}
-                      >
-                        <span className="tabledata table-data">
-                          {" "}
-                          {row.blockNumber}
-                        </span>
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/block-details/" + row.blockNumber}>
+                        <span className="tabledata table-data"> {row.blockNumber}</span>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a
-                        style={{ color: "#2b51bc", fontSize: 11 }}
-                        href="#text"
-                      >
+                      <a style={{ color: "#2b51bc", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.from}>
-                          <span className="tabledata table-data">
-                            {shorten(row.from)}
-                          </span>
+                          <span className="tabledata table-data">{shorten(row.from)}</span>
                         </Tooltip>
                       </a>
                     </TableCell>
                     <TableCell id="td" style={{ border: "none" }}>
-                      <a
-                        style={{ color: "#2419b9", fontSize: 11 }}
-                        href="#text"
-                      >
+                      <a style={{ color: "#2419b9", fontSize: 11 }} href="#text">
                         <Tooltip placement="top" title={row.to}>
-                          <span className="tabledata table-data">
-                            {shorten(row.to)}
-                          </span>
+                          <span className="tabledata table-data">{shorten(row.to)}</span>
                         </Tooltip>
                       </a>
                     </TableCell>
@@ -393,9 +394,7 @@ export default function StickyHeadTable() {
           </Table>
           {noData == false && (
             <NoDataFoundContainer>
-              <img
-                src={require("../../../src/assets/images/XDC-Alert.svg")}
-              ></img>
+              <img src={require("../../../src/assets/images/XDC-Alert.svg")}></img>
 
               <div className="not-found">No Transfers Found</div>
             </NoDataFoundContainer>
@@ -420,20 +419,13 @@ export default function StickyHeadTable() {
             display: "flex",
             flexDirection: "row",
             marginRight: "0%",
-          }}
-        >
-          <div
-            className={page === 0 ? "firstbox disabled" : "firstbox"}
-            onClick={() => handleChangePage("first")}
-          >
+          }}>
+          <div className={page === 0 ? "firstbox disabled" : "firstbox"} onClick={() => handleChangePage("first")}>
             <button style={{ backgroundColor: "white" }} className="first">
               First
             </button>
           </div>
-          <div
-            className={page === 0 ? "previousbox disabled" : "previousbox"}
-            onClick={() => handleChangePage("prev")}
-          >
+          <div className={page === 0 ? "previousbox disabled" : "previousbox"} onClick={() => handleChangePage("prev")}>
             <p className="path">
               <img src={"/images/back.svg"} width="9px" />
             </p>
@@ -441,27 +433,18 @@ export default function StickyHeadTable() {
           <div className="pagebox">
             <p className="Page-1-of-5">
               Page&nbsp;
-              {Math.ceil(totalToken / rowsPerPage) -
-                Math.ceil((totalToken - page) / rowsPerPage) +
-                1}
+              {Math.ceil(totalToken / rowsPerPage) - Math.ceil((totalToken - page) / rowsPerPage) + 1}
               &nbsp;of {Math.ceil(totalToken / rowsPerPage)}
             </p>
           </div>
-          <div
-            className={
-              page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"
-            }
-          >
+          <div className={page + rowsPerPage === totalToken ? "nextbox disabled" : "nextbox"}>
             <p className="path-2" onClick={() => handleChangePage("next")}>
               <img src={"/images/next.svg"} width="9px" />
             </p>
           </div>
           <div
-            className={
-              page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"
-            }
-            onClick={() => handleChangePage("last")}
-          >
+            className={page + rowsPerPage === totalToken ? "lastbox disabled" : "lastbox"}
+            onClick={() => handleChangePage("last")}>
             <button style={{ backgroundColor: "white" }} className="last">
               Last
             </button>

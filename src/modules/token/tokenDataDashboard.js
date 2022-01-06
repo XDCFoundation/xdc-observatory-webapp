@@ -438,8 +438,8 @@ export default function TokenDataComponent() {
                 } */}
                 <img
                   style={{
-                    height: "24",
-                    width: "24",
+                    height: "42px",
+                    width: "42px",
                     marginRight: "4px",
                     marginTop: "3px",
                   }}
