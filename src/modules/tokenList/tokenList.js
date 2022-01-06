@@ -401,7 +401,7 @@ export default function StickyHeadTable(props) {
       {/* </div> */}
 
       <br />
-    
+
       <Paper
         className={"responsive-table-width-token-list token-list-tab_11"}
         style={{
@@ -425,10 +425,10 @@ export default function StickyHeadTable(props) {
             <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
               <TableRow>
                 <TableCell
-                  style={{ border: "none", paddingLeft: "75px"}}
+                  style={{ border: "none", paddingLeft: "75px" }}
                   align="left"
                 >
-                  <span style={{display:"flex"}}>
+                  <span className={"tablehead-token-details"}>
                     #
                     <Tooltip placement="top" title={messages.SI_NO}>
                       <img

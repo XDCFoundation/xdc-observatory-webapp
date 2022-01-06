@@ -5200,6 +5200,8 @@ button {
 }
 .tooltipLatestTransactionTableDashboard {
   margin: auto 0px auto 5px;
+  height: 14px;
+  width: 14px;
 }
 
 @media (min-width: 0px) and (max-width: 767px) {
@@ -10161,4 +10163,18 @@ button {
 }
 .tooltip-loader-div {
   margin-top: 50%;
+}
+.change-password-input {
+  width: 433px;
+  height: 40px;
+  font-size: 14px !important;
+  font-weight: 500;
+  padding: 12px 19px 11px 19px;
+  border-radius: 6px;
+  border: solid 1px #9fa9ba;
+  background-color: #fff;
+  outline: none;
+}
+.change-password-input::placeholder {
+  color: #e3e7eb;
 }
