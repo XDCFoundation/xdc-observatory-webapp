@@ -18,7 +18,9 @@ import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import Utils from "../../utility";
 import styled from "styled-components";
-import { messages } from "../../constants"
+import { messages } from "../../constants";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+
 
 const useStyles = makeStyles({
   container: {
@@ -46,6 +48,19 @@ const useStyles = makeStyles({
     border: "none !important",
     borderBottom: "none !important",
     paddingLeft: "0% !important",
+  },
+  btn: {
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
+  sortButton: {
+    color: "#3763dd",
+    height: "20px",
+    width: "15px",
+    marginLeft: "5px",
   },
   "@media (max-width: 1024px)": {
     container: {
@@ -197,6 +212,12 @@ export default function AccountComponent(props) {
                           />
                         </Tooltip>
                       </span>
+                      <Tooltip placement="top"  title={props.getSortTitle("balanceSort")}>
+                      <ArrowUpwardIcon
+                        onClick={() => { props.sortData("balanceSort") }}
+                        className={classes.sortButton}
+                      />
+                    </Tooltip>
                     </TableCell>
                   )}
 
@@ -216,6 +237,12 @@ export default function AccountComponent(props) {
                       />
                     </Tooltip>
                         </span>
+                        <Tooltip placement="top"  title={props.getSortTitle("percentageSort")}>
+                        <ArrowUpwardIcon
+                        onClick={() => { props.sortData("percentageSort") }}
+                        className={classes.sortButton}
+                      />
+                      </Tooltip>
                     </TableCell>
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
@@ -340,6 +367,7 @@ export default function AccountComponent(props) {
                                     </span>
                                   )}
                                 </Tooltip>
+
                               </TableCell>
                             )}
                             {props.state.tableColumns["Percentage"]
