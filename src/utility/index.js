@@ -311,7 +311,7 @@ function apiFailureToast(message) {
 }
 
 function apiSuccessToast(msg) {
-  toast.success(msg ? msg : "apiConstant.API_SUCCESS");
+  // toast.success(msg ? msg : "apiConstant.API_SUCCESS");
 }
 
 function generateGUID() {
