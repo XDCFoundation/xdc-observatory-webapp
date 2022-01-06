@@ -32,12 +32,12 @@ const useStyles = makeStyles({
   RankColumn: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "5.8% !important",
+    // paddingLeft: "5.8% !important",
   },
   RankColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "5% !important",
+    paddingLeft: "2% !important",
   },
   PercentageColumn: {
     border: "none !important",
