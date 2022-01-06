@@ -733,7 +733,8 @@
     letter-spacing: 0.54px;
     text-align: center;
     color: #2a2a2a !important;
-    margin-right: 27px;
+    margin-right: 20px;
+    margin-left: 10px;
   }
   #container-table td {
     /* padding: 7px 0 6px 20px; */
@@ -814,7 +815,7 @@
     justify-content: space-between;
   }
   .pl--1 {
-    margin-left: -8.5% !important;
+    /* margin-left: -8.5% !important; */
   }
 }
 
@@ -851,7 +852,7 @@
     justify-content: space-between;
   }
   .pl--1 {
-    margin-left: -8.5% !important;
+    /* margin-left: -8.5% !important; */
   }
 }
 .bord-none {
@@ -929,6 +930,7 @@
     color: #252525;
 
     margin-right: 27px;
+    margin-left: 10px;
   }
 }
 .block-list-all {
