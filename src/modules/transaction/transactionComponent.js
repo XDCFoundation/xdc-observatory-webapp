@@ -19,6 +19,7 @@ import { messages } from "../../constants"
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import format from "format-number";
 import utility from "../../utility";
+import PageSelector from "../common/pageSelector";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -520,17 +521,9 @@ export default function TransactionComponent(props) {
         {/* <Pagination> */}
         <Grid className="Pagination_1">
           <span className="text">Show</span>
-          <select
-            value={props.state.amount}
-            className="select-amount"
-            onChange={(event) => props._handleChange(event)}
-          >
-            <option value={10}>10</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-            <option value={75}>75</option>
-            <option value={100}>100</option>
-          </select>
+          <PageSelector value={props.state.amount}
+                        height={30}
+                        handler={props._handleChange}/>
           <span className="text">Records</span>
         </Grid>
 

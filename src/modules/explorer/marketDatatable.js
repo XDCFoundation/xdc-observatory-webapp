@@ -13,13 +13,13 @@ const DeskTopView = styled.div`
   }
 
   @media (min-width: 768px) {
-    display: visible;
+    display: block;
   }
 `;
 
 const MobileView = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
-    display: visible;
+    display: block;
   }
 
   @media (min-width: 768px) {
