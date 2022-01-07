@@ -125,7 +125,7 @@ export default function TransactionComponent(props) {
   const tableColumns = { "Transaction Hash": { isActive: true } };
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
-      <div className="display-flex justify-content-between p-t-30 p-b-30">
+      <div className="display-flex justify-content-between p-t-30 p-b-15">
         <div class="fs-24 fw-bold">{state.tableName}</div>
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
@@ -403,7 +403,7 @@ export default function TransactionComponent(props) {
                               }
                             >
                               {moment(row.timestamp * 1000).format(
-                                "MMMM DD, YYYY"
+                                "MMM DD, YYYY h:mm A"
                               )}
                             </span>
                           </TableCell>
@@ -463,6 +463,7 @@ export default function TransactionComponent(props) {
                             border: "none",
                             width: "155px",
                             paddingLeft: "2.813rem",
+                            paddingRight: "15px"
                           }}
                           align="left"
                         >
