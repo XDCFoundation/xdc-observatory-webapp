@@ -12,8 +12,12 @@ import utility from "../../../utility";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
+  overflowNone : {
+    overflow : "initial"
+  },
   add: {
     // marginLeft: "80%",
     // backgroundColor: "#f5f8fa",
@@ -86,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
+    resize: "none",
   },
   addbtn: {
     width: "110px",
@@ -207,7 +212,7 @@ const LightToolTip = withStyles({
   },
 })(Tooltip);
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [error, setError] = React.useState("");
@@ -238,19 +243,41 @@ export default function FormDialog() {
     } else if (!PrivateNote) {
       setPrivateNoteError("Private Note is required");
     } else {
-      const [error, response] = await utility.parseResponse(
-        UserService.postUserPrivateNote(data)
-      );
+      // const [error, response] = await utility.parseResponse(
+      //   UserService.postUserPrivateNote(data)
+      // );
 
-      if (error || !response) {
-        utility.apiFailureToast("Transaction private note is already in use");
-        return;
+      // if (error || !response) {
+      //   utility.apiFailureToast("Transaction private note is already in use");
+      //   return;
+      // }
+      let transactionLabel = localStorage.getItem(
+        cookiesConstants.USER_TRASACTION_LABELS
+      );
+      if (transactionLabel) {
+        transactionLabel = JSON.parse(transactionLabel);
+        const existingTransactionLabel = transactionLabel.find(
+          (item) =>
+            item.address == TransactionsHash && item.userId == data.userId
+        );
+        if (existingTransactionLabel) {
+          utility.apiFailureToast("Transaction private note is already in use");
+          return;
+        }
+      } else {
+        transactionLabel = [];
       }
+      transactionLabel.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TRASACTION_LABELS,
+        JSON.stringify(transactionLabel)
+      );
       utility.apiSuccessToast("Transaction Added");
-      window.location.reload();
       setTransactionsHash("");
       setPrivateNote("");
       setOpen(false);
+      await props.getListOfTxnLabel();
+      await props.getTotalCountTxnLabel();
     }
   }
   const classes = useStyles();
@@ -366,7 +393,7 @@ export default function FormDialog() {
               Add Transaction Label
             </div>
           </Row>
-          <DialogContent>
+          <DialogContent className={classes.overflowNone}>
             <DialogContentText className={classes.subCategory}>
               Transaction Hash
             </DialogContentText>
@@ -380,7 +407,7 @@ export default function FormDialog() {
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>
-          <DialogContent>
+          <DialogContent className={classes.overflowNone}>
             <DialogContentText className={classes.subCategory}>
               Transaction Label/Note
               {/* <span  className={classes.forgotpass}>

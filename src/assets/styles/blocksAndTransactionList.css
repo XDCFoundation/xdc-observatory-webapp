@@ -330,7 +330,7 @@
   letter-spacing: 0.54px;
   text-align: center;
   color: #2a2a2a;
-  margin-right: 50px;
+  /*margin-right: 50px;*/
 }
 
 .select-amount {
@@ -544,11 +544,13 @@
   padding-top: 1.563rem;
   margin: auto;
   width: 100%;
+  overflow: auto;
 }
 .tablegrid_no_data {
   padding-top: 1.563rem;
   margin: auto;
   width: 100%;
+  overflow: auto;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .tablegrid_address {
@@ -856,7 +858,7 @@
   }
 }
 .bord-none {
-  border: none;
+  border: none !important;
 }
 @media (min-width: 1024px) {
   .pad-left-7 {

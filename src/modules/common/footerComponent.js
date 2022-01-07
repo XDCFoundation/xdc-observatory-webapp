@@ -148,8 +148,7 @@ export default function FooterComponent(props) {
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                  The XDC Observatory is a Block Observatory and Analytics
-                  Platform for XDC, a decentralized smart contracts platform.
+                The XDC Observatory is a feature-rich block explorer and analytics platform for the XDC blockchain network.
                 </p>
               </div>
             </div>
@@ -326,12 +325,12 @@ export default function FooterComponent(props) {
                 </a>
               </li>
               <li className="Table-Comp">
-                <a href="https://xinfin.org/privacy.php" target="_blank">
+                <a href="https://observer.xdc.org/privacy-policy" target="_blank">
                   Privacy Policy
                 </a>
               </li>
               <li className="Table-Comp">
-                <a href="https://xinfin.org/disclaimer.php" target="_blank">
+                <a href="https://observer.xdc.org/term-conditions" target="_blank">
                   Disclaimer
                 </a>
               </li>

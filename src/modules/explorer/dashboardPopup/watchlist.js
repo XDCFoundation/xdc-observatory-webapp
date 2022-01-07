@@ -18,6 +18,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import Utils from "../../../utility";
 import styled from "styled-components";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -223,7 +224,7 @@ const LightToolTip = withStyles({
   },
 })(Tooltip);
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -279,19 +280,41 @@ export default function FormDialog() {
       setDescriptionError("Description is required");
     } else {
       if (value === "NO") request["isEnabled"] = false;
-      const [error, response] = await utility.parseResponse(
-        AddWatchList.addWatchlist(request)
-      );
+      // const [error, response] = await utility.parseResponse(
+      //   AddWatchList.addWatchlist(request)
+      // );
 
-      if (error || !response) {
-        utility.apiFailureToast("Address already exists");
-        return;
+      // if (error || !response) {
+      //   utility.apiFailureToast("Address already exists");
+      //   return;
+      // }
+      let watchlists = localStorage.getItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      if (watchlists) {
+        watchlists = JSON.parse(watchlists);
+        const existingWatchList = watchlists.find(
+          (item) =>
+            item.address == request.address && item.userId == request.userId
+        );
+        if (existingWatchList) {
+          utility.apiFailureToast("Address already exists");
+          return;
+        }
+      } else {
+        watchlists = [];
       }
+      watchlists.push(request);
+      localStorage.setItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        JSON.stringify(watchlists)
+      );
       utility.apiSuccessToast("Address added to watchlist");
       setAddress("");
       setDescription("");
       setOpen(false);
-      window.location.reload();
+      await props.getWatchlistList();
+      await props.getTotalCountWatchlist();
     }
   };
 

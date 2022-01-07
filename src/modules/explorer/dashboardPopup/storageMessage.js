@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
         background: "#102e84",
         position: "fixed",
         bottom: "0",
+        zIndex: 1,
     },
     containerContent: {
         display: "flex",

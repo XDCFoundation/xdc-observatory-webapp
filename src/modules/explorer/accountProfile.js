@@ -38,14 +38,14 @@ import Utils from "../../utility";
 import { Column, Row } from "simple-flexbox";
 import TransactionPDF from "../../common/components/transactionPDF";
 import AddressPDF from "../../common/components/tagAddressPDF";
-import { PDFDownloadLink , StyleSheet } from '@react-pdf/renderer';
-import { messages } from "../../constants"
+import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
+import { messages } from "../../constants";
 import StorageMessage from "./dashboardPopup/storageMessage";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
-}
+
   & .paginationBttns {
     list-style: none;
     display: flex;
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginRight: "1.5rem",
     paddingTop: "0.125rem",
   },
-})
+});
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -237,7 +237,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "710px",
       width: "100%",
-      padding: "0 10px",
     },
   },
 
@@ -281,13 +280,13 @@ const useStyles = makeStyles((theme) => ({
       color: "#6b7482",
     },
     profileName: {
-      color:"#252525",
-      fontSize:"14px"
+      color: "#252525",
+      fontSize: "14px",
     },
     editProfile: {
-      color:"#252525",
-      fontSize:"14px"
-    }
+      color: "#252525",
+      fontSize: "14px",
+    },
   },
   btn: {
     textAlign: "start",
@@ -350,7 +349,7 @@ const UserNameContainer = styled.div`
   align-items: center;
 
   @media (max-width: 850px) {
-    padding: 0 0 0 10px !important;
+    /* padding: 0 0 0 10px !important; */
     max-width: 710px;
   }
 
@@ -360,7 +359,7 @@ const UserNameContainer = styled.div`
 
   @media (max-width: 400px) {
     gap: 12px;
-    margin:10px auto;
+    margin: 10px auto;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
@@ -400,34 +399,32 @@ export default function SimpleTabs(props) {
   const [downloadTxnPvtNote, setDownloadTxnPvtNote] = React.useState([]);
   const [downloadTagAddress, setDownloadTagAddress] = React.useState([]);
   const [isDownloadActive, setDownloadActive] = React.useState(0);
-  
 
   React.useEffect(() => {
     getUserWatchlist();
-    async function getUserWatchlist() {
-      const data = sessionManager.getDataFromCookies("userId");
-      const response = await UserService.getUserWatchlist(data);
-      // setWatchlist(response);
-
-      setTotalCount1(response.length);
-      
-      setTablevalue(1);
-    }
-    getuserdata();
-    async function getuserdata() {
-      const data = sessionManager.getDataFromCookies("userId");
-      const response = await UserService.getUserPrivateNote(data);
-      // setAddress(response);
-      setTotalCount2(response.length);
-    }
+    getUserTxnLabel();
     getPvtTagAddress();
-    async function getPvtTagAddress() {
-      const data = sessionManager.getDataFromCookies("userId");
-      const response = await UserService.getPrivateTagToAddress(data);
-      // setPrivateAddress(response);
-      setTotalCount3(response.length);
-    }
   }, []);
+
+  async function getUserWatchlist() {
+    const data = sessionManager.getDataFromCookies("userId");
+    const response = await UserService.getUserWatchlist(data);
+    // setWatchlist(response);
+    setTotalCount1(response.length);
+    setTablevalue(1);
+  }
+  async function getUserTxnLabel() {
+    const data = sessionManager.getDataFromCookies("userId");
+    const response = await UserService.getUserPrivateNote(data);
+    // setAddress(response);
+    setTotalCount2(response.length);
+  }
+  async function getPvtTagAddress() {
+    const data = sessionManager.getDataFromCookies("userId");
+    const response = await UserService.getPrivateTagToAddress(data);
+    // setPrivateAddress(response);
+    setTotalCount3(response.length);
+  }
 
   const [watchlistPageCount, setWatchlistPageCount] = React.useState({});
   const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
@@ -922,12 +919,11 @@ export default function SimpleTabs(props) {
           <Column>
             <Row className={classes.profileName} style={{ gap: "15px" }}>
               Welcome, {Utils.shortenUserName(setUserName())}
-             
             </Row>
-            
+
             <Editprofile />
           </Column>
-          <NotificationBar  />  
+          <NotificationBar />
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
@@ -945,9 +941,15 @@ export default function SimpleTabs(props) {
           </span> */}
         {/* </div> */}
         <UserNameContainer isWallet={true}>
-          <Watchlist />
-          <Transaction />
-          <Private />
+          <Watchlist
+            getWatchlistList={getListOfWatchlist}
+            getTotalCountWatchlist={getUserWatchlist}/>
+          <Transaction
+            getListOfTxnLabel={getListOfTxnLabel}
+            getTotalCountTxnLabel={getUserTxnLabel}/>
+          <Private
+            getListOfTagAddress={getListOfTagAddress}
+            getTotalCountTagAddress={getPvtTagAddress}/>
         </UserNameContainer>
 
         <div className={classes.root}>
@@ -1050,22 +1052,21 @@ export default function SimpleTabs(props) {
                 // >
                 //   Export test
                 // </div>
-                <PDFDownloadLink style={styles.pdfDownloadLink} document={
-                   <TransactionPDF 
-                   data={downloadTxnPvtNote} 
-                   />} 
-                    fileName="transactionPvtNote.pdf">
-                Export
+                <PDFDownloadLink
+                  style={styles.pdfDownloadLink}
+                  document={<TransactionPDF data={downloadTxnPvtNote} />}
+                  fileName="transactionPvtNote.pdf"
+                >
+                  Export
                 </PDFDownloadLink>
-               
               ) : (
-                <PDFDownloadLink style={styles.pdfDownloadLink} document={
-                  <AddressPDF 
-                  data={downloadTagAddress} 
-                  />} 
-                   fileName="tagAddresses.pdf">
-               Export
-               </PDFDownloadLink>
+                <PDFDownloadLink
+                  style={styles.pdfDownloadLink}
+                  document={<AddressPDF data={downloadTagAddress} />}
+                  fileName="tagAddresses.pdf"
+                >
+                  Export
+                </PDFDownloadLink>
                 // <CSVLink
                 //   filename={"tag_address.csv"}
                 //   data={downloadTagAddress}
@@ -1107,7 +1108,7 @@ export default function SimpleTabs(props) {
           </div>
           <TabPanel value={value} index={0}>
             <div className="griddiv add-root">
-              { addressNotAdded || dataNotFound ? (
+              {addressNotAdded || dataNotFound ? (
                 <div style={{ height: "512px" }}>
                   <Grid
                     className="tablegrid_no_data"
@@ -1115,7 +1116,7 @@ export default function SimpleTabs(props) {
                   >
                     <Grid
                       component={Paper}
-                      style={{ boxShadow: "0px 0px 0px 0px" }}
+                      style={{ boxShadow: "0px 0px 0px 0px", overflow: "auto" }}
                     >
                       <Table
                         className="table w-700-a w-1500-a"
@@ -1124,29 +1125,35 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none"  }} align="left">
                               <span className={"tableheadersWatchlist"}>
                                 Address
-                                <Tooltip placement="top" title={messages.WATCHLIST_ADDRESS}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.WATCHLIST_ADDRESS}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Description
-                                <Tooltip placement="top" title={messages.WATCHLIST_DESCRIPTION}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.WATCHLIST_DESCRIPTION}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
                               </span>
                             </TableCell>
@@ -1160,15 +1167,18 @@ export default function SimpleTabs(props) {
                             >
                               <span className={"tableheaders-1"}>
                                 Balance
-                                <Tooltip placement="top" title={messages.WATCHLIST_BALANCE}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.WATCHLIST_BALANCE}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
-                                </span>
+                              </span>
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByBalance}
@@ -1184,13 +1194,16 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Added On
-                              <Tooltip placement="top" title={messages.WATCHLIST_ADDED_ON}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.WATCHLIST_ADDED_ON}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
                               </span>
                             </TableCell>
@@ -1200,13 +1213,16 @@ export default function SimpleTabs(props) {
                             >
                               <span className={"tableheaders-1"}>
                                 Notification
-                                <Tooltip placement="top" title={messages.WATCHLIST_NOTIFICATION}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.WATCHLIST_NOTIFICATION}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
                               </span>
                             </TableCell>
@@ -1218,40 +1234,42 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  { dataNotFound ?
-                  (<NoDataFoundContainer>
-                       <img
-                         alt="alert"
-                         className={classes.alert}
-                         src={require("../../../src/assets/images/XDC-Alert.svg")}
-                       ></img>
-                        <div className={classes.noData}>Data Not Found</div>
-                     </NoDataFoundContainer>):
-                  (<NoDataFoundContainer>
-                    <img
-                      className={classes.alert}
-                      src={require("../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+                  {dataNotFound ? (
+                    <NoDataFoundContainer>
+                      <img
+                        alt="alert"
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
+                      <div className={classes.noData}>Data Not Found</div>
+                    </NoDataFoundContainer>
+                  ) : (
+                    <NoDataFoundContainer>
+                      <img
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
 
-                    <div className={classes.noData}>
-                      No address added to watchlist
-                    </div>
-                  </NoDataFoundContainer>)}
+                      <div className={classes.noData}>
+                        No address added to watchlist
+                      </div>
+                    </NoDataFoundContainer>
+                  )}
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
-                    <Grid
-                      component={Paper}
+                  <Grid
+                    component={Paper}
+                    style={{ boxShadow: "0px 0px 0px 0px" }}
+                  >
+                    <Table
+                      className="table w-700-a w-1500-a"
+                      aria-label="Latest Transactions"
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
-                      <Table
-                        className="table w-700-a w-1500-a"
-                        aria-label="Latest Transactions"
-                        style={{ boxShadow: "0px 0px 0px 0px" }}
-                      >
-                        <TableHead>
-                          <TableRow>
-                            {/* <TableCell style={{ border: "none" }} align="left">
+                      <TableHead>
+                        <TableRow>
+                          {/* <TableCell style={{ border: "none" }} align="left">
                           <input
                             onChange={handleWatchlistCheckbox}
                             type="checkbox"
@@ -1263,110 +1281,125 @@ export default function SimpleTabs(props) {
                             }}
                           />
                           </TableCell> */}
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheadersWatchlist"}>
-                                Address
-                                <Tooltip placement="top" title={messages.WATCHLIST_ADDRESS}>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheadersWatchlist"}>
+                              Address
+                              <Tooltip
+                                placement="top"
+                                title={messages.WATCHLIST_ADDRESS}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Description
-                                <Tooltip placement="top" title={messages.WATCHLIST_DESCRIPTION}>
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Description
+                              <Tooltip
+                                placement="top"
+                                title={messages.WATCHLIST_DESCRIPTION}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                              </span>
-                            </TableCell>
-                            <TableCell
-                              style={{
-                                border: "none",
-                                display: "flex",
-                                lineHeight: "21px",
-                              }}
-                              align="left"
-                            >
-                              <span className={"tableheaders-1"}>
-                                Balance
-                                <Tooltip placement="top" title={messages.WATCHLIST_BALANCE}>
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              border: "none",
+                              display: "flex",
+                              lineHeight: "21px",
+                            }}
+                            align="left"
+                          >
+                            <span className={"tableheaders-1"}>
+                              Balance
+                              <Tooltip
+                                placement="top"
+                                title={messages.WATCHLIST_BALANCE}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                </span>
-                              <button className={classes.btn}>
-                                <ArrowUpwardIcon
-                                  onClick={sortByBalance}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />
-                              </button>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Added On
-                                <Tooltip placement="top" title={messages.WATCHLIST_ADDED_ON}>
+                              </Tooltip>
+                            </span>
+                            <button className={classes.btn}>
+                              <ArrowUpwardIcon
+                                onClick={sortByBalance}
+                                style={{
+                                  color: "#3763dd",
+                                  height: "20px",
+                                  width: "15px",
+                                  marginLeft: "5px",
+                                }}
+                              />
+                            </button>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Added On
+                              <Tooltip
+                                placement="top"
+                                title={messages.WATCHLIST_ADDED_ON}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Notification
-                                <Tooltip placement="top" title={messages.WATCHLIST_NOTIFICATION}>
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Notification
+                              <Tooltip
+                                placement="top"
+                                title={messages.WATCHLIST_NOTIFICATION}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"} />
-                            </TableCell>
-                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                          </TableRow>
-                        </TableHead>
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"} />
+                          </TableCell>
+                          {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                        </TableRow>
+                      </TableHead>
 
-                        <TableBody>
-                          {watchlist &&
-                            watchlist.length > 0 &&
-                            watchlist.map((row, index) => {
-                              // console.log("watchlist address",row)
-                              return (
-                                <TableRow
-                                  style={
-                                    index % 2 !== 1
-                                      ? { background: "#f9f9f9" }
-                                      : { background: "white" }
-                                  }
-                                >
-                                  {/* <TableCell
+                      <TableBody>
+                        {watchlist &&
+                          watchlist.length > 0 &&
+                          watchlist.map((row, index) => {
+                            // console.log("watchlist address",row)
+                            return (
+                              <TableRow
+                                style={
+                                  index % 2 !== 1
+                                    ? { background: "#f9f9f9" }
+                                    : { background: "white" }
+                                }
+                              >
+                                {/* <TableCell
                               style={{ border: "none" }}
                               margin-left="5px"
                             >
@@ -1442,6 +1475,7 @@ export default function SimpleTabs(props) {
                                     <EditWatchList
                                       row={row}
                                       getWatchlistList={getListOfWatchlist}
+                                      getTotalCountWatchlist={getUserWatchlist}
                                     />
                                   </TableCell>
                                 </TableRow>
@@ -1504,31 +1538,34 @@ export default function SimpleTabs(props) {
                                 }}
                               />
                             </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none" }} align="left" paddingBottom="0">
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
                               </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Note
-                                <Tooltip placement="top" title={messages.PRIVATE_NOTE}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.PRIVATE_NOTE}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
-                                </span>
+                              </span>
                             </TableCell>
                             {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
@@ -1539,27 +1576,29 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Added On
-                                <Tooltip placement="top" title={messages.PRIVATE_NOTE_ADDED_ON}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.PRIVATE_NOTE_ADDED_ON}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
-                                
-                              {/* <span> */}
-                              <button className={classes.btn}>
-                                <ArrowUpwardIcon
-                                  onClick={sortByAddedOn}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />
-                              </button>
+                                {/* <span> */}
+                                <button className={classes.btn}>
+                                  <ArrowUpwardIcon
+                                    onClick={sortByAddedOn}
+                                    style={{
+                                      color: "#3763dd",
+                                      height: "20px",
+                                      width: "15px",
+                                      marginLeft: "5px",
+                                    }}
+                                  />
+                                </button>
                               </span>
                               {/* </span> */}
                             </TableCell>
@@ -1573,25 +1612,27 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>
-                  { dataNotFound ?
-                  (<NoDataFoundContainer>
-                       <img
-                         alt="alert"
-                         className={classes.alert}
-                         src={require("../../../src/assets/images/XDC-Alert.svg")}
-                       ></img>
-                        <div className={classes.noData}>Data Not Found</div>
-                     </NoDataFoundContainer>):
-                  (<NoDataFoundContainer>
-                    <img
-                      className={classes.alert}
-                      src={require("../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
+                  {dataNotFound ? (
+                    <NoDataFoundContainer>
+                      <img
+                        alt="alert"
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
+                      <div className={classes.noData}>Data Not Found</div>
+                    </NoDataFoundContainer>
+                  ) : (
+                    <NoDataFoundContainer>
+                      <img
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
 
-                    <div className={classes.noData}>
-                      No Hash added to Priavte Note
-                    </div>
-                  </NoDataFoundContainer>)}
+                      <div className={classes.noData}>
+                        No Hash added to Priavte Note
+                      </div>
+                    </NoDataFoundContainer>
+                  )}
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
@@ -1606,7 +1647,7 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none" }} align="left"  className="p-b-0">
                               <input
                                 // className={classes.Rectangle}
                                 onChange={handlePvtNoteCheckbox}
@@ -1620,7 +1661,9 @@ export default function SimpleTabs(props) {
                                   marginRight: "10px",
                                   border: "solid 1px #e3e7eb",
                                 }}
+
                               />
+
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
@@ -1632,40 +1675,45 @@ export default function SimpleTabs(props) {
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Note
-                                <Tooltip placement="top" title={messages.PRIVATE_NOTE}>
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Note
+                              <Tooltip
+                                placement="top"
+                                title={messages.PRIVATE_NOTE}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                </span>
-                            </TableCell>
-                            {/* <TableCell
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Added On
-                                <Tooltip placement="top" title={messages.PRIVATE_NOTE_ADDED_ON}>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Added On
+                              <Tooltip
+                                placement="top"
+                                title={messages.PRIVATE_NOTE_ADDED_ON}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                
+                              </Tooltip>
                               {/* <span> */}
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
@@ -1678,77 +1726,76 @@ export default function SimpleTabs(props) {
                                   }}
                                 />
                               </button>
-                              </span>
-                              {/* </span> */}
-                            </TableCell>
-                            {/* <TableCell
+                            </span>
+                            {/* </span> */}
+                          </TableCell>
+                          {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}></span>
-                            </TableCell>
-                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                          </TableRow>
-                        </TableHead>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}></span>
+                          </TableCell>
+                          {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                        </TableRow>
+                      </TableHead>
 
-                        <TableBody>
-                          {address.map((row, index) => {
-                            
-                            return (
-                              <TableRow
-                                style={
-                                  index % 2 !== 1
-                                    ? { background: "#f9f9f9" }
-                                    : { background: "white" }
-                                }
+                      <TableBody>
+                        {address.map((row, index) => {
+                          return (
+                            <TableRow
+                              style={
+                                index % 2 !== 1
+                                  ? { background: "#f9f9f9" }
+                                  : { background: "white" }
+                              }
+                            >
+                              <TableCell
+                                style={{ border: "none" }}
+                                margin-left="5px"
                               >
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  margin-left="5px"
+                                <input
+                                  key={row._id}
+                                  name={row._id}
+                                  onChange={handlePvtNoteCheckbox}
+                                  type="checkbox"
+                                  checked={row?.isChecked2 || false}
+                                  style={{ marginTop: "4px" }}
+                                  // className={classes.Rectangle}
+                                />
+                              </TableCell>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <a
+                                  className="linkTable1"
+                                  href={
+                                    "/transaction-details/" +
+                                    row.transactionHash
+                                  }
                                 >
-                                  <input
-                                    key={row._id}
-                                    name={row._id}
-                                    onChange={handlePvtNoteCheckbox}
-                                    type="checkbox"
-                                    checked={row?.isChecked2 || false}
-                                    style={{ marginTop: "4px" }}
-                                    // className={classes.Rectangle}
-                                  />
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <a
-                                    className="linkTable1"
-                                    href={
-                                      "/transaction-details/" +
-                                      row.transactionHash
-                                    }
+                                  <Tooltip
+                                    placement="top"
+                                    title={row.transactionHash}
                                   >
-                                    <Tooltip
-                                      placement="top"
-                                      title={row.transactionHash}
-                                    >
-                                      <span className="tabledata1">
-                                        {Utils.shortenHash(row.transactionHash)}{" "}
-                                      </span>
-                                    </Tooltip>
-                                  </a>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className="tabledata-1">
-                                    {row.trxLable}
-                                  </span>
-                                </TableCell>
-                                {/* <TableCell style={{ border: "none" }} align="left">
+                                    <span className="tabledata1">
+                                      {Utils.shortenHash(row.transactionHash)}{" "}
+                                    </span>
+                                  </Tooltip>
+                                </a>
+                              </TableCell>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <span className="tabledata-1">
+                                  {row.trxLable}
+                                </span>
+                              </TableCell>
+                              {/* <TableCell style={{ border: "none" }} align="left">
                                         
                                             <span className="tabledata-1">{row.Balance}</span>
                                         
@@ -1771,6 +1818,7 @@ export default function SimpleTabs(props) {
                                   <EditTxnLabel
                                     row={row}
                                     getListOfTxnLabel={getListOfTxnLabel}
+                                    getTotalCountTxnLabel={getUserTxnLabel}
                                   />
                                 </TableCell>
                               </TableRow>
@@ -1835,39 +1883,44 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Address
-                                <Tooltip placement="top" title={messages.TAG_ADDRESS}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.TAG_ADDRESS}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
-                                </span>
+                              </span>
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Name Tag
-                                <Tooltip placement="top" title={messages.NAME_TAG}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.NAME_TAG}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
-                                
-                              <button className={classes.btn}>
-                                <ArrowUpwardIcon
-                                  onClick={sortByTagName}
-                                  style={{
-                                    color: "#3763dd",
-                                    height: "20px",
-                                    width: "15px",
-                                    marginLeft: "5px",
-                                  }}
-                                />
-                              </button>
+                                <button className={classes.btn}>
+                                  <ArrowUpwardIcon
+                                    onClick={sortByTagName}
+                                    style={{
+                                      color: "#3763dd",
+                                      height: "20px",
+                                      width: "15px",
+                                      marginLeft: "5px",
+                                    }}
+                                  />
+                                </button>
                               </span>
                             </TableCell>
                             {/* <TableCell
@@ -1879,15 +1932,18 @@ export default function SimpleTabs(props) {
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
                                 Added On
-                                <Tooltip placement="top" title={messages.TAG_ADDED_ON}>
-                                <img
-                                  alt="question-mark"
-                                  src="/images/question-mark.svg"
-                                  height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
-                                />
+                                <Tooltip
+                                  placement="top"
+                                  title={messages.TAG_ADDED_ON}
+                                >
+                                  <img
+                                    alt="question-mark"
+                                    src="/images/question-mark.svg"
+                                    height={"14px"}
+                                    className="tooltipLatestTransactionTableDashboard"
+                                  />
                                 </Tooltip>
-                                </span>
+                              </span>
                             </TableCell>
 
                             <TableCell style={{ border: "none" }} align="left">
@@ -1899,80 +1955,87 @@ export default function SimpleTabs(props) {
                       </Table>
                     </Grid>
                   </Grid>{" "}
-                  { dataNotFound ?
-                  (<NoDataFoundContainer>
-                       <img
-                         alt="alert"
-                         className={classes.alert}
-                         src={require("../../../src/assets/images/XDC-Alert.svg")}
-                       ></img>
-                        <div className={classes.noData}>Data Not Found</div>
-                     </NoDataFoundContainer>):
-                  (<NoDataFoundContainer>
-                    <img
-                      className={classes.alert}
-                      src={require("../../../src/assets/images/XDC-Alert.svg")}
-                    ></img>
-                    <div className={classes.noData}>
-                      No Address added to Tagged Address
-                    </div>
-                  </NoDataFoundContainer>)}
+                  {dataNotFound ? (
+                    <NoDataFoundContainer>
+                      <img
+                        alt="alert"
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      ></img>
+                      <div className={classes.noData}>Data Not Found</div>
+                    </NoDataFoundContainer>
+                  ) : (
+                    <NoDataFoundContainer>
+                      <img
+                        alt=""
+                        className={classes.alert}
+                        src={require("../../../src/assets/images/XDC-Alert.svg")}
+                      />
+                      <div className={classes.noData}>
+                        No Address added to Tagged Address
+                      </div>
+                    </NoDataFoundContainer>
+                  )}
                 </div>
-              ) :(
+              ) : (
                 <Grid lg={13} className="tablegrid_address">
-                    <Grid
-                      component={Paper}
+                  <Grid
+                    component={Paper}
+                    style={{ boxShadow: "0px 0px 0px 0px" }}
+                  >
+                    <Table
+                      className="table"
+                      aria-label="Latest Transactions"
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
-                      <Table
-                        className="table"
-                        aria-label="Latest Transactions"
-                        style={{ boxShadow: "0px 0px 0px 0px" }}
-                      >
-                        <TableHead>
-                          <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <input
-                                onChange={handleTagAddressCheckbox}
-                                type="checkbox"
-                                name="allselect"
-                                checked={
-                                  countTag === tagAddrLength ||
-                                  checkedTag == true
-                                }
-                                className={classes.Rectangle}
-                                style={{
-                                  marginRight: "10px",
-                                  border: "solid 1px #e3e7eb",
-                                  backgroundColor: "red",
-                                }}
-                              />
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Address
-                                <Tooltip placement="top" title={messages.TAG_ADDRESS}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <input
+                              onChange={handleTagAddressCheckbox}
+                              type="checkbox"
+                              name="allselect"
+                              checked={
+                                countTag === tagAddrLength || checkedTag == true
+                              }
+                              className={classes.Rectangle}
+                              style={{
+                                marginRight: "10px",
+                                border: "solid 1px #e3e7eb",
+                                backgroundColor: "red",
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Address
+                              <Tooltip
+                                placement="top"
+                                title={messages.TAG_ADDRESS}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                </span>
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Name Tag
-                                <Tooltip placement="top" title={messages.NAME_TAG}>
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Name Tag
+                              <Tooltip
+                                placement="top"
+                                title={messages.NAME_TAG}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                
+                              </Tooltip>
                               <button className={classes.btn}>
                                 <ArrowUpwardIcon
                                   onClick={sortByTagName}
@@ -1984,113 +2047,110 @@ export default function SimpleTabs(props) {
                                   }}
                                 />
                               </button>
-                              </span>
-                            </TableCell>
-                            {/* <TableCell
+                            </span>
+                          </TableCell>
+                          {/* <TableCell
                                 style={{ border: "none", paddingLeft: "2%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Balance</span>
                             </TableCell> */}
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Added On
-                                <Tooltip placement="top" title={messages.TAG_ADDED_ON}>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Added On
+                              <Tooltip
+                                placement="top"
+                                title={messages.TAG_ADDED_ON}
+                              >
                                 <img
                                   alt="question-mark"
                                   src="/images/question-mark.svg"
                                   height={"14px"}
                                   className="tooltipLatestTransactionTableDashboard"
                                 />
-                                </Tooltip>
-                                </span>
-                            </TableCell>
-                            {/* <TableCell
+                              </Tooltip>
+                            </span>
+                          </TableCell>
+                          {/* <TableCell
                                 style={{ border: "none", paddingLeft: "1%" }}
                                 align="left"
                             >
                                 <span className={"tableheaders-1"}>Notification</span>
                             </TableCell> */}
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}></span>
-                            </TableCell>
-                            {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
-                          </TableRow>
-                        </TableHead>
-                          <TableBody>
-                            {privateAddress.map((row, index) => {
-                              let tag = row.tagName;
-                              // const multipleTag = handleMultipleTag(tag);
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}></span>
+                          </TableCell>
+                          {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders-1"}>Txn Fee</span></TableCell> */}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {privateAddress.map((row, index) => {
+                          let tag = row.tagName;
+                          // const multipleTag = handleMultipleTag(tag);
 
-                              return (
-                                <TableRow
-                                  style={
-                                    index % 2 !== 1
-                                      ? { background: "#f9f9f9" }
-                                      : { background: "white" }
-                                  }
+                          return (
+                            <TableRow
+                              style={
+                                index % 2 !== 1
+                                  ? { background: "#f9f9f9" }
+                                  : { background: "white" }
+                              }
+                            >
+                              <TableCell
+                                style={{ border: "none" }}
+                                margin-left="5px"
+                              >
+                                <input
+                                  key={row._id}
+                                  name={row._id}
+                                  onChange={handleTagAddressCheckbox}
+                                  // className={classes.Rectangle}
+                                  type="checkbox"
+                                  checked={row?.isChecked3 || false}
+                                  style={{ marginTop: "4px" }}
+                                />
+                              </TableCell>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <a
+                                  className="linkTable1"
+                                  href={"/address-details/" + row.address}
                                 >
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    margin-left="5px"
-                                  >
-                                    <input
-                                      key={row._id}
-                                      name={row._id}
-                                      onChange={handleTagAddressCheckbox}
-                                      // className={classes.Rectangle}
-                                      type="checkbox"
-                                      checked={row?.isChecked3 || false}
-                                      style={{ marginTop: "4px" }}
-                                    />
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <a
-                                      className="linkTable1"
-                                      href={"/address-details/" + row.address}
-                                    >
-                                      <Tooltip
-                                        placement="top"
-                                        title={row.address}
-                                      >
-                                        <span className="tabledata1">
-                                          {shorten(row.address)}
-                                        </span>
-                                      </Tooltip>
-                                    </a>
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <span className="tabledata-2">
-                                      {tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })}
+                                  <Tooltip placement="top" title={row.address}>
+                                    <span className="tabledata1">
+                                      {shorten(row.address)}
                                     </span>
-                                  </TableCell>
+                                  </Tooltip>
+                                </a>
+                              </TableCell>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <span className="tabledata-2">
+                                  {tag.map((item, index) => {
+                                    return (
+                                      <div className="nameLabel2" key={index}>
+                                        {item}
+                                      </div>
+                                    );
+                                  })}
+                                </span>
+                              </TableCell>
 
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <span className="tabledata-1">
-                                      {moment(row.modifiedOn).format(
-                                        "hh:mm A, D MMMM YYYY "
-                                      )}
-                                    </span>
-                                    {/* </a> */}
-                                  </TableCell>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <span className="tabledata-1">
+                                  {moment(row.modifiedOn).format(
+                                    "hh:mm A, D MMMM YYYY "
+                                  )}
+                                </span>
+                                {/* </a> */}
+                              </TableCell>
 
                                   <TableCell
                                     style={{ border: "none" }}
@@ -2099,6 +2159,7 @@ export default function SimpleTabs(props) {
                                     <EditTagAddress
                                       row={row}
                                       getListOfTagAddress={getListOfTagAddress}
+                                      getTotalCountTagAddress={getPvtTagAddress}
                                     />
                                   </TableCell>
                                 </TableRow>
@@ -2126,8 +2187,7 @@ export default function SimpleTabs(props) {
           </TabPanel>
         </div>
       </SubParentContainer>
-      {isStorageMessage ? (""):
-      (<StorageMessage />)}
+      {isStorageMessage ? "" : <StorageMessage />}
       <FooterComponent />
     </div>
   );
