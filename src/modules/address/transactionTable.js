@@ -19,6 +19,7 @@ import Loader from "../../assets/loader";
 import styled from "styled-components";
 import format from "format-number";
 import { messages } from "../../constants";
+import PageSelector from "../common/pageSelector";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -689,19 +690,9 @@ export default function TransactionTableComponent(props) {
         >
           <Grid item xs="4" className="pagination-tab">
             <span className="text">Show</span>
-            {
-              <select
-                value={amount}
-                className="select-amount"
-                onChange={handleChangeRowsPerPage}
-              >
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-                <option value={50}>50</option>
-                <option value={75}>75</option>
-                <option value={100}>100</option>
-              </select>
-            }
+            <PageSelector value={amount}
+                          height={30}
+                          handler={handleChangeRowsPerPage}/>
             <span className="text">Records</span>
           </Grid>
           <Grid xs="2"></Grid>
