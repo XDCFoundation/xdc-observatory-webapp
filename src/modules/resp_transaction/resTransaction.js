@@ -1110,7 +1110,7 @@ const Hash = styled.span`
     font-size: 0.75rem;
     text-align: left;
     letter-spacing: 0.029rem;
-    color: #2a2a2a;
+    color: #252525;
     opacity: 1;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -1253,7 +1253,7 @@ const Heading = styled.span`
     line-height: normal;
     letter-spacing: 0px;
     text-align: left;
-    color: #2a2a2a;
+    color: #252525;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
