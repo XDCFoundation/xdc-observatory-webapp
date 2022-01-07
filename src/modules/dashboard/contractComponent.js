@@ -560,8 +560,8 @@ class Contractlist extends React.Component {
           //   marginLeft: "18%",
           //   marginTop: "20px",
           // }}
-          >
-            <p
+          >{!this.state.isLoading && this.state.noData ?
+            (<><p
               style={{
                 fontSize: "0.875rem",
                 fontWeight: "600",
@@ -580,7 +580,7 @@ class Contractlist extends React.Component {
             >
               {" "}
               Records
-            </p>
+            </p></>):("")}
           </LeftPagination>
 
           <RightPagination

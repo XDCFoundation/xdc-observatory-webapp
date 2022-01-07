@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
+    resize: "none",
   },
 
   updatebtn: {
@@ -167,7 +168,6 @@ function EditTxnLabel(props) {
   }, [props]);
 
   async function editTransactionLable() {
-    setOpen(false);
     const data = {
       _id: props.row._id,
       trxLable: PrivateNote,
@@ -181,7 +181,9 @@ function EditTxnLabel(props) {
       return;
     }
     utility.apiSuccessToast("Private Note Updated");
-    window.location.href = "loginprofile";
+    handleClose();
+    await props.getListOfTxnLabel();
+    await props.getTotalCountTxnLabel();
   }
   const classes = useStyles();
 
@@ -220,6 +222,7 @@ function EditTxnLabel(props) {
       await utility.apiSuccessToast(genericConstants.TXN_PRIVATE_NOTE_DELETED);
       await handleClose();
       await props.getListOfTxnLabel();
+      await props.getTotalCountTxnLabel();
     }
   };
   return (

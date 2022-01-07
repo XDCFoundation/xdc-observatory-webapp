@@ -68,7 +68,7 @@ const useStyles = makeStyles({
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
-      height: "48.375rem",
+      height: "36.375rem",
     },
     container1: {
       height: "23.375rem",
@@ -126,7 +126,7 @@ export default function TransactionComponent(props) {
   const tableColumns = { "Transaction Hash": { isActive: true } };
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
-      <div className="display-flex justify-content-between p-t-30 p-b-30">
+      <div className="display-flex justify-content-between p-t-30 p-b-15">
         <div class="fs-24 fw-bold">{state.tableName}</div>
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
@@ -404,7 +404,7 @@ export default function TransactionComponent(props) {
                               }
                             >
                               {moment(row.timestamp * 1000).format(
-                                "MMMM DD, YYYY"
+                                "MMM DD, YYYY h:mm A"
                               )}
                             </span>
                           </TableCell>
@@ -464,6 +464,7 @@ export default function TransactionComponent(props) {
                             border: "none",
                             width: "155px",
                             paddingLeft: "2.813rem",
+                            paddingRight: "15px"
                           }}
                           align="left"
                         >
@@ -503,7 +504,7 @@ export default function TransactionComponent(props) {
               </TableBody>
             )}
           </Table>
-          {!props.state.isData ? (
+          {!props.state.isData && !props.state.isLoading ?  (
             <NoDataFoundContainer>
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -520,11 +521,12 @@ export default function TransactionComponent(props) {
       <Grid container style={{ marginTop: "2.25rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
-          <span className="text">Show</span>
-          <PageSelector value={props.state.amount}
-                        height={30}
-                        handler={props._handleChange}/>
-          <span className="text">Records</span>
+        {!props.state.isLoading && props.state.isData ?
+          (<><span className="text">Show</span>
+            <PageSelector value={props.state.amount}
+                          height={30}
+                          handler={props._handleChange}/>
+          <span className="text">Records</span></>):("")}
         </Grid>
 
         <Grid item className="Pagination_2">
