@@ -121,7 +121,7 @@ function divideByDecimalValue(num, decimals) {
     return num;
   }
   else {
-    return (num / Math.pow(10, decimals)).toFixed(decimals)
+    return parseFloat((num / Math.pow(10, decimals)).toFixed(decimals))
   }
 
 }
@@ -311,7 +311,7 @@ function apiFailureToast(message) {
 }
 
 function apiSuccessToast(msg) {
-  toast.success(msg ? msg : "apiConstant.API_SUCCESS");
+  // toast.success(msg ? msg : "apiConstant.API_SUCCESS");
 }
 
 function generateGUID() {
