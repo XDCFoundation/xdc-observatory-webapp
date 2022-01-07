@@ -320,7 +320,7 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
-                    className="w-40"
+                    className="w-10"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
@@ -336,8 +336,8 @@ export default function StickyHeadTable(props) {
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-20"
+                    style={{ border: "none" }}
+                    className="w-10"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
@@ -353,8 +353,8 @@ export default function StickyHeadTable(props) {
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-21"
+                    style={{ border: "none" }}
+                    className="w-10"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
