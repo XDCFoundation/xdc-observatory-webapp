@@ -11,7 +11,7 @@ import accountLogo from "../../images/Accounts.svg";
 import Tooltip from "@material-ui/core/Tooltip";
 import Utility from '../../utility'
 import Tab from "./tab";
-import Loader from "../../assets/loader";
+import format from "format-number";
 import {
   AccountService,
   CoinMarketService,
@@ -693,7 +693,7 @@ class BlockChainDataComponent extends Component {
                   <ValueName>
                     <Title>Accounts</Title>
                     <div className="last_value">
-                      <TitleValue>{this.state.totalAccount}</TitleValue>
+                      <TitleValue>{format({})(this.state.totalAccount)}</TitleValue>
                       <div
                         className={
                           changeAccounts >= 0
