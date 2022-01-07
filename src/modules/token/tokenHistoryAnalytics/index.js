@@ -11,9 +11,9 @@ const GraphContainer = styled.div`
   margin: 45px 0 0 0;
 `;
 
-export default function WrappedComponent() {
-    const {address, tn} = useParams();
-    return <TokenPriceHistoryGraph address={address} tokenName={tn}/>;
+export default function WrappedComponent(props) {
+    const { tn} = useParams();
+    return <TokenPriceHistoryGraph contractAddress={props.contractAddress} tokenName={tn}/>;
 }
 
 class TokenPriceHistoryGraph extends BaseComponent {
@@ -27,7 +27,7 @@ class TokenPriceHistoryGraph extends BaseComponent {
     }
 
     getHistoricalTokenData = async () => {
-        const tokenAddress = this.props.address;
+        const tokenAddress = this.props.contractAddress;
         let request = {
             tokenAddress: tokenAddress,
             startTime: moment().subtract(2, "month").valueOf(),
