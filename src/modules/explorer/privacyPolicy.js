@@ -857,7 +857,7 @@ function PrivacyPolicy() {
             <Para>
               The purpose of this privacy notice is to give you information on
               how XDC Foundation processes your Personal Data through your use
-              of the website at <br /> <a href=""> www.____.org</a> (hereinafter
+              of the website at <br /> <a href="">https://observer.xdc.org/</a> (hereinafter
               referred to as the “Website”), including any data you may provide
               through the Website when you sign up to use any of the services we
               provide.

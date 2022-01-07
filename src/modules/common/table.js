@@ -70,7 +70,7 @@ export default function CommonTransactionsTable(props) {
       {/* <TableContainer> */}
       {props.isHomePage ? (
         <TransactionHeaderContainer>
-          <TransactionTitle>Latest Transactions</TransactionTitle>
+          <TransactionTitle></TransactionTitle>
           <a
             className="nav_button margin-right-30px"
             href="/view-all-transaction"
