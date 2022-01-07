@@ -382,6 +382,7 @@ export default function AccountComponent(props) {
                     <Grid item className="Pagination_1">
                         <span className="text">Show</span>
                         <PageSelector value={props.state.amount}
+                                      height={30}
                                       handler={props._handleChange}/>
                         <span className="text">Records</span>
                     </Grid>
