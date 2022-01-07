@@ -39,6 +39,7 @@ const TransactionHeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 25px 15px 15px 15px;
+  align-items: center;
 `;
 
 const TransactionTitle = styled.div`
@@ -74,6 +75,7 @@ export default function CommonTransactionsTable(props) {
           <a
             className="nav_button margin-right-30px"
             href="/view-all-transaction"
+         
           >
             View All
           </a>

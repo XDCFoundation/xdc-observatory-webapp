@@ -168,7 +168,7 @@ const IconLogo = styled.img`
 `;
 const LeftTitle = styled.div`
   margin-top: 3px;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   font-family: Inter;
   font-stretch: normal;
