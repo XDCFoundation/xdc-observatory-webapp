@@ -408,7 +408,8 @@ export default function AccountComponent(props) {
 
         <Grid container style={{ marginTop: "35px" }} className="Pagination">
           <Grid item className="Pagination_1">
-            <span className="text">Show</span>
+          {!props.state.isLoading && props.state.noData ?
+            (<><span className="text">Show</span>
             <select
               value={props.state.amount}
               className="select-amount"
@@ -420,7 +421,7 @@ export default function AccountComponent(props) {
               <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
-            <span className="text">Records</span>
+            <span className="text">Records</span></>):("")}
           </Grid>
 
           <Grid item className="Pagination_2">
