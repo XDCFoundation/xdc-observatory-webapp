@@ -1128,7 +1128,7 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none"  }} align="left">
                               <span className={"tableheadersWatchlist"}>
                                 Address
                                 <Tooltip placement="top" title={messages.WATCHLIST_ADDRESS}>
@@ -1509,7 +1509,7 @@ export default function SimpleTabs(props) {
                                 }}
                               />
                             </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none" }} align="left" paddingBottom="0">
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
@@ -1611,7 +1611,7 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none" }} align="left"  className="p-b-0">
                               <input
                                 // className={classes.Rectangle}
                                 onChange={handlePvtNoteCheckbox}
@@ -1625,7 +1625,9 @@ export default function SimpleTabs(props) {
                                   marginRight: "10px",
                                   border: "solid 1px #e3e7eb",
                                 }}
+                                
                               />
+                              
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>

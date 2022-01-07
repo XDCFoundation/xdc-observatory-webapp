@@ -24,7 +24,9 @@ input[placeholder] {
 a:link {
   text-decoration: none;
 }
-
+.p-b-0 {
+  padding-bottom: 0px !important;
+}
 .p-l-5 {
   padding-left: 5px;
 }
@@ -601,7 +603,6 @@ input:focus {
   margin-right: 0.625rem;
   /* margin-top: 1rem; */
 }
-
 .w-100-per {
   width: 100%;
 }
@@ -1005,7 +1006,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px !important;
+    padding: 8px;
   }
 
   .add {
@@ -1043,7 +1044,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px !important;
+    padding: 8px ;
   }
 
   .add {
@@ -3956,8 +3957,9 @@ body {
 }
 
 #container-table th {
-  padding: 15px;
-  padding-top: 25px;
+  padding: 25px 0px 15px 70px;
+  /* padding: 15px; */
+  /* padding-top: 25px; */
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -3994,9 +3996,10 @@ body {
 }
 
 #container-table td {
-  padding: 12px;
+padding: 17px 0px 17px 70px;
+  /* padding: 12px 50px;
   padding-top: 17px;
-  padding-bottom: 17px;
+  padding-bottom: 17px; */
   text-align: left;
   border-bottom: 1px solid #ddd;
   margin: 19px 49px 1.8px 69px;
