@@ -39,6 +39,7 @@ label {
 @media (max-width: 1240px) {
   .footer_base {
     padding: 0px;
+    margin: 0px;
   }
 }
 .footer {
