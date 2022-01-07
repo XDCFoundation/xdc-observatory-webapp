@@ -81,13 +81,13 @@ function convertToInternationalCurrencySystem(num) {
     return "";
   }
   num = Number(num);
-  if (num > 999 && num < 1000000) {
+  if (num > 999.99999999 && num < 1000000) {
     return parseFloat((num / 1000).toFixed(2)) + "K"; // convert to K for number from > 1000 < 1 million
-  } else if (num > 999999 && num < 999999999) {
+  } else if (num > 999999.99999999 && num < 999999999.99999999) {
     return parseFloat((num / 1000000).toFixed(2)) + "M"; // convert to M for number from > 1 million && < 1 billion
   } else if (num > 1000000000) {
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
-  } else if (num < 900) {
+  } else if (num < 999.99999999) {
     return num; // if value < 1000, nothing to do
   }
 }
@@ -128,7 +128,7 @@ function divideByDecimalValue(num, decimals) {
     return num;
   }
   else {
-    return (num / Math.pow(10, decimals)).toFixed(decimals)
+    return parseFloat((num / Math.pow(10, decimals)).toFixed(decimals))
   }
 
 }
@@ -215,7 +215,7 @@ function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
   else return b;
 }
 function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
-  if (b.length > 12)
+  if (b && b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 0,
       b.length
@@ -318,7 +318,7 @@ function apiFailureToast(message) {
 }
 
 function apiSuccessToast(msg) {
-  toast.success(msg ? msg : "apiConstant.API_SUCCESS");
+  // toast.success(msg ? msg : "apiConstant.API_SUCCESS");
 }
 
 function generateGUID() {

@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  }, "@media (max-width: 1240px) ": {
+  },
+  "@media (max-width: 1240px) ": {
     appBar: {
       position: "absolute",
     },
@@ -122,12 +123,12 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: "17.313rem",
+      width: "153px",
       backgroundColor: "#102e84",
       height: "100%",
     },
     drawerHeader: {
-      padding: "0 !important",
+      padding: "3px 0 0 0",
     },
   },
   fullList: {
@@ -192,16 +193,16 @@ export default function Navbar() {
     }
   };
   const BlockChainSearch = async (data) => {
-
     try {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
-      if (!responseData) {
+      if (!responseData || responseData[0]?.token?.length == 0) {
         Utility.apiFailureToast("No details found.");
       }
 
       if (responseData) {
+        console.log(responseData, "pppp")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -213,14 +214,15 @@ export default function Navbar() {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
+        } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
           let tokenDataUrl =
             "/token-data/" +
             responseData[0]?.token[0]?.address +
             "/" +
             responseData[0]?.token[0]?.symbol;
-          let tokenListUrl = '/tokens/' + responseData[0]?.token[0]?.tokenName;
-          window.location.href = responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
+          let tokenListUrl = "/tokens/" + responseData[0]?.token[0]?.tokenName;
+          window.location.href =
+            responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
         } else {
         }
       }
@@ -638,9 +640,9 @@ export default function Navbar() {
 
   // ..................
   const NavigationButton = styled.a`
-  text-decoration :  none;
-  padding: 5px 20px;
-  border-bottom: ${(props) =>
+    text-decoration: none;
+    padding: 5px 20px;
+    border-bottom: ${(props) =>
       props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
@@ -653,6 +655,7 @@ export default function Navbar() {
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
     font-size: 0.875rem;
+  }
   `;
 
   const MobileNavigationContainer = styled.div`
@@ -673,13 +676,17 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {viewPopUp == true ? <NewFeature></NewFeature> : <div />}
+      {viewPopUp === true ? <NewFeature></NewFeature> : <div />}
       <DeskTopView>
         <AppBar elevation={0} className={clsx(classes.appBar)}>
           <MobileToolBar>
             <Row className="Header">
               <a className="logo_tokensearch" href={"/"}>
-                <img className="Shape" src={"/images/XDC-Icon-Logo.svg"}></img>
+                <img
+                  alt=""
+                  className="Shape"
+                  src={"/images/XDC-Icon-Logo.svg"}
+                />
               </a>
               <a className="XDC" href="/">
                 {" "}
@@ -707,8 +714,6 @@ export default function Navbar() {
                 >
                   Tokens
                 </a>
-
-
               </div>
             </Row>
             <Row alignItems="center">
