@@ -415,7 +415,7 @@ export default function AddressTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
-    color: "#c6cbcf";
+    color: #c6cbcf;
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -600,6 +600,17 @@ export default function AddressTableComponent(props) {
                       </Tooltip>
                     </span>
                   </TableCell>
+                    <TableCell
+                        className=""
+                        style={{
+                            border: "none",
+                            paddingLeft: "1.5%",
+                            paddingTop: "1.375rem",
+                        }}
+                        align="left"
+                    >
+                        <span className={"tableheaders table-value"}/>
+                    </TableCell>
                   <TableCell
                     className="w-450 w-18"
                     style={{
@@ -751,6 +762,11 @@ export default function AddressTableComponent(props) {
                               </Tooltip>
                             )}
                           </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                                <span className={row.From === addr ? "out": "in"}>
+                                    {row.From === addr ? 'Out': 'In'}
+                                </span>
+                            </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             {row.To != addr ? (
                               <a

@@ -270,7 +270,7 @@ class LatestBlocks extends Component {
                             this.state.transactionsAnimation?.[blockNumber];
 
                           return (
-                            <div className="value_main_main">
+                            <div className="value_main_main" key={index}>
                               <div className="main_vaa">
                                 <div className="latest_child">
                                   {" "}
@@ -403,7 +403,7 @@ class LatestBlocks extends Component {
                           let detailanimationclass =
                             this.state.detailAnimation?.[hash];
                           return (
-                            <div className="value_main_main w-118">
+                            <div className="value_main_main w-118" key={index}>
                               <div className="main_vaa">
                                 <div className="latest_child w-34 width-25   mar_child wid-40 mar-left-15">
                                   <Tooltip placement="top" title={e.hash}>
