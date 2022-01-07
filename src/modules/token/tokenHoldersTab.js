@@ -178,17 +178,19 @@ export default function StickyHeadTable(props) {
   const NoDataFoundContainer = styled.div`
     display: flex;
     flex-flow: column;
-    height:300px !important;,
+    height: 300px !important;
     justify-content: center;
     align-items: center;
-    margin-top:140px !important;,
+    margin-top: 140px !important;
     gap: 10px;
-    @media (min-width: 0px) and (max-width: 767px){
+    @media (min-width: 0px) and (max-width: 767px) {
       margin: 30px 0 !important;
-      height:70px !important;,
+      height: 70px !important;
     }
   `;
-  let decimals = props?.contractData ? props?.contractData?.contractResponse?.decimals : ""
+  let decimals = props?.contractData
+    ? props?.contractData?.contractResponse?.decimals
+    : "";
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -219,14 +221,14 @@ export default function StickyHeadTable(props) {
                     <span className={"tableheaders table-headers"}>
                       Rank
                       <Tooltip placement="top" title={messages.HOLDER_RANK}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
@@ -236,13 +238,13 @@ export default function StickyHeadTable(props) {
                     <span className={"tableheaders table-headers"}>
                       Address
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
@@ -253,13 +255,13 @@ export default function StickyHeadTable(props) {
                     <span className={"tableheaders table-headers"}>
                       Quantity
                       <Tooltip placement="top" title={messages.QUANTITY}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
@@ -270,13 +272,13 @@ export default function StickyHeadTable(props) {
                     <span className={"tableheaders table-headers"}>
                       Percentage
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   {/* <TableCell
@@ -309,64 +311,64 @@ export default function StickyHeadTable(props) {
                     <span className={"tableheaders table-headers"}>
                       Rank
                       <Tooltip placement="top" title={messages.HOLDER_RANK}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                      </span>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
-                    className="w-40"
+                    className="w-10"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
                       Address
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-20"
+                    style={{ border: "none" }}
+                    className="w-10"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
                       Quantity
                       <Tooltip placement="top" title={messages.QUANTITY}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none", paddingLeft: "17px" }}
-                    className="w-21"
+                    style={{ border: "none" }}
+                    className="w-10"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
                       Percentage
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
-                      <img
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
+                        <img
+                          alt="question-mark"
+                          src="/images/question-mark.svg"
+                          height={"14px"}
+                          className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
                     </span>
                   </TableCell>
                   {/* <TableCell
@@ -387,19 +389,21 @@ export default function StickyHeadTable(props) {
                   let quantity1 =
                     row[0]?.Quantity / Math.pow(10, decimals) >= 1
                       ? format({})(
-                        utility.convertToInternationalCurrencySystem(
-                          row[0]?.Quantity / Math.pow(10, decimals)
+                          utility.convertToInternationalCurrencySystem(
+                            row[0]?.Quantity / Math.pow(10, decimals)
+                          )
                         )
-                      )
                       : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
-                        decimals
-                      );
+                          decimals
+                        );
                   var quantity2 = quantity1.toString().split(".")[0];
                   var quantity3 = quantity1.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                   var splittedArray = quantity3?.match(regex);
 
-                  var percentageValue = !row[0]?.Percentage ? "------" : row[0].Percentage.toFixed(8)
+                  var percentageValue = !row[0]?.Percentage
+                    ? "------"
+                    : row[0].Percentage.toFixed(8);
                   let percentageValue1 = percentageValue
                     .toString()
                     .split(".")[0];
@@ -457,7 +461,6 @@ export default function StickyHeadTable(props) {
                       </TableCell>
                       <TableCell id="td" style={{ border: "none" }}>
                         {" "}
-
                         <span className="tabledata table-data mar-lef-3">
                           {percentageValue1}
                           {"."}
@@ -465,6 +468,16 @@ export default function StickyHeadTable(props) {
                             {percentageValue2}
                           </span>
                           %
+                        </span>
+                      </TableCell>
+                      <TableCell id="td" style={{ border: "none" }}>
+                        {" "}
+                        <span className="tabledata table-data mar-lef-3">
+                          <a
+                            href={`/holder-details/${row[0]?.Address}/${tn}?isAnalytics=true`}
+                          >
+                            Analytics
+                          </a>
                         </span>
                       </TableCell>
                       {/* <TableCell
@@ -492,7 +505,8 @@ export default function StickyHeadTable(props) {
         )}
       </Paper>
       <Pagination>
-        <LeftPagination>
+      <LeftPagination>
+        {!isLoading && noData ? (<>
           <p className="p-pagination">Show</p>
 
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
@@ -502,7 +516,7 @@ export default function StickyHeadTable(props) {
             <option>75</option>
             <option>100</option>
           </select>
-          <p className="p-pagination"> Records</p>
+          <p className="p-pagination"> Records</p></>):("")}
         </LeftPagination>
 
         <RightPagination
