@@ -403,6 +403,7 @@ export default function StickyHeadTable() {
       </Paper>
       <Pagination>
         <LeftPagination>
+          {!isLoading && noData ? (<>
           <p className="p-pagination">Show</p>
           <select className="selectbox" onChange={handleChangeRowsPerPage}>
             <option selected>10</option>
@@ -412,6 +413,7 @@ export default function StickyHeadTable() {
             <option>100</option>
           </select>
           <p className="p-pagination">Records</p>
+          </>):("")}
         </LeftPagination>
 
         <RightPagination

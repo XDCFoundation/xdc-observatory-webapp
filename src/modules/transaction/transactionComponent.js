@@ -67,7 +67,7 @@ const useStyles = makeStyles({
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
-      height: "48.375rem",
+      height: "36.375rem",
     },
     container1: {
       height: "23.375rem",
@@ -503,7 +503,7 @@ export default function TransactionComponent(props) {
               </TableBody>
             )}
           </Table>
-          {!props.state.isData ? (
+          {!props.state.isData && !props.state.isLoading ?  (
             <NoDataFoundContainer>
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -520,7 +520,8 @@ export default function TransactionComponent(props) {
       <Grid container style={{ marginTop: "2.25rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
-          <span className="text">Show</span>
+        {!props.state.isLoading && props.state.isData ?
+          (<><span className="text">Show</span>
           <select
             value={props.state.amount}
             className="select-amount"
@@ -532,7 +533,7 @@ export default function TransactionComponent(props) {
             <option value={75}>75</option>
             <option value={100}>100</option>
           </select>
-          <span className="text">Records</span>
+          <span className="text">Records</span></>):("")}
         </Grid>
 
         <Grid item className="Pagination_2">

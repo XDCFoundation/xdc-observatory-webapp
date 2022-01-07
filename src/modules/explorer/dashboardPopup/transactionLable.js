@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7px",
     padding: "20px",
     outline: "none",
+    resize: "none",
   },
   addbtn: {
     width: "110px",
@@ -210,7 +211,7 @@ const LightToolTip = withStyles({
   },
 })(Tooltip);
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [TransactionsHash, setTransactionsHash] = React.useState("");
   const [error, setError] = React.useState("");
@@ -250,10 +251,11 @@ export default function FormDialog() {
         return;
       }
       utility.apiSuccessToast("Transaction Added");
-      window.location.reload();
       setTransactionsHash("");
       setPrivateNote("");
       setOpen(false);
+      await props.getListOfTxnLabel();
+      await props.getTotalCountTxnLabel();
     }
   }
   const classes = useStyles();

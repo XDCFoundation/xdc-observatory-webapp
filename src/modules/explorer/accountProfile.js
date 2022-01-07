@@ -237,7 +237,6 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       maxWidth: "710px",
       width: "100%",
-      padding: "0 10px",
     },
   },
 
@@ -404,30 +403,29 @@ export default function SimpleTabs(props) {
 
   React.useEffect(() => {
     getUserWatchlist();
-    async function getUserWatchlist() {
-      const data = sessionManager.getDataFromCookies("userId");
-      const response = await UserService.getUserWatchlist(data);
-      // setWatchlist(response);
-
-      setTotalCount1(response.length);
-      
-      setTablevalue(1);
-    }
-    getuserdata();
-    async function getuserdata() {
-      const data = sessionManager.getDataFromCookies("userId");
-      const response = await UserService.getUserPrivateNote(data);
-      // setAddress(response);
-      setTotalCount2(response.length);
-    }
-    getPvtTagAddress();
-    async function getPvtTagAddress() {
-      const data = sessionManager.getDataFromCookies("userId");
-      const response = await UserService.getPrivateTagToAddress(data);
-      // setPrivateAddress(response);
-      setTotalCount3(response.length);
-    }
+    getUserTxnLabel();
+    getPvtTagAddress(); 
   }, []);
+
+  async function getUserWatchlist() {
+    const data = sessionManager.getDataFromCookies("userId");
+    const response = await UserService.getUserWatchlist(data);
+    // setWatchlist(response);
+    setTotalCount1(response.length);
+    setTablevalue(1);
+  }
+  async function getUserTxnLabel() {
+    const data = sessionManager.getDataFromCookies("userId");
+    const response = await UserService.getUserPrivateNote(data);
+    // setAddress(response);
+    setTotalCount2(response.length);
+  }
+  async function getPvtTagAddress() {
+    const data = sessionManager.getDataFromCookies("userId");
+    const response = await UserService.getPrivateTagToAddress(data);
+    // setPrivateAddress(response);
+    setTotalCount3(response.length);
+  }
 
   const [watchlistPageCount, setWatchlistPageCount] = React.useState({});
   const [pvtNotePageCount, setPvtNotePageCount] = React.useState({});
@@ -945,9 +943,15 @@ export default function SimpleTabs(props) {
           </span> */}
         {/* </div> */}
         <UserNameContainer isWallet={true}>
-          <Watchlist />
-          <Transaction />
-          <Private />
+          <Watchlist
+            getWatchlistList={getListOfWatchlist}
+            getTotalCountWatchlist={getUserWatchlist}/>
+          <Transaction
+            getListOfTxnLabel={getListOfTxnLabel}
+            getTotalCountTxnLabel={getUserTxnLabel}/>
+          <Private
+            getListOfTagAddress={getListOfTagAddress}
+            getTotalCountTagAddress={getPvtTagAddress}/>
         </UserNameContainer>
 
         <div className={classes.root}>
@@ -1124,7 +1128,7 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none"  }} align="left">
                               <span className={"tableheadersWatchlist"}>
                                 Address
                                 <Tooltip placement="top" title={messages.WATCHLIST_ADDRESS}>
@@ -1442,6 +1446,7 @@ export default function SimpleTabs(props) {
                                     <EditWatchList
                                       row={row}
                                       getWatchlistList={getListOfWatchlist}
+                                      getTotalCountWatchlist={getUserWatchlist}
                                     />
                                   </TableCell>
                                 </TableRow>
@@ -1504,7 +1509,7 @@ export default function SimpleTabs(props) {
                                 }}
                               />
                             </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none" }} align="left" paddingBottom="0">
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
@@ -1606,7 +1611,7 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none" }} align="left">
+                            <TableCell style={{ border: "none" }} align="left"  className="p-b-0">
                               <input
                                 // className={classes.Rectangle}
                                 onChange={handlePvtNoteCheckbox}
@@ -1620,7 +1625,9 @@ export default function SimpleTabs(props) {
                                   marginRight: "10px",
                                   border: "solid 1px #e3e7eb",
                                 }}
+                                
                               />
+                              
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
@@ -1771,6 +1778,7 @@ export default function SimpleTabs(props) {
                                   <EditTxnLabel
                                     row={row}
                                     getListOfTxnLabel={getListOfTxnLabel}
+                                    getTotalCountTxnLabel={getUserTxnLabel}
                                   />
                                 </TableCell>
                               </TableRow>
@@ -2099,6 +2107,7 @@ export default function SimpleTabs(props) {
                                     <EditTagAddress
                                       row={row}
                                       getListOfTagAddress={getListOfTagAddress}
+                                      getTotalCountTagAddress={getPvtTagAddress}
                                     />
                                   </TableCell>
                                 </TableRow>
