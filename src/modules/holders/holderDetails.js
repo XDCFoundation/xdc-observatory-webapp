@@ -20,6 +20,7 @@ import Utils from "../../utility";
 import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
 import format from "format-number";
+import ContractData from "../../services/contract";
 import HolderAnalytics from "../token/holderAnalytics/analyticsComponent"
 
 var QRCode = require("qrcode.react");
@@ -48,7 +49,9 @@ const CloseIcon = styled.img`
   height: 1rem;
   cursor: pointer;
   @media (min-width: 0) and (max-width: 768px) {
-    margin-left: auto;
+    margin-left: 18rem;
+    width: 10.6px;
+    height: 10.8px;
     // margin-right: 20px;
     display: ${(props) => (props.isDesktop ? "none" : "block")};
   }
@@ -69,42 +72,48 @@ const useStyles = makeStyles({
 export default function HoldersDetails(props) {
   const [toggleState, setToggleState] = useState(1);
 
-  // const [txtAddress, setTxtAddress] = useState('');
-  // const [balance, setBalance] = useState(0);
-  // const [convertCurrency, setConvertCurrency] = useState('');
-  // const [coinValue, setCoinValue] = useState(0);
-
   const [transactions, setTransactions] = useState([]);
 
   const [copiedText, setCopiedText] = useState("");
-  // let nowCurrency = window.localStorage.getItem('currency')
-  const [holder, setHolderDetail] = useState({});
-  // const [totalToken, setTotalToken] = useState({});
+
+  const [holder, setHolderDetail] = useState(0);
+  const [contractAddress, setContractAddress] = useState(0)
+  const [decimal, setDecimal] = useState(0)
   const { addr } = useParams();
   const { tn } = useParams();
 
   useEffect(() => {
     let values = { addr: addr, pageNum: 0, perpage: 1 };
     holderDetail(values);
-  }, []);
+    if (holder !== 0) {
+      getContractDetails()
+    }
+  }, [contractAddress]);
+
+  const getContractDetails = async () => {
+
+    let urlPath = `${contractAddress}`;
+    let [error, contractDecimal] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractDecimal) return;
+    setDecimal(contractDecimal.contractResponse?.decimals)
+  };
 
   const holderDetail = async (values) => {
     let [error, tns] = await Utils.parseResponse(
       TokenData.getHolderDetailsUsingAddressforToken(values)
     );
     if (error || !tns) return;
-    setHolderDetail(tns);
+    setHolderDetail(tns)
+    setContractAddress(tns[0]?.Contract_address);
   };
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
   const classes = useStyles();
-  // const options = {
-  //   htmlparser2: {
-  //     lowerCaseTags: false
-  //   }
-  // };
+
   return (
     <>
       <DeskTopView>
@@ -113,7 +122,7 @@ export default function HoldersDetails(props) {
           <Grid className="table-grid-block grid-block-table_11">
             <div
               className="block_details_heading"
-              style={{ display: "flex", flexDirection: "row" }}
+              style={{ display: "flex", flexDirection: "row",}}
             >
               <p className="block_details_heading_left">Holder Details</p>
             </div>
@@ -362,7 +371,7 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent />
+                  <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
                 <div
@@ -374,6 +383,15 @@ export default function HoldersDetails(props) {
                 >
                   <HolderAnalytics/>
                 </div>
+                {/* <div
+                  className={
+                    toggleState === 2
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+                  <HolderTableComponent trans={transactions} />
+                </div> */}
               </div>
             </div>
           </Grid>
@@ -386,7 +404,7 @@ export default function HoldersDetails(props) {
           <Grid lg={8} className="table-grid-block">
             <div
               className="block_details_heading"
-              style={{ display: "flex", flexDirection: "row" }}
+              style={{ display: "flex", flexDirection: "row", paddingLeft:"10px", }}
             >
               <p className="block_details_heading_left  fs-15">
                 Holder Details
@@ -607,18 +625,18 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent />
+                  <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
-                <div
+                {/* <div
                   className={
                     toggleState === 2
                       ? "content_sec  active-content_sec"
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent trans={transactions} />
-                </div>
+                  <HolderTableComponent  />
+                </div> */}
               </div>
             </div>
           </Grid>
