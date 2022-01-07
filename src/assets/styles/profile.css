@@ -570,7 +570,7 @@ margin-bottom:16px;
 
   .line {
     max-width: 664px;
-    width: 92%;
+    width: 100%;
   }
   .searchdiv {
     max-width: 710px;
@@ -595,7 +595,7 @@ margin-bottom:16px;
     line-height: normal;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   /* .div1,
   .div2,
   .div3 {
@@ -608,7 +608,7 @@ margin-bottom:16px;
     margin: 9px 7px 9px 7px;
   } */
   .line {
-    max-width: 375px;
+    /* max-width: 375px; */
     width: 95%;
   }
 }
@@ -703,6 +703,6 @@ margin-bottom:16px;
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .w-1500-a {
-    width: 1500px !important;
+    width: 950px !important;
   }
 }

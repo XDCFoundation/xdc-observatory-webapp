@@ -116,6 +116,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "37px",
     fontFamily: "Inter",
     fontSize: "14px",
+    fontWeight: "500",
   },
   heading: {
     fontWeight: "600",
@@ -271,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "auto",
       marginLeft: "auto",
       marginTop: "23px",
-      fontSize: "16px",
+      fontSize: "14px",
       color: "#2a2a2a",
       marginBottom: "8px",
     },
@@ -283,6 +284,7 @@ const useStyles = makeStyles((theme) => ({
       position: "relative",
       right: "0px",
       color: "#3763dd",
+      fontSize: "13px",
     },
     dialogButton: {
       padding: "0",
@@ -303,6 +305,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "4px",
       margin: "23px auto 21px auto",
       display: "block",
+    },
+    fieldName: {
+      fontSize: "13px",
     },
     addbtn: {
       width: "100%",
@@ -359,6 +364,9 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "433px",
       width: "100%",
       height: "38px",
+    },
+    xdc: {
+      fontSize: "13px",
     },
   },
 }));
@@ -807,7 +815,7 @@ export default function FormDialog(props) {
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
             <Row>
               <div className={classes.heading} id="form-dialog-title">
-                Log in to your account
+                Login to your account
               </div>
               <span onClick={handleClose} className={classes.closeContainer}>
                 <img className={classes.close} src={"/images/XDC-Cross.svg"} />
@@ -908,7 +916,8 @@ export default function FormDialog(props) {
             </DialogActions>
 
             <div className={classes.value}></div>
-            <DialogContentText className={classes.xdc}>
+            {window.innerWidth >= 768 ?
+            (<DialogContentText className={classes.xdc}>
               New to XDC Observatory?{" "}
               <span
                 className={classes.createaccount}
@@ -917,7 +926,17 @@ export default function FormDialog(props) {
                 {" "}
                 Create an account
               </span>
-            </DialogContentText>
+            </DialogContentText>)
+            : (<DialogContentText className={classes.xdc}>
+              New to XDC?{" "}
+              <span
+                className={classes.createaccount}
+                onClick={handleClickOpenSignup}
+              >
+                {" "}
+                Create an account
+              </span>
+            </DialogContentText>)}
           </div>
         ) : value === 1 ? (
           <div>
