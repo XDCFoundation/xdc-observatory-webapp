@@ -1277,7 +1277,7 @@ div::-webkit-scrollbar-thumb {
 }
 
 .b-h1 {
-  padding: 0 16px 0 15px !important;
+  padding: 0 16px 0 0 !important;
   margin-top: 20px;
   display: flex !important;
 }
@@ -3975,7 +3975,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding:  17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 10px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4039,7 +4039,7 @@ padding: 17px 0px 17px 70px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-holder td {
-    padding:  17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 10px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
