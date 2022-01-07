@@ -16,6 +16,7 @@ import {
   AccountService,
   CoinMarketService,
   TpsService,
+  NetStatsService,
   TransactionService,
   BlockService,
 } from "../../services";
@@ -24,7 +25,6 @@ import utility from "../../utility";
 
 const MainContainer = styled.div`
   width: 75.125rem;
-  height: 18.563rem;
   margin: 0 auto;
   margin-top: 30px;
   padding: 1.9rem 1.375rem 0;
@@ -39,14 +39,12 @@ const MainContainer = styled.div`
     width: 41.5rem;
     margin-left: auto;
     margin-right: auto;
-    height: 38.625rem;
     padding-top: 0px;
   }
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
     width: 22.563rem;
-    height: 32.063rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
@@ -123,7 +121,7 @@ const ValueMain = styled.div`
 const Value = styled.div`
   display: flex;
   width: 10.625rem;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
   @media (min-width: 0px) and (max-width: 767px) {
     padding: 10px 0px 0 0;
   }
@@ -291,7 +289,7 @@ class BlockChainDataComponent extends Component {
   }
   async componentDidMount() {
     this.totalTransactionCount();
-    this.totalAccountsCount();
+    this.getNetStatsData();
     this.someDaysAccountCount();
     this.coinMarketCapDetails();
     this.blocksLatest();
@@ -382,17 +380,17 @@ class BlockChainDataComponent extends Component {
 
   /* FETCHING GET TOTAL ACCOUNTS API*/
 
-  async totalAccountsCount() {
-    let [error, totalAccounts] = await Utils.parseResponse(
-      AccountService.getTotalAccount()
+  async getNetStatsData() {
+    let [error, netStatData] = await Utils.parseResponse(
+        NetStatsService.getNetStatsData()
     );
-    if (error || !totalAccounts) return;
-    this.setState({ totalAccount: totalAccounts });
+    if (error || !netStatData) return;
+    this.setState({netStatData: netStatData, totalAccount: netStatData.activeAddressCount});
     const interval = setInterval(async () => {
-      let [error, totalAccounts] = await Utils.parseResponse(
-        AccountService.getTotalAccount()
+      let [error, netStatData] = await Utils.parseResponse(
+          NetStatsService.getNetStatsData()
       );
-      this.setState({ totalAccount: totalAccounts });
+      this.setState({netStatData: netStatData, totalAccount: netStatData.activeAddressCount});
     }, 90000);
   }
 
@@ -569,7 +567,6 @@ class BlockChainDataComponent extends Component {
         <LeftContainer>
           <DeskTopDesign>
             <LeftFirst>
-
               <LeftTop>
                 <IconLogo src={logo} />
                 <LeftTitle>XDC</LeftTitle>
@@ -604,21 +601,17 @@ class BlockChainDataComponent extends Component {
                   </div>
                 </div>
               </LeftTopSecMain>
-              <Line1></Line1>
-
+              <Line1/>
             </LeftFirst>
           </DeskTopDesign>
           <LeftSec>
             <ValueMain>
               <MobileScreen>
-
                 <Value>
                   <TitleIcon src={blockHeightImg} />
                   <ValueName>
                     <Title>Block Height</Title>
-                    <TitleValue
-                      className={animationClass ? animationClass : ""}
-                    >
+                    <TitleValue className={animationClass ? animationClass : ""}>
                       {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
                     </TitleValue>
                   </ValueName>
@@ -627,9 +620,7 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={priceLogo} />
                   <ValueName>
                     <Title>Gas Price</Title>
-                    <TitleData
-                      className={TxanimationClass ? TxanimationClass : ""}
-                    >
+                    <TitleData className={TxanimationClass ? TxanimationClass : ""}>
                       {this.state.gasPrice}
                     </TitleData>
                   </ValueName>
@@ -638,42 +629,35 @@ class BlockChainDataComponent extends Component {
                   <TitleIcon src={transactionLogo} />
                   <ValueName>
                     <Title>Transactions</Title>
-                    <Tooltip
-                      placement="top"
-                      title={this.state.totalTransaction}
-                    >
+                    <Tooltip placement="top" title={this.state.totalTransaction}>
                       <TitleValue>
                         {" "}
-                        {utility.convertToInternationalCurrencySystem(
-                          this.state.totalTransaction
-                        )}
+                        {utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}
                       </TitleValue>
                     </Tooltip>
                   </ValueName>
                 </Value>
-
               </MobileScreen>
               <MobileScreen>
-
+                {/*<Value>*/}
+                {/*  <TitleIcon src={difficultyLogo} />*/}
+                {/*  <ValueName>*/}
+                {/*    <Title>Difficulty</Title>*/}
+                {/*    <Tooltip placement="top"*/}
+                {/*      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}>*/}
+                {/*      <TitleValue className={animationClass ? animationClass : ""}>*/}
+                {/*        {utility.convertToInternationalCurrencySystem(this.state.blockdataNumber[0]?.totalDifficulty)}*/}
+                {/*      </TitleValue>*/}
+                {/*    </Tooltip>*/}
+                {/*  </ValueName>*/}
+                {/*</Value>*/}
                 <Value>
-                  <TitleIcon src={difficultyLogo} />
+                  <TitleIcon src={maxLogo} />
                   <ValueName>
-                    <Title>Difficulty</Title>
-                    <Tooltip
-                      placement="top"
-                      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}
-                    >
-                      <TitleValue
-                        className={animationClass ? animationClass : ""}
-                      >
-                        {utility.convertToInternationalCurrencySystem(
-                          this.state.blockdataNumber[0]?.totalDifficulty
-                        )}
-                      </TitleValue>
-                    </Tooltip>
+                    <Title>Nodes</Title>
+                    <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue>
                   </ValueName>
                 </Value>
-
                 <Value>
                   <TitleIcon src={maxLogo} />
                   <ValueName>
@@ -729,14 +713,35 @@ class BlockChainDataComponent extends Component {
                   </ValueName>
                 </Value>
               </MobileScreen>
+              <MobileScreen>
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Total Stake</Title>
+                    <TitleValue>{utility.getNumber(this.state.netStatData?.stakesCount)}</TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={maxLogo} />
+                  <ValueName>
+                    <Title>Contracts</Title>
+                    <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.contractsCount)}</TitleValue>
+                  </ValueName>
+                </Value>
+                <Value>
+                  <TitleIcon src={accountLogo} />
+                  <ValueName>
+                    <Title>Active Address</Title>
+                      <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
+                  </ValueName>
+                </Value>
+              </MobileScreen>
             </ValueMain>
           </LeftSec>
         </LeftContainer>
-
         <RightContainer>
           <MobileDesign>
             <LeftFirst>
-
               <LeftTop>
                 <IconLogo src={logo} />
                 <LeftTitle>XDC</LeftTitle>
@@ -771,7 +776,6 @@ class BlockChainDataComponent extends Component {
                   </div>
                 </div>
               </LeftTopSecMain>
-
             </LeftFirst>
           </MobileDesign>
           <Tab />
