@@ -41,16 +41,12 @@ const useStyles = makeStyles((theme) => ({
         top: "65px",
         width: "503px",
         borderRadius: "12px",
-        "@media (min-width:0px) and (max-width:375px)": {
+        "@media (min-width:0px) and (max-width:767px)": {
             width: "100% !important",
             height: "100% !important",
             borderRadius: "1px !important",
-        },
-        "@media (min-width:375px) and (max-width:768px)": {
-            width: "100% !important",
-            height: "100% !important",
-            borderRadius: "1px !important",
-            maxWidth: "768px !important"
+            maxWidth: "768px !important",
+            top: "33px"
         },
     },
     closeContainer: {
@@ -141,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ChangePassword(props) {
+    console.log("props",props)
     const classes = useStyles();
     const [newInput, setNewInput] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -151,6 +148,7 @@ export default function ChangePassword(props) {
     const [errorPassword, setErrorPassword] = React.useState("");
     const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
     const [passwordShown1, setPasswordShown1] = React.useState(false);
+    const [openChangePassword, setOpenChangePassword] = React.useState(false);
     const togglePasswordVisiblity1 = () => {
         setPasswordShown1(passwordShown1 ? false : true);
     };
@@ -166,7 +164,8 @@ export default function ChangePassword(props) {
     var regExPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
     const handleClose = () => {
-        history.push("/loginprofile");
+        history.push("/loginprofile")
+        setOpenChangePassword(props.openChangePassword);
     };
 
     const updatepassword = async () => {

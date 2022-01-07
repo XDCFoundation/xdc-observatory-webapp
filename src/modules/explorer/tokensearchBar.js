@@ -31,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
+  firstContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: "19px",
+  },
   appBar: {
     position: "unset !important",
     backgroundColor: "#2149b9",
@@ -107,8 +113,14 @@ const useStyles = makeStyles((theme) => ({
       height: 15,
     },
     popover: {
-      marginRight: "-15px",
-
+      marginRight:"-15px",
+      
+    },
+    firstContainer: {
+      marginTop: "10px",
+    },
+    drawerHeader: {
+      marginTop: "-10px"
     }
   },
 
@@ -134,9 +146,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  "@media (min-width: 0px) and (max-width: 640px)": {
+  "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: 300,
+      width: "153px",
       backgroundColor: "#102e84",
       height: "100%",
     },
@@ -260,12 +272,8 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: "40px",
-        }}
+        
+        className={classes.firstContainer}
       >
         <p className="inside-side-box-browse">Browse</p>
         <div className={classes.drawerHeader}>

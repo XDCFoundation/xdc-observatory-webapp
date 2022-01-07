@@ -70,7 +70,7 @@ export default function CommonTransactionsTable(props) {
       {/* <TableContainer> */}
       {props.isHomePage ? (
         <TransactionHeaderContainer>
-          <TransactionTitle>Latest Transactions</TransactionTitle>
+          <TransactionTitle></TransactionTitle>
           <a
             className="nav_button margin-right-30px"
             href="/view-all-transaction"
@@ -258,7 +258,7 @@ export default function CommonTransactionsTable(props) {
                     <>
                       {/* {amt > 0 ?  //if transaction amount is greater than 0 only then show the transaction */}
                       <TableRow
-                        key={row.name}
+                        key={row.hash}
                         style={
                           index % 2 !== 1
                             ? { background: "#f9f9f9" }

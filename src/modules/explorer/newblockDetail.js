@@ -63,18 +63,21 @@ export default function BlockDetails() {
   const parsed = queryString.parse(useLocation().search);
   let hashKey = parsed?.hash;
 
-  useEffect(() => {
-    getLatestaccount(blockNumber);
-    setcount(blockNumber);
-  }, []);
+  // useEffect(() => {
+  //   getLatestaccount(blockNumber);
+  //   setcount(blockNumber);
+  // }, []);
 
   const getLatestaccount = async (blockNumber) => {
     let urlPath = `${blockNumber}`;
-
+console.log("urlPath===",urlPath)
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
-    if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length == 0 || blockDetailsUsingHeight === undefined || blockDetailsUsingHeight == "" || blockDetailsUsingHeight === null) {
+    console.log("error ==urlPath===",error)
+    console.log("blockDetailsUsingHeight ==blockDetailsUsingHeight===",blockDetailsUsingHeight)
+
+    if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length === 0 || blockDetailsUsingHeight === "" || blockDetailsUsingHeight === null) {
       setLoading(false);
     }
     if (error || !blockDetailsUsingHeight) return;
@@ -110,6 +113,9 @@ export default function BlockDetails() {
   );
 
   React.useEffect(() => {
+    console.log("hello======")
+    getLatestaccount(blockNumber);
+    setcount(blockNumber);
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }

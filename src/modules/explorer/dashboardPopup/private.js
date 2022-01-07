@@ -224,7 +224,7 @@ const LightToolTip = withStyles({
   },
 })(Tooltip);
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const [passwordShown, setPasswordShown] = React.useState(false);
@@ -273,8 +273,9 @@ export default function FormDialog() {
         return;
       }
       utility.apiSuccessToast("Tag Added");
-      window.location.href = "loginprofile";
       setOpen(false);
+      await props.getListOfTagAddress();
+      await props.getTotalCountTagAddress();
     }
   }
 
@@ -309,7 +310,11 @@ export default function FormDialog() {
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
       if(trimmedInput.length > 15){
-        utility.apiFailureToast("Tag length should be less than 15");
+        setErrorTag("Tag length should be less than 15");
+        return;
+      }
+      if(tags.length >= 5){
+        setErrorTag("Maximum 5 Tags are allowed");
         return;
       }
       setTags((prevState) => [...prevState, trimmedInput]);
