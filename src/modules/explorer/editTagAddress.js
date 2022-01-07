@@ -199,7 +199,8 @@ function EditTaggedAddress(props) {
         return;
       }
       utility.apiSuccessToast("Address tag Updated");
-      window.location.href = "loginprofile";
+      await props.getListOfTagAddress();
+      await props.getTotalCountTagAddress();
       setOpen(false);
       setErrorTag("")
     }
@@ -233,6 +234,7 @@ function EditTaggedAddress(props) {
       await utility.apiSuccessToast(genericConstants.TAGGED_ADDRESS_DELETED);
       await handleClose();
       await props.getListOfTagAddress();
+      await props.getTotalCountTagAddress();
     }
   };
 
@@ -258,6 +260,14 @@ function EditTaggedAddress(props) {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
+      if(trimmedInput.length > 15){
+        setErrorTag("Tag length should be less than 15");
+        return;
+      }
+      if(tags.length >= 5){
+        setErrorTag("Maximum 5 Tags are allowed");
+        return;
+      }
       setTags((prevState) => [...prevState, trimmedInput]);
       setInput("");
       setErrorTag("");

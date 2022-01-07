@@ -5,13 +5,15 @@ import moment from "moment";
 import { TransactionService } from "../../services";
 import Utils from "../../utility";
 import styled from "styled-components";
+import format from "format-number";
 
 const toolTipElement = (props) => {
+  let transactionCount = Number(props.point?.data?.y)
   return (
     <div>
       <div className="Tooltip-graph">
         <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
-        <p className="Tooltip-graph-tx">Transactions: {props.point?.data?.y}</p>
+        <p className="Tooltip-graph-tx">Transactions: {format({})(transactionCount)}</p>
       </div>
       <div class="outer-oval-trans">
         <div class="Oval"></div>
@@ -76,7 +78,7 @@ export default function App() {
       let [error, transactionGraph] = await Utils.parseResponse(
         TransactionService.getSomeDaysTransaction()
       );
-      if(error) return;
+      if (error) return;
       setGraphTransactions(transactionGraph);
       // alert(JSON.stringify(transactionGraph))
     }, 90000);

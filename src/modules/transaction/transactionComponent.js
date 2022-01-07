@@ -17,7 +17,8 @@ import ConfigureColumnsModal from "../common/configureColumnsModal";
 import moment from "moment";
 import { messages } from "../../constants"
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
-
+import format from "format-number";
+import utility from "../../utility";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -66,7 +67,7 @@ const useStyles = makeStyles({
   },
   "@media (min-width:0px) and (max-width: 1240px)": {
     container: {
-      height: "48.375rem",
+      height: "36.375rem",
     },
     container1: {
       height: "23.375rem",
@@ -124,7 +125,7 @@ export default function TransactionComponent(props) {
   const tableColumns = { "Transaction Hash": { isActive: true } };
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
-      <div className="display-flex justify-content-between p-t-30 p-b-30">
+      <div className="display-flex justify-content-between p-t-30 p-b-15">
         <div class="fs-24 fw-bold">{state.tableName}</div>
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
@@ -315,11 +316,11 @@ export default function TransactionComponent(props) {
                     const currentTime = new Date();
                     const previousTime = new Date(row.timestamp * 1000);
                     const ti = timeDiff(currentTime, previousTime);
-                    const txFee = (
-                      (row?.gasUsed * row?.gasPrice) /
-                      100000000000000000
-                    ).toFixed(9);
-                    let amt = (row.value / 1000000000000000000).toFixed(4);
+                    // const txFee = (
+                    //   (row?.gasUsed * row?.gasPrice) /
+                    //   100000000000000000
+                    // ).toFixed(9);
+                    let amt = utility.decimalDivison(row.value, 8);
                     const Hash = row.hash;
                     let animationClass = props.state.hashAnimation?.[Hash];
                     return (
@@ -365,7 +366,7 @@ export default function TransactionComponent(props) {
                                 animationClass ? animationClass : "tabledata"
                               }
                             >
-                              {amt >= 0.0001 ? amt : 0}
+                              {amt}
                             </span>
                           </TableCell>
                         )}
@@ -402,7 +403,7 @@ export default function TransactionComponent(props) {
                               }
                             >
                               {moment(row.timestamp * 1000).format(
-                                "MMMM DD, YYYY"
+                                "MMM DD, YYYY h:mm A"
                               )}
                             </span>
                           </TableCell>
@@ -462,6 +463,7 @@ export default function TransactionComponent(props) {
                             border: "none",
                             width: "155px",
                             paddingLeft: "2.813rem",
+                            paddingRight: "15px"
                           }}
                           align="left"
                         >
@@ -501,7 +503,7 @@ export default function TransactionComponent(props) {
               </TableBody>
             )}
           </Table>
-          {!props.state.isData ? (
+          {!props.state.isData && !props.state.isLoading ?  (
             <NoDataFoundContainer>
               <img
                 src={require("../../../src/assets/images/XDC-Alert.svg")}
@@ -518,7 +520,8 @@ export default function TransactionComponent(props) {
       <Grid container style={{ marginTop: "2.25rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
-          <span className="text">Show</span>
+        {!props.state.isLoading && props.state.isData ?
+          (<><span className="text">Show</span>
           <select
             value={props.state.amount}
             className="select-amount"
@@ -530,7 +533,7 @@ export default function TransactionComponent(props) {
             <option value={75}>75</option>
             <option value={100}>100</option>
           </select>
-          <span className="text">Records</span>
+          <span className="text">Records</span></>):("")}
         </Grid>
 
         <Grid item className="Pagination_2">

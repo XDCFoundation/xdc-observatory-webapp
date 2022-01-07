@@ -123,12 +123,12 @@ const useStyles = makeStyles((theme) => ({
 
   "@media (min-width: 0px) and (max-width: 767px)": {
     list: {
-      width: "17.313rem",
+      width: "153px",
       backgroundColor: "#102e84",
       height: "100%",
     },
     drawerHeader: {
-      padding: "0 !important",
+      padding: "3px 0 0 0",
     },
   },
   fullList: {
@@ -197,11 +197,12 @@ export default function Navbar() {
       const [error, responseData] = await Utility.parseResponse(
         SearchData.searchData(data)
       );
-      if (!responseData) {
+      if (!responseData || responseData[0]?.token?.length == 0) {
         Utility.apiFailureToast("No details found.");
       }
 
       if (responseData) {
+        console.log(responseData, "pppp")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -213,7 +214,7 @@ export default function Navbar() {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token") {
+        } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
           let tokenDataUrl =
             "/token-data/" +
             responseData[0]?.token[0]?.address +
@@ -652,9 +653,9 @@ export default function Navbar() {
     letter-spacing: 0.041rem;
     color: #ffffff;
     list-style: none;
-    @media (min-width: 0px) and (max-width: 767px) {
-      font-size: 0.875rem;
-    }
+  @media (min-width: 0px) and (max-width: 767px){
+    font-size: 0.875rem;
+  }
   `;
 
   const MobileNavigationContainer = styled.div`
