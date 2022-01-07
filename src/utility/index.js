@@ -121,7 +121,7 @@ function divideByDecimalValue(num, decimals) {
     return num;
   }
   else {
-    return parseFloat((num / Math.pow(10, decimals)).toFixed(decimals))
+    return (num / Math.pow(10, decimals)).toFixed(decimals)
   }
 
 }
