@@ -164,7 +164,7 @@ export default function TermsCondition() {
           <Para1>
             This website at{" "}
             <a href="" style={{ color: "#2149b9" }}>
-              www.____.___{" "}
+            https://observer.xdc.org/{" "}
             </a>
             (hereinafter referred to as the “Website”) is published and
             maintained to provide information and material related to the XDC
@@ -186,7 +186,7 @@ export default function TermsCondition() {
               within the Website and explains certain rights you may have as a
               user. You can access the privacy policy at{" "}
               <a href="" style={{ color: "#2149b9" }}>
-                www.____.___{" "}
+              https://observer.xdc.org/privacy-policy{" "}
               </a>
             </Para>
             <PointHeading>User-Defined Content </PointHeading>

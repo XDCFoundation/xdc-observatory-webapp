@@ -47,7 +47,9 @@ const CloseIcon = styled.img`
   height: 1rem;
   cursor: pointer;
   @media (min-width: 0) and (max-width: 768px) {
-    margin-left: auto;
+    margin-left: 18rem;
+    width: 10.6px;
+    height: 10.8px;
     // margin-right: 20px;
     display: ${(props) => (props.isDesktop ? "none" : "block")};
   }
@@ -112,7 +114,7 @@ export default function HoldersDetails(props) {
           <Grid className="table-grid-block grid-block-table_11">
             <div
               className="block_details_heading"
-              style={{ display: "flex", flexDirection: "row" }}
+              style={{ display: "flex", flexDirection: "row",}}
             >
               <p className="block_details_heading_left">Holder Details</p>
             </div>
@@ -332,7 +334,7 @@ export default function HoldersDetails(props) {
           <Grid lg={8} className="table-grid-block">
             <div
               className="block_details_heading"
-              style={{ display: "flex", flexDirection: "row" }}
+              style={{ display: "flex", flexDirection: "row", paddingLeft:"10px", }}
             >
               <p className="block_details_heading_left  fs-15">
                 Holder Details

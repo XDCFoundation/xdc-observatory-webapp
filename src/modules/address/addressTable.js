@@ -962,7 +962,8 @@ export default function AddressTableComponent(props) {
           className="page-container-address"
         >
           <Grid item xs="4" className="pagination-tab-address">
-            <span className="text">Show</span>
+            {!isLoading && !noData ?
+            (<><span className="text">Show</span>
             <select
               value={rowsPerPage}
               className="select-amount amount-select"
@@ -974,7 +975,7 @@ export default function AddressTableComponent(props) {
               <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
-            <span className="text">Records</span>
+            <span className="text">Records</span></>):("")}
           </Grid>
           <Grid xs="1"></Grid>
           {noData == true && (

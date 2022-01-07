@@ -254,7 +254,9 @@ function EditWatchList(props) {
         utility.apiFailureToast("Error");
       } else {
         utility.apiSuccessToast("Address Updated");
-        window.location.href = "loginprofile";
+        handleClose();
+        await props.getWatchlistList();
+        await props.getTotalCountWatchlist();
       }
     };
   }
@@ -282,6 +284,7 @@ function EditWatchList(props) {
       await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
       await handleClose();
       await props.getWatchlistList()
+      await props.getTotalCountWatchlist()
     }
   }
   return (
