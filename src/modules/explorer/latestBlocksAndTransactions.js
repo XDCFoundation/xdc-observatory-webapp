@@ -68,7 +68,7 @@ class LatestBlocks extends Component {
   async componentDidMount() {
     this.transactionsLatest();
     // await this.blocksLatest();
-    this.socketData(this.props.socket);
+    // this.socketData(this.props.socket);
   }
   socketData(socket) {
     let blocks = this.state.latestBlocksData;

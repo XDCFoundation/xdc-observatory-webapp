@@ -7652,10 +7652,11 @@ button {
 .outer-oval-trans {
   width: 14px;
   height: 14px;
-  margin: 12px 2px -19px 80px;
+  margin: 12px 2px 18px 45%;
   padding: 5px 4px 4px 5px;
   background-color: rgba(55, 99, 221, 0.1);
   border-radius: 10px;
+  margin-bottom: -20px;
 }
 
 .Oval {
@@ -10189,7 +10190,7 @@ button {
   color: #e3e7eb;
 }
 
-.out{
+.out {
   width: 35px;
   height: 28px;
   padding: 6px 5px;
@@ -10204,7 +10205,7 @@ button {
   color: #ff4200;
 }
 
-.in{
+.in {
   width: 35px;
   height: 28px;
   padding: 6px 11px;

@@ -300,7 +300,7 @@ class BlockChainDataComponent extends Component {
     await this.tpsCountDetail();
     // await this.CountMaxtps();
 
-    this.socketData(this.props.socket);
+    // this.socketData(this.props.socket);
   }
 
   componentDidUpdate(prevProps, prevState) {
