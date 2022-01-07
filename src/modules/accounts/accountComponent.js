@@ -18,7 +18,9 @@ import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import Utils from "../../utility";
 import styled from "styled-components";
-import { messages } from "../../constants"
+import { messages } from "../../constants";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+
 
 const useStyles = makeStyles({
   container: {
@@ -47,6 +49,19 @@ const useStyles = makeStyles({
     borderBottom: "none !important",
     paddingLeft: "0% !important",
   },
+  btn: {
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
+  sortButton: {
+    color: "#3763dd",
+    height: "20px",
+    width: "15px",
+    marginLeft: "5px",
+  },
   "@media (max-width: 1024px)": {
     container: {
       height: 600,
@@ -69,6 +84,13 @@ export default function AccountComponent(props) {
   let [anchorEl, setAnchorEl] = React.useState();
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
+
+
+  const [ rankTT , setRankTT ] = React.useState(false)
+  const [ addressTT , setaddressTT ] = React.useState(false)
+  const [ typeTT , settypeTT ] = React.useState(false)
+  const [ balanceTT , setbalanceTT ] = React.useState(false)
+  const [ percentageTT , setpercentageTT ] = React.useState(false)
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -136,8 +158,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Rank
-                        <Tooltip placement="top" title={messages.RANK}>
+                        <Tooltip 
+                        open={rankTT}
+                        onOpen={() => setRankTT(true)}
+                        onClose={() => setRankTT(false)}
+                        placement="top" title={messages.RANK}>
                       <img
+                      onClick={() => setRankTT(!rankTT)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -153,8 +180,13 @@ export default function AccountComponent(props) {
                   >
                     <span className={"tableheaders_1_address"}>
                       Address
-                      <Tooltip placement="top" title={messages.ACCOUNT_ADDRESS}>
+                      <Tooltip 
+                      open={addressTT}
+                        onOpen={() => setaddressTT(true)}
+                        onClose={() => setaddressTT(false)}
+                        placement="top" title={messages.ACCOUNT_ADDRESS}>
                         <img
+                        onClick={() => setRankTT(!addressTT)}
                           alt="question-mark"
                           src="/images/question-mark.svg"
                           height={"14px"}
@@ -170,8 +202,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Type
-                        <Tooltip placement="top" title={messages.ACCOUNT_TYPE}>
+                        <Tooltip 
+                        open={typeTT}
+                        onOpen={() => settypeTT(true)}
+                        onClose={() => settypeTT(false)}
+                        placement="top" title={messages.ACCOUNT_TYPE}>
                           <img
+                          onClick={() => settypeTT(!typeTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -188,8 +225,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Balance
-                        <Tooltip placement="top" title={messages.ACCOUNT_BALANCE}>
+                        <Tooltip 
+                        open={balanceTT}
+                        onOpen={() => setbalanceTT(true)}
+                        onClose={() => setbalanceTT(false)}
+                        placement="top" title={messages.ACCOUNT_BALANCE}>
                           <img
+                          onClick={() => setbalanceTT(!balanceTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -197,6 +239,12 @@ export default function AccountComponent(props) {
                           />
                         </Tooltip>
                       </span>
+                      <Tooltip placement="top"  title={props.getSortTitle("balanceSort")}>
+                      <ArrowUpwardIcon
+                        onClick={() => { props.sortData("balanceSort") }}
+                        className={classes.sortButton}
+                      />
+                    </Tooltip>
                     </TableCell>
                   )}
 
@@ -207,8 +255,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
-                        <Tooltip placement="top" title={messages.PERCENTAGE}>
+                        <Tooltip 
+                        open={percentageTT}
+                        onOpen={() => setpercentageTT(true)}
+                        onClose={() => setpercentageTT(false)}
+                        placement="top" title={messages.PERCENTAGE}>
                       <img
+                      onClick={() => setpercentageTT(!percentageTT)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -216,6 +269,12 @@ export default function AccountComponent(props) {
                       />
                     </Tooltip>
                         </span>
+                        <Tooltip placement="top"  title={props.getSortTitle("percentageSort")}>
+                        <ArrowUpwardIcon
+                        onClick={() => { props.sortData("percentageSort") }}
+                        className={classes.sortButton}
+                      />
+                      </Tooltip>
                     </TableCell>
                   )}
                   {/* <TableCell style={{ border: "none", paddingLeft: "4.4%" }} align="left"><span className={"tableheaders_1 percentage-table-accounts"}>Percentage</span></TableCell> */}
@@ -340,6 +399,7 @@ export default function AccountComponent(props) {
                                     </span>
                                   )}
                                 </Tooltip>
+
                               </TableCell>
                             )}
                             {props.state.tableColumns["Percentage"]
@@ -380,7 +440,8 @@ export default function AccountComponent(props) {
 
         <Grid container style={{ marginTop: "35px" }} className="Pagination">
           <Grid item className="Pagination_1">
-            <span className="text">Show</span>
+          {!props.state.isLoading && props.state.noData ?
+            (<><span className="text">Show</span>
             <select
               value={props.state.amount}
               className="select-amount"
@@ -392,7 +453,7 @@ export default function AccountComponent(props) {
               <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
-            <span className="text">Records</span>
+            <span className="text">Records</span></>):("")}
           </Grid>
 
           <Grid item className="Pagination_2">

@@ -18,6 +18,8 @@ export default class LatestAccountsList extends BaseComponent {
             totalSupply: 0,
             noData: 1,
             isLoading: true,
+            balanceSort:1,
+            percentageSort:1,
             tableColumns: {
                 "Rank": { isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance." },
                 "Type": { isActive: true, toolTipText: "Account type is either Account, Contract or Token." },
@@ -40,14 +42,16 @@ export default class LatestAccountsList extends BaseComponent {
     }
 
 
-    async getListOfAccounts(from, amount, keywords = '') {
+    async getListOfAccounts(from, amount, keywords = '',sortKey,sortType) {
         from = from || from === 0 ? from : this.state.from;
         amount = amount ? amount : this.state.amount;
+        sortKey =sortKey ? sortKey : "balance";
+        sortType = sortType ? sortType : "-1";
         let urlPath = ''
         if (keywords) {
-            urlPath = `?skip=${from}&limit=${amount}&keywords=${keywords}`
+            urlPath = `?skip=${from}&limit=${amount}&keywords=${keywords}&sortKey=${sortKey}&sortType=${sortType}`
         } else {
-            urlPath = `?skip=${from}&limit=${amount}`
+            urlPath = `?skip=${from}&limit=${amount}&sortKey=${sortKey}&sortType=${sortType}`
         }
 
         let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
@@ -141,7 +145,25 @@ export default class LatestAccountsList extends BaseComponent {
         }
         return `#${item}-#{type}`
     }
-
+    sortData = async(sortKey) =>{
+        let sortType = this.state[sortKey];
+        if (sortType === 1) {
+          // setLoading(true)
+            this.getListOfAccounts(this.state.from , this.state.amount , '' , "balance" , 1);
+            this.setState({[sortKey]:-1})
+        }
+        else {
+          // setLoading(true)
+          this.getListOfAccounts(this.state.from , this.state.amount , '' , "balance" , -1);
+          this.setState({[sortKey]:1})
+        }
+    }
+     getSortTitle = (sortKey) => {
+        if (this.state[sortKey] === 1)
+          return "Ascending"
+        else
+          return "Descending"
+      }
     render() {
         return (
             <AccountComponent
@@ -156,6 +178,8 @@ export default class LatestAccountsList extends BaseComponent {
                 _FirstPage={this._FirstPage}
                 _handleChange={this._handleChange}
                 _handleSearch={this._handleSearch}
+                sortData ={this.sortData}
+                getSortTitle = {this.getSortTitle}
             />
         )
 

@@ -3,10 +3,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import {makeStyles} from "@material-ui/styles";
-import {Row} from "simple-flexbox";
-import {history} from "../../../managers/history";
-import {sessionManager} from "../../../managers/sessionManager";
+import { makeStyles } from "@material-ui/styles";
+import { Row } from "simple-flexbox";
+import { history } from "../../../managers/history";
+import { sessionManager } from "../../../managers/sessionManager";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -15,6 +15,7 @@ import AddWatchList from "../../../services/user";
 import utility from "../../../utility";
 import Tokensearchbar from "../tokensearchBar";
 import FooterComponent from "../../common/footerComponent";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -241,7 +242,7 @@ export default function FormDialog() {
   };
 
   const handleCancel = () => {
-    history.push("/loginprofile")
+    history.push("/loginprofile");
     setError("");
   };
   const watchListService = async () => {
@@ -263,14 +264,35 @@ export default function FormDialog() {
       setDescriptionError("Description is required");
     } else {
       if (value === "NO") request["isEnabled"] = false;
-      const [error, response] = await utility.parseResponse(
-        AddWatchList.addWatchlist(request)
-      );
+      // const [error, response] = await utility.parseResponse(
+      //   AddWatchList.addWatchlist(request)
+      // );
 
-      if (error || !response) {
-        utility.apiFailureToast("Address already exists");
-        return;
+      // if (error || !response) {
+      //   utility.apiFailureToast("Address already exists");
+      //   return;
+      // }
+      let watchlists = localStorage.getItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST
+      );
+      if (watchlists) {
+        watchlists = JSON.parse(watchlists);
+        const existingWatchList = watchlists.find(
+          (item) =>
+            item.address == request.address && item.userId == request.userId
+        );
+        if (existingWatchList) {
+          utility.apiFailureToast("Address already exists");
+          return;
+        }
+      } else {
+        watchlists = [];
       }
+      watchlists.push(request);
+      localStorage.setItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        JSON.stringify(watchlists)
+      );
       utility.apiSuccessToast("Address added to watchlist");
       window.location.href = "loginprofile";
       setAddress("");
