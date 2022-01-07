@@ -85,6 +85,13 @@ export default function AccountComponent(props) {
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
 
+
+  const [ rankTT , setRankTT ] = React.useState(false)
+  const [ addressTT , setaddressTT ] = React.useState(false)
+  const [ typeTT , settypeTT ] = React.useState(false)
+  const [ balanceTT , setbalanceTT ] = React.useState(false)
+  const [ percentageTT , setpercentageTT ] = React.useState(false)
+
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
   }
@@ -151,8 +158,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Rank
-                        <Tooltip placement="top" title={messages.RANK}>
+                        <Tooltip 
+                        open={rankTT}
+                        onOpen={() => setRankTT(true)}
+                        onClose={() => setRankTT(false)}
+                        placement="top" title={messages.RANK}>
                       <img
+                      onClick={() => setRankTT(!rankTT)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -168,8 +180,13 @@ export default function AccountComponent(props) {
                   >
                     <span className={"tableheaders_1_address"}>
                       Address
-                      <Tooltip placement="top" title={messages.ACCOUNT_ADDRESS}>
+                      <Tooltip 
+                      open={addressTT}
+                        onOpen={() => setaddressTT(true)}
+                        onClose={() => setaddressTT(false)}
+                        placement="top" title={messages.ACCOUNT_ADDRESS}>
                         <img
+                        onClick={() => setRankTT(!addressTT)}
                           alt="question-mark"
                           src="/images/question-mark.svg"
                           height={"14px"}
@@ -185,8 +202,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Type
-                        <Tooltip placement="top" title={messages.ACCOUNT_TYPE}>
+                        <Tooltip 
+                        open={typeTT}
+                        onOpen={() => settypeTT(true)}
+                        onClose={() => settypeTT(false)}
+                        placement="top" title={messages.ACCOUNT_TYPE}>
                           <img
+                          onClick={() => settypeTT(!typeTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -203,8 +225,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Balance
-                        <Tooltip placement="top" title={messages.ACCOUNT_BALANCE}>
+                        <Tooltip 
+                        open={balanceTT}
+                        onOpen={() => setbalanceTT(true)}
+                        onClose={() => setbalanceTT(false)}
+                        placement="top" title={messages.ACCOUNT_BALANCE}>
                           <img
+                          onClick={() => setbalanceTT(!balanceTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -228,8 +255,13 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
-                        <Tooltip placement="top" title={messages.PERCENTAGE}>
+                        <Tooltip 
+                        open={percentageTT}
+                        onOpen={() => setpercentageTT(true)}
+                        onClose={() => setpercentageTT(false)}
+                        placement="top" title={messages.PERCENTAGE}>
                       <img
+                      onClick={() => setpercentageTT(!percentageTT)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
