@@ -168,7 +168,7 @@ const IconLogo = styled.img`
 `;
 const LeftTitle = styled.div`
   margin-top: 3px;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   font-family: Inter;
   font-stretch: normal;
@@ -285,7 +285,7 @@ const Line2 = styled.hr`
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 100%;
     top: 20%;
-    display: none;
+    // display: none;
   }
 `;
 const RightTopSec = styled.div`

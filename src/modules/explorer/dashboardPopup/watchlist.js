@@ -223,7 +223,7 @@ const LightToolTip = withStyles({
   },
 })(Tooltip);
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -291,7 +291,8 @@ export default function FormDialog() {
       setAddress("");
       setDescription("");
       setOpen(false);
-      window.location.reload();
+      await props.getWatchlistList();
+      await props.getTotalCountWatchlist();
     }
   };
 

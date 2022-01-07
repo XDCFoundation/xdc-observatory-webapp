@@ -16,8 +16,8 @@ import AddressData from "../../services/address";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import TokenData from "../../services/token";
-import Loader from "../../assets/loader"
-
+import Loader from "../../assets/loader";
+import format from "format-number";
 const DeskTopView = styled.div`
   @media (min-width: 0px) and (max-width: 1023px) {
     display: none;
@@ -109,6 +109,7 @@ const useStyles = makeStyles({
   },
 });
 export default function HolderTableComponent(props) {
+  console.log(props, "oooo");
   const { state } = props;
   const classes = useStyles();
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -147,7 +148,7 @@ export default function HolderTableComponent(props) {
         };
         getTransactionSearch(datas);
       } else {
-        let pageValue = 0
+        let pageValue = 0;
         setPage(pageValue);
         datas = {
           pageNum: page,
@@ -238,11 +239,11 @@ export default function HolderTableComponent(props) {
       );
 
       if (responseData[0].Total_transfes_transactions_Count > 0) {
-        setLoading(false)
+        setLoading(false);
         setNoData(false);
         parseResponseData(responseData, 1);
       } else {
-        setLoading(false)
+        setLoading(false);
         setNoData(true);
         setBalance(parseFloat(0).toFixed(2));
       }
@@ -289,7 +290,6 @@ export default function HolderTableComponent(props) {
 
     setAddress(
       trxn.map((d) => {
-
         return {
           Txn_Hash: d.hash,
           Age: d.timestamp,
@@ -304,27 +304,28 @@ export default function HolderTableComponent(props) {
 
     setReportaddress(
       trxn.map((d) => {
-
         return {
           Txn_Hash: d.hash,
           Age: d.timestamp,
           Block: d.blockNumber,
           From: d.from,
           To: d.to,
-          Value: (d.value / 1000000000000000000)
+          Value: d.value / 1000000000000000000,
         };
       })
     );
-    setDownloadaddress(trxn.map((d) => {
-      return {
-        Txn_Hash: d.hash,
-        Age: moment(d.timestamp * 1000).format('DD/MM/YYYY hh:mm:ss'),
-        Block: d.blockNumber,
-        From: d.from,
-        To: d.to,
-        Value: (d.value / 1000000000000000000)
-      };
-    }))
+    setDownloadaddress(
+      trxn.map((d) => {
+        return {
+          Txn_Hash: d.hash,
+          Age: moment(d.timestamp * 1000).format("DD/MM/YYYY hh:mm:ss"),
+          Block: d.blockNumber,
+          From: d.from,
+          To: d.to,
+          Value: d.value / 1000000000000000000,
+        };
+      })
+    );
   };
   const handleKeyUp = (event) => {
     let searchkeyword = event.target.value;
@@ -372,7 +373,7 @@ export default function HolderTableComponent(props) {
         tempAddress.map((d) => {
           return {
             TxHash: d.Txn_Hash,
-            Age: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
+            Age: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -399,7 +400,7 @@ export default function HolderTableComponent(props) {
         tempAddr.map((d) => {
           return {
             TxHash: d.Txn_Hash,
-            Age: moment(d.Age * 1000).format('DD/MM/YYYY hh:mm:ss'),
+            Age: moment(d.Age * 1000).format("DD/MM/YYYY hh:mm:ss"),
             Block: d.Block,
             From: d.From,
             To: d.To,
@@ -419,16 +420,13 @@ export default function HolderTableComponent(props) {
             src={"/images/Search.svg"}
           />
           <input
-
             className="account-searchbar"
             type="text"
             placeholder="Search Transaction"
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                handleKeyUp(e)
-              };
-
-
+                handleKeyUp(e);
+              }
             }}
           />
         </div>
@@ -471,7 +469,10 @@ export default function HolderTableComponent(props) {
 
       <Grid lg={13} className="tablegrid_address">
         <Paper style={{ borderRadius: "14px" }} elevation={0}>
-          <TableContainer className={classes.container} id="container-table-holder">
+          <TableContainer
+            className={classes.container}
+            id="container-table-holder"
+          >
             <Table>
               <TableHead>
                 <TableRow>
@@ -481,7 +482,8 @@ export default function HolderTableComponent(props) {
                       type="checkbox"
                       name="allselect"
                       checked={
-                        address.filter((addr) => addr?.isChecked == true).length == address.length
+                        address.filter((addr) => addr?.isChecked == true)
+                          .length == address.length
                       }
                       style={{ marginRight: "8px" }}
                     />
@@ -510,7 +512,7 @@ export default function HolderTableComponent(props) {
               {isLoading == true ? (
                 <TableBody>
                   <TableRow>
-                    <TableCell style={{ border: 'none' }} colspan="6">
+                    <TableCell style={{ border: "none" }} colspan="6">
                       <div className="loader-address-details-list">
                         <Loader />
                       </div>
@@ -524,6 +526,17 @@ export default function HolderTableComponent(props) {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = timeDiff(currentTime, previousTime);
+                      const value = Utility.divideByDecimalValue(
+                        row.Value,
+                        Number(props?.decimal)
+                      );
+                      console.log(
+                        value,
+                        row.Value,
+                        typeof value,
+                        typeof Number(row.Value),
+                        "<<<Value"
+                      );
                       return (
                         <TableRow
                           style={
@@ -598,7 +611,6 @@ export default function HolderTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-
                             {row.To != addr ? (
                               <a
                                 className="linkTable"
@@ -619,10 +631,14 @@ export default function HolderTableComponent(props) {
                             )}
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            <span className="tabledata">{row.Value}</span>
+                            <span className="tabledata">
+                              {value === Number(row.Value)
+                                ? 0
+                                : format({})(parseFloat(value))}
+                            </span>
                           </TableCell>
                         </TableRow>
-                      )
+                      );
                     })}
                   </TableBody>
                 )
@@ -681,7 +697,8 @@ export default function HolderTableComponent(props) {
                 <button className="btn">
                   Page{" "}
                   {Math.round(totalRecord / rowsPerPage) +
-                    1 - Math.round((totalRecord - page) / rowsPerPage)}
+                    1 -
+                    Math.round((totalRecord - page) / rowsPerPage)}
                   &nbsp;of {Math.round(totalRecord / rowsPerPage)}
                 </button>
                 <button
@@ -743,7 +760,8 @@ export default function HolderTableComponent(props) {
                   Page
                   {Math.round(totalRecord / rowsPerPage) +
                     1 -
-                    Math.round((totalRecord - page) / rowsPerPage)} &nbsp;of {Math.round(totalRecord / rowsPerPage)}
+                    Math.round((totalRecord - page) / rowsPerPage)}{" "}
+                  &nbsp;of {Math.round(totalRecord / rowsPerPage)}
                 </div>
               </button>
               <button
@@ -767,7 +785,7 @@ export default function HolderTableComponent(props) {
             </RightPagination>
           </Pagination>
         </MobileView>
-      </      Grid>
+      </Grid>
     </div>
   );
 }
