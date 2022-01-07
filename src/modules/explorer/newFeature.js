@@ -41,7 +41,7 @@ export default function NewFeature(props) {
 
   return (
     <>
-    {!isLoggedIn ?
+    {isLoggedIn ?
 
     (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
       <div className="main-box" >
