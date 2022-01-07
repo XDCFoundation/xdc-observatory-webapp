@@ -12,6 +12,7 @@ import utility from "../../../utility";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   overflowNone : {
@@ -242,14 +243,35 @@ export default function FormDialog(props) {
     } else if (!PrivateNote) {
       setPrivateNoteError("Private Note is required");
     } else {
-      const [error, response] = await utility.parseResponse(
-        UserService.postUserPrivateNote(data)
-      );
+      // const [error, response] = await utility.parseResponse(
+      //   UserService.postUserPrivateNote(data)
+      // );
 
-      if (error || !response) {
-        utility.apiFailureToast("Transaction private note is already in use");
-        return;
+      // if (error || !response) {
+      //   utility.apiFailureToast("Transaction private note is already in use");
+      //   return;
+      // }
+      let transactionLabel = localStorage.getItem(
+        cookiesConstants.USER_TRASACTION_LABELS
+      );
+      if (transactionLabel) {
+        transactionLabel = JSON.parse(transactionLabel);
+        const existingTransactionLabel = transactionLabel.find(
+          (item) =>
+            item.address == TransactionsHash && item.userId == data.userId
+        );
+        if (existingTransactionLabel) {
+          utility.apiFailureToast("Transaction private note is already in use");
+          return;
+        }
+      } else {
+        transactionLabel = [];
       }
+      transactionLabel.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TRASACTION_LABELS,
+        JSON.stringify(transactionLabel)
+      );
       utility.apiSuccessToast("Transaction Added");
       setTransactionsHash("");
       setPrivateNote("");
