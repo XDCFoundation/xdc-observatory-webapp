@@ -14,6 +14,7 @@ import { CSVLink, CSVDownload } from "react-csv";
 import moment from "moment";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
@@ -74,6 +75,19 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
   },
+  btn: {
+    textAlign: "start",
+    padding: "0px",
+    border: "none !important",
+    background: "none",
+    "&:hover": { background: "none" },
+  },
+  sortButton: {
+    color: "#3763dd",
+    height: "20px",
+    width: "15px",
+    marginLeft: "5px",
+  }
 });
 export default function AddressTableComponent(props) {
   const { state } = props;
@@ -107,7 +121,14 @@ export default function AddressTableComponent(props) {
   // let isSettingColumnOpen = Boolean(anchorEl);
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState();
-
+  const [sortToggle, setSortToggle] = React.useState({
+    "blockNumber": 1,
+    "timestamp": 1,
+    "from": 1,
+    "to": 1,
+    "value": 1
+  });
+  const [sortingKey, setSortingKey] = React.useState("blockNumber");
   function handleSettingsClick(event) {
     setOpen(true);
     setAnchorEl(event?.currentTarget);
@@ -210,16 +231,20 @@ export default function AddressTableComponent(props) {
   };
   const getAddressDetails = async (data) => {
     try {
+      if (!data.sortKey) {
+        data["sortKey"] = "blockNumber"
+        data["sortType"] = -1
+      }
       const [error, responseData] = await Utility.parseResponse(
         AddressData.getAddressDetailWithlimit(data)
       );
-      let transactionSortByValue = responseData.sort((a, b) => {
-        return b.value - a.value;
-      });
-      if (transactionSortByValue && transactionSortByValue.length > 0) {
+      // let transactionSortByValue = responseData.sort((a, b) => {
+      //   return b.value - a.value;
+      // });
+      if (responseData && responseData.length > 0) {
         setNoData(false);
         setLoading(false);
-        parseResponseData(transactionSortByValue, 1);
+        parseResponseData(responseData, 1);
       } else {
         setNoData(true);
         setLoading(false);
@@ -256,6 +281,39 @@ export default function AddressTableComponent(props) {
     getAddressDetails(datas);
   }, []);
 
+  const sortData = async (sortKey) => {
+    let sortType = sortToggle[sortKey];
+    if (sortType === 1) {
+      // setLoading(true)
+      getAddressDetails({
+        pageNum: page,
+        perpage: rowsPerPage,
+        addrr: addr,
+        sortKey: sortKey,
+        sortType: sortType
+      });
+      setSortToggle({ ...sortToggle, [sortKey]: -1 })
+      setSortingKey(sortKey)
+    }
+    else {
+      // setLoading(true)
+      getAddressDetails({
+        pageNum: page,
+        perpage: rowsPerPage,
+        addrr: addr,
+        sortKey: sortKey,
+        sortType: sortType
+      });
+      setSortToggle({ ...sortToggle, [sortKey]: 1 })
+      setSortingKey(sortKey)
+    }
+  };
+  const getSortTitle = (sortKey) => {
+    if (sortToggle[sortKey] === 1)
+      return "Ascending"
+    else
+      return "Descending"
+  }
   const getTransactionSearch = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(
@@ -280,7 +338,7 @@ export default function AddressTableComponent(props) {
     } else {
       trxn = Recdata.responseTransaction;
     }
-
+    console.log("parse response", trxn);
     setAddress(
       trxn.map((d) => {
         return {
@@ -415,7 +473,7 @@ export default function AddressTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
-    color: "#c6cbcf";
+    color: #c6cbcf;
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -578,6 +636,12 @@ export default function AddressTableComponent(props) {
                         />
                       </Tooltip>
                     </span>
+                    <Tooltip placement="top" title={getSortTitle("blockNumber")}>
+                      <ArrowUpwardIcon
+                        onClick={() => { sortData("blockNumber") }}
+                        className={classes.sortButton}
+                      />
+                    </Tooltip>
                   </TableCell>
                   <TableCell
                     className="w-450 w-19"
@@ -599,7 +663,26 @@ export default function AddressTableComponent(props) {
                         />
                       </Tooltip>
                     </span>
+                    <button className={classes.btn}>
+                      <Tooltip placement="top" title={getSortTitle("from")}>
+                        <ArrowUpwardIcon
+                          onClick={() => { sortData("from") }}
+                          className={classes.sortButton}
+                        />
+                      </Tooltip>
+                    </button>
                   </TableCell>
+                    <TableCell
+                        className=""
+                        style={{
+                            border: "none",
+                            paddingLeft: "1.5%",
+                            paddingTop: "1.375rem",
+                        }}
+                        align="left"
+                    >
+                        <span className={"tableheaders table-value"}/>
+                    </TableCell>
                   <TableCell
                     className="w-450 w-18"
                     style={{
@@ -620,6 +703,14 @@ export default function AddressTableComponent(props) {
                         />
                       </Tooltip>
                     </span>
+                    <button className={classes.btn}>
+                      <Tooltip placement="top" title={getSortTitle("to")}>
+                        <ArrowUpwardIcon
+                          onClick={() => { sortData("to") }}
+                          className={classes.sortButton}
+                        />
+                      </Tooltip>
+                    </button>
                   </TableCell>
                   <TableCell
                     className="w-450 "
@@ -631,6 +722,14 @@ export default function AddressTableComponent(props) {
                     align="left"
                   >
                     <span className={"tableheaders table-value"}>Value</span>
+                    <button className={classes.btn}>
+                      <Tooltip placement="top" title={getSortTitle("value")}>
+                        <ArrowUpwardIcon
+                          onClick={() => { sortData("value") }}
+                          className={classes.sortButton}
+                        />
+                      </Tooltip>
+                    </button>
                   </TableCell>
                   {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
                 </TableRow>
@@ -751,6 +850,11 @@ export default function AddressTableComponent(props) {
                               </Tooltip>
                             )}
                           </TableCell>
+                            <TableCell style={{ border: "none" }} align="left">
+                                <span className={row.From === addr ? "out": "in"}>
+                                    {row.From === addr ? 'Out': 'In'}
+                                </span>
+                            </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             {row.To != addr ? (
                               <a
@@ -858,7 +962,8 @@ export default function AddressTableComponent(props) {
           className="page-container-address"
         >
           <Grid item xs="4" className="pagination-tab-address">
-            <span className="text">Show</span>
+            {!isLoading && !noData ?
+            (<><span className="text">Show</span>
             <select
               value={rowsPerPage}
               className="select-amount amount-select"
@@ -870,7 +975,7 @@ export default function AddressTableComponent(props) {
               <option value={75}>75</option>
               <option value={100}>100</option>
             </select>
-            <span className="text">Records</span>
+            <span className="text">Records</span></>):("")}
           </Grid>
           <Grid xs="1"></Grid>
           {noData == true && (
