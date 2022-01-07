@@ -12,9 +12,9 @@ const GraphContainer = styled.div`
   margin: 20px 0 0 0;
 `;
 
-export default function WrappedComponent() {
-    const {address} = useParams();
-    return <TokenTransferCountGraph address={address}/>;
+export default function WrappedComponent(props) {
+    const {addr} = useParams();
+    return <TokenTransferCountGraph address={addr} contractAddress={props.contractAddress}/>;
 }
 
 class TokenTransferCountGraph extends BaseComponent {
@@ -31,10 +31,9 @@ class TokenTransferCountGraph extends BaseComponent {
     }
 
 
-    async getTokenTransfer() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const userAddress = urlParams.get('userAddress');
-        const tokenAddress = this.props.address;
+    async getTokenTransfer() {;
+        const userAddress = this.props.address;
+        const tokenAddress = this.props.contractAddress;
         let request = {
             walletAddress: userAddress,
             tokenAddress: tokenAddress,
