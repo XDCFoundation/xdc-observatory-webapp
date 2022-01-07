@@ -677,6 +677,7 @@ export default function StickyHeadTable(props) {
             Show
           </span>
                     <PageSelector value={amount}
+                                  height={30}
                                   handler={handleChangeRowsPerPage}/>
                     <span
                         style={{
