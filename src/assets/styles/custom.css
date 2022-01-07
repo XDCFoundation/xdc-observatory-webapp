@@ -3136,6 +3136,7 @@ p {
   width: 100%;
   letter-spacing: 0.58px;
   margin-top: 10px;
+  padding-left: 8px;
   border-radius: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -6551,6 +6552,7 @@ button {
     margin-right: auto;
     width: 22.563rem;
     height: 15.813rem;
+    padding: 0 10px 0 10px;
   }
 }
 
@@ -8270,7 +8272,9 @@ button {
   .mobFilter {
     margin-top: -2px;
   }
-
+.mobFilter option {
+  width: 10px;
+}
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -10176,6 +10180,10 @@ button {
 }
 .tooltip-loader-div {
   margin-top: 50%;
+}
+
+.search-dashboard-select option {
+  width: 10px;
 }
 .change-password-input {
   width: 433px;

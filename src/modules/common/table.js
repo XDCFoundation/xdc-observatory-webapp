@@ -62,6 +62,13 @@ export default function CommonTransactionsTable(props) {
   const classes = useStyles();
   const { transactionList } = props;
 
+  const [hashTT , setHashTT] = React.useState(false)
+  const [amountTT , setAmountTT] = React.useState(false)
+  const [dateTT , setDateTT] = React.useState(false)
+  const [blockTT , setBlockTT] = React.useState(false)
+  const [fromTT , setfromTT] = React.useState(false)
+  const [toTT , settoTT] = React.useState(false)
+
   return (
     <Paper
       style={{ borderRadius: "14px", width: "100%" }}
@@ -93,8 +100,13 @@ export default function CommonTransactionsTable(props) {
               >
                 <span className={("tableheaders-hash", "tableheaders")}>
                   Hash
-                  <Tooltip placement="top" title={messages.HASH}>
+                  <Tooltip 
+                  open={hashTT}
+                  onOpen={() => setHashTT(true)}
+                  onClose={() => setHashTT(false)}
+                   placement="top" title={messages.HASH}>
                     <img
+                    onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -113,8 +125,13 @@ export default function CommonTransactionsTable(props) {
               >
                 <span className={("tableheaders", "tableheaders-all")}>
                   Amount
-                  <Tooltip placement="top" title={messages.AMOUNT}>
+                  <Tooltip
+                  open={amountTT}
+                  onOpen={() => setAmountTT(true)}
+                  onClose={() => setAmountTT(false)}
+                   placement="top" title={messages.AMOUNT}>
                     <img
+                    onClick={() => setAmountTT(!amountTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -130,8 +147,13 @@ export default function CommonTransactionsTable(props) {
               >
                 <span className={("tableheaders", "tableheaders-age")}>
                   Date
-                  <Tooltip placement="top" title={messages.DATE}>
+                  <Tooltip
+                  open={dateTT}
+                  onOpen={() => setDateTT(true)}
+                  onClose={() => setDateTT(false)}
+                   placement="top" title={messages.DATE}>
                     <img
+                    onClick={() => setDateTT(!dateTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -151,8 +173,13 @@ export default function CommonTransactionsTable(props) {
                 >
                   <span className={("tableheaders", "tableheaders-all")}>
                     Block
-                    <Tooltip placement="top" title={messages.BLOCK}>
+                    <Tooltip
+                    open={blockTT}
+                  onOpen={() => setBlockTT(true)}
+                  onClose={() => setBlockTT(false)}
+                   placement="top" title={messages.BLOCK}>
                       <img
+                      onClick={() => setBlockTT(!blockTT)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -174,8 +201,13 @@ export default function CommonTransactionsTable(props) {
               >
                 <span className={("tableheaders", "tableheaders-all")}>
                   From
-                  <Tooltip placement="top" title={messages.FROM}>
+                  <Tooltip
+                  open={fromTT}
+                  onOpen={() => setfromTT(true)}
+                  onClose={() => setfromTT(false)}
+                   placement="top" title={messages.FROM}>
                     <img
+                    onClick={() => setfromTT(!fromTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -191,8 +223,13 @@ export default function CommonTransactionsTable(props) {
               >
                 <span className={("tableheaders", "tableheaders-all")}>
                   To
-                  <Tooltip placement="top" title={messages.TO}>
+                  <Tooltip
+                  open={hashTT}
+                  onOpen={() => setHashTT(true)}
+                  onClose={() => setHashTT(false)}
+                   placement="top" title={messages.TO}>
                     <img
+                    onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -347,7 +384,7 @@ export default function CommonTransactionsTable(props) {
                               }
                             >
                               {moment(row.timestamp * 1000).format(
-                                "MMMM DD, YYYY"
+                                "MMM DD, YYYY h:mm A"
                               )}
                             </span>
                           </Tooltip>
