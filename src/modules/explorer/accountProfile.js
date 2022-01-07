@@ -1626,7 +1626,7 @@ export default function SimpleTabs(props) {
                             </TableCell>
                             <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheaders-1"}>
-                                Transaction Hashygtuy
+                                Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
                                 <img
                                   alt="question-mark"
