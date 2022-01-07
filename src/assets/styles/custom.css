@@ -3572,7 +3572,7 @@ body {
 }
 @media (max-width: 767px) {
   .previousbox-contract {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
   }
   .nextbox-contract {
     padding: 10px 20px;
@@ -3973,7 +3973,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 17px 48px 15px 27px !important;
+    padding:  17px 0px 15px 10px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4013,7 +4013,7 @@ padding: 17px 0px 17px 70px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
-    padding: 16px 25px 10px 25px !important;
+    padding: 16px 0px 10px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4037,7 +4037,7 @@ padding: 17px 0px 17px 70px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-holder td {
-    padding: 16px 25px 10px 25px !important;
+    padding:  17px 0px 15px 10px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -5165,7 +5165,7 @@ button {
     margin-left: auto;
   }
   .searchelement-input {
-    width: 22.625rem;
+    width: 21rem;
   }
 }
 
@@ -9260,7 +9260,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 641px) {
   #btn_12 {
-    padding: 7px 6px 10px 10px !important;
+    padding: 7px 12px 10px 10px !important;
   }
 }
 
@@ -9318,7 +9318,7 @@ button {
     margin-left: 0% !important;
   }
   .contact-list-tab {
-    width: 22.563rem !important;
+    width: 21rem !important;
     margin: 0 auto;
   }
   .div-searchelement_11 {
@@ -9333,7 +9333,7 @@ button {
     font-size: 1rem !important;
   }
   .token-list-tab_11 {
-    width: 22.563rem !important;
+    width: 21rem !important;
     margin: 0 auto;
   }
   .box-first {
