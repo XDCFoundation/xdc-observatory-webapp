@@ -330,7 +330,6 @@ export default function AddressTableComponent(props) {
     } else {
       trxn = Recdata.responseTransaction;
     }
-    console.log("parse response", trxn);
     setAddress(
       trxn.map((d) => {
         return {
@@ -470,11 +469,11 @@ export default function AddressTableComponent(props) {
   `;
 
   //Tooltip States
- const [hashTT, setHashTT] = React.useState(false);
- const [ageTT, setageTT] = React.useState(false);
- const [blockTT, setblockTT] = React.useState(false);
- const [fromTT, setfromTT] = React.useState(false);
- const [toTT, settoTT] = React.useState(false);
+  const [hashTT, setHashTT] = React.useState(false);
+  const [ageTT, setageTT] = React.useState(false);
+  const [blockTT, setblockTT] = React.useState(false);
+  const [fromTT, setfromTT] = React.useState(false);
+  const [toTT, settoTT] = React.useState(false);
 
   return (
     <div>
@@ -677,17 +676,17 @@ export default function AddressTableComponent(props) {
                       </Tooltip>
                     </button>
                   </TableCell>
-                    <TableCell
-                        className=""
-                        style={{
-                            border: "none",
-                            paddingLeft: "1.5%",
-                            paddingTop: "1.375rem",
-                        }}
-                        align="left"
-                    >
-                        <span className={"tableheaders table-value"}/>
-                    </TableCell>
+                  <TableCell
+                    className=""
+                    style={{
+                      border: "none",
+                      paddingLeft: "1.5%",
+                      paddingTop: "1.375rem",
+                    }}
+                    align="left"
+                  >
+                    <span className={"tableheaders table-value"} />
+                  </TableCell>
                   <TableCell
                     className="w-450 w-18"
                     style={{
@@ -821,22 +820,22 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.From)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                        return (
-                                          <div className="nameLabel2" key={index}>
-                                            {item}
-                                          </div>
-                                        );
-                                      })
+                                      return (
+                                        <div className="nameLabel2" key={index}>
+                                          {item}
+                                        </div>
+                                      );
+                                    })
                                     : shorten(row.From)}
                                 </span>
                               </Tooltip>
                             )}
                           </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                                <span className={row.From === addr ? "out": "in"}>
-                                    {row.From === addr ? 'Out': 'In'}
-                                </span>
-                            </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={row.From === addr ? "out" : "in"}>
+                              {row.From === addr ? 'Out' : 'In'}
+                            </span>
+                          </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             {row.To != addr ? (
                               <a className="linkTable" href={"/address-details/" + row.To}>
@@ -850,12 +849,12 @@ export default function AddressTableComponent(props) {
                                   {/* {shorten(row.To)} */}
                                   {props.tag
                                     ? props.tag.map((item, index) => {
-                                        return (
-                                          <div className="nameLabel2" key={index}>
-                                            {item}
-                                          </div>
-                                        );
-                                      })
+                                      return (
+                                        <div className="nameLabel2" key={index}>
+                                          {item}
+                                        </div>
+                                      );
+                                    })
                                     : shorten(row.To)}
                                 </span>
                               </Tooltip>
@@ -866,7 +865,7 @@ export default function AddressTableComponent(props) {
                               {value2 == null ? (
                                 <span className="tabledata cursor-pointer">
                                   {row.Value == 0 ? 0 : value1}
-                                  {} &nbsp;XDC
+                                  { } &nbsp;XDC
                                 </span>
                               ) : (
                                 <span className="tabledata cursor-pointer">
@@ -920,19 +919,19 @@ export default function AddressTableComponent(props) {
           className="page-container-address">
           <Grid item xs="4" className="pagination-tab-address">
             {!isLoading && !noData ?
-            (<><span className="text">Show</span>
-            <select
-              value={rowsPerPage}
-              className="select-amount amount-select"
-              onChange={handleChangeRowsPerPage}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-              <option value={100}>100</option>
-            </select>
-            <span className="text">Records</span></>):("")}
+              (<><span className="text">Show</span>
+                <select
+                  value={rowsPerPage}
+                  className="select-amount amount-select"
+                  onChange={handleChangeRowsPerPage}
+                >
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={75}>75</option>
+                  <option value={100}>100</option>
+                </select>
+                <span className="text">Records</span></>) : ("")}
           </Grid>
           <Grid xs="1"></Grid>
           {noData == true && (

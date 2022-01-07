@@ -19,7 +19,7 @@ label {
   font-family: "Inter" !important;
 }
 
-.highcharts-credits{
+.highcharts-credits {
   display: none !important;
 }
 
@@ -39,7 +39,12 @@ a:link {
 .p-l-10 {
   padding-left: 10px;
 }
-
+.p-l-15 {
+  padding-left: 15px;
+}
+.p-l-12 {
+  padding-left: 12px;
+}
 .p-r-5 {
   padding-right: 5px;
 }
@@ -47,7 +52,9 @@ a:link {
 .p-r-10 {
   padding-right: 10px;
 }
-
+.p-r-25 {
+  padding-right: 25px;
+}
 .p-t-15 {
   padding-top: 15px;
 }
@@ -429,7 +436,9 @@ input:focus {
 .w-320 {
   width: 320px;
 }
-
+.w-280 {
+  width: 280px;
+}
 .w-850 {
   width: 850px;
 }
@@ -457,6 +466,7 @@ input:focus {
 .txt-center {
   text-align: center;
 }
+
 @media (max-width: 640px) {
   .w-100 {
     width: 100%;
@@ -1049,7 +1059,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px ;
+    padding: 8px;
   }
 
   .add {
@@ -4003,7 +4013,7 @@ body {
 }
 
 #container-table td {
-padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 70px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
@@ -8279,9 +8289,9 @@ button {
   .mobFilter {
     margin-top: -2px;
   }
-.mobFilter option {
-  width: 10px;
-}
+  .mobFilter option {
+    width: 10px;
+  }
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -10235,4 +10245,10 @@ button {
   letter-spacing: 0.5px;
   text-align: center;
   color: #007b2c;
+}
+.configure-columns {
+  letter-spacing: 0.54px;
+}
+.configure-columns-line {
+  border: solid 1px #e3e7eb;
 }

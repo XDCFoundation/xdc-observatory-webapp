@@ -23,39 +23,37 @@ const toolTipElement = (props) => {
   );
 };
 const MyResponsiveLine = ({ data }) => (
-  <GraphSize>
-    <ResponsiveLine
-      data={data}
-      tooltip={toolTipElement}
-      // colors={{ scheme: "category10" }}
-      xScale={{ type: "point" }}
-      yScale={{
-        type: "linear",
-        min: "-100",
-        max: "auto",
-        stacked: true,
-        reverse: false,
-      }}
-      yFormat=" >-.2f"
-      curve="monotoneX"
-      axisTop={null}
-      axisRight={null}
-      axisBottom={null}
-      axisLeft={null}
-      enableGridX={false}
-      enableGridY={false}
-      enablePoints={false}
-      pointSize={10}
-      pointColor={{ theme: "background" }}
-      enableCrosshair={false}
-      pointBorderWidth={2}
-      pointBorderColor={{ from: "serieColor" }}
-      pointLabelYOffset={-12}
-      enableArea={true}
-      useMesh={true}
-      legends={[]}
-    />
-  </GraphSize>
+  <ResponsiveLine
+    data={data}
+    tooltip={toolTipElement}
+    // colors={{ scheme: "category10" }}
+    xScale={{ type: "point" }}
+    yScale={{
+      type: "linear",
+      min: "-100",
+      max: "auto",
+      stacked: true,
+      reverse: false,
+    }}
+    yFormat=" >-.2f"
+    curve="monotoneX"
+    axisTop={null}
+    axisRight={null}
+    axisBottom={null}
+    axisLeft={null}
+    enableGridX={false}
+    enableGridY={false}
+    enablePoints={false}
+    pointSize={10}
+    pointColor={{ theme: "background" }}
+    enableCrosshair={false}
+    pointBorderWidth={2}
+    pointBorderColor={{ from: "serieColor" }}
+    pointLabelYOffset={1}
+    enableArea={true}
+    useMesh={true}
+    legends={[]}
+  />
 );
 const GraphSize = styled.div`
   height: 8.75rem;
@@ -116,13 +114,13 @@ export default function App() {
       ? ""
       : moment(graphTransactions[0]?.day).format("D MMM");
   return (
-    <>
+    <GraphSize>
       <MyResponsiveLine data={data} />
       <div className="dates">
         <p>{firstDate}</p>
         <p>{lastDate}</p>
       </div>
-    </>
+    </GraphSize>
   );
 }
 
