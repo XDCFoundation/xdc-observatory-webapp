@@ -349,7 +349,8 @@ const UserNameContainer = styled.div`
   align-items: center;
 
   @media (max-width: 850px) {
-    /* padding: 0 0 0 10px !important; */
+    padding: 0 10px 0 10px !important;
+    flex-wrap : nowrap;
     max-width: 710px;
   }
 
