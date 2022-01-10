@@ -328,6 +328,7 @@ export default function TransactionTableComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
+    color: #c6cbcf;
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
