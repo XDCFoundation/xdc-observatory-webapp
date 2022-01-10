@@ -342,7 +342,7 @@ export default function StickyHeadTable(props) {
             <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
               <img
                 onClick={handleSettingsClick}
-                className="p-r-5 h-20 w-20-px"
+                className="p-r-5 h-20 w-20-px cursor-pointer"
                 src="/images/settings.svg"
               />
               <ConfigureColumnPopOver
@@ -356,7 +356,7 @@ export default function StickyHeadTable(props) {
             <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
               <img
                 onClick={toggleModal}
-                className="p-r-5 h-20 w-20-px"
+                className="p-r-5 h-20 w-20-px cursor-pointer"
                 src="/images/settings.svg"
               />
               <ConfigureColumnsModal
@@ -389,6 +389,7 @@ export default function StickyHeadTable(props) {
                   handleSearchKeyUp(e);
                 }
               }}
+              id="tokenSearch"
               className="account-searchbar"
               type="text"
               placeholder="Search Tokens"
@@ -703,6 +704,7 @@ export default function StickyHeadTable(props) {
 
       <Pagination>
         <LeftPagination>
+        {!noData == true && !isLoading ? (<>
           <p
             style={{
               fontSize: "0.875rem",
@@ -731,7 +733,7 @@ export default function StickyHeadTable(props) {
           >
             {" "}
             Records
-          </p>
+          </p></>):("")}
         </LeftPagination>
 
         <RightPagination>

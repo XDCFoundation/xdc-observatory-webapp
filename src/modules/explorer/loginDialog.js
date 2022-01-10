@@ -90,6 +90,16 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     color: "#2A2A2A",
   },
+  subCategorySignup: {
+    marginTop: "5px",
+    marginBottom: "0px",
+    fontfamily: "Inter",
+    fontsize: "14px",
+    fontweight: "500",
+    border: "none !important",
+    outline: "none",
+    color: "#2A2A2A",
+  },
 
   forgotPassword: {
     color: "#2149b9",
@@ -135,23 +145,30 @@ const useStyles = makeStyles((theme) => ({
   },
   paperWidthSm1: {
     position: "absolute",
-    top: "65px",
     width: "503px",
     padding: "0 11px",
     borderRadius: "12px",
   },
-  paperWidthSm2: {
-    position: "absolute",
-    top: "65px",
-    width: "600px",
-    // padding: "0 11px",
-    borderRadius: "12px",
-  },
+  // paperWidthSm2: {
+  //   position: "absolute",
+  //   top: "65px",
+  //   width: "600px",
+  //   // padding: "0 11px",
+  //   borderRadius: "12px",
+  // },
   termsContainer: {
     flexFlow: "row nowrap",
     display: "flex",
     marginLeft: "24px",
     marginTop: "20px",
+  },
+  iAmNotRobotSignup: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    marginTop: "50px",
+    marginBottom: "25px",
+    flexDirection: "column",
   },
   checkbox: {
     width: "17px",
@@ -203,7 +220,21 @@ const useStyles = makeStyles((theme) => ({
     margin: "15px 15px 23px 24px",
     color: "white",
   },
+  resetPasswordbtn: {
+    width: "433px",
+    height: "44px",
+    borderRadius: "4.4px",
+    border: "solid 0.6px #00a1ed",
+    backgroundColor: "#3763dd",
+    margin: "15px 15px 23px 24px",
+    color: "white",
+  },
   alreadyAccount: {
+    textAlign: "center",
+    marginBottom: "30px",
+    color: "#2a2a2a",
+  },
+  backToSignIn: {
     textAlign: "center",
     marginBottom: "30px",
     color: "#2a2a2a",
@@ -245,6 +276,10 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "433px",
       width: "90%",
     },
+    resetPasswordbtn: {
+      maxWidth: "433px",
+      width: "90%",
+    },
     robotContainer: {
       maxWidth: "299px",
       width: "95%",
@@ -280,6 +315,10 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "space-between",
     },
+    subCategorySignup: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
     forgotPassword: {
       position: "relative",
       right: "0px",
@@ -299,6 +338,14 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: "28px",
     },
     createAccountbtn: {
+      width: "100%",
+      maxWidth: "343px",
+      height: "38px",
+      borderRadius: "4px",
+      margin: "23px auto 21px auto",
+      display: "block",
+    },
+    resetPasswordbtn: {
       width: "100%",
       maxWidth: "343px",
       height: "38px",
@@ -367,6 +414,24 @@ const useStyles = makeStyles((theme) => ({
     },
     xdc: {
       fontSize: "13px",
+    },
+  },
+  "@media (min-width: 768px) and (max-height: 800px)": {
+    termsContainer: {
+      marginTop: "0px",
+    },
+    iAmNotRobotSignup: {
+      marginTop: "15px",
+      marginBottom: "5px",
+    },
+    alreadyAccount: {
+      marginBottom: "15px",
+    },
+    createAccountbtn: {
+      margin: "15px 15px 15px 24px",
+    },
+    subCategorySignup: {
+      marginTop: "0px",
     },
   },
 }));
@@ -799,10 +864,8 @@ export default function FormDialog(props) {
       <Dialog
         classes={{
           paperWidthSm:
-            value === 4
+            value === 1 && window.innerHeight < 800 && window.innerWidth >= 768
               ? classes.paperWidthSm1
-              : value === 4
-                ? classes.paperWidthSm2
                 : classes.paperWidthSm,
         }}
         className={classes.dialog}
@@ -951,7 +1014,7 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <DialogContent className={classes.userContainerSignup}>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Username</span>
               </DialogContentText>
               <input
@@ -968,7 +1031,7 @@ export default function FormDialog(props) {
               <div className={classes.error}>{errorUserName}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Email</span>
               </DialogContentText>
               <input
@@ -988,7 +1051,7 @@ export default function FormDialog(props) {
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Password</span>
               </DialogContentText>
               <input
@@ -1007,7 +1070,7 @@ export default function FormDialog(props) {
               <div className={classes.error}>{errorPassword}</div>
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
-              <DialogContentText className={classes.subCategory}>
+              <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>Confirm Password</span>
               </DialogContentText>
               <input
@@ -1053,16 +1116,7 @@ export default function FormDialog(props) {
                                 paddingLeft: "28px",
                             }}
                         ></div> */}
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                marginTop: "50px",
-                marginBottom: "25px",
-                flexDirection: "column",
-              }}
-            >
+            <div className={classes.iAmNotRobotSignup}>
               <ReCAPTCHA
                 // sitekey="6Le20JsdAAAAAI3li1g-YMo7gQI8pA11t_J62jGJ"
                 sitekey="6LcrTaAdAAAAAOgAvMUxSVp8Dr7mzDduyV7bh1T5"
@@ -1145,7 +1199,7 @@ export default function FormDialog(props) {
                 {timer}
               </span>
             </div>
-            <div className={classes.alreadyAccount}>
+            <div className={classes.backToSignIn}>
               <div>
                 Back to{" "}
                 <span
@@ -1230,7 +1284,7 @@ export default function FormDialog(props) {
                 </div> */}
 
             <button
-              className={classes.createAccountbtn}
+              className={classes.resetPasswordbtn}
               onClick={() => {
                 // validateEmail();
                 forgotpassword();
@@ -1240,7 +1294,7 @@ export default function FormDialog(props) {
               Reset Password
             </button>
 
-            <div className={classes.alreadyAccount}>
+            <div className={classes.backToSignIn}>
               <div>
                 Back to{" "}
                 <span
