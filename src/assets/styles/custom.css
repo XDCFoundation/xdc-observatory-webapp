@@ -159,6 +159,14 @@ input#password[placeholder] {
   text-align: center;
   color: #2a2a2a;
 }
+.m-l-25p {
+   margin-left: 25%;
+  }
+  @media(min-width: 0px) and (max-width: 767px){
+    .m-l-25p {
+    margin-left: 0;
+   }
+  }
 @media (min-width: 768px) and (max-width: 1240px) {
   input[placeholder] {
     text-overflow: unset !important;

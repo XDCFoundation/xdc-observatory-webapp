@@ -380,7 +380,10 @@ const UserNameContainer = styled.div`
   @media (max-width: 400px) {
     ${'' /* justify-content: space-around; */}
     ${'' /* gap: 12px; */}
-    margin:10px 10px;
+    margin-left: auto !important;
+    margin: 15px 0px;
+    margin-right: auto;
+    width: 21rem;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
