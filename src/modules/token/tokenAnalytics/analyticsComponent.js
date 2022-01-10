@@ -15,7 +15,7 @@ const AnalyticsTabButton = styled.button`
   ${({ active }) =>
     active &&
     `
-    background: linear-gradient(to bottom, #2149b9, #3e71ff);
+    background: #2149b9;
     color: #fff;
     border: none;
   `}
