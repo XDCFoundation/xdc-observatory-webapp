@@ -11,7 +11,7 @@ import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import Utils from "../../utility";
 import { useParams } from "react-router";
-import TokenAnalytics from "./tokenAnalytics/analyticsComponent";
+import TokenAnalytics from "./holderAnalytics/analyticsComponent";
 
 let li = 0;
 
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     "@media (min-width:0px) and (max-width:767px)": {
       minWidth: 280,
-      width: "21rem",
+      width: "22.563rem",
       margin: "auto",
     },
     "@media (min-width:767px) and (max-width:1240px)": {
@@ -71,6 +71,7 @@ export default function SimpleTabs(props) {
   const classes = useStyles();
   const [toggleState, setToggleState] = useState(1);
   const { tn } = useParams();
+  console.log(tn, "popopopo");
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -116,7 +117,7 @@ export default function SimpleTabs(props) {
                   }
                   onClick={() => toggleTab(2)}
                 >
-                  Holders
+                  Info
                 </button>
                 <button
                   className={
@@ -126,7 +127,7 @@ export default function SimpleTabs(props) {
                   }
                   onClick={() => toggleTab(3)}
                 >
-                  Contracts
+                  Contract
                 </button>
                 <button
                     className={

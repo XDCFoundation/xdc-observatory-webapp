@@ -20,6 +20,8 @@ import Utils from "../../utility";
 import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
 import format from "format-number";
+import ContractData from "../../services/contract";
+import HolderAnalytics from "../token/holderAnalytics/analyticsComponent"
 
 var QRCode = require("qrcode.react");
 
@@ -68,44 +70,54 @@ const useStyles = makeStyles({
   },
 });
 export default function HoldersDetails(props) {
-  const [toggleState, setToggleState] = useState(1);
 
-  // const [txtAddress, setTxtAddress] = useState('');
-  // const [balance, setBalance] = useState(0);
-  // const [convertCurrency, setConvertCurrency] = useState('');
-  // const [coinValue, setCoinValue] = useState(0);
+  const urlParams = new URLSearchParams(window.location.search);
+  const isAnalytics = urlParams.get('isAnalytics');
+  console.log("+++ ",isAnalytics)
+  const [toggleState, setToggleState] = useState(isAnalytics==="true" ? 2 : 1);
 
   const [transactions, setTransactions] = useState([]);
 
   const [copiedText, setCopiedText] = useState("");
-  // let nowCurrency = window.localStorage.getItem('currency')
-  const [holder, setHolderDetail] = useState({});
-  // const [totalToken, setTotalToken] = useState({});
+
+  const [holder, setHolderDetail] = useState(0);
+  const [contractAddress, setContractAddress] = useState(0)
+  const [decimal, setDecimal] = useState(0)
   const { addr } = useParams();
   const { tn } = useParams();
 
   useEffect(() => {
     let values = { addr: addr, pageNum: 0, perpage: 1 };
     holderDetail(values);
-  }, []);
+    if (holder !== 0) {
+      getContractDetails()
+    }
+  }, [contractAddress]);
+
+  const getContractDetails = async () => {
+    let urlPath = `${contractAddress}`;
+    let [error, contractDecimal] = await Utils.parseResponse(
+      ContractData.getContractDetailsUsingAddress(urlPath, {})
+    );
+    if (error || !contractDecimal) return;
+    setDecimal(contractDecimal.contractResponse?.decimals)
+  };
 
   const holderDetail = async (values) => {
     let [error, tns] = await Utils.parseResponse(
       TokenData.getHolderDetailsUsingAddressforToken(values)
     );
     if (error || !tns) return;
-    setHolderDetail(tns);
+    setHolderDetail(tns)
+console.log("+++",tns[0]?.Contract_address)
+    setContractAddress(tns[0]?.Contract_address);
   };
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
   const classes = useStyles();
-  // const options = {
-  //   htmlparser2: {
-  //     lowerCaseTags: false
-  //   }
-  // };
+
   return (
     <>
       <DeskTopView>
@@ -287,18 +299,71 @@ export default function HoldersDetails(props) {
             <br />
             <br />
             <div className="container_sec">
-              <div className="block_sec">
-                <div className="bloc-tabs_sec">
-                  <button
-                    className={
-                      toggleState === 1
-                        ? "tabs_sec active-tabs_sec"
-                        : "tabs_sec"
-                    }
-                    onClick={() => toggleTab(1)}
+              {/*<div className="block_sec">*/}
+              {/*  <div className="bloc-tabs_sec">*/}
+              {/*    <button*/}
+              {/*      className={*/}
+              {/*        toggleState === 1*/}
+              {/*          ? "tabs_sec active-tabs_sec"*/}
+              {/*          : "tabs_sec"*/}
+              {/*      }*/}
+              {/*      onClick={() => toggleTab(1)}*/}
+              {/*    >*/}
+              {/*      Transfers*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*  <div className="bloc-tabs_sec">*/}
+              {/*    <button*/}
+              {/*        className={*/}
+              {/*          toggleState === 2*/}
+              {/*              ? "tabs_sec active-tabs_sec"*/}
+              {/*              : "tabs_sec"*/}
+              {/*        }*/}
+              {/*        onClick={() => toggleTab(2)}*/}
+              {/*    >*/}
+              {/*      Analytics*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              <div
+                  style={{
+                    width: "auto",
+                    display: "flex",
+                    flexDirection: "row",
+                    backgroundColor: "transparent",
+                    height: "25px",
+                    borderBottom: "solid 1px #e3e7eb",
+                  }}
+              >
+                <div>
+                  <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        backgroundColor: "transparent",
+                      }}
                   >
-                    Transfers
-                  </button>
+                    <button
+                        className={
+                          toggleState === 1
+                              ? "tabs-data active-tabs-token"
+                              : "tabs-data"
+                        }
+                        onClick={() => toggleTab(1)}
+                    >
+                      Transfers
+                    </button>
+                    <button
+                        className={
+                          toggleState === 2
+                              ? "tabs-data active-tabs-token-holder"
+                              : "tabs-data"
+                        }
+                        onClick={() => toggleTab(2)}
+                    >
+                      Analytics
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -310,7 +375,7 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent />
+                  <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
                 <div
@@ -320,8 +385,17 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent trans={transactions} />
+                  <HolderAnalytics walletAddress={addr} contractAddress={contractAddress}/>
                 </div>
+                {/* <div
+                  className={
+                    toggleState === 2
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+                  <HolderTableComponent trans={transactions} />
+                </div> */}
               </div>
             </div>
           </Grid>
@@ -555,18 +629,18 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent />
+                  <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
-                <div
+                {/* <div
                   className={
                     toggleState === 2
                       ? "content_sec  active-content_sec"
                       : "content_sec"
                   }
                 >
-                  <HolderTableComponent trans={transactions} />
-                </div>
+                  <HolderTableComponent  />
+                </div> */}
               </div>
             </div>
           </Grid>
