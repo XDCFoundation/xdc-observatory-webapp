@@ -109,7 +109,6 @@ const useStyles = makeStyles({
   },
 });
 export default function HolderTableComponent(props) {
-  console.log(props, "oooo");
   const { state } = props;
   const classes = useStyles();
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -530,13 +529,7 @@ export default function HolderTableComponent(props) {
                         row.Value,
                         Number(props?.decimal)
                       );
-                      console.log(
-                        value,
-                        row.Value,
-                        typeof value,
-                        typeof Number(row.Value),
-                        "<<<Value"
-                      );
+
                       return (
                         <TableRow
                           style={
@@ -632,7 +625,7 @@ export default function HolderTableComponent(props) {
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
                             <span className="tabledata">
-                              {value === Number(row.Value)
+                              {Number(value) === Number(row.Value)
                                 ? 0
                                 : format({})(parseFloat(value))}
                             </span>
