@@ -105,9 +105,9 @@ const LeftSec = styled.div`
   }
 `;
 const ValueMain = styled.div`
-  justify-content: space-evenly;
+  justify-content: space-between;
   display: grid;
-  grid-gap: 35px;
+  grid-gap: 10px;
   grid-template-areas:
             'blockHeight gasPrice transactions'
             'nodes tps accounts'
@@ -121,7 +121,6 @@ const ValueMain = styled.div`
             'activeAddress -';
     grid-gap: 0;
     margin-top: 15px;
-    justify-content: space-between;
   }
 `;
 
@@ -735,7 +734,7 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="contracts">
                 <TitleIcon src='/images/contracts.svg'/>
                 <ValueName>
-                  <Title>Contracts</Title>
+                  <Title>Contract</Title>
                   <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.contractsCount)}</TitleValue>
                 </ValueName>
               </Value>
