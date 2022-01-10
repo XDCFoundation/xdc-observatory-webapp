@@ -8,6 +8,7 @@ import TokenMarketDataTable from "./tokenMarketData";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
 import Tokentabs from "./tokentabs";
+import TokentabsForAnalyics from "./tokentabsForAnalyics";
 import { useParams } from "react-router-dom";
 import TokenData from "../../services/token";
 import Utility from "../../utility";
@@ -192,11 +193,11 @@ const Line1 = styled.hr`
   top: 30%;
   left: 0%;
   @media (max-width: 767px) {
-   margin-top: 2px;
+    margin-top: 2px;
     width: 100%;
     top: 30%;
   }
-  @media (min-width: 768px)  {
+  @media (min-width: 768px) {
     width: 100%;
     top: 20%;
     margin-top: 2px;
@@ -280,7 +281,6 @@ const Line2 = styled.hr`
   top: 30%;
   left: 0%;
   @media (max-width: 767px) {
-   
     width: 100%;
     top: 30%;
   }
@@ -334,9 +334,13 @@ export default function TokenDataComponent() {
   // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({});
-  const [contractData, setContractData] = useState("")
+  const [contractData, setContractData] = useState("");
   const { address } = useParams();
   const { tn } = useParams();
+
+  let url = new URL(window.location.href);
+  let searchParams = new URLSearchParams(url.search);
+  const isAnalticsTab = searchParams.get("isAnalytics");
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -363,7 +367,7 @@ export default function TokenDataComponent() {
     listOfHolders(values);
     let value = { addr: address };
     transferDetail(value);
-    getContractDetails(value)
+    getContractDetails(value);
     // CoinMarketExchangeForToken(tn);
   }, []);
   const [transfer, settransfer] = useState([]);
@@ -385,17 +389,15 @@ export default function TokenDataComponent() {
     setHolders(tns);
   };
   const getContractDetails = async () => {
-
     let urlPath = `${address}`;
     let [error, contractStatusData] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
     );
     if (error || !contractStatusData) return;
-    setContractData(contractStatusData)
+    setContractData(contractStatusData);
   };
   React.useEffect(() => {
     (async () => {
-
       await CoinMarketExchangeForToken(tn);
     })();
   }, []);
@@ -430,10 +432,11 @@ export default function TokenDataComponent() {
         <Tokensearchbar />
         <MainContainer>
           <LeftContainer>
-          {window.innerWidth >= 768 ?
-            (<><LeftFirst>
-              <LeftTop>
-                {/* {logo.length > 0 ?
+            {window.innerWidth >= 768 ? (
+              <>
+                <LeftFirst>
+                  <LeftTop>
+                    {/* {logo.length > 0 ?
                   <IconLogo src={logo} />
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
@@ -448,44 +451,51 @@ export default function TokenDataComponent() {
                   src={"/images/XRC20-Icon.svg"}
                 ></img>
 
-                <LeftTitle>{tn.toUpperCase()}</LeftTitle>
-              </LeftTop>
-                  
-              <LeftTopSecMain>
-                <LeftTopSec>
-                  {CurrencySymbol}
-                  {tokenPriceVal.toFixed(8)}
-                </LeftTopSec>
-                <div
-                  className={
-                    numberStatus > 0
-                      ? "data_value_green last_value_main"
-                      : "data_value_red"
-                  }
-                >
-                  <div className="value_changePrice">
-                    {numberStatus > 0 ? (
-                      <div className="arrow_up">
-                        {/*<BsFillCaretUpFill size={10} />*/}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
+                    <LeftTitle>{tn.toUpperCase()}</LeftTitle>
+                  </LeftTop>
+
+                  <LeftTopSecMain>
+                    <LeftTopSec>
+                      {CurrencySymbol}
+                      {tokenPriceVal.toFixed(8)}
+                    </LeftTopSec>
+                    <div
+                      className={
+                        numberStatus > 0
+                          ? "data_value_green last_value_main"
+                          : "data_value_red"
+                      }
+                    >
+                      <div className="value_changePrice">
+                        {numberStatus > 0 ? (
+                          <div className="arrow_up">
+                            {/*<BsFillCaretUpFill size={10} />*/}
+                            <img
+                              src={"/images/Up.svg"}
+                              style={{ width: "8px" }}
+                            />
+                          </div>
+                        ) : (
+                          <div className="arrow_down">
+                            {/* <BsFillCaretDownFill size={10} />*/}
+                            <img
+                              src={"/images/Down.svg"}
+                              style={{ width: "8px" }}
+                            />
+                          </div>
+                        )}
+                        &nbsp;{tokenChanges24hr.toFixed(2)}%
                       </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} />*/}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{tokenChanges24hr.toFixed(2)}%
-                  </div>
-                </div>
-              </LeftTopSecMain>
-            </LeftFirst>
-            <RightTop>
-              <Line1></Line1>
-            </RightTop></>):("")}
+                    </div>
+                  </LeftTopSecMain>
+                </LeftFirst>
+                <RightTop>
+                  <Line1></Line1>
+                </RightTop>
+              </>
+            ) : (
+              ""
+            )}
             <LeftSec>
               <ValueMain>
                 <MobileScreen>
@@ -493,7 +503,6 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={blockHeightImg} /> */}
 
                     <ValueName>
-
                       <Title>Holders</Title>
                       <div className="last_value">
                         <TitleValue>{holders?.responseCount}</TitleValue>
@@ -526,7 +535,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      { }
+                      {}
                       <TitleValue>
                         {(transfer.length && transfer.length) === 0
                           ? "0"
@@ -553,7 +562,9 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={difficultyLogo} /> */}
                     <ValueName>
                       <Title>Decimal</Title>
-                      <TitleValue>{contractData?.contractResponse?.decimals}</TitleValue>
+                      <TitleValue>
+                        {contractData?.contractResponse?.decimals}
+                      </TitleValue>
                     </ValueName>
                   </Value>
                   <Value>
@@ -638,14 +649,14 @@ export default function TokenDataComponent() {
               <HolderGraphBar />
             </GraphContainer>
           </RightContainer>
-          {window.innerWidth < 768 ?
-            (<>
-            {/* <RightTop>
+          {window.innerWidth < 768 ? (
+            <>
+              {/* <RightTop>
               <Line1></Line1>
             </RightTop> */}
-            <LeftFirst>
-              <LeftTop>
-                {/* {logo.length > 0 ?
+              <LeftFirst>
+                <LeftTop>
+                  {/* {logo.length > 0 ?
                   <IconLogo src={logo} />
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
@@ -660,42 +671,48 @@ export default function TokenDataComponent() {
                   src={"/images/XRC20-Icon.svg"}
                 ></img>
 
-                <LeftTitle>{tn.toUpperCase()}</LeftTitle>
-              </LeftTop>
-                  
-              <LeftTopSecMain>
-                <LeftTopSec>
-                  {CurrencySymbol}
-                  {tokenPriceVal}
-                </LeftTopSec>
-                <div
-                  className={
-                    numberStatus > 0
-                      ? "data_value_green last_value_main"
-                      : "data_value_red"
-                  }
-                >
-                  <div className="value_changePrice">
-                    {numberStatus > 0 ? (
-                      <div className="arrow_up">
-                        {/*<BsFillCaretUpFill size={10} />*/}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} />*/}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{tokenChanges24hr.toFixed(2)}%
+                  <LeftTitle>{tn.toUpperCase()}</LeftTitle>
+                </LeftTop>
+
+                <LeftTopSecMain>
+                  <LeftTopSec>
+                    {CurrencySymbol}
+                    {tokenPriceVal}
+                  </LeftTopSec>
+                  <div
+                    className={
+                      numberStatus > 0
+                        ? "data_value_green last_value_main"
+                        : "data_value_red"
+                    }
+                  >
+                    <div className="value_changePrice">
+                      {numberStatus > 0 ? (
+                        <div className="arrow_up">
+                          {/*<BsFillCaretUpFill size={10} />*/}
+                          <img
+                            src={"/images/Up.svg"}
+                            style={{ width: "8px" }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="arrow_down">
+                          {/* <BsFillCaretDownFill size={10} />*/}
+                          <img
+                            src={"/images/Down.svg"}
+                            style={{ width: "8px" }}
+                          />
+                        </div>
+                      )}
+                      &nbsp;{tokenChanges24hr.toFixed(2)}%
+                    </div>
                   </div>
-                </div>
-              </LeftTopSecMain>
-            </LeftFirst>
-            </>):("")}
+                </LeftTopSecMain>
+              </LeftFirst>
+            </>
+          ) : (
+            ""
+          )}
         </MainContainer>
         {marketCapVal == 0 ? (
           ""
@@ -704,7 +721,11 @@ export default function TokenDataComponent() {
         )}
         <br />
         <br />
-        <Tokentabs contractStatusData={contractData} />
+        {isAnalticsTab ? (
+          <TokentabsForAnalyics contractStatusData={contractData} />
+        ) : (
+          <Tokentabs contractStatusData={contractData} />
+        )}
         <br />
         <br />
         <FooterComponent />

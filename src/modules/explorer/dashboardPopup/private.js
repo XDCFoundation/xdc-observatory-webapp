@@ -12,7 +12,7 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { genericConstants } from "../../constants";
+import { genericConstants, cookiesConstants } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -247,9 +247,9 @@ export default function FormDialog(props) {
       address: privateAddress,
       tagName: tags,
     };
-    if(!privateAddress){
+    if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if(!input && tags.length === 0){
+    } else if (!input && tags.length === 0) {
       setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
     } else if (
       !(privateAddress && privateAddress.length === 43) ||
@@ -264,14 +264,34 @@ export default function FormDialog(props) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
+      // const [error] = await utility.parseResponse(
+      //   UserService.addPrivateTagToAddress(data)
+      // );
 
-      if (error) {
-        setErrorTag("Address is already in use");
-        return;
+      // if (error) {
+      //   utility.apiFailureToast("Address is already in use");
+      //   return;
+      // }
+      let taggedAddress = localStorage.getItem(
+        cookiesConstants.USER_TAGGED_ADDRESS
+      );
+      if (taggedAddress) {
+        taggedAddress = JSON.parse(taggedAddress);
+        const existingTag = taggedAddress.find(
+          (item) => item.address == privateAddress && item.userId == data.userId
+        );
+        if (existingTag) {
+          utility.apiFailureToast("Address is already in use");
+          return;
+        }
+      } else {
+        taggedAddress = [];
       }
+      taggedAddress.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TAGGED_ADDRESS,
+        JSON.stringify(taggedAddress)
+      );
       utility.apiSuccessToast("Tag Added");
       setOpen(false);
       await props.getListOfTagAddress();
@@ -343,7 +363,7 @@ export default function FormDialog(props) {
 
   const tooltipClose = () => {
     setTooltipIsOpen(!tooltipIsOpen);
-  }
+  };
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -512,10 +532,12 @@ export default function FormDialog(props) {
             </span>
           </DialogActions>
           <div className={classes.lastContainer}>
-              <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the address tags, is added on your local device. Cleaning the browsing history or cookies will clean the address tags saved in your profile.
-                </div>
+            <div className={classes.lastContainerText}>
+              To protect your privacy, data related to the address tags, is
+              added on your local device. Cleaning the browsing history or
+              cookies will clean the address tags saved in your profile.
             </div>
+          </div>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>

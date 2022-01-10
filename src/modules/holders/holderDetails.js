@@ -21,6 +21,7 @@ import TokenData from "../../services/token";
 import { Row } from "simple-flexbox";
 import format from "format-number";
 import ContractData from "../../services/contract";
+import HolderAnalytics from "../token/holderAnalytics/analyticsComponent"
 
 var QRCode = require("qrcode.react");
 
@@ -69,7 +70,11 @@ const useStyles = makeStyles({
   },
 });
 export default function HoldersDetails(props) {
-  const [toggleState, setToggleState] = useState(1);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const isAnalytics = urlParams.get('isAnalytics');
+  console.log("+++ ",isAnalytics)
+  const [toggleState, setToggleState] = useState(isAnalytics==="true" ? 2 : 1);
 
   const [transactions, setTransactions] = useState([]);
 
@@ -90,7 +95,6 @@ export default function HoldersDetails(props) {
   }, [contractAddress]);
 
   const getContractDetails = async () => {
-
     let urlPath = `${contractAddress}`;
     let [error, contractDecimal] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
@@ -105,6 +109,7 @@ export default function HoldersDetails(props) {
     );
     if (error || !tns) return;
     setHolderDetail(tns)
+console.log("+++",tns[0]?.Contract_address)
     setContractAddress(tns[0]?.Contract_address);
   };
 
@@ -294,18 +299,71 @@ export default function HoldersDetails(props) {
             <br />
             <br />
             <div className="container_sec">
-              <div className="block_sec">
-                <div className="bloc-tabs_sec">
-                  <button
-                    className={
-                      toggleState === 1
-                        ? "tabs_sec active-tabs_sec"
-                        : "tabs_sec"
-                    }
-                    onClick={() => toggleTab(1)}
+              {/*<div className="block_sec">*/}
+              {/*  <div className="bloc-tabs_sec">*/}
+              {/*    <button*/}
+              {/*      className={*/}
+              {/*        toggleState === 1*/}
+              {/*          ? "tabs_sec active-tabs_sec"*/}
+              {/*          : "tabs_sec"*/}
+              {/*      }*/}
+              {/*      onClick={() => toggleTab(1)}*/}
+              {/*    >*/}
+              {/*      Transfers*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*  <div className="bloc-tabs_sec">*/}
+              {/*    <button*/}
+              {/*        className={*/}
+              {/*          toggleState === 2*/}
+              {/*              ? "tabs_sec active-tabs_sec"*/}
+              {/*              : "tabs_sec"*/}
+              {/*        }*/}
+              {/*        onClick={() => toggleTab(2)}*/}
+              {/*    >*/}
+              {/*      Analytics*/}
+              {/*    </button>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              <div
+                  style={{
+                    width: "auto",
+                    display: "flex",
+                    flexDirection: "row",
+                    backgroundColor: "transparent",
+                    height: "25px",
+                    borderBottom: "solid 1px #e3e7eb",
+                  }}
+              >
+                <div>
+                  <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        backgroundColor: "transparent",
+                      }}
                   >
-                    Transfers
-                  </button>
+                    <button
+                        className={
+                          toggleState === 1
+                              ? "tabs-data active-tabs-token"
+                              : "tabs-data"
+                        }
+                        onClick={() => toggleTab(1)}
+                    >
+                      Transfers
+                    </button>
+                    <button
+                        className={
+                          toggleState === 2
+                              ? "tabs-data active-tabs-token-holder"
+                              : "tabs-data"
+                        }
+                        onClick={() => toggleTab(2)}
+                    >
+                      Analytics
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -320,6 +378,15 @@ export default function HoldersDetails(props) {
                   <HolderTableComponent trans={transactions} decimal={decimal} />
                 </div>
 
+                <div
+                  className={
+                    toggleState === 2
+                      ? "content_sec  active-content_sec"
+                      : "content_sec"
+                  }
+                >
+                  <HolderAnalytics walletAddress={addr} contractAddress={contractAddress}/>
+                </div>
                 {/* <div
                   className={
                     toggleState === 2
