@@ -25,6 +25,7 @@ import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import SearchAndFiltersComponent from "./searchAndFiltersComponent";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -479,40 +480,7 @@ export default function AddressTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab">
-        <div className="searchelement-input4 search-input-box">
-          {/*<img
-            style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
-            src={"/images/Search.svg"}
-          />
-          <input
-            className="input-box-search"
-            // onKeyUp={(event) => props._handleSearch(event)}
-            style={{
-              fontSize: '0.938rem',
-              letterSpacing: 0.62,
-              width: '8.2rem',
-              color: '#2a2a2a',
-              fontFamily: 'Inter',
-              outlineColor: '#fff',
-              borderWidth: 0,
-              paddingBottom: '0.125rem',
-            }}
-            type="text"
-            placeholder="Search"
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleKeyUp(e)
-              }
-
-            }}
-            onChange={(e) => {
-              if (e.target.value == "") {
-                handleKeyUp(e)
-              }
-            }}
-          // onKeyUp={handleKeyUp}
-          />*/}
-        </div>
+        <SearchAndFiltersComponent/>
 
         {isDownloadActive ? (
           <CSVLink
