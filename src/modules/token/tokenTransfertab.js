@@ -177,14 +177,14 @@ export default function StickyHeadTable() {
   const handleChangePage = (action) => {
     if (action == "first") {
       setPage(0);
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+      let values = { addr: address, pageNum: 0, perpage: rowsPerPage };
       transferDetail(values);
     }
     if (action == "prev") {
       if (page - rowsPerPage >= 0) {
         let pageValue = page - rowsPerPage;
         setPage(pageValue);
-        let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+        let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
         transferDetail(values);
       }
     }
@@ -192,7 +192,7 @@ export default function StickyHeadTable() {
       if (+rowsPerPage + +page < totalToken) {
         let pageValue = +rowsPerPage + +page;
         setPage(pageValue);
-        let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+        let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
         transferDetail(values);
       }
     }
@@ -200,7 +200,7 @@ export default function StickyHeadTable() {
     if (action == "last") {
       let pageValue = totalToken - rowsPerPage;
       setPage(pageValue);
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+      let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
       transferDetail(values);
     }
   };
@@ -260,12 +260,12 @@ export default function StickyHeadTable() {
                   <span className={"tableheaders_Transfer-table-age"}>
                     Age
                     <Tooltip
-                    open={ageToolTip}
-                    onOpen={() => setAgeToolTip(true)}
-                    onClose={() => setAgeToolTip(false)}
-                     placement="top" title={messages.AGE}>
+                      open={ageToolTip}
+                      onOpen={() => setAgeToolTip(true)}
+                      onClose={() => setAgeToolTip(false)}
+                      placement="top" title={messages.AGE}>
                       <img
-                      onClick={() => setAgeToolTip(!ageToolTip)}
+                        onClick={() => setAgeToolTip(!ageToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -277,13 +277,13 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-block"}>
                     Block
-                    <Tooltip 
-                    open={blockToolTip}
-                    onOpen={() => setBlockToolTip(true)}
-                    onClose={() => setBlockToolTip(false)}
-                     placement="top" title={messages.BLOCK}>
+                    <Tooltip
+                      open={blockToolTip}
+                      onOpen={() => setBlockToolTip(true)}
+                      onClose={() => setBlockToolTip(false)}
+                      placement="top" title={messages.BLOCK}>
                       <img
-                      onClick={() => setBlockToolTip(!blockToolTip)}
+                        onClick={() => setBlockToolTip(!blockToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -295,13 +295,13 @@ export default function StickyHeadTable() {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders_Transfer-table-from"}>
                     From
-                    <Tooltip 
-                    open={fromToolTip}
-                    onOpen={() => setFromToolTip(true)}
-                    onClose={() => setFromToolTip(false)}
-                     placement="top" title={messages.FROM}>
+                    <Tooltip
+                      open={fromToolTip}
+                      onOpen={() => setFromToolTip(true)}
+                      onClose={() => setFromToolTip(false)}
+                      placement="top" title={messages.FROM}>
                       <img
-                      onClick={() => setFromToolTip(!fromToolTip)}
+                        onClick={() => setFromToolTip(!fromToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -314,11 +314,11 @@ export default function StickyHeadTable() {
                   <span className={"tableheaders_Transfer-table-to"}>
                     To
                     <Tooltip open={toToolTip}
-                    onOpen={() => setToToolTip(true)}
-                    onClose={() => setToToolTip(false)}
-                     placement="top" title={messages.TO}>
+                      onOpen={() => setToToolTip(true)}
+                      onClose={() => setToToolTip(false)}
+                      placement="top" title={messages.TO}>
                       <img
-                      onClick={() => setToToolTip(!toToolTip)}
+                        onClick={() => setToToolTip(!toToolTip)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -405,12 +405,13 @@ export default function StickyHeadTable() {
       <Pagination>
         <LeftPagination>
           {!isLoading && noData ? (<>
-          <p className="p-pagination">Show</p>
-          <PageSelector value={rowsPerPage}
-                        height={28}
-                        handler={handleChangeRowsPerPage}/>
-          <p className="p-pagination">Records</p>
-          </>):("")}
+            <p className="p-pagination">Show</p>
+            <PageSelector value={rowsPerPage}
+                          height={28}
+                          handler={handleChangeRowsPerPage}/>
+
+            <p className="p-pagination">Records</p>
+          </>) : ("")}
         </LeftPagination>
 
         <RightPagination

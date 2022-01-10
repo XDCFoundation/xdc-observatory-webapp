@@ -22,40 +22,40 @@ const toolTipElement = (props) => {
     )
 }
 const MyResponsiveLine = ({ data }) => (
-    <ResponsiveLine
-        data={data}
-        tooltip={toolTipElement}
+    <GraphSize >
+        <ResponsiveLine
+            data={data}
+            tooltip={toolTipElement}
 
-        // colors={{ scheme: "yellow_orange_red" }}
-        xScale={{ type: "point" }}
-        yScale={{
-            type: "linear",
-            min: "auto",
-            max: "auto",
-            stacked: true,
-            reverse: false,
-        }}
-        yFormat=" >-.2f"
-        curve="monotoneX"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={null}
-        axisLeft={null}
-        enableGridX={false}
-        enableGridY={false}
-        // colors={{ scheme: 'purple_blue' }}
-        enablePoints={false}
-        pointSize={10}
-        pointColor={{ theme: "background" }}
-        enableCrosshair={false}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: "serieColor" }}
-        pointLabelYOffset={-12}
-        enableArea={true}
-        useMesh={true}
-        legends={[]}
-
-    />
+            // colors={{ scheme: "yellow_orange_red" }}
+            xScale={{ type: "point" }}
+            yScale={{
+                type: "linear",
+                min: "auto",
+                max: "auto",
+                stacked: true,
+                reverse: false,
+            }}
+            yFormat=" >-.2f"
+            curve="monotoneX"
+            axisTop={null}
+            axisRight={null}
+            axisBottom={null}
+            axisLeft={null}
+            enableGridX={false}
+            enableGridY={false}
+            enablePoints={false}
+            pointSize={10}
+            pointColor={{ theme: "background" }}
+            enableCrosshair={false}
+            pointBorderWidth={2}
+            pointBorderColor={{ from: "serieColor" }}
+            pointLabelYOffset={-12}
+            enableArea={true}
+            useMesh={true}
+            legends={[]}
+        />
+    </GraphSize>
 )
 const GraphSize = styled.div`
 

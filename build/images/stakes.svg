@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <defs>
+        <style>
+            .cls-3{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;stroke:#2a2a2a}
+        </style>
+    </defs>
+    <g id="Stake" transform="translate(-146 -259)">
+        <path id="Rectangle_608" data-name="Rectangle 608" transform="translate(146 259)" style="fill:none" d="M0 0h44v44H0z"/>
+        <g id="Group_337" data-name="Group 337" transform="translate(39.655 20.655)">
+            <g id="layers" transform="translate(114 246)">
+                <path id="Path_85" data-name="Path 85" d="M16.345 2 2 9.173l14.345 7.173 14.346-7.173z" transform="translate(-2 -2)" style="stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;stroke:#e5e8f0;fill:none"/>
+                <path id="Path_86" data-name="Path 86" class="cls-3" d="m2 17 14.345 7.173L30.691 17" transform="translate(-2 4.518)"/>
+                <path id="Path_87" data-name="Path 87" class="cls-3" d="m2 12 14.345 7.173L30.691 12" transform="translate(-2 2.345)"/>
+            </g>
+        </g>
+    </g>
+</svg>
