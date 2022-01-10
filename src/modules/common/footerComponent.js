@@ -148,7 +148,7 @@ export default function FooterComponent(props) {
                   <p className="XDC-Header">XDC</p>
                 </div>
                 <p className="xdc-desc">
-                The XDC Observatory is a feature-rich block explorer and analytics platform for the XDC blockchain network.
+                  The XDC Observatory is a feature-rich block explorer and analytics platform for the XDC blockchain network.
                 </p>
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function FooterComponent(props) {
                   <img className="select-icon" src={"/images/Euro.svg"} />{" "}
                   <span className="USD">EUR</span>
                 </MenuItem>
-                <MenuItem
+                {/* <MenuItem
                   value="INR"
                   style={{
                     outline: "0",
@@ -218,7 +218,7 @@ export default function FooterComponent(props) {
                 >
                   <img className="select-icon" src={"/images/INR.svg"} />{" "}
                   <span className="USD">INR</span>
-                </MenuItem>
+                </MenuItem> */}
               </Select>
               {/* <select className="select-form">
                             <option>usd</option>

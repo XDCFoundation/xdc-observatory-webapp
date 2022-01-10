@@ -73,11 +73,11 @@ async function getLatestAccount(path, data) {
 }
 
 async function getTokenBalance(data) {
-    // let url =
-    //   process.env.REACT_APP_GET_LATEST_ACCOUNTS +
-    //   httpConstants.API_END_POINT.GET_TOKEN_BALANCE;
     let url =
-        "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008/get-token-balance";
+      process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL +
+      httpConstants.API_END_POINT.GET_TOKEN_BALANCE;
+    // let url =
+    //     "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008/get-token-balance";
     return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
         .then((response) => {
             if (
@@ -98,9 +98,7 @@ async function getTokenTransferCount(data) {
     // let url =
     //   process.env.REACT_APP_GET_LATEST_ACCOUNTS +
     //   httpConstants.API_END_POINT.GET_TOKEN_TRANSFER_COUNT;
-    let url =
-        "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008" +
-        httpConstants.API_END_POINT.GET_TOKEN_TRANSFER_COUNT;
+    let url = process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL + httpConstants.API_END_POINT.GET_TOKEN_TRANSFER_COUNT;
     return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
         .then((response) => {
             if (

@@ -85,7 +85,7 @@ export default function VerifyContract() {
                         </div>
                         <br />
                         {msg ? <p className="validation-error-message txt-center">{msg}</p> : ""}
-                        <br /><br />
+                        <br />
 
                         <div className="flex-row">
                             <div className="vc-contract-add">Contract Address
@@ -133,11 +133,11 @@ export default function VerifyContract() {
 
 
                         </div>
-                        <br />
+                        {/* <br /> */}
                         <div className="verify-contracts-head">Contract Code</div>
                         <textarea {...register("code")} name="code" className="textarea-contract-code" placeholder="Contract Code" ></textarea>
                         <p className="validation-error-message">{errors?.code?.message}</p>
-                        <br /><br />
+                        <br />
                         <div className="verify-contracts-head">
                             <input type="checkbox" value="1" name="optimise" {...register("optimise")} />
                             &nbsp;Optimization Enabled</div>
