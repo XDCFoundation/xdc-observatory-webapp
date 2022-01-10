@@ -4,9 +4,13 @@ import styled from "styled-components";
 import TokenBalanceGraph from "./tokenBalanceGraph";
 import TokenTransferAmount from "./tokenTransferAmountGraph";
 import TokenTransferCount from "./tokenTransferCount";
+import TokeHistoryAnalytics from "../tokenHistoryAnalytics";
 import Utility from "../../../utility";
 import AccountService from "../../../services/accounts";
 import moment from "moment";
+import { useHistory, useParams } from 'react-router-dom'
+import Utils from "../../../utility";
+import TokenData from "../../../services/token";
 
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
@@ -27,16 +31,22 @@ const AnalyticsTabButton = styled.button`
 
 function TokenAnalytics(props) {
   const [graphData, setGraphData] = React.useState([]);
-
+  const [contractAdd, setContractAdd] = React.useState("");
   React.useEffect(async () => {
     await getTokenBalance();
   }, []);
 
   const getTokenBalance = async () => {
+    let values = { addr: props.walletAddress, pageNum: 0, perpage: 1 };
+    let [err, tns] = await Utils.parseResponse(
+        TokenData.getHolderDetailsUsingAddressforToken(values)
+    );
+    if (err || !tns) return;
+    setContractAdd(tns[0]?.Contract_address)
     let request = {
-      walletAddress: "xdcad0eea4004bd8c442c488b4e45e28401f25905d5",
-      tokenAddress: "xdc536dd70445cea1e97f9bf1bada04cbda5199a2a1",
-      from: moment().subtract(1, "month").valueOf(),
+      walletAddress: props.walletAddress,
+      tokenAddress: tns[0]?.Contract_address,
+      from: moment().subtract(3, "month").valueOf(),
       to: moment().valueOf(),
       type: "",
     };
@@ -94,7 +104,10 @@ function TokenAnalytics(props) {
           <TokenTransferAmount graphData={graphData} />
         )}
         {activeTab === "tokenTransferCounts" && (
-            <TokenTransferCount />
+            <TokenTransferCount contractAddress={contractAdd} />
+        )}
+        {activeTab === "historicalPrice" && (
+            <TokeHistoryAnalytics contractAddress={contractAdd}/>
         )}
       </Paper>
     </div>

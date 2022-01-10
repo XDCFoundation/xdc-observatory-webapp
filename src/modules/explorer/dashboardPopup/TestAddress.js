@@ -317,6 +317,14 @@ export default function FormDialog() {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
+      if(trimmedInput.length > 15){
+        setErrorTag("Tag length should be less than 15");
+        return;
+      }
+      if(tags.length >= 5){
+        setErrorTag("Maximum 5 Tags are allowed");
+        return;
+      }
       setTags((prevState) => [...prevState, trimmedInput]);
       setInput("");
       setErrorTag("");
