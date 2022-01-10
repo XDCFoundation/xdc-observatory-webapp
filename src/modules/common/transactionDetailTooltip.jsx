@@ -28,7 +28,7 @@ function TransactionDetailTooltip(props) {
 
   useEffect(() => {
     document.addEventListener("mousedown", (event) => {
-      if (!menuRef.current.contains(event.target)) {
+      if (!menuRef?.current?.contains(event.target)) {
         setOpen(false);
       }
     });
@@ -95,8 +95,8 @@ function TransactionDetailTooltip(props) {
         trigger="click"
         theme={"light"}
         interactive={true}
-        placement="bottom"
-        offset={[100, 10]}
+        placement={window.innerWidth > 768 ? "right" : "bottom"}
+        offset={[0, 0]}
         content={
           <div ref={menuRef} className={"transaction-detail-tooltip"}>
             {isLoading == true ? (
