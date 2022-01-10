@@ -21,7 +21,6 @@ import styled from "styled-components";
 import { messages } from "../../constants";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-
 const useStyles = makeStyles({
   headingContainer: {
     display: "flex",
@@ -45,11 +44,31 @@ const useStyles = makeStyles({
     border: "none !important",
     borderBottom: "none !important",
     // paddingLeft: "5.8% !important",
+    "@media (min-width: 768px) and (max-width: 1240px)": {
+      border: "none !important",
+      borderBottom: "none !important",
+      paddingLeft: "3% !important",
+    },
   },
+
   RankColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "2% !important",
+    paddingLeft: "5.7% !important",
+    "@media (max-width: 767px)": {
+      RankColumnVal: {
+        border: "none !important",
+        borderBottom: "none !important",
+        paddingLeft: "2% !important",
+      },
+    },
+  },
+  "@media (min-width: 768px) and (max-width: 1240px)": {
+    RankColumnVal: {
+      border: "none !important",
+      borderBottom: "none !important",
+      paddingLeft: "3.2% !important",
+    },
   },
   PercentageColumn: {
     border: "none !important",
@@ -107,12 +126,11 @@ export default function AccountComponent(props) {
   let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
   let isSettingColumnOpen = Boolean(anchorEl);
 
-
-  const [ rankTT , setRankTT ] = React.useState(false)
-  const [ addressTT , setaddressTT ] = React.useState(false)
-  const [ typeTT , settypeTT ] = React.useState(false)
-  const [ balanceTT , setbalanceTT ] = React.useState(false)
-  const [ percentageTT , setpercentageTT ] = React.useState(false)
+  const [rankTT, setRankTT] = React.useState(false);
+  const [addressTT, setaddressTT] = React.useState(false);
+  const [typeTT, settypeTT] = React.useState(false);
+  const [balanceTT, setbalanceTT] = React.useState(false);
+  const [percentageTT, setpercentageTT] = React.useState(false);
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -174,26 +192,25 @@ export default function AccountComponent(props) {
               <TableHead>
                 <TableRow>
                   {props.state.tableColumns["Rank"].isActive && (
-                    <TableCell
-                      className={classes.RankColumn}
-                      align="center"
-                    >
+                    <TableCell className={classes.RankColumn} align="center">
                       <span className={"tableheaders_1 pl--1"}>
                         Rank
-                        <Tooltip 
-                        open={rankTT}
-                        onOpen={() => setRankTT(true)}
-                        onClose={() => setRankTT(false)}
-                        placement="top" title={messages.RANK}>
-                      <img
-                      onClick={() => setRankTT(!rankTT)}
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
+                        <Tooltip
+                          open={rankTT}
+                          onOpen={() => setRankTT(true)}
+                          onClose={() => setRankTT(false)}
+                          placement="top"
+                          title={messages.RANK}
+                        >
+                          <img
+                            onClick={() => setRankTT(!rankTT)}
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
                     </TableCell>
                   )}
                   <TableCell
@@ -202,13 +219,15 @@ export default function AccountComponent(props) {
                   >
                     <span className={"tableheaders_1_address"}>
                       Address
-                      <Tooltip 
-                      open={addressTT}
+                      <Tooltip
+                        open={addressTT}
                         onOpen={() => setaddressTT(true)}
                         onClose={() => setaddressTT(false)}
-                        placement="top" title={messages.ACCOUNT_ADDRESS}>
+                        placement="top"
+                        title={messages.ACCOUNT_ADDRESS}
+                      >
                         <img
-                        onClick={() => setRankTT(!addressTT)}
+                          onClick={() => setRankTT(!addressTT)}
                           alt="question-mark"
                           src="/images/question-mark.svg"
                           height={"14px"}
@@ -219,18 +238,20 @@ export default function AccountComponent(props) {
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "6%" }}
+                      style={{ border: "none", paddingLeft: "5.4%" }}
                       align="center"
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Type
-                        <Tooltip 
-                        open={typeTT}
-                        onOpen={() => settypeTT(true)}
-                        onClose={() => settypeTT(false)}
-                        placement="top" title={messages.ACCOUNT_TYPE}>
+                        <Tooltip
+                          open={typeTT}
+                          onOpen={() => settypeTT(true)}
+                          onClose={() => settypeTT(false)}
+                          placement="top"
+                          title={messages.ACCOUNT_TYPE}
+                        >
                           <img
-                          onClick={() => settypeTT(!typeTT)}
+                            onClick={() => settypeTT(!typeTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -242,18 +263,24 @@ export default function AccountComponent(props) {
                   )}
                   {props.state.tableColumns["Balance"].isActive && (
                     <TableCell
-                      style={{ border: "none", paddingLeft: "5%", paddingRight: "48px" }}
+                      style={{
+                        border: "none",
+                        paddingLeft: "5%",
+                        paddingRight: "48px",
+                      }}
                       align="center"
                     >
                       <span className={"tableheaders_1"}>
                         Balance
-                        <Tooltip 
-                        open={balanceTT}
-                        onOpen={() => setbalanceTT(true)}
-                        onClose={() => setbalanceTT(false)}
-                        placement="top" title={messages.ACCOUNT_BALANCE}>
+                        <Tooltip
+                          open={balanceTT}
+                          onOpen={() => setbalanceTT(true)}
+                          onClose={() => setbalanceTT(false)}
+                          placement="top"
+                          title={messages.ACCOUNT_BALANCE}
+                        >
                           <img
-                          onClick={() => setbalanceTT(!balanceTT)}
+                            onClick={() => setbalanceTT(!balanceTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -261,12 +288,17 @@ export default function AccountComponent(props) {
                           />
                         </Tooltip>
                       </span>
-                      <Tooltip placement="top"  title={props.getSortTitle("balanceSort")}>
-                      <ArrowUpwardIcon
-                        onClick={() => { props.sortData("balanceSort") }}
-                        className={classes.sortButton}
-                      />
-                    </Tooltip>
+                      <Tooltip
+                        placement="top"
+                        title={props.getSortTitle("balanceSort")}
+                      >
+                        <ArrowUpwardIcon
+                          onClick={() => {
+                            props.sortData("balanceSort");
+                          }}
+                          className={classes.sortButton}
+                        />
+                      </Tooltip>
                     </TableCell>
                   )}
 
@@ -277,25 +309,32 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
-                        <Tooltip 
-                        open={percentageTT}
-                        onOpen={() => setpercentageTT(true)}
-                        onClose={() => setpercentageTT(false)}
-                        placement="top" title={messages.PERCENTAGE}>
-                      <img
-                      onClick={() => setpercentageTT(!percentageTT)}
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
-                        <Tooltip placement="top"  title={props.getSortTitle("percentageSort")}>
+                        <Tooltip
+                          open={percentageTT}
+                          onOpen={() => setpercentageTT(true)}
+                          onClose={() => setpercentageTT(false)}
+                          placement="top"
+                          title={messages.PERCENTAGE}
+                        >
+                          <img
+                            onClick={() => setpercentageTT(!percentageTT)}
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
+                      <Tooltip
+                        placement="top"
+                        title={props.getSortTitle("percentageSort")}
+                      >
                         <ArrowUpwardIcon
-                        onClick={() => { props.sortData("percentageSort") }}
-                        className={classes.sortButton}
-                      />
+                          onClick={() => {
+                            props.sortData("percentageSort");
+                          }}
+                          className={classes.sortButton}
+                        />
                       </Tooltip>
                     </TableCell>
                   )}
@@ -318,7 +357,7 @@ export default function AccountComponent(props) {
                     {props.state.accountList &&
                       props.state.accountList.length >= 1 &&
                       props.state.accountList.map((row, index) => {
-                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8)
+                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8);
                         let bal = finalBal.toString();
                         var bal1 =
                           utility.convertToInternationalCurrencySystem(bal);
@@ -327,9 +366,14 @@ export default function AccountComponent(props) {
                         var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                         var splittedArray = bal3?.match(regex);
 
-                        var bal4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
-                        var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
-
+                        var bal4 =
+                          splittedArray && splittedArray.length
+                            ? splittedArray[0]
+                            : 0;
+                        var text =
+                          splittedArray && splittedArray.length
+                            ? splittedArray[1]
+                            : 0;
 
                         rantValue = rantValue + 1;
                         let percentageValue = (
@@ -342,9 +386,6 @@ export default function AccountComponent(props) {
                         let percentageValue2 = percentageValue
                           .toString()
                           .split(".")[1];
-
-
-
 
                         //state.totalSupply
 
@@ -421,25 +462,24 @@ export default function AccountComponent(props) {
                                     </span>
                                   )}
                                 </Tooltip>
-
                               </TableCell>
                             )}
                             {props.state.tableColumns["Percentage"]
                               .isActive && (
-                                <TableCell
-                                  className={`w-2 ${classes.PercentageColumnVal}`}
-                                  align="center"
-                                >
-                                  <span className="tabledata">
-                                    {percentageValue1}
-                                    {"."}
-                                    <span style={{ color: "#9FA9BA" }}>
-                                      {percentageValue2}
-                                    </span>
-                                    %
+                              <TableCell
+                                className={`w-2 ${classes.PercentageColumnVal}`}
+                                align="center"
+                              >
+                                <span className="tabledata">
+                                  {percentageValue1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {percentageValue2}
                                   </span>
-                                </TableCell>
-                              )}
+                                  %
+                                </span>
+                              </TableCell>
+                            )}
                             {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                           </TableRow>
                         );
@@ -462,20 +502,25 @@ export default function AccountComponent(props) {
 
         <Grid container style={{ marginTop: "35px" }} className="Pagination">
           <Grid item className="Pagination_1">
-          {!props.state.isLoading && props.state.noData ?
-            (<><span className="text">Show</span>
-            <select
-              value={props.state.amount}
-              className="select-amount"
-              onChange={(event) => props._handleChange(event)}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-              <option value={100}>100</option>
-            </select>
-            <span className="text">Records</span></>):("")}
+            {!props.state.isLoading && props.state.noData ? (
+              <>
+                <span className="text">Show</span>
+                <select
+                  value={props.state.amount}
+                  className="select-amount"
+                  onChange={(event) => props._handleChange(event)}
+                >
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={75}>75</option>
+                  <option value={100}>100</option>
+                </select>
+                <span className="text">Records</span>
+              </>
+            ) : (
+              ""
+            )}
           </Grid>
 
           <Grid item className="Pagination_2">
@@ -506,7 +551,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._NextPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                  props.state.totalAccounts
+                props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
@@ -518,7 +563,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._LastPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                  props.state.totalAccounts
+                props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }

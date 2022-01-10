@@ -20,7 +20,7 @@ import { Column, Row } from "simple-flexbox";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import format from "format-number";
 import Tooltip from "@material-ui/core/Tooltip";
-import { messages } from "../../constants"
+import { messages } from "../../constants";
 
 import { useParams } from "react-router-dom";
 const Pagination = styled.div`
@@ -77,10 +77,10 @@ const useStyles = makeStyles({
   },
   tableFirstHeading: {
     border: "none",
-    paddingLeft: "75px !important"
+    paddingLeft: "75px !important",
   },
   tableFirstData: {
-    paddingLeft: "75px !important"
+    paddingLeft: "75px !important",
   },
   divider: {
     borderTop: "0rem solid #bbb",
@@ -95,12 +95,12 @@ const useStyles = makeStyles({
 
   "@media (max-width: 1240px)": {
     tableFirstHeading: {
-      paddingLeft: "32px !important"
+      paddingLeft: "32px !important",
     },
     tableFirstData: {
-      paddingLeft: "32px !important"
+      paddingLeft: "32px !important",
     },
-  }
+  },
 });
 
 export default function StickyHeadTable(props) {
@@ -284,9 +284,8 @@ export default function StickyHeadTable(props) {
     let unmounted = false;
     if (token) {
       let datas = { pageNum: 0, perpage: amount, searchkey: token };
-      SearchTokens(datas)
+      SearchTokens(datas);
     } else {
-
       let data = { pageNum: from, perpage: amount };
       getTokenList(data);
       getTotalTokenList();
@@ -470,8 +469,10 @@ export default function StickyHeadTable(props) {
                   </span>
                 </TableCell>
                 {props?.state?.tableColumns["Type"].isActive && (
-                  <TableCell style={{ border: "none", whiteSpace: "nowrap" }}
-                    align="left">
+                  <TableCell
+                    style={{ border: "none", whiteSpace: "nowrap" }}
+                    align="left"
+                  >
                     <span className={"tablehead-token-details"}>
                       Type
                       <Tooltip placement="top" title={messages.TOKEN_TYPE}>
@@ -507,7 +508,10 @@ export default function StickyHeadTable(props) {
                 >
                   <span className={"tablehead-token-details"}>
                     Total Supply
-                    <Tooltip placement="top" title={messages.TOKEN_TOTAL_SUPPLY}>
+                    <Tooltip
+                      placement="top"
+                      title={messages.TOKEN_TOTAL_SUPPLY}
+                    >
                       <img
                         alt="question-mark"
                         src="/images/question-mark.svg"
@@ -551,16 +555,45 @@ export default function StickyHeadTable(props) {
               noData == false && (
                 <TableBody>
                   {rows?.map((row, index) => {
-                    let totalsupply = utility.divideByDecimalValue(row?.totalSupply, row?.decimals)
-                    const supply = utility.divideByDecimalValue(row?.totalSupply, row?.decimals) >= 1 ? format({})(utility.convertToInternationalCurrencySystem(utility.divideByDecimalValue(row?.totalSupply, row?.decimals))) : (utility.divideByDecimalValue(row?.totalSupply, row?.decimals))
+                    let totalsupply = utility.divideByDecimalValue(
+                      row?.totalSupply,
+                      row?.decimals
+                    );
+                    const supply =
+                      utility.divideByDecimalValue(
+                        row?.totalSupply,
+                        row?.decimals
+                      ) >= 1
+                        ? format({})(
+                            utility.convertToInternationalCurrencySystem(
+                              utility.divideByDecimalValue(
+                                row?.totalSupply,
+                                row?.decimals
+                              )
+                            )
+                          )
+                        : utility.divideByDecimalValue(
+                            row?.totalSupply,
+                            row?.decimals
+                          );
                     var supply1 = supply.toString().split(".")[0];
                     var supply2 = supply.toString().split(".")[1];
                     var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                     var splittedArray = supply2?.match(regex);
 
-                    var supply4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
-                    var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
-                    let tokenName = row?.tokenName?.length <= 15 || row?.tokenName?.length == 0 ? row?.tokenName : shorten(row?.tokenName, 15, 0, 3)
+                    var supply4 =
+                      splittedArray && splittedArray.length
+                        ? splittedArray[0]
+                        : 0;
+                    var text =
+                      splittedArray && splittedArray.length
+                        ? splittedArray[1]
+                        : 0;
+                    let tokenName =
+                      row?.tokenName?.length <= 15 ||
+                      row?.tokenName?.length == 0
+                        ? row?.tokenName
+                        : shorten(row?.tokenName, 15, 0, 3);
                     return (
                       <TableRow
                         hover
@@ -592,20 +625,27 @@ export default function StickyHeadTable(props) {
                           <TableCell>
                             <a
                               className="token-details-address-link"
-                              href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                                }`}
+                              href={`/token-data/${row.address}/${
+                                row?.symbol ? row?.symbol : "NA"
+                              }`}
                             >
                               {shorten(row.address)}
                             </a>
                           </TableCell>
                         )}
 
-
                         <TableCell id="td" style={{ paddingleft: "15" }}>
                           <Tooltip
                             placement="top"
-                            title={format({})(totalsupply >= 1 ? parseFloat(totalsupply) : totalsupply == 0 ? parseFloat(totalsupply) : totalsupply)}
-                          ><span>
+                            title={format({})(
+                              totalsupply >= 1
+                                ? parseFloat(totalsupply)
+                                : totalsupply == 0
+                                ? parseFloat(totalsupply)
+                                : totalsupply
+                            )}
+                          >
+                            <span>
                               {supply4 === 0 || supply4 == null ? (
                                 <span className="tabledata">{supply1}</span>
                               ) : (
@@ -618,16 +658,15 @@ export default function StickyHeadTable(props) {
                                   {text}
                                 </span>
                               )}
-
                             </span>
                           </Tooltip>
                         </TableCell>
                         {props?.state?.tableColumns["Total Holders"]
                           .isActive && (
-                            <TableCell id="td" style={{ paddingleft: "15" }}>
-                              {format({})(row.tokenHolders)}
-                            </TableCell>
-                          )}
+                          <TableCell id="td" style={{ paddingleft: "15" }}>
+                            {format({})(row.tokenHolders)}
+                          </TableCell>
+                        )}
                       </TableRow>
                     );
                   })}
@@ -655,7 +694,9 @@ export default function StickyHeadTable(props) {
 
               <div style={{ color: "#c6cbcf" }}>No Tokens found</div>
             </NoDataFoundContainer>
-          ) : ("")}
+          ) : (
+            ""
+          )}
         </TableContainer>
 
         {/* <Divider className={classes.divider}/>*/}

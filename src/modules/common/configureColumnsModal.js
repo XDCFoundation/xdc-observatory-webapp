@@ -32,14 +32,14 @@ function ConfigureColumnsModal(props) {
                                         <div className="display-flex">
                                             <Tooltip align="right" title={props.tableColumns[key].toolTipText}>
                                                 <img className="w-16-px h-16 m-t-2"
-                                                     src="/images/question_mark_tooltip.svg"></img>
+                                                    src="/images/question_mark_tooltip.svg"></img>
                                             </Tooltip>
-                                            <div className="p-l-5">{key}</div>
+                                            <div className="p-l-12">{key}</div>
                                         </div>
                                         <div onClick={() => props.toggleTableColumns(key)}>
                                             {props.tableColumns[key].isActive ?
-                                                <img className="" src="/images/active-switch.svg"/> :
-                                                <img className="" src="/images/inactive-switch.svg"/>}
+                                                <img className="" src="/images/active-switch.svg" /> :
+                                                <img className="" src="/images/inactive-switch.svg" />}
                                         </div>
                                     </div>
                                 )
