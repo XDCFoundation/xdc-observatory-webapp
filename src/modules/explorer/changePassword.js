@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     subCategory: {
-        margin: "10px 5px 10px 12px",
+        margin: "10px 5px 10px 5px",
         fontFamily: "Inter",
         fontSize: "14px",
         fontWeight: "500",
