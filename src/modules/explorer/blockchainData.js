@@ -105,27 +105,36 @@ const LeftSec = styled.div`
   }
 `;
 const ValueMain = styled.div`
-  display: flex;
-  gap: 35px;
-  flex-wrap: wrap;
-  @media (min-width: 0px) and (max-width: 767px) {
-    gap: 30px;
-    margin-top:15px
-  }
-  /* margin-top: 12px; */
-  @media (min-width: 0px) and (max-width: 767px) {
-    // padding-right: 26px
+  justify-content: space-evenly;
+  display: grid;
+  grid-gap: 35px;
+  grid-template-areas:
+            'blockHeight gasPrice transactions'
+            'nodes tps accounts'
+            'stakes contracts activeAddress';
+  @media (max-width: 767px) {
+    grid-template-areas:
+            'blockHeight gasPrice'
+            'transactions nodes'
+            'tps accounts'
+            'stakes contracts'
+            'activeAddress -';
+    grid-gap: 0;
+    margin-top: 15px;
+    justify-content: space-between;
   }
 `;
 
 const Value = styled.div`
+  grid-area: ${(props) => props.gridArea};
   display: flex;
   width: 10.625rem;
   padding-bottom: 10px;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 10px 0px 0 0;
+    padding: 10px 0 0 0;
   }
 `;
+
 const TitleIcon = styled.img`
   margin-right: 8px;
   margin-bottom: 36px;
@@ -252,7 +261,7 @@ const LeftTopSecMain = styled.div`
 `;
 const MobileDesign = styled.div`
  @media (min-width: 0px) and (max-width: 767px) {
-  display: visible;}
+  display: block;}
  @media (min-width: 768px) {
    display: none;
  }
@@ -261,7 +270,7 @@ const DeskTopDesign = styled.div`
  @media (min-width: 0px) and (max-width: 767px) {
   display: none;}
  @media (min-width: 768px) {
-   display: visible;
+   display: block;
  }
 `;
 class BlockChainDataComponent extends Component {
@@ -613,136 +622,130 @@ class BlockChainDataComponent extends Component {
           </DeskTopDesign>
           <LeftSec>
             <ValueMain>
-              <MobileScreen>
-                <Value>
-                  <TitleIcon src={blockHeightImg} />
-                  <ValueName>
-                    <Title>Block Height</Title>
-                    <TitleValue className={animationClass ? animationClass : ""}>
-                      {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
+              <Value gridArea="blockHeight">
+                <TitleIcon src={blockHeightImg}/>
+                <ValueName>
+                  <Title>Block Height</Title>
+                  <TitleValue className={animationClass ? animationClass : ""}>
+                    {this.state && this.state.blockdataNumber && this.state.blockdataNumber?.length ? this.state.blockdataNumber[0]?.number.toLocaleString() : ""}
+                  </TitleValue>
+                </ValueName>
+              </Value>
+              <Value gridArea="gasPrice">
+                <TitleIcon src={priceLogo}/>
+                <ValueName>
+                  <Title>Gas Price</Title>
+                  <TitleData className={TxanimationClass ? TxanimationClass : ""}>
+                    {this.state.gasPrice}
+                  </TitleData>
+                </ValueName>
+              </Value>
+              <Value gridArea="transactions">
+                <TitleIcon src={transactionLogo}/>
+                <ValueName>
+                  <Title>Transactions</Title>
+                  <Tooltip placement="top" title={this.state.totalTransaction}>
+                    <TitleValue>
+                      {" "}
+                      {utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}
                     </TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={priceLogo} />
-                  <ValueName>
-                    <Title>Gas Price</Title>
-                    <TitleData className={TxanimationClass ? TxanimationClass : ""}>
-                      {this.state.gasPrice}
-                    </TitleData>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={transactionLogo} />
-                  <ValueName>
-                    <Title>Transactions</Title>
-                    <Tooltip placement="top" title={this.state.totalTransaction}>
-                      <TitleValue>
-                        {" "}
-                        {utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}
-                      </TitleValue>
-                    </Tooltip>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
-              <MobileScreen>
-                {/*<Value>*/}
-                {/*  <TitleIcon src={difficultyLogo} />*/}
-                {/*  <ValueName>*/}
-                {/*    <Title>Difficulty</Title>*/}
-                {/*    <Tooltip placement="top"*/}
-                {/*      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}>*/}
-                {/*      <TitleValue className={animationClass ? animationClass : ""}>*/}
-                {/*        {utility.convertToInternationalCurrencySystem(this.state.blockdataNumber[0]?.totalDifficulty)}*/}
-                {/*      </TitleValue>*/}
-                {/*    </Tooltip>*/}
-                {/*  </ValueName>*/}
-                {/*</Value>*/}
-                <Value>
-                  <TitleIcon src='/images/nodes.svg' />
-                  <ValueName>
-                    <Title>Nodes</Title>
-                    <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={maxLogo} />
-                  <ValueName>
-                    <Title>Current/Max TPS</Title>
-                    <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src={accountLogo} />
-                  <ValueName>
-                    <Title>Accounts</Title>
-                    <div className="last_value">
-                      <TitleValue>{format({})(this.state.totalAccount)}</TitleValue>
-                      <div
+                  </Tooltip>
+                </ValueName>
+              </Value>
+              {/*<Value>*/}
+              {/*  <TitleIcon src={difficultyLogo} />*/}
+              {/*  <ValueName>*/}
+              {/*    <Title>Difficulty</Title>*/}
+              {/*    <Tooltip placement="top"*/}
+              {/*      title={this.state.blockdataNumber && this.state.blockdataNumber?.length > 0 ? this.state.blockdataNumber[0]?.totalDifficulty : ""}>*/}
+              {/*      <TitleValue className={animationClass ? animationClass : ""}>*/}
+              {/*        {utility.convertToInternationalCurrencySystem(this.state.blockdataNumber[0]?.totalDifficulty)}*/}
+              {/*      </TitleValue>*/}
+              {/*    </Tooltip>*/}
+              {/*  </ValueName>*/}
+              {/*</Value>*/}
+              <Value gridArea="nodes">
+                <TitleIcon src='/images/nodes.svg'/>
+                <ValueName>
+                  <Title>Nodes</Title>
+                  <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue>
+                </ValueName>
+              </Value>
+              <Value gridArea="tps">
+                <TitleIcon src={maxLogo}/>
+                <ValueName>
+                  <Title>Current/Max TPS</Title>
+                  <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
+                </ValueName>
+              </Value>
+              <Value gridArea="accounts">
+                <TitleIcon src={accountLogo}/>
+                <ValueName>
+                  <Title>Accounts</Title>
+                  <div className="last_value">
+                    <TitleValue>{format({})(this.state.totalAccount)}</TitleValue>
+                    <div
                         className={
                           changeAccounts >= 0
-                            ? "data_value_green last_value_main"
-                            : "data_value_red"
+                              ? "data_value_green last_value_main"
+                              : "data_value_red"
                         }
-                      >
-                        <div className="value_p">
-                          {changeAccounts == 0 ? (
+                    >
+                      <div className="value_p">
+                        {changeAccounts == 0 ? (
                             ""
-                          ) : changeAccounts > 0 ? (
+                        ) : changeAccounts > 0 ? (
                             <div className="arrow_up">
                               {/* <BsFillCaretUpFill size={10} /> */}
                               <img
-                                src={"/images/Up.svg"}
-                                style={{
-                                  width: "0.5rem",
-                                  marginRight: "5px",
-                                  marginBottom: "5px",
-                                }}
+                                  src={"/images/Up.svg"}
+                                  style={{
+                                    width: "0.5rem",
+                                    marginRight: "5px",
+                                    marginBottom: "5px",
+                                  }}
                               />
                             </div>
-                          ) : (
+                        ) : (
                             <div className="arrow_down">
                               {/* <BsFillCaretDownFill size={10} /> */}
                               <img
-                                src={"/images/Down.svg"}
-                                style={{
-                                  width: "0.5rem",
-                                  marginRight: "5px",
-                                  marginBottom: "5px",
-                                }}
+                                  src={"/images/Down.svg"}
+                                  style={{
+                                    width: "0.5rem",
+                                    marginRight: "5px",
+                                    marginBottom: "5px",
+                                  }}
                               />
                             </div>
-                          )}
-                          {changeAccounts}
-                        </div>
+                        )}
+                        {changeAccounts}
                       </div>
                     </div>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
-              <MobileScreen>
-                <Value>
-                  <TitleIcon src='/images/stakes.svg' />
-                  <ValueName>
-                    <Title>Total Stake</Title>
-                    <TitleValue>{this.state.netStatData?.stakesCount?.toLocaleString()?.substring(0,13)}</TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src='/images/contracts.svg' />
-                  <ValueName>
-                    <Title>Contracts</Title>
-                    <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.contractsCount)}</TitleValue>
-                  </ValueName>
-                </Value>
-                <Value>
-                  <TitleIcon src='/images/active-address.svg' />
-                  <ValueName>
-                    <Title>Active Address</Title>
-                      <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
-                  </ValueName>
-                </Value>
-              </MobileScreen>
+                  </div>
+                </ValueName>
+              </Value>
+              <Value gridArea="stakes">
+                <TitleIcon src='/images/stakes.svg'/>
+                <ValueName>
+                  <Title>Total Stake</Title>
+                  <TitleValue>{this.state.netStatData?.stakesCount?.toLocaleString()?.substring(0, 13)}</TitleValue>
+                </ValueName>
+              </Value>
+              <Value gridArea="contracts">
+                <TitleIcon src='/images/contracts.svg'/>
+                <ValueName>
+                  <Title>Contracts</Title>
+                  <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.contractsCount)}</TitleValue>
+                </ValueName>
+              </Value>
+              <Value gridArea="activeAddress">
+                <TitleIcon src='/images/active-address.svg'/>
+                <ValueName>
+                  <Title>Active Address</Title>
+                  <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
+                </ValueName>
+              </Value>
             </ValueMain>
           </LeftSec>
         </LeftContainer>
