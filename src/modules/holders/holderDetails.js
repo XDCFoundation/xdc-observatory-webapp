@@ -70,7 +70,11 @@ const useStyles = makeStyles({
   },
 });
 export default function HoldersDetails(props) {
-  const [toggleState, setToggleState] = useState(1);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const isAnalytics = urlParams.get('isAnalytics');
+  console.log("+++ ",isAnalytics)
+  const [toggleState, setToggleState] = useState(isAnalytics==="true" ? 2 : 1);
 
   const [transactions, setTransactions] = useState([]);
 
@@ -91,7 +95,6 @@ export default function HoldersDetails(props) {
   }, [contractAddress]);
 
   const getContractDetails = async () => {
-
     let urlPath = `${contractAddress}`;
     let [error, contractDecimal] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
@@ -106,6 +109,7 @@ export default function HoldersDetails(props) {
     );
     if (error || !tns) return;
     setHolderDetail(tns)
+console.log("+++",tns[0]?.Contract_address)
     setContractAddress(tns[0]?.Contract_address);
   };
 
@@ -381,7 +385,7 @@ export default function HoldersDetails(props) {
                       : "content_sec"
                   }
                 >
-                  <HolderAnalytics/>
+                  <HolderAnalytics walletAddress={addr} contractAddress={contractAddress}/>
                 </div>
                 {/* <div
                   className={

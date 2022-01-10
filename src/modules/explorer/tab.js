@@ -13,7 +13,7 @@ function Tab() {
 
     return (
         <div className="container-graph-tab">
-            <div className="block">
+            <div className="block" style={{marginTop:'10px'}}>
                 <div className="bloc-tabs">
                     <button
                         className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
@@ -40,7 +40,7 @@ function Tab() {
                 </div>
             </div>
 
-            <div className="content-tabs">
+            <div className="content-tabs" style={{marginTop:'40px'}}>
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     <Graphbar />
 
