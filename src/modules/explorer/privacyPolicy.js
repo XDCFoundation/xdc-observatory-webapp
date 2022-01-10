@@ -849,8 +849,8 @@ function PrivacyPolicy() {
   return (
     <div>
       <Tokensearchbar />
-      <Div>
-        <div>
+      <Div >
+        <div className="color-2149b9">
           <Heading>Privacy Policy</Heading>
           <Subheading>1. PURPOSE OF THIS PRIVACY NOTICE</Subheading>
           <Block1>
