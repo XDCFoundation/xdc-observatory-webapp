@@ -22,7 +22,6 @@ import { messages } from "../../constants";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import PageSelector from "../common/pageSelector";
 
-
 const useStyles = makeStyles({
   container: {
     borderRadius: "0.875rem",
@@ -34,11 +33,31 @@ const useStyles = makeStyles({
     border: "none !important",
     borderBottom: "none !important",
     // paddingLeft: "5.8% !important",
+    "@media (min-width: 768px) and (max-width: 1240px)": {
+      border: "none !important",
+      borderBottom: "none !important",
+      paddingLeft: "3% !important",
+    },
   },
+
   RankColumnVal: {
     border: "none !important",
     borderBottom: "none !important",
-    paddingLeft: "2% !important",
+    paddingLeft: "5.7% !important",
+    "@media (max-width: 767px)": {
+      RankColumnVal: {
+        border: "none !important",
+        borderBottom: "none !important",
+        paddingLeft: "2% !important",
+      },
+    },
+  },
+  "@media (min-width: 768px) and (max-width: 1240px)": {
+    RankColumnVal: {
+      border: "none !important",
+      borderBottom: "none !important",
+      paddingLeft: "3.2% !important",
+    },
   },
   PercentageColumn: {
     border: "none !important",
@@ -86,12 +105,11 @@ export default function AccountComponent(props) {
     let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
     let isSettingColumnOpen = Boolean(anchorEl);
 
-
-  const [ rankTT , setRankTT ] = React.useState(false)
-  const [ addressTT , setaddressTT ] = React.useState(false)
-  const [ typeTT , settypeTT ] = React.useState(false)
-  const [ balanceTT , setbalanceTT ] = React.useState(false)
-  const [ percentageTT , setpercentageTT ] = React.useState(false)
+  const [rankTT, setRankTT] = React.useState(false);
+  const [addressTT, setaddressTT] = React.useState(false);
+  const [typeTT, settypeTT] = React.useState(false);
+  const [balanceTT, setbalanceTT] = React.useState(false);
+  const [percentageTT, setpercentageTT] = React.useState(false);
 
   function handleSettingsClick(event) {
     setAnchorEl(event.currentTarget);
@@ -113,82 +131,82 @@ export default function AccountComponent(props) {
     const classes = useStyles();
     let rantValue = state.from;
 
-    return (
-        <div>
-            <Tokensearchbar/>
-            <div className="responsive-table-width-contract-list contact-list-tab ">
-                <div className="display-flex justify-content-between p-t-30 p-b-30">
-                    <div class="fs-24 fw-bold">{state.tableName}</div>
-                    <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
-                        <img
-                            onClick={handleSettingsClick}
-                            className="p-r-5 h-20 w-20-px"
-                            src="/images/settings.svg"
-                        />
-                        <ConfigureColumnPopOver
-                            isOpen={isSettingColumnOpen}
-                            anchorEl={anchorEl}
-                            handleOnClose={handleOnClose}
-                            tableColumns={props.state.tableColumns}
-                            toggleTableColumns={props.toggleTableColumns}
-                        />
-                    </div>
-                    <div
-                        className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-                        <img
-                            onClick={toggleModal}
-                            className="p-r-5 h-20 w-20-px"
-                            src="/images/settings.svg"
-                        />
-                        <ConfigureColumnsModal
-                            isOpen={isColumnsModalOpen}
-                            onModalClose={toggleModal}
-                            tableColumns={props.state.tableColumns}
-                            toggleTableColumns={props.toggleTableColumns}
-                        />
-                    </div>
-                </div>
-                <Paper style={{borderRadius: "0.875rem"}} elevation={0}>
-                    <TableContainer className={classes.container} id="container-table">
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    {props.state.tableColumns["Rank"].isActive && (
-                                        <TableCell
-                                            className={classes.RankColumn}
-                                            align="center"
-                                        >
+  return (
+    <div>
+      <Tokensearchbar />
+      <div className="responsive-table-width-contract-list contact-list-tab ">
+        <div className="display-flex justify-content-between p-t-30 p-b-30">
+          <div class="fs-24 fw-bold">{state.tableName}</div>
+          <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
+            <img
+              onClick={handleSettingsClick}
+              className="p-r-5 h-20 w-20-px"
+              src="/images/settings.svg"
+            />
+            <ConfigureColumnPopOver
+              isOpen={isSettingColumnOpen}
+              anchorEl={anchorEl}
+              handleOnClose={handleOnClose}
+              tableColumns={props.state.tableColumns}
+              toggleTableColumns={props.toggleTableColumns}
+            />
+          </div>
+          <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+            <img
+              onClick={toggleModal}
+              className="p-r-5 h-20 w-20-px"
+              src="/images/settings.svg"
+            />
+            <ConfigureColumnsModal
+              isOpen={isColumnsModalOpen}
+              onModalClose={toggleModal}
+              tableColumns={props.state.tableColumns}
+              toggleTableColumns={props.toggleTableColumns}
+            />
+          </div>
+        </div>
+        <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
+          <TableContainer className={classes.container} id="container-table">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {props.state.tableColumns["Rank"].isActive && (
+                    <TableCell className={classes.RankColumn} align="center">
                       <span className={"tableheaders_1 pl--1"}>
                         Rank
                         <Tooltip
-                        open={rankTT}
-                        onOpen={() => setRankTT(true)}
-                        onClose={() => setRankTT(false)}
-                        placement="top" title={messages.RANK}>
-                      <img
-                      onClick={() => setRankTT(!rankTT)}
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
-                                        </TableCell>
-                                    )}
-                                    <TableCell
-                                        style={{border: "none", paddingLeft: "2.2%"}}
-                                        align="center !important"
-                                    >
+                          open={rankTT}
+                          onOpen={() => setRankTT(true)}
+                          onClose={() => setRankTT(false)}
+                          placement="top"
+                          title={messages.RANK}
+                        >
+                          <img
+                            onClick={() => setRankTT(!rankTT)}
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
+                    </TableCell>
+                  )}
+                  <TableCell
+                    style={{ border: "none", paddingLeft: "2.2%" }}
+                    align="center !important"
+                  >
                     <span className={"tableheaders_1_address"}>
                       Address
                       <Tooltip
-                      open={addressTT}
+                        open={addressTT}
                         onOpen={() => setaddressTT(true)}
                         onClose={() => setaddressTT(false)}
-                        placement="top" title={messages.ACCOUNT_ADDRESS}>
+                        placement="top"
+                        title={messages.ACCOUNT_ADDRESS}
+                      >
                         <img
-                        onClick={() => setRankTT(!addressTT)}
+                          onClick={() => setRankTT(!addressTT)}
                           alt="question-mark"
                           src="/images/question-mark.svg"
                           height={"14px"}
@@ -196,21 +214,23 @@ export default function AccountComponent(props) {
                         />
                       </Tooltip>
                     </span>
-                                    </TableCell>
-                                    {props.state.tableColumns["Type"].isActive && (
-                                        <TableCell
-                                            style={{border: "none", paddingLeft: "6%"}}
-                                            align="center"
-                                        >
+                  </TableCell>
+                  {props.state.tableColumns["Type"].isActive && (
+                    <TableCell
+                      style={{ border: "none", paddingLeft: "5.4%" }}
+                      align="center"
+                    >
                       <span className={"tableheaders_1 pl--1"}>
                         Type
                         <Tooltip
-                        open={typeTT}
-                        onOpen={() => settypeTT(true)}
-                        onClose={() => settypeTT(false)}
-                        placement="top" title={messages.ACCOUNT_TYPE}>
+                          open={typeTT}
+                          onOpen={() => settypeTT(true)}
+                          onClose={() => settypeTT(false)}
+                          placement="top"
+                          title={messages.ACCOUNT_TYPE}
+                        >
                           <img
-                          onClick={() => settypeTT(!typeTT)}
+                            onClick={() => settypeTT(!typeTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -218,22 +238,28 @@ export default function AccountComponent(props) {
                           />
                         </Tooltip>
                       </span>
-                                        </TableCell>
-                                    )}
-                                    {props.state.tableColumns["Balance"].isActive && (
-                                        <TableCell
-                                            style={{border: "none", paddingLeft: "5%", paddingRight: "48px"}}
-                                            align="center"
-                                        >
+                    </TableCell>
+                  )}
+                  {props.state.tableColumns["Balance"].isActive && (
+                    <TableCell
+                      style={{
+                        border: "none",
+                        paddingLeft: "5%",
+                        paddingRight: "48px",
+                      }}
+                      align="center"
+                    >
                       <span className={"tableheaders_1"}>
                         Balance
                         <Tooltip
-                        open={balanceTT}
-                        onOpen={() => setbalanceTT(true)}
-                        onClose={() => setbalanceTT(false)}
-                        placement="top" title={messages.ACCOUNT_BALANCE}>
+                          open={balanceTT}
+                          onOpen={() => setbalanceTT(true)}
+                          onClose={() => setbalanceTT(false)}
+                          placement="top"
+                          title={messages.ACCOUNT_BALANCE}
+                        >
                           <img
-                          onClick={() => setbalanceTT(!balanceTT)}
+                            onClick={() => setbalanceTT(!balanceTT)}
                             alt="question-mark"
                             src="/images/question-mark.svg"
                             height={"14px"}
@@ -241,12 +267,17 @@ export default function AccountComponent(props) {
                           />
                         </Tooltip>
                       </span>
-                      <Tooltip placement="top"  title={props.getSortTitle("balanceSort")}>
-                      <ArrowUpwardIcon
-                        onClick={() => { props.sortData("balanceSort") }}
-                        className={classes.sortButton}
-                      />
-                    </Tooltip>
+                      <Tooltip
+                        placement="top"
+                        title={props.getSortTitle("balanceSort")}
+                      >
+                        <ArrowUpwardIcon
+                          onClick={() => {
+                            props.sortData("balanceSort");
+                          }}
+                          className={classes.sortButton}
+                        />
+                      </Tooltip>
                     </TableCell>
                   )}
 
@@ -258,24 +289,31 @@ export default function AccountComponent(props) {
                       <span className={"tableheaders_1"}>
                         Percentage
                         <Tooltip
-                        open={percentageTT}
-                        onOpen={() => setpercentageTT(true)}
-                        onClose={() => setpercentageTT(false)}
-                        placement="top" title={messages.PERCENTAGE}>
-                      <img
-                      onClick={() => setpercentageTT(!percentageTT)}
-                        alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                        </span>
-                        <Tooltip placement="top"  title={props.getSortTitle("percentageSort")}>
+                          open={percentageTT}
+                          onOpen={() => setpercentageTT(true)}
+                          onClose={() => setpercentageTT(false)}
+                          placement="top"
+                          title={messages.PERCENTAGE}
+                        >
+                          <img
+                            onClick={() => setpercentageTT(!percentageTT)}
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                          />
+                        </Tooltip>
+                      </span>
+                      <Tooltip
+                        placement="top"
+                        title={props.getSortTitle("percentageSort")}
+                      >
                         <ArrowUpwardIcon
-                        onClick={() => { props.sortData("percentageSort") }}
-                        className={classes.sortButton}
-                      />
+                          onClick={() => {
+                            props.sortData("percentageSort");
+                          }}
+                          className={classes.sortButton}
+                        />
                       </Tooltip>
                     </TableCell>
                   )}
@@ -298,7 +336,7 @@ export default function AccountComponent(props) {
                     {props.state.accountList &&
                       props.state.accountList.length >= 1 &&
                       props.state.accountList.map((row, index) => {
-                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8)
+                        let finalBal = Utils.decimalDivisonOnly(row.balance, 8);
                         let bal = finalBal.toString();
                         var bal1 =
                           utility.convertToInternationalCurrencySystem(bal);
@@ -307,9 +345,14 @@ export default function AccountComponent(props) {
                         var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
                         var splittedArray = bal3?.match(regex);
 
-                                            var bal4 = splittedArray && splittedArray.length ? splittedArray[0] : 0;
-                                            var text = splittedArray && splittedArray.length ? splittedArray[1] : 0;
-
+                        var bal4 =
+                          splittedArray && splittedArray.length
+                            ? splittedArray[0]
+                            : 0;
+                        var text =
+                          splittedArray && splittedArray.length
+                            ? splittedArray[1]
+                            : 0;
 
                                             rantValue = rantValue + 1;
                                             let percentageValue = (
@@ -323,8 +366,7 @@ export default function AccountComponent(props) {
                                                 .toString()
                                                 .split(".")[1];
 
-
-                                            //state.totalSupply
+                        //state.totalSupply
 
                                             return (
                                                 <TableRow
@@ -399,38 +441,37 @@ export default function AccountComponent(props) {
                                     </span>
                                   )}
                                 </Tooltip>
-
                               </TableCell>
                             )}
                             {props.state.tableColumns["Percentage"]
                               .isActive && (
-                                <TableCell
-                                  className={`w-2 ${classes.PercentageColumnVal}`}
-                                  align="center"
-                                >
-                                  <span className="tabledata">
-                                    {percentageValue1}
-                                      {"."}
-                                      <span style={{color: "#9FA9BA"}}>
-                                      {percentageValue2}
-                                    </span>
-                                    %
+                              <TableCell
+                                className={`w-2 ${classes.PercentageColumnVal}`}
+                                align="center"
+                              >
+                                <span className="tabledata">
+                                  {percentageValue1}
+                                  {"."}
+                                  <span style={{ color: "#9FA9BA" }}>
+                                    {percentageValue2}
                                   </span>
-                                                        </TableCell>
-                                                    )}
-                                                    {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
-                                                </TableRow>
-                                            );
-                                        })}
-                                    </TableBody>
-                                )
+                                  %
+                                </span>
+                              </TableCell>
                             )}
-                        </Table>
-                        {props.state.noData == 0 && (
-                            <NoDataFoundContainer>
-                                <img
-                                    src={require("../../../src/assets/images/XDC-Alert.svg")}
-                                ></img>
+                            {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                )
+              )}
+            </Table>
+            {props.state.noData == 0 && (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
 
                                 <div>No account found.</div>
                             </NoDataFoundContainer>
@@ -440,65 +481,70 @@ export default function AccountComponent(props) {
 
         <Grid container style={{ marginTop: "35px" }} className="Pagination">
           <Grid item className="Pagination_1">
-          {!props.state.isLoading && props.state.noData ?
-            (<><span className="text">Show</span>
-              <PageSelector value={props.state.amount}
-                            height={30}
-                            handler={props._handleChange}/>
-            <span className="text">Records</span></>):("")}
+            {!props.state.isLoading && props.state.noData ? (
+              <>
+                <span className="text">Show</span>
+                <PageSelector value={props.state.amount}
+                              height={30}
+                              handler={props._handleChange}/>
+                <span className="text">Records</span>
+              </>
+            ) : (
+              ""
+            )}
           </Grid>
 
-                    <Grid item className="Pagination_2">
-                        <button
-                            id="btn_12"
-                            style={{marginLeft: "0px"}}
-                            onClick={(event) => props._FirstPage(event)}
-                            className={props.state.from === 0 ? "btn disabled" : "btn"}
-                        >
-                            First
-                        </button>
-                        <button
-                            id="btn_12"
-                            onClick={(event) => props._PrevPage(event)}
-                            className={props.state.from === 0 ? "btn disabled" : "btn"}
-                        >
-                            <img className="back-arrow" src={"/images/back.svg"}/>
-                        </button>
-                        <button id="btn_12" className="btn">
-                            Page{" "}
-                            {Math.ceil(state.totalAccounts / state.amount) -
-                            Math.ceil((state.totalAccounts - state.from) / state.amount) +
-                            1}{" "}
-                            of {Math.ceil(state.totalAccounts / state.amount)}
-                        </button>
-                        <button
-                            id="btn_12"
-                            onClick={(event) => props._NextPage(event)}
-                            className={
-                                props.state.from + props.state.amount ===
-                                props.state.totalAccounts
-                                    ? "btn disabled"
-                                    : "btn"
-                            }
-                        >
-                            <img className="back-arrow" src={"/images/next.svg"}/>
-                        </button>
-                        <button
-                            id="btn_12"
-                            onClick={(event) => props._LastPage(event)}
-                            className={
-                                props.state.from + props.state.amount ===
-                                props.state.totalAccounts
-                                    ? "btn disabled"
-                                    : "btn"
-                            }
-                        >
-                            Last
-                        </button>
-                    </Grid>
-                </Grid>
-            </div>
-            <FooterComponent/>
-        </div>
-    );
+          <Grid item className="Pagination_2">
+            <button
+              id="btn_12"
+              style={{ marginLeft: "0px" }}
+              onClick={(event) => props._FirstPage(event)}
+              className={props.state.from === 0 ? "btn disabled" : "btn"}
+            >
+              First
+            </button>
+            <button
+              id="btn_12"
+              onClick={(event) => props._PrevPage(event)}
+              className={props.state.from === 0 ? "btn disabled" : "btn"}
+            >
+              <img className="back-arrow" src={"/images/back.svg"} />
+            </button>
+            <button id="btn_12" className="btn">
+              Page{" "}
+              {Math.ceil(state.totalAccounts / state.amount) -
+                Math.ceil((state.totalAccounts - state.from) / state.amount) +
+                1}{" "}
+              of {Math.ceil(state.totalAccounts / state.amount)}
+            </button>
+            <button
+              id="btn_12"
+              onClick={(event) => props._NextPage(event)}
+              className={
+                props.state.from + props.state.amount ===
+                props.state.totalAccounts
+                  ? "btn disabled"
+                  : "btn"
+              }
+            >
+              <img className="back-arrow" src={"/images/next.svg"} />
+            </button>
+            <button
+              id="btn_12"
+              onClick={(event) => props._LastPage(event)}
+              className={
+                props.state.from + props.state.amount ===
+                props.state.totalAccounts
+                  ? "btn disabled"
+                  : "btn"
+              }
+            >
+              Last
+            </button>
+          </Grid>
+        </Grid>
+      </div>
+      <FooterComponent />
+    </div>
+  );
 }
