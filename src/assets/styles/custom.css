@@ -4920,36 +4920,23 @@ button {
   width: 160px;
 }
 .first-transaction-hash {
+  width: 8.563rem;
+  height: 1.063rem;
   background-color: transparent;
   font-family: Inter;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 0.875rem;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.54px;
+  opacity: 1;
   color: #2149b9 !important;
-  width: 530px;
-  /* margin-left: 7px; */
+  margin-left: 2px;
   margin-top: 7px;
-  animation: fadeInAnimation ease 2s;
+  text-align: left;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
-}
-@media (min-width: 1240px) {
-  .first-transaction-hash {
-    width: 8.563rem;
-    height: 1.063rem;
-    font-family: Inter;
-    font-size: 0.875rem;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.034rem;
-    text-align: left;
-    padding-left: 9px;
-  }
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .first-transaction-hash {
@@ -5027,7 +5014,8 @@ button {
   align-items: center;
   font-size: 11px;
   font-weight: 600;
-  animation: fadeInAnimation ease 2s;
+  margin-left: 2px;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
@@ -7598,10 +7586,11 @@ button {
   border-radius: 4px;
   width: 94px;
   height: 30px;
+  color: #2149b9;
 }
 
 .ActiveDownload:hover {
-  color: #81b4ff;
+  color: #2149b9;
   font-size: 0.875rem;
 }
 

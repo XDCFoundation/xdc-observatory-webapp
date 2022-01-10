@@ -529,13 +529,7 @@ export default function HolderTableComponent(props) {
                         row.Value,
                         Number(props?.decimal)
                       );
-                      console.log(
-                        value,
-                        row.Value,
-                        typeof Number(value),
-                        typeof Number(row.Value),
-                        "<<<Value"
-                      );
+
                       return (
                         <TableRow
                           style={
