@@ -118,6 +118,7 @@ export default function TransactionComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
+    color: #c6cbcf;
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -131,7 +132,7 @@ export default function TransactionComponent(props) {
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
             onClick={handleSettingsClick}
-            className="p-r-5 h-20 w-20-px"
+            className="p-r-5 h-20 w-20-px cursor-pointer"
             src="/images/settings.svg"
           />
           <ConfigureColumnPopOver
@@ -145,7 +146,7 @@ export default function TransactionComponent(props) {
         <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
           <img
             onClick={toggleModal}
-            className="p-r-5 h-20 w-20-px"
+            className="p-r-5 h-20 w-20-px cursor-pointer"
             src="/images/settings.svg"
           />
           <ConfigureColumnsModal

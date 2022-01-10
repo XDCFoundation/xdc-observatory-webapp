@@ -310,6 +310,7 @@ class Contractlist extends React.Component {
       align-items: center;
       margin-top: 100px;
       gap: 10px;
+      color: #c6cbcf;
       @media (min-width: 767px) {
         margin: 100px 0 !important;
       }
@@ -323,7 +324,7 @@ class Contractlist extends React.Component {
           <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
             <img
               onClick={this.handleSettingsClick}
-              className="p-r-5 h-20 w-20-px"
+              className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
             />
             <ConfigureColumnPopOver
@@ -337,7 +338,7 @@ class Contractlist extends React.Component {
           <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
             <img
               onClick={this.toggleModal}
-              className="p-r-5 h-20 w-20-px"
+              className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
             />
             <ConfigureColumnsModal
@@ -560,7 +561,7 @@ class Contractlist extends React.Component {
           //   marginLeft: "18%",
           //   marginTop: "20px",
           // }}
-          >{!this.state.isLoading && this.state.noData ?
+          >{!this.state.isLoading && !this.state.noData ?
             (<><p
               style={{
                 fontSize: "0.875rem",

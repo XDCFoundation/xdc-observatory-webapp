@@ -324,85 +324,84 @@ export default function StickyHeadTable(props) {
       }
     `;
 
-    return (
-        <div style={{backgroundColor: "#fff"}}>
-            <Tokensearchbar/>
-            <form
-                method="post"
-                onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                        e.preventDefault();
-                    }
-                }}
-            >
-                <Column
-                    className={
-                        "responsive-table-width-token-list token-list-tab_11 search-container"
-                    }
-                >
-                    <Row justifyContent="space-between" alignItems="center">
-                        <TokenTitle>Tokens</TokenTitle>
-                        <div
-                            className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-                            <img
-                                onClick={handleSettingsClick}
-                                className="p-r-5 h-20 w-20-px"
-                                src="/images/settings.svg"
-                            />
-                            <ConfigureColumnPopOver
-                                isOpen={isSettingColumnOpen}
-                                anchorEl={anchorEl}
-                                handleOnClose={handleOnClose}
-                                tableColumns={props.state.tableColumns}
-                                toggleTableColumns={props.toggleTableColumns}
-                            />
-                        </div>
-                        <div
-                            className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-                            <img
-                                onClick={toggleModal}
-                                className="p-r-5 h-20 w-20-px"
-                                src="/images/settings.svg"
-                            />
-                            <ConfigureColumnsModal
-                                isOpen={isColumnsModalOpen}
-                                onModalClose={toggleModal}
-                                tableColumns={props.state.tableColumns}
-                                toggleTableColumns={props.toggleTableColumns}
-                            />
-                        </div>
-                    </Row>
-                    <div className="searchelement-input input-searchelement_11 margin-top-15px">
-                        <img
-                            style={{
-                                width: 20,
-                                height: 20,
-                                marginRight: 6,
-                                marginTop: 3,
-                            }}
-                            src={"/images/Search.svg"}
-                        />
+  return (
+    <div style={{ backgroundColor: "#fff" }}>
+      <Tokensearchbar />
+      <form
+        method="post"
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
+      >
+        <Column
+          className={
+            "responsive-table-width-token-list token-list-tab_11 search-container"
+          }
+        >
+          <Row justifyContent="space-between" alignItems="center">
+            <TokenTitle>Tokens</TokenTitle>
+            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img
+                onClick={handleSettingsClick}
+                className="p-r-5 h-20 w-20-px cursor-pointer"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnPopOver
+                isOpen={isSettingColumnOpen}
+                anchorEl={anchorEl}
+                handleOnClose={handleOnClose}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                onClick={toggleModal}
+                className="p-r-5 h-20 w-20-px cursor-pointer"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                isOpen={isColumnsModalOpen}
+                onModalClose={toggleModal}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+          </Row>
+          <div className="searchelement-input input-searchelement_11 margin-top-15px">
+            <img
+              style={{
+                width: 20,
+                height: 20,
+                marginRight: 6,
+                marginTop: 3,
+              }}
+              src={"/images/Search.svg"}
+            />
 
-                        <input
-                            onKeyPress={(e) => {
-                                if (e.key === "Enter") {
-                                    handleSearchKeyUp(e);
-                                }
-                            }}
-                            onChange={(e) => {
-                                if (e.target.value == "") {
-                                    handleSearchKeyUp(e);
-                                }
-                            }}
-                            className="account-searchbar"
-                            type="text"
-                            placeholder="Search Tokens"
-                        />
-                    </div>
-                </Column>
-            </form>
-            {/* </div> */}
-            {/* </div> */}
+            <input
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              onChange={(e) => {
+                if (e.target.value == "") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              id="tokenSearch"
+              className="account-searchbar"
+              type="text"
+              placeholder="Search Tokens"
+            />
+          </div>
+        </Column>
+      </form>
+      {/* </div> */}
+      {/* </div> */}
 
             <br/>
 
@@ -706,29 +705,30 @@ export default function StickyHeadTable(props) {
                 {/* <Divider className={classes.divider}/>*/}
             </Paper>
 
-            <Pagination>
-                <LeftPagination>
-          <span
-              style={{
-                  fontSize: "0.875rem",
-                  fontWeight: "600",
-              }}
+      <Pagination>
+        <LeftPagination>
+        {!noData == true && !isLoading ? (<>
+          <p
+            style={{
+              fontSize: "0.875rem",
+              fontWeight: "600",
+            }}
           >
             Show
-          </span>
+          </p>
                     <PageSelector value={amount}
                                   height={30}
                                   handler={handleChangeRowsPerPage}/>
-                    <span
+                    <p
                         style={{
                             fontSize: "0.875rem",
                             fontWeight: "600",
                         }}
                     >
             {" "}
-                        Records
-          </span>
-                </LeftPagination>
+            Records
+          </p></>):("")}
+        </LeftPagination>
 
                 <RightPagination>
                     <div

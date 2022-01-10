@@ -52,6 +52,11 @@ a:link {
 .p-r-10 {
   padding-right: 10px;
 }
+
+.p-r-15 {
+  padding-right: 15px;
+}
+
 .p-r-25 {
   padding-right: 25px;
 }
@@ -692,6 +697,10 @@ input:focus {
     flex-direction: row;
     margin-left: 4px;
     margin-top: 48px;
+  }
+  .w-320 {
+    max-width: 320px;
+    width: 100%;
   }
 }
 .paddingLeft-30 {
@@ -2116,6 +2125,10 @@ p {
   font-size: 1.063rem;
   padding-left: 10px;
 }
+.main-input:focus {
+  outline: none !important;
+  border: none !important;
+}
 
 @media (min-width: 0px) and (max-width: 767px) {
   .main-input {
@@ -2599,6 +2612,10 @@ p {
   background-color: #ffffff;
 }
 
+.main-input-td:focus {
+  outline: none !important;
+  border: none !important;
+}
 .main-location {
   display: none;
 }
@@ -3664,7 +3681,7 @@ body {
     width: 80%;
     cursor: pointer;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     background: transparent;
     cursor: pointer;
     padding-left: 0px;
@@ -6458,7 +6475,7 @@ button {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 .cont-token-data :nth-child(2) {
   font-size: 13px;
@@ -6479,7 +6496,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
   }
 }
@@ -6493,7 +6510,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
     top: 1041px;
     left: 75px;
@@ -9867,8 +9884,15 @@ button {
   margin: 1px;
   width: 11rem;
 }
+.account-searchbar:focus {
+  outline: none !important;
+  border: none !important;
+}
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
+}
+#tokenSerach {
+  outline: none !important;
 }
 .error-message-div {
   margin-top: -8px;
