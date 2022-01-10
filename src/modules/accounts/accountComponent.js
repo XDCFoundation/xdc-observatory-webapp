@@ -20,6 +20,7 @@ import Utils from "../../utility";
 import styled from "styled-components";
 import { messages } from "../../constants";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import SearchAndFiltersComponent from "./searchAndFiltersComponent";
 
 
 const useStyles = makeStyles({
@@ -146,6 +147,7 @@ export default function AccountComponent(props) {
             />
           </div>
         </div>
+        <SearchAndFiltersComponent/>
         <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
           <TableContainer className={classes.container} id="container-table">
             <Table>
@@ -158,7 +160,7 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Rank
-                        <Tooltip 
+                        <Tooltip
                         open={rankTT}
                         onOpen={() => setRankTT(true)}
                         onClose={() => setRankTT(false)}
@@ -180,7 +182,7 @@ export default function AccountComponent(props) {
                   >
                     <span className={"tableheaders_1_address"}>
                       Address
-                      <Tooltip 
+                      <Tooltip
                       open={addressTT}
                         onOpen={() => setaddressTT(true)}
                         onClose={() => setaddressTT(false)}
@@ -202,7 +204,7 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1 pl--1"}>
                         Type
-                        <Tooltip 
+                        <Tooltip
                         open={typeTT}
                         onOpen={() => settypeTT(true)}
                         onClose={() => settypeTT(false)}
@@ -225,7 +227,7 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Balance
-                        <Tooltip 
+                        <Tooltip
                         open={balanceTT}
                         onOpen={() => setbalanceTT(true)}
                         onClose={() => setbalanceTT(false)}
@@ -255,7 +257,7 @@ export default function AccountComponent(props) {
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
-                        <Tooltip 
+                        <Tooltip
                         open={percentageTT}
                         onOpen={() => setpercentageTT(true)}
                         onClose={() => setpercentageTT(false)}
