@@ -474,7 +474,7 @@ export default function StickyHeadTable(props) {
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
                           <a
-                            href={`/token-data/${address}/${tn}?userAddress=${row[0]?.Address}&isAnalytics=true`}
+                            href={`/holder-details/${row[0]?.Address}/${tn}?isAnalytics=true`}
                           >
                             Analytics
                           </a>
