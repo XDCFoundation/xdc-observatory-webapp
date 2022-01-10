@@ -19,6 +19,7 @@ import Loader from "../../assets/loader";
 import styled from "styled-components";
 import format from "format-number";
 import { messages } from "../../constants";
+import PageSelector from "../common/pageSelector";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -431,7 +432,7 @@ export default function TransactionTableComponent(props) {
                   <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "2%" }} align="left">
                     <span className={"tableheaders table-block"}>
                       Block
-                      <Tooltip 
+                      <Tooltip
                       open={blockTT}
                         onOpen={() => setblockTT(true)}
                         onClose={() => setblockTT(false)}
@@ -449,7 +450,7 @@ export default function TransactionTableComponent(props) {
                   <TableCell className="w-450 w-19" style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-from"}>
                       From
-                      <Tooltip 
+                      <Tooltip
                       open={fromTT}
                         onOpen={() => setfromTT(true)}
                         onClose={() => setfromTT(false)}
@@ -467,7 +468,7 @@ export default function TransactionTableComponent(props) {
                   <TableCell className="w-450 w-18" style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-to"}>
                       To
-                      <Tooltip 
+                      <Tooltip
                       open={toTT}
                         onOpen={() => settoTT(true)}
                         onClose={() => settoTT(false)}
@@ -485,7 +486,7 @@ export default function TransactionTableComponent(props) {
                   <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-value"}>
                       Value
-                      <Tooltip 
+                      <Tooltip
                       open={valueTT}
                         onOpen={() => setvalueTT(true)}
                         onClose={() => setvalueTT(false)}
@@ -503,7 +504,7 @@ export default function TransactionTableComponent(props) {
                   <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-value"}>
                       Gas
-                      <Tooltip 
+                      <Tooltip
                       open={gasTT}
                         onOpen={() => setgasTT(true)}
                         onClose={() => setgasTT(false)}
@@ -642,15 +643,9 @@ export default function TransactionTableComponent(props) {
           className="page-container">
           <Grid item xs="4" className="pagination-tab">
             <span className="text">Show</span>
-            {
-              <select value={amount} className="select-amount" onChange={handleChangeRowsPerPage}>
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-                <option value={50}>50</option>
-                <option value={75}>75</option>
-                <option value={100}>100</option>
-              </select>
-            }
+            <PageSelector value={amount}
+                          height={30}
+                          handler={handleChangeRowsPerPage}/>
             <span className="text">Records</span>
           </Grid>
           <Grid xs="2"></Grid>

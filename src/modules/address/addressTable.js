@@ -26,6 +26,7 @@ import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import PageSelector from "../common/pageSelector";
 
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
@@ -1052,17 +1053,9 @@ export default function AddressTableComponent(props) {
             {!isLoading && !noData ? (
               <>
                 <span className="text">Show</span>
-                <select
-                  value={rowsPerPage}
-                  className="select-amount amount-select"
-                  onChange={handleChangeRowsPerPage}
-                >
-                  <option value={10}>10</option>
-                  <option value={25}>25</option>
-                  <option value={50}>50</option>
-                  <option value={75}>75</option>
-                  <option value={100}>100</option>
-                </select>
+                <PageSelector value={rowsPerPage}
+                              height={30}
+                              handler={handleChangeRowsPerPage}/>
                 <span className="text">Records</span>
               </>
             ) : (

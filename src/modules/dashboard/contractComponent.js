@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import { TableContainer } from "@material-ui/core";
+import {Grid, TableContainer} from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "../explorer/tokensearchBar";
@@ -18,6 +18,7 @@ import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import { messages } from "../../constants";
 import Tooltip from "@material-ui/core/Tooltip";
+import PageSelector from "../common/pageSelector";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -569,18 +570,9 @@ class Contractlist extends React.Component {
             >
               Show
             </p>
-
-            <select
-              value={this.state.amount}
-              className="selectbox-contract"
-              onChange={(event) => this.handleChangeRowsPerPage(event)}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-              <option value={100}>100</option>
-            </select>
+            <PageSelector value={this.state.amount}
+                          height={35}
+                          handler={this.handleChangeRowsPerPage}/>
             <p
               style={{
                 fontSize: "0.875rem",

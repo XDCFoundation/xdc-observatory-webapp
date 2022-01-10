@@ -15,6 +15,7 @@ import styled from "styled-components";
 import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
 import { messages } from "../../constants";
+import PageSelector from "../common/pageSelector";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -405,13 +406,10 @@ export default function StickyHeadTable() {
         <LeftPagination>
           {!isLoading && noData ? (<>
             <p className="p-pagination">Show</p>
-            <select className="selectbox" onChange={handleChangeRowsPerPage}>
-              <option selected>10</option>
-              <option>25</option>
-              <option>50</option>
-              <option>75</option>
-              <option>100</option>
-            </select>
+            <PageSelector value={rowsPerPage}
+                          height={28}
+                          handler={handleChangeRowsPerPage}/>
+
             <p className="p-pagination">Records</p>
           </>) : ("")}
         </LeftPagination>
