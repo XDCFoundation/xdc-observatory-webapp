@@ -659,7 +659,7 @@ class BlockChainDataComponent extends Component {
                 {/*  </ValueName>*/}
                 {/*</Value>*/}
                 <Value>
-                  <TitleIcon src={maxLogo} />
+                  <TitleIcon src='/images/nodes.svg' />
                   <ValueName>
                     <Title>Nodes</Title>
                     <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue>
@@ -722,21 +722,21 @@ class BlockChainDataComponent extends Component {
               </MobileScreen>
               <MobileScreen>
                 <Value>
-                  <TitleIcon src={maxLogo} />
+                  <TitleIcon src='/images/stakes.svg' />
                   <ValueName>
                     <Title>Total Stake</Title>
-                    <TitleValue>{utility.getNumber(this.state.netStatData?.stakesCount)}</TitleValue>
+                    <TitleValue>{this.state.netStatData?.stakesCount?.toLocaleString()?.substring(0,13)}</TitleValue>
                   </ValueName>
                 </Value>
                 <Value>
-                  <TitleIcon src={maxLogo} />
+                  <TitleIcon src='/images/contracts.svg' />
                   <ValueName>
                     <Title>Contracts</Title>
                     <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.contractsCount)}</TitleValue>
                   </ValueName>
                 </Value>
                 <Value>
-                  <TitleIcon src={accountLogo} />
+                  <TitleIcon src='/images/active-address.svg' />
                   <ValueName>
                     <Title>Active Address</Title>
                       <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
