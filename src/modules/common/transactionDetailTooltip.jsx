@@ -95,8 +95,8 @@ function TransactionDetailTooltip(props) {
         trigger="click"
         theme={"light"}
         interactive={true}
-        placement="right"
-        offset={[0, 0]}
+        placement="bottom"
+        offset={[100, 10]}
         content={
           <div ref={menuRef} className={"transaction-detail-tooltip"}>
             {isLoading == true ? (

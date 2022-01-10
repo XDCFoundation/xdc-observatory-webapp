@@ -204,7 +204,7 @@ export default function AddressDetails(props) {
       <Grid className="table-grid-block grid-block-table">
         <div className={classes.mainContainer}>
           {/* <div className={classes.root}> */}
-          <Grid style={{ width: "75.125rem" }}>
+          <Grid style={{ width: "75.125rem" }} className="m-l-4">
             <AddressPath>
               <Explorer>Observatory</Explorer>
               <Next src={"/images/next.svg"} />
@@ -686,7 +686,7 @@ const Div = styled.div`
   background-color: #fff;
   margin: 20px 0;
   @media (min-width: 300px) and (max-width: 767px) {
-    width: 22.563rem;
+    width: 21rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 664px !important;
@@ -720,7 +720,7 @@ const AddressPath = styled.div`
   width: 100%;
   font-size: 0.875rem;
   display: flex;
-  margin-left: 4px;
+  ${'' /* margin-left: 4px; */}
 `;
 
 const Explorer = styled.div`
