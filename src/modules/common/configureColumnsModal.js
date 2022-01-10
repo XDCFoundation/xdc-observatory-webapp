@@ -1,13 +1,21 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles } from "@material-ui/styles";
 
+const useStyles = makeStyles((theme) => ({
+    paperWidthSm: {
+        maxWidth: "320px",
+        width: "100%",
+    }
+}));
 
 function ConfigureColumnsModal(props) {
+    const classes = useStyles();
     return (
         <Dialog
             className=""
-            classes=""
+            classes={{paperWidthSm: classes.paperWidthSm}}
             open={props.isOpen}
             onClose={props.onModalClose}
             aria-labelledby="form-dialog-title"
@@ -15,12 +23,12 @@ function ConfigureColumnsModal(props) {
             <div className="w-320">
                 <div className="fs-16 fw-bold p-t-15 p-b-15 display-flex justify-content-center">Configure Columns</div>
                 <hr className="margin-0 m-b-15"/>
-                <div>
+                <div className="p-l-15 p-r-15">
                     {
                         props.tableColumns && Object.keys(props.tableColumns).map(key => {
                             if (key !== 'Balance')
                                 return (
-                                    <div className="display-flex justify-content-between p-b-25 p-l-10 p-r-10">
+                                    <div className="display-flex justify-content-between p-b-25">
                                         <div className="display-flex">
                                             <Tooltip align="right" title={props.tableColumns[key].toolTipText}>
                                                 <img className="w-16-px h-16 m-t-2"

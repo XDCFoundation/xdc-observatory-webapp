@@ -40,12 +40,20 @@ a:link {
   padding-left: 10px;
 }
 
+.p-l-15 {
+  padding-left: 15px;
+}
+
 .p-r-5 {
   padding-right: 5px;
 }
 
 .p-r-10 {
   padding-right: 10px;
+}
+
+.p-r-15 {
+  padding-right: 15px;
 }
 
 .p-t-15 {
@@ -682,6 +690,10 @@ input:focus {
     flex-direction: row;
     margin-left: 4px;
     margin-top: 48px;
+  }
+  .w-320 {
+    max-width: 320px;
+    width: 100%;
   }
 }
 .paddingLeft-30 {
@@ -2106,6 +2118,10 @@ p {
   font-size: 1.063rem;
   padding-left: 10px;
 }
+.main-input:focus {
+  outline: none !important;
+  border: none !important;
+}
 
 @media (min-width: 0px) and (max-width: 767px) {
   .main-input {
@@ -2589,6 +2605,10 @@ p {
   background-color: #ffffff;
 }
 
+.main-input-td:focus {
+  outline: none !important;
+  border: none !important;
+}
 .main-location {
   display: none;
 }
@@ -9867,7 +9887,10 @@ button {
   margin: 1px;
   width: 11rem;
 }
-
+.account-searchbar:focus {
+  outline: none !important;
+  border: none !important;
+}
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
 }
