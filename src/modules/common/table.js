@@ -62,12 +62,12 @@ export default function CommonTransactionsTable(props) {
   const classes = useStyles();
   const { transactionList } = props;
 
-  const [hashTT , setHashTT] = React.useState(false)
-  const [amountTT , setAmountTT] = React.useState(false)
-  const [dateTT , setDateTT] = React.useState(false)
-  const [blockTT , setBlockTT] = React.useState(false)
-  const [fromTT , setfromTT] = React.useState(false)
-  const [toTT , settoTT] = React.useState(false)
+  const [hashTT, setHashTT] = React.useState(false)
+  const [amountTT, setAmountTT] = React.useState(false)
+  const [dateTT, setDateTT] = React.useState(false)
+  const [blockTT, setBlockTT] = React.useState(false)
+  const [fromTT, setfromTT] = React.useState(false)
+  const [toTT, settoTT] = React.useState(false)
 
   return (
     <Paper
@@ -78,11 +78,11 @@ export default function CommonTransactionsTable(props) {
       {/* <TableContainer> */}
       {props.isHomePage ? (
         <TransactionHeaderContainer>
-          <TransactionTitle></TransactionTitle>
+          <TransactionTitle>Latest Transactions</TransactionTitle>
           <a
             className="nav_button margin-right-30px"
             href="/view-all-transaction"
-         
+
           >
             View All
           </a>
@@ -100,13 +100,13 @@ export default function CommonTransactionsTable(props) {
               >
                 <span className={("tableheaders-hash", "tableheaders")}>
                   Hash
-                  <Tooltip 
-                  open={hashTT}
-                  onOpen={() => setHashTT(true)}
-                  onClose={() => setHashTT(false)}
-                   placement="top" title={messages.HASH}>
+                  <Tooltip
+                    open={hashTT}
+                    onOpen={() => setHashTT(true)}
+                    onClose={() => setHashTT(false)}
+                    placement="top" title={messages.HASH}>
                     <img
-                    onClick={() => setHashTT(!hashTT)}
+                      onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -126,12 +126,12 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-all")}>
                   Amount
                   <Tooltip
-                  open={amountTT}
-                  onOpen={() => setAmountTT(true)}
-                  onClose={() => setAmountTT(false)}
-                   placement="top" title={messages.AMOUNT}>
+                    open={amountTT}
+                    onOpen={() => setAmountTT(true)}
+                    onClose={() => setAmountTT(false)}
+                    placement="top" title={messages.AMOUNT}>
                     <img
-                    onClick={() => setAmountTT(!amountTT)}
+                      onClick={() => setAmountTT(!amountTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -148,12 +148,12 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-age")}>
                   Date
                   <Tooltip
-                  open={dateTT}
-                  onOpen={() => setDateTT(true)}
-                  onClose={() => setDateTT(false)}
-                   placement="top" title={messages.DATE}>
+                    open={dateTT}
+                    onOpen={() => setDateTT(true)}
+                    onClose={() => setDateTT(false)}
+                    placement="top" title={messages.DATE}>
                     <img
-                    onClick={() => setDateTT(!dateTT)}
+                      onClick={() => setDateTT(!dateTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -174,12 +174,12 @@ export default function CommonTransactionsTable(props) {
                   <span className={("tableheaders", "tableheaders-all")}>
                     Block
                     <Tooltip
-                    open={blockTT}
-                  onOpen={() => setBlockTT(true)}
-                  onClose={() => setBlockTT(false)}
-                   placement="top" title={messages.BLOCK}>
+                      open={blockTT}
+                      onOpen={() => setBlockTT(true)}
+                      onClose={() => setBlockTT(false)}
+                      placement="top" title={messages.BLOCK}>
                       <img
-                      onClick={() => setBlockTT(!blockTT)}
+                        onClick={() => setBlockTT(!blockTT)}
                         alt="question-mark"
                         src="/images/question-mark.svg"
                         height={"14px"}
@@ -202,12 +202,12 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-all")}>
                   From
                   <Tooltip
-                  open={fromTT}
-                  onOpen={() => setfromTT(true)}
-                  onClose={() => setfromTT(false)}
-                   placement="top" title={messages.FROM}>
+                    open={fromTT}
+                    onOpen={() => setfromTT(true)}
+                    onClose={() => setfromTT(false)}
+                    placement="top" title={messages.FROM}>
                     <img
-                    onClick={() => setfromTT(!fromTT)}
+                      onClick={() => setfromTT(!fromTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -224,12 +224,12 @@ export default function CommonTransactionsTable(props) {
                 <span className={("tableheaders", "tableheaders-all")}>
                   To
                   <Tooltip
-                  open={hashTT}
-                  onOpen={() => setHashTT(true)}
-                  onClose={() => setHashTT(false)}
-                   placement="top" title={messages.TO}>
+                    open={hashTT}
+                    onOpen={() => setHashTT(true)}
+                    onClose={() => setHashTT(false)}
+                    placement="top" title={messages.TO}>
                     <img
-                    onClick={() => setHashTT(!hashTT)}
+                      onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
                       src="/images/question-mark.svg"
                       height={"14px"}
@@ -293,6 +293,7 @@ export default function CommonTransactionsTable(props) {
 
                   const Hash = row.hash;
                   let animationClass = props.state.hashAnimation?.[Hash];
+                  let ageAnimationClass = props.state.ageeAnimation?.[Hash]
                   return (
                     <>
                       {/* {amt > 0 ?  //if transaction amount is greater than 0 only then show the transaction */}
@@ -345,7 +346,7 @@ export default function CommonTransactionsTable(props) {
                           align="left"
                         >{amt2 == null ? (<span
                           className={
-                            animationClass ? animationClass : "tabledata"
+                            ageAnimationClass ? ageAnimationClass : "tabledata"
                           }
                         >
 
@@ -353,11 +354,11 @@ export default function CommonTransactionsTable(props) {
                         </span>) : (
                           <span
                             className={
-                              animationClass ? animationClass : "tabledata"
+                              ageAnimationClass ? ageAnimationClass : "tabledata"
                             }
                           >
 
-                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span> XDC
+                            {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span>&nbsp;XDC
                           </span>
                         )}
 
@@ -380,7 +381,7 @@ export default function CommonTransactionsTable(props) {
                           >
                             <span
                               className={
-                                animationClass ? animationClass : "tabledata"
+                                ageAnimationClass ? ageAnimationClass : "tabledata"
                               }
                             >
                               {moment(row.timestamp * 1000).format(

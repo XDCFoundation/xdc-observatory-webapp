@@ -143,7 +143,7 @@ class LatestBlocks extends Component {
             ageeAnimation: {},
             detailAnimation: {},
           });
-        }, 800);
+        }, 500);
         this.setState({ latestTransactionData: transactions });
 
         if (error) {
