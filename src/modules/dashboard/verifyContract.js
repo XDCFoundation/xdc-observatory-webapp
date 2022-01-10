@@ -135,7 +135,7 @@ export default function VerifyContract() {
                         </div>
                         {/* <br /> */}
                         <div className="verify-contracts-head">Contract Code</div>
-                        <textarea {...register("code")} name="code" className="textarea-contract-code" ></textarea>
+                        <textarea {...register("code")} name="code" className="textarea-contract-code" placeholder="Contract Code" ></textarea>
                         <p className="validation-error-message">{errors?.code?.message}</p>
                         <br />
                         <div className="verify-contracts-head">

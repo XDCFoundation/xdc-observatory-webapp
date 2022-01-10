@@ -85,17 +85,16 @@ export default function AddressDetails(props) {
   const [addressTag, setAddressTag] = useState([]);
   const [isTag, setIsTag] = useState(false);
   const [amount, setAmount] = useState("");
-  const [coinMarketPrice, setCoinMarketPrice] = useState(0)
-  const [price, setPrice] = useState(0)
-  const [currentPrice, setCurrentPrice] = useState(0)
+  const [coinMarketPrice, setCoinMarketPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState(0);
   let { addr } = useParams();
-  let px = currentPrice * price
-  let priceChanged = Utility.decimalDivison(px, 8)
+  let px = currentPrice * price;
+  let priceChanged = Utility.decimalDivison(px, 8);
   let priceChanged1 = priceChanged.toString().split(".")[0];
   let priceChanged2 = priceChanged.toString().split(".")[1];
   let activeCurrency = window.localStorage.getItem("currency");
-  const currencySymbol =
-    activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
+  const currencySymbol = activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -104,9 +103,7 @@ export default function AddressDetails(props) {
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(
-    getWindowDimensions()
-  );
+  const [windowDimensions, setWindowDimensions] = React.useState(getWindowDimensions());
 
   const { width } = windowDimensions;
 
@@ -115,8 +112,6 @@ export default function AddressDetails(props) {
   };
   const classes = useStyles();
 
-
-
   function _handleChange(event) {
     setAmount(event?.target?.value);
     window.localStorage.setItem("currency", event?.target?.value);
@@ -124,20 +119,13 @@ export default function AddressDetails(props) {
 
   const getAddressDetails = async () => {
     try {
-      const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetail(addr)
-      );
-      if (
-        !responseData ||
-        responseData.length === 0 ||
-        responseData === "" ||
-        responseData === null
-      ) {
+      const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetail(addr));
+      if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
         setLoading(false);
       }
       if (responseData) {
         setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
-        setCurrentPrice(responseData.balance)
+        setCurrentPrice(responseData.balance);
         setLoading(false);
       } else {
         setBalance(parseFloat(0).toFixed(8));
@@ -156,8 +144,8 @@ export default function AddressDetails(props) {
     totalcoinMarketPrice = totalcoinMarketPrice.sort((a, b) => {
       return a.lastUpdated - b.lastUpdated;
     });
-    setPrice(totalcoinMarketPrice[1]?.price)
-  }
+    setPrice(totalcoinMarketPrice[1]?.price);
+  };
   const options = {
     htmlparser2: {
       lowerCaseTags: false,
@@ -198,6 +186,9 @@ export default function AddressDetails(props) {
     }
   `;
 
+  const [balanceTT, setBalanceTT] = React.useState(false);
+  const [xdcValueTT, setXDCTT] = React.useState(false);
+
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
@@ -225,49 +216,30 @@ export default function AddressDetails(props) {
                 </Container>
                 <MiddleContainerHashTop>
                   <AddressDiv>
-                    <Content>{addr}</Content></AddressDiv>
+                    <Content>{addr}</Content>
+                  </AddressDiv>
                   <LabelAndCopyDiv>
                     {isTag
                       ? addressTag.map((item, index) => {
-                        return (
-                          <span className={index == 0 ? "nameLabel11" : "nameLabel1"} key={index}>
-                            {item}
-                          </span>
-                        );
-                      })
+                          return (
+                            <span className={index == 0 ? "nameLabel11" : "nameLabel1"} key={index}>
+                              {item}
+                            </span>
+                          );
+                        })
                       : ""}
 
-
-                    <span
-                      className="copyEditContainer1"
-                    >
+                    <span className="copyEditContainer1">
                       <SecondContainer>
-                        <CopyToClipboard
-                          text={addr}
-                          onCopy={() => setCopiedText(addr)}
-                        >
-                          <Tooltip
-                            title={
-                              copiedText === addr ? "Copied" : "Copy To Clipboard"
-                            }
-                            placement="top"
-                          >
-                            <button
-                              className="copyToClipboardAddr"
-                            >
-                              <img
-                                className="copyIconAddr"
-                                src={"/images/copy.svg"}
-                              />
+                        <CopyToClipboard text={addr} onCopy={() => setCopiedText(addr)}>
+                          <Tooltip title={copiedText === addr ? "Copied" : "Copy To Clipboard"} placement="top">
+                            <button className="copyToClipboardAddr">
+                              <img className="copyIconAddr" src={"/images/copy.svg"} />
                             </button>
                           </Tooltip>
                         </CopyToClipboard>
 
-                        <Popup
-                          trigger={<ImQrcode className="imQrcode" />}
-                          lockScroll
-                          modal
-                        >
+                        <Popup trigger={<ImQrcode className="imQrcode" />} lockScroll modal>
                           {(close) => (
                             <div className="popup_qr">
                               <CloseIcon
@@ -297,9 +269,7 @@ export default function AddressDetails(props) {
                                         width: 400,
                                         marginTop: "0.625rem",
                                       }}
-                                      value={
-                                        process.env.REACT_APP_QR_CODE_LINK + addr
-                                      }
+                                      value={process.env.REACT_APP_QR_CODE_LINK + addr}
                                     />
                                   ) : (
                                     <QRCode
@@ -307,9 +277,7 @@ export default function AddressDetails(props) {
                                       size={320}
                                       className="qrcode-label"
                                       //style={{ height: 400, width: 400, marginTop: '0.625rem' }}
-                                      value={
-                                        process.env.REACT_APP_QR_CODE_LINK + addr
-                                      }
+                                      value={process.env.REACT_APP_QR_CODE_LINK + addr}
                                     />
                                   )}
                                 </div>
@@ -325,29 +293,36 @@ export default function AddressDetails(props) {
               <Spacing style={{ borderBottom: "none" }}>
                 <HashDiv>
                   <Container>
-                    <Tooltip title="An address is a unique sequence of numbers and letters">
-                      <ImageView src={"/images/questionmark.svg"} />
+                    <Tooltip
+                      open={balanceTT}
+                      onOpen={() => setBalanceTT(true)}
+                      onClose={() => setBalanceTT(false)}
+                      title="An address is a unique sequence of numbers and letters">
+                      <ImageView onClick={() => setBalanceTT(!balanceTT)} src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>Balance</Hash>
                   </Container>
                   <MiddleContainerHash>
-                    <Content>
-                      {format({})(balance)} XDC
-                    </Content>
+                    <Content>{format({})(balance)} XDC</Content>
                   </MiddleContainerHash>
                 </HashDiv>
               </Spacing>
               <Spacing style={{ borderBottom: "none" }}>
                 <HashDiv>
                   <Container>
-                    <Tooltip title="An address is a unique sequence of numbers and letters">
-                      <ImageView src={"/images/questionmark.svg"} />
+                    <Tooltip
+                      open={xdcValueTT}
+                      onOpen={() => setXDCTT(true)}
+                      onClose={() => setXDCTT(false)}
+                      title="An address is a unique sequence of numbers and letters">
+                      <ImageView onClick={() => setXDCTT(!xdcValueTT)} src={"/images/questionmark.svg"} />
                     </Tooltip>
                     <Hash>XDC Value</Hash>
                   </Container>
                   <MiddleContainerHash>
                     <Content>
-                      {currencySymbol}{priceChanged2 == null ? (
+                      {currencySymbol}
+                      {priceChanged2 == null ? (
                         <span>{priceChanged1}</span>
                       ) : (
                         <span>
@@ -447,30 +422,17 @@ export default function AddressDetails(props) {
           <div className="block_sec sec-block sec-block-mb">
             <div className="bloc-tabs_sec">
               <button
-                className={
-                  toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
+                className={toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"}
                 onClick={() => toggleTab(1)}
-                id="transaction-btn"
-              >
+                id="transaction-btn">
                 Transactions
               </button>
             </div>
           </div>
 
-          <div
-            className={
-              toggleState === 1
-                ? "content_sec  active-content_sec sec-active"
-                : "content_sec"
-            }
-          >
+          <div className={toggleState === 1 ? "content_sec  active-content_sec sec-active" : "content_sec"}>
             {isTag ? (
-              <AddressTableComponent
-                trans={transactions}
-                coinadd={addr}
-                tag={addressTag}
-              />
+              <AddressTableComponent trans={transactions} coinadd={addr} tag={addressTag} />
             ) : (
               <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
             )}
@@ -481,14 +443,12 @@ export default function AddressDetails(props) {
     </div>
   );
 }
-const AddressDiv = styled.div`
-
-`;
+const AddressDiv = styled.div``;
 const LabelAndCopyDiv = styled.div`
-display: flex;
-@media (min-width: 300px) and (max-width: 767px) {
-  display: block;
-}
+  display: flex;
+  @media (min-width: 300px) and (max-width: 767px) {
+    display: block;
+  }
 `;
 const Input = styled.input`
   border-radius: 0.313rem;

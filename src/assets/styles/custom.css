@@ -18,13 +18,20 @@ span,
 label {
   font-family: "Inter" !important;
 }
+
+.highcharts-credits{
+  display: none !important;
+}
+
 input[placeholder] {
   text-overflow: ellipsis;
 }
 a:link {
   text-decoration: none;
 }
-
+.p-b-0 {
+  padding-bottom: 0px !important;
+}
 .p-l-5 {
   padding-left: 5px;
 }
@@ -603,7 +610,6 @@ input:focus {
   margin-right: 0.625rem;
   /* margin-top: 1rem; */
 }
-
 .w-100-per {
   width: 100%;
 }
@@ -1007,7 +1013,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px !important;
+    padding: 8px;
   }
 
   .add {
@@ -1045,7 +1051,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px !important;
+    padding: 8px ;
   }
 
   .add {
@@ -1278,7 +1284,7 @@ div::-webkit-scrollbar-thumb {
 }
 
 .b-h1 {
-  /* padding: 0 16px 0 15px !important; */
+  padding: 0 16px 0 0 !important;
   margin-top: 20px;
   display: flex !important;
 }
@@ -3137,6 +3143,7 @@ p {
   width: 100%;
   letter-spacing: 0.58px;
   margin-top: 10px;
+  padding-left: 8px;
   border-radius: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -3720,6 +3727,7 @@ body {
   background: #fff;
   cursor: pointer;
   padding-left: 0px;
+  padding-right: 0px;
   margin: 0px 27px 1px 0.5px;
   font-weight: 600;
   font-family: Inter;
@@ -3958,8 +3966,9 @@ body {
 }
 
 #container-table th {
-  padding: 15px;
-  padding-top: 25px;
+  padding: 25px 0px 15px 70px;
+  /* padding: 15px; */
+  /* padding-top: 25px; */
   font-weight: 600;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -3975,7 +3984,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding:  17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 10px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -3996,9 +4005,10 @@ body {
 }
 
 #container-table td {
-  padding: 12px;
+padding: 17px 0px 17px 70px;
+  /* padding: 12px 50px;
   padding-top: 17px;
-  padding-bottom: 17px;
+  padding-bottom: 17px; */
   text-align: left;
   border-bottom: 1px solid #ddd;
   margin: 19px 49px 1.8px 69px;
@@ -4038,7 +4048,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-holder td {
-    padding:  17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 10px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4326,7 +4336,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 90%;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -4345,7 +4355,7 @@ button {
   position: absolute;
   top: 100%;
   left: 0%;
-  width: 58px;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
@@ -6565,6 +6575,7 @@ button {
     margin-right: auto;
     width: 22.563rem;
     height: 15.813rem;
+    padding: 0 10px 0 10px;
   }
   .second_mid_token {
     margin-top: 22px;
@@ -8298,7 +8309,9 @@ button {
   .mobFilter {
     margin-top: -2px;
   }
-
+.mobFilter option {
+  width: 10px;
+}
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -10207,6 +10220,10 @@ button {
 }
 .tooltip-loader-div {
   margin-top: 50%;
+}
+
+.search-dashboard-select option {
+  width: 10px;
 }
 .change-password-input {
   width: 433px;
