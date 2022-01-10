@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "75.125rem",
 
     marginRight: "auto",
-    marginTop: "90px",
+    // marginTop: "90px",
     marginLeft: "auto",
     marginBottom: "auto",
 
@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
 
     "@media (min-width: 0px) and (max-width: 767px)": {
       maxWidth: "22.563rem",
-      marginTop: "130px",
+      // marginTop: "130px",
     },
     "@media (min-width: 768px) and (max-width: 1239px)": {
-      marginTop: "130px",
+      // marginTop: "130px",
       maxWidth: "41.5rem",
     },
   },
@@ -858,7 +858,7 @@ const Heading = styled.span`
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
-    margin-top: 62px;
+    // margin-top: 62px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     height: 1rem;
@@ -890,8 +890,8 @@ const ImageView = styled.img`
   margin-right: 15px;
   cursor: pointer;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 0.688rem;
-    height: 0.688rem;
+    width: 14px;
+    height: 14px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 0.875rem;

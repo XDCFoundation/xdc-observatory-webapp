@@ -19,7 +19,7 @@ label {
   font-family: "Inter" !important;
 }
 
-.highcharts-credits{
+.highcharts-credits {
   display: none !important;
 }
 
@@ -39,7 +39,12 @@ a:link {
 .p-l-10 {
   padding-left: 10px;
 }
-
+.p-l-15 {
+  padding-left: 15px;
+}
+.p-l-12 {
+  padding-left: 12px;
+}
 .p-r-5 {
   padding-right: 5px;
 }
@@ -48,6 +53,13 @@ a:link {
   padding-right: 10px;
 }
 
+.p-r-15 {
+  padding-right: 15px;
+}
+
+.p-r-25 {
+  padding-right: 25px;
+}
 .p-t-15 {
   padding-top: 15px;
 }
@@ -429,7 +441,9 @@ input:focus {
 .w-320 {
   width: 320px;
 }
-
+.w-280 {
+  width: 280px;
+}
 .w-850 {
   width: 850px;
 }
@@ -459,6 +473,7 @@ input:focus {
 .txt-center {
   text-align: center;
 }
+
 @media (max-width: 640px) {
   .w-100 {
     width: 100%;
@@ -684,6 +699,10 @@ input:focus {
     flex-direction: row;
     margin-left: 4px;
     margin-top: 48px;
+  }
+  .w-320 {
+    max-width: 320px;
+    width: 100%;
   }
 }
 .paddingLeft-30 {
@@ -1051,7 +1070,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px ;
+    padding: 8px;
   }
 
   .add {
@@ -2108,6 +2127,10 @@ p {
   font-size: 1.063rem;
   padding-left: 10px;
 }
+.main-input:focus {
+  outline: none !important;
+  border: none !important;
+}
 
 @media (min-width: 0px) and (max-width: 767px) {
   .main-input {
@@ -2591,6 +2614,10 @@ p {
   background-color: #ffffff;
 }
 
+.main-input-td:focus {
+  outline: none !important;
+  border: none !important;
+}
 .main-location {
   display: none;
 }
@@ -3656,7 +3683,7 @@ body {
     width: 80%;
     cursor: pointer;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     background: transparent;
     cursor: pointer;
     padding-left: 0px;
@@ -4005,7 +4032,7 @@ body {
 }
 
 #container-table td {
-padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 70px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
@@ -4912,36 +4939,23 @@ button {
   width: 160px;
 }
 .first-transaction-hash {
+  width: 8.563rem;
+  height: 1.063rem;
   background-color: transparent;
   font-family: Inter;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 0.875rem;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.54px;
+  opacity: 1;
   color: #2149b9 !important;
-  width: 530px;
-  /* margin-left: 7px; */
+  margin-left: 2px;
   margin-top: 7px;
-  animation: fadeInAnimation ease 2s;
+  text-align: left;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
-}
-@media (min-width: 1240px) {
-  .first-transaction-hash {
-    width: 8.563rem;
-    height: 1.063rem;
-    font-family: Inter;
-    font-size: 0.875rem;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.034rem;
-    text-align: left;
-    padding-left: 9px;
-  }
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .first-transaction-hash {
@@ -5019,7 +5033,8 @@ button {
   align-items: center;
   font-size: 11px;
   font-weight: 600;
-  animation: fadeInAnimation ease 2s;
+  margin-left: 2px;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
@@ -6462,7 +6477,7 @@ button {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 .cont-token-data :nth-child(2) {
   font-size: 13px;
@@ -6483,7 +6498,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
   }
 }
@@ -6497,7 +6512,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
     top: 1041px;
     left: 75px;
@@ -7619,10 +7634,11 @@ button {
   border-radius: 4px;
   width: 94px;
   height: 30px;
+  color: #2149b9;
 }
 
 .ActiveDownload:hover {
-  color: #81b4ff;
+  color: #2149b9;
   font-size: 0.875rem;
 }
 
@@ -7694,10 +7710,11 @@ button {
 .outer-oval-trans {
   width: 14px;
   height: 14px;
-  margin: 12px 2px -19px 80px;
+  margin: 12px 2px 18px 45%;
   padding: 5px 4px 4px 5px;
   background-color: rgba(55, 99, 221, 0.1);
   border-radius: 10px;
+  margin-bottom: -20px;
 }
 
 .Oval {
@@ -8309,9 +8326,9 @@ button {
   .mobFilter {
     margin-top: -2px;
   }
-.mobFilter option {
-  width: 10px;
-}
+  .mobFilter option {
+    width: 10px;
+  }
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -9901,8 +9918,15 @@ button {
   margin: 1px;
   width: 11rem;
 }
+.account-searchbar:focus {
+  outline: none !important;
+  border: none !important;
+}
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
+}
+#tokenSerach {
+  outline: none !important;
 }
 .error-message-div {
   margin-top: -8px;
@@ -10240,7 +10264,7 @@ button {
   color: #e3e7eb;
 }
 
-.out{
+.out {
   width: 35px;
   height: 28px;
   padding: 6px 5px;
@@ -10255,7 +10279,7 @@ button {
   color: #ff4200;
 }
 
-.in{
+.in {
   width: 35px;
   height: 28px;
   padding: 6px 11px;
@@ -10277,4 +10301,10 @@ button {
 .color-2149b9 a {
   color: #2149b9;
   
+}
+.configure-columns {
+  letter-spacing: 0.54px;
+}
+.configure-columns-line {
+  border: solid 1px #e3e7eb;
 }

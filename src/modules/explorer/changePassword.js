@@ -137,7 +137,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ChangePassword(props) {
-    console.log("props",props)
     const classes = useStyles();
     const [newInput, setNewInput] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
