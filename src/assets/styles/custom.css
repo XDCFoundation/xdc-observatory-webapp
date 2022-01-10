@@ -3649,7 +3649,7 @@ body {
     width: 80%;
     cursor: pointer;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     background: transparent;
     cursor: pointer;
     padding-left: 0px;
@@ -6454,7 +6454,7 @@ button {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 .cont-token-data :nth-child(2) {
   font-size: 13px;
@@ -6475,7 +6475,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
   }
 }
@@ -6489,7 +6489,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
     top: 1041px;
     left: 75px;
@@ -9861,8 +9861,12 @@ button {
   margin: 1px;
   width: 11rem;
 }
+
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
+}
+#tokenSerach {
+  outline: none !important;
 }
 .error-message-div {
   margin-top: -8px;

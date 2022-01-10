@@ -23,6 +23,18 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 
 const useStyles = makeStyles({
+  headingContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    paddingTop: "30px",
+    paddingBottom: "30px",
+  },
+  heading: {
+    fontSize: "24px",
+    fontWeight: "600",
+    color: "#2a2a2a",
+    fontFamily: "Inter !important",
+  },
   container: {
     borderRadius: "0.875rem",
     boxShadow: "0 0.063rem 0.625rem 0 rgba(0, 0, 0, 0.1)",
@@ -61,6 +73,16 @@ const useStyles = makeStyles({
     height: "20px",
     width: "15px",
     marginLeft: "5px",
+  },
+  "@media (max-width: 767px)": {
+    headingContainer: {
+      paddingTop: "15px",
+      paddingBottom: "15px",
+    },
+    heading: {
+      fontSize: "16px",
+      fontWeight: "600",
+    },
   },
   "@media (max-width: 1024px)": {
     container: {
@@ -116,12 +138,12 @@ export default function AccountComponent(props) {
     <div>
       <Tokensearchbar />
       <div className="responsive-table-width-contract-list contact-list-tab ">
-        <div className="display-flex justify-content-between p-t-30 p-b-30">
-          <div class="fs-24 fw-bold">{state.tableName}</div>
+        <div className={classes.headingContainer}>
+          <div className={classes.heading}>{state.tableName}</div>
           <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
             <img
               onClick={handleSettingsClick}
-              className="p-r-5 h-20 w-20-px"
+              className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
             />
             <ConfigureColumnPopOver
@@ -135,7 +157,7 @@ export default function AccountComponent(props) {
           <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
             <img
               onClick={toggleModal}
-              className="p-r-5 h-20 w-20-px"
+              className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
             />
             <ConfigureColumnsModal

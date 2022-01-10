@@ -774,8 +774,8 @@ const ImageView = styled.img`
   cursor: pointer;
 
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 0.688rem;
-    height: 0.688rem;
+    width: 14px;
+    height: 14px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {

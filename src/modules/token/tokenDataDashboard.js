@@ -44,7 +44,7 @@ const MainContainer = styled.div`
     flex-direction: column-reverse;
     width: 22.563rem;
     height: 32.063rem;
-    padding: 0 1.875rem;
+    padding: 0 0.75rem;
   }
 `;
 const MobileScreen = styled.div`
@@ -177,7 +177,9 @@ const LeftTitle = styled.div`
   letter-spacing: 0.9px;
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size: 1.375rem;
+    font-size: 1.1875rem;
+    font-weight: bold;
+    color: #252525;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 1.5rem;
@@ -650,8 +652,8 @@ export default function TokenDataComponent() {
                 } */}
                 <img
                   style={{
-                    height: "24",
-                    width: "24",
+                    height: "29px",
+                    width: "29px",
                     marginRight: "4px",
                     marginTop: "3px",
                   }}
