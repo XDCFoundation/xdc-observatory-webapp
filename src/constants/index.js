@@ -19,6 +19,7 @@ export const httpConstants = {
     GET_HISTORY_PRICE: "/get-history-price",
     GET_TOKEN_TRANSFER_COUNT: "/get-token-transfer-count",
     GET_TOKEN_BALANCE: "/get-token-balance",
+    GET_TOKEN_INFO: "/token-info",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
     GET_USERS_LIST: "/get-user-list",
