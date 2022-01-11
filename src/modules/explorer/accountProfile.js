@@ -222,7 +222,7 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       Width: "300px",
       width: "100%",
-      padding: "0 7px",
+      // padding: "0 7px",
     },
     tab1: {
       color: "#2149b9 !important",
@@ -237,8 +237,8 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (max-width: 828px)": {
     appbar: {
-      maxWidth: "710px",
-      width: "100%",
+      // maxWidth: "710px",
+      width: "21rem",
     },
   },
 
@@ -338,6 +338,16 @@ const NoDataFoundContainer = styled.div`
   gap: 10px;
 `;
 
+const ParentProfile = styled.div`
+display: flex;
+
+@media(max-width: 676px){
+  display: flex;
+  justify-content: space-between;
+  width: 20rem;
+}
+`
+
 const UserNameContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
@@ -350,18 +360,29 @@ const UserNameContainer = styled.div`
   width: 100%;
   align-items: center;
 
+
   @media (max-width: 850px) {
     /* padding: 0 0 0 10px !important; */
     max-width: 710px;
   }
+  @media (min-width: 400px) and (max-width: 767px){
+    ${'' /* gap: 12px; */}
+    width: 21rem !important;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 0px !important;
+  }
+ 
+  
 
   @media (min-width: 450px) and (max-width: 850px) {
     gap: ${(props) => (props.isWallet ? "30px" : "15px")};
   }
 
   @media (max-width: 400px) {
-    gap: 12px;
-    margin: 10px auto;
+    ${'' /* justify-content: space-around; */}
+    ${'' /* gap: 12px; */}
+    margin:10px 10px;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
@@ -913,7 +934,9 @@ export default function SimpleTabs(props) {
               }
             /> */}
         <UserNameContainer>
-          <Avatar
+       <ParentProfile>
+       <div style={{display:"flex"}}>
+         <Avatar
             className="profile-icon"
             src={
               sessionManager.getDataFromCookies(
@@ -921,14 +944,19 @@ export default function SimpleTabs(props) {
               ) || "/images/Profile.png"
             }
           />
-          <Column>
+          <Column style={{margin: "0 15px"}}>
             <Row className={classes.profileName} style={{ gap: "15px" }}>
               Welcome, {Utils.shortenUserName(setUserName())}
             </Row>
 
             <Editprofile />
           </Column>
-          <NotificationBar />
+         </div>
+         <div>
+         <NotificationBar  />  
+         </div>
+
+       </ParentProfile>
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
