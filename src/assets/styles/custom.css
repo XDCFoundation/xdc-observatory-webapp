@@ -7373,12 +7373,11 @@ button {
   }
 } */
 @media (min-width: 0px) and (max-width: 767px) {
-.container_sec {
+  .container_sec {
     align-items: self-start;
     width: 21rem;
+  }
 }
-}
-
 
 .content_input_add_btn {
   outline-color: transparent;
@@ -8431,7 +8430,7 @@ button {
   }
   .grid-block-table {
     /* width: 100% !important; */
-    width: 22.563rem !important;
+    width: 21rem !important;
   }
   .container_sec {
     display: flex;
@@ -8463,7 +8462,6 @@ button {
     width: 21rem;
     height: 2.188rem;
     margin: 0 0 0 25px;
-
   }
   #transaction-btn {
     width: 10.5rem;
@@ -9011,6 +9009,11 @@ button {
   margin-left: 10px;
   margin-right: 5px;
 }
+.copyToClipboardAddress {
+  color: #9fa9ba;
+  background-color: white;
+  margin-left: 10px;
+}
 .copyToClipboardHash {
   color: #2149b9;
   background-color: white;
@@ -9034,6 +9037,11 @@ button {
 .copyIconAddr {
   width: 25px;
   height: 25px;
+  cursor: pointer;
+}
+.copyIconAddress {
+  width: 22px;
+  height: 22px;
   cursor: pointer;
 }
 .copyIconHash {
@@ -9358,7 +9366,7 @@ button {
     max-width: 19rem!important;
   } */
   .grid-block-table {
-    width: 22.563rem !important;
+    width: 21rem !important;
   }
   .sec-block-mb {
     /* margin-left: 0rem !important; */
@@ -10293,18 +10301,31 @@ button {
   text-align: center;
   color: #007b2c;
 }
-@media (min-width: 400px) and (max-width: 767px){
-  .searchdiv{
+@media (min-width: 400px) and (max-width: 767px) {
+  .searchdiv {
     width: 21rem !important;
   }
 }
 .color-2149b9 a {
   color: #2149b9;
-  
 }
 .configure-columns {
   letter-spacing: 0.54px;
 }
 .configure-columns-line {
   border: solid 1px #e3e7eb;
+}
+.tag-white-icon {
+  height: 22px;
+  margin-right: 4px;
+}
+.qrcode-address-details {
+  height: 155px !important;
+  width: 155px !important;
+}
+@media (max-width: 767px) {
+  .qrcode-address-details {
+    height: 105px !important;
+    width: 105px !important;
+  }
 }
