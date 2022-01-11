@@ -865,7 +865,7 @@ export default function Navbar() {
                                             placeholder="Search"
                                         />
                                         <div
-                                            className="white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-tab"
+                                            className="white-space-no-wrap border-d2deff bg-eaf0ff br-4 p-wallet m-r-10 cursor-pointer display-none-mobile display-none-search-myaddress-tab"
                                             onClick={searchMyAddress}>
                                             <img
                                                 className="p-r-6 p-b-4"
