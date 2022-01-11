@@ -181,3 +181,7 @@ export const toolTipMessages = {
 export const decimalDivisionValue = {
   DECIMAL_DIVISON_VALUE: 1000000000000000000,
 };
+
+export const contractMethodTypes = {
+  view: "view",
+};
