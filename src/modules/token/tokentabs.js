@@ -119,7 +119,7 @@ export default function SimpleTabs(props) {
                 >
                   Holders
                 </button>
-                <button
+                {/* <button
                   className={
                     toggleState === 5
                       ? "tabs-data active-tabs-token-holder"
@@ -128,7 +128,7 @@ export default function SimpleTabs(props) {
                   onClick={() => toggleTab(5)}
                 >
                   Info
-                </button>
+                </button> */}
                 <button
                   className={
                     toggleState === 3
