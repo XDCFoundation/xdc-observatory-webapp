@@ -70,12 +70,11 @@ export default function BlockDetails() {
 
   const getLatestaccount = async (blockNumber) => {
     let urlPath = `${blockNumber}`;
-console.log("urlPath===",urlPath)
+
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
-    console.log("error ==urlPath===",error)
-    console.log("blockDetailsUsingHeight ==blockDetailsUsingHeight===",blockDetailsUsingHeight)
+
 
     if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length === 0 || blockDetailsUsingHeight === "" || blockDetailsUsingHeight === null) {
       setLoading(false);
@@ -113,7 +112,6 @@ console.log("urlPath===",urlPath)
   );
 
   React.useEffect(() => {
-    console.log("hello======")
     getLatestaccount(blockNumber);
     setcount(blockNumber);
     function handleResize() {
@@ -774,8 +772,8 @@ const ImageView = styled.img`
   cursor: pointer;
 
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 0.688rem;
-    height: 0.688rem;
+    width: 14px;
+    height: 14px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {
