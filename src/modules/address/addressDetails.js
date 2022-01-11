@@ -384,15 +384,9 @@ export default function AddressDetails(props) {
 
   const getAddressDetails = async () => {
     try {
-      const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetail(addr)
-      );
-      if (
-        !responseData ||
-        responseData.length === 0 ||
-        responseData === "" ||
-        responseData === null
-      ) {
+      const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetail(addr));
+      if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
+        setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
       if (responseData) {
@@ -538,7 +532,7 @@ export default function AddressDetails(props) {
                         <button className="copyToClipboardAddress">
                           <img
                             className="copyIconAddress"
-                            src={"/images/copy.svg"}
+                            src={"/images/copy-grey.svg"}
                           />
                         </button>
                       </Tooltip>
