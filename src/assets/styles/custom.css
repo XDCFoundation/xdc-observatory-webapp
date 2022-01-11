@@ -10265,3 +10265,10 @@ button {
 .configure-columns-line {
   border: solid 1px #e3e7eb;
 }
+
+@media (max-width: 768px){
+  .table-list {
+    width: 100% !important;
+    margin: 10px 0;
+  }
+}

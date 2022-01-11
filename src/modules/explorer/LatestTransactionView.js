@@ -14,7 +14,8 @@ import styled from "styled-components";
 import {makeStyles} from "@material-ui/core/styles";
 import Utility from "../../utility";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
-import moment from "moment";
+import moment from "moment-timezone";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles({
     container: {
@@ -47,10 +48,13 @@ const TransactionTitle = styled.div`
 const LatestTransactionView = (props) => {
     const classes = useStyles();
     const {transactionList} = props;
+    const timezone = useSelector(state=> state.timezone)
+
     return (<Paper
-        className={"token-list-tab_11"}
+        className={"table-list"}
         style={{
             borderRadius: "0.875rem",
+            width: '48%',
             // marginLeft: "18%",
             // marginRight: "18%",
         }}
@@ -114,8 +118,8 @@ const LatestTransactionView = (props) => {
                         {props?.showDate && (
                             <TableCell style={{border: "none"}} align="left">
                     <span className={"tablehead-token-details"}>
-                      Date
-                      <Tooltip placement="top" title={messages.DATE}>
+                      Timestamp
+                      <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}>
                         <img
                             alt="question-mark"
                             src="/images/question-mark.svg"
@@ -209,12 +213,12 @@ const LatestTransactionView = (props) => {
                                         )}
                                     </TableCell>
                                     {props?.showDate && (
-                                        <TableCell id="td" className="w-150  bord-none">
+                                        <TableCell id="td" className="bord-none" style={{width: '200px'}}>
                                             <Tooltip
-                                                title={moment(row.timestamp * 1000).format("YYYY-MM-DD hh:mm:ss")}
+                                                title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
                                                 arrow={true} className="fs-15">
                                  <span className={animationClass ? animationClass : "tabledata"}>
-                              {moment(row.timestamp * 1000).format("MMM DD, YYYY")}
+                              {moment(row.timestamp * 1000).tz(timezone).format("MMM DD, YYYY, hh:mm A")}
                                  </span>
                                             </Tooltip>
                                         </TableCell>
