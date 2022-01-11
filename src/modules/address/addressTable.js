@@ -480,7 +480,7 @@ export default function AddressTableComponent(props) {
   return (
     <div>
       <div className="content_input_all cont-tab">
-        <SearchAndFiltersComponent/>
+        {/*<SearchAndFiltersComponent/>*/}
 
         {isDownloadActive ? (
           <CSVLink

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import CustomDropDown from "../../common/components/customDropdown";
 
@@ -28,19 +28,39 @@ const SearchBox = styled.div`
   }
 `
 const SearchAndFiltersComponent = (props) => {
+    const {searchAndFilters, updateFiltersAndGetAccounts} = props
+    const [searchQuery, setSearchQuery] = useState(searchAndFilters.searchQuery)
+    const [type, setType] = useState(searchAndFilters.type)
+    const [percentage, setPercentage] = useState(searchAndFilters.percentage)
+    let timeoutId = 0
+
+    useEffect(() => {
+        if (!type && !percentage)
+            return
+        updateFiltersAndGetAccounts({searchQuery, type, percentage})
+    }, [type, percentage])
+
+    const onSearchQueryChange = (value) => {
+        if (timeoutId)
+            clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            setSearchQuery(value)
+            updateFiltersAndGetAccounts({searchQuery: value, type, percentage})
+        }, 500)
+    }
     return (
         <Container>
             <SearchBox>
-                <img src="/images/Search.svg"/>
-                <input placeholder="Search"/>
+                <img src="/images/Search.svg" alt="search"/>
+                <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)}/>
             </SearchBox>
-            <CustomDropDown name="Type"
-                            options={[{key: 'account', value: 'Account'},
-                                {key: 'contract', value: 'Contract'}, {key: 'token', value: 'Token'}]}/>
-            <CustomDropDown name="Percentage"
+            <CustomDropDown name="Type" selectedOption={type} onSelect={data => setType(data)}
+                            options={[{key: "0", value: 'Account'},
+                                {key: "1", value: 'Contract'}, {key: "2", value: 'Token'}]}/>
+          {/*  <CustomDropDown name="Percentage" selectedOption={percentage} onSelect={data => setPercentage(data)}
                             options={[{key: '25', value: '0% - 25%'},
                                 {key: '50', value: '25 - 50%'}, {key: '75', value: '50 - 75%'},
-                                {key: '100', value: '75 - 100%'}]}/>
+                                {key: '100', value: '75 - 100%'}]}/>*/}
         </Container>
     )
 }

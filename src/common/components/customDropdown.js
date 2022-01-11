@@ -62,11 +62,11 @@ const CustomDropDown = (props) => {
     const selectedOptionData = options ? options.find(data => data.key === selectedOption) : null
 
     const onOptionSelected = (selected) => {
-        toggleDropdown(false)
         onSelect(selected)
+        toggleDropdown(false)
     }
     const onFilterClicked = () => {
-        toggleDropdown(value => !value)
+        toggleDropdown(true)
     }
 
     const handleClickOutside = (event) => {
@@ -83,8 +83,8 @@ const CustomDropDown = (props) => {
     }, []);
 
     return (
-        <Container>
-            <SelectedValueContainer onClick={onFilterClicked} ref={mainDiv}>
+        <Container ref={mainDiv}>
+            <SelectedValueContainer onClick={onFilterClicked}>
                 <FilterName>
                     <span>{name || 'Filter'}</span>{selectedOption ? selectedOptionData.value : 'All'}
                 </FilterName>
