@@ -12,7 +12,7 @@ import LatestBlocksList from "./modules/blocks";
 import BlockChainClass from "./modules/explorer";
 import TokenList from "./modules/tokenList";
 import LatestAccountsList from "./modules/accounts";
-import AddressDetails from "./modules/address/addressDetails";
+import AddressDetails from "./modules/address/addressDetailsNew";
 import HolderDetails from "./modules/holders/holderDetails";
 import PolicyDetails from "./modules/explorer/privacyPolicy";
 import TermsCondition from "./modules/explorer/termsCondition";
@@ -38,9 +38,9 @@ let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
 });
 
 class Routes extends BaseComponent {
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) { }
 
   render() {
     let loader =
@@ -68,7 +68,7 @@ class Routes extends BaseComponent {
               component={() => <BlockChainClass socket={socket} />}
             />
 
-            {}
+            { }
             <Route
               exact
               path={"/view-all-transaction"}
