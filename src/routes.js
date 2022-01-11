@@ -12,7 +12,7 @@ import LatestBlocksList from "./modules/blocks";
 import BlockChainClass from "./modules/explorer";
 import TokenList from "./modules/tokenList";
 import LatestAccountsList from "./modules/accounts";
-import AddressDetails from "./modules/address/addressDetailsNew";
+import AddressDetails from "./modules/address/addressDetails";
 import HolderDetails from "./modules/holders/holderDetails";
 import PolicyDetails from "./modules/explorer/privacyPolicy";
 import TermsCondition from "./modules/explorer/termsCondition";
