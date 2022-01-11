@@ -23,6 +23,14 @@ label {
   display: none !important;
 }
 
+.white-space-no-wrap{
+  white-space: nowrap;
+}
+
+.color-4878ff{
+  color: #4878ff;
+}
+
 input[placeholder] {
   text-overflow: ellipsis;
 }
@@ -49,6 +57,10 @@ a:link {
   padding-right: 5px;
 }
 
+.p-r-6{
+  padding-right: 6px;
+}
+
 .p-r-10 {
   padding-right: 10px;
 }
@@ -70,6 +82,10 @@ a:link {
 
 .p-b-0 {
   padding-bottom: 0px;
+}
+
+.p-b-4{
+  padding-bottom: 4px;
 }
 
 .p-b-15 {
@@ -314,6 +330,27 @@ input:focus {
 .br-4 {
   border-radius: 4px;
 }
+
+.border-d2deff{
+  border: 1px solid  #d2deff;
+}
+
+.br-4{
+  border-radius: 4px;
+}
+
+.p-wallet{
+  padding: 4px 4px 3px 4px;
+}
+
+.bg-eaf0ff{
+  background: #eaf0ff;
+}
+
+.fw-500{
+  font-weight: 500;
+}
+
 /*Font-sizes*/
 
 .fs-sm {
