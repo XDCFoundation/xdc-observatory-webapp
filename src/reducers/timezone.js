@@ -1,5 +1,6 @@
+import moment from "moment-timezone";
 
-let initialState = 'GMT'
+let initialState = moment.tz.guess()
 const timezone = (state = initialState , action) =>{
     let CurrencyValue = window.localStorage.getItem('timezone');
     if(!CurrencyValue){

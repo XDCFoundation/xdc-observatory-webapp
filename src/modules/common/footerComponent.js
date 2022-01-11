@@ -164,7 +164,7 @@ export default function FooterComponent(props) {
                                 </p>
                             </div>
                         </div>
-                        <div className="button-Padding-Mobile display-flex align-items-center">
+                        <div className="button-Padding-Mobile display-flex align-items-center justify-content-sm-between">
                             <Select classes={{paper: classes.currencyPopup}}
                                 /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
                                     style={{
