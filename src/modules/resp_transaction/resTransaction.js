@@ -17,6 +17,8 @@ import PrivateNote from "../../modules/common/dialog/privateNote";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog";
 import format from "format-number";
+import {useSelector} from "react-redux";
+import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -321,6 +323,8 @@ export default function Transaction({ _handleChange }) {
       return daysDifference + " days ago";
     }
   };
+  const timezone = useSelector(state=> state.timezone)
+
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -488,12 +492,8 @@ export default function Transaction({ _handleChange }) {
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "} */}
-                    {transactions.timestamp &&
-                      !isNaN(Number(transactions.timestamp))
-                      ? moment(Number(transactions.timestamp) * 1000)
-                        .utc()
-                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
-                      : ""}
+                    {`${transactions?.timestamp && moment(transactions.timestamp * 1000).tz(timezone).format(
+                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                     {/*({getHoursAgo(transactions.timestamp * 1000)})*/}
                   </MiddleContainer>
                 </Spacing>
