@@ -120,24 +120,25 @@ export default function AddressDetails(props) {
         window.localStorage.setItem("currency", event?.target?.value);
     }
 
-    const getAddressDetails = async () => {
-        try {
-            const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetail(addr));
-            if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
-                setLoading(false);
-            }
-            if (responseData) {
-                setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
-                setCurrentPrice(responseData.balance);
-                setLoading(false);
-            } else {
-                setBalance(parseFloat(0).toFixed(8));
-                setLoading(false);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+  const getAddressDetails = async () => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetail(addr));
+      if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
+        setBalance(parseFloat(0).toFixed(8));
+        setLoading(false);
+      }
+      if (responseData) {
+        setBalance(Utility.decimalDivisonOnly(responseData.balance, 8));
+        setCurrentPrice(responseData.balance);
+        setLoading(false);
+      } else {
+        setBalance(parseFloat(0).toFixed(8));
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
     const coinMarketCapDetails = async () => {
         let [error, totalcoinMarketPrice] = await Utils?.parseResponse(
