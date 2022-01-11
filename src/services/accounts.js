@@ -5,6 +5,7 @@ export default {
     getTotalAccount,
     getSomeDaysAccount,
     getLatestAccount,
+    getAccountList,
     getTokenBalance,
     getTokenTransferCount,
     getHistoryPrice,
@@ -21,6 +22,24 @@ function getHeaders() {
 async function getTotalAccount() {
     let url = process.env.REACT_APP_GET_TOTAL_ACCOUNTS;
     return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+        .then((response) => {
+            if (
+                !response.success ||
+                response.responseCode !== 200 ||
+                !response.responseData ||
+                response.responseData.length === 0
+            )
+                return Promise.reject();
+            return Promise.resolve(response.responseData);
+        })
+        .catch(function (err) {
+            return Promise.reject(err);
+        });
+}
+
+async function getAccountList(requestData) {
+    let url = process.env.REACT_APP_GET_ACCOUNT_LIST;
+    return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), requestData, url)
         .then((response) => {
             if (
                 !response.success ||
