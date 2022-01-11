@@ -193,7 +193,8 @@ export default function Navbar() {
             }
             let acc = accounts[0];
             acc = acc.replace("0x", "xdc")
-            history.push("/address-details/" + acc);
+            window.location.href = "/address-details/" + acc;
+            // history.push("/address-details/" + acc);
         });
     }
 
