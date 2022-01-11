@@ -229,7 +229,9 @@ export default function Transaction({ _handleChange }) {
   const handleSeeMore = () => {
     setSeeMore(true);
   }
-
+  const handleSeeLess = () => {
+    setSeeMore(false);
+  }
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
   const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
   const timestamp = ` The date and time at which a transaction is mined. `;
@@ -861,6 +863,12 @@ export default function Transaction({ _handleChange }) {
                     </div>
                   </MiddleContainerInputData>
                 </SpacingInputData>
+                <Spacing>
+                  <SeeMoreContainer onClick={handleSeeLess}>
+                    <SeeMoreText>See Less</SeeMoreText>
+                    <ImgSeeLess src="/images/see-more.svg"></ImgSeeLess>
+                  </SeeMoreContainer>
+                </Spacing>
                 </>)}
                 <SpacingPrivateNode>
                   <Container>
@@ -1408,6 +1416,10 @@ margin-right: 5px;
 const ImgSeeMore = styled.img`
   display: flex;
 `;
+const ImgSeeLess = styled.img`
+  display: flex;
+  transform: rotate(180deg);
+`;
 const TxnDetailsRightContainer = styled.div`
   width: 100%;
   padding-left: 21px;
@@ -1482,6 +1494,7 @@ const AddTagContainer = styled.div`
   font-weight: 500;
   margin-top: 2px;
   margin-left: 4px;
+  cursor: pointer;
 `;
 const ImgAddTag = styled.div`
   margin-right: 4px;
