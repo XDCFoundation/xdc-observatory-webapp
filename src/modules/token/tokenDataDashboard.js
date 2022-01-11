@@ -43,7 +43,7 @@ const MainContainer = styled.div`
   }
   @media (max-width: 767px) {
     flex-direction: column-reverse;
-    width: 22.563rem;
+    width: 21rem;
     height: 32.063rem;
     padding: 0 0.75rem;
   }
