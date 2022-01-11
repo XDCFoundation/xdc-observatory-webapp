@@ -71,7 +71,6 @@ export default function SimpleTabs(props) {
   const classes = useStyles();
   const [toggleState, setToggleState] = useState(1);
   const { tn } = useParams();
-  console.log(tn, "popopopo");
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -130,12 +129,12 @@ export default function SimpleTabs(props) {
                   Contract
                 </button>
                 <button
-                    className={
-                      toggleState === 4
-                          ? "tabs-data active-tabs-token"
-                          : "tabs-data"
-                    }
-                    onClick={() => toggleTab(4)}
+                  className={
+                    toggleState === 4
+                      ? "tabs-data active-tabs-token"
+                      : "tabs-data"
+                  }
+                  onClick={() => toggleTab(4)}
                 >
                   Analytics
                 </button>
@@ -185,9 +184,9 @@ export default function SimpleTabs(props) {
               </div>
             </div>
             <div
-                className={
-                  toggleState === 4 ? "content  active-content" : "content"
-                }
+              className={
+                toggleState === 4 ? "content  active-content" : "content"
+              }
             >
               <div style={{ marginTop: "10px" }}>
                 <TokenAnalytics />
