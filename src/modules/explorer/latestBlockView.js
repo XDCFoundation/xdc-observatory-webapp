@@ -44,6 +44,16 @@ const TransactionTitle = styled.div`
   //  margin-left: 12px;
   //}
 `;
+const TransactionSubTitle = styled.div`
+  width: auto;
+  height: 1.125rem;
+  text-align: left;
+  letter-spacing: 0.043rem;
+  color: #2a2a2a;
+  font-family: Inter;
+  font-size: 0.75rem;
+  margin-left: 15px;
+`;
 
 const LatestBlockView = (props) => {
     const classes = useStyles();
@@ -52,7 +62,7 @@ const LatestBlockView = (props) => {
     return (<Paper
         className={"table-list"}
         style={{
-            borderRadius: "0.875rem", width: '50%'
+            borderRadius: "0.875rem", width: '48%'
         }}
         elevation={0}
     >
@@ -60,10 +70,13 @@ const LatestBlockView = (props) => {
             className={classes.container}
             id="container-table-token"
             style={{
-                borderRadius: "0.75rem",
-                border: "solid 0.063rem #e3e7eb",
+                borderTop: "solid 0.063rem #e3e7eb",
+                borderRadius: "0",
+                boxShadow: 'none',
+                // borderRadius: "0.75rem",
+                // border: "solid 0.063rem #e3e7eb",
                 backgroundColor: "#ffffff",
-                boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
                 minHeight: '100%'
             }}
         >
@@ -76,23 +89,12 @@ const LatestBlockView = (props) => {
                     View All
                 </a>
             </TransactionHeaderContainer>
+            <TransactionSubTitle>{'The most recently mined blocks'}</TransactionSubTitle>
+
             <Table style={{borderBottom: "none"}}>
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{border: "none", paddingLeft: '15px'}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Timestamp
-                      <Tooltip placement="top" title={messages.BLOCK_CREATION_TIME_STAMP}>
-                        <img
-                            alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
-                        />
-                      </Tooltip>
-                    </span>
-                        </TableCell>
-                        <TableCell style={{border: "none"}} align="left">
+                        <TableCell style={{border: "none",paddingLeft: '15px'}} align="left">
                   <span className={"tablehead-token-details"}>
                     Height
                     <Tooltip placement="top" title={messages.BLOCK_HEIGHT}>
@@ -104,6 +106,20 @@ const LatestBlockView = (props) => {
                       />
                     </Tooltip>
                   </span>
+                        </TableCell>
+
+                        <TableCell style={{border: "none"}} align="left">
+                    <span className={"tablehead-token-details"}>
+                      Timestamp
+                      <Tooltip placement="top" title={messages.BLOCK_CREATION_TIME_STAMP}>
+                        <img
+                            alt="question-mark"
+                            src="/images/question-mark.svg"
+                            height={"14px"}
+                            className="tooltipLatestTransactionTableDashboard"
+                        />
+                      </Tooltip>
+                    </span>
                         </TableCell>
                         <TableCell style={{border: "none"}} align="left">
                     <span className={"tablehead-token-details"}>
@@ -160,21 +176,11 @@ const LatestBlockView = (props) => {
                                     key={row.hash}
                                     style={
                                         index % 2 !== 1
-                                            ? {background: "#f9f9f9"}
+                                            ? {background: "white"}
                                             : {background: "white"}
                                     }
                                 >
-                                    <TableCell id="td" className="  bord-none" style={{paddingLeft: '15px', width: '240px'}}>
-                                        <Tooltip
-                                            title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
-                                            arrow={true} className="fs-15">
-                                 <span className={animationClass ? animationClass : "tabledata"}>
-                              {moment(row.timestamp * 1000).tz(timezone).format("MMM DD, YYYY, hh:mm A")}
-                                 </span>
-                                        </Tooltip>
-                                    </TableCell>
-
-                                    <TableCell id="td" className="w-150 bord-none">
+                                    <TableCell id="td" className="w-150 bord-none" style={{paddingLeft: '15px', width: '150px'}}>
                                         <a
                                             className="linkTable cursor-pointer"
                                             href={"/block-details/" + row.number}>
@@ -187,6 +193,17 @@ const LatestBlockView = (props) => {
                                                     </span>
                                         </a>
                                     </TableCell>
+
+                                    <TableCell id="td" className="w-150 bord-none" >
+                                        <Tooltip
+                                            title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
+                                            arrow={true} className="fs-15">
+                                 <span className={animationClass ? animationClass : "tabledata"}>
+                              {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
+                                 </span>
+                                        </Tooltip>
+                                    </TableCell>
+
                                     <TableCell id="td" className="bord-none" style={{width:'50px', paddingLeft: 'none', paddingRight: 'none'}}>
 
                                  <span className={animationClass ? animationClass : "tabledata"}>

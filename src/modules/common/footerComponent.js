@@ -164,7 +164,7 @@ export default function FooterComponent(props) {
                                 </p>
                             </div>
                         </div>
-                        <div className="button-Padding-Mobile display-flex align-items-center justify-content-sm-between">
+                        <div className="button-Padding-Mobile display-flex flex-direction-column">
                             <Select classes={{paper: classes.currencyPopup}}
                                 /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
                                     style={{
@@ -188,6 +188,7 @@ export default function FooterComponent(props) {
                                         }, PaperProps: {
                                             style: {
                                                 backgroundColor: "#2149b9",
+                                                fontSize: '0.8rem'
                                             },
                                         },
                                         getContentAnchorEl: null,
@@ -232,7 +233,7 @@ export default function FooterComponent(props) {
                   <span className="USD">INR</span>
                 </MenuItem> */}
                             </Select>
-                            <TimeZoneSelector value={timeZone} height={32} handler={timeZoneHandler}/>
+                            <TimeZoneSelector value={timeZone} height={33} handler={timeZoneHandler}/>
                             {/* <select className="select-form">
                             <option>usd</option>
 
