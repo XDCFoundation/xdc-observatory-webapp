@@ -44,6 +44,16 @@ const TransactionTitle = styled.div`
   font-size: 1.125rem;
   font-weight: 600;
 `;
+const TransactionSubTitle = styled.div`
+  width: auto;
+  height: 1.125rem;
+  text-align: left;
+  letter-spacing: 0.043rem;
+  color: #2a2a2a;
+  font-family: Inter;
+  font-size: 0.75rem;
+  margin-left: 25px;
+`;
 
 const LatestTransactionView = (props) => {
     const classes = useStyles();
@@ -64,14 +74,18 @@ const LatestTransactionView = (props) => {
             className={classes.container}
             id="container-table-token"
             style={{
-                borderRadius: "0.75rem",
-                border: "solid 0.063rem #e3e7eb",
+                // borderRadius: "0.75rem",
+                // border: "solid 0.063rem #e3e7eb",
+                borderTop: "solid 0.063rem #e3e7eb",
+                borderRadius: "0",
+                boxShadow: 'none',
                 backgroundColor: "#ffffff",
-                boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
                 minHeight: '100%'
             }}
         >
             {props.isHomePage ? (
+                <>
                 <TransactionHeaderContainer>
                     <TransactionTitle>Latest Transactions</TransactionTitle>
                     <a
@@ -81,7 +95,10 @@ const LatestTransactionView = (props) => {
                         View All
                     </a>
                 </TransactionHeaderContainer>
-            ) : (
+                <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
+                </>
+
+                ) : (
                 ""
             )}
             <Table style={{borderBottom: "none"}}>
@@ -178,7 +195,7 @@ const LatestTransactionView = (props) => {
                                     key={row.hash}
                                     style={
                                         index % 2 !== 1
-                                            ? {background: "#f9f9f9"}
+                                            ? {background: "white"}
                                             : {background: "white"}
                                     }
                                 >
@@ -218,7 +235,7 @@ const LatestTransactionView = (props) => {
                                                 title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
                                                 arrow={true} className="fs-15">
                                  <span className={animationClass ? animationClass : "tabledata"}>
-                              {moment(row.timestamp * 1000).tz(timezone).format("MMM DD, YYYY, hh:mm A")}
+                              {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
                                  </span>
                                             </Tooltip>
                                         </TableCell>

@@ -7,7 +7,7 @@ import timezoneList from "../../assets/timezoneList.json"
 
 const Container = styled.div`
   display: flex;
-  width: 50%;
+  width: 100%;
 `
 
 const PageSelect = styled(Select)`
@@ -17,6 +17,8 @@ const PageSelect = styled(Select)`
   background-color: #2149b9;
   border: none;
   margin: 5px 0 0;
+  font-size: 0.8rem !important;
+  padding-top: 2px;
 
   legend {
     float: left;
@@ -37,7 +39,7 @@ const PageSelect = styled(Select)`
 const Icon = styled.img`
   width: 20px;
   height: 20px;
-  margin-left: -12px;
+  margin-left: -8px;
   margin-right: 4px;
 `
 const TimeZoneSelector = ({value, handler, height = 35}) => {
@@ -53,7 +55,7 @@ const TimeZoneSelector = ({value, handler, height = 35}) => {
                     PaperProps: {
                         style: {
                             backgroundColor: "#2149b9",
-                            maxHeight: '150px',
+                            maxHeight: '250px',
                             color: '#ffffff'
                         }
                     }
@@ -61,7 +63,7 @@ const TimeZoneSelector = ({value, handler, height = 35}) => {
             >
                 {timezoneList && Object.keys(timezoneList).map(key =>
                     <MenuItem value={key} key={key}>
-                        <Icon src={"/images/utc.svg"}/>{key}</MenuItem>
+                        <Icon src={"/images/utc.svg"}/>{timezoneList[key]}</MenuItem>
                 )}
             </PageSelect>
         </Container>)
