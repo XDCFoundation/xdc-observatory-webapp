@@ -11,11 +11,13 @@ import { useParams } from "react-router";
 import { BlockService } from "../../services";
 import Tooltip from "@material-ui/core/Tooltip";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import moment from "moment";
+import moment from "moment-timezone";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
 import utility from "../../utility";
+import {useSelector} from "react-redux";
+import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -176,6 +178,7 @@ export default function BlockDetails() {
       return daysDifference + " days ago"
     }
   }
+  const timezone = useSelector(state=> state.timezone)
 
   return (
     <div>
@@ -303,11 +306,10 @@ export default function BlockDetails() {
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
-                      {getHoursAgo(height.timestamp * 1000)}
+                      {height?.timestamp && getHoursAgo(height.timestamp * 1000)}
                       (
-                      {moment(height.timestamp * 1000).format(
-                        "ddd MMMM Do YYYY, h:mm:ss a"
-                      )} GMT+530)
+                      {`${height?.timestamp && moment(height.timestamp * 1000).tz(timezone).format(
+                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`})
                     </MiddleContainer>
                   </Spacing>
                   <Spacing>

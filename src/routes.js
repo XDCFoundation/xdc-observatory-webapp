@@ -32,6 +32,7 @@ import Test from "./modules/explorer/dashboardPopup/Test";
 import TestTwo from "./modules/explorer/dashboardPopup/TestTwo";
 import TestAddress from "./modules/explorer/dashboardPopup/TestAddress";
 import Chart from "./modules/common/commonGraph";
+import ContractRead from "./modules/contractMethods/read";
 
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
@@ -146,6 +147,7 @@ class Routes extends BaseComponent {
               component={VerifiedEmailScreenComponent}
             />
             <Route exact path={"/test"} component={Test} />
+            <Route exact path={"/read"} component={ContractRead} />
             <Route exact path={"/testTrancation"} component={TestTwo} />
             <Route exact path={"/test-address"} component={TestAddress} />
             <Redirect exact from="*" to="/" />

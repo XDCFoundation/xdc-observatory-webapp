@@ -19,6 +19,7 @@ export const httpConstants = {
     GET_HISTORY_PRICE: "/get-history-price",
     GET_TOKEN_TRANSFER_COUNT: "/get-token-transfer-count",
     GET_TOKEN_BALANCE: "/get-token-balance",
+    GET_TOKEN_INFO: "/token-info",
     GET_ADDRESS_ANALYTICS: "/get-address-analytics",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
@@ -110,8 +111,12 @@ export const messages = {
     "A measure of how much of a cryptocurrency was traded in the last 24 hours.",
   FDMP: "Fully Diluted Market Cap = Price x Total supply.",
   HASH: "Unique transaction identifier, also known as the Transaction ID.",
+  BLOCK_HEIGHT: "It indicates the length of the blockchain, increases after the addition of the new block.",
+  NO_OF_TRANSACTION: "Number of transactions submitted in a block.",
   AMOUNT: "The number of tokens being transferred.",
   DATE: "Transaction creation date.",
+  BLOCK_CREATION_TIME_STAMP: "Block creation timestamp.",
+  TRANSACTION_CREATION_TIME_STAMP: "Transaction creation timestamp.",
   AGE: "Time when was the transaction created.",
   BLOCK: "Block number associated with the transaction.",
   FROM: "Sender’s account.",
@@ -180,4 +185,8 @@ export const toolTipMessages = {
 
 export const decimalDivisionValue = {
   DECIMAL_DIVISON_VALUE: 1000000000000000000,
+};
+
+export const contractMethodTypes = {
+  view: "view",
 };

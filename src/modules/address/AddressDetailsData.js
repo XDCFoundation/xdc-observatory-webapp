@@ -15,11 +15,11 @@ import Utility, { dispatchAction } from "../../utility";
 import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import TokenUnverifiedContract from "./tokenUnverifiedContract";
-import TokenContracttab from "./tokenContractTab";
+import TokenContracttab from "../token/tokenContractTab";
 import ReactHtmlParser from "react-html-parser";
 import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
-import LoginDialog from "../explorer/loginDialog"
+import LoginDialog from "../explorer/loginDialog";
 import AddressData from "../../services/address";
 const useStyles = makeStyles({
   rootUI: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     color: "#3a3a3a",
     letterSpacing: "0.54px",
     marginLeft: "25px",
-  }
+  },
 });
 
 export default function AddressDetailsData() {
@@ -74,7 +74,7 @@ export default function AddressDetailsData() {
     transactionlist: [],
   };
   const [data, setData] = React.useState(initialState);
-  let balance = !data.balance ? 0 : data.balance
+  let balance = !data.balance ? 0 : data.balance;
   let balance1 = balance.toString().split(".")[0];
   let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
@@ -85,11 +85,11 @@ export default function AddressDetailsData() {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  let value = !data.val ? 0 : data.val
+  let value = !data.val ? 0 : data.val;
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue = data.changedVal
+  let changedValue = data.changedVal;
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
 
@@ -160,7 +160,7 @@ export default function AddressDetailsData() {
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
-    let data = { addrr: addressNumber }
+    let data = { addrr: addressNumber };
     getTransactionsCountForAddress(data);
   }, []);
 
@@ -187,7 +187,8 @@ export default function AddressDetailsData() {
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addressNumber}
                   />
-                  <div>Want to tag this address?
+                  <div>
+                    Want to tag this address?
                     <a
                       className="linkTableDetails-transaction"
                       style={{ marginLeft: "5px", cursor: "pointer" }}
@@ -196,7 +197,10 @@ export default function AddressDetailsData() {
                       Login
                     </a>
                   </div>
-                </span>) : ("")}
+                </span>
+              ) : (
+                ""
+              )}
             </Row>
           </div>
           <div className="address_block_main">
@@ -223,7 +227,9 @@ export default function AddressDetailsData() {
                             <span>
                               {balance1}
                               {"."}
-                              <span style={{ color: "#9FA9BA" }}>{balance2}</span>
+                              <span style={{ color: "#9FA9BA" }}>
+                                {balance2}
+                              </span>
                               XDC
                             </span>
                           )}
@@ -242,19 +248,22 @@ export default function AddressDetailsData() {
                               {value1}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>{value2}</span>
-
                             </span>
-                          )} (@ {ReactHtmlParser(data.currencySymbol)}
+                          )}{" "}
+                          (@ {ReactHtmlParser(data.currencySymbol)}
                           {changedValue2 == null ? (
                             <span>{changedValue1}/XDC </span>
                           ) : (
                             <span>
                               {changedValue1}
                               {"."}
-                              <span style={{ color: "#9FA9BA" }}>{changedValue2}</span>
+                              <span style={{ color: "#9FA9BA" }}>
+                                {changedValue2}
+                              </span>
                               /XDC
                             </span>
-                          )})
+                          )}
+                          )
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -270,7 +279,9 @@ export default function AddressDetailsData() {
                           Contract Name
                         </TableCell>
                         <TableCell className="left-table-contract-data-last">
-                          {!data.contractName ? "Not Available" : data.contractName}
+                          {!data.contractName
+                            ? "Not Available"
+                            : data.contractName}
                           <i class="fas fa-badge-check"></i>
                         </TableCell>
                       </TableRow>
@@ -391,7 +402,9 @@ export default function AddressDetailsData() {
               {!responses ? (
                 ""
               ) : responses?.contractStatus === "Unverified" ? (
-                <TokenUnverifiedContract contractData={responses?.contractResponse} />
+                <TokenUnverifiedContract
+                  contractData={responses?.contractResponse}
+                />
               ) : (
                 <TokenContracttab contractData={responses?.contractResponse} />
               )}
