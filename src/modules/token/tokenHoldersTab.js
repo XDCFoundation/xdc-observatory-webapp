@@ -182,9 +182,8 @@ export default function StickyHeadTable(props) {
     height: 300px !important;
     justify-content: center;
     align-items: center;
-    ${'' /* margin-top: 140px !important; */}
+    margin-top: 140px !important;
     gap: 10px;
-    margin: 30px 0 110px 0;
     @media (min-width: 0px) and (max-width: 767px) {
       margin: 30px 0 !important;
       height: 70px !important;
