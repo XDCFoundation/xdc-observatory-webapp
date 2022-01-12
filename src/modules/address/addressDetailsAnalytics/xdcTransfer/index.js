@@ -13,10 +13,10 @@ const GraphContainer = styled.div`
 
 export default function WrappedComponent() {
     const {addr} = useParams();
-    return <TokenTransferGraph address={addr}/>;
+    return <XDCTransferGraph address={addr}/>;
 }
 
-class TokenTransferGraph extends BaseComponent {
+class XDCTransferGraph extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {}
@@ -160,20 +160,12 @@ class TokenTransferGraph extends BaseComponent {
                 "addedOn": 1641407400000
             }
         ];
-        const tokenTransfer = [];
-        const tokenContractCount = [];
-        const outBoundTransfer = [];
-        const inBoundTransfer = [];
-        const uniqueAddressSent = [];
-        const uniqueAddressReceived = [];
+        const sentAmount = [];
+        const receiveAmount = [];
         for (let index = 0; index < data.length; index++) {
             const x = data[index].addedOn;
-            tokenTransfer.push({x, y: data[index].totalTransferTokens});
-            tokenContractCount.push({x, y: data[index].transfersCount});
-            outBoundTransfer.push({x, y: data[index].outBoundTransfers});
-            inBoundTransfer.push({x, y: data[index].inBoundTransfers});
-            uniqueAddressSent.push({x, y: data[index].uniqueSenders});
-            uniqueAddressReceived.push({x, y: data[index].uniqueReceivers});
+            sentAmount.push({x, y: data[index].sentAmount});
+            receiveAmount.push({x, y: data[index].receivedAmount});
         }
 
 
@@ -204,41 +196,21 @@ class TokenTransferGraph extends BaseComponent {
             },
             series: [
                 {
-                    data: tokenTransfer,
+                    data: sentAmount,
                     color: "rgb(124, 181, 236)",
-                    name: "Token Transfers"
+                    name: "Sent (Out)"
                 },
                 {
-                    data: tokenContractCount,
+                    data: receiveAmount,
                     color: "rgb(67, 67, 72)",
-                    name: "Token Contracts Count"
-                },
-                {
-                    data: outBoundTransfer,
-                    color: "rgb(144, 237, 125)",
-                    name: "Outbound Transfers"
-                },
-                {
-                    data: inBoundTransfer,
-                    color: "rgb(247, 163, 92)",
-                    name: "Inbound Transfers"
-                },
-                {
-                    data: uniqueAddressSent,
-                    color: "rgb(128, 133, 233)",
-                    name: "Unique Address Sent"
-                },
-                {
-                    data: uniqueAddressReceived,
-                    color: "rgb(241, 92, 128)",
-                    name: "Unique Address Received"
+                    name: "Receive (In)"
                 }
             ],
             credits: {enabled: false},
             yAxis: [
                 {
                     opposite: false,
-                    title: {text: ""},
+                    title: {text: "Transfer Amounts"},
                 },
             ],
             xAxis: [

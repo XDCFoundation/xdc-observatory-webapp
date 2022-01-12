@@ -3,6 +3,8 @@ import { Paper } from "@material-ui/core";
 import styled from "styled-components";
 import TransactionAnalytics from "./transactions"
 import TokenTransferAnalytics from "./tokenTransfer"
+import XDCBalanceAnalytics from "./xdcBalance"
+import XDCTransferAnalytics from "./xdcTransfer"
 
 const AnalyticsTabButton = styled.button`
   border-radius: 5px;
@@ -61,13 +63,13 @@ function AddressDetailsAnalytics() {
                     </AnalyticsTabButton>
                 </div>
                 {activeTab === "xdcBalance" && (
-                   "xdcBalance"
+                   <XDCBalanceAnalytics/>
                 )}
                 {activeTab === "transactions" && (
                     <TransactionAnalytics/>
                 )}
                 {activeTab === "xdcTransfer" && (
-                    "xdcTransfer"
+                    <XDCTransferAnalytics/>
                 )}
                 {activeTab === "tokenTransfer" && (
                     <TokenTransferAnalytics/>
