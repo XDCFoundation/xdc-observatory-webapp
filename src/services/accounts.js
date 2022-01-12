@@ -11,6 +11,7 @@ export default {
   getTokenOverview,
   getTokenInfo,
   getAccountList,
+    getAddressAnalytics
 };
 
 function getHeaders() {
@@ -143,6 +144,28 @@ async function getTokenBalance(data) {
     .catch(function (err) {
       return Promise.reject(err);
     });
+}
+
+async function getAddressAnalytics(data) {
+    let url =
+      process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL +
+      httpConstants.API_END_POINT.GET_ADDRESS_ANALYTICS;
+    // let url =
+    //     "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008/get-token-balance";
+    return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
+        .then((response) => {
+            if (
+                !response.success ||
+                response.responseCode !== 200 ||
+                !response.responseData ||
+                response.responseData.length === 0
+            )
+                return Promise.reject();
+            return Promise.resolve(response.responseData);
+        })
+        .catch(function (err) {
+            return Promise.reject(err);
+        });
 }
 
 async function getTokenTransferCount(data) {
