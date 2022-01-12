@@ -236,7 +236,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 828px)": {
     appbar: {
       // maxWidth: "710px",
-      width: "21rem",
+      // width: "21rem",
     },
   },
 
@@ -980,7 +980,7 @@ export default function SimpleTabs(props) {
             getTotalCountTagAddress={getPvtTagAddress}/>
         </UserNameContainer>
 
-        <div className={classes.root}>
+        <div className={classes.root+ " accProfile"}>
           <AppBar
             position="static"
             style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -992,13 +992,15 @@ export default function SimpleTabs(props) {
               TabIndicatorProps={{
                 style: {
                   backgroundColor: "#2149b9",
+                  
                 },
               }}
             >
               <Tab
                 label="My Watchlist"
                 // className={classes.mywatch}
-                className={value === 0 ? classes.tab1 : classes.tab2}
+                className={value === 0 ? classes.tab1 : classes.tab2 }
+                style={{borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
@@ -1006,6 +1008,7 @@ export default function SimpleTabs(props) {
                 label="Transaction Private Note"
                 className={classes.txnprivate}
                 className={value === 1 ? classes.tab1 : classes.tab2}
+                style={{borderBottom: value === 1 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
               />
@@ -1013,6 +1016,7 @@ export default function SimpleTabs(props) {
                 label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
+                style={{borderBottom: value === 2 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />

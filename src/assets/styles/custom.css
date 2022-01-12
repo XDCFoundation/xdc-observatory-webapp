@@ -10358,3 +10358,18 @@ button {
 .configure-columns-line {
   border: solid 1px #e3e7eb;
 }
+@media screen and (max-width: 767px){
+.accProfile .MuiTabs-flexContainer {
+  display: block !important;
+  padding-left: 20px;
+}
+.accProfile .MuiTabs-scroller {
+  white-space: normal !important;
+}
+.searchdiv {
+  padding-left: 20px;
+}
+.PrivateTabIndicator-colorSecondary-120 {
+  display: none;
+}
+}
