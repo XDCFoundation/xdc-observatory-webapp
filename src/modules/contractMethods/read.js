@@ -192,7 +192,7 @@ export default function ContractRead(props) {
       {state.readFunctions && state.readFunctions.length
         ? state.readFunctions.map((item, index) => {
             return (
-              <QuestionContainer isActive={item.isActive}>
+              <QuestionContainer isActive={item.isActive} key={index}>
                 <QuestionNameContainer
                   onClick={() =>
                     handleFunctionClick(
@@ -264,9 +264,9 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
 
   return (
     <>
-      {functionDetail.inputs.map((item) => {
+      {functionDetail.inputs.map((item, idx) => {
         return (
-          <InputTypeFunctionsContainer>
+          <InputTypeFunctionsContainer key={idx}>
             <InputName>{item.name}</InputName>
             <ParamInput
               placeholder={item.type}
