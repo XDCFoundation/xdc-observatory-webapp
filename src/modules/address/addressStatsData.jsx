@@ -34,7 +34,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0rem;
   justify-content: center;
   color: #686868;
   display: flex;
@@ -48,8 +48,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.029rem;
-    height: 0.938rem;
+    letter-spacing: 0rem;
     color: #686868;
     font-size: 0.75rem;
     opacity: 1;
@@ -60,15 +59,83 @@ const MarketDataPointTitle = styled.div`
   }
 
   @media (min-width: 350px) and (max-width: 767px) {
-    // display: block;
     color: #686868;
     display: flex;
     gap: 10px;
-    flex-flow: row-reverse;
+    width: 60%;
   }
 `;
 const Value = styled.p`
   font-size: 18px !important;
+`;
+const ThirdRowValue = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 767px) {
+    justify-content: flex-start;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    padding-top: 10px;
+  }
+`;
+const InDiv = styled.div`
+  width: 24px;
+  height: 19.2px;
+  border-radius: 4px;
+  background-color: #d4ffe3;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  padding: 3px;
+  color: #007b2c;
+`;
+const OutDiv = styled.div`
+  width: 24px;
+  height: 19.2px;
+  border-radius: 4px;
+  background-color: #ffece3;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #ff4200;
+  padding: 2px 1px;
+`;
+const InValue = styled.span`
+  font-family: Inter !important;
+  font-size: 15px !important;
+  font-weight: normal !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: 0px !important;
+  text-align: center !important;
+  color: #585858 !important;
+  padding: 4px 10px 5px 2px !important;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    padding: 2px 10px 5px 2px !important;
+    height: 1.5rem !important;
+  }
+`;
+const OutValue = styled.span`
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  text-align: center;
+  padding: 4px 0px 5px 2px;
+  color: #585858;
 `;
 let convertToInternationalCurrencySystem = function givenCurrency(num) {
   if (num > 999.99999999 && num < 1000000) {
@@ -95,93 +162,36 @@ class AddressStatsData extends Component {
       loading: true,
     };
   }
-
-  async componentDidMount() {
-    await this.getMarketData();
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currency !== this.props.currency) {
-      this.getMarketData();
-    }
-  }
-  async getMarketData() {
-    let [error, totalcoinMarketData] = await Utils.parseResponse(
-      CoinMarketService?.getCoinMarketData(this.props.currency, {})
-    );
-
-    if (error || !totalcoinMarketData) return;
-    totalcoinMarketData = totalcoinMarketData.sort((a, b) => {
-      return a.lastUpdated - b.lastUpdated;
-    });
-    if (error || !totalcoinMarketData) return;
-    this.setState({ postLatestMarket: totalcoinMarketData[1] });
-    this.setState({ postPreviousMarket: totalcoinMarketData[0] });
-    this.setState({ loading: false });
-    setInterval(async () => {
-      let [error, totalcoinMarketData] = await Utils.parseResponse(
-        CoinMarketService?.getCoinMarketData(this.props.currency, {})
-      );
-      if (error || !totalcoinMarketData) return;
-      this.setState({ postLatestMarket: totalcoinMarketData[1] });
-      this.setState({ postPreviousMarket: totalcoinMarketData[0] });
-    }, 90000);
-  }
-
   render() {
-    /* Calculating marketCap change percentege */
-    const LatestMarketCap = this.state.postLatestMarket.marketCap;
-    const PreviousMarketCap = this.state.postPreviousMarket.marketCap;
-    const MarketCapchange =
-      LatestMarketCap && PreviousMarketCap
-        ? percentageChange(LatestMarketCap, PreviousMarketCap).toFixed(2)
-        : 0;
-
-    /* Calculating marketCap change percentege */
-    const Latestfdmc = this.state.postLatestMarket.fullyDilutedMarketCap;
-    const Previousfdmc = this.state.postPreviousMarket.fullyDilutedMarketCap;
-    const FullyDilutedMarketCapchange =
-      Previousfdmc && Latestfdmc
-        ? percentageChange(Latestfdmc, Previousfdmc).toFixed(2)
-        : 0;
-
-    /* Calculating marketCap change percentege */
-    const LatestVolume = this.state.postLatestMarket.volume;
-    const PreviousVolume = this.state.postPreviousMarket.volume;
-    const Volumechange =
-      LatestVolume && PreviousVolume
-        ? percentageChange(LatestVolume, PreviousVolume).toFixed(2)
-        : 0;
-
-    const MarketCapValue = convertToInternationalCurrencySystem(
-      this.state.postLatestMarket.marketCap
-    ); //marketCap
-    const FullyDilutedMarketCapValue = convertToInternationalCurrencySystem(
-      this.state.postLatestMarket.fullyDilutedMarketCap
-    ); //Fully Diluted Market Cap
-    const volumeValue = convertToInternationalCurrencySystem(
-      this.state.postLatestMarket.volume
-    ); //volume(24hr)
-    const circulatingSupplyValue = convertToInternationalCurrencySystem(
-      this.state.postLatestMarket.circulatingSupply
-    ); //circulatingSupply
-    const volumeMarketcap = this.state.postLatestMarket.volumeMarketCap; //volumeMarketCap
-    // const vmc = volumeMarketcap ? parseFloat(volumeMarketcap).toFixed(6) : 0;
-
-    let totalSupplyValue = Math.round(this.state.postLatestMarket.totalSupply); //totalSupply
-    totalSupplyValue = totalSupplyValue ? totalSupplyValue : 0;
-
-    const currencySymbol =
-      this.props.currency === "INR"
-        ? "₹"
-        : this.props.currency === "USD"
-        ? "$"
-        : "€";
+    const currencyPrice = this.props?.price;
+    let highestTransaction = this.props?.statData?.highestTransaction;
+    let highestTxn = Utils.convertToInternationalCurrencySystem(
+      Number(this.props?.statData?.highestTransaction)
+    );
+    let highestTransactionConverted =
+      Utils.convertToInternationalCurrencySystem(
+        Number(highestTransaction) * Number(currencyPrice)
+      );
+    let averageBalance = this.props?.statData?.avgBalance;
+    let avgBalanceConverted = Utils.convertToInternationalCurrencySystem(
+      Number(averageBalance) * Number(currencyPrice)
+    );
+    let tokens = this.props?.statData?.tokens?.length;
+    let tokensConverted = Utils.convertToInternationalCurrencySystem(
+      Number(tokens) * Number(currencyPrice)
+    );
+    let gasP = Utils.decimalDivison(Number(this.props?.statData?.gasFee), 12);
+    let gasPrice = parseFloat(Number(gasP));
+    let gasPriceConverted = Utils.convertToInternationalCurrencySystem(
+      Number(gasPrice) * Number(currencyPrice)
+    );
+    let currencySymbol = this.props.currency === "USD" ? "$" : "€";
     return (
       <>
         <DeskTopView>
-          <div className="main_mid">
-            <div className="main_child">
-              <div className="cont1">
+          <div className="main_mid_address">
+            <div className="main_child_address">
+              <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.MARKET_CAP}>
                     <img
@@ -194,34 +204,18 @@ class AddressStatsData extends Component {
                   Total Txn(s)
                 </MarketDataPointTitle>
 
-                <Value>125</Value>
-                <div
-                  className={
-                    MarketCapchange >= 0 ? "data_value_green" : "data_value_red"
-                  }
-                >
-                  <div className="varMarket">
-                    {MarketCapchange === 0 ? (
-                      ""
-                    ) : MarketCapchange > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{MarketCapchange}%
-                  </div>
-                </div>
+                <Value>{this.props?.statData?.totalTransactionsCount}</Value>
+                <ThirdRowValue>
+                  <InDiv>In</InDiv>
+                  <InValue>{this.props?.statData?.toTransactionsCount}</InValue>
+                  <OutDiv>Out</OutDiv>
+                  <OutValue>
+                    {this.props?.statData?.fromTransactionsCount}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
-              <div className="cont1">
+
+              <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.FDMP}>
                     <img
@@ -233,36 +227,17 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Highest Txn
                 </MarketDataPointTitle>
-                <Value>2500 XDC</Value>
-                <div
-                  className={
-                    FullyDilutedMarketCapchange >= 0
-                      ? "data_value_green"
-                      : "data_value_red"
-                  }
-                >
-                  <div className="varMarket">
-                    {FullyDilutedMarketCapchange == 0 ? (
-                      ""
-                    ) : FullyDilutedMarketCapchange > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{FullyDilutedMarketCapchange}%
-                  </div>
-                </div>
+                <Value>{highestTxn}&nbsp;XDC</Value>
+                <ThirdRowValue>
+                  <OutValue>
+                    {currencySymbol}
+                    {!highestTransactionConverted
+                      ? 0
+                      : highestTransactionConverted}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
-              <div className="cont1">
+              <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.VOLUMEX24}>
                     <img
@@ -274,37 +249,18 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Average Balance
                 </MarketDataPointTitle>
-                <Value>458.5632 XDC</Value>
-                <div
-                  className={
-                    Volumechange >= 0 ? "data_value_green" : "data_value_red"
-                  }
-                >
-                  <div className="varMarket">
-                    {Volumechange == 0 ? (
-                      ""
-                    ) : Volumechange > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{Volumechange}%
-                  </div>
-                </div>
+                <Value>{this.props?.statData?.avgBalance}&nbsp;XDC</Value>
+                <ThirdRowValue>
+                  <OutValue>
+                    {currencySymbol}
+                    {!avgBalanceConverted ? 0 : avgBalanceConverted}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
             </div>
 
-            <div className="main_sec">
-              <div className="cont1">
+            <div className="main_sec_address">
+              <div className="cont1 p-t-0">
                 <div className="cont1-child">
                   <MarketDataPointTitle>
                     <Tooltip
@@ -320,11 +276,21 @@ class AddressStatsData extends Component {
                     </Tooltip>
                     Gas Fee Paid
                   </MarketDataPointTitle>
-                  <Value>0.0000005 XDC</Value>
+                  <Value>
+                    {!gasPrice ? 0 : Number(gasPrice).toFixed(12)}&nbsp;XDC
+                  </Value>
+                  <ThirdRowValue>
+                    <OutValue>
+                      {currencySymbol}
+                      {!gasPriceConverted
+                        ? 0
+                        : Number(gasPriceConverted).toFixed(12)}
+                    </OutValue>
+                  </ThirdRowValue>
                 </div>
               </div>
 
-              <div className="cont1 cont1_align">
+              <div className="cont1 p-t-0 cont1_align">
                 <div className="cont1-child2">
                   <MarketDataPointTitle>
                     <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
@@ -337,7 +303,13 @@ class AddressStatsData extends Component {
                     </Tooltip>
                     Tokens
                   </MarketDataPointTitle>
-                  <Value>5</Value>
+                  <Value>{this.props?.statData?.tokens?.length}</Value>
+                  <ThirdRowValue>
+                    <OutValue>
+                      {currencySymbol}
+                      {!tokensConverted ? 0 : tokensConverted}
+                    </OutValue>
+                  </ThirdRowValue>
                 </div>
               </div>
               <div className="con"> </div>
@@ -345,9 +317,9 @@ class AddressStatsData extends Component {
           </div>
         </DeskTopView>
         <MobileView>
-          <div className="second_mid">
-            <div className="second_cont">
-              <div className="w-54-per">
+          <div className="second_mid_address">
+            <div className="second_cont_address">
+              <div className="w-45-per">
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.MARKET_CAP}>
                     <img
@@ -360,42 +332,22 @@ class AddressStatsData extends Component {
                   Total Txn(s)
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont ">
-                <p className="word-space-4">
-                  {currencySymbol}
-                  {MarketCapValue ? MarketCapValue : 0}
-                </p>
+              <div className="mid_cont_address ">
+                <p>{this.props?.statData?.totalTransactionsCount}</p>
 
-                <div
-                  className={
-                    MarketCapchange >= 0 ? "data_value_green" : "data_value_red"
-                  }
-                >
-                  <div className="secondMarket">
-                    {MarketCapchange == 0 ? (
-                      ""
-                    ) : MarketCapchange > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{MarketCapchange}%
-                  </div>
-                </div>
+                <ThirdRowValue>
+                  <InDiv>In</InDiv>
+                  <InValue>{this.props?.statData?.toTransactionsCount}</InValue>
+                  <OutDiv>Out</OutDiv>
+                  <OutValue>
+                    {this.props?.statData?.fromTransactionsCount}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
             </div>
 
-            <div className="second_cont">
-              <div className="w-54-per">
+            <div className="second_cont_address">
+              <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.FDMP}>
@@ -409,44 +361,23 @@ class AddressStatsData extends Component {
                   Highest Txn
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont ">
+              <div className="mid_cont_address ">
                 {" "}
-                <p className="word-space-4">
-                  {currencySymbol}
-                  {FullyDilutedMarketCapValue ? FullyDilutedMarketCapValue : 0}
-                </p>
-                <div
-                  className={
-                    FullyDilutedMarketCapchange >= 0
-                      ? "data_value_green"
-                      : "data_value_red"
-                  }
-                >
-                  <div className="secondMarket">
-                    {FullyDilutedMarketCapchange == 0 ? (
-                      ""
-                    ) : FullyDilutedMarketCapchange > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{FullyDilutedMarketCapchange}%
-                  </div>
-                </div>
+                <p>{this.props?.statData?.highestTransaction}&nbsp;XDC</p>
+                <ThirdRowValue>
+                  <OutValue>
+                    {" "}
+                    {currencySymbol}
+                    {!highestTransactionConverted
+                      ? 0
+                      : highestTransactionConverted}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
             </div>
 
-            <div className="second_cont">
-              <div className="w-54-per">
+            <div className="second_cont_address">
+              <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.VOLUMEX24}>
@@ -460,42 +391,21 @@ class AddressStatsData extends Component {
                   Average Balance
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont ">
+              <div className="mid_cont_address ">
                 {" "}
-                <p className="word-space-4">
-                  {currencySymbol}
-                  {volumeValue ? volumeValue : 0}
-                </p>
-                <div
-                  className={
-                    Volumechange >= 0 ? "data_value_green" : "data_value_red"
-                  }
-                >
-                  <div className="secondMarket">
-                    {Volumechange == 0 ? (
-                      ""
-                    ) : Volumechange > 0 ? (
-                      <div className="arrow_up">
-                        {/* <BsFillCaretUpFill size={10} /> */}
-                        <img src={"/images/Up.svg"} style={{ width: "8px" }} />
-                      </div>
-                    ) : (
-                      <div className="arrow_down">
-                        {/* <BsFillCaretDownFill size={10} /> */}
-                        <img
-                          src={"/images/Down.svg"}
-                          style={{ width: "8px" }}
-                        />
-                      </div>
-                    )}
-                    &nbsp;{Volumechange}%
-                  </div>
-                </div>
+                <p>{this.props?.statData?.avgBalance}&nbsp;XDC</p>
+                <ThirdRowValue>
+                  <OutValue>
+                    {" "}
+                    {currencySymbol}
+                    {!avgBalanceConverted ? 0 : avgBalanceConverted}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
             </div>
 
-            <div className="second_cont">
-              <div className="w-54-per">
+            <div className="second_cont_address">
+              <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.CIRCULATING_SUPPLY}>
@@ -509,16 +419,22 @@ class AddressStatsData extends Component {
                   Gas Fee Paid
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont">
+              <div className="mid_cont_address">
                 {" "}
-                <p style={{ marginRight: "42px" }}>
-                  {circulatingSupplyValue ? circulatingSupplyValue : 0} XDC
-                </p>
+                <p>{!gasPrice ? 0 : gasPrice}&nbsp;XDC</p>
+                <ThirdRowValue>
+                  <OutValue>
+                    {currencySymbol}
+                    {!gasPriceConverted
+                      ? 0
+                      : Number(gasPriceConverted).toFixed(12)}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
             </div>
 
-            <div className="second_cont">
-              <div className="w-54-per">
+            <div className="second_cont_address">
+              <div className="w-45-per">
                 {" "}
                 <MarketDataPointTitle>
                   <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
@@ -532,15 +448,16 @@ class AddressStatsData extends Component {
                   Tokens
                 </MarketDataPointTitle>
               </div>
-              <div className="mid_cont">
+              <div className="mid_cont_address">
                 {" "}
-                <p style={{ marginRight: "25px" }}>
-                  {!totalSupplyValue
-                    ? 0
-                    : utility.convertToInternationalCurrencySystem(
-                        totalSupplyValue
-                      )}
-                </p>
+                <p>{this.props?.statData?.tokens?.length}</p>
+                <ThirdRowValue>
+                  <OutValue>
+                    {" "}
+                    {currencySymbol}
+                    {!tokensConverted ? 0 : tokensConverted}
+                  </OutValue>
+                </ThirdRowValue>
               </div>
             </div>
           </div>
