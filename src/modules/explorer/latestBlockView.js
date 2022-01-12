@@ -71,13 +71,13 @@ const LatestBlockView = (props) => {
             className={classes.container}
             id="container-table-token"
             style={{
-                // borderTop: "solid 0.063rem #e3e7eb",
-                // borderRadius: "0",
-                // boxShadow: 'none',
-                borderRadius: "0.75rem",
-                border: "solid 0.063rem #e3e7eb",
+                borderTop: "solid 0.063rem #e3e7eb",
+                borderRadius: "0",
+                boxShadow: 'none',
+                // borderRadius: "0.75rem",
+                // border: "solid 0.063rem #e3e7eb",
                 backgroundColor: "#ffffff",
-                boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
                 minHeight: '100%'
             }}
         >
@@ -177,7 +177,7 @@ const LatestBlockView = (props) => {
                                     key={row.hash}
                                     style={
                                         index % 2 !== 1
-                                            ? {background: "#f9f9f9"}
+                                            ? {background: "white"}
                                             : {background: "white"}
                                     }
                                 >
