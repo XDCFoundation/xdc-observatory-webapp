@@ -8,11 +8,12 @@ import styled from "styled-components";
 import format from "format-number";
 
 const toolTipElement = (props) => {
+  console.log("aamir",props)
   let transactionCount = Number(props.point?.data?.y)
   return (
     <div>
       <div className="Tooltip-graph">
-        <p className="Tooltip-graph-date">{props.point?.data?.x}</p>
+        <p className="Tooltip-graph-date">{moment(props.point?.data?.x)?.format("D MMM YYYY")}</p>
         <p className="Tooltip-graph-tx">Transactions: {format({})(transactionCount)}</p>
       </div>
       <div class="outer-oval-trans">
