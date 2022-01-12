@@ -241,13 +241,13 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
     setParams(paramKeys);
   }, [functionDetail]);
 
-  const handleParamsInput = (value, name) => {
+  const handleParamsInput = (value, name, type) => {
     if (value.includes("xdc")) {
       value = value.replace(/^.{3}/g, "0x");
     }
     setError("");
     let param = params;
-    param[name] = value;
+    param[name] = type === "uint256" ? Number(value) : value;
     setParams(param);
   };
 
@@ -271,7 +271,7 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
             <ParamInput
               placeholder={item.type}
               onChange={(event) =>
-                handleParamsInput(event.target.value, item.name)
+                handleParamsInput(event.target.value, item.name, item.type)
               }
             />
           </InputTypeFunctionsContainer>
