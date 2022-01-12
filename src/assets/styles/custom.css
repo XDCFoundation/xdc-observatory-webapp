@@ -3989,11 +3989,14 @@ body {
 .btn-click-div {
   display: flex;
   align-items: center;
+  place-items: flex-start;
+    flex-direction: column;
 }
 
 @media (min-width: 300px) and (max-width: 1250px) {
   .btn-click-div {
     margin-top: 15px;
+    
   }
 }
 
@@ -7437,7 +7440,7 @@ button {
 }
 
 .content_sec {
-  padding-top: 19.5px;
+  padding-top: 20px;
   padding-bottom: 20px;
   width: 100%;
   height: 100%;
@@ -8517,8 +8520,9 @@ button {
   }
   .AddressTitle {
     margin-left: 0px;
-    padding-left: 1.25rem;
+    padding-left: 0rem;
     font-size: 14px;
+    width: 215px;
   }
   .table-grid-block {
     width: 23.5rem;
@@ -8534,7 +8538,7 @@ button {
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 23.75rem;
+    width: 21rem;
     border: none;
   }
 
@@ -8559,7 +8563,7 @@ button {
   .block_sec_contract {
     width: 21rem;
     height: 2.188rem;
-    margin: 0 0 0 25px;
+    /* margin: 0 0 0 25px; */
 
   }
   #transaction-btn {
@@ -8571,7 +8575,7 @@ button {
   .active-content_sec {
     display: block;
     width: 21rem;
-    margin-left: 20px;
+    /* margin-left: 20px; */
   }
   .sec-active {
     margin: 0 auto !important;
@@ -8750,6 +8754,8 @@ button {
     letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
+    width: 41.5rem;
+    justify-content: space-between !important;
   }
 
   .table-grid-block {
@@ -8764,7 +8770,10 @@ button {
   .AddressTitle {
     width: 35rem;
     margin-left: 0px;
-    padding-left: 115px;
+    padding-left: 0px;
+  }
+  .contract_add_left {
+    width: 23.125rem;
   }
   .contractOverview {
     width: 41.5rem;
@@ -10404,6 +10413,21 @@ button {
 }
 .configure-columns-line {
   border: solid 1px #e3e7eb;
+}
+@media screen and (max-width: 767px){
+.accProfile .MuiTabs-flexContainer {
+  display: block !important;
+  padding-left: 20px;
+}
+.accProfile .MuiTabs-scroller {
+  white-space: normal !important;
+}
+.searchdiv {
+  padding-left: 20px;
+}
+.PrivateTabIndicator-colorSecondary-120 {
+  display: none;
+}
 }
 
 @media (max-width: 768px){
