@@ -159,7 +159,7 @@ export default function ContractRead(props) {
     try {
       if (!haveInputs) {
         const method = readFunctions[index].name;
-        let web3 = new Web3("wss://LeewayHertzXDCWS.BlocksScan.io");
+        let web3 = new Web3(process.env.REACT_APP_WEB3_URL);
         const contract = new web3.eth.Contract(
           readFunctions,
           state.contractAddress
