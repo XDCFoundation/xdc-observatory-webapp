@@ -8772,8 +8772,8 @@ button {
     margin-left: 0px;
     padding-left: 0px;
   }
-  .AddressWidth {
-    width: 370px;
+  .contract_add_left {
+    width: 23.125rem;
   }
   .contractOverview {
     width: 41.5rem;

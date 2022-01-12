@@ -178,7 +178,7 @@ export default function AddressDetailsData() {
               justifyContent="center"          
               className="contract_details_heading_left"
             >
-              <span className="AddressWidth">Contract Address</span>{" "}
+              <span className="contract_add_left">Contract Address</span>{" "}
               <span className="AddressTitle addtitle">{addressNumber}</span>
               {!isloggedIn ? (
                 <span className={classes.wantToLoginText}>
