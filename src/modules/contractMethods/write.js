@@ -118,11 +118,27 @@ const ErrorText = styled.div`
   font-size: 12px;
   color: red;
 `;
+
+const ConnectToWalletButton = styled.button`
+  border-radius: 5px;
+  background: ${(props) =>
+    props.isActive
+      ? "linear-gradient(to bottom, #2149b9, #3e71ff)"
+      : "#d5dae2"};
+  width: 145px;
+  cursor: ${(props) => (props.isActive ? "" : "pointer")};
+  height: 35px;
+  font-size: 14px;
+  font-weight: 600;
+  color: ${(props) => (props.isActive ? "white" : "black")};
+`;
+
 export default function ContractWriteMethods(props) {
   const [state, setState] = React.useState({
     readResponses: [],
     writeFunctions: [],
     contractAddress: "",
+    accountAddress: "",
   });
 
   React.useEffect(() => {
@@ -149,8 +165,10 @@ export default function ContractWriteMethods(props) {
     hasParams = false,
     params
   ) => {
-    return;
-
+    if (!state.accountAddress) {
+      alert("Please connect your wallet");
+      return;
+    }
     let writeFunctions = [...state.writeFunctions];
 
     if (isActive) {
@@ -167,21 +185,21 @@ export default function ContractWriteMethods(props) {
           writeFunctions,
           state.contractAddress
         );
-        let response = hasParams
-          ? await contract.methods[method](...params).call()
-          : await contract.methods[method]().call();
-
-        let existingIndex = state.readResponses.findIndex(
-          (item) => item.method == method && item.index == index
-        );
-        let methodExecutionResponse = state.readResponses;
-        if (existingIndex !== -1) {
-          methodExecutionResponse[existingIndex] = { method, index, response };
+        if (hasParams) {
+          await contract.methods[method](...params)
+            .send({ from: state.accountAddress })
+            .then(async (response) => {
+              updateFunctionResponse(method, index, response, writeFunctions);
+              writeFunctions[index].response = { method, index, response };
+            });
         } else {
-          methodExecutionResponse.push({ method, index, response });
+          await contract.methods[method]()
+            .send({ from: state.accountAddress })
+            .then(async (response) => {
+              updateFunctionResponse(method, index, response, writeFunctions);
+              writeFunctions[index].response = { method, index, response };
+            });
         }
-        writeFunctions[index].response = { method, index, response };
-        setState({ ...state, readResponses: methodExecutionResponse });
       }
       writeFunctions[index].isActive = true;
       setState({ ...state, writeFunctions });
@@ -190,50 +208,48 @@ export default function ContractWriteMethods(props) {
     }
   };
 
+  const updateFunctionResponse = (method, index, response) => {
+    let existingIndex = state.readResponses.findIndex(
+      (item) => item.method == method && item.index == index
+    );
+    let methodExecutionResponse = state.readResponses;
+    if (existingIndex !== -1) {
+      methodExecutionResponse[existingIndex] = {
+        method,
+        index,
+        response,
+      };
+    } else {
+      methodExecutionResponse.push({ method, index, response });
+    }
+    setState({ ...state, readResponses: methodExecutionResponse });
+  };
+
   const handleWeb3ConnectClick = () => {
-    return;
     let web3 = new Web3(window.web3.currentProvider);
     window.ethereum.enable();
     web3.eth.getAccounts().then(async (accounts) => {
       if (!accounts || !accounts.length) {
-        console.log("dsdsd");
+        alert("Account address not found");
         return;
       }
-      console.log(accounts, "accounts");
-      const acc = accounts[0];
-      // const contract = new web3.eth.Contract(
-      //   masterContractAbi,
-      //   "0x89CfE6bb2a708A336dEBcD8A6DE028146Ab1f841"
-      // );
-      // contract.methods
-      //   .create_New_Proposal(
-      //     reqObj.proposalTitle,
-      //     new Date(reqObj.startDate).getTime(),
-      //     new Date(reqObj.endDate).getTime(),
-      //     Date.now(),
-      //     reqObj.description,
-      //     JSON.stringify(this.state.proposalDocuments),
-      //     false,
-      //     acc
-      //   )
-      //   .send({ from: acc })
-      //   .then(async (res) => {
-      //     console.log(res);
-      //     Utils.apiSuccessToast("Proposal Created Successfully");
-      //     const addresses = await this.getContractAddresses();
-      //     this.addProposalInDatabase(reqObj, addresses[addresses.length - 1]);
-      //   });
-      // Utils.apiSuccessToast("Proposal creation is in progress");
+      setState({ ...state, accountAddress: accounts[0] });
     });
   };
 
   return (
     <ParentContainer>
-      <div onClick={() => handleWeb3ConnectClick()}>Connect to web3</div>
+      <ConnectToWalletButton
+        onClick={() => handleWeb3ConnectClick()}
+        isActive={state.accountAddress.length}
+        disabled={state.accountAddress.length}
+      >
+        {state.accountAddress.length ? "Connected" : "Connect to wallet"}
+      </ConnectToWalletButton>
       {state.writeFunctions && state.writeFunctions.length
         ? state.writeFunctions.map((item, index) => {
             return (
-              <QuestionContainer isActive={item.isActive}>
+              <QuestionContainer isActive={item.isActive} key={index}>
                 <QuestionNameContainer
                   onClick={() =>
                     handleFunctionClick(
@@ -273,12 +289,10 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
   const [params, setParams] = React.useState({});
   const [error, setError] = React.useState("");
   React.useEffect(() => {
-    console.log(functionDetail.inputs, "functionDetail.inputs");
     let paramKeys = {};
     functionDetail.inputs.map((item) => {
       paramKeys[item.name] = "";
     });
-    console.log(paramKeys);
     setParams(paramKeys);
   }, [functionDetail]);
 
@@ -305,9 +319,9 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
 
   return (
     <>
-      {functionDetail.inputs.map((item) => {
+      {functionDetail.inputs.map((item, idx) => {
         return (
-          <InputTypeFunctionsContainer>
+          <InputTypeFunctionsContainer key={idx}>
             <InputName>{item.name}</InputName>
             <ParamInput
               placeholder={item.type}
