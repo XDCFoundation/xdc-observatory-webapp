@@ -1935,7 +1935,7 @@ p {
   .centerbox {
     height: 56px;
     border-radius: 6px;
-    width: 21rem !important;
+    width: 21.438rem !important;
   }
   .profile-name-popover {
     margin-top: 0px !important;
@@ -3807,10 +3807,6 @@ body {
   .tabs-vc {
     color: #2b51bc;
   }
-  .tabs-data {
-    margin: 0px 20px 1px 0.5px !important;
-  }
-
 }
 .tabs-vc {
   padding-bottom: 7px;
@@ -7801,7 +7797,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .Tooltip-graph {
-    width: 100px;
+    width: 80%;
     padding: 4px 8px 7px;
     border-radius: 6px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
