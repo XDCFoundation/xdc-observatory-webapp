@@ -19,8 +19,45 @@ label {
   font-family: "Inter" !important;
 }
 
-.highcharts-credits{
+#web3Dialog .MuiDialog-paperWidthSm{
+  max-width: unset !important;
+}
+
+.highcharts-credits {
   display: none !important;
+}
+
+.white-space-no-wrap{
+  white-space: nowrap;
+}
+
+.color-4878ff{
+  color: #4878ff;
+}
+
+.color-9fa9ba{
+  color: #9fa9ba;
+}
+
+.color-585858{
+  color: #585858;
+}
+
+.connect-wallet-btn{
+  width: 232px;
+  margin: 35px 168px 0 185px;
+  padding: 12px 76.5px 13px;
+  border-radius: 4px;
+  background-color: #3763dd;
+  color:#fff;
+}
+
+.w-43{
+  width: 43px;
+}
+
+.h-43{
+  height: 43px;
 }
 
 input[placeholder] {
@@ -39,13 +76,34 @@ a:link {
 .p-l-10 {
   padding-left: 10px;
 }
-
+.p-l-15 {
+  padding-left: 15px;
+}
+.p-l-12 {
+  padding-left: 12px;
+}
 .p-r-5 {
   padding-right: 5px;
 }
 
+.p-r-6{
+  padding-right: 6px;
+}
+
 .p-r-10 {
   padding-right: 10px;
+}
+
+.p-r-15 {
+  padding-right: 15px;
+}
+
+.p-r-25 {
+  padding-right: 25px;
+}
+
+.p-t-10 {
+  padding-top: 10px;
 }
 
 .p-t-15 {
@@ -58,6 +116,10 @@ a:link {
 
 .p-b-0 {
   padding-bottom: 0px;
+}
+
+.p-b-4{
+  padding-bottom: 4px;
 }
 
 .p-b-15 {
@@ -82,6 +144,10 @@ a:link {
 
 .m-b-0 {
   margin-bottom: 0;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
 }
 
 .m-b-15 {
@@ -147,6 +213,14 @@ input#password[placeholder] {
   text-align: center;
   color: #2a2a2a;
 }
+.m-l-25p {
+   margin-left: 25%;
+  }
+  @media(min-width: 0px) and (max-width: 767px){
+    .m-l-25p {
+    margin-left: 0;
+   }
+  }
 @media (min-width: 768px) and (max-width: 1240px) {
   input[placeholder] {
     text-overflow: unset !important;
@@ -302,6 +376,27 @@ input:focus {
 .br-4 {
   border-radius: 4px;
 }
+
+.border-d2deff{
+  border: 1px solid  #d2deff;
+}
+
+.br-4{
+  border-radius: 4px;
+}
+
+.p-wallet{
+  padding: 4px 4px 3px 4px;
+}
+
+.bg-eaf0ff{
+  background: #eaf0ff;
+}
+
+.fw-500{
+  font-weight: 500;
+}
+
 /*Font-sizes*/
 
 .fs-sm {
@@ -429,7 +524,9 @@ input:focus {
 .w-320 {
   width: 320px;
 }
-
+.w-280 {
+  width: 280px;
+}
 .w-850 {
   width: 850px;
 }
@@ -437,7 +534,6 @@ input:focus {
 .w-150 {
   width: 150px;
 }
-
 .w-450 {
   width: 450px;
 }
@@ -449,6 +545,9 @@ input:focus {
 .mar-top-15 {
   margin-top: 15px;
 }
+.m-l-4 {
+  margin-left: 4px !important;
+}
 
 .z-index-100 {
   z-index: 100;
@@ -457,6 +556,7 @@ input:focus {
 .txt-center {
   text-align: center;
 }
+
 @media (max-width: 640px) {
   .w-100 {
     width: 100%;
@@ -682,6 +782,10 @@ input:focus {
     flex-direction: row;
     margin-left: 4px;
     margin-top: 48px;
+  }
+  .w-320 {
+    max-width: 320px;
+    width: 100%;
   }
 }
 .paddingLeft-30 {
@@ -992,7 +1096,7 @@ div::-webkit-scrollbar-thumb {
 @media (min-width: 300px) and (max-width: 567px) {
   /* contract start */
   .b-h1 {
-    padding: 0 16px 0 15px !important;
+    /* padding: 0 16px 0 15px !important; */
     display: flex !important;
   }
   .sec-contain {
@@ -1035,7 +1139,7 @@ div::-webkit-scrollbar-thumb {
 
 @media (min-width: 300px) and (max-width: 567px) {
   .b-h1 {
-    padding: 0 16px 0 15px !important;
+    padding: 0 16px 0 25px !important;
     display: flex !important;
   }
   .w-31 {
@@ -1049,7 +1153,7 @@ div::-webkit-scrollbar-thumb {
     padding-top: 9% !important;
   }
   .MuiTableCell-root {
-    padding: 8px ;
+    padding: 8px;
   }
 
   .add {
@@ -1380,7 +1484,7 @@ div::-webkit-scrollbar-thumb {
 @media (min-width: 1024px) and (max-width: 1280px) {
   /* contract start */
   .b-h1 {
-    padding: 0 16px 0 15px !important;
+    /* padding: 0 16px 0 15px !important; */
     display: flex !important;
   }
   .tb-grid {
@@ -1585,6 +1689,10 @@ div::-webkit-scrollbar-thumb {
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .display-none-tab {
+    display: none;
+  }
+
+  .display-none-search-myaddress-tab {
     display: none;
   }
 
@@ -2106,6 +2214,10 @@ p {
   font-size: 1.063rem;
   padding-left: 10px;
 }
+.main-input:focus {
+  outline: none !important;
+  border: none !important;
+}
 
 @media (min-width: 0px) and (max-width: 767px) {
   .main-input {
@@ -2589,6 +2701,10 @@ p {
   background-color: #ffffff;
 }
 
+.main-input-td:focus {
+  outline: none !important;
+  border: none !important;
+}
 .main-location {
   display: none;
 }
@@ -3654,7 +3770,7 @@ body {
     width: 80%;
     cursor: pointer;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     background: transparent;
     cursor: pointer;
     padding-left: 0px;
@@ -4003,7 +4119,7 @@ body {
 }
 
 #container-table td {
-padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 70px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
@@ -4910,36 +5026,23 @@ button {
   width: 160px;
 }
 .first-transaction-hash {
+  width: 8.563rem;
+  height: 1.063rem;
   background-color: transparent;
   font-family: Inter;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 0.875rem;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.54px;
+  opacity: 1;
   color: #2149b9 !important;
-  width: 530px;
-  /* margin-left: 7px; */
+  margin-left: 2px;
   margin-top: 7px;
-  animation: fadeInAnimation ease 2s;
+  text-align: left;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
-}
-@media (min-width: 1240px) {
-  .first-transaction-hash {
-    width: 8.563rem;
-    height: 1.063rem;
-    font-family: Inter;
-    font-size: 0.875rem;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.034rem;
-    text-align: left;
-    padding-left: 9px;
-  }
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .first-transaction-hash {
@@ -5017,7 +5120,8 @@ button {
   align-items: center;
   font-size: 11px;
   font-weight: 600;
-  animation: fadeInAnimation ease 2s;
+  margin-left: 2px;
+  animation: fadeInAnimation ease 1s;
   animation-iteration-count: inherit;
   animation-fill-mode: forwards;
 }
@@ -5168,7 +5272,7 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .block_main {
     flex-direction: column;
-    width: 22.563rem;
+    width: 21rem;
     margin-top: 15px;
     margin-right: auto;
     margin-left: auto;
@@ -5367,6 +5471,23 @@ button {
   margin-top: 16px;
   background: transparent;
 }
+
+.web3-dialog-icon {
+  width: 43px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  background: transparent;
+}
+
+.web3-dialog-wallet-icon {
+  width: 37px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  background: transparent;
+}
+
 .main-sing-up {
   width: 432px;
   height: 44px;
@@ -6460,7 +6581,7 @@ button {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
 }
 .cont-token-data :nth-child(2) {
   font-size: 13px;
@@ -6481,7 +6602,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
   }
 }
@@ -6495,7 +6616,7 @@ button {
     line-height: normal;
     letter-spacing: 0.039rem;
     text-align: center;
-    color: #2a2a2a;
+    color: #252525;
     padding-top: 5px;
     top: 1041px;
     left: 75px;
@@ -6550,15 +6671,37 @@ button {
   margin-right: auto;
   margin-left: auto;
 }
+.second_mid_token {
+  margin-top: 50px;
+  border-radius: 8px;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  border: solid 1px #e3e7eb;
+  background-color: #ffffff;
+  margin: 0 auto;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 22px;
+  height: 15.813rem;
+  width: 22.563rem;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 @media (max-width: 767px) {
   .second_mid {
     margin-top: 22px;
     margin-left: auto;
     margin-right: auto;
-    width: 22.563rem;
+    width: 21rem;
     height: 15.813rem;
     padding: 0 10px 0 10px;
+  }
+  .second_mid_token {
+    margin-top: 22px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 21rem;
+    height: 15.813rem;
   }
 }
 
@@ -6927,7 +7070,7 @@ button {
 
 @media (min-width: 0px) and (max-width: 767px) {
   .table-grid-block3 {
-    width: auto;
+    width: 21rem;
     margin: auto;
   }
 }
@@ -7333,6 +7476,13 @@ button {
     width: 95%;
   }
 } */
+@media (min-width: 0px) and (max-width: 767px) {
+.container_sec {
+    align-items: self-start;
+    width: 21rem;
+}
+}
+
 
 .content_input_add_btn {
   outline-color: transparent;
@@ -7588,10 +7738,11 @@ button {
   border-radius: 4px;
   width: 94px;
   height: 30px;
+  color: #2149b9;
 }
 
 .ActiveDownload:hover {
-  color: #81b4ff;
+  color: #2149b9;
   font-size: 0.875rem;
 }
 
@@ -7663,10 +7814,11 @@ button {
 .outer-oval-trans {
   width: 14px;
   height: 14px;
-  margin: 12px 2px -19px 80px;
+  margin: 12px 2px 18px 45%;
   padding: 5px 4px 4px 5px;
   background-color: rgba(55, 99, 221, 0.1);
   border-radius: 10px;
+  margin-bottom: -20px;
 }
 
 .Oval {
@@ -8278,9 +8430,9 @@ button {
   .mobFilter {
     margin-top: -2px;
   }
-.mobFilter option {
-  width: 10px;
-}
+  .mobFilter option {
+    width: 10px;
+  }
   .select-td {
     margin-left: 0px;
     background-color: white !important;
@@ -8337,6 +8489,7 @@ button {
     margin: 0 auto;
   }
   .verify-contracts-head {
+    padding-top: 10px;
     font-size: 0.875rem;
   }
   .flex-row {
@@ -8347,12 +8500,12 @@ button {
     padding: 20px 10px;
   }
   .vc-contract-name {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 0px;
     font-size: 14px;
   }
   .vc-contract-compiler {
-    margin-top: 5rem;
+    margin-top: 10px;
     margin-left: 0px;
     font-size: 14px;
   }
@@ -8393,11 +8546,11 @@ button {
   }
 
   .contractOverview {
-    width: 22.5625rem;
+    width: 21rem;
     height: 15.875rem;
   }
   .contractSummary {
-    width: 22.5625rem;
+    width: 21rem;
     height: 13rem;
     margin-top: 2rem;
   }
@@ -8406,14 +8559,15 @@ button {
     flex-direction: column !important;
   }
   .block_sec {
-    width: 22rem;
+    width: 21rem;
     height: 2.188rem;
     margin-left: 1rem;
   }
   .block_sec_contract {
-    width: 22.5625rem;
+    width: 21rem;
     height: 2.188rem;
-    margin: 0 auto;
+    margin: 0 0 0 25px;
+
   }
   #transaction-btn {
     width: 10.5rem;
@@ -8423,12 +8577,12 @@ button {
   }
   .active-content_sec {
     display: block;
-    width: 22.5625rem;
-    margin-left: 0.5rem;
+    width: 21rem;
+    margin-left: 20px;
   }
   .sec-active {
     margin: 0 auto !important;
-    width: 22.563rem !important;
+    width: 21rem !important;
   }
   .content_input_all {
     display: flex;
@@ -8437,7 +8591,7 @@ button {
     /* justify-content: space-between; */
   }
   .cont-tab {
-    width: 22.563rem !important;
+    width: 21rem !important;
     flex-direction: initial !important;
     padding: 0 11px 0 2px !important;
   }
@@ -8449,6 +8603,7 @@ button {
   .csvDownloadParent {
     display: flex;
     justify-content: flex-end;
+    width: 21rem;
   }
   .page-tab {
     max-width: 100% !important;
@@ -9310,7 +9465,7 @@ button {
     width: 22.563rem !important;
   }
   .sec-block-mb {
-    margin-left: 0rem !important;
+    /* margin-left: 0rem !important; */
     padding: 0px !important;
   }
 
@@ -9867,8 +10022,15 @@ button {
   margin: 1px;
   width: 11rem;
 }
+.account-searchbar:focus {
+  outline: none !important;
+  border: none !important;
+}
 .account-searchbar::placeholder {
   color: #9fa8b1 !important;
+}
+#tokenSerach {
+  outline: none !important;
 }
 .error-message-div {
   margin-top: -8px;
@@ -10077,9 +10239,9 @@ button {
   margin-right: 6px;
 }
 .transaction-detail-tooltip {
-  width: 308px;
+  width: 230px;
   height: 454px;
-  padding: 18px;
+  padding: 18px 10px;
 }
 .additional-details {
   font-weight: 600;
@@ -10118,12 +10280,12 @@ button {
 .detail-heading-text {
   font-family: Inter;
   font-size: 13px;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.5px;
-  color: #2a2a2a;
+  color: #000000;
   margin-top: 7px;
 }
 .failed-text {
@@ -10206,7 +10368,7 @@ button {
   color: #e3e7eb;
 }
 
-.out{
+.out {
   width: 35px;
   height: 28px;
   padding: 6px 5px;
@@ -10221,7 +10383,7 @@ button {
   color: #ff4200;
 }
 
-.in{
+.in {
   width: 35px;
   height: 28px;
   padding: 6px 11px;
@@ -10234,4 +10396,19 @@ button {
   letter-spacing: 0.5px;
   text-align: center;
   color: #007b2c;
+}
+@media (min-width: 400px) and (max-width: 767px){
+  .searchdiv{
+    width: 21rem !important;
+  }
+}
+.color-2149b9 a {
+  color: #2149b9;
+  
+}
+.configure-columns {
+  letter-spacing: 0.54px;
+}
+.configure-columns-line {
+  border: solid 1px #e3e7eb;
 }

@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     "@media (min-width:0px) and (max-width:767px)": {
       minWidth: 280,
-      width: "22.563rem",
+      width: "21rem",
       margin: "auto",
     },
     "@media (min-width:767px) and (max-width:1240px)": {

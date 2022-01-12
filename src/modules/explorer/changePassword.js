@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     subCategory: {
-        margin: "10px 5px 10px 12px",
+        margin: "10px 5px 10px 5px",
         fontFamily: "Inter",
         fontSize: "14px",
         fontWeight: "500",
@@ -137,7 +137,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ChangePassword(props) {
-    console.log("props",props)
     const classes = useStyles();
     const [newInput, setNewInput] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");

@@ -113,8 +113,8 @@ const useStyles = makeStyles((theme) => ({
       height: 15,
     },
     popover: {
-      marginRight:"-15px",
-      
+      marginRight: "-15px",
+
     },
     firstContainer: {
       marginTop: "10px",
@@ -225,7 +225,6 @@ export default function Navbar() {
       }
 
       if (responseData) {
-        console.log(responseData, "pppp")
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
           window.location.href = blockurl;
@@ -272,7 +271,7 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <div
-        
+
         className={classes.firstContainer}
       >
         <p className="inside-side-box-browse">Browse</p>

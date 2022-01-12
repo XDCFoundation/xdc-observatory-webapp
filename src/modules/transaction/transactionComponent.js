@@ -19,6 +19,7 @@ import { messages } from "../../constants"
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import format from "format-number";
 import utility from "../../utility";
+import PageSelector from "../common/pageSelector";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -117,6 +118,7 @@ export default function TransactionComponent(props) {
     align-items: center;
     margin-top: 100px;
     gap: 10px;
+    color: #c6cbcf;
     @media (min-width: 767px) {
       margin: 100px 0 !important;
     }
@@ -130,7 +132,7 @@ export default function TransactionComponent(props) {
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
             onClick={handleSettingsClick}
-            className="p-r-5 h-20 w-20-px"
+            className="p-r-5 h-20 w-20-px cursor-pointer"
             src="/images/settings.svg"
           />
           <ConfigureColumnPopOver
@@ -144,7 +146,7 @@ export default function TransactionComponent(props) {
         <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
           <img
             onClick={toggleModal}
-            className="p-r-5 h-20 w-20-px"
+            className="p-r-5 h-20 w-20-px cursor-pointer"
             src="/images/settings.svg"
           />
           <ConfigureColumnsModal
@@ -522,17 +524,9 @@ export default function TransactionComponent(props) {
         <Grid className="Pagination_1">
         {!props.state.isLoading && props.state.isData ?
           (<><span className="text">Show</span>
-          <select
-            value={props.state.amount}
-            className="select-amount"
-            onChange={(event) => props._handleChange(event)}
-          >
-            <option value={10}>10</option>
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-            <option value={75}>75</option>
-            <option value={100}>100</option>
-          </select>
+            <PageSelector value={props.state.amount}
+                          height={30}
+                          handler={props._handleChange}/>
           <span className="text">Records</span></>):("")}
         </Grid>
 
