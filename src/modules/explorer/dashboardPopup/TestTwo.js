@@ -221,10 +221,9 @@ export default function FormDialog() {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    if(!TransactionsHash){
+    if (!TransactionsHash) {
       setError("Please enter required field");
-    }
-   else if (
+    } else if (
       !(TransactionsHash && TransactionsHash.length === 66) ||
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {
@@ -232,14 +231,14 @@ export default function FormDialog() {
     } else if (!PrivateNote) {
       setPrivateNoteError("Private Note is required");
     } else {
-      // const [error, response] = await utility.parseResponse(
-      //   UserService.postUserPrivateNote(data)
-      // );
+      const [error, response] = await utility.parseResponse(
+        UserService.postUserPrivateNote(data)
+      );
 
-      // if (error || !response) {
-      //   utility.apiFailureToast("Transaction private note is already in use");
-      //   return;
-      // }
+      if (error || !response) {
+        utility.apiFailureToast("Transaction private note is already in use");
+        return;
+      }
       let transactionLabel = localStorage.getItem(
         cookiesConstants.USER_TRASACTION_LABELS
       );
@@ -382,10 +381,12 @@ export default function FormDialog() {
           </span>
         </DialogActions>
         <div className={classes.lastContainer}>
-              <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the transaction labels, is added on your local device. Cleaning the browsing history or cookies will clean the transaction labels saved in your profile. 
-                </div>
-            </div>
+          <div className={classes.lastContainerText}>
+            To protect your privacy, data related to the transaction labels, is
+            added on your local device. Cleaning the browsing history or cookies
+            will clean the transaction labels saved in your profile.
+          </div>
+        </div>
         {/* <div className={classes.value}></div>
           <p className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 

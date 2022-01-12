@@ -28,9 +28,10 @@ const MainContainer = styled.div`
   margin: 0 auto;
   margin-top: 30px;
   padding: 1.9rem 1.375rem 0;
-  border-radius: 12px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  //border-radius: 12px;
+  //box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  //border: solid 1px #e3e7eb;
+  border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
@@ -44,7 +45,7 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 22.563rem;
+    width: 21rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;

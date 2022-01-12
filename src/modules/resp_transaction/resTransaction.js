@@ -17,6 +17,8 @@ import PrivateNote from "../../modules/common/dialog/privateNote";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog";
 import format from "format-number";
+import {useSelector} from "react-redux";
+import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -330,6 +332,8 @@ export default function Transaction({ _handleChange }) {
       return daysDifference + " days ago";
     }
   };
+  const timezone = useSelector(state=> state.timezone)
+
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -342,7 +346,7 @@ export default function Transaction({ _handleChange }) {
                 <Container>
                   <Heading>Transaction Details</Heading>
                   {/* <p className="Failed-rectangle">Failed</p> */}
-                  
+
                 </Container>
               </Spacing>
               {/* 
@@ -492,12 +496,8 @@ export default function Transaction({ _handleChange }) {
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "}============================ */}
-                    {transactions.timestamp &&
-                      !isNaN(Number(transactions.timestamp))
-                      ? moment(Number(transactions.timestamp) * 1000)
-                        .utc()
-                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
-                      : ""}
+                    {`${transactions?.timestamp && moment(transactions.timestamp * 1000).tz(timezone).format(
+                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                     {/*============================================================================({getHoursAgo(transactions.timestamp * 1000)})==================================*/}
                    </DetailsMiddleContainer>
                 </DetailsContainer>
@@ -588,7 +588,7 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          
+
                         </div>
                       </div>
                     </Content>
@@ -647,7 +647,7 @@ export default function Transaction({ _handleChange }) {
                                   hash={hash}
                                 />
                               }
-                              
+
                               {isTag ? (
                                 <Tag>
                                   {addressTag[0]?.tagName}
@@ -744,7 +744,7 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          
+
                         </div>
                       </span>
                     </Content>
@@ -835,9 +835,9 @@ export default function Transaction({ _handleChange }) {
               </DivMiddleContainer>
 
               <Div__>
-              
 
-                
+
+
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 <Spacing>
                   <Container>
@@ -915,13 +915,13 @@ export default function Transaction({ _handleChange }) {
                     <Content>{format({})(transactions?.gasUsed)}</Content>
                   </MiddleContainer>
                 </Spacing>
-                {!isSeeMore ? 
+                {!isSeeMore ?
                 (<Spacing>
                   <SeeMoreContainer onClick={handleSeeMore}>
                     <SeeMoreText>See more</SeeMoreText>
                     <ImgSeeMore src="/images/see-more.svg"></ImgSeeMore>
                   </SeeMoreContainer>
-                </Spacing>) : 
+                </Spacing>) :
                 (<>
                 <Spacing>
                   <Container>
@@ -1600,13 +1600,24 @@ letter-spacing: 0px;
 color: #4878ff;
 margin-left: 4px;
 margin-right: 5px;
+@media (min-width: 0px) and (max-width: 767px) {
+    font-size: 13px;
+}
 `;
 const ImgSeeMore = styled.img`
   display: flex;
+  @media (min-width: 0px) and (max-width: 767px) {
+    height: 15px;
+    margin-top: 2px;
+}
 `;
 const ImgSeeLess = styled.img`
   display: flex;
   transform: rotate(180deg);
+  @media (min-width: 0px) and (max-width: 767px) {
+    height: 15px;
+    margin-top: 2px;
+}
 `;
 const TxnDetailsRightContainer = styled.div`
   width: 100%;
