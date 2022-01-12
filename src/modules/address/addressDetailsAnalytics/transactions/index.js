@@ -139,7 +139,8 @@ class TransactionGraph extends BaseComponent {
                 enabled: true,
             },
             tooltip: {
-                split: false
+                split: false,
+                shared: true
             },
             series: [
                 {
