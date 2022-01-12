@@ -55,14 +55,14 @@ export default function TokenContracttab(props) {
                     : "Yes"}
                 </div>
               </div>
-              <hr className="source-code-line"></hr>
+              {/* <hr className="source-code-line"></hr>
               <div className="source-code-content">
                 <div className="source-code-content-heading">
                   Share On Socialmedia
                 </div>
                 <div className="source-code-content-value">Not available</div>
               </div>
-              <hr className="source-code-line"></hr>
+              <hr className="source-code-line"></hr> */}
             </div>
           </div>
 
