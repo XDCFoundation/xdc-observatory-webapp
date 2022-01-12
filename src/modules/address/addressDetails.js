@@ -21,6 +21,8 @@ import format from "format-number";
 import moment from "moment";
 import AddressStatsData from "./addressStatsData";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
+import AddressDetailsAnalytics from "./addressDetailsAnalytics/addressDetailsAnalytics";
+
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -453,6 +455,14 @@ export default function AddressDetails(props) {
     getWindowDimensions()
   );
 
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+
   const { width } = windowDimensions;
 
   const toggleTab = (index) => {
@@ -546,6 +556,7 @@ export default function AddressDetails(props) {
     setAddressTag(tagUsingAddressHashResponse[0]?.tagName);
     setIsTag(true);
   };
+
 
   useEffect(() => {
     getAddressDetails();
@@ -736,40 +747,53 @@ export default function AddressDetails(props) {
         />
         <div className="container_sec sec-contain">
           <div className="block_sec sec-block sec-block-mb">
-            <div className="bloc-tabs_sec">
+            <div className="bloc-tabs_sec_addressDetail">
               <button
                 className={
-                  toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                  toggleState === 1
+                    ? "tabs_sec_address_details active-tabs_sec_address_details"
+                    : "tabs_sec_address_details"
                 }
                 onClick={() => toggleTab(1)}
                 id="transaction-btn"
               >
                 Transactions
               </button>
+              <button
+                className={
+                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                }
+                onClick={() => toggleTab(2)}
+                id="transaction-btn"
+              >
+                Analytics
+              </button>
             </div>
           </div>
-
-          <div
-            className={
-              toggleState === 1
-                ? "content_sec  active-content_sec sec-active"
-                : "content_sec"
-            }
-          >
-            {isTag ? (
-              <AddressTableComponent
-                trans={transactions}
-                coinadd={addr}
-                tag={addressTag}
-              />
-            ) : (
-              <AddressTableComponent
-                trans={transactions}
-                coinadd={addr}
-                currency={amount}
-              />
-            )}
-          </div>
+          {toggleState === 1 && (
+            <div
+              className={
+                toggleState === 1
+                  ? "content_sec  active-content_sec sec-active"
+                  : "content_sec"
+              }
+            >
+              {isTag ? (
+                <AddressTableComponent
+                  trans={transactions}
+                  coinadd={addr}
+                  tag={addressTag}
+                />
+              ) : (
+                <AddressTableComponent
+                  trans={transactions}
+                  coinadd={addr}
+                  currency={amount}
+                />
+              )}
+            </div>
+          )}
+          {toggleState === 2 && <AddressDetailsAnalytics />}
         </div>
       </Grid>
       <FooterComponent _handleChange={_handleChange} currency={amount} />
