@@ -20,6 +20,7 @@ export const httpConstants = {
     GET_TOKEN_TRANSFER_COUNT: "/get-token-transfer-count",
     GET_TOKEN_BALANCE: "/get-token-balance",
     GET_TOKEN_INFO: "/token-info",
+    GET_ADDRESS_ANALYTICS: "/get-address-analytics",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
     GET_USERS_LIST: "/get-user-list",
