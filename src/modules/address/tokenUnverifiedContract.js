@@ -27,7 +27,7 @@ export default function TokenUnverifiedContract(props) {
                 <div style={{ color: "rgb(222,105,165)" }}>Unverified</div>
               </div>
             </div>
-            <hr className="hr-line"></hr>
+            {/* <hr className="hr-line"></hr> */}
             <div className="contract-source-code-verify">
               <div className="contract-text">Verify</div>
               <div className="btn-click-div">
@@ -50,7 +50,7 @@ export default function TokenUnverifiedContract(props) {
           <div className="contract-source-code-verify">
             <div className="contract-source-2">
               <img className="code-logo" src={"/images/bytecod.png"} />
-              Contract Byte-Code
+              Contract Bytecode
             </div>
             <div>
               <CopyToClipboard
