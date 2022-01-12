@@ -341,10 +341,11 @@ const NoDataFoundContainer = styled.div`
 const ParentProfile = styled.div`
 display: flex;
 
-@media(max-width: 676px){
+@media(max-width: 767px){
   display: flex;
   justify-content: space-between;
   width: 20rem;
+  align-items: center;
 }
 `
 
@@ -375,7 +376,7 @@ const UserNameContainer = styled.div`
  
   
 
-  @media (min-width: 450px) and (max-width: 850px) {
+  @media (min-width: 767px) and (max-width: 850px) {
     gap: ${(props) => (props.isWallet ? "30px" : "15px")};
   }
 
