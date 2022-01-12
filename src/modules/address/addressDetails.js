@@ -20,6 +20,7 @@ import { Row } from "simple-flexbox";
 import format from "format-number";
 import moment from "moment";
 import AddressStatsData from "./addressStatsData";
+import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -83,6 +84,9 @@ const MainContanier = styled.div`
   @media (max-width: 767px) {
     height: 385px;
   }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    height: 249px;
+  }
 `;
 const MainDiv = styled.div`
   display: flex;
@@ -103,6 +107,11 @@ const QrDiv = styled.div`
     height: 121px;
     padding: 7px;
   }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 170px;
+    height: 170px;
+    margin-top: 20px;
+  }
 `;
 const DetailDiv = styled.div`
   display: flex;
@@ -113,10 +122,13 @@ const DetailDiv = styled.div`
     margin-left: 0px;
     flex-direction: column;
   }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 16px;
+  }
 `;
 const ButtonDiv = styled.div`
   flex: 0.3;
-  @media (max-width: 767px) {
+  @media (max-width: 1240px) {
     display: none;
   }
 `;
@@ -140,11 +152,14 @@ const AddressHash = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #3a3a3a;
   @media (max-width: 767px) {
     font-size: 13px;
     text-align: center;
+  }
+  @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px;
   }
 `;
 const CopyButton = styled.div`
@@ -159,12 +174,15 @@ const BalanceDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 1.15px;
+  letter-spacing: 0px
   color: #2149b9;
   margin-top: 7px;
   @media (max-width: 767px) {
     font-size: 18px;
     margin: 10px auto;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+   font-size:24px;
   }
 `;
 const BalanceUsdDiv = styled.div`
@@ -174,12 +192,15 @@ const BalanceUsdDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.69px;
+  letter-spacing: 0px
   color: #585858;
   margin-top: 5px;
   @media (max-width: 767px) {
     font-size: 14px;
     margin: 2px auto;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:16px;
   }
 `;
 const AddressAgeDiv = styled.div`
@@ -196,10 +217,13 @@ const AddressAge = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px
   }
 `;
 const AddressAgeValue = styled.div`
@@ -209,12 +233,16 @@ const AddressAgeValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #3a3a3a;
   margin-left: 70px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 45px;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px
+    margin-left:48px;
   }
 `;
 const LastActivityDiv = styled.div`
@@ -227,10 +255,14 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
+    white-space: nowrap;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px;
     white-space: nowrap;
   }
 `;
@@ -241,12 +273,16 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #3a3a3a;
   margin-left: 73px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px
+    margin-left:52px
   }
 `;
 
@@ -260,10 +296,13 @@ const Rank = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px
   }
 `;
 const RankValue = styled.div`
@@ -273,12 +312,16 @@ const RankValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px
   color: #3a3a3a;
-  margin-left: 130px;
+  margin-left: 126px;
   @media (max-width: 767px) {
     font-size: 13px;
-    margin-left: 98px;
+    margin-left: 93px;
+  }
+   @media (min-width: 768px) and (max-width:1240px) {
+    font-size:14px
+    margin-left:101px;
   }
 `;
 const AddTagButton = styled.button`
@@ -310,24 +353,55 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.92px;
+  letter-spacing: 0px
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 14px;
-    letter-spacing: normal;
+    letter-spacing: 0px
+  }
+  @media (min-width: 768px) and (max-width:1240px) {
+    font-size:18px;
   }
 `;
 const IconForMobile = styled.div`
   display: none;
-  @media (max-width: 767px) {
+  @media (max-width: 1240px) {
     display: flex;
     justify-content: space-between;
-    flex: 0.3;
+    flex: 0.25;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    flex: 0.13;
   }
 `;
-const WatchListImage = styled.div``;
-const TagImage = styled.div``;
-
+const WatchListImage = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    display: none;
+  }
+`;
+const TagImage = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    display: none;
+  }
+`;
+const TagImageTab = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: #2149b9;
+    padding: 3px;
+  }
+`;
+const WactListImageTab = styled.div`
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background-color: #2149b9;
+    padding: 3px;
+  }
+`;
 export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
   const [addressData, setAddressData] = useState(0);
@@ -346,7 +420,16 @@ export default function AddressDetails(props) {
   const [price, setPrice] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [addressStats, setAddressStats] = useState(0);
-  console.log(addressStats, "<<AddressStats");
+  const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
+  const [dialogValue, setDailogValue] = React.useState(0);
+  const closeDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(false);
+    setDailogValue(0);
+  };
+  const openDialogPvtTag = () => {
+    setDialogPvtTagIsOpen(true);
+    setDailogValue(1);
+  };
   let { addr } = useParams();
   let px = currentPrice * price;
   let priceChanged = Utility.decimalDivison(px, 8);
@@ -384,8 +467,15 @@ export default function AddressDetails(props) {
 
   const getAddressDetails = async () => {
     try {
-      const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetail(addr));
-      if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
+      const [error, responseData] = await Utility.parseResponse(
+        AddressData.getAddressDetail(addr)
+      );
+      if (
+        !responseData ||
+        responseData.length === 0 ||
+        responseData === "" ||
+        responseData === null
+      ) {
         setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
@@ -498,12 +588,21 @@ export default function AddressDetails(props) {
             <TagImage>
               <img className="copyIconAddress" src={"/images/tag.svg"} />
             </TagImage>
+            <TagImageTab>
+              <img className="tagIconAddress" src={"/images/tag-white.svg"} />
+            </TagImageTab>
             <WatchListImage>
               <img
                 className="copyIconAddress"
                 src={"/images/preview-blue.svg"}
               />
             </WatchListImage>
+            <WactListImageTab>
+              <img
+                className="tagIconAddress"
+                src={"/images/preview-white.svg"}
+              />
+            </WactListImageTab>
           </IconForMobile>
         </HeadingDiv>
         <MainContanier>
@@ -575,12 +674,12 @@ export default function AddressDetails(props) {
                   <LastActivityValue>
                     {lastAct} (
                     {addressStats?.lastTransactionTimestamp &&
-                      !isNaN(Number(addressStats?.lastTransactionTimestamp))
+                    !isNaN(Number(addressStats?.lastTransactionTimestamp))
                       ? moment(
-                        Number(addressStats?.lastTransactionTimestamp) * 1000
-                      )
-                        .utc()
-                        .format("MMM Do YYYY, h:mm:ss A") + "  UTC"
+                          Number(addressStats?.lastTransactionTimestamp) * 1000
+                        )
+                          .utc()
+                          .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
                       : ""}
                     )
                   </LastActivityValue>
@@ -591,25 +690,50 @@ export default function AddressDetails(props) {
                 </RankDiv>
               </AddressDetailDiv>
               <ButtonDiv>
-                <AddTagButton>
-                  <img
-                    className="tag-white-icon"
-                    src={"/images/tag-white.svg"}
-                  />
-                  Add Tag
-                </AddTagButton>
-                <AddToWatchList>
-                  <img
-                    className="tag-white-icon"
-                    src={"/images/preview-white.svg"}
-                  />
-                  Add to Watchlist
-                </AddToWatchList>
+                {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                  <>
+                    {
+                      <PrivateAddressTag
+                        open={dialogPvtTagIsOpen}
+                        onClose={closeDialogPvtTag}
+                        fromAddr={transactions.from}
+                        value={dialogValue}
+                        hash={addr}
+                      />
+                    }
+                    {isTag ? (
+                      <div className="nameLabel">{addressTag[0]?.tagName}</div>
+                    ) : (
+                      <>
+                        <AddTagButton onClick={openDialogPvtTag}>
+                          <img
+                            className="tag-white-icon"
+                            src={"/images/tag-white.svg"}
+                          />
+                          Add Tag
+                        </AddTagButton>
+                        <AddToWatchList>
+                          <img
+                            className="tag-white-icon"
+                            src={"/images/preview-white.svg"}
+                          />
+                          Add to Watchlist
+                        </AddToWatchList>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  ""
+                )}
               </ButtonDiv>
             </DetailDiv>
           </MainDiv>
         </MainContanier>
-        <AddressStatsData />
+        <AddressStatsData
+          statData={addressStats}
+          price={price}
+          currency={amount}
+        />
         <div className="container_sec sec-contain">
           <div className="block_sec sec-block sec-block-mb">
             <div className="bloc-tabs_sec">
