@@ -15,6 +15,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import {sessionManager} from "../../managers/sessionManager";
 import {NavLink} from "react-router-dom";
 import {useHistory, Redirect} from "react-router-dom";
+import detectEthereumProvider from '@metamask/detect-provider'
+import Web3Dialog from "./web3/web3Dialog"
 import NewFeature from "./newFeature";
 import Login from "../login";
 
@@ -145,6 +147,7 @@ export default function Navbar() {
     const history = useHistory();
     const SelectOptRef = React.useRef(null);
     const SearchDataRef = React.useRef(null);
+    const [web3DialogOpen, setWeb3DialogOpen] = React.useState(false);
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -182,10 +185,37 @@ export default function Navbar() {
     // }, []);
 
     const searchMyAddress = async () => {
+        // window.web3 = new Web3(window.ethereum);
+        if (!window.web3) {
+            console.log("Please install XDCPay extension");
+            setWeb3DialogOpen(true);
+            return;
+        }
+        // let web3;
+        // console.log("window.web3",window.web3)
+        // console.log("++++",await detectEthereumProvider({ mustBeMetaMask:false,silent:false, timeout:2000 }))
+        // return;
+        // web3 = new Web3(new Web3.providers.HttpProvider("https://rpc.apothem.network"));
+        // let chainId = await web3.eth.net.getId();
+        // for(let index=0; index<window.web3._provider.providers.length;index++){
+        //     web3 = new Web3(window.web3._provider.providers[index]);
+        //     window.ethereum.enable();
+        //     chainId = await web3.eth.net.getId();
+        //     console.log(typeof (chainId))
+        //     if(chainId===51)
+        //         break;
+        // }
+
         let web3;
-        console.log('window.web3.currentProvider', window.web3.currentProvider)
         web3 = new Web3(window.web3.currentProvider);
         window.ethereum.enable();
+        const chainId = await web3.eth.net.getId();
+        console.log("chainId ",chainId)
+        if (chainId !== 51) {
+            // Utils.apixFailureToast("Please login to XDCPay extension");
+            setWeb3DialogOpen(true);
+            return;
+        }
         await web3.eth.getAccounts().then(accounts => {
             if (!accounts || !accounts.length) {
                 Utils.apiFailureToast("Please login to XDCPay extension");
@@ -194,7 +224,6 @@ export default function Navbar() {
             let acc = accounts[0];
             acc = acc.replace("0x", "xdc")
             window.location.href = "/address-details/" + acc;
-            // history.push("/address-details/" + acc);
         });
     }
 
@@ -232,15 +261,20 @@ export default function Navbar() {
                     let transactionurl =
                         "/transaction-details/" + responseData[0].transaction.hash;
                     window.location.href = transactionurl;
-                } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
-                    let tokenDataUrl =
-                        "/token-data/" +
-                        responseData[0]?.token[0]?.address +
-                        "/" +
-                        responseData[0]?.token[0]?.symbol;
-                    let tokenListUrl = "/tokens/" + responseData[0]?.token[0]?.tokenName;
-                    window.location.href =
-                        responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
+                } else if (responseData[0].redirect === "token") {
+                    if (responseData[0]?.token.length > 0) {
+                        let tokenDataUrl =
+                            "/token-data/" +
+                            responseData[0]?.token[0]?.address +
+                            "/" +
+                            responseData[0]?.token[0]?.symbol;
+                        let tokenListUrl = "/tokens/" + responseData[0]?.token[0]?.tokenName;
+                        window.location.href =
+                            responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
+                    } else {
+                        let tokenDataUrl = "/token-data/" + responseData[0]?.token?.address + "/" + responseData[0]?.token?.symbol;
+                        window.location.href = tokenDataUrl;
+                    }
                 } else {
                 }
             }
@@ -693,6 +727,7 @@ export default function Navbar() {
 
     return (
         <div className={classes.root}>
+            <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen}/>
             <CssBaseline/>
             {viewPopUp === true ? <NewFeature></NewFeature> : <div/>}
             <DeskTopView>
@@ -858,11 +893,11 @@ export default function Navbar() {
                                             type="text"
                                             ref={SearchDataRef}
                                             className="main-input"
-                                            // onKeyPress={(event) => {
-                                            //   if (event.key === "Enter") {
-                                            //     handleSearch(event);
-                                            //   }
-                                            // }}
+                                            onKeyPress={(event) => {
+                                                if (event.key === "Enter") {
+                                                    handleSearch(event);
+                                                }
+                                            }}
                                             placeholder="Search"
                                         />
                                         <div

@@ -19,6 +19,10 @@ label {
   font-family: "Inter" !important;
 }
 
+#web3Dialog .MuiDialog-paperWidthSm{
+  max-width: unset !important;
+}
+
 .highcharts-credits {
   display: none !important;
 }
@@ -29,6 +33,31 @@ label {
 
 .color-4878ff{
   color: #4878ff;
+}
+
+.color-9fa9ba{
+  color: #9fa9ba;
+}
+
+.color-585858{
+  color: #585858;
+}
+
+.connect-wallet-btn{
+  width: 232px;
+  margin: 35px 168px 0 185px;
+  padding: 12px 76.5px 13px;
+  border-radius: 4px;
+  background-color: #3763dd;
+  color:#fff;
+}
+
+.w-43{
+  width: 43px;
+}
+
+.h-43{
+  height: 43px;
 }
 
 input[placeholder] {
@@ -72,6 +101,11 @@ a:link {
 .p-r-25 {
   padding-right: 25px;
 }
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
 .p-t-15 {
   padding-top: 15px;
 }
@@ -110,6 +144,10 @@ a:link {
 
 .m-b-0 {
   margin-bottom: 0;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
 }
 
 .m-b-15 {
@@ -3591,7 +3629,7 @@ p {
 /* Tab for graph in the blockChain data dashboard */
 
 body {
-  background: #fff;
+  background: #fff !important;
 }
 @media (max-width: 767px) {
   .days-14 {
@@ -4880,85 +4918,85 @@ button {
 }
 
 .first-block-age {
-  font-size: 11px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.54px;
-  color: #2149b9 !important;
-  margin-top: 8px;
-  margin-right: 25px;
-  animation: fadeInAnimation ease 2s;
-  animation-iteration-count: inherit;
-  animation-fill-mode: forwards;
+  /*font-size: 11px;*/
+  /*font-weight: 600;*/
+  /*font-stretch: normal;*/
+  /*font-style: normal;*/
+  /*line-height: normal;*/
+  /*letter-spacing: 0.54px;*/
+  /*color: #2149b9 !important;*/
+  /*margin-top: 8px;*/
+  /*margin-right: 25px;*/
+  /*animation: fadeInAnimation ease 2s;*/
+  /*animation-iteration-count: inherit;*/
+  /*animation-fill-mode: forwards;*/
 }
 @media (min-width: 1240px) {
   .first-block-age {
-    font-family: Inter;
-    font-size: 0.875rem;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.034rem;
-    text-align: left;
-    color: #2149b9 !important;
-    padding-left: 18px;
+    /*font-family: Inter;*/
+    /*font-size: 0.875rem;*/
+    /*font-weight: normal;*/
+    /*font-stretch: normal;*/
+    /*font-style: normal;*/
+    /*line-height: normal;*/
+    /*letter-spacing: 0.034rem;*/
+    /*text-align: left;*/
+    /*color: #2149b9 !important;*/
+    /*padding-left: 18px;*/
   }
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .first-block-age {
-    font-family: Inter;
-    font-size: 0.875rem;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.034rem;
-    text-align: left;
-    color: #2149b9 !important;
-    height: 1.063rem;
+    /*font-family: Inter;*/
+    /*font-size: 0.875rem;*/
+    /*font-weight: normal;*/
+    /*font-stretch: normal;*/
+    /*font-style: normal;*/
+    /*line-height: normal;*/
+    /*letter-spacing: 0.034rem;*/
+    /*text-align: left;*/
+    /*color: #2149b9 !important;*/
+    /*height: 1.063rem;*/
   }
 }
 @media (min-width: 768px) and (max-width: 1239px) {
   .first-block-age {
-    font-family: Inter;
-    font-size: 0.875rem;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0.034rem;
-    text-align: left;
-    color: #2149b9 !important;
-    height: 1.063rem;
+    /*font-family: Inter;*/
+    /*font-size: 0.875rem;*/
+    /*font-weight: normal;*/
+    /*font-stretch: normal;*/
+    /*font-style: normal;*/
+    /*line-height: normal;*/
+    /*letter-spacing: 0.034rem;*/
+    /*text-align: left;*/
+    /*color: #2149b9 !important;*/
+    /*height: 1.063rem;*/
   }
 }
 
 .second-block-age {
-  width: 19%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  animation: fadeInAnimation ease 2s;
-  animation-fill-mode: forwards;
+  /*width: 19%;*/
+  /*height: 100%;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*padding-left: 20px;*/
+  /*font-size: 11px;*/
+  /*font-weight: 600;*/
+  /*animation: fadeInAnimation ease 2s;*/
+  /*animation-fill-mode: forwards;*/
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .second-block-age {
-    padding-left: 12px;
-    font-size: 0.875rem;
-    top: 1257px;
-    left: 19px;
-    height: 1.063rem;
-    text-align: left;
-    letter-spacing: 0.034rem;
-    color: #2a2a2a;
-    opacity: 1;
-    font-weight: normal;
+    /*padding-left: 12px;*/
+    /*font-size: 0.875rem;*/
+    /*top: 1257px;*/
+    /*left: 19px;*/
+    /*height: 1.063rem;*/
+    /*text-align: left;*/
+    /*letter-spacing: 0.034rem;*/
+    /*color: #2a2a2a;*/
+    /*opacity: 1;*/
+    /*font-weight: normal;*/
   }
 }
 
@@ -5428,6 +5466,23 @@ button {
   margin-top: 16px;
   background: transparent;
 }
+
+.web3-dialog-icon {
+  width: 43px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  background: transparent;
+}
+
+.web3-dialog-wallet-icon {
+  width: 37px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  background: transparent;
+}
+
 .main-sing-up {
   width: 432px;
   height: 44px;
@@ -6327,9 +6382,10 @@ button {
   display: flex;
   flex-direction: row;
   margin-top: 50px;
-  border-radius: 12px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  /*border-radius: 12px;*/
+  /*box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);*/
+  /*border: solid 1px #e3e7eb;*/
+  border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   width: 83%;
   margin: 0 auto;
@@ -10372,4 +10428,11 @@ button {
 .PrivateTabIndicator-colorSecondary-120 {
   display: none;
 }
+}
+
+@media (max-width: 768px){
+  .table-list {
+    width: 100% !important;
+    margin: 10px 0;
+  }
 }
