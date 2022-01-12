@@ -1008,7 +1008,7 @@ export default function SimpleTabs(props) {
                 label="My Watchlist"
                 // className={classes.mywatch}
                 className={value === 0 ? classes.tab1 : classes.tab2 }
-                style={{borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none"}}
+                style={{borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none", width:"50%"}}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
