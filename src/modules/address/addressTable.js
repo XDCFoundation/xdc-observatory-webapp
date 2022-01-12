@@ -254,7 +254,7 @@ export default function AddressTableComponent(props) {
       requestData.txnType = filtersData.type
     if (filtersData.status && filtersData.status !== 'all')
       requestData.status = filtersData.status
-    if (filtersData.startDate.toDate().toDateString() !== filtersData.endDate.toDate().toDateString()) {
+    if (filtersData?.startDate?.toDate().toDateString() !== filtersData?.endDate?.toDate().toDateString()) {
       if (filtersData.startDate)
         requestData.startDate = filtersData?.startDate?.toDate()?.getTime()
       if (filtersData.endDate)
@@ -295,7 +295,7 @@ export default function AddressTableComponent(props) {
     const [error, responseData] = await Utility.parseResponse(AddressData.getFiltersForAccountTransaction(data));
     setSearchAndFilters({
       ...searchAndFilters,
-      startDate: error ? moment().subtract(15, "days") : moment(responseData.startDate)
+      startDate: error || !responseData.startDate ? '' : moment(responseData.startDate)
     });
   };
   useEffect(() => {
