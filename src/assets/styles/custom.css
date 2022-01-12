@@ -7801,7 +7801,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .Tooltip-graph {
-    width: 80%;
+    width: 100px;
     padding: 4px 8px 7px;
     border-radius: 6px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
