@@ -3637,7 +3637,7 @@ p {
 /* Tab for graph in the blockChain data dashboard */
 
 body {
-  background: #fff;
+  background: #fff !important;
 }
 @media (max-width: 767px) {
   .days-14 {
@@ -4930,11 +4930,11 @@ button {
   line-height: normal;
   letter-spacing: 0.54px;
   color: #2149b9 !important;
-  margin-top: 8px;
-  margin-right: 25px;
-  animation: fadeInAnimation ease 2s;
-  animation-iteration-count: inherit;
-  animation-fill-mode: forwards;
+  /*margin-top: 8px;*/
+  /*margin-right: 25px;*/
+  /*animation: fadeInAnimation ease 2s;*/
+  /*animation-iteration-count: inherit;*/
+  /*animation-fill-mode: forwards;*/
 }
 @media (min-width: 1240px) {
   .first-block-age {
@@ -4947,7 +4947,7 @@ button {
     letter-spacing: 0.034rem;
     text-align: left;
     color: #2149b9 !important;
-    padding-left: 18px;
+    /*padding-left: 18px;*/
   }
 }
 @media (min-width: 0px) and (max-width: 767px) {
@@ -4980,28 +4980,28 @@ button {
 }
 
 .second-block-age {
-  width: 19%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  animation: fadeInAnimation ease 2s;
-  animation-fill-mode: forwards;
+  /*width: 19%;*/
+  /*height: 100%;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*padding-left: 20px;*/
+  /*font-size: 11px;*/
+  /*font-weight: 600;*/
+  /*animation: fadeInAnimation ease 2s;*/
+  /*animation-fill-mode: forwards;*/
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .second-block-age {
-    padding-left: 12px;
-    font-size: 0.875rem;
-    top: 1257px;
-    left: 19px;
-    height: 1.063rem;
-    text-align: left;
-    letter-spacing: 0.034rem;
-    color: #2a2a2a;
-    opacity: 1;
-    font-weight: normal;
+    /*padding-left: 12px;*/
+    /*font-size: 0.875rem;*/
+    /*top: 1257px;*/
+    /*left: 19px;*/
+    /*height: 1.063rem;*/
+    /*text-align: left;*/
+    /*letter-spacing: 0.034rem;*/
+    /*color: #2a2a2a;*/
+    /*opacity: 1;*/
+    /*font-weight: normal;*/
   }
 }
 
@@ -6387,9 +6387,10 @@ button {
   display: flex;
   flex-direction: row;
   margin-top: 50px;
-  border-radius: 12px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  /*border-radius: 12px;*/
+  /*box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);*/
+  /*border: solid 1px #e3e7eb;*/
+  border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   width: 83%;
   margin: 0 auto;
@@ -6658,9 +6659,10 @@ button {
 
 .second_mid {
   margin-top: 50px;
-  border-radius: 8px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  /*border-radius: 8px;*/
+  /*box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);*/
+  /*border: solid 1px #e3e7eb;*/
+  border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   margin: 0 auto;
   margin-left: 2%;
@@ -10440,4 +10442,11 @@ button {
 }
 .configure-columns-line {
   border: solid 1px #e3e7eb;
+}
+
+@media (max-width: 768px){
+  .table-list {
+    width: 100% !important;
+    margin: 10px 0;
+  }
 }
