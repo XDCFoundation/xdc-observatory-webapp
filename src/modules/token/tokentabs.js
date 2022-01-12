@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [toggleState, setToggleState] = useState(3);
+  const [toggleState, setToggleState] = useState(1);
   const { tn } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
