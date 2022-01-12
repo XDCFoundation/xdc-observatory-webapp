@@ -22,6 +22,7 @@ const useStyles = makeStyles({
         borderRadius: "0.875rem",
         boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         borderBottom: "none",
+        overflowX: 'auto',
         background: "#fff",
     },
 
@@ -64,7 +65,7 @@ const LatestTransactionView = (props) => {
         className={"table-list"}
         style={{
             borderRadius: "0.875rem",
-            width: '48%',
+            minWidth: '48%',
             // marginLeft: "18%",
             // marginRight: "18%",
         }}
@@ -74,13 +75,13 @@ const LatestTransactionView = (props) => {
             className={classes.container}
             id="container-table-token"
             style={{
-                // borderRadius: "0.75rem",
-                // border: "solid 0.063rem #e3e7eb",
-                borderTop: "solid 0.063rem #e3e7eb",
-                borderRadius: "0",
-                boxShadow: 'none',
+                borderRadius: "0.75rem",
+                border: "solid 0.063rem #e3e7eb",
+                // borderTop: "solid 0.063rem #e3e7eb",
+                // borderRadius: "0",
+                // boxShadow: 'none',
                 backgroundColor: "#ffffff",
-                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
                 minHeight: '100%'
             }}
         >
@@ -195,7 +196,7 @@ const LatestTransactionView = (props) => {
                                     key={row.hash}
                                     style={
                                         index % 2 !== 1
-                                            ? {background: "white"}
+                                            ? {background: "#f9f9f9"}
                                             : {background: "white"}
                                     }
                                 >
