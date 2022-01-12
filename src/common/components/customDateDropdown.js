@@ -44,26 +44,7 @@ const FilterName = styled.div`
     color: #252525;
   }
 `
-const DropdownContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  z-index: 2;
-  padding: 8px;
-  overflow-y: scroll;
-  background-color: white;
-  max-height: 250px;
-  margin-top: 3px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  border: solid 1px #d4d4d4;
-  min-width: ${(props) => props.containerWidth}px;
 
-  span {
-    margin: 5px 0;
-    cursor: pointer;
-  }
-`
 const CustomDateDropDown = (props) => {
     const {name, startDate, endDate, isEndDate, onSelect} = props
 
