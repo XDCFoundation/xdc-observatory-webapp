@@ -287,7 +287,7 @@ export default function TokenMarketDataTable(props) {
         </div>
       </DeskTopView>
       <MobileView>
-        <div className="second_mid">
+        <div className="second_mid_token">
           <div className="second_cont">
             <div className="w-54-per">
               <p>Market Cap</p>{" "}

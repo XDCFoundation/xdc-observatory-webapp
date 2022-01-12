@@ -15,8 +15,8 @@ import styled from "styled-components";
 import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
-  overflowNone : {
-    overflow : "initial"
+  overflowNone: {
+    overflow: "initial"
   },
   add: {
     // marginLeft: "80%",
@@ -232,10 +232,10 @@ export default function FormDialog(props) {
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
     };
-    if(!TransactionsHash){
+    if (!TransactionsHash) {
       setError("Please enter required field");
     }
-   else if (
+    else if (
       !(TransactionsHash && TransactionsHash.length === 66) ||
       !(TransactionsHash.slice(0, 2) == "0x")
     ) {
@@ -293,7 +293,7 @@ export default function FormDialog(props) {
     setError("");
     setPrivateNoteError("");
   };
-  
+
   const tooltipClose = () => {
     setTooltipIsOpen(!tooltipIsOpen);
   }
@@ -318,7 +318,6 @@ export default function FormDialog(props) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  // console.log({ width } = windowDimensions)
   const { width } = windowDimensions;
 
   return (
@@ -330,8 +329,8 @@ export default function FormDialog(props) {
             width >= 760
               ? handleClickOpen
               : () => {
-                  history.push("/testTrancation");
-                }
+                history.push("/testTrancation");
+              }
           }
         >
           <img className="imagediv1" src={"/images/transaction.svg"}></img>
@@ -342,8 +341,8 @@ export default function FormDialog(props) {
             width >= 760
               ? handleClickOpen
               : () => {
-                  history.push("/testTrancation");
-                }
+                history.push("/testTrancation");
+              }
           }
         >
           <div className="headingdiv1">Add transaction label</div>
@@ -454,10 +453,10 @@ export default function FormDialog(props) {
             </span>
           </DialogActions>
           <div className={classes.lastContainer}>
-              <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the transaction labels, is added on your local device. Cleaning the browsing history or cookies will clean the transaction labels saved in your profile. 
-                </div>
+            <div className={classes.lastContainerText}>
+              To protect your privacy, data related to the transaction labels, is added on your local device. Cleaning the browsing history or cookies will clean the transaction labels saved in your profile.
             </div>
+          </div>
           {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
