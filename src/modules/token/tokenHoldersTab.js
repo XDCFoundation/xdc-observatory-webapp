@@ -421,6 +421,7 @@ export default function StickyHeadTable(props) {
                       ? splittedArray[1]
                       : 0;
                   return (
+                    
                     <StyledTableRow hover role="checkbox" tabIndex={-1}>
                       <TableCell id="td" style={{ border: "none" }}>
                         <span className="tabledata table-data">
