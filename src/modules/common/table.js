@@ -223,7 +223,7 @@ export default function CommonTransactionsTable(props) {
                 className="padding-20px"
                 align="left"
               >
-                <span className={("tableheaders", "tableheaders-all")}>
+                <span className={("tableheaders", "tableheaders-all", "m-l-25p")}>
                   To
                   <Tooltip
                     open={hashTT}

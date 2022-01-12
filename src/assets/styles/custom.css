@@ -213,6 +213,14 @@ input#password[placeholder] {
   text-align: center;
   color: #2a2a2a;
 }
+.m-l-25p {
+   margin-left: 25%;
+  }
+  @media(min-width: 0px) and (max-width: 767px){
+    .m-l-25p {
+    margin-left: 0;
+   }
+  }
 @media (min-width: 768px) and (max-width: 1240px) {
   input[placeholder] {
     text-overflow: unset !important;
@@ -5267,7 +5275,7 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .block_main {
     flex-direction: column;
-    width: 22.563rem;
+    width: 21rem;
     margin-top: 15px;
     margin-right: auto;
     margin-left: auto;
@@ -6688,7 +6696,7 @@ button {
     margin-top: 22px;
     margin-left: auto;
     margin-right: auto;
-    width: 22.563rem;
+    width: 21rem;
     height: 15.813rem;
     padding: 0 10px 0 10px;
   }
