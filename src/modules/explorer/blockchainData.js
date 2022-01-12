@@ -44,7 +44,7 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 22.563rem;
+    width: 21rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
@@ -170,7 +170,7 @@ const TitleValue = styled.div`
   font-weight: bold;
   line-height: normal;
   letter-spacing: 0.58px;
-  color: #2a2a2a;
+  color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
   }
@@ -246,7 +246,7 @@ const LeftTopSec = styled.div`
   font-weight: 800;
   font-family: Inter;
   letter-spacing: 0.55px;
-  color: #2a2a2a;
+  color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
   }

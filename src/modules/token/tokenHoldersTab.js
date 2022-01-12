@@ -17,6 +17,7 @@ import utility from "../../utility";
 import { Tooltip } from "@material-ui/core";
 import format from "format-number";
 import { messages } from "../../constants";
+import PageSelector from "../common/pageSelector";
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
@@ -134,30 +135,30 @@ export default function StickyHeadTable(props) {
   const handleChangePage = (action) => {
     if (action === "first") {
       setPage(0);
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+      let values = { addr: address, pageNum: 0, perpage: rowsPerPage };
       listOfHolders(values);
     }
     if (action === "prev") {
       if (page - rowsPerPage >= 0) {
         let pageValue = page - rowsPerPage;
         setPage(pageValue);
-        let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+        let values = { addr: address, pageNum: page, pageValue: rowsPerPage };
         listOfHolders(values);
       }
     }
     if (action === "next") {
-      if (rowsPerPage + page < totalHolder) {
-        let pageValue = rowsPerPage + page;
+      if (+rowsPerPage + +page < totalHolder) {
+        let pageValue = +rowsPerPage + +page;
         setPage(pageValue);
-        let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+        let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
         listOfHolders(values);
       }
     }
 
     if (action === "last") {
-      let pageValue = totalHolder - rowsPerPage;
+      let pageValue = +totalHolder - +rowsPerPage;
       setPage(pageValue);
-      let values = { addr: address, pageNum: page, perpage: rowsPerPage };
+      let values = { addr: address, pageNum: pageValue, perpage: rowsPerPage };
       listOfHolders(values);
     }
   };
@@ -389,13 +390,13 @@ export default function StickyHeadTable(props) {
                   let quantity1 =
                     row[0]?.Quantity / Math.pow(10, decimals) >= 1
                       ? format({})(
-                          utility.convertToInternationalCurrencySystem(
-                            row[0]?.Quantity / Math.pow(10, decimals)
-                          )
+                        utility.convertToInternationalCurrencySystem(
+                          row[0]?.Quantity / Math.pow(10, decimals)
                         )
+                      )
                       : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
-                          decimals
-                        );
+                        decimals
+                      );
                   var quantity2 = quantity1.toString().split(".")[0];
                   var quantity3 = quantity1.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
@@ -505,18 +506,13 @@ export default function StickyHeadTable(props) {
         )}
       </Paper>
       <Pagination>
-      <LeftPagination>
-        {!isLoading && noData ? (<>
-          <p className="p-pagination">Show</p>
-
-          <select className="selectbox" onChange={handleChangeRowsPerPage}>
-            <option selected>10</option>
-            <option>25</option>
-            <option>50</option>
-            <option>75</option>
-            <option>100</option>
-          </select>
-          <p className="p-pagination"> Records</p></>):("")}
+        <LeftPagination>
+          {!isLoading && noData ? (<>
+            <p className="p-pagination">Show</p>
+            <PageSelector value={rowsPerPage}
+                          height={28}
+                          handler={handleChangeRowsPerPage}/>
+            <p className="p-pagination"> Records</p></>) : ("")}
         </LeftPagination>
 
         <RightPagination
