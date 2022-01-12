@@ -157,7 +157,6 @@ export default function ContractWriteMethods(props) {
       writeFunctions: writeFunction,
       contractAddress: contractInfo.address.replace("xdc", "0x"),
     });
-    console.log("writeFunction", writeFunction);
   }, [props.contractData]);
 
   const handleFunctionClick = async (
@@ -189,15 +188,19 @@ export default function ContractWriteMethods(props) {
         );
         if (hasParams) {
           await contract.methods[method](...params)
-            .send({ from: state.accountAddress })
+            .send({ from: state.accountAddress.trim().replace("xdc", "0x") })
             .then(async (response) => {
+              debugger;
+              console.log(response, "response");
               updateFunctionResponse(method, index, response, writeFunctions);
               writeFunctions[index].response = { method, index, response };
             });
         } else {
           await contract.methods[method]()
-            .send({ from: state.accountAddress })
+            .send({ from: state.accountAddress.trim().replace("xdc", "0x") })
             .then(async (response) => {
+              debugger;
+              console.log(response, "response");
               updateFunctionResponse(method, index, response, writeFunctions);
               writeFunctions[index].response = { method, index, response };
             });
@@ -313,19 +316,20 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
   React.useEffect(() => {
     let paramKeys = {};
     functionDetail.inputs.map((item) => {
-      paramKeys[item.name] = "";
+      paramKeys[item.name] = item.type === "uint256" ? 0 : "";
     });
     setParams(paramKeys);
   }, [functionDetail]);
 
-  const handleParamsInput = (value, name) => {
+  const handleParamsInput = (value, name, type) => {
     if (value.includes("xdc")) {
       value = value.replace(/^.{3}/g, "0x");
     }
     setError("");
     let param = params;
-    param[name] = value;
+    param[name] = type === "uint256" ? Number(value) : value;
     setParams(param);
+    console.log("params", params);
   };
 
   const handleInputSubmit = () => {
@@ -348,7 +352,7 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
             <ParamInput
               placeholder={item.type}
               onChange={(event) =>
-                handleParamsInput(event.target.value, item.name)
+                handleParamsInput(event.target.value, item.name, item.type)
               }
             />
           </InputTypeFunctionsContainer>
