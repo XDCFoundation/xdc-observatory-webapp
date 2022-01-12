@@ -27,7 +27,8 @@ class TokenPriceHistoryGraph extends BaseComponent {
     }
 
     getHistoricalTokenData = async () => {
-        const tokenAddress = this.props.contractAddress;
+        const tokenAddress = window.location.pathname.split("/")[2];
+        // const tokenAddress = this.props.contractAddress;
         let request = {
             tokenAddress: tokenAddress,
             startTime: moment().subtract(2, "month").valueOf(),

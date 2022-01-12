@@ -15,7 +15,6 @@ import { WatchListService } from "../../services";
 import { eventConstants, genericConstants } from "../../constants";
 import { connect } from "react-redux";
 
-
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -134,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
     marginLeft: "2px",
-    marginTop: "-20px"
+    marginTop: "-20px",
   },
   forgotpass: {
     color: "#2149b9",
@@ -170,7 +169,7 @@ const useStyles = makeStyles((theme) => ({
     },
     dialogBox: {
       width: "362px",
-      top: "95px"
+      top: "95px",
     },
     input: {
       maxWidth: "503px",
@@ -182,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
     },
     flexButton: {
       display: "flex",
-    }
+    },
   },
 }));
 
@@ -203,7 +202,7 @@ function EditWatchList(props) {
   useEffect(() => {
     if (props.row.address) setAddress(props.row.address);
     setDescription(props.row.description);
-    setId(props.row._id)
+    setId(props.row._id);
   }, [props]);
 
   const classes = useStyles();
@@ -228,11 +227,7 @@ function EditWatchList(props) {
 
   const [edit, setEdit] = React.useState();
   const validateAddress = () => {
-
-    if (
-      (address && address.length === 43) ||
-      address.slice(0, 2) == "xdc"
-    ) {
+    if ((address && address.length === 43) || address.slice(0, 2) == "xdc") {
       return true;
       // watchListService();
     } else {
@@ -249,7 +244,9 @@ function EditWatchList(props) {
     };
     if (validateAddress()) {
       // validateAddress();
-      const [error, response] = await utility.parseResponse(PutWatchlist.putWatchlist(request));
+      const [error, response] = await utility.parseResponse(
+        PutWatchlist.putWatchlist(request)
+      );
       if (error || !response) {
         utility.apiFailureToast("Error");
       } else {
@@ -258,8 +255,8 @@ function EditWatchList(props) {
         await props.getWatchlistList();
         await props.getTotalCountWatchlist();
       }
-    };
-  }
+    }
+  };
 
   // const watchListService = async () => {
   //   const request = {
@@ -274,19 +271,23 @@ function EditWatchList(props) {
   // };
   const handleDelete = async (watchlist) => {
     if (props?.row?._id) {
-      props.dispatchAction(eventConstants.SHOW_LOADER, true)
-      const [error, response] = await utility.parseResponse(WatchListService.deleteWatchlist({ _id: props.row._id }))
-      props.dispatchAction(eventConstants.HIDE_LOADER, true)
+      props.dispatchAction(eventConstants.SHOW_LOADER, true);
+      const [error, response] = await utility.parseResponse(
+        WatchListService.deleteWatchlist({ _id: props.row._id }, props.row)
+      );
+      props.dispatchAction(eventConstants.HIDE_LOADER, true);
       if (error || !response) {
-        utility.apiFailureToast(error?.message || genericConstants.CANNOT_DELETE_WATCHLIST);
+        utility.apiFailureToast(
+          error?.message || genericConstants.CANNOT_DELETE_WATCHLIST
+        );
         return;
       }
       await utility.apiSuccessToast(genericConstants.WATCHLIST_DELETED);
       await handleClose();
-      await props.getWatchlistList()
-      await props.getTotalCountWatchlist()
+      await props.getWatchlistList();
+      await props.getTotalCountWatchlist();
     }
-  }
+  };
   return (
     <div>
       <div onClick={handleClickOpen}>
@@ -317,10 +318,9 @@ function EditWatchList(props) {
               value={address}
               className={classes.input}
               onChange={(e) => {
-                setAddress(e.target.value)
-                setError("")
+                setAddress(e.target.value);
+                setError("");
               }}
-
             ></input>
             {error ? <div className={classes.error}>{error}</div> : <></>}
           </DialogContent>

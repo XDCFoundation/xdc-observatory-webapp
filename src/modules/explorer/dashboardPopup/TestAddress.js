@@ -212,10 +212,9 @@ export default function FormDialog() {
       address: privateAddress,
       tagName: tags,
     };
-    if(!privateAddress){
+    if (!privateAddress) {
       setError("Please enter required field");
-    }
-   else if (
+    } else if (
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
@@ -228,14 +227,14 @@ export default function FormDialog() {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      // const [error, response] = await utility.parseResponse(
-      //   UserService.addPrivateTagToAddress(data)
-      // );
+      const [error, response] = await utility.parseResponse(
+        UserService.addPrivateTagToAddress(data)
+      );
 
-      // if (error) {
-      //   utility.apiFailureToast("Address is already in use");
-      //   return;
-      // }
+      if (error) {
+        utility.apiFailureToast("Address is already in use");
+        return;
+      }
       let taggedAddress = localStorage.getItem(
         cookiesConstants.USER_TAGGED_ADDRESS
       );
@@ -317,11 +316,11 @@ export default function FormDialog() {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      if(trimmedInput.length > 15){
+      if (trimmedInput.length > 15) {
         setErrorTag("Tag length should be less than 15");
         return;
       }
-      if(tags.length >= 5){
+      if (tags.length >= 5) {
         setErrorTag("Maximum 5 Tags are allowed");
         return;
       }
@@ -425,10 +424,12 @@ export default function FormDialog() {
           </span>
         </DialogActions>
         <div className={classes.lastContainer}>
-              <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the address tags, is added on your local device. Cleaning the browsing history or cookies will clean the address tags saved in your profile.
-                </div>
-            </div>
+          <div className={classes.lastContainerText}>
+            To protect your privacy, data related to the address tags, is added
+            on your local device. Cleaning the browsing history or cookies will
+            clean the address tags saved in your profile.
+          </div>
+        </div>
         {/* <div className={classes.value}></div>
           <p className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span> 
