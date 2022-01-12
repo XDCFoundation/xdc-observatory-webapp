@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.6ed7a008.chunk.css",
-    "main.js": "/static/js/main.72b23895.chunk.js",
-    "main.js.map": "/static/js/main.72b23895.chunk.js.map",
+    "main.css": "/static/css/main.bede2fc5.chunk.css",
+    "main.js": "/static/js/main.14bde3d3.chunk.js",
+    "main.js.map": "/static/js/main.14bde3d3.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.61f4e7a4.js",
     "runtime-main.js.map": "/static/js/runtime-main.61f4e7a4.js.map",
-    "static/css/2.9c5672e4.chunk.css": "/static/css/2.9c5672e4.chunk.css",
-    "static/js/2.6caac1cd.chunk.js": "/static/js/2.6caac1cd.chunk.js",
-    "static/js/2.6caac1cd.chunk.js.map": "/static/js/2.6caac1cd.chunk.js.map",
+    "static/css/2.4325f317.chunk.css": "/static/css/2.4325f317.chunk.css",
+    "static/js/2.ce196543.chunk.js": "/static/js/2.ce196543.chunk.js",
+    "static/js/2.ce196543.chunk.js.map": "/static/js/2.ce196543.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.8526a885fa5f91e6cd24e6b9f433a9e2.js": "/precache-manifest.8526a885fa5f91e6cd24e6b9f433a9e2.js",
+    "precache-manifest.dee294d6216e29a23b3951d940b52874.js": "/precache-manifest.dee294d6216e29a23b3951d940b52874.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.9c5672e4.chunk.css.map": "/static/css/2.9c5672e4.chunk.css.map",
-    "static/css/main.6ed7a008.chunk.css.map": "/static/css/main.6ed7a008.chunk.css.map",
-    "static/js/2.6caac1cd.chunk.js.LICENSE.txt": "/static/js/2.6caac1cd.chunk.js.LICENSE.txt",
+    "static/css/2.4325f317.chunk.css.map": "/static/css/2.4325f317.chunk.css.map",
+    "static/css/main.bede2fc5.chunk.css.map": "/static/css/main.bede2fc5.chunk.css.map",
+    "static/js/2.ce196543.chunk.js.LICENSE.txt": "/static/js/2.ce196543.chunk.js.LICENSE.txt",
     "static/media/Accounts.svg": "/static/media/Accounts.4cdf742c.svg",
     "static/media/AddLabel_NewFeature.svg": "/static/media/AddLabel_NewFeature.70340a5e.svg",
     "static/media/AddTransactionLable_NewFeature.svg": "/static/media/AddTransactionLable_NewFeature.ecd5ca21.svg",
@@ -33,9 +33,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.61f4e7a4.js",
-    "static/css/2.9c5672e4.chunk.css",
-    "static/js/2.6caac1cd.chunk.js",
-    "static/css/main.6ed7a008.chunk.css",
-    "static/js/main.72b23895.chunk.js"
+    "static/css/2.4325f317.chunk.css",
+    "static/js/2.ce196543.chunk.js",
+    "static/css/main.bede2fc5.chunk.css",
+    "static/js/main.14bde3d3.chunk.js"
   ]
 }
