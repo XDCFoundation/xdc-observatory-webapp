@@ -317,7 +317,6 @@ export default function FormDialog(props) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  // console.log({ width } = windowDimensions)
   const { width } = windowDimensions;
 
   return (

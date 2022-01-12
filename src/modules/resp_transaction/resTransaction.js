@@ -131,6 +131,7 @@ export default function Transaction({ _handleChange }) {
   const [timeStamp, setTimeStamp] = useState();
   const [price, setPrice] = useState("");
   const [latestBlock, setLatestBlock] = useState(0);
+  const [isSeeMore, setSeeMore] = useState(false);
   useEffect(async () => {
     await transactionDetail();
     getLatestBlock();
@@ -225,6 +226,12 @@ export default function Transaction({ _handleChange }) {
     setIsTagTo(true);
   };
 
+  const handleSeeMore = () => {
+    setSeeMore(true);
+  }
+  const handleSeeLess = () => {
+    setSeeMore(false);
+  }
   const hashid = `A transaction hash is a unique character identifier that is generated whenever the transaction is executed. `;
   const blocknumber = ` The number of block in which transaction was recorded. Block confirmation indicate how many blocks since the transaction is mined.  `;
   const timestamp = ` The date and time at which a transaction is mined. `;
@@ -333,13 +340,7 @@ export default function Transaction({ _handleChange }) {
                 <Container>
                   <Heading>Transaction Details</Heading>
                   {/* <p className="Failed-rectangle">Failed</p> */}
-                  {transactions ? (
-                    transactions.status ? (
-                      <p className="Success-rectangle">Success</p>
-                    ) : (
-                      <p className="Failed-rectangle">Failed</p>
-                    )
-                  ) : null}
+                  
                 </Container>
               </Spacing>
               {/* 
@@ -355,17 +356,34 @@ export default function Transaction({ _handleChange }) {
                     </Spacing> */}
 
               <Div>
-                <HashDiv>
+              {transactions ? (
+                    transactions.status ? (
+                      <StatusContainer>
+                        <StatusImgContainer>
+                        <StatusImg src="/images/success.svg"></StatusImg>
+                        </StatusImgContainer>
+                        <StatusTextSuccess>Success</StatusTextSuccess>
+                      </StatusContainer>
+                    ) : (
+                      <StatusContainer>
+                        <StatusImgContainer>
+                        <StatusImg src="/images/failed.svg"></StatusImg>
+                        </StatusImgContainer>
+                        <StatusTextFailed>Failed</StatusTextFailed>
+                      </StatusContainer>
+                    )
+                  ) : null}
+                <TxnDetailsRightContainer>
+                 <TxnDetailsRightTopContainer>
                   <Container>
                     <Tooltip align="right" title={hashid}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
-                    <Hash>Hash ID</Hash>
+                    <Hash>Transaction Hash</Hash>
                   </Container>
-                  <MiddleContainer1 isTextArea={false}>
+                  <DetailsMiddleContainer isTextArea={false}>
                     <Content>
-                      {/* {hash} */}
                       {width > 1240
                         ? hash
                         : width <= 1240 && width >= 768
@@ -374,11 +392,6 @@ export default function Transaction({ _handleChange }) {
                     </Content>
                     <span
                       className={
-                        // width > 1240
-                        //   ? "copyEditContainer2"
-                        //   : width <= 1240 && width >= 768
-                        //     ? "copyEditContainerTab"
-                        //     : "copyEditContainerMobile"
                         width >= 768
                           ? "copyEditContainer2"
                           : "copyEditContainerMobile"
@@ -409,7 +422,7 @@ export default function Transaction({ _handleChange }) {
                                     ? "copyIconHashMobile"
                                     : "copyIconHash"
                               }
-                              src={"/images/copy.svg"}
+                              src={"/images/copy-grey.svg"}
                             />
                           </button>
                         </Tooltip>
@@ -447,20 +460,54 @@ export default function Transaction({ _handleChange }) {
                         ""
                       )}
                     </span>
-                  </MiddleContainer1>
-                </HashDiv>
-              </Div>
+                  </DetailsMiddleContainer>
+                </TxnDetailsRightTopContainer>
+                <TxnDetailsRightBottomContainer>
+                <DetailsContainer>
+                  <Container>
+                    <Tooltip title={value}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
+                    <Hash>Transaction Value</Hash>
+                  </Container>
+                  <DetailsMiddleContainer isTextArea={false}>
+                    {ValueMain}&nbsp; XDC ({currencySymbol}
+                    {valueDiv})
+                  </DetailsMiddleContainer>
+                </DetailsContainer>
+                {/* ------------------------------------------------time stamp------------------------------------- */}
+                <DetailsContainer className="mobileTimeStamp">
+                  <Container>
+                    <Tooltip title={timestamp}>
+                      <ImageView src={"/images/info.svg"} />
+                    </Tooltip>
 
-              <Div__>
-                <Spacing>
+                    <Hash>Transaction Timestamp</Hash>
+                  </Container>
+                  <DetailsMiddleContainer isTextArea={false}>
+                    {/*============================================= {" "}
+                        {moment(transactions.timestamp * 1000).format(
+                          "MMMM Do YYYY, h:mm:ss a"
+                        )}{" "}============================ */}
+                    {transactions.timestamp &&
+                      !isNaN(Number(transactions.timestamp))
+                      ? moment(Number(transactions.timestamp) * 1000)
+                        .utc()
+                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
+                      : ""}
+                    {/*============================================================================({getHoursAgo(transactions.timestamp * 1000)})==================================*/}
+                   </DetailsMiddleContainer>
+                </DetailsContainer>
+                {/* ------------------------------------------------------block-------------------------------  */}
+                <DetailsContainer>
                   <Container>
                     <Tooltip title={blocknumber}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
                     <Hash>Block Number</Hash>
                   </Container>
-                  <MiddleContainer isTextArea={false}>
+                  <DetailsMiddleContainer isTextArea={false}>
                     <Content>
                       <a
                         className="linkTableDetails-transaction"
@@ -471,41 +518,25 @@ export default function Transaction({ _handleChange }) {
                           ? transactions.blockNumber
                           : ""}
                       </a>
-                      &nbsp; - {bx} Blocks Confirmation
+                      &nbsp; <BlockConfirmation>{bx} Blocks Confirmation</BlockConfirmation>
                     </Content>
-                  </MiddleContainer>
-                </Spacing>
-                <Spacing className="mobileTimeStamp">
-                  <Container>
-                    <Tooltip title={timestamp}>
-                      <ImageView src={"/images/questionmark.svg"} />
-                    </Tooltip>
+                  </DetailsMiddleContainer>
+                </DetailsContainer>
+                </TxnDetailsRightBottomContainer>
+                </TxnDetailsRightContainer>
+              </Div>
 
-                    <Hash>Timestamp</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    {/* {" "}
-                        {moment(transactions.timestamp * 1000).format(
-                          "MMMM Do YYYY, h:mm:ss a"
-                        )}{" "} */}
-                    {transactions.timestamp &&
-                      !isNaN(Number(transactions.timestamp))
-                      ? moment(Number(transactions.timestamp) * 1000)
-                        .utc()
-                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
-                      : ""}
-                    {/*({getHoursAgo(transactions.timestamp * 1000)})*/}
-                  </MiddleContainer>
-                </Spacing>
-                <SpacingHash>
+              <DivMiddleContainer>
+                {/* -----------------------------------------------from---------------------------- */}
+                <DivMiddle>
                   <Container>
                     <Tooltip title={from}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
                     <Hash>From</Hash>
                   </Container>
-                  <MiddleContainer isTextArea={false}>
+                  <DetailsMiddleContainer isTextArea={false}>
                     <Content>
                       {" "}
                       <div style={{ display: width >= 768 ? "flex" : "block" }}>
@@ -549,12 +580,18 @@ export default function Transaction({ _handleChange }) {
                                         ? "copy-icon-from"
                                         : "copy-icon-from-tab"
                                   }
-                                  src={"/images/copy.svg"}
+                                  src={"/images/copy-grey.svg"}
                                 />
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                          
+                        </div>
+                      </div>
+                    </Content>
+                    
+                  </DetailsMiddleContainer>
+                  {sessionManager.getDataFromCookies("isLoggedIn") ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -565,16 +602,17 @@ export default function Transaction({ _handleChange }) {
                                   hash={hash}
                                 />
                               }
+                              
                               {isTag ? (
-                                <div className="nameLabel">
+                                <Tag>
                                   {addressTag[0]?.tagName}
-                                </div>
+                                </Tag>
                               ) : (
                                 <Tooltip
                                   title="Add a new Address Tag"
                                   placement="top"
                                 >
-                                  <img
+                                  {/* <img
                                     className={
                                       width > 1240
                                         ? "edit1-icon"
@@ -582,27 +620,33 @@ export default function Transaction({ _handleChange }) {
                                     }
                                     onClick={openDialogPvtTag}
                                     src={require("../../../src/assets/images/tag.svg")}
-                                  />
+                                  /> */}
+                                  <AddTagContainer onClick={openDialogPvtTag}>
+                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
+                                    <AddTagtext>Add Tag</AddTagtext>
+                                  </AddTagContainer>
                                 </Tooltip>
                               )}
                             </>
                           ) : (
                             ""
                           )}
-                        </div>
-                      </div>
-                    </Content>
-                  </MiddleContainer>
-                </SpacingHash>
-                <SpacingHash>
+                </DivMiddle>
+                <DivCircle>
+                  <ImgNextArrow>
+                    <img src="/images/next-arrow.svg"/>
+                  </ImgNextArrow>
+                </DivCircle>
+                            {/* --------------------------------------------------------------------to--------------------- */}
+                <DivMiddle>
                   <Container>
                     <Tooltip title={to}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
                     <Hash>To</Hash>
                   </Container>
-                  <MiddleContainer isTextArea={false}>
+                  <DetailsMiddleContainer isTextArea={false}>
                     <Content>
                       <span
                         style={{ display: width >= 768 ? "flex" : "block" }}
@@ -649,12 +693,18 @@ export default function Transaction({ _handleChange }) {
                                         ? "copy-icon-from"
                                         : "copy-icon-from-tab"
                                   }
-                                  src={"/images/copy.svg"}
+                                  src={"/images/copy-grey.svg"}
                                 />
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                          
+                        </div>
+                      </span>
+                    </Content>
+                    
+                  </DetailsMiddleContainer>
+                  {sessionManager.getDataFromCookies("isLoggedIn") ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -674,7 +724,7 @@ export default function Transaction({ _handleChange }) {
                                   title="Add a new Address Tag"
                                   placement="top"
                                 >
-                                  <img
+                                  {/* <img
                                     className={
                                       width > 1240
                                         ? "edit1-icon"
@@ -682,37 +732,32 @@ export default function Transaction({ _handleChange }) {
                                     }
                                     onClick={openDialogPvtTag2}
                                     src={require("../../../src/assets/images/tag.svg")}
-                                  />
+                                  /> */}
+                                  <AddTagContainer onClick={openDialogPvtTag2}>
+                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
+                                    <AddTagtext>Add Tag</AddTagtext>
+                                  </AddTagContainer>
                                 </Tooltip>
                               )}
                             </>
                           ) : (
                             ""
                           )}
-                        </div>
-                      </span>
-                    </Content>
-                  </MiddleContainer>
-                </SpacingHash>
-                <Spacing>
-                  <Container>
-                    <Tooltip title={value}>
-                      <ImageView src={"/images/questionmark.svg"} />
-                    </Tooltip>
-                    <Hash>Value</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    {ValueMain}&nbsp; XDC ({currencySymbol}
-                    {valueDiv})
-                  </MiddleContainer>
-                </Spacing>
+                </DivMiddle>
+              </DivMiddleContainer>
+
+              <Div__>
+              
+
+                
+                {/* -------------------------------------------------------------txn fee----------------------- */}
                 <Spacing>
                   <Container>
                     <Tooltip title={txnfee}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
 
-                    <Hash>Txn Fee</Hash>
+                    <Hash>Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     <Content>
@@ -743,7 +788,7 @@ export default function Transaction({ _handleChange }) {
                 <Spacing>
                   <Container>
                     <Tooltip align="right" title={gasprovided}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
                     <Hash>Gas Provided</Hash>
                   </Container>
@@ -754,7 +799,7 @@ export default function Transaction({ _handleChange }) {
                 <Spacing>
                   <Container>
                     <Tooltip align="right" title={gasprice}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
                     <Hash>Gas Price</Hash>
                   </Container>
@@ -774,7 +819,7 @@ export default function Transaction({ _handleChange }) {
                 <Spacing>
                   <Container>
                     <Tooltip align="right" title={gasused}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
                     <Hash>Gas Used</Hash>
                   </Container>
@@ -782,10 +827,18 @@ export default function Transaction({ _handleChange }) {
                     <Content>{format({})(transactions?.gasUsed)}</Content>
                   </MiddleContainer>
                 </Spacing>
+                {!isSeeMore ? 
+                (<Spacing>
+                  <SeeMoreContainer onClick={handleSeeMore}>
+                    <SeeMoreText>See more</SeeMoreText>
+                    <ImgSeeMore src="/images/see-more.svg"></ImgSeeMore>
+                  </SeeMoreContainer>
+                </Spacing>) : 
+                (<>
                 <Spacing>
                   <Container>
                     <Tooltip align="right" title={nounced}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
                     <Hash>Nonce</Hash>
                   </Container>
@@ -796,7 +849,7 @@ export default function Transaction({ _handleChange }) {
                 <SpacingInputData>
                   <Container>
                     <Tooltip align="right" title={input}>
-                      <ImageViewInputData src={"/images/questionmark.svg"} />
+                      <ImageViewInputData src={"/images/info.svg"} />
                     </Tooltip>
                     <HashInputData>Input Data</HashInputData>
                   </Container>
@@ -810,10 +863,17 @@ export default function Transaction({ _handleChange }) {
                     </div>
                   </MiddleContainerInputData>
                 </SpacingInputData>
+                <Spacing>
+                  <SeeMoreContainer onClick={handleSeeLess}>
+                    <SeeMoreText>See Less</SeeMoreText>
+                    <ImgSeeLess src="/images/see-more.svg"></ImgSeeLess>
+                  </SeeMoreContainer>
+                </Spacing>
+                </>)}
                 <SpacingPrivateNode>
                   <Container>
                     <Tooltip align="right" title={transferToken}>
-                      <ImageView src={"/images/questionmark.svg"} />
+                      <ImageView src={"/images/info.svg"} />
                     </Tooltip>
                     <Hash>Private Note</Hash>
                   </Container>
@@ -923,12 +983,12 @@ const PrivateText = styled.p`
 `;
 const Div__ = styled.div`
   width: 75.125rem;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   padding: 0.563rem;
-  padding-left: 2.188rem;
-  padding-right: 2.188rem;
+  padding-left: 27px;
+  padding-right: 25px;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 22.563rem;
     // height: 61rem;
@@ -1097,13 +1157,12 @@ const HashInputData = styled.span`
 `;
 
 const Hash = styled.span`
-  color: var(--unnamed-color-2a2a2a);
   white-space: nowrap;
-  font-family: "Inter", sans-serif;
+  font-family: Inter;
   font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  color: #2a2a2a;
+  font-size: 15px;
+  letter-spacing: 0.58px;
+  color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
@@ -1147,7 +1206,7 @@ const SpacingPrivateNode = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-  border-bottom: solid 1px #e3e7eb;
+  // border-bottom: solid 1px #e3e7eb;
   padding: 11px 0;
 
   @media (max-width: 767px) {
@@ -1220,13 +1279,34 @@ const SecondContainer = styled.div`
 `;
 
 const Div = styled.div`
-  height: 4.125rem;
+  display: flex;
   width: 75.125rem;
-  border-radius: 7px;
+  border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-bottom: 15px;
-  padding: 5px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 22.563rem;
+    height: 6.813rem;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    width: 41.5rem;
+  }
+`;
+const DivMiddleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+  margin-bottom: 36px
+`;
+const DivMiddle = styled.div`
+  max-width: 35.625rem;
+  width: 100%;
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  // margin-bottom: 15px;
   @media (min-width: 0px) and (max-width: 767px) {
     width: 22.563rem;
     height: 6.813rem;
@@ -1269,7 +1349,7 @@ const Heading = styled.span`
   }
 `;
 const ImageViewInputData = styled.img`
-  width: 15px;
+  width: 22px;
   margin-right: 15px;
   padding-bottom: 30px;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1281,15 +1361,159 @@ const ImageViewInputData = styled.img`
   }
 `;
 const ImageView = styled.img`
-  width: 15px;
+  width: 22px;
   margin-right: 15px;
   cursor: pointer;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 0.688rem;
-    height: 0.688rem;
+    width: 14px;
+    height: 14px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 0.875rem;
     height: 0.875rem;
   }
+`;
+const StatusContainer = styled.div`
+  max-width: 10.75rem;
+  width: 100%;
+  border-right: 1px solid #e3e7eb;
+`;
+const StatusImgContainer = styled.div`
+  width: 58px;
+  margin: 44px auto 10px auto;
+`;
+const StatusImg = styled.img`
+  width: 58px;
+  align-item: center;
+`;
+const StatusTextSuccess = styled.div`
+  font-family: Inter;
+  font-size: 14px;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #03be46;
+`;
+const StatusTextFailed = styled.div`
+  font-family: Inter;
+  font-size: 14px;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: red;
+`;
+const SeeMoreContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
+const SeeMoreText = styled.div`
+font-family: Inter;
+font-size: 15px;
+font-weight: 600;
+letter-spacing: 0.58px;
+color: #4878ff;
+margin-left: 4px;
+margin-right: 5px;
+`;
+const ImgSeeMore = styled.img`
+  display: flex;
+`;
+const ImgSeeLess = styled.img`
+  display: flex;
+  transform: rotate(180deg);
+`;
+const TxnDetailsRightContainer = styled.div`
+  width: 100%;
+  padding-left: 21px;
+  padding-right: 25px;
+`;
+const TxnDetailsRightBottomContainer = styled.div`
+  Width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 32px;
+  padding-bottom: 25px;
+`;
+const TxnDetailsRightTopContainer = styled.div`
+  Width: 100%;
+  justify-content: space-between;
+  padding-top: 22px;
+`;
+const DetailsContainer = styled.div`
+  display: block;
+`;
+const DetailsMiddleContainer = styled.div`
+  margin-left: 4px;
+  display: flex;
+  font-family: Inter;
+  font-size: 15px;
+  letter-spacing: 0.58px;
+  color: #3a3a3a;
+`;
+const BlockConfirmation = styled.div`
+  margin-left: 4px;
+  display: flex;
+  font-family: Inter;
+  font-size: 13px;
+  letter-spacing: 0.58px;
+  color: #2149b9;
+  background-color: #e2eaff;
+  padding-left: 8px;
+  padding-right:10px;
+  border-radius: 4px;
+`;
+
+const DivCircle = styled.div`
+  max-width: 36px;
+  height: 36px;
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin: auto;
+  
+  // @media (min-width: 0px) and (max-width: 767px) {
+  //   width: 22.563rem;
+  //   height: 6.813rem;
+  // }
+  // @media (min-width: 768px) and (max-width: 1240px) {
+  //   width: 41.5rem;
+  // }
+`;
+
+const ImgNextArrow = styled.div`
+  margin-left: 8px;
+  margin-top: 6px;
+  width: 17px
+`;
+const AddTagContainer = styled.div`
+  background-color: #4878ff;
+  display: flex;
+  width: 95px;
+  padding: 3px 0 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2px;
+  margin-left: 4px;
+  cursor: pointer;
+`;
+const ImgAddTag = styled.div`
+  margin-right: 4px;
+`;
+const AddTagtext = styled.div`
+  color: #ffffff;
+`;
+
+const Tag = styled.div`
+  padding: 2px 5px 3px 5px;
+  border-radius: 4px;
+  border: solid 1px #d2deff;
+  background-color: #eaf0ff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.54px;
+  text-align: center;
+  color: #4878ff;
+  width: fit-content;
+  margin-top: 2px;
+  margin-left: 4px;
 `;
