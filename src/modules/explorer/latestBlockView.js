@@ -19,6 +19,7 @@ const useStyles = makeStyles({
         borderRadius: "0.875rem",
         boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         borderBottom: "none",
+        overflowX: 'auto',
         background: "#fff",
     },
 
@@ -62,7 +63,7 @@ const LatestBlockView = (props) => {
     return (<Paper
         className={"table-list"}
         style={{
-            borderRadius: "0.875rem", width: '48%'
+            borderRadius: "0.875rem", minWidth: '48%'
         }}
         elevation={0}
     >
@@ -70,13 +71,13 @@ const LatestBlockView = (props) => {
             className={classes.container}
             id="container-table-token"
             style={{
-                borderTop: "solid 0.063rem #e3e7eb",
-                borderRadius: "0",
-                boxShadow: 'none',
-                // borderRadius: "0.75rem",
-                // border: "solid 0.063rem #e3e7eb",
+                // borderTop: "solid 0.063rem #e3e7eb",
+                // borderRadius: "0",
+                // boxShadow: 'none',
+                borderRadius: "0.75rem",
+                border: "solid 0.063rem #e3e7eb",
                 backgroundColor: "#ffffff",
-                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
                 minHeight: '100%'
             }}
         >
@@ -108,7 +109,7 @@ const LatestBlockView = (props) => {
                   </span>
                         </TableCell>
 
-                        <TableCell style={{border: "none"}} align="left">
+                        <TableCell style={{border: "none",}} align="left">
                     <span className={"tablehead-token-details"}>
                       Timestamp
                       <Tooltip placement="top" title={messages.BLOCK_CREATION_TIME_STAMP}>
@@ -176,7 +177,7 @@ const LatestBlockView = (props) => {
                                     key={row.hash}
                                     style={
                                         index % 2 !== 1
-                                            ? {background: "white"}
+                                            ? {background: "#f9f9f9"}
                                             : {background: "white"}
                                     }
                                 >

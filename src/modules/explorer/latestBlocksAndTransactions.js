@@ -223,7 +223,7 @@ class LatestBlocks extends Component {
     return (
       <>
         <div>
-          <div className="block_main">
+          <div className="block_main gap-3">
             <LatestBlockView
                 state={this.state}
                 transactionList={this.state.latestTransactionData}
