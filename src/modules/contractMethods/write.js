@@ -228,28 +228,30 @@ export default function ContractWriteMethods(props) {
   };
 
   const handleWeb3ConnectClick = async () => {
-    if (!window.web3) {
-      console.log("Please install XDCPay extension");
-      setState({ ...state, setWalletInfo: true });
-      return;
-    }
+    setState({ ...state, setWalletInfo: true });
 
-    let web3 = new Web3(window.web3.currentProvider);
-    window.ethereum.enable();
+    // if (!window.web3) {
+    //   console.log("Please install XDCPay extension");
+    //   setState({ ...state, setWalletInfo: true });
+    //   return;
+    // }
 
-    const chainId = await web3.eth.net.getId();
-    if (chainId !== 51) {
-      setState({ ...state, setWalletInfo: true });
-      return;
-    }
+    // let web3 = new Web3(window.web3.currentProvider);
+    // window.ethereum.enable();
 
-    await web3.eth.getAccounts().then(async (accounts) => {
-      if (!accounts || !accounts.length) {
-        alert("Please login to XDCPay extension");
-        return;
-      }
-      setState({ ...state, accountAddress: accounts[0] });
-    });
+    // const chainId = await web3.eth.net.getId();
+    // if (chainId !== 51) {
+    //   setState({ ...state, setWalletInfo: true });
+    //   return;
+    // }
+
+    // await web3.eth.getAccounts().then(async (accounts) => {
+    //   if (!accounts || !accounts.length) {
+    //     alert("Please login to XDCPay extension");
+    //     return;
+    //   }
+    //   setState({ ...state, accountAddress: accounts[0] });
+    // });
   };
 
   return (

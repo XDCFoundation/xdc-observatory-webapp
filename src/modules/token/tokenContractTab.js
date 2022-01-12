@@ -31,7 +31,7 @@ const TabButtonContainer = styled.div`
 `;
 
 export default function TokenContracttab(props) {
-  const [activeTab, setActiveTab] = useState(2);
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <>

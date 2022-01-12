@@ -424,7 +424,7 @@ const useStyles = makeStyles((theme) => ({
 const InstructionCard = styled.div`
   display: flex;
   flex-flow: column;
-  gap: 20px;
+  gap: 15px;
   padding: 10px 0 0 0;
   border-radius: 12px;
   border: solid 1px #eaeaea;
@@ -442,6 +442,7 @@ const CardText = styled.div`
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
+  padding: 0 15px 0 15px;
   color: #686868;
 `;
 
@@ -462,6 +463,14 @@ const CardTitle = styled.div`
   text-align: left;
   color: #2a2a2a;
   text-align: center;
+`;
+
+const CloseIconContainer = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 42px;
+  width: 16px;
+  height: 16px;
 `;
 
 function Web3Dialog(props) {
@@ -488,9 +497,9 @@ function Web3Dialog(props) {
       <div className="main-box">
         <Row className="main-row">
           <div className="main-title">Connect Wallet</div>
-          <div className="main-close" onClick={handleClose}>
+          <CloseIconContainer onClick={handleClose}>
             <img alt="Cross" src={"/images/XDC-Cross.svg"} />
-          </div>
+          </CloseIconContainer>
         </Row>
         <Row
           className="card-box"
@@ -547,7 +556,7 @@ function Web3Dialog(props) {
               <img
                 className="input-data-text"
                 alt="new-feature"
-                src={"/images/search-by-wallet.svg"}
+                src={"/images/wallet-3.svg"}
               />
             </ImageContainer>
             <CardTitle>Connect Wallet</CardTitle>
