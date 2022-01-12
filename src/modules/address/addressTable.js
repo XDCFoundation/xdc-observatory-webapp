@@ -9,7 +9,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Grid, TableContainer } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import { CSVLink, CSVDownload } from "react-csv";
 import moment from "moment";
 import Utility, { dispatchAction } from "../../utility";
@@ -23,12 +22,17 @@ import styled from "styled-components";
 import format from "format-number";
 import { messages } from "../../constants";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import SearchAndFiltersComponent from "./searchAndFiltersComponent";
 import PageSelector from "../common/pageSelector";
-
+const SearchAndExportDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+`
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -519,7 +523,7 @@ export default function AddressTableComponent(props) {
 
   return (
     <div>
-      <div className="content_input_all cont-tab">
+      <SearchAndExportDiv>
         <SearchAndFiltersComponent searchAndFilters={searchAndFilters}
                                    updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}/>
         {isDownloadActive ? (
@@ -558,7 +562,7 @@ export default function AddressTableComponent(props) {
             Export
           </CSVLink>
         )}
-      </div>
+      </SearchAndExportDiv>
 
       <Grid lg={13} className="tablegrid_address">
         <Paper

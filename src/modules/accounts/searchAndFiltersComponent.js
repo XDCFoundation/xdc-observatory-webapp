@@ -15,6 +15,8 @@ const SearchBox = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   padding: 7px 10px;
+  margin-bottom: 4px;
+  margin-right: 10px;
 
   input {
     outline: none;
@@ -26,6 +28,12 @@ const SearchBox = styled.div`
     height: 16px;
     margin: 1px 7px 2px 0;
   }
+
+  @media (max-width: 767px) {
+    width: 100%;
+    margin-right: 0;
+  }
+
 `
 const SearchAndFiltersComponent = (props) => {
     const {searchAndFilters, updateFiltersAndGetAccounts} = props
@@ -57,7 +65,7 @@ const SearchAndFiltersComponent = (props) => {
             <CustomDropDown name="Type" selectedOption={type} onSelect={data => setType(data)}
                             options={[{key: "0", value: 'Account'},
                                 {key: "1", value: 'Contract'}, {key: "2", value: 'Token'}]}/>
-          {/*  <CustomDropDown name="Percentage" selectedOption={percentage} onSelect={data => setPercentage(data)}
+            {/*  <CustomDropDown name="Percentage" selectedOption={percentage} onSelect={data => setPercentage(data)}
                             options={[{key: '25', value: '0% - 25%'},
                                 {key: '50', value: '25 - 50%'}, {key: '75', value: '50 - 75%'},
                                 {key: '100', value: '75 - 100%'}]}/>*/}

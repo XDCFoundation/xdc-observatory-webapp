@@ -2,7 +2,13 @@ import React, {useEffect, useRef, useState} from 'react'
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin-left: 10px;
+  margin-right: 10px;
+  @media (max-width: 767px) {
+    min-width: 100%;
+    margin-left: 0;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
 `
 const SelectedValueContainer = styled.div`
   display: flex;
@@ -19,6 +25,7 @@ const SelectedValueContainer = styled.div`
     width: 11px;
     margin-left: 8px
   }
+
 `
 
 const FilterName = styled.div`
