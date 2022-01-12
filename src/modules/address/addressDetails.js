@@ -224,7 +224,7 @@ export default function AddressDetails(props) {
                   </AddressDiv>
                   <LabelAndCopyDiv>
                     {isTag
-                      ? addressTag.map((item, index) => {
+                      ? addressTag?.map((item, index) => {
                           return (
                             <span className={index == 0 ? "nameLabel11" : "nameLabel1"} key={index}>
                               {item}

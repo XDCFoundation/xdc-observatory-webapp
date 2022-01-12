@@ -2,9 +2,9 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import AccountComponent from "./accountComponent";
 import Utils from "../../utility";
-import { AccountService } from "../../services";
-import { CoinMarketService } from "../../services";
-import { toolTipMessages } from "../../constants";
+import {AccountService} from "../../services";
+import {CoinMarketService} from "../../services";
+import {toolTipMessages} from "../../constants";
 
 export default class LatestAccountsList extends BaseComponent {
     constructor(props) {
@@ -18,126 +18,110 @@ export default class LatestAccountsList extends BaseComponent {
             totalSupply: 0,
             noData: 1,
             isLoading: true,
-            balanceSort:1,
-            percentageSort:1,
+            balanceSort: 1,
+            percentageSort: 1,
             tableColumns: {
-                "Rank": { isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance." },
-                "Type": { isActive: true, toolTipText: "Account type is either Account, Contract or Token." },
-                "Balance": { isActive: true, toolTipText: "Balance held by a particular account." },
-                "Percentage": { isActive: true, toolTipText: "Percentage of holdings out of the total supply." }
+                "Rank": {isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance."},
+                "Type": {isActive: true, toolTipText: "Account type is either Account, Contract or Token."},
+                "Balance": {isActive: true, toolTipText: "Balance held by a particular account."},
+                "Percentage": {isActive: true, toolTipText: "Percentage of holdings out of the total supply."}
+            },
+            searchAndFilters: {
+                searchQuery: '',
+                type: '',
+                percentage: ''
             }
         };
     }
 
     componentDidMount() {
         this.getListOfAccounts()
-        this.getTotalAccounts()
+        // this.getTotalAccounts()
         this.getCoinMarketTotalSupply()
     }
-
     toggleTableColumns = (columnName) => {
         const columns = this.state.tableColumns;
         columns[columnName].isActive = !columns[columnName].isActive
-        this.setState({ tableColumns: columns })
+        this.setState({tableColumns: columns})
     }
 
-
-    async getListOfAccounts(from, amount, keywords = '',sortKey,sortType) {
-        from = from || from === 0 ? from : this.state.from;
-        amount = amount ? amount : this.state.amount;
-        sortKey =sortKey ? sortKey : "balance";
-        sortType = sortType ? sortType : "-1";
-        let urlPath = ''
-        if (keywords) {
-            urlPath = `?skip=${from}&limit=${amount}&keywords=${keywords}&sortKey=${sortKey}&sortType=${sortType}`
-        } else {
-            urlPath = `?skip=${from}&limit=${amount}&sortKey=${sortKey}&sortType=${sortType}`
+    async getListOfAccounts(sortKey, sortType) {
+        const skip = this.state.from || 0;
+        const limit = this.state.amount || 10;
+        sortKey = sortKey || "balance";
+        sortType = sortType || -1;
+        const requestData = {skip, limit, sortKey, sortType}
+        if (this.state.searchAndFilters.searchQuery) {
+            requestData.searchValue = this.state.searchAndFilters.searchQuery
+            requestData.searchKeys = ["address"]
         }
-
-        let [error, listOfAccounts] = await Utils.parseResponse(AccountService.getLatestAccount(urlPath, {}))
-
-        if (error || !listOfAccounts)
+        if (this.state.searchAndFilters.type)
+            requestData.accountType = this.state.searchAndFilters.type
+        if (this.state.searchAndFilters.percentage)
+            requestData.percentage = this.state.searchAndFilters.percentage
+        let [error, response] = await Utils.parseResponse(AccountService.getAccountList(requestData))
+        if (error)
             return
-        if (listOfAccounts.length > 0) {
-            this.setState({ noData: 1 })
-            this.setState({ isLoading: false })
+        const {accountList, totalCount} = response
+        if (accountList?.length > 0) {
+            this.setState({noData: 1})
+            this.setState({isLoading: false})
         } else {
-            this.setState({ noData: 0 })
-            this.setState({ isLoading: false })
+            this.setState({noData: 0})
+            this.setState({isLoading: false})
         }
-        this.setState({ accountList: listOfAccounts })
-        // this.setState({ totalSupply: listOfAccounts.totalSupply })
-        this.setState({ isLoading: false })
-        if (keywords) {
-            this.setState({ totalAccounts: listOfAccounts.totalRecord })
-            this.setState({ isLoading: false })
-        } else {
-            this.getTotalAccounts()
-        }
+        this.setState({accountList, totalAccounts: totalCount})
+        this.setState({isLoading: false})
     }
-
     async getCoinMarketTotalSupply() {
         let [error, coinMarketTotalSupply] = await Utils.parseResponse(CoinMarketService.getCoinMarketTotalSupply())
         if (error || !coinMarketTotalSupply)
             return
-        this.setState({ totalSupply: coinMarketTotalSupply })
+        this.setState({totalSupply: coinMarketTotalSupply})
     }
-
     async getTotalAccounts() {
         let [error, totalNumberAccounts] = await Utils.parseResponse(AccountService.getTotalAccount())
         if (error || !totalNumberAccounts)
             return
-        this.setState({ totalAccounts: totalNumberAccounts })
+        this.setState({totalAccounts: totalNumberAccounts})
     }
 
-    _handleSearch = (event) => {
-        let searchkeyword = event.target.value
-        if (searchkeyword.length > 2) {
-            this.getListOfAccounts(0, this.state.amount, searchkeyword)
-        } else {
-            this.getListOfAccounts(0, this.state.amount)
-        }
+    _handleChange = async (event) => {
+        await this.setState({amount: event.target.value})
+        this.getListOfAccounts()
     }
-    _handleChange = (event) => {
-        this.setState({ amount: event.target.value })
-        this.getListOfAccounts(this.state.from, event.target.value)
+    _FirstPage =async (event) => {
+        await this.setState({from: 0})
+        this.getListOfAccounts()
     }
-    _FirstPage = (event) => {
-        this.setState({ from: 0 })
-        this.getListOfAccounts(0, this.state.amount)
-    }
-    _LastPage = (event) => {
+    _LastPage =async (event) => {
         let from = this.state.totalAccounts - this.state.amount
-        this.setState({ from })
-        this.getListOfAccounts(from, this.state.amount)
+        await this.setState({from})
+        this.getListOfAccounts()
     }
     _NextPage = async (event) => {
         if (+this.state.amount + +this.state.from < this.state.totalAccounts) {
             let from = +this.state.amount + +this.state.from
-            this.setState({ from })
-            this.getListOfAccounts(from, this.state.amount)
+            await this.setState({from})
+            this.getListOfAccounts()
         }
     }
-    _PrevPage = (event) => {
+    _PrevPage = async (event) => {
         if (this.state.from - this.state.amount >= 0) {
             let from = this.state.from - this.state.amount
-            this.setState({ from })
-            this.getListOfAccounts(from, this.state.amount)
+            await this.setState({from})
+            this.getListOfAccounts()
         }
     }
-
     create_data(hash, amount, age, block, from, to, txnfee) {
-        return { hash, amount, age, block, from, to, txnfee }
+        return {hash, amount, age, block, from, to, txnfee}
     }
-
     shorten(b, amountL = 10, amountR = 3, stars = 3) {
         return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
             b.length - 3,
             b.length
         )}`;
     }
-
-
     create_url(item, type) {
         // Thisn is to create URL for table items. changing it can affect whole table.
         if (!item || !item.length) {
@@ -145,25 +129,29 @@ export default class LatestAccountsList extends BaseComponent {
         }
         return `#${item}-#{type}`
     }
-    sortData = async(sortKey) =>{
+    sortData = async (sortKey) => {
         let sortType = this.state[sortKey];
         if (sortType === 1) {
-          // setLoading(true)
-            this.getListOfAccounts(this.state.from , this.state.amount , '' , "balance" , 1);
-            this.setState({[sortKey]:-1})
-        }
-        else {
-          // setLoading(true)
-          this.getListOfAccounts(this.state.from , this.state.amount , '' , "balance" , -1);
-          this.setState({[sortKey]:1})
+            // setLoading(true)
+            this.getListOfAccounts("balance", 1);
+            this.setState({[sortKey]: -1})
+        } else {
+            // setLoading(true)
+            this.getListOfAccounts("balance", -1);
+            this.setState({[sortKey]: 1})
         }
     }
-     getSortTitle = (sortKey) => {
+    getSortTitle = (sortKey) => {
         if (this.state[sortKey] === 1)
-          return "Ascending"
+            return "Ascending"
         else
-          return "Descending"
-      }
+            return "Descending"
+    }
+
+    updateFiltersAndGetAccounts = async (searchAndFilters) => {
+        await this.setState({searchAndFilters})
+        this.getListOfAccounts()
+    }
     render() {
         return (
             <AccountComponent
@@ -177,9 +165,9 @@ export default class LatestAccountsList extends BaseComponent {
                 _LastPage={this._LastPage}
                 _FirstPage={this._FirstPage}
                 _handleChange={this._handleChange}
-                _handleSearch={this._handleSearch}
-                sortData ={this.sortData}
-                getSortTitle = {this.getSortTitle}
+                sortData={this.sortData}
+                getSortTitle={this.getSortTitle}
+                updateFiltersAndGetAccounts={this.updateFiltersAndGetAccounts}
             />
         )
 
