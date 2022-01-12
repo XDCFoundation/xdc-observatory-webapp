@@ -97,7 +97,13 @@ export default function AddressTableComponent(props) {
   }
   let { addr } = useParams();
   const [address, setAddress] = useState([]);
-  const [txtAddress, setTxtAddress] = useState("");
+  const [searchAndFilters, setSearchAndFilters] = useState({
+      searchQuery: '',
+      type: '',
+      status: 'all',
+      startDate: moment(),
+      endDate: moment(),
+  });
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [totalRecord, setTotalRecord] = useState(0);
@@ -126,10 +132,6 @@ export default function AddressTableComponent(props) {
     "value": 1
   });
   const [sortingKey, setSortingKey] = React.useState("blockNumber");
-  function handleSettingsClick(event) {
-    setOpen(true);
-    setAnchorEl(event?.currentTarget);
-  }
 
   const handleChangePage = (action) => {
     if (action == "first") {
@@ -215,7 +217,6 @@ export default function AddressTableComponent(props) {
       }
     }
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
@@ -226,18 +227,33 @@ export default function AddressTableComponent(props) {
     };
     getAddressDetails(datas);
   };
-  const getAddressDetails = async (data) => {
+
+  const getAddressDetails = async (data, filters) => {
+    const skip = data?.pageNum || 0;
+    const limit = data?.perpage || 10;
+    const sortKey = data?.sortKey || "blockNumber";
+    const sortType = -1
+    const requestData = {skip, limit, sortKey, sortType}
+    requestData.address = data?.addrr || addr
+    const filtersData = filters || searchAndFilters
+    if (filtersData.searchQuery) {
+      requestData.searchValue = filtersData.searchQuery
+      requestData.searchKeys = ["from", "to", "hash"]
+    }
+    if (filtersData.type)
+      requestData.txnType = filtersData.type
+    if (filtersData.status && filtersData.status !== 'all')
+      requestData.status = filtersData.status
+    if (filtersData.startDate.toDate().toDateString() !== filtersData.endDate.toDate().toDateString()) {
+      if (filtersData.startDate)
+        requestData.startDate = filtersData?.startDate?.toDate()?.getTime()
+      if (filtersData.endDate)
+        requestData.endDate = filtersData?.endDate?.toDate()?.getTime()
+    }
     try {
-      if (!data.sortKey) {
-        data["sortKey"] = "blockNumber"
-        data["sortType"] = -1
-      }
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetailWithlimit(data)
+          AddressData.getFilteredAddressDetailWithLimit(requestData)
       );
-      // let transactionSortByValue = responseData.sort((a, b) => {
-      //   return b.value - a.value;
-      // });
       if (responseData && responseData.length > 0) {
         setNoData(false);
         setLoading(false);
@@ -262,6 +278,14 @@ export default function AddressTableComponent(props) {
       console.error(error);
     }
   };
+
+  const getFiltersForAccountTransaction = async (data) => {
+    const [error, responseData] = await Utility.parseResponse(AddressData.getFiltersForAccountTransaction(data));
+    setSearchAndFilters({
+      ...searchAndFilters,
+      startDate: error ? moment().subtract(15, "days") : moment(responseData.startDate)
+    });
+  };
   useEffect(() => {
     //let address =props.trans
     datas = {
@@ -272,10 +296,10 @@ export default function AddressTableComponent(props) {
     data = {
       addrr: addr,
     };
+    getFiltersForAccountTransaction({address: addr});
     getTransactionsCountForAddress(data);
     getAddressDetails(datas);
   }, []);
-
   const sortData = async (sortKey) => {
     let sortType = sortToggle[sortKey];
     if (sortType === 1) {
@@ -323,7 +347,6 @@ export default function AddressTableComponent(props) {
       console.error(error);
     }
   };
-
   const parseResponseData = async (Recdata, type) => {
     let trxn = [];
     if (type == 1) {
@@ -331,7 +354,6 @@ export default function AddressTableComponent(props) {
     } else {
       trxn = Recdata.responseTransaction;
     }
-    console.log("parse response", trxn);
     setAddress(
       trxn.map((d) => {
         return {
@@ -373,30 +395,6 @@ export default function AddressTableComponent(props) {
       })
     );
   };
-  const handleKeyUp = (event) => {
-    let searchkeyword = event.target.value;
-    setPage(0);
-    if (searchkeyword.length > 2) {
-      setKeywords(searchkeyword);
-      datas = {
-        pageNum: 0,
-        perpage: rowsPerPage,
-        addrr: addr,
-        keywords: searchkeyword,
-      };
-      getTransactionSearch(datas);
-    }
-    if (searchkeyword.length == 0) {
-      setPage(0);
-      datas = {
-        pageNum: 0,
-        perpage: rowsPerPage,
-        addrr: addr,
-      };
-      getAddressDetails(datas);
-    }
-  };
-
   const handleChanged = (event) => {
     const { name, checked } = event.target;
     if (name === "allselect") {
@@ -456,7 +454,6 @@ export default function AddressTableComponent(props) {
       );
     }
   };
-
   const NoDataFoundContainer = styled.div`
     display: flex;
     flex-flow: column;
@@ -477,11 +474,16 @@ export default function AddressTableComponent(props) {
  const [fromTT, setfromTT] = React.useState(false);
  const [toTT, settoTT] = React.useState(false);
 
+  const updateFiltersAndGetAccounts = async (filters) => {
+    await setSearchAndFilters(filters)
+    getAddressDetails({}, filters)
+  }
+
   return (
     <div>
       <div className="content_input_all cont-tab">
-        {/*<SearchAndFiltersComponent/>*/}
-
+        <SearchAndFiltersComponent searchAndFilters={searchAndFilters}
+                                   updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}/>
         {isDownloadActive ? (
           <CSVLink
             filename={"transactions.csv"}

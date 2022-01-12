@@ -1,5 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
 import styled from "styled-components";
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 const Container = styled.div`
   margin-left: 10px;
@@ -55,48 +58,24 @@ const DropdownContainer = styled.div`
   }
 `
 const CustomDateDropDown = (props) => {
-    const {name, options, onSelect, selectedOption, defaultPlaceHolder} = props
-    const [isDropdownOpen, toggleDropdown] = useState(false)
-    const mainDiv = useRef(null)
-
-    const selectedOptionData = options ? options.find(data => data.key === selectedOption) : null
-
-    const onOptionSelected = (selected) => {
-        toggleDropdown(false)
-        onSelect(selected)
-    }
-    const onFilterClicked = () => {
-        toggleDropdown(value => !value)
-    }
-
-    const handleClickOutside = (event) => {
-        if (mainDiv.current && !mainDiv.current.contains(event.target)) {
-            toggleDropdown(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true);
-        return () => {
-            document.removeEventListener('click', handleClickOutside, true);
-        };
-    }, []);
+    const {name, startDate, endDate, isEndDate, onSelect} = props
 
     return (
         <Container>
-            <SelectedValueContainer onClick={onFilterClicked} ref={mainDiv}>
-                <FilterName>
-                    <span>{name || 'Filter'}</span>{selectedOption ? selectedOptionData.value : defaultPlaceHolder || 'All'}
-                </FilterName>
-            </SelectedValueContainer>
-            {isDropdownOpen &&
-            <DropdownContainer containerWidth={mainDiv.current.clientWidth}>
-                {options?.map((data, index) => {
-                    return (
-                        <span className="custom-dropdown-option" key={index}
-                              onClick={() => onOptionSelected(data.key)}>{data.value}</span>)
-                })}
-            </DropdownContainer>}
+            <DatePicker
+                selected={isEndDate ? endDate.toDate() : startDate.toDate()}
+                onChange={(date) => onSelect(moment(date))}
+                selectsStart
+                startDate={startDate.toDate()}
+                endDate={endDate.toDate()}
+                maxDate={new Date()}
+                customInput={
+                    <SelectedValueContainer>
+                        <FilterName>
+                            <span>{name || 'Filter'}</span>{isEndDate ? endDate?.format("D MMM, YYYY") : startDate?.format("D MMM, YYYY") || 'All'}
+                        </FilterName>
+                    </SelectedValueContainer>}
+            />
         </Container>)
 
 }

@@ -86,7 +86,7 @@ const CustomDropDown = (props) => {
         <Container ref={mainDiv}>
             <SelectedValueContainer onClick={onFilterClicked}>
                 <FilterName>
-                    <span>{name || 'Filter'}</span>{selectedOption ? selectedOptionData.value : 'All'}
+                    <span>{name || 'Filter'}</span>{selectedOption ? (selectedOptionData.name || selectedOptionData.value) : 'All'}
                 </FilterName>
                 <img src="/images/dropdown-arrow.svg"/>
             </SelectedValueContainer>
