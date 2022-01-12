@@ -299,7 +299,7 @@ export default function AddressTableComponent(props) {
     const [error, responseData] = await Utility.parseResponse(AddressData.getFiltersForAccountTransaction(data));
     setSearchAndFilters({
       ...searchAndFilters,
-      startDate: error || !responseData.startDate ? '' : moment(responseData.startDate)
+      startDate: error ? moment() : moment(responseData.startDate)
     });
   };
   useEffect(() => {
