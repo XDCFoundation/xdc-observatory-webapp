@@ -73,11 +73,7 @@ const useStyles = makeStyles({
 });
 export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
-
-  const [txtAddress, setTxtAddress] = useState("");
   const [balance, setBalance] = useState(0);
-  const [convertCurrency, setConvertCurrency] = useState("");
-  const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [copiedText, setCopiedText] = useState("");
@@ -145,11 +141,6 @@ export default function AddressDetails(props) {
       return a.lastUpdated - b.lastUpdated;
     });
     setPrice(totalcoinMarketPrice[1]?.price);
-  };
-  const options = {
-    htmlparser2: {
-      lowerCaseTags: false,
-    },
   };
 
   const tagUsingAddressHash = async () => {
@@ -432,7 +423,7 @@ export default function AddressDetails(props) {
 
           <div className={toggleState === 1 ? "content_sec  active-content_sec sec-active" : "content_sec"}>
             {isTag ? (
-              <AddressTableComponent trans={transactions} coinadd={addr} tag={addressTag} />
+              <AddressTableComponent trans={transactions} coinadd={addr} tag={addressTag}  />
             ) : (
               <AddressTableComponent trans={transactions} coinadd={addr} currency={amount} />
             )}
