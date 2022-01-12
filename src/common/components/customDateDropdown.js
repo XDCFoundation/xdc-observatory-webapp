@@ -63,11 +63,11 @@ const CustomDateDropDown = (props) => {
     return (
         <Container>
             <DatePicker
-                selected={isEndDate ? endDate.toDate() : startDate.toDate()}
+                selected={isEndDate ? endDate?.toDate() : startDate?.toDate()}
                 onChange={(date) => onSelect(moment(date))}
                 selectsStart
-                startDate={startDate.toDate()}
-                endDate={endDate.toDate()}
+                startDate={startDate?.toDate()}
+                endDate={endDate?.toDate()}
                 maxDate={new Date()}
                 customInput={
                     <SelectedValueContainer>
