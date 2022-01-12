@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { contractMethodTypes } from "../../constants";
 import Web3 from "web3";
+import Web3Dialog from "../explorer/web3/web3Dialog";
 
 const QuestionContainer = styled.div`
   background-color: #f8f9fa !important;
@@ -139,6 +140,7 @@ export default function ContractWriteMethods(props) {
     writeFunctions: [],
     contractAddress: "",
     accountAddress: "",
+    setWalletInfo: false,
   });
 
   React.useEffect(() => {
@@ -225,12 +227,25 @@ export default function ContractWriteMethods(props) {
     setState({ ...state, readResponses: methodExecutionResponse });
   };
 
-  const handleWeb3ConnectClick = () => {
+  const handleWeb3ConnectClick = async () => {
+    if (!window.web3) {
+      console.log("Please install XDCPay extension");
+      setState({ ...state, setWalletInfo: true });
+      return;
+    }
+
     let web3 = new Web3(window.web3.currentProvider);
     window.ethereum.enable();
-    web3.eth.getAccounts().then(async (accounts) => {
+
+    const chainId = await web3.eth.net.getId();
+    if (chainId !== 51) {
+      setState({ ...state, setWalletInfo: true });
+      return;
+    }
+
+    await web3.eth.getAccounts().then(async (accounts) => {
       if (!accounts || !accounts.length) {
-        alert("Account address not found");
+        alert("Please login to XDCPay extension");
         return;
       }
       setState({ ...state, accountAddress: accounts[0] });
@@ -239,6 +254,11 @@ export default function ContractWriteMethods(props) {
 
   return (
     <ParentContainer>
+      <Web3Dialog
+        open={state.setWalletInfo}
+        setWeb3DialogOpen={() => setState({ ...state, setWalletInfo: false })}
+        connectToWalletMessage="Click on 'Connect to wallet' to continue with transactions."
+      />
       <ConnectToWalletButton
         onClick={() => handleWeb3ConnectClick()}
         isActive={state.accountAddress.length}
