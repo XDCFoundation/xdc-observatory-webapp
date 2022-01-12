@@ -422,7 +422,13 @@ export default function StickyHeadTable(props) {
                       : 0;
                   return (
                     
-                    <StyledTableRow hover role="checkbox" tabIndex={-1}>
+                    <StyledTableRow hover role="checkbox" tabIndex={-1}
+                    style={
+                                  index % 2 !== 1
+                                    ? { background: "#f9f9f9" }
+                                    : { background: "white" }
+                                }
+                    >
                       <TableCell id="td" style={{ border: "none" }}>
                         <span className="tabledata table-data">
                           {row[0]?.Rank}

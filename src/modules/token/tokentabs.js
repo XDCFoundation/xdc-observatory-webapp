@@ -82,12 +82,14 @@ export default function SimpleTabs(props) {
         <div className={classes.root}>
           <div
             style={{
-              width: "auto",
+              width: "20rem",
               display: "flex",
               flexDirection: "row",
               backgroundColor: "transparent",
               height: "25px",
               borderBottom: "solid 1px #e3e7eb",
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             <div>
