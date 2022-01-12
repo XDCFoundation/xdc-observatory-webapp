@@ -10,6 +10,7 @@ export default {
   getHistoryPrice,
   getTokenOverview,
   getTokenInfo,
+  getAccountList,
 };
 
 function getHeaders() {
@@ -48,6 +49,29 @@ async function getTokenInfo(symbol) {
   //     `/${symbol}`;
 
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+
+async function getAccountList(requestData) {
+  let url = process.env.REACT_APP_GET_ACCOUNT_LIST;
+  return httpService(
+    httpConstants.METHOD_TYPE.POST,
+    getHeaders(),
+    requestData,
+    url
+  )
     .then((response) => {
       if (
         !response.success ||

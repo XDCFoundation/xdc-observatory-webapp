@@ -4,6 +4,8 @@ import { httpConstants } from "../constants";
 export default {
   getAddressDetail,
   getAddressDetailWithlimit,
+  getFilteredAddressDetailWithLimit,
+  getFiltersForAccountTransaction,
   getTransactionSearch,
   getTransactionsCountForAddress,
 };
@@ -93,6 +95,41 @@ async function getAddressDetailWithlimit(data) {
     .catch(function (err) {
       return Promise.reject(err);
     });
+}
+
+async function getFilteredAddressDetailWithLimit(requestData) {
+    let url = process.env.REACT_APP_GET_FILTERED_TRANSACTIONS_FOR_ADDRESS + requestData.address
+    return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), requestData, url)
+        .then((response) => {
+            if (
+                !response.success ||
+                response.responseCode !== 200 ||
+                !response.responseData ||
+                response.responseData.length === 0
+            )
+                return Promise.reject();
+            return Promise.resolve(response.responseData);
+        })
+        .catch(function (err) {
+            return Promise.reject(err);
+        });
+}
+async function getFiltersForAccountTransaction(requestData) {
+    let url = process.env.REACT_APP_GET_FILTERS_FOR_ADDRESS_TXN + requestData.address
+    return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+        .then((response) => {
+            if (
+                !response.success ||
+                response.responseCode !== 200 ||
+                !response.responseData ||
+                response.responseData.length === 0
+            )
+                return Promise.reject();
+            return Promise.resolve(response.responseData);
+        })
+        .catch(function (err) {
+            return Promise.reject(err);
+        });
 }
 async function getTransactionsCountForAddress(data) {
   let url =
