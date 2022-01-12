@@ -135,7 +135,7 @@ async function getListOfTransferTransactionsForToken(data) {
     "?skip=" +
     Math.ceil(data.pageNum) +
     "&limit=" +
-    data.perpage;
+      data.perpage + (data.searchValue ? "&searchValue=" + data.searchValue : "");
 
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
@@ -153,7 +153,7 @@ async function getListOfTransferTransactionsForToken(data) {
     });
 }
 async function getTotalTransferTransactionsForToken(data) {
-  let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr;
+    let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr + (data.searchValue ? "?searchValue=" + data.searchValue : "");
 
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
