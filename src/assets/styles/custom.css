@@ -5473,7 +5473,7 @@ button {
 }
 
 .web3-dialog-icon {
-  width: 43px;
+  height: 40px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 16px;
@@ -5481,7 +5481,7 @@ button {
 }
 
 .web3-dialog-wallet-icon {
-  width: 37px;
+  height: 40px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 16px;
