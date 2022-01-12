@@ -1,11 +1,18 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React from 'react'
 import styled from "styled-components";
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
 const Container = styled.div`
-  margin-left: 10px;
+  margin-right: 10px;
+
+  @media (max-width: 767px) {
+    min-width: 100%;
+    margin-left: 0;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
 `
 const SelectedValueContainer = styled.div`
   display: flex;

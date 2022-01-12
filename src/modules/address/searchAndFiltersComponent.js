@@ -16,6 +16,8 @@ const SearchBox = styled.div`
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
   padding: 7px 10px;
+  margin-bottom: 4px;
+  margin-right: 10px;
 
   input {
     outline: none;
@@ -26,6 +28,11 @@ const SearchBox = styled.div`
     width: 16px;
     height: 16px;
     margin: 1px 7px 2px 0;
+  }
+
+  @media (max-width: 767px) {
+    min-width: 100%;
+    margin-right: 0;
   }
 `
 const SearchAndFiltersComponent = (props) => {
