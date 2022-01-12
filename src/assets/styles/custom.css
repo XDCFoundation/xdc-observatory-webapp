@@ -7174,8 +7174,8 @@ button {
   height: 5rem !important;
   border-radius: 4px;
   outline: transparent;
-  border: solid 1px #9fa9ba;
-  background-color: #dee0e3;
+  border: solid 1px #E0E4E9;
+  background-color: #f5f5f5;
   color: #3a3a3a;
   margin-left: 0px;
   resize: none;
@@ -9057,7 +9057,7 @@ button {
   .copyEditContainerMobile {
     display: flex;
     margin-top: -66px;
-    margin-left: 274px !important;
+    margin-left: 242px !important;
   }
 
   .copyEditContainer1 {
@@ -9161,6 +9161,12 @@ button {
   margin-top: 4px;
   cursor: pointer;
 }
+.edit-icon1 {
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  cursor: pointer;
+}
 .editIconHash {
   width: 16px;
   height: 16px;
@@ -9204,16 +9210,39 @@ button {
   .wid-42 {
     width: 42%;
   }
+  .fromContainerMobile {
+    margin-left: 274px;
+    margin-top: -70px;
+  }
 }
 
 @media (max-width: 767px) {
   .wid-30 {
     width: 30%;
   }
+  .editIconHash {
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    cursor: pointer;
+  }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .width-25 {
     width: 25%;
+  }
+  .copyIconHash {
+    margin-top: -23px;
+  }
+  .editIconHash {
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+    cursor: pointer;
+  }
+  .copyToClipboardFromMobile {
+    margin-left: 0px;
+    margin-top: 4px;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
