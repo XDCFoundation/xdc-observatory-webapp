@@ -7382,11 +7382,28 @@ button {
   display: flex;
 }
 
+.bloc-tabs_sec_addressDetail {
+  display: flex;
+}
+
 .tabs_sec {
   padding-bottom: 0.438rem;
   color: #6b7482;
   background-color: transparent;
   width: 14%;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  font-size: 0.938rem;
+  cursor: pointer;
+  padding-left: 1.188rem;
+  letter-spacing: 0.044rem;
+}
+
+.tabs_sec_address_details {
+  padding-bottom: 0.438rem;
+  color: #6b7482;
+  background-color: transparent;
   display: flex;
   cursor: pointer;
   position: relative;
@@ -7426,6 +7443,18 @@ button {
   top: 100%;
   left: 0%;
   width: 8.563rem;
+  height: 1px;
+  border: solid 1px #2149b9;
+  background: #2149b9;
+}
+
+.active-tabs_sec_address_details::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 100%;
   height: 1px;
   border: solid 1px #2149b9;
   background: #2149b9;
