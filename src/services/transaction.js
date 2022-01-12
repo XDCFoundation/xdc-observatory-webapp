@@ -1,6 +1,6 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../constants";
-
+import { cookiesConstants, httpConstants } from "../constants";
+const isLocalStorage = true;
 export default {
   getTotalTransaction,
   getLatestTransaction,
@@ -89,6 +89,23 @@ async function getTransactionDetailsUsingHash(path, data) {
 }
 
 async function getUserTransactionPrivateNoteUsingHash(data) {
+  if (isLocalStorage) {
+    let addressTags = localStorage.getItem(
+      cookiesConstants.USER_TRASACTION_LABELS
+    );
+    if (addressTags) {
+      addressTags = JSON.parse(addressTags);
+      return addressTags.filter((item) => {
+        if (
+          item.userId == data.userId &&
+          item.transactionHash == data.transactionHash
+        ) {
+          return item;
+        }
+      });
+    }
+    return [];
+  }
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "get-user-transaction-private-note-using-hash";
@@ -109,6 +126,20 @@ async function getUserTransactionPrivateNoteUsingHash(data) {
 }
 
 async function getUserAddressTagUsingAddressHash(data) {
+  if (isLocalStorage) {
+    let addressTags = localStorage.getItem(
+      cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    if (addressTags) {
+      addressTags = JSON.parse(addressTags);
+      return addressTags.filter((item) => {
+        if (item.userId == data.userId && item.address == data.address) {
+          return item;
+        }
+      });
+    }
+    return [];
+  }
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "get-user-address-tag-using-address-hash";
@@ -128,7 +159,32 @@ async function getUserAddressTagUsingAddressHash(data) {
     });
 }
 
-async function deleteTransactionPrivateNote(data) {
+async function deleteTransactionPrivateNote(data, row) {
+  if (isLocalStorage && row && row.transactionHash && row.userId) {
+    let addressTags = localStorage.getItem(
+      cookiesConstants.USER_TRASACTION_LABELS
+    );
+
+    if (addressTags) {
+      addressTags = JSON.parse(addressTags);
+      let indexRes = addressTags.findIndex((item) => {
+        if (
+          item.userId == row.userId &&
+          item.transactionHash == row.transactionHash
+        ) {
+          return item;
+        }
+      });
+      if (indexRes !== -1) {
+        addressTags.splice(indexRes, 1);
+
+        localStorage.setItem(
+          cookiesConstants.USER_TRASACTION_LABELS,
+          JSON.stringify(addressTags)
+        );
+      }
+    }
+  }
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE +
     "delete-transaction-Private-note";
