@@ -19,8 +19,45 @@ label {
   font-family: "Inter" !important;
 }
 
+#web3Dialog .MuiDialog-paperWidthSm{
+  max-width: unset !important;
+}
+
 .highcharts-credits {
   display: none !important;
+}
+
+.white-space-no-wrap{
+  white-space: nowrap;
+}
+
+.color-4878ff{
+  color: #4878ff;
+}
+
+.color-9fa9ba{
+  color: #9fa9ba;
+}
+
+.color-585858{
+  color: #585858;
+}
+
+.connect-wallet-btn{
+  width: 232px;
+  margin: 35px 168px 0 185px;
+  padding: 12px 76.5px 13px;
+  border-radius: 4px;
+  background-color: #3763dd;
+  color:#fff;
+}
+
+.w-43{
+  width: 43px;
+}
+
+.h-43{
+  height: 43px;
 }
 
 input[placeholder] {
@@ -49,6 +86,10 @@ a:link {
   padding-right: 5px;
 }
 
+.p-r-6{
+  padding-right: 6px;
+}
+
 .p-r-10 {
   padding-right: 10px;
 }
@@ -60,6 +101,11 @@ a:link {
 .p-r-25 {
   padding-right: 25px;
 }
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
 .p-t-15 {
   padding-top: 15px;
 }
@@ -70,6 +116,10 @@ a:link {
 
 .p-b-0 {
   padding-bottom: 0px;
+}
+
+.p-b-4{
+  padding-bottom: 4px;
 }
 
 .p-b-15 {
@@ -94,6 +144,10 @@ a:link {
 
 .m-b-0 {
   margin-bottom: 0;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
 }
 
 .m-b-15 {
@@ -314,6 +368,27 @@ input:focus {
 .br-4 {
   border-radius: 4px;
 }
+
+.border-d2deff{
+  border: 1px solid  #d2deff;
+}
+
+.br-4{
+  border-radius: 4px;
+}
+
+.p-wallet{
+  padding: 4px 4px 3px 4px;
+}
+
+.bg-eaf0ff{
+  background: #eaf0ff;
+}
+
+.fw-500{
+  font-weight: 500;
+}
+
 /*Font-sizes*/
 
 .fs-sm {
@@ -1606,6 +1681,10 @@ div::-webkit-scrollbar-thumb {
 }
 @media (min-width: 768px) and (max-width: 1240px) {
   .display-none-tab {
+    display: none;
+  }
+
+  .display-none-search-myaddress-tab {
     display: none;
   }
 
@@ -5384,6 +5463,23 @@ button {
   margin-top: 16px;
   background: transparent;
 }
+
+.web3-dialog-icon {
+  width: 43px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  background: transparent;
+}
+
+.web3-dialog-wallet-icon {
+  width: 37px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  background: transparent;
+}
+
 .main-sing-up {
   width: 432px;
   height: 44px;

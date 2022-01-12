@@ -121,6 +121,7 @@ export default function AddressDetails(props) {
     try {
       const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetail(addr));
       if (!responseData || responseData.length === 0 || responseData === "" || responseData === null) {
+        setBalance(parseFloat(0).toFixed(8));
         setLoading(false);
       }
       if (responseData) {
