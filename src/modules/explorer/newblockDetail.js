@@ -11,11 +11,13 @@ import { useParams } from "react-router";
 import { BlockService } from "../../services";
 import Tooltip from "@material-ui/core/Tooltip";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import moment from "moment";
+import moment from "moment-timezone";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
 import utility from "../../utility";
+import {useSelector} from "react-redux";
+import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,12 +72,11 @@ export default function BlockDetails() {
 
   const getLatestaccount = async (blockNumber) => {
     let urlPath = `${blockNumber}`;
-console.log("urlPath===",urlPath)
+
     let [error, blockDetailsUsingHeight] = await Utils.parseResponse(
       BlockService.getDetailsOfBlock(urlPath, {})
     );
-    console.log("error ==urlPath===",error)
-    console.log("blockDetailsUsingHeight ==blockDetailsUsingHeight===",blockDetailsUsingHeight)
+
 
     if (!blockDetailsUsingHeight || blockDetailsUsingHeight.length === 0 || blockDetailsUsingHeight === "" || blockDetailsUsingHeight === null) {
       setLoading(false);
@@ -113,7 +114,6 @@ console.log("urlPath===",urlPath)
   );
 
   React.useEffect(() => {
-    console.log("hello======")
     getLatestaccount(blockNumber);
     setcount(blockNumber);
     function handleResize() {
@@ -178,6 +178,7 @@ console.log("urlPath===",urlPath)
       return daysDifference + " days ago"
     }
   }
+  const timezone = useSelector(state=> state.timezone)
 
   return (
     <div>
@@ -305,11 +306,10 @@ console.log("urlPath===",urlPath)
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
-                      {getHoursAgo(height.timestamp * 1000)}
+                      {height?.timestamp && getHoursAgo(height.timestamp * 1000)}
                       (
-                      {moment(height.timestamp * 1000).format(
-                        "ddd MMMM Do YYYY, h:mm:ss a"
-                      )} GMT+530)
+                      {`${height?.timestamp && moment(height.timestamp * 1000).tz(timezone).format(
+                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`})
                     </MiddleContainer>
                   </Spacing>
                   <Spacing>
@@ -774,8 +774,8 @@ const ImageView = styled.img`
   cursor: pointer;
 
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 0.688rem;
-    height: 0.688rem;
+    width: 14px;
+    height: 14px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {

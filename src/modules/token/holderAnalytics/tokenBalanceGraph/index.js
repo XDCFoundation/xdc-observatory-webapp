@@ -7,7 +7,6 @@ const GraphContainer = styled.div`
 `;
 function TokenBalanceGraphComponent(props) {
   const graphData = props.graphData.map((data) => {
-    console.log(data.currentBalance.toFixed(2));
     data.x = data.date;
     data.y = Number(data.currentBalance.toFixed(2));
     return data;

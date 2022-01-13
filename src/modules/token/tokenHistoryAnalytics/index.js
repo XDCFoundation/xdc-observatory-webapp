@@ -4,7 +4,7 @@ import Graph from "../../common/commonGraph";
 import BaseComponent from "../../baseComponent";
 import utility from "../../../utility";
 import accounts from "../../../services/accounts";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import moment from "moment";
 
 const GraphContainer = styled.div`
@@ -12,8 +12,8 @@ const GraphContainer = styled.div`
 `;
 
 export default function WrappedComponent(props) {
-    const { tn} = useParams();
-    return <TokenPriceHistoryGraph contractAddress={props.contractAddress} tokenName={tn}/>;
+    const { tn } = useParams();
+    return <TokenPriceHistoryGraph contractAddress={props.contractAddress} tokenName={tn} />;
 }
 
 class TokenPriceHistoryGraph extends BaseComponent {
@@ -120,7 +120,6 @@ class TokenPriceHistoryGraph extends BaseComponent {
             tooltip: {
                 split: false,
                 formatter: function () {
-                    console.log(this)
                     let tooltip = moment(this.x).format('dddd, MMM D, YYYY');
                     tooltip += '<br><h2 style="font-size:20px">Daily Price</h2>';
                     tooltip += '<br><h2>High - </h2>' + '<label style="font-weight: bold">' + this.point.highestPrice + ' USD</label>';
@@ -140,29 +139,29 @@ class TokenPriceHistoryGraph extends BaseComponent {
                     name: this.props.tokenName + " Daily Price"
                 }
             ],
-            credits: {enabled: false},
+            credits: { enabled: false },
             yAxis: [
                 {
                     opposite: false,
-                    title: {text: this.props.tokenName + " Price(USD)"},
+                    title: { text: this.props.tokenName + " Price(USD)" },
                 },
             ],
             xAxis: [
                 {
                     showInLegend: false,
                     opposite: false,
-                    title: {text: ""},
+                    title: { text: "" },
                 },
             ],
         };
-        this.setState({options});
+        this.setState({ options });
     }
 
 
     render() {
         return (
             <GraphContainer>
-                <Graph options={this.state.options}/>
+                <Graph options={this.state.options} />
             </GraphContainer>
         );
     }
