@@ -110,9 +110,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -135,9 +135,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setAmountTT(!amountTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -157,9 +157,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setDateTT(!dateTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -183,9 +183,9 @@ export default function CommonTransactionsTable(props) {
                       <img
                         onClick={() => setBlockTT(!blockTT)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -211,9 +211,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setfromTT(!fromTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -233,9 +233,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>

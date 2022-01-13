@@ -112,9 +112,9 @@ const LatestTransactionView = (props) => {
                       <Tooltip placement="top" title={messages.HASH}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -126,9 +126,9 @@ const LatestTransactionView = (props) => {
                     <Tooltip placement="top" title={messages.AMOUNT}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -140,9 +140,9 @@ const LatestTransactionView = (props) => {
                       <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
