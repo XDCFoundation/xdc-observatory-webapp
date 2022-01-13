@@ -6,11 +6,11 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import {Grid, TableContainer} from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import Tokensearchbar from "../explorer/tokensearchBar";
 import FooterComponent from "../common/footerComponent";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import format from "format-number";
@@ -20,7 +20,10 @@ import Utils from "../../utility";
 import styled from "styled-components";
 import { messages } from "../../constants";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import PageSelector from "../common/pageSelector";
+import SearchAndFiltersComponent from "./searchAndFiltersComponent";
+
 
 const useStyles = makeStyles({
   headingContainer: {
@@ -123,9 +126,9 @@ const NoDataFoundContainer = styled.div`
   }
 `;
 export default function AccountComponent(props) {
-    let [anchorEl, setAnchorEl] = React.useState();
-    let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
-    let isSettingColumnOpen = Boolean(anchorEl);
+  let [anchorEl, setAnchorEl] = React.useState();
+  let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
+  let isSettingColumnOpen = Boolean(anchorEl);
 
   const [rankTT, setRankTT] = React.useState(false);
   const [addressTT, setaddressTT] = React.useState(false);
@@ -137,21 +140,21 @@ export default function AccountComponent(props) {
     setAnchorEl(event.currentTarget);
   }
 
-    function toggleModal() {
-        setColumnsModal(!isColumnsModalOpen);
-    }
+  function toggleModal() {
+    setColumnsModal(!isColumnsModalOpen);
+  }
 
-    function handleOnClose() {
-        setAnchorEl(null);
-    }
+  function handleOnClose() {
+    setAnchorEl(null);
+  }
 
-    function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
-    }
+  function shortenBalance(b, amountL = 12, amountR = 3, stars = 0) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(b.length - 3)}`;
+  }
 
-    const {state} = props;
-    const classes = useStyles();
-    let rantValue = state.from;
+  const { state } = props;
+  const classes = useStyles();
+  let rantValue = state.from;
 
   return (
     <div>
@@ -187,6 +190,8 @@ export default function AccountComponent(props) {
             />
           </div>
         </div>
+        <SearchAndFiltersComponent searchAndFilters={props.state.searchAndFilters}
+                                   updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts}/>
         <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
           <TableContainer className={classes.container} id="container-table">
             <Table>
@@ -292,22 +297,31 @@ export default function AccountComponent(props) {
                       <Tooltip
                         placement="top"
                         title={props.getSortTitle("balanceSort")}
-                      >
-                        <ArrowUpwardIcon
-                          onClick={() => {
-                            props.sortData("balanceSort");
-                          }}
-                          className={classes.sortButton}
-                        />
+                      >{
+                          props?.state?.balanceSort == 1 ?
+                            <ArrowUpwardIcon
+                              onClick={() => {
+                                props.sortData("balanceSort");
+                              }}
+                              className={classes.sortButton}
+                            />
+                            : <ArrowDownwardIcon
+                              onClick={() => {
+                                props.sortData("balanceSort");
+                              }}
+                              className={classes.sortButton}
+                            />
+                        }
+
                       </Tooltip>
                     </TableCell>
                   )}
 
-                                    {props.state.tableColumns["Percentage"].isActive && (
-                                        <TableCell
-                                            className={classes.PercentageColumn}
-                                            align="center"
-                                        >
+                  {props.state.tableColumns["Percentage"].isActive && (
+                    <TableCell
+                      className={classes.PercentageColumn}
+                      align="center"
+                    >
                       <span className={"tableheaders_1"}>
                         Percentage
                         <Tooltip
@@ -330,12 +344,21 @@ export default function AccountComponent(props) {
                         placement="top"
                         title={props.getSortTitle("percentageSort")}
                       >
-                        <ArrowUpwardIcon
-                          onClick={() => {
-                            props.sortData("percentageSort");
-                          }}
-                          className={classes.sortButton}
-                        />
+                        {
+                          props?.state?.percentageSort == 1 ?
+                            <ArrowUpwardIcon
+                              onClick={() => {
+                                props.sortData("percentageSort");
+                              }}
+                              className={classes.sortButton}
+                            />
+                            : <ArrowDownwardIcon
+                              onClick={() => {
+                                props.sortData("percentageSort");
+                              }}
+                              className={classes.sortButton}
+                            />
+                        }
                       </Tooltip>
                     </TableCell>
                   )}
@@ -376,90 +399,90 @@ export default function AccountComponent(props) {
                             ? splittedArray[1]
                             : 0;
 
-                                            rantValue = rantValue + 1;
-                                            let percentageValue = (
-                                                (finalBal / state.totalSupply) *
-                                                100
-                                            ).toFixed(8);
-                                            let percentageValue1 = percentageValue
-                                                .toString()
-                                                .split(".")[0];
-                                            let percentageValue2 = percentageValue
-                                                .toString()
-                                                .split(".")[1];
+                        rantValue = rantValue + 1;
+                        let percentageValue = (
+                          (finalBal / state.totalSupply) *
+                          100
+                        ).toFixed(8);
+                        let percentageValue1 = percentageValue
+                          .toString()
+                          .split(".")[0];
+                        let percentageValue2 = percentageValue
+                          .toString()
+                          .split(".")[1];
 
                         //state.totalSupply
 
-                                            return (
-                                                <TableRow
-                                                    key={row.name}
-                                                    style={
-                                                        index % 2 !== 1
-                                                            ? {background: "#f9f9f9"}
-                                                            : {background: "white"}
-                                                    }
-                                                >
-                                                    {props.state.tableColumns["Rank"].isActive && (
-                                                        <TableCell
-                                                            className={`w-2 ${classes.RankColumnVal}`}
-                                                            align="center"
-                                                        >
-                                                            <span className="tabledata">{rantValue}</span>
-                                                        </TableCell>
-                                                    )}
-                                                    <TableCell
-                                                        className="w-1"
-                                                        style={{
-                                                            border: "none",
-                                                            paddingLeft: "25.5px",
-                                                            width: "",
-                                                        }}
-                                                    >
-                                                        <a
-                                                            className="linkTable"
-                                                            href={"/address-details/" + row.address}
-                                                        >
-                                                            <span className="tabledata">{row.address}</span>
-                                                        </a>
-                                                    </TableCell>
-                                                    {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
-                                                    {props.state.tableColumns["Type"].isActive && (
-                                                        <TableCell
-                                                            className="w-2"
-                                                            style={{border: "none", paddingLeft: "5%"}}
-                                                            align="center"
-                                                        >
+                        return (
+                          <TableRow
+                            key={row.name}
+                            style={
+                              index % 2 !== 1
+                                ? { background: "#f9f9f9" }
+                                : { background: "white" }
+                            }
+                          >
+                            {props.state.tableColumns["Rank"].isActive && (
+                              <TableCell
+                                className={`w-2 ${classes.RankColumnVal}`}
+                                align="center"
+                              >
+                                <span className="tabledata">{rantValue}</span>
+                              </TableCell>
+                            )}
+                            <TableCell
+                              className="w-1"
+                              style={{
+                                border: "none",
+                                paddingLeft: "25.5px",
+                                width: "",
+                              }}
+                            >
+                              <a
+                                className="linkTable"
+                                href={"/address-details/" + row.address}
+                              >
+                                <span className="tabledata">{row.address}</span>
+                              </a>
+                            </TableCell>
+                            {/* <TableCell style={{ border: "none" }} align="left"><a className="linkTable" href={props.create_url(row.number, "height")}><span className="tabledata">{row.number}</span></a></TableCell> */}
+                            {props.state.tableColumns["Type"].isActive && (
+                              <TableCell
+                                className="w-2"
+                                style={{ border: "none", paddingLeft: "5%" }}
+                                align="center"
+                              >
                                 <span className="tabledata">
                                   {row.accountType == 0
-                                      ? "Account"
-                                      : "Contract"}
+                                    ? "Account"
+                                    : "Contract"}
                                 </span>
-                                                        </TableCell>
-                                                    )}
-                                                    {props.state.tableColumns["Balance"].isActive && (
-                                                        <TableCell
-                                                            className="w-3"
-                                                            style={{
-                                                                border: "none",
-                                                                paddingLeft: "5%",
-                                                                cursor: "pointer",
-                                                            }}
-                                                            align="center"
-                                                        >
-                                                            <Tooltip
-                                                                placement="right"
-                                                                title={format({})(finalBal)}
-                                                            >
-                                                                {bal3 >= 0 || bal3 == null ? (
-                                                                    <span className="tabledata">{bal2}</span>
-                                                                ) : (
-                                                                    <span className="tabledata">
+                              </TableCell>
+                            )}
+                            {props.state.tableColumns["Balance"].isActive && (
+                              <TableCell
+                                className="w-3"
+                                style={{
+                                  border: "none",
+                                  paddingLeft: "5%",
+                                  cursor: "pointer",
+                                }}
+                                align="center"
+                              >
+                                <Tooltip
+                                  placement="right"
+                                  title={format({})(finalBal)}
+                                >
+                                  {bal3 >= 0 || bal3 == null ? (
+                                    <span className="tabledata">{bal2}</span>
+                                  ) : (
+                                    <span className="tabledata">
                                       {bal2}
-                                                                        {"."}
-                                                                        <span style={{color: "#9FA9BA"}}>
+                                      {"."}
+                                      <span style={{ color: "#9FA9BA" }}>
                                         {bal4}
                                       </span>
-                                                                        {text}
+                                      {text}
                                     </span>
                                   )}
                                 </Tooltip>
@@ -467,20 +490,20 @@ export default function AccountComponent(props) {
                             )}
                             {props.state.tableColumns["Percentage"]
                               .isActive && (
-                              <TableCell
-                                className={`w-2 ${classes.PercentageColumnVal}`}
-                                align="center"
-                              >
-                                <span className="tabledata">
-                                  {percentageValue1}
-                                  {"."}
-                                  <span style={{ color: "#9FA9BA" }}>
-                                    {percentageValue2}
+                                <TableCell
+                                  className={`w-2 ${classes.PercentageColumnVal}`}
+                                  align="center"
+                                >
+                                  <span className="tabledata">
+                                    {percentageValue1}
+                                    {"."}
+                                    <span style={{ color: "#9FA9BA" }}>
+                                      {percentageValue2}
+                                    </span>
+                                    %
                                   </span>
-                                  %
-                                </span>
-                              </TableCell>
-                            )}
+                                </TableCell>
+                              )}
                             {/* <TableCell className="w-4" style={{ border: "none", paddingLeft: "3.9%" }} align="left"><span className="tabledata"> &nbsp;{((finalBal / props.state.totalSupply) * 100).toString().substr(0, 7)}%</span></TableCell> */}
                           </TableRow>
                         );
@@ -495,11 +518,11 @@ export default function AccountComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                                <div>No account found.</div>
-                            </NoDataFoundContainer>
-                        )}
-                    </TableContainer>
-                </Paper>
+                <div>No account found.</div>
+              </NoDataFoundContainer>
+            )}
+          </TableContainer>
+        </Paper>
 
         <Grid container style={{ marginTop: "35px" }} className="Pagination">
           <Grid item className="Pagination_1">
@@ -507,8 +530,8 @@ export default function AccountComponent(props) {
               <>
                 <span className="text">Show</span>
                 <PageSelector value={props.state.amount}
-                              height={30}
-                              handler={props._handleChange}/>
+                  height={30}
+                  handler={props._handleChange} />
                 <span className="text">Records</span>
               </>
             ) : (
@@ -544,7 +567,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._NextPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                props.state.totalAccounts
+                  props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }
@@ -556,7 +579,7 @@ export default function AccountComponent(props) {
               onClick={(event) => props._LastPage(event)}
               className={
                 props.state.from + props.state.amount ===
-                props.state.totalAccounts
+                  props.state.totalAccounts
                   ? "btn disabled"
                   : "btn"
               }

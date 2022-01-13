@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import "../../assets/styles/profile.css";
 import Transaction from "./dashboardPopup/transactionLable";
 import Watchlist from "./dashboardPopup/watchlist";
@@ -41,6 +41,8 @@ import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
 import StorageMessage from "./dashboardPopup/storageMessage";
+import Utility from "../../utility";
+import {useSelector} from "react-redux";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -397,6 +399,8 @@ const SubParentContainer = styled.div`
   }
 `;
 export default function SimpleTabs(props) {
+  const timezone = useSelector(state=> state.timezone)
+
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
@@ -766,7 +770,8 @@ export default function SimpleTabs(props) {
             Address: item.address,
             Description: item.description,
             Balance: item.balance,
-            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            AddedOn: `${item?.addedOn && moment(item.addedOn).tz(timezone).format(
+                "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`,
             Notification: item.notification.type === "NO" ? "Off" : "Email",
           };
         })
@@ -1483,9 +1488,8 @@ export default function SimpleTabs(props) {
                                     align="left"
                                   >
                                     <span className="tabledata-1">
-                                      {moment(row.modifiedOn).format(
-                                        "hh:mm A, D MMMM YYYY "
-                                      )}
+                                      {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                          "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                     </span>
                                     {/* </a> */}
                                   </TableCell>
@@ -1836,10 +1840,8 @@ export default function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <span className="tabledata-1">
-                                    {" "}
-                                    {moment(row.modifiedOn).format(
-                                      "hh:mm A, D MMMM YYYY "
-                                    )}{" "}
+                                    {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                   </span>
                                 </TableCell>
                                 <TableCell
@@ -2176,9 +2178,8 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-1">
-                                  {moment(row.modifiedOn).format(
-                                    "hh:mm A, D MMMM YYYY "
-                                  )}
+                                  {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                      "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                 </span>
                                 {/* </a> */}
                               </TableCell>
