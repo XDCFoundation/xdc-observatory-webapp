@@ -170,15 +170,15 @@ export default function AddressDetailsData() {
       <Grid className="table-grid-block-contract ">
         <div className="container_sec">
           <div
-            className="block_details_heading b-h1"
+            className="block_details_heading mar-top-15"
             style={{ display: "flex", flexDirection: "row" }}
           >
             <Row
               alignItems="center"
-              justifyContent="center"
+              justifyContent="center"          
               className="contract_details_heading_left"
             >
-              Contract Address{" "}
+              <span className="contract_add_left">Contract Address</span>{" "}
               <span className="AddressTitle addtitle">{addressNumber}</span>
               {!isloggedIn ? (
                 <span className={classes.wantToLoginText}>

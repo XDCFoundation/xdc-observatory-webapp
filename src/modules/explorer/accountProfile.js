@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import "../../assets/styles/profile.css";
 import Transaction from "./dashboardPopup/transactionLable";
 import Watchlist from "./dashboardPopup/watchlist";
@@ -41,6 +41,8 @@ import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
 import StorageMessage from "./dashboardPopup/storageMessage";
+import Utility from "../../utility";
+import {useSelector} from "react-redux";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -220,7 +222,7 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
       Width: "300px",
       width: "100%",
-      padding: "0 7px",
+      // padding: "0 7px",
     },
     tab1: {
       color: "#2149b9 !important",
@@ -235,8 +237,8 @@ const useStyles = makeStyles((theme) => ({
   },
   "@media (max-width: 828px)": {
     appbar: {
-      maxWidth: "710px",
-      width: "100%",
+      // maxWidth: "710px",
+      // width: "21rem",
     },
   },
 
@@ -336,6 +338,16 @@ const NoDataFoundContainer = styled.div`
   gap: 10px;
 `;
 
+const ParentProfile = styled.div`
+display: flex;
+
+@media(max-width: 676px){
+  display: flex;
+  justify-content: space-between;
+  width: 20rem;
+}
+`
+
 const UserNameContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
@@ -348,19 +360,30 @@ const UserNameContainer = styled.div`
   width: 100%;
   align-items: center;
 
+
   @media (max-width: 850px) {
     padding: 0 10px 0 10px !important;
     flex-wrap : nowrap;
     max-width: 710px;
   }
+  @media (min-width: 400px) and (max-width: 767px){
+    ${'' /* gap: 12px; */}
+    width: 21rem !important;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 0px !important;
+  }
+ 
+  
 
   @media (min-width: 450px) and (max-width: 850px) {
     gap: ${(props) => (props.isWallet ? "30px" : "15px")};
   }
 
   @media (max-width: 400px) {
-    gap: 12px;
-    margin: 10px auto;
+    ${'' /* justify-content: space-around; */}
+    ${'' /* gap: 12px; */}
+    margin:10px 10px;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
@@ -374,6 +397,8 @@ const SubParentContainer = styled.div`
   }
 `;
 export default function SimpleTabs(props) {
+  const timezone = useSelector(state=> state.timezone)
+
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
       b.length - 3,
@@ -743,7 +768,8 @@ export default function SimpleTabs(props) {
             Address: item.address,
             Description: item.description,
             Balance: item.balance,
-            AddedOn: moment(item.addedOn).format("h:mm a, Do MMMM YYYY "),
+            AddedOn: `${item?.addedOn && moment(item.addedOn).tz(timezone).format(
+                "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`,
             Notification: item.notification.type === "NO" ? "Off" : "Email",
           };
         })
@@ -909,7 +935,9 @@ export default function SimpleTabs(props) {
               }
             /> */}
         <UserNameContainer>
-          <Avatar
+       <ParentProfile>
+       <div style={{display:"flex"}}>
+         <Avatar
             className="profile-icon"
             src={
               sessionManager.getDataFromCookies(
@@ -917,14 +945,19 @@ export default function SimpleTabs(props) {
               ) || "/images/Profile.png"
             }
           />
-          <Column>
+          <Column style={{margin: "0 15px"}}>
             <Row className={classes.profileName} style={{ gap: "15px" }}>
               Welcome, {Utils.shortenUserName(setUserName())}
             </Row>
 
             <Editprofile />
           </Column>
-          <NotificationBar />
+         </div>
+         <div>
+         <NotificationBar  />  
+         </div>
+
+       </ParentProfile>
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
@@ -953,7 +986,7 @@ export default function SimpleTabs(props) {
             getTotalCountTagAddress={getPvtTagAddress}/>
         </UserNameContainer>
 
-        <div className={classes.root}>
+        <div className={classes.root+ " accProfile"}>
           <AppBar
             position="static"
             style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -965,13 +998,15 @@ export default function SimpleTabs(props) {
               TabIndicatorProps={{
                 style: {
                   backgroundColor: "#2149b9",
+                  
                 },
               }}
             >
               <Tab
                 label="My Watchlist"
                 // className={classes.mywatch}
-                className={value === 0 ? classes.tab1 : classes.tab2}
+                className={value === 0 ? classes.tab1 : classes.tab2 }
+                style={{borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
@@ -979,6 +1014,7 @@ export default function SimpleTabs(props) {
                 label="Transaction Private Note"
                 className={classes.txnprivate}
                 className={value === 1 ? classes.tab1 : classes.tab2}
+                style={{borderBottom: value === 1 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
               />
@@ -986,6 +1022,7 @@ export default function SimpleTabs(props) {
                 label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
+                style={{borderBottom: value === 2 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />
@@ -1453,9 +1490,8 @@ export default function SimpleTabs(props) {
                                     align="left"
                                   >
                                     <span className="tabledata-1">
-                                      {moment(row.modifiedOn).format(
-                                        "hh:mm A, D MMMM YYYY "
-                                      )}
+                                      {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                          "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                     </span>
                                     {/* </a> */}
                                   </TableCell>
@@ -1806,10 +1842,8 @@ export default function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <span className="tabledata-1">
-                                    {" "}
-                                    {moment(row.modifiedOn).format(
-                                      "hh:mm A, D MMMM YYYY "
-                                    )}{" "}
+                                    {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                   </span>
                                 </TableCell>
                                 <TableCell
@@ -2146,9 +2180,8 @@ export default function SimpleTabs(props) {
                                 align="left"
                               >
                                 <span className="tabledata-1">
-                                  {moment(row.modifiedOn).format(
-                                    "hh:mm A, D MMMM YYYY "
-                                  )}
+                                  {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                      "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                 </span>
                                 {/* </a> */}
                               </TableCell>

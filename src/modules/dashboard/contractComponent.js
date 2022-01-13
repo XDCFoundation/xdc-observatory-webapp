@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import { TableContainer } from "@material-ui/core";
+import {Grid, TableContainer} from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "../explorer/tokensearchBar";
@@ -18,6 +18,7 @@ import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import { messages } from "../../constants";
 import Tooltip from "@material-ui/core/Tooltip";
+import PageSelector from "../common/pageSelector";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -309,6 +310,7 @@ class Contractlist extends React.Component {
       align-items: center;
       margin-top: 100px;
       gap: 10px;
+      color: #c6cbcf;
       @media (min-width: 767px) {
         margin: 100px 0 !important;
       }
@@ -322,7 +324,7 @@ class Contractlist extends React.Component {
           <div className=" display-none-mobile display-flex flex-direction-column justify-content-center">
             <img
               onClick={this.handleSettingsClick}
-              className="p-r-5 h-20 w-20-px"
+              className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
             />
             <ConfigureColumnPopOver
@@ -336,7 +338,7 @@ class Contractlist extends React.Component {
           <div className=" display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
             <img
               onClick={this.toggleModal}
-              className="p-r-5 h-20 w-20-px"
+              className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
             />
             <ConfigureColumnsModal
@@ -559,7 +561,7 @@ class Contractlist extends React.Component {
           //   marginLeft: "18%",
           //   marginTop: "20px",
           // }}
-          >{!this.state.isLoading && this.state.noData ?
+          >{!this.state.isLoading && !this.state.noData ?
             (<><p
               style={{
                 fontSize: "0.875rem",
@@ -568,18 +570,9 @@ class Contractlist extends React.Component {
             >
               Show
             </p>
-
-            <select
-              value={this.state.amount}
-              className="selectbox-contract"
-              onChange={(event) => this.handleChangeRowsPerPage(event)}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={75}>75</option>
-              <option value={100}>100</option>
-            </select>
+            <PageSelector value={this.state.amount}
+                          height={35}
+                          handler={this.handleChangeRowsPerPage}/>
             <p
               style={{
                 fontSize: "0.875rem",

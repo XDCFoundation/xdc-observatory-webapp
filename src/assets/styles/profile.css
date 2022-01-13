@@ -220,6 +220,17 @@ margin-bottom:16px;
     width:16px;
     margin-bottom:13px;
   }
+  .searchBar {
+    border-radius: 8px;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+    width: 172px;
+    height: 35px;
+    outline: none;
+  }
+  .griddiv {
+    width: 21rem !important;
+  }
 }
 .notificationBell {
   margin-top: 30px;
@@ -256,7 +267,7 @@ margin-bottom:16px;
   display: flex;
   flex-flow: column;
   gap: 10px;
-  padding: 25px;
+  padding: 25px 10px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #213d8b;
@@ -609,7 +620,7 @@ margin-bottom:16px;
   } */
   .line {
     /* max-width: 375px; */
-    width: 95%;
+    width: 21rem;
   }
 }
 
@@ -628,10 +639,11 @@ margin-bottom:16px;
     margin-left: -11px;
   }
   .searchdiv {
-    padding-left: 10px;
+    padding-left: 20px;
   }
   .griddiv {
-    width: 361px;
+    /* width: 361px; */
+    width: 21rem;
   }
   .tablegrid_address_contract {
     width: 750px;
@@ -666,7 +678,7 @@ margin-bottom:16px;
     display: none;
   }
   .div1 {
-    width: 100%;
+    width: 100px;
     height: 165px;
     align-items: center;
     /* margin-top: 44px; */
