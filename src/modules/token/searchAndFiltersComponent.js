@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import CustomDropDown from "../../common/components/customDropdown";
+import moment from "moment";
 
 const Container = styled.div`
   width: 100%;
@@ -38,13 +39,29 @@ const SearchBox = styled.div`
 const SearchAndFiltersComponent = (props) => {
     const {searchAndFilters, updateFiltersAndGetAccounts} = props
     const [searchQuery, setSearchQuery] = useState(searchAndFilters.searchQuery)
-    const [age, setAge] = useState(searchAndFilters.age)
+    const [age, setAge] = useState('all')
     let timeoutId = 0
+
+    const getStartDate = (age) => {
+        switch (age) {
+            case 'all':
+                return ''
+            case '1d':
+                return moment().subtract(1, 'day').toDate().getTime()
+            case '1m':
+                return moment().subtract(1, 'month').toDate().getTime()
+            case '6m':
+                return moment().subtract(6, 'months').toDate().getTime()
+            case '1y':
+                return  moment().subtract(1, 'year').toDate().getTime()
+        }
+    }
 
     useEffect(() => {
         if (!age)
             return
-        updateFiltersAndGetAccounts({searchQuery, age})
+        const startDate = getStartDate(age)
+        updateFiltersAndGetAccounts({searchQuery, startDate})
     }, [age])
 
     const onSearchQueryChange = (value) => {

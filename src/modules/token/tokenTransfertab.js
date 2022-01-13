@@ -142,7 +142,7 @@ export default function StickyHeadTable() {
   const [noData, setNoData] = useState(true);
   const [searchAndFilters, setSearchAndFilters] = useState({
     searchQuery: '',
-    age: 'all',
+    startDate: ''
   });
   const [isLoading, setLoading] = useState(true);
   const { address } = useParams();
@@ -167,10 +167,12 @@ export default function StickyHeadTable() {
     requestData.pageNum = values ? values.pageNum : 0
     requestData.perpage = values ? values.perpage : 10
     const filtersData = filters || searchAndFilters
-    if (filtersData.searchQuery) {
+    if (filtersData.searchQuery)
       requestData.searchValue = filtersData.searchQuery
-      getTotalTransferToken(requestData)
-    }
+    if (filtersData.startDate)
+        requestData.startDate = filtersData.startDate
+    if (filtersData.startDate || filtersData.searchQuery)
+          getTotalTransferToken(requestData)
     let [error, tns] = await Utils.parseResponse(TokenData.getListOfTransferTransactionsForToken(requestData));
     if (!tns || tns.length == 0) {
       setNoData(false);
