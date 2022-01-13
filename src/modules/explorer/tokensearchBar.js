@@ -726,7 +726,7 @@ export default function Navbar() {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 10px 10px 0 20px;
+    padding: 10px 0 0 10px;
     justify-content: space-between;
   `;
 

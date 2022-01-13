@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: "75.125rem",
     "@media (min-width: 0px) and (max-width: 767px)": {
       // marginTop: "130px",
-      maxWidth: "22.563rem",
+      maxWidth: "21rem",
     },
     "@media (min-width: 768px) and (max-width: 1239px)": {
       // marginTop: "130px",
@@ -567,10 +567,11 @@ const Div__ = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   background-color: #fff;
-  padding: 0rem 2.188rem 0.563rem 2.188rem;
+  padding: 0rem 2.188rem 0rem 2.188rem;
   @media (min-width: 0px) and (max-width: 767px) {
     padding-right: 10px;
     padding-left: 10px;
+    margin-bottom: 23px;
   }
 `;
 const MiddleContainer = styled.div`
