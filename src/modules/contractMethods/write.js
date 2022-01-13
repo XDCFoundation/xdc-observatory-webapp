@@ -3,34 +3,46 @@ import styled from "styled-components";
 import { contractMethodTypes } from "../../constants";
 import Web3 from "web3";
 import Web3Dialog from "../explorer/web3/web3Dialog";
+import { Paper } from "@material-ui/core";
+import { Row } from "simple-flexbox";
 
 const QuestionContainer = styled.div`
-  background-color: #f8f9fa !important;
   font-weight: 400;
   color: #212529;
+  border: solid 1px #dfe2e8;
   cursor: pointer;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.5rem;
-  height: ${(props) => (props.isActive ? "auto" : "40px")};
-  min-height: ${(props) => (props.isActive ? "100px" : "40px")};
-  transition: min-height 0.5s ease-out;
+  border-radius: 4px;
+  height: ${(props) => (props.isActive ? "auto" : "50px")};
+  transition: height 0.5s ease-out;
 `;
 const QuestionNameContainer = styled.div`
   color: #343a40 !important;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  height: 40px;
+  height: 50px;
+  background-color: #f8f9fa !important;
   display: flex;
   flex-flow: row;
+  border-bottom: solid 1px #dfe2e8;
+  padding: 15px 24px;
+  border-radius: 4px;
   justify-content: space-between;
   align-items: center;
 `;
 
 const QuestionName = styled.div`
-  color: #343a40 !important;
-  padding: 0.5rem;
+  color: #3a3a3a;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.58px;
+  text-align: left;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const ArrowImg = styled.img`
@@ -41,36 +53,35 @@ const ArrowImg = styled.img`
 const OutputContainer = styled.div`
   display: flex;
   flex-flow: column;
-  border-radius: 0.5rem;
-  gap: 10px;
+  gap: 15px;
   background-color: white;
   padding: 1.5rem;
-  border-left: 1px solid rgba(0, 0, 0, 0.125);
-  border-right: 1px solid rgba(0, 0, 0, 0.125);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-`;
-
-const Title = styled.div`
-  color: #343a40 !important;
-  font-weight: bold;
-  font-size: 15px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const Output = styled.div`
-  color: #343a40 !important;
   word-wrap: break-word;
   font-size: 15px;
+  color: #3a3a3a;
+  font-weight: 500;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
-const Devider = styled.hr``;
+const Devider = styled.hr`
+  background-color: #dfe2e8;
+`;
 
 const ParentContainer = styled.div`
-  padding: 1.875rem;
+  padding: 0 1.875rem 1.875rem;
   display: flex;
   flex-flow: column;
   gap: 10px;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 1.875rem 0.75rem 0 0.75rem;
+    padding: 0 0.75rem 1.875rem 0.75rem;
   }
 `;
 
@@ -104,14 +115,34 @@ const ParamInput = styled.input`
   }
 `;
 
+const Title = styled.div`
+  width: 217px;
+  height: 20px;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.62px;
+  text-align: left;
+  color: #3a3a3a;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 15px;
+  }
+`;
+
 const SubmitButton = styled.button`
-  border-radius: 5px;
-  border: 1px solid #d5dae2;
-  background: linear-gradient(to bottom, #2149b9, #3e71ff);
+  border-radius: 4px;
+  background-color: #3763dd;
   width: 80px;
+  cursor: pointer;
   height: 30px;
   font-size: 14px;
   font-weight: 600;
+  width: 150px;
+  height: 45px;
+  margin-top: 20px;
   color: white;
 `;
 
@@ -120,18 +151,66 @@ const ErrorText = styled.div`
   color: red;
 `;
 
-const ConnectToWalletButton = styled.button`
-  border-radius: 5px;
-  background: ${(props) =>
-    props.isActive
-      ? "linear-gradient(to bottom, #2149b9, #3e71ff)"
-      : "#d5dae2"};
-  width: 145px;
-  cursor: ${(props) => (props.isActive ? "" : "pointer")};
-  height: 35px;
+const HighlightedText = styled.div`
+  display: flex;
+  font-family: Inter;
+  cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: ${(props) => (props.isActive ? "white" : "black")};
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #2149b9;
+`;
+
+const HeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  padding: 1.875rem;
+  align-items: center;
+  justify-content: space-between;
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding: 1.875rem 0.75rem;
+    flex-flow: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+`;
+
+const HeaderItemsContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 5px;
+`;
+
+const ActiveDot = styled.div`
+  width: 7px;
+  height: 7px;
+  background-color: #3763dd;
+  border-radius: 50%;
+`;
+
+const ConnectToWalletButton = styled.div`
+  width: 180px;
+  height: 40px;
+  opacity: 1;
+  border-radius: 4px;
+  gap: 5px;
+  border: solid 1px #3763dd;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: #e5eafa;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.62px;
+  text-align: left;
+  color: #3763dd;
 `;
 
 export default function ContractWriteMethods(props) {
@@ -145,7 +224,9 @@ export default function ContractWriteMethods(props) {
 
   React.useEffect(() => {
     let contractInfo = props.contractData ? props.contractData : {};
-    contractInfo.abi = JSON.parse(contractInfo.abi);
+    contractInfo.abi = JSON.parse(
+      contractInfo.abi ? contractInfo.abi : JSON.stringify([])
+    );
     let writeFunction = contractInfo.abi.filter(
       (item) => item.stateMutability !== contractMethodTypes.view && item.name
     );
@@ -155,7 +236,9 @@ export default function ContractWriteMethods(props) {
     setState({
       ...state,
       writeFunctions: writeFunction,
-      contractAddress: contractInfo.address.replace("xdc", "0x"),
+      contractAddress: contractInfo.address
+        ? contractInfo.address.replace("xdc", "0x")
+        : "",
     });
   }, [props.contractData]);
 
@@ -257,56 +340,112 @@ export default function ContractWriteMethods(props) {
     });
   };
 
+  const handleExpandAllClick = async () => {
+    let writeFunctions = [];
+    for (let index = 0; index < state.writeFunctions.length; index++) {
+      const item = state.writeFunctions[index];
+
+      if (item.inputs.length) {
+        writeFunctions.push({
+          ...item,
+          isActive: true,
+          response: {},
+        });
+      } else {
+        const response = await handleFunctionClick(index, false, false, false);
+        writeFunctions.push({
+          ...item,
+          response,
+          isActive: true,
+        });
+      }
+    }
+    setState({ ...state, writeFunctions });
+  };
+  const handleResetClick = () => {
+    let writeFunctions = state.writeFunctions.map((item) => {
+      return {
+        ...item,
+        isActive: false,
+        response: {},
+      };
+    });
+    setState({ ...state, writeFunctions });
+  };
+
   return (
-    <ParentContainer>
-      <Web3Dialog
-        open={state.setWalletInfo}
-        setWeb3DialogOpen={() => setState({ ...state, setWalletInfo: false })}
-        connectToWalletMessage="Click on 'Connect to wallet' to continue with transactions."
-      />
-      <ConnectToWalletButton
-        onClick={() => handleWeb3ConnectClick()}
-        isActive={state.accountAddress.length}
-        disabled={state.accountAddress.length}
-      >
-        {state.accountAddress.length ? "Connected" : "Connect to wallet"}
-      </ConnectToWalletButton>
-      {state.writeFunctions && state.writeFunctions.length
-        ? state.writeFunctions.map((item, index) => {
-            return (
-              <QuestionContainer isActive={item.isActive} key={index}>
-                <QuestionNameContainer
-                  onClick={() =>
-                    handleFunctionClick(
-                      index,
-                      item.isActive,
-                      item.inputs.length > 0
-                    )
-                  }
-                >
-                  <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
-                  <ArrowImg isActive={item.isActive} src="/images/next.svg" />
-                </QuestionNameContainer>
-                {item.isActive ? (
-                  <OutputContainer>
-                    {item.inputs.length > 0 ? (
-                      <InputTypeFunctions
-                        itemIndex={index}
-                        functionDetail={item}
-                        handleSubmit={handleFunctionClick}
-                      />
-                    ) : (
-                      <OutPutComponent item={item} />
-                    )}
-                  </OutputContainer>
-                ) : (
-                  ""
-                )}
-              </QuestionContainer>
-            );
-          })
-        : ""}
-    </ParentContainer>
+    <Paper
+      style={{
+        borderRadius: "14px",
+        boxShadow: " 0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+      }}
+      elevation={0}
+    >
+      <HeaderContainer>
+        <HeaderItemsContainer>
+          <ConnectToWalletButton
+            onClick={() => handleWeb3ConnectClick()}
+            isActive={state.accountAddress.length}
+            disabled={state.accountAddress.length}
+          >
+            <ActiveDot />
+            {state.accountAddress.length ? "Connected" : "Connect to web3"}
+          </ConnectToWalletButton>
+        </HeaderItemsContainer>
+        <Row style={{ gap: 20 }} alignItems="center">
+          <HighlightedText onClick={() => handleExpandAllClick()}>
+            Expand all
+          </HighlightedText>
+          <HeaderItemsContainer onClick={() => handleResetClick()}>
+            <HighlightedText>Reset</HighlightedText>
+            <img src="/images/reset.svg" />
+          </HeaderItemsContainer>
+        </Row>
+      </HeaderContainer>
+      <ParentContainer>
+        <Web3Dialog
+          open={state.setWalletInfo}
+          setWeb3DialogOpen={() => setState({ ...state, setWalletInfo: false })}
+          connectToWalletMessage="Click on 'Connect to wallet' to continue with transactions."
+        />
+
+        {state.writeFunctions && state.writeFunctions.length
+          ? state.writeFunctions.map((item, index) => {
+              return (
+                <QuestionContainer isActive={item.isActive} key={index}>
+                  <QuestionNameContainer
+                    onClick={() =>
+                      handleFunctionClick(
+                        index,
+                        item.isActive,
+                        item.inputs.length > 0
+                      )
+                    }
+                  >
+                    <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
+                    <ArrowImg isActive={item.isActive} src="/images/next.svg" />
+                  </QuestionNameContainer>
+                  {item.isActive ? (
+                    <OutputContainer>
+                      {item.inputs.length > 0 ? (
+                        <InputTypeFunctions
+                          itemIndex={index}
+                          functionDetail={item}
+                          handleSubmit={handleFunctionClick}
+                        />
+                      ) : (
+                        <OutPutComponent item={item} />
+                      )}
+                    </OutputContainer>
+                  ) : (
+                    ""
+                  )}
+                </QuestionContainer>
+              );
+            })
+          : ""}
+      </ParentContainer>
+    </Paper>
   );
 }
 
@@ -334,13 +473,14 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
 
   const handleInputSubmit = () => {
     let requiredInpuIndex = Object.values(params).findIndex(
-      (item) => item.length == 0
+      (item) => String(item).length == 0
     );
     if (requiredInpuIndex !== -1) {
       setError(`${Object.keys(params)[requiredInpuIndex]} is required field`);
       return;
     }
-    handleSubmit(itemIndex, false, false, true, Object.values(params));
+    debugger;
+    // handleSubmit(itemIndex, false, false, true, Object.values(params));
   };
 
   return (
@@ -358,7 +498,7 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
           </InputTypeFunctionsContainer>
         );
       })}
-      <SubmitButton onClick={() => handleInputSubmit()}>Submit</SubmitButton>
+      <SubmitButton onClick={() => handleInputSubmit()}>Write</SubmitButton>
       <ErrorText>{error}</ErrorText>
       {functionDetail?.response?.response ? (
         <OutPutComponent item={functionDetail} />
