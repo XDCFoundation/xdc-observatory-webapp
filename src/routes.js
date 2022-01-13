@@ -39,9 +39,9 @@ let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
 });
 
 class Routes extends BaseComponent {
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) { }
 
   render() {
     let loader =
@@ -69,7 +69,7 @@ class Routes extends BaseComponent {
               component={() => <BlockChainClass socket={socket} />}
             />
 
-            {}
+            { }
             <Route
               exact
               path={"/view-all-transaction"}
