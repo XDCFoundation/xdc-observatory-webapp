@@ -14,9 +14,10 @@ const Column = styled.div`
 `
 const MainContainer = styled(Column)`
   margin: 50px auto;
-  border-radius: 12px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  //border-radius: 12px;
+  //box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  //border: solid 1px #e3e7eb;
+   border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   padding: 20px 1px 16px 25px;
   width: 75.125rem;
@@ -170,4 +171,21 @@ function getAmount(amount) {
     return `${amt2 ? `${amt1}.${amt2}` : `${amt1}`} XDC`
 }
 
+const responsive = {
+    desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 2,
+        paritialVisibilityGutter: 60
+    },
+    tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2,
+        paritialVisibilityGutter: 50
+    },
+    mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1,
+        paritialVisibilityGutter: 30
+    }
+};
 export default RecentSearchList
