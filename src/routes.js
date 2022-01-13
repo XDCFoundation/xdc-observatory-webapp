@@ -33,7 +33,7 @@ import TestTwo from "./modules/explorer/dashboardPopup/TestTwo";
 import TestAddress from "./modules/explorer/dashboardPopup/TestAddress";
 import Chart from "./modules/common/commonGraph";
 
-let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
+let socket = socketClient('process.env.REACT_APP_WEB_SOCKECT_URL', {
   transports: ["websocket"],
 });
 
