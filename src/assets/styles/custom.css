@@ -3516,7 +3516,7 @@ p {
   .tab-search {
     display: flex;
     width: 82%;
-    margin-left: -10px;
+    /* margin-left: -10px; */
   }
 }
 @media (min-width: 768px) {
@@ -4100,7 +4100,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4121,7 +4121,7 @@ body {
 }
 
 #container-table td {
-  padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 20px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
