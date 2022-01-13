@@ -61,6 +61,8 @@ export const eventConstants = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
+  CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
 };
 
 export const genericConstants = {
@@ -180,3 +182,12 @@ export const toolTipMessages = {
 export const decimalDivisionValue = {
   DECIMAL_DIVISON_VALUE: 1000000000000000000,
 };
+
+
+export const recentSearchTypeConstants = {
+  TRANSACTION:'TRANSACTION',
+  ACCOUNT:'WALLET',
+  WALLET:'WALLET',
+  BLOCK:'TOKEN',
+  TOKEN:'TOKEN',
+}
