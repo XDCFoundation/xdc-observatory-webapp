@@ -215,7 +215,7 @@ function EditWatchList(props) {
   const handleClose = async () => {
     setOpen(false);
   };
-  const [value, setValue] = React.useState("female");
+  const [value, setValue] = React.useState("NONE");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -246,6 +246,10 @@ function EditWatchList(props) {
       _id: props.row._id,
       address: address,
       description: description,
+      notification : {
+        type : value,
+        isEnabled : value==="NO" ? false : true
+      }
     };
     if (validateAddress()) {
       // validateAddress();
@@ -347,7 +351,7 @@ function EditWatchList(props) {
             >
               <RadioGroup
                 aria-label="gender"
-                name="gender1"
+                name="type"
                 className={classes.radio}
                 style={{ margin: "-5px 28px -3px -10px" }}
                 value={value}
@@ -355,7 +359,7 @@ function EditWatchList(props) {
               >
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="female"
+                  value="NONE"
                   control={<Radio style={{ color: "#979797" }} />}
                   classes={{ label: classes.notifyLabel }}
                   style={{ margin: "5px 2px -5px -5px" }}
@@ -363,7 +367,7 @@ function EditWatchList(props) {
                 />
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="male"
+                  value="INOUT"
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
@@ -371,7 +375,7 @@ function EditWatchList(props) {
                 />
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="other"
+                  value="INTRX"
                   control={<Radio style={{ color: "#979797" }} />}
                   style={{ margin: "-5px 26px -5px -5px" }}
                   classes={{ label: classes.notifyLabel }}
@@ -380,7 +384,7 @@ function EditWatchList(props) {
                 {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Transactions Only" /> */}
                 <FormControlLabel
                   className="radio-inside-dot"
-                  value="disabled"
+                  value="OUTTRX"
                   control={<Radio style={{ color: "#979797" }} />}
                   classes={{ label: classes.notifyLabel }}
                   style={{ margin: "-5px 26px -5px -5px" }}
