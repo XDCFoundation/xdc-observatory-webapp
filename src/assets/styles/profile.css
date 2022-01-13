@@ -49,7 +49,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2149b9;
 }
@@ -64,7 +64,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: center;
   color: #6b7482;
 }
@@ -146,7 +146,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: center;
   color: #6b7482;
 }
@@ -196,7 +196,7 @@ background-color: #ffffff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   color: #2a2a2a;
 }
 .nameicon {
@@ -242,7 +242,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   cursor: pointer;
   color: #2149b9;
 }
@@ -256,7 +256,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   color: #2a2a2a;
 }
 .div1,
@@ -285,7 +285,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   color: #ffffff;
 }
 
@@ -298,7 +298,7 @@ margin-bottom:16px;
   font-style: normal;
   line-height: normal;
   color: #d3dfff;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   /* height: 51px;
   margin: 11px 0 0;
   /* display: flex; */
@@ -331,7 +331,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   color: #ffffff;
 }
 
@@ -350,7 +350,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal; */
+  letter-spacing: 0px; */
   color: #d3dfff;
 }
 /* .div3 {
@@ -380,7 +380,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   color: #ffffff;
 }
 .paradiv3 {
@@ -393,7 +393,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal; */
+  letter-spacing: 0px; */
   color: #d3dfff;
 }
 
@@ -405,7 +405,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   opacity: 1;
 }
@@ -417,7 +417,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   opacity: 1;
   color: #2a2a2a;
@@ -430,7 +430,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   opacity: 1;
   padding-left: 12px;
@@ -442,7 +442,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   opacity: 1;
@@ -456,7 +456,7 @@ margin-bottom:16px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   opacity: 1;
@@ -599,7 +599,7 @@ margin-bottom:16px;
     font-size: 10px;
     color: #81b4ff;
     display: block;
-    letter-spacing: 0.38px;
+    letter-spacing: 0px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;

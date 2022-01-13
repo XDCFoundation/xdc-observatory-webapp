@@ -469,14 +469,14 @@ const Input = styled.input`
   background-color: #fff;
   font-family: Inter;
   font-size: 0.875rem;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.span`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 300px) and (max-width: 767px) {
@@ -504,7 +504,7 @@ const Digits = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
   color: #4878ff;
 `;
@@ -512,7 +512,7 @@ const Blocks = styled.span`
   font-family: Inter;
   font-size: 0.875rem;
 
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
 `;
 const Div__ = styled.div`
@@ -526,7 +526,7 @@ const Div__ = styled.div`
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 0.813rem;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 6.25rem;
@@ -540,7 +540,7 @@ const MiddleContainer = styled.div`
 const MiddleContainerHash = styled.div`
   font-family: Inter;
   font-size: 0.813rem;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 6.25rem;
@@ -552,7 +552,7 @@ const MiddleContainerHash = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -570,7 +570,7 @@ const MiddleContainerHash = styled.div`
 const MiddleContainerHashTop = styled.div`
   font-family: Inter;
   font-size: 0.813rem;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 6.25rem;
@@ -582,7 +582,7 @@ const MiddleContainerHashTop = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
