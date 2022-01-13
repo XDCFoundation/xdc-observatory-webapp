@@ -10,6 +10,7 @@ import { UserService } from "../../../services";
 import { history } from "../../../managers/history";
 import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
+import { genericConstants, cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -94,9 +95,9 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "7px",
     marginBottom: "7px",
-      fontfamily: "Inter",
-      fontweight: "600",
-      color: "#2a2a2a"
+    fontfamily: "Inter",
+    fontweight: "600",
+    color: "#2a2a2a"
   },
   dialogBox: {
     width: "553px",
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "12px",
   },
   "@media (max-width: 714px)": {
-    heading:{
+    heading: {
       fontSize: "16px",
     },
     dialogBox: {
@@ -120,15 +121,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  const {open, onClose} = props
+  const { open, onClose } = props
   const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
 
   React.useEffect(() => {
-    if (props.value===1 && props.fromAddr){ 
+    if (props.fromAddr) {
       setPrivateAddress(props.fromAddr);
-      }
-      else if(props.value===1 && props.toAddr)
+    }
+    else if (props.toAddr)
       setPrivateAddress(props.toAddr)
   }, [props])
   async function TaggedAddress() {
@@ -144,60 +145,81 @@ export default function FormDialog(props) {
     if (error) {
       utility.apiFailureToast("Address is already in use");
       return;
+    } let taggedAddress = localStorage.getItem(
+      cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    if (taggedAddress) {
+      taggedAddress = JSON.parse(taggedAddress);
+      const existingTag = taggedAddress.find(
+        (item) => item.address == privateAddress && item.userId == data.userId
+      );
+      if (existingTag) {
+        utility.apiFailureToast("Address is already in use");
+        return;
+      }
+    } else {
+      taggedAddress = [];
     }
+    taggedAddress.push(data);
+    localStorage.setItem(
+      cookiesConstants.USER_TAGGED_ADDRESS,
+      JSON.stringify(taggedAddress)
+    );
     utility.apiSuccessToast("Tag Added");
-    history.go(0);
   }
+  let taggedAddressfetched = localStorage.getItem(
+    cookiesConstants.USER_TAGGED_ADDRESS
+  );
 
   const classes = useStyles();
 
   return (
-      <div>
-        <Dialog
-          className={classes.dialog}
-          classes={{paperWidthSm:classes.dialogBox}}
-          open={open}
-          aria-labelledby="form-dialog-title"
-        >
-          <Row>
-            <DialogTitle className={classes.heading} id="form-dialog-title">
-              Add a new Address Tag
-            </DialogTitle>
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Address
-            </DialogContentText>
-            <input
-              value={privateAddress}
-              
-              className={classes.input}
-              onChange={(e) => setPrivateAddress(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Name Tag
-            </DialogContentText>
-            <input
-              type="text"
-              className={classes.input}
-              onChange={(e) => setNameTag(e.target.value)}
-            ></input>
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
-            <span>
-              <button className={classes.cnlbtn} onClick={onClose}>
-                Cancel
-              </button>
-            </span>
-            <span>
-              <button className={classes.addbtn} onClick={TaggedAddress}>
-                Add
-              </button>
-            </span>
-          </DialogActions>
-        </Dialog>
-      </div>
+    <div>
+      <Dialog
+        className={classes.dialog}
+        classes={{ paperWidthSm: classes.dialogBox }}
+        open={open}
+        aria-labelledby="form-dialog-title"
+      >
+        <Row>
+          <DialogTitle className={classes.heading} id="form-dialog-title">
+            Add a new Address Tag
+          </DialogTitle>
+        </Row>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
+            Address
+          </DialogContentText>
+          <input
+            value={privateAddress}
+
+            className={classes.input}
+            onChange={(e) => setPrivateAddress(e.target.value)}
+          ></input>
+        </DialogContent>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
+            Name Tag
+          </DialogContentText>
+          <input
+            type="text"
+            className={classes.input}
+            onChange={(e) => setNameTag(e.target.value)}
+          ></input>
+        </DialogContent>
+        <DialogActions className={classes.buttons}>
+          <span>
+            <button className={classes.cnlbtn} onClick={onClose}>
+              Cancel
+            </button>
+          </span>
+          <span>
+            <button className={classes.addbtn} onClick={TaggedAddress}>
+              Add
+            </button>
+          </span>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
