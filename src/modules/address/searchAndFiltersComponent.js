@@ -79,10 +79,8 @@ const SearchAndFiltersComponent = (props) => {
                 <img src="/images/Search.svg"/>
                 <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)}/>
             </SearchBox>
-            {/*<CustomDateDropDown name="From" isEndDate={false} onSelect={onStartDateUpdated}
+            <CustomDateDropDown name="Date" setStartDates={setStartDate} setEndDates={setEndDate}
                                 startDate={startDate} endDate={endDate}/>
-            <CustomDateDropDown name="To" isEndDate={true} onSelect={onEndDateUpdated}
-                                startDate={startDate} endDate={endDate}/>*/}
             <CustomDropDown name="Status" selectedOption={status} onSelect={data => setStatus(data)}
                             options={[{key: 'all', value: 'Show All Txn', name: 'All Txn'},
                                 {key: 'true', value: 'Show Completed Txn', name: 'Completed Txn'},
