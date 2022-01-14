@@ -4,15 +4,15 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Tooltip from "@material-ui/core/Tooltip";
-import {messages} from "../../constants";
+import { messages } from "../../constants";
 import TableBody from "@material-ui/core/TableBody";
 import Loader from "../../assets/loader";
 import Paper from "@material-ui/core/Paper";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment-timezone";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
     container: {
@@ -57,7 +57,10 @@ const TransactionSubTitle = styled.div`
 
 const LatestBlockView = (props) => {
     const classes = useStyles();
-    const timezone = useSelector(state=> state.timezone)
+    const timezone = useSelector(state => state.timezone)
+    const [heightTT, setHeightTT] = useState(false);
+    const [transactionTT, setTransactionTT] = useState(false);
+    const [timeStampTT, setTimeStampTT] = useState(false);
 
     return (<Paper
         className={"table-list"}
@@ -91,71 +94,86 @@ const LatestBlockView = (props) => {
             </TransactionHeaderContainer>
             <TransactionSubTitle>{'The most recently mined blocks'}</TransactionSubTitle>
 
-            <Table style={{borderBottom: "none"}}>
+            <Table style={{ borderBottom: "none" }}>
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{border: "none",paddingLeft: '15px'}} align="left">
-                  <span className={"tablehead-token-details"}>
-                    Height
-                    <Tooltip placement="top" title={messages.BLOCK_HEIGHT}>
-                      <img
-                          alt="question-mark"
-                          src="/images/question-mark.svg"
-                          height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
-                      />
-                    </Tooltip>
-                  </span>
+                        <TableCell style={{ border: "none", paddingLeft: '15px' }} align="left">
+                            <span className={"tablehead-token-details"}>
+                                Height
+                                <Tooltip
+                                    open={heightTT}
+                                    onOpen={() => setHeightTT(true)}
+                                    onClose={() => setHeightTT(false)}
+                                    placement="top" title={messages.BLOCK_HEIGHT}>
+                                    <img
+                                        onClick={() => setHeightTT(!heightTT)}
+                                        alt="question-mark"
+                                        src="/images/question-mark.svg"
+                                        height={"14px"}
+                                        className="tooltipLatestTransactionTableDashboard"
+                                    />
+                                </Tooltip>
+                            </span>
                         </TableCell>
 
-                        <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Timestamp
-                      <Tooltip placement="top" title={messages.BLOCK_CREATION_TIME_STAMP}>
-                        <img
-                            alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
-                        />
-                      </Tooltip>
-                    </span>
+                        <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tablehead-token-details"}>
+                                Timestamp
+                                <Tooltip
+                                    open={timeStampTT}
+                                    onOpen={() => setTimeStampTT(true)}
+                                    onClose={() => setTimeStampTT(false)}
+                                    placement="top" title={messages.BLOCK_CREATION_TIME_STAMP}>
+                                    <img
+                                        onClick={() => setTimeStampTT(!timeStampTT)}
+                                        alt="question-mark"
+                                        src="/images/question-mark.svg"
+                                        height={"14px"}
+                                        className="tooltipLatestTransactionTableDashboard"
+                                    />
+                                </Tooltip>
+                            </span>
                         </TableCell>
-                        <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Transactions
-                      <Tooltip placement="top" title={messages.NO_OF_TRANSACTION}>
-                        <img
-                            alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
-                        />
-                      </Tooltip>
-                    </span>
+                        <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tablehead-token-details"}>
+                                Transactions
+                                <Tooltip
+                                    open={transactionTT}
+                                    onOpen={() => setTransactionTT(true)}
+                                    onClose={() => setTransactionTT(false)}
+                                    placement="top" title={messages.NO_OF_TRANSACTION}>
+                                    <img
+                                        onClick={() => setTransactionTT(!transactionTT)}
+                                        alt="question-mark"
+                                        src="/images/question-mark.svg"
+                                        height={"14px"}
+                                        className="tooltipLatestTransactionTableDashboard"
+                                    />
+                                </Tooltip>
+                            </span>
                         </TableCell>
-                    {/*    <TableCell style={{border: "none"}} align="left">*/}
-                    {/*<span className={"tablehead-token-details"}>*/}
-                    {/*  Reward*/}
-                    {/*  <Tooltip placement="top" title={messages.HASH}>*/}
-                    {/*    <img*/}
-                    {/*        alt="question-mark"*/}
-                    {/*        src="/images/question-mark.svg"*/}
-                    {/*        height={"14px"}*/}
-                    {/*        className="tooltipLatestTransactionTableDashboard"*/}
-                    {/*    />*/}
-                    {/*  </Tooltip>*/}
-                    {/*</span>*/}
-                    {/*    </TableCell>*/}
+                        {/*    <TableCell style={{border: "none"}} align="left">*/}
+                        {/*<span className={"tablehead-token-details"}>*/}
+                        {/*  Reward*/}
+                        {/*  <Tooltip placement="top" title={messages.HASH}>*/}
+                        {/*    <img*/}
+                        {/*        alt="question-mark"*/}
+                        {/*        src="/images/question-mark.svg"*/}
+                        {/*        height={"14px"}*/}
+                        {/*        className="tooltipLatestTransactionTableDashboard"*/}
+                        {/*    />*/}
+                        {/*  </Tooltip>*/}
+                        {/*</span>*/}
+                        {/*    </TableCell>*/}
 
                     </TableRow>
                 </TableHead>
                 {props.state.isLoading === true ? (
                     <TableBody>
                         <TableRow>
-                            <TableCell style={{border: "none"}} colspan="8">
+                            <TableCell style={{ border: "none" }} colspan="8">
                                 <div className="loader-token-list">
-                                    <Loader/>
+                                    <Loader />
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -163,64 +181,64 @@ const LatestBlockView = (props) => {
                 ) : (
                     <TableBody>
                         {props.state.latestBlocksData &&
-                        props.state.latestBlocksData.length >= 1 &&
-                        props.state.latestBlocksData.map((row, index) => {
-                            let blockNumber = row.number;
-                            let animationClass =
-                                props.state.blockAnimation?.[blockNumber];
-                            return (
-                                <TableRow
-                                    hover
-                                    role="checkbox"
-                                    tabIndex={-1}
-                                    key={row.hash}
-                                    style={
-                                        index % 2 !== 1
-                                            ? {background: "white"}
-                                            : {background: "white"}
-                                    }
-                                >
-                                    <TableCell id="td" className="w-150 bord-none" style={{paddingLeft: '15px', width: '150px'}}>
-                                        <a
-                                            className="linkTable cursor-pointer"
-                                            href={"/block-details/" + row.number}>
-                                                    <span
-                                                        className={
-                                                            animationClass ? animationClass : "tabledata"
-                                                        }
-                                                    >
-                                                        {row.number.toLocaleString()}
-                                                    </span>
-                                        </a>
-                                    </TableCell>
+                            props.state.latestBlocksData.length >= 1 &&
+                            props.state.latestBlocksData.map((row, index) => {
+                                let blockNumber = row.number;
+                                let animationClass =
+                                    props.state.blockAnimation?.[blockNumber];
+                                return (
+                                    <TableRow
+                                        hover
+                                        role="checkbox"
+                                        tabIndex={-1}
+                                        key={row.hash}
+                                        style={
+                                            index % 2 !== 1
+                                                ? { background: "white" }
+                                                : { background: "white" }
+                                        }
+                                    >
+                                        <TableCell id="td" className="w-150 bord-none" style={{ paddingLeft: '15px', width: '150px' }}>
+                                            <a
+                                                className="linkTable cursor-pointer"
+                                                href={"/block-details/" + row.number}>
+                                                <span
+                                                    className={
+                                                        animationClass ? animationClass : "tabledata"
+                                                    }
+                                                >
+                                                    {row.number.toLocaleString()}
+                                                </span>
+                                            </a>
+                                        </TableCell>
 
-                                    <TableCell id="td" className="w-150 bord-none" >
-                                        <Tooltip
-                                            title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
-                                            arrow={true} className="fs-15">
-                                 <span className={animationClass ? animationClass : "tabledata"}>
-                              {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
-                                 </span>
-                                        </Tooltip>
-                                    </TableCell>
+                                        <TableCell id="td" className="w-150 bord-none" >
+                                            <Tooltip
+                                                title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
+                                                arrow={true} className="fs-15">
+                                                <span className={animationClass ? animationClass : "tabledata"}>
+                                                    {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
+                                                </span>
+                                            </Tooltip>
+                                        </TableCell>
 
-                                    <TableCell id="td" className="bord-none" style={{width:'50px', paddingLeft: 'none', paddingRight: 'none'}}>
+                                        <TableCell id="td" className="bord-none" style={{ width: '50px', paddingLeft: 'none', paddingRight: 'none' }}>
 
-                                 <span className={animationClass ? animationClass : "tabledata"}>
-                                  {row.transactions.length}
-                                 </span>
-                                    </TableCell>
-                                    {/*<TableCell className=" bord-none" style={{paddingRight: '25px'}}>*/}
-                                    {/*    <div className="">*/}
-                                    {/*            <span className={animationClass ? animationClass : "tabledata"}>*/}
-                                    {/*                {`0 XDC`}*/}
-                                    {/*            </span>*/}
-                                    {/*    </div>*/}
-                                    {/*</TableCell>*/}
+                                            <span className={animationClass ? animationClass : "tabledata"}>
+                                                {row.transactions.length}
+                                            </span>
+                                        </TableCell>
+                                        {/*<TableCell className=" bord-none" style={{paddingRight: '25px'}}>*/}
+                                        {/*    <div className="">*/}
+                                        {/*            <span className={animationClass ? animationClass : "tabledata"}>*/}
+                                        {/*                {`0 XDC`}*/}
+                                        {/*            </span>*/}
+                                        {/*    </div>*/}
+                                        {/*</TableCell>*/}
 
-                                </TableRow>
-                            );
-                        })}
+                                    </TableRow>
+                                );
+                            })}
                     </TableBody>
 
                 )}
