@@ -4,6 +4,7 @@ import { contractMethodTypes } from "../../constants";
 import Web3 from "web3";
 import { Paper } from "@material-ui/core";
 import { Row } from "simple-flexbox";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const QuestionContainer = styled.div`
   font-weight: 400;
@@ -144,10 +145,10 @@ const Title = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  border-radius: 4px;
-  background-color: #3763dd;
+  background-color: ${(props) => (props.isActive ? "#e5eafa" : "#3763dd")};
+  border: ${(props) => (props.isActive ? "solid 1px #3763dd" : "")};
   width: 80px;
-  cursor: pointer;
+  cursor: ${(props) => (props.isActive ? "" : "pointer")};
   height: 30px;
   font-size: 14px;
   font-weight: 600;
@@ -203,6 +204,8 @@ export default function ContractRead(props) {
     readResponses: [],
     readFunctions: [],
     contractAddress: "",
+    loading: false,
+    error: "",
   });
 
   React.useEffect(() => {
@@ -214,7 +217,13 @@ export default function ContractRead(props) {
       (item) => item.stateMutability == contractMethodTypes.view
     );
     readFunction = readFunction.map((item) => {
-      return { ...item, isActive: false, response: {} };
+      return {
+        ...item,
+        isActive: false,
+        response: {},
+        loading: false,
+        error: "",
+      };
     });
     setState({
       ...state,
@@ -241,6 +250,8 @@ export default function ContractRead(props) {
       return;
     }
     try {
+      readFunctions[index].loading = true;
+      setState({ ...state, readFunctions, loading: true });
       if (!haveInputs) {
         const method = readFunctions[index].name;
         let web3 = new Web3(process.env.REACT_APP_WEB3_URL);
@@ -252,23 +263,19 @@ export default function ContractRead(props) {
           ? await contract.methods[method](...params).call()
           : await contract.methods[method]().call();
 
-        let existingIndex = state.readResponses.findIndex(
-          (item) => item.method == method && item.index == index
-        );
-        let methodExecutionResponse = state.readResponses;
-        if (existingIndex !== -1) {
-          methodExecutionResponse[existingIndex] = { method, index, response };
-        } else {
-          methodExecutionResponse.push({ method, index, response });
-        }
         readFunctions[index].response = { method, index, response };
-        setState({ ...state, readResponses: methodExecutionResponse });
-        return response;
       }
       readFunctions[index].isActive = true;
+      readFunctions[index].loading = false;
       setState({ ...state, readFunctions });
     } catch (error) {
+      readFunctions[index].loading = false;
+      readFunctions[index].error = "Transaction failed";
       console.log(error);
+      setState({
+        ...state,
+        readFunctions,
+      });
     }
   };
 
@@ -284,27 +291,24 @@ export default function ContractRead(props) {
   };
 
   const handleExpandAllClick = async () => {
-    let readFunctions = [];
+    let readFunctions = [...state.readFunctions];
+    await setState({ ...state, loading: true });
+
     for (let index = 0; index < state.readFunctions.length; index++) {
       const item = state.readFunctions[index];
-
+      if (item.isActive) {
+        readFunctions.push(item);
+        continue;
+      }
       if (item.inputs.length) {
-        readFunctions.push({
-          ...item,
-          isActive: true,
-          response: {},
-        });
+        readFunctions[index].isActive = true;
+        readFunctions[index].response = {};
+        setState({ ...state, readFunctions, loading: true });
       } else {
-        const response = await handleFunctionClick(index, false, false, false);
-        console.log(response, "response");
-        readFunctions.push({
-          ...item,
-          response,
-          isActive: true,
-        });
+        await handleFunctionClick(index, false, false, false, false);
       }
     }
-    setState({ ...state, readFunctions });
+    setState({ ...state, readFunctions, loading: false });
   };
 
   return (
@@ -321,9 +325,13 @@ export default function ContractRead(props) {
           <MainTitle>Read Contract Information</MainTitle>
         </HeaderItemsContainer>
         <Row style={{ gap: 20 }} alignItems="center">
-          <HighlightedText onClick={() => handleExpandAllClick()}>
-            Expand all
-          </HighlightedText>
+          {state.loading ? (
+            <CircularProgress />
+          ) : (
+            <HighlightedText onClick={() => handleExpandAllClick()}>
+              Expand all
+            </HighlightedText>
+          )}
           <HeaderItemsContainer onClick={() => handleResetClick()}>
             <HighlightedText>Reset</HighlightedText>
             <img src="/images/reset.svg" />
@@ -334,35 +342,13 @@ export default function ContractRead(props) {
         {state.readFunctions && state.readFunctions.length
           ? state.readFunctions.map((item, index) => {
               return (
-                <QuestionContainer isActive={item.isActive} key={index}>
-                  <QuestionNameContainer
-                    onClick={() =>
-                      handleFunctionClick(
-                        index,
-                        item.isActive,
-                        item.inputs.length > 0
-                      )
-                    }
-                  >
-                    <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
-                    <ArrowImg isActive={item.isActive} src="/images/next.svg" />
-                  </QuestionNameContainer>
-                  {item.isActive ? (
-                    <OutputContainer>
-                      {item.inputs.length > 0 ? (
-                        <InputTypeFunctions
-                          itemIndex={index}
-                          functionDetail={item}
-                          handleSubmit={handleFunctionClick}
-                        />
-                      ) : (
-                        <OutPutComponent item={item} />
-                      )}
-                    </OutputContainer>
-                  ) : (
-                    ""
-                  )}
-                </QuestionContainer>
+                <FunctionContainer
+                  item={item}
+                  index={index}
+                  setState={setState}
+                  state={state}
+                  handleFunctionClick={handleFunctionClick}
+                />
               );
             })
           : ""}
@@ -371,9 +357,54 @@ export default function ContractRead(props) {
   );
 }
 
-const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
+const FunctionContainer = ({
+  item,
+  index,
+  state,
+  handleFunctionClick,
+  setState,
+}) => {
+  return (
+    <QuestionContainer isActive={item.isActive} key={index}>
+      <QuestionNameContainer
+        onClick={() =>
+          handleFunctionClick(index, item.isActive, item.inputs.length > 0)
+        }
+      >
+        <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
+        <ArrowImg isActive={item.isActive} src="/images/next.svg" />
+      </QuestionNameContainer>
+      {item.isActive ? (
+        <OutputContainer>
+          {item.inputs.length > 0 ? (
+            <InputTypeFunctions
+              itemIndex={index}
+              state={state}
+              setState={setState}
+              functionDetail={item}
+              handleSubmit={handleFunctionClick}
+            />
+          ) : (
+            <OutPutComponent item={item} />
+          )}
+        </OutputContainer>
+      ) : (
+        ""
+      )}
+    </QuestionContainer>
+  );
+};
+
+const InputTypeFunctions = ({
+  functionDetail,
+  handleSubmit,
+  itemIndex,
+  setState,
+  state,
+}) => {
   const [params, setParams] = React.useState({});
-  const [error, setError] = React.useState("");
+  const error = functionDetail.error ? functionDetail.error : "";
+
   React.useEffect(() => {
     console.log(functionDetail.inputs, "functionDetail.inputs");
     let paramKeys = {};
@@ -384,11 +415,17 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
     setParams(paramKeys);
   }, [functionDetail]);
 
+  const setError = (error, index) => {
+    let readFunctions = state.readFunctions;
+    readFunctions[index].error = error;
+    setState({ ...state, readFunctions });
+  };
+
   const handleParamsInput = (value, name, type) => {
     if (value.includes("xdc")) {
       value = value.replace(/^.{3}/g, "0x");
     }
-    setError("");
+    setError("", itemIndex);
     let param = params;
     param[name] = type === "uint256" ? Number(value) : value;
     setParams(param);
@@ -399,10 +436,35 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
       (item) => String(item).length == 0
     );
     if (requiredInpuIndex !== -1) {
-      setError(`${Object.keys(params)[requiredInpuIndex]} is required field`);
+      setError(
+        `${Object.keys(params)[requiredInpuIndex]} is required field`,
+        itemIndex
+      );
       return;
     }
-    handleSubmit(itemIndex, false, false, true, Object.values(params));
+    let request = { ...params };
+    for (let index = 0; index < Object.keys(params).length; index++) {
+      const element = Object.keys(params)[index];
+      let input = functionDetail.inputs.find((item) => item.name == element);
+      if (input.type == "bool") {
+        request[element] = Boolean(request[element]);
+      } else if (input.type.includes("uint")) {
+        try {
+          checkNumberType(request[element]);
+          request[element] = request[element];
+        } catch (error) {
+          setError("Invalid value for type " + input.type, itemIndex);
+          return;
+        }
+      } else if (input.type.includes("map")) {
+        try {
+          request[element] = JSON.parse(request[element]);
+        } catch (error) {}
+      } else {
+        request[element] = request[element];
+      }
+    }
+    handleSubmit(itemIndex, false, false, true, Object.values(request));
   };
 
   return (
@@ -420,7 +482,13 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
           </InputTypeFunctionsContainer>
         );
       })}
-      <SubmitButton onClick={() => handleInputSubmit()}>Submit</SubmitButton>
+      <SubmitButton
+        onClick={() => handleInputSubmit()}
+        disabled={functionDetail.loading}
+        isActive={functionDetail.loading}
+      >
+        {functionDetail.loading ? <CircularProgress /> : "Submit"}
+      </SubmitButton>
       <ErrorText>{error}</ErrorText>
       {functionDetail?.response?.response ? (
         <OutPutComponent item={functionDetail} />
@@ -429,6 +497,13 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
       )}
     </>
   );
+};
+
+const checkNumberType = (number) => {
+  const isFloat = Number(number) === number && number % 1 !== 0;
+  if (isFloat) {
+    throw `Invalid input`;
+  }
 };
 
 const OutPutComponent = ({ item }) => {

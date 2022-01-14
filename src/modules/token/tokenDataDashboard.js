@@ -441,15 +441,15 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <img
-                  style={{
-                    height: "42px",
-                    width: "42px",
-                    marginRight: "4px",
-                    marginTop: "3px",
-                  }}
-                  src={"/images/XRC20-Icon.svg"}
-                ></img>
+                    <img
+                      style={{
+                        height: "42px",
+                        width: "42px",
+                        marginRight: "4px",
+                        marginTop: "3px",
+                      }}
+                      src={"/images/XRC20-Icon.svg"}
+                    />
 
                     <LeftTitle>{tn.toUpperCase()}</LeftTitle>
                   </LeftTop>
@@ -661,15 +661,15 @@ export default function TokenDataComponent() {
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-                <img
-                  style={{
-                    height: "29px",
-                    width: "29px",
-                    marginRight: "4px",
-                    marginTop: "3px",
-                  }}
-                  src={"/images/XRC20-Icon.svg"}
-                ></img>
+                  <img
+                    style={{
+                      height: "29px",
+                      width: "29px",
+                      marginRight: "4px",
+                      marginTop: "3px",
+                    }}
+                    src={"/images/XRC20-Icon.svg"}
+                  />
 
                   <LeftTitle>{tn.toUpperCase()}</LeftTitle>
                 </LeftTop>

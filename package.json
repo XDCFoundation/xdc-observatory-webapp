@@ -69,6 +69,7 @@
   },
   "scripts": {
     "start": "env-cmd .env.production react-scripts start",
+    "start-development": "env-cmd .env.development react-scripts start",
     "start-production": "env-cmd .env.production react-scripts start",
     "development": "PORT=80 env-cmd .env.development npm run build",
     "production": "env-cmd .env.production react-scripts build",

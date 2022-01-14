@@ -5,6 +5,7 @@ import Web3 from "web3";
 import Web3Dialog from "../explorer/web3/web3Dialog";
 import { Paper } from "@material-ui/core";
 import { Row } from "simple-flexbox";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const QuestionContainer = styled.div`
   font-weight: 400;
@@ -134,9 +135,10 @@ const Title = styled.div`
 
 const SubmitButton = styled.button`
   border-radius: 4px;
-  background-color: #3763dd;
+  background-color: ${(props) => (props.isActive ? "#e5eafa" : "#3763dd")};
+  border: ${(props) => (props.isActive ? "solid 1px #3763dd" : "")};
   width: 80px;
-  cursor: pointer;
+  cursor: ${(props) => (props.isActive ? "" : "pointer")};
   height: 30px;
   font-size: 14px;
   font-weight: 600;
@@ -220,6 +222,8 @@ export default function ContractWriteMethods(props) {
     contractAddress: "",
     accountAddress: "",
     setWalletInfo: false,
+    error: "",
+    loading: false,
   });
 
   React.useEffect(() => {
@@ -231,7 +235,13 @@ export default function ContractWriteMethods(props) {
       (item) => item.stateMutability !== contractMethodTypes.view && item.name
     );
     writeFunction = writeFunction.map((item) => {
-      return { ...item, isActive: false, response: {} };
+      return {
+        ...item,
+        isActive: false,
+        response: {},
+        loading: false,
+        error: "",
+      };
     });
     setState({
       ...state,
@@ -247,7 +257,8 @@ export default function ContractWriteMethods(props) {
     isActive,
     haveInputs,
     hasParams = false,
-    params
+    params,
+    loading = false
   ) => {
     if (!state.accountAddress) {
       alert("Please connect your wallet");
@@ -263,55 +274,71 @@ export default function ContractWriteMethods(props) {
     }
     try {
       if (!haveInputs) {
+        writeFunctions[index].loading = true;
+        setState({ ...state, loading, writeFunctions });
         const method = writeFunctions[index].name;
-        let web3 = new Web3(process.env.REACT_APP_WEB3_URL);
+        let web3 = new Web3(window.web3.currentProvider);
         const contract = new web3.eth.Contract(
           writeFunctions,
           state.contractAddress
         );
         if (hasParams) {
           await contract.methods[method](...params)
-            .send({ from: state.accountAddress.trim().replace("xdc", "0x") })
+            .send({ from: state.accountAddress })
             .then(async (response) => {
-              debugger;
               console.log(response, "response");
-              updateFunctionResponse(method, index, response, writeFunctions);
-              writeFunctions[index].response = { method, index, response };
+              writeFunctions[index].response = {
+                method,
+                index,
+                response: JSON.stringify(response, null, 2),
+              };
             });
         } else {
           await contract.methods[method]()
-            .send({ from: state.accountAddress.trim().replace("xdc", "0x") })
+            .send({ from: state.accountAddress })
             .then(async (response) => {
-              debugger;
               console.log(response, "response");
-              updateFunctionResponse(method, index, response, writeFunctions);
-              writeFunctions[index].response = { method, index, response };
+              writeFunctions[index].response = {
+                method,
+                index,
+                response: JSON.stringify(response, null, 2),
+              };
             });
         }
       }
+
       writeFunctions[index].isActive = true;
-      setState({ ...state, writeFunctions });
+      writeFunctions[index].loading = false;
+      setState({ ...state, writeFunctions, loading: false });
     } catch (error) {
       console.log(error);
+      writeFunctions[index].loading = false;
+      writeFunctions[index].error = "Transaction Failed";
+      setState({
+        ...state,
+        // error: "Transaction Failed",
+        loading: false,
+        writeFunctions,
+      });
     }
   };
 
-  const updateFunctionResponse = (method, index, response) => {
-    let existingIndex = state.readResponses.findIndex(
-      (item) => item.method == method && item.index == index
-    );
-    let methodExecutionResponse = state.readResponses;
-    if (existingIndex !== -1) {
-      methodExecutionResponse[existingIndex] = {
-        method,
-        index,
-        response,
-      };
-    } else {
-      methodExecutionResponse.push({ method, index, response });
-    }
-    setState({ ...state, readResponses: methodExecutionResponse });
-  };
+  // const updateFunctionResponse = (method, index, response) => {
+  //   let existingIndex = state.readResponses.findIndex(
+  //     (item) => item.method == method && item.index == index
+  //   );
+  //   let methodExecutionResponse = state.readResponses;
+  //   if (existingIndex !== -1) {
+  //     methodExecutionResponse[existingIndex] = {
+  //       method,
+  //       index,
+  //       response,
+  //     };
+  //   } else {
+  //     methodExecutionResponse.push({ method, index, response });
+  //   }
+  //   setState({ ...state, readResponses: methodExecutionResponse });
+  // };
 
   const handleWeb3ConnectClick = async () => {
     // setState({ ...state, setWalletInfo: true });
@@ -326,42 +353,49 @@ export default function ContractWriteMethods(props) {
     window.ethereum.enable();
 
     const chainId = await web3.eth.net.getId();
-    if (chainId !== 51) {
+
+    if (chainId == 51 || chainId == 50) {
+      await web3.eth.getAccounts().then(async (accounts) => {
+        if (!accounts || !accounts.length) {
+          alert("Please login to XDCPay extension");
+          return;
+        }
+        setState({
+          ...state,
+          accountAddress: accounts[0].replace("xdc", "0x"),
+        });
+      });
+    } else {
       setState({ ...state, setWalletInfo: true });
       return;
     }
-
-    await web3.eth.getAccounts().then(async (accounts) => {
-      if (!accounts || !accounts.length) {
-        alert("Please login to XDCPay extension");
-        return;
-      }
-      setState({ ...state, accountAddress: accounts[0] });
-    });
   };
 
   const handleExpandAllClick = async () => {
-    let writeFunctions = [];
+    if (!state.accountAddress) {
+      alert("Please connect your wallet");
+      return;
+    }
+    let writeFunctions = [...state.writeFunctions];
+    await setState({ ...state, loading: true });
+
     for (let index = 0; index < state.writeFunctions.length; index++) {
       const item = state.writeFunctions[index];
-
+      if (item.isActive) {
+        writeFunctions.push(item);
+        continue;
+      }
       if (item.inputs.length) {
-        writeFunctions.push({
-          ...item,
-          isActive: true,
-          response: {},
-        });
+        writeFunctions[index].isActive = true;
+        writeFunctions[index].response = {};
+        setState({ ...state, writeFunctions, loading: true });
       } else {
-        const response = await handleFunctionClick(index, false, false, false);
-        writeFunctions.push({
-          ...item,
-          response,
-          isActive: true,
-        });
+        await handleFunctionClick(index, false, false, false, false, true);
       }
     }
-    setState({ ...state, writeFunctions });
+    setState({ ...state, writeFunctions, loading: false });
   };
+
   const handleResetClick = () => {
     let writeFunctions = state.writeFunctions.map((item) => {
       return {
@@ -393,9 +427,13 @@ export default function ContractWriteMethods(props) {
           </ConnectToWalletButton>
         </HeaderItemsContainer>
         <Row style={{ gap: 20 }} alignItems="center">
-          <HighlightedText onClick={() => handleExpandAllClick()}>
-            Expand all
-          </HighlightedText>
+          {state.loading ? (
+            <CircularProgress />
+          ) : (
+            <HighlightedText onClick={() => handleExpandAllClick()}>
+              Expand all
+            </HighlightedText>
+          )}
           <HeaderItemsContainer onClick={() => handleResetClick()}>
             <HighlightedText>Reset</HighlightedText>
             <img src="/images/reset.svg" />
@@ -429,7 +467,11 @@ export default function ContractWriteMethods(props) {
                     <OutputContainer>
                       {item.inputs.length > 0 ? (
                         <InputTypeFunctions
+                          error={state.error}
+                          state={state}
+                          setState={setState}
                           itemIndex={index}
+                          writeFunctions={state.writeFunctions}
                           functionDetail={item}
                           handleSubmit={handleFunctionClick}
                         />
@@ -449,26 +491,37 @@ export default function ContractWriteMethods(props) {
   );
 }
 
-const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
+const InputTypeFunctions = ({
+  functionDetail,
+  handleSubmit,
+  itemIndex,
+  writeFunctions,
+  setState,
+  state,
+}) => {
   const [params, setParams] = React.useState({});
-  const [error, setError] = React.useState("");
   React.useEffect(() => {
     let paramKeys = {};
     functionDetail.inputs.map((item) => {
-      paramKeys[item.name] = item.type === "uint256" ? 0 : "";
+      paramKeys[item.name] = "";
     });
     setParams(paramKeys);
   }, [functionDetail]);
 
+  const setError = (error, index) => {
+    writeFunctions[index].error = error;
+    setState({ ...state, writeFunctions });
+  };
+
   const handleParamsInput = (value, name, type) => {
     if (value.includes("xdc")) {
-      value = value.replace(/^.{3}/g, "0x");
+      value = String(value);
+      value = value.replace("xdc", "0x").trim();
     }
-    setError("");
+    setError("", itemIndex);
     let param = params;
     param[name] = type === "uint256" ? Number(value) : value;
     setParams(param);
-    console.log("params", params);
   };
 
   const handleInputSubmit = () => {
@@ -476,11 +529,36 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
       (item) => String(item).length == 0
     );
     if (requiredInpuIndex !== -1) {
-      setError(`${Object.keys(params)[requiredInpuIndex]} is required field`);
+      setError(
+        `${Object.keys(params)[requiredInpuIndex]} is required field`,
+        itemIndex
+      );
       return;
     }
-    debugger;
-    // handleSubmit(itemIndex, false, false, true, Object.values(params));
+    let request = { ...params };
+    for (let index = 0; index < Object.keys(params).length; index++) {
+      const element = Object.keys(params)[index];
+      let input = functionDetail.inputs.find((item) => item.name == element);
+      if (input.type == "bool") {
+        request[element] = Boolean(request[element]);
+      } else if (input.type.includes("uint")) {
+        try {
+          checkNumberType(request[element]);
+          request[element] = request[element];
+        } catch (error) {
+          setError("Invalid value for type " + input.type, itemIndex);
+          return;
+        }
+      } else if (input.type.includes("map")) {
+        try {
+          request[element] = JSON.parse(request[element]);
+        } catch (error) {}
+      } else {
+        request[element] = request[element];
+      }
+    }
+    // console.log(request);
+    handleSubmit(itemIndex, false, false, true, Object.values(request));
   };
 
   return (
@@ -498,8 +576,14 @@ const InputTypeFunctions = ({ functionDetail, handleSubmit, itemIndex }) => {
           </InputTypeFunctionsContainer>
         );
       })}
-      <SubmitButton onClick={() => handleInputSubmit()}>Write</SubmitButton>
-      <ErrorText>{error}</ErrorText>
+      <SubmitButton
+        onClick={() => handleInputSubmit()}
+        disabled={functionDetail.loading}
+        isActive={functionDetail.loading}
+      >
+        {functionDetail.loading ? <CircularProgress /> : "Write"}
+      </SubmitButton>
+      <ErrorText>{functionDetail.error}</ErrorText>
       {functionDetail?.response?.response ? (
         <OutPutComponent item={functionDetail} />
       ) : (
@@ -519,4 +603,11 @@ const OutPutComponent = ({ item }) => {
       <Output>{item.outputs.map((it) => it.type).join(",")}</Output>
     </>
   );
+};
+
+const checkNumberType = (number) => {
+  const isFloat = Number(number) === number && number % 1 !== 0;
+  if (isFloat) {
+    throw `Invalid input`;
+  }
 };
