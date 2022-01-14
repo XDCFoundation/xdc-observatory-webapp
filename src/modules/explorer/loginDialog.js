@@ -27,6 +27,18 @@ const useStyles = makeStyles((theme) => ({
   value: {
     width: "400px !important",
   },
+  backButtonMobile : {
+    marginLeft : "18px",
+    marginTop: "29px",
+    position: "absolute",
+    cursor: "pointer"
+
+  },
+  "@media (min-width: 740px)":{
+    backButtonMobile : {
+      display: "none"
+    }
+  },
   closeContainer: {
     top: "26px",
     fontWeight: "500",
@@ -873,6 +885,9 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        <div onClick={handleClose} className={classes.backButtonMobile}>
+            <img src="images/backbutton.svg" />
+          </div>
         {value === 0 ? (
           <div>
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
