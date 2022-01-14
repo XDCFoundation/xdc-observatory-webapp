@@ -403,9 +403,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setHashTT(!hashTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -422,9 +422,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setageTT(!ageTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -440,9 +440,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setblockTT(!blockTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -458,9 +458,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setfromTT(!fromTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -476,9 +476,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => settoTT(!toTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -494,9 +494,9 @@ export default function TransactionTableComponent(props) {
                         <img
                         onClick={() => setvalueTT(!valueTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -512,9 +512,9 @@ export default function TransactionTableComponent(props) {
                         <img
                         onClick={() => setgasTT(!gasTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
