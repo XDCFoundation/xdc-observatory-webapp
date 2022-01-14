@@ -504,7 +504,7 @@ export default function TransactionTableComponent(props) {
                   </TableCell>
                   <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-value"}>
-                      Gas
+                      Avg Txn Fee
                       <Tooltip
                       open={gasTT}
                         onOpen={() => setgasTT(true)}

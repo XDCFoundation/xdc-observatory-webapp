@@ -634,7 +634,7 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="gasPrice">
                 <TitleIcon src={priceLogo}/>
                 <ValueName>
-                  <Title>Gas Price</Title>
+                  <Title>Txn Fee (Avg)</Title>
                   <TitleData className={TxanimationClass ? TxanimationClass : ""}>
                     {this.state.gasPrice}
                   </TitleData>
@@ -668,7 +668,8 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src='/images/nodes.svg'/>
                 <ValueName>
                   <Title>Nodes</Title>
-                  <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue>
+                  {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
+                  <TitleValue>217/220</TitleValue>
                 </ValueName>
               </Value>
               <Value gridArea="tps">
@@ -725,7 +726,7 @@ class BlockChainDataComponent extends Component {
                   </div>
                 </ValueName>
               </Value>
-              <Value gridArea="stakes">
+              {/* <Value gridArea="stakes">
                 <TitleIcon src='/images/stakes.svg'/>
                 <ValueName>
                   <Title>Total Stake</Title>
@@ -745,7 +746,7 @@ class BlockChainDataComponent extends Component {
                   <Title>Active Addresses</Title>
                   <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
                 </ValueName>
-              </Value>
+              </Value> */}
             </ValueMain>
           </LeftSec>
         </LeftContainer>
