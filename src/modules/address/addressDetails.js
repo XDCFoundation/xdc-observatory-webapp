@@ -674,7 +674,6 @@ export default function AddressDetails(props) {
       isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
-    console.log(response, "<<<response");
     if (response.totalCount > 0) {
       // setTxnAddressNotAdded(false);
     }
@@ -733,7 +732,6 @@ export default function AddressDetails(props) {
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
-  console.log(lastAct, "opop");
   const [balanceTT, setBalanceTT] = React.useState(false);
   const [xdcValueTT, setXDCTT] = React.useState(false);
   let taggedAddressfetched = localStorage.getItem(
@@ -745,12 +743,12 @@ export default function AddressDetails(props) {
       : "";
   var tagValue =
     tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr) : "";
-  let watchlists = localStorage.getItem(
-    cookiesConstants.USER_ADDRESS_WATCHLIST
-  );
-  let watchList =
-    watchlists && watchlists.length > 0 ? JSON.parse(watchlists) : "";
-  console.log(watchList, "<<<<watchLIst");
+  // let watchlists = localStorage.getItem(
+  //   cookiesConstants.USER_ADDRESS_WATCHLIST
+  // );
+  // let watchList =
+  //   watchlists && watchlists.length > 0 ? JSON.parse(watchlists) : "";
+  // console.log(watchList, "<<<<watchLIst");
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
@@ -889,7 +887,9 @@ export default function AddressDetails(props) {
                       </CopyToClipboard>
                     </CopyButton>
                   </AddressLine>
-                  {tagValue && tagValue?.length > 0 ? (
+                  {sessionManager.getDataFromCookies("isLoggedIn") &&
+                  tagValue &&
+                  tagValue?.length > 0 ? (
                     <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                   ) : (
                     ""
@@ -994,7 +994,7 @@ export default function AddressDetails(props) {
                           Add Tag
                         </AddTagButton>
                       )}
-
+                      {/* {watchList && watchList.length > 0 ? watchList?.filter((obj) => obj.address === addr) : ""} */}
                       <AddToWatchList onClick={openDialogWatchList}>
                         <img
                           className="tag-white-icon"

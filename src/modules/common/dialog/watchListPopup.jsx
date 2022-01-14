@@ -311,7 +311,7 @@ export default function FormDialog(props) {
         cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
       );
-      alertSuccess();
+
       onClose();
     }
   };
@@ -463,9 +463,6 @@ export default function FormDialog(props) {
           <span onClick={handleClose}>
             <button className={classes.cnlbtn} onClick={onClose}>
               Cancel
-            </button>
-            <button className={classes.cnlbtn} onClick={alertSuccess}>
-              alert
             </button>
           </span>
           <span>
