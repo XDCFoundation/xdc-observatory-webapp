@@ -17,6 +17,8 @@ import PrivateNote from "../../modules/common/dialog/privateNote";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog";
 import format from "format-number";
+import {useSelector} from "react-redux";
+import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "@media (min-width: 0px) and (max-width: 767px)": {
       maxWidth: "22.563rem",
+      paddingLeft: "7px",
+      paddingRight: "7px",
     },
     "@media (min-width: 768px) and (max-width: 1240px)": {
       maxWidth: "41.5rem",
@@ -186,7 +190,8 @@ export default function Transaction({ _handleChange }) {
     setPrice(transactiondetailusinghash[0]?.price);
   };
 
-  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const isloggedIn = sessionManager.getDataFromCookies("userInfo");
+
   const privateNoteUsingHash = async () => {
     const data = {
       transactionHash: `${hash}`,
@@ -328,6 +333,8 @@ export default function Transaction({ _handleChange }) {
       return daysDifference + " days ago";
     }
   };
+  const timezone = useSelector(state=> state.timezone)
+
   return (
     <div className={classes.mainContainer}>
       <Tokensearchbar />
@@ -340,7 +347,7 @@ export default function Transaction({ _handleChange }) {
                 <Container>
                   <Heading>Transaction Details</Heading>
                   {/* <p className="Failed-rectangle">Failed</p> */}
-                  
+
                 </Container>
               </Spacing>
               {/* 
@@ -359,10 +366,12 @@ export default function Transaction({ _handleChange }) {
               {transactions ? (
                     transactions.status ? (
                       <StatusContainer>
-                        <StatusImgContainer>
-                        <StatusImg src="/images/success.svg"></StatusImg>
-                        </StatusImgContainer>
-                        <StatusTextSuccess>Success</StatusTextSuccess>
+                        <StatusContainerInside>
+                          <StatusImgContainer>
+                              <StatusImg src="/images/success.svg"></StatusImg>
+                            </StatusImgContainer>
+                          <StatusTextSuccess>Success</StatusTextSuccess>
+                        </StatusContainerInside>
                       </StatusContainer>
                     ) : (
                       <StatusContainer>
@@ -383,13 +392,13 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Transaction Hash</Hash>
                   </Container>
                   <DetailsMiddleContainer isTextArea={false}>
-                    <Content>
-                      {width > 1240
+                    <ContentHash>{hash}
+                      {/* {width > 1240
                         ? hash
                         : width <= 1240 && width >= 768
                           ? Utils.shortenHashTab(hash)
-                          : hash}
-                    </Content>
+                          : hash} */}
+                    </ContentHash>
                     <span
                       className={
                         width >= 768
@@ -427,7 +436,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                      {isloggedIn ? (
                         <>
                           {
                             <PrivateNote
@@ -446,8 +455,7 @@ export default function Transaction({ _handleChange }) {
                                 className={
                                   width > 1240
                                     ? "edit-icon"
-                                    : width < 768
-                                      ? "editIconHashMobile"
+                                    
                                       : "editIconHash"
                                 }
                                 onClick={openDialogPvtNote}
@@ -489,12 +497,8 @@ export default function Transaction({ _handleChange }) {
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "}============================ */}
-                    {transactions.timestamp &&
-                      !isNaN(Number(transactions.timestamp))
-                      ? moment(Number(transactions.timestamp) * 1000)
-                        .utc()
-                        .format("MMMM Do YYYY, h:mm:ss A") + "  UTC"
-                      : ""}
+                    {`${transactions?.timestamp && moment(transactions.timestamp * 1000).tz(timezone).format(
+                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                     {/*============================================================================({getHoursAgo(transactions.timestamp * 1000)})==================================*/}
                    </DetailsMiddleContainer>
                 </DetailsContainer>
@@ -585,13 +589,12 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          
+
                         </div>
                       </div>
                     </Content>
-                    
-                  </DetailsMiddleContainer>
-                  {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                    <TabTag>
+                    {width >= 768 && width <= 1240 ? (isloggedIn ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -630,7 +633,51 @@ export default function Transaction({ _handleChange }) {
                             </>
                           ) : (
                             ""
-                          )}
+                          )):""}
+                          </TabTag>
+                  </DetailsMiddleContainer>
+                  <MobileDesktopTag>
+                  {width < 768 || width > 1240 ? (isloggedIn ? (
+                            <>
+                              {
+                                <PrivateAddressTag
+                                  open={dialogPvtTagIsOpen}
+                                  onClose={closeDialogPvtTag}
+                                  fromAddr={transactions.from}
+                                  value={dialogValue}
+                                  hash={hash}
+                                />
+                              }
+
+                              {isTag ? (
+                                <Tag>
+                                  {addressTag[0]?.tagName}
+                                </Tag>
+                              ) : (
+                                <Tooltip
+                                  title="Add a new Address Tag"
+                                  placement="top"
+                                >
+                                  {/* <img
+                                    className={
+                                      width > 1240
+                                        ? "edit1-icon"
+                                        : "edit1-icon-from"
+                                    }
+                                    onClick={openDialogPvtTag}
+                                    src={require("../../../src/assets/images/tag.svg")}
+                                  /> */}
+                                  <AddTagContainer onClick={openDialogPvtTag}>
+                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
+                                    <AddTagtext>Add Tag</AddTagtext>
+                                  </AddTagContainer>
+                                </Tooltip>
+                              )}
+                            </>
+                          ) : (
+                            ""
+                          )):""}
+                          </MobileDesktopTag>
                 </DivMiddle>
                 <DivCircle>
                   <ImgNextArrow>
@@ -698,13 +745,12 @@ export default function Transaction({ _handleChange }) {
                               </button>
                             </Tooltip>
                           </CopyToClipboard>
-                          
+
                         </div>
                       </span>
                     </Content>
-                    
-                  </DetailsMiddleContainer>
-                  {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                    <TabTag>
+                    {width >= 768 && width <= 1240 ? (isloggedIn ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -742,14 +788,57 @@ export default function Transaction({ _handleChange }) {
                             </>
                           ) : (
                             ""
-                          )}
+                          )):""}
+                          </TabTag>
+                  </DetailsMiddleContainer>
+                  <MobileDesktopTag>
+                  {width < 768 || width > 1240 ? (isloggedIn ? (
+                            <>
+                              {
+                                <PrivateAddressTag
+                                  open={dialogPvtTagIsOpen2}
+                                  onClose={closeDialogPvtTag2}
+                                  toAddr={transactions.to}
+                                  value={dialogValue2}
+                                  hash={hash}
+                                />
+                              }
+                              {isTagTo ? (
+                                <div className="nameLabel">
+                                  {addressTagTo[0]?.tagName}
+                                </div>
+                              ) : (
+                                <Tooltip
+                                  title="Add a new Address Tag"
+                                  placement="top"
+                                >
+                                  {/* <img
+                                    className={
+                                      width > 1240
+                                        ? "edit1-icon"
+                                        : "edit1-icon-from"
+                                    }
+                                    onClick={openDialogPvtTag2}
+                                    src={require("../../../src/assets/images/tag.svg")}
+                                  /> */}
+                                  <AddTagContainer onClick={openDialogPvtTag2}>
+                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
+                                    <AddTagtext>Add Tag</AddTagtext>
+                                  </AddTagContainer>
+                                </Tooltip>
+                              )}
+                            </>
+                          ) : (
+                            ""
+                          )):""}
+                          </MobileDesktopTag>
                 </DivMiddle>
               </DivMiddleContainer>
 
               <Div__>
-              
 
-                
+
+
                 {/* -------------------------------------------------------------txn fee----------------------- */}
                 <Spacing>
                   <Container>
@@ -827,13 +916,13 @@ export default function Transaction({ _handleChange }) {
                     <Content>{format({})(transactions?.gasUsed)}</Content>
                   </MiddleContainer>
                 </Spacing>
-                {!isSeeMore ? 
+                {!isSeeMore ?
                 (<Spacing>
                   <SeeMoreContainer onClick={handleSeeMore}>
                     <SeeMoreText>See more</SeeMoreText>
                     <ImgSeeMore src="/images/see-more.svg"></ImgSeeMore>
                   </SeeMoreContainer>
-                </Spacing>) : 
+                </Spacing>) :
                 (<>
                 <Spacing>
                   <Container>
@@ -887,7 +976,7 @@ export default function Transaction({ _handleChange }) {
                             dataHashOrAddress={hash}
                           />
                         }
-                        To access the Private Note feature, you must be
+                        To access the private note feature, you must be
                         <a
                           className="linkTableDetails-transaction"
                           style={{ marginLeft: "5px", cursor: "pointer" }}
@@ -897,10 +986,42 @@ export default function Transaction({ _handleChange }) {
                         </a>
                       </PrivateText>
                     ) : !isPvtNote ? (
-                      <span>
-                        Add private Note By click on Edit Icon in front of Hash
-                        ID
-                      </span>
+                      <AddLabel>
+                        <AddLabelText>
+                        Add private note by clicking on this icon
+                        </AddLabelText>
+                        {isloggedIn ? (
+                        <>
+                          {
+                            <PrivateNote
+                              open={dialogPvtNoteIsOpen}
+                              onClose={closeDialogPvtNote}
+                              hash={hash}
+                              pvtNote={privateNote[0]?.trxLable}
+                            />
+                          }
+                          {
+                            <Tooltip
+                              title="Add Transaction Label"
+                              placement="top"
+                            >
+                              <img
+                                className={
+                                  width > 1240
+                                    ? "edit-icon1"
+                                    
+                                      : "editIconHash"
+                                }
+                                onClick={openDialogPvtNote}
+                                src={require("../../../src/assets/images/label.svg")}
+                              />
+                            </Tooltip>
+                          }
+                        </>
+                      ) : (
+                        ""
+                      )}
+                        </AddLabel>
                     ) : (
                       <span>{privateNote[0]?.trxLable}</span>
                     )}
@@ -924,24 +1045,24 @@ const Input = styled.input`
   background-color: #fff;
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.div`
   font-family: Inter;
   font-size: 0.935rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
-  line-height: 28px;
+  line-height: 22px;
   display: flex;
   align-items: center;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #3a3a3a;
     opacity: 1;
     line-height: 18px !important;
@@ -951,9 +1072,38 @@ const Content = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #3a3a3a;
     opacity: 1;
+  }
+`;
+const ContentHash = styled.div`
+  font-family: Inter;
+  font-size: 0.935rem;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #3a3a3a;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0rem;
+    color: #2a2a2a;
+    opacity: 1;
+    line-height: 18px !important;
+    word-break: break-all;
+  }
+  @media (min-width: 768px) and (max-width: 1241px) {
+    font-size: 0.875rem;
+    word-break: break-all;
+    text-align: left;
+    letter-spacing: 0rem;
+    color: #3a3a3a;
+    opacity: 1;
+    width: 33rem;
   }
 `;
 const TextArea = styled.textarea`
@@ -990,20 +1140,23 @@ const Div__ = styled.div`
   padding-left: 27px;
   padding-right: 25px;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 22.563rem;
+    max-width: 22.563rem;
+    width: 100%;
     // height: 61rem;
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 35px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
     height: unset;
+    margin-bottom: 54px;
   }
 `;
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.2px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1016,7 +1169,7 @@ const MiddleContainerPrivateNote = styled.div`
     margin-top: 10px;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0.2px;
+    letter-spacing: 0px;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
@@ -1025,17 +1178,16 @@ const MiddleContainerPrivateNote = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
-    height: 3.25rem;
     text-align: left;
-    letter-spacing: 0.2px;
+    letter-spacing: 0px;
     opacity: 1;
-    margin-left: 64px;
+    margin-left: 100px;
   }
 `;
 const MiddleContainerInputData = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1043,7 +1195,7 @@ const MiddleContainerInputData = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
@@ -1052,16 +1204,16 @@ const MiddleContainerInputData = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     opacity: 1;
-    margin-left: 64px;
+    margin-left: 100px;
   }
 `;
 
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1072,7 +1224,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -1084,17 +1236,17 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #3a3a3a;
     opacity: 1;
-    margin-left: 64px;
+    margin-left: 100px;
   }
 `;
 
 const MiddleContainer1 = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1105,7 +1257,7 @@ const MiddleContainer1 = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -1118,7 +1270,7 @@ const MiddleContainer1 = styled.div`
     font-size: 0.875rem;
     // word-break: break-all;
     // text-align: left;
-    // letter-spacing: 0.034rem;
+    // letter-spacing: 0rem;
     // color: #3a3a3a;
     // opacity: 1;
     // display: block;
@@ -1131,8 +1283,8 @@ const HashInputData = styled.span`
   white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.5px;
+  font-size: 15px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   padding-bottom: 30px;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1140,7 +1292,7 @@ const HashInputData = styled.span`
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0rem;
     color: #2a2a2a;
     opacity: 1;
     padding-bottom: 20px;
@@ -1150,7 +1302,7 @@ const HashInputData = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -1161,14 +1313,14 @@ const Hash = styled.span`
   font-family: Inter;
   font-weight: 600;
   font-size: 15px;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0rem;
     color: #252525;
     opacity: 1;
   }
@@ -1177,7 +1329,7 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0rem;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -1228,7 +1380,7 @@ const Spacing = styled.div`
   @media (max-width: 767px) {
     display: block;
     height: auto;
-    padding: 15px 0 15px 0;
+    padding: 12px 0 17px 0;
   }
 `;
 const SpacingHash = styled.div`
@@ -1269,7 +1421,7 @@ const Container = styled.div`
 
   width: 100%;
   align-items: center;
-  max-width: 84px;
+  max-width: 165px;
 `;
 const SecondContainer = styled.div`
   display: flex;
@@ -1285,12 +1437,14 @@ const Div = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-bottom: 15px;
-  @media (min-width: 0px) and (max-width: 767px) {
-    width: 22.563rem;
-    height: 6.813rem;
-  }
-  @media (min-width: 768px) and (max-width: 1240px) {
-    width: 41.5rem;
+  // @media (min-width: 0px) and (max-width: 767px) {
+  //   width: 22.563rem;
+  //   height: 6.813rem;
+  // }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    max-width: 41.5rem;
+    width: 100%;
+    display: block;
   }
 `;
 const DivMiddleContainer = styled.div`
@@ -1298,6 +1452,13 @@ const DivMiddleContainer = styled.div`
   justify-content: space-between;
   margin-top: 35px;
   margin-bottom: 36px
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 25px;
+    margin-bottom:25px
+  }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    display: block;
+  }
 `;
 const DivMiddle = styled.div`
   max-width: 35.625rem;
@@ -1307,12 +1468,13 @@ const DivMiddle = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   // margin-bottom: 15px;
-  @media (min-width: 0px) and (max-width: 767px) {
-    width: 22.563rem;
-    height: 6.813rem;
-  }
-  @media (min-width: 768px) and (max-width: 1240px) {
-    width: 41.5rem;
+  // @media (min-width: 0px) and (max-width: 767px) {
+  //   width: 22.563rem;
+  //   height: 6.813rem;
+  // }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    max-width: 41.5rem;
+    width: 100%;
   }
 `;
 
@@ -1353,34 +1515,62 @@ const ImageViewInputData = styled.img`
   margin-right: 15px;
   padding-bottom: 30px;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 11px;
+    width: 22px;
     padding-bottom: 17px;
+    margin-left: -4px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    width: 0.875rem;
+    width: 22px;
   }
 `;
 const ImageView = styled.img`
   width: 22px;
   margin-right: 15px;
   cursor: pointer;
-  @media (min-width: 0px) and (max-width: 767px) {
-    width: 14px;
-    height: 14px;
-  }
-  @media (min-width: 768px) and (max-width: 1240px) {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
+  // @media (min-width: 0px) and (max-width: 767px) {
+    
+  // }
+  // @media (min-width: 768px) and (max-width: 1240px) {
+  //   width: 0.875rem;
+  //   height: 0.875rem;
+  // }
 `;
 const StatusContainer = styled.div`
   max-width: 10.75rem;
   width: 100%;
   border-right: 1px solid #e3e7eb;
+  // @media (min-width: 0px) and (max-width: 767px) {
+  //   width: 14px;
+  //   height: 14px;
+  // }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    max-width: 41.5rem;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e3e7eb;
+    padding-bottom: 30px;
+  }
 `;
 const StatusImgContainer = styled.div`
   width: 58px;
   margin: 44px auto 10px auto;
+  // @media (min-width: 0px) and (max-width: 767px) {
+    
+  // }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    margin: 21px auto 10px auto;
+  }
+`;
+const StatusContainerInside = styled.div`
+  width: 100px;
+  margin: auto;
+  // @media (min-width: 0px) and (max-width: 767px) {
+    
+  // }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    padding-top: 1px;
+  }
+  
 `;
 const StatusImg = styled.img`
   width: 58px;
@@ -1389,14 +1579,14 @@ const StatusImg = styled.img`
 const StatusTextSuccess = styled.div`
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #03be46;
 `;
 const StatusTextFailed = styled.div`
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: red;
 `;
@@ -1408,17 +1598,28 @@ const SeeMoreText = styled.div`
 font-family: Inter;
 font-size: 15px;
 font-weight: 600;
-letter-spacing: 0.58px;
+letter-spacing: 0px;
 color: #4878ff;
 margin-left: 4px;
 margin-right: 5px;
+@media (min-width: 0px) and (max-width: 767px) {
+    font-size: 13px;
+}
 `;
 const ImgSeeMore = styled.img`
   display: flex;
+  @media (min-width: 0px) and (max-width: 767px) {
+    height: 15px;
+    margin-top: 2px;
+}
 `;
 const ImgSeeLess = styled.img`
   display: flex;
   transform: rotate(180deg);
+  @media (min-width: 0px) and (max-width: 767px) {
+    height: 15px;
+    margin-top: 2px;
+}
 `;
 const TxnDetailsRightContainer = styled.div`
   width: 100%;
@@ -1431,6 +1632,13 @@ const TxnDetailsRightBottomContainer = styled.div`
   justify-content: space-between;
   padding-top: 32px;
   padding-bottom: 25px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    flex-flow: row wrap;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    flex-flow: row wrap;
+    padding-top: 0px;
+  }
 `;
 const TxnDetailsRightTopContainer = styled.div`
   Width: 100%;
@@ -1439,26 +1647,43 @@ const TxnDetailsRightTopContainer = styled.div`
 `;
 const DetailsContainer = styled.div`
   display: block;
+  // @media (min-width: 0px) and (max-width: 767px) {
+    
+  // }
+  @media (min-width: 0px) and (max-width: 1240px) {
+    padding-top: 29px;
+  }
 `;
 const DetailsMiddleContainer = styled.div`
   margin-left: 4px;
   display: flex;
   font-family: Inter;
   font-size: 15px;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #3a3a3a;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+  @media (min-width: 0px) and (max-width: 767px) {
+    display: block;
+    padding-top: 10px;
+    color: #2a2a2a;
+  }
 `;
 const BlockConfirmation = styled.div`
   margin-left: 4px;
   display: flex;
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #2149b9;
   background-color: #e2eaff;
   padding-left: 8px;
   padding-right:10px;
   border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 `;
 
 const DivCircle = styled.div`
@@ -1470,19 +1695,26 @@ const DivCircle = styled.div`
   background-color: #fff;
   margin: auto;
   
-  // @media (min-width: 0px) and (max-width: 767px) {
-  //   width: 22.563rem;
-  //   height: 6.813rem;
-  // }
-  // @media (min-width: 768px) and (max-width: 1240px) {
-  //   width: 41.5rem;
-  // }
+  @media (min-width: 0px) and (max-width: 767px) {
+    margin-top: 15px;
+    margin-bottom: 15px
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-top: 34px;
+    margin-bottom: 33px
+  }
 `;
 
 const ImgNextArrow = styled.div`
   margin-left: 8px;
   margin-top: 6px;
   width: 17px
+  @media (min-width: 0px) and (max-width: 1240px) {
+    transform: rotate(90deg);
+    margin-left: 0px;
+    padding-left: 18px;
+    padding-right: 20px
+  }
 `;
 const AddTagContainer = styled.div`
   background-color: #4878ff;
@@ -1495,6 +1727,10 @@ const AddTagContainer = styled.div`
   margin-top: 2px;
   margin-left: 4px;
   cursor: pointer;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const ImgAddTag = styled.div`
   margin-right: 4px;
@@ -1510,10 +1746,22 @@ const Tag = styled.div`
   background-color: #eaf0ff;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #4878ff;
   width: fit-content;
   margin-top: 2px;
   margin-left: 4px;
+`;
+const TabTag = styled.div`
+  width: 180px;
+`;
+const MobileDesktopTag = styled.div`
+  padding-top: 10px;
+`;
+const AddLabel = styled.div`
+  display: flex;
+`;
+const AddLabelText = styled.div`
+  margin-right: 8px;
 `;

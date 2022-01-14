@@ -11,11 +11,13 @@ import { useParams } from "react-router";
 import { BlockService } from "../../services";
 import Tooltip from "@material-ui/core/Tooltip";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import moment from "moment";
+import moment from "moment-timezone";
 import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
 import utility from "../../utility";
+import {useSelector} from "react-redux";
+import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -176,6 +178,7 @@ export default function BlockDetails() {
       return daysDifference + " days ago"
     }
   }
+  const timezone = useSelector(state=> state.timezone)
 
   return (
     <div>
@@ -196,7 +199,7 @@ export default function BlockDetails() {
                     <Container className="pad-left-6 pad-left-7">
                       <Tooltip align="right" title={hashid}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Hash ID</Hash>
@@ -220,7 +223,7 @@ export default function BlockDetails() {
                           >
                             <button className="copy-icon-block-details">
                               <ImgView
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src="/images/info.svg"
                               />
                             </button>
                           </Tooltip>
@@ -234,7 +237,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={blockheight}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
 
@@ -282,7 +285,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={hashid}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Transaction</Hash>
@@ -297,24 +300,23 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={timestamp}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Time Stamp</Hash>
                     </Container>
                     <MiddleContainer>
-                      {getHoursAgo(height.timestamp * 1000)}
+                      {height?.timestamp && getHoursAgo(height.timestamp * 1000)}
                       (
-                      {moment(height.timestamp * 1000).format(
-                        "ddd MMMM Do YYYY, h:mm:ss a"
-                      )} GMT+530)
+                      {`${height?.timestamp && moment(height.timestamp * 1000).tz(timezone).format(
+                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`})
                     </MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
                       <Tooltip align="right" title={parenthash}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Parent Hash</Hash>
@@ -350,7 +352,7 @@ export default function BlockDetails() {
                               }}
                             >
                               <ImgView
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src="/images/info.svg"
                               />
                             </button>
                           </Tooltip>
@@ -362,7 +364,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={sha3uncles}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Sha3Uncles</Hash>
@@ -391,7 +393,7 @@ export default function BlockDetails() {
                               }}
                             >
                               <ImgView
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src="/images/info.svg"
                               />
                             </button>
                           </Tooltip>
@@ -403,7 +405,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={diffi}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Difficulty</Hash>
@@ -414,7 +416,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={tdiffi}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Total Difficulty</Hash>
@@ -425,7 +427,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={gasU}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Gas Used</Hash>
@@ -436,7 +438,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={gasL}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Gas Limit</Hash>
@@ -447,7 +449,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={nonc}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Nonce</Hash>
@@ -458,7 +460,7 @@ export default function BlockDetails() {
                     <Container className="pad-bottom-34">
                       <Tooltip align="right" title={extrad}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Extra Data</Hash>
@@ -488,14 +490,14 @@ const Input = styled.input`
   background-color: #fff;
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.span`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
@@ -503,7 +505,7 @@ const Content = styled.span`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
   }
@@ -511,7 +513,7 @@ const Content = styled.span`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
   }
@@ -523,7 +525,7 @@ const Content = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.036rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #3a3a3a;
   }
@@ -548,7 +550,7 @@ const Digits = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #4878ff;
 `;
@@ -556,7 +558,7 @@ const Blocks = styled.span`
   font-family: Inter;
   font-size: 14px;
 
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
 `;
 const Div__ = styled.div`
@@ -574,7 +576,7 @@ const Div__ = styled.div`
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -585,7 +587,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
   }
@@ -593,7 +595,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
   }
@@ -605,7 +607,7 @@ const MiddleContainer = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.036rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #3a3a3a;
   }
@@ -613,7 +615,7 @@ const MiddleContainer = styled.div`
 const MiddleContainerHash = styled.div`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 105px;
@@ -630,14 +632,14 @@ const Hash = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 13px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -646,7 +648,7 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -658,7 +660,7 @@ const Hash = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.036rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }
@@ -734,7 +736,7 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.058rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }
@@ -767,18 +769,18 @@ const Heading = styled.span`
 `;
 
 const ImageView = styled.img`
-  width: 15px;
-  margin-right: 15px;
+  width: 22px;
+  margin-right: 12px;
   cursor: pointer;
 
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 14px;
-    height: 14px;
+    width: 22px;
+    // height: 14px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {
-    width: 0.875rem;
-    height: 0.875rem;
+    width: 22px;
+    // height: 0.875rem;
   }
 `;
 const ImgView = styled.img`

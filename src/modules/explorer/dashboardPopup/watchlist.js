@@ -181,7 +181,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
     lineHeight: "1.58",
   },
 
@@ -220,7 +220,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -258,7 +258,7 @@ export default function FormDialog(props) {
   };
 
   const watchListService = async () => {
-    if(!address){
+    if (!address) {
       setError("Please enter required field");
     }
     const request = {
@@ -268,10 +268,9 @@ export default function FormDialog(props) {
       type: value,
       isEnabled: true,
     };
-    if(!address){
+    if (!address) {
       setError("Please enter required field");
-    }
-   else if (
+    } else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
@@ -280,14 +279,14 @@ export default function FormDialog(props) {
       setDescriptionError("Description is required");
     } else {
       if (value === "NO") request["isEnabled"] = false;
-      // const [error, response] = await utility.parseResponse(
-      //   AddWatchList.addWatchlist(request)
-      // );
+      const [error, response] = await utility.parseResponse(
+        AddWatchList.addWatchlist(request)
+      );
 
-      // if (error || !response) {
-      //   utility.apiFailureToast("Address already exists");
-      //   return;
-      // }
+      if (error || !response) {
+        utility.apiFailureToast("Address already exists");
+        return;
+      }
       let watchlists = localStorage.getItem(
         cookiesConstants.USER_ADDRESS_WATCHLIST
       );
@@ -331,7 +330,7 @@ export default function FormDialog(props) {
 
   const tooltipClose = () => {
     setTooltipIsOpen(!tooltipIsOpen);
-  }
+  };
 
   const classes = useStyles();
 
@@ -541,8 +540,10 @@ export default function FormDialog(props) {
             </DialogActions>
             <div className={classes.lastContainer}>
               <div className={classes.lastContainerText}>
-                To protect your privacy, data related to the Watchlists, is added on your local device. Cleaning the browsing history or cookies will clean the watchlist data saved in your profile.
-                </div>
+                To protect your privacy, data related to the Watchlists, is
+                added on your local device. Cleaning the browsing history or
+                cookies will clean the watchlist data saved in your profile.
+              </div>
             </div>
             {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
