@@ -898,6 +898,7 @@ export default function FormDialog(props) {
                   setInputError(" ");
                 }}
                 type="text"
+                value={email}
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
@@ -922,6 +923,7 @@ export default function FormDialog(props) {
                   setPassword(e.target.value);
                   setErrorPassword("");
                 }}
+                value={password}
               />
               <span>
                 {passwordShown ? (
