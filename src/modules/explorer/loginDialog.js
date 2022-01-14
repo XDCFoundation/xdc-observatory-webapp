@@ -253,7 +253,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
