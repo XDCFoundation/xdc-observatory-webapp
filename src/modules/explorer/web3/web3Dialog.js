@@ -238,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -440,7 +440,7 @@ const CardText = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: 0px;
   text-align: center;
   padding: 0 15px 0 15px;
   color: #686868;
@@ -459,7 +459,7 @@ const CardTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
   text-align: center;
