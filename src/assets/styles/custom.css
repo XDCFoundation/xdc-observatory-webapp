@@ -1881,6 +1881,9 @@ div::-webkit-scrollbar-thumb {
   .token-link {
     font-size: 0.813rem !important;
   }
+  .w-33p {
+    width: 30%;
+  }
 }
 /* .Token:after {
   content: "";
@@ -10708,5 +10711,8 @@ button {
   .MuiIconButton-root {
     padding: 0 12px 0 0 !important;
     margin-right: -12px !important;
+  }
+  .p-l-r-15 {
+    padding: 20px 15px !important;
   }
 }

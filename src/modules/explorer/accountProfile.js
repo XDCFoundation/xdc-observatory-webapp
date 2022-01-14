@@ -104,7 +104,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box style={{ padding: "20px 0" }}>
+        <Box style={{ padding: "20px 0" }} className="p-l-r-15">
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -375,7 +375,7 @@ const UserNameContainer = styled.div`
   
 
   @media (min-width: 450px) and (max-width: 850px) {
-    gap: ${(props) => (props.isWallet ? "30px" : "15px")};
+    ${'' /* gap: ${(props) => (props.isWallet ? "10px" : "10px")}; */}
   }
 
   @media (max-width: 767px) {
@@ -386,6 +386,8 @@ const UserNameContainer = styled.div`
     margin-right: auto;
     width: 100%;
     padding: 0 15px;
+    justify-content: center;
+    align-items: center;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
