@@ -378,9 +378,9 @@ const UserNameContainer = styled.div`
 
 
   @media (max-width: 850px) {
-    padding: 0 10px 0 10px !important;
+    ${'' /* padding: 0 10px 0 10px !important;
     flex-wrap : nowrap;
-    max-width: 710px;
+    max-width: 710px; */}
   }
   @media (min-width: 400px) and (max-width: 767px){
     ${'' /* gap: 12px; */}
