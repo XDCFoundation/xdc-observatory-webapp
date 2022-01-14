@@ -516,14 +516,14 @@ export default function TransferTransaction({ _handleChange }) {
 //   background-color: #fff;
 //   font-family: Inter;
 //   font-size: 14px;
-//   letter-spacing: 0.54px;
+//   letter-spacing: 0px;
 //   text-align: left;
 //   color: #2a2a2a;
 // `;
 const Content = styled.span`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   word-break: break-all;
@@ -532,7 +532,7 @@ const Content = styled.span`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -541,7 +541,7 @@ const Content = styled.span`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
   }
@@ -553,7 +553,7 @@ const Content = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.036rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #3a3a3a;
   }
@@ -613,7 +613,7 @@ const Division = styled.div`
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -623,7 +623,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -635,7 +635,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #3a3a3a;
     opacity: 1;
   }
@@ -647,7 +647,7 @@ const MiddleContainer = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.036rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #3a3a3a;
   }
@@ -655,7 +655,7 @@ const MiddleContainer = styled.div`
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   height: 2.313rem;
@@ -679,7 +679,7 @@ const PrivateBox = styled.div`
 const MiddleContainerInputData = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #3a3a3a;
   width: 100%;
@@ -690,7 +690,7 @@ const MiddleContainerInputData = styled.div`
 // const InputContainer = styled.div`
 //   font-family: Inter;
 //   font-size: 13px;
-//   letter-spacing: 0.54px;
+//   letter-spacing: 0px;
 //   text-align: left;
 //   color: #3a3a3a;
 //   margin-left: 100px;
@@ -703,14 +703,14 @@ const Hash = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 13px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -719,7 +719,7 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -730,7 +730,7 @@ const Hash = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.036rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }
@@ -879,7 +879,7 @@ const Heading = styled.span`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.058rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }

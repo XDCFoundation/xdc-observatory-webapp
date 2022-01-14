@@ -48,7 +48,7 @@ const TransactionTitle = styled.div`
   margin-left: 25px;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0.043rem;
+  letter-spacing: 0px;
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;

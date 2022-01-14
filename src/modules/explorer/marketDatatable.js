@@ -33,7 +33,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   justify-content: center;
   color: #686868;
   display: flex;
@@ -47,7 +47,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0px;
     height: 0.938rem;
     color: #686868;
     font-size: 0.75rem;
