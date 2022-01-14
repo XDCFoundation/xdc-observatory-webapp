@@ -14,13 +14,15 @@ import styled from "styled-components";
 import {makeStyles} from "@material-ui/core/styles";
 import Utility from "../../utility";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
-import moment from "moment";
+import moment from "moment-timezone";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles({
     container: {
         borderRadius: "0.875rem",
         boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         borderBottom: "none",
+        overflowX: 'auto',
         background: "#fff",
     },
 
@@ -36,21 +38,34 @@ const TransactionTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0.043rem;
+  letter-spacing: 0px;
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;
   font-size: 1.125rem;
   font-weight: 600;
 `;
+const TransactionSubTitle = styled.div`
+  width: auto;
+  height: 1.125rem;
+  text-align: left;
+  letter-spacing: 0px;
+  color: #2a2a2a;
+  font-family: Inter;
+  font-size: 0.75rem;
+  margin-left: 25px;
+`;
 
 const LatestTransactionView = (props) => {
     const classes = useStyles();
     const {transactionList} = props;
+    const timezone = useSelector(state=> state.timezone)
+
     return (<Paper
-        className={"token-list-tab_11"}
+        className={"table-list"}
         style={{
             borderRadius: "0.875rem",
+            minWidth: '48%',
             // marginLeft: "18%",
             // marginRight: "18%",
         }}
@@ -60,14 +75,18 @@ const LatestTransactionView = (props) => {
             className={classes.container}
             id="container-table-token"
             style={{
-                borderRadius: "0.75rem",
-                border: "solid 0.063rem #e3e7eb",
+                // borderRadius: "0.75rem",
+                // border: "solid 0.063rem #e3e7eb",
+                borderTop: "solid 0.063rem #e3e7eb",
+                borderRadius: "0",
+                boxShadow: 'none',
                 backgroundColor: "#ffffff",
-                boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+                // boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
                 minHeight: '100%'
             }}
         >
             {props.isHomePage ? (
+                <>
                 <TransactionHeaderContainer>
                     <TransactionTitle>Latest Transactions</TransactionTitle>
                     <a
@@ -77,7 +96,10 @@ const LatestTransactionView = (props) => {
                         View All
                     </a>
                 </TransactionHeaderContainer>
-            ) : (
+                <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
+                </>
+
+                ) : (
                 ""
             )}
             <Table style={{borderBottom: "none"}}>
@@ -90,9 +112,9 @@ const LatestTransactionView = (props) => {
                       <Tooltip placement="top" title={messages.HASH}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -104,9 +126,9 @@ const LatestTransactionView = (props) => {
                     <Tooltip placement="top" title={messages.AMOUNT}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -114,13 +136,13 @@ const LatestTransactionView = (props) => {
                         {props?.showDate && (
                             <TableCell style={{border: "none"}} align="left">
                     <span className={"tablehead-token-details"}>
-                      Date
-                      <Tooltip placement="top" title={messages.DATE}>
+                      Timestamp
+                      <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -174,7 +196,7 @@ const LatestTransactionView = (props) => {
                                     key={row.hash}
                                     style={
                                         index % 2 !== 1
-                                            ? {background: "#f9f9f9"}
+                                            ? {background: "white"}
                                             : {background: "white"}
                                     }
                                 >
@@ -209,12 +231,12 @@ const LatestTransactionView = (props) => {
                                         )}
                                     </TableCell>
                                     {props?.showDate && (
-                                        <TableCell id="td" className="w-150  bord-none">
+                                        <TableCell id="td" className="bord-none" style={{width: '200px'}}>
                                             <Tooltip
-                                                title={moment(row.timestamp * 1000).format("YYYY-MM-DD hh:mm:ss")}
+                                                title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
                                                 arrow={true} className="fs-15">
                                  <span className={animationClass ? animationClass : "tabledata"}>
-                              {moment(row.timestamp * 1000).format("MMM DD, YYYY")}
+                              {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
                                  </span>
                                             </Tooltip>
                                         </TableCell>

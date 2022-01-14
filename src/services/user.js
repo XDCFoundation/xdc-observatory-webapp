@@ -162,6 +162,7 @@ async function putWatchlist(data) {
 }
 
 async function putTaggedAddress(data) {
+
   let url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "edit-address-tag";
   return httpService("PUT", getHeaders(), data, url)

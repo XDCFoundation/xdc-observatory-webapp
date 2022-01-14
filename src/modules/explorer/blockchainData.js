@@ -28,9 +28,10 @@ const MainContainer = styled.div`
   margin: 0 auto;
   margin-top: 30px;
   padding: 1.9rem 1.375rem 0;
-  border-radius: 12px;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
-  border: solid 1px #e3e7eb;
+  //border-radius: 12px;
+  //box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  //border: solid 1px #e3e7eb;
+  border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
@@ -161,7 +162,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
+  letter-spacing: 0px;
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
@@ -169,7 +170,7 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
@@ -180,7 +181,7 @@ const TitleData = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
@@ -215,7 +216,7 @@ const LeftTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.9px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
@@ -245,7 +246,7 @@ const LeftTopSec = styled.div`
   font-size: 1.375rem;
   font-weight: 800;
   font-family: Inter;
-  letter-spacing: 0.55px;
+  letter-spacing: 0px;
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
