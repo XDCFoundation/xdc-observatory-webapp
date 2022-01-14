@@ -190,7 +190,8 @@ export default function Transaction({ _handleChange }) {
     setPrice(transactiondetailusinghash[0]?.price);
   };
 
-  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const isloggedIn = sessionManager.getDataFromCookies("userInfo");
+
   const privateNoteUsingHash = async () => {
     const data = {
       transactionHash: `${hash}`,
@@ -435,7 +436,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                      {isloggedIn ? (
                         <>
                           {
                             <PrivateNote
@@ -593,7 +594,7 @@ export default function Transaction({ _handleChange }) {
                       </div>
                     </Content>
                     <TabTag>
-                    {width >= 768 && width <= 1240 ? (sessionManager.getDataFromCookies("isLoggedIn") ? (
+                    {width >= 768 && width <= 1240 ? (isloggedIn ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -636,7 +637,7 @@ export default function Transaction({ _handleChange }) {
                           </TabTag>
                   </DetailsMiddleContainer>
                   <MobileDesktopTag>
-                  {width < 768 || width > 1240 ? (sessionManager.getDataFromCookies("isLoggedIn") ? (
+                  {width < 768 || width > 1240 ? (isloggedIn ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -749,7 +750,7 @@ export default function Transaction({ _handleChange }) {
                       </span>
                     </Content>
                     <TabTag>
-                    {width >= 768 && width <= 1240 ? (sessionManager.getDataFromCookies("isLoggedIn") ? (
+                    {width >= 768 && width <= 1240 ? (isloggedIn ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -791,7 +792,7 @@ export default function Transaction({ _handleChange }) {
                           </TabTag>
                   </DetailsMiddleContainer>
                   <MobileDesktopTag>
-                  {width < 768 || width > 1240 ? (sessionManager.getDataFromCookies("isLoggedIn") ? (
+                  {width < 768 || width > 1240 ? (isloggedIn ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -989,7 +990,7 @@ export default function Transaction({ _handleChange }) {
                         <AddLabelText>
                         Add private note by clicking on this icon
                         </AddLabelText>
-                        {sessionManager.getDataFromCookies("isLoggedIn") ? (
+                        {isloggedIn ? (
                         <>
                           {
                             <PrivateNote
@@ -1090,7 +1091,7 @@ const ContentHash = styled.div`
     word-break: break-all;
     text-align: left;
     letter-spacing: 0rem;
-    color: #3a3a3a;
+    color: #2a2a2a;
     opacity: 1;
     line-height: 18px !important;
     word-break: break-all;
@@ -1282,7 +1283,7 @@ const HashInputData = styled.span`
   white-space: nowrap;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0px;
   color: #2a2a2a;
   padding-bottom: 30px;
@@ -1420,7 +1421,7 @@ const Container = styled.div`
 
   width: 100%;
   align-items: center;
-  max-width: 84px;
+  max-width: 165px;
 `;
 const SecondContainer = styled.div`
   display: flex;
@@ -1514,11 +1515,12 @@ const ImageViewInputData = styled.img`
   margin-right: 15px;
   padding-bottom: 30px;
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 11px;
+    width: 22px;
     padding-bottom: 17px;
+    margin-left: -4px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    width: 0.875rem;
+    width: 22px;
   }
 `;
 const ImageView = styled.img`
@@ -1666,6 +1668,7 @@ const DetailsMiddleContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
     padding-top: 10px;
+    color: #2a2a2a;
   }
 `;
 const BlockConfirmation = styled.div`
@@ -1679,6 +1682,8 @@ const BlockConfirmation = styled.div`
   padding-left: 8px;
   padding-right:10px;
   border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 `;
 
 const DivCircle = styled.div`

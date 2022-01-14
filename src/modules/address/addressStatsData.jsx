@@ -182,9 +182,8 @@ class AddressStatsData extends Component {
     );
     let gasP = Utils.decimalDivison(Number(this.props?.statData?.gasFee), 12);
     let gasPrice = parseFloat(Number(gasP));
-    let gasPriceConverted = Utils.convertToInternationalCurrencySystem(
-      Number(gasPrice) * Number(currencyPrice)
-    );
+    let gasPriceConverted = Number(gasPrice) * Number(currencyPrice);
+
     let currencySymbol = this.props.currency === "USD" ? "$" : "€";
     return (
       <>
@@ -249,7 +248,12 @@ class AddressStatsData extends Component {
                   </Tooltip>
                   Average Balance
                 </MarketDataPointTitle>
-                <Value>{this.props?.statData?.avgBalance}&nbsp;XDC</Value>
+                <Value>
+                  {Utils.convertToInternationalCurrencySystem(
+                    this.props?.statData?.avgBalance
+                  )}
+                  &nbsp;XDC
+                </Value>
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}

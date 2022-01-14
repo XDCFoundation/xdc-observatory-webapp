@@ -12,7 +12,7 @@ const Heading = styled.div`
   font-family: Inter;
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: 0.92px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
     font-size:18px;
@@ -23,7 +23,7 @@ const Subheading = styled.div`
   margin-top: 16px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: 0.69px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
     font-size:15px;
@@ -33,7 +33,7 @@ const PointHeading = styled.div`
   font-weight: 600;
   margin: 32px 0 0 1px;
   font-size: 15px;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #252525;
   @media (min-width:0px) and (max-width:767px) {
     margin-top:14px;
@@ -47,7 +47,7 @@ const Para = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
 `;
@@ -92,7 +92,7 @@ const TableDiv = styled.div`
 const Block1 = styled.div`
   width: 1152px;
   font-size: 15px;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
     max-width: 740px;
@@ -110,7 +110,7 @@ const Block2 = styled.div`
   font-family: Inter;
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -129,7 +129,7 @@ const Block3 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -149,7 +149,7 @@ const Block4 = styled.div`
   
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -169,7 +169,7 @@ const Block5 = styled.div`
  
   font-size: 15px;
   
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
 
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -189,7 +189,7 @@ const Block6 = styled.div`
  
   font-size: 15px;
 
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -209,7 +209,7 @@ const Block7 = styled.div`
   
   font-size: 15px;
   
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -229,7 +229,7 @@ const Block9 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -249,7 +249,7 @@ const Block10 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -269,7 +269,7 @@ const Block11 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -292,7 +292,7 @@ const Block12 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -315,7 +315,7 @@ const Block13 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -335,7 +335,7 @@ const Block14 = styled.div`
   font-family: Inter;
   font-size: 15px;
  
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -358,7 +358,7 @@ const Block15 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -381,7 +381,7 @@ const Block16 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -404,7 +404,7 @@ const Block17 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -427,7 +427,7 @@ const Block18 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -450,7 +450,7 @@ const Block19 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -473,7 +473,7 @@ const Block20 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -496,7 +496,7 @@ const Block21 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -519,7 +519,7 @@ const Block22 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
 
@@ -543,7 +543,7 @@ const Block23 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -566,7 +566,7 @@ const Block24 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -589,7 +589,7 @@ const Block25 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -614,7 +614,7 @@ const Block26 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -637,7 +637,7 @@ const Block27 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -660,7 +660,7 @@ const Block28 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -683,7 +683,7 @@ const Block29 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -726,7 +726,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px",
     fontWeight: "600",
     border: "solid 1px #dedede",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
@@ -749,7 +749,7 @@ const useStyles = makeStyles((theme) => ({
     border: "solid 1px #dedede",
     fontSize: "15px",
     fontWeight: "600",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
@@ -763,7 +763,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px",
     fontWeight: "600",
     border: "solid 1px #dedede",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
@@ -782,7 +782,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "left",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
@@ -818,7 +818,7 @@ const useStyles = makeStyles((theme) => ({
 
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "left",
     color: "#252525",
   },
@@ -833,7 +833,7 @@ const useStyles = makeStyles((theme) => ({
 
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "left",
     color: "#252525",
   },

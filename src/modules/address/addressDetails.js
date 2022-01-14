@@ -13,7 +13,11 @@ import { Grid } from "@material-ui/core";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import Tooltip from "@material-ui/core/Tooltip";
-import { TransactionService, CoinMarketService } from "../../services";
+import {
+  TransactionService,
+  CoinMarketService,
+  UserService,
+} from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
@@ -21,7 +25,10 @@ import format from "format-number";
 import moment from "moment";
 import AddressStatsData from "./addressStatsData";
 import PrivateAddressTag from "../../modules/common/dialog/privateAddressTag";
+import AddToWatchListPopup from "../../modules/common/dialog/watchListPopup";
 import AddressDetailsAnalytics from "./addressDetailsAnalytics/addressDetailsAnalytics";
+import LoginDialog from "../explorer/loginDialog";
+import { genericConstants, cookiesConstants } from "../../constants";
 
 var QRCode = require("qrcode.react");
 
@@ -84,7 +91,7 @@ const MainContanier = styled.div`
   padding: 18px;
   margin-bottom: 35px;
   @media (max-width: 767px) {
-    height: 385px;
+    height: 427px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     height: 249px;
@@ -134,6 +141,14 @@ const ButtonDiv = styled.div`
     display: none;
   }
 `;
+const Login = styled.div`
+  flex: 0.3;
+  display: flex;
+  align-items: center;
+  @media (max-width: 1240px) {
+    display: none;
+  }
+`;
 const AddressDetailDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,6 +160,9 @@ const AddressHashDiv = styled.div`
   @media (max-width: 767px) {
     margin-top:10px
     word-break:break-all
+    display: block;
+    align-items: center;
+    text-align: -webkit-center;
   }
 `;
 const AddressHash = styled.div`
@@ -347,6 +365,9 @@ const HeadingDiv = styled.div`
   margin-bottom: 15px;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 767px) {
+    align-items: flex-start;
+  }
 `;
 const Heading = styled.div`
   font-family: Inter;
@@ -404,6 +425,62 @@ const WactListImageTab = styled.div`
     padding: 3px;
   }
 `;
+const LoginText = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  text-align: right;
+  color: #3a3a3a;
+`;
+const LoginTextMobile = styled.span`
+  width: 150px;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #3a3a3a;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 12px;
+    width: 305px;
+  }
+`;
+const LoginMobile = styled.div`
+  display: none;
+  @media (max-width: 1240px) {
+    display: flex;
+    flex: 0.25;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    flex: 0.13;
+  }
+`;
+const Tag = styled.div`
+  width: 95px;
+  height: 28px;
+  border-radius: 4px;
+  border: solid 1px #d2deff;
+  background-color: #eaf0ff;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: center;
+  padding: 4px;
+  color: #4878ff;
+  margin-left: 10px;
+  @media (max-width: 767px) {
+    margin-top: 10px;
+  }
+`;
 export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
   const [addressData, setAddressData] = useState(0);
@@ -423,13 +500,24 @@ export default function AddressDetails(props) {
   const [currentPrice, setCurrentPrice] = useState(0);
   const [addressStats, setAddressStats] = useState(0);
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
+  const [dialogWatchListIsOpen, setDialogWatchListIsOpen] =
+    React.useState(false);
   const [dialogValue, setDailogValue] = React.useState(0);
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
   };
   const openDialogPvtTag = () => {
     setDialogPvtTagIsOpen(true);
+    setDailogValue(1);
+  };
+  const closeDialogWatchList = () => {
+    setDialogWatchListIsOpen(false);
+    setDailogValue(0);
+  };
+  const openDialogWatchList = () => {
+    setDialogWatchListIsOpen(true);
     setDailogValue(1);
   };
   let { addr } = useParams();
@@ -441,6 +529,9 @@ export default function AddressDetails(props) {
   let balanceChanged1 = balance.toString().split(".")[0];
   let balanceChanged2 = balance.toString().split(".")[1];
   let activeCurrency = window.localStorage.getItem("currency");
+  const openLoginDialog = () => setLoginDialogIsOpen(true);
+  const closeLoginDialog = () => setLoginDialogIsOpen(false);
+
   const currencySymbol =
     activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
@@ -537,6 +628,20 @@ export default function AddressDetails(props) {
     });
     setPrice(totalcoinMarketPrice[1]?.price);
   };
+  const getListOfTagAddress = async (requestData) => {
+    const request = {
+      limit: "5",
+      skip: "0",
+      userId: sessionManager.getDataFromCookies("userId"),
+      isTaggedAddress: true,
+    };
+    const response = await UserService.getTagAddresstList(request);
+    console.log(response, "<<<response");
+    if (response.totalCount > 0) {
+      // setTxnAddressNotAdded(false);
+    }
+    // setPrivateAddress(response.tagAddressContent);
+  };
   const options = {
     htmlparser2: {
       lowerCaseTags: false,
@@ -557,11 +662,11 @@ export default function AddressDetails(props) {
     setIsTag(true);
   };
 
-
   useEffect(() => {
     getAddressDetails();
     coinMarketCapDetails();
     tagUsingAddressHash();
+    // getListOfTagAddress();
     getAddressStats();
   }, [amount]);
 
@@ -580,41 +685,102 @@ export default function AddressDetails(props) {
   `;
   const currentTime = new Date();
   const previousTime = new Date(addressData?.timestamp * 1000);
-  const ti = Utility.timeDiff(currentTime, previousTime);
+  const ti = !addressData?.timestamp
+    ? ""
+    : Utility.timeDiff(currentTime, previousTime);
 
   const lastActivityTime = new Date(
     addressStats?.lastTransactionTimestamp * 1000
   );
-  const lastAct = Utility.timeDiff(currentTime, lastActivityTime);
+  const lastAct = !addressStats?.lastTransactionTimestamp
+    ? ""
+    : Utility.timeDiff(currentTime, lastActivityTime);
+  console.log(lastAct, "opop");
   const [balanceTT, setBalanceTT] = React.useState(false);
   const [xdcValueTT, setXDCTT] = React.useState(false);
+  let taggedAddressfetched = localStorage.getItem(
+    cookiesConstants.USER_TAGGED_ADDRESS
+  );
+  let tags = JSON.parse(taggedAddressfetched);
+  var tagValue = tags.filter((obj) => obj.address === addr);
 
+  console.log(
+    JSON.parse(taggedAddressfetched),
+    tagValue,
+    "<<<<taggedAddressfetched"
+  );
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
       <Grid className="table-grid-block grid-block-table">
         <HeadingDiv>
           <Heading>Address Details</Heading>
-          <IconForMobile>
-            <TagImage>
-              <img className="copyIconAddress" src={"/images/tag.svg"} />
-            </TagImage>
-            <TagImageTab>
-              <img className="tagIconAddress" src={"/images/tag-white.svg"} />
-            </TagImageTab>
-            <WatchListImage>
-              <img
-                className="copyIconAddress"
-                src={"/images/preview-blue.svg"}
-              />
-            </WatchListImage>
-            <WactListImageTab>
-              <img
-                className="tagIconAddress"
-                src={"/images/preview-white.svg"}
-              />
-            </WactListImageTab>
-          </IconForMobile>
+          {sessionManager.getDataFromCookies("isLoggedIn") ? (
+            <>
+              {
+                <>
+                  <PrivateAddressTag
+                    open={dialogPvtTagIsOpen}
+                    onClose={closeDialogPvtTag}
+                    fromAddr={addr}
+                    value={dialogValue}
+                    hash={addr}
+                  />
+                  <AddToWatchListPopup
+                    open={dialogWatchListIsOpen}
+                    onClose={closeDialogWatchList}
+                    value={dialogValue}
+                    hash={addr}
+                  />
+                </>
+              }
+
+              <>
+                <IconForMobile>
+                  <TagImage onClick={openDialogPvtTag}>
+                    <img className="copyIconAddress" src={"/images/tag.svg"} />
+                  </TagImage>
+                  <TagImageTab onClick={openDialogPvtTag}>
+                    <img
+                      className="tagIconAddress"
+                      src={"/images/tag-white.svg"}
+                    />
+                  </TagImageTab>
+                  <WatchListImage onClick={openDialogWatchList}>
+                    <img
+                      className="copyIconAddress"
+                      src={"/images/preview-blue.svg"}
+                    />
+                  </WatchListImage>
+                  <WactListImageTab onClick={openDialogWatchList}>
+                    <img
+                      className="tagIconAddress"
+                      src={"/images/preview-white.svg"}
+                    />
+                  </WactListImageTab>
+                </IconForMobile>
+              </>
+            </>
+          ) : (
+            <LoginMobile>
+              {
+                <LoginDialog
+                  open={loginDialogIsOpen}
+                  onClose={closeLoginDialog}
+                  dataHashOrAddress={addr}
+                />
+              }
+              <LoginTextMobile>
+                Want to tag and add this address to watchlist?
+                <a
+                  className="linkTableDetails-address"
+                  onClick={openLoginDialog}
+                >
+                  &nbsp;Login
+                </a>
+              </LoginTextMobile>
+            </LoginMobile>
+          )}
         </HeadingDiv>
         <MainContanier>
           <MainDiv>
@@ -648,6 +814,11 @@ export default function AddressDetails(props) {
                       </Tooltip>
                     </CopyToClipboard>
                   </CopyButton>
+                  {tagValue[0]?.tagName ? (
+                    <Tag>{tagValue[0]?.tagName}</Tag>
+                  ) : (
+                    ""
+                  )}
                 </AddressHashDiv>
                 <BalanceDiv>
                   {balanceChanged2 == null ? (
@@ -678,7 +849,7 @@ export default function AddressDetails(props) {
                 </BalanceUsdDiv>
                 <AddressAgeDiv>
                   <AddressAge>Address Age</AddressAge>
-                  <AddressAgeValue>{ti ? ti : 0}</AddressAgeValue>
+                  <AddressAgeValue>{ti}</AddressAgeValue>
                 </AddressAgeDiv>
                 <LastActivityDiv>
                   <LastActivity>Last Activity</LastActivity>
@@ -704,37 +875,59 @@ export default function AddressDetails(props) {
                 {sessionManager.getDataFromCookies("isLoggedIn") ? (
                   <>
                     {
-                      <PrivateAddressTag
-                        open={dialogPvtTagIsOpen}
-                        onClose={closeDialogPvtTag}
-                        fromAddr={transactions.from}
-                        value={dialogValue}
-                        hash={addr}
-                      />
-                    }
-                    {isTag ? (
-                      <div className="nameLabel">{addressTag[0]?.tagName}</div>
-                    ) : (
                       <>
-                        <AddTagButton onClick={openDialogPvtTag}>
-                          <img
-                            className="tag-white-icon"
-                            src={"/images/tag-white.svg"}
-                          />
-                          Add Tag
-                        </AddTagButton>
-                        <AddToWatchList>
-                          <img
-                            className="tag-white-icon"
-                            src={"/images/preview-white.svg"}
-                          />
-                          Add to Watchlist
-                        </AddToWatchList>
+                        <PrivateAddressTag
+                          open={dialogPvtTagIsOpen}
+                          onClose={closeDialogPvtTag}
+                          fromAddr={addr}
+                          value={dialogValue}
+                        />
+                        <AddToWatchListPopup
+                          open={dialogWatchListIsOpen}
+                          onClose={closeDialogWatchList}
+                          fromAddr={transactions.from}
+                          value={dialogValue}
+                          hash={addr}
+                        />
                       </>
-                    )}
+                    }
+
+                    <>
+                      <AddTagButton onClick={openDialogPvtTag}>
+                        <img
+                          className="tag-white-icon"
+                          src={"/images/tag-white.svg"}
+                        />
+                        Add Tag
+                      </AddTagButton>
+                      <AddToWatchList onClick={openDialogWatchList}>
+                        <img
+                          className="tag-white-icon"
+                          src={"/images/preview-white.svg"}
+                        />
+                        Add to Watchlist
+                      </AddToWatchList>
+                    </>
                   </>
                 ) : (
-                  ""
+                  <Login>
+                    {
+                      <LoginDialog
+                        open={loginDialogIsOpen}
+                        onClose={closeLoginDialog}
+                        dataHashOrAddress={addr}
+                      />
+                    }
+                    <LoginText>
+                      Want to tag and add this address to watchlist?
+                    </LoginText>
+                    <a
+                      className="linkTableDetails-address"
+                      onClick={openLoginDialog}
+                    >
+                      &nbsp;Login
+                    </a>
+                  </Login>
                 )}
               </ButtonDiv>
             </DetailDiv>

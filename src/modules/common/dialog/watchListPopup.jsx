@@ -3,20 +3,22 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
+import { UserService } from "../../../services";
 import { history } from "../../../managers/history";
+import utility from "../../../utility";
 import { sessionManager } from "../../../managers/sessionManager";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
-import utility from "../../../utility";
-import Tokensearchbar from "../tokensearchBar";
-import FooterComponent from "../../common/footerComponent";
-import { cookiesConstants } from "../../../constants";
+import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
+import { cookiesConstants } from "../../../constants";
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -40,11 +42,6 @@ const useStyles = makeStyles((theme) => ({
     // lineHeight: "-100px !important",
     // backgoundColor: "red",
     marginTop: "4px",
-  },
-  createWatchlistMobile: {
-    paddingLeft: "2em",
-    paddingRight: "2em",
-    marginTop: "14px",
   },
   radio: {
     // backgroundColor: "#979797",
@@ -88,22 +85,22 @@ const useStyles = makeStyles((theme) => ({
   // padding: "8px 19px 7px 21px",
   // borderRadius: "4px",
   // backgroundColor: "#9fa9ba",
-
   // },
 
   addbtn: {
-    width: "78px",
+    width: "110px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
     margin: "14px -8px 15px 2px",
+    padding: "6px 19px 3px 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
   },
 
   cnlbtn: {
-    width: "78px",
+    width: "94px",
     height: "34px",
     // margin: "33px 21px 0 87px",
     // padding: "8px 19px 7px 21px",
@@ -112,9 +109,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
 
     margin: "14px 8px 15px 2px",
+    padding: "6px 19px 3px 20px",
   },
   buttons: {
-    padding: "15px 35px 20px 0px",
+    padding: "15px 35px 0px 0px",
   },
   subCategory: {
     marginTop: "-12px",
@@ -153,6 +151,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
+    marginLeft: "24px",
     fontFamily: "Inter",
     fontWeight: "600",
     fontSize: "18px",
@@ -169,8 +168,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#2a2a2a",
   },
   lastContainer: {
-    maxWidth: "343px",
-    width: "100%",
+    width: "504px",
     padding: "11px 12px 10px 13px",
     borderRadius: "6px",
     backgroundColor: "#fff3f3",
@@ -182,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
+    letterSpacing: "0.46px",
     lineHeight: "1.58",
   },
 
@@ -202,23 +200,31 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "13px",
       width: "250px",
     },
-    subCategory1: {
-      marginTop: "0px",
-
-      marginBottom: "2px",
-
-      fontFamily: "Inter",
-      fontSize: "14px",
-      color: "#2a2a2a",
-      fontWeight: "500",
-      border: "none !important",
-    },
   },
   "@media (max-width: 900px)": {},
 }));
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+const LightToolTip = withStyles({
+  arrow: {
+    "&:before": {
+      backgroundColor: "white",
+    },
+  },
+  tooltip: {
+    color: "#2a2a2a",
+    backgroundColor: "white",
+    padding: "9px",
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.42",
+    letterSpacing: "0.46px",
+  },
+})(Tooltip);
+
+export default function FormDialog(props) {
+  const { open, onClose } = props;
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
@@ -228,6 +234,8 @@ export default function FormDialog() {
 
   const [passwordShown, setPasswordShown] = React.useState(false);
 
+  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
@@ -236,16 +244,20 @@ export default function FormDialog() {
   const [value, setValue] = React.useState("female");
   const [isSize, setisSize] = React.useState(false);
   const screenSize = window.innerHeight;
-
+  if (screenSize === "626") {
+    setisSize(false);
+  }
+  React.useEffect(() => {
+    setAddress(props?.hash);
+  }, [props]);
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
-  const handleCancel = () => {
-    history.push("/loginprofile");
-    setError("");
-  };
   const watchListService = async () => {
+    if (!address) {
+      setError("Please enter required field");
+    }
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
@@ -287,29 +299,30 @@ export default function FormDialog() {
         }
       } else {
         watchlists = [];
+        utility.apiSuccessToast("Address added to watchlist");
+
+        setAddress("");
+        setDescription("");
       }
       watchlists.push(request);
       localStorage.setItem(
         cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
       );
-      utility.apiSuccessToast("Address added to watchlist");
-      window.location.href = "loginprofile";
-      setAddress("");
-      setDescription("");
-      setOpen(false);
+      onClose();
     }
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
-    setOpen(false);
+    onClose();
     setAddress("");
     setDescription("");
     setError("");
     setDescriptionError("");
+  };
+
+  const tooltipClose = () => {
+    setTooltipIsOpen(!tooltipIsOpen);
   };
 
   const classes = useStyles();
@@ -335,30 +348,27 @@ export default function FormDialog() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const { width } = windowDimensions;
-  if (width >= 760) {
-    history.push("/loginprofile");
-  }
 
   return (
     <div>
-      {/* {width <= 760 ? ()=>{window.location.href="/test-address"}:null} */}
-      <Tokensearchbar />
-      <div className={classes.createWatchlistMobile}>
-        {/* <Dialog
-          className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        > */}
+      <Dialog
+        className={classes.dialog}
+        classes={{ paperWidthSm: classes.dialogBox }}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <Row>
           <div className={classes.heading} id="form-dialog-title">
             Add a New Address to your Watchlist
           </div>
         </Row>
-        <div>
-          <p className={classes.subCategory}>Address</p>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
+            Address
+          </DialogContentText>
           <input
+            value={address}
             className={classes.input}
             onChange={(e) => {
               setAddress(e.target.value);
@@ -366,14 +376,14 @@ export default function FormDialog() {
             }}
           ></input>
           {error ? <div className={classes.error}>{error}</div> : <></>}
-        </div>
-        <p>
-          <p className={classes.subCategory1}>
+        </DialogContent>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
             Description
             {/* <span  className={classes.forgotpass}>
               Forgot ?
             </span> */}
-          </p>
+          </DialogContentText>
 
           <input
             type="text"
@@ -388,12 +398,11 @@ export default function FormDialog() {
           ) : (
             <></>
           )}
-          {/* <span>
-                {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
-            </span> */}
-        </p>
-        <p>
-          <p className={classes.subCategory}>Notifications</p>
+        </DialogContent>
+        <DialogContent>
+          <DialogContentText className={classes.subCategory}>
+            Notifications
+          </DialogContentText>
 
           <FormControl
             component="fieldset"
@@ -403,7 +412,7 @@ export default function FormDialog() {
             {/* <FormLabel component="legend" className={classes.radio}>Gender</FormLabel> */}
             <RadioGroup
               className={classes.radio}
-              style={{ margin: "-5px 28px -3px --5px" }}
+              style={{ margin: "-5px 28px -3px -10px" }}
               value={value}
               onChange={handleChange}
             >
@@ -411,7 +420,7 @@ export default function FormDialog() {
                 className="radio-inside-dot"
                 value="NO"
                 control={<Radio style={{ color: "#979797" }} />}
-                style={{ margin: "5px 2px -5px -9px" }}
+                style={{ margin: "5px 2px -5px -5px" }}
                 classes={{ label: classes.notifyLabel }}
                 label="No Notifications"
                 onClick={(e) => setNotification(e.target.value)}
@@ -420,7 +429,7 @@ export default function FormDialog() {
                 className="radio-inside-dot"
                 value="INOUT"
                 control={<Radio style={{ color: "#979797" }} />}
-                style={{ margin: "-5px 26px -5px -9px" }}
+                style={{ margin: "-5px 26px -5px -5px" }}
                 classes={{ label: classes.notifyLabel }}
                 label="Notify on Incoming & Outgoing Txns"
                 onClick={(e) => setNotification(e.target.value)}
@@ -429,7 +438,7 @@ export default function FormDialog() {
                 className="radio-inside-dot"
                 value="IN"
                 control={<Radio style={{ color: "#979797" }} />}
-                style={{ margin: "-5px 26px -5px -9px" }}
+                style={{ margin: "-5px 26px -5px -5px" }}
                 classes={{ label: classes.notifyLabel }}
                 label="Notify on Incoming (Recieve) Txns Only"
                 onClick={(e) => setNotification(e.target.value)}
@@ -439,17 +448,17 @@ export default function FormDialog() {
                 className="radio-inside-dot"
                 value="OUT"
                 control={<Radio style={{ color: "#979797" }} />}
-                style={{ margin: "-5px 26px -5px -9px" }}
+                style={{ margin: "-5px 26px -5px -5px" }}
                 classes={{ label: classes.notifyLabel }}
                 label="Notify on Outgoing (Sent) Txns Only"
                 onClick={(e) => setNotification(e.target.value)}
               />
             </RadioGroup>
           </FormControl>
-        </p>
-        <DialogActions>
+        </DialogContent>
+        <DialogActions className={classes.buttons}>
           <span onClick={handleClose}>
-            <button className={classes.cnlbtn} onClick={handleCancel}>
+            <button className={classes.cnlbtn} onClick={onClose}>
               Cancel
             </button>
           </span>
@@ -466,8 +475,7 @@ export default function FormDialog() {
             clean the watchlist data saved in your profile.
           </div>
         </div>
-      </div>
-      <FooterComponent />
+      </Dialog>
     </div>
   );
 }
