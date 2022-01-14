@@ -167,6 +167,7 @@ export default function AccountComponent(props) {
               onClick={handleSettingsClick}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
+              style={{width: "25px"}}
             />
             <ConfigureColumnPopOver
               isOpen={isSettingColumnOpen}
@@ -181,6 +182,7 @@ export default function AccountComponent(props) {
               onClick={toggleModal}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
+              style={{width: "25px"}}
             />
             <ConfigureColumnsModal
               isOpen={isColumnsModalOpen}
@@ -420,7 +422,7 @@ export default function AccountComponent(props) {
                           >
                             {props.state.tableColumns["Rank"].isActive && (
                               <TableCell
-                                className={`w-2 ${classes.RankColumnVal}`}
+                                className={` ${classes.RankColumnVal}`}
                                 align="center"
                               >
                                 <span className="tabledata">{rantValue}</span>
