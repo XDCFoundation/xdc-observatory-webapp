@@ -152,7 +152,7 @@ export const messages = {
   TOKEN_YES_NO:
     "Whether the token is associated with the Smart Contract or not.",
   VALUE: "Amount to tokens being transferred.",
-  GAS: "The gas price associated with the transaction.",
+  GAS: "The average transaction fee associated with the transaction.",
   RANK: "Account’s rank sorted on the basis of Balance.",
   PERCENTAGE: "Percentage of holdings out of the total supply.",
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",

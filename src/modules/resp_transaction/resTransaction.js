@@ -890,7 +890,7 @@ export default function Transaction({ _handleChange }) {
                     <Tooltip align="right" title={gasprice}>
                       <ImageView src={"/images/info.svg"} />
                     </Tooltip>
-                    <Hash>Gas Price</Hash>
+                    <Hash>Avg Transaction Fee</Hash>
                   </Container>
                   <MiddleContainer isTextArea={false}>
                     {gasPrice2 == null ? (
