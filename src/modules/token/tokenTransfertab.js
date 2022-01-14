@@ -271,9 +271,9 @@ export default function StickyHeadTable() {
                       <img
                         onClick={() => setTxHashToolTop(!txHashToolTop)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
                   </span>
@@ -289,9 +289,9 @@ export default function StickyHeadTable() {
                       <img
                         onClick={() => setAgeToolTip(!ageToolTip)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
                   </span>
@@ -307,9 +307,9 @@ export default function StickyHeadTable() {
                       <img
                         onClick={() => setBlockToolTip(!blockToolTip)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
                   </span>
@@ -325,9 +325,9 @@ export default function StickyHeadTable() {
                       <img
                         onClick={() => setFromToolTip(!fromToolTip)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
                   </span>
@@ -342,9 +342,9 @@ export default function StickyHeadTable() {
                       <img
                         onClick={() => setToToolTip(!toToolTip)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
                   </span>

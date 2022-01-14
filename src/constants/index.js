@@ -119,6 +119,8 @@ export const messages = {
   TRANSACTION_CREATION_TIME_STAMP: "Transaction creation timestamp.",
   AGE: "Time when was the transaction created.",
   BLOCK: "Block number associated with the transaction.",
+  DIFFICULTY: "Difficulty.",
+  GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
   SI_NO: "Sl. No.",

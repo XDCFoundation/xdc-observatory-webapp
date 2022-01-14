@@ -5316,10 +5316,22 @@ button {
     margin-left: 0.875rem;
   }
 }
-.tooltipLatestTransactionTableDashboard {
-  margin: auto 0px auto 5px;
-  height: 14px;
-  width: 14px;
+.tooltipInfoIcon {
+  margin: auto 0px auto 1px;
+  height: 20px;
+  width: 22px;
+}
+.tooltipInfoIconAccount {
+  margin-top: -3px;
+  margin-left: 1px;
+  height: 20px;
+  width: 22px;
+}
+.tooltipInfoIconMarketData {
+  margin-top: -1px;
+  margin-left: 1px;
+  height: 20px;
+  width: 22px;
 }
 
 @media (min-width: 0px) and (max-width: 767px) {

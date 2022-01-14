@@ -101,9 +101,9 @@ const LatestBlockView = (props) => {
                     <Tooltip placement="top" title={messages.BLOCK_HEIGHT}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -115,9 +115,9 @@ const LatestBlockView = (props) => {
                       <Tooltip placement="top" title={messages.BLOCK_CREATION_TIME_STAMP}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -128,9 +128,9 @@ const LatestBlockView = (props) => {
                       <Tooltip placement="top" title={messages.NO_OF_TRANSACTION}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -141,9 +141,9 @@ const LatestBlockView = (props) => {
                     {/*  <Tooltip placement="top" title={messages.HASH}>*/}
                     {/*    <img*/}
                     {/*        alt="question-mark"*/}
-                    {/*        src="/images/question-mark.svg"*/}
+                    {/*        src="/images/info.svg"*/}
                     {/*        height={"14px"}*/}
-                    {/*        className="tooltipLatestTransactionTableDashboard"*/}
+                    {/*        className="tooltipInfoIcon"*/}
                     {/*    />*/}
                     {/*  </Tooltip>*/}
                     {/*</span>*/}
