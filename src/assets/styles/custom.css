@@ -362,7 +362,7 @@ input:focus {
 }
 
 .cursor-not-allowed {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 /*Borders*/
 
@@ -1922,6 +1922,7 @@ p {
   display: flex;
   justify-content: center;
   margin-top: -30px;
+  padding: 0 15px;
 }
 
 .centerbox {
@@ -1937,7 +1938,7 @@ p {
   .centerbox {
     height: 56px;
     border-radius: 6px;
-    width: 21.438rem !important;
+    width: 100% !important;
   }
   .profile-name-popover {
     margin-top: 0px !important;
@@ -2779,7 +2780,7 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 15px;
-  color: #2149b9;
+  color: #8facff;
 }
 
 .xinfin_api_button {
@@ -2800,14 +2801,14 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .inside-side-box {
@@ -2954,7 +2955,7 @@ p {
 }
 
 .search-container {
-  margin: 20px auto auto auto !important;
+  margin: 30px auto auto auto !important;
 }
 
 .searchelement-contract {
@@ -3028,9 +3029,10 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  width: 16.625rem;
+  width: 207px;
+  height: 34px;
   padding: 7.7px 43px 10px 10px;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -3516,7 +3518,7 @@ p {
   .tab-search {
     display: flex;
     width: 82%;
-    margin-left: -10px;
+    /* margin-left: -10px; */
   }
 }
 @media (min-width: 768px) {
@@ -3663,7 +3665,7 @@ body {
   }
 }
 .MuiBackdrop-root {
-  opacity: 0 !important;
+  /* opacity: 0 !important; */
 }
 
 .days p {
@@ -3753,7 +3755,7 @@ body {
   padding-bottom: 7px;
   color: #b5bac7;
   text-align: center;
-  width: 80%;
+  /* width: 80%; */
   cursor: pointer;
   position: relative;
   font-size: 0.938rem;
@@ -4120,7 +4122,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4141,7 +4143,7 @@ body {
 }
 
 #container-table td {
-  padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 20px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
@@ -4191,14 +4193,15 @@ body {
 }
 
 #container-table-token th {
-  padding-top: 1.625rem;
-  padding-bottom: 0.938rem;
-  padding-left: 12px;
+  padding-top: 3px;
+  padding-bottom: 2.5px;
+  padding-left: 15px;
   text-align: left;
 }
 
 #container-table-token td {
-  padding: 12px;
+  padding-top: 10.5px;
+  padding-bottom: 8.5px;
   text-align: left;
   margin: 19px 49px 1.8px 69px;
   font-family: "Inter" !important;
@@ -8620,7 +8623,7 @@ button {
     letter-spacing: 0px !important;
   }
   .main-input-td {
-    width: 12.5rem;
+    width: 100%;
     font-size: 12px !important;
     margin-top: -2px;
   }
@@ -9121,7 +9124,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 40px;
-  padding-right: 20px;
   letter-spacing: 0rem;
   text-align: center;
   color: #2a2a2a;
@@ -9570,6 +9572,11 @@ button {
   .overflow {
     overflow-x: scroll;
   }
+  .profile {
+    height: 24px !important;
+    width: 24px !important;
+    margin-right: 9px;
+  }
 }
 .Shape2-internal1 {
   margin-top: -2px !important;
@@ -9634,7 +9641,7 @@ button {
     /* padding: 0.4rem 0.644rem 0 0.75rem; */
   }
   .select-td {
-    margin-left: 13px;
+    /* margin-left: 13px; */
   }
 
   /* .select-td {
@@ -10258,7 +10265,7 @@ button {
   font-weight: 500 !important;
 }
 .account-searchbar {
-  font-size: 0.938rem;
+  font-size: 15px;
   letter-spacing: 0px;
   color: #2a2a2a;
   font-family: "Inter";
@@ -10266,7 +10273,7 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
-  width: 11rem;
+  width: 10rem;
 }
 .account-searchbar:focus {
   outline: none !important;
@@ -10290,6 +10297,9 @@ button {
   margin-left: 16px;
   color: red;
   font-weight: normal;
+}
+.m-r-9 {
+  margin-right: 9px;;
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
@@ -10719,5 +10729,9 @@ button {
   .table-list {
     width: 100% !important;
     margin: 10px 0;
+  }
+  .MuiIconButton-root {
+    padding: 0 12px 0 0 !important;
+    margin-right: -12px !important;
   }
 }
