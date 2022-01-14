@@ -1,46 +1,73 @@
-import React from "react";
-import { Router, Route } from "react-router-dom";
+import React, {lazy,Suspense} from "react";
+import { Router, Route,withRouter} from "react-router-dom";
 import { Redirect, Switch } from "react-router";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { connect } from "react-redux";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
-import TokenDataComponent from "./modules/token/tokenDataDashboard";
-import LatestTransactionList from "./modules/transaction/index";
-import LatestBlocksList from "./modules/blocks";
-import BlockChainClass from "./modules/explorer";
-import TokenList from "./modules/tokenList";
-import LatestAccountsList from "./modules/accounts";
-import AddressDetails from "./modules/address/addressDetails";
-import HolderDetails from "./modules/holders/holderDetails";
-import PolicyDetails from "./modules/explorer/privacyPolicy";
-import TermsCondition from "./modules/explorer/termsCondition";
-import ActivateAccount from "./modules/explorer/activateAccount";
-import AddressDetailsData from "./modules/address/AddressDetailsData";
-import ContractComponent from "./modules/dashboard/contractComponent";
-import ContractTab from "./modules/dashboard/contractTab";
 import socketClient from "socket.io-client";
-import AccountProfile from "./modules/explorer/accountProfile";
-import Transaction from "./modules/resp_transaction/resTransaction";
-import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
-import BlockDetails from "./modules/explorer/newblockDetail";
+
+// import TokenDataComponent from "./modules/token/tokenDataDashboard";
+// import LatestTransactionList from "./modules/transaction/index";
+// import LatestBlocksList from "./modules/blocks";
+// import BlockChainClass from "./modules/explorer";
+// import TokenList from "./modules/tokenList";
+// import LatestAccountsList from "./modules/accounts";
+// import AddressDetails from "./modules/address/addressDetails";
+// import HolderDetails from "./modules/holders/holderDetails";
+// import PolicyDetails from "./modules/explorer/privacyPolicy";
+// import TermsCondition from "./modules/explorer/termsCondition";
+// import ActivateAccount from "./modules/explorer/activateAccount";
+// import AddressDetailsData from "./modules/address/AddressDetailsData";
+// import ContractComponent from "./modules/dashboard/contractComponent";
+// import ContractTab from "./modules/dashboard/contractTab";
+// import socketClient from "socket.io-client";
+// import AccountProfile from "./modules/explorer/accountProfile";
+// import Transaction from "./modules/resp_transaction/resTransaction";
+// import TransferDetailsUi from "./modules/Transfertransactiondetails/transferTransactionDetails";
+// import BlockDetails from "./modules/explorer/newblockDetail";
 import LoaderComponent from "./common/components/loader";
-import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen";
-import EditProfile from "./modules/explorer/editProfileResponsive";
-import Test from "./modules/explorer/dashboardPopup/Test";
-import TestTwo from "./modules/explorer/dashboardPopup/TestTwo";
-import TestAddress from "./modules/explorer/dashboardPopup/TestAddress";
-import Chart from "./modules/common/commonGraph";
+// import VerifiedEmailScreenComponent from "./modules/verifiedEmailScreen";
+// import EditProfile from "./modules/explorer/editProfileResponsive";
+// import Test from "./modules/explorer/dashboardPopup/Test";
+// import TestTwo from "./modules/explorer/dashboardPopup/TestTwo";
+// import TestAddress from "./modules/explorer/dashboardPopup/TestAddress";
+// import ContractRead from "./modules/contractMethods/read";
+const TokenDataComponent =withRouter(lazy(() => import('./modules/token/tokenDataDashboard')));
+const LatestTransactionList =withRouter(lazy(() => import('./modules/transaction/index')));
+const LatestBlocksList =withRouter(lazy(() => import('./modules/blocks')));
+const BlockChainClass =withRouter(lazy(() => import('./modules/explorer')));
+const TokenList =withRouter(lazy(() => import('./modules/tokenList')));
+const LatestAccountsList =withRouter(lazy(() => import('./modules/accounts')));
+const AddressDetails =withRouter(lazy(() => import('./modules/address/addressDetails')));
+const HolderDetails =withRouter(lazy(() => import('./modules/holders/holderDetails')));
+const PolicyDetails =withRouter(lazy(() => import('./modules/explorer/privacyPolicy')));
+const TermsCondition =withRouter(lazy(() => import('./modules/explorer/termsCondition')));
+const ActivateAccount =withRouter(lazy(() => import('./modules/explorer/activateAccount')));
+const AddressDetailsData =withRouter(lazy(() => import('./modules/address/AddressDetailsData')));
+const ContractComponent =withRouter(lazy(() => import('./modules/dashboard/contractComponent')));
+const ContractTab =withRouter(lazy(() => import('./modules/dashboard/contractTab')));
+const AccountProfile =withRouter(lazy(() => import('./modules/explorer/accountProfile')));
+const Transaction =withRouter(lazy(() => import('./modules/resp_transaction/resTransaction')));
+const TransferDetailsUi =withRouter(lazy(() => import('./modules/Transfertransactiondetails/transferTransactionDetails')));
+const BlockDetails =withRouter(lazy(() => import('./modules/explorer/newblockDetail')));
+// const LoaderComponent =withRouter(lazy(() => import('./common/components/loader')));
+const VerifiedEmailScreenComponent =withRouter(lazy(() => import('./modules/verifiedEmailScreen')));
+const EditProfile =withRouter(lazy(() => import('./modules/explorer/editProfileResponsive')));
+const Test =withRouter(lazy(() => import('./modules/explorer/dashboardPopup/Test')));
+const TestTwo =withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestTwo')));
+const TestAddress =withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestAddress')));
+const ContractRead =withRouter(lazy(() => import('./modules/contractMethods/read')));
 
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
 });
 
 class Routes extends BaseComponent {
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) { }
 
   render() {
     let loader =
@@ -50,7 +77,8 @@ class Routes extends BaseComponent {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router history={history}>
-          {loader}
+          {/*{loader}*/}
+          <Suspense fallback={<LoaderComponent />}>
           <Switch>
             <Route
               exact
@@ -68,7 +96,7 @@ class Routes extends BaseComponent {
               component={() => <BlockChainClass socket={socket} />}
             />
 
-            {}
+            { }
             <Route
               exact
               path={"/view-all-transaction"}
@@ -146,10 +174,12 @@ class Routes extends BaseComponent {
               component={VerifiedEmailScreenComponent}
             />
             <Route exact path={"/test"} component={Test} />
+            <Route exact path={"/read"} component={ContractRead} />
             <Route exact path={"/testTrancation"} component={TestTwo} />
             <Route exact path={"/test-address"} component={TestAddress} />
             <Redirect exact from="*" to="/" />
           </Switch>
+          </Suspense>
         </Router>
       </MuiThemeProvider>
     );

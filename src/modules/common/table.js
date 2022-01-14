@@ -12,11 +12,12 @@ import Loader from "../../assets/loader";
 import { makeStyles } from "@material-ui/core/styles";
 import utility from "../../utility";
 import styled from "styled-components";
-import moment from "moment";
+import moment from "moment-timezone";
 import Utility from "../../utility";
 import { CompareArrowsOutlined } from "@material-ui/icons";
 import { messages } from "../../constants";
 import TransactionDetailTooltip from "./transactionDetailTooltip";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles({
   container: {
@@ -47,7 +48,7 @@ const TransactionTitle = styled.div`
   margin-left: 25px;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0.043rem;
+  letter-spacing: 0px;
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;
@@ -68,6 +69,7 @@ export default function CommonTransactionsTable(props) {
   const [blockTT, setBlockTT] = React.useState(false)
   const [fromTT, setfromTT] = React.useState(false)
   const [toTT, settoTT] = React.useState(false)
+  const timezone = useSelector(state=> state.timezone)
 
   return (
     <Paper
@@ -108,9 +110,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -133,9 +135,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setAmountTT(!amountTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -155,9 +157,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setDateTT(!dateTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -181,9 +183,9 @@ export default function CommonTransactionsTable(props) {
                       <img
                         onClick={() => setBlockTT(!blockTT)}
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -209,9 +211,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setfromTT(!fromTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -221,7 +223,7 @@ export default function CommonTransactionsTable(props) {
                 className="padding-20px"
                 align="left"
               >
-                <span className={("tableheaders", "tableheaders-all")}>
+                <span className={("tableheaders", "tableheaders-all", "m-l-25p")}>
                   To
                   <Tooltip
                     open={hashTT}
@@ -231,9 +233,9 @@ export default function CommonTransactionsTable(props) {
                     <img
                       onClick={() => setHashTT(!hashTT)}
                       alt="question-mark"
-                      src="/images/question-mark.svg"
+                      src="/images/info.svg"
                       height={"14px"}
-                      className="tooltipLatestTransactionTableDashboard"
+                      className="tooltipInfoIcon"
                     />
                   </Tooltip>
                 </span>
@@ -373,7 +375,7 @@ export default function CommonTransactionsTable(props) {
                           align="left"
                         >
                           <Tooltip
-                            title={moment(row.timestamp * 1000).format(
+                            title={moment(row.timestamp * 1000).tz(timezone).format(
                               "YYYY-MM-DD hh:mm:ss"
                             )}
                             arrow={true}
@@ -384,7 +386,7 @@ export default function CommonTransactionsTable(props) {
                                 ageAnimationClass ? ageAnimationClass : "tabledata"
                               }
                             >
-                              {moment(row.timestamp * 1000).format(
+                              {moment(row.timestamp * 1000).tz(timezone).format(
                                 "MMM DD, YYYY h:mm A"
                               )}
                             </span>

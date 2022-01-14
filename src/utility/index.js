@@ -13,6 +13,7 @@ const toast = ToastService.new({
   maxCount: 5,
 });
 let moment = require("moment");
+let momentZone = require("moment-timezone");
 const cookies = new Cookies();
 const utility = {
   parseResponse,
@@ -65,17 +66,24 @@ const utility = {
   shortenHashTab,
   timeDiff,
   convertToInternationalCurrencySystem,
-  getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue,getNumber
+  getNumberUnit, decimalDivison, decimalDivisonOnly, divideByDecimalValue, getNumber,
+  getUtcOffset
 };
 export default utility;
 
-function getNumber(num) {
-    const units = ["M", "B", "T", "Q"]
-    const unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
-    const r = unit % 3
-    const x = Math.abs(Number(num)) / Number('1.0e+' + (unit - r)).toFixed(2)
-    return x.toFixed(2) + ' ' + units[Math.floor(unit / 3) - 2]
+function getUtcOffset(timezone) {
+  let min = momentZone.tz(timezone).utcOffset()
+  return min > 0 ? `UTC+${Math.abs(parseInt(min / 60)) > 9 ? Math.abs(parseInt(min / 60)) : `0${Math.abs(parseInt(min / 60))}`}:${Math.abs(parseInt(min % 60)) || '00'}` : `UTC-${Math.abs(parseInt(min / 60)) > 9 ? Math.abs(parseInt(min / 60)) : `0${Math.abs(parseInt(min / 60))}`}:${Math.abs(parseInt(min % 60)) || '00'}`
 }
+
+function getNumber(num) {
+  const units = ["M", "B", "T", "Q"]
+  const unit = Math.floor((num / 1.0e+1).toFixed(0).toString().length)
+  const r = unit % 3
+  const x = Math.abs(Number(num)) / Number('1.0e+' + (unit - r)).toFixed(2)
+  return x.toFixed(2) + ' ' + units[Math.floor(unit / 3) - 2]
+}
+
 function convertToInternationalCurrencySystem(num) {
   if (isNaN(Number(num))) {
     return "";
@@ -88,7 +96,7 @@ function convertToInternationalCurrencySystem(num) {
   } else if (num > 1000000000) {
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
   } else if (num < 999.99999999) {
-    return num; // if value < 1000, nothing to do
+    return parseFloat(num.toFixed(8)); // if value < 1000, nothing to do
   }
 }
 
@@ -105,8 +113,7 @@ function decimalDivisonOnly(num, tofixed) {
   num = Number(num)
   if (num === 0) {
     return num;
-  }
-  else {
+  } else {
     return (num / decimalDivisionValue.DECIMAL_DIVISON_VALUE)?.toFixed(tofixed).replace(/\.?0+$/, "");
   }
 }
@@ -126,8 +133,7 @@ function divideByDecimalValue(num, decimals) {
   num = Number(num)
   if (num === 0) {
     return num;
-  }
-  else {
+  } else {
     return (num / Math.pow(10, decimals)).toFixed(decimals)
   }
 
@@ -206,6 +212,7 @@ function shortenUserName(b, amountL = 25, amountR = 0, stars = 3) {
     )}`;
   else return b;
 }
+
 function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
   if (b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -214,6 +221,7 @@ function shortenHash(b, amountL = 21, amountR = 0, stars = 3) {
     )}`;
   else return b;
 }
+
 function shortenHashTab(b, amountL = 40, amountR = 0, stars = 3) {
   if (b && b.length > 12)
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -300,6 +308,7 @@ function getHeader() {
 function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
 /**
  * This function is made to handle success and error callback!
  * @param promise
@@ -312,6 +321,7 @@ function parseResponse(promise) {
     })
     .catch((err) => [err]);
 }
+
 //TODO: update apiConstant.API_FAILURE
 function apiFailureToast(message) {
   toast.error(message ? message : "apiConstant.API_FAILURE");

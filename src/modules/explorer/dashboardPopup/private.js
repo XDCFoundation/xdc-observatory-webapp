@@ -183,7 +183,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
     lineHeight: "1.58",
   },
   "@media (max-width: 714px)": {
@@ -220,7 +220,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -264,14 +264,14 @@ export default function FormDialog(props) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      // const [error] = await utility.parseResponse(
-      //   UserService.addPrivateTagToAddress(data)
-      // );
+      const [error] = await utility.parseResponse(
+        UserService.addPrivateTagToAddress(data)
+      );
 
-      // if (error) {
-      //   utility.apiFailureToast("Address is already in use");
-      //   return;
-      // }
+      if (error) {
+        utility.apiFailureToast("Address is already in use");
+        return;
+      }
       let taggedAddress = localStorage.getItem(
         cookiesConstants.USER_TAGGED_ADDRESS
       );
@@ -329,11 +329,11 @@ export default function FormDialog(props) {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      if(trimmedInput.length > 15){
+      if (trimmedInput.length > 15) {
         setErrorTag("Tag length should be less than 15");
         return;
       }
-      if(tags.length >= 5){
+      if (tags.length >= 5) {
         setErrorTag("Maximum 5 Tags are allowed");
         return;
       }
@@ -388,7 +388,7 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
-    <div>
+    <>
       <div className="div1 cursor-pointer">
         <div
           onClick={
@@ -446,7 +446,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      <div>
+      {/* <div> */}
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -543,8 +543,8 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
-      </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 }
 

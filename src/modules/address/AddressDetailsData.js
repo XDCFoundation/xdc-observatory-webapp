@@ -15,12 +15,16 @@ import Utility, { dispatchAction } from "../../utility";
 import { Grid } from "@material-ui/core";
 import ContractData from "../../services/contract";
 import TokenUnverifiedContract from "./tokenUnverifiedContract";
-import TokenContracttab from "./tokenContractTab";
+import TokenContracttab from "../token/tokenContractTab";
 import ReactHtmlParser from "react-html-parser";
 import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
-import LoginDialog from "../explorer/loginDialog"
+import LoginDialog from "../explorer/loginDialog";
 import AddressData from "../../services/address";
+import ReadContract from "../contractMethods/read";
+import WriteContract from "../contractMethods/write";
+import styled from "styled-components";
+
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -42,10 +46,32 @@ const useStyles = makeStyles({
     fontWeight: "500",
     fontFamily: "Inter !important",
     color: "#3a3a3a",
-    letterSpacing: "0.54px",
+    letterSpacing: "0px",
     marginLeft: "25px",
-  }
+  },
 });
+
+const TabContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 21rem;
+  }
+`;
+
+const TabContainerParent = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border-bottom: solid 1px #e3e7eb;
+  width: 100%;
+  margin: auto;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 21rem;
+  }
+`;
 
 export default function AddressDetailsData() {
   const [toggleState, setToggleState] = useState(1);
@@ -74,7 +100,7 @@ export default function AddressDetailsData() {
     transactionlist: [],
   };
   const [data, setData] = React.useState(initialState);
-  let balance = !data.balance ? 0 : data.balance
+  let balance = !data.balance ? 0 : data.balance;
   let balance1 = balance.toString().split(".")[0];
   let balance2 = balance.toString().split(".")[1];
   const [responses, setResponses] = React.useState([]);
@@ -85,11 +111,11 @@ export default function AddressDetailsData() {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  let value = !data.val ? 0 : data.val
+  let value = !data.val ? 0 : data.val;
   let value1 = value.toString().split(".")[0];
   let value2 = value.toString().split(".")[1];
 
-  let changedValue = data.changedVal
+  let changedValue = data.changedVal;
   let changedValue1 = changedValue.toString().split(".")[0];
   let changedValue2 = changedValue.toString().split(".")[1];
 
@@ -160,7 +186,7 @@ export default function AddressDetailsData() {
   React.useEffect(() => {
     let values = { addr: addressNumber };
     getContractDetails(values);
-    let data = { addrr: addressNumber }
+    let data = { addrr: addressNumber };
     getTransactionsCountForAddress(data);
   }, []);
 
@@ -187,7 +213,8 @@ export default function AddressDetailsData() {
                     onClose={closeLoginDialog}
                     dataHashOrAddress={addressNumber}
                   />
-                  <div>Want to tag this address?
+                  <div>
+                    Want to tag this address?
                     <a
                       className="linkTableDetails-transaction"
                       style={{ marginLeft: "5px", cursor: "pointer" }}
@@ -196,7 +223,10 @@ export default function AddressDetailsData() {
                       Login
                     </a>
                   </div>
-                </span>) : ("")}
+                </span>
+              ) : (
+                ""
+              )}
             </Row>
           </div>
           <div className="address_block_main">
@@ -223,7 +253,9 @@ export default function AddressDetailsData() {
                             <span>
                               {balance1}
                               {"."}
-                              <span style={{ color: "#9FA9BA" }}>{balance2}</span>
+                              <span style={{ color: "#9FA9BA" }}>
+                                {balance2}
+                              </span>
                               XDC
                             </span>
                           )}
@@ -242,19 +274,22 @@ export default function AddressDetailsData() {
                               {value1}
                               {"."}
                               <span style={{ color: "#9FA9BA" }}>{value2}</span>
-
                             </span>
-                          )} (@ {ReactHtmlParser(data.currencySymbol)}
+                          )}{" "}
+                          (@ {ReactHtmlParser(data.currencySymbol)}
                           {changedValue2 == null ? (
                             <span>{changedValue1}/XDC </span>
                           ) : (
                             <span>
                               {changedValue1}
                               {"."}
-                              <span style={{ color: "#9FA9BA" }}>{changedValue2}</span>
+                              <span style={{ color: "#9FA9BA" }}>
+                                {changedValue2}
+                              </span>
                               /XDC
                             </span>
-                          )})
+                          )}
+                          )
                         </TableCell>
                       </TableRow>
                       <TableRow>
@@ -270,7 +305,9 @@ export default function AddressDetailsData() {
                           Contract Name
                         </TableCell>
                         <TableCell className="left-table-contract-data-last">
-                          {!data.contractName ? "Not Available" : data.contractName}
+                          {!data.contractName
+                            ? "Not Available"
+                            : data.contractName}
                           <i class="fas fa-badge-check"></i>
                         </TableCell>
                       </TableRow>
@@ -341,35 +378,59 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
-          <div>
-            <div className="block_sec_contract sec-block-contract">
-              <div className="bloc-tabs_sec">
-                <button
-                  className={
-                    toggleState === 1
-                      ? "tabs_sec_contract active-tabs_sec_contract"
-                      : "tabs_sec_contract"
-                  }
-                  onClick={() => toggleTab(1)}
-                  id="transaction-btn"
-                >
-                  All Transactions
-                </button>
+          <TabContainerParent>
+            <TabContainer>
+              <button
+                className={
+                  toggleState === 1
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(1)}
+              >
+                All Transactions
+              </button>
 
-                <button
-                  className={
-                    toggleState === 2
-                      ? "tabs_sec_contract active-tabs_sec_contract"
-                      : "tabs_sec_contract"
-                  }
-                  onClick={() => toggleTab(2)}
-                  id="contract-btn"
-                >
-                  Contract Source
-                </button>
-              </div>
-            </div>
-          </div>
+              <button
+                className={
+                  toggleState === 2
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(2)}
+              >
+                Code
+              </button>
+              {!responses ? (
+                ""
+              ) : responses?.contractStatus !== "Unverified" ? (
+                <>
+                  <button
+                    className={
+                      toggleState === 3
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(3)}
+                  >
+                    Read Contract
+                  </button>
+                  <button
+                    className={
+                      toggleState === 4
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(4)}
+                  >
+                    Write Contract
+                  </button>
+                </>
+              ) : (
+                ""
+              )}
+            </TabContainer>
+          </TabContainerParent>
 
           <div className="content-tabs_sec">
             <div
@@ -391,10 +452,42 @@ export default function AddressDetailsData() {
               {!responses ? (
                 ""
               ) : responses?.contractStatus === "Unverified" ? (
-                <TokenUnverifiedContract contractData={responses?.contractResponse} />
+                <TokenUnverifiedContract
+                  contractData={responses?.contractResponse}
+                />
               ) : (
                 <TokenContracttab contractData={responses?.contractResponse} />
               )}
+            </div>
+            <div
+              className={
+                toggleState === 3
+                  ? "content_sec  active-content_sec"
+                  : "content_sec"
+              }
+            >
+              <ReadContract
+                contractData={
+                  responses?.contractResponse
+                    ? { ...responses?.contractResponse }
+                    : {}
+                }
+              />
+            </div>
+            <div
+              className={
+                toggleState === 4
+                  ? "content_sec  active-content_sec"
+                  : "content_sec"
+              }
+            >
+              <WriteContract
+                contractData={
+                  responses?.contractResponse
+                    ? { ...responses?.contractResponse }
+                    : {}
+                }
+              />
             </div>
           </div>
         </div>
