@@ -149,7 +149,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.5px;
+  letter-spacing: 0px;
   color: #81b4ff;
   opacity: 0.8;
   padding-top: 15px !important;
@@ -186,7 +186,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #ffffff;
   margin-left: 4px;
 }
@@ -218,7 +218,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #ffffff;
 }
 
@@ -238,7 +238,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #ffffff;
   opacity: 0.8;
 }
@@ -272,20 +272,20 @@ a {
   font-stretch: normal;
   font-style: normal;
   line-height: 2;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #81b4ff;
 }
 
 @media (max-width: 767px) {
   a {
     font-size: 0.75rem;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   a {
     font-size: 0.875rem;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
   }
 }
 a:hover {
@@ -316,7 +316,7 @@ a:hover {
   color: #ffffff;
   height: 32px;
   width: 90px;
-  margin: 24px 13px 19.7px 1px;
+  margin: 5px 13px 19.7px 1px;
   padding: 7px 7px 6px 9px;
   border-radius: 4px;
   background-color: #2149b9;
@@ -340,7 +340,7 @@ a:hover {
     width: 1.5625rem;
   }
   .select-xdc {
-    margin: 0px 13px 30px 1px;
+    margin: 0px 13px 0px 1px;
   }
   /* .MuiPopover-paper {
     left: 295px !important;
@@ -358,7 +358,7 @@ a:hover {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #ffffff;
 }
 @media (max-width: 1241px) {
@@ -374,7 +374,7 @@ a:hover {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     color: #ffffff;
     opacity: 0.8;
 } */
@@ -387,7 +387,7 @@ a:hover {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #ffffff;
 }
 @media (min-width: 0px) and (max-width: 767px) {
@@ -449,7 +449,7 @@ a:hover {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   color: #81b4ff;
   /* margin-left: -20px;
    font-family: Inter;
@@ -458,7 +458,7 @@ a:hover {
    font-stretch: normal;
    font-style: normal;
    line-height: 1.29;
-   letter-spacing: 0.54px;
+   letter-spacing: 0px;
    color: #81b4ff; */
 }
 
