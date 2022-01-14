@@ -165,14 +165,20 @@ class AddressStatsData extends Component {
   render() {
     const currencyPrice = this.props?.price;
     let highestTransaction = this.props?.statData?.highestTransaction;
+    highestTransaction = Utils.decimalDivisonOnly(highestTransaction, 8);
     let highestTxn = Utils.convertToInternationalCurrencySystem(
-      Number(this.props?.statData?.highestTransaction)
+      Number(highestTransaction)
     );
     let highestTransactionConverted =
       Utils.convertToInternationalCurrencySystem(
         Number(highestTransaction) * Number(currencyPrice)
       );
+
     let averageBalance = this.props?.statData?.avgBalance;
+    averageBalance = Utils.decimalDivisonOnly(averageBalance, 8)
+    let avgBalance = Utils.convertToInternationalCurrencySystem(
+      Number(averageBalance)
+    );
     let avgBalanceConverted = Utils.convertToInternationalCurrencySystem(
       Number(averageBalance) * Number(currencyPrice)
     );
@@ -184,7 +190,7 @@ class AddressStatsData extends Component {
     let gasPrice = parseFloat(Number(gasP));
     let gasPriceConverted = Number(gasPrice) * Number(currencyPrice);
 
-    let currencySymbol = this.props.currency === "USD" ? "$" : "€";
+    let currencySymbol = this.props.currency === "EUR" ? "€" : "$";
     return (
       <>
         <DeskTopView>
@@ -249,9 +255,7 @@ class AddressStatsData extends Component {
                   Average Balance
                 </MarketDataPointTitle>
                 <Value>
-                  {Utils.convertToInternationalCurrencySystem(
-                    this.props?.statData?.avgBalance
-                  )}
+                  {avgBalance}
                   &nbsp;XDC
                 </Value>
                 <ThirdRowValue>
@@ -278,7 +282,7 @@ class AddressStatsData extends Component {
                         className="info-new-icon"
                       />
                     </Tooltip>
-                    Gas Fee Paid
+                    Txn Fee Paid
                   </MarketDataPointTitle>
                   <Value>
                     {!gasPrice ? 0 : Number(gasPrice).toFixed(12)}&nbsp;XDC
@@ -397,7 +401,7 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address ">
                 {" "}
-                <p>{this.props?.statData?.avgBalance}&nbsp;XDC</p>
+                <p>{averageBalance}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue>
                     {" "}
@@ -420,7 +424,7 @@ class AddressStatsData extends Component {
                       className="info-new-icon"
                     />
                   </Tooltip>
-                  Gas Fee Paid
+                  Txn Fee Paid
                 </MarketDataPointTitle>
               </div>
               <div className="mid_cont_address">

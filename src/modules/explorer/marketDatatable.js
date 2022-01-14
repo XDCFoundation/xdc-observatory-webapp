@@ -38,7 +38,7 @@ const MarketDataPointTitle = styled.div`
   color: #686868;
   display: flex;
   flex-flow: row;
-  align-item: center;
+  //align-item: center;
   gap: 2px;
 
   @media (min-width: 768px) and (max-width: 1239px) {

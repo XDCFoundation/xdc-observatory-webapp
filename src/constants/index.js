@@ -63,6 +63,8 @@ export const eventConstants = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
+  CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
 };
 
 export const genericConstants = {
@@ -152,7 +154,7 @@ export const messages = {
   TOKEN_YES_NO:
     "Whether the token is associated with the Smart Contract or not.",
   VALUE: "Amount to tokens being transferred.",
-  GAS: "The gas price associated with the transaction.",
+  GAS: "The average transaction fee associated with the transaction.",
   RANK: "Account’s rank sorted on the basis of Balance.",
   PERCENTAGE: "Percentage of holdings out of the total supply.",
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
@@ -192,3 +194,12 @@ export const decimalDivisionValue = {
 export const contractMethodTypes = {
   view: "view",
 };
+
+
+export const recentSearchTypeConstants = {
+  TRANSACTION:'TRANSACTION',
+  ACCOUNT:'WALLET',
+  WALLET:'WALLET',
+  BLOCK:'TOKEN',
+  TOKEN:'TOKEN',
+}
