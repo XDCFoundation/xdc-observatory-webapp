@@ -191,7 +191,7 @@ export default function AccountComponent(props) {
           </div>
         </div>
         <SearchAndFiltersComponent searchAndFilters={props.state.searchAndFilters}
-                                   updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts}/>
+          updateFiltersAndGetAccounts={props.updateFiltersAndGetAccounts} />
         <Paper style={{ borderRadius: "0.875rem" }} elevation={0}>
           <TableContainer className={classes.container} id="container-table">
             <Table>
@@ -395,10 +395,10 @@ export default function AccountComponent(props) {
                             : 0;
 
                         rantValue = rantValue + 1;
-                        let percentageValue = (
+                        let percentageValue = (state.totalSupply && state.totalSupply?.length > 0) ? ((
                           (finalBal / state.totalSupply) *
                           100
-                        ).toFixed(8);
+                        ).toFixed(8)) : 0;
                         let percentageValue1 = percentageValue
                           .toString()
                           .split(".")[0];
@@ -490,12 +490,16 @@ export default function AccountComponent(props) {
                                   align="center"
                                 >
                                   <span className="tabledata">
-                                    {percentageValue1}
-                                    {"."}
-                                    <span style={{ color: "#9FA9BA" }}>
-                                      {percentageValue2}
-                                    </span>
-                                    %
+                                    {(percentageValue1 == 0 || !percentageValue1) ? <span>{percentageValue1}%</span> :
+                                      <span>
+                                        {percentageValue1}
+                                        {"."}
+                                        <span style={{ color: "#9FA9BA" }}>
+                                          {percentageValue2}
+                                        </span>
+                                        %
+                                      </span>}
+
                                   </span>
                                 </TableCell>
                               )}
