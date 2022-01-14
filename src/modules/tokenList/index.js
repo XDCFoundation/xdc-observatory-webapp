@@ -23,6 +23,7 @@ export default class LatestTransactionList extends BaseComponent {
           toolTipText: "The number of holders.",
         },
       },
+      sortKey:""
     };
   }
 
