@@ -1922,6 +1922,7 @@ p {
   display: flex;
   justify-content: center;
   margin-top: -30px;
+  padding: 0 15px;
 }
 
 .centerbox {
@@ -1937,7 +1938,7 @@ p {
   .centerbox {
     height: 56px;
     border-radius: 6px;
-    width: 21.438rem !important;
+    width: 100% !important;
   }
   .profile-name-popover {
     margin-top: 0px !important;
@@ -8588,7 +8589,7 @@ button {
     letter-spacing: 0.55px !important;
   }
   .main-input-td {
-    width: 12.5rem;
+    width: 100%;
     font-size: 12px !important;
     margin-top: -2px;
   }
@@ -9537,6 +9538,11 @@ button {
   .overflow {
     overflow-x: scroll;
   }
+  .profile {
+    height: 24px !important;
+    width: 24px !important;
+    margin-right: 9px;
+  }
 }
 .Shape2-internal1 {
   margin-top: -2px !important;
@@ -9601,7 +9607,7 @@ button {
     /* padding: 0.4rem 0.644rem 0 0.75rem; */
   }
   .select-td {
-    margin-left: 13px;
+    /* margin-left: 13px; */
   }
 
   /* .select-td {
@@ -10686,5 +10692,9 @@ button {
   .table-list {
     width: 100% !important;
     margin: 10px 0;
+  }
+  .MuiIconButton-root {
+    padding: 0 12px 0 0 !important;
+    margin-right: -12px !important;
   }
 }
