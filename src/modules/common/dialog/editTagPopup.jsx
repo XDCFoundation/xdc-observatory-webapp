@@ -157,7 +157,6 @@ function EditTaggedAddress(props) {
   const [error, setError] = React.useState("");
   const [errorTag, setErrorTag] = React.useState("");
   const [tags, setTags] = React.useState([]);
-  console.log(tags, "<<<tags");
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
