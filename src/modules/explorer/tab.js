@@ -32,7 +32,7 @@ function Tab() {
                         className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
                         onClick={() => toggleTab(3)}
                     >
-                        Gas Price
+                        Txn Fee (Avg)
                     </button>
                 </div>
                 <div className="days , days-14">

@@ -224,9 +224,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.HOLDER_RANK}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -241,9 +241,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -258,9 +258,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.QUANTITY}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -275,9 +275,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -314,9 +314,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.HOLDER_RANK}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -331,9 +331,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -348,9 +348,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.QUANTITY}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -365,9 +365,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.PERCENTAGE}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>

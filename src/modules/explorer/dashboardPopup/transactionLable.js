@@ -170,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
     lineHeight: "1.58",
   },
   "@media (max-width: 714px)": {
@@ -208,7 +208,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -320,7 +320,7 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
-    <div>
+    <>
       <div className="div1 cursor-pointer">
         <div
           className="imageParentDiv"
@@ -378,7 +378,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      <div>
+      {/* <div> */}
         <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -463,8 +463,8 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
-      </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 }
 

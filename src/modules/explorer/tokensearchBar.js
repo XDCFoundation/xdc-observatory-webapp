@@ -50,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
+      padding: "16px 15px 15px 16px",
+
     },
     drawerHeader: {
       padding: "0 !important",
@@ -675,7 +677,7 @@ export default function Navbar() {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.041rem;
+    letter-spacing: 0px;
     color: #ffffff;
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){
@@ -711,14 +713,14 @@ export default function Navbar() {
   `;
 
   const SearchContainer = styled.div`
-    width: 21rem;
+    width: 100%;
     height: 35px;
     padding: 6px;
     border-radius: 6px;
     border: solid 1px #e3e7eb;
     margin: auto;
     background: white;
-    margin: 15px auto auto auto;
+    margin: 21.8px auto auto auto;
   `;
 
   const MobileToolBar = styled.div`
@@ -726,8 +728,13 @@ export default function Navbar() {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    padding: 10px 10px 0 20px;
+    padding: 10px 0 0 10px;
     justify-content: space-between;
+
+    @media screen and (max-width: 767px) {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
   `;
 
   const TabSearchBox = styled.div`
