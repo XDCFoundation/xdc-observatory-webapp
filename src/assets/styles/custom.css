@@ -2780,7 +2780,7 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 15px;
-  color: #2149b9;
+  color: #8facff;
 }
 
 .xinfin_api_button {
@@ -2801,14 +2801,14 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .inside-side-box {
@@ -3664,7 +3664,7 @@ body {
   }
 }
 .MuiBackdrop-root {
-  opacity: 0 !important;
+  /* opacity: 0 !important; */
 }
 
 .days p {
