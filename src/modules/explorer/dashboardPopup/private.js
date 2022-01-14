@@ -388,6 +388,7 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
+    
     <div className="w-33p">
       <div className="div1 cursor-pointer">
         <div
@@ -446,7 +447,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      <div>
+      {/* <div> */}
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -543,7 +544,7 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

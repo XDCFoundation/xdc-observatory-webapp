@@ -742,7 +742,7 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="activeAddress">
                 <TitleIcon src='/images/active-address.svg'/>
                 <ValueName>
-                  <Title>Active Address</Title>
+                  <Title>Active Addresses</Title>
                   <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
                 </ValueName>
               </Value>

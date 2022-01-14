@@ -418,7 +418,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
       {isSize === false ? (
-        <div className={classes.createWatchlist}>
+        // <div className={classes.createWatchlist}>
           <Dialog
             className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
@@ -550,11 +550,11 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
           </Dialog>
-        </div>
+        // </div>
       ) : (
         <Test />
       )}
-    </div>
+      </div>
   );
 }
 
