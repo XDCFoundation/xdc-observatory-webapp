@@ -759,6 +759,9 @@ export default function Navbar() {
       gap: 20px;
       flex-flow: row;
       margin: 15px 0 0 0;
+      @media screen and (max-width: 767px) {
+          margin: 20px 0 0 0;
+      }
     `;
 
     const MobileToolBar = styled.div`
@@ -766,6 +769,9 @@ export default function Navbar() {
       flex-flow: row nowrap;
       align-items: center;
       padding: 10px 10px 0 20px;
+      @media screen and (max-width: 767px) {
+        padding: 16px 15px 0 15px;
+      }
     `;
 
     return (
