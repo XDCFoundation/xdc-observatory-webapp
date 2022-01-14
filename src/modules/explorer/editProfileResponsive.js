@@ -43,6 +43,16 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "31.25rem",
     padding: "0 0.5rem 0 0.5rem",
   },
+  backButtonMobile : {
+    marginLeft : "18px",
+    position: "absolute",
+    cursor: "pointer"
+  },
+  "@media (min-width: 740px)":{
+    backButtonMobile : {
+      display: "none"
+    }
+  },
   error: {
     color: "red",
     marginLeft: "2px",
@@ -452,7 +462,9 @@ export default function FormDialog(props) {
           <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
             <Wrapper>
               <Title>Edit Profile</Title>
-
+              <div onClick={handleClose} className={classes.backButtonMobile}>
+            <img src="images/backbutton.svg" />
+          </div>
               <Cut onClick={handleClose}>
                 {" "}
                 <img
