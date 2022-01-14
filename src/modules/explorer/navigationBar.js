@@ -24,6 +24,8 @@ import Utility from "../../utility";
 import SearchData from "../../services/search";
 import {Row} from "simple-flexbox";
 import Utils from "../../utility";
+import {useDispatch} from "react-redux";
+import {eventConstants, recentSearchTypeConstants} from "../../constants";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -141,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
+    const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
     const ref = React.useRef(null);
@@ -252,14 +255,38 @@ export default function Navbar() {
             if (responseData) {
                 if (responseData[0].redirect === "block") {
                     let blockurl = "/block-details/" + responseData[0].block.number;
+                    dispatch({
+                        type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                            type: recentSearchTypeConstants.BLOCK,
+                            searchValue: data?.data || '',
+                            result: responseData[0]?.block?.transactions?.length>0 && responseData[0]?.block?.transactions.reduce((accumulator,trx)=>accumulator + parseInt(trx.value), [0]) ||  0,
+                            redirectUrl: blockurl
+                        }
+                    })
                     window.location.href = blockurl;
                 } else if (responseData[0].redirect === "account") {
                     let accounturl =
                         "/address-details/" + responseData[0].account.address;
+                    dispatch({
+                        type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                            type: recentSearchTypeConstants.ACCOUNT,
+                            searchValue: responseData[0]?.account?.address || '',
+                            result: responseData[0]?.account?.balance ||  0,
+                            redirectUrl: accounturl
+                        }
+                    })
                     window.location.href = accounturl;
                 } else if (responseData[0].redirect === "transaction") {
                     let transactionurl =
                         "/transaction-details/" + responseData[0].transaction.hash;
+                    dispatch({
+                        type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                            type: recentSearchTypeConstants.TRANSACTION,
+                            searchValue: data?.data || '',
+                            result: responseData[0]?.transaction?.value ||  0,
+                            redirectUrl: transactionurl
+                        }
+                    })
                     window.location.href = transactionurl;
                 } else if (responseData[0].redirect === "token") {
                     if (responseData[0]?.token.length > 0) {
@@ -269,10 +296,26 @@ export default function Navbar() {
                             "/" +
                             responseData[0]?.token[0]?.symbol;
                         let tokenListUrl = "/tokens/" + responseData[0]?.token[0]?.tokenName;
+                        dispatch({
+                            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                                type: recentSearchTypeConstants.TOKEN,
+                                searchValue: responseData[0]?.token[0]?.address || '',
+                                result: responseData[0]?.token[0]?.totalSupply ||  0,
+                                redirectUrl: responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl
+                            }
+                        })
                         window.location.href =
                             responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
                     } else {
                         let tokenDataUrl = "/token-data/" + responseData[0]?.token?.address + "/" + responseData[0]?.token?.symbol;
+                        dispatch({
+                            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                                type: recentSearchTypeConstants.TOKEN,
+                                searchValue: responseData[0]?.token?.address || '',
+                                result: responseData[0]?.token?.totalSupply ||  0,
+                                redirectUrl: tokenDataUrl
+                            }
+                        })
                         window.location.href = tokenDataUrl;
                     }
                 } else {
@@ -716,6 +759,9 @@ export default function Navbar() {
       gap: 20px;
       flex-flow: row;
       margin: 15px 0 0 0;
+      @media screen and (max-width: 767px) {
+          margin: 20px 0 0 0;
+      }
     `;
 
     const MobileToolBar = styled.div`
@@ -723,6 +769,9 @@ export default function Navbar() {
       flex-flow: row nowrap;
       align-items: center;
       padding: 10px 10px 0 20px;
+      @media screen and (max-width: 767px) {
+        padding: 16px 15px 0 15px;
+      }
     `;
 
     return (
