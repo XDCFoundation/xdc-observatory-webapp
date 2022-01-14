@@ -268,6 +268,7 @@ export default function AddressTableComponent(props) {
       const [error, responseData] = await Utility.parseResponse(
           AddressData.getFilteredAddressDetailWithLimit(requestData)
       );
+      getTransactionsCountForAddress(requestData);
       if (responseData && responseData.length > 0) {
         setNoData(false);
         setLoading(false);
@@ -312,8 +313,7 @@ export default function AddressTableComponent(props) {
     data = {
       addrr: addr,
     };
-    getFiltersForAccountTransaction({address: addr});
-    getTransactionsCountForAddress(data);
+    // getFiltersForAccountTransaction({address: addr});
     getAddressDetails(datas);
   }, []);
   const sortData = async (sortKey) => {
@@ -518,7 +518,8 @@ export default function AddressTableComponent(props) {
 
   const updateFiltersAndGetAccounts = async (filters) => {
     await setSearchAndFilters(filters)
-    getAddressDetails({}, filters)
+    if (filters.searchQuery || filters.type || filters.status !== 'all')
+      getAddressDetails({}, filters)
   }
 
   return (
