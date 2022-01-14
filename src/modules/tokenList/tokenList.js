@@ -25,12 +25,17 @@ import { messages } from "../../constants";
 import {useParams} from "react-router-dom";
 import PageSelector from "../common/pageSelector";
 
+const Responsive = styled.div`
+  max-width: 1202px
+  width: 100%;
+  margin: 0 auto;
+`;
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   width: 75.125rem;
-  margin: 1.25rem auto;
+  margin: 60px auto 0 auto;
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
@@ -40,12 +45,11 @@ const Pagination = styled.div`
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
-    margin: 0 auto;
+    margin: 60px auto;
   }
 `;
 const RightPagination = styled.div`
   display: flex;
-  margin-top: 1.75rem;
   flex-direction: row;
 
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -55,12 +59,24 @@ const RightPagination = styled.div`
 const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 1.75rem;
   align-items: center;
+  flex-flow: row nowrap; 
 
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-right: 5%;
   }
+`;
+const Show = styled.div`
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: auto;
+  padding-bottom: 2px;
+`;
+const Record = styled.div`
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: auto;
+  padding-bottom: 2px;
 `;
 // function capitalize(text) {
 //   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -90,11 +106,11 @@ const useStyles = makeStyles({
     width: "100%",
   },
 
-    "@media (max-width: 1024px)": {
-        container: {
-            height: 615,
-        },
-    },
+    // "@media (max-width: 1240px)": {
+    //     container: {
+    //         marginTop: "7px !important",
+    //     },
+    // },
 
   "@media (max-width: 1240px)": {
     tableFirstHeading: {
@@ -103,6 +119,9 @@ const useStyles = makeStyles({
     tableFirstData: {
       paddingLeft: "32px !important",
     },
+    container: {
+      marginTop: "7px",
+  },
   },
 });
 
@@ -305,10 +324,14 @@ export default function StickyHeadTable(props) {
   }
 
     const TokenTitle = styled.div`
-      font-size: 24px;
-      font-weight: bold;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2a2a2a;
+    margin-bottom: 22px;
       @media (max-width: 1250px) {
-        font-size: 16px;
+        font-size: 18px;
+        margin-bottom: 12px;
       }
     `;
 
@@ -327,6 +350,7 @@ export default function StickyHeadTable(props) {
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
+      <Responsive>
       <form
         method="post"
         onKeyPress={(e) => {
@@ -335,17 +359,46 @@ export default function StickyHeadTable(props) {
           }
         }}
       >
+        
         <Column
           className={
             "responsive-table-width-token-list token-list-tab_11 search-container"
           }
         >
+          <TokenTitle>Tokens</TokenTitle>
           <Row justifyContent="space-between" alignItems="center">
-            <TokenTitle>Tokens</TokenTitle>
+          <div className="searchelement-input input-searchelement_11">
+            <img
+              style={{
+                width: 18,
+                height: 18,
+                marginRight: 2,
+                marginTop: -1,
+              }}
+              src={"/images/Search.svg"}
+            />
+
+            <input
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              onChange={(e) => {
+                if (e.target.value == "") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              id="tokenSearch"
+              className="account-searchbar"
+              type="text"
+              placeholder="Search"
+            />
+          </div>
             <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
               <img
                 onClick={handleSettingsClick}
-                className="p-r-5 h-20 w-20-px cursor-pointer"
+                className="h-20 w-20-px cursor-pointer m-r-9"
                 src="/images/settings.svg"
               />
               <ConfigureColumnPopOver
@@ -370,34 +423,7 @@ export default function StickyHeadTable(props) {
               />
             </div>
           </Row>
-          <div className="searchelement-input input-searchelement_11 margin-top-15px">
-            <img
-              style={{
-                width: 20,
-                height: 20,
-                marginRight: 6,
-                marginTop: 3,
-              }}
-              src={"/images/Search.svg"}
-            />
-
-            <input
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              onChange={(e) => {
-                if (e.target.value == "") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              id="tokenSearch"
-              className="account-searchbar"
-              type="text"
-              placeholder="Search Tokens"
-            />
-          </div>
+          
         </Column>
       </form>
       {/* </div> */}
@@ -428,7 +454,7 @@ export default function StickyHeadTable(props) {
                         <TableHead style={{borderBottom: "0.063rem solid #e5e8f0"}}>
                             <TableRow>
                                 <TableCell
-                                    style={{border: "none", paddingLeft: "75px"}}
+                                    style={{border: "none",}}
                                     align="left"
                                 >
                   <span className={"tablehead-token-details"}>
@@ -604,14 +630,14 @@ export default function StickyHeadTable(props) {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell style={{ paddingLeft: "75px" }} id="td">
+                        <TableCell id="td">
                           {index + 1}
                         </TableCell>
 
                                                 {props?.state?.tableColumns["Symbol"].isActive && (
                                                     <TableCell id="td">
                                                         <img
-                                                            style={{height: "24", width: "24"}}
+                                                            style={{height: "20px", width: "20px"}}
                                                             src={"/images/XRC20-Icon.svg"}
                                                         ></img>
                                                         &nbsp;{row.symbol}
@@ -707,27 +733,16 @@ export default function StickyHeadTable(props) {
 
       <Pagination>
         <LeftPagination>
-        {!noData == true && !isLoading ? (<>
-          <p
-            style={{
-              fontSize: "0.875rem",
-              fontWeight: "600",
-            }}
-          >
+        {noData == true && !isLoading ? (<>
+          <Show>
             Show
-          </p>
+          </Show>
                     <PageSelector value={amount}
                                   height={30}
                                   handler={handleChangeRowsPerPage}/>
-                    <p
-                        style={{
-                            fontSize: "0.875rem",
-                            fontWeight: "600",
-                        }}
-                    >
-            {" "}
+                    <Record>
             Records
-          </p></>):("")}
+          </Record></>):("")}
         </LeftPagination>
 
                 <RightPagination>
@@ -792,6 +807,7 @@ export default function StickyHeadTable(props) {
                     </div>
                 </RightPagination>
             </Pagination>
+            </Responsive>
             <FooterComponent/>
         </div>
     );

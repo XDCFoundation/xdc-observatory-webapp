@@ -2954,7 +2954,7 @@ p {
 }
 
 .search-container {
-  margin: 20px auto auto auto !important;
+  margin: 30px auto auto auto !important;
 }
 
 .searchelement-contract {
@@ -3028,9 +3028,10 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  width: 16.625rem;
+  width: 207px;
+  height: 34px;
   padding: 7.7px 43px 10px 10px;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -3753,7 +3754,7 @@ body {
   padding-bottom: 7px;
   color: #b5bac7;
   text-align: center;
-  width: 80%;
+  /* width: 80%; */
   cursor: pointer;
   position: relative;
   font-size: 0.938rem;
@@ -4171,14 +4172,15 @@ body {
 }
 
 #container-table-token th {
-  padding-top: 1.625rem;
-  padding-bottom: 0.938rem;
-  padding-left: 12px;
+  padding-top: 3px;
+  padding-bottom: 2.5px;
+  padding-left: 15px;
   text-align: left;
 }
 
 #container-table-token td {
-  padding: 12px;
+  padding-top: 10.5px;
+  padding-bottom: 8.5px;
   text-align: left;
   margin: 19px 49px 1.8px 69px;
   font-family: "Inter" !important;
@@ -9100,7 +9102,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 40px;
-  padding-right: 20px;
   letter-spacing: 0rem;
   text-align: center;
   color: #2a2a2a;
@@ -10237,7 +10238,7 @@ button {
   font-weight: 500 !important;
 }
 .account-searchbar {
-  font-size: 0.938rem;
+  font-size: 15px;
   letter-spacing: 0px;
   color: #2a2a2a;
   font-family: "Inter";
@@ -10245,7 +10246,7 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
-  width: 11rem;
+  width: 10rem;
 }
 .account-searchbar:focus {
   outline: none !important;
@@ -10269,6 +10270,9 @@ button {
   margin-left: 16px;
   color: red;
   font-weight: normal;
+}
+.m-r-9 {
+  margin-right: 9px;;
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
