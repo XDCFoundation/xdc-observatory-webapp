@@ -395,10 +395,11 @@ export default function AccountComponent(props) {
                             : 0;
 
                         rantValue = rantValue + 1;
-                        let percentageValue = (state.totalSupply && state.totalSupply?.length > 0) ? ((
+                        let percentageValue = state.totalSupply && state.totalSupply > 0 ? ((
                           (finalBal / state.totalSupply) *
                           100
-                        ).toFixed(8)) : 0;
+                        ).toFixed(8)) : 0
+
                         let percentageValue1 = percentageValue
                           .toString()
                           .split(".")[0];
@@ -490,7 +491,7 @@ export default function AccountComponent(props) {
                                   align="center"
                                 >
                                   <span className="tabledata">
-                                    {(percentageValue1 == 0 || !percentageValue1) ? <span>{percentageValue1}%</span> :
+                                    {(!percentageValue2) ? <span>{percentageValue1}%</span> :
                                       <span>
                                         {percentageValue1}
                                         {"."}
