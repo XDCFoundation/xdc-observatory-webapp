@@ -199,7 +199,7 @@ export default function BlockDetails() {
                     <Container className="pad-left-6 pad-left-7">
                       <Tooltip align="right" title={hashid}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Hash ID</Hash>
@@ -223,7 +223,7 @@ export default function BlockDetails() {
                           >
                             <button className="copy-icon-block-details">
                               <ImgView
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src="/images/info.svg"
                               />
                             </button>
                           </Tooltip>
@@ -237,7 +237,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={blockheight}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
 
@@ -285,7 +285,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={hashid}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Transaction</Hash>
@@ -300,7 +300,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={timestamp}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Time Stamp</Hash>
@@ -316,7 +316,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={parenthash}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Parent Hash</Hash>
@@ -352,7 +352,7 @@ export default function BlockDetails() {
                               }}
                             >
                               <ImgView
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src="/images/info.svg"
                               />
                             </button>
                           </Tooltip>
@@ -364,7 +364,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={sha3uncles}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Sha3Uncles</Hash>
@@ -393,7 +393,7 @@ export default function BlockDetails() {
                               }}
                             >
                               <ImgView
-                                src={require("../../../src/assets/images/copy.svg")}
+                                src="/images/info.svg"
                               />
                             </button>
                           </Tooltip>
@@ -405,7 +405,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={diffi}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Difficulty</Hash>
@@ -416,7 +416,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={tdiffi}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Total Difficulty</Hash>
@@ -427,7 +427,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={gasU}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Gas Used</Hash>
@@ -438,7 +438,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={gasL}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Gas Limit</Hash>
@@ -449,7 +449,7 @@ export default function BlockDetails() {
                     <Container>
                       <Tooltip align="right" title={nonc}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Nonce</Hash>
@@ -460,7 +460,7 @@ export default function BlockDetails() {
                     <Container className="pad-bottom-34">
                       <Tooltip align="right" title={extrad}>
                         <ImageView
-                          src={require("../../../src/assets/images/question-mark.svg")}
+                          src="/images/info.svg"
                         />
                       </Tooltip>
                       <Hash>Extra Data</Hash>
@@ -769,18 +769,18 @@ const Heading = styled.span`
 `;
 
 const ImageView = styled.img`
-  width: 15px;
-  margin-right: 15px;
+  width: 22px;
+  margin-right: 12px;
   cursor: pointer;
 
   @media (min-width: 0px) and (max-width: 767px) {
-    width: 14px;
-    height: 14px;
+    width: 22px;
+    // height: 14px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {
-    width: 0.875rem;
-    height: 0.875rem;
+    width: 22px;
+    // height: 0.875rem;
   }
 `;
 const ImgView = styled.img`

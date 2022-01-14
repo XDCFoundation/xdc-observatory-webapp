@@ -211,9 +211,8 @@ export default function AccountComponent(props) {
                           <img
                             onClick={() => setRankTT(!rankTT)}
                             alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
                           />
                         </Tooltip>
                       </span>
@@ -235,9 +234,8 @@ export default function AccountComponent(props) {
                         <img
                           onClick={() => setRankTT(!addressTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
-                          height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -259,9 +257,8 @@ export default function AccountComponent(props) {
                           <img
                             onClick={() => settypeTT(!typeTT)}
                             alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
                           />
                         </Tooltip>
                       </span>
@@ -288,9 +285,8 @@ export default function AccountComponent(props) {
                           <img
                             onClick={() => setbalanceTT(!balanceTT)}
                             alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
                           />
                         </Tooltip>
                       </span>
@@ -334,9 +330,8 @@ export default function AccountComponent(props) {
                           <img
                             onClick={() => setpercentageTT(!percentageTT)}
                             alt="question-mark"
-                            src="/images/question-mark.svg"
-                            height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            src="/images/info.svg"
+                            className="tooltipInfoIconAccount"
                           />
                         </Tooltip>
                       </span>
