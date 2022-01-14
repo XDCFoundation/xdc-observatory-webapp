@@ -5,6 +5,7 @@ import store from './store.js';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './assets/styles/custom.css';
+import './assets/styles/blocksAndTransactionList.css';
 import { sessionManager } from "./managers/sessionManager";
 
 window.OneSignal = window.OneSignal || [];

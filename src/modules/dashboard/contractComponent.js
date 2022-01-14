@@ -48,7 +48,7 @@ const Pagination = styled.div`
     display: flex;
     flex-direction: column;
     width: 21rem;
-    margin: 0 auto;
+    margin: 0 auto 23px auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
@@ -381,9 +381,9 @@ class Contractlist extends React.Component {
                       <Tooltip placement="top" title={messages.CONTRACT_ADDRESS}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                          />
                       </Tooltip>
                     </span>
@@ -398,9 +398,9 @@ class Contractlist extends React.Component {
                         <Tooltip placement="top" title={messages.TOKEN_NAME}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                          />
                       </Tooltip>
                       </span>
@@ -416,9 +416,9 @@ class Contractlist extends React.Component {
                         <Tooltip placement="top" title={messages.CONTRACT_NAME}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                          />
                       </Tooltip>
                       </span>
@@ -434,9 +434,9 @@ class Contractlist extends React.Component {
                         <Tooltip placement="top" title={messages.TOKEN_YES_NO}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
+                        src="/images/info.svg"
                         height={"14px"}
-                        className="tooltipLatestTransactionTableDashboard"
+                        className="tooltipInfoIconAccount"
                          />
                       </Tooltip>
                       </span>
