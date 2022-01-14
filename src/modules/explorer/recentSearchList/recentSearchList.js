@@ -3,6 +3,9 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {eventConstants} from "../../../constants";
 import Utility from "../../../utility";
+import Carousel from "../../common/carousel/carousel";
+import useWindowDimensions from "../../common/useWindowDimensions";
+import {history} from "../../../managers/history";
 
 const Row = styled.div`
   display: flex;
@@ -13,11 +16,11 @@ const Column = styled.div`
   flex-direction: column;
 `
 const MainContainer = styled(Column)`
-  margin: 50px auto;
+  margin: 30px auto;
   //border-radius: 12px;
   //box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   //border: solid 1px #e3e7eb;
-   border-top: solid 1px #e3e7eb;
+  border-top: solid 1px #e3e7eb;
   background-color: #ffffff;
   padding: 20px 1px 16px 25px;
   width: 75.125rem;
@@ -29,9 +32,11 @@ const MainContainer = styled(Column)`
   }
 `
 const TitleRow = styled(Row)`
+  align-items: center;
+
 `
 const Title = styled.span`
-  margin: 0 11px 10px 0;
+  margin: 0 11px 0 0;
   font-family: Inter;
   font-size: 18px;
   font-weight: 600;
@@ -48,7 +53,7 @@ const ClearText = styled.span`
   cursor: pointer;
 `
 const Wrapper = styled(Row)`
-  margin: 19px 22px 10px 0;
+  margin: 19px 0 10px 0;
   gap: 22px;
   flex-wrap: wrap;
 `
@@ -99,6 +104,7 @@ const ItemContainer = styled(Column)`
   border: solid 1px #c9d7ff;
   background-color: transparent;
   cursor: pointer;
+  margin-right: 22px;
 
   &:hover {
     background-color: #fbfcff;
@@ -119,6 +125,8 @@ const TextContainer = styled(Column)`
 
 const RecentSearchList = () => {
     const dispatch = useDispatch();
+    const {height, width} = useWindowDimensions();
+
     const dataList = useSelector((state) => state.recentSearchList);
 
     function clearHandler() {
@@ -130,19 +138,22 @@ const RecentSearchList = () => {
             <ClearText onClick={() => clearHandler()}>{'Clear'}</ClearText>
         </TitleRow>
         <Wrapper>
-            {dataList?.length > 0 && dataList.map((obj, index) => <ItemContainer key={index}>
-                <Row>
-                    <SearchTypeIcon src={recentSearchIconConstants[obj.type]} alt={'icon'}/>
-                    <TextContainer onClick={() => {
-                        window.location.href = obj.redirectUrl
-                    }}>
-                        <SearchValue>{shorten(obj.searchValue)}</SearchValue>
-                        <ResultValue>{getAmount(obj.result)}</ResultValue>
-                        <RedirectIcon src={'/images/up-arrow-recent-search.svg'}/>
-                        <ActiveRedirectIcon src={'/images/up-arrow-active-recent-search.svg'}/>
-                    </TextContainer>
-                </Row>
-            </ItemContainer>)}
+            <Carousel show={width < 768 && 1 || width >= 768 && width < 1280 && 2 || width >= 1280 && 3}>
+                {dataList?.length > 0 && dataList.map((obj, index) => <ItemContainer key={index}>
+                    <Row>
+                        <SearchTypeIcon src={recentSearchIconConstants[obj.type]} alt={'icon'}/>
+                        <TextContainer onClick={() => {
+                            window.location.href = obj.redirectUrl
+                            // history.push(obj.redirectUrl)
+                        }}>
+                            <SearchValue>{shorten(obj.searchValue)}</SearchValue>
+                            <ResultValue>{getAmount(obj.result)}</ResultValue>
+                            <RedirectIcon src={'/images/up-arrow-recent-search.svg'}/>
+                            <ActiveRedirectIcon src={'/images/up-arrow-active-recent-search.svg'}/>
+                        </TextContainer>
+                    </Row>
+                </ItemContainer>)}
+            </Carousel>
         </Wrapper>
     </MainContainer>)
 
@@ -171,21 +182,4 @@ function getAmount(amount) {
     return `${amt2 ? `${amt1}.${amt2}` : `${amt1}`} XDC`
 }
 
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 2,
-        paritialVisibilityGutter: 60
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2,
-        paritialVisibilityGutter: 50
-    },
-    mobile: {
-        breakpoint: { max: 464, min: 0 },
-        items: 1,
-        paritialVisibilityGutter: 30
-    }
-};
 export default RecentSearchList
