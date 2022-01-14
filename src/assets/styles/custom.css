@@ -10633,7 +10633,7 @@ button {
 }
 @media (min-width: 400px) and (max-width: 767px) {
   .searchdiv {
-    width: 21rem !important;
+    width: 100% !important;
   }
 }
 .color-2149b9 a {
@@ -10716,3 +10716,32 @@ button {
     padding: 20px 15px !important;
   }
 }
+
+@media screen and (max-width: 767px){
+  .accProfile .MuiTabs-flexContainer {
+    display: block !important;
+  
+    /* padding-left: 20px; */
+  
+  }
+  
+  .accProfile .MuiTabs-scroller {
+  
+    white-space: normal !important;
+  
+  }
+  
+  .searchdiv {
+  
+    padding-left: 0px 15px !important;
+    margin-left: 15px !important;
+  
+  }
+  
+  .PrivateTabIndicator-colorSecondary-120 {
+  
+    display: none;
+  
+  }
+  
+  }
