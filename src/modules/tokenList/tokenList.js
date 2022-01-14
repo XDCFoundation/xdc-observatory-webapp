@@ -26,7 +26,7 @@ import {useParams} from "react-router-dom";
 import PageSelector from "../common/pageSelector";
 
 const Responsive = styled.div`
-  max-width: 1202px
+  max-width: 1202px;
   width: 100%;
   margin: 0 auto;
 `;
