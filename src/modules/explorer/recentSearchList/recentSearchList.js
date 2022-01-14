@@ -40,14 +40,14 @@ const Title = styled.span`
   font-family: Inter;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: 0.69px;
+  //letter-spacing: 0.69px;
   color: #2a2a2a;
 `
 const ClearText = styled.span`
   font-family: Inter-Regular_;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.54px;
+  //letter-spacing: 0.54px;
   color: #f00;
   padding-left: 11px;
   cursor: pointer;
@@ -58,7 +58,7 @@ const Wrapper = styled(Row)`
   flex-wrap: wrap;
 `
 const SearchTypeIcon = styled.img`
-  width: 18px;
+  //width: 18px;
   height: 24px;
 `
 const SearchValue = styled.span`
@@ -67,7 +67,7 @@ const SearchValue = styled.span`
   margin: 0 8px 5px 11px;
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0.54px;
+  //letter-spacing: 0.54px;
   color: #2149b9;
 `
 const ResultValue = styled.span`
@@ -75,7 +75,7 @@ const ResultValue = styled.span`
   font-family: Inter-Regular_;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.46px;
+  //letter-spacing: 0.46px;
   color: #2149b9;
 `
 const RedirectIcon = styled.img`
@@ -122,6 +122,10 @@ const TextContainer = styled(Column)`
   width: 100%;
   position: relative;
 `
+const NotFoundContainer = styled(Row)`
+  width: 100%;
+  justify-content: center;
+`
 
 const RecentSearchList = () => {
     const dispatch = useDispatch();
@@ -138,9 +142,10 @@ const RecentSearchList = () => {
             <ClearText onClick={() => clearHandler()}>{'Clear'}</ClearText>
         </TitleRow>
         <Wrapper>
+            {dataList?.length >0 &&
             <Carousel show={width < 768 && 1 || width >= 768 && width < 1280 && 2 || width >= 1280 && 3}>
                 {dataList?.length > 0 && dataList.map((obj, index) => <ItemContainer key={index}>
-                    <Row>
+                    <Row style={{alignItems: 'center'}}>
                         <SearchTypeIcon src={recentSearchIconConstants[obj.type]} alt={'icon'}/>
                         <TextContainer onClick={() => {
                             window.location.href = obj.redirectUrl
@@ -154,6 +159,7 @@ const RecentSearchList = () => {
                     </Row>
                 </ItemContainer>)}
             </Carousel>
+            ||<NotFoundContainer className="not-found">No Recent Search Found</NotFoundContainer>}
         </Wrapper>
     </MainContainer>)
 
