@@ -399,7 +399,7 @@ export default function AccountComponent(props) {
                           (finalBal / state.totalSupply) *
                           100
                         ).toFixed(8)) : 0
-                        console.log(percentageValue, "<<<<percentageValue")
+
                         let percentageValue1 = percentageValue
                           .toString()
                           .split(".")[0];
