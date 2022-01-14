@@ -19,6 +19,7 @@ const useStyles = makeStyles({
         borderRadius: "0.875rem",
         boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
         borderBottom: "none",
+        overflowX: 'auto',
         background: "#fff",
     },
 
@@ -34,7 +35,7 @@ const TransactionTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0.043rem;
+  letter-spacing: 0px;
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;
@@ -48,7 +49,7 @@ const TransactionSubTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0.043rem;
+  letter-spacing: 0px;
   color: #2a2a2a;
   font-family: Inter;
   font-size: 0.75rem;
@@ -65,7 +66,7 @@ const LatestBlockView = (props) => {
     return (<Paper
         className={"table-list"}
         style={{
-            borderRadius: "0.875rem", width: '48%'
+            borderRadius: "0.875rem", minWidth: '48%'
         }}
         elevation={0}
     >

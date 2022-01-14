@@ -12,6 +12,7 @@ import ContractData from "../../services/contract";
 import Utils from "../../utility";
 import { useParams } from "react-router";
 import TokenAnalytics from "./tokenAnalytics/analyticsComponent";
+import TokenInfo from "./tokenInfo";
 
 let li = 0;
 
@@ -118,6 +119,16 @@ export default function SimpleTabs(props) {
                 >
                   Holders
                 </button>
+                {/* <button
+                  className={
+                    toggleState === 5
+                      ? "tabs-data active-tabs-token-holder"
+                      : "tabs-data"
+                  }
+                  onClick={() => toggleTab(5)}
+                >
+                  Info
+                </button> */}
                 <button
                   className={
                     toggleState === 3
@@ -129,12 +140,12 @@ export default function SimpleTabs(props) {
                   Contracts
                 </button>
                 <button
-                    className={
-                      toggleState === 4
-                          ? "tabs-data active-tabs-token"
-                          : "tabs-data"
-                    }
-                    onClick={() => toggleTab(4)}
+                  className={
+                    toggleState === 4
+                      ? "tabs-data active-tabs-token"
+                      : "tabs-data"
+                  }
+                  onClick={() => toggleTab(4)}
                 >
                   Analytics
                 </button>
@@ -184,12 +195,21 @@ export default function SimpleTabs(props) {
               </div>
             </div>
             <div
-                className={
-                  toggleState === 4 ? "content  active-content" : "content"
-                }
+              className={
+                toggleState === 4 ? "content  active-content" : "content"
+              }
             >
               <div style={{ marginTop: "10px" }}>
                 <TokenAnalytics />
+              </div>
+            </div>
+            <div
+              className={
+                toggleState === 5 ? "content  active-content" : "content"
+              }
+            >
+              <div style={{ marginTop: "10px", width: "auto" }}>
+                <TokenInfo />
               </div>
             </div>
           </div>
