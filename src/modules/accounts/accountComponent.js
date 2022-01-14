@@ -167,6 +167,7 @@ export default function AccountComponent(props) {
               onClick={handleSettingsClick}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
+              style={{width: "25px"}}
             />
             <ConfigureColumnPopOver
               isOpen={isSettingColumnOpen}
@@ -181,6 +182,7 @@ export default function AccountComponent(props) {
               onClick={toggleModal}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
+              style={{width: "25px"}}
             />
             <ConfigureColumnsModal
               isOpen={isColumnsModalOpen}
@@ -395,10 +397,11 @@ export default function AccountComponent(props) {
                             : 0;
 
                         rantValue = rantValue + 1;
-                        let percentageValue = (state.totalSupply && state.totalSupply?.length > 0) ? ((
+                        let percentageValue = state.totalSupply && state.totalSupply > 0 ? ((
                           (finalBal / state.totalSupply) *
                           100
-                        ).toFixed(8)) : 0;
+                        ).toFixed(8)) : 0
+
                         let percentageValue1 = percentageValue
                           .toString()
                           .split(".")[0];
@@ -419,7 +422,7 @@ export default function AccountComponent(props) {
                           >
                             {props.state.tableColumns["Rank"].isActive && (
                               <TableCell
-                                className={`w-2 ${classes.RankColumnVal}`}
+                                className={` ${classes.RankColumnVal}`}
                                 align="center"
                               >
                                 <span className="tabledata">{rantValue}</span>
@@ -490,7 +493,7 @@ export default function AccountComponent(props) {
                                   align="center"
                                 >
                                   <span className="tabledata">
-                                    {(percentageValue1 == 0 || !percentageValue1) ? <span>{percentageValue1}%</span> :
+                                    {(!percentageValue2) ? <span>{percentageValue1}%</span> :
                                       <span>
                                         {percentageValue1}
                                         {"."}
