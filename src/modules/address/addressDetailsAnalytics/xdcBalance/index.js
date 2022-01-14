@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Graph from "../../../common/commonGraph";
 import BaseComponent from "../../../baseComponent";
 import {useParams} from "react-router-dom";
+import accounts from "../../../../services/accounts";
+import utility from "../../../../utility";
+import moment from 'moment';
 
 const GraphContainer = styled.div`
   margin: 45px 0 0 0;
@@ -20,47 +23,47 @@ class XDCBalanceGraph extends BaseComponent {
     }
 
     componentDidMount = () => {
-        this.generateGraphData();
+        this.getAddressAnalyticsData();
     }
 
-    // getTokenContractOverviewData = async () => {
-    //     const tokenAddress = this.props.address;
-    //     let request = {
-    //         tokenAddress: tokenAddress,
-    //         startTime: moment().subtract(2, "month").valueOf(),
-    //         endTime: moment().valueOf(),
-    //     };
-    //     let [error, response] = await utility.parseResponse(
-    //         accounts.getTokenOverview(request)
-    //     );
-    //     if (error || !response) {
-    //         this.generateGraphData([]);
-    //         return;
-    //     }
-    //     this.generateGraphData(response);
-    // }
+    getAddressAnalyticsData = async () => {
+        const address = this.props.address;
+        const request = {
+            "address": address,
+            "from": moment().subtract(2, "month").valueOf(),
+            "to": moment().valueOf(),
+            "currency":"USD", // only in case of balance
+            "type":"XDC_BALANCE"
+        }
+        let [error, response] = await utility.parseResponse(accounts.getAddressAnalytics(request));
+        if (error || !response) {
+            this.generateGraphData([]);
+            return;
+        }
+        this.generateGraphData(response);
+    }
 
-    generateGraphData = () => {
-        const data = [
-            {
-                "date": 1641969404000,
-                "toAmount": 0,
-                "fromAmount": 0,
-                "totalDocument": 3857,
-                "totalAmount": 0,
-                "currentBalance": 5000000001865,
-                "priceInUSD": 0.10371446281249
-            },
-            {
-                "date": 1642035987000,
-                "toAmount": 0,
-                "fromAmount": 0,
-                "totalDocument": 6857,
-                "totalAmount": 0,
-                "currentBalance": 8000000001865,
-                "priceInUSD": 1.10371446281249
-            }
-        ];
+    generateGraphData = (data) => {
+        // const data = [
+        //     {
+        //         "date": 1641969404000,
+        //         "toAmount": 0,
+        //         "fromAmount": 0,
+        //         "totalDocument": 3857,
+        //         "totalAmount": 0,
+        //         "currentBalance": 5000000001865,
+        //         "priceInUSD": 0.10371446281249
+        //     },
+        //     {
+        //         "date": 1642035987000,
+        //         "toAmount": 0,
+        //         "fromAmount": 0,
+        //         "totalDocument": 6857,
+        //         "totalAmount": 0,
+        //         "currentBalance": 8000000001865,
+        //         "priceInUSD": 1.10371446281249
+        //     }
+        // ];
         const xdcBalance = [];
         const historicUSDPrice = [];
         const transactionCount = [];

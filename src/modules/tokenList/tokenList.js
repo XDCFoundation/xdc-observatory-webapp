@@ -436,9 +436,9 @@ export default function StickyHeadTable(props) {
                     <Tooltip placement="top" title={messages.SI_NO}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -450,9 +450,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.SYMBOL}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -464,9 +464,9 @@ export default function StickyHeadTable(props) {
                     <Tooltip placement="top" title={messages.NAME}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -481,9 +481,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.TOKEN_TYPE}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -496,9 +496,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.CONTRACT}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -517,9 +517,9 @@ export default function StickyHeadTable(props) {
                     >
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -534,9 +534,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.HOLDER}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>

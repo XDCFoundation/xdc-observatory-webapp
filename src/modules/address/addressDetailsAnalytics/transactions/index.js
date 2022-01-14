@@ -23,89 +23,26 @@ class TransactionGraph extends BaseComponent {
     }
 
     componentDidMount = () => {
-        this.generateGraphData();
+        this.getTransactionAnalyticsData();
     }
 
-    // getTokenContractOverviewData = async () => {
-    //     const tokenAddress = this.props.address;
-    //     let request = {
-    //         tokenAddress: tokenAddress,
-    //         startTime: moment().subtract(2, "month").valueOf(),
-    //         endTime: moment().valueOf(),
-    //     };
-    //     let [error, response] = await utility.parseResponse(
-    //         accounts.getTokenOverview(request)
-    //     );
-    //     if (error || !response) {
-    //         this.generateGraphData([]);
-    //         return;
-    //     }
-    //     this.generateGraphData(response);
-    // }
+    getTransactionAnalyticsData = async () => {
+        const address = this.props.address;
+        const request = {
+            "address": address,
+            "from": moment().subtract(2, "month").valueOf(),
+            "to": moment().valueOf(),
+            "type":"XDC_TRANSACTIONS"
+        }
+        let [error, response] = await utility.parseResponse(accounts.getAddressAnalytics(request));
+        if (error || !response) {
+            this.generateGraphData([]);
+            return;
+        }
+        this.generateGraphData(response);
+    }
 
-    generateGraphData = () => {
-        const data = [
-            {
-                "date": 1640975400000,
-                "sentAmount": 0,
-                "receivedAmount": 0,
-                "sentAddresses": 3,
-                "receivedAddresses": 0,
-                "feesUsed": 0,
-                "feesSpent": 0,
-                "totalTransactions": 3502
-            },
-            {
-                "date": 1641061800000,
-                "sentAmount": 0,
-                "receivedAmount": 0,
-                "sentAddresses": 3,
-                "receivedAddresses": 0,
-                "feesUsed": 0,
-                "feesSpent": 0,
-                "totalTransactions": 3382
-            },
-            {
-                "date": 1641148200000,
-                "sentAmount": 0,
-                "receivedAmount": 0,
-                "sentAddresses": 3,
-                "receivedAddresses": 0,
-                "feesUsed": 0,
-                "feesSpent": 0,
-                "totalTransactions": 3537
-            },
-            {
-                "date": 1641234600000,
-                "sentAmount": 0,
-                "receivedAmount": 0,
-                "sentAddresses": 3,
-                "receivedAddresses": 0,
-                "feesUsed": 0,
-                "feesSpent": 0,
-                "totalTransactions": 3612
-            },
-            {
-                "date": 1641321000000,
-                "sentAmount": 0,
-                "receivedAmount": 0,
-                "sentAddresses": 3,
-                "receivedAddresses": 0,
-                "feesUsed": 0,
-                "feesSpent": 0,
-                "totalTransactions": 3465
-            },
-            {
-                "date": 1641407400000,
-                "sentAmount": 0,
-                "receivedAmount": 0,
-                "sentAddresses": 3,
-                "receivedAddresses": 0,
-                "feesUsed": 0,
-                "feesSpent": 0,
-                "totalTransactions": 3413
-            }
-        ];
+    generateGraphData = (data) => {
         const xdcTransactions = [];
         const uniqueSent = [];
         const uniqueReceived = [];

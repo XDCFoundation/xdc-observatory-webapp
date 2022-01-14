@@ -157,7 +157,7 @@ function EditTaggedAddress(props) {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const multipleTag = props.row.tagName;
+  const multipleTag = props?.row?.tagName;
   useEffect(() => {
     if (props.row.address) setPrivateAddress(props.row.address);
     setNameTag(props.row.tagName);
@@ -260,11 +260,11 @@ function EditTaggedAddress(props) {
 
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
-      if(trimmedInput.length > 15){
+      if (trimmedInput.length > 15) {
         setErrorTag("Tag length should be less than 15");
         return;
       }
-      if(tags.length >= 5){
+      if (tags.length >= 5) {
         setErrorTag("Maximum 5 Tags are allowed");
         return;
       }

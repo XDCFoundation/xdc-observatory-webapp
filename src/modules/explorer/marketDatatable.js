@@ -33,7 +33,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   justify-content: center;
   color: #686868;
   display: flex;
@@ -47,7 +47,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.029rem;
+    letter-spacing: 0px;
     height: 0.938rem;
     color: #686868;
     font-size: 0.75rem;
@@ -185,9 +185,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.MARKET_CAP}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -232,9 +231,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.FDMP}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -281,9 +279,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.VOLUMEX24}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -333,9 +330,8 @@ class MarketDatatable extends Component {
                       >
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
-                          height={"14px"}
-                          style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                          src="/images/info.svg"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </MarketDataPointTitle>
@@ -352,9 +348,8 @@ class MarketDatatable extends Component {
                       <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
                         <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
-                          height={"14px"}
-                          style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                          src="/images/info.svg"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </MarketDataPointTitle>
@@ -382,9 +377,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.MARKET_CAP}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -436,9 +430,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.FDMP}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -492,9 +485,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.VOLUMEX24}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -547,9 +539,8 @@ class MarketDatatable extends Component {
                     >
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>
@@ -570,9 +561,8 @@ class MarketDatatable extends Component {
                     <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
                       <img
                         alt="question-mark"
-                        src="/images/question-mark.svg"
-                        height={"14px"}
-                        style={{ margin: "auto 0 auto 0", marginLeft: "2px" }}
+                        src="/images/info.svg"
+                        className="tooltipInfoIconMarketData"
                       />
                     </Tooltip>
                   </MarketDataPointTitle>

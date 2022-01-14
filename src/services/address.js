@@ -8,6 +8,7 @@ export default {
   getFiltersForAccountTransaction,
   getTransactionSearch,
   getTransactionsCountForAddress,
+  getAddressStats,
 };
 function getHeaders() {
   return {
@@ -75,7 +76,7 @@ async function getAddressDetailWithlimit(data) {
     "?skip=" +
     Math.ceil(data.pageNum) +
     "&limit=" +
-    data.perpage + "&sortKey=" + data?.sortKey  + "&sortType=" + data?.sortType;
+    data.perpage + "&sortKey=" + data?.sortKey + "&sortType=" + data?.sortType;
   return httpService(
     httpConstants.METHOD_TYPE.GET,
     getHeaders(),
@@ -137,6 +138,28 @@ async function getTransactionsCountForAddress(data) {
       + (data.searchValue ? "?searchValue=" + data.searchValue : "")
       + (data.txnType ? (data.searchValue ? "&txnType=" : "?txnType=") + data.txnType : "")
       + (data.status ? (data.searchValue || data.txnType ? "&status=" : "?status=") + data.status : "")
+  return httpService(
+    httpConstants.METHOD_TYPE.GET,
+    getHeaders(),
+    {},
+    url
+  )
+    .then((response) => {
+      if (
+        !response.success ||
+        response.responseCode !== 200 ||
+        !response.responseData ||
+        response.responseData.length === 0
+      )
+        return Promise.reject();
+      return Promise.resolve(response.responseData);
+    })
+    .catch(function (err) {
+      return Promise.reject(err);
+    });
+}
+async function getAddressStats(address) {
+  let url = process.env.REACT_APP_GET_ADDRESS_STATS + address;
   return httpService(
     httpConstants.METHOD_TYPE.GET,
     getHeaders(),
