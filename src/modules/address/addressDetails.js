@@ -702,7 +702,7 @@ export default function AddressDetails(props) {
     cookiesConstants.USER_TAGGED_ADDRESS
   );
   let tags = JSON.parse(taggedAddressfetched);
-  var tagValue = tags.filter((obj) => obj.address === addr);
+  let tagValue =     tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr) : "";
 
   console.log(
     JSON.parse(taggedAddressfetched),
