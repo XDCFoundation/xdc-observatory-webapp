@@ -326,12 +326,13 @@ export default function TransactionTableComponent(props) {
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
     gap: 10px;
     color: #c6cbcf;
-    @media (min-width: 767px) {
-      margin: 100px 0 !important;
-    }
+    margin: 100px 0 !important;
+
+    //@media (min-width: 767px) {
+    //  margin: 100px 0 !important;
+    //}
   `;
 
   //tooltip states
@@ -403,9 +404,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setHashTT(!hashTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -422,9 +423,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setageTT(!ageTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -440,9 +441,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setblockTT(!blockTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -458,9 +459,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => setfromTT(!fromTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -476,9 +477,9 @@ export default function TransactionTableComponent(props) {
                         <img
                           onClick={() => settoTT(!toTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -494,16 +495,16 @@ export default function TransactionTableComponent(props) {
                         <img
                         onClick={() => setvalueTT(!valueTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-value"}>
-                      Gas
+                      Avg Txn Fee
                       <Tooltip
                       open={gasTT}
                         onOpen={() => setgasTT(true)}
@@ -512,9 +513,9 @@ export default function TransactionTableComponent(props) {
                         <img
                         onClick={() => setgasTT(!gasTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
                     </span>
@@ -626,7 +627,7 @@ export default function TransactionTableComponent(props) {
             </Table>
             {noData == true && (
               <NoDataFoundContainer>
-                <img src={require("../../../src/assets/images/XDC-Alert.svg")}></img>
+                <img src={"/images/XDC-Alert.svg"} />
 
                 <div>No Transactions Found</div>
               </NoDataFoundContainer>
