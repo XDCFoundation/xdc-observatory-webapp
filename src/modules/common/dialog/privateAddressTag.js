@@ -124,13 +124,10 @@ export default function FormDialog(props) {
   const { open, onClose } = props
   const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
-
+  // const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
-    if (props.fromAddr) {
-      setPrivateAddress(props.fromAddr);
-    }
-    else if (props.toAddr)
-      setPrivateAddress(props.toAddr)
+    setPrivateAddress(props?.fromAddr);
+
   }, [props])
   async function TaggedAddress() {
     const data = {
@@ -142,10 +139,12 @@ export default function FormDialog(props) {
       UserService.addPrivateTagToAddress(data)
     );
 
-    if (error) {
-      utility.apiFailureToast("Address is already in use");
-      return;
-    } let taggedAddress = localStorage.getItem(
+    // if (error) {
+    //   utility.apiFailureToast("Address is already in use");
+    //   return;
+    // }
+
+    let taggedAddress = localStorage.getItem(
       cookiesConstants.USER_TAGGED_ADDRESS
     );
     if (taggedAddress) {
@@ -166,6 +165,7 @@ export default function FormDialog(props) {
       JSON.stringify(taggedAddress)
     );
     utility.apiSuccessToast("Tag Added");
+    onClose();
   }
   let taggedAddressfetched = localStorage.getItem(
     cookiesConstants.USER_TAGGED_ADDRESS

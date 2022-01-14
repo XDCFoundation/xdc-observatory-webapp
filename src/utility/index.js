@@ -96,7 +96,7 @@ function convertToInternationalCurrencySystem(num) {
   } else if (num > 1000000000) {
     return parseFloat((num / 1000000000).toFixed(2)) + "B"; // convert to B for number from > 1 billion
   } else if (num < 999.99999999) {
-    return num; // if value < 1000, nothing to do
+    return parseFloat(num.toFixed(8)); // if value < 1000, nothing to do
   }
 }
 
