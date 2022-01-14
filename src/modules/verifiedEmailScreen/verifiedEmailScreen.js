@@ -22,7 +22,7 @@ const EmailVerified = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.77px;
+  letter-spacing: 0px;
   color: #007b2c;
 `;
 const Rectangle = styled.div`
