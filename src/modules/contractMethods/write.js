@@ -252,41 +252,41 @@ export default function ContractWriteMethods(props) {
   });
 
   React.useEffect(() => {
-    // let contractInfo = props.contractData ? props.contractData : {};
-    // contractInfo.abi = JSON.parse(
-    //   contractInfo.abi ? contractInfo.abi : JSON.stringify([])
-    // );
-    let contractInfo = {
-      abi: [
-        {
-          inputs: [],
-          name: "retrieve",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "num",
-              type: "uint256",
-            },
-          ],
-          name: "store",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ],
-      address: "0xD1312601DB0d6c8F0d5597e1Dc3AeF9E3cE3a57A",
-    };
+    let contractInfo = props.contractData ? props.contractData : {};
+    contractInfo.abi = JSON.parse(
+      contractInfo.abi ? contractInfo.abi : JSON.stringify([])
+    );
+    // let contractInfo = {
+    //   abi: [
+    //     {
+    //       inputs: [],
+    //       name: "retrieve",
+    //       outputs: [
+    //         {
+    //           internalType: "uint256",
+    //           name: "",
+    //           type: "uint256",
+    //         },
+    //       ],
+    //       stateMutability: "view",
+    //       type: "function",
+    //     },
+    //     {
+    //       inputs: [
+    //         {
+    //           internalType: "uint256",
+    //           name: "num",
+    //           type: "uint256",
+    //         },
+    //       ],
+    //       name: "store",
+    //       outputs: [],
+    //       stateMutability: "nonpayable",
+    //       type: "function",
+    //     },
+    //   ],
+    //   address: "0xD1312601DB0d6c8F0d5597e1Dc3AeF9E3cE3a57A",
+    // };
     let writeFunction = contractInfo.abi.filter(
       (item) => item.stateMutability !== contractMethodTypes.view && item.name
     );
