@@ -224,10 +224,7 @@ const LightToolTip = withStyles({
 })(Tooltip);
 
 export default function FormDialog(props) {
-  console.log(props, "props of watchlist");
-  const { onClose } = props;
-  const [open, setOpen] = React.useState(false);
-  console.log(open, "<<<open");
+  const { open, onClose } = props;
   const [address, setAddress] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [error, setError] = React.useState("");
@@ -251,12 +248,7 @@ export default function FormDialog(props) {
     setisSize(false);
   }
   React.useEffect(() => {
-    if (props.open == true) {
-      setOpen(true);
-      setAddress(props?.hash);
-    } else {
-      setOpen(false);
-    }
+    setAddress(props?.hash);
   }, [props]);
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -311,18 +303,18 @@ export default function FormDialog(props) {
 
         setAddress("");
         setDescription("");
-        setOpen(false);
       }
       watchlists.push(request);
       localStorage.setItem(
         cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
       );
+      onClose();
     }
   };
 
   const handleClose = () => {
-    setOpen(false);
+    onClose();
     setAddress("");
     setDescription("");
     setError("");

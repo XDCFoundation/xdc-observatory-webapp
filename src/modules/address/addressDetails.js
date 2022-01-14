@@ -13,7 +13,11 @@ import { Grid } from "@material-ui/core";
 import Utility, { dispatchAction } from "../../utility";
 import AddressData from "../../services/address";
 import Tooltip from "@material-ui/core/Tooltip";
-import { TransactionService, CoinMarketService } from "../../services";
+import {
+  TransactionService,
+  CoinMarketService,
+  UserService,
+} from "../../services";
 import { sessionManager } from "../../managers/sessionManager";
 import Utils from "../../utility";
 import { Row } from "simple-flexbox";
@@ -624,6 +628,20 @@ export default function AddressDetails(props) {
     });
     setPrice(totalcoinMarketPrice[1]?.price);
   };
+  const getListOfTagAddress = async (requestData) => {
+    const request = {
+      limit: "5",
+      skip: "0",
+      userId: sessionManager.getDataFromCookies("userId"),
+      isTaggedAddress: true,
+    };
+    const response = await UserService.getTagAddresstList(request);
+    console.log(response, "<<<response");
+    if (response.totalCount > 0) {
+      // setTxnAddressNotAdded(false);
+    }
+    // setPrivateAddress(response.tagAddressContent);
+  };
   const options = {
     htmlparser2: {
       lowerCaseTags: false,
@@ -648,6 +666,7 @@ export default function AddressDetails(props) {
     getAddressDetails();
     coinMarketCapDetails();
     tagUsingAddressHash();
+    // getListOfTagAddress();
     getAddressStats();
   }, [amount]);
 
@@ -795,7 +814,11 @@ export default function AddressDetails(props) {
                       </Tooltip>
                     </CopyToClipboard>
                   </CopyButton>
-                  <Tag>{tagValue[0]?.tagName}</Tag>
+                  {tagValue[0]?.tagName ? (
+                    <Tag>{tagValue[0]?.tagName}</Tag>
+                  ) : (
+                    ""
+                  )}
                 </AddressHashDiv>
                 <BalanceDiv>
                   {balanceChanged2 == null ? (
