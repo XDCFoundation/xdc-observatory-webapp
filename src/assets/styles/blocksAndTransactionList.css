@@ -647,7 +647,8 @@
 @media (min-width: 0px) and (max-width: 767px) {
   .table_1 {
     width: 22.563rem;
-    margin: 2rem auto;
+    margin: 12px auto;
+    padding-top: 0;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -794,6 +795,7 @@
   .Pagination {
     display: flex;
     flex-direction: column;
+    margin-bottom: 23px;
   }
   .Pagination_1 {
     flex-grow: 0 !important;
