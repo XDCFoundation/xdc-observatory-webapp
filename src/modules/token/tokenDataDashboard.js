@@ -291,7 +291,7 @@ const Line2 = styled.hr`
   }
 `;
 const RightTopSec = styled.div`
-  width: 3.938rem;
+  width: 3.998rem;
   height: 1.3rem;
   font-size: 0.875rem;
   padding: 4.5px;
@@ -320,6 +320,19 @@ const GraphContainer = styled.div`
   width: 100%;
   flex: 0.8;
   padding-left: 0px;
+`;
+
+const ShowTopHeaderForMobileOnly = styled.div`
+ display: none;
+  @media (max-width: 767px){
+    display: block;
+  }
+`;
+const ShowTopHeaderForNonMobileOnly = styled.div`
+ display: block;
+  @media (max-width: 767px){
+    display: none;
+  }
 `;
 
 // const Icons = styled.div`
@@ -432,70 +445,16 @@ export default function TokenDataComponent() {
         <Tokensearchbar />
         <MainContainer>
           <LeftContainer>
-            {window.innerWidth >= 768 ? (
-              <>
-                <LeftFirst>
-                  <LeftTop>
-                    {/* {logo.length > 0 ?
-                  <IconLogo src={logo} />
-                  :
-                  <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
-                } */}
-                <img
-                  style={{
-                    height: "42px",
-                    width: "42px",
-                    marginRight: "4px",
-                    marginTop: "3px",
-                  }}
-                  src={"/images/XRC20-Icon.svg"}
-                ></img>
-
-                    <LeftTitle>{tn.toUpperCase()}</LeftTitle>
-                  </LeftTop>
-
-                  <LeftTopSecMain>
-                    <LeftTopSec>
-                      {CurrencySymbol}
-                      {tokenPriceVal.toFixed(8)}
-                    </LeftTopSec>
-                    <div
-                      className={
-                        numberStatus > 0
-                          ? "data_value_green last_value_main"
-                          : "data_value_red"
-                      }
-                    >
-                      <div className="value_changePrice">
-                        {numberStatus > 0 ? (
-                          <div className="arrow_up">
-                            {/*<BsFillCaretUpFill size={10} />*/}
-                            <img
-                              src={"/images/Up.svg"}
-                              style={{ width: "8px" }}
-                            />
-                          </div>
-                        ) : (
-                          <div className="arrow_down">
-                            {/* <BsFillCaretDownFill size={10} />*/}
-                            <img
-                              src={"/images/Down.svg"}
-                              style={{ width: "8px" }}
-                            />
-                          </div>
-                        )}
-                        &nbsp;{tokenChanges24hr.toFixed(2)}%
-                      </div>
-                    </div>
-                  </LeftTopSecMain>
-                </LeftFirst>
-                <RightTop>
-                  <Line1></Line1>
-                </RightTop>
-              </>
-            ) : (
-              ""
-            )}
+            {/*{window.innerWidth >= 768 ? (*/}
+                <ShowTopHeaderForNonMobileOnly>
+                  <TopHeaderSection tn={tn} CurrencySymbol={CurrencySymbol}
+                                    tokenPriceVal={tokenPriceVal}
+                                    numberStatus={numberStatus}
+                                    tokenChanges24hr={tokenChanges24hr}/>
+                </ShowTopHeaderForNonMobileOnly>
+            {/*) : (*/}
+            {/*  ""*/}
+            {/*)}*/}
             <LeftSec>
               <ValueMain>
                 <MobileScreen>
@@ -649,70 +608,16 @@ export default function TokenDataComponent() {
               <HolderGraphBar />
             </GraphContainer>
           </RightContainer>
-          {window.innerWidth < 768 ? (
-            <>
-              {/* <RightTop>
-              <Line1></Line1>
-            </RightTop> */}
-              <LeftFirst>
-                <LeftTop>
-                  {/* {logo.length > 0 ?
-                  <IconLogo src={logo} />
-                  :
-                  <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
-                } */}
-                <img
-                  style={{
-                    height: "29px",
-                    width: "29px",
-                    marginRight: "4px",
-                    marginTop: "3px",
-                  }}
-                  src={"/images/XRC20-Icon.svg"}
-                ></img>
-
-                  <LeftTitle>{tn.toUpperCase()}</LeftTitle>
-                </LeftTop>
-
-                <LeftTopSecMain>
-                  <LeftTopSec>
-                    {CurrencySymbol}
-                    {tokenPriceVal}
-                  </LeftTopSec>
-                  <div
-                    className={
-                      numberStatus > 0
-                        ? "data_value_green last_value_main"
-                        : "data_value_red"
-                    }
-                  >
-                    <div className="value_changePrice">
-                      {numberStatus > 0 ? (
-                        <div className="arrow_up">
-                          {/*<BsFillCaretUpFill size={10} />*/}
-                          <img
-                            src={"/images/Up.svg"}
-                            style={{ width: "8px" }}
-                          />
-                        </div>
-                      ) : (
-                        <div className="arrow_down">
-                          {/* <BsFillCaretDownFill size={10} />*/}
-                          <img
-                            src={"/images/Down.svg"}
-                            style={{ width: "8px" }}
-                          />
-                        </div>
-                      )}
-                      &nbsp;{tokenChanges24hr.toFixed(2)}%
-                    </div>
-                  </div>
-                </LeftTopSecMain>
-              </LeftFirst>
-            </>
-          ) : (
-            ""
-          )}
+          {/*{window.innerWidth < 768 ? (*/}
+          <ShowTopHeaderForMobileOnly>
+            <TopHeaderSection tn={tn} CurrencySymbol={CurrencySymbol}
+                              tokenPriceVal={tokenPriceVal}
+                              numberStatus={numberStatus}
+                              tokenChanges24hr={tokenChanges24hr}/>
+          </ShowTopHeaderForMobileOnly>
+          {/*) : (*/}
+          {/*  ""*/}
+          {/*)}*/}
         </MainContainer>
         {marketCapVal == 0 ? (
           ""
@@ -732,4 +637,67 @@ export default function TokenDataComponent() {
       </div>
     </>
   );
+}
+
+const TopHeaderSection = ({tn,CurrencySymbol,tokenPriceVal,numberStatus,tokenChanges24hr })=>{
+  return (<>
+    {/* <RightTop>
+              <Line1></Line1>
+            </RightTop> */}
+    <LeftFirst>
+      <LeftTop>
+        {/* {logo.length > 0 ?
+                  <IconLogo src={logo} />
+                  :
+                  <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
+                } */}
+        <img
+            style={{
+              height: "29px",
+              width: "29px",
+              marginRight: "4px",
+              marginTop: "3px",
+            }}
+            src={"/images/XRC20-Icon.svg"}
+        />
+
+        <LeftTitle>{tn.toUpperCase()}</LeftTitle>
+      </LeftTop>
+
+      <LeftTopSecMain>
+        <LeftTopSec>
+          {CurrencySymbol}
+          {tokenPriceVal}
+        </LeftTopSec>
+        <div
+            className={
+              numberStatus > 0
+                  ? "data_value_green last_value_main"
+                  : "data_value_red"
+            }
+        >
+          <div className="value_changePrice">
+            {numberStatus > 0 ? (
+                <div className="arrow_up">
+                  {/*<BsFillCaretUpFill size={10} />*/}
+                  <img
+                      src={"/images/Up.svg"}
+                      style={{ width: "8px" }}
+                  />
+                </div>
+            ) : (
+                <div className="arrow_down">
+                  {/* <BsFillCaretDownFill size={10} />*/}
+                  <img
+                      src={"/images/Down.svg"}
+                      style={{ width: "8px" }}
+                  />
+                </div>
+            )}
+            &nbsp;{tokenChanges24hr.toFixed(2)}%
+          </div>
+        </div>
+      </LeftTopSecMain>
+    </LeftFirst>
+  </>)
 }

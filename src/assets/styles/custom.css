@@ -362,7 +362,7 @@ input:focus {
 }
 
 .cursor-not-allowed {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 /*Borders*/
 
@@ -1922,6 +1922,7 @@ p {
   display: flex;
   justify-content: center;
   margin-top: -30px;
+  padding: 0 15px;
 }
 
 .centerbox {
@@ -1937,7 +1938,7 @@ p {
   .centerbox {
     height: 56px;
     border-radius: 6px;
-    width: 21.438rem !important;
+    width: 100% !important;
   }
   .profile-name-popover {
     margin-top: 0px !important;
@@ -2779,7 +2780,7 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 15px;
-  color: #2149b9;
+  color: #8facff;
 }
 
 .xinfin_api_button {
@@ -2800,14 +2801,14 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .inside-side-box {
@@ -3517,7 +3518,7 @@ p {
   .tab-search {
     display: flex;
     width: 82%;
-    margin-left: -10px;
+    /* margin-left: -10px; */
   }
 }
 @media (min-width: 768px) {
@@ -3664,7 +3665,7 @@ body {
   }
 }
 .MuiBackdrop-root {
-  opacity: 0 !important;
+  /* opacity: 0 !important; */
 }
 
 .days p {
@@ -4101,7 +4102,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4122,7 +4123,7 @@ body {
 }
 
 #container-table td {
-  padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 20px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
@@ -8602,7 +8603,7 @@ button {
     letter-spacing: 0px !important;
   }
   .main-input-td {
-    width: 12.5rem;
+    width: 100%;
     font-size: 12px !important;
     margin-top: -2px;
   }
@@ -9550,6 +9551,11 @@ button {
   .overflow {
     overflow-x: scroll;
   }
+  .profile {
+    height: 24px !important;
+    width: 24px !important;
+    margin-right: 9px;
+  }
 }
 .Shape2-internal1 {
   margin-top: -2px !important;
@@ -9614,7 +9620,7 @@ button {
     /* padding: 0.4rem 0.644rem 0 0.75rem; */
   }
   .select-td {
-    margin-left: 13px;
+    /* margin-left: 13px; */
   }
 
   /* .select-td {
@@ -10702,5 +10708,9 @@ button {
   .table-list {
     width: 100% !important;
     margin: 10px 0;
+  }
+  .MuiIconButton-root {
+    padding: 0 12px 0 0 !important;
+    margin-right: -12px !important;
   }
 }
