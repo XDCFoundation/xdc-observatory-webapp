@@ -16,6 +16,8 @@ import Loader from "../../assets/loader";
 import TableBody from "@material-ui/core/TableBody";
 import { messages } from "../../constants";
 import PageSelector from "../common/pageSelector";
+import SearchAndFiltersComponent from "./searchAndFiltersComponent";
+import moment from "moment";
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -138,7 +140,10 @@ export default function StickyHeadTable() {
   const [transfer, settransfer] = useState({});
   const [totalToken, setTotalToken] = useState([]);
   const [noData, setNoData] = useState(true);
-
+  const [searchAndFilters, setSearchAndFilters] = useState({
+    searchQuery: '',
+    startDate: ''
+  });
   const [isLoading, setLoading] = useState(true);
   const { address } = useParams();
 
@@ -156,8 +161,19 @@ export default function StickyHeadTable() {
     getTotalTransferToken(value);
   }, []);
 
-  const transferDetail = async (values) => {
-    let [error, tns] = await Utils.parseResponse(TokenData.getListOfTransferTransactionsForToken(values));
+  const transferDetail = async (values, filters) => {
+    const requestData = {}
+    requestData.addr = values ? values.addr : address
+    requestData.pageNum = values ? values.pageNum : 0
+    requestData.perpage = values ? values.perpage : 10
+    const filtersData = filters || searchAndFilters
+    if (filtersData.searchQuery)
+      requestData.searchValue = filtersData.searchQuery
+    if (filtersData.startDate)
+        requestData.startDate = filtersData.startDate
+    if (filtersData.startDate || filtersData.searchQuery)
+          getTotalTransferToken(requestData)
+    let [error, tns] = await Utils.parseResponse(TokenData.getListOfTransferTransactionsForToken(requestData));
     if (!tns || tns.length == 0) {
       setNoData(false);
       setLoading(false);
@@ -216,6 +232,10 @@ export default function StickyHeadTable() {
     return `${b?.slice(0, amountL)}${".".repeat(stars)}${b?.slice(b.length - 3, b.length)}`;
   }
 
+  const updateFiltersAndGetAccounts = async (filters) => {
+    await setSearchAndFilters(filters)
+    transferDetail(null, filters)
+  }
   const NoDataFoundContainer = styled.div`
     display: flex;
     flex-flow: column;
@@ -232,6 +252,8 @@ export default function StickyHeadTable() {
 
   return (
     <>
+      <SearchAndFiltersComponent searchAndFilters={searchAndFilters}
+                                 updateFiltersAndGetAccounts={updateFiltersAndGetAccounts}/>
       <Paper elevation={0}>
         <TableContainer className={classes.container} id="container-table">
           <Table>
