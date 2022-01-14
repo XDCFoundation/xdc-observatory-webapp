@@ -597,10 +597,12 @@
 .linkTableDetails-address {
   color: #2149b9;
   font-size: 14px;
+  cursor: pointer;
 }
 .linkTableDetails-address:hover {
   color: #2149b9;
   font-size: 14px;
+  cursor: pointer;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .linkTableDetails-transaction {
@@ -611,10 +613,12 @@
   .linkTableDetails-address {
     color: #2149b9;
     font-size: 11px;
+    cursor: pointer;
   }
   .linkTableDetails-address:hover {
     color: #2149b9;
     font-size: 11px;
+    cursor: pointer;
   }
   .mobileTimeStamp {
     /* padding-bottom: 68px; */
@@ -632,10 +636,12 @@
   .linkTableDetails-address {
     color: #2149b9;
     font-size: 12px;
+    cursor: pointer;
   }
   .linkTableDetails-address:hover {
     color: #2149b9;
     font-size: 12px;
+    cursor: pointer;
   }
 }
 
@@ -647,7 +653,8 @@
 @media (min-width: 0px) and (max-width: 767px) {
   .table_1 {
     width: 22.563rem;
-    margin: 2rem auto;
+    margin: 12px auto;
+    padding-top: 0;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -794,6 +801,7 @@
   .Pagination {
     display: flex;
     flex-direction: column;
+    margin-bottom: 23px;
   }
   .Pagination_1 {
     flex-grow: 0 !important;

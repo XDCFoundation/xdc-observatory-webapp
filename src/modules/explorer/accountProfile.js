@@ -341,10 +341,10 @@ const NoDataFoundContainer = styled.div`
 const ParentProfile = styled.div`
 display: flex;
 
-@media(max-width: 676px){
+@media(max-width: 767px){
   display: flex;
   justify-content: space-between;
-  width: 20rem;
+  width: 100%;
 }
 `
 
@@ -368,10 +368,9 @@ const UserNameContainer = styled.div`
   }
   @media (min-width: 400px) and (max-width: 767px){
     ${'' /* gap: 12px; */}
-    width: 21rem !important;
     margin-top: 15px;
     margin-bottom: 15px;
-    padding: 0px !important;
+    padding: 0px 15px !important;
   }
  
   
@@ -380,13 +379,14 @@ const UserNameContainer = styled.div`
     gap: ${(props) => (props.isWallet ? "30px" : "15px")};
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 767px) {
     ${'' /* justify-content: space-around; */}
     ${'' /* gap: 12px; */}
     margin-left: auto !important;
-    margin: 15px 0px;
+    margin: 12px 0px;
     margin-right: auto;
-    width: 21rem;
+    width: 100%;
+    padding: 0 15px;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
