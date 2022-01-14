@@ -6,6 +6,7 @@ import Web3Dialog from "../explorer/web3/web3Dialog";
 import { Paper } from "@material-ui/core";
 import { Row } from "simple-flexbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import utility from "../../utility";
 
 const QuestionContainer = styled.div`
   font-weight: 400;
@@ -25,7 +26,7 @@ const QuestionNameContainer = styled.div`
   display: flex;
   flex-flow: row;
   border-bottom: solid 1px #dfe2e8;
-  padding: 15px 24px;
+  padding: 15px;
   border-radius: 4px;
   justify-content: space-between;
   align-items: center;
@@ -56,7 +57,7 @@ const OutputContainer = styled.div`
   flex-flow: column;
   gap: 15px;
   background-color: white;
-  padding: 1.5rem;
+  padding: 15px;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
@@ -77,25 +78,34 @@ const Devider = styled.hr`
 `;
 
 const ParentContainer = styled.div`
-  padding: 0 1.875rem 1.875rem;
+  padding: 0 1.875rem 1.875rem 1.875rem;
   display: flex;
   flex-flow: column;
-  gap: 10px;
-  @media (min-width: 0px) and (max-width: 767px) {
-    padding: 0 0.75rem 1.875rem 0.75rem;
+  gap: 15px;
+  @media (min-width: 0px) and (max-width: 1240px) {
+    padding: 0 15px 15px 15px;
   }
 `;
 
 const InputTypeFunctionsContainer = styled.div`
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 15px;
 `;
 
 const InputName = styled.div`
-  color: #343a40 !important;
-  word-wrap: break-word;
-  font-size: 13px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 13px;
+  }
 `;
 
 const ParamInput = styled.input`
@@ -104,8 +114,8 @@ const ParamInput = styled.input`
   min-height: 35px;
   min-width: 100px;
   outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 5px;
+  border-radius: 4px;
+  border: solid 1px #dfe2e8;
   padding: 5px;
 
   :active {
@@ -140,12 +150,14 @@ const SubmitButton = styled.button`
   width: 80px;
   cursor: ${(props) => (props.isActive ? "" : "pointer")};
   height: 30px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   width: 150px;
   height: 45px;
-  margin-top: 20px;
   color: white;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const ErrorText = styled.div`
@@ -175,10 +187,14 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 1.875rem 0.75rem;
     flex-flow: column;
-    gap: 1.25rem;
+    padding: 15px;
+    gap: 15px;
     align-items: flex-start;
+  }
+  @media (min-width: 767px) and (max-width: 1240px) {
+    padding: 15px;
+    gap: 15px;
   }
 `;
 
@@ -196,8 +212,15 @@ const ActiveDot = styled.div`
   border-radius: 50%;
 `;
 
+const Connected = styled.div`
+  width: 10px;
+  height: 10px;
+  background-color: #3ce3a3;
+  border-radius: 50%;
+`;
+
 const ConnectToWalletButton = styled.div`
-  width: 180px;
+  width: ${(props) => (props.isActive ? "260px" : "180px")};
   height: 40px;
   opacity: 1;
   border-radius: 4px;
@@ -206,13 +229,14 @@ const ConnectToWalletButton = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: #e5eafa;
+  background-color: ${(props) => (props.isActive ? "#3763dd" : "#e5eafa")};
+  cursor: ${(props) => (props.isActive ? "" : "pointer")};
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.62px;
   text-align: left;
-  color: #3763dd;
+  color: ${(props) => (props.isActive ? "white" : "#3763dd")};
 `;
 
 export default function ContractWriteMethods(props) {
@@ -224,13 +248,45 @@ export default function ContractWriteMethods(props) {
     setWalletInfo: false,
     error: "",
     loading: false,
+    isExpand: false,
   });
 
   React.useEffect(() => {
-    let contractInfo = props.contractData ? props.contractData : {};
-    contractInfo.abi = JSON.parse(
-      contractInfo.abi ? contractInfo.abi : JSON.stringify([])
-    );
+    // let contractInfo = props.contractData ? props.contractData : {};
+    // contractInfo.abi = JSON.parse(
+    //   contractInfo.abi ? contractInfo.abi : JSON.stringify([])
+    // );
+    let contractInfo = {
+      abi: [
+        {
+          inputs: [],
+          name: "retrieve",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "num",
+              type: "uint256",
+            },
+          ],
+          name: "store",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      address: "0xD1312601DB0d6c8F0d5597e1Dc3AeF9E3cE3a57A",
+    };
     let writeFunction = contractInfo.abi.filter(
       (item) => item.stateMutability !== contractMethodTypes.view && item.name
     );
@@ -241,6 +297,7 @@ export default function ContractWriteMethods(props) {
         response: {},
         loading: false,
         error: "",
+        params: getFunctionParams(item),
       };
     });
     setState({
@@ -251,6 +308,14 @@ export default function ContractWriteMethods(props) {
         : "",
     });
   }, [props.contractData]);
+
+  const getFunctionParams = (functionDetail) => {
+    let paramKeys = {};
+    functionDetail.inputs.map((item) => {
+      paramKeys[item.name] = "";
+    });
+    return paramKeys;
+  };
 
   const handleFunctionClick = async (
     index,
@@ -290,7 +355,7 @@ export default function ContractWriteMethods(props) {
               writeFunctions[index].response = {
                 method,
                 index,
-                response: JSON.stringify(response, null, 2),
+                response,
               };
             });
         } else {
@@ -301,7 +366,7 @@ export default function ContractWriteMethods(props) {
               writeFunctions[index].response = {
                 method,
                 index,
-                response: JSON.stringify(response, null, 2),
+                response,
               };
             });
         }
@@ -382,7 +447,8 @@ export default function ContractWriteMethods(props) {
     for (let index = 0; index < state.writeFunctions.length; index++) {
       const item = state.writeFunctions[index];
       if (item.isActive) {
-        writeFunctions.push(item);
+        writeFunctions[index] = item;
+
         continue;
       }
       if (item.inputs.length) {
@@ -393,18 +459,32 @@ export default function ContractWriteMethods(props) {
         await handleFunctionClick(index, false, false, false, false, true);
       }
     }
-    setState({ ...state, writeFunctions, loading: false });
+    setState({ ...state, writeFunctions, loading: false, isExpand: true });
   };
 
   const handleResetClick = () => {
     let writeFunctions = state.writeFunctions.map((item) => {
       return {
         ...item,
-        isActive: false,
+        // isActive: false,
         response: {},
+        params: getFunctionParams(item),
       };
     });
     setState({ ...state, writeFunctions });
+  };
+
+  const handleCollpaseClick = () => {
+    const writeFunctions = state.writeFunctions.map((item) => {
+      return {
+        ...item,
+        isActive: false,
+        response: {},
+        loading: false,
+        error: "",
+      };
+    });
+    setState({ ...state, writeFunctions, isExpand: false });
   };
 
   return (
@@ -419,19 +499,32 @@ export default function ContractWriteMethods(props) {
         <HeaderItemsContainer>
           <ConnectToWalletButton
             onClick={() => handleWeb3ConnectClick()}
-            isActive={state.accountAddress.length}
+            isActive={state.accountAddress.length > 0}
             disabled={state.accountAddress.length}
           >
-            <ActiveDot />
-            {state.accountAddress.length ? "Connected" : "Connect to web3"}
+            {!state.accountAddress.length ? (
+              <>
+                <ActiveDot />
+                {"Connect to web3"}
+              </>
+            ) : (
+              <>
+                <Connected />
+                {`Connected ${utility.shortenHash(state.accountAddress, 9)}`}
+              </>
+            )}
           </ConnectToWalletButton>
         </HeaderItemsContainer>
         <Row style={{ gap: 20 }} alignItems="center">
           {state.loading ? (
-            <CircularProgress />
-          ) : (
+            <CircularProgress size={20} />
+          ) : !state.isExpand ? (
             <HighlightedText onClick={() => handleExpandAllClick()}>
               Expand all
+            </HighlightedText>
+          ) : (
+            <HighlightedText onClick={() => handleCollpaseClick()}>
+              Collapse all
             </HighlightedText>
           )}
           <HeaderItemsContainer onClick={() => handleResetClick()}>
@@ -461,7 +554,17 @@ export default function ContractWriteMethods(props) {
                     }
                   >
                     <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
-                    <ArrowImg isActive={item.isActive} src="/images/next.svg" />
+                    <Row style={{ gap: 10 }} alignItems="center">
+                      {item.loading && item.inputs.length === 0 ? (
+                        <CircularProgress size={12} />
+                      ) : (
+                        ""
+                      )}
+                      <ArrowImg
+                        isActive={item.isActive}
+                        src="/images/next.svg"
+                      />
+                    </Row>
                   </QuestionNameContainer>
                   {item.isActive ? (
                     <OutputContainer>
@@ -501,12 +604,9 @@ const InputTypeFunctions = ({
 }) => {
   const [params, setParams] = React.useState({});
   React.useEffect(() => {
-    let paramKeys = {};
-    functionDetail.inputs.map((item) => {
-      paramKeys[item.name] = "";
-    });
-    setParams(paramKeys);
-  }, [functionDetail]);
+    console.log(functionDetail.params, "functionDetail.params");
+    setParams(functionDetail.params);
+  }, [functionDetail.params]);
 
   const setError = (error, index) => {
     writeFunctions[index].error = error;
@@ -569,6 +669,7 @@ const InputTypeFunctions = ({
             <InputName>{item.name}</InputName>
             <ParamInput
               placeholder={item.type}
+              value={params[item.name]}
               onChange={(event) =>
                 handleParamsInput(event.target.value, item.name, item.type)
               }
@@ -581,11 +682,16 @@ const InputTypeFunctions = ({
         disabled={functionDetail.loading}
         isActive={functionDetail.loading}
       >
-        {functionDetail.loading ? <CircularProgress /> : "Write"}
+        {functionDetail.loading ? <CircularProgress size={20} /> : "Write"}
       </SubmitButton>
-      <ErrorText>{functionDetail.error}</ErrorText>
+      {functionDetail.error ? (
+        <ErrorText>{functionDetail.error}</ErrorText>
+      ) : (
+        ""
+      )}
       {functionDetail?.response?.response ? (
-        <OutPutComponent item={functionDetail} />
+        // <OutPutComponent item={functionDetail} />
+        <TransactionResponse item={functionDetail} />
       ) : (
         ""
       )}
@@ -596,12 +702,64 @@ const InputTypeFunctions = ({
 const OutPutComponent = ({ item }) => {
   return (
     <>
-      <Title>Output</Title>
       <Output>{item?.response?.response}</Output>
       <Devider />
-      <Title>Return Value Type</Title>
+      <InputName>Return Value Type</InputName>
       <Output>{item.outputs.map((it) => it.type).join(",")}</Output>
     </>
+  );
+};
+
+const ResponseTableContainer = styled.div`
+  border-radius: 4px;
+  border: solid 1px #dfe2e8;
+`;
+
+const ResponseTableRow = styled.td`
+  padding: ${(props) => (props.padding ? props.padding : "15px 15px 0 15px")};
+  word-break: break-all;
+  white-space: ${(props) => (props.isSpace ? "nowrap" : "")};
+`;
+
+const TransactionResponse = ({ item }) => {
+  const { response } = item;
+  return (
+    <ResponseTableContainer>
+      <table>
+        <tr>
+          <ResponseTableRow isSpace={true}>
+            <InputName>Transaction Hash</InputName>
+          </ResponseTableRow>
+          <ResponseTableRow>
+            <Output>{response?.response?.transactionHash}</Output>
+          </ResponseTableRow>
+        </tr>
+        <tr>
+          <ResponseTableRow isSpace={true}>
+            <InputName>Status</InputName>
+          </ResponseTableRow>
+          <ResponseTableRow>
+            <Output>{response?.response?.status ? "Success" : "Failed"}</Output>
+          </ResponseTableRow>
+        </tr>
+        <tr>
+          <ResponseTableRow isSpace={true}>
+            <InputName>Gas Price</InputName>
+          </ResponseTableRow>
+          <ResponseTableRow>
+            <Output>{response?.response?.gasUsed}</Output>
+          </ResponseTableRow>
+        </tr>
+        <tr>
+          <ResponseTableRow isSpace={true} padding="15px">
+            <InputName>Block Number</InputName>
+          </ResponseTableRow>
+          <ResponseTableRow padding="15px">
+            <Output>{response?.response?.blockNumber}</Output>
+          </ResponseTableRow>
+        </tr>
+      </table>
+    </ResponseTableContainer>
   );
 };
 
