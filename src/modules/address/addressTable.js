@@ -9,7 +9,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Grid, TableContainer } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import { CSVLink, CSVDownload } from "react-csv";
 import moment from "moment";
 import Utility, { dispatchAction } from "../../utility";
@@ -23,11 +22,17 @@ import styled from "styled-components";
 import format from "format-number";
 import { messages } from "../../constants";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
-import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import SearchAndFiltersComponent from "./searchAndFiltersComponent";
 import PageSelector from "../common/pageSelector";
-
+const SearchAndExportDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+`
 function timeDiff(curr, prev) {
   var ms_Min = 60 * 1000; // milliseconds in Minute
   var ms_Hour = ms_Min * 60; // milliseconds in Hour
@@ -102,6 +107,13 @@ export default function AddressTableComponent(props) {
   let { addr } = useParams();
   const [address, setAddress] = useState([]);
   const [txtAddress, setTxtAddress] = useState("");
+  const [searchAndFilters, setSearchAndFilters] = useState({
+    searchQuery: '',
+    type: '',
+    status: 'all',
+    startDate: moment(),
+    endDate: moment(),
+  });
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [totalRecord, setTotalRecord] = useState(0);
@@ -219,7 +231,6 @@ export default function AddressTableComponent(props) {
       }
     }
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
@@ -230,18 +241,33 @@ export default function AddressTableComponent(props) {
     };
     getAddressDetails(datas);
   };
-  const getAddressDetails = async (data) => {
+
+  const getAddressDetails = async (data, filters) => {
+    const skip = data?.pageNum || 0;
+    const limit = data?.perpage || 10;
+    const sortKey = data?.sortKey || "blockNumber";
+    const sortType = -1
+    const requestData = { skip, limit, sortKey, sortType }
+    requestData.address = data?.addrr || addr
+    const filtersData = filters || searchAndFilters
+    if (filtersData.searchQuery) {
+      requestData.searchValue = filtersData.searchQuery
+      requestData.searchKeys = ["from", "to", "hash"]
+    }
+    if (filtersData.type)
+      requestData.txnType = filtersData.type
+    if (filtersData.status && filtersData.status !== 'all')
+      requestData.status = filtersData.status
+    if (filtersData?.startDate?.toDate().toDateString() !== filtersData?.endDate?.toDate().toDateString()) {
+      if (filtersData.startDate)
+        requestData.startDate = filtersData?.startDate?.toDate()?.getTime()
+      if (filtersData.endDate)
+        requestData.endDate = filtersData?.endDate?.toDate()?.getTime()
+    }
     try {
-      if (!data.sortKey) {
-        data["sortKey"] = "blockNumber";
-        data["sortType"] = -1;
-      }
       const [error, responseData] = await Utility.parseResponse(
-        AddressData.getAddressDetailWithlimit(data)
+        AddressData.getFilteredAddressDetailWithLimit(requestData)
       );
-      // let transactionSortByValue = responseData.sort((a, b) => {
-      //   return b.value - a.value;
-      // });
       if (responseData && responseData.length > 0) {
         setNoData(false);
         setLoading(false);
@@ -268,6 +294,14 @@ export default function AddressTableComponent(props) {
       console.error(error);
     }
   };
+
+  const getFiltersForAccountTransaction = async (data) => {
+    const [error, responseData] = await Utility.parseResponse(AddressData.getFiltersForAccountTransaction(data));
+    setSearchAndFilters({
+      ...searchAndFilters,
+      startDate: error ? moment() : moment(responseData.startDate)
+    });
+  };
   useEffect(() => {
     //let address =props.trans
     datas = {
@@ -278,10 +312,10 @@ export default function AddressTableComponent(props) {
     data = {
       addrr: addr,
     };
+    getFiltersForAccountTransaction({ address: addr });
     getTransactionsCountForAddress(data);
     getAddressDetails(datas);
   }, []);
-
   const sortData = async (sortKey) => {
     let sortType = sortToggle[sortKey];
     if (sortType === 1) {
@@ -328,7 +362,6 @@ export default function AddressTableComponent(props) {
       console.error(error);
     }
   };
-
   const parseResponseData = async (Recdata, type) => {
     let trxn = [];
     if (type == 1) {
@@ -483,44 +516,16 @@ export default function AddressTableComponent(props) {
   const [fromTT, setfromTT] = React.useState(false);
   const [toTT, settoTT] = React.useState(false);
 
+  const updateFiltersAndGetAccounts = async (filters) => {
+    await setSearchAndFilters(filters)
+    getAddressDetails({}, filters)
+  }
+
   return (
     <div>
-      <div className="content_input_all cont-tab">
-        <div className="searchelement-input4 search-input-box">
-          {/*<img
-            style={{ width: 18, height: 18, marginRight: 5, marginTop: 2 }}
-            src={"/images/Search.svg"}
-          />
-          <input
-            className="input-box-search"
-            // onKeyUp={(event) => props._handleSearch(event)}
-            style={{
-              fontSize: '0.938rem',
-              letterSpacing: 0.62,
-              width: '8.2rem',
-              color: '#2a2a2a',
-              fontFamily: 'Inter',
-              outlineColor: '#fff',
-              borderWidth: 0,
-              paddingBottom: '0.125rem',
-            }}
-            type="text"
-            placeholder="Search"
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleKeyUp(e)
-              }
-
-            }}
-            onChange={(e) => {
-              if (e.target.value == "") {
-                handleKeyUp(e)
-              }
-            }}
-          // onKeyUp={handleKeyUp}
-          />*/}
-        </div>
-
+      <SearchAndExportDiv>
+        <SearchAndFiltersComponent searchAndFilters={searchAndFilters}
+          updateFiltersAndGetAccounts={updateFiltersAndGetAccounts} />
         {isDownloadActive ? (
           <CSVLink
             filename={"transactions.csv"}
@@ -557,7 +562,7 @@ export default function AddressTableComponent(props) {
             Export
           </CSVLink>
         )}
-      </div>
+      </SearchAndExportDiv>
 
       <Grid lg={13} className="tablegrid_address">
         <Paper
@@ -599,9 +604,9 @@ export default function AddressTableComponent(props) {
                         <img
                           onClick={() => setHashTT(!hashTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -627,9 +632,9 @@ export default function AddressTableComponent(props) {
                         <img
                           onClick={() => setageTT(!ageTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -655,9 +660,9 @@ export default function AddressTableComponent(props) {
                         <img
                           onClick={() => setblockTT(!blockTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -703,9 +708,9 @@ export default function AddressTableComponent(props) {
                         <img
                           onClick={() => setfromTT(!fromTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -761,9 +766,9 @@ export default function AddressTableComponent(props) {
                         <img
                           onClick={() => settoTT(!toTT)}
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -908,76 +913,35 @@ export default function AddressTableComponent(props) {
                               <span className="tabledata">{row.Block}</span>
                             </a>
                           </TableCell>
-                          <TableCell style={{ border: "none" }} align="left">
-                            {row.From != addr ? (
-                              <a
-                                className="linkTable"
-                                href={"/address-details/" + row.From}
-                              >
-                                <Tooltip placement="top" title={row.From}>
-                                  <span className="tabledata">
-                                    {" "}
-                                    {shorten(row.From)}
-                                    {/* {let fromAddress = row.From} */}
-                                  </span>
-                                </Tooltip>
-                              </a>
-                            ) : (
-                              <Tooltip placement="top" title={row.From}>
-                                <span className="tabledata-2">
-                                  {/* {shorten(row.From)} */}
-                                  {props.tag
-                                    ? props.tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })
-                                    : shorten(row.From)}
-                                </span>
-                              </Tooltip>
-                            )}
-                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left"><a
+                            className="linkTable"
+                            href={"/address-details/" + row.From}
+                          >
+                            <Tooltip placement="top" title={row.From}>
+                              <span className="tabledata">
+                                {" "}
+                                {shorten(row.From)}
+                                {/* {let fromAddress = row.From} */}
+                              </span>
+                            </Tooltip>
+                          </a></TableCell>
+
                           <TableCell style={{ border: "none" }} align="left">
                             <span className={row.From === addr ? "out" : "in"}>
                               {row.From === addr ? "Out" : "In"}
                             </span>
                           </TableCell>
                           <TableCell style={{ border: "none" }} align="left">
-                            {row.To != addr ? (
-                              <a
-                                className="linkTable"
-                                href={"/address-details/" + row.To}
-                              >
-                                <Tooltip placement="top" title={row.To}>
-                                  <span className="tabledata">
-                                    {shorten(row.To)}
-                                  </span>
-                                </Tooltip>
-                              </a>
-                            ) : (
+                            <a
+                              className="linkTable"
+                              href={"/address-details/" + row.To}
+                            >
                               <Tooltip placement="top" title={row.To}>
-                                <span className="tabledata-2">
-                                  {/* {shorten(row.To)} */}
-                                  {props.tag
-                                    ? props.tag.map((item, index) => {
-                                        return (
-                                          <div
-                                            className="nameLabel2"
-                                            key={index}
-                                          >
-                                            {item}
-                                          </div>
-                                        );
-                                      })
-                                    : shorten(row.To)}
+                                <span className="tabledata">
+                                  {shorten(row.To)}
                                 </span>
                               </Tooltip>
-                            )}
+                            </a>
                           </TableCell>
                           <TableCell
                             style={{ border: "none", color: "#2a2a2a" }}
@@ -992,7 +956,7 @@ export default function AddressTableComponent(props) {
                               {value2 == null ? (
                                 <span className="tabledata cursor-pointer">
                                   {row.Value == 0 ? 0 : value1}
-                                  {} &nbsp;XDC
+                                  { } &nbsp;XDC
                                 </span>
                               ) : (
                                 <span className="tabledata cursor-pointer">
@@ -1054,8 +1018,8 @@ export default function AddressTableComponent(props) {
               <>
                 <span className="text">Show</span>
                 <PageSelector value={rowsPerPage}
-                              height={30}
-                              handler={handleChangeRowsPerPage}/>
+                  height={30}
+                  handler={handleChangeRowsPerPage} />
                 <span className="text">Records</span>
               </>
             ) : (
@@ -1096,8 +1060,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -1108,8 +1072,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -1157,8 +1121,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("next")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }
@@ -1169,8 +1133,8 @@ export default function AddressTableComponent(props) {
                 onClick={() => handleChangePage("last")}
                 className={
                   page + rowsPerPage === totalRecord ||
-                  +page + +rowsPerPage > totalRecord ||
-                  totalRecord === 0
+                    +page + +rowsPerPage > totalRecord ||
+                    totalRecord === 0
                     ? "btn disabled"
                     : "btn"
                 }

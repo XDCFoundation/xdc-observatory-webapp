@@ -45,7 +45,7 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 22.563rem;
+    width: 21rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
@@ -162,7 +162,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
+  letter-spacing: 0px;
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
@@ -170,7 +170,7 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
@@ -181,7 +181,7 @@ const TitleData = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
@@ -216,7 +216,7 @@ const LeftTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.9px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
@@ -246,7 +246,7 @@ const LeftTopSec = styled.div`
   font-size: 1.375rem;
   font-weight: 800;
   font-family: Inter;
-  letter-spacing: 0.55px;
+  letter-spacing: 0px;
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;

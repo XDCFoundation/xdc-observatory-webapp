@@ -175,7 +175,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "center",
     //color: "#6b7482",
     textTransform: "none",
@@ -191,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "center",
     color: "#6b7482",
     textTransform: "none",
@@ -206,7 +206,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     textAlign: "center",
     color: "#6b7482",
     textTransform: "none",
@@ -238,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 828px)": {
     appbar: {
       // maxWidth: "710px",
-      // width: "21rem",
+      width: "21rem",
     },
   },
 
@@ -257,7 +257,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Inter",
       fontSize: "13px",
       fontWeight: "500",
-      letterSpacing: "-0.5px",
+      letterSpacing: "0px",
       textAlign: "center",
       // color: "#2149b9",
     },
@@ -267,7 +267,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "6px",
       fontFamily: "Inter",
       fontSize: "13px",
-      letterSpacing: "-0.5px",
+      letterSpacing: "0px",
       textAlign: "center",
       // color: "#6b7482",
     },
@@ -277,7 +277,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0px",
       fontFamily: "Inter",
       fontSize: "13px",
-      letterSpacing: "-0.5px",
+      letterSpacing: "0px",
       textAlign: "center",
       color: "#6b7482",
     },
@@ -383,7 +383,10 @@ const UserNameContainer = styled.div`
   @media (max-width: 400px) {
     ${'' /* justify-content: space-around; */}
     ${'' /* gap: 12px; */}
-    margin:10px 10px;
+    margin-left: auto !important;
+    margin: 15px 0px;
+    margin-right: auto;
+    width: 21rem;
   }
   @media (min-width: 401px) and (max-width: 449px) {
     // gap: 30px;
@@ -986,7 +989,7 @@ export default function SimpleTabs(props) {
             getTotalCountTagAddress={getPvtTagAddress}/>
         </UserNameContainer>
 
-        <div className={classes.root+ " accProfile"}>
+        <div className={classes.root}>
           <AppBar
             position="static"
             style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -998,15 +1001,13 @@ export default function SimpleTabs(props) {
               TabIndicatorProps={{
                 style: {
                   backgroundColor: "#2149b9",
-                  
                 },
               }}
             >
               <Tab
                 label="My Watchlist"
                 // className={classes.mywatch}
-                className={value === 0 ? classes.tab1 : classes.tab2 }
-                style={{borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none"}}
+                className={value === 0 ? classes.tab1 : classes.tab2}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
@@ -1014,7 +1015,6 @@ export default function SimpleTabs(props) {
                 label="Transaction Private Note"
                 className={classes.txnprivate}
                 className={value === 1 ? classes.tab1 : classes.tab2}
-                style={{borderBottom: value === 1 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
               />
@@ -1022,7 +1022,6 @@ export default function SimpleTabs(props) {
                 label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
-                style={{borderBottom: value === 2 ? "2px solid rgb(33, 73, 185)" : "none"}}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />
@@ -1172,9 +1171,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1188,9 +1187,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1211,9 +1210,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1238,9 +1237,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1257,9 +1256,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1328,9 +1327,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1344,9 +1343,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1367,9 +1366,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1394,9 +1393,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1410,9 +1409,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1581,9 +1580,9 @@ export default function SimpleTabs(props) {
                                 <Tooltip placement="top" title={messages.HASH}>
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1597,9 +1596,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1619,9 +1618,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                                 {/* <span> */}
@@ -1708,9 +1707,9 @@ export default function SimpleTabs(props) {
                                 <Tooltip placement="top" title={messages.HASH}>
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1724,9 +1723,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -1746,9 +1745,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                               {/* <span> */}
@@ -1924,9 +1923,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -1940,9 +1939,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                                 <button className={classes.btn}>
@@ -1973,9 +1972,9 @@ export default function SimpleTabs(props) {
                                 >
                                   <img
                                     alt="question-mark"
-                                    src="/images/question-mark.svg"
+                                    src="/images/info.svg"
                                     height={"14px"}
-                                    className="tooltipLatestTransactionTableDashboard"
+                                    className="tooltipInfoIcon"
                                   />
                                 </Tooltip>
                               </span>
@@ -2050,9 +2049,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>
@@ -2066,9 +2065,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                               <button className={classes.btn}>
@@ -2099,9 +2098,9 @@ export default function SimpleTabs(props) {
                               >
                                 <img
                                   alt="question-mark"
-                                  src="/images/question-mark.svg"
+                                  src="/images/info.svg"
                                   height={"14px"}
-                                  className="tooltipLatestTransactionTableDashboard"
+                                  className="tooltipInfoIcon"
                                 />
                               </Tooltip>
                             </span>

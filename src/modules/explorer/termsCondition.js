@@ -16,7 +16,7 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.92px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
@@ -33,7 +33,7 @@ const Subheading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.69px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
@@ -48,7 +48,7 @@ const PointHeading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:0px) and (max-width:767px) {
@@ -63,7 +63,7 @@ const Para = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
 `;
@@ -73,7 +73,7 @@ const Para1 = styled.div`
   font-family: Inter;
   font-size: 15px;
   line-height: 1.27;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -119,7 +119,7 @@ const BlockNumber = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
