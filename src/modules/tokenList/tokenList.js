@@ -557,13 +557,13 @@ export default function StickyHeadTable(props) {
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
-                              className="tooltipLatestTransactionTableDashboard"
+                              className="tooltipInfoIcon"
                           /> :
                           <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
-                              className="tooltipLatestTransactionTableDashboard rotate-180"
+                              className="tooltipInfoIcon rotate-180"
                           />) : ""}
                   </span>
                                 </TableCell>
@@ -586,13 +586,13 @@ export default function StickyHeadTable(props) {
                                 alt="question-mark"
                                 src="/images/see-more.svg"
                                 height={"14px"}
-                                className="tooltipLatestTransactionTableDashboard"
+                                className="tooltipInfoIcon"
                             /> :
                             <img
                                 alt="question-mark"
                                 src="/images/see-more.svg"
                                 height={"14px"}
-                                className="tooltipLatestTransactionTableDashboard rotate-180"
+                                className="tooltipInfoIcon rotate-180"
                             />) : ""}
                     </span>
                                     </TableCell>
