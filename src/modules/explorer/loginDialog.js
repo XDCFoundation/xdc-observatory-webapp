@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "433px",
     height: "40px",
-    padding: "12px 19px 11px 19px",
+    padding: "12px 19px 11px 12px",
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
@@ -928,13 +928,15 @@ export default function FormDialog(props) {
               <span>
                 {passwordShown ? (
                   <img alt="show"
-                    src={"/images/show.svg"}
+                    style={{width: "30px"}}
+                    src={"/images/show-icon.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
                   <img alt="hide"
-                    src={"/images/hide.svg"}
+                  style={{width: "30px"}}
+                    src={"/images/not-showing-pw.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
