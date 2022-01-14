@@ -36,11 +36,11 @@ const Pagination = styled.div`
     display: flex;
     flex-direction: column;
     width: 21rem;
-    margin: 0 auto;
+    margin: 0 auto 23px auto;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
-    margin: 0 auto;
+    margin: 0 auto 46px auto;
   }
 `;
 const RightPagination = styled.div`
