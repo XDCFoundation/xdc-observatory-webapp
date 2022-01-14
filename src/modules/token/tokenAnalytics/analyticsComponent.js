@@ -12,6 +12,7 @@ const AnalyticsTabButton = styled.button`
   padding: 0.25rem 0.5rem;
   font-weight: 600;
   margin-right: 8px;
+  margin-bottom: 8px;
   ${({ active }) =>
     active &&
     `

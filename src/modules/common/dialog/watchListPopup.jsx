@@ -17,7 +17,8 @@ import FormControl from "@material-ui/core/FormControl";
 import AddWatchList from "../../../services/user";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import { AlertContainer, alert } from "react-custom-alert";
+import "../../../../node_modules/react-custom-alert/dist/index.css";
 import { cookiesConstants } from "../../../constants";
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -243,6 +244,7 @@ export default function FormDialog(props) {
 
   const [value, setValue] = React.useState("female");
   const [isSize, setisSize] = React.useState(false);
+  const alertSuccess = () => alert({ message: "success", type: "success" });
   const screenSize = window.innerHeight;
   if (screenSize === "626") {
     setisSize(false);
@@ -280,10 +282,10 @@ export default function FormDialog(props) {
         AddWatchList.addWatchlist(request)
       );
 
-      if (error || !response) {
-        utility.apiFailureToast("Address already exists");
-        return;
-      }
+      // if (error || !response) {
+      //   utility.apiFailureToast("Address already exists");
+      //   return;
+      // }
       let watchlists = localStorage.getItem(
         cookiesConstants.USER_ADDRESS_WATCHLIST
       );
@@ -309,6 +311,7 @@ export default function FormDialog(props) {
         cookiesConstants.USER_ADDRESS_WATCHLIST,
         JSON.stringify(watchlists)
       );
+
       onClose();
     }
   };
