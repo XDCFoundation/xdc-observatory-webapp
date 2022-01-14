@@ -24,7 +24,7 @@ const QuestionNameContainer = styled.div`
   display: flex;
   flex-flow: row;
   border-bottom: solid 1px #dfe2e8;
-  padding: 15px 24px;
+  padding: 15px;
   border-radius: 4px;
   justify-content: space-between;
   align-items: center;
@@ -53,9 +53,9 @@ const ArrowImg = styled.img`
 const OutputContainer = styled.div`
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 15px;
   background-color: white;
-  padding: 1.5rem;
+  padding: 15px;
 `;
 
 const MainTitle = styled.div`
@@ -77,35 +77,42 @@ const Output = styled.div`
   }
 `;
 
-const Devider = styled.hr`
+const Devider = styled.div`
   background-color: #dfe2e8;
+  height: 1px;
 `;
 
 const ParentContainer = styled.div`
-  padding: 0 1.875rem 1.875rem;
+  padding: 0 1.875rem 1.875rem 1.875rem;
   display: flex;
   flex-flow: column;
-  gap: 10px;
-  @media (min-width: 0px) and (max-width: 767px) {
-    padding: 0 0.75rem 1.875rem 0.75rem;
+  gap: 15px;
+  @media (min-width: 0px) and (max-width: 1240px) {
+    padding: 0 15px 15px 15px;
   }
 `;
 
 const InputTypeFunctionsContainer = styled.div`
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 15px;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
   }
 `;
 
 const InputName = styled.div`
-  color: #343a40 !important;
-  word-wrap: break-word;
-  font-size: 13px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  text-align: left;
+  color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
-    font-size: 12px;
+    font-size: 13px;
   }
 `;
 
@@ -127,35 +134,21 @@ const ParamInput = styled.input`
   }
 `;
 
-const Title = styled.div`
-  width: 217px;
-  height: 20px;
-  font-family: Inter;
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.62px;
-  text-align: left;
-  color: #3a3a3a;
-  @media (min-width: 0px) and (max-width: 767px) {
-    font-size: 15px;
-  }
-`;
-
 const SubmitButton = styled.button`
+  border-radius: 4px;
   background-color: ${(props) => (props.isActive ? "#e5eafa" : "#3763dd")};
   border: ${(props) => (props.isActive ? "solid 1px #3763dd" : "")};
   width: 80px;
   cursor: ${(props) => (props.isActive ? "" : "pointer")};
   height: 30px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   width: 150px;
   height: 45px;
-  margin-top: 20px;
   color: white;
+  @media (min-width: 0px) and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const ErrorText = styled.div`
@@ -185,10 +178,14 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   @media (min-width: 0px) and (max-width: 767px) {
-    padding: 1.875rem 0.75rem;
     flex-flow: column;
-    gap: 1.25rem;
+    padding: 15px;
+    gap: 15px;
     align-items: flex-start;
+  }
+  @media (min-width: 767px) and (max-width: 1240px) {
+    padding: 15px;
+    gap: 15px;
   }
 `;
 
@@ -206,6 +203,7 @@ export default function ContractRead(props) {
     contractAddress: "",
     loading: false,
     error: "",
+    isExpand: false,
   });
 
   React.useEffect(() => {
@@ -223,6 +221,7 @@ export default function ContractRead(props) {
         response: {},
         loading: false,
         error: "",
+        params: getFunctionParams(item),
       };
     });
     setState({
@@ -234,12 +233,21 @@ export default function ContractRead(props) {
     });
   }, [props.contractData]);
 
+  const getFunctionParams = (functionDetail) => {
+    let paramKeys = {};
+    functionDetail.inputs.map((item) => {
+      paramKeys[item.name] = "";
+    });
+    return paramKeys;
+  };
+
   const handleFunctionClick = async (
     index,
     isActive,
     haveInputs,
     hasParams = false,
-    params
+    params,
+    loading = false
   ) => {
     let readFunctions = [...state.readFunctions];
 
@@ -251,7 +259,7 @@ export default function ContractRead(props) {
     }
     try {
       readFunctions[index].loading = true;
-      setState({ ...state, readFunctions, loading: true });
+      setState({ ...state, readFunctions, loading });
       if (!haveInputs) {
         const method = readFunctions[index].name;
         let web3 = new Web3(process.env.REACT_APP_WEB3_URL);
@@ -283,8 +291,9 @@ export default function ContractRead(props) {
     let readFunctions = state.readFunctions.map((item) => {
       return {
         ...item,
-        isActive: false,
+        // isActive: false,
         response: {},
+        params: getFunctionParams(item),
       };
     });
     setState({ ...state, readFunctions });
@@ -297,7 +306,7 @@ export default function ContractRead(props) {
     for (let index = 0; index < state.readFunctions.length; index++) {
       const item = state.readFunctions[index];
       if (item.isActive) {
-        readFunctions.push(item);
+        readFunctions[index] = item;
         continue;
       }
       if (item.inputs.length) {
@@ -305,10 +314,23 @@ export default function ContractRead(props) {
         readFunctions[index].response = {};
         setState({ ...state, readFunctions, loading: true });
       } else {
-        await handleFunctionClick(index, false, false, false, false);
+        await handleFunctionClick(index, false, false, false, true);
       }
     }
-    setState({ ...state, readFunctions, loading: false });
+    setState({ ...state, readFunctions, loading: false, isExpand: true });
+  };
+
+  const handleCollpaseClick = () => {
+    const readFunctions = state.readFunctions.map((item) => {
+      return {
+        ...item,
+        isActive: false,
+        response: {},
+        loading: false,
+        error: "",
+      };
+    });
+    setState({ ...state, readFunctions, isExpand: false });
   };
 
   return (
@@ -326,10 +348,14 @@ export default function ContractRead(props) {
         </HeaderItemsContainer>
         <Row style={{ gap: 20 }} alignItems="center">
           {state.loading ? (
-            <CircularProgress />
-          ) : (
+            <CircularProgress size={20} />
+          ) : !state.isExpand ? (
             <HighlightedText onClick={() => handleExpandAllClick()}>
               Expand all
+            </HighlightedText>
+          ) : (
+            <HighlightedText onClick={() => handleCollpaseClick()}>
+              Collapse all
             </HighlightedText>
           )}
           <HeaderItemsContainer onClick={() => handleResetClick()}>
@@ -368,11 +394,25 @@ const FunctionContainer = ({
     <QuestionContainer isActive={item.isActive} key={index}>
       <QuestionNameContainer
         onClick={() =>
-          handleFunctionClick(index, item.isActive, item.inputs.length > 0)
+          handleFunctionClick(
+            index,
+            item.isActive,
+            item.inputs.length > 0,
+            false,
+            false,
+            false
+          )
         }
       >
         <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
-        <ArrowImg isActive={item.isActive} src="/images/next.svg" />
+        <Row style={{ gap: 10 }} alignItems="center">
+          {item.loading && item.inputs.length === 0 ? (
+            <CircularProgress size={10} />
+          ) : (
+            ""
+          )}
+          <ArrowImg isActive={item.isActive} src="/images/next.svg" />
+        </Row>
       </QuestionNameContainer>
       {item.isActive ? (
         <OutputContainer>
@@ -406,14 +446,8 @@ const InputTypeFunctions = ({
   const error = functionDetail.error ? functionDetail.error : "";
 
   React.useEffect(() => {
-    console.log(functionDetail.inputs, "functionDetail.inputs");
-    let paramKeys = {};
-    functionDetail.inputs.map((item) => {
-      paramKeys[item.name] = "";
-    });
-    console.log(paramKeys);
-    setParams(paramKeys);
-  }, [functionDetail]);
+    setParams(functionDetail.params);
+  }, [functionDetail.params]);
 
   const setError = (error, index) => {
     let readFunctions = state.readFunctions;
@@ -475,6 +509,7 @@ const InputTypeFunctions = ({
             <InputName>{item.name}</InputName>
             <ParamInput
               placeholder={item.type}
+              value={params[item.name]}
               onChange={(event) =>
                 handleParamsInput(event.target.value, item.name, item.type)
               }
@@ -487,9 +522,9 @@ const InputTypeFunctions = ({
         disabled={functionDetail.loading}
         isActive={functionDetail.loading}
       >
-        {functionDetail.loading ? <CircularProgress /> : "Submit"}
+        {functionDetail.loading ? <CircularProgress size={20} /> : "Submit"}
       </SubmitButton>
-      <ErrorText>{error}</ErrorText>
+      {error ? <ErrorText>{error}</ErrorText> : ""}
       {functionDetail?.response?.response ? (
         <OutPutComponent item={functionDetail} />
       ) : (
@@ -509,10 +544,10 @@ const checkNumberType = (number) => {
 const OutPutComponent = ({ item }) => {
   return (
     <>
-      <Title>Output:</Title>
+      {/* <Title>Output:</Title> */}
       <Output>{item?.response?.response}</Output>
       <Devider />
-      <Title>Return Value Type:</Title>
+      <InputName>Return:</InputName>
       <Output>{item.outputs.map((it) => it.type).join(",")}</Output>
     </>
   );
