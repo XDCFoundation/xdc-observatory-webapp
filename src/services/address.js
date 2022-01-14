@@ -133,7 +133,10 @@ async function getFiltersForAccountTransaction(requestData) {
 }
 async function getTransactionsCountForAddress(data) {
   let url =
-    process.env.REACT_APP_GET_TRANSACTIONS_COUNT_FOR_ADDRESS + data.addrr;
+    process.env.REACT_APP_GET_TRANSACTIONS_COUNT_FOR_ADDRESS + data.address
+      + (data.searchValue ? "?searchValue=" + data.searchValue : "")
+      + (data.txnType ? (data.searchValue ? "&txnType=" : "?txnType=") + data.txnType : "")
+      + (data.status ? (data.searchValue || data.txnType ? "&status=" : "?status=") + data.status : "")
   return httpService(
     httpConstants.METHOD_TYPE.GET,
     getHeaders(),
