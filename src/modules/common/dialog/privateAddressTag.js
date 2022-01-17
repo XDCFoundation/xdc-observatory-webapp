@@ -127,6 +127,7 @@ export default function FormDialog(props) {
   // const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setPrivateAddress(props?.fromAddr);
+    setPrivateAddress(props?.toAddr);
 
   }, [props])
   async function TaggedAddress() {
