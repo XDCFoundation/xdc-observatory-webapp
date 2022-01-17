@@ -1192,7 +1192,7 @@ export default function FormDialog(props) {
             <Row>
               {/* <div className={classes.heading} id="form-dialog-title"> */}
               <div className="forgot-success-title">
-                You,ve successfully request a Forgot Password.
+                You've successfully request a forgot password.
               </div>
               <span onClick={handleClose} className="forgot-success-close">
                 <img
@@ -1203,13 +1203,19 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <div className="forgot-success-box">
+              <div className="imageTick">
+                <img  
+                  src={"/images/greenTick.svg"}
+                  alt={"imageTick"}
+                />
+              </div>
               <div className="forgot-success-text">
                 If the email address belongs to a known account, a recovery
                 password will be sent to you within the next few minutes.
               </div>
               <div className="forgot-success-text margin-top-20-px">
                 If you have not received the email, you can make another request
-                after 5 minutes
+                after 5 minutes.
               </div>
             </div>
             <div className="forgot-success-time-div">

@@ -4160,7 +4160,7 @@ body {
 }
 
 #container-table th {
-  padding: 25px 0px 15px 70px;
+  padding: 25px 0px 15px 24px;
   /* padding: 15px; */
   /* padding-top: 25px; */
   font-weight: 600;
@@ -5000,6 +5000,7 @@ button {
   line-height: normal;
   letter-spacing: 0px;
   color: #2149b9 !important;
+  padding-left: 2px;
   /*margin-top: 8px;*/
   /*margin-right: 25px;*/
   /*animation: fadeInAnimation ease 2s;*/
@@ -5419,6 +5420,7 @@ button {
   font-size: 22px;
   color: #2a2a2a;
   text-align: center;
+  padding: 0 35px;
 }
 .forgot-success-close {
   top: 26px;
@@ -5431,7 +5433,7 @@ button {
   width: 433px;
   height: 212px;
   margin: 38px 0px 35px 0px;
-  padding: 77px 20.5px 33px 16.5px;
+  padding: 32px 20.5px 33px 16.5px;
   border-radius: 6px;
   background-color: #f3fff7;
   margin-right: 15px;
@@ -5447,6 +5449,7 @@ button {
   letter-spacing: 0px;
   text-align: center;
   color: #007b2c;
+  margin-top: 20px;
 }
 .forgot-success-time-div {
   width: 432px;
@@ -5467,7 +5470,11 @@ button {
   line-height: normal;
   letter-spacing: 0px;
   text-align: center;
-  color: var(--white-two);
+  color: #ffffff;
+}
+.imageTick {
+  display: flex;
+  justify-content: center;
 }
 .margin-top-20-px {
   margin-top: 20px;

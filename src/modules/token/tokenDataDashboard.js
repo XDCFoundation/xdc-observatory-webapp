@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
 const MainContainer = styled.div`
   width: 75.125rem;
   height: 16.563rem;
-  padding-top: 1.9rem;
-  padding-left: 1.75rem;
+  padding-top: 27px;
+  padding-left: 26px;
   border-radius: 12px;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -168,14 +168,9 @@ const IconLogo = styled.img`
   margin-left: 5px;
 `;
 const LeftTitle = styled.div`
-  margin-top: 3px;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: bold;
   font-family: Inter;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0px;
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1.1875rem;
@@ -250,6 +245,7 @@ const RightTop = styled.div`
   width: 100%;
   justify-content: space-between;
   position: relative;
+  padding-bottom: 7px;
 `;
 
 const RightTitle = styled.div`
@@ -333,6 +329,11 @@ const ShowTopHeaderForNonMobileOnly = styled.div`
   @media (max-width: 767px) {
     display: none;
   }
+`;
+const TokenImg = styled.img`
+  height: 42px;
+  width: 42px;
+  margin-right: 13px;
 `;
 
 // const Icons = styled.div`
@@ -664,13 +665,7 @@ const TopHeaderSection = ({
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
-          <img
-            style={{
-              height: "29px",
-              width: "29px",
-              marginRight: "4px",
-              marginTop: "3px",
-            }}
+          <TokenImg
             src={"/images/XRC20-Icon.svg"}
           />
 
@@ -705,6 +700,7 @@ const TopHeaderSection = ({
             </div>
           </div>
         </LeftTopSecMain>
+        
       </LeftFirst>
     </>
   );

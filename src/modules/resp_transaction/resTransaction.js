@@ -194,7 +194,7 @@ export default function Transaction({ _handleChange }) {
     setPrice(transactiondetailusinghash[0]?.price);
   };
 
-  const isloggedIn = sessionManager.getDataFromCookies("userInfo");
+  const userInfo = sessionManager.getDataFromCookies("userInfo");
 
   const privateNoteUsingHash = async () => {
     const data = {
@@ -244,11 +244,9 @@ export default function Transaction({ _handleChange }) {
   ? JSON.parse(taggedAddress)
   : "";
   var tagValueFrom =
-    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagFrom) : "";
-  // console.log("tag1",tagValueFrom)
+    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub ) : "";
   var tagValueTo =
-    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagTo) : "";
-  // console.log("tag2",tagValueTo)
+    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagTo && obj.userId === userInfo.sub) : "";
 
   // ---------------------------------------> fetch pvt note from (local-storage) <--------------------------------------------//
 
@@ -259,17 +257,7 @@ export default function Transaction({ _handleChange }) {
   ? JSON.parse(pvtNoteLocal)
   : "";
   var pvtNoteValue =
-    pvtNote && pvtNote.length > 0 ? pvtNote?.filter((obj) => obj.transactionHash === pvtNotehash) : "";
-
-  // if(pvtNote) {
-  //   pvtNote = JSON.parse(pvtNote);
-  //   console.log("Pvt Note After Parsing",pvtNote);
-
-  //   const pvtNoteInfo = pvtNote.find(
-  //     (item) => item.transactionHash === pvtNotehash
-  //   );
-    
-  // }
+    pvtNote && pvtNote.length > 0 ? pvtNote?.filter((obj) => obj.transactionHash === pvtNotehash && obj.userId === userInfo.sub) : "";
 
   const handleSeeMore = () => {
     setSeeMore(true);
@@ -476,7 +464,7 @@ export default function Transaction({ _handleChange }) {
                           </button>
                         </Tooltip>
                       </CopyToClipboard>
-                      {isloggedIn ? (
+                      {userInfo ? (
                         <>
                           {
                             <PrivateNote
@@ -634,7 +622,7 @@ export default function Transaction({ _handleChange }) {
                       </div>
                     </Content>
                     <TabTag>
-                    {width >= 768 && width <= 1240 ? (isloggedIn ? (
+                    {width >= 768 && width <= 1240 ? (userInfo ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -677,7 +665,7 @@ export default function Transaction({ _handleChange }) {
                           </TabTag>
                   </DetailsMiddleContainer>
                   <MobileDesktopTag>
-                  {width < 768 || width > 1240 ? (isloggedIn ? (
+                  {width < 768 || width > 1240 ? (userInfo ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -790,7 +778,7 @@ export default function Transaction({ _handleChange }) {
                       </span>
                     </Content>
                     <TabTag>
-                    {width >= 768 && width <= 1240 ? (isloggedIn ? (
+                    {width >= 768 && width <= 1240 ? (userInfo ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -832,7 +820,7 @@ export default function Transaction({ _handleChange }) {
                           </TabTag>
                   </DetailsMiddleContainer>
                   <MobileDesktopTag>
-                  {width < 768 || width > 1240 ? (isloggedIn ? (
+                  {width < 768 || width > 1240 ? (userInfo ? (
                             <>
                               {
                                 <PrivateAddressTag
@@ -1007,7 +995,7 @@ export default function Transaction({ _handleChange }) {
                     <Hash>Private Note</Hash>
                   </Container>
                   <MiddleContainerPrivateNote>
-                    {!isloggedIn ? (
+                    {!userInfo ? (
                       <PrivateText>
                         {
                           <LoginDialog
@@ -1025,39 +1013,39 @@ export default function Transaction({ _handleChange }) {
                           Logged In
                         </a>
                       </PrivateText>
-                    ) : !pvtNoteValue && !pvtNoteValue?.length > 0 ? (
-                      <AddLabel>
-                        <AddLabelText>
-                        Add private note by clicking on this icon
-                        </AddLabelText>
-                          {
-                            <PrivateNote
-                              open={dialogPvtNoteIsOpen}
-                              onClose={closeDialogPvtNote}
-                              hash={hash}
-                              pvtNote={privateNote[0]?.trxLable}
-                            />
-                          }
-                          {
-                            <Tooltip
-                              title="Add Transaction Label"
-                              placement="top"
-                            >
-                              <img
-                                className={
-                                  width > 1240
-                                    ? "edit-icon1"
-                                    
-                                      : "editIconHash"
-                                }
-                                onClick={openDialogPvtNote}
-                                src={require("../../../src/assets/images/label.svg")}
-                              />
-                            </Tooltip>
-                          }
-                        </AddLabel>
+                    ) : pvtNoteValue && pvtNoteValue?.length > 0 ? (
+                      <span>{pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}</span>
                     ) : (
-                      <span>{pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}{console.log("hii")}</span>
+                      <AddLabel>
+                      <AddLabelText>
+                      Add private note by clicking on this icon
+                      </AddLabelText>
+                        {
+                          <PrivateNote
+                            open={dialogPvtNoteIsOpen}
+                            onClose={closeDialogPvtNote}
+                            hash={hash}
+                            pvtNote={pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}
+                          />
+                        }
+                        {
+                          <Tooltip
+                            title="Add Transaction Label"
+                            placement="top"
+                          >
+                            <img
+                              className={
+                                width > 1240
+                                  ? "edit-icon1"
+                                  
+                                    : "editIconHash"
+                              }
+                              onClick={openDialogPvtNote}
+                              src={require("../../../src/assets/images/label.svg")}
+                            />
+                          </Tooltip>
+                        }
+                      </AddLabel>
                     )}
                     
                   </MiddleContainerPrivateNote>
@@ -1502,10 +1490,9 @@ const DivMiddle = styled.div`
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   // margin-bottom: 15px;
-  // @media (min-width: 0px) and (max-width: 767px) {
-  //   width: 22.563rem;
-  //   height: 6.813rem;
-  // }
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding: 10px;
+  }
   @media (min-width: 0px) and (max-width: 1240px) {
     max-width: 41.5rem;
     width: 100%;
@@ -1653,6 +1640,10 @@ const TxnDetailsRightContainer = styled.div`
   width: 100%;
   padding-left: 21px;
   padding-right: 25px;
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding-left: 10px;
+  padding-right: 10px;
+  }
 `;
 const TxnDetailsRightBottomContainer = styled.div`
   Width: 100%;
@@ -1699,6 +1690,7 @@ const DetailsMiddleContainer = styled.div`
     display: block;
     padding-top: 10px;
     color: #2a2a2a;
+    padding-right: 15px;
   }
 `;
 const BlockConfirmation = styled.div`
