@@ -1625,7 +1625,8 @@ div::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   height: 27.063rem;
-  background-color: #2149b9;
+  /* background-color: #2149b9; */
+  background-image: url("../images/banner_bg.png");
 }
 
 .exp {
@@ -1644,7 +1645,7 @@ div::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: row;
   font-size: 22px;
-  background-color: #2149b9;
+  background-color: transparent;
 }
 
 .navigation-arrow {
@@ -8491,6 +8492,7 @@ button {
   }
   .exp-parent {
     height: 300px;
+    /* background-image: url("../images/XDC-Observatory-Logo-for-mobile.svg"); */
   }
 }
 
@@ -8582,6 +8584,7 @@ button {
   }
   .exp-parent {
     height: 305px;
+    /* background-image: url("../images/XDC-Observatory-Logo-for-Tab.svg"); */
   }
   .exp {
     font-size: 2.625rem;
@@ -10348,7 +10351,7 @@ button {
   font-weight: normal;
 }
 .error-message {
-  margin-left: 16px;
+  margin-left: 55px;
   color: red;
   font-weight: normal;
 }
@@ -10357,7 +10360,7 @@ button {
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
-    margin-left: -5px;
+    margin-left: 35px;
     font-size: 10px;
     color: red;
     font-weight: normal;
@@ -10383,7 +10386,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 766px) {
   .error-message {
-    margin-left: -5px;
+    margin-left: 35px;
     font-size: 10px;
     color: red;
     font-weight: normal;
@@ -10391,7 +10394,7 @@ button {
 }
 @media (min-width: 0px) and (max-width: 766px) {
   .token-error-message-div {
-    margin-top: -29px !important;
+    margin-top: 5px !important;
   }
   .token-error-message {
     color: red;
@@ -10400,12 +10403,12 @@ button {
   }
 }
 .token-error-message-div {
-  margin-top: -22px;
+  margin-top: 5px;
 }
 .token-error-message {
   color: red;
-  margin-left: 20px;
-  font-size: 11px;
+  margin-left: 24px;
+  font-size: 14px;
 }
 .termsLink {
   color: #2a2a2a;
@@ -10834,6 +10837,11 @@ button {
   .PrivateTabIndicator-colorSecondary-120 {
     display: none;
   }
+}
+.tooltipAlert {
+  margin-left: 8px;
+  height: 15px;
+  width: 15px;
 }
 .sidebar_notification {
   color: white;
