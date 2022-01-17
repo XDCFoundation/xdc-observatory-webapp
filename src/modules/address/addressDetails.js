@@ -163,13 +163,13 @@ const AddressHashDiv = styled.div`
   display: flex;
   align-items: center;
   @media (max-width: 767px) {
-    margin-top:10px
-    word-break:break-all
+    margin-top: 10px;
+    word-break: break-all;
     display: block;
     align-items: center;
     text-align: -webkit-center;
   }
-  @media (min-width: 768px) and (max-width:1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     align-items: flex-start;
     flex-direction: column;
   }
@@ -181,14 +181,14 @@ const AddressHash = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #3a3a3a;
   @media (max-width: 767px) {
     font-size: 13px;
     text-align: center;
   }
-  @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
   }
 `;
 const CopyButton = styled.div`
@@ -203,15 +203,15 @@ const BalanceDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #2149b9;
   margin-top: 7px;
   @media (max-width: 767px) {
     font-size: 18px;
     margin: 10px auto;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-   font-size:24px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 24px;
   }
 `;
 const BalanceUsdDiv = styled.div`
@@ -221,15 +221,15 @@ const BalanceUsdDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #585858;
   margin-top: 5px;
   @media (max-width: 767px) {
     font-size: 14px;
     margin: 2px auto;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:16px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 16px;
   }
 `;
 const AddressAgeDiv = styled.div`
@@ -246,13 +246,13 @@ const AddressAge = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
   }
 `;
 const AddressAgeValue = styled.div`
@@ -262,16 +262,16 @@ const AddressAgeValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #3a3a3a;
   margin-left: 70px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 45px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
-    margin-left:48px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 48px;
   }
 `;
 const LastActivityDiv = styled.div`
@@ -284,14 +284,14 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
     white-space: nowrap;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
     white-space: nowrap;
   }
 `;
@@ -302,16 +302,16 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #3a3a3a;
   margin-left: 73px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 46px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
-    margin-left:52px
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 52px;
   }
 `;
 
@@ -325,13 +325,13 @@ const Rank = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
   }
 `;
 const RankValue = styled.div`
@@ -341,16 +341,16 @@ const RankValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #3a3a3a;
   margin-left: 126px;
   @media (max-width: 767px) {
     font-size: 13px;
     margin-left: 93px;
   }
-   @media (min-width: 768px) and (max-width:1240px) {
-    font-size:14px
-    margin-left:101px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 14px;
+    margin-left: 101px;
   }
 `;
 const AddTagButton = styled.button`
@@ -385,14 +385,14 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 14px;
-    letter-spacing: 0px
+    letter-spacing: 0px;
   }
-  @media (min-width: 768px) and (max-width:1240px) {
-    font-size:18px;
+  @media (min-width: 768px) and (max-width: 1240px) {
+    font-size: 18px;
   }
 `;
 const IconForMobile = styled.div`
@@ -1033,56 +1033,68 @@ export default function AddressDetails(props) {
           price={price}
           currency={amount}
         />
-        <div className="container_sec sec-contain">
-          <div className="block_sec sec-block sec-block-mb">
-            <div className="bloc-tabs_sec_addressDetail">
-              <button
-                className={
-                  toggleState === 1
-                    ? "tabs_sec_address_details active-tabs_sec_address_details"
-                    : "tabs_sec_address_details"
-                }
-                onClick={() => toggleTab(1)}
-                id="transaction-btn"
-              >
-                Transactions
-              </button>
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(2)}
-                id="transaction-btn"
-              >
-                Analytics
-              </button>
-            </div>
-          </div>
-          {toggleState === 1 && (
-            <div
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "transparent",
+            borderBottom: "solid 1px #e3e7eb",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "row wrap",
+              gap: 20,
+            }}
+          >
+            <button
               className={
                 toggleState === 1
-                  ? "content_sec  active-content_sec sec-active"
-                  : "content_sec"
+                  ? "token-data-tabs active-tabs-token"
+                  : "token-data-tabs"
               }
+              onClick={() => toggleTab(1)}
             >
-              {isTag ? (
-                <AddressTableComponent
-                  trans={transactions}
-                  coinadd={addr}
-                  tag={addressTag}
-                />
-              ) : (
-                <AddressTableComponent
-                  trans={transactions}
-                  coinadd={addr}
-                  currency={amount}
-                />
-              )}
-            </div>
-          )}
-          {toggleState === 2 && <AddressDetailsAnalytics />}
+              Transactions
+            </button>
+            <button
+              className={
+                toggleState === 2
+                  ? "token-data-tabs active-tabs-token"
+                  : "token-data-tabs"
+              }
+              onClick={() => toggleTab(2)}
+            >
+              Analytics
+            </button>
+          </div>
         </div>
+        {toggleState === 1 && (
+          <div
+            className={
+              toggleState === 1
+                ? "content_sec  active-content_sec sec-active"
+                : "content_sec"
+            }
+          >
+            {isTag ? (
+              <AddressTableComponent
+                trans={transactions}
+                coinadd={addr}
+                tag={addressTag}
+              />
+            ) : (
+              <AddressTableComponent
+                trans={transactions}
+                coinadd={addr}
+                currency={amount}
+              />
+            )}
+          </div>
+        )}
+        {toggleState === 2 && <AddressDetailsAnalytics />}
+        {/* </div> */}
       </Grid>
       <FooterComponent _handleChange={_handleChange} currency={amount} />
     </div>
