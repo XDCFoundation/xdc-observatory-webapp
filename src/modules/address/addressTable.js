@@ -109,7 +109,7 @@ export default function AddressTableComponent(props) {
   const [txtAddress, setTxtAddress] = useState("");
   const [searchAndFilters, setSearchAndFilters] = useState({
     searchQuery: '',
-    type: '',
+    type: 'ALL',
     status: 'all',
     startDate: moment(),
     endDate: moment(),
@@ -254,7 +254,7 @@ export default function AddressTableComponent(props) {
       requestData.searchValue = filtersData.searchQuery
       requestData.searchKeys = ["from", "to", "hash"]
     }
-    if (filtersData.type)
+    if (filtersData.type && filtersData.type !== 'ALL')
       requestData.txnType = filtersData.type
     if (filtersData.status && filtersData.status !== 'all')
       requestData.status = filtersData.status
@@ -518,7 +518,7 @@ export default function AddressTableComponent(props) {
 
   const updateFiltersAndGetAccounts = async (filters) => {
     await setSearchAndFilters(filters)
-    if (filters.searchQuery || filters.type || filters.status !== 'all')
+      if (filters.searchQuery || filters.type || filters.status !== 'all' /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/)
       getAddressDetails({}, filters)
   }
 

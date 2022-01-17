@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
+import { history } from "../../managers/history"
 
 const useStyles = makeStyles({
     container: {
@@ -87,7 +88,7 @@ const LatestBlockView = (props) => {
             <TransactionHeaderContainer>
                 <TransactionTitle>Latest Blocks</TransactionTitle>
                 <a
-                    className="nav_button cursor-pointer"
+                    className="linkTable cursor-pointer"
                     href="/view-all-blocks"
                 >
                     View All
@@ -99,7 +100,7 @@ const LatestBlockView = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell style={{ border: "none", paddingLeft: '15px' }} align="left">
-                            <span className={"tablehead-token-details"}>
+                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
                                 Height
                                 <Tooltip
                                     open={heightTT}
@@ -109,16 +110,16 @@ const LatestBlockView = (props) => {
                                     <img
                                         onClick={() => setHeightTT(!heightTT)}
                                         alt="question-mark"
-                                        src="/images/question-mark.svg"
+                                        src="/images/info.svg"
                                         height={"14px"}
-                                        className="tooltipLatestTransactionTableDashboard"
+                                        className="tooltipInfoIcon"
                                     />
                                 </Tooltip>
                             </span>
                         </TableCell>
 
                         <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tablehead-token-details"}>
+                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
                                 Timestamp
                                 <Tooltip
                                     open={timeStampTT}
@@ -128,15 +129,15 @@ const LatestBlockView = (props) => {
                                     <img
                                         onClick={() => setTimeStampTT(!timeStampTT)}
                                         alt="question-mark"
-                                        src="/images/question-mark.svg"
+                                        src="/images/info.svg"
                                         height={"14px"}
-                                        className="tooltipLatestTransactionTableDashboard"
+                                        className="tooltipInfoIcon"
                                     />
                                 </Tooltip>
                             </span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tablehead-token-details"}>
+                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
                                 Transactions
                                 <Tooltip
                                     open={transactionTT}
@@ -146,9 +147,9 @@ const LatestBlockView = (props) => {
                                     <img
                                         onClick={() => setTransactionTT(!transactionTT)}
                                         alt="question-mark"
-                                        src="/images/question-mark.svg"
+                                        src="/images/info.svg"
                                         height={"14px"}
-                                        className="tooltipLatestTransactionTableDashboard"
+                                        className="tooltipInfoIcon"
                                     />
                                 </Tooltip>
                             </span>
