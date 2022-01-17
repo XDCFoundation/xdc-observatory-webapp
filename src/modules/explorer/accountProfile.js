@@ -939,7 +939,7 @@ export default function SimpleTabs(props) {
             /> */}
         <UserNameContainer>
        <ParentProfile>
-       <div style={{display:"flex"}}>
+       <div style={{display:"flex", justifyContent: "center", alignItems: "center"}}>
          <Avatar
             className="profile-icon"
             src={
