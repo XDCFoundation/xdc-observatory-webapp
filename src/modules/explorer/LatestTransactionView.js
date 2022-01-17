@@ -90,7 +90,7 @@ const LatestTransactionView = (props) => {
                 <TransactionHeaderContainer>
                     <TransactionTitle>Latest Transactions</TransactionTitle>
                     <a
-                        className="nav_button cursor-pointer"
+                        className="linkTable cursor-pointer"
                         href="/view-all-transaction"
                     >
                         View All

@@ -171,12 +171,12 @@
 
 .hash-transaction-list-all {
   border: none !important;
-  padding-left: 2.6rem !important;
+  /* padding-left: 2.6rem !important; */
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   .hash-transaction-list-all {
     border: none !important;
-    padding-left: 1rem !important;
+    /* padding-left: 1rem !important; */
   }
   .table-headers {
     height: 1.063rem;
@@ -969,7 +969,7 @@
 }
 .block-list-all {
   border: none !important;
-  padding-left: 11% !important;
+  /* padding-left: 11% !important; */
   font-weight: 600;
 }
 @media (min-width: 0px) and (max-width: 766px) {
