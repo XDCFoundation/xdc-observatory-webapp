@@ -372,7 +372,7 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address ">
                 {" "}
-                <p>{this.props?.statData?.highestTransaction}&nbsp;XDC</p>
+                <p>{highestTxn}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue>
                     {" "}
@@ -430,7 +430,7 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address">
                 {" "}
-                <p>{!gasPrice ? 0 : gasPrice}&nbsp;XDC</p>
+                <p>{!gasPrice ? 0 : Number(gasPrice).toFixed(12)}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}
