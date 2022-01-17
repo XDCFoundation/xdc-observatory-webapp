@@ -9916,7 +9916,7 @@ button {
   margin-top: 23px;
 }
 .Notification-text-color-fade {
-  color: #0099f9;
+  color: #81b4ff;
   font-size: 0.75rem;
   font-family: Inter;
 }
@@ -10827,4 +10827,9 @@ button {
   .PrivateTabIndicator-colorSecondary-120 {
     display: none;
   }
+}
+.sidebar_notification {
+  color: white;
+  width: 100%;
+  margin-left: 20px;
 }
