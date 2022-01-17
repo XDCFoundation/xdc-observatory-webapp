@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import styled from "styled-components";
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Web3 from "web3";
@@ -12,9 +12,9 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
-import {sessionManager} from "../../managers/sessionManager";
-import {NavLink} from "react-router-dom";
-import {useHistory, Redirect} from "react-router-dom";
+import { sessionManager } from "../../managers/sessionManager";
+import { NavLink } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3Dialog from "./web3/web3Dialog"
 import NewFeature from "./newFeature";
@@ -22,10 +22,10 @@ import Login from "../login";
 
 import Utility from "../../utility";
 import SearchData from "../../services/search";
-import {Row} from "simple-flexbox";
+import { Row } from "simple-flexbox";
 import Utils from "../../utility";
-import {useDispatch} from "react-redux";
-import {eventConstants, recentSearchTypeConstants} from "../../constants";
+import { useDispatch } from "react-redux";
+import { eventConstants, recentSearchTypeConstants } from "../../constants";
 
 const drawerWidth = 240;
 const DeskTopView = styled.div`
@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
     },
     appBar: {
-        backgroundColor: "#2149b9",
-        // height: "60px",
+        backgroundColor: "transparent",
+        position: "absolute",
         transition: theme.transitions.create(["margin", "width"], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -213,7 +213,6 @@ export default function Navbar() {
         web3 = new Web3(window.web3.currentProvider);
         window.ethereum.enable();
         const chainId = await web3.eth.net.getId();
-        console.log("chainId ",chainId)
         if (chainId !== 51) {
             // Utils.apixFailureToast("Please login to XDCPay extension");
             setWeb3DialogOpen(true);
@@ -253,13 +252,14 @@ export default function Navbar() {
             }
 
             if (responseData) {
+                console.log(responseData, "<<responseData")
                 if (responseData[0].redirect === "block") {
                     let blockurl = "/block-details/" + responseData[0].block.number;
                     dispatch({
                         type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                             type: recentSearchTypeConstants.BLOCK,
                             searchValue: data?.data || '',
-                            result: responseData[0]?.block?.transactions?.length>0 && responseData[0]?.block?.transactions.reduce((accumulator,trx)=>accumulator + parseInt(trx.value), [0]) ||  0,
+                            result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
                             redirectUrl: blockurl
                         }
                     })
@@ -271,7 +271,7 @@ export default function Navbar() {
                         type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                             type: recentSearchTypeConstants.ACCOUNT,
                             searchValue: responseData[0]?.account?.address || '',
-                            result: responseData[0]?.account?.balance ||  0,
+                            result: responseData[0]?.account?.balance || 0,
                             redirectUrl: accounturl
                         }
                     })
@@ -283,40 +283,42 @@ export default function Navbar() {
                         type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                             type: recentSearchTypeConstants.TRANSACTION,
                             searchValue: data?.data || '',
-                            result: responseData[0]?.transaction?.value ||  0,
+                            result: responseData[0]?.transaction?.value || 0,
                             redirectUrl: transactionurl
                         }
                     })
                     window.location.href = transactionurl;
                 } else if (responseData[0].redirect === "token") {
-                    if (responseData[0]?.token.length > 0) {
+                    if (responseData[0]?.token.length == 1) {
                         let tokenDataUrl =
                             "/token-data/" +
                             responseData[0]?.token[0]?.address +
                             "/" +
                             responseData[0]?.token[0]?.symbol;
-                        let tokenListUrl = "/tokens/" + responseData[0]?.token[0]?.tokenName;
+
                         dispatch({
                             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                                 type: recentSearchTypeConstants.TOKEN,
                                 searchValue: responseData[0]?.token[0]?.address || '',
-                                result: responseData[0]?.token[0]?.totalSupply ||  0,
-                                redirectUrl: responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl
-                            }
-                        })
-                        window.location.href =
-                            responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
-                    } else {
-                        let tokenDataUrl = "/token-data/" + responseData[0]?.token?.address + "/" + responseData[0]?.token?.symbol;
-                        dispatch({
-                            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
-                                type: recentSearchTypeConstants.TOKEN,
-                                searchValue: responseData[0]?.token?.address || '',
-                                result: responseData[0]?.token?.totalSupply ||  0,
+                                result: responseData[0]?.token[0]?.totalSupply || 0,
                                 redirectUrl: tokenDataUrl
                             }
                         })
                         window.location.href = tokenDataUrl;
+
+                    } else if (responseData[0]?.token.length > 1) {
+                        let tokenListUrl = "/tokens/" + responseData[0]?.token[0]?.tokenName;
+                        dispatch({
+                            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                                type: recentSearchTypeConstants.TOKEN,
+                                searchValue: responseData[0]?.token?.address || '',
+                                result: responseData[0]?.token?.totalSupply || 0,
+                                redirectUrl: tokenListUrl
+                            }
+                        })
+                        window.location.href = tokenListUrl;
+                    } else {
+
                     }
                 } else {
                 }
@@ -334,7 +336,7 @@ export default function Navbar() {
             return;
         }
 
-        setState({...state, [anchor]: open});
+        setState({ ...state, [anchor]: open });
     };
 
     const lists = (anchor) => (
@@ -349,10 +351,10 @@ export default function Navbar() {
                 <div className="browse-text-sidebar">Browse</div>
                 <div className={classes.drawerHeader}>
                     <IconButton
-                        style={{color: "white"}}
+                        style={{ color: "white" }}
                         onClick={toggleDrawer(anchor, false)}
                     >
-                        {theme.direction === "rtl" ? <CloseIcon/> : <CloseIcon/>}
+                        {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
                     </IconButton>
                 </div>
             </div>
@@ -362,48 +364,48 @@ export default function Navbar() {
                     <a className="account_details_button" href="/account-details">
                         <div className="xinfin_account_button">Accounts</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
 
                 <ul className="inside-side-box">
                     <p
                         className="xinfin_api_button"
                         onClick={() => setOpencontracts(true)}
-                        style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                     >
                         {" "}
                         Contracts{" "}
                         <span className="side-arrow-contract-tab">
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
                     </p>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
 
                 <ul className="inside-side-box">
                     <p
                         className="xinfin_api_button"
                         onClick={() => setOpen(true)}
-                        style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                     >
                         Tools{" "}
                         <span className="right-arrow-side-bar">
-              <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </span>
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
                     </p>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button" style={{cursor: "pointer"}}>
+                    <p className="xinfin_api_button" style={{ cursor: "pointer" }}>
                         XDC APIs
                     </p>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="inside-side-box">
-                    <p className="xinfin_api_button" style={{cursor: "pointer"}}>
+                    <p className="xinfin_api_button" style={{ cursor: "pointer" }}>
                         Nodes
                     </p>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
             </List>
         </div>
@@ -421,7 +423,7 @@ export default function Navbar() {
 
         setOpencontracts(false);
 
-        setState({...state, [subanchor]: open});
+        setState({ ...state, [subanchor]: open });
     };
 
     const contracts = (subanchor) => (
@@ -433,16 +435,16 @@ export default function Navbar() {
             role="presentation"
             onKeyDown={() => setOpencontracts(false)}
         >
-            <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
                 <div className={classes.drawerHeader}>
-                    <div className="menubar-contract" style={{marginTop: "40px"}}>
+                    <div className="menubar-contract" style={{ marginTop: "40px" }}>
                         <div>
-              <span
-                  onClick={() => setOpencontracts(false)}
-                  style={{color: "white", fontSize: 17, cursor: "pointer"}}
-              >
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>
+                            <span
+                                onClick={() => setOpencontracts(false)}
+                                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
+                            >
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </span>
                         </div>
                         <div
                             onClick={() => setOpencontracts(false)}
@@ -457,10 +459,10 @@ export default function Navbar() {
                         </div>
                         <div>
                             <IconButton
-                                style={{color: "white", marginLeft: "12.630rem"}}
+                                style={{ color: "white", marginLeft: "12.630rem" }}
                                 onClick={childToggle(subanchor, false)}
                             >
-                                {theme.direction === "rtl" ? <CloseIcon/> : <CloseIcon/>}
+                                {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
                             </IconButton>
                         </div>
                     </div>
@@ -480,7 +482,7 @@ export default function Navbar() {
                     >
                         <div className="xinfin_api_button">Contracts</div>
                     </a>
-                    <hr className="myhr4"/>
+                    <hr className="myhr4" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -494,7 +496,7 @@ export default function Navbar() {
                     >
                         <div className="xinfin_api_button">Verify Contracts</div>
                     </a>
-                    <hr className="myhr4"/>
+                    <hr className="myhr4" />
                 </ul>
             </List>
         </div>
@@ -509,27 +511,27 @@ export default function Navbar() {
             return;
         }
         setOpen(false);
-        setState({...state, [subanchor]: open});
+        setState({ ...state, [subanchor]: open });
     };
     const items = (subanchor) => (
         <div
-            style={{overflow: "revert"}}
+            style={{ overflow: "revert" }}
             className={clsx(classes.list, {
                 [classes.fullList]: subanchor === "top" || subanchor === "bottom",
             })}
             role="presentation"
             onKeyDown={() => setOpen(false)}
         >
-            <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
                 <div className={classes.drawerHeader}>
                     <div className="menubar-contract">
-                        <div style={{marginTop: 10}}>
-              <span
-                  onClick={() => setOpen(false)}
-                  style={{color: "white", fontSize: 17, cursor: "pointer"}}
-              >
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
-              </span>
+                        <div style={{ marginTop: 10 }}>
+                            <span
+                                onClick={() => setOpen(false)}
+                                style={{ color: "white", fontSize: 17, cursor: "pointer" }}
+                            >
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </span>
                         </div>
 
                         <div
@@ -545,10 +547,10 @@ export default function Navbar() {
                         </div>
                         <div>
                             <IconButton
-                                style={{color: "white", marginLeft: "14rem"}}
+                                style={{ color: "white", marginLeft: "14rem" }}
                                 onClick={childToolsToggle(subanchor, false)}
                             >
-                                {theme.direction === "rtl" ? <CloseIcon/> : <CloseIcon/>}
+                                {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
                             </IconButton>
                         </div>
                     </div>
@@ -564,7 +566,7 @@ export default function Navbar() {
                     <a className="sidebar-links" href="https://wallet.xinfin.network/#/">
                         <div className="xinfin_account_button">Web Wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -573,13 +575,13 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">Android wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a className="sidebar-links" href="https://xinfin.network/#explorer">
                         <div className="xinfin_account_button">Block Explorer</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -588,9 +590,9 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">XDC APIs</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
-                <ul style={{whiteSpace: "nowrap"}} className="Live-Network-list">
+                <ul style={{ whiteSpace: "nowrap" }} className="Live-Network-list">
                     <a
                         className="sidebar-links"
                         href="https://xinfin.network/#masternode"
@@ -599,10 +601,10 @@ export default function Navbar() {
                             Become a Master Node/Validator
                         </div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
             </List>
-            <br/>
+            <br />
             <List className="side-box">
                 <ul className="Live-Network">
                     <p>Sand Box/Testnet</p>
@@ -614,13 +616,13 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">Faucet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a className="sidebar-links" href="https://wallet.apothem.network/#/">
                         <div className="xinfin_account_button">Web wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -629,7 +631,7 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">Block Explorer</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -638,9 +640,9 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">XDC APIs</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
-                <ul style={{whiteSpace: "nowrap"}} className="Live-Network-list">
+                <ul style={{ whiteSpace: "nowrap" }} className="Live-Network-list">
                     <a
                         className="sidebar-links"
                         href="https://apothem.network/#masternode"
@@ -649,10 +651,10 @@ export default function Navbar() {
                             Become a Master Node/Validator
                         </div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
             </List>
-            <br/>
+            <br />
             <List className="side-box">
                 <ul className="Live-Network">
                     <p>Supported Wallet</p>
@@ -661,13 +663,13 @@ export default function Navbar() {
                     <a className="sidebar-links" href="https://guarda.com/">
                         <div className="xinfin_account_button">Guarda Wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a className="sidebar-links" href="https://dcentwallet.com/MobileApp">
                         <div className="xinfin_account_button">D'CENT Wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -676,28 +678,28 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">D'CENT Hardware Wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a className="sidebar-links" href="https://freewallet.org/#wallets">
                         <div className="xinfin_account_button">Freewallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
-                <ul style={{whiteSpace: "nowrap"}} className="Live-Network-list">
+                <ul style={{ whiteSpace: "nowrap" }} className="Live-Network-list">
                     <a className="sidebar-links" href="https://xcelpay.io/">
                         <div className="xinfin_account_button">XcelPay Wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
-                <ul style={{whiteSpace: "nowrap"}} className="Live-Network-list">
+                <ul style={{ whiteSpace: "nowrap" }} className="Live-Network-list">
                     <a className="sidebar-links" href="https://bitfi.com/">
                         <div className="xinfin_account_button">Bitfi Hardware Wallet</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
             </List>
-            <br/>
+            <br />
             <List className="side-box">
                 <ul className="Live-Network">
                     <p>More</p>
@@ -707,7 +709,7 @@ export default function Navbar() {
                     <a className="sidebar-links" href="https://remix.xinfin.network/">
                         <div className="xinfin_account_button">XDC Remix</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -718,7 +720,7 @@ export default function Navbar() {
                             One-Click Node Installer
                         </div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
                 <ul className="Live-Network-list">
                     <a
@@ -727,7 +729,7 @@ export default function Navbar() {
                     >
                         <div className="xinfin_account_button">Explore dApps</div>
                     </a>
-                    <hr className="myhr"/>
+                    <hr className="myhr" />
                 </ul>
             </List>
         </div>
@@ -738,7 +740,7 @@ export default function Navbar() {
       text-decoration: none;
       padding: 5px 20px;
       border-bottom: ${(props) =>
-              props.active ? "0.15rem solid #ffffff !important" : ""};
+            props.active ? "0.15rem solid #ffffff !important" : ""};
       padding-bottom: 3px;
       font-size: 0.938rem;
       font-weight: 500;
@@ -776,9 +778,9 @@ export default function Navbar() {
 
     return (
         <div className={classes.root}>
-            <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen}/>
-            <CssBaseline/>
-            {viewPopUp === true ? <NewFeature></NewFeature> : <div/>}
+            <Web3Dialog open={web3DialogOpen} setWeb3DialogOpen={setWeb3DialogOpen} />
+            <CssBaseline />
+            {viewPopUp === true ? <NewFeature></NewFeature> : <div />}
             <DeskTopView>
                 <AppBar elevation={0} className={clsx(classes.appBar)}>
                     <MobileToolBar>
@@ -819,7 +821,7 @@ export default function Navbar() {
                             </div>
                         </Row>
                         <Row alignItems="center">
-                            <Login/>
+                            <Login />
 
                             <React.Fragment key={"right"}>
                                 <IconButton
@@ -859,7 +861,7 @@ export default function Navbar() {
                 <AppBar elevation={0} className={clsx(classes.appBar)}>
                     <MobileToolBar>
                         <Typography className="Header">
-                            <div style={{display: "flex", alignItems: "center"}}>
+                            <div style={{ display: "flex", alignItems: "center" }}>
                                 <a className="logo_tokensearch" href={"/"}>
                                     <img
                                         className="Shape"
@@ -873,7 +875,7 @@ export default function Navbar() {
                             </div>
                         </Typography>
                         <Row alignItems="center">
-                            <Login/>
+                            <Login />
 
                             <React.Fragment key={"right"}>
                                 <IconButton
@@ -916,8 +918,8 @@ export default function Navbar() {
             </MobileView>
             <main className={clsx(classes.content)}>
                 <div className="exp-parent">
-                    <img className="Shape3" src={"/images/Networkexplorer.svg"}></img>
-                    <div className="exp">XDC Observatory</div>
+                    <img className="Shape3" src={"/images/xdc-observatory-beta.svg"}></img>
+                    {/* <div className="exp">XDC Observatory</div> */}
                 </div>
                 {/* ------------ Search bar ----------------- */}
 
@@ -942,11 +944,11 @@ export default function Navbar() {
                                             type="text"
                                             ref={SearchDataRef}
                                             className="main-input"
-                                            onKeyPress={(event) => {
-                                                if (event.key === "Enter") {
-                                                    handleSearch(event);
-                                                }
-                                            }}
+                                            // onKeyPress={(event) => {
+                                            //     if (event.key === "Enter") {
+                                            //         handleSearch(event);
+                                            //     }
+                                            // }}
                                             placeholder="Search"
                                         />
                                         <div
@@ -982,7 +984,7 @@ export default function Navbar() {
                                 </div>
                             </form>
 
-                            <ul style={{color: "black"}}>
+                            <ul style={{ color: "black" }}>
                                 {list.map((name) => {
                                     if (filter.length !== 0) {
                                         if (name.toLowerCase().startsWith(filter.toLowerCase()))

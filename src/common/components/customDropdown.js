@@ -46,7 +46,6 @@ const DropdownContainer = styled.div`
   flex-direction: column;
   position: absolute;
   z-index: 2;
-  padding: 8px;
   overflow-y: scroll;
   background-color: white;
   max-height: 250px;
@@ -57,8 +56,12 @@ const DropdownContainer = styled.div`
   min-width: ${(props) => props.containerWidth}px;
 
   span {
-    margin: 5px 0;
+    padding: 8px;
     cursor: pointer;
+
+    :hover {
+      background-color: #F9F9F9;
+    }
   }
 `
 const CustomDropDown = (props) => {
