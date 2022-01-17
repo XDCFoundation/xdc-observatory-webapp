@@ -90,6 +90,13 @@ class MarketDatatable extends Component {
       postLatestMarket: [],
       postPreviousMarket: [],
       loading: true,
+      marketCapTT: false,
+      fullDilutedMarketCapTT: false,
+      volume24TT: false,
+      circulatingSupplyTT: false,
+      volumeMarketCapTT: false,
+      totalSupplyTT: false,
+
     };
   }
 
@@ -374,9 +381,13 @@ class MarketDatatable extends Component {
                 <div className="w-54-per">
                   <MarketDataPointTitle>
                     Market Cap
-                    <Tooltip placement="top" title={messages.MARKET_CAP}>
+                    <Tooltip placement="top" title={messages.MARKET_CAP}
+                             open={this.state.marketCapTT}
+                             onOpen={() => this.setState({marketCapTT:true})}
+                             onClose={() => this.setState({marketCapTT:false})}>
                       <img
-                        alt="question-mark"
+                          onClick={() => this.setState((prev)=>({marketCapTT: !prev.marketCapTT}))}
+                          alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -427,9 +438,14 @@ class MarketDatatable extends Component {
                   {" "}
                   <MarketDataPointTitle>
                     Fully Diluted Market Cap
-                    <Tooltip placement="top" title={messages.FDMP}>
+                    <Tooltip placement="top" title={messages.FDMP}
+                             open={this.state.fullDilutedMarketCapTT}
+                             onOpen={() => this.setState({fullDilutedMarketCapTT:true})}
+                             onClose={() => this.setState({fullDilutedMarketCapTT:false})}>
                       <img
-                        alt="question-mark"
+                          onClick={() => this.setState((prev)=>({fullDilutedMarketCapTT: !prev.fullDilutedMarketCapTT}))}
+
+                          alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -482,8 +498,12 @@ class MarketDatatable extends Component {
                   {" "}
                   <MarketDataPointTitle>
                     Volume (24hr)
-                    <Tooltip placement="top" title={messages.VOLUMEX24}>
+                    <Tooltip placement="top" title={messages.VOLUMEX24}
+                             open={this.state.volume24TT}
+                             onOpen={() => this.setState({volume24TT:true})}
+                             onClose={() => this.setState({volume24TT:false})}>
                       <img
+                          onClick={() => this.setState((prev)=>({volume24TT: !prev.volume24TT}))}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -536,9 +556,13 @@ class MarketDatatable extends Component {
                     <Tooltip
                       placement="top"
                       title={messages.CIRCULATING_SUPPLY}
+                      open={this.state.circulatingSupplyTT}
+                      onOpen={() => this.setState({circulatingSupplyTT:true})}
+                      onClose={() => this.setState({circulatingSupplyTT:false})}
                     >
                       <img
-                        alt="question-mark"
+                          onClick={() => this.setState((prev)=>({circulatingSupplyTT: !prev.circulatingSupplyTT}))}
+                          alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -558,8 +582,12 @@ class MarketDatatable extends Component {
                   {" "}
                   <MarketDataPointTitle>
                     Total Supply
-                    <Tooltip placement="top" title={messages.TOTAL_SUPPLY}>
+                    <Tooltip placement="top" title={messages.TOTAL_SUPPLY}
+                             open={this.state.totalSupplyTT}
+                             onOpen={() => this.setState({totalSupplyTT:true})}
+                             onClose={() => this.setState({totalSupplyTT:false})}>
                       <img
+                          onClick={() => this.setState((prev)=>({totalSupplyTT: !prev.totalSupplyTT}))}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
