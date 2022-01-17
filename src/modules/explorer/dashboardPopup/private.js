@@ -389,6 +389,7 @@ export default function FormDialog(props) {
 
   return (
     <>
+    <div className="w-33p">
       <div className="div1 cursor-pointer">
         <div
           onClick={
@@ -543,6 +544,7 @@ export default function FormDialog(props) {
             </DialogContentText> */}
         </Dialog>
       {/* </div> */}
+      </div>
     </>
   );
 }
@@ -552,5 +554,8 @@ const LearnMoreParent = styled.div`
   top: 30px;
   @media (min-width: 767px) {
     display: none;
+  }
+  @media (max-width: 767px) {
+    position: static;
   }
 `;
