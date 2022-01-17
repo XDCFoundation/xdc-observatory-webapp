@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
+import { history } from "../../managers/history"
 
 const useStyles = makeStyles({
     container: {
@@ -87,7 +88,7 @@ const LatestBlockView = (props) => {
             <TransactionHeaderContainer>
                 <TransactionTitle>Latest Blocks</TransactionTitle>
                 <a
-                    className="nav_button cursor-pointer"
+                    className="linkTable cursor-pointer"
                     href="/view-all-blocks"
                 >
                     View All
@@ -109,9 +110,9 @@ const LatestBlockView = (props) => {
                                     <img
                                         onClick={() => setHeightTT(!heightTT)}
                                         alt="question-mark"
-                                        src="/images/question-mark.svg"
+                                        src="/images/info.svg"
                                         height={"14px"}
-                                        className="tooltipLatestTransactionTableDashboard"
+                                        className="tooltipInfoIcon"
                                     />
                                 </Tooltip>
                             </span>
@@ -128,9 +129,9 @@ const LatestBlockView = (props) => {
                                     <img
                                         onClick={() => setTimeStampTT(!timeStampTT)}
                                         alt="question-mark"
-                                        src="/images/question-mark.svg"
+                                        src="/images/info.svg"
                                         height={"14px"}
-                                        className="tooltipLatestTransactionTableDashboard"
+                                        className="tooltipInfoIcon"
                                     />
                                 </Tooltip>
                             </span>
@@ -146,9 +147,9 @@ const LatestBlockView = (props) => {
                                     <img
                                         onClick={() => setTransactionTT(!transactionTT)}
                                         alt="question-mark"
-                                        src="/images/question-mark.svg"
+                                        src="/images/info.svg"
                                         height={"14px"}
-                                        className="tooltipLatestTransactionTableDashboard"
+                                        className="tooltipInfoIcon"
                                     />
                                 </Tooltip>
                             </span>

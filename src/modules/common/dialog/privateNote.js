@@ -8,6 +8,7 @@ import { Row } from "simple-flexbox";
 import { sessionManager } from "../../../managers/sessionManager";
 import { UserService } from "../../../services";
 import utility from "../../../utility";
+import { cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -170,10 +171,33 @@ export default function FormDialog(props) {
         utility.apiFailureToast("Transaction private note not added");
         return;
       }
-      utility.apiSuccessToast("Transaction Private Note Added");
-      window.location.reload();
+      let transactionLabel = localStorage.getItem(
+        cookiesConstants.USER_TRASACTION_LABELS
+      );
+      if (transactionLabel) {
+        transactionLabel = JSON.parse(transactionLabel);
+        const existingTransactionLabel = transactionLabel.find(
+          (item) =>
+            item.address == transactionsHash && item.userId == data.userId
+        );
+        if (existingTransactionLabel) {
+          utility.apiFailureToast("Transaction private note is already in use");
+          return;
+        }
+      } else {
+        transactionLabel = [];
+      }
+      transactionLabel.push(data);
+      localStorage.setItem(
+        cookiesConstants.USER_TRASACTION_LABELS,
+        JSON.stringify(transactionLabel)
+      );
+      utility.apiSuccessToast("Transaction Added");
+      await props.getListOfTxnLabel();
+      await props.getTotalCountTxnLabel();
       setTransactionsHash("");
       setPrivateNote("");
+      window.location.reload();
     }
 
   const classes = useStyles();

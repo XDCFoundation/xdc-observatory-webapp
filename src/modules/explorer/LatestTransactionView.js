@@ -90,16 +90,16 @@ const LatestTransactionView = (props) => {
         >
             {props.isHomePage ? (
                 <>
-                    <TransactionHeaderContainer>
-                        <TransactionTitle>Latest Transactions</TransactionTitle>
-                        <a
-                            className="nav_button cursor-pointer"
-                            href="/view-all-transaction"
-                        >
-                            View All
-                        </a>
-                    </TransactionHeaderContainer>
-                    <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
+                <TransactionHeaderContainer>
+                    <TransactionTitle>Latest Transactions</TransactionTitle>
+                    <a
+                        className="linkTable cursor-pointer"
+                        href="/view-all-transaction"
+                    >
+                        View All
+                    </a>
+                </TransactionHeaderContainer>
+                <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
                 </>
 
             ) : (
