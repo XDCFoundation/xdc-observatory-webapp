@@ -99,7 +99,7 @@ const LatestBlockView = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell style={{ border: "none", paddingLeft: '15px' }} align="left">
-                            <span className={"tablehead-token-details"}>
+                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
                                 Height
                                 <Tooltip
                                     open={heightTT}
@@ -118,7 +118,7 @@ const LatestBlockView = (props) => {
                         </TableCell>
 
                         <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tablehead-token-details"}>
+                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
                                 Timestamp
                                 <Tooltip
                                     open={timeStampTT}
@@ -136,7 +136,7 @@ const LatestBlockView = (props) => {
                             </span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tablehead-token-details"}>
+                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
                                 Transactions
                                 <Tooltip
                                     open={transactionTT}
