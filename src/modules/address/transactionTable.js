@@ -326,12 +326,13 @@ export default function TransactionTableComponent(props) {
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
     gap: 10px;
     color: #c6cbcf;
-    @media (min-width: 767px) {
-      margin: 100px 0 !important;
-    }
+    margin: 100px 0 !important;
+
+    //@media (min-width: 767px) {
+    //  margin: 100px 0 !important;
+    //}
   `;
 
   //tooltip states
@@ -503,7 +504,7 @@ export default function TransactionTableComponent(props) {
                   </TableCell>
                   <TableCell className="w-450 " style={{ border: "none", paddingLeft: "1%" }} align="left">
                     <span className={"tableheaders table-value"}>
-                      Gas
+                      Avg Txn Fee
                       <Tooltip
                       open={gasTT}
                         onOpen={() => setgasTT(true)}
@@ -626,7 +627,7 @@ export default function TransactionTableComponent(props) {
             </Table>
             {noData == true && (
               <NoDataFoundContainer>
-                <img src={require("../../../src/assets/images/XDC-Alert.svg")}></img>
+                <img src={"/images/XDC-Alert.svg"} />
 
                 <div>No Transactions Found</div>
               </NoDataFoundContainer>

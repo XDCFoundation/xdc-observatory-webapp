@@ -29,7 +29,8 @@ import AddToWatchListPopup from "../../modules/common/dialog/watchListPopup";
 import AddressDetailsAnalytics from "./addressDetailsAnalytics/addressDetailsAnalytics";
 import LoginDialog from "../explorer/loginDialog";
 import { genericConstants, cookiesConstants } from "../../constants";
-
+import EditTagAddress from "../../modules/common/dialog/editTagPopup";
+import toast, { Toaster } from "react-hot-toast";
 var QRCode = require("qrcode.react");
 
 const useStyles = makeStyles({
@@ -154,6 +155,10 @@ const AddressDetailDiv = styled.div`
   flex-direction: column;
   flex: 0.6;
 `;
+const AddressLine = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const AddressHashDiv = styled.div`
   display: flex;
   align-items: center;
@@ -163,6 +168,10 @@ const AddressHashDiv = styled.div`
     display: block;
     align-items: center;
     text-align: -webkit-center;
+  }
+  @media (min-width: 768px) and (max-width:1240px) {
+    align-items: flex-start;
+    flex-direction: column;
   }
 `;
 const AddressHash = styled.div`
@@ -398,6 +407,13 @@ const IconForMobile = styled.div`
   }
 `;
 const WatchListImage = styled.div`
+  @media (max-width: 767px) {
+    width: 26px;
+    height: 26px;
+    padding: 3px;
+    border-radius: 4px;
+    background-color: #4878ff;
+  }
   @media (min-width: 768px) and (max-width: 1240px) {
     display: none;
   }
@@ -405,6 +421,13 @@ const WatchListImage = styled.div`
 const TagImage = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     display: none;
+  }
+  @media (max-width: 767px) {
+    width: 26px;
+    height: 26px;
+    padding: 3px;
+    border-radius: 4px;
+    background-color: #4878ff;
   }
 `;
 const TagImageTab = styled.div`
@@ -462,7 +485,7 @@ const LoginMobile = styled.div`
   }
 `;
 const Tag = styled.div`
-  width: 95px;
+  min-width: 95px;
   height: 28px;
   border-radius: 4px;
   border: solid 1px #d2deff;
@@ -479,6 +502,11 @@ const Tag = styled.div`
   margin-left: 10px;
   @media (max-width: 767px) {
     margin-top: 10px;
+    min-width: 95px;
+    width: fit-content;
+  }
+  @media (min-width: 768px) and (max-width: 1240px) {
+    margin-left: 0px;
   }
 `;
 export default function AddressDetails(props) {
@@ -502,8 +530,11 @@ export default function AddressDetails(props) {
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
   const [dialogWatchListIsOpen, setDialogWatchListIsOpen] =
     React.useState(false);
+  const [editTagAddressIsOpen, setDialogEditTagAddressIsOpen] =
+    React.useState(false);
   const [dialogValue, setDailogValue] = React.useState(0);
   const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false);
+  const [stop, setStop] = React.useState(false);
   const closeDialogPvtTag = () => {
     setDialogPvtTagIsOpen(false);
     setDailogValue(0);
@@ -518,6 +549,14 @@ export default function AddressDetails(props) {
   };
   const openDialogWatchList = () => {
     setDialogWatchListIsOpen(true);
+    setDailogValue(1);
+  };
+  const closeDialogEditTagAddress = () => {
+    setDialogEditTagAddressIsOpen(false);
+    setDailogValue(0);
+  };
+  const openDialogEditTagAddress = () => {
+    setDialogEditTagAddressIsOpen(true);
     setDailogValue(1);
   };
   let { addr } = useParams();
@@ -636,7 +675,6 @@ export default function AddressDetails(props) {
       isTaggedAddress: true,
     };
     const response = await UserService.getTagAddresstList(request);
-    console.log(response, "<<<response");
     if (response.totalCount > 0) {
       // setTxnAddressNotAdded(false);
     }
@@ -670,19 +708,6 @@ export default function AddressDetails(props) {
     getAddressStats();
   }, [amount]);
 
-  const CloseIcon = styled.img`
-    width: 1rem;
-    height: 1rem;
-    cursor: pointer;
-    @media (min-width: 0) and (max-width: 768px) {
-      margin-left: auto;
-      margin-right: 20px;
-      display: ${(props) => (props.isDesktop ? "none" : "block")};
-    }
-    @media (min-width: 768px) {
-      display: ${(props) => (props.isDesktop ? "block" : "none")};
-    }
-  `;
   const currentTime = new Date();
   const previousTime = new Date(addressData?.timestamp * 1000);
   const ti = !addressData?.timestamp
@@ -695,301 +720,411 @@ export default function AddressDetails(props) {
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
-  console.log(lastAct, "opop");
-  const [balanceTT, setBalanceTT] = React.useState(false);
-  const [xdcValueTT, setXDCTT] = React.useState(false);
   let taggedAddressfetched = localStorage.getItem(
     cookiesConstants.USER_TAGGED_ADDRESS
   );
-  let tags = JSON.parse(taggedAddressfetched);
-  let tagValue =     tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr) : "";
+  let tags =
+    taggedAddressfetched && taggedAddressfetched.length > 0
+      ? JSON.parse(taggedAddressfetched)
+      : "";
 
-  console.log(
-    JSON.parse(taggedAddressfetched),
-    tagValue,
-    "<<<<taggedAddressfetched"
+  var tagValue =
+    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr) : "";
+  let watchlists = localStorage.getItem(
+    cookiesConstants.USER_ADDRESS_WATCHLIST
   );
+  let watchList =
+    watchlists && watchlists.length > 0 ? JSON.parse(watchlists) : "";
+  let userId = sessionManager.getDataFromCookies("userId");
+  var existingWatchList =
+    watchList &&
+    watchList?.filter((item) => item.address == addr && item.userId == userId);
+  function remove() {
+    var i = watchList.findIndex((obj) => obj.address === addr);
+    if (i !== -1) {
+      watchList.splice(i, 1);
+      localStorage.setItem(
+        cookiesConstants.USER_ADDRESS_WATCHLIST,
+        JSON.stringify(watchList)
+      );
+    }
+    setStop("");
+    setStop(true);
+  }
   return (
-    <div style={{ backgroundColor: "#fff" }}>
-      <Tokensearchbar />
-      <Grid className="table-grid-block grid-block-table">
-        <HeadingDiv>
-          <Heading>Address Details</Heading>
-          {sessionManager.getDataFromCookies("isLoggedIn") ? (
-            <>
-              {
-                <>
-                  <PrivateAddressTag
-                    open={dialogPvtTagIsOpen}
-                    onClose={closeDialogPvtTag}
-                    fromAddr={addr}
-                    value={dialogValue}
-                    hash={addr}
-                  />
-                  <AddToWatchListPopup
-                    open={dialogWatchListIsOpen}
-                    onClose={closeDialogWatchList}
-                    value={dialogValue}
-                    hash={addr}
-                  />
-                </>
-              }
+    <>
+      <div style={{ backgroundColor: "#fff" }}>
+        <Tokensearchbar />
 
+        <Grid className="table-grid-block grid-block-table">
+          <div>
+            <Toaster />
+          </div>
+          <HeadingDiv>
+            <Heading>Address Details</Heading>
+            {sessionManager.getDataFromCookies("isLoggedIn") ? (
               <>
-                <IconForMobile>
-                  <TagImage onClick={openDialogPvtTag}>
-                    <img className="copyIconAddress" src={"/images/tag.svg"} />
-                  </TagImage>
-                  <TagImageTab onClick={openDialogPvtTag}>
-                    <img
-                      className="tagIconAddress"
-                      src={"/images/tag-white.svg"}
+                {
+                  <>
+                    <EditTagAddress
+                      open={editTagAddressIsOpen}
+                      onClose={closeDialogEditTagAddress}
+                      address={addr}
+                      tag={tagValue[tagValue?.length - 1]?.tagName}
+                      id={tagValue[tagValue?.length - 1]?.userId}
+                      value={dialogValue}
                     />
-                  </TagImageTab>
-                  <WatchListImage onClick={openDialogWatchList}>
-                    <img
-                      className="copyIconAddress"
-                      src={"/images/preview-blue.svg"}
+                    <PrivateAddressTag
+                      open={dialogPvtTagIsOpen}
+                      onClose={closeDialogPvtTag}
+                      fromAddr={addr}
+                      value={dialogValue}
+                      hash={addr}
                     />
-                  </WatchListImage>
-                  <WactListImageTab onClick={openDialogWatchList}>
-                    <img
-                      className="tagIconAddress"
-                      src={"/images/preview-white.svg"}
+                    <AddToWatchListPopup
+                      open={dialogWatchListIsOpen}
+                      onClose={closeDialogWatchList}
+                      value={dialogValue}
+                      hash={addr}
                     />
-                  </WactListImageTab>
-                </IconForMobile>
-              </>
-            </>
-          ) : (
-            <LoginMobile>
-              {
-                <LoginDialog
-                  open={loginDialogIsOpen}
-                  onClose={closeLoginDialog}
-                  dataHashOrAddress={addr}
-                />
-              }
-              <LoginTextMobile>
-                Want to tag and add this address to watchlist?
-                <a
-                  className="linkTableDetails-address"
-                  onClick={openLoginDialog}
-                >
-                  &nbsp;Login
-                </a>
-              </LoginTextMobile>
-            </LoginMobile>
-          )}
-        </HeadingDiv>
-        <MainContanier>
-          <MainDiv>
-            <QrDiv>
-              <QRCode
-                className="qrcode-address-details"
-                value={process.env.REACT_APP_QR_CODE_LINK + addr}
-              />
-            </QrDiv>
-            <DetailDiv>
-              <AddressDetailDiv>
-                <AddressHashDiv>
-                  <AddressHash>{addr}</AddressHash>
-                  <CopyButton>
-                    <CopyToClipboard
-                      text={addr}
-                      onCopy={() => setCopiedText(addr)}
-                    >
-                      <Tooltip
-                        title={
-                          copiedText === addr ? "Copied" : "Copy To Clipboard"
-                        }
-                        placement="top"
-                      >
-                        <button className="copyToClipboardAddress">
+                  </>
+                }
+
+                <>
+                  <IconForMobile>
+                    {tagValue && tagValue?.length > 0 ? (
+                      <>
+                        <TagImage onClick={openDialogEditTagAddress}>
                           <img
                             className="copyIconAddress"
-                            src={"/images/copy-grey.svg"}
+                            src={"/images/edit-tag.svg"}
                           />
-                        </button>
-                      </Tooltip>
-                    </CopyToClipboard>
-                  </CopyButton>
-                  {tagValue[0]?.tagName ? (
-                    <Tag>{tagValue[0]?.tagName}</Tag>
-                  ) : (
-                    ""
-                  )}
-                </AddressHashDiv>
-                <BalanceDiv>
-                  {balanceChanged2 == null ? (
-                    <span>{format({})(balanceChanged1)}</span>
-                  ) : (
-                    <span>
-                      {format({})(balanceChanged1)}
-                      {"."}
-                      <span style={{ color: "#95acef" }}>
-                        {balanceChanged2}
-                      </span>
-                    </span>
-                  )}
-                  &nbsp;XDC
-                </BalanceDiv>
-                <BalanceUsdDiv>
-                  {" "}
-                  {currencySymbol}
-                  {priceChanged2 == null ? (
-                    <span>{priceChanged1}</span>
-                  ) : (
-                    <span>
-                      {priceChanged1}
-                      {"."}
-                      <span style={{ color: "#9FA9BA" }}>{priceChanged2}</span>
-                    </span>
-                  )}
-                </BalanceUsdDiv>
-                <AddressAgeDiv>
-                  <AddressAge>Address Age</AddressAge>
-                  <AddressAgeValue>{ti}</AddressAgeValue>
-                </AddressAgeDiv>
-                <LastActivityDiv>
-                  <LastActivity>Last Activity</LastActivity>
-                  <LastActivityValue>
-                    {lastAct} (
-                    {addressStats?.lastTransactionTimestamp &&
-                    !isNaN(Number(addressStats?.lastTransactionTimestamp))
-                      ? moment(
-                          Number(addressStats?.lastTransactionTimestamp) * 1000
-                        )
-                          .utc()
-                          .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
-                      : ""}
-                    )
-                  </LastActivityValue>
-                </LastActivityDiv>
-                <RankDiv>
-                  <Rank>Rank</Rank>
-                  <RankValue>158</RankValue>
-                </RankDiv>
-              </AddressDetailDiv>
-              <ButtonDiv>
-                {sessionManager.getDataFromCookies("isLoggedIn") ? (
-                  <>
-                    {
-                      <>
-                        <PrivateAddressTag
-                          open={dialogPvtTagIsOpen}
-                          onClose={closeDialogPvtTag}
-                          fromAddr={addr}
-                          value={dialogValue}
-                        />
-                        <AddToWatchListPopup
-                          open={dialogWatchListIsOpen}
-                          onClose={closeDialogWatchList}
-                          fromAddr={transactions.from}
-                          value={dialogValue}
-                          hash={addr}
-                        />
+                        </TagImage>
+                        <TagImageTab onClick={openDialogEditTagAddress}>
+                          <img
+                            className="tagIconAddress"
+                            src={"/images/edit-tag.svg"}
+                          />
+                        </TagImageTab>
                       </>
-                    }
+                    ) : (
+                      <>
+                        <TagImage onClick={openDialogPvtTag}>
+                          <img
+                            className="copyIconAddress"
+                            src={"/images/tag-white.svg"}
+                          />
+                        </TagImage>
+                        <TagImageTab onClick={openDialogPvtTag}>
+                          <img
+                            className="tagIconAddress"
+                            src={"/images/tag-white.svg"}
+                          />
+                        </TagImageTab>
+                      </>
+                    )}
+                    {existingWatchList && existingWatchList.length > 0 ? (
+                      <>
+                        <WatchListImage onClick={remove}>
+                          <img
+                            className="copyIconAddress"
+                            src={"/images/stop-watching.svg"}
+                          />
+                        </WatchListImage>
+                        <WactListImageTab onClick={remove}>
+                          <img
+                            className="tagIconAddress"
+                            src={"/images/stop-watching.svg"}
+                          />
+                        </WactListImageTab>
+                      </>
+                    ) : (
+                      <>
+                        <WatchListImage onClick={openDialogWatchList}>
+                          <img
+                            className="copyIconAddress"
+                            src={"/images/preview-white.svg"}
+                          />
+                        </WatchListImage>
+                        <WactListImageTab onClick={openDialogWatchList}>
+                          <img
+                            className="tagIconAddress"
+                            src={"/images/preview-white.svg"}
+                          />
+                        </WactListImageTab>
+                      </>
+                    )}
+                  </IconForMobile>
+                </>
+              </>
+            ) : (
+              <LoginMobile>
+                {
+                  <LoginDialog
+                    open={loginDialogIsOpen}
+                    onClose={closeLoginDialog}
+                    dataHashOrAddress={addr}
+                  />
+                }
+                <LoginTextMobile>
+                  Want to tag and add this address to watchlist?
+                  <a
+                    className="linkTableDetails-address"
+                    onClick={openLoginDialog}
+                  >
+                    &nbsp;Login
+                  </a>
+                </LoginTextMobile>
+              </LoginMobile>
+            )}
+          </HeadingDiv>
+          <MainContanier>
+            <MainDiv>
+              <QrDiv>
+                <QRCode
+                  className="qrcode-address-details"
+                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                />
+              </QrDiv>
+              <DetailDiv>
+                <AddressDetailDiv>
+                  <AddressHashDiv>
+                    <AddressLine>
+                      <AddressHash>{addr}</AddressHash>
+                      <CopyButton>
+                        <CopyToClipboard
+                          text={addr}
+                          onCopy={() => setCopiedText(addr)}
+                        >
+                          <Tooltip
+                            title={
+                              copiedText === addr
+                                ? "Copied"
+                                : "Copy To Clipboard"
+                            }
+                            placement="top"
+                          >
+                            <button className="copyToClipboardAddress">
+                              <img
+                                className="copyIconAddress"
+                                src={"/images/copy-grey.svg"}
+                              />
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </CopyButton>
+                    </AddressLine>
+                    {sessionManager.getDataFromCookies("isLoggedIn") &&
+                    tagValue &&
+                    tagValue?.length > 0 ? (
+                      <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
+                    ) : (
+                      ""
+                    )}
+                  </AddressHashDiv>
 
+                  <BalanceDiv>
+                    {balanceChanged2 == null ? (
+                      <span>{format({})(balanceChanged1)}</span>
+                    ) : (
+                      <span>
+                        {format({})(balanceChanged1)}
+                        {"."}
+                        <span style={{ color: "#95acef" }}>
+                          {balanceChanged2}
+                        </span>
+                      </span>
+                    )}
+                    &nbsp;XDC
+                  </BalanceDiv>
+                  <BalanceUsdDiv>
+                    {" "}
+                    {currencySymbol}
+                    {priceChanged2 == null ? (
+                      <span>{priceChanged1}</span>
+                    ) : (
+                      <span>
+                        {priceChanged1}
+                        {"."}
+                        <span style={{ color: "#9FA9BA" }}>
+                          {priceChanged2}
+                        </span>
+                      </span>
+                    )}
+                  </BalanceUsdDiv>
+                  <AddressAgeDiv>
+                    <AddressAge>Address Age</AddressAge>
+                    <AddressAgeValue>{ti}</AddressAgeValue>
+                  </AddressAgeDiv>
+                  <LastActivityDiv>
+                    <LastActivity>Last Activity</LastActivity>
+                    <LastActivityValue>
+                      {lastAct} (
+                      {addressStats?.lastTransactionTimestamp &&
+                      !isNaN(Number(addressStats?.lastTransactionTimestamp))
+                        ? moment(
+                            Number(addressStats?.lastTransactionTimestamp) *
+                              1000
+                          )
+                            .utc()
+                            .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
+                        : ""}
+                      )
+                    </LastActivityValue>
+                  </LastActivityDiv>
+                  <RankDiv>
+                    <Rank>Rank</Rank>
+                    <RankValue>NA</RankValue>
+                  </RankDiv>
+                </AddressDetailDiv>
+                <ButtonDiv>
+                  {sessionManager.getDataFromCookies("isLoggedIn") ? (
                     <>
-                      <AddTagButton onClick={openDialogPvtTag}>
-                        <img
-                          className="tag-white-icon"
-                          src={"/images/tag-white.svg"}
-                        />
-                        Add Tag
-                      </AddTagButton>
-                      <AddToWatchList onClick={openDialogWatchList}>
-                        <img
-                          className="tag-white-icon"
-                          src={"/images/preview-white.svg"}
-                        />
-                        Add to Watchlist
-                      </AddToWatchList>
+                      {
+                        <>
+                          <EditTagAddress
+                            open={editTagAddressIsOpen}
+                            onClose={closeDialogEditTagAddress}
+                            address={addr}
+                            tag={tagValue[tagValue?.length - 1]?.tagName}
+                            id={tagValue[tagValue?.length - 1]?.userId}
+                            value={dialogValue}
+                          />
+                          <PrivateAddressTag
+                            open={dialogPvtTagIsOpen}
+                            onClose={closeDialogPvtTag}
+                            fromAddr={addr}
+                            value={dialogValue}
+                          />
+                          <AddToWatchListPopup
+                            open={dialogWatchListIsOpen}
+                            onClose={closeDialogWatchList}
+                            fromAddr={transactions.from}
+                            value={dialogValue}
+                            hash={addr}
+                          />
+                        </>
+                      }
+
+                      <>
+                        {tagValue && tagValue?.length > 0 ? (
+                          <AddTagButton onClick={openDialogEditTagAddress}>
+                            <img
+                              className="tag-white-icon"
+                              src={"/images/edit-tag.svg"}
+                            />
+                            Edit Tag
+                          </AddTagButton>
+                        ) : (
+                          <AddTagButton onClick={openDialogPvtTag}>
+                            <img
+                              className="tag-white-icon"
+                              src={"/images/tag-white.svg"}
+                            />
+                            Add Tag
+                          </AddTagButton>
+                        )}
+                        {existingWatchList && existingWatchList.length > 0 ? (
+                          <AddToWatchList onClick={remove}>
+                            <img
+                              className="tag-white-icon"
+                              src={"/images/stop-watching.svg"}
+                            />
+                            Stop watching
+                          </AddToWatchList>
+                        ) : (
+                          <AddToWatchList onClick={openDialogWatchList}>
+                            <img
+                              className="tag-white-icon"
+                              src={"/images/preview-white.svg"}
+                            />
+                            Add to Watchlist
+                          </AddToWatchList>
+                        )}
+                      </>
                     </>
-                  </>
-                ) : (
-                  <Login>
-                    {
-                      <LoginDialog
-                        open={loginDialogIsOpen}
-                        onClose={closeLoginDialog}
-                        dataHashOrAddress={addr}
-                      />
-                    }
-                    <LoginText>
-                      Want to tag and add this address to watchlist?
-                    </LoginText>
-                    <a
-                      className="linkTableDetails-address"
-                      onClick={openLoginDialog}
-                    >
-                      &nbsp;Login
-                    </a>
-                  </Login>
-                )}
-              </ButtonDiv>
-            </DetailDiv>
-          </MainDiv>
-        </MainContanier>
-        <AddressStatsData
-          statData={addressStats}
-          price={price}
-          currency={amount}
-        />
-        <div className="container_sec sec-contain">
-          <div className="block_sec sec-block sec-block-mb">
-            <div className="bloc-tabs_sec_addressDetail">
-              <button
+                  ) : (
+                    <Login>
+                      {
+                        <LoginDialog
+                          open={loginDialogIsOpen}
+                          onClose={closeLoginDialog}
+                          dataHashOrAddress={addr}
+                        />
+                      }
+                      <LoginText>
+                        Want to tag and add this address to watchlist?
+                      </LoginText>
+                      <a
+                        className="linkTableDetails-address"
+                        onClick={openLoginDialog}
+                      >
+                        &nbsp;Login
+                      </a>
+                    </Login>
+                  )}
+                </ButtonDiv>
+              </DetailDiv>
+            </MainDiv>
+          </MainContanier>
+          <AddressStatsData
+            statData={addressStats}
+            price={price}
+            currency={amount}
+          />
+          <div className="container_sec sec-contain">
+            <div className="block_sec sec-block sec-block-mb">
+              <div className="bloc-tabs_sec_addressDetail">
+                <button
+                  className={
+                    toggleState === 1
+                      ? "tabs_sec_address_details active-tabs_sec_address_details"
+                      : "tabs_sec_address_details"
+                  }
+                  onClick={() => toggleTab(1)}
+                  id="transaction-btn"
+                >
+                  Transactions
+                </button>
+                <button
+                  className={
+                    toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                  }
+                  onClick={() => toggleTab(2)}
+                  id="transaction-btn"
+                >
+                  Analytics
+                </button>
+              </div>
+            </div>
+            {toggleState === 1 && (
+              <div
                 className={
                   toggleState === 1
-                    ? "tabs_sec_address_details active-tabs_sec_address_details"
-                    : "tabs_sec_address_details"
+                    ? "content_sec  active-content_sec sec-active"
+                    : "content_sec"
                 }
-                onClick={() => toggleTab(1)}
-                id="transaction-btn"
               >
-                Transactions
-              </button>
-              <button
-                className={
-                  toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
-                }
-                onClick={() => toggleTab(2)}
-                id="transaction-btn"
-              >
-                Analytics
-              </button>
-            </div>
+                {isTag ? (
+                  <AddressTableComponent
+                    trans={transactions}
+                    coinadd={addr}
+                    tag={addressTag}
+                  />
+                ) : (
+                  <AddressTableComponent
+                    trans={transactions}
+                    coinadd={addr}
+                    currency={amount}
+                  />
+                )}
+              </div>
+            )}
+            {toggleState === 2 && <AddressDetailsAnalytics />}
           </div>
-          {toggleState === 1 && (
-            <div
-              className={
-                toggleState === 1
-                  ? "content_sec  active-content_sec sec-active"
-                  : "content_sec"
-              }
-            >
-              {isTag ? (
-                <AddressTableComponent
-                  trans={transactions}
-                  coinadd={addr}
-                  tag={addressTag}
-                />
-              ) : (
-                <AddressTableComponent
-                  trans={transactions}
-                  coinadd={addr}
-                  currency={amount}
-                />
-              )}
-            </div>
-          )}
-          {toggleState === 2 && <AddressDetailsAnalytics />}
-        </div>
-      </Grid>
-      <FooterComponent _handleChange={_handleChange} currency={amount} />
-    </div>
+        </Grid>
+        <FooterComponent _handleChange={_handleChange} currency={amount} />
+      </div>
+    </>
   );
 }

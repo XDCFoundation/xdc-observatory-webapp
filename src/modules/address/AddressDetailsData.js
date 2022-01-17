@@ -21,6 +21,10 @@ import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog";
 import AddressData from "../../services/address";
+import ReadContract from "../contractMethods/read";
+import WriteContract from "../contractMethods/write";
+import styled from "styled-components";
+
 const useStyles = makeStyles({
   rootUI: {
     minWidth: 650,
@@ -46,6 +50,28 @@ const useStyles = makeStyles({
     marginLeft: "25px",
   },
 });
+
+const TabContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 21rem;
+  }
+`;
+
+const TabContainerParent = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border-bottom: solid 1px #e3e7eb;
+  width: 100%;
+  margin: auto;
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 21rem;
+  }
+`;
 
 export default function AddressDetailsData() {
   const [toggleState, setToggleState] = useState(1);
@@ -352,35 +378,59 @@ export default function AddressDetailsData() {
 
           <br />
           <br />
-          <div>
-            <div className="block_sec_contract sec-block-contract">
-              <div className="bloc-tabs_sec">
-                <button
-                  className={
-                    toggleState === 1
-                      ? "tabs_sec_contract active-tabs_sec_contract"
-                      : "tabs_sec_contract"
-                  }
-                  onClick={() => toggleTab(1)}
-                  id="transaction-btn"
-                >
-                  All Transactions
-                </button>
+          <TabContainerParent>
+            <TabContainer>
+              <button
+                className={
+                  toggleState === 1
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(1)}
+              >
+                All Transactions
+              </button>
 
-                <button
-                  className={
-                    toggleState === 2
-                      ? "tabs_sec_contract active-tabs_sec_contract"
-                      : "tabs_sec_contract"
-                  }
-                  onClick={() => toggleTab(2)}
-                  id="contract-btn"
-                >
-                  Contract Source
-                </button>
-              </div>
-            </div>
-          </div>
+              <button
+                className={
+                  toggleState === 2
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(2)}
+              >
+                Code
+              </button>
+              {!responses ? (
+                ""
+              ) : responses?.contractStatus !== "Unverified" ? (
+                <>
+                  <button
+                    className={
+                      toggleState === 3
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(3)}
+                  >
+                    Read Contract
+                  </button>
+                  <button
+                    className={
+                      toggleState === 4
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(4)}
+                  >
+                    Write Contract
+                  </button>
+                </>
+              ) : (
+                ""
+              )}
+            </TabContainer>
+          </TabContainerParent>
 
           <div className="content-tabs_sec">
             <div
@@ -408,6 +458,36 @@ export default function AddressDetailsData() {
               ) : (
                 <TokenContracttab contractData={responses?.contractResponse} />
               )}
+            </div>
+            <div
+              className={
+                toggleState === 3
+                  ? "content_sec  active-content_sec"
+                  : "content_sec"
+              }
+            >
+              <ReadContract
+                contractData={
+                  responses?.contractResponse
+                    ? { ...responses?.contractResponse }
+                    : {}
+                }
+              />
+            </div>
+            <div
+              className={
+                toggleState === 4
+                  ? "content_sec  active-content_sec"
+                  : "content_sec"
+              }
+            >
+              <WriteContract
+                contractData={
+                  responses?.contractResponse
+                    ? { ...responses?.contractResponse }
+                    : {}
+                }
+              />
             </div>
           </div>
         </div>

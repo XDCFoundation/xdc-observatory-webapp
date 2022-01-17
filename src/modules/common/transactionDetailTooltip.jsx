@@ -172,7 +172,7 @@ function TransactionDetailTooltip(props) {
                       src="/images/question_mark_tooltip.svg"
                     ></img>
                   </Tippy>{" "}
-                  <div className="detail-heading">Gas Price</div>
+                  <div className="detail-heading">Avg Transaction Fee</div>
                 </div>
                 <div className="detail-heading-text">
                   {gasP == 0
