@@ -581,7 +581,7 @@ export default function StickyHeadTable(props) {
                     </Tooltip>
                   </span>
                                 </TableCell>
-                                {props?.state?.tableColumns["Type"].isActive && (
+                                {/* {props?.state?.tableColumns["Type"].isActive && (
                                     <TableCell
                                         style={{border: "none", whiteSpace: "nowrap"}}
                                         align="left"
@@ -598,7 +598,7 @@ export default function StickyHeadTable(props) {
                       </Tooltip>
                     </span>
                                     </TableCell>
-                                )}
+                                )} */}
                                 {props?.state?.tableColumns["Hash"].isActive && (
                                     <TableCell style={{border: "none"}} align="left">
                     <span className={"tablehead-token-details"}>
@@ -755,9 +755,9 @@ export default function StickyHeadTable(props) {
                                                 <TableCell id="td" style={{whiteSpace: "nowrap"}}>
                                                     {tokenName}
                                                 </TableCell>
-                                                {props?.state?.tableColumns["Type"].isActive && (
+                                                {/* {props?.state?.tableColumns["Type"].isActive && (
                                                     <TableCell id="td">{row.type}</TableCell>
-                                                )}
+                                                )} */}
                                                 {props?.state?.tableColumns["Hash"].isActive && (
                                                     <TableCell>
                                                         <a

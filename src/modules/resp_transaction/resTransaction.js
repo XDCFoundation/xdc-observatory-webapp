@@ -19,6 +19,7 @@ import LoginDialog from "../explorer/loginDialog";
 import format from "format-number";
 import {useSelector} from "react-redux";
 import Utility from "../../utility";
+import { cookiesConstants } from "../../constants"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +66,8 @@ export default function Transaction({ _handleChange }) {
   const [isTagTo, setIsTagTo] = useState(false);
   const [amount, setAmount] = useState("");
   const [copiedText, setCopiedText] = useState("");
-  // const [fromAddress, setFromAddress] = useState("");
+  const [fromAddress, setFromAddress] = useState("");
+  const [toAddress, setToAddress] = useState("");
   // const [open, setOpen] = React.useState(false);
 
   // const handleClickOpen = () => {
@@ -163,6 +165,8 @@ export default function Transaction({ _handleChange }) {
 
     tagUsingAddressFrom(transactiondetailusinghash);
     tagUsingAddressTo(transactiondetailusinghash);
+    setFromAddress(transactiondetailusinghash.from)
+    setToAddress(transactiondetailusinghash.to)
   };
   const getLatestBlock = async () => {
     let urlPath = "?skip=0&limit=1";
@@ -230,6 +234,42 @@ export default function Transaction({ _handleChange }) {
     setAddressTagTo(tagUsingAddressHashResponse);
     setIsTagTo(true);
   };
+
+  // ---------------------------------------> fetch from/to address tag (local-storage) <------------------------------------//
+  var addrTagFrom = fromAddress;
+  var addrTagTo = toAddress;
+
+  let taggedAddress =localStorage.getItem(cookiesConstants.USER_TAGGED_ADDRESS);
+  let tags = taggedAddress && taggedAddress.length > 0
+  ? JSON.parse(taggedAddress)
+  : "";
+  var tagValueFrom =
+    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagFrom) : "";
+  // console.log("tag1",tagValueFrom)
+  var tagValueTo =
+    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagTo) : "";
+  // console.log("tag2",tagValueTo)
+
+  // ---------------------------------------> fetch pvt note from (local-storage) <--------------------------------------------//
+
+  var pvtNotehash = `${hash}`;
+  let pvtNoteLocal =localStorage.getItem(cookiesConstants.USER_TRASACTION_LABELS);
+
+  let pvtNote = pvtNoteLocal && pvtNoteLocal.length > 0
+  ? JSON.parse(pvtNoteLocal)
+  : "";
+  var pvtNoteValue =
+    pvtNote && pvtNote.length > 0 ? pvtNote?.filter((obj) => obj.transactionHash === pvtNotehash) : "";
+
+  // if(pvtNote) {
+  //   pvtNote = JSON.parse(pvtNote);
+  //   console.log("Pvt Note After Parsing",pvtNote);
+
+  //   const pvtNoteInfo = pvtNote.find(
+  //     (item) => item.transactionHash === pvtNotehash
+  //   );
+    
+  // }
 
   const handleSeeMore = () => {
     setSeeMore(true);
@@ -606,9 +646,9 @@ export default function Transaction({ _handleChange }) {
                                 />
                               }
                               
-                              {isTag ? (
+                              {tagValueFrom && tagValueFrom?.length > 0 ? (
                                 <Tag>
-                                  {addressTag[0]?.tagName}
+                                  {tagValueFrom[tagValueFrom?.length - 1]?.tagName}
                                 </Tag>
                               ) : (
                                 <Tooltip
@@ -649,9 +689,9 @@ export default function Transaction({ _handleChange }) {
                                 />
                               }
 
-                              {isTag ? (
+                              {tagValueFrom && tagValueFrom?.length ? (
                                 <Tag>
-                                  {addressTag[0]?.tagName}
+                                  {tagValueFrom[tagValueFrom?.length - 1]?.tagName}
                                 </Tag>
                               ) : (
                                 <Tooltip
@@ -761,10 +801,10 @@ export default function Transaction({ _handleChange }) {
                                   hash={hash}
                                 />
                               }
-                              {isTagTo ? (
-                                <div className="nameLabel">
-                                  {addressTagTo[0]?.tagName}
-                                </div>
+                              {tagValueTo && tagValueTo?.length ? (
+                                <Tag>
+                                  {tagValueTo[tagValueTo?.length - 1]?.tagName}
+                                </Tag>
                               ) : (
                                 <Tooltip
                                   title="Add a new Address Tag"
@@ -803,10 +843,10 @@ export default function Transaction({ _handleChange }) {
                                   hash={hash}
                                 />
                               }
-                              {isTagTo ? (
-                                <div className="nameLabel">
-                                  {addressTagTo[0]?.tagName}
-                                </div>
+                              {tagValueTo && tagValueTo?.length ? (
+                                <Tag>
+                                  {tagValueTo[tagValueTo?.length - 1]?.tagName}
+                                </Tag>
                               ) : (
                                 <Tooltip
                                   title="Add a new Address Tag"
@@ -985,13 +1025,11 @@ export default function Transaction({ _handleChange }) {
                           Logged In
                         </a>
                       </PrivateText>
-                    ) : !isPvtNote ? (
+                    ) : !pvtNoteValue && !pvtNoteValue?.length > 0 ? (
                       <AddLabel>
                         <AddLabelText>
                         Add private note by clicking on this icon
                         </AddLabelText>
-                        {isloggedIn ? (
-                        <>
                           {
                             <PrivateNote
                               open={dialogPvtNoteIsOpen}
@@ -1017,14 +1055,11 @@ export default function Transaction({ _handleChange }) {
                               />
                             </Tooltip>
                           }
-                        </>
-                      ) : (
-                        ""
-                      )}
                         </AddLabel>
                     ) : (
-                      <span>{privateNote[0]?.trxLable}</span>
+                      <span>{pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}{console.log("hii")}</span>
                     )}
+                    
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Div__>
