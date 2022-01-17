@@ -343,13 +343,13 @@ export default function Transaction({ _handleChange }) {
         <Grid>
           <div className={isLoading == true ? "cover-spin-2" : ""}>
             <div className={isLoading == true ? "cover-spin" : ""}>
-              <Spacing style={{ borderBottom: "none" }}>
+              
                 <Container>
                   <Heading>Transaction Details</Heading>
                   {/* <p className="Failed-rectangle">Failed</p> */}
 
                 </Container>
-              </Spacing>
+              
               {/* 
                   <Div>
                     <HashDiv>
@@ -1164,7 +1164,7 @@ const MiddleContainerPrivateNote = styled.div`
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   height: auto;
-  padding: 7px;
+  padding: 1px 9px 1px 18px;
   @media (min-width: 0px) and (max-width: 767px) {
     margin-top: 10px;
     font-size: 0.875rem;
@@ -1175,6 +1175,7 @@ const MiddleContainerPrivateNote = styled.div`
     margin-left: unset;
     line-height: 1.5;
     height: auto;
+    padding: 1px 9px 1px 6px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
@@ -1340,16 +1341,14 @@ const SpacingInputData = styled.div`
   width: 100%;
   height: auto;
   align-items: center;
-
   border-bottom: solid 1px #e3e7eb;
-  height: 7.75rem;
+  padding: 13px 0 8px 0;
   @media (max-width: 767px) {
     display: block;
     padding: 11px 6px;
-    height: 8.75rem;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    height: 6.25rem;
+    // height: 6.25rem;
   }
 `;
 const SpacingPrivateNode = styled.div`
@@ -1359,7 +1358,7 @@ const SpacingPrivateNode = styled.div`
   height: auto;
   align-items: center;
   // border-bottom: solid 1px #e3e7eb;
-  padding: 11px 0;
+  padding: 15px 0 6px 0;
 
   @media (max-width: 767px) {
     display: block;
@@ -1485,29 +1484,23 @@ const Heading = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1.5rem;
+  margin-top: 46px;
+  margin-bottom: 12px;
   @media (min-width: 0px) and (max-width: 767px) {
-    height: 1rem;
     font-family: Inter;
-    font-size: 1rem;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0px;
+    font-size: 14px;
     text-align: left;
     color: #252525;
+    margin-top: 12px;
+    margin-bottom: 17px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
-    height: 1rem;
     font-family: Inter;
-    font-size: 1rem;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0px;
+    font-size: 18px
     text-align: left;
     color: #2a2a2a;
+    margin-top: 19px;
+    margin-bottom: 28px;
   }
 `;
 const ImageViewInputData = styled.img`
@@ -1638,6 +1631,7 @@ const TxnDetailsRightBottomContainer = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     flex-flow: row wrap;
     padding-top: 0px;
+    justify-content: flex-start;
   }
 `;
 const TxnDetailsRightTopContainer = styled.div`
@@ -1664,6 +1658,7 @@ const DetailsMiddleContainer = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     justify-content: space-between;
     padding-top: 10px;
+    margin-right: 22px;
   }
   @media (min-width: 0px) and (max-width: 767px) {
     display: block;
@@ -1682,8 +1677,8 @@ const BlockConfirmation = styled.div`
   padding-left: 8px;
   padding-right:10px;
   border-radius: 4px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 `;
 
 const DivCircle = styled.div`

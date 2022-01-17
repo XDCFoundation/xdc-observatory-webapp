@@ -26,9 +26,13 @@ import {useParams} from "react-router-dom";
 import PageSelector from "../common/pageSelector";
 
 const Responsive = styled.div`
-  max-width: 1202px;
+  max-width: 1220px;
   width: 100%;
   margin: 0 auto;
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 `;
 const Pagination = styled.div`
   display: flex;
@@ -41,7 +45,7 @@ const Pagination = styled.div`
     display: flex;
     flex-direction: column;
     width: 21rem;
-    margin: 0 auto 23px auto;
+    margin: 25px auto 23px 0;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
@@ -62,6 +66,10 @@ const LeftPagination = styled.div`
   align-items: center;
   flex-flow: row nowrap; 
 
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 180px;
+    margin-bottom: 25px;
+  }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-right: 5%;
   }
@@ -111,6 +119,11 @@ const useStyles = makeStyles({
     //         marginTop: "7px !important",
     //     },
     // },
+    "@media (max-width: 767px)": {
+      container: {
+        marginTop: "0px",
+      },
+    },
 
   "@media (max-width: 1240px)": {
     tableFirstHeading: {
@@ -121,7 +134,7 @@ const useStyles = makeStyles({
     },
     container: {
       marginTop: "7px",
-  },
+    },
   },
 });
 
@@ -338,6 +351,11 @@ export default function StickyHeadTable(props) {
         font-size: 18px;
         margin-bottom: 12px;
       }
+      @media (max-width: 767px) {
+        font-size: 14px;
+        color: #252525;
+        margin-bottom: 12px;
+      }
     `;
 
     const NoDataFoundContainer = styled.div`
@@ -370,6 +388,8 @@ export default function StickyHeadTable(props) {
             "responsive-table-width-token-list token-list-tab_11 search-container"
           }
         >
+          {window.innerWidth >= 768 ?
+          <>
           <TokenTitle>Tokens</TokenTitle>
           <Row justifyContent="space-between" alignItems="center">
           <div className="searchelement-input input-searchelement_11">
@@ -417,7 +437,37 @@ export default function StickyHeadTable(props) {
             <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
               <img
                 onClick={toggleModal}
-                className="p-r-5 h-20 w-20-px cursor-pointer"
+                className="h-20 w-20-px cursor-pointer"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                isOpen={isColumnsModalOpen}
+                onModalClose={toggleModal}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+          </Row></>:(<>
+          <Row justifyContent="space-between" alignItems="center">
+          <TokenTitle>Tokens</TokenTitle>
+            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img
+                onClick={handleSettingsClick}
+                className="h-16 w-16-px cursor-pointer m-t_-7"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnPopOver
+                isOpen={isSettingColumnOpen}
+                anchorEl={anchorEl}
+                handleOnClose={handleOnClose}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                onClick={toggleModal}
+                className="h-16 w-16-px cursor-pointer m-t_-7"
                 src="/images/settings.svg"
               />
               <ConfigureColumnsModal
@@ -428,6 +478,35 @@ export default function StickyHeadTable(props) {
               />
             </div>
           </Row>
+          <div className="searchelement-input input-searchelement_11">
+            <img
+              style={{
+                width: 18,
+                height: 18,
+                marginRight: 2,
+                marginTop: -1,
+              }}
+              src={"/images/Search.svg"}
+            />
+
+            <input
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              onChange={(e) => {
+                if (e.target.value == "") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              id="tokenSearch"
+              className="account-searchbar"
+              type="text"
+              placeholder="Search"
+            />
+          </div>
+          </>)}
 
         </Column>
       </form>
@@ -762,7 +841,7 @@ export default function StickyHeadTable(props) {
 
       <Pagination>
         <LeftPagination>
-        {noData == true && !isLoading ? (<>
+        {!noData == true && !isLoading ? (<>
           <Show>
             Show
           </Show>
