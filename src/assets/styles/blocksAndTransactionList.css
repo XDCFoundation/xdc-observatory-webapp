@@ -541,7 +541,7 @@
 }
 
 .tablegrid_address {
-  padding-top: 1.563rem;
+  padding-top: 9px;
   margin: auto;
   width: 100%;
   overflow: auto;
@@ -554,7 +554,7 @@
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .tablegrid_address {
-    padding-top: 4.5%;
+    padding-top: 3.5%;
     padding-left: 1%;
     padding-right: 1%;
   }

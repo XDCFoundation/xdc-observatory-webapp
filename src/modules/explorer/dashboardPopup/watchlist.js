@@ -357,8 +357,8 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
-    // <div>
     <>
+    <div className="w-33p">
       <div className="div1 cursor-pointer">
         <div
           className="imageParentDiv"
@@ -555,6 +555,7 @@ export default function FormDialog(props) {
       ) : (
         <Test />
       )}
+      </div>
       </>
   );
 }
@@ -564,5 +565,8 @@ const LearnMoreParent = styled.div`
   top: 30px;
   @media (min-width: 767px) {
     display: none;
+  }
+  @media (max-width: 767px) {
+    position: static;
   }
 `;
