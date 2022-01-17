@@ -3284,8 +3284,8 @@ p {
 }
 
 .profile {
-  height: 28px !important;
-  width: 28px !important;
+  height: 24px !important;
+  width: 24px !important;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
