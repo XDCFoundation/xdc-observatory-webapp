@@ -73,8 +73,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs(props) {
   const classes = useStyles();
-  const [toggleState, setToggleState] = useState(1);
-  const { tn } = useParams();
+  const [toggleState, setToggleState] = useState(3);
+  const { tn, address } = useParams();
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -224,7 +224,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenAnalytics />
+                <TokenAnalytics contractAddress={address} />
               </div>
             </div>
 
