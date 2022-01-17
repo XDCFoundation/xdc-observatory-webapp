@@ -9880,7 +9880,7 @@ button {
   margin-top: 23px;
 }
 .Notification-text-color-fade {
-  color: #0099f9;
+  color: #81b4ff;
   font-size: 0.75rem;
   font-family: Inter;
 }
@@ -10745,4 +10745,9 @@ button {
     padding: 0 12px 0 0 !important;
     margin-right: -12px !important;
   }
+}
+.sidebar_notification {
+  color: white;
+  width: 100%;
+  margin-left: 20px;
 }
