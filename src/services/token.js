@@ -124,16 +124,11 @@ async function getTotalToken() {
 }
 
 async function getListOfTransferTransactionsForToken(data) {
-  let url =
-    process.env.REACT_APP_GET_LIST_OF_TRANSFER_FOR_TOKEN +
-    data.addr +
-    "?skip=" +
-    Math.ceil(data.pageNum) +
-    "&limit=" +
-      data.perpage + (data.searchValue ? "&searchValue=" + data.searchValue : "")
-      + (data.startDate ? "&startDate=" + data.startDate : "");
+  let url = "http://localhost:3005/getListOfTransferTransactionsForToken/"+data.addr;
+  delete data.addr;
+    // process.env.REACT_APP_GET_LIST_OF_TRANSFER_FOR_TOKEN + data.addr + "?skip=" + Math.ceil(data.pageNum) + "&limit=" + data.perpage + (data.searchValue ? "&searchValue=" + data.searchValue : "") + (data.startDate ? "&startDate=" + data.startDate : "");
 
-  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
