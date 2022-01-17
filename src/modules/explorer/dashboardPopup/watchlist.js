@@ -89,16 +89,17 @@ const useStyles = makeStyles((theme) => ({
   // },
 
   addbtn: {
-    width: "110px",
+    width: "94px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
-    margin: "14px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "14px 8px 23px 2px",
+    padding: " 0 19px 0 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
-  },
+
+    },
 
   cnlbtn: {
     width: "94px",
@@ -109,11 +110,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#9fa9ba",
     color: "white",
 
-    margin: "14px 8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "14px 8px 23px 2px",
+    padding: "0 19px 0 20px",
   },
   buttons: {
-    padding: "15px 35px 0px 0px",
+    padding: "0px 20px 0px 0px",
   },
   subCategory: {
     marginTop: "-12px",
@@ -357,8 +358,8 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
-    // <div>
     <>
+    <div className="w-33p">
       <div className="div1 cursor-pointer">
         <div
           className="imageParentDiv"
@@ -502,7 +503,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming & Outgoing Txns"
+                    label="Notify on Incoming & Outgoing Transactions"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   <FormControlLabel
@@ -511,7 +512,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming (Recieve) Txns Only"
+                    label="Notify on Incoming (Recieve) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
@@ -521,7 +522,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={{ label: classes.notifyLabel }}
-                    label="Notify on Outgoing (Sent) Txns Only"
+                    label="Notify on Outgoing (Sent) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                 </RadioGroup>
@@ -555,6 +556,7 @@ export default function FormDialog(props) {
       ) : (
         <Test />
       )}
+      </div>
       </>
   );
 }
@@ -564,5 +566,8 @@ const LearnMoreParent = styled.div`
   top: 30px;
   @media (min-width: 767px) {
     display: none;
+  }
+  @media (max-width: 767px) {
+    position: static;
   }
 `;

@@ -17,7 +17,6 @@ import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Avatar } from "@material-ui/core";
-
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -749,26 +748,29 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    setValue(2);
+  
     onClickReset();
-
-    if (captchaCheckbox === false) {
+    setLoading(true);
+    if (reCaptcha === '') {
+      setLoading(false);
       setErrorCaptcha("please verify captcha");
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
       );
+      setLoading(false);
       if (error || !authResponse) {
         setEmailError("Please enter a valid email address");
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
+        setValue(2);
         setCaptchaCheckbox(false);
         Utility.apiSuccessToast(
           "We have just sent you an email to reset your password."
         );
-        window.location.href = "/";
+        // window.location.href = "/";
       }
     }
   };
@@ -1190,7 +1192,7 @@ export default function FormDialog(props) {
             <Row>
               {/* <div className={classes.heading} id="form-dialog-title"> */}
               <div className="forgot-success-title">
-                You,ve successfully request a Forgot Password.
+                You've successfully request a forgot password.
               </div>
               <span onClick={handleClose} className="forgot-success-close">
                 <img
@@ -1201,13 +1203,19 @@ export default function FormDialog(props) {
               </span>
             </Row>
             <div className="forgot-success-box">
+              <div className="imageTick">
+                <img  
+                  src={"/images/greenTick.svg"}
+                  alt={"imageTick"}
+                />
+              </div>
               <div className="forgot-success-text">
                 If the email address belongs to a known account, a recovery
                 password will be sent to you within the next few minutes.
               </div>
               <div className="forgot-success-text margin-top-20-px">
                 If you have not received the email, you can make another request
-                after 5 minutes
+                after 5 minutes.
               </div>
             </div>
             <div className="forgot-success-time-div">
@@ -1280,7 +1288,7 @@ export default function FormDialog(props) {
                 onChange={handleReCaptcha}
               />
               <div style={{ marginLeft: 0 }} className={classes.error1}>
-                {captchaError}
+                {errorCaptcha}
               </div>
             </div>
 
