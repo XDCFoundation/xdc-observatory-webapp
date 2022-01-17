@@ -164,6 +164,7 @@ class AddressStatsData extends Component {
   }
   render() {
     const currencyPrice = this.props?.price;
+    let activeCurrency = window.localStorage.getItem("currency");
     let highestTransaction = this.props?.statData?.highestTransaction;
     highestTransaction = Utils.decimalDivisonOnly(highestTransaction, 8);
     let highestTxn = Utils.convertToInternationalCurrencySystem(
@@ -175,7 +176,7 @@ class AddressStatsData extends Component {
       );
 
     let averageBalance = this.props?.statData?.avgBalance;
-    averageBalance = Utils.decimalDivisonOnly(averageBalance, 8)
+    averageBalance = Utils.decimalDivisonOnly(averageBalance, 8);
     let avgBalance = Utils.convertToInternationalCurrencySystem(
       Number(averageBalance)
     );
@@ -190,7 +191,7 @@ class AddressStatsData extends Component {
     let gasPrice = parseFloat(Number(gasP));
     let gasPriceConverted = Number(gasPrice) * Number(currencyPrice);
 
-    let currencySymbol = this.props.currency === "EUR" ? "€" : "$";
+    let currencySymbol = activeCurrency === "EUR" ? "€" : "$";
     return (
       <>
         <DeskTopView>

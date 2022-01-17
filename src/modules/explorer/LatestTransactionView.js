@@ -4,18 +4,18 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Tooltip from "@material-ui/core/Tooltip";
-import {messages} from "../../constants";
+import { messages } from "../../constants";
 import TableBody from "@material-ui/core/TableBody";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
 import styled from "styled-components";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Utility from "../../utility";
 import TransactionDetailTooltip from "../common/transactionDetailTooltip";
 import moment from "moment-timezone";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
     container: {
@@ -58,8 +58,8 @@ const TransactionSubTitle = styled.div`
 
 const LatestTransactionView = (props) => {
     const classes = useStyles();
-    const {transactionList} = props;
-    const timezone = useSelector(state=> state.timezone)
+    const { transactionList } = props;
+    const timezone = useSelector(state => state.timezone)
 
     return (<Paper
         className={"table-list"}
@@ -87,72 +87,72 @@ const LatestTransactionView = (props) => {
         >
             {props.isHomePage ? (
                 <>
-                <TransactionHeaderContainer>
-                    <TransactionTitle>Latest Transactions</TransactionTitle>
-                    <a
-                        className="nav_button cursor-pointer"
-                        href="/view-all-transaction"
-                    >
-                        View All
-                    </a>
-                </TransactionHeaderContainer>
-                <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
+                    <TransactionHeaderContainer>
+                        <TransactionTitle>Latest Transactions</TransactionTitle>
+                        <a
+                            className="nav_button cursor-pointer"
+                            href="/view-all-transaction"
+                        >
+                            View All
+                        </a>
+                    </TransactionHeaderContainer>
+                    <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
                 </>
 
-                ) : (
+            ) : (
                 ""
             )}
-            <Table style={{borderBottom: "none"}}>
+            <Table style={{ borderBottom: "none" }}>
                 <TableHead>
                     <TableRow>
                         {props?.showHash && (
-                            <TableCell style={{border: "none", paddingLeft: '25px'}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Hash
-                      <Tooltip placement="top" title={messages.HASH}>
-                        <img
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                    </span>
+                            <TableCell style={{ border: "none", paddingLeft: '25px' }} align="left">
+                                <span className={"tablehead-token-details"}>
+                                    Hash
+                                    <Tooltip placement="top" title={messages.HASH}>
+                                        <img
+                                            alt="question-mark"
+                                            src="/images/info.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        />
+                                    </Tooltip>
+                                </span>
                             </TableCell>
                         )}
-                        <TableCell style={{border: "none"}} align="left">
-                  <span className={"tablehead-token-details"}>
-                    Amount
-                    <Tooltip placement="top" title={messages.AMOUNT}>
-                      <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
-                  </span>
+                        <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tablehead-token-details"}>
+                                Amount
+                                <Tooltip placement="top" title={messages.AMOUNT}>
+                                    <img
+                                        alt="question-mark"
+                                        src="/images/info.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon"
+                                    />
+                                </Tooltip>
+                            </span>
                         </TableCell>
                         {props?.showDate && (
-                            <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Timestamp
-                      <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}>
-                        <img
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                    </span>
+                            <TableCell style={{ border: "none" }} align="left">
+                                <span className={"tablehead-token-details"}>
+                                    Timestamp
+                                    <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}>
+                                        <img
+                                            alt="question-mark"
+                                            src="/images/info.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        />
+                                    </Tooltip>
+                                </span>
                             </TableCell>
                         )}
 
 
                         {props?.showDetails && (
                             <TableCell
-                                style={{border: "none", whiteSpace: "nowrap"}}
+                                style={{ border: "none", whiteSpace: "nowrap" }}
                                 align="left"
                             >
                             </TableCell>
@@ -162,9 +162,9 @@ const LatestTransactionView = (props) => {
                 {props.state.isLoading === true ? (
                     <TableBody>
                         <TableRow>
-                            <TableCell style={{border: "none"}} colspan="8">
+                            <TableCell style={{ border: "none" }} colspan="8">
                                 <div className="loader-token-list">
-                                    <Loader/>
+                                    <Loader />
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -172,89 +172,89 @@ const LatestTransactionView = (props) => {
                 ) : (
                     <TableBody>
                         {transactionList &&
-                        transactionList.length >= 1 &&
-                        transactionList.map((row, index) => {
-                            const currentTime = new Date();
-                            const previousTime = new Date(row.timestamp * 1000);
-                            const ti = utility.timeDiff(currentTime, previousTime);
-                            // const txFee = (
-                            //   (row?.gasUsed * row?.gasPrice) /
-                            //   100000000000000000
-                            // ).toFixed(9);
-                            let amt = Utility.decimalDivison(row.value, 8);
-                            let amt1 = amt?.toString()?.split(".")[0]
-                            let amt2 = amt?.toString()?.split(".")[1]
+                            transactionList.length >= 1 &&
+                            transactionList.map((row, index) => {
+                                const currentTime = new Date();
+                                const previousTime = new Date(row.timestamp * 1000);
+                                const ti = utility.timeDiff(currentTime, previousTime);
+                                // const txFee = (
+                                //   (row?.gasUsed * row?.gasPrice) /
+                                //   100000000000000000
+                                // ).toFixed(9);
+                                let amt = Utility.decimalDivison(row.value, 8);
+                                let amt1 = amt?.toString()?.split(".")[0]
+                                let amt2 = amt?.toString()?.split(".")[1]
 
 
-                            const Hash = row.hash;
-                            let animationClass = props.state.hashAnimation?.[Hash];
-                            return (
-                                <TableRow
-                                    hover
-                                    role="checkbox"
-                                    tabIndex={-1}
-                                    key={row.hash}
-                                    style={
-                                        index % 2 !== 1
-                                            ? {background: "white"}
-                                            : {background: "white"}
-                                    }
-                                >
+                                const Hash = row.hash;
+                                let animationClass = props.state.hashAnimation?.[Hash];
+                                return (
+                                    <TableRow
+                                        hover
+                                        role="checkbox"
+                                        tabIndex={-1}
+                                        key={row.hash}
+                                        style={
+                                            index % 2 !== 1
+                                                ? { background: "white" }
+                                                : { background: "white" }
+                                        }
+                                    >
 
-                                    {props?.showHash && (
-                                        <TableCell id="td" className="w-150 bord-none" style={{paddingLeft: '25px'}}>
-                                            <div className="display-flex"><TransactionDetailTooltip
-                                                transactionAddress={row.hash}/>
-                                                <Tooltip placement="right" title={row.hash}>
-                                                    <a
-                                                        className="linkTable"
-                                                        href={"/transaction-details/" + row.hash}>
-                                                    <span
-                                                        className={
-                                                            animationClass ? animationClass : "tabledata"
-                                                        }
-                                                    >
-                                                        {shorten(row.hash)}
-                                                    </span>
-                                                    </a>
-                                                </Tooltip>
-                                            </div>
-                                        </TableCell>
-                                    )}
-
-                                    <TableCell id="td" style={{whiteSpace: "nowrap", width: '150px', border: 'none'}}>
-                                        {amt2 == null ? (
-                                            <span
-                                                className={animationClass ? animationClass : "tabledata"}>{amt1 < 0 ? amt1 : 0} XDC</span>) : (
-                                            <span className={animationClass ? animationClass : "tabledata"}>
-                                                {amt1}{"."}<span style={{color: "#9FA9BA"}}>{amt2}</span> XDC </span>
+                                        {props?.showHash && (
+                                            <TableCell id="td" className="w-150 bord-none" style={{ paddingLeft: '25px' }}>
+                                                <div className="display-flex"><TransactionDetailTooltip
+                                                    transactionAddress={row.hash} />
+                                                    <Tooltip placement="right" title={row.hash}>
+                                                        <a
+                                                            className="linkTable"
+                                                            href={"/transaction-details/" + row.hash}>
+                                                            <span
+                                                                className={
+                                                                    animationClass ? animationClass : "tabledata"
+                                                                }
+                                                            >
+                                                                {shorten(row.hash)}
+                                                            </span>
+                                                        </a>
+                                                    </Tooltip>
+                                                </div>
+                                            </TableCell>
                                         )}
-                                    </TableCell>
-                                    {props?.showDate && (
-                                        <TableCell id="td" className="bord-none" style={{width: '200px'}}>
-                                            <Tooltip
-                                                title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
-                                                arrow={true} className="fs-15">
-                                 <span className={animationClass ? animationClass : "tabledata"}>
-                              {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
-                                 </span>
-                                            </Tooltip>
-                                        </TableCell>
-                                    )}
-                                    {props?.showDetails && (
-                                        <TableCell className=" bord-none" style={{paddingRight: '25px'}}>
-                                            <div className="latest_child w-18 mar_child wid-17 details-pad ">
-                                                <a className="linkTable cursor-pointer"
-                                                   href={"/transaction-details/" + row.hash}>
-                                                    Details
-                                                </a>
-                                            </div>
-                                        </TableCell>
-                                    )}
 
-                                </TableRow>
-                            );
-                        })}
+                                        <TableCell id="td" style={{ whiteSpace: "nowrap", width: '150px', border: 'none' }}>
+                                            {amt2 == null ? (
+                                                <span
+                                                    className={animationClass ? animationClass : "tabledata"}>{amt1} XDC</span>) : (
+                                                <span className={animationClass ? animationClass : "tabledata"}>
+                                                    {amt1}{"."}<span style={{ color: "#9FA9BA" }}>{amt2}</span> XDC </span>
+                                            )}
+                                        </TableCell>
+                                        {props?.showDate && (
+                                            <TableCell id="td" className="bord-none" style={{ width: '200px' }}>
+                                                <Tooltip
+                                                    title={moment(row.timestamp * 1000).tz(timezone).format("YYYY-MM-DD hh:mm:ss")}
+                                                    arrow={true} className="fs-15">
+                                                    <span className={animationClass ? animationClass : "tabledata"}>
+                                                        {moment(row.timestamp * 1000).tz(timezone).format("hh:mm A")}
+                                                    </span>
+                                                </Tooltip>
+                                            </TableCell>
+                                        )}
+                                        {props?.showDetails && (
+                                            <TableCell className=" bord-none" style={{ paddingRight: '25px' }}>
+                                                <div className="latest_child w-18 mar_child wid-17 details-pad ">
+                                                    <a className="linkTable cursor-pointer"
+                                                        href={"/transaction-details/" + row.hash}>
+                                                        Details
+                                                    </a>
+                                                </div>
+                                            </TableCell>
+                                        )}
+
+                                    </TableRow>
+                                );
+                            })}
                     </TableBody>
 
                 )}
