@@ -751,7 +751,6 @@ export default function AddressDetails(props) {
     setStop("");
     setStop(true);
   }
-  console.log(watchList, existingWatchList, "<<<<watchLIst");
   return (
     <>
       <div style={{ backgroundColor: "#fff" }}>
