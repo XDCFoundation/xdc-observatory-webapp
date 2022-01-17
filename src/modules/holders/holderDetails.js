@@ -73,8 +73,7 @@ export default function HoldersDetails(props) {
 
   const urlParams = new URLSearchParams(window.location.search);
   const isAnalytics = urlParams.get('isAnalytics');
-  console.log("+++ ",isAnalytics)
-  const [toggleState, setToggleState] = useState(isAnalytics==="true" ? 2 : 1);
+  const [toggleState, setToggleState] = useState(isAnalytics === "true" ? 2 : 1);
 
   const [transactions, setTransactions] = useState([]);
 
@@ -109,7 +108,6 @@ export default function HoldersDetails(props) {
     );
     if (error || !tns) return;
     setHolderDetail(tns)
-console.log("+++",tns[0]?.Contract_address)
     setContractAddress(tns[0]?.Contract_address);
   };
 
@@ -126,7 +124,7 @@ console.log("+++",tns[0]?.Contract_address)
           <Grid className="table-grid-block grid-block-table_11">
             <div
               className="block_details_heading"
-              style={{ display: "flex", flexDirection: "row",}}
+              style={{ display: "flex", flexDirection: "row", }}
             >
               <p className="block_details_heading_left">Holder Details</p>
             </div>
@@ -326,40 +324,40 @@ console.log("+++",tns[0]?.Contract_address)
               {/*  </div>*/}
               {/*</div>*/}
               <div
-                  style={{
-                    width: "auto",
-                    display: "flex",
-                    flexDirection: "row",
-                    backgroundColor: "transparent",
-                    height: "25px",
-                    borderBottom: "solid 1px #e3e7eb",
-                  }}
+                style={{
+                  width: "auto",
+                  display: "flex",
+                  flexDirection: "row",
+                  backgroundColor: "transparent",
+                  height: "25px",
+                  borderBottom: "solid 1px #e3e7eb",
+                }}
               >
                 <div>
                   <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        backgroundColor: "transparent",
-                      }}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      backgroundColor: "transparent",
+                    }}
                   >
                     <button
-                        className={
-                          toggleState === 1
-                              ? "tabs-data active-tabs-token"
-                              : "tabs-data"
-                        }
-                        onClick={() => toggleTab(1)}
+                      className={
+                        toggleState === 1
+                          ? "tabs-data active-tabs-token"
+                          : "tabs-data"
+                      }
+                      onClick={() => toggleTab(1)}
                     >
                       Transfers
                     </button>
                     <button
-                        className={
-                          toggleState === 2
-                              ? "tabs-data active-tabs-token-holder"
-                              : "tabs-data"
-                        }
-                        onClick={() => toggleTab(2)}
+                      className={
+                        toggleState === 2
+                          ? "tabs-data active-tabs-token-holder"
+                          : "tabs-data"
+                      }
+                      onClick={() => toggleTab(2)}
                     >
                       Analytics
                     </button>
@@ -385,7 +383,7 @@ console.log("+++",tns[0]?.Contract_address)
                       : "content_sec"
                   }
                 >
-                  <HolderAnalytics walletAddress={addr} contractAddress={contractAddress}/>
+                  <HolderAnalytics walletAddress={addr} contractAddress={contractAddress} />
                 </div>
                 {/* <div
                   className={
@@ -408,7 +406,7 @@ console.log("+++",tns[0]?.Contract_address)
           <Grid lg={8} className="table-grid-block">
             <div
               className="block_details_heading"
-              style={{ display: "flex", flexDirection: "row", paddingLeft:"10px", }}
+              style={{ display: "flex", flexDirection: "row", paddingLeft: "10px", }}
             >
               <p className="block_details_heading_left  fs-15">
                 Holder Details
