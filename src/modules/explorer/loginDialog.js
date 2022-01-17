@@ -26,6 +26,18 @@ const useStyles = makeStyles((theme) => ({
   value: {
     width: "400px !important",
   },
+  backButtonMobile : {
+    marginLeft : "18px",
+    marginTop: "29px",
+    position: "absolute",
+    cursor: "pointer"
+
+  },
+  "@media (min-width: 740px)":{
+    backButtonMobile : {
+      display: "none"
+    }
+  },
   closeContainer: {
     top: "26px",
     fontWeight: "500",
@@ -39,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "433px",
     height: "40px",
-    padding: "12px 19px 11px 19px",
+    padding: "12px 19px 11px 12px",
     borderRadius: "6px",
     border: "solid 1px #9fa9ba",
     backgroundColor: "#fff",
@@ -252,7 +264,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0.58px",
+    letterSpacing: "0px",
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -875,6 +887,9 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
+        <div onClick={handleClose} className={classes.backButtonMobile}>
+            <img src="images/backbutton.svg" />
+          </div>
         {value === 0 ? (
           <div>
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
@@ -900,6 +915,7 @@ export default function FormDialog(props) {
                   setInputError(" ");
                 }}
                 type="text"
+                value={email}
               />
               <div className={classes.error}>{errorEmail}</div>
             </DialogContent>
@@ -924,17 +940,20 @@ export default function FormDialog(props) {
                   setPassword(e.target.value);
                   setErrorPassword("");
                 }}
+                value={password}
               />
               <span>
                 {passwordShown ? (
                   <img alt="show"
-                    src={"/images/show.svg"}
+                    style={{width: "30px"}}
+                    src={"/images/show-icon.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
                   <img alt="hide"
-                    src={"/images/hide.svg"}
+                  style={{width: "30px"}}
+                    src={"/images/not-showing-pw.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />

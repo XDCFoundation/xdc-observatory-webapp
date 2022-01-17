@@ -14,7 +14,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.69px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
   margin-bottom: 15px;
@@ -28,7 +28,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.043rem;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }
@@ -66,7 +66,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.69px;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
     margin-bottom: 15px;
@@ -108,7 +108,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
 }
@@ -118,7 +118,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   margin-left: 1.56rem;
@@ -129,7 +129,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -140,7 +140,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
 }
@@ -150,7 +150,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.034rem;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
 }
@@ -162,7 +162,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
     font-weight: 500;
@@ -185,7 +185,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
     font-weight: 500;
@@ -198,7 +198,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
   }
@@ -209,7 +209,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
 }
@@ -219,7 +219,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -230,7 +230,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
 }
@@ -240,7 +240,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -251,7 +251,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   margin-right: 50px;
@@ -263,7 +263,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -275,7 +275,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
   }
@@ -286,7 +286,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
 }
@@ -297,7 +297,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
     margin-right: 50px;
@@ -308,7 +308,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -327,7 +327,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: center;
   color: #2a2a2a;
   /*margin-right: 50px;*/
@@ -376,7 +376,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   opacity: 1;
   padding-left: 2px;
@@ -391,7 +391,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     text-align: left;
   }
 }
@@ -403,7 +403,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   opacity: 0.7;
   padding-left: 2px;
@@ -420,9 +420,9 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.034rem;
+    letter-spacing: 0px;
     text-align: left;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     opacity: 0.7;
     padding-left: 2px;
     animation: fadeInAnimation ease 2s;
@@ -459,7 +459,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  letter-spacing: 0px;
   text-align: left;
   color: #2a2a2a;
   border-radius: 4px;
@@ -478,7 +478,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.45px;
+  letter-spacing: 0px;
   height: 60%;
   padding: 7px 10px 25px 9px;
   text-align: left;
@@ -495,7 +495,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.45px;
+  letter-spacing: 0px;
   height: 60%;
   padding: 7px 10px 25px 9px;
   text-align: left;
@@ -541,7 +541,7 @@
 }
 
 .tablegrid_address {
-  padding-top: 1.25rem;
+  padding-top: 9px;
   margin: auto;
   width: 100%;
   overflow: auto;
@@ -554,7 +554,7 @@
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .tablegrid_address {
-    padding-top: 4.5%;
+    padding-top: 3.5%;
     padding-left: 1%;
     padding-right: 1%;
   }
@@ -594,11 +594,31 @@
   color: #2149b9;
   font-size: 15px;
 }
+.linkTableDetails-address {
+  color: #2149b9;
+  font-size: 14px;
+  cursor: pointer;
+}
+.linkTableDetails-address:hover {
+  color: #2149b9;
+  font-size: 14px;
+  cursor: pointer;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   .linkTableDetails-transaction {
     font-size: 0.875rem;
     color: #2149b9;
     line-height: 1.3;
+  }
+  .linkTableDetails-address {
+    color: #2149b9;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .linkTableDetails-address:hover {
+    color: #2149b9;
+    font-size: 11px;
+    cursor: pointer;
   }
   .mobileTimeStamp {
     /* padding-bottom: 68px; */
@@ -613,6 +633,16 @@
   .linkTableDetails-transaction {
     font-size: 0.875rem;
   }
+  .linkTableDetails-address {
+    color: #2149b9;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .linkTableDetails-address:hover {
+    color: #2149b9;
+    font-size: 12px;
+    cursor: pointer;
+  }
 }
 
 .table_1 {
@@ -623,7 +653,8 @@
 @media (min-width: 0px) and (max-width: 767px) {
   .table_1 {
     width: 22.563rem;
-    margin: 2rem auto;
+    margin: 12px auto;
+    padding-top: 0;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -647,7 +678,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
     /* margin-right: 164px; */
@@ -659,7 +690,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -672,7 +703,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -684,7 +715,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -696,7 +727,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -708,7 +739,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -720,7 +751,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a;
 
@@ -732,7 +763,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a !important;
     margin-right: 20px;
@@ -749,7 +780,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.58px;
+    letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
   }
@@ -770,6 +801,7 @@
   .Pagination {
     display: flex;
     flex-direction: column;
+    margin-bottom: 23px;
   }
   .Pagination_1 {
     flex-grow: 0 !important;
@@ -904,7 +936,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     color: #252525;
   }
   .tableheaders_1 {
@@ -913,7 +945,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #252525;
     opacity: 1;
@@ -927,7 +959,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0.54px;
+    letter-spacing: 0px;
     text-align: center;
     color: #252525;
 

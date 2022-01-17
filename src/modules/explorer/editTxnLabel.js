@@ -209,7 +209,10 @@ function EditTxnLabel(props) {
     if (props?.row?._id) {
       props.dispatchAction(eventConstants.SHOW_LOADER, true);
       const [error, response] = await utility.parseResponse(
-        TransactionService.deleteTransactionPrivateNote({ _id: props.row._id })
+        TransactionService.deleteTransactionPrivateNote(
+          { _id: props.row._id },
+          props.row
+        )
       );
       props.dispatchAction(eventConstants.HIDE_LOADER, true);
 

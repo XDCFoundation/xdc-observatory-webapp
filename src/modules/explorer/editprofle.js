@@ -499,6 +499,7 @@ export default function FormDialog(props) {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
+          
           <div className={isLoading == true ? "cover-spin-loginDialog" : ""}>
             <Wrapper>
               <Title>Edit Profile</Title>

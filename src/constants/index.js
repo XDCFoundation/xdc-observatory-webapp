@@ -19,6 +19,9 @@ export const httpConstants = {
     GET_HISTORY_PRICE: "/get-history-price",
     GET_TOKEN_TRANSFER_COUNT: "/get-token-transfer-count",
     GET_TOKEN_BALANCE: "/get-token-balance",
+    GET_TOKEN_LIST: "/getListOfTokens",
+    GET_TOKEN_INFO: "/token-info",
+    GET_ADDRESS_ANALYTICS: "/get-address-analytics",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
     GET_USERS_LIST: "/get-user-list",
@@ -61,6 +64,8 @@ export const eventConstants = {
   HIDE_LOADER: "HIDE_LOADER",
   SHOW_LOADER: "SHOW_LOADER",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  ADD_TO_SEARCH_LIST: 'ADD_TO_SEARCH_LIST',
+  CLEAR_SEARCH_LIST: 'CLEAR_SEARCH_LIST',
 };
 
 export const genericConstants = {
@@ -117,6 +122,8 @@ export const messages = {
   TRANSACTION_CREATION_TIME_STAMP: "Transaction creation timestamp.",
   AGE: "Time when was the transaction created.",
   BLOCK: "Block number associated with the transaction.",
+  DIFFICULTY: "Difficulty.",
+  GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
   SI_NO: "Sl. No.",
@@ -148,7 +155,7 @@ export const messages = {
   TOKEN_YES_NO:
     "Whether the token is associated with the Smart Contract or not.",
   VALUE: "Amount to tokens being transferred.",
-  GAS: "The gas price associated with the transaction.",
+  GAS: "The average transaction fee associated with the transaction.",
   RANK: "Account’s rank sorted on the basis of Balance.",
   PERCENTAGE: "Percentage of holdings out of the total supply.",
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
@@ -184,3 +191,16 @@ export const toolTipMessages = {
 export const decimalDivisionValue = {
   DECIMAL_DIVISON_VALUE: 1000000000000000000,
 };
+
+export const contractMethodTypes = {
+  view: "view",
+};
+
+
+export const recentSearchTypeConstants = {
+  TRANSACTION:'TRANSACTION',
+  ACCOUNT:'WALLET',
+  WALLET:'WALLET',
+  BLOCK:'TOKEN',
+  TOKEN:'TOKEN',
+}
