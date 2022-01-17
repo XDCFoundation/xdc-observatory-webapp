@@ -147,11 +147,11 @@ async function getTokenBalance(data) {
 }
 
 async function getAddressAnalytics(data) {
-  // let url =
-  //   process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL +
-  //   httpConstants.API_END_POINT.GET_ADDRESS_ANALYTICS;
   let url =
-    "http://localhost:3007" + httpConstants.API_END_POINT.GET_ADDRESS_ANALYTICS;
+    process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL +
+    httpConstants.API_END_POINT.GET_ADDRESS_ANALYTICS;
+  // let url =
+  //   "http://localhost:3007" + httpConstants.API_END_POINT.GET_ADDRESS_ANALYTICS;
   // let url =
   //     "http://xdc-explorer-prod-srv-1145457985.us-east-2.elb.amazonaws.com:3008/get-token-balance";
   return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)

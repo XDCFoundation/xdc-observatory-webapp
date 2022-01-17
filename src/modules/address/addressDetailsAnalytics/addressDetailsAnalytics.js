@@ -41,6 +41,7 @@ const PaperStyles = {
   display: "flex",
   gap: "10px",
   flexFlow: "column",
+  width: "100%",
 };
 
 function AddressDetailsAnalytics() {
