@@ -12,10 +12,11 @@ const AnalyticsTabButton = styled.button`
   padding: 0.25rem 0.5rem;
   font-weight: 600;
   margin-right: 8px;
+  margin-bottom: 8px;
   ${({ active }) =>
     active &&
     `
-    background: linear-gradient(to bottom, #2149b9, #3e71ff);
+    background: #2149b9;
     color: #fff;
     border: none;
   `}

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "14px",
         fontWeight: "500",
         lineHeight: "1.36",
-        letterSpacing: "0.54px",
+        letterSpacing: "0px",
     },
     button: {
         width: "163px",

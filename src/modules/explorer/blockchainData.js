@@ -45,7 +45,7 @@ const MainContainer = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     flex-direction: column-reverse;
     /* width: auto; */
-    width: 22.563rem;
+    width: 21rem;
     margin-right: auto;
     margin-left: auto;
     padding-top: 0px;
@@ -162,7 +162,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
+  letter-spacing: 0px;
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
@@ -170,7 +170,7 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
@@ -181,7 +181,7 @@ const TitleData = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0.58px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
@@ -216,7 +216,7 @@ const LeftTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.9px;
+  letter-spacing: 0px;
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
@@ -246,7 +246,7 @@ const LeftTopSec = styled.div`
   font-size: 1.375rem;
   font-weight: 800;
   font-family: Inter;
-  letter-spacing: 0.55px;
+  letter-spacing: 0px;
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
@@ -634,7 +634,7 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="gasPrice">
                 <TitleIcon src={priceLogo}/>
                 <ValueName>
-                  <Title>Gas Price</Title>
+                  <Title>Txn Fee (Avg)</Title>
                   <TitleData className={TxanimationClass ? TxanimationClass : ""}>
                     {this.state.gasPrice}
                   </TitleData>
@@ -668,7 +668,8 @@ class BlockChainDataComponent extends Component {
                 <TitleIcon src='/images/nodes.svg'/>
                 <ValueName>
                   <Title>Nodes</Title>
-                  <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue>
+                  {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
+                  <TitleValue>217/220</TitleValue>
                 </ValueName>
               </Value>
               <Value gridArea="tps">
@@ -725,7 +726,7 @@ class BlockChainDataComponent extends Component {
                   </div>
                 </ValueName>
               </Value>
-              <Value gridArea="stakes">
+              {/* <Value gridArea="stakes">
                 <TitleIcon src='/images/stakes.svg'/>
                 <ValueName>
                   <Title>Total Stake</Title>
@@ -742,10 +743,10 @@ class BlockChainDataComponent extends Component {
               <Value gridArea="activeAddress">
                 <TitleIcon src='/images/active-address.svg'/>
                 <ValueName>
-                  <Title>Active Address</Title>
+                  <Title>Active Addresses</Title>
                   <TitleValue>{utility.convertToInternationalCurrencySystem(this.state.netStatData?.activeAddressCount)}</TitleValue>
                 </ValueName>
-              </Value>
+              </Value> */}
             </ValueMain>
           </LeftSec>
         </LeftContainer>

@@ -12,6 +12,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
+import { messages } from "../../constants"
 
 function timeDiff(curr, prev) {
   if (curr < prev) return "0 secs ago";
@@ -79,26 +80,74 @@ export default function BlocksComponent(props) {
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers block-list-all"}>
                     Hash
+                    <Tooltip placement="top" title={messages.HASH}>
+                      <img
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconAccount"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>Height</span>
+                  <span className={"tableheaders table-headers"}>
+                    Height
+                    <Tooltip placement="top" title={messages.BLOCK_HEIGHT}>
+                      <img
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconAccount"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>Age</span>
+                  <span className={"tableheaders table-headers"}>
+                    Age
+                    <Tooltip placement="top" title={messages.AGE}>
+                      <img
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconAccount"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Transactions
+                    <Tooltip placement="top" title={messages.NO_OF_TRANSACTION}>
+                      <img
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconAccount"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
                     Difficulty
+                    <Tooltip placement="top" title={messages.DIFFICULTY}>
+                      <img
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconAccount"
+                      />
+                    </Tooltip>
                   </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
-                  <span className={"tableheaders table-headers"}>Gas Used</span>
+                  <span className={"tableheaders table-headers"}>
+                    Gas Used
+                    <Tooltip placement="top" title={messages.GAS_USED}>
+                      <img
+                        alt="question-mark"
+                        src="/images/info.svg"
+                        className="tooltipInfoIconAccount"
+                      />
+                    </Tooltip>
+                    </span>
                 </TableCell>
                 {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
               </TableRow>

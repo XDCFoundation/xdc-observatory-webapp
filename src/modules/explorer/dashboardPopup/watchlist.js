@@ -89,16 +89,17 @@ const useStyles = makeStyles((theme) => ({
   // },
 
   addbtn: {
-    width: "110px",
+    width: "94px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
-    margin: "14px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "14px 8px 23px 2px",
+    padding: " 0 19px 0 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
-  },
+
+    },
 
   cnlbtn: {
     width: "94px",
@@ -109,11 +110,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#9fa9ba",
     color: "white",
 
-    margin: "14px 8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "14px 8px 23px 2px",
+    padding: "0 19px 0 20px",
   },
   buttons: {
-    padding: "15px 35px 0px 0px",
+    padding: "0px 20px 0px 0px",
   },
   subCategory: {
     marginTop: "-12px",
@@ -181,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
     lineHeight: "1.58",
   },
 
@@ -220,7 +221,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0.46px",
+    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -258,7 +259,7 @@ export default function FormDialog(props) {
   };
 
   const watchListService = async () => {
-    if(!address){
+    if (!address) {
       setError("Please enter required field");
     }
     const request = {
@@ -268,10 +269,9 @@ export default function FormDialog(props) {
       type: value,
       isEnabled: true,
     };
-    if(!address){
+    if (!address) {
       setError("Please enter required field");
-    }
-   else if (
+    } else if (
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
@@ -280,14 +280,14 @@ export default function FormDialog(props) {
       setDescriptionError("Description is required");
     } else {
       if (value === "NO") request["isEnabled"] = false;
-      // const [error, response] = await utility.parseResponse(
-      //   AddWatchList.addWatchlist(request)
-      // );
+      const [error, response] = await utility.parseResponse(
+        AddWatchList.addWatchlist(request)
+      );
 
-      // if (error || !response) {
-      //   utility.apiFailureToast("Address already exists");
-      //   return;
-      // }
+      if (error || !response) {
+        utility.apiFailureToast("Address already exists");
+        return;
+      }
       let watchlists = localStorage.getItem(
         cookiesConstants.USER_ADDRESS_WATCHLIST
       );
@@ -331,7 +331,7 @@ export default function FormDialog(props) {
 
   const tooltipClose = () => {
     setTooltipIsOpen(!tooltipIsOpen);
-  }
+  };
 
   const classes = useStyles();
 
@@ -358,7 +358,8 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
-    <div>
+    <>
+    <div className="w-33p">
       <div className="div1 cursor-pointer">
         <div
           className="imageParentDiv"
@@ -419,7 +420,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
       {isSize === false ? (
-        <div className={classes.createWatchlist}>
+        // <div className={classes.createWatchlist}>
           <Dialog
             className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
@@ -502,7 +503,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming & Outgoing Txns"
+                    label="Notify on Incoming & Outgoing Transactions"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   <FormControlLabel
@@ -511,7 +512,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={{ label: classes.notifyLabel }}
-                    label="Notify on Incoming (Recieve) Txns Only"
+                    label="Notify on Incoming (Recieve) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                   {/* <FormControlLabel value="other" control={<Radio />} label="Notify on Outgoing (Sent) Txns Only" /> */}
@@ -521,7 +522,7 @@ export default function FormDialog(props) {
                     control={<Radio style={{ color: "#979797" }} />}
                     style={{ margin: "-5px 26px -5px -5px" }}
                     classes={{ label: classes.notifyLabel }}
-                    label="Notify on Outgoing (Sent) Txns Only"
+                    label="Notify on Outgoing (Sent) Transactions Only"
                     onClick={(e) => setNotification(e.target.value)}
                   />
                 </RadioGroup>
@@ -541,19 +542,22 @@ export default function FormDialog(props) {
             </DialogActions>
             <div className={classes.lastContainer}>
               <div className={classes.lastContainerText}>
-                To protect your privacy, data related to the Watchlists, is added on your local device. Cleaning the browsing history or cookies will clean the watchlist data saved in your profile.
-                </div>
+                To protect your privacy, data related to the Watchlists, is
+                added on your local device. Cleaning the browsing history or
+                cookies will clean the watchlist data saved in your profile.
+              </div>
             </div>
             {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
           </Dialog>
-        </div>
+        // </div>
       ) : (
         <Test />
       )}
-    </div>
+      </div>
+      </>
   );
 }
 
@@ -562,5 +566,8 @@ const LearnMoreParent = styled.div`
   top: 30px;
   @media (min-width: 767px) {
     display: none;
+  }
+  @media (max-width: 767px) {
+    position: static;
   }
 `;

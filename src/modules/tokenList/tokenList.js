@@ -20,32 +20,40 @@ import {Column, Row} from "simple-flexbox";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import format from "format-number";
 import Tooltip from "@material-ui/core/Tooltip";
-import { messages } from "../../constants";
+import {messages} from "../../constants";
 
 import {useParams} from "react-router-dom";
 import PageSelector from "../common/pageSelector";
 
+const Responsive = styled.div`
+  max-width: 1220px;
+  width: 100%;
+  margin: 0 auto;
+  @media (min-width: 0px) and (max-width: 767px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+`;
 const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   width: 75.125rem;
-  margin: 1.25rem auto;
+  margin: 60px auto 0 auto;
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
     width: 21rem;
-    margin: 0 auto;
+    margin: 25px auto 23px 0;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
-    margin: 0 auto;
+    margin: 60px auto;
   }
 `;
 const RightPagination = styled.div`
   display: flex;
-  margin-top: 1.75rem;
   flex-direction: row;
 
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -55,45 +63,66 @@ const RightPagination = styled.div`
 const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 1.75rem;
   align-items: center;
+  flex-flow: row nowrap; 
 
+  @media (min-width: 0px) and (max-width: 767px) {
+    width: 180px;
+    margin-bottom: 25px;
+  }
   @media (min-width: 768px) and (max-width: 1240px) {
     margin-right: 5%;
   }
+`;
+const Show = styled.div`
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: auto;
+  padding-bottom: 2px;
+`;
+const Record = styled.div`
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: auto;
+  padding-bottom: 2px;
 `;
 // function capitalize(text) {
 //   return text.charAt(0).toUpperCase() + text.slice(1);
 // }
 
 const useStyles = makeStyles({
-  rootui: {
-    borderRadius: "0.875rem",
-    marginLeft: "18%",
-    marginRight: "18%",
-  },
-  container: {
-    borderRadius: "0.875rem",
-    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-    borderBottom: "none",
-    background: "#fff",
-  },
-  tableFirstHeading: {
-    border: "none",
-    paddingLeft: "75px !important",
-  },
-  tableFirstData: {
-    paddingLeft: "75px !important",
-  },
-  divider: {
-    borderTop: "0rem solid #bbb",
-    width: "100%",
-  },
+    rootui: {
+        borderRadius: "0.875rem",
+        marginLeft: "18%",
+        marginRight: "18%",
+    },
+    container: {
+        borderRadius: "0.875rem",
+        boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+        borderBottom: "none",
+        background: "#fff",
+    },
+    tableFirstHeading: {
+        border: "none",
+        paddingLeft: "75px !important",
+    },
+    tableFirstData: {
+        paddingLeft: "75px !important",
+    },
+    divider: {
+        borderTop: "0rem solid #bbb",
+        width: "100%",
+    },
 
-    "@media (max-width: 1024px)": {
-        container: {
-            height: 615,
-        },
+    // "@media (max-width: 1240px)": {
+    //     container: {
+    //         marginTop: "7px !important",
+    //     },
+    // },
+    "@media (max-width: 767px)": {
+      container: {
+        marginTop: "0px",
+      },
     },
 
   "@media (max-width: 1240px)": {
@@ -102,6 +131,9 @@ const useStyles = makeStyles({
     },
     tableFirstData: {
       paddingLeft: "32px !important",
+    },
+    container: {
+      marginTop: "7px",
     },
   },
 });
@@ -114,102 +146,81 @@ export default function StickyHeadTable(props) {
     const [totalToken, setTotalToken] = React.useState(0);
     const [keywords, setKeywords] = React.useState("");
     const [rows, setRows] = React.useState([]);
+    const [sortedByHolderCount, setSortedByHolderCount] = React.useState("");
+    const [sortedByTotalSupply, setSortedByTotalSupply] = React.useState("");
     let {token} = useParams();
 
     const [noData, setNoData] = React.useState(true);
     const handleChangePage = (action) => {
+        let data = {searchKey: keywords ? keywords : ""};
+        if (sortedByTotalSupply)
+            data.sortKey = {totalSupply: sortedByTotalSupply};
+        if (sortedByHolderCount)
+            data.sortKey = {holdersCount: sortedByHolderCount};
+        if (!keywords)
+            setNoData(false);
         if (action === "first") {
             setFrom(0);
-            if (keywords) {
-                let data = {pageNum: 0, perpage: amount, searchkey: keywords};
-                SearchTokens(data);
-            } else {
-                setNoData(false);
-                let data = {pageNum: 0, perpage: amount};
-                getTokenList(data);
-                getTotalTokenList();
-            }
+            data.skip = 0;
+            data.limit = amount;
         }
         if (action === "prev") {
             if (from - amount >= 0) {
                 let page = from - amount;
                 setFrom(page);
-                if (keywords) {
-                    let data = {pageNum: page, perpage: amount, searchkey: keywords};
-                    SearchTokens(data);
-                } else {
-                    setNoData(false);
-                    let data = {pageNum: page, perpage: amount};
-                    getTokenList(data);
-                    getTotalTokenList();
-                }
+                data.skip = page;
+                data.limit = amount;
             }
         }
         if (action === "next") {
             if (+amount + +from < totalToken) {
                 let page = +amount + +from;
                 setFrom(page);
-                if (keywords) {
-                    let data = {pageNum: page, perpage: amount, searchkey: keywords};
-                    SearchTokens(data);
-                } else {
-                    setNoData(false);
-                    let data = {pageNum: page, perpage: amount};
-                    getTokenList(data);
-                    getTotalTokenList();
-                }
+                data.skip = page;
+                data.limit = amount;
             }
         }
 
         if (action === "last") {
             let page = totalToken - amount;
             setFrom(page);
-
-            if (keywords) {
-                let data = {pageNum: page, perpage: amount, searchkey: keywords};
-                SearchTokens(data);
-            } else {
-                setNoData(false);
-                let data = {pageNum: page, perpage: amount};
-                getTokenList(data);
-                getTotalTokenList();
-            }
+            data.skip = page;
+            data.limit = amount;
         }
+        getTokenList(data);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setAmount(event.target.value);
         setFrom(0);
-        if (keywords) {
-            let data = {
-                pageNum: 0,
-                perpage: event.target.value,
-                searchkey: keywords,
-            };
-            SearchTokens(data);
-        } else {
+        setAmount(event.target.value);
+        setSortedByHolderCount(0);
+        setSortedByTotalSupply(0);
+        setFrom(0);
+        let data = {
+            skip: 0,
+            limit: event.target.value,
+            searchKey: keywords ? keywords : '',
+        };
+        if (!keywords)
             setNoData(false);
-            let data = {pageNum: 0, perpage: event.target.value};
-            getTokenList(data);
-            getTotalTokenList();
-        }
+        getTokenList(data);
     };
     const handleSearchKeyUp = (event) => {
         let searchkeyword = event?.target?.value;
-
+        setSortedByTotalSupply(0);
+        setSortedByHolderCount(0);
         if (searchkeyword?.length > 2) {
             setKeywords(searchkeyword);
             setLoading(false);
-            let data = {pageNum: 0, perpage: amount, searchkey: searchkeyword};
-            SearchTokens(data);
+            let data = {skip: 0, limit: amount, searchKey: searchkeyword};
+            getTokenList(data);
         }
         if (searchkeyword?.length === 0) {
             setKeywords("");
             setLoading(false);
             setNoData(false);
-            let data = {pageNum: from, perpage: amount};
+            let data = {skip: from, limit: amount, searchKey: ''};
             getTokenList(data);
-            getTotalTokenList();
         }
     };
     const getTokenList = async (data) => {
@@ -221,7 +232,8 @@ export default function StickyHeadTable(props) {
             if (responseData) {
                 setNoData(false);
                 setLoading(false);
-                setRows(responseData);
+                setRows(responseData?.tokens);
+                setTotalToken(responseData?.totalCount);
             } else {
                 setLoading(false);
             }
@@ -229,43 +241,43 @@ export default function StickyHeadTable(props) {
             console.error(error);
         }
     };
-    const getTotalTokenList = async () => {
-        try {
-            const [error, responseData] = await Utility.parseResponse(
-                TokenData.getTotalToken()
-            );
-            if (error) return;
-            if (responseData) {
-                setNoData(false);
-                setTotalToken(responseData);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-    const SearchTokens = async (data) => {
-        try {
-            const [error, responseData] = await Utility.parseResponse(
-                TokenData.getTokenSearch(data)
-            );
-            if (error) return;
-            if (responseData.total === 0) {
-                setNoData(true);
-                setTotalToken(0);
-                setRows([]);
-            }
-
-            if (responseData.total > 0) {
-                setNoData(false);
-                setTotalToken(responseData.total);
-                setLoading(false);
-                setRows(responseData.resultSet);
-                //alert(responseData.length)
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+// const getTotalTokenList = async () => {
+//     try {
+//         const [error, responseData] = await Utility.parseResponse(
+//             TokenData.getTotalToken()
+//         );
+//         if (error) return;
+//         if (responseData) {
+//             setNoData(false);
+//             setTotalToken(responseData);
+//         }
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
+// const SearchTokens = async (data) => {
+//     try {
+//         const [error, responseData] = await Utility.parseResponse(
+//             TokenData.getTokenSearch(data)
+//         );
+//         if (error) return;
+//         if (responseData.total === 0) {
+//             setNoData(true);
+//             setTotalToken(0);
+//             setRows([]);
+//         }
+//
+//         if (responseData.total > 0) {
+//             setNoData(false);
+//             setTotalToken(responseData.total);
+//             setLoading(false);
+//             setRows(responseData.resultSet);
+//             //alert(responseData.length)
+//         }
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
 
     let [anchorEl, setAnchorEl] = React.useState();
     let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
@@ -283,32 +295,66 @@ export default function StickyHeadTable(props) {
         setAnchorEl(null);
     }
 
-  React.useEffect(() => {
-    let unmounted = false;
-    if (token) {
-      let datas = { pageNum: 0, perpage: amount, searchkey: token };
-      SearchTokens(datas);
-    } else {
-      let data = { pageNum: from, perpage: amount };
-      getTokenList(data);
-      getTotalTokenList();
+    React.useEffect(() => {
+        let unmounted = false;
+        let data = {skip: from, limit: amount, searchKey: token ? token : ''};
+        getTokenList(data);
+        // return () => {
+        //     unmounted = true;
+        // };
+    }, []);
+
+    function shorten(b, amountL = 10, amountR = 4, stars = 3) {
+        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+            b.length - amountR,
+            b.length
+        )}`;
     }
-    return () => {
-      unmounted = true;
-    };
-  }, []);
-  function shorten(b, amountL = 10, amountR = 4, stars = 3) {
-    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-      b.length - amountR,
-      b.length
-    )}`;
-  }
+
+    async function sortByTotalSupply() {
+        let data = {skip: from, limit: amount, searchKey: keywords}
+        if (!sortedByTotalSupply) {
+            setSortedByTotalSupply(-1);
+            data['sortKey'] = {"totalSupply": -1}
+        } else if (sortedByTotalSupply === -1) {
+            setSortedByTotalSupply(1);
+            data['sortKey'] = {"totalSupply": 1}
+        } else {
+            setSortedByTotalSupply(-1);
+            data['sortKey'] = {"totalSupply": -1}
+        }
+        getTokenList(data);
+    }
+
+    async function sortByHoldersCount() {
+        let data = {skip: from, limit: amount, searchKey: keywords}
+        if (!sortedByHolderCount) {
+            setSortedByHolderCount(-1);
+            data['sortKey'] = {"holdersCount": -1}
+        } else if (sortedByHolderCount === -1) {
+            setSortedByHolderCount(1);
+            data['sortKey'] = {"holdersCount": 1}
+        } else {
+            setSortedByHolderCount(-1);
+            data['sortKey'] = {"holdersCount": -1}
+        }
+        getTokenList(data);
+    }
 
     const TokenTitle = styled.div`
-      font-size: 24px;
-      font-weight: bold;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2a2a2a;
+    margin-bottom: 22px;
       @media (max-width: 1250px) {
-        font-size: 16px;
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+      @media (max-width: 767px) {
+        font-size: 14px;
+        color: #252525;
+        margin-bottom: 12px;
       }
     `;
 
@@ -327,6 +373,7 @@ export default function StickyHeadTable(props) {
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
+      <Responsive>
       <form
         method="post"
         onKeyPress={(e) => {
@@ -335,48 +382,23 @@ export default function StickyHeadTable(props) {
           }
         }}
       >
+
         <Column
           className={
             "responsive-table-width-token-list token-list-tab_11 search-container"
           }
         >
+          {window.innerWidth >= 768 ?
+          <>
+          <TokenTitle>Tokens</TokenTitle>
           <Row justifyContent="space-between" alignItems="center">
-            <TokenTitle>Tokens</TokenTitle>
-            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-              <img
-                onClick={handleSettingsClick}
-                className="p-r-5 h-20 w-20-px cursor-pointer"
-                src="/images/settings.svg"
-              />
-              <ConfigureColumnPopOver
-                isOpen={isSettingColumnOpen}
-                anchorEl={anchorEl}
-                handleOnClose={handleOnClose}
-                tableColumns={props.state.tableColumns}
-                toggleTableColumns={props.toggleTableColumns}
-              />
-            </div>
-            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-              <img
-                onClick={toggleModal}
-                className="p-r-5 h-20 w-20-px cursor-pointer"
-                src="/images/settings.svg"
-              />
-              <ConfigureColumnsModal
-                isOpen={isColumnsModalOpen}
-                onModalClose={toggleModal}
-                tableColumns={props.state.tableColumns}
-                toggleTableColumns={props.toggleTableColumns}
-              />
-            </div>
-          </Row>
-          <div className="searchelement-input input-searchelement_11 margin-top-15px">
+          <div className="searchelement-input input-searchelement_11">
             <img
               style={{
-                width: 20,
-                height: 20,
-                marginRight: 6,
-                marginTop: 3,
+                width: 18,
+                height: 18,
+                marginRight: 2,
+                marginTop: -1,
               }}
               src={"/images/Search.svg"}
             />
@@ -395,9 +417,97 @@ export default function StickyHeadTable(props) {
               id="tokenSearch"
               className="account-searchbar"
               type="text"
-              placeholder="Search Tokens"
+              placeholder="Search"
             />
           </div>
+            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img
+                onClick={handleSettingsClick}
+                className="h-20 w-20-px cursor-pointer m-r-9"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnPopOver
+                isOpen={isSettingColumnOpen}
+                anchorEl={anchorEl}
+                handleOnClose={handleOnClose}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                onClick={toggleModal}
+                className="h-20 w-20-px cursor-pointer"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                isOpen={isColumnsModalOpen}
+                onModalClose={toggleModal}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+          </Row></>:(<>
+          <Row justifyContent="space-between" alignItems="center">
+          <TokenTitle>Tokens</TokenTitle>
+            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+              <img
+                onClick={handleSettingsClick}
+                className="h-16 w-16-px cursor-pointer m-t_-7"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnPopOver
+                isOpen={isSettingColumnOpen}
+                anchorEl={anchorEl}
+                handleOnClose={handleOnClose}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+              <img
+                onClick={toggleModal}
+                className="h-16 w-16-px cursor-pointer m-t_-7"
+                src="/images/settings.svg"
+              />
+              <ConfigureColumnsModal
+                isOpen={isColumnsModalOpen}
+                onModalClose={toggleModal}
+                tableColumns={props.state.tableColumns}
+                toggleTableColumns={props.toggleTableColumns}
+              />
+            </div>
+          </Row>
+          <div className="searchelement-input input-searchelement_11">
+            <img
+              style={{
+                width: 18,
+                height: 18,
+                marginRight: 2,
+                marginTop: -1,
+              }}
+              src={"/images/Search.svg"}
+            />
+
+            <input
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              onChange={(e) => {
+                if (e.target.value == "") {
+                  handleSearchKeyUp(e);
+                }
+              }}
+              id="tokenSearch"
+              className="account-searchbar"
+              type="text"
+              placeholder="Search"
+            />
+          </div>
+          </>)}
+
         </Column>
       </form>
       {/* </div> */}
@@ -428,7 +538,7 @@ export default function StickyHeadTable(props) {
                         <TableHead style={{borderBottom: "0.063rem solid #e5e8f0"}}>
                             <TableRow>
                                 <TableCell
-                                    style={{border: "none", paddingLeft: "75px"}}
+                                    style={{border: "none",}}
                                     align="left"
                                 >
                   <span className={"tablehead-token-details"}>
@@ -436,9 +546,9 @@ export default function StickyHeadTable(props) {
                     <Tooltip placement="top" title={messages.SI_NO}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
@@ -450,9 +560,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.SYMBOL}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -464,31 +574,31 @@ export default function StickyHeadTable(props) {
                     <Tooltip placement="top" title={messages.NAME}>
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
                   </span>
-                </TableCell>
-                {props?.state?.tableColumns["Type"].isActive && (
-                  <TableCell
-                    style={{ border: "none", whiteSpace: "nowrap" }}
-                    align="left"
-                  >
+                                </TableCell>
+                                {/* {props?.state?.tableColumns["Type"].isActive && (
+                                    <TableCell
+                                        style={{border: "none", whiteSpace: "nowrap"}}
+                                        align="left"
+                                    >
                     <span className={"tablehead-token-details"}>
                       Type
                       <Tooltip placement="top" title={messages.TOKEN_TYPE}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
                                     </TableCell>
-                                )}
+                                )} */}
                                 {props?.state?.tableColumns["Hash"].isActive && (
                                     <TableCell style={{border: "none"}} align="left">
                     <span className={"tablehead-token-details"}>
@@ -496,9 +606,9 @@ export default function StickyHeadTable(props) {
                       <Tooltip placement="top" title={messages.CONTRACT}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
                     </span>
@@ -509,19 +619,31 @@ export default function StickyHeadTable(props) {
                                     style={{border: "none", whiteSpace: "nowrap"}}
                                     align="left"
                                 >
-                  <span className={"tablehead-token-details"}>
+                  <span className={"tablehead-token-details cursor-pointer"} onClick={sortByTotalSupply}>
                     Total Supply
                     <Tooltip
-                      placement="top"
-                      title={messages.TOKEN_TOTAL_SUPPLY}
+                        placement="top"
+                        title={messages.TOKEN_TOTAL_SUPPLY}
                     >
                       <img
                           alt="question-mark"
-                          src="/images/question-mark.svg"
+                          src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipLatestTransactionTableDashboard"
+                          className="tooltipInfoIcon"
                       />
                     </Tooltip>
+                      {sortedByTotalSupply ? (sortedByTotalSupply === -1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          /> :
+                          <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />) : ""}
                   </span>
                                 </TableCell>
                                 {props?.state?.tableColumns["Total Holders"].isActive && (
@@ -529,60 +651,72 @@ export default function StickyHeadTable(props) {
                                         style={{border: "none", whiteSpace: "nowrap"}}
                                         align="left"
                                     >
-                    <span className={"tablehead-token-details"}>
+                    <span className={"tablehead-token-details"} onClick={sortByHoldersCount}>
                       Total Holders
                       <Tooltip placement="top" title={messages.HOLDER}>
                         <img
                             alt="question-mark"
-                            src="/images/question-mark.svg"
+                            src="/images/info.svg"
                             height={"14px"}
-                            className="tooltipLatestTransactionTableDashboard"
+                            className="tooltipInfoIcon"
                         />
                       </Tooltip>
+                        {sortedByHolderCount ? (sortedByHolderCount === -1 ? <img
+                                alt="question-mark"
+                                src="/images/see-more.svg"
+                                height={"14px"}
+                                className="tooltipInfoIcon"
+                            /> :
+                            <img
+                                alt="question-mark"
+                                src="/images/see-more.svg"
+                                height={"14px"}
+                                className="tooltipInfoIcon rotate-180"
+                            />) : ""}
                     </span>
-                  </TableCell>
-                )}
-              </TableRow>
-            </TableHead>
-            {isLoading == true ? (
-              <TableBody>
-                <TableRow>
-                  <TableCell style={{ border: "none" }} colspan="8">
-                    <div className="loader-token-list">
-                      <Loader />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            ) : (
-              noData == false && (
-                <TableBody>
-                  {rows?.map((row, index) => {
-                    let totalsupply = utility.divideByDecimalValue(
-                      row?.totalSupply,
-                      row?.decimals
-                    );
-                    const supply =
-                      utility.divideByDecimalValue(
-                        row?.totalSupply,
-                        row?.decimals
-                      ) >= 1
-                        ? format({})(
-                            utility.convertToInternationalCurrencySystem(
-                              utility.divideByDecimalValue(
-                                row?.totalSupply,
-                                row?.decimals
-                              )
-                            )
-                          )
-                        : utility.divideByDecimalValue(
-                            row?.totalSupply,
-                            row?.decimals
-                          );
-                    var supply1 = supply.toString().split(".")[0];
-                    var supply2 = supply.toString().split(".")[1];
-                    var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
-                    var splittedArray = supply2?.match(regex);
+                                    </TableCell>
+                                )}
+                            </TableRow>
+                        </TableHead>
+                        {isLoading == true ? (
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell style={{border: "none"}} colspan="8">
+                                        <div className="loader-token-list">
+                                            <Loader/>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        ) : (
+                            noData == false && (
+                                <TableBody>
+                                    {rows?.map((row, index) => {
+                                        let totalsupply = utility.divideByDecimalValue(
+                                            row?.totalSupply,
+                                            row?.decimals
+                                        );
+                                        const supply =
+                                            utility.divideByDecimalValue(
+                                                row?.totalSupply,
+                                                row?.decimals
+                                            ) >= 1
+                                                ? format({})(
+                                                    utility.convertToInternationalCurrencySystem(
+                                                        utility.divideByDecimalValue(
+                                                            row?.totalSupply,
+                                                            row?.decimals
+                                                        )
+                                                    )
+                                                )
+                                                : utility.divideByDecimalValue(
+                                                    row?.totalSupply,
+                                                    row?.decimals
+                                                );
+                                        var supply1 = supply.toString().split(".")[0];
+                                        var supply2 = supply.toString().split(".")[1];
+                                        var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                                        var splittedArray = supply2?.match(regex);
 
                     var supply4 =
                       splittedArray && splittedArray.length
@@ -604,50 +738,50 @@ export default function StickyHeadTable(props) {
                         tabIndex={-1}
                         key={row._id}
                       >
-                        <TableCell style={{ paddingLeft: "75px" }} id="td">
+                        <TableCell id="td">
                           {index + 1}
                         </TableCell>
 
                                                 {props?.state?.tableColumns["Symbol"].isActive && (
                                                     <TableCell id="td">
                                                         <img
-                                                            style={{height: "24", width: "24"}}
+                                                            style={{height: "20px", width: "20px"}}
                                                             src={"/images/XRC20-Icon.svg"}
                                                         ></img>
                                                         &nbsp;{row.symbol}
                                                     </TableCell>
                                                 )}
 
-                        <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
-                          {tokenName}
-                        </TableCell>
-                        {props?.state?.tableColumns["Type"].isActive && (
-                          <TableCell id="td">{row.type}</TableCell>
-                        )}
-                        {props?.state?.tableColumns["Hash"].isActive && (
-                          <TableCell>
-                            <a
-                              className="token-details-address-link"
-                              href={`/token-data/${row.address}/${
-                                row?.symbol ? row?.symbol : "NA"
-                              }`}
-                            >
-                              {shorten(row.address)}
-                            </a>
-                          </TableCell>
-                        )}
+                                                <TableCell id="td" style={{whiteSpace: "nowrap"}}>
+                                                    {tokenName}
+                                                </TableCell>
+                                                {/* {props?.state?.tableColumns["Type"].isActive && (
+                                                    <TableCell id="td">{row.type}</TableCell>
+                                                )} */}
+                                                {props?.state?.tableColumns["Hash"].isActive && (
+                                                    <TableCell>
+                                                        <a
+                                                            className="token-details-address-link"
+                                                            href={`/token-data/${row.address}/${
+                                                                row?.symbol ? row?.symbol : "NA"
+                                                            }`}
+                                                        >
+                                                            {shorten(row.address)}
+                                                        </a>
+                                                    </TableCell>
+                                                )}
 
-                        <TableCell id="td" style={{ paddingleft: "15" }}>
-                          <Tooltip
-                            placement="top"
-                            title={format({})(
-                              totalsupply >= 1
-                                ? parseFloat(totalsupply)
-                                : totalsupply == 0
-                                ? parseFloat(totalsupply)
-                                : totalsupply
-                            )}
-                          >
+                                                <TableCell id="td" style={{paddingleft: "15"}}>
+                                                    <Tooltip
+                                                        placement="top"
+                                                        title={format({})(
+                                                            totalsupply >= 1
+                                                                ? parseFloat(totalsupply)
+                                                                : totalsupply == 0
+                                                                    ? parseFloat(totalsupply)
+                                                                    : totalsupply
+                                                        )}
+                                                    >
                             <span>
                               {supply4 === 0 || supply4 == null ? (
                                   <span className="tabledata">{supply1}</span>
@@ -662,21 +796,21 @@ export default function StickyHeadTable(props) {
                                 </span>
                               )}
                             </span>
-                          </Tooltip>
-                        </TableCell>
-                        {props?.state?.tableColumns["Total Holders"]
-                          .isActive && (
-                          <TableCell id="td" style={{ paddingleft: "15" }}>
-                            {format({})(row.tokenHolders)}
-                          </TableCell>
+                                                    </Tooltip>
+                                                </TableCell>
+                                                {props?.state?.tableColumns["Total Holders"]
+                                                    .isActive && (
+                                                    <TableCell id="td" style={{paddingleft: "15"}}>
+                                                        {format({})(row.holdersCount)}
+                                                    </TableCell>
+                                                )}
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            )
                         )}
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              )
-            )}
-            {/* {noData == true && (
+                        {/* {noData == true && (
               <TableBody>
                 <TableCell id="td" style={{ borderBottom: "none" }}>
                   <span
@@ -695,12 +829,12 @@ export default function StickyHeadTable(props) {
                                 src={require("../../../src/assets/images/XDC-Alert.svg")}
                             ></img>
 
-              <div style={{ color: "#c6cbcf" }}>No Tokens found</div>
-            </NoDataFoundContainer>
-          ) : (
-            ""
-          )}
-        </TableContainer>
+                            <div style={{color: "#c6cbcf"}}>No Tokens found</div>
+                        </NoDataFoundContainer>
+                    ) : (
+                        ""
+                    )}
+                </TableContainer>
 
                 {/* <Divider className={classes.divider}/>*/}
             </Paper>
@@ -708,26 +842,15 @@ export default function StickyHeadTable(props) {
       <Pagination>
         <LeftPagination>
         {!noData == true && !isLoading ? (<>
-          <p
-            style={{
-              fontSize: "0.875rem",
-              fontWeight: "600",
-            }}
-          >
+          <Show>
             Show
-          </p>
+          </Show>
                     <PageSelector value={amount}
                                   height={30}
                                   handler={handleChangeRowsPerPage}/>
-                    <p
-                        style={{
-                            fontSize: "0.875rem",
-                            fontWeight: "600",
-                        }}
-                    >
-            {" "}
+                    <Record>
             Records
-          </p></>):("")}
+          </Record></>):("")}
         </LeftPagination>
 
                 <RightPagination>
@@ -792,6 +915,7 @@ export default function StickyHeadTable(props) {
                     </div>
                 </RightPagination>
             </Pagination>
+            </Responsive>
             <FooterComponent/>
         </div>
     );

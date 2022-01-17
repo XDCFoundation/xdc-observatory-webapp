@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     paperWidthSm: {
         maxWidth: "320px",
         width: "100%",
+        borderRadius: "8px",
     }
 }));
 function ConfigureColumnsPopOver(props) {

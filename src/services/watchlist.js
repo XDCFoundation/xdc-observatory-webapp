@@ -1,5 +1,6 @@
 import { httpService } from "../managers/httpService";
-import { httpConstants } from "../constants";
+import { cookiesConstants, httpConstants } from "../constants";
+const isLocalStorage = true;
 
 export default { postWatchlist, deleteWatchlist };
 function getHeaders() {
@@ -10,12 +11,7 @@ function getHeaders() {
 }
 async function postWatchlist(reqObj) {
   const url = process.env.REACT_APP_POST_WATCHLIST + "";
-  return httpService(
-    httpConstants.METHOD_TYPE.POST,
-    getHeaders(),
-    reqObj,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), reqObj, url)
     .then((response) => {
       if (
         !response.success ||
@@ -31,15 +27,32 @@ async function postWatchlist(reqObj) {
     });
 }
 
-async function deleteWatchlist(reqObj) {
+async function deleteWatchlist(reqObj, req) {
+  if (isLocalStorage && req && req.userId && req.address) {
+    let addressTags = localStorage.getItem(
+      cookiesConstants.USER_ADDRESS_WATCHLIST
+    );
+    if (addressTags) {
+      addressTags = JSON.parse(addressTags);
+      let index = addressTags.findIndex((item) => {
+        if (item.userId == req.userId && item.address == req.address) {
+          return item;
+        }
+      });
+      if (index !== -1) {
+        addressTags.splice(index, 1);
+        localStorage.setItem(
+          cookiesConstants.USER_ADDRESS_WATCHLIST,
+          JSON.stringify(addressTags)
+        );
+      }
+    }
+    return [];
+  }
+
   const url =
     process.env.REACT_APP_WATCHLIST_TRANSACTION_SERVICE + "delete-watchlist";
-  return httpService(
-    httpConstants.METHOD_TYPE.PUT,
-    getHeaders(),
-    reqObj,
-    url
-  )
+  return httpService(httpConstants.METHOD_TYPE.PUT, getHeaders(), reqObj, url)
     .then((response) => {
       if (
         !response.success ||

@@ -41,14 +41,9 @@ async function CoinMarketExchangeForToken(data) {
 }
 
 async function getTokenLists(data) {
-  let url =
-    process.env.REACT_APP_GET_TOKEN_LIST +
-    "?skip=" +
-    Math.ceil(data.pageNum) +
-    "&limit=" +
-    data.perpage;
-
-  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+  let url = process.env.REACT_APP_ACCOUNT_SERVICE_BASEURL + httpConstants.API_END_POINT.GET_TOKEN_LIST;//"?skip=" + Math.ceil(data.pageNum) + "&limit=" + data.perpage;
+  // let url = "http://localhost:3007/getListOfTokens";
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -135,7 +130,8 @@ async function getListOfTransferTransactionsForToken(data) {
     "?skip=" +
     Math.ceil(data.pageNum) +
     "&limit=" +
-    data.perpage;
+      data.perpage + (data.searchValue ? "&searchValue=" + data.searchValue : "")
+      + (data.startDate ? "&startDate=" + data.startDate : "");
 
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
@@ -153,7 +149,8 @@ async function getListOfTransferTransactionsForToken(data) {
     });
 }
 async function getTotalTransferTransactionsForToken(data) {
-  let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr;
+    let url = process.env.REACT_APP_GET_TOTAL_TRANSFER_FOR_TOKEN + data.addr + (data.searchValue ? "?searchValue=" + data.searchValue : "")
+        + (data.startDate ? (data.searchValue ? "&startDate=" : "?startDate=") + data.startDate : "");
 
   return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
     .then((response) => {
