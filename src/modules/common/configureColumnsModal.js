@@ -33,8 +33,8 @@ function ConfigureColumnsModal(props) {
                                     <div className="display-flex justify-content-between p-b-25">
                                         <div className="display-flex">
                                             <Tooltip align="right" title={props.tableColumns[key].toolTipText}>
-                                                <img className="w-16-px h-16 m-t-2"
-                                                    src="/images/question_mark_tooltip.svg"></img>
+                                                <img className="tooltipInfoIcon"
+                                                    src="/images/info.svg"></img>
                                             </Tooltip>
                                             <div className="p-l-12">{key}</div>
                                         </div>
