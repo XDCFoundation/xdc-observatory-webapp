@@ -154,7 +154,10 @@ function TemporaryDrawer(props) {
                     </IconButton>
                 </div>
             </ListItems>
-            {notifications && notifications.length && notifications.map((notification) => (
+            {notifications && notifications.length !==0 ?
+                <>
+                {
+                    notifications &&  notifications.map((notification) => (
                 <List className="side-box">
                     <ul className="inside-side-box">
                         <a className="Notification_details_button ">
@@ -169,7 +172,11 @@ function TemporaryDrawer(props) {
                         <hr className="notification-hr"/>
                     </ul>
                 </List>
-            ))}
+            ))
+                }
+            </>
+            : <p className="sidebar_notification">No Notification</p>
+          }
         </div>
     );
 
