@@ -52,7 +52,7 @@ async function getContractLists(data) {
     data.perpage;
 
   return httpService(
-    httpConstants.METHOD_TYPE.GET,
+    httpConstants.METHOD_TYPE.POST,
     getHeaders(),
     {},
     url
