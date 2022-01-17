@@ -93,7 +93,10 @@ class Contractlist extends React.Component {
             "Token Name": {isActive: true, toolTipText: "Name of the token associated with the contract."},
             "Contract Name": {isActive: true, toolTipText: "Name of the Smart Contract."},
             "Token Yes/No": {isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not"}
-        }
+        },
+      sortedByAddress:"",
+      sortedByTokenName:"",
+      sortedByContractName:"",
     };
   }
 
@@ -126,18 +129,29 @@ class Contractlist extends React.Component {
   };
 
   handleChangePage = (action) => {
+    let data = {};
+    if (this.state.sortedByAddress)
+    data.sortKey = {address: this.state.sortedByAddress};
+    if (this.state.sortedByTokenName)
+    data.sortKey = {tokenName: this.state.sortedByTokenName};
+    if (this.state.sortedByContractName)
+    data.sortKey = {tokenName: this.state.sortedByContractName};  
     if (action == "first") {
       let page = 0;
       this.setState({ from: page });
+       data = { 
+         ...data,
+        pageNum: page,
+        perpage: this.state.amount,
+        keywords: this.state.keywords,
+      };
+      
+      
       if (this.state.keywords) {
-        let data = {
-          pageNum: page,
-          perpage: this.state.amount,
-          keywords: this.state.keywords,
-        };
+         data["keywords"] = this.state.keywords 
         this.getContractSearch(data);
       } else {
-        let data = { pageNum: page, perpage: this.state.amount };
+        data = {...data , pageNum: page, perpage: this.state.amount };
         this.getContractList(data);
         this.getTotalContractList();
       }
@@ -146,14 +160,15 @@ class Contractlist extends React.Component {
       let page = this.state.totalRecord - this.state.amount;
       this.setState({ from: page });
       if (this.state.keywords) {
-        let data = {
+         data = {
+           ...data,
           pageNum: page,
           perpage: this.state.amount,
           keywords: this.state.keywords,
         };
         this.getContractSearch(data);
       } else {
-        let data = { pageNum: page, perpage: this.state.amount };
+         data = {  ...data, pageNum: page, perpage: this.state.amount };
         this.getContractList(data);
         this.getTotalContractList();
       }
@@ -164,14 +179,16 @@ class Contractlist extends React.Component {
         let page = +this.state.amount + +this.state.from;
         this.setState({ from: page });
         if (this.state.keywords) {
-          let data = {
+           data = {
+             ...data,
             pageNum: page,
             perpage: this.state.amount,
             keywords: this.state.keywords,
           };
           this.getContractSearch(data);
         } else {
-          let data = { pageNum: page, perpage: this.state.amount };
+         
+           data = { ...data ,pageNum: page, perpage: this.state.amount };
           this.getContractList(data);
           this.getTotalContractList();
         }
@@ -182,14 +199,14 @@ class Contractlist extends React.Component {
         let page = this.state.from - this.state.amount;
         this.setState({ from: page });
         if (this.state.keywords) {
-          let data = {
+           data = {  ...data,
             pageNum: page,
             perpage: this.state.amount,
             keywords: this.state.keywords,
           };
           this.getContractSearch(data);
         } else {
-          let data = { pageNum: page, perpage: this.state.amount };
+           data = {  ...data, pageNum: page, perpage: this.state.amount };
           this.getContractList(data);
           this.getTotalContractList();
         }
@@ -220,12 +237,73 @@ class Contractlist extends React.Component {
       b.length
     )}`;
   }
+  sortByAddress = async () =>{
+    let data = {
+      pageNum: this.state.from,
+      perpage: this.state.amount,
+      keywords: this.state.keywords,
+    }
+    this.setState({sortedByContractName:0 , sortedByTokenName:0})
+    if (!this.state.sortedByAddress) {
+        this.setState({sortedByAddress:-1})
+        data['sortKey'] = {"address": -1}
+    } else if (this.state.sortedByAddress === -1) {
+      this.setState({sortedByAddress:1})
+      data['sortKey'] = {"address": 1}
+    } else {
+      this.setState({sortedByAddress:-1})
+      data['sortKey'] = {"address": -1}
+    }
+    this.getContractList(data);
+  }
 
+  sortByTokenName = async () =>{
+    let data = {
+      pageNum: this.state.from,
+      perpage: this.state.amount,
+      keywords: this.state.keywords,
+    }
+    this.setState({sortedByAddress:0 , sortedByContractName:0})
+    if (!this.state.sortedByTokenName) {
+        this.setState({sortedByTokenName:-1})
+        data['sortKey'] = {"tokenName": -1}
+    } else if (this.state.sortedByTokenName === -1) {
+      this.setState({sortedByTokenName:1})
+      data['sortKey'] = {"tokenName": 1}
+    } else {
+      this.setState({sortedByTokenName:-1})
+      data['sortKey'] = {"tokenName": -1}
+    }
+    this.getContractList(data);
+  }
+  sortByContractName = async () =>{
+    let data = {
+      pageNum: this.state.from,
+      perpage: this.state.amount,
+      keywords: this.state.keywords,
+    }
+    this.setState({sortedByTokenName:0, sortedByAddress:0})
+    if (!this.state.sortedByContractName) {
+        this.setState({sortedByContractName:-1})
+        data['sortKey'] = {"contractName": -1}
+    } else if (this.state.sortedByContractName === -1) {
+      this.setState({sortedByContractName:1})
+      data['sortKey'] = {"contractName": 1}
+    } else {
+      this.setState({sortedByContractName:-1})
+      data['sortKey'] = {"contractName": -1}
+    }
+    this.getContractList(data);
+  }
+
+  
   getContractList = async (data) => {
+    this.setState({ isLoading: true });
+
     const [error, responseData] = await Utility.parseResponse(
       ContractData.getContractLists(data)
     );
-
+   
     this.setState({ isLoading: false });
     if (responseData) {
       this.setState({ rows: responseData });
@@ -376,6 +454,7 @@ class Contractlist extends React.Component {
                     <span
                       style={{ fontSize: "14px" }}
                       className={"tableheaders-contract"}
+                      onClick={this.sortByAddress}
                     >
                       Address
                       <Tooltip placement="top" title={messages.CONTRACT_ADDRESS}>
@@ -386,6 +465,18 @@ class Contractlist extends React.Component {
                         className="tooltipInfoIconAccount"
                          />
                       </Tooltip>
+                      {this.state.sortedByAddress ? (this.state.sortedByAddress === -1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          /> :
+                          <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />) : ""}
                     </span>
                   </TableCell>
                   {this.state.tableColumns["Token Name"].isActive && (
@@ -393,6 +484,7 @@ class Contractlist extends React.Component {
                       <span
                         style={{ fontSize: "14px" }}
                         className={"tableheaders"}
+                        onClick={this.sortByTokenName}
                       >
                         Token Name
                         <Tooltip placement="top" title={messages.TOKEN_NAME}>
@@ -404,6 +496,18 @@ class Contractlist extends React.Component {
                          />
                       </Tooltip>
                       </span>
+                      {this.state.sortedByTokenName ? (this.state.sortedByTokenName === -1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          /> :
+                          <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />) : ""}
                     </TableCell>
                   )}
                   {this.state.tableColumns["Contract Name"].isActive && (
@@ -411,6 +515,7 @@ class Contractlist extends React.Component {
                       <span
                         style={{ fontSize: "14px" }}
                         className={"tableheaders"}
+                        onClick={this.sortByContractName}
                       >
                         Contract Name
                         <Tooltip placement="top" title={messages.CONTRACT_NAME}>
@@ -421,6 +526,18 @@ class Contractlist extends React.Component {
                         className="tooltipInfoIconAccount"
                          />
                       </Tooltip>
+                      {this.state.sortedByContractName ? (this.state.sortedByContractName === -1 ? <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon"
+                          /> :
+                          <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                          />) : ""}
                       </span>
                     </TableCell>
                   )}

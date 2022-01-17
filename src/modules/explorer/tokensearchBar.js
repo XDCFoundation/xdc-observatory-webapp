@@ -44,14 +44,12 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-
     }),
   },
   "@media (min-width: 0px) and (max-width:767px)": {
     appBar: {
       height: "10.8rem !important",
       padding: "16px 15px 15px 16px",
-
     },
     drawerHeader: {
       padding: "0 !important",
@@ -116,14 +114,13 @@ const useStyles = makeStyles((theme) => ({
     },
     popover: {
       marginRight: "-15px",
-
     },
     firstContainer: {
       marginTop: "10px",
     },
     drawerHeader: {
-      marginTop: "-10px"
-    }
+      marginTop: "-10px",
+    },
   },
 
   content: {
@@ -238,14 +235,21 @@ export default function Navbar() {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
           window.location.href = transactionurl;
-        } else if (responseData[0].redirect === "token" && responseData[0]?.token.length > 0) {
-          let tokenDataUrl =
-            "/token-data/" +
-            responseData[0]?.token[0]?.address +
-            "/" +
-            responseData[0]?.token[0]?.symbol;
-          let tokenListUrl = '/tokens/' + responseData[0]?.token[0]?.tokenName;
-          window.location.href = responseData[0]?.token?.length > 1 ? tokenListUrl : tokenDataUrl;
+        } else if (responseData[0].redirect === "token") {
+          if (responseData[0]?.token.length == 1) {
+            let tokenDataUrl =
+              "/token-data/" +
+              responseData[0]?.token[0]?.address +
+              "/" +
+              responseData[0]?.token[0]?.symbol;
+            window.location.href = tokenDataUrl;
+          } else if (responseData[0]?.token.length > 1) {
+            let tokenListUrl =
+              "/tokens/" + responseData[0]?.token[0]?.tokenName;
+
+            window.location.href = tokenListUrl;
+          } else {
+          }
         } else {
         }
       }
@@ -272,10 +276,7 @@ export default function Navbar() {
       role="presentation"
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <div
-
-        className={classes.firstContainer}
-      >
+      <div className={classes.firstContainer}>
         <p className="inside-side-box-browse">Browse</p>
         <div className={classes.drawerHeader}>
           <IconButton
@@ -670,7 +671,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-      props.active ? "0.15rem solid #ffffff !important" : ""};
+    props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
@@ -900,6 +901,9 @@ export default function Navbar() {
               handleSearchOption,
               list,
             })}
+            <div className="token-error-message-div">
+              <span className="token-error-message">{errorMessage}</span>
+            </div>
           </SearchContainer>
         </MobileView>
         <TabSearchBoxParent>
@@ -913,6 +917,9 @@ export default function Navbar() {
               handleSearchOption,
               list,
             })}
+            <div className="token-error-message-div">
+              <span className="token-error-message">{errorMessage}</span>
+            </div>
           </TabSearchBox>
         </TabSearchBoxParent>
       </AppBar>
