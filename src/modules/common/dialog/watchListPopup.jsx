@@ -20,6 +20,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { AlertContainer, alert } from "react-custom-alert";
 import "../../../../node_modules/react-custom-alert/dist/index.css";
 import { cookiesConstants } from "../../../constants";
+import toast, { Toaster } from "react-hot-toast";
 const useStyles = makeStyles((theme) => ({
   add: {
     // marginLeft: "80%",
@@ -246,6 +247,12 @@ export default function FormDialog(props) {
   const [isSize, setisSize] = React.useState(false);
   const alertSuccess = () => alert({ message: "success", type: "success" });
   const screenSize = window.innerHeight;
+  const notify = () =>
+    toast.success("You have started watching this address", {
+      duration: 4000,
+      position: "top-center",
+      className: "toast-div-address",
+    });
   if (screenSize === "626") {
     setisSize(false);
   }
@@ -312,7 +319,8 @@ export default function FormDialog(props) {
         JSON.stringify(watchlists)
       );
 
-      onClose();
+      await onClose();
+      await notify();
     }
   };
 
