@@ -4,6 +4,8 @@ import moment from "moment";
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import {DateRange} from 'react-date-range';
+import {messages} from "../../constants";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const Container = styled.div`
   margin-right: 10px;
@@ -39,10 +41,16 @@ const FilterName = styled.div`
   font-weight: 500;
   color: #585858;
   gap: 25px;
+  align-items: center;
 
   span {
     font-weight: 600;
     color: #252525;
+  }
+
+  img {
+    width: 15px;
+    margin-left: 2px;
   }
 `
 
@@ -88,7 +96,14 @@ const CustomDateDropDown = (props) => {
         <Container ref={mainDiv}>
             <SelectedValueContainer onClick={onFilterClicked}>
                 <FilterName>
-                    <span>{name || 'Filter'}</span>{startDate && startDate.format("D MMM, YYYY") !== endDate.format("D MMM, YYYY") ? `${startDate.format("D MMM, YYYY")} - ${endDate && endDate.format("D MMM, YYYY")}` : 'All'}
+                        <span>{name || 'Filter'}<Tooltip placement="top" title={messages.DATE}>
+                            <img
+                                alt="question-mark"
+                                src="/images/info-new.svg"
+                            />
+                        </Tooltip>
+                        </span>
+                    {startDate && startDate.format("D MMM, YYYY") !== endDate.format("D MMM, YYYY") ? `${startDate.format("D MMM, YYYY")} - ${endDate && endDate.format("D MMM, YYYY")}` : 'All'}
                 </FilterName>
                 <img src="/images/dropdown-arrow.svg"/>
             </SelectedValueContainer>

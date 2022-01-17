@@ -65,7 +65,7 @@ const SearchAndFiltersComponent = (props) => {
 
     const onStartDateUpdated = (value) => {
         setStartDate(value)
-        updateFiltersAndGetAccounts({searchQuery, type, status, endDate, startDate: value})
+        // updateFiltersAndGetAccounts({searchQuery, type, status, endDate, startDate: value})
     }
 
     const onEndDateUpdated = (value) => {
@@ -79,14 +79,14 @@ const SearchAndFiltersComponent = (props) => {
                 <img src="/images/Search.svg"/>
                 <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)}/>
             </SearchBox>
-            <CustomDateDropDown name="Date" setStartDates={setStartDate} setEndDates={setEndDate}
-                                startDate={startDate} endDate={endDate}/>
+            {/*<CustomDateDropDown name="Date" setStartDates={onStartDateUpdated} setEndDates={onEndDateUpdated}
+                                startDate={startDate} endDate={endDate}/>*/}
             <CustomDropDown name="Status" selectedOption={status} onSelect={data => setStatus(data)}
-                            options={[{key: 'all', value: 'Show All Txn', name: 'All Txn'},
+                            options={[{key: 'all', value: 'Show All Txn', name: 'All'},
                                 {key: 'true', value: 'Show Completed Txn', name: 'Completed Txn'},
                                 {key: 'false', value: 'Show Failed Txn', name: 'Failed Txn'}]}/>
             <CustomDropDown name="Type" selectedOption={type} onSelect={data => setType(data)}
-                            options={[{key: 'IN', value: 'In Txn'},
+                            options={[{key: 'ALL', value: 'All Txn', name: 'All'}, {key: 'IN', value: 'In Txn'},
                                 {key: 'OUT', value: 'Out Txn'}]}/>
         </Container>
     )
