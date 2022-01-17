@@ -3764,7 +3764,7 @@ body {
     border: solid 1px #e3e7eb;
     background-color: #ffffff;
   }
-  
+
   .block {
     justify-content: space-between;
     display: flex;
@@ -8797,11 +8797,13 @@ button {
   }
 
   .contractOverview {
-    width: 21rem;
+    /* width: 21rem; */
+    width: 100%;
     height: 15.875rem;
   }
   .contractSummary {
-    width: 21rem;
+    /* width: 21rem; */
+    width: 100%;
     height: 13rem;
     margin-top: 2rem;
   }
@@ -9837,7 +9839,7 @@ button {
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
-    width: 170px;;
+    width: 170px;
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
@@ -10377,7 +10379,7 @@ button {
     width: 8rem;
   }
   .m-r-9 {
-    margin-right: 0px;;
+    margin-right: 0px;
   }
 }
 @media (min-width: 0px) and (max-width: 766px) {
