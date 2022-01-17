@@ -758,7 +758,7 @@ export default function FormDialog(props) {
         Utility.apiSuccessToast(
           "We have just sent you an email to reset your password."
         );
-        window.location.href = "/";
+        // window.location.href = "/";
       }
     }
   };
