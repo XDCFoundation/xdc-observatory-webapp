@@ -10752,7 +10752,6 @@ button {
     padding: 20px 15px !important;
   }
 }
-<<<<<<< HEAD
 .toast-div-address {
   height: 49px;
   border-radius: 12px !important;
@@ -10765,34 +10764,24 @@ button {
   line-height: normal;
   color: #3a3a3a !important;
 }
-=======
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 767px) {
   .accProfile .MuiTabs-flexContainer {
     display: block !important;
-  
+
     /* padding-left: 20px; */
-  
   }
-  
+
   .accProfile .MuiTabs-scroller {
-  
     white-space: normal !important;
-  
   }
-  
+
   .searchdiv {
-  
     padding-left: 0px 15px !important;
     margin-left: 15px !important;
-  
   }
-  
+
   .PrivateTabIndicator-colorSecondary-120 {
-  
     display: none;
-  
   }
-  
-  }
->>>>>>> ed0761f8f1a6f9220c73fb761b075160defead84
+}
