@@ -1080,9 +1080,7 @@ export default function AddressDetails(props) {
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1
-                      ? "tabs_sec_address_details active-tabs_sec_address_details"
-                      : "tabs_sec_address_details"
+                    toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
@@ -1108,19 +1106,21 @@ export default function AddressDetails(props) {
                     : "content_sec"
                 }
               >
-                {isTag ? (
-                  <AddressTableComponent
-                    trans={transactions}
-                    coinadd={addr}
-                    tag={addressTag}
-                  />
-                ) : (
-                  <AddressTableComponent
-                    trans={transactions}
-                    coinadd={addr}
-                    currency={amount}
-                  />
-                )}
+                <div>
+                  {isTag ? (
+                    <AddressTableComponent
+                      trans={transactions}
+                      coinadd={addr}
+                      tag={addressTag}
+                    />
+                  ) : (
+                    <AddressTableComponent
+                      trans={transactions}
+                      coinadd={addr}
+                      currency={amount}
+                    />
+                  )}
+                </div>
               </div>
             )}
             {toggleState === 2 && <AddressDetailsAnalytics />}
