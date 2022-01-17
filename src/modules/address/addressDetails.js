@@ -720,6 +720,7 @@ export default function AddressDetails(props) {
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
+  let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
     cookiesConstants.USER_TAGGED_ADDRESS
   );
@@ -729,13 +730,15 @@ export default function AddressDetails(props) {
       : "";
 
   var tagValue =
-    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addr) : "";
+    tags && tags.length > 0
+      ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
+      : "";
   let watchlists = localStorage.getItem(
     cookiesConstants.USER_ADDRESS_WATCHLIST
   );
   let watchList =
     watchlists && watchlists.length > 0 ? JSON.parse(watchlists) : "";
-  let userId = sessionManager.getDataFromCookies("userId");
+
   var existingWatchList =
     watchList &&
     watchList?.filter((item) => item.address == addr && item.userId == userId);
