@@ -146,7 +146,7 @@ export default function StickyHeadTable(props) {
     const [totalToken, setTotalToken] = React.useState(0);
     const [keywords, setKeywords] = React.useState("");
     const [rows, setRows] = React.useState([]);
-    const [sortedByHolderCount, setSortedByHolderCount] = React.useState("");
+    const [sortedByHolderCount, setSortedByHolderCount] = React.useState(-1);
     const [sortedByTotalSupply, setSortedByTotalSupply] = React.useState("");
     let {token} = useParams();
 
@@ -298,6 +298,7 @@ export default function StickyHeadTable(props) {
     React.useEffect(() => {
         let unmounted = false;
         let data = {skip: from, limit: amount, searchKey: token ? token : ''};
+        data['sortKey'] = {"holdersCount": -1}
         getTokenList(data);
         // return () => {
         //     unmounted = true;
@@ -312,6 +313,7 @@ export default function StickyHeadTable(props) {
     }
 
     async function sortByTotalSupply() {
+        setSortedByHolderCount(0);
         let data = {skip: from, limit: amount, searchKey: keywords}
         if (!sortedByTotalSupply) {
             setSortedByTotalSupply(-1);
@@ -327,6 +329,7 @@ export default function StickyHeadTable(props) {
     }
 
     async function sortByHoldersCount() {
+        setSortedByTotalSupply(0);
         let data = {skip: from, limit: amount, searchKey: keywords}
         if (!sortedByHolderCount) {
             setSortedByHolderCount(-1);

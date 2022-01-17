@@ -17,7 +17,6 @@ import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Avatar } from "@material-ui/core";
-
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -749,26 +748,29 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-    setValue(2);
+  
     onClickReset();
-
-    if (captchaCheckbox === false) {
+    setLoading(true);
+    if (reCaptcha === '') {
+      setLoading(false);
       setErrorCaptcha("please verify captcha");
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
         authObject.forgotPassword(email)
       );
+      setLoading(false);
       if (error || !authResponse) {
         setEmailError("Please enter a valid email address");
         Utility.apiFailureToast("Wrong email");
       } else {
         setEmail("");
+        setValue(2);
         setCaptchaCheckbox(false);
         Utility.apiSuccessToast(
           "We have just sent you an email to reset your password."
         );
-        window.location.href = "/";
+        // window.location.href = "/";
       }
     }
   };
@@ -1286,7 +1288,7 @@ export default function FormDialog(props) {
                 onChange={handleReCaptcha}
               />
               <div style={{ marginLeft: 0 }} className={classes.error1}>
-                {captchaError}
+                {errorCaptcha}
               </div>
             </div>
 
