@@ -42,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#9fa9ba",
     color: "white",
 
-    margin: "14px 8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "14px 8px 23px 2px",
+    padding: "0 19px 0 20px",
   },
   buttons: {
-    padding: "10px 35px 0px 0px",
+    padding: "0px 20px 0px 0px",
   },
   value: {
     width: "400px !important",
@@ -93,12 +93,12 @@ const useStyles = makeStyles((theme) => ({
     resize: "none",
   },
   addbtn: {
-    width: "110px",
+    width: "94px",
     height: "34px",
     // margin: "33px 0 0 21px",
     // padding: "8px 30px 7px 32px",
-    margin: "14px -8px 15px 2px",
-    padding: "6px 19px 3px 20px",
+    margin: "14px 8px 23px 2px",
+    padding: "0 19px 0 20px",
     borderRadius: "4px",
     backgroundColor: "#3763dd",
     color: "white",
@@ -320,7 +320,8 @@ export default function FormDialog(props) {
   const { width } = windowDimensions;
 
   return (
-    <div>
+    <>
+    <div className="w-33p">
       <div className="div1 cursor-pointer">
         <div
           className="imageParentDiv"
@@ -378,7 +379,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      <div>
+      {/* <div> */}
         <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -463,8 +464,9 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
-      </div>
+      {/* </div> */}
     </div>
+    </>
   );
 }
 
@@ -473,5 +475,9 @@ const LearnMoreParent = styled.div`
   top: 30px;
   @media (min-width: 767px) {
     display: none;
+  }
+
+  @media (max-width: 767px) {
+  position: static;
   }
 `;

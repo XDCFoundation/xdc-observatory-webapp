@@ -153,7 +153,6 @@ export default class LatestAccountsList extends BaseComponent {
         this.getListOfAccounts()
     }
     render() {
-        console.log(this.state.balanceSort, "pppp")
         return (
             <AccountComponent
                 toggleTableColumns={this.toggleTableColumns}

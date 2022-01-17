@@ -13,6 +13,9 @@ import Utils from "../../utility";
 import { useParams } from "react-router";
 import TokenAnalytics from "./tokenAnalytics/analyticsComponent";
 import TokenInfo from "./tokenInfo";
+import ReadContract from "../contractMethods/read";
+import WriteContract from "../contractMethods/write";
+import { Row } from "simple-flexbox";
 
 let li = 0;
 
@@ -76,12 +79,15 @@ export default function SimpleTabs(props) {
     setToggleState(index);
   };
 
+  const contractData = props?.contractStatusData
+    ? props?.contractStatusData
+    : {};
   return (
     <div>
       {/* <Grid lg={10} className="table-grid-block3"> */}
       <Grid className="table-grid-block3">
         <div className={classes.root}>
-          <div
+          {/* <div
             style={{
               width: "auto",
               display: "flex",
@@ -91,66 +97,104 @@ export default function SimpleTabs(props) {
               borderBottom: "solid 1px #e3e7eb",
             }}
           >
-            <div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  backgroundColor: "transparent",
-                }}
+            <div> */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "transparent",
+              borderBottom: "solid 1px #e3e7eb",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexFlow: "row wrap",
+                gap: 20,
+              }}
+            >
+              <button
+                className={
+                  toggleState === 1
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(1)}
               >
-                <button
-                  className={
-                    toggleState === 1
-                      ? "tabs-data active-tabs-token"
-                      : "tabs-data"
-                  }
-                  onClick={() => toggleTab(1)}
-                >
-                  Transfers
-                </button>
-                <button
-                  className={
-                    toggleState === 2
-                      ? "tabs-data active-tabs-token-holder"
-                      : "tabs-data"
-                  }
-                  onClick={() => toggleTab(2)}
-                >
-                  Holders
-                </button>
-                {/* <button
+                Transfers
+              </button>
+              <button
+                className={
+                  toggleState === 2
+                    ? "token-data-tabs active-tabs-token-holder"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(2)}
+              >
+                Holders
+              </button>
+              {/* <button
                   className={
                     toggleState === 5
-                      ? "tabs-data active-tabs-token-holder"
-                      : "tabs-data"
+                      ? "token-data-tabs active-tabs-token-holder"
+                      : "token-data-tabs"
                   }
                   onClick={() => toggleTab(5)}
                 >
                   Info
                 </button> */}
-                <button
-                  className={
-                    toggleState === 3
-                      ? "tabs-data active-tabs-token"
-                      : "tabs-data"
-                  }
-                  onClick={() => toggleTab(3)}
-                >
-                  Contracts
-                </button>
-                <button
-                  className={
-                    toggleState === 4
-                      ? "tabs-data active-tabs-token"
-                      : "tabs-data"
-                  }
-                  onClick={() => toggleTab(4)}
-                >
-                  Analytics
-                </button>
-              </div>
+
+              <button
+                className={
+                  toggleState === 3
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(3)}
+              >
+                Analytics
+              </button>
+              <button
+                className={
+                  toggleState === 4
+                    ? "token-data-tabs active-tabs-token"
+                    : "token-data-tabs"
+                }
+                onClick={() => toggleTab(4)}
+              >
+                Code
+              </button>
+              {!contractData?.contractResponse ? (
+                ""
+              ) : contractData?.contractStatus !== "Unverified" ? (
+                <>
+                  <button
+                    className={
+                      toggleState === 5
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(5)}
+                  >
+                    Read Contract
+                  </button>
+                  <button
+                    className={
+                      toggleState === 6
+                        ? "token-data-tabs active-tabs-token"
+                        : "token-data-tabs"
+                    }
+                    onClick={() => toggleTab(6)}
+                  >
+                    Write Contract
+                  </button>
+                </>
+              ) : (
+                ""
+              )}
             </div>
+            {/* </div>
+            </div> */}
           </div>
 
           <div>
@@ -170,7 +214,7 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenHoldertab contractData={props?.contractStatusData} />
+                <TokenHoldertab contractData={contractData} />
               </div>
             </div>
 
@@ -180,30 +224,69 @@ export default function SimpleTabs(props) {
               }
             >
               <div style={{ marginTop: "10px" }}>
-                {!props?.contractStatusData?.contractResponse ? (
-                  ""
-                ) : props?.contractStatusData?.contractStatus ===
-                  "Unverified" ? (
-                  <TokenUnverifiedContract
-                    contractData={props?.contractStatusData?.contractResponse}
-                  />
-                ) : (
-                  <TokenContracttab
-                    contractData={props?.contractStatusData?.contractResponse}
-                  />
-                )}
+                <TokenAnalytics />
               </div>
             </div>
+
             <div
               className={
                 toggleState === 4 ? "content  active-content" : "content"
               }
             >
               <div style={{ marginTop: "10px" }}>
-                <TokenAnalytics />
+                {!contractData?.contractResponse ? (
+                  ""
+                ) : contractData?.contractStatus === "Unverified" ? (
+                  <TokenUnverifiedContract
+                    contractData={contractData?.contractResponse}
+                  />
+                ) : (
+                  <TokenContracttab
+                    contractData={contractData?.contractResponse}
+                  />
+                )}
               </div>
             </div>
-            <div
+
+            {!contractData?.contractResponse ? (
+              ""
+            ) : contractData?.contractStatus !== "Unverified" ? (
+              <>
+                <div
+                  className={
+                    toggleState === 5 ? "content  active-content" : "content"
+                  }
+                >
+                  <div style={{ marginTop: "10px" }}>
+                    <ReadContract
+                      contractData={
+                        contractData?.contractResponse
+                          ? { ...contractData?.contractResponse }
+                          : {}
+                      }
+                    />
+                  </div>
+                </div>
+                <div
+                  className={
+                    toggleState === 6 ? "content  active-content" : "content"
+                  }
+                >
+                  <div style={{ marginTop: "10px" }}>
+                    <WriteContract
+                      contractData={
+                        contractData?.contractResponse
+                          ? { ...contractData?.contractResponse }
+                          : {}
+                      }
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+            {/* <div
               className={
                 toggleState === 5 ? "content  active-content" : "content"
               }
@@ -211,7 +294,7 @@ export default function SimpleTabs(props) {
               <div style={{ marginTop: "10px", width: "auto" }}>
                 <TokenInfo />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </Grid>

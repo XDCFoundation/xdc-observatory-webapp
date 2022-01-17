@@ -19,6 +19,17 @@ label {
   font-family: "Inter" !important;
 }
 
+.rotate-180 {
+  -webkit-transform: rotate(180deg); /* Chrome and other webkit browsers */
+  -moz-transform: rotate(180deg); /* FF */
+  -o-transform: rotate(180deg); /* Opera */
+  -ms-transform: rotate(180deg); /* IE9 */
+  transform: rotate(180deg); /* W3C compliant browsers */
+
+  /* IE8 and below */
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+}
+
 #web3Dialog .MuiDialog-paperWidthSm {
   max-width: unset !important;
 }
@@ -167,8 +178,14 @@ a:link {
 .h-20 {
   height: 20px;
 }
+.h-16 {
+  height: 20px;
+}
 .m-r-10 {
   margin-right: 10px;
+}
+.m-t_-7 {
+  margin-top: -7px;
 }
 input#password {
   width: 433px;
@@ -216,13 +233,13 @@ input#password[placeholder] {
   color: #2a2a2a;
 }
 .m-l-25p {
-   margin-left: 25%;
-  }
-  @media(min-width: 0px) and (max-width: 767px){
-    .m-l-25p {
+  margin-left: 25%;
+}
+@media (min-width: 0px) and (max-width: 767px) {
+  .m-l-25p {
     margin-left: 0;
-   }
   }
+}
 @media (min-width: 768px) and (max-width: 1240px) {
   input[placeholder] {
     text-overflow: unset !important;
@@ -362,7 +379,7 @@ input:focus {
 }
 
 .cursor-not-allowed {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 /*Borders*/
 
@@ -521,6 +538,9 @@ input:focus {
 
 .w-20-px {
   width: 20px;
+}
+.w-16-px {
+  width: 16px;
 }
 
 .w-320 {
@@ -1881,6 +1901,9 @@ div::-webkit-scrollbar-thumb {
   .token-link {
     font-size: 0.813rem !important;
   }
+  .w-33p {
+    width: 30%;
+  }
 }
 /* .Token:after {
   content: "";
@@ -1922,6 +1945,7 @@ p {
   display: flex;
   justify-content: center;
   margin-top: -30px;
+  padding: 0 15px;
 }
 
 .centerbox {
@@ -1937,7 +1961,7 @@ p {
   .centerbox {
     height: 56px;
     border-radius: 6px;
-    width: 21.438rem !important;
+    width: 100% !important;
   }
   .profile-name-popover {
     margin-top: 0px !important;
@@ -2489,7 +2513,7 @@ p {
 .firstbox-contract {
   height: 35px;
   width: 60px;
-  margin: -6px 6px 0px 68px;
+  margin: -6px 6px 0px 0px;
   padding: 1px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -2779,7 +2803,7 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 15px;
-  color: #2149b9;
+  color: #8facff;
 }
 
 .xinfin_api_button {
@@ -2800,14 +2824,14 @@ p {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .xinfin_api_button:hover {
   list-style: none;
   text-decoration: none;
   font-size: 1.063rem;
-  color: #2149b9;
+  color: #829ce5;
 }
 
 .inside-side-box {
@@ -2917,6 +2941,24 @@ p {
     color: #686868;
     margin-right: 20px;
   }
+  .firstbox-contract {
+    height: 34px;
+    width: 47px;
+    margin: -6px 6px 0px 0px;
+    padding: 1px;
+    border-radius: 6px;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+  }
+  .lastbox-contract {
+    width: 47px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 1px;
+    border-radius: 6px;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+  }
 }
 
 .TableTexts {
@@ -2954,7 +2996,7 @@ p {
 }
 
 .search-container {
-  margin: 20px auto auto auto !important;
+  margin: 30px auto auto auto !important;
 }
 
 .searchelement-contract {
@@ -3028,9 +3070,10 @@ p {
 .searchelement-input {
   display: flex;
   flex-direction: row;
-  width: 16.625rem;
+  width: 207px;
+  height: 34px;
   padding: 7.7px 43px 10px 10px;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
@@ -3234,6 +3277,9 @@ p {
     letter-spacing: 0px;
     text-align: left;
     color: #3a3a3a;
+  }
+  .search-container {
+    margin: 15px auto auto auto !important;
   }
 }
 
@@ -3516,7 +3562,7 @@ p {
   .tab-search {
     display: flex;
     width: 82%;
-    margin-left: -10px;
+    /* margin-left: -10px; */
   }
 }
 @media (min-width: 768px) {
@@ -3663,7 +3709,7 @@ body {
   }
 }
 .MuiBackdrop-root {
-  opacity: 0 !important;
+  /* opacity: 0 !important; */
 }
 
 .days p {
@@ -3698,14 +3744,26 @@ body {
 }
 @media (max-width: 767px) {
   .previousbox-contract {
-    /* padding: 10px 20px; */
+    width: 29px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 9px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
   }
   .nextbox-contract {
-    padding: 10px 20px;
+    width: 29px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 9px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
   }
-  .lastbox-contract {
-    padding: 1px 4px;
-  }
+  
   .block {
     justify-content: space-between;
     display: flex;
@@ -3753,7 +3811,7 @@ body {
   padding-bottom: 7px;
   color: #b5bac7;
   text-align: center;
-  width: 80%;
+  /* width: 80%; */
   cursor: pointer;
   position: relative;
   font-size: 0.938rem;
@@ -3832,6 +3890,23 @@ body {
     letter-spacing: 0px;
   }
 }
+.token-data-tabs {
+  color: #b5bac7;
+  height: 20px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  background: #fff;
+  cursor: pointer;
+  /* margin: 0px 27px 1px 0.5px; */
+  white-space: nowrap;
+  padding: 0 0 5px 0;
+  font-weight: 600;
+  font-size: 0.938rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.036rem;
+}
 
 .tabs-data {
   padding-bottom: 6px;
@@ -3857,6 +3932,9 @@ body {
 }
 @media (max-width: 1240px) {
   .tabs-data {
+    font-size: 0.875rem;
+  }
+  .token-data-tabs {
     font-size: 0.875rem;
   }
 }
@@ -4100,7 +4178,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table th {
-    padding: 17px 0px 15px 10px !important;
+    padding: 17px 0px 15px 20px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -4121,7 +4199,7 @@ body {
 }
 
 #container-table td {
-  padding: 17px 0px 17px 70px;
+  padding: 17px 0px 17px 20px;
   /* padding: 12px 50px;
   padding-top: 17px;
   padding-bottom: 17px; */
@@ -4171,14 +4249,15 @@ body {
 }
 
 #container-table-token th {
-  padding-top: 1.625rem;
-  padding-bottom: 0.938rem;
-  padding-left: 12px;
+  padding-top: 3px;
+  padding-bottom: 2.5px;
+  padding-left: 15px;
   text-align: left;
 }
 
 #container-table-token td {
-  padding: 12px;
+  padding-top: 10.5px;
+  padding-bottom: 8.5px;
   text-align: left;
   margin: 19px 49px 1.8px 69px;
   font-family: "Inter" !important;
@@ -4193,18 +4272,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 766px) {
   #container-table-token td {
-    padding: 12px;
-    text-align: left;
-    margin: 19px 49px 1.8px 69px;
-    font-family: "Inter" !important;
-    font-size: 0.875rem !important;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0px;
-    text-align: left;
-    color: #2a2a2a;
+    padding-left: 13px;
   }
 }
 
@@ -4453,7 +4521,7 @@ button {
   top: 100%;
   left: 0%;
   width: 100%;
-  height: 1px;
+  height: 2px;
   border: solid 1px #2149b9;
   background: #2149b9;
   color: #2149b9;
@@ -4472,7 +4540,7 @@ button {
   top: 100%;
   left: 0%;
   width: 100%;
-  height: 1px;
+  height: 2px;
   border: solid 1px #2149b9;
   background: #2149b9;
   color: #2149b9;
@@ -7331,7 +7399,7 @@ button {
   height: 5rem !important;
   border-radius: 4px;
   outline: transparent;
-  border: solid 1px #E0E4E9;
+  border: solid 1px #e0e4e9;
   background-color: #f5f5f5;
   color: #3a3a3a;
   margin-left: 0px;
@@ -8600,7 +8668,7 @@ button {
     letter-spacing: 0px !important;
   }
   .main-input-td {
-    width: 12.5rem;
+    width: 100%;
     font-size: 12px !important;
     margin-top: -2px;
   }
@@ -8708,7 +8776,7 @@ button {
     width: 23.5rem;
   }
   .table-grid-block-contract {
-    width: 23.5rem;
+    width: 21rem;
   }
   .grid-block-table {
     /* width: 100% !important; */
@@ -8939,7 +9007,8 @@ button {
     width: 22.563rem;
   }
   .table-grid-block-contract {
-    width: 23.563rem;
+    flex-direction: column;
+    width: 41.5rem;
   }
   .grid-block-table {
     width: 41.5rem !important;
@@ -9100,7 +9169,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 40px;
-  padding-right: 20px;
   letter-spacing: 0rem;
   text-align: center;
   color: #2a2a2a;
@@ -9549,6 +9617,11 @@ button {
   .overflow {
     overflow-x: scroll;
   }
+  .profile {
+    height: 24px !important;
+    width: 24px !important;
+    margin-right: 9px;
+  }
 }
 .Shape2-internal1 {
   margin-top: -2px !important;
@@ -9613,7 +9686,7 @@ button {
     /* padding: 0.4rem 0.644rem 0 0.75rem; */
   }
   .select-td {
-    margin-left: 13px;
+    /* margin-left: 13px; */
   }
 
   /* .select-td {
@@ -9727,13 +9800,14 @@ button {
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
+    width: auto;
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
     font-size: 1rem !important;
   }
   .token-list-tab_11 {
-    width: 21rem !important;
+    /* width: 21rem !important; */
     margin: 0 auto;
   }
   .box-first {
@@ -9757,6 +9831,7 @@ button {
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
+    width: 170px;;
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
@@ -9841,7 +9916,7 @@ button {
   margin-top: 23px;
 }
 .Notification-text-color-fade {
-  color: #0099f9;
+  color: #81b4ff;
   font-size: 0.75rem;
   font-family: Inter;
 }
@@ -10237,7 +10312,7 @@ button {
   font-weight: 500 !important;
 }
 .account-searchbar {
-  font-size: 0.938rem;
+  font-size: 15px;
   letter-spacing: 0px;
   color: #2a2a2a;
   font-family: "Inter";
@@ -10245,7 +10320,7 @@ button {
   border-width: 0;
   padding-top: 3px;
   margin: 1px;
-  width: 11rem;
+  width: 10rem;
 }
 .account-searchbar:focus {
   outline: none !important;
@@ -10270,6 +10345,9 @@ button {
   color: red;
   font-weight: normal;
 }
+.m-r-9 {
+  margin-right: 9px;
+}
 @media (min-width: 767px) and (max-width: 1240px) {
   .error-message {
     margin-left: -5px;
@@ -10288,6 +10366,12 @@ button {
     background-color: white;
     color: #4878ff;
     margin-left: 0px !important;
+  }
+  .account-searchbar {
+    width: 8rem;
+  }
+  .m-r-9 {
+    margin-right: 0px;;
   }
 }
 @media (min-width: 0px) and (max-width: 766px) {
@@ -10356,6 +10440,10 @@ button {
     background-color: white;
     color: #4878ff;
     margin-left: 0px !important;
+  }
+  .account-searchbar {
+    max-width: 43rem;
+    width: 100%;
   }
 }
 .copy-icon-block-details {
@@ -10624,7 +10712,7 @@ button {
 }
 @media (min-width: 400px) and (max-width: 767px) {
   .searchdiv {
-    width: 21rem !important;
+    width: 100% !important;
   }
 }
 .color-2149b9 a {
@@ -10694,9 +10782,54 @@ button {
   padding: 2px 1px;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .table-list {
     width: 100% !important;
     margin: 10px 0;
   }
+  .MuiIconButton-root {
+    padding: 0 12px 0 0 !important;
+    margin-right: -12px !important;
+  }
+  .p-l-r-15 {
+    padding: 20px 15px !important;
+  }
+}
+.toast-div-address {
+  height: 49px;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1) !important;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  color: #3a3a3a !important;
+}
+
+@media screen and (max-width: 767px) {
+  .accProfile .MuiTabs-flexContainer {
+    display: block !important;
+
+    /* padding-left: 20px; */
+  }
+
+  .accProfile .MuiTabs-scroller {
+    white-space: normal !important;
+  }
+
+  .searchdiv {
+    padding-left: 0px 15px !important;
+    margin-left: 15px !important;
+  }
+
+  .PrivateTabIndicator-colorSecondary-120 {
+    display: none;
+  }
+}
+.sidebar_notification {
+  color: white;
+  width: 100%;
+  margin-left: 20px;
 }

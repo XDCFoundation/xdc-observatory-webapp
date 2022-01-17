@@ -31,7 +31,7 @@ const TabButtonContainer = styled.div`
 `;
 
 export default function TokenContracttab(props) {
-  const [activeTab, setActiveTab] = useState(0);
+  // const [activeTab, setActiveTab] = useState(0);
 
   return (
     <>
@@ -42,7 +42,8 @@ export default function TokenContracttab(props) {
         }}
         elevation={0}
       >
-        <TabButtonContainer>
+        <ContractDetails {...props} />
+        {/* <TabButtonContainer>
           <TabButton
             active={activeTab === 0 ? true : false}
             onClick={() => setActiveTab(0)}
@@ -78,7 +79,7 @@ export default function TokenContracttab(props) {
           />
         ) : (
           ""
-        )}
+        )} */}
         <br />
       </Paper>
     </>
@@ -88,7 +89,7 @@ export default function TokenContracttab(props) {
 const ContractDetails = (props) => {
   let verifiedData = props?.contractData;
   const [copiedText, setCopiedText] = useState("");
-  console.log("verifiedData", verifiedData);
+
   return (
     <div className="container">
       <div className="contract-source">
