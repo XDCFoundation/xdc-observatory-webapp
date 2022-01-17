@@ -72,7 +72,6 @@ const useStyles = makeStyles({
 export default function HoldersDetails(props) {
   const urlParams = new URLSearchParams(window.location.search);
   const isAnalytics = urlParams.get("isAnalytics");
-  console.log("+++ ", isAnalytics);
   const [toggleState, setToggleState] = useState(
     isAnalytics === "true" ? 2 : 1
   );
@@ -110,7 +109,6 @@ export default function HoldersDetails(props) {
     );
     if (error || !tns) return;
     setHolderDetail(tns);
-    console.log("+++", tns[0]?.Contract_address);
     setContractAddress(tns[0]?.Contract_address);
   };
 

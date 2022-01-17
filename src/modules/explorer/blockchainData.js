@@ -176,6 +176,26 @@ const TitleValue = styled.div`
     font-size: 0.875rem;
   }
 `;
+const TransactionTitleValue = styled.div`
+display:flex;
+  font-size: 1rem;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #252525;
+  @media (max-width: 767px) {
+    font-size: 0.875rem;
+  }
+`;
+const TransactionValue = styled.div`
+font-size: 1rem;
+  font-family: Inter;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #252525;
+`;
 const TitleData = styled.div`
   font-size: 1rem;
   font-family: Inter;
@@ -398,15 +418,16 @@ class BlockChainDataComponent extends Component {
 
   async getNetStatsData() {
     let [error, netStatData] = await Utils.parseResponse(
-        NetStatsService.getNetStatsData()
+      NetStatsService.getNetStatsData()
     );
     if (error || !netStatData) return;
-    this.setState({netStatData: netStatData, totalAccount: netStatData.activeAddressCount});
+    this.setState({ netStatData: netStatData, totalAccount: netStatData?.activeAddressCount });
     const interval = setInterval(async () => {
       let [error, netStatData] = await Utils.parseResponse(
-          NetStatsService.getNetStatsData()
+        NetStatsService.getNetStatsData()
       );
-      this.setState({netStatData: netStatData, totalAccount: netStatData.activeAddressCount});
+      if (error || !netStatData) return;
+      this.setState({ netStatData: netStatData, totalAccount: netStatData?.activeAddressCount });
     }, 90000);
   }
 
@@ -617,13 +638,13 @@ class BlockChainDataComponent extends Component {
                   </div>
                 </div>
               </LeftTopSecMain>
-              <Line1/>
+              <Line1 />
             </LeftFirst>
           </DeskTopDesign>
           <LeftSec>
             <ValueMain>
               <Value gridArea="blockHeight">
-                <TitleIcon src={blockHeightImg}/>
+                <TitleIcon src={blockHeightImg} />
                 <ValueName>
                   <Title>Block Height</Title>
                   <TitleValue className={animationClass ? animationClass : ""}>
@@ -632,7 +653,7 @@ class BlockChainDataComponent extends Component {
                 </ValueName>
               </Value>
               <Value gridArea="gasPrice">
-                <TitleIcon src={priceLogo}/>
+                <TitleIcon src={priceLogo} />
                 <ValueName>
                   <Title>Txn Fee (Avg)</Title>
                   <TitleData className={TxanimationClass ? TxanimationClass : ""}>
@@ -641,15 +662,24 @@ class BlockChainDataComponent extends Component {
                 </ValueName>
               </Value>
               <Value gridArea="transactions">
-                <TitleIcon src={transactionLogo}/>
+                <TitleIcon src={transactionLogo} />
                 <ValueName>
                   <Title>Transactions</Title>
-                  <Tooltip placement="top" title={this.state.totalTransaction}>
-                    <TitleValue>
-                      {" "}
-                      {utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}
-                    </TitleValue>
-                  </Tooltip>
+
+                  <TransactionTitleValue>
+                    {" "}
+                    <Tooltip placement="top" title={this.state.totalTransaction}>
+                      <TransactionValue>{utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}</TransactionValue>
+                    </Tooltip>
+                    <Tooltip placement="top" title="Transactions are syncing">
+                      <img
+                        alt="question-mark"
+                        src="/images/alert.svg"
+                        className="tooltipAlert"
+                      />
+                    </Tooltip>
+                  </TransactionTitleValue>
+
                 </ValueName>
               </Value>
               {/*<Value>*/}
@@ -665,7 +695,7 @@ class BlockChainDataComponent extends Component {
               {/*  </ValueName>*/}
               {/*</Value>*/}
               <Value gridArea="nodes">
-                <TitleIcon src='/images/nodes.svg'/>
+                <TitleIcon src='/images/nodes.svg' />
                 <ValueName>
                   <Title>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
@@ -673,52 +703,52 @@ class BlockChainDataComponent extends Component {
                 </ValueName>
               </Value>
               <Value gridArea="tps">
-                <TitleIcon src={maxLogo}/>
+                <TitleIcon src={maxLogo} />
                 <ValueName>
                   <Title>Current/Max TPS</Title>
                   <TitleValue>{currentTp ? currentTp : 0}/2000</TitleValue>
                 </ValueName>
               </Value>
               <Value gridArea="accounts">
-                <TitleIcon src={accountLogo}/>
+                <TitleIcon src={accountLogo} />
                 <ValueName>
                   <Title>Accounts</Title>
                   <div className="last_value">
                     <TitleValue>{format({})(this.state.totalAccount)}</TitleValue>
                     <div
-                        className={
-                          changeAccounts >= 0
-                              ? "data_value_green last_value_main"
-                              : "data_value_red"
-                        }
+                      className={
+                        changeAccounts >= 0
+                          ? "data_value_green last_value_main"
+                          : "data_value_red"
+                      }
                     >
                       <div className="value_p">
                         {changeAccounts == 0 ? (
-                            ""
+                          ""
                         ) : changeAccounts > 0 ? (
-                            <div className="arrow_up">
-                              {/* <BsFillCaretUpFill size={10} /> */}
-                              <img
-                                  src={"/images/Up.svg"}
-                                  style={{
-                                    width: "0.5rem",
-                                    marginRight: "5px",
-                                    marginBottom: "5px",
-                                  }}
-                              />
-                            </div>
+                          <div className="arrow_up">
+                            {/* <BsFillCaretUpFill size={10} /> */}
+                            <img
+                              src={"/images/Up.svg"}
+                              style={{
+                                width: "0.5rem",
+                                marginRight: "5px",
+                                marginBottom: "5px",
+                              }}
+                            />
+                          </div>
                         ) : (
-                            <div className="arrow_down">
-                              {/* <BsFillCaretDownFill size={10} /> */}
-                              <img
-                                  src={"/images/Down.svg"}
-                                  style={{
-                                    width: "0.5rem",
-                                    marginRight: "5px",
-                                    marginBottom: "5px",
-                                  }}
-                              />
-                            </div>
+                          <div className="arrow_down">
+                            {/* <BsFillCaretDownFill size={10} /> */}
+                            <img
+                              src={"/images/Down.svg"}
+                              style={{
+                                width: "0.5rem",
+                                marginRight: "5px",
+                                marginBottom: "5px",
+                              }}
+                            />
+                          </div>
                         )}
                         {changeAccounts}
                       </div>

@@ -32,6 +32,7 @@ const Rectangle = styled.div`
   padding: 19px 91px 18px 92px;
   border-radius: 6px;
   background-color: #f3fff7;
+  color: #007b2c;
 `;
 const LoginButton = styled.button`
   width: 287px;

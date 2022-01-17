@@ -16,7 +16,7 @@ import "../../assets/styles/custom.css";
 import FooterComponent from "../common/footerComponent";
 import queryString from "query-string";
 import utility from "../../utility";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import Utility from "../../utility";
 
 const useStyles = makeStyles((theme) => ({
@@ -178,7 +178,7 @@ export default function BlockDetails() {
       return daysDifference + " days ago"
     }
   }
-  const timezone = useSelector(state=> state.timezone)
+  const timezone = useSelector(state => state.timezone)
 
   return (
     <div>
@@ -223,7 +223,7 @@ export default function BlockDetails() {
                           >
                             <button className="copy-icon-block-details">
                               <ImgView
-                                src="/images/info.svg"
+                                src="/images/copy-grey.svg"
                               />
                             </button>
                           </Tooltip>
@@ -352,7 +352,7 @@ export default function BlockDetails() {
                               }}
                             >
                               <ImgView
-                                src="/images/info.svg"
+                                src="/images/copy-grey.svg"
                               />
                             </button>
                           </Tooltip>
@@ -393,7 +393,7 @@ export default function BlockDetails() {
                               }}
                             >
                               <ImgView
-                                src="/images/info.svg"
+                                src="/images/copy-grey.svg"
                               />
                             </button>
                           </Tooltip>

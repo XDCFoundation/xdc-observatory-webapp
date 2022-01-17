@@ -5,7 +5,7 @@ import React from "react";
 
 
 const PageSelect = styled(Select)`
-  width: 73px;
+  width: 100%;
   height: ${({ height }) => height}px;
   margin: 0 10px;
   
