@@ -178,8 +178,14 @@ a:link {
 .h-20 {
   height: 20px;
 }
+.h-16 {
+  height: 20px;
+}
 .m-r-10 {
   margin-right: 10px;
+}
+.m-t_-7 {
+  margin-top: -7px;
 }
 input#password {
   width: 433px;
@@ -532,6 +538,9 @@ input:focus {
 
 .w-20-px {
   width: 20px;
+}
+.w-16-px {
+  width: 16px;
 }
 
 .w-320 {
@@ -2505,7 +2514,7 @@ p {
 .firstbox-contract {
   height: 35px;
   width: 60px;
-  margin: -6px 6px 0px 68px;
+  margin: -6px 6px 0px 0px;
   padding: 1px;
   border-radius: 4px;
   border: solid 1px #e5e8f0;
@@ -2933,6 +2942,24 @@ p {
     color: #686868;
     margin-right: 20px;
   }
+  .firstbox-contract {
+    height: 34px;
+    width: 47px;
+    margin: -6px 6px 0px 0px;
+    padding: 1px;
+    border-radius: 6px;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+  }
+  .lastbox-contract {
+    width: 47px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 1px;
+    border-radius: 6px;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+  }
 }
 
 .TableTexts {
@@ -3252,11 +3279,14 @@ p {
     text-align: left;
     color: #3a3a3a;
   }
+  .search-container {
+    margin: 15px auto auto auto !important;
+  }
 }
 
 .profile {
-  height: 28px !important;
-  width: 28px !important;
+  height: 24px !important;
+  width: 24px !important;
 }
 @media (min-width: 766px) and (max-width: 1240px) {
   .verify-contract-first-div-text {
@@ -3715,14 +3745,26 @@ body {
 }
 @media (max-width: 767px) {
   .previousbox-contract {
-    /* padding: 10px 20px; */
+    width: 29px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 9px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
   }
   .nextbox-contract {
-    padding: 10px 20px;
+    width: 29px;
+    height: 34px;
+    margin: -6px 6px 0px 0px;
+    padding: 9px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
   }
-  .lastbox-contract {
-    padding: 1px 4px;
-  }
+  
   .block {
     justify-content: space-between;
     display: flex;
@@ -4119,7 +4161,7 @@ body {
 }
 
 #container-table th {
-  padding: 25px 0px 15px 70px;
+  padding: 25px 0px 15px 24px;
   /* padding: 15px; */
   /* padding-top: 25px; */
   font-weight: 600;
@@ -4231,18 +4273,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 766px) {
   #container-table-token td {
-    padding: 12px;
-    text-align: left;
-    margin: 19px 49px 1.8px 69px;
-    font-family: "Inter" !important;
-    font-size: 0.875rem !important;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 0px;
-    text-align: left;
-    color: #2a2a2a;
+    padding-left: 13px;
   }
 }
 
@@ -4970,6 +5001,7 @@ button {
   line-height: normal;
   letter-spacing: 0px;
   color: #2149b9 !important;
+  padding-left: 2px;
   /*margin-top: 8px;*/
   /*margin-right: 25px;*/
   /*animation: fadeInAnimation ease 2s;*/
@@ -5389,6 +5421,7 @@ button {
   font-size: 22px;
   color: #2a2a2a;
   text-align: center;
+  padding: 0 35px;
 }
 .forgot-success-close {
   top: 26px;
@@ -5401,7 +5434,7 @@ button {
   width: 433px;
   height: 212px;
   margin: 38px 0px 35px 0px;
-  padding: 77px 20.5px 33px 16.5px;
+  padding: 32px 20.5px 33px 16.5px;
   border-radius: 6px;
   background-color: #f3fff7;
   margin-right: 15px;
@@ -5417,6 +5450,7 @@ button {
   letter-spacing: 0px;
   text-align: center;
   color: #007b2c;
+  margin-top: 20px;
 }
 .forgot-success-time-div {
   width: 432px;
@@ -5437,7 +5471,11 @@ button {
   line-height: normal;
   letter-spacing: 0px;
   text-align: center;
-  color: var(--white-two);
+  color: #ffffff;
+}
+.imageTick {
+  display: flex;
+  justify-content: center;
 }
 .margin-top-20-px {
   margin-top: 20px;
@@ -9772,13 +9810,14 @@ button {
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
+    width: auto;
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
     font-size: 1rem !important;
   }
   .token-list-tab_11 {
-    width: 21rem !important;
+    /* width: 21rem !important; */
     margin: 0 auto;
   }
   .box-first {
@@ -9802,6 +9841,7 @@ button {
   }
   .input-searchelement_11 {
     margin-left: 0% !important;
+    width: 170px;;
   }
   .token-searchelement_11 {
     margin-left: 0% !important;
@@ -9886,7 +9926,7 @@ button {
   margin-top: 23px;
 }
 .Notification-text-color-fade {
-  color: #0099f9;
+  color: #81b4ff;
   font-size: 0.75rem;
   font-family: Inter;
 }
@@ -10337,6 +10377,12 @@ button {
     color: #4878ff;
     margin-left: 0px !important;
   }
+  .account-searchbar {
+    width: 8rem;
+  }
+  .m-r-9 {
+    margin-right: 0px;;
+  }
 }
 @media (min-width: 0px) and (max-width: 766px) {
   .error-message {
@@ -10404,6 +10450,10 @@ button {
     background-color: white;
     color: #4878ff;
     margin-left: 0px !important;
+  }
+  .account-searchbar {
+    max-width: 43rem;
+    width: 100%;
   }
 }
 .copy-icon-block-details {
@@ -10792,4 +10842,9 @@ button {
   margin-left: 8px;
   height: 15px;
   width: 15px;
+}
+.sidebar_notification {
+  color: white;
+  width: 100%;
+  margin-left: 20px;
 }
