@@ -164,14 +164,10 @@ async function getTotalTransferTransactionsForToken(data) {
     });
 }
 async function getListOfHoldersForToken(data) {
-  let url =
-    process.env.REACT_APP_GET_LIST_OF_HOLDERS_FOR_TOKEN +
-    data.addr +
-    "?skip=" +
-    Math.ceil(data.pageNum) +
-    "&limit=" +
-    data.perpage;
-  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+   let url = process.env.REACT_APP_GET_LIST_OF_HOLDERS_FOR_TOKEN + data.address;
+    // let url = "http://localhost:3007/getListOfHoldersForToken/"+data.address;
+    delete data.address;
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
@@ -205,14 +201,9 @@ async function getTransferTransactionDetailsUsingHash(path, data) {
     });
 }
 async function getHolderDetailsUsingAddressforToken(data) {
-  let url =
-    process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN +
-    data.addr +
-    "&skip=" +
-    Math.ceil(data.pageNum) +
-    "&limit=" +
-    data.perpage;
-  return httpService(httpConstants.METHOD_TYPE.GET, getHeaders(), {}, url)
+  let url = process.env.REACT_APP_GET_HOLDER_DETAIL_USING_ADDRESS_FOR_TOKEN
+  // let url = "http://localhost:3007/getHolderDetailsUsingAddress"
+  return httpService(httpConstants.METHOD_TYPE.POST, getHeaders(), data, url)
     .then((response) => {
       if (
         !response.success ||
