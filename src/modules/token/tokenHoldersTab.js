@@ -216,6 +216,7 @@ export default function StickyHeadTable(props) {
   let decimals = props?.contractData
     ? props?.contractData?.contractResponse?.decimals
     : "";
+
   return (
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
@@ -450,13 +451,13 @@ export default function StickyHeadTable(props) {
                   let quantity1 =
                     row[0]?.Quantity / Math.pow(10, decimals) >= 1
                       ? format({})(
-                        utility.convertToInternationalCurrencySystem(
-                          row[0]?.Quantity / Math.pow(10, decimals)
+                          utility.convertToInternationalCurrencySystem(
+                            row[0]?.Quantity / Math.pow(10, decimals)
+                          )
                         )
-                      )
                       : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
-                        decimals
-                      );
+                          decimals
+                        );
                   var quantity2 = quantity1.toString().split(".")[0];
                   var quantity3 = quantity1.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
@@ -535,7 +536,7 @@ export default function StickyHeadTable(props) {
                         {" "}
                         <span className="tabledata table-data mar-lef-3">
                           <a
-                            href={`/holder-details/${row[0]?.Address}/${tn}?isAnalytics=true`}
+                            href={`/holder-details/${row[0]?.Address}/${tn}?isAnalytics=true&tokenAddress=${address}`}
                           >
                             Analytics
                           </a>
@@ -567,12 +568,19 @@ export default function StickyHeadTable(props) {
       </Paper>
       <Pagination>
         <LeftPagination>
-          {!isLoading && noData ? (<>
-            <p className="p-pagination">Show</p>
-            <PageSelector value={rowsPerPage}
-                          height={28}
-                          handler={handleChangeRowsPerPage}/>
-            <p className="p-pagination"> Records</p></>) : ("")}
+          {!isLoading && noData ? (
+            <>
+              <p className="p-pagination">Show</p>
+              <PageSelector
+                value={rowsPerPage}
+                height={28}
+                handler={handleChangeRowsPerPage}
+              />
+              <p className="p-pagination"> Records</p>
+            </>
+          ) : (
+            ""
+          )}
         </LeftPagination>
 
         <RightPagination
