@@ -86,7 +86,7 @@ export default function HoldersDetails(props) {
   const { tn } = useParams();
 
   useEffect(() => {
-    let values = { addr: addr, pageNum: 0, perpage: 1 };
+    let values = { address: addr, skip: 0, limit: 1 };
     holderDetail(values);
     if (holder !== 0) {
       getContractDetails()
