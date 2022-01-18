@@ -1000,7 +1000,7 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div className="not-found">No Holders Found</div>
+                <div className="not-found">No Transaction Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
@@ -1014,14 +1014,14 @@ export default function AddressTableComponent(props) {
           }}
           className="page-container-address"
         >
-          <Grid item xs="4" className="pagination-tab-address">
+          <Grid item className="pagination-tab-address">
             {!isLoading && !noData ? (
               <>
-                <span className="text">Show</span>
+                <span className="textShowRecord">Show</span>
                 <PageSelector value={rowsPerPage}
                   height={30}
                   handler={handleChangeRowsPerPage} />
-                <span className="text">Records</span>
+                <span className="textShowRecord">Records</span>
               </>
             ) : (
               ""
