@@ -291,7 +291,7 @@ export default function BlocksComponent(props) {
           </Table>
         </TableContainer>
       </Paper>
-      <Grid container style={{ marginTop: "25px" }} className="Pagination">
+      <Grid container style={{ marginTop: "28px" }} className="Pagination">
         <Grid item className="Pagination_1">
           <span className="text">Show</span>
           <select

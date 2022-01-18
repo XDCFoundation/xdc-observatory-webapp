@@ -519,7 +519,7 @@ export default function TransactionComponent(props) {
         </TableContainer>
       </Paper>
 
-      <Grid container style={{ marginTop: "2.25rem" }} className="Pagination">
+      <Grid container style={{ marginTop: "1.75rem" }} className="Pagination">
         {/* <Pagination> */}
         <Grid className="Pagination_1">
         {!props.state.isLoading && props.state.isData ?
