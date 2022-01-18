@@ -4,13 +4,32 @@ import { Row } from "simple-flexbox";
 import { sessionManager } from "../../managers/sessionManager";
 import FormDialog from "./loginDialog"
 import { makeStyles } from "@material-ui/styles";
+import { useState, useEffect } from 'react';
 
 export default function NewFeature(props) {
+
+  function getSessionStorageOrDefault(key, defaultValue) {
+    const stored = sessionStorage.getItem(key);
+    if (!stored) {
+      return defaultValue;
+    }
+    return JSON.parse(stored);
+  }
+
+  const [closeForNow, setCloseForNow] = useState(
+    getSessionStorageOrDefault('tempClose', false)
+  );
+
+  useEffect(() => {
+    sessionStorage.setItem('tempClose', JSON.stringify(closeForNow));
+  }, [closeForNow]);
+
   const [open, setOpen] = React.useState(true);
   const [signUp, setSignUp] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
     setSignUp(false);
+    setCloseForNow(true);
   };
   //   const { onClose, selectedValue, open } = props;
 
@@ -37,11 +56,11 @@ export default function NewFeature(props) {
   const visited = () => {
     sessionManager.setDataInCookies(true, "Visited");
   }
-  const isLoggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const userInfo = sessionManager.getDataFromCookies("userInfo");
 
   return (
     <>
-    {isLoggedIn ?
+    {!userInfo && !closeForNow ?
 
     (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
       <div className="main-box" >
@@ -63,7 +82,7 @@ export default function NewFeature(props) {
             <div className="card-title">Create watchlist</div>
             <div className="card-text">
               An Email notification can be sent to you when an address on your
-              watch list receives an incoming transaction.
+              watch list receives an incoming/outgoing transaction.
             </div>
           </div>
           <div className="card margin-right-34px">
