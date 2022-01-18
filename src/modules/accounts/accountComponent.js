@@ -520,7 +520,7 @@ export default function AccountComponent(props) {
           </TableContainer>
         </Paper>
 
-        <Grid container style={{ marginTop: "35px" }} className="Pagination">
+        <Grid container style={{ marginTop: "28px" }} className="Pagination">
           <Grid item className="Pagination_1">
             {!props.state.isLoading && props.state.noData ? (
               <>
