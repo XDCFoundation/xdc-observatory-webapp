@@ -465,6 +465,15 @@
   border-radius: 4px;
   font-weight: bold;
 }
+.textShowRecord {
+  font-family: Inter;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #2a2a2a;
+  border-radius: 4px;
+  font-weight: bold;
+  padding-top: 3px;
+}
 @media (max-width: 767px) {
   .text {
     margin-left: 6px;
