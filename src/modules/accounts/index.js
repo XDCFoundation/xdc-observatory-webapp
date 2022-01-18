@@ -18,8 +18,8 @@ export default class LatestAccountsList extends BaseComponent {
             totalSupply: 0,
             noData: 1,
             isLoading: true,
-            balanceSort: 1,
-            percentageSort: 1,
+            balanceSort: 0,
+            percentageSort: 0,
             tableColumns: {
                 "Rank": { isActive: true, toolTipText: "Account’s rank sorted on the basis of Balance." },
                 "Type": { isActive: true, toolTipText: "Account type is either Account, Contract or Token." },
@@ -131,14 +131,14 @@ export default class LatestAccountsList extends BaseComponent {
     }
     sortData = async (sortKey) => {
         let sortType = this.state[sortKey];
-        if (sortType === 1) {
+        if (sortType === 1 || sortType === -1) {
             // setLoading(true)
-            this.getListOfAccounts("balance", 1);
-            this.setState({ [sortKey]: -1 })
+            this.getListOfAccounts("balance", sortType*-1);
+            this.setState({ [sortKey]: sortType*-1 })
         } else {
             // setLoading(true)
             this.getListOfAccounts("balance", -1);
-            this.setState({ [sortKey]: 1 })
+            this.setState({ [sortKey]: -1 })
         }
     }
     getSortTitle = (sortKey) => {
