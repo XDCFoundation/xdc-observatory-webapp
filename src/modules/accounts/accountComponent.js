@@ -274,6 +274,9 @@ export default function AccountComponent(props) {
                         paddingRight: "48px",
                       }}
                       align="center"
+                      onClick={() => {
+                        props.sortData("balanceSort");
+                      }}
                     >
                       <span className={"tableheaders_1"}>
                         Balance
@@ -298,17 +301,11 @@ export default function AccountComponent(props) {
                       >{
                           props?.state?.balanceSort == 1 ?
                             <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
                               className={classes.sortButton}
                             />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
+                            : ((props?.state?.balanceSort == -1) ? <ArrowDownwardIcon
                               className={classes.sortButton}
-                            />
+                              />:<span></span>)
                         }
 
                       </Tooltip>
@@ -319,6 +316,9 @@ export default function AccountComponent(props) {
                     <TableCell
                       className={classes.PercentageColumn}
                       align="center"
+                      onClick={() => {
+                        props.sortData("percentageSort");
+                      }}
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
@@ -344,17 +344,11 @@ export default function AccountComponent(props) {
                         {
                           props?.state?.percentageSort == 1 ?
                             <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
                               className={classes.sortButton}
                             />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
+                            : (props?.state?.percentageSort == -1 ? <ArrowDownwardIcon
                               className={classes.sortButton}
-                            />
+                            />:<span></span>)
                         }
                       </Tooltip>
                     </TableCell>
