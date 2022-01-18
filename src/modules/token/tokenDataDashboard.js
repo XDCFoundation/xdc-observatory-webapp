@@ -700,8 +700,8 @@ const TopHeaderSection = ({
             </div>
           </div>
         </LeftTopSecMain>
-        
       </LeftFirst>
+      <hr></hr>
     </>
   );
 };

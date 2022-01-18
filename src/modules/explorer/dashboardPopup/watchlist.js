@@ -389,7 +389,7 @@ export default function FormDialog(props) {
           </div>
           <div className="paradiv1">
             An Email notification can be sent to you when an address on your
-            watch list recieves an incoming transaction.
+            watch list recieves an incoming/outgoing transaction.
           </div>
         </div>
 
@@ -397,7 +397,7 @@ export default function FormDialog(props) {
           <LightToolTip
             open={tooltipIsOpen}
             onClose={tooltipClose}
-            title="An Email notification can be sent to you when an address on your watch list recieves an incoming transaction."
+            title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
             arrow
             placement="top-start"
           >

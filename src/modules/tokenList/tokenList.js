@@ -39,17 +39,17 @@ const Pagination = styled.div`
   justify-content: space-between;
   flex-direction: row;
   width: 75.125rem;
-  margin: 60px auto 0 auto;
+  margin: 28px auto 0 auto;
 
   @media (min-width: 0px) and (max-width: 767px) {
     display: flex;
     flex-direction: column;
     width: 21rem;
-    margin: 25px auto 23px 0;
+    margin: 25px auto 25px 0;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
-    margin: 60px auto;
+    margin: 28px auto 60px auto;
   }
 `;
 const RightPagination = styled.div`

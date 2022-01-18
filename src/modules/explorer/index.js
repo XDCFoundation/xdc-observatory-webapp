@@ -6,6 +6,7 @@ import LatestBlocksComponent from './latestBlocksAndTransactions';
 import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
 import RecentSearchList from "./recentSearchList/recentSearchList";
+import BuyStoreTradeXDC from "./buyStoreTradeXDC/buyStoreTradeXDC";
 
 
 
@@ -37,6 +38,7 @@ export default class BlockChainClass extends BaseComponent {
                 <MarketTable currency={activeCurrency} />
                 <LatestBlocksComponent socket={this.props.socket} />
                 <RecentSearchList/>
+                <BuyStoreTradeXDC/>
                 <FooterComponent _handleChange={this._handleChange}
                     currency={this.state.amount} />
                 {/* showDropDown={this.state.showDropDown} */}
