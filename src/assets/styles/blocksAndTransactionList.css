@@ -813,10 +813,9 @@
     margin-bottom: 23px;
   }
   .Pagination_1 {
-    flex-grow: 0 !important;
-    max-width: 70% !important;
-    flex-basis: 25% !important;
-    padding-bottom: 11px !important;
+    max-width: 185px !important;
+    width: 100% !important;
+    padding-bottom: 15px !important;
   }
   .Pagination_2 {
     flex-grow: 0 !important;
@@ -851,7 +850,8 @@
     overflow: auto;
   }
   .Pagination_1 {
-    width: 200px;
+    width: 185px;
+    display: flex;
   }
   .Pagination {
     display: flex;
@@ -888,7 +888,8 @@
     width: 13%;
   }
   .Pagination_1 {
-    width: 12.5rem;
+    width: 11.5rem;
+    display: flex;
   }
   .Pagination {
     display: flex;
