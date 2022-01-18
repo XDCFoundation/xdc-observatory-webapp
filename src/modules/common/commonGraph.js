@@ -14,6 +14,13 @@ const options = {
 };
 
 export default function Chart(props) {
+  Highcharts.setOptions({
+    lang: {
+      rangeSelectorFrom: "From",
+      rangeSelectorTo: "To",
+      rangeSelectorZoom: "Show",
+    },
+  });
   return (
     <HighchartsReact
       highcharts={Highcharts}
