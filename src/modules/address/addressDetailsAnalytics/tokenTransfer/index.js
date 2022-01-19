@@ -15,6 +15,18 @@ const ProgressBarContainer = styled.div`
   margin: 20px;
 `;
 
+const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+  @media (min-width: 767px) {
+    margin: 100px !important;
+  }
+`;
+
 export default function WrappedComponent() {
   const { addr } = useParams();
   return <TokenTransferGraph address={addr} />;
@@ -25,6 +37,7 @@ class TokenTransferGraph extends BaseComponent {
     super(props);
     this.state = {
       loading: false,
+      graphData:[]
     };
   }
 
@@ -49,6 +62,7 @@ class TokenTransferGraph extends BaseComponent {
       this.generateGraphData([]);
       return;
     }
+    this.setState({graphData: response})
     this.generateGraphData(response);
   };
 
@@ -261,7 +275,19 @@ class TokenTransferGraph extends BaseComponent {
             <CircularProgress size={40} />
           </ProgressBarContainer>
         ) : (
-          <Graph options={this.state.options} />
+            <span>
+              {this.state.graphData.length == 0 ?
+                  <NoDataFoundContainer>
+                    <img
+                        src={require("../../../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
+
+                    <div>No Data found.</div>
+                  </NoDataFoundContainer>
+                  :
+                  <Graph options={this.state.options}/>
+              }
+            </span>
         )}
       </div>
     );

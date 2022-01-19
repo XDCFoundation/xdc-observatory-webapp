@@ -1080,7 +1080,7 @@ export default function AddressDetails(props) {
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                    toggleState === 1 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
@@ -1089,7 +1089,7 @@ export default function AddressDetails(props) {
                 </button>
                 <button
                   className={
-                    toggleState === 2 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                    toggleState === 2 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(2)}
                   id="transaction-btn"
