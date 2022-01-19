@@ -17,6 +17,8 @@ import Popover from "./popover";
 import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 import { Row } from "simple-flexbox";
+import {eventConstants, recentSearchTypeConstants} from "../../constants";
+import {useDispatch} from "react-redux";
 
 const drawerWidth = 240;
 const Cut = styled.div`
@@ -169,6 +171,7 @@ export default function Navbar() {
     right: false,
   });
 
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [opencontracts, setOpencontracts] = useState(false);
   const ref = React.useRef(null);
@@ -226,14 +229,38 @@ export default function Navbar() {
       if (responseData) {
         if (responseData[0].redirect === "block") {
           let blockurl = "/block-details/" + responseData[0].block.number;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+              type: recentSearchTypeConstants.BLOCK,
+              searchValue: data?.data || '',
+              result: responseData[0]?.block?.transactions?.length > 0 && responseData[0]?.block?.transactions.reduce((accumulator, trx) => accumulator + parseInt(trx.value), [0]) || 0,
+              redirectUrl: blockurl
+            }
+          })
           window.location.href = blockurl;
         } else if (responseData[0].redirect === "account") {
           let accounturl =
             "/address-details/" + responseData[0].account.address;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+              type: recentSearchTypeConstants.ACCOUNT,
+              searchValue: responseData[0]?.account?.address || '',
+              result: responseData[0]?.account?.balance || 0,
+              redirectUrl: accounturl
+            }
+          })
           window.location.href = accounturl;
         } else if (responseData[0].redirect === "transaction") {
           let transactionurl =
             "/transaction-details/" + responseData[0].transaction.hash;
+          dispatch({
+            type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+              type: recentSearchTypeConstants.TRANSACTION,
+              searchValue: data?.data || '',
+              result: responseData[0]?.transaction?.value || 0,
+              redirectUrl: transactionurl
+            }
+          })
           window.location.href = transactionurl;
         } else if (responseData[0].redirect === "token") {
           if (responseData[0]?.token.length == 1) {
@@ -242,11 +269,26 @@ export default function Navbar() {
               responseData[0]?.token[0]?.address +
               "/" +
               responseData[0]?.token[0]?.symbol;
+            dispatch({
+              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                type: recentSearchTypeConstants.TOKEN,
+                searchValue: responseData[0]?.token[0]?.address || '',
+                result: responseData[0]?.token[0]?.totalSupply || 0,
+                redirectUrl: tokenDataUrl
+              }
+            })
             window.location.href = tokenDataUrl;
           } else if (responseData[0]?.token.length > 1) {
             let tokenListUrl =
               "/tokens/" + responseData[0]?.token[0]?.tokenName;
-
+            dispatch({
+              type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
+                type: recentSearchTypeConstants.TOKEN,
+                searchValue: responseData[0]?.token?.address || '',
+                result: responseData[0]?.token?.totalSupply || 0,
+                redirectUrl: tokenListUrl
+              }
+            })
             window.location.href = tokenListUrl;
           } else {
           }

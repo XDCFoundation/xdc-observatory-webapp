@@ -146,17 +146,17 @@ export default function StickyHeadTable(props) {
     const [totalToken, setTotalToken] = React.useState(0);
     const [keywords, setKeywords] = React.useState("");
     const [rows, setRows] = React.useState([]);
-    const [sortedByHolderCount, setSortedByHolderCount] = React.useState(-1);
-    const [sortedByTotalSupply, setSortedByTotalSupply] = React.useState("");
+    const [sortKey, setSortKey] = React.useState("");
+    const [sortOrder, setSortOrder] = React.useState(0);
     let {token} = useParams();
 
     const [noData, setNoData] = React.useState(true);
     const handleChangePage = (action) => {
         let data = {searchKey: keywords ? keywords : ""};
-        if (sortedByTotalSupply)
-            data.sortKey = {totalSupply: sortedByTotalSupply};
-        if (sortedByHolderCount)
-            data.sortKey = {holdersCount: sortedByHolderCount};
+        if (sortKey && sortOrder)
+            data.sortKey = {[sortKey]: sortOrder};
+        // if (sortedByHolderCount)
+        //     data.sortKey = {holdersCount: sortedByHolderCount};
         if (!keywords)
             setNoData(false);
         if (action === "first") {
@@ -193,8 +193,8 @@ export default function StickyHeadTable(props) {
     const handleChangeRowsPerPage = (event) => {
         setFrom(0);
         setAmount(event.target.value);
-        setSortedByHolderCount(0);
-        setSortedByTotalSupply(0);
+        setSortKey('');
+        setSortOrder(0);
         setFrom(0);
         let data = {
             skip: 0,
@@ -207,8 +207,8 @@ export default function StickyHeadTable(props) {
     };
     const handleSearchKeyUp = (event) => {
         let searchkeyword = event?.target?.value;
-        setSortedByTotalSupply(0);
-        setSortedByHolderCount(0);
+        setSortKey("");
+        setSortOrder(0);
         if (searchkeyword?.length > 2) {
             setKeywords(searchkeyword);
             setLoading(false);
@@ -312,37 +312,34 @@ export default function StickyHeadTable(props) {
         )}`;
     }
 
-    async function sortByTotalSupply() {
-        setSortedByHolderCount(0);
+    async function sortTable(_sortKey) {
         let data = {skip: from, limit: amount, searchKey: keywords}
-        if (!sortedByTotalSupply) {
-            setSortedByTotalSupply(-1);
-            data['sortKey'] = {"totalSupply": -1}
-        } else if (sortedByTotalSupply === -1) {
-            setSortedByTotalSupply(1);
-            data['sortKey'] = {"totalSupply": 1}
-        } else {
-            setSortedByTotalSupply(-1);
-            data['sortKey'] = {"totalSupply": -1}
+        if (sortKey && sortKey.includes(_sortKey)) {
+            data['sortKey'] = {[_sortKey]: -1*sortOrder}
+            setSortOrder(-1* sortOrder);
+        } else  {
+            setSortKey(_sortKey)
+            setSortOrder(-1)
+            data['sortKey'] = {[_sortKey]: -1}
         }
         getTokenList(data);
     }
 
-    async function sortByHoldersCount() {
-        setSortedByTotalSupply(0);
-        let data = {skip: from, limit: amount, searchKey: keywords}
-        if (!sortedByHolderCount) {
-            setSortedByHolderCount(-1);
-            data['sortKey'] = {"holdersCount": -1}
-        } else if (sortedByHolderCount === -1) {
-            setSortedByHolderCount(1);
-            data['sortKey'] = {"holdersCount": 1}
-        } else {
-            setSortedByHolderCount(-1);
-            data['sortKey'] = {"holdersCount": -1}
-        }
-        getTokenList(data);
-    }
+    // async function sortByHoldersCount() {
+    //     setSortedByTotalSupply(0);
+    //     let data = {skip: from, limit: amount, searchKey: keywords}
+    //     if (!sortedByHolderCount) {
+    //         setSortedByHolderCount(-1);
+    //         data['sortKey'] = {"holdersCount": -1}
+    //     } else if (sortedByHolderCount === -1) {
+    //         setSortedByHolderCount(1);
+    //         data['sortKey'] = {"holdersCount": 1}
+    //     } else {
+    //         setSortedByHolderCount(-1);
+    //         data['sortKey'] = {"holdersCount": -1}
+    //     }
+    //     getTokenList(data);
+    // }
 
     const TokenTitle = styled.div`
     font-family: Inter;
@@ -558,7 +555,7 @@ export default function StickyHeadTable(props) {
                                 </TableCell>
                                 {props?.state?.tableColumns["Symbol"].isActive && (
                                     <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"}>
+                    <span className={"tablehead-token-details"} onClick={()=>sortTable("symbol")}>
                       Symbol
                       <Tooltip placement="top" title={messages.SYMBOL}>
                         <img
@@ -568,11 +565,24 @@ export default function StickyHeadTable(props) {
                             className="tooltipInfoIcon"
                         />
                       </Tooltip>
+                        {sortKey && sortKey === "symbol" ? (
+                            sortOrder===-1 ? <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon"
+                                /> :
+                                <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon rotate-180"
+                                />) : ""}
                     </span>
                                     </TableCell>
                                 )}
                                 <TableCell style={{border: "none"}} align="left">
-                  <span className={"tablehead-token-details"}>
+                  <span className={"tablehead-token-details"} onClick={()=>sortTable("tokenName")}>
                     Name
                     <Tooltip placement="top" title={messages.NAME}>
                       <img
@@ -582,6 +592,19 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIcon"
                       />
                     </Tooltip>
+                      {sortKey && sortKey === "tokenName" ? (
+                          sortOrder===-1 ? <img
+                                  alt="question-mark"
+                                  src="/images/see-more.svg"
+                                  height={"14px"}
+                                  className="tooltipInfoIcon"
+                              /> :
+                              <img
+                                  alt="question-mark"
+                                  src="/images/see-more.svg"
+                                  height={"14px"}
+                                  className="tooltipInfoIcon rotate-180"
+                              />) : ""}
                   </span>
                                 </TableCell>
                                 {/* {props?.state?.tableColumns["Type"].isActive && (
@@ -604,7 +627,7 @@ export default function StickyHeadTable(props) {
                                 )} */}
                                 {props?.state?.tableColumns["Hash"].isActive && (
                                     <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"}>
+                    <span className={"tablehead-token-details"} onClick={()=>sortTable("address")}>
                       Contract
                       <Tooltip placement="top" title={messages.CONTRACT}>
                         <img
@@ -614,6 +637,19 @@ export default function StickyHeadTable(props) {
                             className="tooltipInfoIcon"
                         />
                       </Tooltip>
+                        {sortKey && sortKey === "address" ? (
+                            sortOrder===-1 ? <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon"
+                                /> :
+                                <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon rotate-180"
+                                />) : ""}
                     </span>
                                     </TableCell>
                                 )}
@@ -622,7 +658,7 @@ export default function StickyHeadTable(props) {
                                     style={{border: "none", whiteSpace: "nowrap"}}
                                     align="left"
                                 >
-                  <span className={"tablehead-token-details cursor-pointer"} onClick={sortByTotalSupply}>
+                  <span className={"tablehead-token-details cursor-pointer"} onClick={()=>sortTable("totalSupply")}>
                     Total Supply
                     <Tooltip
                         placement="top"
@@ -635,7 +671,8 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIcon"
                       />
                     </Tooltip>
-                      {sortedByTotalSupply ? (sortedByTotalSupply === -1 ? <img
+                      {sortKey && sortKey === "totalSupply" ? (
+                          sortOrder===-1 ? <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
@@ -654,7 +691,7 @@ export default function StickyHeadTable(props) {
                                         style={{border: "none", whiteSpace: "nowrap"}}
                                         align="left"
                                     >
-                    <span className={"tablehead-token-details"} onClick={sortByHoldersCount}>
+                    <span className={"tablehead-token-details"} onClick={()=>sortTable("holdersCount")}>
                       Total Holders
                       <Tooltip placement="top" title={messages.HOLDER}>
                         <img
@@ -664,18 +701,19 @@ export default function StickyHeadTable(props) {
                             className="tooltipInfoIcon"
                         />
                       </Tooltip>
-                        {sortedByHolderCount ? (sortedByHolderCount === -1 ? <img
-                                alt="question-mark"
-                                src="/images/see-more.svg"
-                                height={"14px"}
-                                className="tooltipInfoIcon"
-                            /> :
-                            <img
-                                alt="question-mark"
-                                src="/images/see-more.svg"
-                                height={"14px"}
-                                className="tooltipInfoIcon rotate-180"
-                            />) : ""}
+                        {sortKey && sortKey === "holdersCount" ? (
+                            sortOrder===-1 ? <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon"
+                                /> :
+                                <img
+                                    alt="question-mark"
+                                    src="/images/see-more.svg"
+                                    height={"14px"}
+                                    className="tooltipInfoIcon rotate-180"
+                                />) : ""}
                     </span>
                                     </TableCell>
                                 )}
