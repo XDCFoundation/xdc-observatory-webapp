@@ -194,7 +194,7 @@ export default function AddressDetailsData() {
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
       <Grid className="table-grid-block-contract ">
-        <div className="container_sec">
+        <div>
           <div
             className="block_details_heading b-h1"
             style={{ display: "flex", flexDirection: "row" }}
@@ -432,64 +432,64 @@ export default function AddressDetailsData() {
             </TabContainer>
           </TabContainerParent>
 
-          <div className="content-tabs_sec">
-            <div
-              className={
-                toggleState === 1
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <TransactionTableComponent />
-            </div>
-            <div
-              className={
-                toggleState === 2
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              {!responses ? (
-                ""
-              ) : responses?.contractStatus === "Unverified" ? (
-                <TokenUnverifiedContract
-                  contractData={responses?.contractResponse}
-                />
-              ) : (
-                <TokenContracttab contractData={responses?.contractResponse} />
-              )}
-            </div>
-            <div
-              className={
-                toggleState === 3
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <ReadContract
-                contractData={
-                  responses?.contractResponse
-                    ? { ...responses?.contractResponse }
-                    : {}
-                }
-              />
-            </div>
-            <div
-              className={
-                toggleState === 4
-                  ? "content_sec  active-content_sec"
-                  : "content_sec"
-              }
-            >
-              <WriteContract
-                contractData={
-                  responses?.contractResponse
-                    ? { ...responses?.contractResponse }
-                    : {}
-                }
-              />
-            </div>
+          {/* <div className="content-tabs_sec"> */}
+          <div
+            className={
+              toggleState === 1
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <TransactionTableComponent />
           </div>
+          <div
+            className={
+              toggleState === 2
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            {!responses ? (
+              ""
+            ) : responses?.contractStatus === "Unverified" ? (
+              <TokenUnverifiedContract
+                contractData={responses?.contractResponse}
+              />
+            ) : (
+              <TokenContracttab contractData={responses?.contractResponse} />
+            )}
+          </div>
+          <div
+            className={
+              toggleState === 3
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <ReadContract
+              contractData={
+                responses?.contractResponse
+                  ? { ...responses?.contractResponse }
+                  : {}
+              }
+            />
+          </div>
+          <div
+            className={
+              toggleState === 4
+                ? "content_sec  active-content_sec"
+                : "content_sec"
+            }
+          >
+            <WriteContract
+              contractData={
+                responses?.contractResponse
+                  ? { ...responses?.contractResponse }
+                  : {}
+              }
+            />
+          </div>
+          {/* </div> */}
         </div>
       </Grid>
       <FooterComponent />

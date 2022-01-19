@@ -223,6 +223,9 @@ export default function AccountComponent(props) {
                   <TableCell
                     style={{ border: "none", paddingLeft: "2.2%" }}
                     align="center !important"
+                    onClick={() => {
+                      props.sortData("address");
+                    }}
                   >
                     <span className={"tableheaders_1_address"}>
                       Address
@@ -241,6 +244,20 @@ export default function AccountComponent(props) {
                         />
                       </Tooltip>
                     </span>
+                    <Tooltip
+                        placement="top"
+                        title={props.getSortTitle("address")}
+                    >{
+                      props?.state?.sortKey == "address" ?
+                          (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
+                              className={classes.sortButton}
+                          />
+                          :  <ArrowDownwardIcon
+                              className={classes.sortButton}
+                          />):<span></span>
+                    }
+
+                    </Tooltip>
                   </TableCell>
                   {props.state.tableColumns["Type"].isActive && (
                     <TableCell
@@ -274,6 +291,9 @@ export default function AccountComponent(props) {
                         paddingRight: "48px",
                       }}
                       align="center"
+                      onClick={() => {
+                        props.sortData("balance");
+                      }}
                     >
                       <span className={"tableheaders_1"}>
                         Balance
@@ -294,22 +314,16 @@ export default function AccountComponent(props) {
                       </span>
                       <Tooltip
                         placement="top"
-                        title={props.getSortTitle("balanceSort")}
+                        title={props.getSortTitle("balance")}
                       >{
-                          props?.state?.balanceSort == 1 ?
-                            <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
-                              className={classes.sortButton}
-                            />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
-                              className={classes.sortButton}
-                            />
-                        }
+                        props?.state?.sortKey == "balance" ?
+                            (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
+                                    className={classes.sortButton}
+                                />
+                                :  <ArrowDownwardIcon
+                                    className={classes.sortButton}
+                                />):<span></span>
+                      }
 
                       </Tooltip>
                     </TableCell>
@@ -319,6 +333,9 @@ export default function AccountComponent(props) {
                     <TableCell
                       className={classes.PercentageColumn}
                       align="center"
+                      onClick={() => {
+                        props.sortData("percentage");
+                      }}
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
@@ -339,22 +356,16 @@ export default function AccountComponent(props) {
                       </span>
                       <Tooltip
                         placement="top"
-                        title={props.getSortTitle("percentageSort")}
+                        title={props.getSortTitle("percentage")}
                       >
                         {
-                          props?.state?.percentageSort == 1 ?
-                            <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
-                              className={classes.sortButton}
-                            />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
-                              className={classes.sortButton}
-                            />
+                          props?.state?.sortKey == "percentage" ?
+                              (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
+                                      className={classes.sortButton}
+                                  />
+                                  :  <ArrowDownwardIcon
+                                      className={classes.sortButton}
+                                  />):<span></span>
                         }
                       </Tooltip>
                     </TableCell>
