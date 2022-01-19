@@ -7743,9 +7743,18 @@ button {
   width: 100%;
   border: none;
 }
-
+.container_sec_holder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: none;
+}
 @media (min-width: 0px) and (max-width: 1240px) {
   .container_sec {
+    align-items: center;
+    margin: auto;
+  }
+  .container_sec_holder {
     align-items: center;
     margin: auto;
   }
@@ -7759,6 +7768,10 @@ button {
 } */
 @media (min-width: 0px) and (max-width: 767px) {
   .container_sec {
+    align-items: self-start;
+    width: 21rem;
+  }
+  .container_sec_holder {
     align-items: self-start;
     width: 21rem;
   }
@@ -8824,7 +8837,14 @@ button {
     width: 23.75rem;
     border: none;
   }
-
+  .container_sec_holder {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 21rem;
+    margin: auto;
+    border: none;
+  }
   .contractOverview {
     /* width: 21rem; */
     width: 100%;
@@ -10879,15 +10899,15 @@ button {
   font-size: 20px;
   color: aqua;
 }
-.holder-detail-table{
-border-radius: 14px;
-    width:75.9rem;
-    margin: 0 auto;
+.holder-detail-table {
+  border-radius: 14px;
+  width: 75.9rem;
+  margin: 0 auto;
 }
 @media screen and (max-width: 767px) {
-  .holder-detail-table{
-border-radius: 14px;
+  .holder-detail-table {
+    border-radius: 14px;
     width: 21rem;
     margin: 0 auto;
-}
+  }
 }
