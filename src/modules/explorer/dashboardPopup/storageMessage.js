@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         height: "30px",
         margin: "auto",
     },
-    text :{
+    text: {
         paddingLeft: "24px",
         color: "#ffffff",
         fontFamily: "Inter !important",
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: "360px",
             width: "100%"
         },
-        text :{
+        text: {
             fontSize: "12px",
             paddingLeft: "12px",
         },
@@ -90,7 +90,7 @@ export default function StorageMessage() {
         setStorageMessage(true);
         sessionManager.setDataInCookies(true, "isStorageMessage");
     };
-  
+
     return (
         <>
         {!storageMessage ?

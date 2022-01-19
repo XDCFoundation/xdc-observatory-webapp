@@ -4279,9 +4279,10 @@ body {
   text-align: left;
   color: #2a2a2a;
 }
-@media (min-width: 0px) and (max-width: 766px) {
+@media (min-width: 0px) and (max-width: 767px) {
   #container-table-token td {
     padding-left: 13px;
+    white-space: nowrap;
   }
 }
 
@@ -7422,9 +7423,10 @@ button {
   border-radius: 4px;
   outline: transparent;
   border: solid 1px #9fa9ba;
-  background-color: #dee0e3;
+  background-color: #e3e7eb;
   color: #3a3a3a;
   margin-left: 0px;
+  padding: 8px 10px;
 }
 .text-area-transaction {
   width: 100%;
@@ -7633,6 +7635,13 @@ button {
 
 .bloc-tabs_sec_addressDetail {
   display: flex;
+  width: 13rem;
+  justify-content: space-between;
+}
+@media (min-width: 768px) and (max-width: 1240px) {
+  .bloc-tabs_sec_addressDetail {
+    width: 20rem;
+  }
 }
 
 .tabs_sec {
@@ -7682,7 +7691,9 @@ button {
 .active-tabs_sec {
   color: #2149b9;
 }
-
+.active-tabs_sec_analytics {
+  color: #2149b9;
+}
 .active-tabs_sec_contract {
   color: #2b51bc;
 }
@@ -7698,7 +7709,17 @@ button {
   border: solid 1px #2149b9;
   background: #2149b9;
 }
-
+.active-tabs_sec_analytics::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 6.563rem;
+  height: 1px;
+  border: solid 1px #2149b9;
+  background: #2149b9;
+}
 .active-tabs_sec_address_details::before {
   content: "";
   display: block;
@@ -7742,9 +7763,18 @@ button {
   width: 100%;
   border: none;
 }
-
+.container_sec_holder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: none;
+}
 @media (min-width: 0px) and (max-width: 1240px) {
   .container_sec {
+    align-items: center;
+    margin: auto;
+  }
+  .container_sec_holder {
     align-items: center;
     margin: auto;
   }
@@ -7758,6 +7788,10 @@ button {
 } */
 @media (min-width: 0px) and (max-width: 767px) {
   .container_sec {
+    align-items: self-start;
+    width: 21rem;
+  }
+  .container_sec_holder {
     align-items: self-start;
     width: 21rem;
   }
@@ -8823,7 +8857,14 @@ button {
     width: 23.75rem;
     border: none;
   }
-
+  .container_sec_holder {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 21rem;
+    margin: auto;
+    border: none;
+  }
   .contractOverview {
     /* width: 21rem; */
     width: 100%;
@@ -8849,9 +8890,9 @@ button {
     height: 2.188rem;
     margin: 0 0 0 25px;
   }
-  #transaction-btn {
+  /* #transaction-btn {
     width: 10.5rem;
-  }
+  } */
   #contract-btn {
     width: 10.5rem;
   }
@@ -9799,7 +9840,7 @@ button {
     width: 21rem !important;
   }
   .sec-block-mb {
-    /* margin-left: 0rem !important; */
+    margin-left: 0rem !important;
     padding: 0px !important;
   }
 
@@ -10873,4 +10914,20 @@ button {
   color: white;
   width: 100%;
   margin-left: 20px;
+}
+.tootlip-account-list {
+  font-size: 20px;
+  color: aqua;
+}
+.holder-detail-table {
+  border-radius: 14px;
+  width: 75.9rem;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  .holder-detail-table {
+    border-radius: 14px;
+    width: 21rem;
+    margin: 0 auto;
+  }
 }

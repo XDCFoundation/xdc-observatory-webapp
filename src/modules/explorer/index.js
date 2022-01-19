@@ -6,12 +6,10 @@ import LatestBlocksComponent from './latestBlocksAndTransactions';
 import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
 import RecentSearchList from "./recentSearchList/recentSearchList";
-import {sessionManager} from "../../managers/sessionManager"
 import BuyStoreTradeXDC from "./buyStoreTradeXDC/buyStoreTradeXDC";
 // import StorageMessage from "./dashboardPopup/storageMessage";
 
-
-
+import { sessionManager } from "../../managers/sessionManager";
 
 export default class BlockChainClass extends BaseComponent {
     constructor(props) {
@@ -30,7 +28,7 @@ export default class BlockChainClass extends BaseComponent {
     }
 
     render() {
-
+        const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage")
         let activeCurrency = window.localStorage.getItem('currency')
         // let isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage")
         return (

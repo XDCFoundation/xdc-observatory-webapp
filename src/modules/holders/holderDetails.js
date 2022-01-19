@@ -314,19 +314,14 @@ export default function HoldersDetails(props) {
           <Tokensearchbar />
           <Grid lg={8} className="table-grid-block">
             <div
-              className="block_details_heading"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                paddingLeft: "10px",
-              }}
+              className="holder-detail-table"
             >
               <p className="block_details_heading_left  fs-15">
                 Holder Details
               </p>
             </div>
             <Paper
-              style={{ borderRadius: "14px", width: "95%", marginLeft: "2%" }}
+              className="holder-detail-table"
               elevation={0}
             >
               <TableContainer
@@ -578,7 +573,7 @@ const TabComponent = ({
   addr,
 }) => {
   return (
-    <div className="container_sec">
+    <div className="container_sec_holder">
       <div
         style={{
           width: "100%",
