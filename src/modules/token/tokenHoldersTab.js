@@ -52,6 +52,7 @@ const LeftPagination = styled.div`
 
   @media (max-width: 1240px) {
     margin-top: 31px;
+    max-width:95px;
   }
 `;
 const StyledTableRow = withStyles((theme) => ({
@@ -116,7 +117,7 @@ export default function StickyHeadTable(props) {
   const { tn } = useParams();
 
   const sortTable = (_sortKey) => {
-    console.log("_sortKey",_sortKey)
+    console.log("_sortKey", _sortKey)
     let _sortOrder = -1;
     if (sortKey && sortKey.includes(_sortKey)) {
       _sortOrder = sortOrder * -1;
@@ -124,13 +125,13 @@ export default function StickyHeadTable(props) {
       setSortKey(_sortKey);
     }
     setSortOrder(_sortOrder);
-    if(_sortKey==="percentage")
+    if (_sortKey === "percentage")
       _sortKey = "balance";
     let requestObj = {
       skip: 0,
       limit: rowsPerPage,
       address: address,
-      sortKey: {[_sortKey]: _sortOrder}
+      sortKey: { [_sortKey]: _sortOrder }
     }
     listOfHolders(requestObj);
   }
@@ -142,7 +143,7 @@ export default function StickyHeadTable(props) {
   }, []);
   const listOfHolders = async (values) => {
     if (!values.sortKey && sortKey && sortOrder)
-      values.sortKey = {[sortKey]: sortOrder}
+      values.sortKey = { [sortKey]: sortOrder }
     let [error, tns] = await Utils.parseResponse(
       TokenData.getListOfHoldersForToken(values)
     );
@@ -351,7 +352,7 @@ export default function StickyHeadTable(props) {
                     className="w-10"
                     align="left"
                   >
-                    <span className={"tableheaders table-headers"} onClick={()=>sortTable("address")}>
+                    <span className={"tableheaders table-headers"} onClick={() => sortTable("address")}>
                       Address
                       <Tooltip placement="top" title={messages.WALLET_ADDRESS}>
                         <img
@@ -361,18 +362,18 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
-                      {sortKey && sortOrder && sortKey=="address" ? (sortOrder === -1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
-                          /> :
-                          <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
-                          />) : ""}
+                      {sortKey && sortOrder && sortKey == "address" ? (sortOrder === -1 ? <img
+                        alt="question-mark"
+                        src="/images/see-more.svg"
+                        height={"14px"}
+                        className="tooltipInfoIcon"
+                      /> :
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />) : ""}
                     </span>
                   </TableCell>
                   <TableCell
@@ -390,18 +391,18 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
-                      {sortKey && sortOrder && sortKey=="balance" ? (sortOrder === -1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
-                          /> :
-                          <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
-                          />) : ""}
+                      {sortKey && sortOrder && sortKey == "balance" ? (sortOrder === -1 ? <img
+                        alt="question-mark"
+                        src="/images/see-more.svg"
+                        height={"14px"}
+                        className="tooltipInfoIcon"
+                      /> :
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />) : ""}
                     </span>
                   </TableCell>
                   <TableCell
@@ -419,18 +420,18 @@ export default function StickyHeadTable(props) {
                           className="tooltipInfoIconAccount"
                         />
                       </Tooltip>
-                      {sortKey && sortOrder && sortKey=="percentage" ? (sortOrder === -1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
-                          /> :
-                          <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
-                          />) : ""}
+                      {sortKey && sortOrder && sortKey == "percentage" ? (sortOrder === -1 ? <img
+                        alt="question-mark"
+                        src="/images/see-more.svg"
+                        height={"14px"}
+                        className="tooltipInfoIcon"
+                      /> :
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />) : ""}
                     </span>
                   </TableCell>
                   {/* <TableCell
@@ -451,13 +452,13 @@ export default function StickyHeadTable(props) {
                   let quantity1 =
                     row[0]?.Quantity / Math.pow(10, decimals) >= 1
                       ? format({})(
-                          utility.convertToInternationalCurrencySystem(
-                            row[0]?.Quantity / Math.pow(10, decimals)
-                          )
+                        utility.convertToInternationalCurrencySystem(
+                          row[0]?.Quantity / Math.pow(10, decimals)
                         )
+                      )
                       : (row[0]?.Quantity / Math.pow(10, decimals))?.toFixed(
-                          decimals
-                        );
+                        decimals
+                      );
                   var quantity2 = quantity1.toString().split(".")[0];
                   var quantity3 = quantity1.toString().split(".")[1];
                   var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
@@ -573,7 +574,7 @@ export default function StickyHeadTable(props) {
               <p className="p-pagination">Show</p>
               <PageSelector
                 value={rowsPerPage}
-                height={28}
+                height={35}
                 handler={handleChangeRowsPerPage}
               />
               <p className="p-pagination"> Records</p>

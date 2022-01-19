@@ -149,25 +149,49 @@ function timeDiff(curr, prev) {
   let diff = curr - prev; //difference between dates.
   // If the diff is less then milliseconds in a minute
   if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + " secs ago";
-
+    if (Math.abs(Math.round(diff / 1000)) == 1) {
+      return Math.abs(Math.round(diff / 1000)) + " sec ago";
+    } else {
+      return Math.abs(Math.round(diff / 1000)) + " secs ago";
+    }
     // If the diff is less then milliseconds in a Hour
   } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
+    if (Math.abs(Math.round(diff / ms_Min)) == 1) {
+      return Math.abs(Math.round(diff / ms_Min)) + " min ago";
+    } else {
+      return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
+    }
+
 
     // If the diff is less then milliseconds in a day
   } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
+    if (Math.abs(Math.round(diff / ms_Hour)) == 1) {
+      return Math.abs(Math.round(diff / ms_Hour)) + " hr ago";
+    } else {
+      return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
+    }
 
     // If the diff is less then milliseconds in a Month
   } else if (diff < ms_Mon) {
-    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
+    if (Math.abs(Math.round(diff / ms_Day)) == 1) {
+      return Math.abs(Math.round(diff / ms_Day)) + " day ago";
+    } else {
+      return Math.abs(Math.round(diff / ms_Day)) + " days ago";
+    }
 
     // If the diff is less then milliseconds in a year
   } else if (diff < ms_Yr) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
+    if (Math.abs(Math.round(diff / ms_Mon)) == 1) {
+      return Math.abs(Math.round(diff / ms_Mon)) + " month ago";
+    } else {
+      return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
+    }
   } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
+    if (Math.abs(Math.round(diff / ms_Yr)) == 1) {
+      return Math.abs(Math.round(diff / ms_Yr)) + " year ago";
+    } else {
+      return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
+    }
   }
 }
 
