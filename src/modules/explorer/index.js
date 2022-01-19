@@ -7,6 +7,7 @@ import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
 import RecentSearchList from "./recentSearchList/recentSearchList";
 import StorageMessage from "./dashboardPopup/storageMessage";
+import BuyStoreTradeXDC from "./buyStoreTradeXDC/buyStoreTradeXDC";
 
 import { sessionManager } from "../../managers/sessionManager";
 
@@ -38,6 +39,7 @@ export default class BlockChainClass extends BaseComponent {
                 <LatestBlocksComponent socket={this.props.socket} />
                 <RecentSearchList />
                 {isStorageMessage ? "" : <StorageMessage />}
+                <BuyStoreTradeXDC />
                 <FooterComponent _handleChange={this._handleChange}
                     currency={this.state.amount} />
                 {/* showDropDown={this.state.showDropDown} */}

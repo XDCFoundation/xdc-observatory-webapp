@@ -33,46 +33,6 @@ const SearchAndExportDiv = styled.div`
     flex-direction: column;
   }
 `
-function timeDiff(curr, prev) {
-  var ms_Min = 60 * 1000; // milliseconds in Minute
-  var ms_Hour = ms_Min * 60; // milliseconds in Hour
-  var ms_Day = ms_Hour * 24; // milliseconds in day
-  var ms_Mon = ms_Day * 30; // milliseconds in Month
-  var ms_Yr = ms_Day * 365; // milliseconds in Year
-  var diff = curr - prev; //difference between dates.
-
-  // If the diff is less then milliseconds in a minute
-  if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + " secs ago";
-
-    // If the diff is less then milliseconds in a Hour
-  } else if (diff < ms_Hour && Math.abs(Math.round(diff / ms_Min)) === 1) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " min ago";
-  } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-    // If the diff is less then milliseconds in a day
-  } else if (diff < ms_Day && Math.abs(Math.round(diff / ms_Hour)) === 1) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hr ago";
-  } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
-
-    // If the diff is less then milliseconds in a Month
-  } else if (diff < ms_Mon && Math.abs(Math.round(diff / ms_Day)) === 1) {
-    return Math.abs(Math.round(diff / ms_Day)) + " day ago";
-  } else if (diff < ms_Mon && Math.abs(Math.round(diff / ms_Day)) > 1) {
-    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
-
-    // If the diff is less then milliseconds in a year
-  } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) === 1) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " month ago";
-  } else if (diff < ms_Yr && Math.abs(Math.round(diff / ms_Mon)) > 1) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
-  } else if (Math.abs(Math.round(diff / ms_Yr)) === 1) {
-    return Math.abs(Math.round(diff / ms_Yr)) + " year";
-  } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
-  }
-}
 
 const useStyles = makeStyles({
   container: {
@@ -518,7 +478,7 @@ export default function AddressTableComponent(props) {
 
   const updateFiltersAndGetAccounts = async (filters) => {
     await setSearchAndFilters(filters)
-      if (filters.searchQuery || filters.type || filters.status !== 'all' /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/)
+    if (filters.searchQuery || filters.type || filters.status !== 'all' /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/)
       getAddressDetails({}, filters)
   }
 
@@ -842,7 +802,7 @@ export default function AddressTableComponent(props) {
                     {address.map((row, index) => {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
-                      const TimeAge = timeDiff(currentTime, previousTime);
+                      const TimeAge = Utility.timeDiff(currentTime, previousTime);
                       const value = Utility.decimalDivison(row.Value, 8);
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
@@ -1000,7 +960,7 @@ export default function AddressTableComponent(props) {
                   src={require("../../../src/assets/images/XDC-Alert.svg")}
                 ></img>
 
-                <div className="not-found">No Holders Found</div>
+                <div className="not-found">No Transaction Found</div>
               </NoDataFoundContainer>
             )}
           </TableContainer>
@@ -1014,14 +974,14 @@ export default function AddressTableComponent(props) {
           }}
           className="page-container-address"
         >
-          <Grid item xs="4" className="pagination-tab-address">
+          <Grid item className="pagination-tab-address">
             {!isLoading && !noData ? (
               <>
-                <span className="text">Show</span>
+                <span className="textShowRecord">Show</span>
                 <PageSelector value={rowsPerPage}
                   height={30}
                   handler={handleChangeRowsPerPage} />
-                <span className="text">Records</span>
+                <span className="textShowRecord">Records</span>
               </>
             ) : (
               ""

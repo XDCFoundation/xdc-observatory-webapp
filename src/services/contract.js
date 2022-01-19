@@ -54,7 +54,7 @@ async function getContractLists(data) {
   return httpService(
     httpConstants.METHOD_TYPE.POST,
     getHeaders(),
-    {},
+    data,
     url
   )
     .then((response) => {

@@ -167,7 +167,7 @@ export default function AccountComponent(props) {
               onClick={handleSettingsClick}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
-              style={{width: "25px"}}
+              style={{ width: "25px" }}
             />
             <ConfigureColumnPopOver
               isOpen={isSettingColumnOpen}
@@ -182,7 +182,7 @@ export default function AccountComponent(props) {
               onClick={toggleModal}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
-              style={{width: "25px"}}
+              style={{ width: "25px" }}
             />
             <ConfigureColumnsModal
               isOpen={isColumnsModalOpen}
@@ -274,6 +274,9 @@ export default function AccountComponent(props) {
                         paddingRight: "48px",
                       }}
                       align="center"
+                      onClick={() => {
+                        props.sortData("balanceSort");
+                      }}
                     >
                       <span className={"tableheaders_1"}>
                         Balance
@@ -298,17 +301,11 @@ export default function AccountComponent(props) {
                       >{
                           props?.state?.balanceSort == 1 ?
                             <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
                               className={classes.sortButton}
                             />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("balanceSort");
-                              }}
+                            : ((props?.state?.balanceSort == -1) ? <ArrowDownwardIcon
                               className={classes.sortButton}
-                            />
+                            /> : <span></span>)
                         }
 
                       </Tooltip>
@@ -319,6 +316,9 @@ export default function AccountComponent(props) {
                     <TableCell
                       className={classes.PercentageColumn}
                       align="center"
+                      onClick={() => {
+                        props.sortData("percentageSort");
+                      }}
                     >
                       <span className={"tableheaders_1"}>
                         Percentage
@@ -344,17 +344,11 @@ export default function AccountComponent(props) {
                         {
                           props?.state?.percentageSort == 1 ?
                             <ArrowUpwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
                               className={classes.sortButton}
                             />
-                            : <ArrowDownwardIcon
-                              onClick={() => {
-                                props.sortData("percentageSort");
-                              }}
+                            : (props?.state?.percentageSort == -1 ? <ArrowDownwardIcon
                               className={classes.sortButton}
-                            />
+                            /> : <span></span>)
                         }
                       </Tooltip>
                     </TableCell>
@@ -526,7 +520,7 @@ export default function AccountComponent(props) {
           </TableContainer>
         </Paper>
 
-        <Grid container style={{ marginTop: "35px" }} className="Pagination">
+        <Grid container style={{ marginTop: "28px" }} className="Pagination">
           <Grid item className="Pagination_1">
             {!props.state.isLoading && props.state.noData ? (
               <>
