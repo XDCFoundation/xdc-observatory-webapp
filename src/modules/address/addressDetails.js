@@ -92,7 +92,7 @@ const MainContanier = styled.div`
   padding: 18px;
   margin-bottom: 35px;
   @media (max-width: 767px) {
-    max-height: 427px;
+    height: 427px;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     height: 249px;
@@ -918,8 +918,8 @@ export default function AddressDetails(props) {
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                    tagValue &&
-                    tagValue?.length > 0 ? (
+                      tagValue &&
+                      tagValue?.length > 0 ? (
                       <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                     ) : (
                       ""
@@ -964,13 +964,13 @@ export default function AddressDetails(props) {
                     <LastActivityValue>
                       {lastAct} (
                       {addressStats?.lastTransactionTimestamp &&
-                      !isNaN(Number(addressStats?.lastTransactionTimestamp))
+                        !isNaN(Number(addressStats?.lastTransactionTimestamp))
                         ? moment(
-                            Number(addressStats?.lastTransactionTimestamp) *
-                              1000
-                          )
-                            .utc()
-                            .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
+                          Number(addressStats?.lastTransactionTimestamp) *
+                          1000
+                        )
+                          .utc()
+                          .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
                         : ""}
                       )
                     </LastActivityValue>
@@ -1080,7 +1080,7 @@ export default function AddressDetails(props) {
               <div className="bloc-tabs_sec_addressDetail">
                 <button
                   className={
-                    toggleState === 1 ? "tabs_sec active-tabs_sec" : "tabs_sec"
+                    toggleState === 1 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
                   }
                   onClick={() => toggleTab(1)}
                   id="transaction-btn"
