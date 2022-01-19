@@ -4,6 +4,18 @@ import Graph from "../../../common/commonGraph";
 import { CircularProgress } from "@material-ui/core";
 import Highcharts from "highcharts/highstock";
 
+
+const NoDataFoundContainer = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  gap: 10px;
+  @media (min-width: 767px) {
+    margin: 100px !important;
+  }
+`;
 function TokenBalanceGraphComponent(props) {
   let receiveAmountSeries = [],
     sentAmountSeries = [];
@@ -171,7 +183,19 @@ function TokenBalanceGraphComponent(props) {
           <CircularProgress size={40} />
         </props.ProgressBarContainer>
       ) : (
-        <Graph options={options} />
+          <span>
+              {props.graphData.length == 0 ?
+                  <NoDataFoundContainer>
+                    <img
+                        src={require("../../../../../src/assets/images/XDC-Alert.svg")}
+                    ></img>
+
+                    <div>No Data found.</div>
+                  </NoDataFoundContainer>
+                  :
+                  <Graph options={options}/>
+              }
+            </span>
       )}
     </div>
   );
