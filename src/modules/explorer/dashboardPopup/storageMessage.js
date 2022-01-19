@@ -93,18 +93,20 @@ export default function StorageMessage() {
 
     return (
         <>
-            {!storageMessage ?
-                (<div className={classes.container}>
-                    <div className={classes.containerContent}>
-                        <div className={classes.container1}>
-                            <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img>
-                            <div className={classes.text}>
-                                To protect your privacy, data related to the Watchlists, Transaction Labels and Address Tags, is added on your local device. Cleaning the browsing history or cookies will clean the data saved in your profile.
-                            </div>
-                        </div>
-                        <button className={classes.button} onClick={handleStorageMessage}>I Understand</button>
+        {!storageMessage ?
+        (<div className={classes.container}>
+            <div className={classes.containerContent}>
+                <div className={classes.container1}>
+                    <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img>
+                    <div className={classes.text}>
+                        To protect your privacy, data related to the Watchlists, Transaction Labels and Address Tags, is added on your local device. Cleaning the browsing history or cookies will clean the data saved in your profile.
                     </div>
-                </div>) : ("")}
+                </div>
+                <div>
+                    <button className={classes.button} onClick={handleStorageMessage}>I Understand</button>
+                </div>
+            </div>
+        </div>):("")}
         </>
     )
 }
