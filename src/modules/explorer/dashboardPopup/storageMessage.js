@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         height: "30px",
         margin: "auto",
     },
-    text :{
+    text: {
         paddingLeft: "24px",
         color: "#ffffff",
         fontFamily: "Inter !important",
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: "360px",
             width: "100%"
         },
-        text :{
+        text: {
             fontSize: "12px",
             paddingLeft: "12px",
         },
@@ -90,21 +90,21 @@ export default function StorageMessage() {
         setStorageMessage(true);
         sessionManager.setDataInCookies(true, "isStorageMessage");
     };
-  
+
     return (
         <>
-        {!storageMessage ?
-        (<div className={classes.container}>
-            <div className={classes.containerContent}>
-                <div className={classes.container1}>
-                <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img>
-                <div className={classes.text}>
-                    To protect your privacy, data related to the Watchlists, Transaction Labels and Address Tags, is added on your local device. Cleaning the browsing history or cookies will clean the data saved in your profile.
-                </div>
-                </div>
-                <button className={classes.button} onClick={handleStorageMessage}>I Understand</button>
-            </div>
-        </div>):("")}
+            {!storageMessage ?
+                (<div className={classes.container}>
+                    <div className={classes.containerContent}>
+                        <div className={classes.container1}>
+                            <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img>
+                            <div className={classes.text}>
+                                To protect your privacy, data related to the Watchlists, Transaction Labels and Address Tags, is added on your local device. Cleaning the browsing history or cookies will clean the data saved in your profile.
+                            </div>
+                        </div>
+                        <button className={classes.button} onClick={handleStorageMessage}>I Understand</button>
+                    </div>
+                </div>) : ("")}
         </>
     )
 }
