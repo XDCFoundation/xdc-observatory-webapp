@@ -128,11 +128,11 @@ export default function TransactionComponent(props) {
   return (
     <div className="responsive-table-width-transactions-list contact-list-tab ">
       <div className="display-flex justify-content-between p-t-30 p-b-15">
-        <div class="fs-24 fw-bold">{state.tableName}</div>
+        <div class="latestTransactionHeading">{state.tableName}</div>
         <div class=" display-none-mobile display-flex flex-direction-column justify-content-center">
           <img
             onClick={handleSettingsClick}
-            className="p-r-5 h-20 w-20-px cursor-pointer"
+            className="m-r-9 h-20 w-20-px cursor-pointer"
             src="/images/settings.svg"
           />
           <ConfigureColumnPopOver

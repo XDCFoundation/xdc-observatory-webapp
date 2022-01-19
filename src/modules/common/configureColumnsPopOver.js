@@ -27,7 +27,7 @@ function ConfigureColumnsPopOver(props) {
         }}>
         <div className="w-320">
             <div className="fs-16 fw-bold p-t-15 p-b-15 display-flex justify-content-center">Configure Columns</div>
-            <hr className="margin-0 m-b-15"/>
+            <div className="margin-0 m-b-15 b-t-1"/>
             <div className="p-l-15 p-r-15">
                 {
                     props.tableColumns && Object.keys(props.tableColumns).map(key => {
@@ -36,7 +36,7 @@ function ConfigureColumnsPopOver(props) {
                                 <div className="display-flex justify-content-between p-b-25">
                                     <div className="display-flex">
                                         <Tooltip align="right" title={props.tableColumns[key].toolTipText}>
-                                            <img className="tooltipInfoIcon"
+                                            <img className="tooltipInfoIconConfigDesk"
                                                  src="/images/info.svg"></img>
                                         </Tooltip>
                                         <div className="p-l-5">{key}</div>
