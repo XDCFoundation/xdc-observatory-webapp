@@ -476,7 +476,6 @@
 }
 @media (max-width: 767px) {
   .text {
-    margin-left: 6px;
     font-size: 12px;
   }
 }
@@ -519,6 +518,7 @@
     width: 3.063rem;
     height: 2.125rem;
     font-size: 12px;
+    margin-left: 0;
   }
   .btn-back {
     width: 2.125rem;
@@ -775,8 +775,7 @@
     letter-spacing: 0px;
     text-align: center;
     color: #2a2a2a !important;
-    margin-right: 20px;
-    margin-left: 10px;
+    margin-left: 2px;
   }
   #container-table td {
     /* padding: 7px 0 6px 20px; */
@@ -813,7 +812,9 @@
     margin-bottom: 23px;
   }
   .Pagination_1 {
-    max-width: 185px !important;
+    max-width: 95px !important;
+    display: flex;
+    align-items: center;
     width: 100% !important;
     padding-bottom: 15px !important;
   }
@@ -974,7 +975,7 @@
     color: #252525;
 
     margin-right: 27px;
-    margin-left: 10px;
+    margin-left: 2px;
   }
 }
 .block-list-all {
