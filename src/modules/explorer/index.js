@@ -6,10 +6,10 @@ import LatestBlocksComponent from './latestBlocksAndTransactions';
 import NavigationBar from "./navigationBar";
 import MarketTable from "./marketDatatable";
 import RecentSearchList from "./recentSearchList/recentSearchList";
+import StorageMessage from "./dashboardPopup/storageMessage";
 import BuyStoreTradeXDC from "./buyStoreTradeXDC/buyStoreTradeXDC";
 
-
-
+import { sessionManager } from "../../managers/sessionManager";
 
 export default class BlockChainClass extends BaseComponent {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class BlockChainClass extends BaseComponent {
     }
 
     render() {
-
+        const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage")
         let activeCurrency = window.localStorage.getItem('currency')
         return (
             <div>
@@ -37,8 +37,9 @@ export default class BlockChainClass extends BaseComponent {
                     currency={activeCurrency} socket={this.props.socket} />
                 <MarketTable currency={activeCurrency} />
                 <LatestBlocksComponent socket={this.props.socket} />
-                <RecentSearchList/>
-                <BuyStoreTradeXDC/>
+                <RecentSearchList />
+                {isStorageMessage ? "" : <StorageMessage />}
+                <BuyStoreTradeXDC />
                 <FooterComponent _handleChange={this._handleChange}
                     currency={this.state.amount} />
                 {/* showDropDown={this.state.showDropDown} */}

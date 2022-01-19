@@ -167,7 +167,7 @@ export default function AccountComponent(props) {
               onClick={handleSettingsClick}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
-              style={{width: "25px"}}
+              style={{ width: "25px" }}
             />
             <ConfigureColumnPopOver
               isOpen={isSettingColumnOpen}
@@ -182,7 +182,7 @@ export default function AccountComponent(props) {
               onClick={toggleModal}
               className="p-r-5 h-20 w-20-px cursor-pointer"
               src="/images/settings.svg"
-              style={{width: "25px"}}
+              style={{ width: "25px" }}
             />
             <ConfigureColumnsModal
               isOpen={isColumnsModalOpen}
@@ -245,17 +245,17 @@ export default function AccountComponent(props) {
                       </Tooltip>
                     </span>
                     <Tooltip
-                        placement="top"
-                        title={props.getSortTitle("address")}
+                      placement="top"
+                      title={props.getSortTitle("address")}
                     >{
-                      props?.state?.sortKey == "address" ?
+                        props?.state?.sortKey == "address" ?
                           (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
-                              className={classes.sortButton}
+                            className={classes.sortButton}
                           />
-                          :  <ArrowDownwardIcon
+                            : <ArrowDownwardIcon
                               className={classes.sortButton}
-                          />):<span></span>
-                    }
+                            />) : <span></span>
+                      }
 
                     </Tooltip>
                   </TableCell>
@@ -316,14 +316,14 @@ export default function AccountComponent(props) {
                         placement="top"
                         title={props.getSortTitle("balance")}
                       >{
-                        props?.state?.sortKey == "balance" ?
+                          props?.state?.sortKey == "balance" ?
                             (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
-                                    className={classes.sortButton}
-                                />
-                                :  <ArrowDownwardIcon
-                                    className={classes.sortButton}
-                                />):<span></span>
-                      }
+                              className={classes.sortButton}
+                            />
+                              : <ArrowDownwardIcon
+                                className={classes.sortButton}
+                              />) : <span></span>
+                        }
 
                       </Tooltip>
                     </TableCell>
@@ -360,12 +360,12 @@ export default function AccountComponent(props) {
                       >
                         {
                           props?.state?.sortKey == "percentage" ?
-                              (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
-                                      className={classes.sortButton}
-                                  />
-                                  :  <ArrowDownwardIcon
-                                      className={classes.sortButton}
-                                  />):<span></span>
+                            (props?.state?.sortOrder === 1 ? <ArrowUpwardIcon
+                              className={classes.sortButton}
+                            />
+                              : <ArrowDownwardIcon
+                                className={classes.sortButton}
+                              />) : <span></span>
                         }
                       </Tooltip>
                     </TableCell>

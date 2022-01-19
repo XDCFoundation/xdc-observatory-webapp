@@ -402,7 +402,7 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address ">
                 {" "}
-                <p>{averageBalance}&nbsp;XDC</p>
+                <p>{avgBalance}&nbsp;XDC</p>
                 <ThirdRowValue>
                   <OutValue>
                     {" "}

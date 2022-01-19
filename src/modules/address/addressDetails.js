@@ -918,8 +918,8 @@ export default function AddressDetails(props) {
                       </CopyButton>
                     </AddressLine>
                     {sessionManager.getDataFromCookies("isLoggedIn") &&
-                    tagValue &&
-                    tagValue?.length > 0 ? (
+                      tagValue &&
+                      tagValue?.length > 0 ? (
                       <Tag>{tagValue[tagValue?.length - 1]?.tagName}</Tag>
                     ) : (
                       ""
@@ -964,13 +964,13 @@ export default function AddressDetails(props) {
                     <LastActivityValue>
                       {lastAct} (
                       {addressStats?.lastTransactionTimestamp &&
-                      !isNaN(Number(addressStats?.lastTransactionTimestamp))
+                        !isNaN(Number(addressStats?.lastTransactionTimestamp))
                         ? moment(
-                            Number(addressStats?.lastTransactionTimestamp) *
-                              1000
-                          )
-                            .utc()
-                            .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
+                          Number(addressStats?.lastTransactionTimestamp) *
+                          1000
+                        )
+                          .utc()
+                          .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
                         : ""}
                       )
                     </LastActivityValue>
@@ -1089,7 +1089,9 @@ export default function AddressDetails(props) {
                 </button>
                 <button
                   className={
-                    toggleState === 2 ? "tabs_sec_address_details active-tabs_sec" : "tabs_sec_address_details"
+                    toggleState === 2
+                      ? "tabs_sec active-tabs_sec_analytics"
+                      : "tabs_sec"
                   }
                   onClick={() => toggleTab(2)}
                   id="transaction-btn"

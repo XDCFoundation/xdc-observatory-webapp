@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../../src/assets/styles/blocksAndTransactionList.css";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -7,13 +7,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tooltip from "@material-ui/core/Tooltip";
-import {Grid, TableContainer} from "@material-ui/core";
-import {useHistory, useParams} from "react-router-dom";
-import {CSVLink} from "react-csv";
+import { Grid, TableContainer } from "@material-ui/core";
+import { useHistory, useParams } from "react-router-dom";
+import { CSVLink } from "react-csv";
 import moment from "moment";
 import Utility from "../../utility";
 import AddressData from "../../services/address";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import TokenData from "../../services/token";
 import Loader from "../../assets/loader";
@@ -70,36 +70,7 @@ const LeftPagination = styled.div`
   margin-top: 20px;
 `;
 
-function timeDiff(curr, prev) {
-    var ms_Min = 60 * 1000; // milliseconds in Minute
-    var ms_Hour = ms_Min * 60; // milliseconds in Hour
-    var ms_Day = ms_Hour * 24; // milliseconds in day
-    var ms_Mon = ms_Day * 30; // milliseconds in Month
-    var ms_Yr = ms_Day * 365; // milliseconds in Year
-    var diff = curr - prev; //difference between dates.
-    // If the diff is less then milliseconds in a minute
-    if (diff < ms_Min) {
-        return Math.abs(Math.round(diff / 1000)) + " secs ago";
 
-        // If the diff is less then milliseconds in a Hour
-    } else if (diff < ms_Hour) {
-        return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-
-        // If the diff is less then milliseconds in a day
-    } else if (diff < ms_Day) {
-        return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
-
-        // If the diff is less then milliseconds in a Month
-    } else if (diff < ms_Mon) {
-        return Math.abs(Math.round(diff / ms_Day)) + " days ago";
-
-        // If the diff is less then milliseconds in a year
-    } else if (diff < ms_Yr) {
-        return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
-    } else {
-        return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
-    }
-}
 
 const useStyles = makeStyles({
     container: {
@@ -110,7 +81,7 @@ const useStyles = makeStyles({
     },
 });
 export default function HolderTableComponent(props) {
-    const {state} = props;
+    const { state } = props;
     const classes = useStyles();
 
     function shorten(b, amountL = 10, amountR = 3, stars = 3) {
@@ -120,7 +91,7 @@ export default function HolderTableComponent(props) {
         )}`;
     }
 
-    let {addr} = useParams();
+    let { addr } = useParams();
     const [address, setAddress] = useState([]);
     const [txtAddress, setTxtAddress] = useState("");
     const [balance, setBalance] = useState(0);
@@ -152,7 +123,7 @@ export default function HolderTableComponent(props) {
             skip: 0,
             limit: rowsPerPage,
             address: addr,
-            sortKey: {[_sortKey]: _sortOrder}
+            sortKey: { [_sortKey]: _sortOrder }
         }
         getHolderDetails(requestObj);
     }
@@ -205,7 +176,7 @@ export default function HolderTableComponent(props) {
     const getHolderDetails = async (data) => {
         try {
             if (!data.sortKey && sortKey && sortOrder)
-                data.sortKey = {[sortKey]: sortOrder}
+                data.sortKey = { [sortKey]: sortOrder }
             const [error, responseData] = await Utility.parseResponse(
                 TokenData.getHolderDetailsUsingAddressforToken(data)
             );
@@ -326,10 +297,10 @@ export default function HolderTableComponent(props) {
     };
 
     const handleChanged = (event) => {
-        const {name, checked} = event.target;
+        const { name, checked } = event.target;
         if (name === "allselect") {
             let tempAddress = address.map((addr) => {
-                return {...addr, isChecked: checked};
+                return { ...addr, isChecked: checked };
             });
             setAddress(tempAddress);
             let tempAddr = tempAddress.filter((addr) => {
@@ -357,7 +328,7 @@ export default function HolderTableComponent(props) {
             );
         } else {
             let tempAddress = address.map((addr) =>
-                addr.id === name ? {...addr, isChecked: checked} : addr
+                addr.id === name ? { ...addr, isChecked: checked } : addr
             );
             setAddress(tempAddress);
             let tempAddr = tempAddress.filter((addr) => {
@@ -390,7 +361,7 @@ export default function HolderTableComponent(props) {
             <div className="content_input_all">
                 <div className="searchelement-input3">
                     <img
-                        style={{width: 18, height: 18, marginRight: 5, marginTop: 7}}
+                        style={{ width: 18, height: 18, marginRight: 5, marginTop: 7 }}
                         src={"/images/Search.svg"}
                     />
                     <input
@@ -442,7 +413,7 @@ export default function HolderTableComponent(props) {
             </div>
 
             <Grid lg={13} className="tablegrid_address">
-                <Paper style={{borderRadius: "14px"}} elevation={0}>
+                <Paper style={{ borderRadius: "14px" }} elevation={0}>
                     <TableContainer
                         className={classes.container}
                         id="container-table-holder"
@@ -450,7 +421,7 @@ export default function HolderTableComponent(props) {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{border: "none"}} align="left">
+                                    <TableCell style={{ border: "none" }} align="left">
                                         <input
                                             onChange={handleChanged}
                                             type="checkbox"
@@ -459,49 +430,49 @@ export default function HolderTableComponent(props) {
                                                 address.filter((addr) => addr?.isChecked == true)
                                                     .length == address.length
                                             }
-                                            style={{marginRight: "8px"}}
+                                            style={{ marginRight: "8px" }}
                                         />
                                         <span onClick={() => sortTable("hash")}>
-                                        <span className={"tableheader"} >Transaction Hash</span>
-                                        {sortKey && sortOrder && sortKey=="hash" ? (sortOrder === -1 ? <img
+                                            <span className={"tableheader"} >Transaction Hash</span>
+                                            {sortKey && sortOrder && sortKey == "hash" ? (sortOrder === -1 ? <img
                                                 alt="question-mark"
                                                 src="/images/see-more.svg"
                                                 height={"14px"}
                                                 className="tooltipInfoIcon"
                                             /> :
-                                            <img
-                                                alt="question-mark"
-                                                src="/images/see-more.svg"
-                                                height={"14px"}
-                                                className="tooltipInfoIcon rotate-180"
-                                            />) : ""}
+                                                <img
+                                                    alt="question-mark"
+                                                    src="/images/see-more.svg"
+                                                    height={"14px"}
+                                                    className="tooltipInfoIcon rotate-180"
+                                                />) : ""}
                                         </span>
                                     </TableCell>
-                                    <TableCell style={{border: "none"}} align="left">
-                    <span className={"tableheader mar-right-45 mar-right-40"} onClick={() => sortTable("timestamp")}>
-                      Age
-                        {sortKey && sortOrder && sortKey=="timestamp" ? (sortOrder === -1 ? <img
-                                alt="question-mark"
-                                src="/images/see-more.svg"
-                                height={"14px"}
-                                className="tooltipInfoIcon"
-                            /> :
-                            <img
-                                alt="question-mark"
-                                src="/images/see-more.svg"
-                                height={"14px"}
-                                className="tooltipInfoIcon rotate-180"
-                            />) : ""}
-                    </span>
+                                    <TableCell style={{ border: "none" }} align="left">
+                                        <span className={"tableheader mar-right-45 mar-right-40"} onClick={() => sortTable("timestamp")}>
+                                            Age
+                                            {sortKey && sortOrder && sortKey == "timestamp" ? (sortOrder === -1 ? <img
+                                                alt="question-mark"
+                                                src="/images/see-more.svg"
+                                                height={"14px"}
+                                                className="tooltipInfoIcon"
+                                            /> :
+                                                <img
+                                                    alt="question-mark"
+                                                    src="/images/see-more.svg"
+                                                    height={"14px"}
+                                                    className="tooltipInfoIcon rotate-180"
+                                                />) : ""}
+                                        </span>
                                     </TableCell>
-                                    <TableCell style={{border: "none"}} align="left" onClick={() => sortTable("blockNumber")}>
+                                    <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("blockNumber")}>
                                         <span className={"tableheader"}>Block</span>
-                                        {sortKey && sortOrder && sortKey=="blockNumber" ? (sortOrder === -1 ? <img
-                                                alt="question-mark"
-                                                src="/images/see-more.svg"
-                                                height={"14px"}
-                                                className="tooltipInfoIcon"
-                                            /> :
+                                        {sortKey && sortOrder && sortKey == "blockNumber" ? (sortOrder === -1 ? <img
+                                            alt="question-mark"
+                                            src="/images/see-more.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        /> :
                                             <img
                                                 alt="question-mark"
                                                 src="/images/see-more.svg"
@@ -509,14 +480,14 @@ export default function HolderTableComponent(props) {
                                                 className="tooltipInfoIcon rotate-180"
                                             />) : ""}
                                     </TableCell>
-                                    <TableCell style={{border: "none"}} align="left" onClick={() => sortTable("from")}>
+                                    <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("from")}>
                                         <span className={"tableheader"}>From</span>
-                                        {sortKey && sortOrder && sortKey=="from" ? (sortOrder === -1 ? <img
-                                                alt="question-mark"
-                                                src="/images/see-more.svg"
-                                                height={"14px"}
-                                                className="tooltipInfoIcon"
-                                            /> :
+                                        {sortKey && sortOrder && sortKey == "from" ? (sortOrder === -1 ? <img
+                                            alt="question-mark"
+                                            src="/images/see-more.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        /> :
                                             <img
                                                 alt="question-mark"
                                                 src="/images/see-more.svg"
@@ -524,14 +495,14 @@ export default function HolderTableComponent(props) {
                                                 className="tooltipInfoIcon rotate-180"
                                             />) : ""}
                                     </TableCell>
-                                    <TableCell style={{border: "none"}} align="left" onClick={() => sortTable("to")}>
+                                    <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("to")}>
                                         <span className={"tableheader"}>To</span>
-                                        {sortKey && sortOrder && sortKey=="to" ? (sortOrder === -1 ? <img
-                                                alt="question-mark"
-                                                src="/images/see-more.svg"
-                                                height={"14px"}
-                                                className="tooltipInfoIcon"
-                                            /> :
+                                        {sortKey && sortOrder && sortKey == "to" ? (sortOrder === -1 ? <img
+                                            alt="question-mark"
+                                            src="/images/see-more.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        /> :
                                             <img
                                                 alt="question-mark"
                                                 src="/images/see-more.svg"
@@ -539,14 +510,14 @@ export default function HolderTableComponent(props) {
                                                 className="tooltipInfoIcon rotate-180"
                                             />) : ""}
                                     </TableCell>
-                                    <TableCell style={{border: "none"}} align="left" onClick={() => sortTable("value")}>
+                                    <TableCell style={{ border: "none" }} align="left" onClick={() => sortTable("value")}>
                                         <span className={"tableheader"}>Amount</span>
-                                        {sortKey && sortOrder && sortKey=="value" ? (sortOrder === -1 ? <img
-                                                alt="question-mark"
-                                                src="/images/see-more.svg"
-                                                height={"14px"}
-                                                className="tooltipInfoIcon"
-                                            /> :
+                                        {sortKey && sortOrder && sortKey == "value" ? (sortOrder === -1 ? <img
+                                            alt="question-mark"
+                                            src="/images/see-more.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        /> :
                                             <img
                                                 alt="question-mark"
                                                 src="/images/see-more.svg"
@@ -560,9 +531,9 @@ export default function HolderTableComponent(props) {
                             {isLoading == true ? (
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell style={{border: "none"}} colspan="6">
+                                        <TableCell style={{ border: "none" }} colspan="6">
                                             <div className="loader-address-details-list">
-                                                <Loader/>
+                                                <Loader />
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -573,7 +544,7 @@ export default function HolderTableComponent(props) {
                                         {address.map((row, index) => {
                                             const currentTime = new Date();
                                             const previousTime = new Date(row.Age * 1000);
-                                            const TimeAge = timeDiff(currentTime, previousTime);
+                                            const TimeAge = Utility.timeDiff(currentTime, previousTime);
                                             const value = Utility.divideByDecimalValue(
                                                 row.Value,
                                                 Number(props?.decimal)
@@ -583,12 +554,12 @@ export default function HolderTableComponent(props) {
                                                 <TableRow
                                                     style={
                                                         index % 2 !== 1
-                                                            ? {background: "#f9f9f9"}
-                                                            : {background: "white"}
+                                                            ? { background: "#f9f9f9" }
+                                                            : { background: "white" }
                                                     }
                                                 >
                                                     <TableCell
-                                                        style={{border: "none", width: "22%"}}
+                                                        style={{ border: "none", width: "22%" }}
                                                         marginleft="5px"
                                                     >
                                                         <div className="dis-flex input_12">
@@ -599,28 +570,28 @@ export default function HolderTableComponent(props) {
                                                                 onChange={handleChanged}
                                                                 type="checkbox"
                                                                 checked={row?.isChecked || false}
-                                                                style={{marginRight: "8px"}}
+                                                                style={{ marginRight: "8px" }}
                                                             />
                                                             <a
                                                                 className="linkTable"
                                                                 href={"/transaction-details/" + row.Txn_Hash}
                                                             >
                                                                 <Tooltip placement="top" title={row.Txn_Hash}>
-                                  <span className="tabledata">
-                                    {shorten(row.Txn_Hash)}{" "}
-                                  </span>
+                                                                    <span className="tabledata">
+                                                                        {shorten(row.Txn_Hash)}{" "}
+                                                                    </span>
                                                                 </Tooltip>
                                                             </a>
                                                         </div>
                                                     </TableCell>
                                                     <TableCell
-                                                        style={{border: "none", width: "17%"}}
+                                                        style={{ border: "none", width: "17%" }}
                                                         align="left"
                                                     >
                                                         <span className="tabledata">{TimeAge}</span>
                                                     </TableCell>
                                                     <TableCell
-                                                        style={{border: "none", width: "15%"}}
+                                                        style={{ border: "none", width: "15%" }}
                                                         align="left"
                                                     >
                                                         <a
@@ -630,54 +601,54 @@ export default function HolderTableComponent(props) {
                                                             <span className="tabledata">{row.Block}</span>
                                                         </a>
                                                     </TableCell>
-                                                    <TableCell style={{border: "none"}} align="left">
+                                                    <TableCell style={{ border: "none" }} align="left">
                                                         {row.From != addr ? (
                                                             <a
                                                                 className="linkTable"
                                                                 href={"/address-details/" + row.From}
                                                             >
                                                                 <Tooltip placement="top" title={row.From}>
-                                  <span className="tabledata">
-                                    {" "}
-                                      {shorten(row.From)}
-                                  </span>
+                                                                    <span className="tabledata">
+                                                                        {" "}
+                                                                        {shorten(row.From)}
+                                                                    </span>
                                                                 </Tooltip>
                                                             </a>
                                                         ) : (
                                                             <Tooltip placement="top" title={row.From}>
-                                <span className="tabledata">
-                                  {" "}
-                                    {shorten(row.From)}
-                                </span>
+                                                                <span className="tabledata">
+                                                                    {" "}
+                                                                    {shorten(row.From)}
+                                                                </span>
                                                             </Tooltip>
                                                         )}
                                                     </TableCell>
-                                                    <TableCell style={{border: "none"}} align="left">
+                                                    <TableCell style={{ border: "none" }} align="left">
                                                         {row.To != addr ? (
                                                             <a
                                                                 className="linkTable"
                                                                 href={"/address-details/" + row.To}
                                                             >
                                                                 <Tooltip placement="top" title={row.To}>
-                                  <span className="tabledata">
-                                    {shorten(row.To)}
-                                  </span>
+                                                                    <span className="tabledata">
+                                                                        {shorten(row.To)}
+                                                                    </span>
                                                                 </Tooltip>
                                                             </a>
                                                         ) : (
                                                             <Tooltip placement="top" title={row.To}>
-                                <span className="tabledata">
-                                  {shorten(row.To)}
-                                </span>
+                                                                <span className="tabledata">
+                                                                    {shorten(row.To)}
+                                                                </span>
                                                             </Tooltip>
                                                         )}
                                                     </TableCell>
-                                                    <TableCell style={{border: "none"}} align="left">
-                            <span className="tabledata">
-                              {Number(value) === Number(row.Value)
-                                  ? 0
-                                  : format({})(parseFloat(value))}
-                            </span>
+                                                    <TableCell style={{ border: "none" }} align="left">
+                                                        <span className="tabledata">
+                                                            {Number(value) === Number(row.Value)
+                                                                ? 0
+                                                                : format({})(parseFloat(value))}
+                                                        </span>
                                                     </TableCell>
                                                 </TableRow>
                                             );
@@ -691,11 +662,11 @@ export default function HolderTableComponent(props) {
                                         <TableCell
                                             id="td"
                                             colspan="6"
-                                            style={{borderBottom: "none"}}
+                                            style={{ borderBottom: "none" }}
                                         >
-                      <span className="tabledata" style={{color: "red"}}>
-                        No transaction found.
-                      </span>
+                                            <span className="tabledata" style={{ color: "red" }}>
+                                                No transaction found.
+                                            </span>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -704,9 +675,9 @@ export default function HolderTableComponent(props) {
                     </TableContainer>
                 </Paper>
                 <DeskTopView>
-                    <Grid container style={{marginTop: "2.25rem"}}>
+                    <Grid container style={{ marginTop: "2.25rem" }}>
                         <PaginationInLine>
-                            <Grid item style={{width: "12.5rem"}}>
+                            <Grid item style={{ width: "12.5rem" }}>
                                 <span className="text">Show</span>
                                 <select
                                     value={rowsPerPage}
@@ -724,7 +695,7 @@ export default function HolderTableComponent(props) {
 
                             <Grid>
                                 <button
-                                    style={{marginLeft: "0px"}}
+                                    style={{ marginLeft: "0px" }}
                                     onClick={() => handleChangePage("first")}
                                     className={page === 0 ? "btn disabled" : "btn"}
                                 >
@@ -739,8 +710,8 @@ export default function HolderTableComponent(props) {
                                 <button className="btn">
                                     Page{" "}
                                     {Math.round(totalRecord / rowsPerPage) +
-                                    1 -
-                                    Math.round((totalRecord - page) / rowsPerPage)}
+                                        1 -
+                                        Math.round((totalRecord - page) / rowsPerPage)}
                                     &nbsp;of {Math.ceil(totalRecord / rowsPerPage)}
                                 </button>
                                 <button
@@ -784,7 +755,7 @@ export default function HolderTableComponent(props) {
                         <RightPagination className="pagiantion-11">
                             <button
                                 id="btn_12"
-                                style={{marginLeft: "0px"}}
+                                style={{ marginLeft: "0px" }}
                                 onClick={() => handleChangePage("first")}
                                 className={page === 0 ? "btn disabled" : "btn"}
                             >
@@ -801,8 +772,8 @@ export default function HolderTableComponent(props) {
                                 <div className="txt-center">
                                     Page
                                     {Math.round(totalRecord / rowsPerPage) +
-                                    1 -
-                                    Math.round((totalRecord - page) / rowsPerPage)}{" "}
+                                        1 -
+                                        Math.round((totalRecord - page) / rowsPerPage)}{" "}
                                     &nbsp;of {Math.round(totalRecord / rowsPerPage)}
                                 </div>
                             </button>

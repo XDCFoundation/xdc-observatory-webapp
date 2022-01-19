@@ -13,38 +13,8 @@ import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../assets/loader";
 import { messages } from "../../constants"
+import utility from "../../utility"
 
-function timeDiff(curr, prev) {
-  if (curr < prev) return "0 secs ago";
-  let ms_Min = 60 * 1000; // milliseconds in Minute
-  let ms_Hour = ms_Min * 60; // milliseconds in Hour
-  let ms_Day = ms_Hour * 24; // milliseconds in day
-  let ms_Mon = ms_Day * 30; // milliseconds in Month
-  let ms_Yr = ms_Day * 365; // milliseconds in Year
-  let diff = curr - prev; //difference between dates.
-  // If the diff is less then milliseconds in a minute
-  if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + " secs ago";
-
-    // If the diff is less then milliseconds in a Hour
-  } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-
-    // If the diff is less then milliseconds in a day
-  } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
-
-    // If the diff is less then milliseconds in a Month
-  } else if (diff < ms_Mon) {
-    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
-
-    // If the diff is less then milliseconds in a year
-  } else if (diff < ms_Yr) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
-  } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
-  }
-}
 const useStyles = makeStyles({
   container: {
     borderRadius: "14px",
@@ -99,7 +69,7 @@ export default function BlocksComponent(props) {
                         className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
-                    </span>
+                  </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
@@ -111,7 +81,7 @@ export default function BlocksComponent(props) {
                         className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
-                    </span>
+                  </span>
                 </TableCell>
                 <TableCell style={{ border: "none" }} align="left">
                   <span className={"tableheaders table-headers"}>
@@ -147,7 +117,7 @@ export default function BlocksComponent(props) {
                         className="tooltipInfoIconAccount"
                       />
                     </Tooltip>
-                    </span>
+                  </span>
                 </TableCell>
                 {/* <TableCell style={{ border: "none", paddingLeft: "2.5%" }} align="left"><span className={"tableheaders"}>Txn Fee</span></TableCell> */}
               </TableRow>
@@ -169,7 +139,7 @@ export default function BlocksComponent(props) {
                   props.state.blocksList.map((row, index) => {
                     const currentTime = new Date();
                     const previousTime = new Date(row.timestamp * 1000);
-                    const ti = timeDiff(currentTime, previousTime);
+                    const ti = utility.timeDiff(currentTime, previousTime);
                     const blockNumber = row.number;
                     let animationClass =
                       props.state.blockAnimation?.[blockNumber];

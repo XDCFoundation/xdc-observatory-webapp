@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import {Grid, TableContainer} from "@material-ui/core";
+import { Grid, TableContainer } from "@material-ui/core";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Tokensearchbar from "../explorer/tokensearchBar";
@@ -42,6 +42,7 @@ const Pagination = styled.div`
   flex-direction: row;
   margin: auto;
   width: 75.125rem;
+  align-items:center;
   /* margin-right: 18%;
    margin-left: 18%; */
   @media (min-width: 0px) and (max-width: 767px) {
@@ -49,10 +50,11 @@ const Pagination = styled.div`
     flex-direction: column;
     width: 21rem;
     margin: 0 auto 23px auto;
+    align-items:flex-start;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     width: 41.5rem;
-    margin: 0 auto;
+    margin: 0px auto 23px auto;
   }
 `;
 const RightPagination = styled.div`
@@ -67,10 +69,13 @@ const RightPagination = styled.div`
 const LeftPagination = styled.div`
   display: flex;
   flex-direction: row;
-
+max-width:95px
   margin-top: 2.188rem;
   @media (min-width: 1024px) and (max-width: 1240px) {
     margin-right: 5%;
+  }
+   @media (min-width: 0px) and (max-width: 767px) {
+    margin-top:1.188rem;
   }
 `;
 
@@ -88,15 +93,15 @@ class Contractlist extends React.Component {
       isSettingColumnOpen: false,
       anchorEl: null,
       isColumnsModalOpen: null,
-        tableColumns: {
-            // "Address": {isActive: true, toolTipText: "Address of the contract"},
-            "Token Name": {isActive: true, toolTipText: "Name of the token associated with the contract."},
-            "Contract Name": {isActive: true, toolTipText: "Name of the Smart Contract."},
-            "Token Yes/No": {isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not"}
-        },
-      sortedByAddress:"",
-      sortedByTokenName:"",
-      sortedByContractName:"",
+      tableColumns: {
+        // "Address": {isActive: true, toolTipText: "Address of the contract"},
+        "Token Name": { isActive: true, toolTipText: "Name of the token associated with the contract." },
+        "Contract Name": { isActive: true, toolTipText: "Name of the Smart Contract." },
+        "Token Yes/No": { isActive: true, toolTipText: "Whether the token is associated with the Smart Contract or not" }
+      },
+      sortedByAddress: "",
+      sortedByTokenName: "",
+      sortedByContractName: "",
     };
   }
 
@@ -131,27 +136,27 @@ class Contractlist extends React.Component {
   handleChangePage = (action) => {
     let data = {};
     if (this.state.sortedByAddress)
-    data.sortKey = {address: this.state.sortedByAddress};
+      data.sortKey = { address: this.state.sortedByAddress };
     if (this.state.sortedByTokenName)
-    data.sortKey = {tokenName: this.state.sortedByTokenName};
+      data.sortKey = { tokenName: this.state.sortedByTokenName };
     if (this.state.sortedByContractName)
-    data.sortKey = {tokenName: this.state.sortedByContractName};  
+      data.sortKey = { tokenName: this.state.sortedByContractName };
     if (action == "first") {
       let page = 0;
       this.setState({ from: page });
-       data = { 
-         ...data,
+      data = {
+        ...data,
         pageNum: page,
         perpage: this.state.amount,
         keywords: this.state.keywords,
       };
-      
-      
+
+
       if (this.state.keywords) {
-         data["keywords"] = this.state.keywords 
+        data["keywords"] = this.state.keywords
         this.getContractSearch(data);
       } else {
-        data = {...data , pageNum: page, perpage: this.state.amount };
+        data = { ...data, pageNum: page, perpage: this.state.amount };
         this.getContractList(data);
         this.getTotalContractList();
       }
@@ -160,15 +165,15 @@ class Contractlist extends React.Component {
       let page = this.state.totalRecord - this.state.amount;
       this.setState({ from: page });
       if (this.state.keywords) {
-         data = {
-           ...data,
+        data = {
+          ...data,
           pageNum: page,
           perpage: this.state.amount,
           keywords: this.state.keywords,
         };
         this.getContractSearch(data);
       } else {
-         data = {  ...data, pageNum: page, perpage: this.state.amount };
+        data = { ...data, pageNum: page, perpage: this.state.amount };
         this.getContractList(data);
         this.getTotalContractList();
       }
@@ -179,16 +184,16 @@ class Contractlist extends React.Component {
         let page = +this.state.amount + +this.state.from;
         this.setState({ from: page });
         if (this.state.keywords) {
-           data = {
-             ...data,
+          data = {
+            ...data,
             pageNum: page,
             perpage: this.state.amount,
             keywords: this.state.keywords,
           };
           this.getContractSearch(data);
         } else {
-         
-           data = { ...data ,pageNum: page, perpage: this.state.amount };
+
+          data = { ...data, pageNum: page, perpage: this.state.amount };
           this.getContractList(data);
           this.getTotalContractList();
         }
@@ -199,14 +204,15 @@ class Contractlist extends React.Component {
         let page = this.state.from - this.state.amount;
         this.setState({ from: page });
         if (this.state.keywords) {
-           data = {  ...data,
+          data = {
+            ...data,
             pageNum: page,
             perpage: this.state.amount,
             keywords: this.state.keywords,
           };
           this.getContractSearch(data);
         } else {
-           data = {  ...data, pageNum: page, perpage: this.state.amount };
+          data = { ...data, pageNum: page, perpage: this.state.amount };
           this.getContractList(data);
           this.getTotalContractList();
         }
@@ -237,73 +243,73 @@ class Contractlist extends React.Component {
       b.length
     )}`;
   }
-  sortByAddress = async () =>{
+  sortByAddress = async () => {
     let data = {
       pageNum: this.state.from,
       perpage: this.state.amount,
       keywords: this.state.keywords,
     }
-    this.setState({sortedByContractName:0 , sortedByTokenName:0})
+    this.setState({ sortedByContractName: 0, sortedByTokenName: 0 })
     if (!this.state.sortedByAddress) {
-        this.setState({sortedByAddress:-1})
-        data['sortKey'] = {"address": -1}
+      this.setState({ sortedByAddress: -1 })
+      data['sortKey'] = { "address": -1 }
     } else if (this.state.sortedByAddress === -1) {
-      this.setState({sortedByAddress:1})
-      data['sortKey'] = {"address": 1}
+      this.setState({ sortedByAddress: 1 })
+      data['sortKey'] = { "address": 1 }
     } else {
-      this.setState({sortedByAddress:-1})
-      data['sortKey'] = {"address": -1}
+      this.setState({ sortedByAddress: -1 })
+      data['sortKey'] = { "address": -1 }
     }
     this.getContractList(data);
   }
 
-  sortByTokenName = async () =>{
+  sortByTokenName = async () => {
     let data = {
       pageNum: this.state.from,
       perpage: this.state.amount,
       keywords: this.state.keywords,
     }
-    this.setState({sortedByAddress:0 , sortedByContractName:0})
+    this.setState({ sortedByAddress: 0, sortedByContractName: 0 })
     if (!this.state.sortedByTokenName) {
-        this.setState({sortedByTokenName:-1})
-        data['sortKey'] = {"tokenName": -1}
+      this.setState({ sortedByTokenName: -1 })
+      data['sortKey'] = { "tokenName": -1 }
     } else if (this.state.sortedByTokenName === -1) {
-      this.setState({sortedByTokenName:1})
-      data['sortKey'] = {"tokenName": 1}
+      this.setState({ sortedByTokenName: 1 })
+      data['sortKey'] = { "tokenName": 1 }
     } else {
-      this.setState({sortedByTokenName:-1})
-      data['sortKey'] = {"tokenName": -1}
+      this.setState({ sortedByTokenName: -1 })
+      data['sortKey'] = { "tokenName": -1 }
     }
     this.getContractList(data);
   }
-  sortByContractName = async () =>{
+  sortByContractName = async () => {
     let data = {
       pageNum: this.state.from,
       perpage: this.state.amount,
       keywords: this.state.keywords,
     }
-    this.setState({sortedByTokenName:0, sortedByAddress:0})
+    this.setState({ sortedByTokenName: 0, sortedByAddress: 0 })
     if (!this.state.sortedByContractName) {
-        this.setState({sortedByContractName:-1})
-        data['sortKey'] = {"contractName": -1}
+      this.setState({ sortedByContractName: -1 })
+      data['sortKey'] = { "contractName": -1 }
     } else if (this.state.sortedByContractName === -1) {
-      this.setState({sortedByContractName:1})
-      data['sortKey'] = {"contractName": 1}
+      this.setState({ sortedByContractName: 1 })
+      data['sortKey'] = { "contractName": 1 }
     } else {
-      this.setState({sortedByContractName:-1})
-      data['sortKey'] = {"contractName": -1}
+      this.setState({ sortedByContractName: -1 })
+      data['sortKey'] = { "contractName": -1 }
     }
     this.getContractList(data);
   }
 
-  
+
   getContractList = async (data) => {
     this.setState({ isLoading: true });
 
     const [error, responseData] = await Utility.parseResponse(
       ContractData.getContractLists(data)
     );
-   
+
     this.setState({ isLoading: false });
     if (responseData) {
       this.setState({ rows: responseData });
@@ -458,25 +464,25 @@ class Contractlist extends React.Component {
                     >
                       Address
                       <Tooltip placement="top" title={messages.CONTRACT_ADDRESS}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                         />
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIconAccount"
+                        />
                       </Tooltip>
                       {this.state.sortedByAddress ? (this.state.sortedByAddress === -1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
-                          /> :
-                          <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
-                          />) : ""}
+                        alt="question-mark"
+                        src="/images/see-more.svg"
+                        height={"14px"}
+                        className="tooltipInfoIcon"
+                      /> :
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />) : ""}
                     </span>
                   </TableCell>
                   {this.state.tableColumns["Token Name"].isActive && (
@@ -488,26 +494,26 @@ class Contractlist extends React.Component {
                       >
                         Token Name
                         <Tooltip placement="top" title={messages.TOKEN_NAME}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                         />
-                      </Tooltip>
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
                       </span>
                       {this.state.sortedByTokenName ? (this.state.sortedByTokenName === -1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
-                          /> :
-                          <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
-                          />) : ""}
+                        alt="question-mark"
+                        src="/images/see-more.svg"
+                        height={"14px"}
+                        className="tooltipInfoIcon"
+                      /> :
+                        <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon rotate-180"
+                        />) : ""}
                     </TableCell>
                   )}
                   {this.state.tableColumns["Contract Name"].isActive && (
@@ -519,24 +525,24 @@ class Contractlist extends React.Component {
                       >
                         Contract Name
                         <Tooltip placement="top" title={messages.CONTRACT_NAME}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                         />
-                      </Tooltip>
-                      {this.state.sortedByContractName ? (this.state.sortedByContractName === -1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
-                          /> :
                           <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
+                        {this.state.sortedByContractName ? (this.state.sortedByContractName === -1 ? <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        /> :
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
                           />) : ""}
                       </span>
                     </TableCell>
@@ -549,13 +555,13 @@ class Contractlist extends React.Component {
                       >
                         Token Yes/No
                         <Tooltip placement="top" title={messages.TOKEN_YES_NO}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info.svg"
-                        height={"14px"}
-                        className="tooltipInfoIconAccount"
-                         />
-                      </Tooltip>
+                          <img
+                            alt="question-mark"
+                            src="/images/info.svg"
+                            height={"14px"}
+                            className="tooltipInfoIconAccount"
+                          />
+                        </Tooltip>
                       </span>
                     </TableCell>
                   )}
@@ -687,18 +693,18 @@ class Contractlist extends React.Component {
             >
               Show
             </p>
-            <PageSelector value={this.state.amount}
-                          height={35}
-                          handler={this.handleChangeRowsPerPage}/>
-            <p
-              style={{
-                fontSize: "0.875rem",
-                fontWeight: "600",
-              }}
-            >
-              {" "}
-              Records
-            </p></>):("")}
+              <PageSelector value={this.state.amount}
+                height={35}
+                handler={this.handleChangeRowsPerPage} />
+              <p
+                style={{
+                  fontSize: "0.875rem",
+                  fontWeight: "600",
+                }}
+              >
+                {" "}
+                Records
+              </p></>) : ("")}
           </LeftPagination>
 
           <RightPagination
