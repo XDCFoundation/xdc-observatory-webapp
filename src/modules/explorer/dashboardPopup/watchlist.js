@@ -232,7 +232,7 @@ export default function FormDialog(props) {
   const [error, setError] = React.useState("");
   const [descriptionError, setDescriptionError] = React.useState("");
 
-  const [notification, setNotification] = React.useState(false);
+  const [notification, setNotification] = React.useState("NO");
 
   const [passwordShown, setPasswordShown] = React.useState(false);
 
@@ -243,7 +243,7 @@ export default function FormDialog(props) {
     // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
   };
 
-  const [value, setValue] = React.useState("female");
+  const [value, setValue] = React.useState("NO");
   const [isSize, setisSize] = React.useState(false);
   const screenSize = window.innerHeight;
   if (screenSize === "626") {

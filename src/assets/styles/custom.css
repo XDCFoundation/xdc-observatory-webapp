@@ -77,6 +77,9 @@ input[placeholder] {
 a:link {
   text-decoration: none;
 }
+.b-t-1 {
+  border-top: 1px solid #e3e7eb;
+}
 .p-b-0 {
   padding-bottom: 0px !important;
 }
@@ -745,6 +748,11 @@ input:focus {
   margin-left: 4px;
   align-items: center;
 }
+.privacyTermsLink {
+  text-decoration: underline !important;
+  color: #2a2a2a !important;
+}
+
 @media (min-width: 0px) and (max-width: 767px) {
   .display-none-mobile {
     display: none !important;
@@ -5389,6 +5397,16 @@ button {
 }
 .tooltipInfoIcon {
   margin: auto 0px auto 1px;
+  height: 20px;
+  width: 22px;
+}
+.tooltipInfoIconConfigMob {
+  margin: auto -3px auto -2px;
+  height: 20px;
+  width: 22px;
+}
+.tooltipInfoIconConfigDesk {
+  margin: auto 0px auto -2px;
   height: 20px;
   width: 22px;
 }

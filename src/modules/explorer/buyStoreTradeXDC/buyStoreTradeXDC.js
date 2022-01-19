@@ -91,10 +91,10 @@ function BuyStoreTradeXDC() {
                 </ImgContainer>
                 <ContentContainer>
                     <Heading>
-                        Buy and Store XDC
+                        Store XDC
                     </Heading>
                     <Description>
-                        Install our secure XDCPay Extension to Buy, Send and Store XDC and other Network Tokens. 
+                        Install the secure XDCPay Extension to Buy, Send and Store XDC and other XRC20 Tokens.
                     </Description>
                     <a href='https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-GB' target='_blank'>
                     <Button>
@@ -110,10 +110,10 @@ function BuyStoreTradeXDC() {
                 </ImgContainer>
                 <ContentContainer>
                     <Heading>
-                        Trade XDC at the Exhange
+                        Trade XDC on an Exchange
                     </Heading>
                     <Description>
-                        You can easily exhange XDC with other cyrptocurrencies through the exhanges listed here.
+                        You can easily exchange XDC with other cryptocurrencies through the exchanges listed here.
                     </Description>
                     <IconContainer>
                         <CoinImg><a href='https://trade.kucoin.com/trade/XDC-USDT' target='_blank'><img src='/images/ku-coin.svg' alt='ku-coin-img'/></a></CoinImg>

@@ -40,7 +40,7 @@ import TransactionPDF from "../../common/components/transactionPDF";
 import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
-import StorageMessage from "./dashboardPopup/storageMessage";
+
 import Utility from "../../utility";
 import { useSelector } from "react-redux";
 
@@ -565,8 +565,7 @@ export default function SimpleTabs(props) {
   //   let tagWords = [];
   //   tagWords = tag.split(",");
   //   return tagWords;
-  // }
-  const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage")
+  // } 
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -2241,7 +2240,6 @@ export default function SimpleTabs(props) {
           </TabPanel>
         </div>
       </SubParentContainer>
-      {/* {isStorageMessage ? "" : <StorageMessage />} */}
       <FooterComponent />
     </div>
   );

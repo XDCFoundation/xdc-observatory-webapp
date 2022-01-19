@@ -25,9 +25,14 @@ label {
 .desktop-column-display {
   display: block;
 }
+.communityContainer {
+  margin: 0 45px 10px 0 !important;
+}
+
 
 .follow-us-margin {
   margin: 0px 0px 10px 0px !important;
+  padding-right: 28px;
 }
 
 @media (min-width: 1241px) {
@@ -178,6 +183,9 @@ ul {
   .Table-Header hr {
     width: 151px;
   }
+  .communityContainer {
+    margin: 0 24px 10px 0 !important;
+  }
 }
 
 .USD {
@@ -257,6 +265,10 @@ ul {
 
   .follow-us-margin {
     margin: 20px 0px 10px 0px !important;
+    padding-right: 0px;
+  }
+  .communityContainer {
+    margin: 30px 0px 10px 0 !important
   }
 }
 

@@ -525,7 +525,7 @@ export default function AddressTableComponent(props) {
         )}
       </SearchAndExportDiv>
 
-      <Grid lg={13} className="tablegrid_address">
+      <Grid lg={13} className="tablegrid_address_details">
         <Paper
           style={{ borderRadius: "0.75rem" }}
           elevation={0}
@@ -988,6 +988,7 @@ export default function AddressTableComponent(props) {
             )}
           </Grid>
           <Grid xs="1"></Grid>
+          {totalRecord > rowsPerPage ? (<>
           {noData == true && (
             <Grid
               item
@@ -1103,7 +1104,7 @@ export default function AddressTableComponent(props) {
                 Last
               </button>
             </Grid>
-          )}
+          )}</>):("")}
         </Grid>
       </Grid>
     </div>
