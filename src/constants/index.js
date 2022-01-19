@@ -161,6 +161,7 @@ export const messages = {
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
   WALLET_ADDRESS: "Wallet address.",
   QUANTITY: "The amount available in the wallet.",
+  EMAIL: "Email is required for sending the email notifications."
 };
 
 export const toolTipMessages = {

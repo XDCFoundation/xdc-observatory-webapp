@@ -377,7 +377,7 @@ export default function TokenDataComponent() {
   };
 
   useEffect(() => {
-    let values = { addr: address, pageNum: 0, perpage: 10 };
+    let values = { address: address, skip: 0, limit: 10 };
     listOfHolders(values);
     let value = { addr: address };
     transferDetail(value);
@@ -393,6 +393,7 @@ export default function TokenDataComponent() {
     if (error || !tns) return;
     settransfer(tns.responseData);
   };
+
 
   const listOfHolders = async (values) => {
     let urlPath = `${address}`;
@@ -700,8 +701,8 @@ const TopHeaderSection = ({
             </div>
           </div>
         </LeftTopSecMain>
-        
       </LeftFirst>
+      <hr></hr>
     </>
   );
 };

@@ -17,6 +17,8 @@ import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Avatar } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
+import { messages } from "../../constants";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -1053,7 +1055,16 @@ export default function FormDialog(props) {
             </DialogContent>
             <DialogContent className={classes.userContainerSignup}>
               <DialogContentText className={classes.subCategorySignup}>
-                <span className={classes.fieldName}>Email</span>
+                <span className={classes.fieldName}>
+                  Email
+                    <Tooltip placement="top" title={messages.EMAIL}>
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          className="tooltipInfoIconEmail"
+                        />
+                      </Tooltip>
+                  </span>
               </DialogContentText>
               <input
                 type="email"

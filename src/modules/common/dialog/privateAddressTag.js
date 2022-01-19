@@ -121,13 +121,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
+  console.log(props, "<<<<props")
   const { open, onClose } = props
   const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
   // const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     setPrivateAddress(props?.fromAddr);
-    setPrivateAddress(props?.toAddr);
 
   }, [props])
   async function TaggedAddress() {
@@ -196,6 +196,7 @@ export default function FormDialog(props) {
 
             className={classes.input}
             onChange={(e) => setPrivateAddress(e.target.value)}
+            readOnly
           ></input>
         </DialogContent>
         <DialogContent>
