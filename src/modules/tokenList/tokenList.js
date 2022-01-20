@@ -1,5 +1,5 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,13 +16,13 @@ import styled from "styled-components";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import ConfigureColumnPopOver from "../common/configureColumnsPopOver";
-import {Column, Row} from "simple-flexbox";
+import { Column, Row } from "simple-flexbox";
 import ConfigureColumnsModal from "../common/configureColumnsModal";
 import format from "format-number";
 import Tooltip from "@material-ui/core/Tooltip";
-import {messages} from "../../constants";
+import { messages } from "../../constants";
 
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PageSelector from "../common/pageSelector";
 
 const Responsive = styled.div`
@@ -91,39 +91,39 @@ const Record = styled.div`
 // }
 
 const useStyles = makeStyles({
-    rootui: {
-        borderRadius: "0.875rem",
-        marginLeft: "18%",
-        marginRight: "18%",
-    },
-    container: {
-        borderRadius: "0.875rem",
-        boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
-        borderBottom: "none",
-        background: "#fff",
-    },
-    tableFirstHeading: {
-        border: "none",
-        paddingLeft: "75px !important",
-    },
-    tableFirstData: {
-        paddingLeft: "75px !important",
-    },
-    divider: {
-        borderTop: "0rem solid #bbb",
-        width: "100%",
-    },
+  rootui: {
+    borderRadius: "0.875rem",
+    marginLeft: "18%",
+    marginRight: "18%",
+  },
+  container: {
+    borderRadius: "0.875rem",
+    boxShadow: "0 1px 10px 0 rgba(0, 0, 0, 0.1)",
+    borderBottom: "none",
+    background: "#fff",
+  },
+  tableFirstHeading: {
+    border: "none",
+    paddingLeft: "75px !important",
+  },
+  tableFirstData: {
+    paddingLeft: "75px !important",
+  },
+  divider: {
+    borderTop: "0rem solid #bbb",
+    width: "100%",
+  },
 
-    // "@media (max-width: 1240px)": {
-    //     container: {
-    //         marginTop: "7px !important",
-    //     },
-    // },
-    "@media (max-width: 767px)": {
-      container: {
-        marginTop: "0px",
-      },
+  // "@media (max-width: 1240px)": {
+  //     container: {
+  //         marginTop: "7px !important",
+  //     },
+  // },
+  "@media (max-width: 767px)": {
+    container: {
+      marginTop: "0px",
     },
+  },
 
   "@media (max-width: 1240px)": {
     tableFirstHeading: {
@@ -139,209 +139,209 @@ const useStyles = makeStyles({
 });
 
 export default function StickyHeadTable(props) {
-    const classes = useStyles();
-    const [from, setFrom] = React.useState(0);
-    const [amount, setAmount] = React.useState(10);
-    const [isLoading, setLoading] = React.useState(true);
-    const [totalToken, setTotalToken] = React.useState(0);
-    const [keywords, setKeywords] = React.useState("");
-    const [rows, setRows] = React.useState([]);
-    const [sortKey, setSortKey] = React.useState("");
-    const [sortOrder, setSortOrder] = React.useState(0);
-    let {token} = useParams();
+  const classes = useStyles();
+  const [from, setFrom] = React.useState(0);
+  const [amount, setAmount] = React.useState(10);
+  const [isLoading, setLoading] = React.useState(true);
+  const [totalToken, setTotalToken] = React.useState(0);
+  const [keywords, setKeywords] = React.useState("");
+  const [rows, setRows] = React.useState([]);
+  const [sortKey, setSortKey] = React.useState("");
+  const [sortOrder, setSortOrder] = React.useState(0);
+  let { token } = useParams();
 
-    const [noData, setNoData] = React.useState(true);
-    const handleChangePage = (action) => {
-        let data = {searchKey: keywords ? keywords : ""};
-        if (sortKey && sortOrder)
-            data.sortKey = {[sortKey]: sortOrder};
-        // if (sortedByHolderCount)
-        //     data.sortKey = {holdersCount: sortedByHolderCount};
-        if (!keywords)
-            setNoData(false);
-        if (action === "first") {
-            setFrom(0);
-            data.skip = 0;
-            data.limit = amount;
-        }
-        if (action === "prev") {
-            if (from - amount >= 0) {
-                let page = from - amount;
-                setFrom(page);
-                data.skip = page;
-                data.limit = amount;
-            }
-        }
-        if (action === "next") {
-            if (+amount + +from < totalToken) {
-                let page = +amount + +from;
-                setFrom(page);
-                data.skip = page;
-                data.limit = amount;
-            }
-        }
+  const [noData, setNoData] = React.useState(true);
+  const handleChangePage = (action) => {
+    let data = { searchKey: keywords ? keywords : "" };
+    if (sortKey && sortOrder)
+      data.sortKey = { [sortKey]: sortOrder };
+    // if (sortedByHolderCount)
+    //     data.sortKey = {holdersCount: sortedByHolderCount};
+    if (!keywords)
+      setNoData(false);
+    if (action === "first") {
+      setFrom(0);
+      data.skip = 0;
+      data.limit = amount;
+    }
+    if (action === "prev") {
+      if (from - amount >= 0) {
+        let page = from - amount;
+        setFrom(page);
+        data.skip = page;
+        data.limit = amount;
+      }
+    }
+    if (action === "next") {
+      if (+amount + +from < totalToken) {
+        let page = +amount + +from;
+        setFrom(page);
+        data.skip = page;
+        data.limit = amount;
+      }
+    }
 
-        if (action === "last") {
-            let page = totalToken - amount;
-            setFrom(page);
-            data.skip = page;
-            data.limit = amount;
-        }
-        getTokenList(data);
+    if (action === "last") {
+      let page = totalToken - amount;
+      setFrom(page);
+      data.skip = page;
+      data.limit = amount;
+    }
+    getTokenList(data);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setFrom(0);
+    setAmount(event.target.value);
+    setSortKey('');
+    setSortOrder(0);
+    setFrom(0);
+    let data = {
+      skip: 0,
+      limit: event.target.value,
+      searchKey: keywords ? keywords : '',
     };
-
-    const handleChangeRowsPerPage = (event) => {
-        setFrom(0);
-        setAmount(event.target.value);
-        setSortKey('');
-        setSortOrder(0);
-        setFrom(0);
-        let data = {
-            skip: 0,
-            limit: event.target.value,
-            searchKey: keywords ? keywords : '',
-        };
-        if (!keywords)
-            setNoData(false);
-        getTokenList(data);
-    };
-    const handleSearchKeyUp = (event) => {
-        let searchkeyword = event?.target?.value;
-        setSortKey("");
-        setSortOrder(0);
-        if (searchkeyword?.length > 2) {
-            setKeywords(searchkeyword);
-            setLoading(false);
-            let data = {skip: 0, limit: amount, searchKey: searchkeyword};
-            getTokenList(data);
-        }
-        if (searchkeyword?.length === 0) {
-            setKeywords("");
-            setLoading(false);
-            setNoData(false);
-            let data = {skip: from, limit: amount, searchKey: ''};
-            getTokenList(data);
-        }
-    };
-    const getTokenList = async (data) => {
-        try {
-            const [error, responseData] = await Utility.parseResponse(
-                TokenData.getTokenLists(data)
-            );
-            if (error) return;
-            if (responseData) {
-                setNoData(false);
-                setLoading(false);
-                setRows(responseData?.tokens);
-                setTotalToken(responseData?.totalCount);
-            } else {
-                setLoading(false);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-// const getTotalTokenList = async () => {
-//     try {
-//         const [error, responseData] = await Utility.parseResponse(
-//             TokenData.getTotalToken()
-//         );
-//         if (error) return;
-//         if (responseData) {
-//             setNoData(false);
-//             setTotalToken(responseData);
-//         }
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
-// const SearchTokens = async (data) => {
-//     try {
-//         const [error, responseData] = await Utility.parseResponse(
-//             TokenData.getTokenSearch(data)
-//         );
-//         if (error) return;
-//         if (responseData.total === 0) {
-//             setNoData(true);
-//             setTotalToken(0);
-//             setRows([]);
-//         }
-//
-//         if (responseData.total > 0) {
-//             setNoData(false);
-//             setTotalToken(responseData.total);
-//             setLoading(false);
-//             setRows(responseData.resultSet);
-//             //alert(responseData.length)
-//         }
-//     } catch (error) {
-//         console.error(error);
-//     }
-// };
-
-    let [anchorEl, setAnchorEl] = React.useState();
-    let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
-    let isSettingColumnOpen = Boolean(anchorEl);
-
-    function handleSettingsClick(event) {
-        setAnchorEl(event.currentTarget);
+    if (!keywords)
+      setNoData(false);
+    getTokenList(data);
+  };
+  const handleSearchKeyUp = (event) => {
+    let searchkeyword = event?.target?.value;
+    setSortKey("");
+    setSortOrder(0);
+    if (searchkeyword?.length > 2) {
+      setKeywords(searchkeyword);
+      setLoading(false);
+      let data = { skip: 0, limit: amount, searchKey: searchkeyword };
+      getTokenList(data);
     }
-
-    function toggleModal() {
-        setColumnsModal(!isColumnsModalOpen);
+    if (searchkeyword?.length === 0) {
+      setKeywords("");
+      setLoading(false);
+      setNoData(false);
+      let data = { skip: from, limit: amount, searchKey: '' };
+      getTokenList(data);
     }
-
-    function handleOnClose() {
-        setAnchorEl(null);
+  };
+  const getTokenList = async (data) => {
+    try {
+      const [error, responseData] = await Utility.parseResponse(
+        TokenData.getTokenLists(data)
+      );
+      if (error) return;
+      if (responseData) {
+        setNoData(false);
+        setLoading(false);
+        setRows(responseData?.tokens);
+        setTotalToken(responseData?.totalCount);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
     }
+  };
+  // const getTotalTokenList = async () => {
+  //     try {
+  //         const [error, responseData] = await Utility.parseResponse(
+  //             TokenData.getTotalToken()
+  //         );
+  //         if (error) return;
+  //         if (responseData) {
+  //             setNoData(false);
+  //             setTotalToken(responseData);
+  //         }
+  //     } catch (error) {
+  //         console.error(error);
+  //     }
+  // };
+  // const SearchTokens = async (data) => {
+  //     try {
+  //         const [error, responseData] = await Utility.parseResponse(
+  //             TokenData.getTokenSearch(data)
+  //         );
+  //         if (error) return;
+  //         if (responseData.total === 0) {
+  //             setNoData(true);
+  //             setTotalToken(0);
+  //             setRows([]);
+  //         }
+  //
+  //         if (responseData.total > 0) {
+  //             setNoData(false);
+  //             setTotalToken(responseData.total);
+  //             setLoading(false);
+  //             setRows(responseData.resultSet);
+  //             //alert(responseData.length)
+  //         }
+  //     } catch (error) {
+  //         console.error(error);
+  //     }
+  // };
 
-    React.useEffect(() => {
-        let unmounted = false;
-        let data = {skip: from, limit: amount, searchKey: token ? token : ''};
-        data['sortKey'] = {"holdersCount": -1}
-        getTokenList(data);
-        // return () => {
-        //     unmounted = true;
-        // };
-    }, []);
+  let [anchorEl, setAnchorEl] = React.useState();
+  let [isColumnsModalOpen, setColumnsModal] = React.useState(false);
+  let isSettingColumnOpen = Boolean(anchorEl);
 
-    function shorten(b, amountL = 10, amountR = 4, stars = 3) {
-        return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
-            b.length - amountR,
-            b.length
-        )}`;
+  function handleSettingsClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function toggleModal() {
+    setColumnsModal(!isColumnsModalOpen);
+  }
+
+  function handleOnClose() {
+    setAnchorEl(null);
+  }
+
+  React.useEffect(() => {
+    let unmounted = false;
+    let data = { skip: from, limit: amount, searchKey: token ? token : '' };
+    data['sortKey'] = { "holdersCount": -1 }
+    getTokenList(data);
+    // return () => {
+    //     unmounted = true;
+    // };
+  }, []);
+
+  function shorten(b, amountL = 10, amountR = 4, stars = 3) {
+    return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
+      b.length - amountR,
+      b.length
+    )}`;
+  }
+
+  async function sortTable(_sortKey) {
+    let data = { skip: from, limit: amount, searchKey: keywords }
+    if (sortKey && sortKey.includes(_sortKey)) {
+      data['sortKey'] = { [_sortKey]: -1 * sortOrder }
+      setSortOrder(-1 * sortOrder);
+    } else {
+      setSortKey(_sortKey)
+      setSortOrder(-1)
+      data['sortKey'] = { [_sortKey]: -1 }
     }
+    getTokenList(data);
+  }
 
-    async function sortTable(_sortKey) {
-        let data = {skip: from, limit: amount, searchKey: keywords}
-        if (sortKey && sortKey.includes(_sortKey)) {
-            data['sortKey'] = {[_sortKey]: -1*sortOrder}
-            setSortOrder(-1* sortOrder);
-        } else  {
-            setSortKey(_sortKey)
-            setSortOrder(-1)
-            data['sortKey'] = {[_sortKey]: -1}
-        }
-        getTokenList(data);
-    }
+  // async function sortByHoldersCount() {
+  //     setSortedByTotalSupply(0);
+  //     let data = {skip: from, limit: amount, searchKey: keywords}
+  //     if (!sortedByHolderCount) {
+  //         setSortedByHolderCount(-1);
+  //         data['sortKey'] = {"holdersCount": -1}
+  //     } else if (sortedByHolderCount === -1) {
+  //         setSortedByHolderCount(1);
+  //         data['sortKey'] = {"holdersCount": 1}
+  //     } else {
+  //         setSortedByHolderCount(-1);
+  //         data['sortKey'] = {"holdersCount": -1}
+  //     }
+  //     getTokenList(data);
+  // }
 
-    // async function sortByHoldersCount() {
-    //     setSortedByTotalSupply(0);
-    //     let data = {skip: from, limit: amount, searchKey: keywords}
-    //     if (!sortedByHolderCount) {
-    //         setSortedByHolderCount(-1);
-    //         data['sortKey'] = {"holdersCount": -1}
-    //     } else if (sortedByHolderCount === -1) {
-    //         setSortedByHolderCount(1);
-    //         data['sortKey'] = {"holdersCount": 1}
-    //     } else {
-    //         setSortedByHolderCount(-1);
-    //         data['sortKey'] = {"holdersCount": -1}
-    //     }
-    //     getTokenList(data);
-    // }
-
-    const TokenTitle = styled.div`
+  const TokenTitle = styled.div`
     font-family: Inter;
     font-size: 24px;
     font-weight: 600;
@@ -358,7 +358,7 @@ export default function StickyHeadTable(props) {
       }
     `;
 
-    const NoDataFoundContainer = styled.div`
+  const NoDataFoundContainer = styled.div`
       display: flex;
       flex-flow: column;
       justify-content: center;
@@ -374,240 +374,239 @@ export default function StickyHeadTable(props) {
     <div style={{ backgroundColor: "#fff" }}>
       <Tokensearchbar />
       <Responsive>
-      <form
-        method="post"
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-          }
-        }}
-      >
-
-        <Column
-          className={
-            "responsive-table-width-token-list token-list-tab_11 search-container"
-          }
+        <form
+          method="post"
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
         >
-          {window.innerWidth >= 768 ?
-          <>
-          <TokenTitle>Tokens</TokenTitle>
-          <Row justifyContent="space-between" alignItems="center">
-          <div className="searchelement-input input-searchelement_11">
-            <img
-              style={{
-                width: 18,
-                height: 18,
-                marginRight: 2,
-                marginTop: -1,
-              }}
-              src={"/images/Search.svg"}
-            />
 
-            <input
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              onChange={(e) => {
-                if (e.target.value == "") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              id="tokenSearch"
-              className="account-searchbar"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-              <img
-                onClick={handleSettingsClick}
-                className="h-20 w-20-px cursor-pointer m-r-9"
-                src="/images/settings.svg"
-              />
-              <ConfigureColumnPopOver
-                isOpen={isSettingColumnOpen}
-                anchorEl={anchorEl}
-                handleOnClose={handleOnClose}
-                tableColumns={props.state.tableColumns}
-                toggleTableColumns={props.toggleTableColumns}
-              />
-            </div>
-            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-              <img
-                onClick={toggleModal}
-                className="h-20 w-20-px cursor-pointer"
-                src="/images/settings.svg"
-              />
-              <ConfigureColumnsModal
-                isOpen={isColumnsModalOpen}
-                onModalClose={toggleModal}
-                tableColumns={props.state.tableColumns}
-                toggleTableColumns={props.toggleTableColumns}
-              />
-            </div>
-          </Row></>:(<>
-          <Row justifyContent="space-between" alignItems="center">
-          <TokenTitle>Tokens</TokenTitle>
-            <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
-              <img
-                onClick={handleSettingsClick}
-                className="h-16 w-16-px cursor-pointer m-t_-7"
-                src="/images/settings.svg"
-              />
-              <ConfigureColumnPopOver
-                isOpen={isSettingColumnOpen}
-                anchorEl={anchorEl}
-                handleOnClose={handleOnClose}
-                tableColumns={props.state.tableColumns}
-                toggleTableColumns={props.toggleTableColumns}
-              />
-            </div>
-            <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
-              <img
-                onClick={toggleModal}
-                className="h-16 w-16-px cursor-pointer m-t_-7"
-                src="/images/settings.svg"
-              />
-              <ConfigureColumnsModal
-                isOpen={isColumnsModalOpen}
-                onModalClose={toggleModal}
-                tableColumns={props.state.tableColumns}
-                toggleTableColumns={props.toggleTableColumns}
-              />
-            </div>
-          </Row>
-          <div className="searchelement-input input-searchelement_11">
-            <img
-              style={{
-                width: 18,
-                height: 18,
-                marginRight: 2,
-                marginTop: -1,
-              }}
-              src={"/images/Search.svg"}
-            />
+          <Column
+            className={
+              "responsive-table-width-token-list token-list-tab_11 search-container"
+            }
+          >
+            {window.innerWidth >= 768 ?
+              <>
+                <TokenTitle>Tokens</TokenTitle>
+                <Row justifyContent="space-between" alignItems="center">
+                  <div className="searchelement-input input-searchelement_11">
+                    <img
+                      style={{
+                        width: 18,
+                        height: 18,
+                        marginRight: 2,
+                      }}
+                      src={"/images/Search.svg"}
+                    />
 
-            <input
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              onChange={(e) => {
-                if (e.target.value == "") {
-                  handleSearchKeyUp(e);
-                }
-              }}
-              id="tokenSearch"
-              className="account-searchbar"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-          </>)}
-
-        </Column>
-      </form>
-      {/* </div> */}
-      {/* </div> */}
-
-            <br/>
-
-            <Paper
-                className={"responsive-table-width-token-list token-list-tab_11"}
-                style={{
-                    borderRadius: "0.875rem",
-                    // marginLeft: "18%",
-                    // marginRight: "18%",
-                }}
-                elevation={0}
-            >
-                <TableContainer
-                    className={classes.container}
-                    id="container-table-token"
-                    style={{
-                        borderRadius: "0.75rem",
-                        border: "solid 0.063rem #e3e7eb",
-                        backgroundColor: "#ffffff",
-                        boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
-                    }}
-                >
-                    <Table style={{borderBottom: "none"}}>
-                        <TableHead style={{borderBottom: "0.063rem solid #e5e8f0"}}>
-                            <TableRow>
-                                <TableCell
-                                    style={{border: "none",}}
-                                    align="left"
-                                >
-                  <span className={"tablehead-token-details"}>
-                    #
-                    <Tooltip placement="top" title={messages.SI_NO}>
+                    <input
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          handleSearchKeyUp(e);
+                        }
+                      }}
+                      onChange={(e) => {
+                        if (e.target.value == "") {
+                          handleSearchKeyUp(e);
+                        }
+                      }}
+                      id="tokenSearch"
+                      className="account-searchbar"
+                      type="text"
+                      placeholder="Search"
+                    />
+                  </div>
+                  <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
+                    <img
+                      onClick={handleSettingsClick}
+                      className="h-20 w-20-px cursor-pointer m-r-9"
+                      src="/images/settings.svg"
+                    />
+                    <ConfigureColumnPopOver
+                      isOpen={isSettingColumnOpen}
+                      anchorEl={anchorEl}
+                      handleOnClose={handleOnClose}
+                      tableColumns={props.state.tableColumns}
+                      toggleTableColumns={props.toggleTableColumns}
+                    />
+                  </div>
+                  <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+                    <img
+                      onClick={toggleModal}
+                      className="h-20 w-20-px cursor-pointer"
+                      src="/images/settings.svg"
+                    />
+                    <ConfigureColumnsModal
+                      isOpen={isColumnsModalOpen}
+                      onModalClose={toggleModal}
+                      tableColumns={props.state.tableColumns}
+                      toggleTableColumns={props.toggleTableColumns}
+                    />
+                  </div>
+                </Row></> : (<>
+                  <Row justifyContent="space-between" alignItems="center">
+                    <TokenTitle>Tokens</TokenTitle>
+                    <div className="display-none-mobile display-flex flex-direction-column w-100 margin-0 justify-content-end align-items-end">
                       <img
+                        onClick={handleSettingsClick}
+                        className="h-16 w-16-px cursor-pointer m-t_-7"
+                        src="/images/settings.svg"
+                      />
+                      <ConfigureColumnPopOver
+                        isOpen={isSettingColumnOpen}
+                        anchorEl={anchorEl}
+                        handleOnClose={handleOnClose}
+                        tableColumns={props.state.tableColumns}
+                        toggleTableColumns={props.toggleTableColumns}
+                      />
+                    </div>
+                    <div className="display-none-tab display-none-desktop display-flex flex-direction-column justify-content-center">
+                      <img
+                        onClick={toggleModal}
+                        className="h-16 w-16-px cursor-pointer m-t_-7"
+                        src="/images/settings.svg"
+                      />
+                      <ConfigureColumnsModal
+                        isOpen={isColumnsModalOpen}
+                        onModalClose={toggleModal}
+                        tableColumns={props.state.tableColumns}
+                        toggleTableColumns={props.toggleTableColumns}
+                      />
+                    </div>
+                  </Row>
+                  <div className="searchelement-input input-searchelement_11">
+                    <img
+                      style={{
+                        width: 18,
+                        height: 18,
+                        marginRight: 2,
+                        marginTop: -1,
+                      }}
+                      src={"/images/Search.svg"}
+                    />
+
+                    <input
+                      onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                          handleSearchKeyUp(e);
+                        }
+                      }}
+                      onChange={(e) => {
+                        if (e.target.value == "") {
+                          handleSearchKeyUp(e);
+                        }
+                      }}
+                      id="tokenSearch"
+                      className="account-searchbar"
+                      type="text"
+                      placeholder="Search"
+                    />
+                  </div>
+                </>)}
+
+          </Column>
+        </form>
+        {/* </div> */}
+        {/* </div> */}
+
+        <br />
+
+        <Paper
+          className={"responsive-table-width-token-list token-list-tab_11"}
+          style={{
+            borderRadius: "0.875rem",
+            // marginLeft: "18%",
+            // marginRight: "18%",
+          }}
+          elevation={0}
+        >
+          <TableContainer
+            className={classes.container}
+            id="container-table-token"
+            style={{
+              borderRadius: "0.75rem",
+              border: "solid 0.063rem #e3e7eb",
+              backgroundColor: "#ffffff",
+              boxShadow: "0 0.063rem 0.625rem 0 rgba(0 0, 0, 0.,1)",
+            }}
+          >
+            <Table style={{ borderBottom: "none" }}>
+              <TableHead style={{ borderBottom: "0.063rem solid #e5e8f0" }}>
+                <TableRow>
+                  <TableCell
+                    style={{ border: "none", }}
+                    align="left"
+                  >
+                    <span className={"tablehead-token-details"}>
+                      #
+                      <Tooltip placement="top" title={messages.SI_NO}>
+                        <img
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
                           className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
-                  </span>
-                                </TableCell>
-                                {props?.state?.tableColumns["Symbol"].isActive && (
-                                    <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"} onClick={()=>sortTable("symbol")}>
-                      Symbol
-                      <Tooltip placement="top" title={messages.SYMBOL}>
-                        <img
+                        />
+                      </Tooltip>
+                    </span>
+                  </TableCell>
+                  {props?.state?.tableColumns["Symbol"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span className={"tablehead-token-details"} onClick={() => sortTable("symbol")}>
+                        Symbol
+                        <Tooltip placement="top" title={messages.SYMBOL}>
+                          <img
                             alt="question-mark"
                             src="/images/info.svg"
                             height={"14px"}
                             className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                          />
+                        </Tooltip>
                         {sortKey && sortKey === "symbol" ? (
-                            sortOrder===-1 ? <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                /> :
-                                <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon rotate-180"
-                                />) : ""}
-                    </span>
-                                    </TableCell>
-                                )}
-                                <TableCell style={{border: "none"}} align="left">
-                  <span className={"tablehead-token-details"} onClick={()=>sortTable("tokenName")}>
-                    Name
-                    <Tooltip placement="top" title={messages.NAME}>
-                      <img
+                          sortOrder === -1 ? <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          /> :
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                            />) : ""}
+                      </span>
+                    </TableCell>
+                  )}
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"} onClick={() => sortTable("tokenName")}>
+                      Name
+                      <Tooltip placement="top" title={messages.NAME}>
+                        <img
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
                           className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
+                        />
+                      </Tooltip>
                       {sortKey && sortKey === "tokenName" ? (
-                          sortOrder===-1 ? <img
-                                  alt="question-mark"
-                                  src="/images/see-more.svg"
-                                  height={"14px"}
-                                  className="tooltipInfoIcon"
-                              /> :
-                              <img
-                                  alt="question-mark"
-                                  src="/images/see-more.svg"
-                                  height={"14px"}
-                                  className="tooltipInfoIcon rotate-180"
-                              />) : ""}
-                  </span>
-                                </TableCell>
-                                {/* {props?.state?.tableColumns["Type"].isActive && (
+                        sortOrder === -1 ? <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        /> :
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />) : ""}
+                    </span>
+                  </TableCell>
+                  {/* {props?.state?.tableColumns["Type"].isActive && (
                                     <TableCell
                                         style={{border: "none", whiteSpace: "nowrap"}}
                                         align="left"
@@ -625,233 +624,232 @@ export default function StickyHeadTable(props) {
                     </span>
                                     </TableCell>
                                 )} */}
-                                {props?.state?.tableColumns["Hash"].isActive && (
-                                    <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"} onClick={()=>sortTable("address")}>
-                      Contract
-                      <Tooltip placement="top" title={messages.CONTRACT}>
-                        <img
+                  {props?.state?.tableColumns["Hash"].isActive && (
+                    <TableCell style={{ border: "none" }} align="left">
+                      <span className={"tablehead-token-details"} onClick={() => sortTable("address")}>
+                        Contract
+                        <Tooltip placement="top" title={messages.CONTRACT}>
+                          <img
                             alt="question-mark"
                             src="/images/info.svg"
                             height={"14px"}
                             className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                          />
+                        </Tooltip>
                         {sortKey && sortKey === "address" ? (
-                            sortOrder===-1 ? <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                /> :
-                                <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon rotate-180"
-                                />) : ""}
-                    </span>
-                                    </TableCell>
-                                )}
-
-                                <TableCell
-                                    style={{border: "none", whiteSpace: "nowrap"}}
-                                    align="left"
-                                >
-                  <span className={"tablehead-token-details cursor-pointer"} onClick={()=>sortTable("totalSupply")}>
-                    Total Supply
-                    <Tooltip
-                        placement="top"
-                        title={messages.TOKEN_TOTAL_SUPPLY}
-                    >
-                      <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
-                      {sortKey && sortKey === "totalSupply" ? (
-                          sortOrder===-1 ? <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon"
+                          sortOrder === -1 ? <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
                           /> :
-                          <img
+                            <img
                               alt="question-mark"
                               src="/images/see-more.svg"
                               height={"14px"}
                               className="tooltipInfoIcon rotate-180"
-                          />) : ""}
-                  </span>
-                                </TableCell>
-                                {props?.state?.tableColumns["Total Holders"].isActive && (
-                                    <TableCell
-                                        style={{border: "none", whiteSpace: "nowrap"}}
-                                        align="left"
-                                    >
-                    <span className={"tablehead-token-details"} onClick={()=>sortTable("holdersCount")}>
-                      Total Holders
-                      <Tooltip placement="top" title={messages.HOLDER}>
+                            />) : ""}
+                      </span>
+                    </TableCell>
+                  )}
+
+                  <TableCell
+                    style={{ border: "none", whiteSpace: "nowrap" }}
+                    align="left"
+                  >
+                    <span className={"tablehead-token-details cursor-pointer"} onClick={() => sortTable("totalSupply")}>
+                      Total Supply
+                      <Tooltip
+                        placement="top"
+                        title={messages.TOKEN_TOTAL_SUPPLY}
+                      >
                         <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                      {sortKey && sortKey === "totalSupply" ? (
+                        sortOrder === -1 ? <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        /> :
+                          <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon rotate-180"
+                          />) : ""}
+                    </span>
+                  </TableCell>
+                  {props?.state?.tableColumns["Total Holders"].isActive && (
+                    <TableCell
+                      style={{ border: "none", whiteSpace: "nowrap" }}
+                      align="left"
+                    >
+                      <span className={"tablehead-token-details"} onClick={() => sortTable("holdersCount")}>
+                        Total Holders
+                        <Tooltip placement="top" title={messages.HOLDER}>
+                          <img
                             alt="question-mark"
                             src="/images/info.svg"
                             height={"14px"}
                             className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
+                          />
+                        </Tooltip>
                         {sortKey && sortKey === "holdersCount" ? (
-                            sortOrder===-1 ? <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon"
-                                /> :
-                                <img
-                                    alt="question-mark"
-                                    src="/images/see-more.svg"
-                                    height={"14px"}
-                                    className="tooltipInfoIcon rotate-180"
-                                />) : ""}
-                    </span>
-                                    </TableCell>
-                                )}
-                            </TableRow>
-                        </TableHead>
-                        {isLoading == true ? (
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell style={{border: "none"}} colspan="8">
-                                        <div className="loader-token-list">
-                                            <Loader/>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        ) : (
-                            noData == false && (
-                                <TableBody>
-                                    {rows?.map((row, index) => {
-                                        let totalsupply = utility.divideByDecimalValue(
-                                            row?.totalSupply,
-                                            row?.decimals
-                                        );
-                                        const supply =
-                                            utility.divideByDecimalValue(
-                                                row?.totalSupply,
-                                                row?.decimals
-                                            ) >= 1
-                                                ? format({})(
-                                                    utility.convertToInternationalCurrencySystem(
-                                                        utility.divideByDecimalValue(
-                                                            row?.totalSupply,
-                                                            row?.decimals
-                                                        )
-                                                    )
-                                                )
-                                                : utility.divideByDecimalValue(
-                                                    row?.totalSupply,
-                                                    row?.decimals
-                                                );
-                                        var supply1 = supply.toString().split(".")[0];
-                                        var supply2 = supply.toString().split(".")[1];
-                                        var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
-                                        var splittedArray = supply2?.match(regex);
+                          sortOrder === -1 ? <img
+                            alt="question-mark"
+                            src="/images/see-more.svg"
+                            height={"14px"}
+                            className="tooltipInfoIcon"
+                          /> :
+                            <img
+                              alt="question-mark"
+                              src="/images/see-more.svg"
+                              height={"14px"}
+                              className="tooltipInfoIcon rotate-180"
+                            />) : ""}
+                      </span>
+                    </TableCell>
+                  )}
+                </TableRow>
+              </TableHead>
+              {isLoading == true ? (
+                <TableBody>
+                  <TableRow>
+                    <TableCell style={{ border: "none" }} colspan="8">
+                      <div className="loader-token-list">
+                        <Loader />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ) : (
+                noData == false && (
+                  <TableBody>
+                    {rows?.map((row, index) => {
+                      let totalsupply = utility.divideByDecimalValue(
+                        row?.totalSupply,
+                        row?.decimals
+                      );
+                      const supply =
+                        utility.divideByDecimalValue(
+                          row?.totalSupply,
+                          row?.decimals
+                        ) >= 1
+                          ? format({})(
+                            utility.convertToInternationalCurrencySystem(
+                              utility.divideByDecimalValue(
+                                row?.totalSupply,
+                                row?.decimals
+                              )
+                            )
+                          )
+                          : utility.divideByDecimalValue(
+                            row?.totalSupply,
+                            row?.decimals
+                          );
+                      var supply1 = supply.toString().split(".")[0];
+                      var supply2 = supply.toString().split(".")[1];
+                      var regex = new RegExp("([0-9]+)|([a-zA-Z]+)", "g");
+                      var splittedArray = supply2?.match(regex);
 
-                    var supply4 =
-                      splittedArray && splittedArray.length
-                        ? splittedArray[0]
-                        : 0;
-                    var text =
-                      splittedArray && splittedArray.length
-                        ? splittedArray[1]
-                        : 0;
-                    let tokenName =
-                      row?.tokenName?.length <= 15 ||
-                      row?.tokenName?.length == 0
-                        ? row?.tokenName
-                        : shorten(row?.tokenName, 15, 0, 3);
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row._id}
-                      >
-                        <TableCell id="td">
-                          {index + 1}
-                        </TableCell>
+                      var supply4 =
+                        splittedArray && splittedArray.length
+                          ? splittedArray[0]
+                          : 0;
+                      var text =
+                        splittedArray && splittedArray.length
+                          ? splittedArray[1]
+                          : 0;
+                      let tokenName =
+                        row?.tokenName?.length <= 15 ||
+                          row?.tokenName?.length == 0
+                          ? row?.tokenName
+                          : shorten(row?.tokenName, 15, 0, 3);
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row._id}
+                        >
+                          <TableCell id="td">
+                            {index + 1}
+                          </TableCell>
 
-                                                {props?.state?.tableColumns["Symbol"].isActive && (
-                                                    <TableCell id="td">
-                                                        <img
-                                                            style={{height: "20px", width: "20px"}}
-                                                            src={"/images/XRC20-Icon.svg"}
-                                                        ></img>
-                                                        &nbsp;{row.symbol}
-                                                    </TableCell>
-                                                )}
+                          {props?.state?.tableColumns["Symbol"].isActive && (
+                            <TableCell id="td">
+                              <img
+                                style={{ height: "20px", width: "20px" }}
+                                src={"/images/XRC20-Icon.svg"}
+                              ></img>
+                              &nbsp;{row.symbol}
+                            </TableCell>
+                          )}
 
-                                                <TableCell id="td" style={{whiteSpace: "nowrap"}}>
-                                                    {tokenName}
-                                                </TableCell>
-                                                {/* {props?.state?.tableColumns["Type"].isActive && (
+                          <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
+                            {tokenName}
+                          </TableCell>
+                          {/* {props?.state?.tableColumns["Type"].isActive && (
                                                     <TableCell id="td">{row.type}</TableCell>
                                                 )} */}
-                                                {props?.state?.tableColumns["Hash"].isActive && (
-                                                    <TableCell>
-                                                        <a
-                                                            className="token-details-address-link"
-                                                            href={`/token-data/${row.address}/${
-                                                                row?.symbol ? row?.symbol : "NA"
-                                                            }`}
-                                                        >
-                                                            {shorten(row.address)}
-                                                        </a>
-                                                    </TableCell>
-                                                )}
+                          {props?.state?.tableColumns["Hash"].isActive && (
+                            <TableCell>
+                              <a
+                                className="token-details-address-link"
+                                href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                                  }`}
+                              >
+                                {shorten(row.address)}
+                              </a>
+                            </TableCell>
+                          )}
 
-                                                <TableCell id="td" style={{paddingleft: "15"}}>
-                                                    <Tooltip
-                                                        placement="top"
-                                                        title={format({})(
-                                                            totalsupply >= 1
-                                                                ? parseFloat(totalsupply)
-                                                                : totalsupply == 0
-                                                                    ? parseFloat(totalsupply)
-                                                                    : totalsupply
-                                                        )}
-                                                    >
-                            <span>
-                              {supply4 === 0 || supply4 == null ? (
-                                  <span className="tabledata">{supply1}</span>
-                              ) : (
-                                  <span className="tabledata">
-                                  {supply1}
-                                      {"."}
-                                      <span style={{color: "#9FA9BA"}}>
-                                    {supply4}
-                                  </span>
-                                      {text}
-                                </span>
+                          <TableCell id="td" style={{ paddingleft: "15" }}>
+                            <Tooltip
+                              placement="top"
+                              title={format({})(
+                                totalsupply >= 1
+                                  ? parseFloat(totalsupply)
+                                  : totalsupply == 0
+                                    ? parseFloat(totalsupply)
+                                    : totalsupply
                               )}
-                            </span>
-                                                    </Tooltip>
-                                                </TableCell>
-                                                {props?.state?.tableColumns["Total Holders"]
-                                                    .isActive && (
-                                                    <TableCell id="td" style={{paddingleft: "15"}}>
-                                                        {format({})(row.holdersCount)}
-                                                    </TableCell>
-                                                )}
-                                            </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-                            )
-                        )}
-                        {/* {noData == true && (
+                            >
+                              <span>
+                                {supply4 === 0 || supply4 == null ? (
+                                  <span className="tabledata">{supply1}</span>
+                                ) : (
+                                  <span className="tabledata">
+                                    {supply1}
+                                    {"."}
+                                    <span style={{ color: "#9FA9BA" }}>
+                                      {supply4}
+                                    </span>
+                                    {text}
+                                  </span>
+                                )}
+                              </span>
+                            </Tooltip>
+                          </TableCell>
+                          {props?.state?.tableColumns["Total Holders"]
+                            .isActive && (
+                              <TableCell id="td" style={{ paddingleft: "15" }}>
+                                {format({})(row.holdersCount)}
+                              </TableCell>
+                            )}
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                )
+              )}
+              {/* {noData == true && (
               <TableBody>
                 <TableCell id="td" style={{ borderBottom: "none" }}>
                   <span
@@ -863,101 +861,101 @@ export default function StickyHeadTable(props) {
                 </TableCell>
               </TableBody>
             )} */}
-                    </Table>
-                    {noData == true && !isLoading ? (
-                        <NoDataFoundContainer>
-                            <img
-                                src={require("../../../src/assets/images/XDC-Alert.svg")}
-                            ></img>
+            </Table>
+            {noData == true && !isLoading ? (
+              <NoDataFoundContainer>
+                <img
+                  src={require("../../../src/assets/images/XDC-Alert.svg")}
+                ></img>
 
-                            <div style={{color: "#c6cbcf"}}>No Tokens found</div>
-                        </NoDataFoundContainer>
-                    ) : (
-                        ""
-                    )}
-                </TableContainer>
+                <div style={{ color: "#c6cbcf" }}>No Tokens found</div>
+              </NoDataFoundContainer>
+            ) : (
+              ""
+            )}
+          </TableContainer>
 
-                {/* <Divider className={classes.divider}/>*/}
-            </Paper>
+          {/* <Divider className={classes.divider}/>*/}
+        </Paper>
 
-      <Pagination>
-        <LeftPagination>
-        {!noData == true && !isLoading ? (<>
-          <Show>
-            Show
-          </Show>
-                    <PageSelector value={amount}
-                                  height={30}
-                                  handler={handleChangeRowsPerPage}/>
-                    <Record>
-            Records
-          </Record></>):("")}
-        </LeftPagination>
+        <Pagination>
+          <LeftPagination>
+            {!noData == true && !isLoading ? (<>
+              <Show>
+                Show
+              </Show>
+              <PageSelector value={amount}
+                height={30}
+                handler={handleChangeRowsPerPage} />
+              <Record>
+                Records
+              </Record></>) : ("")}
+          </LeftPagination>
 
-                <RightPagination>
-                    <div
-                        className={
-                            from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
-                        }
-                        onClick={() => handleChangePage("first")}
-                    >
-                        <button
-                            style={{backgroundColor: "white"}}
-                            className="first-contract"
-                        >
-                            First
-                        </button>
-                    </div>
-                    <div
-                        className={
-                            from === 0
-                                ? "previousbox-contract disabled"
-                                : "previousbox-contract"
-                        }
-                        onClick={() => handleChangePage("prev")}
-                    >
-                        <img className="navigation-arrow" src={"/images/back.svg"}/>
+          <RightPagination>
+            <div
+              className={
+                from === 0 ? "firstbox-contract disabled" : "firstbox-contract"
+              }
+              onClick={() => handleChangePage("first")}
+            >
+              <button
+                style={{ backgroundColor: "white" }}
+                className="first-contract"
+              >
+                First
+              </button>
+            </div>
+            <div
+              className={
+                from === 0
+                  ? "previousbox-contract disabled"
+                  : "previousbox-contract"
+              }
+              onClick={() => handleChangePage("prev")}
+            >
+              <img className="navigation-arrow" src={"/images/back.svg"} />
 
-                        {/* <p className="path-contract">{"<"}</p> */}
-                    </div>
-                    <div className="pagebox-contract">
-                        <p className="Page-1-of-5-contract">
-                            Page{" "}
-                            {Math.ceil(totalToken / amount) -
-                            Math.ceil((totalToken - from) / amount) +
-                            1}{" "}
-                            of {Math.ceil(totalToken / amount)}
-                        </p>
-                    </div>
-                    <div
-                        className={
-                            from + amount === totalToken
-                                ? "nextbox-contract disabled"
-                                : "nextbox-contract"
-                        }
-                        onClick={() => handleChangePage("next")}
-                    >
-                        <img className="navigation-arrow" src={"/images/next.svg"}/>
-                    </div>
-                    <div
-                        className={
-                            from + amount === totalToken
-                                ? "lastbox-contract disabled"
-                                : "lastbox-contract"
-                        }
-                        onClick={() => handleChangePage("last")}
-                    >
-                        <button
-                            style={{backgroundColor: "white"}}
-                            className="last-contract"
-                        >
-                            Last
-                        </button>
-                    </div>
-                </RightPagination>
-            </Pagination>
-            </Responsive>
-            <FooterComponent/>
-        </div>
-    );
+              {/* <p className="path-contract">{"<"}</p> */}
+            </div>
+            <div className="pagebox-contract">
+              <p className="Page-1-of-5-contract">
+                Page{" "}
+                {Math.ceil(totalToken / amount) -
+                  Math.ceil((totalToken - from) / amount) +
+                  1}{" "}
+                of {Math.ceil(totalToken / amount)}
+              </p>
+            </div>
+            <div
+              className={
+                from + amount === totalToken
+                  ? "nextbox-contract disabled"
+                  : "nextbox-contract"
+              }
+              onClick={() => handleChangePage("next")}
+            >
+              <img className="navigation-arrow" src={"/images/next.svg"} />
+            </div>
+            <div
+              className={
+                from + amount === totalToken
+                  ? "lastbox-contract disabled"
+                  : "lastbox-contract"
+              }
+              onClick={() => handleChangePage("last")}
+            >
+              <button
+                style={{ backgroundColor: "white" }}
+                className="last-contract"
+              >
+                Last
+              </button>
+            </div>
+          </RightPagination>
+        </Pagination>
+      </Responsive>
+      <FooterComponent />
+    </div>
+  );
 }
