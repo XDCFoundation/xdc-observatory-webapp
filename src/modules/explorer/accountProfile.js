@@ -1159,7 +1159,7 @@ export default function SimpleTabs(props) {
                   borderRadius: "0.25rem",
                   width: "5.875rem",
                   height: "2.125rem",
-                  marginRight: "1.5rem",
+
                   paddingTop: "0.4rem",
                 }}
               >
