@@ -97,29 +97,29 @@ function BuyStoreTradeXDC() {
                         Install the secure XDCPay Extension to Buy, Send and Store XDC and other XRC20 Tokens.
                     </Description>
                     <a href='https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-GB' target='_blank'>
-                    <Button>
-                        Create Wallet
-                    </Button>
+                        <Button>
+                            Create Wallet
+                        </Button>
                     </a>
                 </ContentContainer>
             </BuyStoreContainer>
-            <VerticalLine/>
+            <VerticalLine />
             <TradeContainer>
                 <ImgContainer>
                     <img src='/images/exchange.svg' alt='exchange-img' />
                 </ImgContainer>
                 <ContentContainer>
                     <Heading>
-                        Trade XDC on an Exchange
+                        Trade XDC.
                     </Heading>
                     <Description>
                         You can easily exchange XDC with other cryptocurrencies through the exchanges listed here.
                     </Description>
                     <IconContainer>
-                        <CoinImg><a href='https://trade.kucoin.com/trade/XDC-USDT' target='_blank'><img src='/images/ku-coin.svg' alt='ku-coin-img'/></a></CoinImg>
-                        <CoinImg><a href='https://www.gate.io/trade/xdc_usdt' target='_blank'><img src='/images/gate.svg' alt='gate-img'/></a></CoinImg>
-                        <CoinImg><a href='https://indodax.com/market/XDCIDR' target='_blank'><img src='/images/indodax.svg' alt='indodax-img'/></a></CoinImg>
-                        <CoinImg><a href='https://mercatox.com/exchange/XDC/BTC' target='_blank'><img src='/images/mercatox.svg' alt='mercatox-img'/></a></CoinImg>
+                        <CoinImg><a href='https://trade.kucoin.com/trade/XDC-USDT' target='_blank'><img src='/images/ku-coin.svg' alt='ku-coin-img' /></a></CoinImg>
+                        <CoinImg><a href='https://www.gate.io/trade/xdc_usdt' target='_blank'><img src='/images/gate.svg' alt='gate-img' /></a></CoinImg>
+                        <CoinImg><a href='https://indodax.com/market/XDCIDR' target='_blank'><img src='/images/indodax.svg' alt='indodax-img' /></a></CoinImg>
+                        <CoinImg><a href='https://mercatox.com/exchange/XDC/BTC' target='_blank'><img src='/images/mercatox.svg' alt='mercatox-img' /></a></CoinImg>
                     </IconContainer>
                 </ContentContainer>
             </TradeContainer>

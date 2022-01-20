@@ -218,7 +218,7 @@ export default function FormDialog() {
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc ");
       return;
     } else if (tags.length === 0) {
       setErrorTag("Use comma(,) to add multiple tag");

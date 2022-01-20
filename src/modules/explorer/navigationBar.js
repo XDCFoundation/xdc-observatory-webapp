@@ -598,7 +598,7 @@ export default function Navbar() {
                         href="https://xinfin.network/#masternode"
                     >
                         <div className="xinfin_account_button">
-                            Become a Master Node/Validator
+                            Become a MasterNode/Validator
                         </div>
                     </a>
                     <hr className="myhr" />
@@ -648,7 +648,7 @@ export default function Navbar() {
                         href="https://apothem.network/#masternode"
                     >
                         <div className="xinfin_account_button">
-                            Become a Master Node/Validator
+                            Become a MasterNode/Validator
                         </div>
                     </a>
                     <hr className="myhr" />

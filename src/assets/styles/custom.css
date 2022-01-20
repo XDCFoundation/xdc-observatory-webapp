@@ -4194,7 +4194,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-holder th {
-    padding: 17px 48px 15px 25px !important;
+    padding: 17px 48px 15px 11px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -7658,8 +7658,6 @@ button {
   letter-spacing: 0rem;
 }
 
-
-
 .tabs_sec_address_details {
   padding-bottom: 0.438rem;
   color: #6b7482;
@@ -8908,9 +8906,10 @@ button {
   .content_input_all {
     display: flex;
     /* flex-direction: column; */
-    width: 22.5rem;
+    width: 21rem;
     /* justify-content: space-between; */
   }
+
   .cont-tab {
     width: 21rem !important;
     flex-direction: initial !important;

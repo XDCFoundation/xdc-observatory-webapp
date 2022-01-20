@@ -259,7 +259,7 @@ export default function FormDialog() {
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc ");
     } else if (!description) {
       setDescriptionError("Description is required");
     } else {
