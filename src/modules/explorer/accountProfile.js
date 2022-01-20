@@ -589,6 +589,7 @@ export default function SimpleTabs(props) {
     const list = Math.ceil(value.selected * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
+  
 
   const onChangeTxnLabelPage = async (value) => {
     setPvtNotePageCount(value);
