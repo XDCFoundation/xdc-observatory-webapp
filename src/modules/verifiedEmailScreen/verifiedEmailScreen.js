@@ -49,10 +49,10 @@ const Verified = styled.div`
 
 function VerifiedEmailScreenComponent() {
 
-    const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
-    const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
-    const handleLogin = () => setLoginDialogIsOpen(true)
-    const closeLoginDialog = () => setLoginDialogIsOpen(false)
+  const [loginDialogIsOpen, setLoginDialogIsOpen] = React.useState(false)
+  const isloggedIn = sessionManager.getDataFromCookies("isLoggedIn");
+  const handleLogin = () => setLoginDialogIsOpen(true)
+  const closeLoginDialog = () => setLoginDialogIsOpen(false)
 
   return (
     <Container>
@@ -62,13 +62,13 @@ function VerifiedEmailScreenComponent() {
           <EmailVerified> Email Verified </EmailVerified>
         </Verified>
         <Rectangle>
-          Your email is verified. You may proceed to log in with your user ID
+          Your email is verified. You may proceed to login with your user ID
           and password.
         </Rectangle>
-        {!isloggedIn ? <LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} verifiedEmail={true}/>:<></>}
-        <LoginButton style={{pointerEvents: isloggedIn? "none" : ""}} onClick={handleLogin}>
+        {!isloggedIn ? <LoginDialog open={loginDialogIsOpen} onClose={closeLoginDialog} verifiedEmail={true} /> : <></>}
+        <LoginButton style={{ pointerEvents: isloggedIn ? "none" : "" }} onClick={handleLogin}>
           {" "}
-          Log in to your account
+          Login to your account
         </LoginButton>
       </MainDiv>
     </Container>

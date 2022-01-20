@@ -202,7 +202,7 @@ function EditTxnLabel(props) {
     ) {
       editTransactionLable();
     } else {
-      setError("Address should start with 0x & 66 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc");
     }
   };
   const handleDelete = async () => {

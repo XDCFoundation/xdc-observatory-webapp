@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CustomDropDown from "../../common/components/customDropdown";
 import CustomDateDropDown from "../../common/components/customDateDropdown";
@@ -36,7 +36,7 @@ const SearchBox = styled.div`
   }
 `
 const SearchAndFiltersComponent = (props) => {
-    const {searchAndFilters, updateFiltersAndGetAccounts} = props
+    const { searchAndFilters, updateFiltersAndGetAccounts } = props
     const [searchQuery, setSearchQuery] = useState(searchAndFilters.searchQuery)
     const [startDate, setStartDate] = useState(searchAndFilters.startDate)
     const [endDate, setEndDate] = useState(searchAndFilters.endDate)
@@ -47,7 +47,7 @@ const SearchAndFiltersComponent = (props) => {
     useEffect(() => {
         if (!type && !status)
             return
-        updateFiltersAndGetAccounts({searchQuery, type, status, endDate, startDate})
+        updateFiltersAndGetAccounts({ searchQuery, type, status, endDate, startDate })
     }, [type, status])
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const SearchAndFiltersComponent = (props) => {
             clearTimeout(timeoutId)
         timeoutId = setTimeout(() => {
             setSearchQuery(value)
-            updateFiltersAndGetAccounts({searchQuery: value, type, status})
+            updateFiltersAndGetAccounts({ searchQuery: value, type, status })
         }, 500)
     }
 
@@ -70,24 +70,24 @@ const SearchAndFiltersComponent = (props) => {
 
     const onEndDateUpdated = (value) => {
         setEndDate(value)
-        updateFiltersAndGetAccounts({searchQuery, type, status, startDate, endDate: value})
+        updateFiltersAndGetAccounts({ searchQuery, type, status, startDate, endDate: value })
     }
 
     return (
         <Container>
             <SearchBox>
-                <img src="/images/Search.svg"/>
-                <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)}/>
+                <img src="/images/Search.svg" />
+                <input placeholder="Search" onChange={e => onSearchQueryChange(e.target.value)} />
             </SearchBox>
             {/*<CustomDateDropDown name="Date" setStartDates={onStartDateUpdated} setEndDates={onEndDateUpdated}
                                 startDate={startDate} endDate={endDate}/>*/}
             <CustomDropDown name="Status" selectedOption={status} onSelect={data => setStatus(data)}
-                            options={[{key: 'all', value: 'Show All Txn', name: 'All'},
-                                {key: 'true', value: 'Show Completed Txn', name: 'Completed Txn'},
-                                {key: 'false', value: 'Show Failed Txn', name: 'Failed Txn'}]}/>
+                options={[{ key: 'all', value: 'Show All Txns', name: 'All' },
+                { key: 'true', value: 'Show Completed Txns', name: 'Completed Txns' },
+                { key: 'false', value: 'Show Failed Txns', name: 'Failed Txns' }]} />
             <CustomDropDown name="Type" selectedOption={type} onSelect={data => setType(data)}
-                            options={[{key: 'ALL', value: 'All Txn', name: 'All'}, {key: 'IN', value: 'In Txn'},
-                                {key: 'OUT', value: 'Out Txn'}]}/>
+                options={[{ key: 'ALL', value: 'All Txns', name: 'All' }, { key: 'IN', value: 'In Txns' },
+                { key: 'OUT', value: 'Out Txns' }]} />
         </Container>
     )
 }

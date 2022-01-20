@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#3763dd",
     color: "white",
 
-    },
+  },
 
   cnlbtn: {
     width: "94px",
@@ -275,7 +275,7 @@ export default function FormDialog(props) {
       !(address && address.length === 43) ||
       !(address.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc");
     } else if (!description) {
       setDescriptionError("Description is required");
     } else {
@@ -359,59 +359,59 @@ export default function FormDialog(props) {
 
   return (
     <>
-    <div className="w-33p">
-      <div className="div1 cursor-pointer">
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
+      <div className="w-33p">
+        <div className="div1 cursor-pointer">
+          <div
+            className="imageParentDiv"
+            onClick={
+              width >= 760
+                ? handleClickOpen
+                : () => {
                   history.push("/test");
                 }
-          }
-        >
-          <img className="imagediv1" src={"/images/watchlist.svg"}></img>
-        </div>
-
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/test");
-                }
-          }
-        >
-          <div className="headingdiv1">
-            <div>Create watchlist</div>
-          </div>
-          <div className="paradiv1">
-            An Email notification can be sent to you when an address on your
-            watch list recieves an incoming/outgoing transaction.
-          </div>
-        </div>
-
-        <LearnMoreParent>
-          <LightToolTip
-            open={tooltipIsOpen}
-            onClose={tooltipClose}
-            title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
-            arrow
-            placement="top-start"
+            }
           >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
-            </div>
-          </LightToolTip>
-        </LearnMoreParent>
-      </div>
+            <img className="imagediv1" src={"/images/watchlist.svg"}></img>
+          </div>
 
-      {/* <Button
+          <div
+            className="imageParentDiv"
+            onClick={
+              width >= 760
+                ? handleClickOpen
+                : () => {
+                  history.push("/test");
+                }
+            }
+          >
+            <div className="headingdiv1">
+              <div>Create watchlist</div>
+            </div>
+            <div className="paradiv1">
+              An Email notification can be sent to you when an address on your
+              watch list recieves an incoming/outgoing transaction.
+            </div>
+          </div>
+
+          <LearnMoreParent>
+            <LightToolTip
+              open={tooltipIsOpen}
+              onClose={tooltipClose}
+              title="An Email notification can be sent to you when an address on your watch list recieves an incoming/outgoing transaction."
+              arrow
+              placement="top-start"
+            >
+              <div
+                className="learnMoreText"
+                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+              >
+                Learn More
+              </div>
+            </LightToolTip>
+          </LearnMoreParent>
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -419,8 +419,8 @@ export default function FormDialog(props) {
       >
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
-      {isSize === false ? (
-        // <div className={classes.createWatchlist}>
+        {isSize === false ? (
+          // <div className={classes.createWatchlist}>
           <Dialog
             className={classes.dialog}
             classes={{ paperWidthSm: classes.dialogBox }}
@@ -552,12 +552,12 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
           </Dialog>
-        // </div>
-      ) : (
-        <Test />
-      )}
+          // </div>
+        ) : (
+          <Test />
+        )}
       </div>
-      </>
+    </>
   );
 }
 

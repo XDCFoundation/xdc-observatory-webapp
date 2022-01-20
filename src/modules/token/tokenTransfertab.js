@@ -225,6 +225,7 @@ export default function StickyHeadTable() {
 
     const updateFiltersAndGetAccounts = async (filters) => {
         await setSearchAndFilters(filters)
+        setLoading(true)
         setSortingKey(0);
         setSortingOrder(0);
         transferDetail(null, filters)

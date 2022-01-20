@@ -479,7 +479,8 @@ export default function AddressTableComponent(props) {
   const updateFiltersAndGetAccounts = async (filters) => {
     await setSearchAndFilters(filters)
     if (filters.searchQuery || filters.type || filters.status !== 'all' /*|| filters.startDate?.format("D MMM, YYYY") !== filters.endDate?.format("D MMM, YYYY")*/)
-      getAddressDetails({}, filters)
+      setLoading(true)
+    getAddressDetails({}, filters)
   }
 
   return (
@@ -989,122 +990,122 @@ export default function AddressTableComponent(props) {
           </Grid>
           <Grid xs="1"></Grid>
           {totalRecord > rowsPerPage ? (<>
-          {noData == true && (
-            <Grid
-              item
-              xs="7"
-              style={{
-                flexBasis: "auto",
-                display: "flex",
-                alignItems: "baseline",
-              }}
-              className="pagination-page"
-            >
-              <button
-                style={{ marginLeft: "0rem" }}
-                onClick={() => handleChangePage("first")}
-                className={
-                  page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                }
+            {noData == true && (
+              <Grid
+                item
+                xs="7"
+                style={{
+                  flexBasis: "auto",
+                  display: "flex",
+                  alignItems: "baseline",
+                }}
+                className="pagination-page"
               >
-                First
-              </button>
-              <button
-                onClick={() => handleChangePage("prev")}
-                className={
-                  page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                }
+                <button
+                  style={{ marginLeft: "0rem" }}
+                  onClick={() => handleChangePage("first")}
+                  className={
+                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                  }
+                >
+                  First
+                </button>
+                <button
+                  onClick={() => handleChangePage("prev")}
+                  className={
+                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                  }
+                >
+                  <img className="back-arrow" src={"/images/back.svg"} />
+                </button>
+                <button className="btn">Page 0 of 0</button>
+                <button
+                  onClick={() => handleChangePage("next")}
+                  className={
+                    page + rowsPerPage === totalRecord ||
+                      +page + +rowsPerPage > totalRecord ||
+                      totalRecord === 0
+                      ? "btn disabled"
+                      : "btn"
+                  }
+                >
+                  <img className="back-arrow" src={"/images/next.svg"} />
+                </button>
+                <button
+                  onClick={() => handleChangePage("last")}
+                  className={
+                    page + rowsPerPage === totalRecord ||
+                      +page + +rowsPerPage > totalRecord ||
+                      totalRecord === 0
+                      ? "btn disabled"
+                      : "btn"
+                  }
+                >
+                  Last
+                </button>
+              </Grid>
+            )}
+            {noData == false && (
+              <Grid
+                item
+                xs="7"
+                style={{
+                  flexBasis: "auto",
+                  display: "flex",
+                  alignItems: "baseline",
+                }}
+                className="pagination-page"
               >
-                <img className="back-arrow" src={"/images/back.svg"} />
-              </button>
-              <button className="btn">Page 0 of 0</button>
-              <button
-                onClick={() => handleChangePage("next")}
-                className={
-                  page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
-                    ? "btn disabled"
-                    : "btn"
-                }
-              >
-                <img className="back-arrow" src={"/images/next.svg"} />
-              </button>
-              <button
-                onClick={() => handleChangePage("last")}
-                className={
-                  page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
-                    ? "btn disabled"
-                    : "btn"
-                }
-              >
-                Last
-              </button>
-            </Grid>
-          )}
-          {noData == false && (
-            <Grid
-              item
-              xs="7"
-              style={{
-                flexBasis: "auto",
-                display: "flex",
-                alignItems: "baseline",
-              }}
-              className="pagination-page"
-            >
-              <button
-                style={{ marginLeft: "0rem" }}
-                onClick={() => handleChangePage("first")}
-                className={
-                  page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                }
-              >
-                First
-              </button>
-              <button
-                onClick={() => handleChangePage("prev")}
-                className={
-                  page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
-                }
-              >
-                <img className="back-arrow" src={"/images/back.svg"} />
-              </button>
-              <button className="btn">
-                Page{" "}
-                {Math.ceil(totalRecord / rowsPerPage) -
-                  Math.ceil((totalRecord - page) / rowsPerPage) +
-                  1}{" "}
-                of {Math.ceil(totalRecord / rowsPerPage)}
-              </button>
-              <button
-                onClick={() => handleChangePage("next")}
-                className={
-                  page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
-                    ? "btn disabled"
-                    : "btn"
-                }
-              >
-                <img className="back-arrow" src={"/images/next.svg"} />
-              </button>
-              <button
-                onClick={() => handleChangePage("last")}
-                className={
-                  page + rowsPerPage === totalRecord ||
-                    +page + +rowsPerPage > totalRecord ||
-                    totalRecord === 0
-                    ? "btn disabled"
-                    : "btn"
-                }
-              >
-                Last
-              </button>
-            </Grid>
-          )}</>):("")}
+                <button
+                  style={{ marginLeft: "0rem" }}
+                  onClick={() => handleChangePage("first")}
+                  className={
+                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                  }
+                >
+                  First
+                </button>
+                <button
+                  onClick={() => handleChangePage("prev")}
+                  className={
+                    page === 0 || totalRecord === 0 ? "btn disabled" : "btn"
+                  }
+                >
+                  <img className="back-arrow" src={"/images/back.svg"} />
+                </button>
+                <button className="btn">
+                  Page{" "}
+                  {Math.ceil(totalRecord / rowsPerPage) -
+                    Math.ceil((totalRecord - page) / rowsPerPage) +
+                    1}{" "}
+                  of {Math.ceil(totalRecord / rowsPerPage)}
+                </button>
+                <button
+                  onClick={() => handleChangePage("next")}
+                  className={
+                    page + rowsPerPage === totalRecord ||
+                      +page + +rowsPerPage > totalRecord ||
+                      totalRecord === 0
+                      ? "btn disabled"
+                      : "btn"
+                  }
+                >
+                  <img className="back-arrow" src={"/images/next.svg"} />
+                </button>
+                <button
+                  onClick={() => handleChangePage("last")}
+                  className={
+                    page + rowsPerPage === totalRecord ||
+                      +page + +rowsPerPage > totalRecord ||
+                      totalRecord === 0
+                      ? "btn disabled"
+                      : "btn"
+                  }
+                >
+                  Last
+                </button>
+              </Grid>
+            )}</>) : ("")}
         </Grid>
       </Grid>
     </div>

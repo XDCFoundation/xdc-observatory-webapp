@@ -231,7 +231,7 @@ function EditWatchList(props) {
       return true;
       // watchListService();
     } else {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc");
       return false;
     }
   };
@@ -241,9 +241,9 @@ function EditWatchList(props) {
       _id: props.row._id,
       address: address,
       description: description,
-      notification : {
-        type : value,
-        isEnabled : value==="NO" ? false : true
+      notification: {
+        type: value,
+        isEnabled: value === "NO" ? false : true
       }
     };
     if (validateAddress()) {

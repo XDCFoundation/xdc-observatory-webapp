@@ -47,6 +47,9 @@ import { useSelector } from "react-redux";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
+  @media(max-width:1240px){
+    margin-bottom: 77px;
+  }
 
   & .paginationBttns {
     list-style: none;
@@ -140,6 +143,12 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 0px",
     justifyContent: "space-around",
     textTransform: "none",
+
+  },
+  "@media(max-width: 767px)": {
+    root: {
+      width: "21rem"
+    },
   },
   label: {
     textTransform: "none",
@@ -238,7 +247,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 828px)": {
     appbar: {
       // maxWidth: "710px",
-      width: "100%",
+      width: "25rem",
     },
   },
   "@media (max-width: 767)": {
@@ -252,11 +261,6 @@ const useStyles = makeStyles((theme) => ({
 
 
   "@media (max-width: 714px)": {
-    // appbar: {
-    //   maxWidth: "375px",
-    //   width: "100%",
-    //   padding: "0 7px",
-    // },
 
     mywatch: {
       /* width: 100px; */
@@ -309,15 +313,15 @@ const useStyles = makeStyles((theme) => ({
   tab1: {
     color: "#2149b9 !important",
     textTransform: "initial",
-    "@media (max-width: 714px)": {
-      width: "50%",
+    "@media (max-width: 767px)": {
+      padding: "0px 6px",
     }
   },
   tab2: {
     color: "#6b7482",
     textTransform: "initial",
     "@media (max-width: 714px)": {
-      width: "50%",
+      padding: "0px 6px",
     }
 
   },
