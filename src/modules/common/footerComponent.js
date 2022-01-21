@@ -248,38 +248,44 @@ export default function FooterComponent(props) {
                         alignContent="center"
                         item
                         xs={12}
-                        style={{margin: " 0px 0px 10px 0px"}}
+                        className="communityContainer"
+                        // style={{margin: " 0px 0px 10px 0px"}}
                     >
                         <div className="Table-Header text-align-left">
                             Community
-                            <div style={{width: "100%", paddingRight: "10px"}}>
+                            <div style={{width: "100%"}}>
                                 <hr></hr>
                             </div>
                         </div>
 
-                        <div className="Table-Comp">
+                        {/* <div className="Table-Comp">
                             <a href="https://xinfin.org/about.php" target="_blank">
                                 About Community
                             </a>
-                        </div>
-
+                        </div> */}
                         <div className="Table-Comp">
-                            <a href="https://xinfin.network/#stats" target="_blank">
-                                XDC Network Status
+                            <a href="https://medium.com/xdc-foundation-communications" target="_blank">
+                                XDC Foundation Medium 
                             </a>
                         </div>
 
                         <div className="Table-Comp">
+                            <a href="https://stats.xdc.org/" target="_blank">
+                                XDC Network Stats
+                            </a>
+                        </div>
+
+                        {/* <div className="Table-Comp">
                             <a href="https://xinfin.org/bounty.php" target="_blank">
                                 Community Bounty Program
                             </a>
-                        </div>
+                        </div> */}
 
-                        <div className="Table-Comp">
+                        {/* <div className="Table-Comp">
                             <a href="https://howto.xinfin.org/" target="_blank">
                                 Developer Portal
                             </a>
-                        </div>
+                        </div> */}
 
                         <div className="Table-Comp">
                             <a href="https://xinfin.org/setup-masternode.php" target="_blank">
@@ -287,17 +293,24 @@ export default function FooterComponent(props) {
                             </a>
                         </div>
 
-                        <div className="Table-Comp">
+                        {/* <div className="Table-Comp">
                             <a href="https://xinfin.org/xdc-utility.php" target="_blank">
                                 XDC Utility
                             </a>
+                        </div> */}
+                        <div className="Table-Comp">
+                            <a href="https://docs.xdc.org/" target="_blank">
+                                XDC Docs
+                            </a>
                         </div>
 
-                        <div className="Table-Comp">
+                        
+
+                        {/* <div className="Table-Comp">
                             <a href="https://xinfin.org/compliance.php" target="_blank">
                                 Compliance
                             </a>
-                        </div>
+                        </div> */}
                     </Grid>
 
                     <Grid
@@ -312,11 +325,7 @@ export default function FooterComponent(props) {
                             <hr></hr>
                         </div>
                         <ul>
-                            <li className="Table-Comp">
-                                <a href="https://howto.xinfin.org/general/faq/" target="_blank">
-                                    Read FAQ
-                                </a>
-                            </li>
+                            
                             <li className="Table-Comp">
                                 <a
                                     href="https://xinfin.org/exchange-listing-resource.php"
@@ -325,7 +334,7 @@ export default function FooterComponent(props) {
                                     Exchange Listing Resource
                                 </a>
                             </li>
-                            <li className="Table-Comp">
+                            {/* <li className="Table-Comp">
                                 <a href="https://xinfin.io/" target="_blank">
                                     XDC Exchange List
                                 </a>
@@ -337,7 +346,7 @@ export default function FooterComponent(props) {
                                 >
                                     Public DPoS Consensus
                                 </a>
-                            </li>
+                            </li> */}
                             <li className="Table-Comp">
                                 <a href="https://observer.xdc.org/privacy-policy" target="_blank">
                                     Privacy Policy
@@ -345,14 +354,19 @@ export default function FooterComponent(props) {
                             </li>
                             <li className="Table-Comp">
                                 <a href="https://observer.xdc.org/term-conditions" target="_blank">
-                                    Disclaimer
+                                    Terms of Use
                                 </a>
                             </li>
                             <li className="Table-Comp">
+                                <a href="https://medium.com/xdc-foundation-communications" target="_blank">
+                                    Read FAQ
+                                </a>
+                            </li>
+                            {/* <li className="Table-Comp">
                                 <a href="https://xinfin.org/contactus.php" target="_blank">
                                     Press Inquiry
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                     </Grid>
                 </SecondColumnWithFlex>
@@ -369,11 +383,7 @@ export default function FooterComponent(props) {
                             <hr></hr>
                         </div>
                         <ul>
-                            <li className="Table-Comp">
-                                <a href="https://howto.xinfin.org/general/faq/" target="_blank">
-                                    Read FAQ
-                                </a>
-                            </li>
+                            
                             <li className="Table-Comp">
                                 <a
                                     href="https://xinfin.org/exchange-listing-resource.php"
@@ -382,34 +392,39 @@ export default function FooterComponent(props) {
                                     Exchange Listing Resource
                                 </a>
                             </li>
-                            <li className="Table-Comp">
+                            {/* <li className="Table-Comp">
                                 <a href="https://xinfin.io/" target="_blank">
                                     XDC Exchange List
                                 </a>
-                            </li>
-                            <li className="Table-Comp">
+                            </li> */}
+                            {/* <li className="Table-Comp">
                                 <a
                                     href="https://xinfin.org/xinfin-consensus.php"
                                     target="_blank"
                                 >
                                     Public DPoS Consensus
                                 </a>
-                            </li>
+                            </li> */}
                             <li className="Table-Comp">
-                                <a href="https://xinfin.org/privacy.php" target="_blank">
+                                <a href="https://observer.xdc.org/privacy-policy" target="_blank">
                                     Privacy Policy
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://xinfin.org/disclaimer.php" target="_blank">
-                                    Disclaimer
+                                <a href="https://observer.xdc.org/term-conditions" target="_blank">
+                                    Terms of Use
                                 </a>
                             </li>
                             <li className="Table-Comp">
+                                <a href="https://medium.com/xdc-foundation-communications" target="_blank">
+                                    Read FAQ
+                                </a>
+                            </li>
+                            {/* <li className="Table-Comp">
                                 <a href="https://xinfin.org/contactus.php" target="_blank">
                                     Press Inquiry
                                 </a>
-                            </li>
+                            </li> */}
                         </ul>
                     </Grid>
                 </SecondCloumn>
@@ -428,30 +443,17 @@ export default function FooterComponent(props) {
                                 <hr style={{marginRight: "20px"}}></hr>
                             </div>
                             <ul>
-                                <li className="Table-Comp">
+                            <li className="Table-Comp">
                                     <a
                                         className="a-style"
-                                        href="https://twitter.com/XinFin_Official"
+                                        href="https://github.com/XDCFoundation/"
                                         rel="nofollow"
                                         target="_blank"
                                     >
                     <span
                         style={{paddingLeft: "3px", marginRight: "3px"}}
                     ></span>
-                                        Twitter
-                                    </a>
-                                </li>
-                                <li className="Table-Comp">
-                                    <a
-                                        className="a-style"
-                                        href="https://www.facebook.com/XinFinHybridBlockchain/"
-                                        rel="nofollow"
-                                        target="_blank"
-                                    >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
-                                        Facebook
+                                        XDC Foundation Github
                                     </a>
                                 </li>
                                 <li className="Table-Comp">
@@ -464,10 +466,52 @@ export default function FooterComponent(props) {
                     <span
                         style={{paddingLeft: "3px", marginRight: "3px"}}
                     ></span>
-                                        Github
+                                       XinFin Fintech Github
                                     </a>
                                 </li>
                                 <li className="Table-Comp">
+                                    <a
+                                        className="a-style"
+                                        href="https://www.facebook.com/XDCFoundation"
+                                        rel="nofollow"
+                                        target="_blank"
+                                    >
+                    <span
+                        style={{paddingLeft: "3px", marginRight: "3px"}}
+                    ></span>
+                                        Facebook
+                                    </a>
+                                </li>
+                                <li className="Table-Comp">
+                                    <a
+                                        className="a-style"
+                                        href="https://www.youtube.com/channel/UCXAAtlD-CRraNJKzDTF4pfg"
+                                        rel="nofollow"
+                                        target="_blank"
+                                    >
+                    <span
+                        style={{paddingLeft: "3px", marginRight: "3px"}}
+                    ></span>
+                                        Youtube
+                                    </a>
+                                </li>
+                                <li className="Table-Comp">
+                                    <a
+                                        className="a-style"
+                                        href="https://twitter.com/XDCFoundation"
+                                        rel="nofollow"
+                                        target="_blank"
+                                    >
+                    <span
+                        style={{paddingLeft: "3px", marginRight: "3px"}}
+                    ></span>
+                                        Twitter
+                                    </a>
+                                </li>
+                                
+                                
+                                
+                                {/* <li className="Table-Comp">
                                     <a
                                         className="a-style"
                                         href="https://www.linkedin.com/company/xinfin/"
@@ -479,8 +523,9 @@ export default function FooterComponent(props) {
                     ></span>
                                         LinkedIn
                                     </a>
-                                </li>
-                                <li className="Table-Comp">
+                                </li> */}
+                                
+                                {/* <li className="Table-Comp">
                                     <a
                                         className="a-style"
                                         href="https://t.me/xinfintalk"
@@ -492,11 +537,11 @@ export default function FooterComponent(props) {
                     ></span>
                                         Telegram
                                     </a>
-                                </li>
+                                </li> */}
                                 <li className="Table-Comp">
                                     <a
                                         className="a-style"
-                                        href="https://www.reddit.com/r/xinfin/"
+                                        href="https://www.reddit.com/user/XDC_Foundation"
                                         rel="nofollow"
                                         target="_blank"
                                     >
@@ -526,7 +571,8 @@ export default function FooterComponent(props) {
                                     data-lang="en"
                                     data-height="220"
                                     data-theme="light"
-                                    href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"
+                                    href="https://twitter.com/XDCFoundation"
+                                    // href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw" //---->old link
                                 ></a>
                             </div>
                         </Grid>
@@ -552,7 +598,8 @@ export default function FooterComponent(props) {
                                 data-lang="en"
                                 data-height="220"
                                 data-theme="light"
-                                href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw"
+                                href="https://twitter.com/XDCFoundation"
+                                // href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw" //---->old link
                             ></a>
                         </div>
                     </Grid>
@@ -560,7 +607,7 @@ export default function FooterComponent(props) {
             </Grid>
             <div className="footer-line">
                 <hr></hr>
-                <span className={"copyright"}>© 2022 XDC. All Rights Reserved.</span>
+                <span className={"copyright"}>© 2022 XDC. All Rights Reserved. Version v1.2</span>
             </div>
         </div>
     );

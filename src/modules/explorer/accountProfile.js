@@ -40,9 +40,9 @@ import TransactionPDF from "../../common/components/transactionPDF";
 import AddressPDF from "../../common/components/tagAddressPDF";
 import { PDFDownloadLink, StyleSheet } from "@react-pdf/renderer";
 import { messages } from "../../constants";
-import StorageMessage from "./dashboardPopup/storageMessage";
+
 import Utility from "../../utility";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const PaginationDiv = styled.div`
   margin-left: auto;
@@ -248,8 +248,8 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 15px",
     },
   },
-  
-  
+
+
 
   "@media (max-width: 714px)": {
     // appbar: {
@@ -309,14 +309,14 @@ const useStyles = makeStyles((theme) => ({
   tab1: {
     color: "#2149b9 !important",
     textTransform: "initial",
-    "@media (max-width: 714px)" : {
+    "@media (max-width: 714px)": {
       width: "50%",
     }
   },
   tab2: {
     color: "#6b7482",
     textTransform: "initial",
-    "@media (max-width: 714px)" : {
+    "@media (max-width: 714px)": {
       width: "50%",
     }
 
@@ -418,7 +418,7 @@ const SubParentContainer = styled.div`
   }
 `;
 export default function SimpleTabs(props) {
-  const timezone = useSelector(state=> state.timezone)
+  const timezone = useSelector(state => state.timezone)
 
   function shorten(b, amountL = 10, amountR = 3, stars = 3) {
     return `${b.slice(0, amountL)}${".".repeat(stars)}${b.slice(
@@ -565,8 +565,7 @@ export default function SimpleTabs(props) {
   //   let tagWords = [];
   //   tagWords = tag.split(",");
   //   return tagWords;
-  // }
-  const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage") 
+  // } 
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -590,6 +589,7 @@ export default function SimpleTabs(props) {
     const list = Math.ceil(value.selected * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
+  
 
   const onChangeTxnLabelPage = async (value) => {
     setPvtNotePageCount(value);
@@ -790,7 +790,7 @@ export default function SimpleTabs(props) {
             Description: item.description,
             Balance: item.balance,
             AddedOn: `${item?.addedOn && moment(item.addedOn).tz(timezone).format(
-                "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`,
+              "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`,
             Notification: item.notification.type === "NO" ? "Off" : "Email",
           };
         })
@@ -956,29 +956,29 @@ export default function SimpleTabs(props) {
               }
             /> */}
         <UserNameContainer>
-       <ParentProfile>
-       <div style={{display:"flex", justifyContent: "center", alignItems:"center"}}>
-         <Avatar
-            className="profile-icon"
-            src={
-              sessionManager.getDataFromCookies(
-                cookiesConstants.USER_PICTURE
-              ) || "/images/Profile.png"
-            }
-          />
-          <Column style={{margin: "0 15px"}}>
-            <Row className={classes.profileName} style={{ gap: "15px" }}>
-              Welcome, {Utils.shortenUserName(setUserName())}
-            </Row>
+          <ParentProfile>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Avatar
+                className="profile-icon"
+                src={
+                  sessionManager.getDataFromCookies(
+                    cookiesConstants.USER_PICTURE
+                  ) || "/images/Profile.png"
+                }
+              />
+              <Column style={{ margin: "0 15px" }}>
+                <Row className={classes.profileName} style={{ gap: "15px" }}>
+                  Welcome, {Utils.shortenUserName(setUserName())}
+                </Row>
 
-            <Editprofile />
-          </Column>
-         </div>
-         <div>
-         <NotificationBar  />  
-         </div>
+                <Editprofile />
+              </Column>
+            </div>
+            <div>
+              <NotificationBar />
+            </div>
 
-       </ParentProfile>
+          </ParentProfile>
         </UserNameContainer>
         {/* </span> */}
         {/* <span>
@@ -998,16 +998,16 @@ export default function SimpleTabs(props) {
         <UserNameContainer isWallet={true}>
           <Watchlist
             getWatchlistList={getListOfWatchlist}
-            getTotalCountWatchlist={getUserWatchlist}/>
+            getTotalCountWatchlist={getUserWatchlist} />
           <Transaction
             getListOfTxnLabel={getListOfTxnLabel}
-            getTotalCountTxnLabel={getUserTxnLabel}/>
+            getTotalCountTxnLabel={getUserTxnLabel} />
           <Private
             getListOfTagAddress={getListOfTagAddress}
-            getTotalCountTagAddress={getPvtTagAddress}/>
+            getTotalCountTagAddress={getPvtTagAddress} />
         </UserNameContainer>
 
-        <div className={classes.root+ " accProfile"}>
+        <div className={classes.root + " accProfile"}>
           <AppBar
             position="static"
             style={{ boxShadow: "0px 0px 0px 0px" }}
@@ -1026,7 +1026,7 @@ export default function SimpleTabs(props) {
                 label="My Watchlist"
                 // className={classes.mywatch}
                 className={value === 0 ? classes.tab1 : classes.tab2}
-                style={{borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none"}}
+                style={{ borderBottom: value === 0 ? "2px solid rgb(33, 73, 185)" : "none" }}
                 {...a11yProps(0)}
                 onClick={handleWatchlist}
               />
@@ -1034,7 +1034,7 @@ export default function SimpleTabs(props) {
                 label="Transaction Private Note"
                 className={classes.txnprivate}
                 className={value === 1 ? classes.tab1 : classes.tab2}
-                style={{borderBottom: value === 1 ? "2px solid rgb(33, 73, 185)" : "none"}}
+                style={{ borderBottom: value === 1 ? "2px solid rgb(33, 73, 185)" : "none" }}
                 {...a11yProps(1)}
                 onClick={handlePrivateNote}
               />
@@ -1042,7 +1042,7 @@ export default function SimpleTabs(props) {
                 label="Tagged Address"
                 className={classes.address}
                 className={value === 2 ? classes.tab1 : classes.tab2}
-                style={{borderBottom: value === 2 ? "2px solid rgb(33, 73, 185)" : "none"}}
+                style={{ borderBottom: value === 2 ? "2px solid rgb(33, 73, 185)" : "none" }}
                 {...a11yProps(2)}
                 onClick={handleTagAddress}
               />
@@ -1075,59 +1075,8 @@ export default function SimpleTabs(props) {
               tableValue === 1 ? (
                 ""
               ) : // <CSVLink
-              //   filename={"watchlist.csv"}
-              //   data={downloadWatchlist}
-              //   style={{
-              //     fontSize: "0.938rem",
-              //     textAlign: "center",
-              //     color: "#ffffff",
-              //     backgroundColor: "rgb(7 125 245)",
-              //     borderRadius: "0.25rem",
-              //     width: "5.875rem",
-              //     height: "2.125rem",
-              //     marginRight: "1.5rem",
-              //     paddingTop: "0.125rem",
-              //   }}
-              // >
-              //   Export
-              // </CSVLink>
-              tableValue === 2 ? (
-                // <div
-                //   onClick={downloadTxnPvtNotePDF}
-                //   filename={"private_note.csv"}
-                //   data={downloadTxnPvtNote}
-                //   style={{
-                //     fontSize: "0.938rem",
-                //     textAlign: "center",
-                //     color: "#ffffff",
-                //     backgroundColor: "rgb(7 125 245)",
-                //     borderRadius: "0.25rem",
-                //     width: "5.875rem",
-                //     height: "2.125rem",
-                //     marginRight: "1.5rem",
-                //     paddingTop: "0.125rem",
-                //   }}
-                // >
-                //   Export test
-                // </div>
-                <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
-                  document={<TransactionPDF data={downloadTxnPvtNote} />}
-                  fileName="transactionPvtNote.pdf"
-                >
-                  Export
-                </PDFDownloadLink>
-              ) : (
-                <PDFDownloadLink
-                  style={styles.pdfDownloadLink}
-                  document={<AddressPDF data={downloadTagAddress} />}
-                  fileName="tagAddresses.pdf"
-                >
-                  Export
-                </PDFDownloadLink>
-                // <CSVLink
-                //   filename={"tag_address.csv"}
-                //   data={downloadTagAddress}
+                //   filename={"watchlist.csv"}
+                //   data={downloadWatchlist}
                 //   style={{
                 //     fontSize: "0.938rem",
                 //     textAlign: "center",
@@ -1142,7 +1091,58 @@ export default function SimpleTabs(props) {
                 // >
                 //   Export
                 // </CSVLink>
-              )
+                tableValue === 2 ? (
+                  // <div
+                  //   onClick={downloadTxnPvtNotePDF}
+                  //   filename={"private_note.csv"}
+                  //   data={downloadTxnPvtNote}
+                  //   style={{
+                  //     fontSize: "0.938rem",
+                  //     textAlign: "center",
+                  //     color: "#ffffff",
+                  //     backgroundColor: "rgb(7 125 245)",
+                  //     borderRadius: "0.25rem",
+                  //     width: "5.875rem",
+                  //     height: "2.125rem",
+                  //     marginRight: "1.5rem",
+                  //     paddingTop: "0.125rem",
+                  //   }}
+                  // >
+                  //   Export test
+                  // </div>
+                  <PDFDownloadLink
+                    style={styles.pdfDownloadLink}
+                    document={<TransactionPDF data={downloadTxnPvtNote} />}
+                    fileName="transactionPvtNote.pdf"
+                  >
+                    Export
+                  </PDFDownloadLink>
+                ) : (
+                  <PDFDownloadLink
+                    style={styles.pdfDownloadLink}
+                    document={<AddressPDF data={downloadTagAddress} />}
+                    fileName="tagAddresses.pdf"
+                  >
+                    Export
+                  </PDFDownloadLink>
+                  // <CSVLink
+                  //   filename={"tag_address.csv"}
+                  //   data={downloadTagAddress}
+                  //   style={{
+                  //     fontSize: "0.938rem",
+                  //     textAlign: "center",
+                  //     color: "#ffffff",
+                  //     backgroundColor: "rgb(7 125 245)",
+                  //     borderRadius: "0.25rem",
+                  //     width: "5.875rem",
+                  //     height: "2.125rem",
+                  //     marginRight: "1.5rem",
+                  //     paddingTop: "0.125rem",
+                  //   }}
+                  // >
+                  //   Export
+                  // </CSVLink>
+                )
             ) : (
               <div
                 filename={"tag_address.csv"}
@@ -1183,7 +1183,7 @@ export default function SimpleTabs(props) {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell style={{ border: "none"  }} align="left">
+                            <TableCell style={{ border: "none" }} align="left">
                               <span className={"tableheadersWatchlist"}>
                                 Address
                                 <Tooltip
@@ -1470,78 +1470,78 @@ export default function SimpleTabs(props) {
                                 style={{ marginTop: "4px" ,border: "solid 1px #e3e7eb"}}
                               />
                               </TableCell> */}
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <a
+                                    className="linkTable1"
+                                    href={"/address-details/" + row.address}
                                   >
-                                    <a
-                                      className="linkTable1"
-                                      href={"/address-details/" + row.address}
+                                    <Tooltip
+                                      placement="top"
+                                      title={row.address}
                                     >
-                                      <Tooltip
-                                        placement="top"
-                                        title={row.address}
-                                      >
-                                        <span className="tabledataWatchlist">
-                                          {shorten(row.address)}{" "}
-                                        </span>
-                                      </Tooltip>
-                                    </a>
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <span className="tabledata-1">
-                                      {row.description}
-                                    </span>
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <span className="tabledata-1">
-                                      {row.balance}
-                                    </span>
-                                    {/* </a> */}
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <span className="tabledata-1">
-                                      {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
-                                          "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
-                                    </span>
-                                    {/* </a> */}
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <span className="tabledata-1">
-                                      {row.notification.type === "NO"
-                                        ? "Off"
-                                        : "Email"}
-                                    </span>
-                                  </TableCell>
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <EditWatchList
-                                      row={row}
-                                      getWatchlistList={getListOfWatchlist}
-                                      getTotalCountWatchlist={getUserWatchlist}
-                                    />
-                                  </TableCell>
-                                </TableRow>
-                              );
-                            })}
-                        </TableBody>
-                      </Table>
-                    </Grid>
-                
+                                      <span className="tabledataWatchlist">
+                                        {shorten(row.address)}{" "}
+                                      </span>
+                                    </Tooltip>
+                                  </a>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.description}
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.balance}
+                                  </span>
+                                  {/* </a> */}
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                      "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                                  </span>
+                                  {/* </a> */}
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <span className="tabledata-1">
+                                    {row.notification.type === "NO"
+                                      ? "Off"
+                                      : "Email"}
+                                  </span>
+                                </TableCell>
+                                <TableCell
+                                  style={{ border: "none" }}
+                                  align="left"
+                                >
+                                  <EditWatchList
+                                    row={row}
+                                    getWatchlistList={getListOfWatchlist}
+                                    getTotalCountWatchlist={getUserWatchlist}
+                                  />
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </Grid>
+
                 </Grid>
               )}
             </div>
@@ -1693,39 +1693,39 @@ export default function SimpleTabs(props) {
                 </div>
               ) : (
                 <Grid lg={13} className="tablegrid_address">
-                    <Grid
-                      component={Paper}
+                  <Grid
+                    component={Paper}
+                    style={{ boxShadow: "0px 0px 0px 0px" }}
+                  >
+                    <Table
+                      className="table w-700-a w-1500-a"
+                      aria-label="Latest Transactions"
                       style={{ boxShadow: "0px 0px 0px 0px" }}
                     >
-                      <Table
-                        className="table w-700-a w-1500-a"
-                        aria-label="Latest Transactions"
-                        style={{ boxShadow: "0px 0px 0px 0px" }}
-                      >
-                        <TableHead>
-                          <TableRow>
-                            <TableCell style={{ border: "none" }} align="left"  className="p-b-0">
-                              <input
-                                // className={classes.Rectangle}
-                                onChange={handlePvtNoteCheckbox}
-                                type="checkbox"
-                                name="allselect"
-                                checked={
-                                  countNote === pvtNoteLength ||
-                                  checkedNote == true
-                                }
-                                style={{
-                                  marginRight: "10px",
-                                  border: "solid 1px #e3e7eb",
-                                }}
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{ border: "none" }} align="left" className="p-b-0">
+                            <input
+                              // className={classes.Rectangle}
+                              onChange={handlePvtNoteCheckbox}
+                              type="checkbox"
+                              name="allselect"
+                              checked={
+                                countNote === pvtNoteLength ||
+                                checkedNote == true
+                              }
+                              style={{
+                                marginRight: "10px",
+                                border: "solid 1px #e3e7eb",
+                              }}
 
-                              />
+                            />
 
-                            </TableCell>
-                            <TableCell style={{ border: "none" }} align="left">
-                              <span className={"tableheaders-1"}>
-                                Transaction Hash
-                                <Tooltip placement="top" title={messages.HASH}>
+                          </TableCell>
+                          <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tableheaders-1"}>
+                              Transaction Hash
+                              <Tooltip placement="top" title={messages.HASH}>
                                 <img
                                   alt="question-mark"
                                   src="/images/info.svg"
@@ -1820,7 +1820,7 @@ export default function SimpleTabs(props) {
                                   type="checkbox"
                                   checked={row?.isChecked2 || false}
                                   style={{ marginTop: "4px" }}
-                                  // className={classes.Rectangle}
+                                // className={classes.Rectangle}
                                 />
                               </TableCell>
                               <TableCell
@@ -1857,33 +1857,33 @@ export default function SimpleTabs(props) {
                                             <span className="tabledata-1">{row.Balance}</span>
                                         
                                     </TableCell> */}
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <span className="tabledata-1">
-                                    {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
-                                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
-                                  </span>
-                                </TableCell>
-                                <TableCell
-                                  style={{ border: "none" }}
-                                  align="left"
-                                >
-                                  <EditTxnLabel
-                                    row={row}
-                                    getListOfTxnLabel={getListOfTxnLabel}
-                                    getTotalCountTxnLabel={getUserTxnLabel}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                        </TableBody>
-                      </Table>
-                    </Grid>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <span className="tabledata-1">
+                                  {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
+                                    "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                                </span>
+                              </TableCell>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <EditTxnLabel
+                                  row={row}
+                                  getListOfTxnLabel={getListOfTxnLabel}
+                                  getTotalCountTxnLabel={getUserTxnLabel}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
                   </Grid>
-                  )}
+                </Grid>
+              )}
             </div>
             <PaginationDiv>
               <ReactPaginate
@@ -2201,29 +2201,29 @@ export default function SimpleTabs(props) {
                               >
                                 <span className="tabledata-1">
                                   {`${row?.modifiedOn && moment(row?.modifiedOn).tz(timezone).format(
-                                      "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                                    "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
                                 </span>
                                 {/* </a> */}
                               </TableCell>
 
-                                  <TableCell
-                                    style={{ border: "none" }}
-                                    align="left"
-                                  >
-                                    <EditTagAddress
-                                      row={row}
-                                      getListOfTagAddress={getListOfTagAddress}
-                                      getTotalCountTagAddress={getPvtTagAddress}
-                                    />
-                                  </TableCell>
-                                </TableRow>
-                              );
-                            })}
-                          </TableBody>
-                      </Table>
-                    </Grid>
+                              <TableCell
+                                style={{ border: "none" }}
+                                align="left"
+                              >
+                                <EditTagAddress
+                                  row={row}
+                                  getListOfTagAddress={getListOfTagAddress}
+                                  getTotalCountTagAddress={getPvtTagAddress}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
                   </Grid>
-                  )}
+                </Grid>
+              )}
             </div>
             <PaginationDiv>
               <ReactPaginate
@@ -2241,7 +2241,6 @@ export default function SimpleTabs(props) {
           </TabPanel>
         </div>
       </SubParentContainer>
-      {isStorageMessage ? "" : <StorageMessage />}
       <FooterComponent />
     </div>
   );
