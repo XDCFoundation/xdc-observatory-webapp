@@ -28,7 +28,6 @@ export default class BlockChainClass extends BaseComponent {
     }
 
     render() {
-        const isStorageMessage = sessionManager.getDataFromCookies("isStorageMessage")
         let activeCurrency = window.localStorage.getItem('currency')
         return (
             <div>
@@ -39,7 +38,7 @@ export default class BlockChainClass extends BaseComponent {
                 <LatestBlocksComponent socket={this.props.socket} />
                 <RecentSearchList/>
                 <BuyStoreTradeXDC/>
-                {isStorageMessage ? "" : <StorageMessage />}
+                 <StorageMessage />
                 <FooterComponent _handleChange={this._handleChange}
                     currency={this.state.amount} />
                 {/* showDropDown={this.state.showDropDown} */}

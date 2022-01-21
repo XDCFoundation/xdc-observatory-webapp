@@ -42,6 +42,12 @@ export const httpConstants = {
   },
 };
 
+export const userCookiesConstants = {
+  FUNCTIONAL_COOKIES:"functionalCookies",
+  PERFORMANCE_COOKIES:"performanceCookies",
+  ANALYTICAL_COOKIES:"analyticalCookies"
+}
+
 export const cookiesConstants = {
   USER: "USER",
   SESSION_TOKEN: "SESSION_TOKEN",
@@ -52,6 +58,7 @@ export const cookiesConstants = {
   USER_TAGGED_ADDRESS: "USER_TAGGED_ADDRESS",
   USER_TRASACTION_LABELS: "USER_TRASACTION_LABELS",
   USER_ADDRESS_WATCHLIST: "USER_ADDRESS_WATCHLIST",
+  USER_COOKIES: "userCookies",
 
   USER_PICTURE: "USER_PICTURE",
   USER_ID: "USER_ID",
