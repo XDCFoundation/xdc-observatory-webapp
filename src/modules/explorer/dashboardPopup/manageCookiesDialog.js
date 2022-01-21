@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         flexDirection:"column",
         justifyContent:"center"
+    },
+    "@media (min-width:0px) and (max-width: 767px)": {
+        acceptAll: {
+            marginRight: "15px",
+        }
     }
 
 }));
@@ -110,11 +115,11 @@ export default function ManageCookiesDialog(props) {
             const userCookies = sessionManager.getDataFromCookies(cookiesConstants.USER_COOKIES);
             if(!userCookies)
                 sessionManager.removeDataFromCookies("isCookiesAccepted");
-            if (userCookies.includes(userCookiesConstants.FUNCTIONAL_COOKIES))
+            if (userCookies && userCookies.includes(userCookiesConstants.FUNCTIONAL_COOKIES))
                 setFunctionalCookies(true);
-            if (userCookies.includes(userCookiesConstants.PERFORMANCE_COOKIES))
+            if (userCookies && userCookies.includes(userCookiesConstants.PERFORMANCE_COOKIES))
                 setPerformanceCookies(true);
-            if (userCookies.includes(userCookiesConstants.ANALYTICAL_COOKIES))
+            if (userCookies && userCookies.includes(userCookiesConstants.ANALYTICAL_COOKIES))
                 setAnalyticalCookies(true);
         } else {
             //If user is logged in
