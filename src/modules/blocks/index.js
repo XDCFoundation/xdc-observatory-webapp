@@ -14,7 +14,7 @@ export default class LatestBlocksList extends BaseComponent {
 
         this.state = {
             from: 0,
-            amount: 50,
+            amount: 10,
             tableName: "Blocks",
             blocksList: [],
             totalblocks: 0,

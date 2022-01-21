@@ -28,15 +28,15 @@ const useStyles = makeStyles((theme) => ({
   value: {
     width: "400px !important",
   },
-  backButtonMobile : {
-    marginLeft : "0px",
+  backButtonMobile: {
+    marginLeft: "0px",
     marginTop: "25px",
     position: "absolute",
     cursor: "pointer"
 
   },
-  "@media (min-width: 740px)":{
-    backButtonMobile : {
+  "@media (min-width: 740px)": {
+    backButtonMobile: {
       display: "none"
     }
   },
@@ -711,7 +711,7 @@ export default function FormDialog(props) {
       setErrorTermsCondition("Please accept the privacy policy");
       setLoading(false);
     } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to the terms and conditions");
+      setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
       setLoading(false);
     } else {
       if (reCaptcha === "") {
@@ -770,7 +770,7 @@ export default function FormDialog(props) {
     const reqObj = {
       email: email,
     };
-  
+
     onClickReset();
     setLoading(true);
     if (reCaptcha === '') {
@@ -910,7 +910,7 @@ export default function FormDialog(props) {
           paperWidthSm:
             value === 1 && window.innerHeight < 800 && window.innerWidth >= 768
               ? classes.paperWidthSm1
-                : classes.paperWidthSm,
+              : classes.paperWidthSm,
         }}
         className={classes.dialog}
         open={open || onOpen}
@@ -918,8 +918,8 @@ export default function FormDialog(props) {
         aria-labelledby="form-dialog-title"
       >
         <div onClick={handleClose} className={classes.backButtonMobile}>
-            <img src="images/backbutton.svg" />
-          </div>
+          <img src="images/backbutton.svg" />
+        </div>
         {value === 0 ? (
           <div>
             {/* <--------------------------------------------------Login Screen-------------------------------------------> */}
@@ -937,7 +937,7 @@ export default function FormDialog(props) {
               </DialogContentText>
               <input
                 className={classes.input}
-                placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                placeholder="5-30 alphanumeric characters"
                 onChange={(e) => {
                   setEmail(e.target.value);
                   setErrorEmail("");
@@ -975,14 +975,14 @@ export default function FormDialog(props) {
               <span>
                 {passwordShown ? (
                   <img alt="show"
-                    style={{width: "30px"}}
+                    style={{ width: "30px" }}
                     src={"/images/show-icon.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
                   />
                 ) : (
                   <img alt="hide"
-                  style={{width: "30px"}}
+                    style={{ width: "30px" }}
                     src={"/images/not-showing-pw.svg"}
                     className={classes.icon}
                     onClick={togglePasswordVisiblity}
@@ -1031,26 +1031,26 @@ export default function FormDialog(props) {
 
             <div className={classes.value}></div>
             {window.innerWidth >= 768 ?
-            (<DialogContentText className={classes.xdc}>
-              New to XDC Observatory?{" "}
-              <span
-                className={classes.createaccount}
-                onClick={handleClickOpenSignup}
-              >
-                {" "}
-                Create an account
-              </span>
-            </DialogContentText>)
-            : (<DialogContentText className={classes.xdc}>
-              New to XDC?{" "}
-              <span
-                className={classes.createaccount}
-                onClick={handleClickOpenSignup}
-              >
-                {" "}
-                Create an account
-              </span>
-            </DialogContentText>)}
+              (<DialogContentText className={classes.xdc}>
+                New to XDC Observatory?{" "}
+                <span
+                  className={classes.createaccount}
+                  onClick={handleClickOpenSignup}
+                >
+                  {" "}
+                  Create an account
+                </span>
+              </DialogContentText>)
+              : (<DialogContentText className={classes.xdc}>
+                New to XDC?{" "}
+                <span
+                  className={classes.createaccount}
+                  onClick={handleClickOpenSignup}
+                >
+                  {" "}
+                  Create an account
+                </span>
+              </DialogContentText>)}
           </div>
         ) : value === 1 ? (
           <div>
@@ -1070,7 +1070,7 @@ export default function FormDialog(props) {
               </DialogContentText>
               <input
                 className={classes.input}
-                placeholder="5 to 30 characters in length, only alphanumeric allowed"
+                placeholder="5-30 alphanumeric characters"
                 // name="userName"
                 value={userName}
                 onChange={(e) => {
@@ -1085,14 +1085,14 @@ export default function FormDialog(props) {
               <DialogContentText className={classes.subCategorySignup}>
                 <span className={classes.fieldName}>
                   Email
-                    <Tooltip placement="top" title={messages.EMAIL}>
-                        <img
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          className="tooltipInfoIconEmail"
-                        />
-                      </Tooltip>
-                  </span>
+                  <Tooltip placement="top" title={messages.EMAIL}>
+                    <img
+                      alt="question-mark"
+                      src="/images/info.svg"
+                      className="tooltipInfoIconEmail"
+                    />
+                  </Tooltip>
+                </span>
               </DialogContentText>
               <input
                 type="email"
@@ -1148,20 +1148,7 @@ export default function FormDialog(props) {
               />
               <div className={classes.error}>{errorConfirmPassword}</div>
             </DialogContent>
-            <div className={classes.privacyContainer}>
-              <input
-                className={classes.checkbox}
-                onClick={handlePrivacyCheckbox}
-                type="checkbox"
-              />
-              <span className="iAgree">
-                I accept the{" "}
-                <a className="privacyTermsLink" href="/privacy-policy">
-                  privacy policy
-                </a>
-                {" "}regarding essential cookies.
-              </span>
-            </div>
+
             <div className={classes.termsContainer}>
               <input
                 className={classes.checkbox}
@@ -1169,9 +1156,22 @@ export default function FormDialog(props) {
                 type="checkbox"
               />
               <span className="iAgree">
-                I agree to the{" "}
+                I have read and agree to the&nbsp;
                 <a className="privacyTermsLink" href="/term-conditions">
                   terms and conditions.
+                </a>
+              </span>
+            </div>
+            <div className={classes.privacyContainer}>
+              <input
+                className={classes.checkbox}
+                onClick={handlePrivacyCheckbox}
+                type="checkbox"
+              />
+              <span className="iAgree">
+                I have read and consent to the&nbsp;
+                <a className="privacyTermsLink" href="/privacy-policy">
+                  privacy policy.
                 </a>
               </span>
             </div>
@@ -1253,7 +1253,7 @@ export default function FormDialog(props) {
             </Row>
             <div className="forgot-success-box">
               <div className="imageTick">
-                <img  
+                <img
                   src={"/images/greenTick.svg"}
                   alt={"imageTick"}
                 />

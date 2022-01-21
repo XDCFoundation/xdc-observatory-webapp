@@ -44,7 +44,7 @@ export default function NewFeature(props) {
       position: "absolute",
       top: "65px",
       borderRadius: "12px",
-     '@media (min-width: 0px) and (max-width: 766px)' : {
+      '@media (min-width: 0px) and (max-width: 766px)': {
         height: "100vh",
         top: "40px",
         borderRadius: "0px",
@@ -60,71 +60,71 @@ export default function NewFeature(props) {
 
   return (
     <>
-    {!userInfo && !closeForNow ?
+      {!userInfo && !closeForNow ?
 
-    (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
-      <div className="main-box" >
-        <Row className="main-row">
-          <div className="main-title">New Features</div>
-          <div className="main-close" onClick={handleClose}>
-            <img alt="Cross" src={"/images/XDC-Cross.svg"} />
-          </div>
-        </Row>
-        <div className="main-sub-title">
-          Create your account and get started
-        </div>
-        <Row className="card-box" style={{ flexFlow: "wrap" }}>
-          <div className="card margin-right-34px">
-            <img alt="new-feature"
-              src={require("../../../src/assets/images/watch-list-new-feature.svg")}
-              className="crad-image"
-            />
-            <div className="card-title">Create watchlist</div>
-            <div className="card-text">
-              An Email notification can be sent to you when an address on your
-              watch list receives an incoming/outgoing transaction.
+        (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
+          <div className="main-box" >
+            <Row className="main-row">
+              <div className="main-title">New Features</div>
+              <div className="main-close" onClick={handleClose}>
+                <img alt="Cross" src={"/images/XDC-Cross.svg"} />
+              </div>
+            </Row>
+            <div className="main-sub-title">
+              Create your account to get started
+            </div>
+            <Row className="card-box" style={{ flexFlow: "wrap" }}>
+              <div className="card margin-right-34px">
+                <img alt="new-feature"
+                  src={require("../../../src/assets/images/watch-list-new-feature.svg")}
+                  className="crad-image"
+                />
+                <div className="card-title">Create watchlist</div>
+                <div className="card-text">
+                  An email notification can be sent to you when an address on your
+                  watchlist receives an incoming/outgoing transaction.
+                </div>
+              </div>
+              <div className="card margin-right-34px">
+                <img alt="addLabel"
+                  src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
+                  className="crad-image"
+                />
+                <div className="card-title">Add transaction label</div>
+                <div className="card-text">
+                  Add a personal note to the transaction hash to track it in the future.
+                </div>
+              </div>
+              <div className="card">
+                <img alt="addLabel"
+                  src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
+                  className="crad-image"
+                />
+                <div className="card-title">Add private tag to an address</div>
+                <div className="card-text">
+                  Add a short memo or private tag to the address of interest.
+                </div>
+              </div>
+            </Row>
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className="sign-up-button" onClick={() => {
+                setSignUp(true);
+              }}>
+
+                <div className="main-sing-up-text"> Sign Up</div>
+              </div>
+            </div>
+
+            <div className="main-end-box">
+              <input type="checkbox"
+                onChange={visited}
+                className="main-checkbox" />
+              <div className="main-end-text">Don't show this message again</div>
             </div>
           </div>
-          <div className="card margin-right-34px">
-            <img alt="addLabel"
-              src={require("../../../src/assets/images/AddLabel_NewFeature.svg")}
-              className="crad-image"
-            />
-            <div className="card-title">Add transaction label</div>
-            <div className="card-text">
-              Add a personal note to a transaction hash to track it in future.
-            </div>
-          </div>
-          <div className="card">
-            <img alt="addLabel"
-              src={require("../../../src/assets/images/AddTransactionLable_NewFeature.svg")}
-              className="crad-image"
-            />
-            <div className="card-title">Add private tag to an Address</div>
-            <div className="card-text">
-              Add a short memo or private tag to the address of interest.
-            </div>
-          </div>
-        </Row>
-
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div className="sign-up-button" onClick={() => {
-            setSignUp(true);
-          }}>
-
-            <div className="main-sing-up-text"> Sign up</div>
-          </div>
-        </div>
-
-        <div className="main-end-box">
-          <input type="checkbox"
-            onChange={visited}
-            className="main-checkbox" />
-          <div className="main-end-text">Don't show this message again</div>
-        </div>
-      </div>
-    </Dialog> :
-      <FormDialog isNewFeatureComponent={true} />):("")}</>
+        </Dialog> :
+          <FormDialog isNewFeatureComponent={true} />) : ("")}</>
 
   );
 }

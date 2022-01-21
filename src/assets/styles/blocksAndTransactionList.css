@@ -336,7 +336,7 @@
 .select-amount {
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: -6px;
+  height: 60%;
   width: 66px;
   font-size: 0.875rem !important;
   padding: 9px 6px 9px 6px;
@@ -669,7 +669,6 @@
 }
 
 .table_1 {
-  padding-top: 70px;
   margin: auto;
   width: 75.125rem;
 }

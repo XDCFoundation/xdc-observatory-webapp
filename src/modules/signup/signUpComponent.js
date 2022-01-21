@@ -1,8 +1,8 @@
 import React from 'react'
-import {Column, Row} from "simple-flexbox";
-import {Button} from "@material-ui/core";
+import { Column, Row } from "simple-flexbox";
+import { Button } from "@material-ui/core";
 import CustomInput from "../../common/components/CustomInput";
-import {history} from "../../managers/history";
+import { history } from "../../managers/history";
 
 
 function SubscriptionTypeComponent(props) {
@@ -14,7 +14,7 @@ function SubscriptionTypeComponent(props) {
                 publish Loan Data Records
                 on Blockchain
             </div>
-            <img/>
+            <img />
             <Button className="my-3 bg-blue px-2 fc-white fs-17 outline-none text-transform-capitalize">
                 Buy this plan
             </Button>
@@ -23,7 +23,7 @@ function SubscriptionTypeComponent(props) {
 }
 
 function SubscriptionPlanComponent(props) {
-    let {state, togglePassword, onChangeEvent, onLoginClicked} = props;
+    let { state, togglePassword, onChangeEvent, onLoginClicked } = props;
     return (
         <Column className="align-items-center my-5" horizontal={'center'}>
             <div className="w-100 fs-28 text-center fc-dark-slate-blue">
@@ -43,10 +43,10 @@ function SubscriptionPlanComponent(props) {
 }
 
 function SignUpForm(props) {
-    let {state, togglePassword, onChangeEvent, onLoginClicked} = props;
+    let { state, togglePassword, onChangeEvent, onLoginClicked } = props;
     return (
         <Column className="w-450 pl-5 ml-3 border-left py-3 my-3 align-items-center fc-dark-slate-blue"
-                horizontal={'center'}>
+            horizontal={'center'}>
             <form onSubmit={onLoginClicked} className="w-100">
 
                 <label className="text-left w-100 fs-20"><span
@@ -54,21 +54,21 @@ function SignUpForm(props) {
 
                 <div className="fs-15 mt-3 font-weight-bold">Full Name</div>
                 <CustomInput id="name" type="text" value={state ? state.name : ""} onChange={onChangeEvent}
-                             error={state ? state.nameError : ""} className="fs-15 p-2 mt-1"/>
+                    error={state ? state.nameError : ""} className="fs-15 p-2 mt-1" />
 
                 <div className="fs-15 mt-2 font-weight-bold ">Email Address</div>
                 <CustomInput id="email" type="text" value={state ? state.email : ""} onChange={onChangeEvent}
-                             error={state ? state.emailError : ""} className="fs-15 p-2 mt-1"/>
+                    error={state ? state.emailError : ""} className="fs-15 p-2 mt-1" />
 
                 <Row className="fs-15 mt-2 font-weight-bold">Password</Row>
                 <CustomInput id="password" type={"password"} value={state ? state.password : ""}
-                             onChange={onChangeEvent} error={state ? state.passwordError : ""}
-                             className="fs-15 p-2 mt-1"/>
+                    onChange={onChangeEvent} error={state ? state.passwordError : ""}
+                    className="fs-15 p-2 mt-1" />
 
                 <Row className="fs-15 mt-2 font-weight-bold">Confirm Password</Row>
                 <CustomInput id="confirmPassword" type={"password"} value={state ? state.confirmPassword : ""}
-                             onChange={onChangeEvent} error={state ? state.confirmPasswordError : ""}
-                             className="fs-15 p-2 mt-1"/>
+                    onChange={onChangeEvent} error={state ? state.confirmPasswordError : ""}
+                    className="fs-15 p-2 mt-1" />
 
                 <Button type='submit' className="bg-blue outline-none text-transform-capitalize
                 fc-white w-100 py-2 fs-17 mt-4 cursor-pointer">
@@ -92,7 +92,7 @@ function SelectedSubscriptionComponent(props) {
                 publish Loan Data Records
                 on Blockchain
             </div>
-            <img/>
+            <img />
             <Button className="my-3 bg-blue px-2 fc-white fs-17 outline-none text-transform-capitalize">
                 Buy this plan
             </Button>
@@ -101,7 +101,7 @@ function SelectedSubscriptionComponent(props) {
 }
 
 function SignUpComponent(props) {
-    let {state, togglePassword, onChangeEvent, onLoginClicked} = props;
+    let { state, togglePassword, onChangeEvent, onLoginClicked } = props;
     return (
         <Row className="align-items-center my-5" horizontal={'center'}>
             {SelectedSubscriptionComponent(props)}
@@ -113,13 +113,13 @@ function SignUpComponent(props) {
 function HeaderComponent(props) {
     return (
         <Row vertical="center" className="justify-content-between w-100">
-            <img src="/images/limb_logo.svg" alt='limb' className="w-150"/>
+            <img src="/images/limb_logo.svg" alt='limb' className="w-150" />
             <Row vertical="center">
                 <Column vertical="center" className="fc-brownish-grey fs-15 px-2 py-1">Existing user?</Column>
                 <Column vertical="center" className="fc-blue br-4 b-1-blue fs-17 px-2 py-1 cursor-pointer"
-                        onClick={() => history.replace("/")}>
+                    onClick={() => history.replace("/")}>
 
-                    Log in</Column>
+                    Login</Column>
             </Row>
         </Row>
     )

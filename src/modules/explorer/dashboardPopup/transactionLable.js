@@ -321,55 +321,55 @@ export default function FormDialog(props) {
 
   return (
     <>
-    <div className="w-33p">
-      <div className="div1 cursor-pointer">
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
+      <div className="w-33p">
+        <div className="div1 cursor-pointer">
+          <div
+            className="imageParentDiv"
+            onClick={
+              width >= 760
+                ? handleClickOpen
+                : () => {
                   history.push("/testTrancation");
                 }
-          }
-        >
-          <img className="imagediv1" src={"/images/transaction.svg"}></img>
-        </div>
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/testTrancation");
-                }
-          }
-        >
-          <div className="headingdiv1">Add transaction label</div>
-          <div className="paradiv1">
-            Add a personal note to a transacton hash to track it in future.
-          </div>
-        </div>
-
-        <LearnMoreParent>
-          <LightToolTip
-            open={tooltipIsOpen}
-            onClose={tooltipClose}
-            title="Add a personal note to a transacton hash to track it in future."
-            arrow
-            placement="top-start"
+            }
           >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
+            <img className="imagediv1" src={"/images/transaction.svg"}></img>
+          </div>
+          <div
+            className="imageParentDiv"
+            onClick={
+              width >= 760
+                ? handleClickOpen
+                : () => {
+                  history.push("/testTrancation");
+                }
+            }
+          >
+            <div className="headingdiv1">Add transaction label</div>
+            <div className="paradiv1">
+              Add a personal note to the transacton hash to track it in future.
             </div>
-          </LightToolTip>
-        </LearnMoreParent>
-      </div>
+          </div>
 
-      {/* <Button
+          <LearnMoreParent>
+            <LightToolTip
+              open={tooltipIsOpen}
+              onClose={tooltipClose}
+              title="Add a personal note to the transacton hash to track it in future."
+              arrow
+              placement="top-start"
+            >
+              <div
+                className="learnMoreText"
+                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+              >
+                Learn More
+              </div>
+            </LightToolTip>
+          </LearnMoreParent>
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -379,7 +379,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      {/* <div> */}
+        {/* <div> */}
         <Dialog
           className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -464,8 +464,8 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
-      {/* </div> */}
-    </div>
+        {/* </div> */}
+      </div>
     </>
   );
 }

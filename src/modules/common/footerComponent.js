@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/footer.css";
 import "../../assets/styles/custom.css";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import DownArrow from "@material-ui/icons/KeyboardArrowDown";
-import {MenuItem} from "material-ui";
+import { MenuItem } from "material-ui";
 import styled from "styled-components";
-import {makeStyles} from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 import TimeZoneSelector from "./timeZoneSlector";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import timezone from "../../reducers/timezone";
 
 const useStyles = makeStyles((theme) => ({
@@ -135,7 +135,7 @@ export default function FooterComponent(props) {
     const dispatch = useDispatch();
     function timeZoneHandler(tz) {
         setActiveTimeZone(tz.target.value)
-        dispatch({type: 'TIME_ZONE', payload: tz.target.value})
+        dispatch({ type: 'TIME_ZONE', payload: tz.target.value })
     }
 
     let CurrencyNow = window.localStorage.getItem("currency");
@@ -155,44 +155,44 @@ export default function FooterComponent(props) {
                                     <img
                                         className="Shape-footer"
                                         src={"/images/XDC-Icon-Logo.svg"}
-                                        alt={'logo'}/>
+                                        alt={'logo'} />
                                     <p className="XDC-Header">XDC</p>
                                 </div>
                                 <p className="xdc-desc">
                                     The XDC Observatory is a feature-rich block explorer and analytics platform for the
-                                    XDC blockchain network.
+                                    XDC Network.
                                 </p>
                             </div>
                         </div>
                         <div className="button-Padding-Mobile display-flex flex-direction-column">
-                            <Select classes={{paper: classes.currencyPopup}}
+                            <Select classes={{ paper: classes.currencyPopup }}
                                 /* <Select  SelectProps={{ MenuProps: { PaperProps: {background: "red !important"} } }}  */
-                                    style={{
-                                        outline: "0",
-                                        backgroundColor: "#2149b9",
-                                    }}
-                                    id="currency"
-                                    className={"filled select-xdc"}
-                                    defaultValue="USD"
-                                    onChange={(event) => props._handleChange(event)}
-                                    value={CurrencyNow}
-                                    IconComponent={DownArrow}
-                                    MenuProps={{
-                                        anchorOrigin: {
-                                            vertical: "bottom",
-                                            horizontal: "center",
+                                style={{
+                                    outline: "0",
+                                    backgroundColor: "#2149b9",
+                                }}
+                                id="currency"
+                                className={"filled select-xdc"}
+                                defaultValue="USD"
+                                onChange={(event) => props._handleChange(event)}
+                                value={CurrencyNow}
+                                IconComponent={DownArrow}
+                                MenuProps={{
+                                    anchorOrigin: {
+                                        vertical: "bottom",
+                                        horizontal: "center",
+                                    },
+                                    transformOrigin: {
+                                        vertical: "top",
+                                        horizontal: "center",
+                                    }, PaperProps: {
+                                        style: {
+                                            backgroundColor: "#2149b9",
+                                            fontSize: '0.8rem'
                                         },
-                                        transformOrigin: {
-                                            vertical: "top",
-                                            horizontal: "center",
-                                        }, PaperProps: {
-                                            style: {
-                                                backgroundColor: "#2149b9",
-                                                fontSize: '0.8rem'
-                                            },
-                                        },
-                                        getContentAnchorEl: null,
-                                    }}
+                                    },
+                                    getContentAnchorEl: null,
+                                }}
                             >
                                 {/* disabled={props.showDropDown ? !props.showDropDown : false} */}
                                 <MenuItem
@@ -207,10 +207,10 @@ export default function FooterComponent(props) {
                                         paddingBottom: "0px !important",
                                     }}
                                 >
-                                    <img className="select-icon" src={"/images/dollar.svg"}/>{" "}
+                                    <img className="select-icon" src={"/images/dollar.svg"} />{" "}
                                     <span className="USD" selected>
-                    USD
-                  </span>
+                                        USD
+                                    </span>
                                 </MenuItem>
                                 <MenuItem
                                     value="EUR"
@@ -219,7 +219,7 @@ export default function FooterComponent(props) {
                                         backgroundColor: "#2149b9",
                                     }}
                                 >
-                                    <img className="select-icon" src={"/images/Euro.svg"}/>{" "}
+                                    <img className="select-icon" src={"/images/Euro.svg"} />{" "}
                                     <span className="USD">EUR</span>
                                 </MenuItem>
                                 {/* <MenuItem
@@ -233,7 +233,7 @@ export default function FooterComponent(props) {
                   <span className="USD">INR</span>
                 </MenuItem> */}
                             </Select>
-                            <TimeZoneSelector value={timeZone} height={33} handler={timeZoneHandler}/>
+                            <TimeZoneSelector value={timeZone} height={33} handler={timeZoneHandler} />
                             {/* <select className="select-form">
                             <option>usd</option>
 
@@ -249,11 +249,11 @@ export default function FooterComponent(props) {
                         item
                         xs={12}
                         className="communityContainer"
-                        // style={{margin: " 0px 0px 10px 0px"}}
+                    // style={{margin: " 0px 0px 10px 0px"}}
                     >
                         <div className="Table-Header text-align-left">
                             Community
-                            <div style={{width: "100%"}}>
+                            <div style={{ width: "100%" }}>
                                 <hr></hr>
                             </div>
                         </div>
@@ -265,7 +265,7 @@ export default function FooterComponent(props) {
                         </div> */}
                         <div className="Table-Comp">
                             <a href="https://medium.com/xdc-foundation-communications" target="_blank">
-                                XDC Foundation Medium 
+                                XDC Foundation Medium
                             </a>
                         </div>
 
@@ -310,7 +310,7 @@ export default function FooterComponent(props) {
                             </a>
                         </div>
 
-                        
+
 
                         {/* <div className="Table-Comp">
                             <a href="https://xinfin.org/compliance.php" target="_blank">
@@ -323,7 +323,7 @@ export default function FooterComponent(props) {
                         justify="left"
                         item
                         xs={12}
-                        style={{margin: " 0 10px 10px 10px"}}
+                        style={{ margin: " 0 10px 10px 10px" }}
                         className="desktop-column-display"
                     >
                         <div className="Table-Header">
@@ -331,7 +331,7 @@ export default function FooterComponent(props) {
                             <hr></hr>
                         </div>
                         <ul>
-                            
+
                             <li className="Table-Comp">
                                 <a
                                     href="https://xinfin.org/exchange-listing-resource.php"
@@ -387,14 +387,14 @@ export default function FooterComponent(props) {
                         justify="left"
                         item
                         xs={12}
-                        style={{margin: " 20px 0px 10px 0px"}}
+                        style={{ margin: " 20px 0px 10px 0px" }}
                     >
                         <div className="Table-Header">
                             Other Links
                             <hr></hr>
                         </div>
                         <ul>
-                            
+
                             <li className="Table-Comp">
                                 <a
                                     href="https://xinfin.org/exchange-listing-resource.php"
@@ -456,19 +456,19 @@ export default function FooterComponent(props) {
                         >
                             <div className="Table-Header">
                                 Follow Us
-                                <hr style={{marginRight: "20px"}}></hr>
+                                <hr style={{ marginRight: "20px" }}></hr>
                             </div>
                             <ul>
-                            <li className="Table-Comp">
+                                <li className="Table-Comp">
                                     <a
                                         className="a-style"
                                         href="https://github.com/XDCFoundation/"
                                         rel="nofollow"
                                         target="_blank"
                                     >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
+                                        <span
+                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                        ></span>
                                         XDC Foundation Github
                                     </a>
                                 </li>
@@ -479,10 +479,10 @@ export default function FooterComponent(props) {
                                         rel="nofollow"
                                         target="_blank"
                                     >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
-                                       XinFin Fintech Github
+                                        <span
+                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                        ></span>
+                                        XinFin Fintech Github
                                     </a>
                                 </li>
                                 <li className="Table-Comp">
@@ -492,9 +492,9 @@ export default function FooterComponent(props) {
                                         rel="nofollow"
                                         target="_blank"
                                     >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
+                                        <span
+                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                        ></span>
                                         Facebook
                                     </a>
                                 </li>
@@ -505,9 +505,9 @@ export default function FooterComponent(props) {
                                         rel="nofollow"
                                         target="_blank"
                                     >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
+                                        <span
+                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                        ></span>
                                         Youtube
                                     </a>
                                 </li>
@@ -518,15 +518,15 @@ export default function FooterComponent(props) {
                                         rel="nofollow"
                                         target="_blank"
                                     >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
+                                        <span
+                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                        ></span>
                                         Twitter
                                     </a>
                                 </li>
-                                
-                                
-                                
+
+
+
                                 {/* <li className="Table-Comp">
                                     <a
                                         className="a-style"
@@ -540,7 +540,7 @@ export default function FooterComponent(props) {
                                         LinkedIn
                                     </a>
                                 </li> */}
-                                
+
                                 {/* <li className="Table-Comp">
                                     <a
                                         className="a-style"
@@ -561,9 +561,9 @@ export default function FooterComponent(props) {
                                         rel="nofollow"
                                         target="_blank"
                                     >
-                    <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
-                    ></span>
+                                        <span
+                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                        ></span>
                                         Reddit
                                     </a>
                                 </li>
@@ -574,12 +574,12 @@ export default function FooterComponent(props) {
                             alignContent="center"
                             item
                             xs={12}
-                            style={{margin: " 0 10px 10px 10px"}}
+                            style={{ margin: " 0 10px 10px 10px" }}
                             className="desktop-column-display"
                         >
                             <div className="Table-Header">
                                 Tweet
-                                <hr style={{marginRight: "2px"}}></hr>
+                                <hr style={{ marginRight: "2px" }}></hr>
                             </div>
                             <div className={"twitter"}>
                                 <a
@@ -588,7 +588,7 @@ export default function FooterComponent(props) {
                                     data-height="220"
                                     data-theme="light"
                                     href="https://twitter.com/XDCFoundation"
-                                    // href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw" //---->old link
+                                // href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw" //---->old link
                                 ></a>
                             </div>
                         </Grid>
@@ -602,11 +602,11 @@ export default function FooterComponent(props) {
                         alignContent="center"
                         item
                         xs={12}
-                        style={{margin: " 20px 0px 10px 0px"}}
+                        style={{ margin: " 20px 0px 10px 0px" }}
                     >
                         <div className="Table-Header">
                             Tweet
-                            <hr style={{marginRight: "2px"}}></hr>
+                            <hr style={{ marginRight: "2px" }}></hr>
                         </div>
                         <div className={"twitter"}>
                             <a
@@ -615,7 +615,7 @@ export default function FooterComponent(props) {
                                 data-height="220"
                                 data-theme="light"
                                 href="https://twitter.com/XDCFoundation"
-                                // href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw" //---->old link
+                            // href="https://twitter.com/XinFin_Official?ref_src=twsrc%5Etfw" //---->old link
                             ></a>
                         </div>
                     </Grid>
@@ -623,7 +623,7 @@ export default function FooterComponent(props) {
             </Grid>
             <div className="footer-line">
                 <hr></hr>
-                <span className={"copyright"}>© 2022 XDC. All Rights Reserved. Version v1.2</span>
+                <span className={"copyright"}>© 2022 XDC Foundation. All Rights Reserved. Version v1.2</span>
             </div>
         </div>
     );

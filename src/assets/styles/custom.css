@@ -3080,13 +3080,14 @@ p {
   display: flex;
   flex-direction: row;
   width: 207px;
-  height: 34px;
-  padding: 7.7px 43px 10px 10px;
+  height: 100%;
+  padding: 5px 0px 5px 12px;
   border-radius: 8px;
   outline-color: #e3e7eb;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   background-color: #ffffff;
+  align-items: center;
 }
 
 @media (max-width: 1023px) {
@@ -4194,7 +4195,7 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-holder th {
-    padding: 17px 48px 15px 25px !important;
+    padding: 17px 48px 15px 11px !important;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
@@ -7660,8 +7661,6 @@ button {
   letter-spacing: 0rem;
 }
 
-
-
 .tabs_sec_address_details {
   padding-bottom: 0.438rem;
   color: #6b7482;
@@ -8910,9 +8909,10 @@ button {
   .content_input_all {
     display: flex;
     /* flex-direction: column; */
-    width: 22.5rem;
+    width: 21rem;
     /* justify-content: space-between; */
   }
+
   .cont-tab {
     width: 21rem !important;
     flex-direction: initial !important;
@@ -10866,12 +10866,12 @@ button {
     width: 100% !important;
     margin: 10px 0;
   }
-  .MuiIconButton-root {
+  /* .MuiIconButton-root {
     padding: 0 12px 0 0 !important;
     margin-right: -12px !important;
-  }
+  } */
   .p-l-r-15 {
-    padding: 20px 15px !important;
+    padding: 20px 0px !important;
   }
 }
 .toast-div-address {
@@ -10900,7 +10900,6 @@ button {
 
   .searchdiv {
     padding-left: 0px 15px !important;
-    margin-left: 15px !important;
   }
 
   .PrivateTabIndicator-colorSecondary-120 {
