@@ -1,8 +1,10 @@
-import React from 'react'
-import { makeStyles } from "@material-ui/styles";
-import { sessionManager } from "../../../managers/sessionManager";
-import { width } from '@mui/system';
+import React, {useEffect} from 'react'
+import {makeStyles} from "@material-ui/styles";
+import {sessionManager} from "../../../managers/sessionManager";
+import {width} from '@mui/system';
 import ManageCookiesDialog from "./manageCookiesDialog"
+import {cookiesConstants, userCookiesConstants} from "../../../constants";
+import Auth0Service from "../../../services/userLogin";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -143,12 +145,16 @@ const useStyles = makeStyles((theme) => ({
 export default function StorageMessage() {
     const classes = useStyles();
 
-    const [storageMessage, setStorageMessage] = React.useState(false);
+    const [isCookiesAccepted, setIsCookiesAccepted] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
-    const handleStorageMessage = () => {
-        setStorageMessage(true);
-        sessionManager.setDataInCookies(true, "isStorageMessage");
-    };
+
+
+    useEffect(()=>{
+        const isCookiesAccepted = sessionManager.getDataFromCookies("isCookiesAccepted");
+        if(isCookiesAccepted)
+            setIsCookiesAccepted(true)
+    })
+
     const handleManage = () => {
         setOpenDialog(true);
     };
@@ -156,36 +162,59 @@ export default function StorageMessage() {
         setOpenDialog(false);
     }
 
+    const saveMyPreferences = async () => {
+        const userInfo = sessionManager.getDataFromCookies("userInfo");
+        const cookiesData = []
+        cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);
+        cookiesData.push(userCookiesConstants.PERFORMANCE_COOKIES);
+        cookiesData.push(userCookiesConstants.ANALYTICAL_COOKIES);
+        //if user is not logged in
+        if (!userInfo) {
+            sessionManager.setDataInCookies(cookiesData, cookiesConstants.USER_COOKIES);
+        } else {
+            //if user is logged in
+            const userCookiesDetails = await new Auth0Service().updateUserCookies({
+                userId: userInfo.sub,
+                cookiesAllowed: cookiesData
+            });
+        }
+        sessionManager.setDataInCookies(true, "isCookiesAccepted");
+        setIsCookiesAccepted(true);
+    }
+
 
     return (
         <>
-        {!storageMessage ?
-        (<div className={classes.container}>
-            <div className={classes.containerContent}>
-                <div className={classes.ourCookiesText}>Our Cookies Policy</div>
-                <div className={classes.container1}>
-                    {/* <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img> */}
-                    <div className={classes.text}>
-                        We use only essential cookies for storing and/on access profile information on a device.
-                        This includes features to create Watchlists, Transaction Labels and Address Tags.
-                        Even if you reject the cookies, you can still use this website but you will not be able to access features linked with your profile.
-                        <br /><br />
-                        You can find out more in our privacy policy at any time by going to the bottom of any page. 
-                    </div>
-                    <div className={classes.line}></div>
-                    <div>
-                        <div className={classes.manageText}>
-                            Manage cookies preferences
+            {!isCookiesAccepted ?
+                (<div className={classes.container}>
+                    <div className={classes.containerContent}>
+                        <div className={classes.ourCookiesText}>Our Cookies Policy</div>
+                        <div className={classes.container1}>
+                            {/* <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img> */}
+                            <div className={classes.text}>
+                                We use only essential cookies for storing and/on access profile information on a device.
+                                This includes features to create Watchlists, Transaction Labels and Address Tags.
+                                Even if you reject the cookies, you can still use this website but you will not be able
+                                to access features linked with your profile.
+                                <br/><br/>
+                                You can find out more in our privacy policy at any time by going to the bottom of any
+                                page.
+                            </div>
+                            <div className={classes.line}></div>
+                            <div>
+                                <div className={classes.manageText}>
+                                    Manage cookies preferences
+                                </div>
+                                <div className={classes.buttons}>
+                                    <button className={classes.buttonAccept} onClick={saveMyPreferences}>Accept all
+                                    </button>
+                                    <ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted}/>
+                                    <button className={classes.buttonReject} onClick={handleManage}>Manage</button>
+                                </div>
+                            </div>
                         </div>
-                        <div className={classes.buttons}>
-                            <button className={classes.buttonAccept} onClick={handleStorageMessage}>Accept all</button>
-                            <ManageCookiesDialog open={openDialog} close={closeDialog} />
-                            <button className={classes.buttonReject} onClick={handleManage}>Manage</button>
-                        </div>
                     </div>
-                </div> 
-            </div>
-        </div>):("")}
+                </div>) : ("")}
         </>
     )
 }

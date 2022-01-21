@@ -35,6 +35,46 @@ export default class Auth0Service {
       });
   }
 
+
+
+    async getUserCookies(reqObj) {
+        let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "get-user-cookies";
+        // let url = "http://localhost:3001/" + "get-user-cookies";
+        return httpService(httpConstants.METHOD_TYPE.POST, this.getHeaders(), reqObj, url)
+            .then((response) => {
+                if (
+                    !response.success ||
+                    response.responseCode !== 200 ||
+                    !response.responseData ||
+                    response.responseData.length === 0
+                )
+                    return Promise.reject();
+                return Promise.resolve(response.responseData);
+            })
+            .catch(function (err) {
+                return Promise.reject(err);
+            });
+    }
+
+    async updateUserCookies(reqObj) {
+        // let url = "http://localhost:3001/" + "update-user-cookies";
+        let url = process.env.REACT_APP_USER_SERVICE_URL_AUTHENTICATION + "update-user-cookies";
+        return httpService(httpConstants.METHOD_TYPE.POST, this.getHeaders(), reqObj, url)
+            .then((response) => {
+                if (
+                    !response.success ||
+                    response.responseCode !== 200 ||
+                    !response.responseData ||
+                    response.responseData.length === 0
+                )
+                    return Promise.reject();
+                return Promise.resolve(response.responseData);
+            })
+            .catch(function (err) {
+                return Promise.reject(err);
+            });
+    }
+
   async forgotPassword(email) {
     const reqObj = {
       email,
