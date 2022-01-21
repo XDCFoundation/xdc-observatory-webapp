@@ -964,21 +964,25 @@ export default function AddressDetails(props) {
                       </span>
                     )}
                   </BalanceUsdDiv>
+{/*
                   <AddressAgeDiv>
                     <AddressAge>Address Age</AddressAge>
                     <AddressAgeValue>{ti}</AddressAgeValue>
                   </AddressAgeDiv>
-                  <LastActivityDiv>
+
+
+*/}
+                  <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/ }
                     <LastActivity>Last Activity</LastActivity>
                     <LastActivityValue>
                       {lastAct}&nbsp;
                       {!lastActConverted ? "" : "(" + (lastActConverted) + ")"}
 
                     </LastActivityValue>
-                  </LastActivityDiv>
+                  </AddressAgeDiv>
                   <RankDiv>
                     <Rank>Rank</Rank>
-                    <RankValue>NA</RankValue>
+                    <RankValue>Not available</RankValue>
                   </RankDiv>
                 </AddressDetailDiv>
                 <ButtonDiv>
