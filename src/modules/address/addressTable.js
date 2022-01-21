@@ -804,7 +804,7 @@ export default function AddressTableComponent(props) {
                       const currentTime = new Date();
                       const previousTime = new Date(row.Age * 1000);
                       const TimeAge = Utility.timeDiff(currentTime, previousTime);
-                      const value = Utility.decimalDivison(row.Value, 8);
+                      const value = row.Value > 0 && row.Value < 1 ? row.Value : Utility.decimalDivison(row.Value, 8);
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
 

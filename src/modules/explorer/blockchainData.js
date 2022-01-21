@@ -307,11 +307,13 @@ class BlockChainDataComponent extends Component {
       transactionDataDetails: [],
       blockSocketConnected: false,
       transactionSocketConnected: false,
+      nodesCounted: false,
       animationBlock: {},
       animationTransaction: {},
       gasPrice: 0,
       loading: true,
       addressTT: false,
+      nodes: [],
     };
   }
   componentWillUnmount() {
@@ -398,17 +400,10 @@ class BlockChainDataComponent extends Component {
       }
     });
   }
-
   // socketDataNode(socket) {
   //   socket.on("network-stats-nodes", (transactionData, error) => {
-  //     let nodesArr = []
-  //     nodesArr = transactionData.nodes;
-  //     let nodesActive = nodesArr.filter(transactionData, function (node) {
-
-  //       return node.stats.active === true;
-
-  //     }).length;
-  //     console.log(nodesArr, nodesActive, "<<<<<<<<<<<<transactionData")
+  //     this.setState({ nodes: transactionData })
+  //     console.log(transactionData, "<<<<<<<<<<<<transactionData")
   //   });
   // }
   /* FETCHING GET TOTAL TRANSACTIONS API*/
@@ -578,6 +573,7 @@ class BlockChainDataComponent extends Component {
   }
 
   render() {
+    // console.log(this.state.nodes, "<<<<<<<nodes>>>>>>>>")
     let changePrice;
     if (
       this.state.coinMarketPrice &&
