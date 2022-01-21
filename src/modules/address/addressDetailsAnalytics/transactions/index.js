@@ -209,12 +209,12 @@ class TransactionGraph extends BaseComponent {
                 {
                     data: uniqueSent,
                     color: "rgb(67, 67, 72)",
-                    name: "Unique Outgoing Address",
+                    name: "Unique Outgoing Addresses",
                 },
                 {
                     data: uniqueReceived,
                     color: "rgb(144, 237, 125)",
-                    name: "Unique incoming Address",
+                    name: "Unique Incoming Addresses",
                 },
             ],
             credits: {enabled: false},

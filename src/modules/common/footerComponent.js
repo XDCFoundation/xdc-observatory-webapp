@@ -293,6 +293,12 @@ export default function FooterComponent(props) {
                             </a>
                         </div>
 
+                        <div className="Table-Comp">
+                            <a href="https://xdcroadmap.org/" target="_blank">
+                                XDC Roadmap
+                            </a>
+                        </div>
+
                         {/* <div className="Table-Comp">
                             <a href="https://xinfin.org/xdc-utility.php" target="_blank">
                                 XDC Utility
@@ -358,7 +364,12 @@ export default function FooterComponent(props) {
                                 </a>
                             </li>
                             <li className="Table-Comp">
-                                <a href="https://medium.com/xdc-foundation-communications" target="_blank">
+                                <a href="https://docs.xdc.org/sdks-and-examples" target="_blank">
+                                    XDC SDKs
+                                </a>
+                            </li>
+                            <li className="Table-Comp">
+                                <a href="https://docs.xdc.org/resources/faqs" target="_blank">
                                     Read FAQ
                                 </a>
                             </li>
@@ -413,6 +424,11 @@ export default function FooterComponent(props) {
                             <li className="Table-Comp">
                                 <a href="https://observer.xdc.org/term-conditions" target="_blank">
                                     Terms of Use
+                                </a>
+                            </li>
+                            <li className="Table-Comp">
+                                <a href="https://docs.xdc.org/sdks-and-examples" target="_blank">
+                                    XDC SDKs
                                 </a>
                             </li>
                             <li className="Table-Comp">

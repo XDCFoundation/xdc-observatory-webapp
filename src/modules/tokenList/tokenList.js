@@ -325,6 +325,11 @@ export default function StickyHeadTable(props) {
     getTokenList(data);
   }
 
+  const navigateToTokenDetails = (row) => {
+    window.location.href = `/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+      }`
+  }
+
   // async function sortByHoldersCount() {
   //     setSortedByTotalSupply(0);
   //     let data = {skip: from, limit: amount, searchKey: keywords}
@@ -624,34 +629,32 @@ export default function StickyHeadTable(props) {
                     </span>
                                     </TableCell>
                                 )} */}
-                  {props?.state?.tableColumns["Hash"].isActive && (
-                    <TableCell style={{ border: "none" }} align="left">
-                      <span className={"tablehead-token-details"} onClick={() => sortTable("address")}>
-                        Contract
-                        <Tooltip placement="top" title={messages.CONTRACT}>
+                  <TableCell style={{ border: "none" }} align="left">
+                    <span className={"tablehead-token-details"} onClick={() => sortTable("address")}>
+                      Contract
+                      <Tooltip placement="top" title={messages.CONTRACT}>
+                        <img
+                          alt="question-mark"
+                          src="/images/info.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        />
+                      </Tooltip>
+                      {sortKey && sortKey === "address" ? (
+                        sortOrder === -1 ? <img
+                          alt="question-mark"
+                          src="/images/see-more.svg"
+                          height={"14px"}
+                          className="tooltipInfoIcon"
+                        /> :
                           <img
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                          />
-                        </Tooltip>
-                        {sortKey && sortKey === "address" ? (
-                          sortOrder === -1 ? <img
                             alt="question-mark"
                             src="/images/see-more.svg"
                             height={"14px"}
-                            className="tooltipInfoIcon"
-                          /> :
-                            <img
-                              alt="question-mark"
-                              src="/images/see-more.svg"
-                              height={"14px"}
-                              className="tooltipInfoIcon rotate-180"
-                            />) : ""}
-                      </span>
-                    </TableCell>
-                  )}
+                            className="tooltipInfoIcon rotate-180"
+                          />) : ""}
+                    </span>
+                  </TableCell>
 
                   <TableCell
                     style={{ border: "none", whiteSpace: "nowrap" }}
@@ -777,6 +780,7 @@ export default function StickyHeadTable(props) {
                           role="checkbox"
                           tabIndex={-1}
                           key={row._id}
+                          onClick={() => navigateToTokenDetails(row)}
                         >
                           <TableCell id="td">
                             {index + 1}
@@ -798,17 +802,17 @@ export default function StickyHeadTable(props) {
                           {/* {props?.state?.tableColumns["Type"].isActive && (
                                                     <TableCell id="td">{row.type}</TableCell>
                                                 )} */}
-                          {props?.state?.tableColumns["Hash"].isActive && (
-                            <TableCell>
-                              <a
-                                className="token-details-address-link"
-                                href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
-                                  }`}
-                              >
-                                {shorten(row.address)}
-                              </a>
-                            </TableCell>
-                          )}
+
+                          <TableCell>
+                            <a
+                              className="token-details-address-link"
+                              href={`/token-data/${row.address}/${row?.symbol ? row?.symbol : "NA"
+                                }`}
+                            >
+                              {shorten(row.address)}
+                            </a>
+                          </TableCell>
+
 
                           <TableCell id="td" style={{ paddingleft: "15" }}>
                             <Tooltip
