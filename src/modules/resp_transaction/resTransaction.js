@@ -17,7 +17,7 @@ import PrivateNote from "../../modules/common/dialog/privateNote";
 import { sessionManager } from "../../managers/sessionManager";
 import LoginDialog from "../explorer/loginDialog";
 import format from "format-number";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import Utility from "../../utility";
 import { cookiesConstants } from "../../constants"
 
@@ -239,23 +239,23 @@ export default function Transaction({ _handleChange }) {
   var addrTagFrom = fromAddress;
   var addrTagTo = toAddress;
 
-  let taggedAddress =localStorage.getItem(cookiesConstants.USER_TAGGED_ADDRESS);
+  let taggedAddress = localStorage.getItem(cookiesConstants.USER_TAGGED_ADDRESS);
   let tags = taggedAddress && taggedAddress.length > 0
-  ? JSON.parse(taggedAddress)
-  : "";
+    ? JSON.parse(taggedAddress)
+    : "";
   var tagValueFrom =
-    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub ) : "";
+    tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagFrom && obj.userId === userInfo.sub) : "";
   var tagValueTo =
     tags && tags.length > 0 ? tags?.filter((obj) => obj.address === addrTagTo && obj.userId === userInfo.sub) : "";
 
   // ---------------------------------------> fetch pvt note from (local-storage) <--------------------------------------------//
 
   var pvtNotehash = `${hash}`;
-  let pvtNoteLocal =localStorage.getItem(cookiesConstants.USER_TRASACTION_LABELS);
+  let pvtNoteLocal = localStorage.getItem(cookiesConstants.USER_TRASACTION_LABELS);
 
   let pvtNote = pvtNoteLocal && pvtNoteLocal.length > 0
-  ? JSON.parse(pvtNoteLocal)
-  : "";
+    ? JSON.parse(pvtNoteLocal)
+    : "";
   var pvtNoteValue =
     pvtNote && pvtNote.length > 0 ? pvtNote?.filter((obj) => obj.transactionHash === pvtNotehash && obj.userId === userInfo.sub) : "";
 
@@ -318,11 +318,11 @@ export default function Transaction({ _handleChange }) {
   let gasPrice1 = gasPrice.toString().split(".")[0];
   let gasPrice2 = gasPrice.toString().split(".")[1];
 
-  const valueDiv = !valueFetch
-    ? 0
+  const valueDiv = transactions?.value > 0 && transactions?.value < 1
+    ? (valueFetch * transactions.value).toFixed(8)
     : Utils.decimalDivison(valueFetch * transactions.value, 8);
-  let ValueMain = !transactions?.value
-    ? 0
+  let ValueMain = transactions?.value > 0 && transactions?.value < 1
+    ? transactions?.value
     : Utils.decimalDivison(transactions?.value, 8);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
@@ -361,7 +361,7 @@ export default function Transaction({ _handleChange }) {
       return daysDifference + " days ago";
     }
   };
-  const timezone = useSelector(state=> state.timezone)
+  const timezone = useSelector(state => state.timezone)
 
   return (
     <div className={classes.mainContainer}>
@@ -371,13 +371,13 @@ export default function Transaction({ _handleChange }) {
         <Grid>
           <div className={isLoading == true ? "cover-spin-2" : ""}>
             <div className={isLoading == true ? "cover-spin" : ""}>
-              
-                <Container>
-                  <Heading>Transaction Details</Heading>
-                  {/* <p className="Failed-rectangle">Failed</p> */}
 
-                </Container>
-              
+              <Container>
+                <Heading>Transaction Details</Heading>
+                {/* <p className="Failed-rectangle">Failed</p> */}
+
+              </Container>
+
               {/* 
                   <Div>
                     <HashDiv>
@@ -391,170 +391,170 @@ export default function Transaction({ _handleChange }) {
                     </Spacing> */}
 
               <Div>
-              {transactions ? (
-                    transactions.status ? (
-                      <StatusContainer>
-                        <StatusContainerInside>
-                          <StatusImgContainer>
-                              <StatusImg src="/images/success.svg"></StatusImg>
-                            </StatusImgContainer>
-                          <StatusTextSuccess>Success</StatusTextSuccess>
-                        </StatusContainerInside>
-                      </StatusContainer>
-                    ) : (
-                      <StatusContainer>
+                {transactions ? (
+                  transactions.status ? (
+                    <StatusContainer>
+                      <StatusContainerInside>
                         <StatusImgContainer>
-                        <StatusImg src="/images/failed.svg"></StatusImg>
+                          <StatusImg src="/images/success.svg"></StatusImg>
                         </StatusImgContainer>
-                        <StatusTextFailed>Failed</StatusTextFailed>
-                      </StatusContainer>
-                    )
-                  ) : null}
+                        <StatusTextSuccess>Success</StatusTextSuccess>
+                      </StatusContainerInside>
+                    </StatusContainer>
+                  ) : (
+                    <StatusContainer>
+                      <StatusImgContainer>
+                        <StatusImg src="/images/failed.svg"></StatusImg>
+                      </StatusImgContainer>
+                      <StatusTextFailed>Failed</StatusTextFailed>
+                    </StatusContainer>
+                  )
+                ) : null}
                 <TxnDetailsRightContainer>
-                 <TxnDetailsRightTopContainer>
-                  <Container>
-                    <Tooltip align="right" title={hashid}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                  <TxnDetailsRightTopContainer>
+                    <Container>
+                      <Tooltip align="right" title={hashid}>
+                        <ImageView src={"/images/info.svg"} />
+                      </Tooltip>
 
-                    <Hash>Transaction Hash</Hash>
-                  </Container>
-                  <DetailsMiddleContainer isTextArea={false}>
-                    <ContentHash>{hash}
-                      {/* {width > 1240
+                      <Hash>Transaction Hash</Hash>
+                    </Container>
+                    <DetailsMiddleContainer isTextArea={false}>
+                      <ContentHash>{hash}
+                        {/* {width > 1240
                         ? hash
                         : width <= 1240 && width >= 768
                           ? Utils.shortenHashTab(hash)
                           : hash} */}
-                    </ContentHash>
-                    <span
-                      className={
-                        width >= 768
-                          ? "copyEditContainer2"
-                          : "copyEditContainerMobile"
-                      }
-                    >
-                      <CopyToClipboard
-                        text={hash}
-                        onCopy={() => setCopiedText(hash)}
+                      </ContentHash>
+                      <span
+                        className={
+                          width >= 768
+                            ? "copyEditContainer2"
+                            : "copyEditContainerMobile"
+                        }
                       >
-                        <Tooltip
-                          title={
-                            copiedText === hash ? "Copied" : "Copy To Clipboard"
-                          }
-                          placement="top"
+                        <CopyToClipboard
+                          text={hash}
+                          onCopy={() => setCopiedText(hash)}
                         >
-                          <button
-                            className={
-                              width > 1240
-                                ? "copyToClipboardHash"
-                                : "copyToClipboardHashMobile"
+                          <Tooltip
+                            title={
+                              copiedText === hash ? "Copied" : "Copy To Clipboard"
                             }
+                            placement="top"
                           >
-                            <img
+                            <button
                               className={
                                 width > 1240
-                                  ? "copy-icon"
-                                  : width < 768
-                                    ? "copyIconHashMobile"
-                                    : "copyIconHash"
+                                  ? "copyToClipboardHash"
+                                  : "copyToClipboardHashMobile"
                               }
-                              src={"/images/copy-grey.svg"}
-                            />
-                          </button>
-                        </Tooltip>
-                      </CopyToClipboard>
-                      {userInfo ? (
-                        <>
-                          {
-                            <PrivateNote
-                              open={dialogPvtNoteIsOpen}
-                              onClose={closeDialogPvtNote}
-                              hash={hash}
-                              pvtNote={privateNote[0]?.trxLable}
-                            />
-                          }
-                          {
-                            <Tooltip
-                              title="Add Transaction Label"
-                              placement="top"
                             >
                               <img
                                 className={
                                   width > 1240
-                                    ? "edit-icon"
-                                    
-                                      : "editIconHash"
+                                    ? "copy-icon"
+                                    : width < 768
+                                      ? "copyIconHashMobile"
+                                      : "copyIconHash"
                                 }
-                                onClick={openDialogPvtNote}
-                                src={require("../../../src/assets/images/label.svg")}
+                                src={"/images/copy-grey.svg"}
                               />
-                            </Tooltip>
-                          }
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </span>
-                  </DetailsMiddleContainer>
-                </TxnDetailsRightTopContainer>
-                <TxnDetailsRightBottomContainer>
-                <DetailsContainer>
-                  <Container>
-                    <Tooltip title={value}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
-                    <Hash>Transaction Value</Hash>
-                  </Container>
-                  <DetailsMiddleContainer isTextArea={false}>
-                    {ValueMain}&nbsp; XDC ({currencySymbol}
-                    {valueDiv})
-                  </DetailsMiddleContainer>
-                </DetailsContainer>
-                {/* ------------------------------------------------time stamp------------------------------------- */}
-                <DetailsContainer className="mobileTimeStamp">
-                  <Container>
-                    <Tooltip title={timestamp}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                            </button>
+                          </Tooltip>
+                        </CopyToClipboard>
+                        {userInfo ? (
+                          <>
+                            {
+                              <PrivateNote
+                                open={dialogPvtNoteIsOpen}
+                                onClose={closeDialogPvtNote}
+                                hash={hash}
+                                pvtNote={privateNote[0]?.trxLable}
+                              />
+                            }
+                            {
+                              <Tooltip
+                                title="Add Transaction Label"
+                                placement="top"
+                              >
+                                <img
+                                  className={
+                                    width > 1240
+                                      ? "edit-icon"
 
-                    <Hash>Transaction Timestamp</Hash>
-                  </Container>
-                  <DetailsMiddleContainer isTextArea={false}>
-                    {/*============================================= {" "}
+                                      : "editIconHash"
+                                  }
+                                  onClick={openDialogPvtNote}
+                                  src={require("../../../src/assets/images/label.svg")}
+                                />
+                              </Tooltip>
+                            }
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </span>
+                    </DetailsMiddleContainer>
+                  </TxnDetailsRightTopContainer>
+                  <TxnDetailsRightBottomContainer>
+                    <DetailsContainer>
+                      <Container>
+                        <Tooltip title={value}>
+                          <ImageView src={"/images/info.svg"} />
+                        </Tooltip>
+                        <Hash>Transaction Value</Hash>
+                      </Container>
+                      <DetailsMiddleContainer isTextArea={false}>
+                        {ValueMain}&nbsp; XDC ({currencySymbol}
+                        {valueDiv})
+                      </DetailsMiddleContainer>
+                    </DetailsContainer>
+                    {/* ------------------------------------------------time stamp------------------------------------- */}
+                    <DetailsContainer className="mobileTimeStamp">
+                      <Container>
+                        <Tooltip title={timestamp}>
+                          <ImageView src={"/images/info.svg"} />
+                        </Tooltip>
+
+                        <Hash>Transaction Timestamp</Hash>
+                      </Container>
+                      <DetailsMiddleContainer isTextArea={false}>
+                        {/*============================================= {" "}
                         {moment(transactions.timestamp * 1000).format(
                           "MMMM Do YYYY, h:mm:ss a"
                         )}{" "}============================ */}
-                    {`${transactions?.timestamp && moment(transactions.timestamp * 1000).tz(timezone).format(
-                        "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
-                    {/*============================================================================({getHoursAgo(transactions.timestamp * 1000)})==================================*/}
-                   </DetailsMiddleContainer>
-                </DetailsContainer>
-                {/* ------------------------------------------------------block-------------------------------  */}
-                <DetailsContainer>
-                  <Container>
-                    <Tooltip title={blocknumber}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
+                        {`${transactions?.timestamp && moment(transactions.timestamp * 1000).tz(timezone).format(
+                          "MMM DD, YYYY, hh:mm A") || ''} ${timezone && Utility.getUtcOffset(timezone) || ''}`}
+                        {/*============================================================================({getHoursAgo(transactions.timestamp * 1000)})==================================*/}
+                      </DetailsMiddleContainer>
+                    </DetailsContainer>
+                    {/* ------------------------------------------------------block-------------------------------  */}
+                    <DetailsContainer>
+                      <Container>
+                        <Tooltip title={blocknumber}>
+                          <ImageView src={"/images/info.svg"} />
+                        </Tooltip>
 
-                    <Hash>Block Number</Hash>
-                  </Container>
-                  <DetailsMiddleContainer isTextArea={false}>
-                    <Content>
-                      <a
-                        className="linkTableDetails-transaction"
-                        href={"/block-details/" + transactions.blockNumber}
-                      >
-                        {" "}
-                        {transactions.blockNumber
-                          ? transactions.blockNumber
-                          : ""}
-                      </a>
-                      &nbsp; <BlockConfirmation>{bx} Blocks Confirmation</BlockConfirmation>
-                    </Content>
-                  </DetailsMiddleContainer>
-                </DetailsContainer>
-                </TxnDetailsRightBottomContainer>
+                        <Hash>Block Number</Hash>
+                      </Container>
+                      <DetailsMiddleContainer isTextArea={false}>
+                        <Content>
+                          <a
+                            className="linkTableDetails-transaction"
+                            href={"/block-details/" + transactions.blockNumber}
+                          >
+                            {" "}
+                            {transactions.blockNumber
+                              ? transactions.blockNumber
+                              : ""}
+                          </a>
+                          &nbsp; <BlockConfirmation>{bx} Blocks Confirmation</BlockConfirmation>
+                        </Content>
+                      </DetailsMiddleContainer>
+                    </DetailsContainer>
+                  </TxnDetailsRightBottomContainer>
                 </TxnDetailsRightContainer>
               </Div>
 
@@ -622,28 +622,28 @@ export default function Transaction({ _handleChange }) {
                       </div>
                     </Content>
                     <TabTag>
-                    {width >= 768 && width <= 1240 ? (userInfo ? (
-                            <>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen}
-                                  onClose={closeDialogPvtTag}
-                                  fromAddr={transactions.from}
-                                  value={dialogValue}
-                                  hash={hash}
-                                />
-                              }
-                              
-                              {tagValueFrom && tagValueFrom?.length > 0 ? (
-                                <Tag>
-                                  {tagValueFrom[tagValueFrom?.length - 1]?.tagName}
-                                </Tag>
-                              ) : (
-                                <Tooltip
-                                  title="Add a new Address Tag"
-                                  placement="top"
-                                >
-                                  {/* <img
+                      {width >= 768 && width <= 1240 ? (userInfo ? (
+                        <>
+                          {
+                            <PrivateAddressTag
+                              open={dialogPvtTagIsOpen}
+                              onClose={closeDialogPvtTag}
+                              fromAddr={transactions.from}
+                              value={dialogValue}
+                              hash={hash}
+                            />
+                          }
+
+                          {tagValueFrom && tagValueFrom?.length > 0 ? (
+                            <Tag>
+                              {tagValueFrom[tagValueFrom?.length - 1]?.tagName}
+                            </Tag>
+                          ) : (
+                            <Tooltip
+                              title="Add a new Address Tag"
+                              placement="top"
+                            >
+                              {/* <img
                                     className={
                                       width > 1240
                                         ? "edit1-icon"
@@ -652,41 +652,41 @@ export default function Transaction({ _handleChange }) {
                                     onClick={openDialogPvtTag}
                                     src={require("../../../src/assets/images/tag.svg")}
                                   /> */}
-                                  <AddTagContainer onClick={openDialogPvtTag}>
-                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
-                                    <AddTagtext>Add Tag</AddTagtext>
-                                  </AddTagContainer>
-                                </Tooltip>
-                              )}
-                            </>
-                          ) : (
-                            ""
-                          )):""}
-                          </TabTag>
+                              <AddTagContainer onClick={openDialogPvtTag}>
+                                <ImgAddTag><img src="/images/add-tag-white.svg" /></ImgAddTag>
+                                <AddTagtext>Add Tag</AddTagtext>
+                              </AddTagContainer>
+                            </Tooltip>
+                          )}
+                        </>
+                      ) : (
+                        ""
+                      )) : ""}
+                    </TabTag>
                   </DetailsMiddleContainer>
                   <MobileDesktopTag>
-                  {width < 768 || width > 1240 ? (userInfo ? (
-                            <>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen}
-                                  onClose={closeDialogPvtTag}
-                                  fromAddr={transactions.from}
-                                  value={dialogValue}
-                                  hash={hash}
-                                />
-                              }
+                    {width < 768 || width > 1240 ? (userInfo ? (
+                      <>
+                        {
+                          <PrivateAddressTag
+                            open={dialogPvtTagIsOpen}
+                            onClose={closeDialogPvtTag}
+                            fromAddr={transactions.from}
+                            value={dialogValue}
+                            hash={hash}
+                          />
+                        }
 
-                              {tagValueFrom && tagValueFrom?.length ? (
-                                <Tag>
-                                  {tagValueFrom[tagValueFrom?.length - 1]?.tagName}
-                                </Tag>
-                              ) : (
-                                <Tooltip
-                                  title="Add a new Address Tag"
-                                  placement="top"
-                                >
-                                  {/* <img
+                        {tagValueFrom && tagValueFrom?.length ? (
+                          <Tag>
+                            {tagValueFrom[tagValueFrom?.length - 1]?.tagName}
+                          </Tag>
+                        ) : (
+                          <Tooltip
+                            title="Add a new Address Tag"
+                            placement="top"
+                          >
+                            {/* <img
                                     className={
                                       width > 1240
                                         ? "edit1-icon"
@@ -695,24 +695,24 @@ export default function Transaction({ _handleChange }) {
                                     onClick={openDialogPvtTag}
                                     src={require("../../../src/assets/images/tag.svg")}
                                   /> */}
-                                  <AddTagContainer onClick={openDialogPvtTag}>
-                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
-                                    <AddTagtext>Add Tag</AddTagtext>
-                                  </AddTagContainer>
-                                </Tooltip>
-                              )}
-                            </>
-                          ) : (
-                            ""
-                          )):""}
-                          </MobileDesktopTag>
+                            <AddTagContainer onClick={openDialogPvtTag}>
+                              <ImgAddTag><img src="/images/add-tag-white.svg" /></ImgAddTag>
+                              <AddTagtext>Add Tag</AddTagtext>
+                            </AddTagContainer>
+                          </Tooltip>
+                        )}
+                      </>
+                    ) : (
+                      ""
+                    )) : ""}
+                  </MobileDesktopTag>
                 </DivMiddle>
                 <DivCircle>
                   <ImgNextArrow>
-                    <img src="/images/next-arrow.svg"/>
+                    <img src="/images/next-arrow.svg" />
                   </ImgNextArrow>
                 </DivCircle>
-                            {/* --------------------------------------------------------------------to--------------------- */}
+                {/* --------------------------------------------------------------------to--------------------- */}
                 <DivMiddle>
                   <Container>
                     <Tooltip title={to}>
@@ -778,27 +778,27 @@ export default function Transaction({ _handleChange }) {
                       </span>
                     </Content>
                     <TabTag>
-                    {width >= 768 && width <= 1240 ? (userInfo ? (
-                            <>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen2}
-                                  onClose={closeDialogPvtTag2}
-                                  toAddr={transactions.to}
-                                  value={dialogValue2}
-                                  hash={hash}
-                                />
-                              }
-                              {tagValueTo && tagValueTo?.length ? (
-                                <Tag>
-                                  {tagValueTo[tagValueTo?.length - 1]?.tagName}
-                                </Tag>
-                              ) : (
-                                <Tooltip
-                                  title="Add a new Address Tag"
-                                  placement="top"
-                                >
-                                  {/* <img
+                      {width >= 768 && width <= 1240 ? (userInfo ? (
+                        <>
+                          {
+                            <PrivateAddressTag
+                              open={dialogPvtTagIsOpen2}
+                              onClose={closeDialogPvtTag2}
+                              toAddr={transactions.to}
+                              value={dialogValue2}
+                              hash={hash}
+                            />
+                          }
+                          {tagValueTo && tagValueTo?.length ? (
+                            <Tag>
+                              {tagValueTo[tagValueTo?.length - 1]?.tagName}
+                            </Tag>
+                          ) : (
+                            <Tooltip
+                              title="Add a new Address Tag"
+                              placement="top"
+                            >
+                              {/* <img
                                     className={
                                       width > 1240
                                         ? "edit1-icon"
@@ -807,40 +807,40 @@ export default function Transaction({ _handleChange }) {
                                     onClick={openDialogPvtTag2}
                                     src={require("../../../src/assets/images/tag.svg")}
                                   /> */}
-                                  <AddTagContainer onClick={openDialogPvtTag2}>
-                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
-                                    <AddTagtext>Add Tag</AddTagtext>
-                                  </AddTagContainer>
-                                </Tooltip>
-                              )}
-                            </>
-                          ) : (
-                            ""
-                          )):""}
-                          </TabTag>
+                              <AddTagContainer onClick={openDialogPvtTag2}>
+                                <ImgAddTag><img src="/images/add-tag-white.svg" /></ImgAddTag>
+                                <AddTagtext>Add Tag</AddTagtext>
+                              </AddTagContainer>
+                            </Tooltip>
+                          )}
+                        </>
+                      ) : (
+                        ""
+                      )) : ""}
+                    </TabTag>
                   </DetailsMiddleContainer>
                   <MobileDesktopTag>
-                  {width < 768 || width > 1240 ? (userInfo ? (
-                            <>
-                              {
-                                <PrivateAddressTag
-                                  open={dialogPvtTagIsOpen2}
-                                  onClose={closeDialogPvtTag2}
-                                  toAddr={transactions.to}
-                                  value={dialogValue2}
-                                  hash={hash}
-                                />
-                              }
-                              {tagValueTo && tagValueTo?.length ? (
-                                <Tag>
-                                  {tagValueTo[tagValueTo?.length - 1]?.tagName}
-                                </Tag>
-                              ) : (
-                                <Tooltip
-                                  title="Add a new Address Tag"
-                                  placement="top"
-                                >
-                                  {/* <img
+                    {width < 768 || width > 1240 ? (userInfo ? (
+                      <>
+                        {
+                          <PrivateAddressTag
+                            open={dialogPvtTagIsOpen2}
+                            onClose={closeDialogPvtTag2}
+                            toAddr={transactions.to}
+                            value={dialogValue2}
+                            hash={hash}
+                          />
+                        }
+                        {tagValueTo && tagValueTo?.length ? (
+                          <Tag>
+                            {tagValueTo[tagValueTo?.length - 1]?.tagName}
+                          </Tag>
+                        ) : (
+                          <Tooltip
+                            title="Add a new Address Tag"
+                            placement="top"
+                          >
+                            {/* <img
                                     className={
                                       width > 1240
                                         ? "edit1-icon"
@@ -849,17 +849,17 @@ export default function Transaction({ _handleChange }) {
                                     onClick={openDialogPvtTag2}
                                     src={require("../../../src/assets/images/tag.svg")}
                                   /> */}
-                                  <AddTagContainer onClick={openDialogPvtTag2}>
-                                    <ImgAddTag><img src="/images/add-tag-white.svg"/></ImgAddTag>
-                                    <AddTagtext>Add Tag</AddTagtext>
-                                  </AddTagContainer>
-                                </Tooltip>
-                              )}
-                            </>
-                          ) : (
-                            ""
-                          )):""}
-                          </MobileDesktopTag>
+                            <AddTagContainer onClick={openDialogPvtTag2}>
+                              <ImgAddTag><img src="/images/add-tag-white.svg" /></ImgAddTag>
+                              <AddTagtext>Add Tag</AddTagtext>
+                            </AddTagContainer>
+                          </Tooltip>
+                        )}
+                      </>
+                    ) : (
+                      ""
+                    )) : ""}
+                  </MobileDesktopTag>
                 </DivMiddle>
               </DivMiddleContainer>
 
@@ -945,48 +945,48 @@ export default function Transaction({ _handleChange }) {
                   </MiddleContainer>
                 </Spacing>
                 {!isSeeMore ?
-                (<Spacing>
-                  <SeeMoreContainer onClick={handleSeeMore}>
-                    <SeeMoreText>See more</SeeMoreText>
-                    <ImgSeeMore src="/images/see-more.svg"></ImgSeeMore>
-                  </SeeMoreContainer>
-                </Spacing>) :
-                (<>
-                <Spacing>
-                  <Container>
-                    <Tooltip align="right" title={nounced}>
-                      <ImageView src={"/images/info.svg"} />
-                    </Tooltip>
-                    <Hash>Nonce</Hash>
-                  </Container>
-                  <MiddleContainer isTextArea={false}>
-                    <Content> {transactions.nonce}</Content>
-                  </MiddleContainer>
-                </Spacing>
-                <SpacingInputData>
-                  <Container>
-                    <Tooltip align="right" title={input}>
-                      <ImageViewInputData src={"/images/info.svg"} />
-                    </Tooltip>
-                    <HashInputData>Input Data</HashInputData>
-                  </Container>
-                  <MiddleContainerInputData isTextArea={true}>
-                    <div className="transaction-details-input-data">
-                      <textarea
-                        className="text-area-transaction"
-                        readOnly
-                        value={transactions.input}
-                      />
-                    </div>
-                  </MiddleContainerInputData>
-                </SpacingInputData>
-                <Spacing>
-                  <SeeMoreContainer onClick={handleSeeLess}>
-                    <SeeMoreText>See Less</SeeMoreText>
-                    <ImgSeeLess src="/images/see-more.svg"></ImgSeeLess>
-                  </SeeMoreContainer>
-                </Spacing>
-                </>)}
+                  (<Spacing>
+                    <SeeMoreContainer onClick={handleSeeMore}>
+                      <SeeMoreText>See more</SeeMoreText>
+                      <ImgSeeMore src="/images/see-more.svg"></ImgSeeMore>
+                    </SeeMoreContainer>
+                  </Spacing>) :
+                  (<>
+                    <Spacing>
+                      <Container>
+                        <Tooltip align="right" title={nounced}>
+                          <ImageView src={"/images/info.svg"} />
+                        </Tooltip>
+                        <Hash>Nonce</Hash>
+                      </Container>
+                      <MiddleContainer isTextArea={false}>
+                        <Content> {transactions.nonce}</Content>
+                      </MiddleContainer>
+                    </Spacing>
+                    <SpacingInputData>
+                      <Container>
+                        <Tooltip align="right" title={input}>
+                          <ImageViewInputData src={"/images/info.svg"} />
+                        </Tooltip>
+                        <HashInputData>Input Data</HashInputData>
+                      </Container>
+                      <MiddleContainerInputData isTextArea={true}>
+                        <div className="transaction-details-input-data">
+                          <textarea
+                            className="text-area-transaction"
+                            readOnly
+                            value={transactions.input}
+                          />
+                        </div>
+                      </MiddleContainerInputData>
+                    </SpacingInputData>
+                    <Spacing>
+                      <SeeMoreContainer onClick={handleSeeLess}>
+                        <SeeMoreText>See Less</SeeMoreText>
+                        <ImgSeeLess src="/images/see-more.svg"></ImgSeeLess>
+                      </SeeMoreContainer>
+                    </Spacing>
+                  </>)}
                 <SpacingPrivateNode>
                   <Container>
                     <Tooltip align="right" title={transferToken}>
@@ -1017,9 +1017,9 @@ export default function Transaction({ _handleChange }) {
                       <span>{pvtNoteValue[pvtNoteValue?.length - 1]?.trxLable}</span>
                     ) : (
                       <AddLabel>
-                      <AddLabelText>
-                      Add private note by clicking on this icon
-                      </AddLabelText>
+                        <AddLabelText>
+                          Add private note by clicking on this icon
+                        </AddLabelText>
                         {
                           <PrivateNote
                             open={dialogPvtNoteIsOpen}
@@ -1037,8 +1037,8 @@ export default function Transaction({ _handleChange }) {
                               className={
                                 width > 1240
                                   ? "edit-icon1"
-                                  
-                                    : "editIconHash"
+
+                                  : "editIconHash"
                               }
                               onClick={openDialogPvtNote}
                               src={require("../../../src/assets/images/label.svg")}
@@ -1047,7 +1047,7 @@ export default function Transaction({ _handleChange }) {
                         }
                       </AddLabel>
                     )}
-                    
+
                   </MiddleContainerPrivateNote>
                 </SpacingPrivateNode>
               </Div__>
