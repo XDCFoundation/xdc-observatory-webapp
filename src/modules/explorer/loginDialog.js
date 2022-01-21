@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     width: "400px !important",
   },
   backButtonMobile : {
-    marginLeft : "18px",
-    marginTop: "29px",
+    marginLeft : "0px",
+    marginTop: "25px",
     position: "absolute",
     cursor: "pointer"
 
@@ -169,17 +169,23 @@ const useStyles = makeStyles((theme) => ({
   //   // padding: "0 11px",
   //   borderRadius: "12px",
   // },
+  privacyContainer: {
+    flexFlow: "row nowrap",
+    display: "flex",
+    marginLeft: "24px",
+    marginTop: "15px",
+  },
   termsContainer: {
     flexFlow: "row nowrap",
     display: "flex",
     marginLeft: "24px",
-    marginTop: "20px",
+    marginTop: "0px",
   },
   iAmNotRobotSignup: {
     width: "100%",
     display: "flex",
     alignItems: "center",
-    marginTop: "50px",
+    marginTop: "30px",
     marginBottom: "25px",
     flexDirection: "column",
   },
@@ -304,13 +310,14 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 767px)": {
     paperWidthSm: {
       position: "absolute",
-      // top: "102px",
+      top: "30px",
       height: "100%",
       width: "100%",
       maxWidth: "767px",
       borderRadius: "0px",
       backgroundImage: "none",
       opacity: "0px",
+      padding: "0px 15px",
     },
     closeContainer: {
       display: "none",
@@ -376,10 +383,17 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "4px",
       margin: "23px auto 21px auto",
     },
+    privacyContainer: {
+      flexFlow: "row nowrap",
+      display: "flex",
+      margin: "20px auto 0px auto",
+      maxWidth: "342px",
+      width: "100%",
+    },
     termsContainer: {
       flexFlow: "row nowrap",
       display: "flex",
-      margin: "20px auto 35px auto",
+      margin: "5px auto 20px auto",
       maxWidth: "342px",
       width: "100%",
     },
@@ -430,6 +444,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   "@media (min-width: 768px) and (max-height: 800px)": {
+    privacyContainer: {
+      marginTop: "0px",
+    },
     termsContainer: {
       marginTop: "0px",
     },
@@ -684,11 +701,14 @@ export default function FormDialog(props) {
       setLoading(false);
     } else if (!password.match(regExPass)) {
       setErrorPassword(
-        "Password must be atleast 5 character long with Uppercase, Lowercase and Number"
+        "Password must be atleast 8 character long with Uppercase, Lowercase and Number"
       );
       setLoading(false);
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
+      setLoading(false);
+    } else if (privacyCheckbox === false) {
+      setErrorTermsCondition("Please accept the privacy policy");
       setLoading(false);
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to the terms and conditions");
@@ -778,6 +798,14 @@ export default function FormDialog(props) {
   };
 
   //--------------------------------------------------checkbox functionality--------------------------------------------------->
+  const [privacyCheckbox, setPrivacyCheckbox] = React.useState(false);
+  const handlePrivacyCheckbox = () => {
+    if (privacyCheckbox === true) {
+      setPrivacyCheckbox(false);
+    } else {
+      setPrivacyCheckbox(true);
+    }
+  };
   const [termsCheckbox, setTermsCheckbox] = React.useState(false);
   const handleTermsCheckbox = () => {
     if (termsCheckbox === true) {
@@ -1120,6 +1148,20 @@ export default function FormDialog(props) {
               />
               <div className={classes.error}>{errorConfirmPassword}</div>
             </DialogContent>
+            <div className={classes.privacyContainer}>
+              <input
+                className={classes.checkbox}
+                onClick={handlePrivacyCheckbox}
+                type="checkbox"
+              />
+              <span className="iAgree">
+                I accept the{" "}
+                <a className="privacyTermsLink" href="/privacy-policy">
+                  privacy policy
+                </a>
+                {" "}regarding essential cookies.
+              </span>
+            </div>
             <div className={classes.termsContainer}>
               <input
                 className={classes.checkbox}
@@ -1128,12 +1170,8 @@ export default function FormDialog(props) {
               />
               <span className="iAgree">
                 I agree to the{" "}
-                <a style={{ color: "#2b51bc" }} href="/term-conditions">
-                  Terms of Use
-                </a>{" "}
-                &{" "}
-                <a style={{ color: "#2b51bc" }} href="/privacy-policy">
-                  Privacy Policy
+                <a className="privacyTermsLink" href="/term-conditions">
+                  terms and conditions.
                 </a>
               </span>
             </div>

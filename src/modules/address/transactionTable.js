@@ -21,36 +21,6 @@ import format from "format-number";
 import { messages } from "../../constants";
 import PageSelector from "../common/pageSelector";
 
-function timeDiff(curr, prev) {
-  var ms_Min = 60 * 1000; // milliseconds in Minute
-  var ms_Hour = ms_Min * 60; // milliseconds in Hour
-  var ms_Day = ms_Hour * 24; // milliseconds in day
-  var ms_Mon = ms_Day * 30; // milliseconds in Month
-  var ms_Yr = ms_Day * 365; // milliseconds in Year
-  var diff = curr - prev; //difference between dates.
-  // If the diff is less then milliseconds in a minute
-  if (diff < ms_Min) {
-    return Math.abs(Math.round(diff / 1000)) + " secs ago";
-
-    // If the diff is less then milliseconds in a Hour
-  } else if (diff < ms_Hour) {
-    return Math.abs(Math.round(diff / ms_Min)) + " mins ago";
-
-    // If the diff is less then milliseconds in a day
-  } else if (diff < ms_Day) {
-    return Math.abs(Math.round(diff / ms_Hour)) + " hrs ago";
-
-    // If the diff is less then milliseconds in a Month
-  } else if (diff < ms_Mon) {
-    return Math.abs(Math.round(diff / ms_Day)) + " days ago";
-
-    // If the diff is less then milliseconds in a year
-  } else if (diff < ms_Yr) {
-    return Math.abs(Math.round(diff / ms_Mon)) + " months ago";
-  } else {
-    return Math.abs(Math.round(diff / ms_Yr)) + " years ago";
-  }
-}
 export default function TransactionTableComponent(props) {
   const { state } = props;
 
@@ -436,10 +406,10 @@ export default function TransactionTableComponent(props) {
                     <span className={"tableheaders table-block"}>
                       Block
                       <Tooltip
-                      open={blockTT}
+                        open={blockTT}
                         onOpen={() => setblockTT(true)}
                         onClose={() => setblockTT(false)}
-                         placement="top" title={messages.BLOCK}>
+                        placement="top" title={messages.BLOCK}>
                         <img
                           onClick={() => setblockTT(!blockTT)}
                           alt="question-mark"
@@ -454,10 +424,10 @@ export default function TransactionTableComponent(props) {
                     <span className={"tableheaders table-from"}>
                       From
                       <Tooltip
-                      open={fromTT}
+                        open={fromTT}
                         onOpen={() => setfromTT(true)}
                         onClose={() => setfromTT(false)}
-                         placement="top" title={messages.FROM}>
+                        placement="top" title={messages.FROM}>
                         <img
                           onClick={() => setfromTT(!fromTT)}
                           alt="question-mark"
@@ -472,10 +442,10 @@ export default function TransactionTableComponent(props) {
                     <span className={"tableheaders table-to"}>
                       To
                       <Tooltip
-                      open={toTT}
+                        open={toTT}
                         onOpen={() => settoTT(true)}
                         onClose={() => settoTT(false)}
-                         placement="top" title={messages.TO}>
+                        placement="top" title={messages.TO}>
                         <img
                           onClick={() => settoTT(!toTT)}
                           alt="question-mark"
@@ -490,12 +460,12 @@ export default function TransactionTableComponent(props) {
                     <span className={"tableheaders table-value"}>
                       Value
                       <Tooltip
-                      open={valueTT}
+                        open={valueTT}
                         onOpen={() => setvalueTT(true)}
                         onClose={() => setvalueTT(false)}
-                         placement="top" title={messages.VALUE}>
+                        placement="top" title={messages.VALUE}>
                         <img
-                        onClick={() => setvalueTT(!valueTT)}
+                          onClick={() => setvalueTT(!valueTT)}
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
@@ -508,12 +478,12 @@ export default function TransactionTableComponent(props) {
                     <span className={"tableheaders table-value"}>
                       Avg Txn Fee
                       <Tooltip
-                      open={gasTT}
+                        open={gasTT}
                         onOpen={() => setgasTT(true)}
                         onClose={() => setgasTT(false)}
-                         placement="top" title={messages.GAS}>
+                        placement="top" title={messages.GAS}>
                         <img
-                        onClick={() => setgasTT(!gasTT)}
+                          onClick={() => setgasTT(!gasTT)}
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
@@ -541,7 +511,7 @@ export default function TransactionTableComponent(props) {
                     {address.map((row, index) => {
                       const currentTime = new Date();
                       const previousTime = new Date(row.timestamp * 1000);
-                      const TimeAge = timeDiff(currentTime, previousTime);
+                      const TimeAge = Utility.timeDiff(currentTime, previousTime);
                       return (
                         <TableRow style={index % 2 !== 1 ? { background: "#f9f9f9" } : { background: "white" }}>
                           <TableCell style={{ border: "none" }} margin-left="5px">
@@ -647,8 +617,8 @@ export default function TransactionTableComponent(props) {
           <Grid item xs="4" className="pagination-tab">
             <span className="text">Show</span>
             <PageSelector value={amount}
-                          height={30}
-                          handler={handleChangeRowsPerPage}/>
+              height={30}
+              handler={handleChangeRowsPerPage} />
             <span className="text">Records</span>
           </Grid>
           <Grid xs="2"></Grid>

@@ -311,9 +311,9 @@ class BlockChainDataComponent extends Component {
       animationTransaction: {},
       gasPrice: 0,
       loading: true,
+      addressTT: false,
     };
   }
-
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
@@ -671,8 +671,14 @@ class BlockChainDataComponent extends Component {
                     <Tooltip placement="top" title={this.state.totalTransaction}>
                       <TransactionValue>{utility.convertToInternationalCurrencySystem(this.state.totalTransaction)}</TransactionValue>
                     </Tooltip>
-                    <Tooltip placement="top" title="Transactions are syncing">
+                    <Tooltip
+                      open={this.state.addressTT}
+                      onOpen={() => this.setState({ addressTT: true })}
+                      onClose={() => this.setState({ addressTT: false })}
+                      placement="top"
+                      title="Transactions are syncing">
                       <img
+                        onClick={() => this.setState({ addressTT: !this.state.addressTT })}
                         alt="question-mark"
                         src="/images/alert.svg"
                         className="tooltipAlert"
