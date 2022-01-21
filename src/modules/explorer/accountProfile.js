@@ -593,7 +593,7 @@ export default function SimpleTabs(props) {
     const list = Math.ceil(value.selected * 5);
     await getListOfWatchlist({ skip: list, limit: "5" });
   };
-  
+
 
   const onChangeTxnLabelPage = async (value) => {
     setPvtNotePageCount(value);
@@ -1384,7 +1384,7 @@ export default function SimpleTabs(props) {
                             align="left"
                           >
                             <span className={"tableheaders-1"}>
-                              Balance
+                              Balance4
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_BALANCE}
@@ -1452,7 +1452,7 @@ export default function SimpleTabs(props) {
                         {watchlist &&
                           watchlist.length > 0 &&
                           watchlist.map((row, index) => {
-                            // console.log("watchlist address",row)
+                            let balanceToShow = Utility.decimalDivisonOnly(row.balance, 8);
                             return (
                               <TableRow
                                 style={
@@ -1505,7 +1505,7 @@ export default function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <span className="tabledata-1">
-                                    {row.balance}
+                                    {balanceToShow}
                                   </span>
                                   {/* </a> */}
                                 </TableCell>

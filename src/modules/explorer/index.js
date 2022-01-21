@@ -34,11 +34,11 @@ export default class BlockChainClass extends BaseComponent {
             <div>
                 <NavigationBar />
                 <BlockChainDataComponent
-                    currency={activeCurrency} socket={this.props.socket} />
+                    currency={activeCurrency} socket={this.props.socket} nodeSocket={this.props.socketNode} />
                 <MarketTable currency={activeCurrency} />
                 <LatestBlocksComponent socket={this.props.socket} />
-                <RecentSearchList/>
-                <BuyStoreTradeXDC/>
+                <RecentSearchList />
+                <BuyStoreTradeXDC />
                 {isStorageMessage ? "" : <StorageMessage />}
                 <FooterComponent _handleChange={this._handleChange}
                     currency={this.state.amount} />

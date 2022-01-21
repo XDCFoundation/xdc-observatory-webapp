@@ -110,7 +110,7 @@ function BuyStoreTradeXDC() {
                 </ImgContainer>
                 <ContentContainer>
                     <Heading>
-                        Trade XDC.
+                        Trade XDC
                     </Heading>
                     <Description>
                         You can easily exchange XDC with other cryptocurrencies through the exchanges listed here.

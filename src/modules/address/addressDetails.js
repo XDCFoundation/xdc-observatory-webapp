@@ -513,7 +513,7 @@ export default function AddressDetails(props) {
   const [toggleState, setToggleState] = useState(1);
   const [addressData, setAddressData] = useState(0);
   const [txtAddress, setTxtAddress] = useState("");
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState("");
   const [convertCurrency, setConvertCurrency] = useState("");
   const [coinValue, setCoinValue] = useState(0);
   const [transactions, setTransactions] = useState([]);
@@ -525,8 +525,8 @@ export default function AddressDetails(props) {
   const [amount, setAmount] = useState("");
   const [coinMarketPrice, setCoinMarketPrice] = useState(0);
   const [price, setPrice] = useState(0);
-  const [currentPrice, setCurrentPrice] = useState(0);
-  const [addressStats, setAddressStats] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState("");
+  const [addressStats, setAddressStats] = useState("");
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
   const [dialogWatchListIsOpen, setDialogWatchListIsOpen] =
     React.useState(false);
@@ -712,7 +712,10 @@ export default function AddressDetails(props) {
   const previousTime = new Date(addressData?.timestamp * 1000);
   const ti = !addressData?.timestamp
     ? ""
-    : Utility.timeDiff(currentTime, previousTime);
+    :
+    moment(addressData?.timestamp * 1000).format(
+      "MMM DD, YYYY h:mm A"
+    )
 
   const lastActivityTime = new Date(
     addressStats?.lastTransactionTimestamp * 1000
@@ -720,6 +723,12 @@ export default function AddressDetails(props) {
   const lastAct = !addressStats?.lastTransactionTimestamp
     ? ""
     : Utility.timeDiff(currentTime, lastActivityTime);
+  let lastActConverted = !addressStats?.lastTransactionTimestamp ? "" : ((moment(
+    Number(addressStats?.lastTransactionTimestamp) *
+    1000
+  )
+    .utc()
+    .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"))
   let userId = sessionManager.getDataFromCookies("userId");
   let taggedAddressfetched = localStorage.getItem(
     cookiesConstants.USER_TAGGED_ADDRESS
@@ -962,17 +971,9 @@ export default function AddressDetails(props) {
                   <LastActivityDiv>
                     <LastActivity>Last Activity</LastActivity>
                     <LastActivityValue>
-                      {lastAct} (
-                      {addressStats?.lastTransactionTimestamp &&
-                        !isNaN(Number(addressStats?.lastTransactionTimestamp))
-                        ? moment(
-                          Number(addressStats?.lastTransactionTimestamp) *
-                          1000
-                        )
-                          .utc()
-                          .format("MMM-DD-YYYY h:mm:ss A") + "  UTC"
-                        : ""}
-                      )
+                      {lastAct}&nbsp;
+                      {!lastActConverted ? "" : "(" + (lastActConverted) + ")"}
+
                     </LastActivityValue>
                   </LastActivityDiv>
                   <RankDiv>
