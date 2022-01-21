@@ -6905,6 +6905,7 @@ button {
 }
 .second_cont {
   display: flex;
+  justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 8px 2px;
@@ -7017,6 +7018,7 @@ button {
 
 .mid_cont {
   display: flex;
+  justify-content: space-between;
   font-size: 13px;
   font-family: Inter;
   font-weight: 600;

@@ -1,8 +1,11 @@
-import React from 'react'
-import { makeStyles } from "@material-ui/styles";
-import { sessionManager } from "../../../managers/sessionManager";
-import { width } from '@mui/system';
+import React, {useEffect} from 'react'
+import {makeStyles} from "@material-ui/styles";
+import {sessionManager} from "../../../managers/sessionManager";
+import {width} from '@mui/system';
 import ManageCookiesDialog from "./manageCookiesDialog"
+import {cookiesConstants, userCookiesConstants} from "../../../constants";
+import Auth0Service from "../../../services/userLogin";
+import { history } from "../../../managers/history";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -19,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     },
     container1: {
         display: 'flex',
-        justifyContent: "space-between",
     },
     ourCookiesText: {
         fontFamily: "Inter",
@@ -57,25 +59,19 @@ const useStyles = makeStyles((theme) => ({
     //     fontWeight: "600",
     //     color: "#ffffff"
     // },
-    manageText: {
-        fontFamily: "Inter",
-        fontSize: "14px",
-        fontWeight: "500",
-        lineHeight: "1.36",
-        textAlign: "center",
-        color: "#81b4ff",
-        marginBottom: "21px",
+    buttonContainer: {
+        margin: "auto",
     },
     buttons: {
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
     },
     buttonAccept: {
-        width: "120px",
+        width: "243px",
         height: "38px",
         borderRadius: "4px",
         backgroundColor: "#4878ff",
-        marginRight: "23px",
         fontFamily: "Inter",
         fontSize: "15px",
         fontWeight: "500",
@@ -83,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#ffffff",
     },
     buttonReject: {
-        width: "120px",
+        width: "243px",
         height: "38px",
         borderRadius: "4px",
         backgroundColor: "#9fa9ba",
@@ -91,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "15px",
         fontWeight: "500",
         textAlign: "center",
+        color: "#ffffff",
+        marginTop: "25px",
+    },
+    privacyText: {
         color: "#ffffff",
     },
 
@@ -106,9 +106,26 @@ const useStyles = makeStyles((theme) => ({
             width: "100%",
             display: "block",
         },
+        ourCookiesText: {
+            textAlign: "center",
+        },
         manageText: {
             marginTop: "20px",
             marginBottom: "10px",
+        },
+        buttons: {
+            marginTop: '12px',
+            flexDirection: "row",
+            justifyContent: "none",
+        },
+        buttonReject: {
+            marginTop: "0px",
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
+        buttonAccept: {
+            marginLeft: "auto",
+            marginRight: "auto",
         },
     },
     "@media (min-width:0px) and (max-width: 767px)": {
@@ -135,6 +152,18 @@ const useStyles = makeStyles((theme) => ({
             marginTop: "5px",
             marginBottom: "5px",
         },
+        buttons: {
+            marginTop: '12px',
+        },
+        buttonReject: {
+            marginTop: "12px",
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
+        buttonAccept: {
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
     },
 
 }));
@@ -143,49 +172,73 @@ const useStyles = makeStyles((theme) => ({
 export default function StorageMessage() {
     const classes = useStyles();
 
-    const [storageMessage, setStorageMessage] = React.useState(false);
+    const [isCookiesAccepted, setIsCookiesAccepted] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
-    const handleStorageMessage = () => {
-        setStorageMessage(true);
-        sessionManager.setDataInCookies(true, "isStorageMessage");
-    };
+
+
+    useEffect(()=>{
+        const isCookiesAccepted = sessionManager.getDataFromCookies("isCookiesAccepted");
+        if(isCookiesAccepted)
+            setIsCookiesAccepted(true)
+    })
+
     const handleManage = () => {
         setOpenDialog(true);
     };
     const closeDialog = () => {
         setOpenDialog(false);
     }
+    const openPrivacyPolicy = () => {
+        history.push("/privacy-policy");
+    }
+
+    const saveMyPreferences = async () => {
+        const userInfo = sessionManager.getDataFromCookies("userInfo");
+        const cookiesData = []
+        cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);
+        cookiesData.push(userCookiesConstants.PERFORMANCE_COOKIES);
+        cookiesData.push(userCookiesConstants.ANALYTICAL_COOKIES);
+        //if user is not logged in
+        if (!userInfo) {
+            sessionManager.setDataInCookies(cookiesData, cookiesConstants.USER_COOKIES);
+        } else {
+            //if user is logged in
+            const userCookiesDetails = await new Auth0Service().updateUserCookies({
+                userId: userInfo.sub,
+                cookiesAllowed: cookiesData
+            });
+        }
+        sessionManager.setDataInCookies(true, "isCookiesAccepted");
+        setIsCookiesAccepted(true);
+    }
 
 
     return (
         <>
-        {!storageMessage ?
-        (<div className={classes.container}>
-            <div className={classes.containerContent}>
-                <div className={classes.ourCookiesText}>Our Cookies Policy</div>
-                <div className={classes.container1}>
-                    {/* <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img> */}
-                    <div className={classes.text}>
-                        We use only essential cookies for storing and/on access profile information on a device.
-                        This includes features to create Watchlists, Transaction Labels and Address Tags.
-                        Even if you reject the cookies, you can still use this website but you will not be able to access features linked with your profile.
-                        <br /><br />
-                        You can find out more in our privacy policy at any time by going to the bottom of any page. 
-                    </div>
-                    <div className={classes.line}></div>
-                    <div>
-                        <div className={classes.manageText}>
-                            Manage cookies preferences
+            {!isCookiesAccepted ?
+                (<div className={classes.container}>
+                    <div className={classes.containerContent}>
+                        <div className={classes.ourCookiesText}>Our Cookies Policy</div>
+                        <div className={classes.container1}>
+                            {/* <img className={classes.alertIcon} src="/images/XDC-Alert.svg"></img> */}
+                            <div className={classes.text}>
+                                We use cookies to give you the best possible experience with XDC Observatory. 
+                                Some are essential for this site to function; others help us understand how you use the site, so we can improve it. 
+                                We may also use targeted cookies for advertising purposes. 
+                                Click “Accept all cookies” to proceed as specified, or click “Manage my preferences” to choose the types of cookies you will accept.
+                                <br/><br/>
+                                You can find out more in our <a className={classes.privacyText} style={{textDecoration: "underline"}} href="/privacy-policy">privacy policy</a> at any time by going to the bottom of any page. 
+                            </div>
+                            <div className={classes.buttonContainer}>
+                            <div className={classes.buttons}>
+                                <button className={classes.buttonAccept} onClick={saveMyPreferences}>Accept all cookies</button>
+                                <ManageCookiesDialog open={openDialog} close={closeDialog} setIsCookiesAccepted={setIsCookiesAccepted}/>
+                                <button className={classes.buttonReject} onClick={handleManage}>Manage my preferences</button>
+                            </div>
+                            </div>
                         </div>
-                        <div className={classes.buttons}>
-                            <button className={classes.buttonAccept} onClick={handleStorageMessage}>Accept all</button>
-                            <ManageCookiesDialog open={openDialog} close={closeDialog} />
-                            <button className={classes.buttonReject} onClick={handleManage}>Manage</button>
-                        </div>
                     </div>
-                </div> 
-            </div>
-        </div>):("")}
+                </div>) : ("")}
         </>
     )
 }

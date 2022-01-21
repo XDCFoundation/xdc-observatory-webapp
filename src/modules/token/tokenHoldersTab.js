@@ -76,7 +76,7 @@ const useStyles = makeStyles({
     borderBottom: "none",
     background: "#fff",
     "@media (min-width: 0px) and (max-width: 1240px)": {
-      height: "12.563rem",
+      // height: "12.563rem",
     },
   },
 

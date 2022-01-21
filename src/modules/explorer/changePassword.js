@@ -12,6 +12,7 @@ import { sessionManager } from "../../managers/sessionManager";
 import AuthService from "../../services/userLogin";
 import Loader from '../../assets/loader'
 import { genericConstants } from "../../constants";
+import { cookiesConstants } from "../../constants"
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -208,13 +209,16 @@ export default function ChangePassword(props) {
                 // utility.apiFailureToast("failed");
                 setErrorConfirmPassword("Failed to Change Password");
             } else {
-                setInterval((window.location.href = "/loginprofile"), 3000);
-                utility.apiSuccessToast("Password changed successfully");
-                sessionManager.setDataInCookies(authResponse, "userInfo");
-                sessionManager.setDataInCookies(true, "isLoggedIn");
-                sessionManager.setDataInCookies(authResponse?.sub, "userId");
                 setLoading(false);
-
+                const authObject = new AuthService();
+                await Utility.parseResponse(authObject.logout(userInfo.sub));
+                Utility.apiSuccessToast("Password changed successfully");
+                sessionManager.removeDataFromCookies("userId");
+                sessionManager.removeDataFromCookies("userInfo");
+                sessionManager.removeDataFromCookies("isLoggedIn");
+                sessionManager.removeDataFromCookies(cookiesConstants.USER_ID);
+                sessionManager.removeDataFromCookies(cookiesConstants.USER_PICTURE);
+                setInterval((window.location.href = "/dashboard"), 3000);
             }
         }
     };
