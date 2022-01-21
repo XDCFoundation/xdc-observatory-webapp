@@ -328,6 +328,7 @@ class BlockChainDataComponent extends Component {
     // await this.CountMaxtps();
 
     this.socketData(this.props.socket);
+    // this.socketDataNode(this.props.nodeSocket)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -398,6 +399,18 @@ class BlockChainDataComponent extends Component {
     });
   }
 
+  // socketDataNode(socket) {
+  //   socket.on("network-stats-nodes", (transactionData, error) => {
+  //     let nodesArr = []
+  //     nodesArr = transactionData.nodes;
+  //     let nodesActive = nodesArr.filter(transactionData, function (node) {
+
+  //       return node.stats.active === true;
+
+  //     }).length;
+  //     console.log(nodesArr, nodesActive, "<<<<<<<<<<<<transactionData")
+  //   });
+  // }
   /* FETCHING GET TOTAL TRANSACTIONS API*/
 
   async totalTransactionCount() {

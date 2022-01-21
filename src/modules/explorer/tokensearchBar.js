@@ -17,8 +17,8 @@ import Popover from "./popover";
 import ChangePassword from "./changePassword";
 import { sessionManager } from "../../managers/sessionManager";
 import { Row } from "simple-flexbox";
-import {eventConstants, recentSearchTypeConstants} from "../../constants";
-import {useDispatch} from "react-redux";
+import { eventConstants, recentSearchTypeConstants } from "../../constants";
+import { useDispatch } from "react-redux";
 
 const drawerWidth = 240;
 const Cut = styled.div`
@@ -571,7 +571,7 @@ export default function Navbar() {
             href="https://xinfin.network/#masternode"
           >
             <div className="xinfin_account_button">
-              Become a Master Node/Validator
+              Become a MasterNode/Validator
             </div>
           </a>
           <hr className="myhr" />
@@ -621,7 +621,7 @@ export default function Navbar() {
             href="https://apothem.network/#masternode"
           >
             <div className="xinfin_account_button">
-              Become a Master Node/Validator
+              Become a MasterNode/Validator
             </div>
           </a>
           <hr className="myhr" />
@@ -713,7 +713,7 @@ export default function Navbar() {
   text-decoration :  none;
   padding: 5px 20px;
   border-bottom: ${(props) =>
-    props.active ? "0.15rem solid #ffffff !important" : ""};
+      props.active ? "0.15rem solid #ffffff !important" : ""};
     padding-bottom: 3px;
     font-size: 0.938rem;
     font-weight: 500;
@@ -1002,7 +1002,7 @@ const SearchBox = ({
               }} */
               className="main-input-td "
               src={"/images/Search.png"}
-              placeholder="Search for an address, a Transaction or a block number"
+              placeholder="Search by Address / Txn Hash / Block"
             />
             {/* name="NAME" */}
             <div className="mobFilter">

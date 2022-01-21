@@ -133,14 +133,14 @@ export const messages = {
   GAS_USED: "The exact unit of gas that was used for the transactions.",
   FROM: "Sender’s account.",
   TO: "Receiver’s account.",
-  SI_NO: "Sl. No.",
-  SYMBOL: "A virtual currency token.",
+  SI_NO: "Serial Number",
+  SYMBOL: "Short name of the token",
   NAME: "Name of the token.",
-  TOKEN: "A virtual currency token or a denomination of a cryptocurrency.",
+  TOKEN: "A virtual currency token or a denomination of a cryptocurrency",
   TOKEN_TYPE: "Token type may include XRC20, XRC721 or XRC1155.",
   CONTRACT: "Smart Contract associated with the particular token.",
-  HOLDER: "The number of holders.",
-  TOKEN_TOTAL_SUPPLY: "Amount of tokens being transferred.",
+  HOLDER: "The total number of unique addresses that hold the token",
+  TOKEN_TOTAL_SUPPLY: "The number of coins that have been already created, minus any coins that have been burned",
   STATUS: "The token is either verified or unverified.",
   ACCOUNT_ADDRESS: "The unique address of a particular account.",
   ACCOUNT_TYPE: "Account type is either Account, Contract or Token.",
@@ -167,8 +167,12 @@ export const messages = {
   PERCENTAGE: "Percentage of holdings out of the total supply.",
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
   WALLET_ADDRESS: "Wallet address.",
-  QUANTITY: "The amount available in the wallet.",
-  EMAIL: "Email is required for sending the email notifications."
+  QUANTITY: "The amount available in the wallet",
+  EMAIL: "Email is required for sending the email notifications",
+  Total_Txn: "Total number of incoming and outgoing transaction",
+  Highest_Txn: "Highest amount send or received by the user",
+  Txn_Fee: "Total transaction fee paid by the user",
+  Tokens: "Number of XRC20 tokens available in the user's wallet",
 };
 
 export const toolTipMessages = {
@@ -206,9 +210,9 @@ export const contractMethodTypes = {
 
 
 export const recentSearchTypeConstants = {
-  TRANSACTION:'TRANSACTION',
-  ACCOUNT:'WALLET',
-  WALLET:'WALLET',
-  BLOCK:'TOKEN',
-  TOKEN:'TOKEN',
+  TRANSACTION: 'TRANSACTION',
+  ACCOUNT: 'WALLET',
+  WALLET: 'WALLET',
+  BLOCK: 'TOKEN',
+  TOKEN: 'TOKEN',
 }

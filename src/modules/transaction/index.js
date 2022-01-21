@@ -12,7 +12,7 @@ export default class LatestTransactionList extends BaseComponent {
     super(props);
     this.state = {
       from: 0,
-      amount: 50,
+      amount: 10,
       tableName: "Latest Transactions",
       transactionList: [],
       totalTransaction: 0,

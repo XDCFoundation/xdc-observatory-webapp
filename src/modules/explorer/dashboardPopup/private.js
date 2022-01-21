@@ -255,7 +255,7 @@ export default function FormDialog(props) {
       !(privateAddress && privateAddress.length === 43) ||
       !(privateAddress.slice(0, 3) === "xdc")
     ) {
-      setError("Address should start with xdc & 43 characters");
+      setError("Please add address that is having 43 characters and initiates with xdc");
       return;
     } else if (tags.length === 0) {
       setErrorTag("Press comma(,) to add tag");
@@ -389,56 +389,56 @@ export default function FormDialog(props) {
 
   return (
     <>
-    <div className="w-33p">
-      <div className="div1 cursor-pointer">
-        <div
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
+      <div className="w-33p">
+        <div className="div1 cursor-pointer">
+          <div
+            onClick={
+              width >= 760
+                ? handleClickOpen
+                : () => {
                   history.push("/test-address");
                 }
-          }
-        >
-          <img className="imagediv1" src={"/images/private.svg"}></img>
-        </div>
-        <div
-          className="imageParentDiv"
-          onClick={
-            width >= 760
-              ? handleClickOpen
-              : () => {
-                  history.push("/test-address");
-                }
-          }
-        >
-          <div className="headingdiv1">
-            <div>Add private tag to an Address</div>
-          </div>
-          <div className="paradiv1">
-            Add a short memo or private tag to the address of interest.
-          </div>
-        </div>
-
-        <LearnMoreParent>
-          <LightToolTip
-            open={tooltipIsOpen}
-            onClose={tooltipClose}
-            title="Add a short memo or private tag to the address of interest."
-            arrow
-            placement="top-start"
+            }
           >
-            <div
-              className="learnMoreText"
-              onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-            >
-              Learn More
+            <img className="imagediv1" src={"/images/private.svg"}></img>
+          </div>
+          <div
+            className="imageParentDiv"
+            onClick={
+              width >= 760
+                ? handleClickOpen
+                : () => {
+                  history.push("/test-address");
+                }
+            }
+          >
+            <div className="headingdiv1">
+              <div>Add private tag to an Address</div>
             </div>
-          </LightToolTip>
-        </LearnMoreParent>
-      </div>
+            <div className="paradiv1">
+              Add a short memo or private tag to the address of interest.
+            </div>
+          </div>
 
-      {/* <Button
+          <LearnMoreParent>
+            <LightToolTip
+              open={tooltipIsOpen}
+              onClose={tooltipClose}
+              title="Add a short memo or private tag to the address of interest."
+              arrow
+              placement="top-start"
+            >
+              <div
+                className="learnMoreText"
+                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+              >
+                Learn More
+              </div>
+            </LightToolTip>
+          </LearnMoreParent>
+        </div>
+
+        {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -447,7 +447,7 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-      {/* <div> */}
+        {/* <div> */}
         <Dialog
           // className={classes.dialog}
           classes={{ paperWidthSm: classes.dialogBox }}
@@ -543,7 +543,7 @@ export default function FormDialog(props) {
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
         </Dialog>
-      {/* </div> */}
+        {/* </div> */}
       </div>
     </>
   );
