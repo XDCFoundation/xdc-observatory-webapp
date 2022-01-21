@@ -225,6 +225,7 @@ export default function Navbar() {
             }
             let acc = accounts[0];
             acc = acc.replace("0x", "xdc")
+            acc = acc.toLowerCase();
             window.location.href = "/address-details/" + acc;
         });
     }
