@@ -107,7 +107,7 @@ export default function HolderTableComponent(props) {
     const [isLoading, setLoading] = useState(true);
     const [sortKey, setSortKey] = useState("");
     const [sortOrder, setSortOrder] = useState("");
-    let showPerPage = 50;
+    let showPerPage = 10;
     let datas = {};
     const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);
 

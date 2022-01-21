@@ -87,7 +87,7 @@ export default function AddressTableComponent(props) {
   const [checkAll, setCheckAll] = React.useState(0);
   const [isDownloadActive, setDownloadActive] = useState(0);
   const [noData, setNoData] = useState(false);
-  let showPerPage = 50;
+  let showPerPage = 10;
   let datas = {};
   let data = {};
   const [rowsPerPage, setRowsPerPage] = React.useState(showPerPage);

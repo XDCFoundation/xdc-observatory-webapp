@@ -160,8 +160,12 @@ export const messages = {
   PERCENTAGE: "Percentage of holdings out of the total supply.",
   HOLDER_RANK: "Holder’s rank sorted on the basis of Quantity.",
   WALLET_ADDRESS: "Wallet address.",
-  QUANTITY: "The amount available in the wallet.",
-  EMAIL: "Email is required for sending the email notifications."
+  QUANTITY: "The amount available in the wallet",
+  EMAIL: "Email is required for sending the email notifications",
+  Total_Txn: "Total number of incoming and outgoing transaction",
+  Highest_Txn: "Highest amount send or received by the user",
+  Txn_Fee: "Total transaction fee paid by the user",
+  Tokens: "Number of XRC20 tokens available in the user's wallet",
 };
 
 export const toolTipMessages = {
