@@ -325,6 +325,12 @@ export default function StickyHeadTable(props) {
         getTokenList(data);
     }
 
+    const navigateToTokenDetails = (row)=>{
+        window.location.href=`/token-data/${row.address}/${
+            row?.symbol ? row?.symbol : "NA"
+        }`
+    }
+
     // async function sortByHoldersCount() {
     //     setSortedByTotalSupply(0);
     //     let data = {skip: from, limit: amount, searchKey: keywords}
@@ -776,6 +782,7 @@ export default function StickyHeadTable(props) {
                         role="checkbox"
                         tabIndex={-1}
                         key={row._id}
+                        onClick={()=>navigateToTokenDetails(row)}
                       >
                         <TableCell id="td">
                           {index + 1}

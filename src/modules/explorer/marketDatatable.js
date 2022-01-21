@@ -378,7 +378,7 @@ class MarketDatatable extends Component {
           <div className={this.state.loading == true ? "cover-spin-4" : ""}>
             <div className="second_mid">
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   <MarketDataPointTitle>
                     Market Cap
                     <Tooltip placement="top" title={messages.MARKET_CAP}
@@ -434,7 +434,7 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Fully Diluted Market Cap
@@ -494,7 +494,7 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Volume (24hr)
@@ -549,7 +549,7 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Circulating Supply
@@ -578,7 +578,7 @@ class MarketDatatable extends Component {
               </div>
 
               <div className="second_cont">
-                <div className="w-54-per">
+                <div className="">
                   {" "}
                   <MarketDataPointTitle>
                     Total Supply
