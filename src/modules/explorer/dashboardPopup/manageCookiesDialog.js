@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
         display:'flex',
         flexDirection:"column",
         justifyContent:"center"
+    },
+    "@media (min-width:0px) and (max-width: 767px)": {
+        acceptAll: {
+            marginRight: "15px",
+        }
     }
 
 }));
