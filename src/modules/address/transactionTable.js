@@ -52,6 +52,7 @@ export default function TransactionTableComponent(props) {
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetailWithlimit(values));
+      console.log("responseData ",responseData)
       if (!responseData || responseData.length === 0) {
         setNoData(true);
         setTotalRecord(parseInt(0));
@@ -60,7 +61,7 @@ export default function TransactionTableComponent(props) {
         return;
       }
       let transactionSortByValue = responseData.sort((a, b) => {
-        return b.value - a.value;
+        return Number(b.value) - Number(a.value);
       });
       if (transactionSortByValue && transactionSortByValue.length > 0) {
         setAddress(transactionSortByValue);
@@ -78,6 +79,7 @@ export default function TransactionTableComponent(props) {
   const getTransactionsCountForAddress = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(AddressData.getTransactionsCountForAddress(data));
+      console.log("responseData ",responseData)
       if (!responseData) {
         setNoData(true);
       }
@@ -283,7 +285,7 @@ export default function TransactionTableComponent(props) {
     };
     getContractDetails(values);
     let data = {
-      addrr: ContractAddress,
+      address: ContractAddress,
     };
     getTransactionsCountForAddress(data);
     setLoading(false);
