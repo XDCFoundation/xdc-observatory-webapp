@@ -150,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormDialog(props) {
     const {open, onClose} = props
+    console.log("props",props)
     const [transactionsHash, setTransactionsHash] = React.useState("");
     const [privateNote, setPrivateNote] = React.useState("");
 
@@ -163,11 +164,11 @@ export default function FormDialog(props) {
       trxLable: privateNote,
       transactionHash: transactionsHash,
     };
-    const [error] = await utility.parseResponse(
+    const [error, response] = await utility.parseResponse(
       UserService.postUserPrivateNote(data)
     );
 
-    if (error) {
+    if (error || !response) {
         utility.apiFailureToast("Transaction private note not added");
         return;
       }
@@ -193,11 +194,11 @@ export default function FormDialog(props) {
         JSON.stringify(transactionLabel)
       );
       utility.apiSuccessToast("Transaction Added");
+      onClose();
       await props.getListOfTxnLabel();
       await props.getTotalCountTxnLabel();
       setTransactionsHash("");
       setPrivateNote("");
-      window.location.reload();
     }
 
   const classes = useStyles();
