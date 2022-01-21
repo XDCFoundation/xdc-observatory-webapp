@@ -523,7 +523,7 @@ function Web3Dialog(props) {
             </ImageContainer>
             <CardTitle>Install XDCPay</CardTitle>
             <CardText>
-              Install XDCPay Chrome extension from
+            Install the XDCPay Chrome extension
               <a
                 href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-GB"
                 target="_blank"
@@ -545,7 +545,7 @@ function Web3Dialog(props) {
             </ImageContainer>
             <CardTitle>Login to XDCPay</CardTitle>
             <CardText>
-              Login to you account on XDCPay Chrome extension.
+              Log in to your account on the XDCPay Chrome extension
             </CardText>
           </InstructionCard>
           <InstructionCard>
@@ -563,7 +563,7 @@ function Web3Dialog(props) {
             <CardText>
               {props.connectToWalletMessage
                 ? props.connectToWalletMessage
-                : "Click on ‘Search My Wallet’ to see your wallet transactions."}
+                : "Click on “Search My Wallet” to see your wallet transactions"}
             </CardText>
           </InstructionCard>
         </Row>
