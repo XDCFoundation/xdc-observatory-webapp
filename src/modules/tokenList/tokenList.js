@@ -625,7 +625,6 @@ export default function StickyHeadTable(props) {
                     </span>
                                     </TableCell>
                                 )} */}
-                                {props?.state?.tableColumns["Hash"].isActive && (
                                     <TableCell style={{border: "none"}} align="left">
                     <span className={"tablehead-token-details"} onClick={()=>sortTable("address")}>
                       Contract
@@ -652,7 +651,6 @@ export default function StickyHeadTable(props) {
                                 />) : ""}
                     </span>
                                     </TableCell>
-                                )}
 
                                 <TableCell
                                     style={{border: "none", whiteSpace: "nowrap"}}
@@ -799,7 +797,7 @@ export default function StickyHeadTable(props) {
                                                 {/* {props?.state?.tableColumns["Type"].isActive && (
                                                     <TableCell id="td">{row.type}</TableCell>
                                                 )} */}
-                                                {props?.state?.tableColumns["Hash"].isActive && (
+
                                                     <TableCell>
                                                         <a
                                                             className="token-details-address-link"
@@ -810,7 +808,7 @@ export default function StickyHeadTable(props) {
                                                             {shorten(row.address)}
                                                         </a>
                                                     </TableCell>
-                                                )}
+
 
                                                 <TableCell id="td" style={{paddingleft: "15"}}>
                                                     <Tooltip
