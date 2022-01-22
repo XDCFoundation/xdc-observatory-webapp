@@ -467,7 +467,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                                         <span
-                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                            // style={{ paddingLeft: "3px", marginRight: "3px" }}
                                         ></span>
                                         XDC Foundation Github
                                     </a>
@@ -480,7 +480,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                                         <span
-                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                            // style={{ paddingLeft: "3px", marginRight: "3px" }}
                                         ></span>
                                         XinFin Fintech Github
                                     </a>
@@ -493,7 +493,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                                         <span
-                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                            // style={{ paddingLeft: "3px", marginRight: "3px" }}
                                         ></span>
                                         Facebook
                                     </a>
@@ -506,7 +506,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                                         <span
-                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                            // style={{ paddingLeft: "3px", marginRight: "3px" }}
                                         ></span>
                                         Youtube
                                     </a>
@@ -519,7 +519,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                                         <span
-                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                            // style={{ paddingLeft: "3px", marginRight: "3px" }}
                                         ></span>
                                         Twitter
                                     </a>
@@ -535,7 +535,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                     <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
+                        // style={{paddingLeft: "3px", marginRight: "3px"}}
                     ></span>
                                         LinkedIn
                                     </a>
@@ -549,7 +549,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                     <span
-                        style={{paddingLeft: "3px", marginRight: "3px"}}
+                        // style={{paddingLeft: "3px", marginRight: "3px"}}
                     ></span>
                                         Telegram
                                     </a>
@@ -562,7 +562,7 @@ export default function FooterComponent(props) {
                                         target="_blank"
                                     >
                                         <span
-                                            style={{ paddingLeft: "3px", marginRight: "3px" }}
+                                            // style={{ paddingLeft: "3px", marginRight: "3px" }}
                                         ></span>
                                         Reddit
                                     </a>
