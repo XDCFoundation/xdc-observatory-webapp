@@ -85,7 +85,7 @@ const LeftFirst = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 1.125rem;
+  // padding-bottom: 1.125rem;
   @media (max-width: 767px) {
     padding: 1.875rem 0 0 0;
   }
