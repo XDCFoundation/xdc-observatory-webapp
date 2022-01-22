@@ -777,6 +777,8 @@ const ImageView = styled.img`
   @media (min-width: 0px) and (max-width: 767px) {
     width: 22px;
     // height: 14px;
+    margin-right: 6px;
+    margin-left: -4px;
   }
 
   @media (min-width: 768px) and (max-width: 1240px) {

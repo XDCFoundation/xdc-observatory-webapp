@@ -1633,7 +1633,7 @@ div::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   height: 27.063rem;
-  /* background-color: #2149b9; */
+  /* background-color:  */
   background-image: url("../images/banner_bg.png");
 }
 
@@ -3739,8 +3739,8 @@ body {
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .days p {
-    margin-top: 0px;
-    padding-top: 5px;
+    margin-top: -5px;
+    padding-top: 3px;
   }
 }
 
