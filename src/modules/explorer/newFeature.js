@@ -49,26 +49,75 @@ export default function NewFeature(props) {
         top: "40px",
         borderRadius: "0px",
       }
+    },
+    alertContainerMob: {
+      width: "100%",
+      background: "#4878ff",
+      position: "fixed",
+      bottom: "0",
+      zIndex: 1,
+    },
+    contentContainerMob: {
+      display: "flex",
+      justifyContent: "space-between",
+      flexFlow: "row nowrap",
+      padding: "12px 16px 18px 16px",
+    },
+    theAllNewXdcObservatory: {
+      fontSize: "15px",
+      fontWeight: "bold",
+      color: "#ffffff",
+    },
+    tapHereToSeeNewFeatures: {
+      display: "flex",
+      fontSize: "15px",
+      color: "#ffffff",
+    },
+    tapHere: {
+      textDecoration: "underline",
+    },
+    closeMob: {
+      width: "12px",
+      height: "12px",
+      margin: "auto 0",
     }
   }))
   const classes = useStyles();
+  const [newFeatureOpenInMobile, setNewFeatureOpenInMobile] = React.useState(false);
+  const [isOpenMobileAlert, setIsOpenMobileAlert] = React.useState(true);
 
   const visited = () => {
     sessionManager.setDataInCookies(true, "Visited");
   }
   const userInfo = sessionManager.getDataFromCookies("userInfo");
 
+  const handleOpenNewFeatureMobile = () => {
+    setNewFeatureOpenInMobile(true);
+    setOpen(true);
+  }
+  const handleCloseMobileAlert = () => {
+    setIsOpenMobileAlert(false);
+  }
+
   return (
-    <>
-      {!userInfo && !closeForNow ?
+    <>{window.innerWidth >= 768 || newFeatureOpenInMobile ?
+      (!userInfo && !closeForNow ?
 
         (!signUp ? <Dialog id="new-features" onClose={handleClose} open={open} classes={{ paperWidthSm: classes.dialogBox }}>
           <div className="main-box" >
             <Row className="main-row">
+            {window.innerWidth >=768 ? 
+              <>
               <div className="main-title">New Features</div>
               <div className="main-close" onClick={handleClose}>
                 <img alt="Cross" src={"/images/XDC-Cross.svg"} />
               </div>
+              </> : <>
+              <div onClick={handleClose}>
+                <img  className="back-newFeature" alt="back" src={"/images/backbutton.svg"} />
+              </div>
+              <div className="main-title">New Features</div>
+              </>} 
             </Row>
             <div className="main-sub-title">
               Create your account to get started
@@ -124,7 +173,22 @@ export default function NewFeature(props) {
             </div>
           </div>
         </Dialog> :
-          <FormDialog isNewFeatureComponent={true} />) : ("")}</>
+          <FormDialog isNewFeatureComponent={true} />) : ("")):
+          (!userInfo && !closeForNow && isOpenMobileAlert ?
+            <>
+            <div className={classes.alertContainerMob}>
+              <div className={classes.contentContainerMob}>
+                <div className={classes.textMobContainer}>
+                  <div className={classes.theAllNewXdcObservatory}>The all new XDC Observatory</div>
+                  <div className={classes.tapHereToSeeNewFeatures}>
+                    <div className={classes.tapHere} onClick={handleOpenNewFeatureMobile}>Tap here</div>
+                    &nbsp;to see new features
+                  </div>
+                </div>
+                <img className={classes.closeMob} onClick={handleCloseMobileAlert} src="/images/xdc-cross-white.svg" alt="close icon"></img>
+              </div>
+            </div>
+          </>:"")}</>
 
   );
 }

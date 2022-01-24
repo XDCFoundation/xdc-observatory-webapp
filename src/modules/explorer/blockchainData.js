@@ -31,7 +31,7 @@ const MainContainer = styled.div`
   //border-radius: 12px;
   //box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   //border: solid 1px #e3e7eb;
-  border-top: solid 1px #e3e7eb;
+  border-top: solid 1px #ffffff;
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
@@ -98,8 +98,9 @@ const RightContainer = styled.div`
 const LeftSec = styled.div`
   flex: 0.7;
   margin-top: 10px;
+  padding-top: 28px;
   @media (min-width: 335px) and (max-width: 767px) {
-    padding: 0 3%;
+    padding: 3%;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
  margin-top: 30px;

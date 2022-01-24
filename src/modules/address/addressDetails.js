@@ -85,18 +85,18 @@ const useStyles = makeStyles({
   },
 });
 const MainContanier = styled.div`
-  height: 231px;
+  // height: 231px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   padding: 18px;
-  margin-bottom: 35px;
-  @media (max-width: 767px) {
-    height: 427px;
-  }
-  @media (min-width: 768px) and (max-width: 1240px) {
-    height: 249px;
-  }
+  // margin-bottom: 35px;
+  // @media (max-width: 767px) {
+  //   height: 427px;
+  // }
+  // @media (min-width: 768px) and (max-width: 1240px) {
+  //   height: 249px;
+  // }
 `;
 const MainDiv = styled.div`
   display: flex;
