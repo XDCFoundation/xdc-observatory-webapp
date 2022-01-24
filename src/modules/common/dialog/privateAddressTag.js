@@ -121,14 +121,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormDialog(props) {
-  // console.log(props, "<<<<props")
   const { open, onClose } = props
   const [privateAddress, setPrivateAddress] = React.useState();
   const [nameTag, setNameTag] = React.useState(false);
   // const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
-    if(props?.value === 1 && props?.fromAddr){
-    setPrivateAddress(props?.fromAddr);
+    if (props?.value === 1 && props?.fromAddr) {
+      setPrivateAddress(props?.fromAddr);
     } else {
       setPrivateAddress(props?.toAddr)
     }

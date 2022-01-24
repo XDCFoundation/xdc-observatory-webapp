@@ -33,7 +33,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   justify-content: center;
   color: #686868;
   display: flex;
@@ -47,7 +47,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     height: 0.938rem;
     color: #686868;
     font-size: 0.75rem;
@@ -382,12 +382,12 @@ class MarketDatatable extends Component {
                   <MarketDataPointTitle>
                     Market Cap
                     <Tooltip placement="top" title={messages.MARKET_CAP}
-                             open={this.state.marketCapTT}
-                             onOpen={() => this.setState({marketCapTT:true})}
-                             onClose={() => this.setState({marketCapTT:false})}>
+                      open={this.state.marketCapTT}
+                      onOpen={() => this.setState({ marketCapTT: true })}
+                      onClose={() => this.setState({ marketCapTT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({marketCapTT: !prev.marketCapTT}))}
-                          alt="question-mark"
+                        onClick={() => this.setState((prev) => ({ marketCapTT: !prev.marketCapTT }))}
+                        alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -439,13 +439,13 @@ class MarketDatatable extends Component {
                   <MarketDataPointTitle>
                     Fully Diluted Market Cap
                     <Tooltip placement="top" title={messages.FDMP}
-                             open={this.state.fullDilutedMarketCapTT}
-                             onOpen={() => this.setState({fullDilutedMarketCapTT:true})}
-                             onClose={() => this.setState({fullDilutedMarketCapTT:false})}>
+                      open={this.state.fullDilutedMarketCapTT}
+                      onOpen={() => this.setState({ fullDilutedMarketCapTT: true })}
+                      onClose={() => this.setState({ fullDilutedMarketCapTT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({fullDilutedMarketCapTT: !prev.fullDilutedMarketCapTT}))}
+                        onClick={() => this.setState((prev) => ({ fullDilutedMarketCapTT: !prev.fullDilutedMarketCapTT }))}
 
-                          alt="question-mark"
+                        alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -499,11 +499,11 @@ class MarketDatatable extends Component {
                   <MarketDataPointTitle>
                     Volume (24hr)
                     <Tooltip placement="top" title={messages.VOLUMEX24}
-                             open={this.state.volume24TT}
-                             onOpen={() => this.setState({volume24TT:true})}
-                             onClose={() => this.setState({volume24TT:false})}>
+                      open={this.state.volume24TT}
+                      onOpen={() => this.setState({ volume24TT: true })}
+                      onClose={() => this.setState({ volume24TT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({volume24TT: !prev.volume24TT}))}
+                        onClick={() => this.setState((prev) => ({ volume24TT: !prev.volume24TT }))}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
@@ -557,12 +557,12 @@ class MarketDatatable extends Component {
                       placement="top"
                       title={messages.CIRCULATING_SUPPLY}
                       open={this.state.circulatingSupplyTT}
-                      onOpen={() => this.setState({circulatingSupplyTT:true})}
-                      onClose={() => this.setState({circulatingSupplyTT:false})}
+                      onOpen={() => this.setState({ circulatingSupplyTT: true })}
+                      onClose={() => this.setState({ circulatingSupplyTT: false })}
                     >
                       <img
-                          onClick={() => this.setState((prev)=>({circulatingSupplyTT: !prev.circulatingSupplyTT}))}
-                          alt="question-mark"
+                        onClick={() => this.setState((prev) => ({ circulatingSupplyTT: !prev.circulatingSupplyTT }))}
+                        alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"
                       />
@@ -583,11 +583,11 @@ class MarketDatatable extends Component {
                   <MarketDataPointTitle>
                     Total Supply
                     <Tooltip placement="top" title={messages.TOTAL_SUPPLY}
-                             open={this.state.totalSupplyTT}
-                             onOpen={() => this.setState({totalSupplyTT:true})}
-                             onClose={() => this.setState({totalSupplyTT:false})}>
+                      open={this.state.totalSupplyTT}
+                      onOpen={() => this.setState({ totalSupplyTT: true })}
+                      onClose={() => this.setState({ totalSupplyTT: false })}>
                       <img
-                          onClick={() => this.setState((prev)=>({totalSupplyTT: !prev.totalSupplyTT}))}
+                        onClick={() => this.setState((prev) => ({ totalSupplyTT: !prev.totalSupplyTT }))}
                         alt="question-mark"
                         src="/images/info.svg"
                         className="tooltipInfoIconMarketData"

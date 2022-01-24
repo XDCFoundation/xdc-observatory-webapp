@@ -38,7 +38,7 @@ const QuestionName = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  
   text-align: left;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
@@ -108,7 +108,7 @@ const InputName = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -165,7 +165,7 @@ const HighlightedText = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+
   text-align: left;
   color: #2149b9;
 `;
@@ -367,16 +367,16 @@ export default function ContractRead(props) {
       <ParentContainer>
         {state.readFunctions && state.readFunctions.length
           ? state.readFunctions.map((item, index) => {
-              return (
-                <FunctionContainer
-                  item={item}
-                  index={index}
-                  setState={setState}
-                  state={state}
-                  handleFunctionClick={handleFunctionClick}
-                />
-              );
-            })
+            return (
+              <FunctionContainer
+                item={item}
+                index={index}
+                setState={setState}
+                state={state}
+                handleFunctionClick={handleFunctionClick}
+              />
+            );
+          })
           : ""}
       </ParentContainer>
     </Paper>
@@ -493,7 +493,7 @@ const InputTypeFunctions = ({
       } else if (input.type.includes("map")) {
         try {
           request[element] = JSON.parse(request[element]);
-        } catch (error) {}
+        } catch (error) { }
       } else {
         request[element] = request[element];
       }

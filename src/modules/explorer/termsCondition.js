@@ -16,7 +16,7 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
@@ -33,7 +33,7 @@ const Subheading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
@@ -48,7 +48,7 @@ const PointHeading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:0px) and (max-width:767px) {
@@ -63,7 +63,7 @@ const Para = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
 `;
@@ -73,7 +73,7 @@ const Para1 = styled.div`
   font-family: Inter;
   font-size: 15px;
   line-height: 1.27;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -119,7 +119,7 @@ const BlockNumber = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -148,11 +148,11 @@ const useStyles = makeStyles((theme) => ({
   textStyle3: {
     fontWeight: 500,
   },
-  
+
 }));
 
 export default function TermsCondition() {
-  
+
   const classes = useStyles();
   return (
     <div>
@@ -164,7 +164,7 @@ export default function TermsCondition() {
           <Para1>
             This website at{" "}
             <a href="" style={{ color: "#2149b9" }}>
-            https://observer.xdc.org/{" "}
+              https://observer.xdc.org/{" "}
             </a>
             (hereinafter referred to as the “Website”) is published and
             maintained to provide information and material related to the XDC
@@ -186,7 +186,7 @@ export default function TermsCondition() {
               within the Website and explains certain rights you may have as a
               user. You can access the privacy policy at{" "}
               <a href="" style={{ color: "#2149b9" }}>
-              https://observer.xdc.org/privacy-policy{" "}
+                https://observer.xdc.org/privacy-policy{" "}
               </a>
             </Para>
             <PointHeading>User-Defined Content </PointHeading>
@@ -374,11 +374,11 @@ export default function TermsCondition() {
               regardless of the cause of the unavailability.
             </Para>
           </BlockNumber>
-          
+
         </div>
-        
+
       </Div>
-      
+
 
       <FooterComponent />
     </div>

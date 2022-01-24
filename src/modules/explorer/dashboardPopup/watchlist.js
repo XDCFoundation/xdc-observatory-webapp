@@ -182,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
+
     lineHeight: "1.58",
   },
 
@@ -221,7 +221,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0px",
+
   },
 })(Tooltip);
 
