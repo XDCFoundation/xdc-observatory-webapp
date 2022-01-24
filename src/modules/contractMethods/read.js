@@ -35,10 +35,6 @@ const QuestionName = styled.div`
   font-family: Inter;
   font-size: 15px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
@@ -105,10 +101,6 @@ const InputName = styled.div`
   font-family: Inter;
   font-size: 14px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -162,10 +154,6 @@ const HighlightedText = styled.div`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-
   text-align: left;
   color: #2149b9;
 `;

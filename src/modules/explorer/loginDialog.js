@@ -173,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row nowrap",
     display: "flex",
     marginLeft: "24px",
-    marginTop: "15px",
+    marginTop: "10px",
   },
   termsContainer: {
     flexFlow: "row nowrap",
@@ -489,6 +489,7 @@ export default function FormDialog(props) {
   const [errorEmailVerified, setErrorEmailVerified] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = React.useState("");
+  const [errorPrivacyPolicy, setErrorPrivacyPolicy] = React.useState("");
   const [errorTermsCondition, setErrorTermsCondition] = React.useState("");
   const [newFeatureSignupPropsValue, setNewFeatureSignupPropsValue] = React.useState(false);
   const [errorCaptcha, setErrorCaptcha] = React.useState("");
@@ -563,6 +564,7 @@ export default function FormDialog(props) {
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
+    setErrorPrivacyPolicy("");
     setErrorCaptcha("");
     setErrorEmailVerified(false);
     setCaptchaError("");
@@ -581,6 +583,8 @@ export default function FormDialog(props) {
     setEmail("")
     setUserName("")
     setPassword("")
+    setErrorEmail("");
+    setErrorPassword("");
   };
   const handleOpenForgotPassword = () => {
     setValue(3);
@@ -673,6 +677,7 @@ export default function FormDialog(props) {
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
+    setErrorPrivacyPolicy("");
     setErrorCaptcha("");
     if (!userName) {
       setErrorUserName(genericConstants.ENTER_REQUIRED_FIELD);
@@ -713,7 +718,8 @@ export default function FormDialog(props) {
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
       setLoading(false);
-    } else {
+    }
+    else {
       if (reCaptcha === "") {
         setCaptchaError(genericConstants.RECAPTCHA_ERROR);
         setLoading(false);
@@ -761,6 +767,7 @@ export default function FormDialog(props) {
     setErrorPassword("");
     setErrorConfirmPassword("");
     setErrorTermsCondition("");
+    setErrorPrivacyPolicy("");
     setErrorCaptcha("");
   };
 
@@ -1162,6 +1169,7 @@ export default function FormDialog(props) {
                 </a>
               </span>
             </div>
+            <div className={classes.error1}>{errorTermsCondition}</div>
             <div className={classes.privacyContainer}>
               <input
                 className={classes.checkbox}
@@ -1175,7 +1183,7 @@ export default function FormDialog(props) {
                 </a>
               </span>
             </div>
-            <div className={classes.error1}>{errorTermsCondition}</div>
+            <div className={classes.error1}>{errorPrivacyPolicy}</div>
             {/* <div
                             style={{
                                 width: "100%",

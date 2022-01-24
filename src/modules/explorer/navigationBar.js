@@ -381,8 +381,44 @@ export default function Navbar() {
                     </p>
                     <hr className="myhr" />
                 </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://medium.com/xdc-foundation-communications" target="_blank"
+                    >
+                        <div className="xinfin_account_button">About XDC</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-US" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDCPay</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://github.com/xdcfoundation" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDC Github</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
+                <ul className="Network-list-nav">
+                    <a
+                        className="sidebar-links"
+                        href="https://xdcroadmap.org/" target="_blank"
+                    >
+                        <div className="xinfin_account_button">XDC Roadmap</div>
+                    </a>
+                    <hr className="myhr" />
+                </ul>
 
-                <ul className="inside-side-box">
+                {/* <ul className="inside-side-box">
                     <p
                         className="xinfin_api_button"
                         onClick={() => setOpen(true)}
@@ -406,7 +442,7 @@ export default function Navbar() {
                         Nodes
                     </p>
                     <hr className="myhr" />
-                </ul>
+                </ul> */}
             </List>
         </div>
     );
