@@ -37,10 +37,6 @@ const QuestionName = styled.div`
   font-family: Inter;
   font-size: 15px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
@@ -97,10 +93,6 @@ const InputName = styled.div`
   font-family: Inter;
   font-size: 14px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -132,10 +124,6 @@ const Title = styled.div`
   font-family: Inter;
   font-size: 16px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -171,10 +159,6 @@ const HighlightedText = styled.div`
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   color: #2149b9;
 `;
@@ -231,10 +215,6 @@ const ConnectToWalletButton = styled.div`
   display: flex;
   background-color: ${(props) => (props.isActive ? "#3763dd" : "#e5eafa")};
   cursor: ${(props) => (props.isActive ? "" : "pointer")};
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  
   text-align: left;
   color: ${(props) => (props.isActive ? "white" : "#3763dd")};
 `;

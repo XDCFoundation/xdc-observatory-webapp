@@ -8,7 +8,15 @@ import Auth0Service from "../../../services/userLogin";
 import { history } from "../../../managers/history";
 
 const useStyles = makeStyles((theme) => ({
-
+    // cookiesBackground: {
+    //     background: "#2a2a2a",
+    //     opacity: "0.3",
+    //     position: "absolute",
+    //     top: 0,
+    //     bottom: 0,
+    //     left: 0,
+    //     right: 0,
+    // },
     container: {
         width: "100%",
         background: "#102e84",
@@ -238,7 +246,8 @@ export default function StorageMessage() {
                             </div>
                         </div>
                     </div>
-                </div>) : ("")}
+                </div>
+                ) : ("")}
         </>
     )
 }

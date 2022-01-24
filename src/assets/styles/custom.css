@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
 body {
   background-color: #ffffff;
+  letter-spacing: unset !important;
 }
 a {
   text-decoration: none;
@@ -1701,6 +1702,10 @@ div::-webkit-scrollbar-thumb {
     margin-top: 0px !important;
     line-height: 1 !important ;
   }
+  .Shape3 {
+    margin-top: 74px;
+    width: 153px;
+  }
   /* .XDC:hover {
     font-size: 14px !important;
     margin-left: 4px !important;
@@ -3180,7 +3185,17 @@ p {
   color: #ffffff;
   margin-top: 20px;
 }
-
+.Network-list-nav {
+  padding: 0 0px 0 13px !important;
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
 .margin-top-20px {
   margin-top: 20px;
 }
@@ -4453,7 +4468,7 @@ button {
 }
 
 .content {
-  padding-top: 10px;
+  /* padding-top: 10px; */
   background: transparent;
   width: 100%;
   height: 100%;
@@ -5534,8 +5549,7 @@ button {
 }
 .card {
   width: 212px;
-  height: 209px;
-  padding-bottom: 18px;
+  padding: 0 15px 10px 15px;
   border-radius: 12px;
   border: solid 1px #eaeaea;
   background-color: #f6f7fa;
@@ -5566,7 +5580,7 @@ button {
 
   text-align: center;
   color: #686868;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 .crad-image {
   width: 50px;
@@ -5639,6 +5653,10 @@ button {
 @media (min-width: 0px) and (max-width: 767px) {
   .main-close {
     display: none;
+  }
+  .back-newFeature {
+    position: absolute;
+    left: 15px;
   }
 }
 .main-checkbox {
@@ -6511,8 +6529,8 @@ button {
     display: flex;
     flex-direction: column;
     width: 41.5rem;
-    margin-top: 20px;
-    height: 11.875rem;
+    /* margin-top: 20px; */
+    /* height: 11.875rem; */
   }
   .main_mid_address {
     display: flex;
@@ -6528,8 +6546,8 @@ button {
   .main_mid {
     display: flex;
     width: 75.125rem;
-    height: 6.183rem;
-    margin-top: 50px;
+    /* height: 6.183rem; */
+    margin-top: 20px;
   }
   .main_mid_address {
     display: flex;
@@ -6860,7 +6878,7 @@ button {
     padding: 0 10px 0 10px;
   }
   .second_mid_address {
-    margin-top: 22px;
+    margin-top: 25px;
     margin-left: auto;
     margin-right: auto;
     width: 21rem;
@@ -9157,23 +9175,23 @@ button {
   margin: auto;
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
     width: auto;
   }
-}
+} */
 
-@media (min-width: 640px) and (max-width: 1023px) {
+/* @media (min-width: 768px) and (max-width: 1023px) {
   .responsive-table-width-contract-list {
     border-radius: 14px;
     margin-left: 5%;
     margin-right: 5%;
     width: auto;
   }
-}
+} */
 
 .responsive-table-width-token-list {
   border-radius: 0.75rem;
@@ -9830,8 +9848,8 @@ button {
     margin-left: 0% !important;
   }
   .contact-list-tab {
-    width: 21rem !important;
-    margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
   }
   .div-searchelement_11 {
     margin-top: 140px !important;
@@ -10567,7 +10585,7 @@ button {
     align-self: flex-end !important;
   }
   #new-features .MuiPaper-root {
-    width: 100%;
+    width: 100% !important;
     margin-left: auto;
     margin-right: auto;
     height: 100%;
@@ -10582,7 +10600,7 @@ button {
   }
 }
 #new-features .MuiPaper-root {
-  max-width: 900px !important;
+  /* max-width: 900px !important; */
   width: 95%;
 }
 .show-tooltip {
