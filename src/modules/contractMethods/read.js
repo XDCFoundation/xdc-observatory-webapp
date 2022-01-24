@@ -355,16 +355,16 @@ export default function ContractRead(props) {
       <ParentContainer>
         {state.readFunctions && state.readFunctions.length
           ? state.readFunctions.map((item, index) => {
-              return (
-                <FunctionContainer
-                  item={item}
-                  index={index}
-                  setState={setState}
-                  state={state}
-                  handleFunctionClick={handleFunctionClick}
-                />
-              );
-            })
+            return (
+              <FunctionContainer
+                item={item}
+                index={index}
+                setState={setState}
+                state={state}
+                handleFunctionClick={handleFunctionClick}
+              />
+            );
+          })
           : ""}
       </ParentContainer>
     </Paper>
@@ -481,7 +481,7 @@ const InputTypeFunctions = ({
       } else if (input.type.includes("map")) {
         try {
           request[element] = JSON.parse(request[element]);
-        } catch (error) {}
+        } catch (error) { }
       } else {
         request[element] = request[element];
       }

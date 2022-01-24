@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
         fontStretch: "normal",
         fontStyle: "normal",
         lineHeight: "normal",
-        letterSpacing: "0px",
         textAlign: "center",
         color: "#2a2a2a",
 
@@ -86,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "500",
         fontStretch: "normal",
         fontStyle: "normal",
-        letterSpacing: "0px",
+
         color: "#2a2a2a",
     },
     passwordText: {
@@ -96,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "500",
         fontStretch: "normal",
         fontStyle: "normal",
-        letterSpacing: "0px",
+
         color: "#2a2a2a",
     },
     heading: {

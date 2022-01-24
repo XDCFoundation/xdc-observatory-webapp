@@ -9,7 +9,7 @@ import TableBody from "@material-ui/core/TableBody";
 import Loader from "../../assets/loader";
 import utility from "../../utility";
 import Paper from "@material-ui/core/Paper";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Utility from "../../utility";
@@ -38,7 +38,7 @@ const TransactionTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;
@@ -49,7 +49,7 @@ const TransactionSubTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   font-family: Inter;
   font-size: 0.75rem;
@@ -90,16 +90,16 @@ const LatestTransactionView = (props) => {
         >
             {props.isHomePage ? (
                 <>
-                <TransactionHeaderContainer>
-                    <TransactionTitle>Latest Transactions</TransactionTitle>
-                    <a
-                        className="linkTable cursor-pointer"
-                        href="/view-all-transaction"
-                    >
-                        View All
-                    </a>
-                </TransactionHeaderContainer>
-                <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
+                    <TransactionHeaderContainer>
+                        <TransactionTitle>Latest Transactions</TransactionTitle>
+                        <a
+                            className="linkTable cursor-pointer"
+                            href="/view-all-transaction"
+                        >
+                            View All
+                        </a>
+                    </TransactionHeaderContainer>
+                    <TransactionSubTitle>{'The most recently published transactions'}</TransactionSubTitle>
                 </>
 
             ) : (
@@ -109,60 +109,60 @@ const LatestTransactionView = (props) => {
                 <TableHead>
                     <TableRow>
                         {props?.showHash && (
-                            <TableCell style={{border: "none", paddingLeft: '25px'}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Hash
-                      <Tooltip placement="top" open={hashTT}
-                               title={messages.HASH}
-                               onOpen={() => setHashTT(true)}
-                               onClose={() => setHashTT(false)}
-                      >
-                        <img
-                            onClick={() => setHashTT(!hashTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                    </span>
+                            <TableCell style={{ border: "none", paddingLeft: '25px' }} align="left">
+                                <span className={"tablehead-token-details"}>
+                                    Hash
+                                    <Tooltip placement="top" open={hashTT}
+                                        title={messages.HASH}
+                                        onOpen={() => setHashTT(true)}
+                                        onClose={() => setHashTT(false)}
+                                    >
+                                        <img
+                                            onClick={() => setHashTT(!hashTT)}
+                                            alt="question-mark"
+                                            src="/images/info.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        />
+                                    </Tooltip>
+                                </span>
                             </TableCell>
                         )}
-                        <TableCell style={{border: "none"}} align="left">
-                  <span className={"tablehead-token-details"}>
-                    Amount
-                    <Tooltip placement="top" title={messages.AMOUNT}
-                             open={amountTT}
-                             onOpen={() => setAmountTT(true)}
-                             onClose={() => setAmountTT(false)}
-                    >
-                      <img
-                          onClick={() => setAmountTT(!amountTT)}
-                          alt="question-mark"
-                          src="/images/info.svg"
-                          height={"14px"}
-                          className="tooltipInfoIcon"
-                      />
-                    </Tooltip>
-                  </span>
+                        <TableCell style={{ border: "none" }} align="left">
+                            <span className={"tablehead-token-details"}>
+                                Amount
+                                <Tooltip placement="top" title={messages.AMOUNT}
+                                    open={amountTT}
+                                    onOpen={() => setAmountTT(true)}
+                                    onClose={() => setAmountTT(false)}
+                                >
+                                    <img
+                                        onClick={() => setAmountTT(!amountTT)}
+                                        alt="question-mark"
+                                        src="/images/info.svg"
+                                        height={"14px"}
+                                        className="tooltipInfoIcon"
+                                    />
+                                </Tooltip>
+                            </span>
                         </TableCell>
                         {props?.showDate && (
-                            <TableCell style={{border: "none"}} align="left">
-                    <span className={"tablehead-token-details"}>
-                      Timestamp
-                      <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}
-                               open={timeStampTT}
-                               onOpen={() => setTimeStampTT(true)}
-                               onClose={() => setTimeStampTT(false)}>
-                        <img
-                            onClick={() => setTimeStampTT(!timeStampTT)}
-                            alt="question-mark"
-                            src="/images/info.svg"
-                            height={"14px"}
-                            className="tooltipInfoIcon"
-                        />
-                      </Tooltip>
-                    </span>
+                            <TableCell style={{ border: "none" }} align="left">
+                                <span className={"tablehead-token-details"}>
+                                    Timestamp
+                                    <Tooltip placement="top" title={messages.TRANSACTION_CREATION_TIME_STAMP}
+                                        open={timeStampTT}
+                                        onOpen={() => setTimeStampTT(true)}
+                                        onClose={() => setTimeStampTT(false)}>
+                                        <img
+                                            onClick={() => setTimeStampTT(!timeStampTT)}
+                                            alt="question-mark"
+                                            src="/images/info.svg"
+                                            height={"14px"}
+                                            className="tooltipInfoIcon"
+                                        />
+                                    </Tooltip>
+                                </span>
                             </TableCell>
                         )}
 

@@ -203,7 +203,6 @@ input#password {
 input#password[placeholder] {
   text-overflow: ellipsis;
   font-size: 16px;
-  letter-spacing: 0px;
 }
 ::placeholder {
   color: #9fa9ba;
@@ -708,7 +707,7 @@ input:focus {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #ffffff;
     margin-top: 2px;
   }
@@ -963,7 +962,7 @@ input:focus {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 1;
   color: #2a2a2a;
@@ -977,7 +976,6 @@ input:focus {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 
 .containerTag {
@@ -1209,7 +1207,7 @@ div::-webkit-scrollbar-thumb {
     font-family: Inter;
     font-size: 14px !important;
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     margin-left: 10px !important;
   }
@@ -1467,7 +1465,7 @@ div::-webkit-scrollbar-thumb {
     font-size: 14px !important;
     /* font-weight: 600 !important; */
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
   /* .contractSummary {
@@ -1556,7 +1554,7 @@ div::-webkit-scrollbar-thumb {
     font-size: 14px !important;
     /* font-weight: 600 !important; */
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
   /* .contractSummary {
@@ -1645,7 +1643,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -1668,7 +1666,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 2px;
 }
@@ -1680,7 +1678,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   /* margin-top: 1.25rem; */
   cursor: pointer;
@@ -1692,7 +1690,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+  
   color: #ffffff;
   margin-top: 0.25rem;
   cursor: pointer;
@@ -1750,7 +1748,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 2px;
   list-style: none;
@@ -1765,7 +1763,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1781,7 +1779,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1796,7 +1794,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1810,7 +1808,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1844,7 +1842,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1869,7 +1867,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1884,7 +1882,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1898,7 +1896,7 @@ div::-webkit-scrollbar-thumb {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #ffffff;
   display: inline-block;
   position: absolute;
@@ -1999,7 +1997,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -2139,7 +2137,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -2152,7 +2150,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #3a3a3a;
 }
 
@@ -2249,7 +2247,7 @@ p {
   border: 1px solid #cccccc;
   border-color: transparent;
   display: inline-block;
-  letter-spacing: 0px !important;
+
   text-align: left;
   font-size: 1.063rem;
   padding-left: 10px;
@@ -2267,7 +2265,6 @@ p {
     background-size: 17px 17px;
     outline-color: #ffffff;
     border-color: transparent;
-    letter-spacing: 0px !important;
   }
   .main-input::placeholder {
     color: #9fa9ba !important;
@@ -2366,7 +2363,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #4f4f4f;
 }
@@ -2426,7 +2423,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2460,7 +2457,7 @@ p {
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2559,7 +2556,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #4f4f4f;
 }
@@ -2613,7 +2610,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   margin: 4px 0;
@@ -2649,7 +2646,7 @@ p {
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2661,7 +2658,7 @@ p {
   font-stretch: normal;
   font-style: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2669,7 +2666,7 @@ p {
 .last-contract {
   font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   margin: 4px 0;
 }
@@ -2677,7 +2674,7 @@ p {
 .last-contract-disabled {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   cursor: text;
 }
@@ -2686,21 +2683,21 @@ p {
   margin: 4px 0;
   font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
 .last {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
 .first {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -2734,7 +2731,7 @@ p {
   border-color: transparent;
   display: flex;
   text-align: left;
-  letter-spacing: 0rem;
+
   font-size: 0.938rem;
   font-weight: 500;
   /* padding: 0.125rem 0.125rem 0px 0.125rem; */
@@ -2774,7 +2771,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   background-color: #ffffff !important;
 }
@@ -2792,7 +2789,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a !important;
   outline: none;
 }
@@ -2855,7 +2852,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 10px;
 }
@@ -2908,7 +2905,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -2924,7 +2921,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -2936,7 +2933,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #686868;
 }
@@ -2950,7 +2947,7 @@ p {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     color: #686868;
     margin-right: 20px;
@@ -2983,7 +2980,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -2995,7 +2992,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #f60202;
 }
@@ -3021,7 +3018,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -3076,7 +3073,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -3149,7 +3146,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -3171,7 +3168,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #8ebbfe;
   margin-top: 40px;
 }
@@ -3184,7 +3181,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-top: 20px;
 }
@@ -3213,7 +3210,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -3233,7 +3230,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3245,7 +3242,7 @@ p {
   padding-left: 8px;
   opacity: 0.73;
   border-radius: 4px;
-  letter-spacing: 0px;
+
   border: solid 1px#F9F9F9;
   background-color: #efefef;
 }
@@ -3258,7 +3255,7 @@ p {
     padding-left: 8px;
     opacity: 0.73;
     border-radius: 4px;
-    letter-spacing: 0px;
+
     border: solid 1px#F9F9F9;
     background-color: #efefef;
   }
@@ -3275,7 +3272,7 @@ p {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
 }
@@ -3286,7 +3283,7 @@ p {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
 }
@@ -3299,7 +3296,7 @@ p {
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
   }
@@ -3320,7 +3317,7 @@ p {
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
   }
@@ -3328,7 +3325,7 @@ p {
 .textarea-contract-code {
   height: 18.375rem;
   width: 100%;
-  letter-spacing: 0px;
+
   margin-top: 10px;
   padding-left: 8px;
   border-radius: 6px;
@@ -3343,7 +3340,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3353,7 +3350,7 @@ p {
   font-size: 0.875rem;
   margin-top: 10px;
   border-radius: 6px;
-  letter-spacing: 0px;
+
   padding-left: 6px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -3373,7 +3370,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -3384,11 +3381,11 @@ p {
   width: 5.875rem;
   font-size: 0.938rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -3400,7 +3397,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3411,7 +3408,7 @@ p {
   font-weight: 500;
   margin-top: 7px;
   padding-left: 6px;
-  letter-spacing: 0px;
+
   border-radius: 4px;
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
@@ -3430,7 +3427,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 
@@ -3442,7 +3439,7 @@ p {
   padding-left: 6px;
   border-radius: 4px;
   margin-top: 7px;
-  letter-spacing: 0px;
+
   border: solid 1px #9fa9ba;
   background-color: #ffffff;
 }
@@ -3460,7 +3457,7 @@ p {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
   margin-top: 0;
 }
@@ -3813,7 +3810,7 @@ body {
   font-style: normal;
   line-height: normal;
   color: #9fa9ba;
-  letter-spacing: 0px;
+
   margin-top: 4px;
 }
 
@@ -3845,7 +3842,6 @@ body {
   padding-left: 0px;
   margin: 0px 34px 0px 0px;
   font-weight: 400;
-  letter-spacing: 0px;
 }
 @media (min-width: 0px) and (max-width: 768px) {
   .tabs {
@@ -3861,7 +3857,6 @@ body {
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
     font-weight: 400;
-    letter-spacing: 0px;
   }
 }
 
@@ -3879,7 +3874,6 @@ body {
     padding-left: 0px;
     margin: 0px 34px 0px 0px;
     font-weight: 400;
-    letter-spacing: 0px;
   }
 }
 
@@ -3906,13 +3900,11 @@ body {
   padding-left: 0px;
   margin: -3px 27px 1px 0.5px;
   font-weight: 500;
-  letter-spacing: 0px;
 }
 
 @media (max-width: 1240px) {
   .tabs {
     margin: 0px;
-    letter-spacing: 0px;
   }
 }
 .token-data-tabs {
@@ -3930,7 +3922,6 @@ body {
   font-size: 0.938rem;
   font-weight: 500;
   line-height: 1rem;
-  letter-spacing: 0.036rem;
 }
 
 .tabs-data {
@@ -3952,7 +3943,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: 1rem;
-  letter-spacing: 0rem;
+
   text-align: center;
 }
 @media (max-width: 1240px) {
@@ -4073,14 +4064,12 @@ body {
   font-size: 1rem;
   font-family: inter;
   font-weight: 600;
-  letter-spacing: 0px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .contract-text {
     font-size: 0.875rem;
     font-family: inter;
     font-weight: 600;
-    letter-spacing: 0px;
   }
 }
 .hr-line {
@@ -4237,7 +4226,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -4261,7 +4250,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -4291,7 +4280,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -4371,7 +4360,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-top: 1.66rem;
   color: #2a2a2a;
   display: flex;
@@ -4385,7 +4374,7 @@ body {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     margin-top: 1.66rem;
     color: #2a2a2a;
     display: flex;
@@ -4401,7 +4390,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   color: #2a2a2a;
   display: flex;
@@ -4416,7 +4405,7 @@ body {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     color: #2a2a2a;
     display: flex;
@@ -4433,7 +4422,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -4444,7 +4433,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #3a3a3a;
 }
 
@@ -4458,7 +4447,7 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 /* 
@@ -4469,7 +4458,7 @@ body {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #3a3a3a;
   } */
 /* .container-table tr:hover {background-color: #ddd;} */
@@ -4647,7 +4636,7 @@ button {
   justify-content: flex-end;
   font-family: Inter;
   font-weight: 600;
-  letter-spacing: 0px;
+
   text-align: right;
   margin-left: 4px;
   margin-top: -3px;
@@ -4661,7 +4650,7 @@ button {
   justify-content: flex-end;
   font-family: Roboto;
   background-color: transparent;
-  letter-spacing: 0px;
+
   margin-left: 2px;
   margin-top: -1px;
 }
@@ -4735,7 +4724,7 @@ button {
     font-family: Inter;
     font-size: 15px !important;
     font-weight: 600;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 }
@@ -4750,7 +4739,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -4784,7 +4773,7 @@ button {
   font-family: Inter;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   margin-left: 2px;
 }
@@ -4797,7 +4786,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -4810,7 +4799,7 @@ button {
     left: 19px;
     height: 1rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-family: Inter;
@@ -4826,7 +4815,7 @@ button {
     left: 72px;
     height: 1.125rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-family: Inter;
@@ -4845,7 +4834,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
 }
 
@@ -4861,7 +4850,6 @@ button {
   margin-top: 7px;
   display: flex;
   padding: 0 12px;
-  letter-spacing: 0px;
 }
 
 @media (max-width: 767px) {
@@ -4941,7 +4929,7 @@ button {
   .data_heading1 p {
     font-weight: 600;
     font-size: 0.875rem;
-    letter-spacing: 0rem;
+
     padding-left: 12px;
     width: 1.813rem;
     height: 1.063rem;
@@ -4953,7 +4941,7 @@ button {
     padding-left: 5px;
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     top: 1220px;
@@ -4965,7 +4953,7 @@ button {
   .data_heading1 p {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     top: 1287px;
@@ -5024,7 +5012,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   padding-left: 2px;
   /*margin-top: 8px;*/
@@ -5041,7 +5029,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     /*padding-left: 18px;*/
@@ -5055,7 +5043,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
@@ -5069,7 +5057,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
@@ -5095,7 +5083,7 @@ button {
     /*left: 19px;*/
     /*height: 1.063rem;*/
     /*text-align: left;*/
-    /*letter-spacing: 0rem;*/
+    /**/
     /*color: #2a2a2a;*/
     /*opacity: 1;*/
     /*font-weight: normal;*/
@@ -5131,7 +5119,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   opacity: 1;
   color: #2149b9 !important;
   margin-left: 2px;
@@ -5145,7 +5133,7 @@ button {
   .first-transaction-hash {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -5157,7 +5145,7 @@ button {
   .first-transaction-hash {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5190,7 +5178,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5202,7 +5190,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -5232,7 +5220,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5244,7 +5232,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -5259,7 +5247,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 190px;
   margin-top: 8px;
@@ -5277,7 +5265,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     padding-left: 17px;
   }
 }
@@ -5285,7 +5273,7 @@ button {
   .fourth-transaction-detail {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -5296,7 +5284,7 @@ button {
   .fourth-transaction-detail {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5308,7 +5296,7 @@ button {
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: inherit;
@@ -5320,7 +5308,7 @@ button {
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -5488,7 +5476,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #007b2c;
   margin-top: 20px;
@@ -5510,7 +5498,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -5536,7 +5524,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
 }
@@ -5550,7 +5538,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3763dd;
   margin-left: auto;
@@ -5576,7 +5564,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   margin-top: 13px;
@@ -5589,7 +5577,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #686868;
   /* margin-top: 10px; */
@@ -5645,7 +5633,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ffffff;
 }
@@ -5685,7 +5673,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 1;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #303134;
 }
@@ -5768,7 +5756,6 @@ button {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  letter-spacing: 0px;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .data_value {
@@ -5823,7 +5810,7 @@ button {
   .mainhead_child1 {
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.813rem;
@@ -5833,7 +5820,7 @@ button {
   .mainhead_child1 {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5852,7 +5839,7 @@ button {
   .mainhead_child2 {
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.813rem;
@@ -5862,7 +5849,7 @@ button {
   .mainhead_child2 {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5889,7 +5876,7 @@ button {
   .mainhead_child3 {
     font-size: 0.813rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.813rem;
@@ -5899,7 +5886,7 @@ button {
   .mainhead_child3 {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -5916,7 +5903,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5932,7 +5919,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5948,7 +5935,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -5962,7 +5949,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 25px;
@@ -5975,7 +5962,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
   }
@@ -5988,7 +5975,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
@@ -6002,7 +5989,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2149b9 !important;
     height: 1.063rem;
@@ -6028,7 +6015,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 22px;
@@ -6048,7 +6035,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2149b9 !important;
   list-style: none;
@@ -6063,7 +6050,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   margin-top: 8px;
   margin-right: 22px;
@@ -6111,7 +6098,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 530px;
   margin-left: 7px;
@@ -6127,7 +6114,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     padding-left: 9px;
   }
@@ -6136,7 +6123,7 @@ button {
   .bttn {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -6147,7 +6134,7 @@ button {
   .bttn {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -6163,7 +6150,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 530px;
   margin-left: 7px;
@@ -6182,7 +6169,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   padding-left: 9px;
   list-style: none;
@@ -6209,7 +6196,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 190px;
   margin-top: 8px;
@@ -6218,7 +6205,7 @@ button {
   .details {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 1.063rem;
@@ -6229,7 +6216,7 @@ button {
   .details {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     height: 0.875rem;
@@ -6247,7 +6234,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     padding-left: 17px;
   }
 }
@@ -6260,7 +6247,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
   width: 190px;
   margin-top: 8px;
@@ -6278,7 +6265,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   padding-left: 17px;
   list-style: none;
   text-decoration: none;
@@ -6319,7 +6306,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -6335,7 +6322,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -6349,7 +6336,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   text-align: left;
   color: #2a2a2a;
 }
@@ -6389,13 +6376,11 @@ button {
 .main_vaa {
   display: flex;
   justify-content: space-between;
-  letter-spacing: 0px;
 }
 
 .main_vaa_2 {
   display: flex;
   justify-content: space-between;
-  letter-spacing: 0px;
 }
 
 .main_vaa_2 p:first-child {
@@ -6433,7 +6418,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -6451,7 +6436,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: left;
     color: #2a2a2a;
   }
@@ -6474,7 +6459,7 @@ button {
     left: 19px;
     height: 1.063rem;
     text-align: left;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -6487,7 +6472,7 @@ button {
     left: 80px;
     height: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+
     color: #2a2a2a;
     opacity: 1;
     font-weight: normal;
@@ -6514,7 +6499,6 @@ button {
   align-items: center;
   width: 100%;
   padding-right: 40px;
-  letter-spacing: 0px;
 }
 
 .main_mid {
@@ -6689,7 +6673,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 
 .cont-token-data p {
@@ -6701,7 +6684,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 @media (min-width: 1240px) {
   .cont1 p {
@@ -6711,7 +6693,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
   }
 }
@@ -6723,7 +6705,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     top: 63.688rem;
     left: 74px;
     height: 0.938rem;
@@ -6740,7 +6722,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
   }
 }
@@ -6752,7 +6734,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     height: 0.938rem;
   }
@@ -6763,7 +6745,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 .cont-token-data :nth-child(2) {
@@ -6771,7 +6753,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -6783,7 +6765,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #252525;
     padding-top: 5px;
@@ -6797,7 +6779,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #252525;
     padding-top: 5px;
@@ -6816,7 +6798,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #2a2a2a;
     padding-top: 5px;
@@ -6830,7 +6812,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     text-align: center;
     color: #2a2a2a;
     height: 1rem;
@@ -6971,12 +6953,10 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.65px;
   margin-right: 10px;
   top: 895px;
   left: 18px;
   height: 1.063rem;
-  letter-spacing: 0.034rem;
   color: #686868;
   opacity: 1;
   font-size: 0.875rem;
@@ -6989,12 +6969,12 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-right: 10px;
   top: 895px;
   left: 18px;
   height: 1.063rem;
-  letter-spacing: 0rem;
+
   color: #686868;
   opacity: 1;
   font-size: 0.875rem;
@@ -7009,7 +6989,7 @@ button {
     font-style: normal;
     line-height: normal;
     margin-right: 10px;
-    letter-spacing: 0rem;
+
     color: #686868;
     opacity: 1;
     top: 762px;
@@ -7025,7 +7005,6 @@ button {
     font-style: normal;
     line-height: normal;
     margin-right: 10px;
-    letter-spacing: 0.034rem;
     color: #686868;
     opacity: 1;
     top: 762px;
@@ -7041,7 +7020,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-right: 8%;
   width: 46%;
   padding-left: 6px;
@@ -7057,7 +7036,6 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0.58px;
   margin-right: 8%;
   width: 46%;
   padding-left: 6px;
@@ -7083,7 +7061,7 @@ button {
   left: 18.875rem;
   height: 0.938rem;
   text-align: center;
-  letter-spacing: 0rem;
+
   opacity: 1;
 }
 
@@ -7100,7 +7078,7 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+
   margin-right: 10%;
 }
 
@@ -7118,7 +7096,6 @@ button {
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
 }
 @media (min-width: 1024px) {
   .varMarket {
@@ -7128,7 +7105,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     text-align: center;
     display: flex;
     justify-content: center;
@@ -7142,7 +7119,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     height: 0.938rem;
     top: 66.25rem;
     left: 89px;
@@ -7176,7 +7153,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9 !important;
 }
 @media (min-width: 1240px) {
@@ -7188,7 +7165,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #2149b9 !important;
   }
 }
@@ -7202,7 +7179,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #2149b9 !important;
     height: 0.75rem;
   }
@@ -7217,7 +7194,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #2149b9 !important;
     height: 0.875rem;
   }
@@ -7231,7 +7208,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
@@ -7245,7 +7222,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   color: #2149b9 !important;
   list-style: none;
   text-decoration: none;
@@ -7262,7 +7239,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   line-height: 1rem !important;
 }
 
@@ -7270,7 +7247,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   padding-left: 32px !important;
   line-height: 1rem !important;
   white-space: nowrap !important;
@@ -7280,7 +7257,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
   line-height: 1rem !important;
@@ -7290,7 +7267,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
 }
@@ -7299,7 +7276,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 55px !important;
   line-height: 1rem !important;
 }
@@ -7308,7 +7285,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 60px !important;
   line-height: 1rem !important;
   background-color: "red";
@@ -7318,7 +7295,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 60px !important;
   line-height: 1rem !important;
   word-break: break-all !important;
@@ -7403,7 +7380,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
   padding-top: 15px !important;
@@ -7414,7 +7391,6 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem;
 
-  letter-spacing: 0rem;
   color: #2149b9 !important;
   height: 1.125rem;
   font-weight: normal;
@@ -7428,7 +7404,6 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem;
 
-  letter-spacing: 0rem;
   color: #2149b9 !important;
   height: 1.125rem;
   font-weight: normal;
@@ -7471,13 +7446,12 @@ button {
   margin-top: 5px;
   font-family: Inter;
   font-weight: 1000 !important;
-  letter-spacing: 0px;
 }
 .contract_details_heading_left {
   font-size: 1.5rem;
   font-family: Inter;
   font-weight: 1000 !important;
-  letter-spacing: 0px;
+
   display: flex !important;
   margin-bottom: 0;
   color: #2a2a2a !important;
@@ -7487,7 +7461,6 @@ button {
   font-size: 1.5rem;
   font-family: Inter;
   font-weight: 1000 !important;
-  letter-spacing: 0px;
 }
 
 .Success-rectangle-block {
@@ -7500,7 +7473,6 @@ button {
   border-radius: 4px;
   background-color: #0cdd1e;
   font-size: 14px;
-  letter-spacing: 0px;
 }
 
 .failure-rectangle {
@@ -7513,7 +7485,6 @@ button {
   border-radius: 4px;
   background-color: #fa0404;
   font-size: 14px;
-  letter-spacing: 0px;
 }
 /*address/address page*/
 
@@ -7525,7 +7496,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2149b9;
   font-weight: 500;
   margin-left: 15px;
@@ -7572,7 +7543,7 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   border-bottom: none !important;
-  letter-spacing: 0px;
+
   font-weight: 500 !important;
   padding-left: 75px !important;
 }
@@ -7581,14 +7552,14 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
+
   border-bottom: none !important;
 }
 
 .second-row-table_address-balance {
   font-family: Inter !important;
   font-size: 0.938rem !important;
-  letter-spacing: 0px;
+
   padding-left: 75px !important;
   font-weight: normal !important;
 }
@@ -7597,13 +7568,12 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
 }
 
 .second-row-table_address1 {
   font-family: Inter !important;
   font-size: 0.938rem !important;
-  letter-spacing: 0px;
+
   padding-left: 75px !important;
   font-weight: 500 !important;
 }
@@ -7612,7 +7582,7 @@ button {
 .sec-row-table {
   font-family: Inter !important;
   font-size: 12px !important;
-  letter-spacing: 0px;
+
   font-weight: 500 !important;
 }
 
@@ -7631,7 +7601,6 @@ button {
   font-family: Inter !important;
   font-size: 0.938rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0px;
 }
 
 .block_sec {
@@ -7676,7 +7645,6 @@ button {
   font-size: 0.938rem;
   cursor: pointer;
   padding-left: 1.188rem;
-  letter-spacing: 0rem;
 }
 
 .tabs_sec_address_details {
@@ -7689,7 +7657,6 @@ button {
   font-size: 0.938rem;
   cursor: pointer;
   padding-left: 1.188rem;
-  letter-spacing: 0rem;
 }
 
 .tabs_sec_contract {
@@ -7704,7 +7671,6 @@ button {
   cursor: pointer;
   padding-left: 5.5px;
   font-weight: 600;
-  letter-spacing: 0px;
 }
 
 .active-tabs_sec {
@@ -7892,7 +7858,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   border-radius: 4px;
@@ -7907,7 +7873,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #2a2a2a;
   border-radius: 4px;
@@ -7953,7 +7919,7 @@ button {
   font-family: Inter !important;
   font-size: 12px !important;
   font-weight: normal !important;
-  letter-spacing: 0px;
+
   padding-left: 30px !important;
   align-items: center !important;
 }
@@ -8113,7 +8079,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
   .Tooltip-graph-date {
@@ -8125,7 +8091,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #9fa9ba;
   }
   .block_details_heading_left {
@@ -8176,7 +8142,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #9fa9ba;
 }
 
@@ -8188,7 +8154,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 
@@ -8341,14 +8307,14 @@ button {
 .source-code-content-heading {
   font-size: 0.938rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   font-family: inter;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .source-code-content-heading {
     font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0px;
+
     font-family: inter;
   }
 
@@ -8452,7 +8418,7 @@ button {
 
 .left-table-contract-last {
   font-weight: 600 !important;
-  letter-spacing: 0px !important;
+
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -8465,13 +8431,13 @@ button {
   /* border-bottom: 1px solid rgb(227, 231, 235) !important; */
   border-bottom: none !important;
   font-size: 14px !important;
-  letter-spacing: 0px !important;
+
   color: #3a3a3a !important;
 }
 
 .left-table-contract {
   font-weight: 600 !important;
-  letter-spacing: 0px !important;
+
   font-size: 0.938rem !important;
   padding: 10px 6px 10px 0px !important;
   height: 2.938rem;
@@ -8483,7 +8449,7 @@ button {
   padding: 10px 6px 10px 0px !important;
   border-bottom: 1px solid rgb(227, 231, 235) !important;
   font-size: 14px !important;
-  letter-spacing: 0px !important;
+
   color: #3a3a3a !important;
 }
 
@@ -8565,7 +8531,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     background-color: white !important;
   }
@@ -8630,18 +8596,16 @@ button {
     outline-color: #ffffff;
     border-color: transparent;
     padding-left: 1px !important;
-    letter-spacing: 0px !important;
   }
   .main-input::placeholder {
     color: #9fa9ba !important;
     font-weight: 500px !important;
     font: normal normal normal 0.938rem Inter;
-    letter-spacing: 0px !important;
   }
   .select {
     font-size: 0.938rem !important;
     font-weight: normal !important;
-    letter-spacing: 0px !important;
+
     height: 32px;
     width: 105%;
     padding-left: 10px;
@@ -8654,7 +8618,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
     background-color: #ffffff !important;
   }
@@ -8688,7 +8652,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
     background-color: #ffffff !important;
   }
@@ -8710,7 +8674,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     background-color: #ffffff !important;
     color: #2a2a2a;
   }
@@ -8745,7 +8709,7 @@ button {
   .left-table-contract-mobile {
     border-bottom: none !important;
     font-weight: 600 !important;
-    letter-spacing: 0px !important;
+
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
@@ -8756,7 +8720,6 @@ button {
     padding: 0px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
     font-size: 14px !important;
-    letter-spacing: 0px !important;
   }
   .main-input-td {
     width: 100%;
@@ -8797,7 +8760,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 
@@ -8849,7 +8812,6 @@ button {
   }
 
   .contract_details_heading_left {
-    letter-spacing: 0px;
     font-size: 16px;
     color: #2a2a2a;
     opacity: 1;
@@ -8978,7 +8940,7 @@ button {
   }
   .left-table-contract-mobile {
     font-weight: 600 !important;
-    letter-spacing: 0px !important;
+
     font-size: 0.938rem !important;
     padding: 10px 6px 10px 0px !important;
     height: 2.938rem;
@@ -8989,7 +8951,6 @@ button {
     padding: 10px 6px 10px 0px !important;
     border-bottom: 1px solid rgb(227, 231, 235) !important;
     font-size: 14px !important;
-    letter-spacing: 0px !important;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {
@@ -9002,7 +8963,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
   } */
   .search-svg {
@@ -9059,7 +9020,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 
@@ -9095,7 +9056,6 @@ button {
     font-size: 0.938rem;
   }
   .contract_details_heading_left {
-    letter-spacing: 0px;
     color: #2a2a2a;
     opacity: 1;
   }
@@ -9172,7 +9132,7 @@ button {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+
     color: #2a2a2a;
   }
 
@@ -9266,7 +9226,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: 40px;
-  letter-spacing: 0rem;
+
   text-align: center;
   color: #2a2a2a;
   opacity: 0.8;
@@ -10354,20 +10314,20 @@ button {
 .token-link {
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   border: none;
   color: #2149b9;
 }
 .token-link:hover {
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0px;
+
   border: none;
   color: #2149b9;
 }
 .block-details-extraData {
   font-size: 0.938rem;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -10377,7 +10337,7 @@ button {
 @media (min-width: 0px) and (max-width: 766px) {
   .block-details-extraData {
     font-size: 0.938rem;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
     margin-left: 0px;
@@ -10387,7 +10347,7 @@ button {
 }
 .transaction-details-input-data {
   font-size: 0.938rem;
-  letter-spacing: 0px;
+
   text-align: left;
   color: #3a3a3a;
   width: 100%;
@@ -10396,7 +10356,7 @@ button {
 @media (min-width: 0px) and (max-width: 766px) {
   .transaction-details-input-data {
     font-size: 0.938rem;
-    letter-spacing: 0px;
+
     text-align: left;
     color: #3a3a3a;
     margin-left: 0px;
@@ -10410,7 +10370,7 @@ button {
 }
 .account-searchbar {
   font-size: 15px;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
   font-family: "Inter";
   outline-color: transparent;
@@ -10659,7 +10619,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
 }
 .detail-heading {
   font-family: Inter;
@@ -10668,7 +10627,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #252525;
 }
 .success-text {
@@ -10678,7 +10637,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #03be46;
   margin-top: 7px;
 }
@@ -10694,7 +10653,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #000000;
   margin-top: 7px;
 }
@@ -10705,7 +10664,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: red;
   margin-top: 7px;
 }
@@ -10731,7 +10690,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   cursor: pointer;
 }
 .tooltip-link:hover {
@@ -10742,7 +10701,7 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   cursor: pointer;
 }
 .tooltip-link-div {
@@ -10788,7 +10747,6 @@ button {
   font-size: 13px;
   font-weight: 500;
 
-  letter-spacing: 0px;
   text-align: center;
   color: #ff4200;
 }
@@ -10803,7 +10761,6 @@ button {
   font-size: 13px;
   font-weight: 500;
 
-  letter-spacing: 0px;
   text-align: center;
   color: #007b2c;
 }
@@ -10816,7 +10773,6 @@ button {
   color: #2149b9;
 }
 .configure-columns {
-  letter-spacing: 0px;
 }
 .configure-columns-line {
   border: solid 1px #e3e7eb;
@@ -10873,7 +10829,6 @@ button {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.42px;
   text-align: center;
   color: #ff4200;
   padding: 2px 1px;
