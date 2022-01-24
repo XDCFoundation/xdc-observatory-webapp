@@ -184,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     //color: "#6b7482",
     textTransform: "none",
@@ -200,7 +200,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#6b7482",
     textTransform: "none",
@@ -215,7 +215,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#6b7482",
     textTransform: "none",
@@ -270,7 +270,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Inter",
       fontSize: "13px",
       fontWeight: "500",
-      letterSpacing: "0px",
+
       textAlign: "center",
       // color: "#2149b9",
     },
@@ -280,7 +280,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "6px",
       fontFamily: "Inter",
       fontSize: "13px",
-      letterSpacing: "0px",
+
       textAlign: "center",
       // color: "#6b7482",
     },
@@ -290,7 +290,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0px",
       fontFamily: "Inter",
       fontSize: "13px",
-      letterSpacing: "0px",
+
       textAlign: "center",
       color: "#6b7482",
     },

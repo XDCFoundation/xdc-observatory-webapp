@@ -12,7 +12,7 @@ const Heading = styled.div`
   font-family: Inter;
   font-size: 24px;
   font-weight: 600;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
     font-size:18px;
@@ -23,7 +23,7 @@ const Subheading = styled.div`
   margin-top: 16px;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (min-width:0px) and (max-width:767px) {
     font-size:15px;
@@ -33,7 +33,7 @@ const PointHeading = styled.div`
   font-weight: 600;
   margin: 32px 0 0 1px;
   font-size: 15px;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (min-width:0px) and (max-width:767px) {
     margin-top:14px;
@@ -47,7 +47,7 @@ const Para = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
 `;
@@ -92,7 +92,7 @@ const TableDiv = styled.div`
 const Block1 = styled.div`
   width: 1152px;
   font-size: 15px;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
     max-width: 740px;
@@ -110,7 +110,7 @@ const Block2 = styled.div`
   font-family: Inter;
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -129,7 +129,7 @@ const Block3 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -149,7 +149,7 @@ const Block4 = styled.div`
   
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -169,7 +169,7 @@ const Block5 = styled.div`
  
   font-size: 15px;
   
-  letter-spacing: 0px;
+  
 
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -189,7 +189,7 @@ const Block6 = styled.div`
  
   font-size: 15px;
 
-  letter-spacing: 0px;
+  
  
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -209,7 +209,7 @@ const Block7 = styled.div`
   
   font-size: 15px;
   
-  letter-spacing: 0px;
+  
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -229,7 +229,7 @@ const Block9 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -249,7 +249,7 @@ const Block10 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -269,7 +269,7 @@ const Block11 = styled.div`
  
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
   
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -292,7 +292,7 @@ const Block12 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -315,7 +315,7 @@ const Block13 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -335,7 +335,7 @@ const Block14 = styled.div`
   font-family: Inter;
   font-size: 15px;
  
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -358,7 +358,7 @@ const Block15 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -381,7 +381,7 @@ const Block16 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -404,7 +404,7 @@ const Block17 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -427,7 +427,7 @@ const Block18 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -450,7 +450,7 @@ const Block19 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -473,7 +473,7 @@ const Block20 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -496,7 +496,7 @@ const Block21 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -519,7 +519,7 @@ const Block22 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
 
@@ -543,7 +543,7 @@ const Block23 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -566,7 +566,7 @@ const Block24 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -589,7 +589,7 @@ const Block25 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -614,7 +614,7 @@ const Block26 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -637,7 +637,7 @@ const Block27 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -660,7 +660,7 @@ const Block28 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -683,7 +683,7 @@ const Block29 = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #252525;
   @media (min-width:768px) and (max-width:1240px) {
@@ -726,22 +726,22 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px",
     fontWeight: "600",
     border: "solid 1px #dedede",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
-     marginBottom:"12px",
-     border:"none",
-     textAlign:"left"
+      marginBottom: "12px",
+      border: "none",
+      textAlign: "left"
     }
   },
-  rowNumber:{
+  rowNumber: {
     border: "solid 1px #dedede",
     padding: "0px 5px",
-    textAlign:"center"
+    textAlign: "center"
 
   },
-  tableData:{
+  tableData: {
     border: "solid 1px #dedede",
     padding: "5px 0px 2px 5px"
   },
@@ -749,29 +749,29 @@ const useStyles = makeStyles((theme) => ({
     border: "solid 1px #dedede",
     fontSize: "15px",
     fontWeight: "600",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
-      marginTop:"12px",
-      marginBottom:"12px",
-      border:"none",
-      textAlign:"left"
-     }
+      marginTop: "12px",
+      marginBottom: "12px",
+      border: "none",
+      textAlign: "left"
+    }
   },
   lawful: {
     fontSize: "15px",
     fontWeight: "600",
     border: "solid 1px #dedede",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
-      marginTop:"12px",
-      marginBottom:"12px",
-      border:"none",
-      textAlign:"left"
-     }
+      marginTop: "12px",
+      marginBottom: "12px",
+      border: "none",
+      textAlign: "left"
+    }
   },
   rectangleCopy5: {
     width: "531px",
@@ -782,13 +782,13 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "left",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
-     width:"300px",
-     margin:"35px 2px 0px 0px"
-     }
+      width: "300px",
+      margin: "35px 2px 0px 0px"
+    }
   },
   hash: {
     width: "106.6px",
@@ -803,8 +803,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#252525",
     '@media (min-width:0px) and (max-width:767px)': {
-      border:"none",
-      textAlign:"left"
+      border: "none",
+      textAlign: "left"
     }
   },
   blockNumber: {
@@ -818,7 +818,7 @@ const useStyles = makeStyles((theme) => ({
 
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "left",
     color: "#252525",
   },
@@ -833,7 +833,7 @@ const useStyles = makeStyles((theme) => ({
 
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "left",
     color: "#252525",
   },
@@ -1015,493 +1015,493 @@ function PrivacyPolicy() {
             </Para>
           </Block9>
           <TableDiv>
-          <Table className={classes.materialTable}>
-            <table className={classes.table}>
-              <tr>
-                <th className={classes.hash}>#</th>
-                <th className={classes.purpose}>Perpose Activity</th>
-                <th className={classes.personal}>Type Personal Data</th>
-                <th className={classes.lawful}>
-                  Lawful bases for processing including basis of legitimate
-                  interest
-                </th>
-              </tr>
-              <tr className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>1</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div className={classes.blockNumber}>
-                    To manage our relationship with you which will include:
-                  </div>
-                  <ul>
-                    <li
-                      style={{
-                        width: "271px",
-                        height: "38px",
-                        margin: "19px 12.6px 6px 16px",
-                      }}
-                      className={classes.blockNumber}
-                    >
-                      Providing services to you on the Website;
-                    </li>
+            <Table className={classes.materialTable}>
+              <table className={classes.table}>
+                <tr>
+                  <th className={classes.hash}>#</th>
+                  <th className={classes.purpose}>Perpose Activity</th>
+                  <th className={classes.personal}>Type Personal Data</th>
+                  <th className={classes.lawful}>
+                    Lawful bases for processing including basis of legitimate
+                    interest
+                  </th>
+                </tr>
+                <tr className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>1</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div className={classes.blockNumber}>
+                      To manage our relationship with you which will include:
+                    </div>
+                    <ul>
+                      <li
+                        style={{
+                          width: "271px",
+                          height: "38px",
+                          margin: "19px 12.6px 6px 16px",
+                        }}
+                        className={classes.blockNumber}
+                      >
+                        Providing services to you on the Website;
+                      </li>
+                      <div
+                        style={{
+                          width: "271px",
+                          height: "19px",
+                          margin: "16px 12.6px 22px 16px",
+                        }}
+                        className={classes.blockNumber}
+                      >
+                        Responding to your inquiries;
+                      </div>
+                      <div
+                        style={{
+                          width: "271px",
+                          height: "38px",
+                          margin: "6px 12.6px 22px 16px",
+                        }}
+                        className={classes.blockNumber}
+                      >
+                        Notifying you of changes to our terms or privacy policy,
+                        and
+                      </div>
+                      <div
+                        style={{
+                          width: "271px",
+                          height: "38px",
+                          margin: "22px 12.6px 32.2px 16px",
+                        }}
+                        className={classes.blockNumber}
+                      >
+                        Asking you to provide a review or complete a survey.
+                      </div>
+                    </ul>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
                     <div
                       style={{
-                        width: "271px",
+                        width: "84px",
                         height: "19px",
-                        margin: "16px 12.6px 22px 16px",
+                        margin: "31.8px 191.6px 22px 7.4px",
                       }}
                       className={classes.blockNumber}
                     >
-                      Responding to your inquiries;
+                      (1) Identity
                     </div>
                     <div
                       style={{
-                        width: "271px",
-                        height: "38px",
-                        margin: "6px 12.6px 22px 16px",
+                        width: "89px",
+                        height: "19px",
+                        margin: "3px 186.6px 2px 7.4px",
                       }}
                       className={classes.blockNumber}
                     >
-                      Notifying you of changes to our terms or privacy policy,
-                      and
+                      (2) Contact
                     </div>
                     <div
                       style={{
-                        width: "271px",
-                        height: "38px",
-                        margin: "22px 12.6px 32.2px 16px",
+                        width: "270px",
+                        height: "19px",
+                        margin: "12px 5.6px 0px 7.4px",
                       }}
                       className={classes.blockNumber}
                     >
-                      Asking you to provide a review or complete a survey.
+                      (3) Marketing and Communications
                     </div>
-                  </ul>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "84px",
-                      height: "19px",
-                      margin: "31.8px 191.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (1) Identity
-                  </div>
-                  <div
-                    style={{
-                      width: "89px",
-                      height: "19px",
-                      margin: "3px 186.6px 2px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (2) Contact
-                  </div>
-                  <div
-                    style={{
-                      width: "270px",
-                      height: "19px",
-                      margin: "12px 5.6px 0px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (3) Marketing and Communications
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div className={classes.blockData}>
-                    <div className={classes.blockNumber}>
-                      (a) Necessary to comply with a request from you (contract
-                      performance).
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div className={classes.blockData}>
+                      <div className={classes.blockNumber}>
+                        (a) Necessary to comply with a request from you (contract
+                        performance).
+                      </div>
+                      <div className={classes.blockNumber}>
+                        (b) Necessary to comply with legal obligations.
+                      </div>
+                      <div className={classes.blockNumber}>
+                        (c) Necessary for our legitimate interests (to keep our
+                        records updated and to study how customers use our
+                        products and services)
+                      </div>
                     </div>
-                    <div className={classes.blockNumber}>
-                      (b) Necessary to comply with legal obligations.
+                  </td>
+                </tr>
+                <tr style={{ height: "154px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>2</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "295px",
+                        height: "95px",
+                        margin: "26.8px 12.6px 32.2px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      To administer and protect our business and this Website
+                      (including troubleshooting, data analysis,testing, system
+                      maintenance, support, reporting and hosting of data)
                     </div>
-                    <div className={classes.blockNumber}>
-                      (c) Necessary for our legitimate interests (to keep our
-                      records updated and to study how customers use our
-                      products and services)
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "84px",
+                        height: "19px",
+                        margin: "31.8px 191.6px 22px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (1) Identity
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "154px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>2</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "295px",
-                      height: "95px",
-                      margin: "26.8px 12.6px 32.2px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    To administer and protect our business and this Website
-                    (including troubleshooting, data analysis,testing, system
-                    maintenance, support, reporting and hosting of data)
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "84px",
-                      height: "19px",
-                      margin: "31.8px 191.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (1) Identity
-                  </div>
-                  <div
-                    style={{
-                      width: "101px",
-                      height: "19px",
-                      margin: "22px 174.6px 62.2px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (2) Technical
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "398px",
-                      height: "95px",
-                      margin: "31.8px 14.8px 27.2px 13.4px",
-                    }}
-                    className={classes.blockData}
-                  >
-                    <div className={classes.blockNumber}>
-                      (a) Necessary for our legitimate interests (for running
-                      our business, provision of administration and IT services,
-                      network security)
+                    <div
+                      style={{
+                        width: "101px",
+                        height: "19px",
+                        margin: "22px 174.6px 62.2px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (2) Technical
                     </div>
-                    <div className={classes.blockNumber}>
-                      (b) Necessary to comply with legal obligations.
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "398px",
+                        height: "95px",
+                        margin: "31.8px 14.8px 27.2px 13.4px",
+                      }}
+                      className={classes.blockData}
+                    >
+                      <div className={classes.blockNumber}>
+                        (a) Necessary for our legitimate interests (for running
+                        our business, provision of administration and IT services,
+                        network security)
+                      </div>
+                      <div className={classes.blockNumber}>
+                        (b) Necessary to comply with legal obligations.
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "164.8px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>3</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "303px",
-                      height: "76px",
-                      margin: "31.8px 4.6px 6px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    We send you marketing communications from us if you have
-                    requested information from us based on your interests
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "84px",
-                      height: "19px",
-                      margin: "31.8px 191.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (1) Identity
-                  </div>
-                  <div
-                    style={{
-                      width: "89px",
-                      height: "19px",
-                      margin: "22px 186.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (2) Contact
-                  </div>
-                  <div
-                    style={{
-                      width: "270px",
-                      height: "19px",
-                      margin: "6px 5.6px 32px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (3) Marketing and Communications
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "19px",
-                      margin: "26.8px 312.8px 24px 13.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    Your Consent
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "165px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>4</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "303px",
-                      height: "76px",
-                      margin: "32px 4.6px 6px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    To deliver relevant website content to you and measure or
-                    understand the effectiveness of the communication that we
-                    deliver to you
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "84px",
-                      height: "19px",
-                      margin: "32px 191.6px 14px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (1) Identity
-                  </div>
-                  <div
-                    style={{
-                      width: "89px",
-                      height: "19px",
-                      margin: "22px 186.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (2) Contact
-                  </div>
-                  <div
-                    style={{
-                      width: "270px",
-                      height: "19px",
-                      margin: "6px 5.6px 32px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (3) Marketing and Communications
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "19px",
-                      margin: "26.8px 312.8px 24px 13.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    Your Consent
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "159px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>5</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "303px",
-                      height: "76px",
-                      margin: "32px 4.6px 51px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    To use data analytics to improve our Website, products and
-                    services, marketing, customer relationships and experiences
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "89px",
-                      height: "19px",
-                      margin: "32px 191.6px 14px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (1) Identity
-                  </div>
-                  <div
-                    style={{
-                      width: "89px",
-                      height: "19px",
-                      margin: "22px 186.6px 67px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (2) Usage
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "398px",
-                      height: "95px",
-                      margin: "32px 14.8px 32px 13.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    Necessary for our legitimate interests (to define types of
-                    customers for our products and services, to keep our website
-                    updated and relevant, to develop our business and to inform
-                    our marketing strategy)
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "187.7px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>6</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "295px",
-                      height: "133px",
-                      margin: "32px 12.6px 22.2px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    To deliver relevant marketing materials, including news
-                    articles, newsletters and event invitations  to individuals
-                    subscribed to our mailing lists. We use mailing list
-                    software in conjunction with our CRM to deliver the
-                    communication by email.
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "84px",
-                      height: "19px",
-                      margin: "36px 191.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (1) Identity
-                  </div>
-                  <div
-                    style={{
-                      width: "89px",
-                      height: "19px",
-                      margin: "22px 186.6px 22px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (2) Contact
-                  </div>
-                  <div
-                    style={{
-                      width: "270px",
-                      height: "19px",
-                      margin: "18px 5.6px 50.2px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    (3) Marketing and Communications
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "19px",
-                      margin: "32px 312.8px 26px 13.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    Your Consent
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "121px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>7</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "295px",
-                      height: "57px",
-                      margin: "31.8px 12.6px 32.2px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    To allow you to interact with our XDC Observatory by adding
-                    “tags” and other identity characteristics
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "251px",
-                      height: "19px",
-                      margin: "31.8px 24.6px 70.2px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    User defined at user’s discretion
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "19px",
-                      margin: "31.8px 312.8px 70.2px 13.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    Your Consent
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ height: "126.8px" }} className={classes.row}>
-                <td style={{ border: "solid 1px #dedede" }}>8</td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "295px",
-                      height: "57px",
-                      margin: "31.8px 12.6px 38px 17.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    To allow you to receive notification and alerts via email
-                    and push notification
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "251px",
-                      height: "19px",
-                      margin: "31.8px 24.6px 6px 7.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    User defined at user’s discretion
-                  </div>
-                </td>
-                <td style={{ border: "solid 1px #dedede" }}>
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "19px",
-                      margin: "31.8px 312.8px 6px 13.4px",
-                    }}
-                    className={classes.blockNumber}
-                  >
-                    Your Consent
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </Table>
+                  </td>
+                </tr>
+                <tr style={{ height: "164.8px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>3</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "303px",
+                        height: "76px",
+                        margin: "31.8px 4.6px 6px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      We send you marketing communications from us if you have
+                      requested information from us based on your interests
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "84px",
+                        height: "19px",
+                        margin: "31.8px 191.6px 22px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (1) Identity
+                    </div>
+                    <div
+                      style={{
+                        width: "89px",
+                        height: "19px",
+                        margin: "22px 186.6px 22px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (2) Contact
+                    </div>
+                    <div
+                      style={{
+                        width: "270px",
+                        height: "19px",
+                        margin: "6px 5.6px 32px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (3) Marketing and Communications
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "19px",
+                        margin: "26.8px 312.8px 24px 13.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      Your Consent
+                    </div>
+                  </td>
+                </tr>
+                <tr style={{ height: "165px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>4</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "303px",
+                        height: "76px",
+                        margin: "32px 4.6px 6px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      To deliver relevant website content to you and measure or
+                      understand the effectiveness of the communication that we
+                      deliver to you
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "84px",
+                        height: "19px",
+                        margin: "32px 191.6px 14px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (1) Identity
+                    </div>
+                    <div
+                      style={{
+                        width: "89px",
+                        height: "19px",
+                        margin: "22px 186.6px 22px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (2) Contact
+                    </div>
+                    <div
+                      style={{
+                        width: "270px",
+                        height: "19px",
+                        margin: "6px 5.6px 32px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (3) Marketing and Communications
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "19px",
+                        margin: "26.8px 312.8px 24px 13.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      Your Consent
+                    </div>
+                  </td>
+                </tr>
+                <tr style={{ height: "159px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>5</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "303px",
+                        height: "76px",
+                        margin: "32px 4.6px 51px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      To use data analytics to improve our Website, products and
+                      services, marketing, customer relationships and experiences
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "89px",
+                        height: "19px",
+                        margin: "32px 191.6px 14px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (1) Identity
+                    </div>
+                    <div
+                      style={{
+                        width: "89px",
+                        height: "19px",
+                        margin: "22px 186.6px 67px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (2) Usage
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "398px",
+                        height: "95px",
+                        margin: "32px 14.8px 32px 13.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      Necessary for our legitimate interests (to define types of
+                      customers for our products and services, to keep our website
+                      updated and relevant, to develop our business and to inform
+                      our marketing strategy)
+                    </div>
+                  </td>
+                </tr>
+                <tr style={{ height: "187.7px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>6</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "295px",
+                        height: "133px",
+                        margin: "32px 12.6px 22.2px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      To deliver relevant marketing materials, including news
+                      articles, newsletters and event invitations  to individuals
+                      subscribed to our mailing lists. We use mailing list
+                      software in conjunction with our CRM to deliver the
+                      communication by email.
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "84px",
+                        height: "19px",
+                        margin: "36px 191.6px 22px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (1) Identity
+                    </div>
+                    <div
+                      style={{
+                        width: "89px",
+                        height: "19px",
+                        margin: "22px 186.6px 22px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (2) Contact
+                    </div>
+                    <div
+                      style={{
+                        width: "270px",
+                        height: "19px",
+                        margin: "18px 5.6px 50.2px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      (3) Marketing and Communications
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "19px",
+                        margin: "32px 312.8px 26px 13.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      Your Consent
+                    </div>
+                  </td>
+                </tr>
+                <tr style={{ height: "121px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>7</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "295px",
+                        height: "57px",
+                        margin: "31.8px 12.6px 32.2px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      To allow you to interact with our XDC Observatory by adding
+                      “tags” and other identity characteristics
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "251px",
+                        height: "19px",
+                        margin: "31.8px 24.6px 70.2px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      User defined at user’s discretion
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "19px",
+                        margin: "31.8px 312.8px 70.2px 13.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      Your Consent
+                    </div>
+                  </td>
+                </tr>
+                <tr style={{ height: "126.8px" }} className={classes.row}>
+                  <td style={{ border: "solid 1px #dedede" }}>8</td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "295px",
+                        height: "57px",
+                        margin: "31.8px 12.6px 38px 17.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      To allow you to receive notification and alerts via email
+                      and push notification
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "251px",
+                        height: "19px",
+                        margin: "31.8px 24.6px 6px 7.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      User defined at user’s discretion
+                    </div>
+                  </td>
+                  <td style={{ border: "solid 1px #dedede" }}>
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "19px",
+                        margin: "31.8px 312.8px 6px 13.4px",
+                      }}
+                      className={classes.blockNumber}
+                    >
+                      Your Consent
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </Table>
           </TableDiv>
           <MobileResponisveTable />
           <Block10>
@@ -1820,11 +1820,11 @@ function PrivacyPolicy() {
             </Para>
           </Block28>
           <Para
-            // style={{
-            //   width: "879px",
-            //   height: "19px",
-            //   margin: "28px 258px 28px 7px",
-            // }}
+          // style={{
+          //   width: "879px",
+          //   height: "19px",
+          //   margin: "28px 258px 28px 7px",
+          // }}
           >
             If you wish to exercise any of the rights set out above, please
             contact us at{" "}
@@ -1846,11 +1846,11 @@ function PrivacyPolicy() {
         </Block29>
         <div
           className={classes.rectangleCopy5}
-          // style={{
-          //   width: "1136px",
-          //   height: "95px",
-          //   margin: "28px 16px 28px 1px",
-          // }}
+        // style={{
+        //   width: "1136px",
+        //   height: "95px",
+        //   margin: "28px 16px 28px 1px",
+        // }}
         >
           <PointHeading>(c) What we may need from you</PointHeading>
           <Para>
@@ -1865,11 +1865,11 @@ function PrivacyPolicy() {
         </div>
         <div
           className={classes.rectangleCopy5}
-          // style={{
-          //   width: "1136px",
-          //   height: "76px",
-          //   margin: "28px 16px 77px 1px",
-          // }}
+        // style={{
+        //   width: "1136px",
+        //   height: "76px",
+        //   margin: "28px 16px 77px 1px",
+        // }}
         >
           <PointHeading>(c)Time limit to respond</PointHeading>
           <Para>
@@ -1882,11 +1882,11 @@ function PrivacyPolicy() {
         </div>
         <div
           className={classes.rectangleCopy5}
-          // style={{
-          //   width: "1136px",
-          //   height: "76px",
-          //   margin: "28px 16px 77px 1px",
-          // }}
+        // style={{
+        //   width: "1136px",
+        //   height: "76px",
+        //   margin: "28px 16px 77px 1px",
+        // }}
         >
           <PointHeading>
             11. CHANGES TO THE PRIVACY NOTICE AND YOUR DUTY TO INFORM US OF
@@ -1923,8 +1923,8 @@ const MobileResponisveTable = () => {
       </tr> */}
 
         <tr className={classes.row}>
-          <td  className={classes.rowNumber}>1</td>
-          <td  className={classes.tableData}>
+          <td className={classes.rowNumber}>1</td>
+          <td className={classes.tableData}>
             <div className={classes.purpose} >Purpose Activity</div>
             <div >
               To manage our relationship with you which will include:
@@ -1973,8 +1973,8 @@ const MobileResponisveTable = () => {
 
 
         <tr className={classes.row}>
-          <td  className={classes.rowNumber}>2</td>
-          <td  className={classes.tableData}>
+          <td className={classes.rowNumber}>2</td>
+          <td className={classes.tableData}>
 
             <div className={classes.purpose}>Purpose Activity</div>
             <div>
@@ -1982,7 +1982,7 @@ const MobileResponisveTable = () => {
               (including troubleshooting, data analysis,testing, system
               maintenance, support, reporting and hosting of data)
             </div>
-            <div  className={classes.personal}>Type Personal Data</div>
+            <div className={classes.personal}>Type Personal Data</div>
             <div>(1) Identity</div>
             <div>(2) Technical</div>
             <div className={classes.lawful}>
@@ -2003,10 +2003,10 @@ const MobileResponisveTable = () => {
         </tr>
 
         <tr className={classes.row}>
-          <td  className={classes.rowNumber}>3</td>
-          <td  className={classes.tableData}>
+          <td className={classes.rowNumber}>3</td>
+          <td className={classes.tableData}>
 
-          <div className={classes.purpose}>Purpose Activity</div>
+            <div className={classes.purpose}>Purpose Activity</div>
             <div>
               We send you marketing communications from us if you have
               requested information from us based on your interests
@@ -2025,143 +2025,143 @@ const MobileResponisveTable = () => {
 
 
         <tr className={classes.row}>
-        <td  className={classes.rowNumber}>4</td>
-        <td  className={classes.tableData}>
+          <td className={classes.rowNumber}>4</td>
+          <td className={classes.tableData}>
 
-        <div className={classes.purpose}>Purpose Activity</div>
-          <div>
-            To deliver relevant website content to you and measure or
-            understand the effectiveness of the communication that we
-            deliver to you
-          </div>
-          <div className={classes.personal}>Type Personal Data</div>
-          <div>
-            (1) Identity
-          </div>
-          <div>
-            (2) Contact
-          </div>
-          <div>
-            (3) Marketing and Communications
-          </div>
-          <div className={classes.lawful}>
+            <div className={classes.purpose}>Purpose Activity</div>
+            <div>
+              To deliver relevant website content to you and measure or
+              understand the effectiveness of the communication that we
+              deliver to you
+            </div>
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>
+              (1) Identity
+            </div>
+            <div>
+              (2) Contact
+            </div>
+            <div>
+              (3) Marketing and Communications
+            </div>
+            <div className={classes.lawful}>
               Lawful bases for processing including basis of legitimate
               interest
             </div>
-          <div>
-            Your Consent
-          </div>
-        </td>
-      </tr>
+            <div>
+              Your Consent
+            </div>
+          </td>
+        </tr>
 
 
-      <tr className={classes.row}>
-        <td  className={classes.rowNumber}>5</td>
-        <td  className={classes.tableData}>
+        <tr className={classes.row}>
+          <td className={classes.rowNumber}>5</td>
+          <td className={classes.tableData}>
 
-        <div className={classes.purpose} >Purpose Activity</div>
-          <div>
-            To use data analytics to improve our Website, products and
-            services, marketing, customer relationships and experiences
-          </div>
-          <div className={classes.personal}>Type Personal Data</div>
-          <div>
-            (1) Identity
-          </div>
-          <div>
-            (2) Usage
-          </div>
-          <div className={classes.lawful}>
+            <div className={classes.purpose} >Purpose Activity</div>
+            <div>
+              To use data analytics to improve our Website, products and
+              services, marketing, customer relationships and experiences
+            </div>
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>
+              (1) Identity
+            </div>
+            <div>
+              (2) Usage
+            </div>
+            <div className={classes.lawful}>
               Lawful bases for processing including basis of legitimate
               interest
             </div>
-          <div>
-            Necessary for our legitimate interests (to define types of
-            customers for our products and services, to keep our website
-            updated and relevant, to develop our business and to inform
-            our marketing strategy)
-          </div>
-        </td>
-      </tr>
+            <div>
+              Necessary for our legitimate interests (to define types of
+              customers for our products and services, to keep our website
+              updated and relevant, to develop our business and to inform
+              our marketing strategy)
+            </div>
+          </td>
+        </tr>
 
-      <tr className={classes.row}>
-        <td  className={classes.rowNumber}>6</td>
-        <td  className={classes.tableData}>
+        <tr className={classes.row}>
+          <td className={classes.rowNumber}>6</td>
+          <td className={classes.tableData}>
 
-        <div className={classes.purpose} >Purpose Activity</div>
-          <div>
-            To deliver relevant marketing materials, including news
-            articles, newsletters and event invitations  to individuals
-            subscribed to our mailing lists. We use mailing list
-            software in conjunction with our CRM to deliver the
-            communication by email.
-          </div>
-          <div className={classes.personal}>Type Personal Data</div>
-          <div>
-            (1) Identity
-          </div>
-          <div>
-            (2) Contact
-          </div>
-          <div>
-            (3) Marketing and Communications
-          </div>
-          <div className={classes.lawful}>
+            <div className={classes.purpose} >Purpose Activity</div>
+            <div>
+              To deliver relevant marketing materials, including news
+              articles, newsletters and event invitations  to individuals
+              subscribed to our mailing lists. We use mailing list
+              software in conjunction with our CRM to deliver the
+              communication by email.
+            </div>
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>
+              (1) Identity
+            </div>
+            <div>
+              (2) Contact
+            </div>
+            <div>
+              (3) Marketing and Communications
+            </div>
+            <div className={classes.lawful}>
               Lawful bases for processing including basis of legitimate
               interest
             </div>
-          <div>
-            Your Consent
-          </div>
-        </td>
-      </tr>
+            <div>
+              Your Consent
+            </div>
+          </td>
+        </tr>
 
 
-      <tr className={classes.row}>
-        <td  className={classes.rowNumber}>7</td>
-        <td  className={classes.tableData}>
+        <tr className={classes.row}>
+          <td className={classes.rowNumber}>7</td>
+          <td className={classes.tableData}>
 
-        <div className={classes.purpose}>Purpose Activity</div>
-          <div>
-            To allow you to interact with our XDC Observatory by adding
-            “tags” and other identity characteristics
-          </div>
-          <div className={classes.personal}>Type Personal Data</div>
-          <div>
-            User defined at user’s discretion
-          </div>
-          <div className={classes.lawful}>
+            <div className={classes.purpose}>Purpose Activity</div>
+            <div>
+              To allow you to interact with our XDC Observatory by adding
+              “tags” and other identity characteristics
+            </div>
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>
+              User defined at user’s discretion
+            </div>
+            <div className={classes.lawful}>
               Lawful bases for processing including basis of legitimate
               interest
             </div>
-          <div>
-            Your Consent
-          </div>
-        </td>
-      </tr>
+            <div>
+              Your Consent
+            </div>
+          </td>
+        </tr>
 
-      <tr className={classes.row}>
-        <td  className={classes.rowNumber}>8</td>
-        <td  className={classes.tableData}>
+        <tr className={classes.row}>
+          <td className={classes.rowNumber}>8</td>
+          <td className={classes.tableData}>
 
-        <div className={classes.purpose}>Purpose Activity</div>
-          <div>
-            To allow you to receive notification and alerts via email
-            and push notification
-          </div>
-          <div className={classes.personal}>Type Personal Data</div>
-          <div>
-            User defined at user’s discretion
-          </div>
-          <div className={classes.lawful}>
+            <div className={classes.purpose}>Purpose Activity</div>
+            <div>
+              To allow you to receive notification and alerts via email
+              and push notification
+            </div>
+            <div className={classes.personal}>Type Personal Data</div>
+            <div>
+              User defined at user’s discretion
+            </div>
+            <div className={classes.lawful}>
               Lawful bases for processing including basis of legitimate
               interest
             </div>
-          <div>
-            Your Consent
-          </div>
-        </td>
-      </tr> 
+            <div>
+              Your Consent
+            </div>
+          </td>
+        </tr>
       </table>
     </Table>
   )

@@ -29,7 +29,6 @@ label {
   margin: 0 45px 10px 0 !important;
 }
 
-
 .follow-us-margin {
   margin: 0px 0px 10px 0px !important;
   padding-right: 28px;
@@ -154,7 +153,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #81b4ff;
   opacity: 0.8;
   padding-top: 15px !important;
@@ -194,7 +193,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
-  letter-spacing: 0px;
+
   color: #ffffff;
   margin-left: 4px;
 }
@@ -226,7 +225,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -246,7 +245,7 @@ ul {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
   opacity: 0.8;
 }
@@ -268,7 +267,7 @@ ul {
     padding-right: 0px;
   }
   .communityContainer {
-    margin: 30px 0px 10px 0 !important
+    margin: 30px 0px 10px 0 !important;
   }
 }
 
@@ -284,20 +283,18 @@ a {
   font-stretch: normal;
   font-style: normal;
   line-height: 2;
-  letter-spacing: 0px;
+
   color: #81b4ff;
 }
 
 @media (max-width: 767px) {
   a {
     font-size: 0.75rem;
-    letter-spacing: 0px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
   a {
     font-size: 0.875rem;
-    letter-spacing: 0px;
   }
 }
 a:hover {
@@ -370,7 +367,7 @@ a:hover {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 @media (max-width: 1241px) {
@@ -386,7 +383,7 @@ a:hover {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #ffffff;
     opacity: 0.8;
 } */
@@ -399,7 +396,7 @@ a:hover {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 @media (min-width: 0px) and (max-width: 767px) {
@@ -461,7 +458,7 @@ a:hover {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
-  letter-spacing: 0px;
+
   color: #81b4ff;
   /* margin-left: -20px;
    font-family: Inter;
@@ -470,7 +467,7 @@ a:hover {
    font-stretch: normal;
    font-style: normal;
    line-height: 1.29;
-   letter-spacing: 0px;
+   
    color: #81b4ff; */
 }
 

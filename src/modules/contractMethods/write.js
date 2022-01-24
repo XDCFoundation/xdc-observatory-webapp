@@ -40,7 +40,7 @@ const QuestionName = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.58px;
+  
   text-align: left;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 14px;
@@ -100,7 +100,7 @@ const InputName = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -135,7 +135,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.62px;
+  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -174,7 +174,7 @@ const HighlightedText = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
+  
   text-align: left;
   color: #2149b9;
 `;
@@ -234,7 +234,7 @@ const ConnectToWalletButton = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.62px;
+  
   text-align: left;
   color: ${(props) => (props.isActive ? "white" : "#3763dd")};
 `;
@@ -542,52 +542,52 @@ export default function ContractWriteMethods(props) {
 
         {state.writeFunctions && state.writeFunctions.length
           ? state.writeFunctions.map((item, index) => {
-              return (
-                <QuestionContainer isActive={item.isActive} key={index}>
-                  <QuestionNameContainer
-                    onClick={() =>
-                      handleFunctionClick(
-                        index,
-                        item.isActive,
-                        item.inputs.length > 0
-                      )
-                    }
-                  >
-                    <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
-                    <Row style={{ gap: 10 }} alignItems="center">
-                      {item.loading && item.inputs.length === 0 ? (
-                        <CircularProgress size={12} />
-                      ) : (
-                        ""
-                      )}
-                      <ArrowImg
-                        isActive={item.isActive}
-                        src="/images/next.svg"
+            return (
+              <QuestionContainer isActive={item.isActive} key={index}>
+                <QuestionNameContainer
+                  onClick={() =>
+                    handleFunctionClick(
+                      index,
+                      item.isActive,
+                      item.inputs.length > 0
+                    )
+                  }
+                >
+                  <QuestionName>{`${index + 1}. ${item.name}`}</QuestionName>
+                  <Row style={{ gap: 10 }} alignItems="center">
+                    {item.loading && item.inputs.length === 0 ? (
+                      <CircularProgress size={12} />
+                    ) : (
+                      ""
+                    )}
+                    <ArrowImg
+                      isActive={item.isActive}
+                      src="/images/next.svg"
+                    />
+                  </Row>
+                </QuestionNameContainer>
+                {item.isActive ? (
+                  <OutputContainer>
+                    {item.inputs.length > 0 ? (
+                      <InputTypeFunctions
+                        error={state.error}
+                        state={state}
+                        setState={setState}
+                        itemIndex={index}
+                        writeFunctions={state.writeFunctions}
+                        functionDetail={item}
+                        handleSubmit={handleFunctionClick}
                       />
-                    </Row>
-                  </QuestionNameContainer>
-                  {item.isActive ? (
-                    <OutputContainer>
-                      {item.inputs.length > 0 ? (
-                        <InputTypeFunctions
-                          error={state.error}
-                          state={state}
-                          setState={setState}
-                          itemIndex={index}
-                          writeFunctions={state.writeFunctions}
-                          functionDetail={item}
-                          handleSubmit={handleFunctionClick}
-                        />
-                      ) : (
-                        <OutPutComponent item={item} />
-                      )}
-                    </OutputContainer>
-                  ) : (
-                    ""
-                  )}
-                </QuestionContainer>
-              );
-            })
+                    ) : (
+                      <OutPutComponent item={item} />
+                    )}
+                  </OutputContainer>
+                ) : (
+                  ""
+                )}
+              </QuestionContainer>
+            );
+          })
           : ""}
       </ParentContainer>
     </Paper>
@@ -652,7 +652,7 @@ const InputTypeFunctions = ({
       } else if (input.type.includes("map")) {
         try {
           request[element] = JSON.parse(request[element]);
-        } catch (error) {}
+        } catch (error) { }
       } else {
         request[element] = request[element];
       }

@@ -132,7 +132,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   margin-bottom: 5px;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.75rem;
@@ -146,7 +146,7 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
@@ -202,7 +202,7 @@ const LeftTopSec = styled.div`
   font-size: 1.25rem;
   font-weight: 800;
   font-family: Inter;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
@@ -221,7 +221,7 @@ const ContractButton = styled.button`
   background-color: transparent;
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0px;
+  
   border: none;
   color: #2149b9;
   padding-top: 0px;
@@ -255,18 +255,18 @@ const RightTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
   }
   @media (min-width: 767px) and (max-width: 1240px) {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0px;
+    
     color: #2a2a2a;
   }
 `;
@@ -499,7 +499,7 @@ export default function TokenDataComponent() {
                     {/* <TitleIcon src={priceLogo} /> */}
                     <ValueName className={classes.transfer}>
                       <Title>Transfer</Title>
-                      {}
+                      { }
                       <TitleValue>
                         {(transfer.length && transfer.length) === 0
                           ? "0"

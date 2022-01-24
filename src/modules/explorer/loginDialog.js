@@ -272,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0px",
+
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -708,7 +708,7 @@ export default function FormDialog(props) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
     } else if (privacyCheckbox === false) {
-      setErrorTermsCondition("Please accept the privacy policy");
+      setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
       setLoading(false);
     } else if (termsCheckbox === false) {
       setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");

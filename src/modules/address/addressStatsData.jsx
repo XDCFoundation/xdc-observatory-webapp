@@ -34,7 +34,7 @@ const MarketDataPointTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0rem;
+
   justify-content: center;
   color: #686868;
   display: flex;
@@ -48,7 +48,7 @@ const MarketDataPointTitle = styled.div`
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0rem;
+
     color: #686868;
     font-size: 0.75rem;
     opacity: 1;
@@ -104,7 +104,7 @@ const OutDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #ff4200;
   padding: 2px 1px;
@@ -116,7 +116,7 @@ const InValue = styled.span`
   font-stretch: normal !important;
   font-style: normal !important;
   line-height: normal !important;
-  letter-spacing: 0px !important;
+
   text-align: center !important;
   color: #585858 !important;
   padding: 4px 10px 5px 2px !important;
@@ -132,7 +132,7 @@ const OutValue = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   padding: 4px 0px 5px 2px;
   color: #585858;
@@ -245,7 +245,7 @@ class AddressStatsData extends Component {
               </div>
               <div className="cont1 p-t-0">
                 <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.VOLUMEX24}>
+                  <Tooltip placement="top" title={messages.AVERAGE_BALANCE}>
                     <img
                       alt="question-mark"
                       src="/images/info-new.svg"
