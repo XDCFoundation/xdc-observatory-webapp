@@ -373,6 +373,11 @@ export default function HolderTableComponent(props) {
                                 handleKeyUp(e);
                             }
                         }}
+                        onChange={(e) => {
+                            if (e.target.value == "") {
+                                handleKeyUp(e);
+                            }
+                        }}
                     />
                 </div>
 
