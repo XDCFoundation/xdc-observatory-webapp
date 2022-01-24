@@ -272,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0px",
+
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -712,13 +712,14 @@ export default function FormDialog(props) {
     } else if (password !== confirmPassword) {
       setErrorConfirmPassword("Password doesn't match");
       setLoading(false);
-    } else if (termsCheckbox === false) {
-      setErrorTermsCondition("Please agree to our terms and conditions");
-      setLoading(false);
     } else if (privacyCheckbox === false) {
-      setErrorPrivacyPolicy("Please accept the privacy policy");
+      setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
       setLoading(false);
-    } else {
+    } else if (termsCheckbox === false) {
+      setErrorTermsCondition("Please agree to our Terms of Use and Privacy Policy");
+      setLoading(false);
+    }
+    else {
       if (reCaptcha === "") {
         setCaptchaError(genericConstants.RECAPTCHA_ERROR);
         setLoading(false);

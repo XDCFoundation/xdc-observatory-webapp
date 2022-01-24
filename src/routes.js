@@ -97,7 +97,8 @@ class Routes extends BaseComponent {
               <Route
                 exact
                 path={"/"}
-                component={() => <BlockChainClass socket={socket} />}
+                component={() => <BlockChainClass socket={socket} socketNode={nodeSocket}
+                />}
               />
 
               { }

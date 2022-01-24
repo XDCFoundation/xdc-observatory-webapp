@@ -52,7 +52,6 @@ export default function TransactionTableComponent(props) {
   const getContractDetails = async (values) => {
     try {
       const [error, responseData] = await Utility.parseResponse(AddressData.getAddressDetailWithlimit(values));
-      console.log("responseData ",responseData)
       if (!responseData || responseData.length === 0) {
         setNoData(true);
         setTotalRecord(parseInt(0));
@@ -79,7 +78,6 @@ export default function TransactionTableComponent(props) {
   const getTransactionsCountForAddress = async (data) => {
     try {
       const [error, responseData] = await Utility.parseResponse(AddressData.getTransactionsCountForAddress(data));
-      console.log("responseData ",responseData)
       if (!responseData) {
         setNoData(true);
       }
