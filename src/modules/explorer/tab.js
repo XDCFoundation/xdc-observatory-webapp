@@ -40,7 +40,7 @@ function Tab() {
                 </div>
             </div>
 
-            <div className="content-tabs" style={{marginTop:'40px'}}>
+            <div className="content-tabs" >
                 <div className={toggleState === 1 ? "content  active-content" : "content"}>
                     <Graphbar />
 
