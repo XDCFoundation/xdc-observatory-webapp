@@ -133,15 +133,17 @@ export default function FormDialog(props) {
       setPrivateAddress(props?.toAddr)
     }
   }, [props])
+
   async function TaggedAddress() {
     const data = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: nameTag,
+      modifiedOn: Date.now()
     };
-    const [error, response] = await utility.parseResponse(
-      UserService.addPrivateTagToAddress(data)
-    );
+    // const [error, response] = await utility.parseResponse(
+    //   UserService.addPrivateTagToAddress(data)
+    // );
 
     // if (error) {
     //   utility.apiFailureToast("Address is already in use");
@@ -149,8 +151,9 @@ export default function FormDialog(props) {
     // }
 
     let taggedAddress = localStorage.getItem(
-      cookiesConstants.USER_TAGGED_ADDRESS
+        data.userId+cookiesConstants.USER_TAGGED_ADDRESS
     );
+    console.log("taggedAddress ",taggedAddress)
     if (taggedAddress) {
       taggedAddress = JSON.parse(taggedAddress);
       const existingTag = taggedAddress.find(
@@ -165,7 +168,7 @@ export default function FormDialog(props) {
     }
     taggedAddress.push(data);
     localStorage.setItem(
-      cookiesConstants.USER_TAGGED_ADDRESS,
+        data.userId+cookiesConstants.USER_TAGGED_ADDRESS,
       JSON.stringify(taggedAddress)
     );
     utility.apiSuccessToast("Tag Added");

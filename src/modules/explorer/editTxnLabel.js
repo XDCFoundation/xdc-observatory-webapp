@@ -7,8 +7,9 @@ import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { TransactionService, UserService } from "../../services";
 import utility, { dispatchAction } from "../../utility";
-import { eventConstants, genericConstants } from "../../constants";
+import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
 import { connect } from "react-redux";
+import {sessionManager} from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -168,18 +169,41 @@ function EditTxnLabel(props) {
   }, [props]);
 
   async function editTransactionLable() {
+    console.log("props.row ",PrivateNote)
     const data = {
-      _id: props.row._id,
+      ...props.row,
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
+      modifiedOn: Date.now()
     };
-    const [error, response] = await utility.parseResponse(
-      UserService.editUserPrivateNote(data)
+    console.log(data)
+    // const [error, response] = await utility.parseResponse(
+    //   UserService.editUserPrivateNote(data)
+    // );
+    // if (error) {
+    //   utility.apiFailureToast("Error");
+    //   return;
+    // }
+
+    let transactionLabel = localStorage.getItem(
+        sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS
     );
-    if (error) {
-      utility.apiFailureToast("Error");
+    transactionLabel = JSON.parse(transactionLabel);
+    transactionLabel[props.index] = data;
+
+    const existingTransactionLabel = transactionLabel.find(
+        (item, innerIndex) =>
+            item.transactionHash == TransactionsHash && item.userId == data.userId && props.index !== innerIndex
+    );
+    if (existingTransactionLabel) {
+      utility.apiFailureToast("Transaction private note is already in use");
       return;
     }
+
+    localStorage.setItem(
+        sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS,
+        JSON.stringify(transactionLabel)
+    );
     utility.apiSuccessToast("Private Note Updated");
     handleClose();
     await props.getListOfTxnLabel();

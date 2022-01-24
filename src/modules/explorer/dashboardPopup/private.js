@@ -3,442 +3,443 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import { makeStyles } from "@material-ui/styles";
-import { Row } from "simple-flexbox";
-import { history } from "../../../managers/history";
-import { UserService } from "../../../services";
+import {makeStyles} from "@material-ui/styles";
+import {Row} from "simple-flexbox";
+import {history} from "../../../managers/history";
+import {UserService} from "../../../services";
 import utility from "../../../utility";
-import { sessionManager } from "../../../managers/sessionManager";
-import { withStyles } from "@material-ui/core/styles";
+import {sessionManager} from "../../../managers/sessionManager";
+import {withStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { genericConstants, cookiesConstants } from "../../constants";
+import {genericConstants, cookiesConstants} from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
-  add: {
-    // marginLeft: "80%",
-    // backgroundColor: "#f5f8fa",
-    // fontFamily: "Roboto",
-    // fontStyle: "normal",
-    backgroundColor: "#2149b9",
-    marginLeft: "90px",
-  },
-  btn: {
-    textAlign: "start",
-    padding: "0px",
-    border: "none !important",
-    background: "none",
-    "&:hover": { background: "none" },
-  },
-  value: {
-    width: "400px !important",
-  },
-  cross: {
-    marginTop: "25px",
-    marginLeft: "40px",
-    fontWeight: "500",
-  },
-  dialog: {
-    marginLeft: "10%",
-    marginTop: "2px",
-    width: "80% !important",
-    height: "70% !important",
-    borderRadius: "50px !important",
-    "@media (min-width:0px) and (max-width:375px)": {
-      width: "100% !important",
-      height: "100% !important",
-      borderRadius: "1px !important",
+    add: {
+        // marginLeft: "80%",
+        // backgroundColor: "#f5f8fa",
+        // fontFamily: "Roboto",
+        // fontStyle: "normal",
+        backgroundColor: "#2149b9",
+        marginLeft: "90px",
     },
-    "@media (min-width:375px) and (max-width:768px)": {
-      width: "100% !important",
-      height: "100% !important",
-      borderRadius: "1px !important",
-      maxWidth: "768px !important",
+    btn: {
+        textAlign: "start",
+        padding: "0px",
+        border: "none !important",
+        background: "none",
+        "&:hover": {background: "none"},
     },
-  },
-  buttons: {
-    padding: "0 20px 0px 0px",
-  },
-  input: {
-    width: "503px",
-    height: "15px",
-    border: "solid 1px #c6c8ce",
-    backgroundColor: "#ffffff",
-    borderRadius: "7px",
-    padding: "20px",
-    marginBottom: "21px",
-    outline: "none",
-  },
-
-  addbtn: {
-    width: "94px",
-    height: "34px",
-    // margin: "33px 0 0 21px",
-    // padding: "8px 30px 7px 32px",
-    margin: "16px 8px 23px 2px",
-    padding: "0 19px 0 20px",
-    borderRadius: "4px",
-    backgroundColor: "#3763dd",
-    color: "white",
-  },
-  // addbtn: {
-  //   width: "110px",
-  // height: "34px",
-  // margin: "33px 0 0 21px",
-  // padding: "8px 30px 7px 32px",
-  // borderRadius: "4px",
-  // backgroundColor: "#3763dd",
-  // },
-  // cnlbtn: {
-  //   width: "94px",
-  // height: "34px",
-  // margin: "33px 21px 0 87px",
-  // padding: "8px 19px 7px 21px",
-  // borderRadius: "4px",
-  // backgroundColor: "#9fa9ba",
-
-  // },
-  cnlbtn: {
-    width: "94px",
-    height: "34px",
-    // margin: "33px 21px 0 87px",
-    // padding: "8px 19px 7px 21px",
-    borderRadius: "4px",
-    backgroundColor: "#9fa9ba",
-    color: "white",
-    margin: "16px 8px 23px 2px",
-    padding: "0 19px 0 20px",
-  },
-  subCategory: {
-    marginTop: "-12px",
-    marginBottom: "2px",
-    fontFamily: "Inter",
-    fontSize: "14px",
-    color: "#2a2a2a",
-    fontWeight: "500 !important",
-    border: "none !important",
-  },
-  forgotpass: {
-    color: "#2149b9",
-    marginLeft: "123px",
-  },
-  createaccount: {
-    color: "#2149b9",
-    marginLeft: "32px",
-    fontfamily: "Inter",
-    fontsize: "14px",
-  },
-  icon: {
-    marginLeft: "-30px",
-  },
-  xdc: {
-    color: "#2a2a2a",
-    marginLeft: "30px",
-    fontfamily: "Inter",
-    fontsize: "5px",
-  },
-  error: {
-    color: "red",
-    marginLeft: "2px",
-    marginTop: "-20px",
-  },
-  error1: {
-    color: "red",
-    marginLeft: "2px",
-  },
-
-  heading: {
-    marginTop: "30px",
-    marginBottom: "30px",
-    marginLeft: "24px",
-    fontFamily: "Inter",
-    fontWeight: "600",
-    fontSize: "18px",
-    color: "#2a2a2a",
-    "@media (min-width:500px) and (max-width:768px)": {
-      width: "100% !important",
-      flexFlow: "column nowrap ",
-      display: "flex !important",
-      maxWidth: "fit-content",
-      margin: "0 auto",
-      justifyContent: "flex-start !important",
+    value: {
+        width: "400px !important",
     },
-  },
-  dialogBox: {
-    width: "553px",
-    position: "absolute",
-    top: "111px",
-    borderRadius: "12px",
-  },
-  lastContainer: {
-    width: "504px",
-    padding: "11px 12px 10px 13px",
-    borderRadius: "6px",
-    backgroundColor: "#fff3f3",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: "25px",
-  },
-  lastContainerText: {
-    fontSize: "12px",
-    fontFamily: "Inter !important",
-    color: "#ff0202",
-    letterSpacing: "0px",
-    lineHeight: "1.58",
-  },
-  "@media (max-width: 714px)": {
-    heading: {
-      fontSize: "16px",
+    cross: {
+        marginTop: "25px",
+        marginLeft: "40px",
+        fontWeight: "500",
     },
-    dialogBox: {
-      width: "362px",
-      top: "95px",
+    dialog: {
+        marginLeft: "10%",
+        marginTop: "2px",
+        width: "80% !important",
+        height: "70% !important",
+        borderRadius: "50px !important",
+        "@media (min-width:0px) and (max-width:375px)": {
+            width: "100% !important",
+            height: "100% !important",
+            borderRadius: "1px !important",
+        },
+        "@media (min-width:375px) and (max-width:768px)": {
+            width: "100% !important",
+            height: "100% !important",
+            borderRadius: "1px !important",
+            maxWidth: "768px !important",
+        },
+    },
+    buttons: {
+        padding: "0 20px 0px 0px",
     },
     input: {
-      maxWidth: "503px",
-      width: "100%",
+        width: "503px",
+        height: "15px",
+        border: "solid 1px #c6c8ce",
+        backgroundColor: "#ffffff",
+        borderRadius: "7px",
+        padding: "20px",
+        marginBottom: "21px",
+        outline: "none",
+    },
+
+    addbtn: {
+        width: "94px",
+        height: "34px",
+        // margin: "33px 0 0 21px",
+        // padding: "8px 30px 7px 32px",
+        margin: "16px 8px 23px 2px",
+        padding: "0 19px 0 20px",
+        borderRadius: "4px",
+        backgroundColor: "#3763dd",
+        color: "white",
+    },
+    // addbtn: {
+    //   width: "110px",
+    // height: "34px",
+    // margin: "33px 0 0 21px",
+    // padding: "8px 30px 7px 32px",
+    // borderRadius: "4px",
+    // backgroundColor: "#3763dd",
+    // },
+    // cnlbtn: {
+    //   width: "94px",
+    // height: "34px",
+    // margin: "33px 21px 0 87px",
+    // padding: "8px 19px 7px 21px",
+    // borderRadius: "4px",
+    // backgroundColor: "#9fa9ba",
+
+    // },
+    cnlbtn: {
+        width: "94px",
+        height: "34px",
+        // margin: "33px 21px 0 87px",
+        // padding: "8px 19px 7px 21px",
+        borderRadius: "4px",
+        backgroundColor: "#9fa9ba",
+        color: "white",
+        margin: "16px 8px 23px 2px",
+        padding: "0 19px 0 20px",
+    },
+    subCategory: {
+        marginTop: "-12px",
+        marginBottom: "2px",
+        fontFamily: "Inter",
+        fontSize: "14px",
+        color: "#2a2a2a",
+        fontWeight: "500 !important",
+        border: "none !important",
+    },
+    forgotpass: {
+        color: "#2149b9",
+        marginLeft: "123px",
+    },
+    createaccount: {
+        color: "#2149b9",
+        marginLeft: "32px",
+        fontfamily: "Inter",
+        fontsize: "14px",
+    },
+    icon: {
+        marginLeft: "-30px",
+    },
+    xdc: {
+        color: "#2a2a2a",
+        marginLeft: "30px",
+        fontfamily: "Inter",
+        fontsize: "5px",
     },
     error: {
-      color: "red",
-      marginLeft: "2px",
+        color: "red",
+        marginLeft: "2px",
+        marginTop: "-20px",
     },
-  },
+    error1: {
+        color: "red",
+        marginLeft: "2px",
+    },
+
+    heading: {
+        marginTop: "30px",
+        marginBottom: "30px",
+        marginLeft: "24px",
+        fontFamily: "Inter",
+        fontWeight: "600",
+        fontSize: "18px",
+        color: "#2a2a2a",
+        "@media (min-width:500px) and (max-width:768px)": {
+            width: "100% !important",
+            flexFlow: "column nowrap ",
+            display: "flex !important",
+            maxWidth: "fit-content",
+            margin: "0 auto",
+            justifyContent: "flex-start !important",
+        },
+    },
+    dialogBox: {
+        width: "553px",
+        position: "absolute",
+        top: "111px",
+        borderRadius: "12px",
+    },
+    lastContainer: {
+        width: "504px",
+        padding: "11px 12px 10px 13px",
+        borderRadius: "6px",
+        backgroundColor: "#fff3f3",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: "25px",
+    },
+    lastContainerText: {
+        fontSize: "12px",
+        fontFamily: "Inter !important",
+        color: "#ff0202",
+        letterSpacing: "0px",
+        lineHeight: "1.58",
+    },
+    "@media (max-width: 714px)": {
+        heading: {
+            fontSize: "16px",
+        },
+        dialogBox: {
+            width: "362px",
+            top: "95px",
+        },
+        input: {
+            maxWidth: "503px",
+            width: "100%",
+        },
+        error: {
+            color: "red",
+            marginLeft: "2px",
+        },
+    },
 }));
 
 const LightToolTip = withStyles({
-  arrow: {
-    "&:before": {
-      backgroundColor: "white",
+    arrow: {
+        "&:before": {
+            backgroundColor: "white",
+        },
     },
-  },
-  tooltip: {
-    color: "#2a2a2a",
-    backgroundColor: "white",
-    padding: "9px",
-    fontSize: "12px",
-    fontWeight: "normal",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "1.42",
-    letterSpacing: "0px",
-  },
+    tooltip: {
+        color: "#2a2a2a",
+        backgroundColor: "white",
+        padding: "9px",
+        fontSize: "12px",
+        fontWeight: "normal",
+        fontStretch: "normal",
+        fontStyle: "normal",
+        lineHeight: "1.42",
+        letterSpacing: "0px",
+    },
 })(Tooltip);
 
 export default function FormDialog(props) {
-  const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
-  const [passwordShown, setPasswordShown] = React.useState(false);
-  const [privateAddress, setPrivateAddress] = React.useState(false);
-  // const [nameTag, setNameTag] = React.useState(false);
-  const [error, setError] = React.useState("");
-  const [errorTag, setErrorTag] = React.useState("");
-  // const togglePasswordVisiblity = () => {
-  //   setPasswordShown(passwordShown ? false : true);
-  //   // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
-  // };
+    const [passwordShown, setPasswordShown] = React.useState(false);
+    const [privateAddress, setPrivateAddress] = React.useState(false);
+    // const [nameTag, setNameTag] = React.useState(false);
+    const [error, setError] = React.useState("");
+    const [errorTag, setErrorTag] = React.useState("");
+    // const togglePasswordVisiblity = () => {
+    //   setPasswordShown(passwordShown ? false : true);
+    //   // {passwordShown ?<VisibilityIcon/>:<VisibilityOff/>}
+    // };
 
-  const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
+    const [tooltipIsOpen, setTooltipIsOpen] = React.useState(false);
 
-  async function TaggedAddress() {
-    setError("");
-    setErrorTag("");
-    const data = {
-      userId: sessionManager.getDataFromCookies("userId"),
-      address: privateAddress,
-      tagName: tags,
-    };
-    if (!privateAddress) {
-      setError(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if (!input && tags.length === 0) {
-      setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
-    } else if (
-      !(privateAddress && privateAddress.length === 43) ||
-      !(privateAddress.slice(0, 3) === "xdc")
-    ) {
-      setError("Please add address that is having 43 characters and initiates with xdc");
-      return;
-    } else if (tags.length === 0) {
-      setErrorTag("Press comma(,) to add tag");
-      return;
-    } else if (tags && tags.length > 5) {
-      setErrorTag("You can not add Name tag more than 5");
-      return;
-    } else {
-      const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
-
-      if (error) {
-        utility.apiFailureToast("Address is already in use");
-        return;
-      }
-      let taggedAddress = localStorage.getItem(
-        cookiesConstants.USER_TAGGED_ADDRESS
-      );
-      if (taggedAddress) {
-        taggedAddress = JSON.parse(taggedAddress);
-        const existingTag = taggedAddress.find(
-          (item) => item.address == privateAddress && item.userId == data.userId
-        );
-        if (existingTag) {
-          utility.apiFailureToast("Address is already in use");
-          return;
+    async function TaggedAddress() {
+        setError("");
+        setErrorTag("");
+        const data = {
+            userId: sessionManager.getDataFromCookies("userId"),
+            address: privateAddress,
+            tagName: tags,
+            modifiedOn: Date.now()
+        };
+        if (!privateAddress) {
+            setError(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (!input && tags.length === 0) {
+            setErrorTag(genericConstants.ENTER_REQUIRED_FIELD);
+        } else if (
+            !(privateAddress && privateAddress.length === 43) ||
+            !(privateAddress.slice(0, 3) === "xdc")
+        ) {
+            setError("Please add address that is having 43 characters and initiates with xdc");
+            return;
+        } else if (tags.length === 0) {
+            setErrorTag("Press comma(,) to add tag");
+            return;
+        } else if (tags && tags.length > 5) {
+            setErrorTag("You can not add Name tag more than 5");
+            return;
+        } else {
+            // const [error] = await utility.parseResponse(
+            //   UserService.addPrivateTagToAddress(data)
+            // );
+            //
+            // if (error) {
+            //   utility.apiFailureToast("Address is already in use");
+            //   return;
+            // }
+            let taggedAddress = localStorage.getItem(
+                data.userId + cookiesConstants.USER_TAGGED_ADDRESS
+            );
+            if (taggedAddress) {
+                taggedAddress = JSON.parse(taggedAddress);
+                const existingTag = taggedAddress.find(
+                    (item) => item.address == privateAddress && item.userId == data.userId
+                );
+                if (existingTag) {
+                    utility.apiFailureToast("Address is already in use");
+                    return;
+                }
+            } else {
+                taggedAddress = [];
+            }
+            taggedAddress.push(data);
+            localStorage.setItem(
+                data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
+                JSON.stringify(taggedAddress)
+            );
+            utility.apiSuccessToast("Tag Added");
+            setOpen(false);
+            await props.getListOfTagAddress();
+            await props.getTotalCountTagAddress();
         }
-      } else {
-        taggedAddress = [];
-      }
-      taggedAddress.push(data);
-      localStorage.setItem(
-        cookiesConstants.USER_TAGGED_ADDRESS,
-        JSON.stringify(taggedAddress)
-      );
-      utility.apiSuccessToast("Tag Added");
-      setOpen(false);
-      await props.getListOfTagAddress();
-      await props.getTotalCountTagAddress();
-    }
-  }
-
-  const classes = useStyles();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setError("");
-    setErrorTag("");
-    setPrivateAddress("");
-    setTags([]);
-  };
-
-  const [input, setInput] = React.useState("");
-  const [tags, setTags] = React.useState([]);
-  const [isKeyReleased, setIsKeyReleased] = React.useState(false);
-
-  const onChange = (e) => {
-    setErrorTag("");
-    const { value } = e.target;
-    setInput(value);
-  };
-
-  const onKeyDown = (e) => {
-    const { key } = e;
-    const trimmedInput = input.trim();
-
-    if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
-      e.preventDefault();
-      if (trimmedInput.length > 15) {
-        setErrorTag("Tag length should be less than 15");
-        return;
-      }
-      if (tags.length >= 5) {
-        setErrorTag("Maximum 5 Tags are allowed");
-        return;
-      }
-      setTags((prevState) => [...prevState, trimmedInput]);
-      setInput("");
-      setErrorTag("");
     }
 
-    if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
-      const tagsCopy = [...tags];
-      const poppedTag = tagsCopy.pop();
-      e.preventDefault();
-      setTags(tagsCopy);
-      setInput(poppedTag);
-    }
+    const classes = useStyles();
 
-    setIsKeyReleased(false);
-  };
-
-  const onKeyUp = () => {
-    setIsKeyReleased(true);
-  };
-
-  const deleteTag = (index) => {
-    setTags((prevState) => prevState.filter((tag, i) => i !== index));
-  };
-
-  const tooltipClose = () => {
-    setTooltipIsOpen(!tooltipIsOpen);
-  };
-
-  function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
-    return {
-      width,
-      height,
+    const handleClickOpen = () => {
+        setOpen(true);
     };
-  }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(
-    getWindowDimensions()
-  );
+    const handleClose = () => {
+        setOpen(false);
+        setError("");
+        setErrorTag("");
+        setPrivateAddress("");
+        setTags([]);
+    };
 
-  React.useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
+    const [input, setInput] = React.useState("");
+    const [tags, setTags] = React.useState([]);
+    const [isKeyReleased, setIsKeyReleased] = React.useState(false);
+
+    const onChange = (e) => {
+        setErrorTag("");
+        const {value} = e.target;
+        setInput(value);
+    };
+
+    const onKeyDown = (e) => {
+        const {key} = e;
+        const trimmedInput = input.trim();
+
+        if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
+            e.preventDefault();
+            if (trimmedInput.length > 15) {
+                setErrorTag("Tag length should be less than 15");
+                return;
+            }
+            if (tags.length >= 5) {
+                setErrorTag("Maximum 5 Tags are allowed");
+                return;
+            }
+            setTags((prevState) => [...prevState, trimmedInput]);
+            setInput("");
+            setErrorTag("");
+        }
+
+        if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
+            const tagsCopy = [...tags];
+            const poppedTag = tagsCopy.pop();
+            e.preventDefault();
+            setTags(tagsCopy);
+            setInput(poppedTag);
+        }
+
+        setIsKeyReleased(false);
+    };
+
+    const onKeyUp = () => {
+        setIsKeyReleased(true);
+    };
+
+    const deleteTag = (index) => {
+        setTags((prevState) => prevState.filter((tag, i) => i !== index));
+    };
+
+    const tooltipClose = () => {
+        setTooltipIsOpen(!tooltipIsOpen);
+    };
+
+    function getWindowDimensions() {
+        const {innerWidth: width, innerHeight: height} = window;
+        return {
+            width,
+            height,
+        };
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  const { width } = windowDimensions;
+    const [windowDimensions, setWindowDimensions] = React.useState(
+        getWindowDimensions()
+    );
 
-  return (
-    <>
-      <div className="w-33p">
-        <div className="div1 cursor-pointer">
-          <div
-            onClick={
-              width >= 760
-                ? handleClickOpen
-                : () => {
-                  history.push("/test-address");
-                }
-            }
-          >
-            <img className="imagediv1" src={"/images/private.svg"}></img>
-          </div>
-          <div
-            className="imageParentDiv"
-            onClick={
-              width >= 760
-                ? handleClickOpen
-                : () => {
-                  history.push("/test-address");
-                }
-            }
-          >
-            <div className="headingdiv1">
-              <div>Add private tag to an Address</div>
-            </div>
-            <div className="paradiv1">
-              Add a short memo or private tag to the address of interest.
-            </div>
-          </div>
+    React.useEffect(() => {
+        function handleResize() {
+            setWindowDimensions(getWindowDimensions());
+        }
 
-          <LearnMoreParent>
-            <LightToolTip
-              open={tooltipIsOpen}
-              onClose={tooltipClose}
-              title="Add a short memo or private tag to the address of interest."
-              arrow
-              placement="top-start"
-            >
-              <div
-                className="learnMoreText"
-                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
-              >
-                Learn More
-              </div>
-            </LightToolTip>
-          </LearnMoreParent>
-        </div>
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    const {width} = windowDimensions;
 
-        {/* <Button
+    return (
+        <>
+            <div className="w-33p">
+                <div className="div1 cursor-pointer">
+                    <div
+                        onClick={
+                            width >= 760
+                                ? handleClickOpen
+                                : () => {
+                                    history.push("/test-address");
+                                }
+                        }
+                    >
+                        <img className="imagediv1" src={"/images/private.svg"}></img>
+                    </div>
+                    <div
+                        className="imageParentDiv"
+                        onClick={
+                            width >= 760
+                                ? handleClickOpen
+                                : () => {
+                                    history.push("/test-address");
+                                }
+                        }
+                    >
+                        <div className="headingdiv1">
+                            <div>Add private tag to an Address</div>
+                        </div>
+                        <div className="paradiv1">
+                            Add a short memo or private tag to the address of interest.
+                        </div>
+                    </div>
+
+                    <LearnMoreParent>
+                        <LightToolTip
+                            open={tooltipIsOpen}
+                            onClose={tooltipClose}
+                            title="Add a short memo or private tag to the address of interest."
+                            arrow
+                            placement="top-start"
+                        >
+                            <div
+                                className="learnMoreText"
+                                onClick={() => setTooltipIsOpen(!tooltipIsOpen)}
+                            >
+                                Learn More
+                            </div>
+                        </LightToolTip>
+                    </LearnMoreParent>
+                </div>
+
+                {/* <Button
         className={classes.btn}
         variant="outlined"
         color="primary"
@@ -447,106 +448,106 @@ export default function FormDialog(props) {
           <img className="Shape2" src={"/images/Profile.png"}></img>
       </Button> */}
 
-        {/* <div> */}
-        <Dialog
-          // className={classes.dialog}
-          classes={{ paperWidthSm: classes.dialogBox }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <Row>
-            <div className={classes.heading} id="form-dialog-title">
-              Add a new Address Tag
-            </div>
-            {/* <span onClick={handleClose} className={classes.cross}>
+                {/* <div> */}
+                <Dialog
+                    // className={classes.dialog}
+                    classes={{paperWidthSm: classes.dialogBox}}
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <Row>
+                        <div className={classes.heading} id="form-dialog-title">
+                            Add a new Address Tag
+                        </div>
+                        {/* <span onClick={handleClose} className={classes.cross}>
               {" "}
               X{" "}
             </span> */}
-          </Row>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Address
-            </DialogContentText>
-            <input
-              className={classes.input}
-              onChange={(e) => {
-                setPrivateAddress(e.target.value);
-                setError("");
-              }}
-            ></input>
-            {error ? <div className={classes.error}>{error}</div> : <></>}
-          </DialogContent>
-          <DialogContent>
-            <DialogContentText className={classes.subCategory}>
-              Name Tag
-              {/* <span  className={classes.forgotpass}>
+                    </Row>
+                    <DialogContent>
+                        <DialogContentText className={classes.subCategory}>
+                            Address
+                        </DialogContentText>
+                        <input
+                            className={classes.input}
+                            onChange={(e) => {
+                                setPrivateAddress(e.target.value);
+                                setError("");
+                            }}
+                        ></input>
+                        {error ? <div className={classes.error}>{error}</div> : <></>}
+                    </DialogContent>
+                    <DialogContent>
+                        <DialogContentText className={classes.subCategory}>
+                            Name Tag
+                            {/* <span  className={classes.forgotpass}>
               Forgot Password?
             </span> */}
-            </DialogContentText>
+                        </DialogContentText>
 
-            <div className="containerTag">
-              {tags.map((tag, index) => (
-                <div className="tag">
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>x</button>
-                </div>
-              ))}
-              <input
-                value={input}
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
-                onChange={onChange}
-              />
-            </div>
-            {errorTag ? (
-              <div className={classes.error1}>{errorTag}</div>
-            ) : (
-              <></>
-            )}
-            {/* <input
+                        <div className="containerTag">
+                            {tags.map((tag, index) => (
+                                <div className="tag">
+                                    {tag}
+                                    <button onClick={() => deleteTag(index)}>x</button>
+                                </div>
+                            ))}
+                            <input
+                                value={input}
+                                onKeyDown={onKeyDown}
+                                onKeyUp={onKeyUp}
+                                onChange={onChange}
+                            />
+                        </div>
+                        {errorTag ? (
+                            <div className={classes.error1}>{errorTag}</div>
+                        ) : (
+                            <></>
+                        )}
+                        {/* <input
               type="text"
               className={classes.input}
               onChange={(e) => setNameTag(e.target.value)}
             ></input> */}
-            {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
-            {/* <span>
+                        {/* {errorTag ? <div className={classes.error}>{errorTag}</div> : <></>} */}
+                        {/* <span>
                 {passwordShown?<VisibilityIcon className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>:<VisibilityOff className={classes.icon} fontSize="small" style={{ color: "#b9b9b9" }} onClick={togglePasswordVisiblity}/>}
              {/* <RemoveRedEyeIcon className={classes.icon} onClick={togglePasswordVisiblity}
             {...passwordShown==false?<VisibilityIcon/>:<VisibilityOff/>}
 
             {...passwordShown==="password"?<VisibilityIcon/>:<VisibilityOff/>}
             fontSize="small" style={{ color: "#b9b9b9" }} /> */}
-            {/* </span> */}
-          </DialogContent>
-          <DialogActions className={classes.buttons}>
+                        {/* </span> */}
+                    </DialogContent>
+                    <DialogActions className={classes.buttons}>
             <span>
               <button className={classes.cnlbtn} onClick={handleClose}>
                 Cancel
               </button>
             </span>
-            <span>
+                        <span>
               <button className={classes.addbtn} onClick={TaggedAddress}>
                 Add
               </button>
             </span>
-          </DialogActions>
-          <div className={classes.lastContainer}>
-            <div className={classes.lastContainerText}>
-              To protect your privacy, data related to the address tags, is
-              added on your local device. Cleaning the browsing history or
-              cookies will clean the address tags saved in your profile.
-            </div>
-          </div>
-          {/* <div className={classes.value}></div>
+                    </DialogActions>
+                    <div className={classes.lastContainer}>
+                        <div className={classes.lastContainerText}>
+                            To protect your privacy, data related to the address tags, is
+                            added on your local device. Cleaning the browsing history or
+                            cookies will clean the address tags saved in your profile.
+                        </div>
+                    </div>
+                    {/* <div className={classes.value}></div>
           <DialogContentText className={classes.xdc}>
               New to XDC Xplorer? <span className={classes.createaccount}> Create an account</span>
             </DialogContentText> */}
-        </Dialog>
-        {/* </div> */}
-      </div>
-    </>
-  );
+                </Dialog>
+                {/* </div> */}
+            </div>
+        </>
+    );
 }
 
 const LearnMoreParent = styled.div`
