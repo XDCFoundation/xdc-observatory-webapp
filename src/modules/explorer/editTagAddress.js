@@ -13,8 +13,9 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import utility, { dispatchAction } from "../../utility";
 import { TagAddressService } from "../../services";
-import { eventConstants, genericConstants } from "../../constants";
+import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
 import { connect } from "react-redux";
+import {sessionManager} from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -169,9 +170,10 @@ function EditTaggedAddress(props) {
     setError("");
     setErrorTag("");
     const data = {
-      _id: props.row._id,
+      ...props.row,
       address: privateAddress,
       tagName: tags,
+      modifiedOn: Date.now()
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
@@ -190,14 +192,36 @@ function EditTaggedAddress(props) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error, response] = await utility.parseResponse(
-        PutTagAddress.putTaggedAddress(data)
+      // const [error, response] = await utility.parseResponse(
+      //   PutTagAddress.putTaggedAddress(data)
+      // );
+      //
+      // if (error) {
+      //   setErrorTag("Address is already in use");
+      //   return;
+      // }
+
+      let taggedAddress = localStorage.getItem(
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS
+      );
+      taggedAddress = JSON.parse(taggedAddress);
+      taggedAddress[props.index] = data;
+
+      const existingTaggedAddress = taggedAddress.find(
+          (item, innerIndex) =>
+              item.address == privateAddress && item.userId == data.userId && props.index !== innerIndex
       );
 
-      if (error) {
-        setErrorTag("Address is already in use");
+      if (existingTaggedAddress) {
+        utility.apiFailureToast("Address is already in use");
         return;
       }
+
+      localStorage.setItem(
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TAGGED_ADDRESS,
+          JSON.stringify(taggedAddress)
+      );
+
       utility.apiSuccessToast("Address tag Updated");
       await props.getListOfTagAddress();
       await props.getTotalCountTagAddress();
