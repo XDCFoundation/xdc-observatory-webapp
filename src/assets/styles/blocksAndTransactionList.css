@@ -18,8 +18,9 @@
   text-align: left;
   color: #2a2a2a;
   margin-bottom: 15px;
+  margin-top: 30px;
 }
-@media (min-width: 0px) and (max-width: 1240px) {
+/* @media (min-width: 0px) and (max-width: 1240px) {
   .table-top-header {
     height: 1.813rem;
     font-family: Inter;
@@ -32,7 +33,7 @@
     text-align: left;
     color: #2a2a2a;
   }
-}
+} */
 
 .tablegrid {
   padding-top: 8%;
@@ -61,7 +62,7 @@
   }
   .tabletop-header {
     font-family: Inter;
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -69,7 +70,6 @@
     letter-spacing: 0px;
     text-align: left;
     color: #2a2a2a;
-    margin-bottom: 15px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
@@ -674,9 +674,8 @@
 }
 @media (min-width: 0px) and (max-width: 767px) {
   .table_1 {
-    width: 22.563rem;
-    margin: 12px auto;
-    padding-top: 0;
+    width: 100%;
+    padding: 0 15px;
   }
 }
 @media (min-width: 767px) and (max-width: 1240px) {
