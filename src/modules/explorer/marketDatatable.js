@@ -64,6 +64,7 @@ const MarketDataPointTitle = styled.div`
     display: flex;
     gap: 10px;
     flex-flow: row-reverse;
+    width: 130px;
   }
 `;
 
