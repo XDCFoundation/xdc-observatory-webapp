@@ -160,7 +160,7 @@ export default function FormDialog(props) {
         (item) => item.address == privateAddress && item.userId == data.userId
       );
       if (existingTag) {
-        utility.apiFailureToast("Address1 is already in use");
+        utility.apiFailureToast("Address is already in use");
         return;
       }
     } else {
