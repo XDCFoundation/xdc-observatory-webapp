@@ -12,7 +12,7 @@ import { sessionManager } from "../../../managers/sessionManager";
 import { withStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import styled from "styled-components";
-import { genericConstants, cookiesConstants } from "../../constants";
+import { genericConstants, cookiesConstants } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -146,7 +146,6 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginLeft: "2px",
   },
-
   heading: {
     marginTop: "30px",
     marginBottom: "30px",
@@ -246,6 +245,7 @@ export default function FormDialog(props) {
       userId: sessionManager.getDataFromCookies("userId"),
       address: privateAddress,
       tagName: tags,
+      modifiedOn: Date.now()
     };
     if (!privateAddress) {
       setError(genericConstants.ENTER_REQUIRED_FIELD);
@@ -264,16 +264,16 @@ export default function FormDialog(props) {
       setErrorTag("You can not add Name tag more than 5");
       return;
     } else {
-      const [error] = await utility.parseResponse(
-        UserService.addPrivateTagToAddress(data)
-      );
-
-      if (error) {
-        utility.apiFailureToast("Address is already in use");
-        return;
-      }
+      // const [error] = await utility.parseResponse(
+      //   UserService.addPrivateTagToAddress(data)
+      // );
+      //
+      // if (error) {
+      //   utility.apiFailureToast("Address is already in use");
+      //   return;
+      // }
       let taggedAddress = localStorage.getItem(
-        cookiesConstants.USER_TAGGED_ADDRESS
+        data.userId + cookiesConstants.USER_TAGGED_ADDRESS
       );
       if (taggedAddress) {
         taggedAddress = JSON.parse(taggedAddress);
@@ -289,7 +289,7 @@ export default function FormDialog(props) {
       }
       taggedAddress.push(data);
       localStorage.setItem(
-        cookiesConstants.USER_TAGGED_ADDRESS,
+        data.userId + cookiesConstants.USER_TAGGED_ADDRESS,
         JSON.stringify(taggedAddress)
       );
       utility.apiSuccessToast("Tag Added");
