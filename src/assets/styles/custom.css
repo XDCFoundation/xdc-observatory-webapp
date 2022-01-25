@@ -7305,6 +7305,10 @@ button {
   margin: 20px auto auto auto;
   width: 75.063rem;
 }
+.table-grid-block-global-id {
+  margin: 0px auto auto auto;
+  width: 75.063rem;
+}
 .table-grid-block-contract {
   margin: 5px auto auto auto;
   width: 75.063rem;
@@ -7445,8 +7449,27 @@ button {
   font-size: 1.5rem;
   margin-top: 5px;
   font-family: Inter;
-  font-weight: 1000 !important;
+  font-weight: 600 !important;
 }
+.contract_details_heading {
+  font-size: 1.5rem;
+  margin-top: 5px;
+  font-family: Inter;
+  font-weight: 600 !important;
+  align-items: center;
+}
+.contract-address-heading {
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .contract-address-heading {
+    font-size: 14px;
+  }
+  .contract_details_heading {
+    align-items: flex-start;
+  }
+}
+
 .contract_details_heading_left {
   font-size: 1.5rem;
   font-family: Inter;
@@ -8824,6 +8847,9 @@ button {
   .table-grid-block {
     width: 23.5rem;
   }
+  .table-grid-block-global-id {
+    width: 23.5rem;
+  }
   .table-grid-block-contract {
     width: 21rem;
   }
@@ -9063,6 +9089,9 @@ button {
   .table-grid-block {
     width: 22.563rem;
   }
+  .table-grid-block-global-id {
+    width: 22.563rem;
+  }
   .table-grid-block-contract {
     flex-direction: column;
     width: 41.5rem;
@@ -9071,9 +9100,9 @@ button {
     width: 41.5rem !important;
   }
   .AddressTitle {
-    width: 35rem;
+    /* width: 35rem;
     margin-left: 0px;
-    padding-left: 115px;
+    padding-left: 115px; */
   }
   .contractOverview {
     width: 41.5rem;
@@ -10904,4 +10933,12 @@ button {
     width: 21rem;
     margin: 0 auto;
   }
+}
+.global-id {
+  background-image: url("../images/banner_bg.png");
+  background-color: #2149b9;
+}
+.global-id-icon {
+  height: 45px;
+  width: 45px;
 }
