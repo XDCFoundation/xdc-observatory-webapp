@@ -13,12 +13,13 @@ import { genericConstants } from "../constants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookiesConstants } from "../../constants";
-import { history } from "../../managers/history";
+// import { history } from "../../managers/history";
 import Loader from "../../assets/loader";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Avatar } from "@material-ui/core";
 import { Tooltip } from "@material-ui/core";
 import { messages } from "../../constants";
+import { useHistory, Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   add: {
     backgroundColor: "#2149b9",
@@ -477,7 +478,7 @@ export default function FormDialog(props) {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
-
+  const history = useHistory();
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -883,7 +884,9 @@ export default function FormDialog(props) {
   const onClickReset = () => {
     clearTimer(getDeadTime());
   };
-
+  function handleClick() {
+    window.location.href = "/global-id";
+  }
   //------------------------------------------------------------------------------------------------------------------------------------->
 
   return (
@@ -896,7 +899,7 @@ export default function FormDialog(props) {
           //   <button className="login-button">
           <Avatar
             className="profile"
-            onClick={handleClickOpen}
+            onClick={handleClick}
             src={
               sessionManager.getDataFromCookies(
                 cookiesConstants.USER_PICTURE

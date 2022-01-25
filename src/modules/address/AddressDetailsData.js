@@ -196,38 +196,13 @@ export default function AddressDetailsData() {
       <Grid className="table-grid-block-contract ">
         <div>
           <div
-            className="block_details_heading b-h1"
-            style={{ display: "flex", flexDirection: "row" }}
+            className="contract_details_heading p-t-30 display-flex justify-content-betwe"
           >
-            <Row
-              alignItems="center"
-              justifyContent="center"
-              className="contract_details_heading_left"
-            >
-              Contract Address{" "}
-              <span className="AddressTitle addtitle">{addressNumber}</span>
-              {!isloggedIn ? (
-                <span className={classes.wantToLoginText}>
-                  <LoginDialog
-                    open={loginDialogIsOpen}
-                    onClose={closeLoginDialog}
-                    dataHashOrAddress={addressNumber}
-                  />
-                  <div>
-                    Want to tag this address?
-                    <a
-                      className="linkTableDetails-transaction"
-                      style={{ marginLeft: "5px", cursor: "pointer" }}
-                      onClick={openLoginDialog}
-                    >
-                      Login
-                    </a>
-                  </div>
-                </span>
-              ) : (
-                ""
-              )}
-            </Row>
+            <div className="contract-address-heading">Contract Address{" "}</div>
+
+            <div className="AddressTitle">{addressNumber}</div>
+
+
           </div>
           <div className="address_block_main">
             <div className="contractOverview">

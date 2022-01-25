@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { history } from "./managers/history";
 import BaseComponent from "./modules/baseComponent";
 import socketClient from "socket.io-client";
-
+import GlobalIdContinue from "./modules/explorer/globalIdContinue";
 // import TokenDataComponent from "./modules/token/tokenDataDashboard";
 // import LatestTransactionList from "./modules/transaction/index";
 // import LatestBlocksList from "./modules/blocks";
@@ -59,7 +59,7 @@ const Test = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/Tes
 const TestTwo = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestTwo')));
 const TestAddress = withRouter(lazy(() => import('./modules/explorer/dashboardPopup/TestAddress')));
 const ContractRead = withRouter(lazy(() => import('./modules/contractMethods/read')));
-
+// const GlobalIdContinue = withRouter(lazy(() => import('./modules/explorer/globalIdContinue')));
 let socket = socketClient(process.env.REACT_APP_WEB_SOCKECT_URL, {
   transports: ["websocket"],
 });
@@ -177,6 +177,11 @@ class Routes extends BaseComponent {
                 exact
                 path={"/verified-email"}
                 component={VerifiedEmailScreenComponent}
+              />
+              <Route
+                exact
+                path={"/global-id"}
+                component={GlobalIdContinue}
               />
               <Route exact path={"/test"} component={Test} />
               <Route exact path={"/read"} component={ContractRead} />
