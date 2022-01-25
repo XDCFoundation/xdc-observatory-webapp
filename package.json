@@ -11,6 +11,7 @@
     "@material-ui/styles": "^4.11.4",
     "@metamask/detect-provider": "^1.2.0",
     "@mui/material": "^5.2.5",
+    "@mui/system": "^5.3.0",
     "@nivo/core": "^0.70.1",
     "@nivo/generators": "^0.78.0",
     "@nivo/line": "^0.70.1",
