@@ -248,12 +248,12 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.722rem",
     },
   },
-  "@media (max-width: 828px)": {
-    appbar: {
+  // "@media (max-width: 828px)": {
+  //   appbar: {
       // maxWidth: "710px",
-      width: "25rem",
-    },
-  },
+      // width: "25rem",
+  //   },
+  // },
   "@media (max-width: 767)": {
     appbar: {
       // maxWidth: "710px",
@@ -1567,7 +1567,7 @@ export default function SimpleTabs(props) {
                                   align="left"
                                 >
                                   <span className="tabledata-1">
-                                    {balanceToShow}
+                                    {balanceToShow}&nbsp;XDC
                                   </span>
                                   {/* </a> */}
                                 </TableCell>
