@@ -317,11 +317,11 @@ export default function FormDialog() {
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
       if (trimmedInput.length > 15) {
-        setErrorTag("Tag length should be less than 15");
+        setErrorTag("Nametag cannot be longer than 15 characters");
         return;
       }
       if (tags.length >= 5) {
-        setErrorTag("Maximum 5 Tags are allowed");
+        setErrorTag("Maximum 5 Name tags are allowed");
         return;
       }
       setTags((prevState) => [...prevState, trimmedInput]);

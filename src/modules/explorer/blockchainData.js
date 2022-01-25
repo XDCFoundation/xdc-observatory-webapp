@@ -35,7 +35,7 @@ const MainContainer = styled.div`
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
-    flex-direction: column-reverse;
+    flex-direction: column;
     /* width: auto; */
     width: 41.5rem;
     margin-left: auto;

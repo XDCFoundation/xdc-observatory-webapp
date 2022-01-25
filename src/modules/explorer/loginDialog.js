@@ -782,7 +782,7 @@ export default function FormDialog(props) {
     setLoading(true);
     if (reCaptcha === '') {
       setLoading(false);
-      setErrorCaptcha("please verify captcha");
+      setErrorCaptcha("Please verify the captcha");
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(
