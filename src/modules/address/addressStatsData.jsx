@@ -180,9 +180,12 @@ class AddressStatsData extends Component {
     let avgBalance = Utils.convertToInternationalCurrencySystem(
       Number(averageBalance)
     );
-    let avgBalanceConverted = Utils.convertToInternationalCurrencySystem(
-      Number(averageBalance) * Number(currencyPrice)
-    );
+    let avgBalanceConverted = !currencyPrice
+      ? ""
+      : Utils.convertToInternationalCurrencySystem(
+          Number(averageBalance) * Number(currencyPrice)
+        );
+
     let tokens = this.props?.statData?.tokens?.length;
     let tokensConverted = Utils.convertToInternationalCurrencySystem(
       Number(tokens) * Number(currencyPrice)
@@ -264,7 +267,7 @@ class AddressStatsData extends Component {
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}
-                    {!avgBalanceConverted ? "" : avgBalanceConverted}
+                    {avgBalanceConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>

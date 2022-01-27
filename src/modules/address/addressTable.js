@@ -809,8 +809,8 @@ export default function AddressTableComponent(props) {
                           "MMM DD, YYYY h:mm A"
                         )
 
-
-                      const value = row.Value > 0 && row.Value < 1 ? row.Value : Utility.decimalDivison(row.Value, 8);
+                      let transactionValue = row?.Value < 100000000 ? row?.Value * 1000000000000000000 : row?.Value;
+                      const value = row.Value > 0 && row.Value < 1 ? row.Value : Utility.decimalDivison(transactionValue, 8);
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
 

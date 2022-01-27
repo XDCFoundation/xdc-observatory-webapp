@@ -3731,7 +3731,7 @@ body {
   }
 }
 .MuiBackdrop-root {
-  /* opacity: 0 !important; */
+  opacity: 0 !important;
 }
 
 .days p {

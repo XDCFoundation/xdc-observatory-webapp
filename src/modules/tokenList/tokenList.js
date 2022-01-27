@@ -213,6 +213,7 @@ export default function StickyHeadTable(props) {
       setKeywords(searchkeyword);
       setLoading(false);
       let data = { skip: 0, limit: amount, searchKey: searchkeyword };
+      data['sortKey'] = { "holdersCount": -1 }
       getTokenList(data);
     }
     if (searchkeyword?.length === 0) {
@@ -220,6 +221,7 @@ export default function StickyHeadTable(props) {
       setLoading(false);
       setNoData(false);
       let data = { skip: from, limit: amount, searchKey: '' };
+      data['sortKey'] = { "holdersCount": -1 }
       getTokenList(data);
     }
   };
@@ -408,16 +410,16 @@ export default function StickyHeadTable(props) {
                     />
 
                     <input
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          handleSearchKeyUp(e);
-                        }
-                      }}
                       onChange={(e) => {
-                        if (e.target.value == "") {
-                          handleSearchKeyUp(e);
-                        }
+
+                        handleSearchKeyUp(e);
+
                       }}
+                      // onChange={(e) => {
+                      //   if (e.target.value == "") {
+                      //     handleSearchKeyUp(e);
+                      //   }
+                      // }}
                       id="tokenSearch"
                       className="account-searchbar"
                       type="text"
@@ -494,16 +496,16 @@ export default function StickyHeadTable(props) {
                     />
 
                     <input
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") {
-                          handleSearchKeyUp(e);
-                        }
-                      }}
                       onChange={(e) => {
-                        if (e.target.value == "") {
-                          handleSearchKeyUp(e);
-                        }
+
+                        handleSearchKeyUp(e);
+
                       }}
+                      // onChange={(e) => {
+                      //   if (e.target.value == "") {
+                      //     handleSearchKeyUp(e);
+                      //   }
+                      // }}
                       id="tokenSearch"
                       className="account-searchbar"
                       type="text"
