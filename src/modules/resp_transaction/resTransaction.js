@@ -317,13 +317,14 @@ export default function Transaction({ _handleChange }) {
   const gasPrice = parseFloat(gasP)?.toFixed(12).replace(/0+$/, "");
   let gasPrice1 = gasPrice.toString().split(".")[0];
   let gasPrice2 = gasPrice.toString().split(".")[1];
+  let transactionValue=transactions?.value<100000000?transactions?.value*1000000000000000000:transactions?.value;
 
   const valueDiv = transactions?.value > 0 && transactions?.value < 1
-    ? (valueFetch * transactions.value).toFixed(8)
-    : Utils.decimalDivison(valueFetch * transactions.value, 8);
+    ? (valueFetch * transactionValue).toFixed(8)
+    : Utils.decimalDivison(valueFetch * transactionValue, 8);
   let ValueMain = transactions?.value > 0 && transactions?.value < 1
     ? transactions?.value
-    : Utils.decimalDivison(transactions?.value, 8);
+    : Utils.decimalDivison(transactionValue, 8);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();
@@ -1068,14 +1069,14 @@ const Input = styled.input`
   background-color: #fff;
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #2a2a2a;
 `;
 const Content = styled.div`
   font-family: Inter;
   font-size: 0.935rem;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   line-height: 22px;
@@ -1085,7 +1086,7 @@ const Content = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #3a3a3a;
     opacity: 1;
     line-height: 18px !important;
@@ -1095,7 +1096,7 @@ const Content = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #3a3a3a;
     opacity: 1;
   }
@@ -1103,7 +1104,7 @@ const Content = styled.div`
 const ContentHash = styled.div`
   font-family: Inter;
   font-size: 0.935rem;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   line-height: 22px;
@@ -1113,7 +1114,7 @@ const ContentHash = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #2a2a2a;
     opacity: 1;
     line-height: 18px !important;
@@ -1123,7 +1124,7 @@ const ContentHash = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #3a3a3a;
     opacity: 1;
     width: 33rem;
@@ -1179,7 +1180,7 @@ const Div__ = styled.div`
 const MiddleContainerPrivateNote = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1192,7 +1193,7 @@ const MiddleContainerPrivateNote = styled.div`
     margin-top: 10px;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0px;
+    
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
@@ -1203,7 +1204,7 @@ const MiddleContainerPrivateNote = styled.div`
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0px;
+    
     opacity: 1;
     margin-left: 100px;
   }
@@ -1211,7 +1212,7 @@ const MiddleContainerPrivateNote = styled.div`
 const MiddleContainerInputData = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1219,7 +1220,7 @@ const MiddleContainerInputData = styled.div`
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+    
     opacity: 1;
     word-break: break-all;
     margin-left: unset;
@@ -1228,7 +1229,7 @@ const MiddleContainerInputData = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     opacity: 1;
     margin-left: 100px;
   }
@@ -1237,7 +1238,7 @@ const MiddleContainerInputData = styled.div`
 const MiddleContainer = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1248,7 +1249,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -1260,7 +1261,7 @@ const MiddleContainer = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #3a3a3a;
     opacity: 1;
     margin-left: 100px;
@@ -1270,7 +1271,7 @@ const MiddleContainer = styled.div`
 const MiddleContainer1 = styled.div`
   font-family: Inter;
   font-size: 0.938rem;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   margin-left: 100px;
@@ -1281,7 +1282,7 @@ const MiddleContainer1 = styled.div`
     font-size: 0.875rem;
     word-break: break-all;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #3a3a3a;
     opacity: 1;
     word-break: break-all;
@@ -1294,7 +1295,7 @@ const MiddleContainer1 = styled.div`
     font-size: 0.875rem;
     // word-break: break-all;
     // text-align: left;
-    // letter-spacing: 0rem;
+    // 
     // color: #3a3a3a;
     // opacity: 1;
     // display: block;
@@ -1308,7 +1309,7 @@ const HashInputData = styled.span`
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 15px;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   padding-bottom: 30px;
   @media (min-width: 0px) and (max-width: 767px) {
@@ -1316,7 +1317,7 @@ const HashInputData = styled.span`
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #2a2a2a;
     opacity: 1;
     padding-bottom: 20px;
@@ -1326,7 +1327,7 @@ const HashInputData = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #2a2a2a;
     opacity: 1;
   }
@@ -1337,14 +1338,14 @@ const Hash = styled.span`
   font-family: Inter;
   font-weight: 600;
   font-size: 15px;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #252525;
     opacity: 1;
   }
@@ -1353,7 +1354,7 @@ const Hash = styled.span`
     font-weight: 600;
     font-size: 0.875rem;
     text-align: left;
-    letter-spacing: 0rem;
+    
     color: #2a2a2a;
     opacity: 1;
   }
@@ -1594,14 +1595,14 @@ const StatusImg = styled.img`
 const StatusTextSuccess = styled.div`
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0px;
+  
   text-align: center;
   color: #03be46;
 `;
 const StatusTextFailed = styled.div`
   font-family: Inter;
   font-size: 14px;
-  letter-spacing: 0px;
+  
   text-align: center;
   color: red;
 `;
@@ -1613,7 +1614,7 @@ const SeeMoreText = styled.div`
 font-family: Inter;
 font-size: 15px;
 font-weight: 600;
-letter-spacing: 0px;
+
 color: #4878ff;
 margin-left: 4px;
 margin-right: 5px;
@@ -1679,7 +1680,7 @@ const DetailsMiddleContainer = styled.div`
   display: flex;
   font-family: Inter;
   font-size: 15px;
-  letter-spacing: 0px;
+  
   color: #3a3a3a;
   @media (min-width: 768px) and (max-width: 1240px) {
     justify-content: space-between;
@@ -1698,7 +1699,7 @@ const BlockConfirmation = styled.div`
   display: flex;
   font-family: Inter;
   font-size: 13px;
-  letter-spacing: 0px;
+  
   color: #2149b9;
   background-color: #e2eaff;
   padding-left: 8px;
@@ -1768,7 +1769,7 @@ const Tag = styled.div`
   background-color: #eaf0ff;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0px;
+  
   text-align: center;
   color: #4878ff;
   width: fit-content;

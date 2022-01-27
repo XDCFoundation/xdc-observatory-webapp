@@ -49,7 +49,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2149b9;
 }
@@ -64,7 +64,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #6b7482;
 }
@@ -146,7 +146,7 @@
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #6b7482;
 }
@@ -196,7 +196,7 @@ background-color: #ffffff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 .nameicon {
@@ -243,7 +243,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   cursor: pointer;
   color: #2149b9;
 }
@@ -257,7 +257,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #2a2a2a;
 }
 .div1,
@@ -286,7 +286,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -299,7 +299,7 @@ background-color: #4878ff; */
   font-style: normal;
   line-height: normal;
   color: #d3dfff;
-  letter-spacing: 0px;
+
   /* height: 51px;
   margin: 11px 0 0;
   /* display: flex; */
@@ -332,7 +332,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 
@@ -351,7 +351,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px; */
+   */
   color: #d3dfff;
 }
 /* .div3 {
@@ -381,7 +381,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   color: #ffffff;
 }
 .paradiv3 {
@@ -394,7 +394,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px; */
+   */
   color: #d3dfff;
 }
 
@@ -406,7 +406,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 1;
 }
@@ -418,7 +418,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 1;
   color: #2a2a2a;
@@ -431,7 +431,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: left;
   opacity: 1;
   padding-left: 12px;
@@ -443,7 +443,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   opacity: 1;
@@ -457,7 +457,7 @@ background-color: #4878ff; */
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+
   text-align: center;
   color: #2a2a2a;
   opacity: 1;
@@ -600,7 +600,7 @@ background-color: #4878ff; */
     font-size: 10px;
     color: #81b4ff;
     display: block;
-    letter-spacing: 0px;
+
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;

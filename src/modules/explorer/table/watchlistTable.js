@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#2149b9",
   },
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#6b7482",
   },
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#6b7482",
   },

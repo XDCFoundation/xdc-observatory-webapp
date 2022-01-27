@@ -720,7 +720,7 @@ export default function Navbar() {
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-    letter-spacing: 0px;
+    
     color: #ffffff;
     list-style: none;
   @media (min-width: 0px) and (max-width: 767px){

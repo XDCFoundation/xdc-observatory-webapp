@@ -182,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
+
     lineHeight: "1.58",
   },
 
@@ -221,7 +221,7 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0px",
+
   },
 })(Tooltip);
 
@@ -265,7 +265,7 @@ export default function FormDialog(props) {
     const request = {
       userId: sessionManager.getDataFromCookies("userId"),
       address: address,
-      description: description,
+      // description: description,
       type: value,
       isEnabled: true,
     };
@@ -289,25 +289,29 @@ export default function FormDialog(props) {
         return;
       }
       let watchlists = localStorage.getItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST
+        request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST
       );
-      if (watchlists) {
-        watchlists = JSON.parse(watchlists);
-        const existingWatchList = watchlists.find(
-          (item) =>
-            item.address == request.address && item.userId == request.userId
-        );
-        if (existingWatchList) {
-          utility.apiFailureToast("Address already exists");
-          return;
-        }
-      } else {
-        watchlists = [];
-      }
-      watchlists.push(request);
-      localStorage.setItem(
-        cookiesConstants.USER_ADDRESS_WATCHLIST,
-        JSON.stringify(watchlists)
+      watchlists = JSON.parse(watchlists);
+      if(!watchlists)
+        watchlists = {}
+      // if (watchlists) {
+      //   watchlists = JSON.parse(watchlists);
+      //   const existingWatchList = response.find(
+      //     (item) =>
+      //       item.address == request.address && item.userId == request.userId
+      //   );
+      //   if (existingWatchList) {
+      //     utility.apiFailureToast("Address already exists");
+      //     return;
+      //   }
+      // } else {
+      //   watchlists = [];
+      // }
+      // watchlists.push(request);
+        watchlists[request.address] = description;
+        localStorage.setItem(
+          request.userId+cookiesConstants.USER_ADDRESS_WATCHLIST,
+          JSON.stringify(watchlists)
       );
       utility.apiSuccessToast("Address added to watchlist");
       setAddress("");

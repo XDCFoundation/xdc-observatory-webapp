@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     fontWeight: "500",
     fontFamily: "Inter !important",
     color: "#3a3a3a",
-    letterSpacing: "0px",
+
     marginLeft: "25px",
   },
 });

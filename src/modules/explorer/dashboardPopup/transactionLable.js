@@ -170,7 +170,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "12px",
     fontFamily: "Inter !important",
     color: "#ff0202",
-    letterSpacing: "0px",
     lineHeight: "1.58",
   },
   "@media (max-width: 714px)": {
@@ -208,7 +207,6 @@ const LightToolTip = withStyles({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "1.42",
-    letterSpacing: "0px",
   },
 })(Tooltip);
 
@@ -231,6 +229,7 @@ export default function FormDialog(props) {
       userId: sessionManager.getDataFromCookies("userId"),
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
+      modifiedOn: Date.now()
     };
     if (!TransactionsHash) {
       setError("Please enter required field");
@@ -242,22 +241,22 @@ export default function FormDialog(props) {
     } else if (!PrivateNote) {
       setPrivateNoteError("Private Note is required");
     } else {
-      const [error, response] = await utility.parseResponse(
-        UserService.postUserPrivateNote(data)
-      );
-
-      if (error || !response) {
-        utility.apiFailureToast("Transaction private note is already in use");
-        return;
-      }
+      // const [error, response] = await utility.parseResponse(
+      //   UserService.postUserPrivateNote(data)
+      // );
+      //
+      // if (error || !response) {
+      //   utility.apiFailureToast("Transaction private note is already in use");
+      //   return;
+      // }
       let transactionLabel = localStorage.getItem(
-        cookiesConstants.USER_TRASACTION_LABELS
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS
       );
       if (transactionLabel) {
         transactionLabel = JSON.parse(transactionLabel);
         const existingTransactionLabel = transactionLabel.find(
           (item) =>
-            item.address == TransactionsHash && item.userId == data.userId
+            item.transactionHash == TransactionsHash && item.userId == data.userId
         );
         if (existingTransactionLabel) {
           utility.apiFailureToast("Transaction private note is already in use");
@@ -268,7 +267,7 @@ export default function FormDialog(props) {
       }
       transactionLabel.push(data);
       localStorage.setItem(
-        cookiesConstants.USER_TRASACTION_LABELS,
+          sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS,
         JSON.stringify(transactionLabel)
       );
       utility.apiSuccessToast("Transaction Added");

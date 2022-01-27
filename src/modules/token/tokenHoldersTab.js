@@ -117,7 +117,6 @@ export default function StickyHeadTable(props) {
   const { tn } = useParams();
 
   const sortTable = (_sortKey) => {
-    console.log("_sortKey", _sortKey)
     let _sortOrder = -1;
     if (sortKey && sortKey.includes(_sortKey)) {
       _sortOrder = sortOrder * -1;

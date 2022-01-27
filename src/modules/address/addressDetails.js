@@ -85,18 +85,18 @@ const useStyles = makeStyles({
   },
 });
 const MainContanier = styled.div`
-  height: 231px;
+  // height: 231px;
   border-radius: 12px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
   border: solid 1px #e3e7eb;
   padding: 18px;
-  margin-bottom: 35px;
-  @media (max-width: 767px) {
-    height: 427px;
-  }
-  @media (min-width: 768px) and (max-width: 1240px) {
-    height: 249px;
-  }
+  // margin-bottom: 35px;
+  // @media (max-width: 767px) {
+  //   height: 427px;
+  // }
+  // @media (min-width: 768px) and (max-width: 1240px) {
+  //   height: 249px;
+  // }
 `;
 const MainDiv = styled.div`
   display: flex;
@@ -181,7 +181,7 @@ const AddressHash = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #3a3a3a;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -203,7 +203,7 @@ const BalanceDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #2149b9;
   margin-top: 7px;
   @media (max-width: 767px) {
@@ -221,7 +221,7 @@ const BalanceUsdDiv = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #585858;
   margin-top: 5px;
   @media (max-width: 767px) {
@@ -246,7 +246,7 @@ const AddressAge = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -262,7 +262,7 @@ const AddressAgeValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px;
+  
   color: #3a3a3a;
   margin-left: 70px;
   @media (max-width: 767px) {
@@ -284,7 +284,7 @@ const LastActivity = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -302,7 +302,7 @@ const LastActivityValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px;
+  
   color: #3a3a3a;
   margin-left: 73px;
   @media (max-width: 767px) {
@@ -325,7 +325,7 @@ const Rank = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 13px;
@@ -341,7 +341,7 @@ const RankValue = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.87;
-  letter-spacing: 0px;
+  
   color: #3a3a3a;
   margin-left: 126px;
   @media (max-width: 767px) {
@@ -385,11 +385,11 @@ const Heading = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 14px;
-    letter-spacing: 0px;
+    
   }
   @media (min-width: 768px) and (max-width: 1240px) {
     font-size: 18px;
@@ -455,7 +455,7 @@ const LoginText = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: right;
   color: #3a3a3a;
 `;
@@ -466,7 +466,7 @@ const LoginTextMobile = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #3a3a3a;
   @media (min-width: 768px) and (max-width: 1240px) {
@@ -495,7 +495,6 @@ const Tag = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.54px;
   text-align: center;
   padding: 4px;
   color: #4878ff;
@@ -965,7 +964,7 @@ export default function AddressDetails(props) {
                       </span>
                     )}
                   </BalanceUsdDiv>
-{/*
+                  {/*
                   <AddressAgeDiv>
                     <AddressAge>Address Age</AddressAge>
                     <AddressAgeValue>{ti}</AddressAgeValue>
@@ -973,7 +972,7 @@ export default function AddressDetails(props) {
 
 
 */}
-                  <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/ }
+                  <AddressAgeDiv> {/* TODO: REVERT THE CSS TAG BACK TO LASTACTIVITY ONCE ADDRESS AGE IS FIXED*/}
                     <LastActivity>Last Activity</LastActivity>
                     <LastActivityValue>
                       {lastAct}&nbsp;
