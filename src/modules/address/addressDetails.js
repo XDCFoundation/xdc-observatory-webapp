@@ -523,7 +523,7 @@ export default function AddressDetails(props) {
   const [isTag, setIsTag] = useState(false);
   const [amount, setAmount] = useState("");
   const [coinMarketPrice, setCoinMarketPrice] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
   const [addressStats, setAddressStats] = useState("");
   const [dialogPvtTagIsOpen, setDialogPvtTagIsOpen] = React.useState(false);
@@ -560,7 +560,7 @@ export default function AddressDetails(props) {
   };
   let { addr } = useParams();
   let px = currentPrice * price;
-  let priceChanged = Utility.decimalDivison(px, 8);
+  let priceChanged = !price ? "" : Utility.decimalDivison(px, 8);
   let priceChanged1 = priceChanged.toString().split(".")[0];
   let priceChanged2 = priceChanged.toString().split(".")[1];
 
@@ -570,8 +570,8 @@ export default function AddressDetails(props) {
   const openLoginDialog = () => setLoginDialogIsOpen(true);
   const closeLoginDialog = () => setLoginDialogIsOpen(false);
 
-  const currencySymbol =
-    activeCurrency === "INR" ? "₹" : activeCurrency === "USD" ? "$" : "€";
+  const currencySymbol = !price ? "" :
+    activeCurrency === "USD" ? "$" : "€";
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {
@@ -895,7 +895,7 @@ export default function AddressDetails(props) {
               <QrDiv>
                 <QRCode
                   className="qrcode-address-details"
-                  value={process.env.REACT_APP_QR_CODE_LINK + addr}
+                  value={addr}
                 />
               </QrDiv>
               <DetailDiv>

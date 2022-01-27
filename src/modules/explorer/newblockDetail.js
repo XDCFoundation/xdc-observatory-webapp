@@ -18,7 +18,7 @@ import queryString from "query-string";
 import utility from "../../utility";
 import { useSelector } from "react-redux";
 import Utility from "../../utility";
-
+import format from "format-number";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -143,9 +143,10 @@ export default function BlockDetails() {
     return input;
   };
   let td = parseInt(height?.totalDifficulty);
-  let totalDifficulty = td?.toLocaleString('en-US');
-  let difi = parseInt(height?.difficulty)
-  let difficulty = difi?.toLocaleString('en-US');
+
+
+  let difficulty = parseInt(height?.difficulty)
+
 
   const getHoursAgo = (date) => {
     let today = Date.now()
@@ -410,7 +411,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{difficulty}</MiddleContainer>
+                    <MiddleContainer>{format({})(difficulty)}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -421,7 +422,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Total Difficulty</Hash>
                     </Container>
-                    <MiddleContainer>{totalDifficulty}</MiddleContainer>
+                    <MiddleContainer>{format({})(td)}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -432,7 +433,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Used</Hash>
                     </Container>
-                    <MiddleContainer>{parseInt(height?.gasUsed)?.toLocaleString('en-US')}</MiddleContainer>
+                    <MiddleContainer>{format({})(parseInt(height?.gasUsed))}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>
@@ -443,7 +444,7 @@ export default function BlockDetails() {
                       </Tooltip>
                       <Hash>Gas Limit</Hash>
                     </Container>
-                    <MiddleContainer>{parseInt(height?.gasLimit)?.toLocaleString('en-US')}</MiddleContainer>
+                    <MiddleContainer>{format({})(parseInt(height?.gasLimit))}</MiddleContainer>
                   </Spacing>
                   <Spacing>
                     <Container>

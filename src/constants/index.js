@@ -173,7 +173,7 @@ export const messages = {
   Highest_Txn: "Highest amount send or received by the user",
   Txn_Fee: "Total transaction fee paid by the user",
   Tokens: "Number of XRC20 tokens available in the user's wallet",
-  AVERAGE_BALANCE: "Average of the balance after every transaction"
+  AVERAGE_BALANCE: "Average daily balance"
 };
 
 export const toolTipMessages = {

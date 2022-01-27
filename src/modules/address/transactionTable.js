@@ -612,7 +612,7 @@ export default function TransactionTableComponent(props) {
             justifyContent: "space-between",
           }}
           className="page-container">
-          <Grid item xs="4" className="pagination-tab">
+          <Grid className="Pagination_1">
             <span className="text">Show</span>
             <PageSelector value={amount}
               height={30}
