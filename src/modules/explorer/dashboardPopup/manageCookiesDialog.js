@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Dialog from "@material-ui/core/Dialog";
-import {makeStyles} from "@material-ui/styles";
-import {SettingsPowerRounded} from '@material-ui/icons';
-import {flexbox} from '@mui/system';
-import {sessionManager} from "../../../managers/sessionManager";
-import {cookiesConstants, userCookies, userCookiesConstants} from "../../../constants";
+import { makeStyles } from "@material-ui/styles";
+import { SettingsPowerRounded } from '@material-ui/icons';
+import { flexbox } from '@mui/system';
+import { sessionManager } from "../../../managers/sessionManager";
+import { cookiesConstants, userCookies, userCookiesConstants } from "../../../constants";
 import Auth0Service from "../../../services/userLogin";
 
 const useStyles = makeStyles((theme) => ({
@@ -73,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundcolor: "#ffffff",
         textAlign: "center",
         color: "#4878ff",
-        display:'flex',
-        flexDirection:"column",
-        justifyContent:"center"
+        display: 'flex',
+        flexDirection: "column",
+        justifyContent: "center"
     },
     savePref: {
         width: "211px",
@@ -85,9 +85,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#4878ff",
         textAlign: "center",
         color: "#ffffff",
-        display:'flex',
-        flexDirection:"column",
-        justifyContent:"center"
+        display: 'flex',
+        flexDirection: "column",
+        justifyContent: "center"
     },
     "@media (min-width:0px) and (max-width: 767px)": {
         acceptAll: {
@@ -113,7 +113,7 @@ export default function ManageCookiesDialog(props) {
         if (!userInfo) {
             //If user is not logged in
             const userCookies = sessionManager.getDataFromCookies(cookiesConstants.USER_COOKIES);
-            if(!userCookies)
+            if (!userCookies)
                 sessionManager.removeDataFromCookies("isCookiesAccepted");
             if (userCookies && userCookies.includes(userCookiesConstants.FUNCTIONAL_COOKIES))
                 setFunctionalCookies(true);
@@ -123,8 +123,7 @@ export default function ManageCookiesDialog(props) {
                 setAnalyticalCookies(true);
         } else {
             //If user is logged in
-            const userCookiesDetails = await new Auth0Service().getUserCookies({userId: userInfo.sub});
-            console.log('userCookiesDetails', userCookiesDetails)
+            const userCookiesDetails = await new Auth0Service().getUserCookies({ userId: userInfo.sub });
             if (userCookiesDetails && userCookiesDetails.cookiesAllowed.length) {
                 if (userCookiesDetails.cookiesAllowed.includes(userCookiesConstants.FUNCTIONAL_COOKIES))
                     setFunctionalCookies(true);
@@ -132,7 +131,7 @@ export default function ManageCookiesDialog(props) {
                     setPerformanceCookies(true);
                 if (userCookiesDetails.cookiesAllowed.includes(userCookiesConstants.ANALYTICAL_COOKIES))
                     setAnalyticalCookies(true);
-            }else{
+            } else {
                 sessionManager.removeDataFromCookies("isCookiesAccepted");
             }
         }
@@ -162,14 +161,13 @@ export default function ManageCookiesDialog(props) {
 
     const saveMyPreferences = async (isForAll) => {
         const userInfo = sessionManager.getDataFromCookies("userInfo");
-        console.log("userInfo ", userInfo);
         const cookiesData = []
         if (!isForAll) {
             functionalCookies && cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);
             performanceCookies && cookiesData.push(userCookiesConstants.PERFORMANCE_COOKIES);
             analyticalCookies && cookiesData.push(userCookiesConstants.ANALYTICAL_COOKIES);
         }
-        else{
+        else {
             cookiesData.push(userCookiesConstants.FUNCTIONAL_COOKIES);
             cookiesData.push(userCookiesConstants.PERFORMANCE_COOKIES);
             cookiesData.push(userCookiesConstants.ANALYTICAL_COOKIES);
@@ -195,15 +193,15 @@ export default function ManageCookiesDialog(props) {
 
     return <div>
         <Dialog
-            classes={{paperWidthSm: classes.dialogBox}}
+            classes={{ paperWidthSm: classes.dialogBox }}
             open={props.open}
             close={handleClose}
         >
             <div className={classes.headingContainer}>
                 <span className={classes.heading}>Manage Consent Preferences</span>
                 <span className={classes.close} onClick={handleClose}>
-                <img src={"/images/XDC-Cross.svg"}/>
-              </span>
+                    <img src={"/images/XDC-Cross.svg"} />
+                </span>
             </div>
             <div className={classes.contentContainer}>
                 <div className={classes.container}>
@@ -219,9 +217,9 @@ export default function ManageCookiesDialog(props) {
                     <div className={classes.subHeading}>Functional Cookies</div>
                     {functionalCookies ?
                         <img className={classes.activSwitch} onClick={handleSwitchOff1}
-                             src="/images/active-switch.svg"/> :
+                            src="/images/active-switch.svg" /> :
                         <img className={classes.inactivSwitch} onClick={handleSwitchOn1}
-                             src="/images/inactive-switch.svg"/>}
+                            src="/images/inactive-switch.svg" />}
                 </div>
                 <div className={classes.para}>
                     These cookies allow websites to remember your chosen preferences (such as your language settings).
@@ -233,9 +231,9 @@ export default function ManageCookiesDialog(props) {
                     <div className={classes.subHeading}>Performance cookies</div>
                     {performanceCookies ?
                         <img className={classes.activSwitch} onClick={handleSwitchOff2}
-                             src="/images/active-switch.svg"/> :
+                            src="/images/active-switch.svg" /> :
                         <img className={classes.inactivSwitch} onClick={handleSwitchOn2}
-                             src="/images/inactive-switch.svg"/>}
+                            src="/images/inactive-switch.svg" />}
                 </div>
                 <div className={classes.para}>
                     These cookies assist us in understanding how visitors interact with the Website by providing
@@ -248,9 +246,9 @@ export default function ManageCookiesDialog(props) {
                     <div className={classes.subHeading}>Analytical cookies</div>
                     {analyticalCookies ?
                         <img className={classes.activSwitch} onClick={handleSwitchOff3}
-                             src="/images/active-switch.svg"/> :
+                            src="/images/active-switch.svg" /> :
                         <img className={classes.inactivSwitch} onClick={handleSwitchOn3}
-                             src="/images/inactive-switch.svg"/>}
+                            src="/images/inactive-switch.svg" />}
                 </div>
                 <div className={classes.para}>
                     We use analytical cookies to see, for example, which content on the Website is highly frequented and
@@ -260,8 +258,8 @@ export default function ManageCookiesDialog(props) {
                     We use these cookies only if you have consented via the cookie banner.
                 </div>
                 <div className={classes.buttons}>
-                    <div className={classes.acceptAll+" cursor-pointer"} onClick={()=>saveMyPreferences(true)}>Accept all cookies</div>
-                    <div className={classes.savePref + " cursor-pointer"} onClick={()=>saveMyPreferences(false)}>Save my preferences</div>
+                    <div className={classes.acceptAll + " cursor-pointer"} onClick={() => saveMyPreferences(true)}>Accept all cookies</div>
+                    <div className={classes.savePref + " cursor-pointer"} onClick={() => saveMyPreferences(false)}>Save my preferences</div>
                 </div>
             </div>
         </Dialog>
