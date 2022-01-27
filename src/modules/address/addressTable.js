@@ -801,10 +801,16 @@ export default function AddressTableComponent(props) {
                 noData == false && (
                   <TableBody>
                     {address.map((row, index) => {
-                      const currentTime = new Date();
-                      const previousTime = new Date(row.Age * 1000);
-                      const TimeAge = Utility.timeDiff(currentTime, previousTime);
-                      const value = row.Value > 0 && row.Value < 1 ? row.Value : Utility.decimalDivison(row.Value, 8);
+
+                      const TimeAge = !row.Age
+                        ? ""
+                        :
+                        moment(row.Age * 1000).format(
+                          "MMM DD, YYYY h:mm A"
+                        )
+
+                      let transactionValue = row?.Value < 100000000 ? row?.Value * 1000000000000000000 : row?.Value;
+                      const value = row.Value > 0 && row.Value < 1 ? row.Value : Utility.decimalDivison(transactionValue, 8);
                       var value1 = value.toString().split(".")[0];
                       var value2 = value.toString().split(".")[1];
 

@@ -180,16 +180,21 @@ class AddressStatsData extends Component {
     let avgBalance = Utils.convertToInternationalCurrencySystem(
       Number(averageBalance)
     );
-    let avgBalanceConverted = Utils.convertToInternationalCurrencySystem(
-      Number(averageBalance) * Number(currencyPrice)
-    );
+    let avgBalanceConverted = !currencyPrice
+      ? ""
+      : Utils.convertToInternationalCurrencySystem(
+          Number(averageBalance) * Number(currencyPrice)
+        );
+
     let tokens = this.props?.statData?.tokens?.length;
     let tokensConverted = Utils.convertToInternationalCurrencySystem(
       Number(tokens) * Number(currencyPrice)
     );
     let gasP = Utils.decimalDivison(Number(this.props?.statData?.gasFee), 12);
-    let gasPrice = parseFloat(Number(gasP));
-    let gasPriceConverted = Number(gasPrice) * Number(currencyPrice);
+    let gasPrice = !gasP ? "" : parseFloat(Number(gasP));
+    let gasPriceConverted = !gasP
+      ? ""
+      : Number(gasPrice) * Number(currencyPrice);
 
     let currencySymbol = activeCurrency === "EUR" ? "€" : "$";
     return (
@@ -262,7 +267,7 @@ class AddressStatsData extends Component {
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}
-                    {!avgBalanceConverted ? "" : avgBalanceConverted}
+                    {avgBalanceConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
@@ -283,14 +288,15 @@ class AddressStatsData extends Component {
                     Txn Fee Paid
                   </MarketDataPointTitle>
                   <Value>
-                    {!gasPrice ? "" : Number(gasPrice).toFixed(12)}&nbsp;XDC
+                    {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                    &nbsp;XDC
                   </Value>
                   <ThirdRowValue>
                     <OutValue>
                       {currencySymbol}
-                      {!gasPriceConverted
-                        ? ""
-                        : Number(gasPriceConverted).toFixed(12)}
+                      {gasPriceConverted > 0
+                        ? Number(gasPriceConverted).toFixed(12)
+                        : gasPriceConverted}
                     </OutValue>
                   </ThirdRowValue>
                 </div>
@@ -427,13 +433,16 @@ class AddressStatsData extends Component {
               </div>
               <div className="mid_cont_address">
                 {" "}
-                <p>{!gasPrice ? "" : Number(gasPrice).toFixed(12)}&nbsp;XDC</p>
+                <p>
+                  {gasPrice > 0 ? Number(gasPrice).toFixed(12) : gasPrice}
+                  &nbsp;XDC
+                </p>
                 <ThirdRowValue>
                   <OutValue>
                     {currencySymbol}
-                    {!gasPriceConverted
-                      ? ""
-                      : Number(gasPriceConverted).toFixed(12)}
+                    {gasPriceConverted > 0
+                      ? Number(gasPriceConverted).toFixed(12)
+                      : gasPriceConverted}
                   </OutValue>
                 </ThirdRowValue>
               </div>
