@@ -741,6 +741,7 @@ export default function AddressDetails(props) {
     tags && tags.length > 0
       ? tags?.filter((obj) => obj.address === addr && obj.userId == userId)
       : "";
+  console.log(tagValue, "<<tagValue")
   let watchlists = localStorage.getItem(
     cookiesConstants.USER_ADDRESS_WATCHLIST
   );

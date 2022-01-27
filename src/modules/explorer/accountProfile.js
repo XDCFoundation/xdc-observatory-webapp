@@ -250,8 +250,8 @@ const useStyles = makeStyles((theme) => ({
   },
   // "@media (max-width: 828px)": {
   //   appbar: {
-      // maxWidth: "710px",
-      // width: "25rem",
+  // maxWidth: "710px",
+  // width: "25rem",
   //   },
   // },
   "@media (max-width: 767)": {
@@ -1515,6 +1515,7 @@ export default function SimpleTabs(props) {
                           watchlist.length > 0 &&
                           watchlist.map((row, index) => {
                             let balanceToShow = Utility.decimalDivisonOnly(row.balance, 8);
+                            console.log(row.balance, balanceToShow, "<<<balanceToshow")
                             return (
                               <TableRow
                                 style={
