@@ -133,8 +133,6 @@ export default function StickyHeadTable() {
             setSortingOrder(-1);
         } else {
             sortingOrder === -1 ? (order = 1) : (order = -1);
-            console.log(sortingOrder)
-            console.log(sortingOrder * -1)
             setSortingOrder(order);
         }
         let values = { addr: address, pageNum: 0, perpage: rowsPerPage };

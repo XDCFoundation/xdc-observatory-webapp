@@ -7,9 +7,9 @@ import { makeStyles } from "@material-ui/styles";
 import { Row } from "simple-flexbox";
 import { TransactionService, UserService } from "../../services";
 import utility, { dispatchAction } from "../../utility";
-import {cookiesConstants, eventConstants, genericConstants} from "../../constants";
+import { cookiesConstants, eventConstants, genericConstants } from "../../constants";
 import { connect } from "react-redux";
-import {sessionManager} from "../../managers/sessionManager";
+import { sessionManager } from "../../managers/sessionManager";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -169,14 +169,12 @@ function EditTxnLabel(props) {
   }, [props]);
 
   async function editTransactionLable() {
-    console.log("props.row ",PrivateNote)
     const data = {
       ...props.row,
       trxLable: PrivateNote,
       transactionHash: TransactionsHash,
       modifiedOn: Date.now()
     };
-    console.log(data)
     // const [error, response] = await utility.parseResponse(
     //   UserService.editUserPrivateNote(data)
     // );
@@ -186,14 +184,14 @@ function EditTxnLabel(props) {
     // }
 
     let transactionLabel = localStorage.getItem(
-        sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS
+      sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS
     );
     transactionLabel = JSON.parse(transactionLabel);
     transactionLabel[props.index] = data;
 
     const existingTransactionLabel = transactionLabel.find(
-        (item, innerIndex) =>
-            item.transactionHash == TransactionsHash && item.userId == data.userId && props.index !== innerIndex
+      (item, innerIndex) =>
+        item.transactionHash == TransactionsHash && item.userId == data.userId && props.index !== innerIndex
     );
     if (existingTransactionLabel) {
       utility.apiFailureToast("Transaction private note is already in use");
@@ -201,8 +199,8 @@ function EditTxnLabel(props) {
     }
 
     localStorage.setItem(
-        sessionManager.getDataFromCookies("userId")+cookiesConstants.USER_TRASACTION_LABELS,
-        JSON.stringify(transactionLabel)
+      sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS,
+      JSON.stringify(transactionLabel)
     );
     utility.apiSuccessToast("Private Note Updated");
     handleClose();
