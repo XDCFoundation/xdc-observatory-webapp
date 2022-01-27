@@ -731,7 +731,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
-                  <TitleValue>{this.state.activeNodes + "/" + this.state.nodes} </TitleValue>
+                  <TitleValue>{this.state.activeNodes>0?this.state.activeNodes:""}{this.state.nodes>0?"/"+this.state.nodes:""} </TitleValue>
                 </ValueName>
               </Value>
               <Value gridArea="tps">

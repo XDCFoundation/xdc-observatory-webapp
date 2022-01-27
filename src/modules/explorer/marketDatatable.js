@@ -58,13 +58,14 @@ const MarketDataPointTitle = styled.div`
     align-item: left;
   }
 
-  @media (min-width: 350px) and (max-width: 767px) {
+  @media (min-width: 0px) and (max-width: 767px) {
     // display: block;
     color: #686868;
     display: flex;
     gap: 10px;
     flex-flow: row-reverse;
     width: 130px;
+    justify-content: flex-end;
   }
 `;
 

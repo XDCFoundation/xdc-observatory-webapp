@@ -6580,7 +6580,7 @@ button {
   .main_child_address {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 90%;
   }
 }
 
@@ -8548,6 +8548,7 @@ button {
 
     color: #2a2a2a;
     background-color: white !important;
+    -webkit-appearance: none;
   }
   .exp-parent {
     height: 300px;
