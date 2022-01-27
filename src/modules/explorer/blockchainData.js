@@ -22,6 +22,7 @@ import {
 } from "../../services";
 import Utils from "../../utility";
 import utility from "../../utility";
+import { useParams } from "react-router";
 var _ = require('lodash');
 const MainContainer = styled.div`
   width: 75.125rem;
@@ -591,6 +592,7 @@ class BlockChainDataComponent extends Component {
   }
 
   render() {
+
     let changePrice;
     if (
       this.state.coinMarketPrice &&
@@ -731,7 +733,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
-                  <TitleValue>{this.state.activeNodes>0?this.state.activeNodes:""}{this.state.nodes>0?"/"+this.state.nodes:""} </TitleValue>
+                  <TitleValue>{this.state.activeNodes > 0 ? this.state.activeNodes : ""}{this.state.nodes > 0 ? "/" + this.state.nodes : ""} </TitleValue>
                 </ValueName>
               </Value>
               <Value gridArea="tps">

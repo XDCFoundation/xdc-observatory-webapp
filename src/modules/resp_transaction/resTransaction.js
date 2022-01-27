@@ -317,7 +317,7 @@ export default function Transaction({ _handleChange }) {
   const gasPrice = parseFloat(gasP)?.toFixed(12).replace(/0+$/, "");
   let gasPrice1 = gasPrice.toString().split(".")[0];
   let gasPrice2 = gasPrice.toString().split(".")[1];
-  let transactionValue=transactions?.value<100000000?transactions?.value*1000000000000000000:transactions?.value;
+  let transactionValue = transactions?.value < 100000000 ? transactions?.value * 1000000000000000000 : transactions?.value;
 
   const valueDiv = transactions?.value > 0 && transactions?.value < 1
     ? (valueFetch * transactionValue).toFixed(8)
@@ -507,10 +507,13 @@ export default function Transaction({ _handleChange }) {
                         </Tooltip>
                         <Hash>Transaction Value</Hash>
                       </Container>
-                      <DetailsMiddleContainer isTextArea={false}>
-                        {ValueMain}&nbsp; XDC ({currencySymbol}
-                        {valueDiv})
-                      </DetailsMiddleContainer>
+                      <Tooltip title={transactions?.value}>
+                        <DetailsMiddleContainer isTextArea={false}>
+
+                          {ValueMain}&nbsp;XDC {!valueDiv ? " " : "(" + (currencySymbol + valueDiv) + ")"}
+
+                        </DetailsMiddleContainer>
+                      </Tooltip>
                     </DetailsContainer>
                     {/* ------------------------------------------------time stamp------------------------------------- */}
                     <DetailsContainer className="mobileTimeStamp">

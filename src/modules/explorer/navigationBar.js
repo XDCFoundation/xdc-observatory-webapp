@@ -86,8 +86,10 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
         width: drawerWidth,
         backgroundColor: "#102e84",
+        opactiy: 0,
     },
     drawerHeader: {
+        opacity: 0,
         display: "flex",
         alignItems: "center",
         overflow: "auto",
@@ -253,6 +255,7 @@ export default function Navbar() {
             }
 
             if (responseData) {
+
                 if (responseData[0].redirect === "block") {
                     let blockurl = "/block-details/" + responseData[0].block.number;
                     dispatch({
@@ -299,7 +302,7 @@ export default function Navbar() {
                         dispatch({
                             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                                 type: recentSearchTypeConstants.TOKEN,
-                                searchValue: responseData[0]?.token[0]?.address || '',
+                                searchValue: responseData[0]?.token[0]?.tokenName || '',
                                 result: responseData[0]?.token[0]?.totalSupply || 0,
                                 redirectUrl: tokenDataUrl
                             }
@@ -311,8 +314,8 @@ export default function Navbar() {
                         dispatch({
                             type: eventConstants.ADD_TO_SEARCH_LIST, payload: {
                                 type: recentSearchTypeConstants.TOKEN,
-                                searchValue: responseData[0]?.token?.address || '',
-                                result: responseData[0]?.token?.totalSupply || 0,
+                                searchValue: responseData[0]?.token[0]?.tokenName || '',
+                                result: responseData[0]?.token[0]?.totalSupply || 0,
                                 redirectUrl: tokenListUrl
                             }
                         })

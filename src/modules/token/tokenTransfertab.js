@@ -442,14 +442,14 @@ export default function StickyHeadTable() {
                                             </a>
                                         </TableCell>
                                         <TableCell id="td" style={{ border: "none" }}>
-                                            <a style={{ color: "#2b51bc", fontSize: 11 }} href="#text">
+                                            <a style={{ color: "#2b51bc", fontSize: 11 }} href={"/address-details/" + row.from}>
                                                 <Tooltip placement="top" title={row.from}>
                                                     <span className="tabledata table-data">{shorten(row.from)}</span>
                                                 </Tooltip>
                                             </a>
                                         </TableCell>
                                         <TableCell id="td" style={{ border: "none" }}>
-                                            <a style={{ color: "#2419b9", fontSize: 11 }} href="#text">
+                                            <a style={{ color: "#2419b9", fontSize: 11 }} href={"/address-details/" + row.to}>
                                                 <Tooltip placement="top" title={row.to}>
                                                     <span className="tabledata table-data">{shorten(row.to)}</span>
                                                 </Tooltip>

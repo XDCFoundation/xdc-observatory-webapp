@@ -236,7 +236,7 @@ export default function GlobalIdCon() {
                 </RightBottomText>
                 <a
                   href={
-                    "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=https://observer.xdc.org/&qr_only=true&acrc_id=b3472d41-7620-4e1c-8e62-62d5734742cf&document_id=tos pp&nonce=" +
+                    "https://connect.global.id/?client_id=808e791a-70b4-43a4-bb30-6f33c610d4ec&response_type=code&scope=openid&redirect_uri=http://localhost:3000/&qr_only=true&acrc_id=35fde324-7736-491a-b89f-c29854417300&document_id=tos pp&nonce=" +
                     randomText
                   }
                 >
