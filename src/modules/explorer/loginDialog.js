@@ -318,6 +318,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundImage: "none",
       opacity: "0px",
       padding: "0px 15px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
     closeContainer: {
       display: "none",
@@ -432,6 +434,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundImage: "none",
       opacity: "0px",
       paddingBottom: "30px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
 
     input: {

@@ -206,7 +206,7 @@ const TitleData = styled.div`
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
-    width: 110px;
+    // width: 110px;
     overflow: hidden;
     /* text-overflow: ellipsis; */
   }
