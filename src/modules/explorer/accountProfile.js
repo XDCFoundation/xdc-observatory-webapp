@@ -33,7 +33,7 @@ import EditTxnLabel from "./editTxnLabel";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { sessionManager } from "../../managers/sessionManager";
-import { cookiesConstants } from "../constants";
+import { cookiesConstants } from "../../constants";
 import Utils from "../../utility";
 import { Column, Row } from "simple-flexbox";
 import TransactionPDF from "../../common/components/transactionPDF";
@@ -47,7 +47,7 @@ import { useSelector } from "react-redux";
 const PaginationDiv = styled.div`
   margin-left: auto;
   margin-right: 0;
-  @media(max-width:1240px){
+  @media (max-width: 1240px) {
     margin-bottom: 77px;
   }
 
@@ -60,6 +60,7 @@ const PaginationDiv = styled.div`
     align-items: center;
     justify-content: center;
   }
+
   & .paginationBttns a {
     padding: 7px;
     font-size: 10px;
@@ -69,13 +70,16 @@ const PaginationDiv = styled.div`
     color: skyblue;
     cursor: pointer;
   }
+
   & .paginationActive a {
     color: white !important;
     background: #009fe0;
   }
+
   & .next a {
     border: none;
   }
+
   & .previous a {
     border: none;
   }
@@ -184,7 +188,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     //color: "#6b7482",
     textTransform: "none",
@@ -200,7 +204,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#6b7482",
     textTransform: "none",
@@ -215,7 +219,7 @@ const useStyles = makeStyles((theme) => ({
     fontStretch: "normal",
     fontStyle: "normal",
     lineHeight: "normal",
-    letterSpacing: "0px",
+
     textAlign: "center",
     color: "#6b7482",
     textTransform: "none",
@@ -259,7 +263,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
 
-
   "@media (max-width: 714px)": {
 
     mywatch: {
@@ -270,7 +273,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Inter",
       fontSize: "13px",
       fontWeight: "500",
-      letterSpacing: "0px",
+
       textAlign: "center",
       // color: "#2149b9",
     },
@@ -280,7 +283,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "6px",
       fontFamily: "Inter",
       fontSize: "13px",
-      letterSpacing: "0px",
+
       textAlign: "center",
       // color: "#6b7482",
     },
@@ -290,7 +293,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0px",
       fontFamily: "Inter",
       fontSize: "13px",
-      letterSpacing: "0px",
+
       textAlign: "center",
       color: "#6b7482",
     },
@@ -359,13 +362,13 @@ const NoDataFoundContainer = styled.div`
 `;
 
 const ParentProfile = styled.div`
-display: flex;
-
-@media(max-width: 767px){
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
+
+  @media (max-width: 767px) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 `
 
 const UserNameContainer = styled.div`
@@ -382,26 +385,25 @@ const UserNameContainer = styled.div`
 
 
   @media (max-width: 850px) {
-    ${'' /* padding: 0 10px 0 10px !important;
+  ${'' /* padding: 0 10px 0 10px !important;
     flex-wrap : nowrap;
     max-width: 710px; */}
   }
-  @media (min-width: 400px) and (max-width: 767px){
-    ${'' /* gap: 12px; */}
+  @media (min-width: 400px) and (max-width: 767px) {
+  ${'' /* gap: 12px; */}
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 0px 15px !important;
   }
- 
-  
+
 
   @media (min-width: 450px) and (max-width: 850px) {
-    ${'' /* gap: ${(props) => (props.isWallet ? "10px" : "10px")}; */}
+  ${'' /* gap: ${(props) => (props.isWallet ? "10px" : "10px")}; */}
   }
 
   @media (max-width: 767px) {
-    ${'' /* justify-content: space-around; */}
-    ${'' /* gap: 12px; */}
+  ${'' /* justify-content: space-around; */}
+  ${'' /* gap: 12px; */}
     margin-left: auto !important;
     margin: 12px 0px;
     margin-right: auto;
@@ -438,7 +440,7 @@ export default function SimpleTabs(props) {
   // const [exports, exportAddress] = React.useState({});
   // const [toggle, handleToggle] = React.useState(false);
   // const [isLoading, setLoading] = React.useState(false);
-
+  const _limit = 5;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   // const { state } = props;
@@ -464,17 +466,23 @@ export default function SimpleTabs(props) {
     setTotalCount1(response.length);
     setTablevalue(1);
   }
+
   async function getUserTxnLabel() {
     const data = sessionManager.getDataFromCookies("userId");
-    const response = await UserService.getUserPrivateNote(data);
+    // const response = await UserService.getUserPrivateNote(data);
+    let transactionLabels = localStorage.getItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS);
+    transactionLabels = JSON.parse(transactionLabels);
     // setAddress(response);
-    setTotalCount2(response.length);
+    if (!transactionLabels)
+      transactionLabels = [];
+    setTotalCount2(transactionLabels.length);
   }
+
   async function getPvtTagAddress() {
-    const data = sessionManager.getDataFromCookies("userId");
-    const response = await UserService.getPrivateTagToAddress(data);
-    // setPrivateAddress(response);
-    setTotalCount3(response.length);
+    // const data = sessionManager.getDataFromCookies("userId");
+    // const response = await UserService.getPrivateTagToAddress(data);
+    // // setPrivateAddress(response);
+    // setTotalCount3(response.length);
   }
 
   const [watchlistPageCount, setWatchlistPageCount] = React.useState({});
@@ -524,15 +532,11 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTxnLabelPage(pvtNotePageCount);
       } else {
-        const [error, response] = await Utils.parseResponse(
-          UserService.Search(data)
-        );
-
-        if (error || !response) {
-          setDataNotFound("Data Not Found");
-        } else {
-          setAddress(response);
-        }
+        // const [error, response] = await Utils.parseResponse(
+        //   UserService.Search(data)
+        // );
+        console.log("searchValue ", searchValue)
+        const response = await getListOfTxnLabel({ skip: 0, limit: 5, searchValue: searchValue })
       }
     }
 
@@ -549,14 +553,16 @@ export default function SimpleTabs(props) {
       if (!searchValue) {
         onChangeTagAddressPage(tagPageCount);
       } else {
-        const [error, response] = await Utils.parseResponse(
-          UserService.Search(data)
-        );
-        if (error || !response) {
-          setDataNotFound("Data not found");
-        } else {
-          setPrivateAddress(response);
-        }
+
+        await getListOfTagAddress({ skip: 0, limit: 5, searchValue })
+        // const [error, response] = await Utils.parseResponse(
+        //     UserService.Search(data)
+        // );
+        // if (error || !response) {
+        //     setDataNotFound("Data not found");
+        // } else {
+        //     setPrivateAddress(response);
+        // }
       }
     }
   }
@@ -569,7 +575,7 @@ export default function SimpleTabs(props) {
   //   let tagWords = [];
   //   tagWords = tag.split(",");
   //   return tagWords;
-  // } 
+  // }
 
   const list = {};
   const [totalCount1, setTotalCount1] = React.useState(5);
@@ -598,6 +604,7 @@ export default function SimpleTabs(props) {
   const onChangeTxnLabelPage = async (value) => {
     setPvtNotePageCount(value);
     const list = Math.ceil(value.selected * 5);
+    console.log("list ", list)
     await getListOfTxnLabel({ skip: list, limit: "5" });
   };
 
@@ -614,8 +621,17 @@ export default function SimpleTabs(props) {
       userId: sessionManager.getDataFromCookies("userId"),
       isWatchlistAddress: true,
     };
-    const response = await UserService.getWatchlistList(request);
-
+    let response = await UserService.getWatchlistList(request);
+    let watchlists = localStorage.getItem(
+      request.userId + cookiesConstants.USER_ADDRESS_WATCHLIST
+    );
+    watchlists = JSON.parse(watchlists);
+    console.log('response ', response)
+    response.watchlistContent = response.watchlistContent.map(obj => {
+      obj.description = watchlists && watchlists[obj.address] ? watchlists[obj.address] : "";
+      return obj;
+    })
+    console.log('response1 ', response)
     if (response.totalCount > 0) {
       setAddressNotAdded(false);
     }
@@ -625,14 +641,35 @@ export default function SimpleTabs(props) {
   const getListOfTxnLabel = async (requestData) => {
     const request = {
       limit: requestData?.limit || "5",
-      skip: requestData?.skip || list,
+      skip: isNaN(requestData?.skip) ? list : requestData?.skip,
       userId: sessionManager.getDataFromCookies("userId"),
+      searchValue: requestData?.searchValue
     };
-    const response = await UserService.getTxnLabelList(request);
-    if (response.totalCount > 0) {
+
+    let transactionLabels = localStorage.getItem(sessionManager.getDataFromCookies("userId") + cookiesConstants.USER_TRASACTION_LABELS);
+    // const response = await UserService.getTxnLabelList(request);
+    transactionLabels = JSON.parse(transactionLabels);
+    if (!transactionLabels)
+      transactionLabels = []
+    if (transactionLabels.length > 0) {
       setWatchListNotAdded(false);
     }
-    setAddress(response.txnLabelContent);
+
+    if (request.searchValue) {
+      transactionLabels = transactionLabels.filter(obj => {
+        if (obj.transactionHash.includes(request.searchValue) || obj.trxLable.includes(request.searchValue)) {
+          return obj;
+        }
+      })
+    }
+    setTotalCount2(transactionLabels.length)
+    console.log(request, "+++")
+    if (transactionLabels.length > requestData?.limit) {
+      transactionLabels.splice(0, request.skip)
+      transactionLabels.splice(request.limit, transactionLabels.length)
+    }
+    console.log("transactionLabels ", transactionLabels)
+    setAddress(transactionLabels);
   };
 
   const getListOfTagAddress = async (requestData) => {
@@ -641,12 +678,35 @@ export default function SimpleTabs(props) {
       skip: requestData?.skip || list,
       userId: sessionManager.getDataFromCookies("userId"),
       isTaggedAddress: true,
+      searchValue: requestData?.searchValue
     };
-    const response = await UserService.getTagAddresstList(request);
-    if (response.totalCount > 0) {
+    // const response = await UserService.getTagAddresstList(request);
+    let taggedAddress = localStorage.getItem(
+      request.userId + cookiesConstants.USER_TAGGED_ADDRESS
+    );
+    taggedAddress = JSON.parse(taggedAddress)
+    if (!taggedAddress)
+      taggedAddress = []
+    if (taggedAddress.length > 0) {
       setTxnAddressNotAdded(false);
     }
-    setPrivateAddress(response.tagAddressContent);
+
+    if (request.searchValue) {
+      taggedAddress = taggedAddress.filter(obj => {
+        if (obj.address.includes(request.searchValue) || obj.tagName.includes(request.searchValue)) {
+          return obj;
+        }
+      })
+    }
+
+    setTotalCount3(taggedAddress.length);
+    console.log(request, "+++")
+    if (taggedAddress.length > requestData?.limit) {
+      taggedAddress.splice(0, request.skip)
+      taggedAddress.splice(request.limit, taggedAddress.length)
+    }
+
+    setPrivateAddress(taggedAddress);
   };
 
   const sortByAddedOn = () => {
@@ -663,6 +723,7 @@ export default function SimpleTabs(props) {
       );
       setAddedOnToggle(0);
     }
+    console.log("wring+++")
     setAddress(newData);
   };
 
@@ -821,7 +882,7 @@ export default function SimpleTabs(props) {
       let tempAddress = address.map((addr) => {
         return { ...addr, isChecked2: checked };
       });
-
+      console.log("wring++++")
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked2 === true) {
@@ -847,6 +908,7 @@ export default function SimpleTabs(props) {
       let tempAddress = address.map((addr) =>
         addr._id === name ? { ...addr, isChecked2: checked } : addr
       );
+      console.log("wring+++++")
       setAddress(tempAddress);
       let tempAddr = tempAddress.filter((addr) => {
         if (addr.isChecked2 === true) {
@@ -1384,7 +1446,7 @@ export default function SimpleTabs(props) {
                             align="left"
                           >
                             <span className={"tableheaders-1"}>
-                              Balance4
+                              Balance
                               <Tooltip
                                 placement="top"
                                 title={messages.WATCHLIST_BALANCE}
@@ -1599,7 +1661,8 @@ export default function SimpleTabs(props) {
                                 }}
                               />
                             </TableCell>
-                            <TableCell style={{ border: "none" }} align="left" paddingBottom="0">
+                            <TableCell style={{ border: "none" }} align="left"
+                              paddingBottom="0">
                               <span className={"tableheaders-1"}>
                                 Transaction Hash
                                 <Tooltip placement="top" title={messages.HASH}>
@@ -1805,6 +1868,8 @@ export default function SimpleTabs(props) {
 
                       <TableBody>
                         {address.map((row, index) => {
+                          if (index >= _limit)
+                            return null;
                           return (
                             <TableRow
                               style={
@@ -1876,6 +1941,7 @@ export default function SimpleTabs(props) {
                               >
                                 <EditTxnLabel
                                   row={row}
+                                  index={index}
                                   getListOfTxnLabel={getListOfTxnLabel}
                                   getTotalCountTxnLabel={getUserTxnLabel}
                                 />
@@ -2144,6 +2210,8 @@ export default function SimpleTabs(props) {
                       </TableHead>
                       <TableBody>
                         {privateAddress.map((row, index) => {
+                          if (index >= _limit)
+                            return null;
                           let tag = row.tagName;
                           // const multipleTag = handleMultipleTag(tag);
 
@@ -2216,6 +2284,7 @@ export default function SimpleTabs(props) {
                               >
                                 <EditTagAddress
                                   row={row}
+                                  index={index}
                                   getListOfTagAddress={getListOfTagAddress}
                                   getTotalCountTagAddress={getPvtTagAddress}
                                 />

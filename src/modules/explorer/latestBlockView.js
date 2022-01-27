@@ -36,7 +36,7 @@ const TransactionTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   opacity: 1;
   font-family: Inter;
@@ -50,7 +50,7 @@ const TransactionSubTitle = styled.div`
   width: auto;
   height: 1.125rem;
   text-align: left;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   font-family: Inter;
   font-size: 0.75rem;
@@ -100,7 +100,7 @@ const LatestBlockView = (props) => {
                 <TableHead>
                     <TableRow>
                         <TableCell style={{ border: "none", paddingLeft: '15px' }} align="left">
-                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
+                            <span className={"tablehead-token-details"} style={{ flexDirection: 'row', alignItems: 'center', gap: '3px' }}>
                                 Height
                                 <Tooltip
                                     open={heightTT}
@@ -119,7 +119,7 @@ const LatestBlockView = (props) => {
                         </TableCell>
 
                         <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
+                            <span className={"tablehead-token-details"} style={{ flexDirection: 'row', alignItems: 'center', gap: '3px' }}>
                                 Timestamp
                                 <Tooltip
                                     open={timeStampTT}
@@ -137,7 +137,7 @@ const LatestBlockView = (props) => {
                             </span>
                         </TableCell>
                         <TableCell style={{ border: "none" }} align="left">
-                            <span className={"tablehead-token-details"} style={{flexDirection: 'row', alignItems: 'center', gap:'3px'}}>
+                            <span className={"tablehead-token-details"} style={{ flexDirection: 'row', alignItems: 'center', gap: '3px' }}>
                                 Transactions
                                 <Tooltip
                                     open={transactionTT}

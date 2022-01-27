@@ -22,7 +22,7 @@ import {
 } from "../../services";
 import Utils from "../../utility";
 import utility from "../../utility";
-
+var _ = require('lodash');
 const MainContainer = styled.div`
   width: 75.125rem;
   margin: 0 auto;
@@ -31,7 +31,7 @@ const MainContainer = styled.div`
   //border-radius: 12px;
   //box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
   //border: solid 1px #e3e7eb;
-  border-top: solid 1px #e3e7eb;
+  border-top: solid 1px #ffffff;
   background-color: #ffffff;
   display: flex;
   @media (min-width: 767px) and (max-width: 1240px) {
@@ -98,8 +98,9 @@ const RightContainer = styled.div`
 const LeftSec = styled.div`
   flex: 0.7;
   margin-top: 10px;
+  padding-top: 28px;
   @media (min-width: 335px) and (max-width: 767px) {
-    padding: 0 3%;
+    padding: 3%;
   }
   @media (min-width: 768px) and (max-width: 1240px) {
  margin-top: 30px;
@@ -162,7 +163,7 @@ const Title = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   margin-bottom: 5px;
 `;
 const TitleValue = styled.div`
@@ -170,7 +171,7 @@ const TitleValue = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
@@ -182,7 +183,7 @@ display:flex;
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (max-width: 767px) {
     font-size: 0.875rem;
@@ -193,7 +194,7 @@ font-size: 1rem;
   font-family: Inter;
   font-weight: 600;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #252525;
 `;
 const TitleData = styled.div`
@@ -201,7 +202,7 @@ const TitleData = styled.div`
   font-family: Inter;
   font-weight: bold;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (max-width: 767px) {
     white-space: nowrap;
@@ -236,7 +237,7 @@ const LeftTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   color: #2a2a2a;
   @media (max-width: 767px) {
     font-size: 1.375rem;
@@ -266,7 +267,7 @@ const LeftTopSec = styled.div`
   font-size: 1.375rem;
   font-weight: 800;
   font-family: Inter;
-  letter-spacing: 0px;
+  
   color: #252525;
   @media (min-width: 0px) and (max-width: 767px) {
     font-size: 1rem;
@@ -313,13 +314,15 @@ class BlockChainDataComponent extends Component {
       gasPrice: 0,
       loading: true,
       addressTT: false,
-      nodes: [],
+      nodes: 0,
+      activeNodes: 0,
     };
   }
   componentWillUnmount() {
     this.props.socket.off("block-socket");
   }
   async componentDidMount() {
+    this.socketDataNode(this.props.nodeSocket)
     this.totalTransactionCount();
     this.getNetStatsData();
     this.someDaysAccountCount();
@@ -330,7 +333,7 @@ class BlockChainDataComponent extends Component {
     // await this.CountMaxtps();
 
     this.socketData(this.props.socket);
-    // this.socketDataNode(this.props.nodeSocket)
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -400,12 +403,16 @@ class BlockChainDataComponent extends Component {
       }
     });
   }
-  // socketDataNode(socket) {
-  //   socket.on("network-stats-nodes", (transactionData, error) => {
-  //     this.setState({ nodes: transactionData })
-  //     console.log(transactionData, "<<<<<<<<<<<<transactionData")
-  //   });
-  // }
+
+  socketDataNode(socket) {
+    socket.on("network-stats-nodes", (transactionData, error) => {
+      transactionData = transactionData && transactionData.nodes ? transactionData.nodes : []
+      this.setState({ nodes: transactionData.length })
+      let nodesActive = transactionData && Array.isArray(transactionData) ? transactionData.filter((node) => node?.stats?.active).length : [];
+      this.setState({ activeNodes: nodesActive })
+      socket.close()
+    });
+  }
   /* FETCHING GET TOTAL TRANSACTIONS API*/
 
   async totalTransactionCount() {
@@ -562,18 +569,28 @@ class BlockChainDataComponent extends Component {
     );
     if (error || !latestTransactions) return;
     this.setState({ transactionDataDetails: latestTransactions });
-    const interval = setInterval(async () => {
+    let gp = this.state.transactionDataDetails[0]?.gasPrice
+      ? (
+        Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
+      : 0;
+    this.setState({ gasPrice: gp });
+
+    setInterval(async () => {
       if (!this.state.transactionSocketConnected) {
         let [error, latestTransactions] = await Utils.parseResponse(
           TransactionService.getLatestTransaction(urlPath, {})
         );
         this.setState({ transactionDataDetails: latestTransactions });
+        let gp = this.state.transactionDataDetails[0]?.gasPrice
+          ? (
+            Utility.decimalDivison(this.state.transactionDataDetails[0]?.gasPrice, 12))
+          : 0;
+        this.setState({ gasPrice: gp });
       }
     }, 90000);
   }
 
   render() {
-    // console.log(this.state.nodes, "<<<<<<<nodes>>>>>>>>")
     let changePrice;
     if (
       this.state.coinMarketPrice &&
@@ -714,7 +731,7 @@ class BlockChainDataComponent extends Component {
                 <ValueName>
                   <Title>Nodes</Title>
                   {/* <TitleValue>{this.state.netStatData?.nodesCount}</TitleValue> //TODO: make the validator/total nodes dynamic */}
-                  <TitleValue>217/220</TitleValue>
+                  <TitleValue>{this.state.activeNodes>0?this.state.activeNodes:""}{this.state.nodes>0?"/"+this.state.nodes:""} </TitleValue>
                 </ValueName>
               </Value>
               <Value gridArea="tps">

@@ -238,7 +238,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    letterSpacing: "0px",
     color: "#4c4c4c",
     marginTop: "20px",
     marginBottom: "39px",
@@ -440,7 +439,7 @@ const CardText = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: center;
   padding: 0 15px 0 15px;
   color: #686868;
@@ -459,7 +458,7 @@ const CardTitle = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0px;
+  
   text-align: left;
   color: #2a2a2a;
   text-align: center;
@@ -484,7 +483,7 @@ function Web3Dialog(props) {
     props.setWeb3DialogOpen(false);
   };
 
-  const connectWallet = () => {};
+  const connectWallet = () => { };
 
   return (
     <Dialog
@@ -523,7 +522,7 @@ function Web3Dialog(props) {
             </ImageContainer>
             <CardTitle>Install XDCPay</CardTitle>
             <CardText>
-            Install the XDCPay Chrome extension
+              Install the XDCPay Chrome extension
               <a
                 href="https://chrome.google.com/webstore/detail/xdcpay/bocpokimicclpaiekenaeelehdjllofo?hl=en-GB"
                 target="_blank"
