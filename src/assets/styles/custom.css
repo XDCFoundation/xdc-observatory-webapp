@@ -97,6 +97,9 @@ a:link {
 .p-l-12 {
   padding-left: 12px;
 }
+.p-l-22 {
+  padding-left: 22px !important;
+}
 .p-r-5 {
   padding-right: 5px;
 }
@@ -3511,10 +3514,10 @@ p {
 } */
 
 @media (min-width: 0px) and (max-width: 767px) {
-  .select-td {
+  /* .select-td { */
     /* margin-left: 15px !important; */
-    font-size: 12px;
-  }
+    /* font-size: 12px;
+  } */
   .vc-contract-add-select,
   .vc-input-contract-name,
   .vc-input-contract-add {
@@ -4230,6 +4233,17 @@ body {
   text-align: left;
   color: #2a2a2a;
 }
+#container-table-token-holders-tab td {
+  padding: 17px 20px 17px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  margin: 19px 49px 1.8px 69px;
+  font-family: "Inter" !important;
+  font-size: 12px;
+  text-align: left;
+  color: #2a2a2a;
+  width: 10%;
+}
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table td {
     padding: 16px 0px 10px 20px !important;
@@ -4280,9 +4294,9 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-
   text-align: left;
   color: #2a2a2a;
+  white-space: nowrap;
 }
 @media (min-width: 0px) and (max-width: 767px) {
   #container-table-token td {
@@ -6529,7 +6543,7 @@ button {
     display: flex;
     flex-direction: column;
     width: 41.5rem;
-    /* margin-top: 20px; */
+    margin-top: 45px;
     /* height: 11.875rem; */
   }
   .main_mid_address {
@@ -8525,7 +8539,7 @@ button {
     margin-top: 0px;
     outline: none;
     border-color: transparent;
-    border-left-color: #9fa9ba;
+    border-left-color: none;
     font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
@@ -8534,6 +8548,7 @@ button {
 
     color: #2a2a2a;
     background-color: white !important;
+    -webkit-appearance: none;
   }
   .exp-parent {
     height: 300px;
@@ -8549,8 +8564,8 @@ button {
     width: 70% !important;
   }
   .search-dashboard-select {
-    width: "";
     padding-right: 4px !important;
+    border-left: 1px solid #9fa9ba;
   }
 }
 .search-dashboard-select {
@@ -8622,9 +8637,9 @@ button {
     color: #2a2a2a;
     background-color: #ffffff !important;
   }
-  .search-dashboard-select {
+  /* .search-dashboard-select {
     width: "";
-  }
+  } */
   .exp-parent {
     height: 305px;
     /* background-image: url("../images/XDC-Observatory-Logo-for-Tab.svg"); */
@@ -8686,11 +8701,11 @@ button {
   }
 } */
 
-@media (min-width: 1181px) {
+/* @media (min-width: 1181px) {
   .search-dashboard-select {
     width: "";
   }
-}
+} */
 
 .page-tab {
   display: flex !important;
@@ -8729,8 +8744,11 @@ button {
     width: 10px;
   }
   .select-td {
-    margin-left: 0px;
+    margin-left: 5px;
     background-color: white !important;
+    font-size: 12px;
+    -webkit-appearance: none ;
+    border: none;
   }
 
   .parentCenterbox {
@@ -9386,6 +9404,9 @@ button {
     height: 22px;
     margin-top: -1px;
     cursor: pointer;
+  }
+  .mobFilter {
+    border-left: 1px solid #9fa9ba;
   }
 }
 @media (min-width: 768px) and (max-width: 1240px) {

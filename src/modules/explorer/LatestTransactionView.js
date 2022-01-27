@@ -55,6 +55,13 @@ const TransactionSubTitle = styled.div`
   font-size: 0.75rem;
   margin-left: 25px;
 `;
+const TableSubContainer = styled.div`
+    @media (min-width: 0px) and (max-width: 767px) {
+        max-width: 767px
+        width: 100%;
+        overflow-x: auto;
+    }
+`;
 
 const LatestTransactionView = (props) => {
     const classes = useStyles();
@@ -105,6 +112,7 @@ const LatestTransactionView = (props) => {
             ) : (
                 ""
             )}
+            <TableSubContainer>
             <Table style={{ borderBottom: "none" }}>
                 <TableHead>
                     <TableRow>
@@ -276,6 +284,7 @@ const LatestTransactionView = (props) => {
 
                 )}
             </Table>
+            </TableSubContainer>
         </TableContainer>
     </Paper>)
 

@@ -221,7 +221,7 @@ export default function StickyHeadTable(props) {
     <div>
       <Paper style={{ borderRadius: "14px" }} elevation={0}>
         {isLoading == true ? (
-          <TableContainer className={classes.container} id="container-table">
+          <TableContainer className={classes.container} id="container-table-token-holders-tab">
             <Table>
               <TableBody>
                 <TableRow>
@@ -235,7 +235,7 @@ export default function StickyHeadTable(props) {
             </Table>
           </TableContainer>
         ) : noData == false ? (
-          <TableContainer className={classes.container} id="container-table">
+          <TableContainer className={classes.container} id="container-table-token-holders-tab">
             <Table>
               <TableHead>
                 <TableRow className="w-100">
@@ -251,7 +251,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </span>
@@ -268,7 +268,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </span>
@@ -285,7 +285,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </span>
@@ -302,7 +302,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </span>
@@ -325,13 +325,13 @@ export default function StickyHeadTable(props) {
             </NoDataFoundContainer>
           </TableContainer>
         ) : (
-          <TableContainer className={classes.container} id="container-table">
+          <TableContainer className={classes.container} id="container-table-token-holders-tab">
             <Table>
               <TableHead>
                 <TableRow className="w-100">
                   <TableCell
                     style={{ border: "none" }}
-                    className="w-10"
+                    className="w-10 p-l-22"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"}>
@@ -341,13 +341,13 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                     </span>
                   </TableCell>
                   <TableCell
-                    style={{ border: "none" }}
+                    style={{ border: "none", paddingLeft: "0"}}
                     className="w-10"
                     align="left"
                   >
@@ -358,7 +358,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                       {sortKey && sortOrder && sortKey == "address" ? (sortOrder === -1 ? <img
@@ -377,7 +377,7 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
-                    className="w-10"
+                    className="w-10 p-l-22"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"} onClick={() => sortTable("balance")}>
@@ -387,7 +387,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                       {sortKey && sortOrder && sortKey == "balance" ? (sortOrder === -1 ? <img
@@ -406,7 +406,7 @@ export default function StickyHeadTable(props) {
                   </TableCell>
                   <TableCell
                     style={{ border: "none" }}
-                    className="w-10"
+                    className="w-10 p-l-22"
                     align="left"
                   >
                     <span className={"tableheaders table-headers"} onClick={() => sortTable("percentage")}>
@@ -416,7 +416,7 @@ export default function StickyHeadTable(props) {
                           alt="question-mark"
                           src="/images/info.svg"
                           height={"14px"}
-                          className="tooltipInfoIconAccount"
+                          className="tooltipInfoIconMarketData"
                         />
                       </Tooltip>
                       {sortKey && sortOrder && sortKey == "percentage" ? (sortOrder === -1 ? <img
@@ -488,7 +488,7 @@ export default function StickyHeadTable(props) {
                           {row[0]?.Rank}
                         </span>
                       </TableCell>
-                      <TableCell id="td" style={{ border: "none" }}>
+                      <TableCell id="td" style={{ border: "none", paddingLeft: "0" }}>
                         <a
                           style={{ color: "#2149b9", fontSize: 11 }}
                           href={"/holder-details/" + row[0]?.Address + "/" + tn}

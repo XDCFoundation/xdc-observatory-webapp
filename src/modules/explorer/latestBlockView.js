@@ -56,6 +56,13 @@ const TransactionSubTitle = styled.div`
   font-size: 0.75rem;
   margin-left: 15px;
 `;
+const TableSubContainer = styled.div`
+    @media (min-width: 0px) and (max-width: 767px) {
+        max-width: 767px
+        width: 100%;
+        overflow-x: auto;
+    }
+`;
 
 const LatestBlockView = (props) => {
     const classes = useStyles();
@@ -96,6 +103,7 @@ const LatestBlockView = (props) => {
             </TransactionHeaderContainer>
             <TransactionSubTitle>{'The most recently mined blocks'}</TransactionSubTitle>
 
+            <TableSubContainer>
             <Table style={{ borderBottom: "none" }}>
                 <TableHead>
                     <TableRow>
@@ -245,6 +253,7 @@ const LatestBlockView = (props) => {
 
                 )}
             </Table>
+            </TableSubContainer>
         </TableContainer>
     </Paper>)
 

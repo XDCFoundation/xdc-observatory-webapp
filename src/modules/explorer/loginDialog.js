@@ -318,6 +318,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundImage: "none",
       opacity: "0px",
       padding: "0px 15px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
     closeContainer: {
       display: "none",
@@ -432,6 +434,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundImage: "none",
       opacity: "0px",
       paddingBottom: "30px",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
 
     input: {
@@ -782,7 +786,7 @@ export default function FormDialog(props) {
     setLoading(true);
     if (reCaptcha === '') {
       setLoading(false);
-      setErrorCaptcha("please verify captcha");
+      setErrorCaptcha("Please verify the captcha");
     } else {
       const authObject = new AuthService();
       let [error, authResponse] = await Utility.parseResponse(

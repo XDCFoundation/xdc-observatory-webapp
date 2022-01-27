@@ -45,7 +45,11 @@ const Description = styled.div`
     margin-bottom: 27px;
 `;
 const Button = styled.div`
-    padding: 10px 16px 9px 19px;
+    // padding: 10px 16px 9px 19px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: center;
     border-radius: 4px;
     background-color: #4878ff;
     max-width: 140px;
@@ -54,9 +58,9 @@ const Button = styled.div`
     font-size: 15px;
     font-weight: 600;
     color: #ffffff;
-    @media (min-width: 0px) and (max-width: 1240px) {
-        padding: 6px 16px 5px 18px;
-    }    
+    // @media (min-width: 0px) and (max-width: 1240px) {
+    //     padding: 6px 16px 5px 18px;
+    // }    
 `;
 const VerticalLine = styled.div`
   border-right: 1px solid #e3e7eb;
