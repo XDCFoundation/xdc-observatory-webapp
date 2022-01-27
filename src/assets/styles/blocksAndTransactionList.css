@@ -162,7 +162,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-
+    display: flex;
     text-align: center;
     color: #2a2a2a;
     font-weight: 500;
@@ -185,7 +185,7 @@
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
-
+    display: flex;
     text-align: center;
     color: #2a2a2a;
     font-weight: 500;

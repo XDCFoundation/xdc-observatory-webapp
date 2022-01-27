@@ -348,6 +348,7 @@ export default function TokenDataComponent() {
   // let contract = "xdc238610bfafef424e4d0020633387966d61c4c6e3";
   const [marketCapVal, setMarketCapValue] = React.useState(0);
   const [holders, setHolders] = useState({});
+  const [isLoading, setLoading] = useState(false);
   const [contractData, setContractData] = useState("");
   const { address } = useParams();
   const { tn } = useParams();
@@ -404,12 +405,14 @@ export default function TokenDataComponent() {
     setHolders(tns);
   };
   const getContractDetails = async () => {
+    setLoading(true);
     let urlPath = `${address}`;
     let [error, contractStatusData] = await Utils.parseResponse(
       ContractData.getContractDetailsUsingAddress(urlPath, {})
     );
     if (error || !contractStatusData) return;
     setContractData(contractStatusData);
+    setLoading(false);
   };
   React.useEffect(() => {
     (async () => {
@@ -451,10 +454,12 @@ export default function TokenDataComponent() {
             <ShowTopHeaderForNonMobileOnly>
               <TopHeaderSection
                 tn={tn}
+                tokenImage={contractData?.contractResponse?.tokenImage}
                 CurrencySymbol={CurrencySymbol}
                 tokenPriceVal={tokenPriceVal}
                 numberStatus={numberStatus}
                 tokenChanges24hr={tokenChanges24hr}
+                isLoading={isLoading}
               />
             </ShowTopHeaderForNonMobileOnly>
             {/*) : (*/}
@@ -617,10 +622,12 @@ export default function TokenDataComponent() {
           <ShowTopHeaderForMobileOnly>
             <TopHeaderSection
               tn={tn}
+              tokenImage={contractData?.contractResponse?.tokenImage}
               CurrencySymbol={CurrencySymbol}
               tokenPriceVal={tokenPriceVal}
               numberStatus={numberStatus}
               tokenChanges24hr={tokenChanges24hr}
+              isLoading={isLoading}
             />
           </ShowTopHeaderForMobileOnly>
           {/*) : (*/}
@@ -649,10 +656,12 @@ export default function TokenDataComponent() {
 
 const TopHeaderSection = ({
   tn,
+  tokenImage,
   CurrencySymbol,
   tokenPriceVal,
   numberStatus,
   tokenChanges24hr,
+  isLoading,
 }) => {
   return (
     <>
@@ -666,9 +675,13 @@ const TopHeaderSection = ({
                   :
                   <span style={{ width: '25px', height: '25px', borderRadius: '15px', border: '1px solid', fontSize: '15px', marginTop: '5px', marginRight: '5px' }}>{tokenName.slice(0, 2).toUpperCase()}</span>
                 } */}
+                {!isLoading ? (tokenImage ?
+                <TokenImg
+                src={tokenImage}
+              />:
           <TokenImg
             src={"/images/XRC20-Icon.svg"}
-          />
+          />):("")}
 
           <LeftTitle>{tn.toUpperCase()}</LeftTitle>
         </LeftTop>

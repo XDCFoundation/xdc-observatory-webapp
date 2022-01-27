@@ -39,7 +39,7 @@ const FirstCloumn = styled.div`
     flex-direction: row;
     width: 100%;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     display: flex;
     flex-direction: column;
     width: 33%;
@@ -55,7 +55,7 @@ const SecondCloumn = styled.div`
     flex-direction: row;
     width: 100%;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     //display: flex;
     flex-direction: row;
     width: 66%;
@@ -73,11 +73,12 @@ const SecondColumnWithFlex = styled.div`
     flex-direction: row;
     width: 100%;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     display: flex;
     flex-direction: row;
     width: 66%;
-    padding-top: 40px;
+    padding-top: 32px;
+    padding-left: 20px;
   }
 `;
 
@@ -91,10 +92,11 @@ const ThirdCloumn = styled.div`
     flex-direction: row;
     width: 100%;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     display: flex;
     flex-direction: row;
     width: 66%;
+    padding-left: 20px;
   }
 `;
 
@@ -107,7 +109,7 @@ const ThirdCloumnWithoutFlex = styled.div`
     flex-direction: row;
     width: 100%;
   }
-  @media (min-width: 767px) and (max-width: 1240px) {
+  @media (min-width: 768px) and (max-width: 1240px) {
     //display: flex;
     flex-direction: row;
     width: 66%;

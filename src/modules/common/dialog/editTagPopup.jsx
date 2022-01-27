@@ -191,8 +191,8 @@ function EditTaggedAddress(props) {
     } else if (tags.length === 0) {
       setErrorTag("Press comma(,) to add tag");
       return;
-    } else if (tags && tags.length > 15) {
-      setErrorTag("You can not add Name tag more than 15");
+    } else if (tags && tags.length > 5) {
+      setErrorTag("Maximum 5 Name tags are allowed");
       return;
     } else {
       const [error, response] = await utility.parseResponse(
@@ -289,11 +289,11 @@ function EditTaggedAddress(props) {
     if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
       e.preventDefault();
       if (trimmedInput.length > 15) {
-        setErrorTag("Tag length should be less than 15");
+        setErrorTag("Nametag cannot be longer than 15 characters");
         return;
       }
       if (tags.length >= 5) {
-        setErrorTag("Maximum 5 Tags are allowed");
+        setErrorTag("Maximum 5 Name tags are allowed");
         return;
       }
       setTags((prevState) => [...prevState, trimmedInput]);

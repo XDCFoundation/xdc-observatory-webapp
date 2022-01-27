@@ -105,6 +105,9 @@ const Block1 = styled.div`
 
 
 `;
+const CookiesList = styled.ol`
+  margin-top: 10px
+`;
 const Block2 = styled.div`
   margin: 77px 13px 77px 1px;
   font-family: Inter;
@@ -1595,9 +1598,15 @@ function PrivacyPolicy() {
           <Block15>
             <PointHeading>(iv) Which specific cookies do we use</PointHeading>
             <Para>
-              Please find here a list <a href="">__Sample Link__</a> of the most
+              Please find here a list of the most
               important cookies we are using.
             </Para>
+            <CookiesList>
+                <li>Strictly necessary Cookies</li>
+                <li>Functional Cookies</li>
+                <li>Performance cookies</li>
+                <li>Analytical cookies</li>
+              </CookiesList>
           </Block15>
           <Block16>
             <PointHeading>(v) How can you control cookies?</PointHeading>

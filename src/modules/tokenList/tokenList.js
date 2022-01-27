@@ -788,10 +788,15 @@ export default function StickyHeadTable(props) {
 
                           {props?.state?.tableColumns["Symbol"].isActive && (
                             <TableCell id="td">
+                              {row?.tokenImage ? 
+                              <img
+                                style={{ height: "20px", width: "20px" }}
+                                src={row?.tokenImage}
+                              ></img> :
                               <img
                                 style={{ height: "20px", width: "20px" }}
                                 src={"/images/XRC20-Icon.svg"}
-                              ></img>
+                              ></img>}
                               &nbsp;{row.symbol}
                             </TableCell>
                           )}

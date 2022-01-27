@@ -421,10 +421,15 @@ export default function StickyHeadTable() {
                           <p className= {classes.tokenNumber}>{index + 1}</p>
                         </TableCell>
                         <TableCell id="td">
+                          {row?.tokenImage ? 
+                          <img
+                          style={{ height: "24", width: "24" }}
+                          src={row?.tokenImage}
+                        ></img> :
                           <img
                             style={{ height: "24", width: "24" }}
                             src={"/images/XRC20-Icon.svg"}
-                          ></img>
+                          ></img>}
                           &nbsp;{row.symbol}
                         </TableCell>
                         <TableCell id="td" style={{ whiteSpace: "nowrap" }}>
