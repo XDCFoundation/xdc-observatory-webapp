@@ -317,13 +317,14 @@ export default function Transaction({ _handleChange }) {
   const gasPrice = parseFloat(gasP)?.toFixed(12).replace(/0+$/, "");
   let gasPrice1 = gasPrice.toString().split(".")[0];
   let gasPrice2 = gasPrice.toString().split(".")[1];
+  let transactionValue=transactions?.value<100000000?transactions?.value*1000000000000000000:transactions?.value;
 
   const valueDiv = transactions?.value > 0 && transactions?.value < 1
-    ? (valueFetch * transactions.value).toFixed(8)
-    : Utils.decimalDivison(valueFetch * transactions.value, 8);
+    ? (valueFetch * transactionValue).toFixed(8)
+    : Utils.decimalDivison(valueFetch * transactionValue, 8);
   let ValueMain = transactions?.value > 0 && transactions?.value < 1
     ? transactions?.value
-    : Utils.decimalDivison(transactions?.value, 8);
+    : Utils.decimalDivison(transactionValue, 8);
   let bx = latestBlock[0]?.number - transactions?.blockNumber;
   const getHoursAgo = (date) => {
     let today = Date.now();

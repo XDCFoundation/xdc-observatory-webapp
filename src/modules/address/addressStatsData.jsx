@@ -299,28 +299,28 @@ class AddressStatsData extends Component {
                 </div>
               </div>
 
-              <div className="cont1 p-t-0 cont1_align">
-                <div className="cont1-child2">
-                  <MarketDataPointTitle>
-                    <Tooltip placement="top" title={messages.Tokens}>
-                      <img
-                        alt="question-mark"
-                        src="/images/info-new.svg"
-                        height={"14px"}
-                        className="info-new-icon"
-                      />
-                    </Tooltip>
-                    Tokens
-                  </MarketDataPointTitle>
-                  <Value>{this.props?.statData?.tokens?.length}</Value>
-                  <ThirdRowValue>
-                    <OutValue>
-                      {currencySymbol}
-                      {!tokensConverted ? "" : tokensConverted}
-                    </OutValue>
-                  </ThirdRowValue>
-                </div>
-              </div>
+              {/*<div className="cont1 p-t-0 cont1_align">*/}
+              {/*  <div className="cont1-child2">*/}
+              {/*    <MarketDataPointTitle>*/}
+              {/*      <Tooltip placement="top" title={messages.Tokens}>*/}
+              {/*        <img*/}
+              {/*          alt="question-mark"*/}
+              {/*          src="/images/info-new.svg"*/}
+              {/*          height={"14px"}*/}
+              {/*          className="info-new-icon"*/}
+              {/*        />*/}
+              {/*      </Tooltip>*/}
+              {/*      Tokens*/}
+              {/*    </MarketDataPointTitle>*/}
+              {/*    <Value>{this.props?.statData?.tokens?.length}</Value>*/}
+              {/*    <ThirdRowValue>*/}
+              {/*      <OutValue>*/}
+              {/*        {currencySymbol}*/}
+              {/*        {!tokensConverted ? "" : tokensConverted}*/}
+              {/*      </OutValue>*/}
+              {/*    </ThirdRowValue>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               <div className="con"> </div>
             </div>
           </div>
@@ -445,33 +445,33 @@ class AddressStatsData extends Component {
               </div>
             </div>
 
-            <div className="second_cont_address">
-              <div className="w-45-per">
-                {" "}
-                <MarketDataPointTitle>
-                  <Tooltip placement="top" title={messages.Tokens}>
-                    <img
-                      alt="question-mark"
-                      src="/images/info-new.svg"
-                      height={"14px"}
-                      className="info-new-icon"
-                    />
-                  </Tooltip>
-                  Tokens
-                </MarketDataPointTitle>
-              </div>
-              <div className="mid_cont_address">
-                {" "}
-                <p>{this.props?.statData?.tokens?.length}</p>
-                <ThirdRowValue>
-                  <OutValue>
-                    {" "}
-                    {currencySymbol}
-                    {!tokensConverted ? "" : tokensConverted}
-                  </OutValue>
-                </ThirdRowValue>
-              </div>
-            </div>
+            {/*<div className="second_cont_address">*/}
+            {/*  <div className="w-45-per">*/}
+            {/*    {" "}*/}
+            {/*    <MarketDataPointTitle>*/}
+            {/*      <Tooltip placement="top" title={messages.Tokens}>*/}
+            {/*        <img*/}
+            {/*          alt="question-mark"*/}
+            {/*          src="/images/info-new.svg"*/}
+            {/*          height={"14px"}*/}
+            {/*          className="info-new-icon"*/}
+            {/*        />*/}
+            {/*      </Tooltip>*/}
+            {/*      Tokens*/}
+            {/*    </MarketDataPointTitle>*/}
+            {/*  </div>*/}
+            {/*  <div className="mid_cont_address">*/}
+            {/*    {" "}*/}
+            {/*    <p>{this.props?.statData?.tokens?.length}</p>*/}
+            {/*    <ThirdRowValue>*/}
+            {/*      <OutValue>*/}
+            {/*        {" "}*/}
+            {/*        {currencySymbol}*/}
+            {/*        {!tokensConverted ? "" : tokensConverted}*/}
+            {/*      </OutValue>*/}
+            {/*    </ThirdRowValue>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
         </MobileView>
       </>
